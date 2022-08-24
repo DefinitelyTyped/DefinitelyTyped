@@ -5,7 +5,6 @@
         "arrow-return-shorthand": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,

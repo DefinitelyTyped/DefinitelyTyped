@@ -1,26 +1,56 @@
-// Type definitions for react-syntax-highlighter 13.5
+// Type definitions for react-syntax-highlighter 15.5
 // Project: https://github.com/conorhastings/react-syntax-highlighter
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 //                 Guo Yunhe <https://github.com/guoyunhe>
 //                 Anirban Sengupta <https://github.com/anirban09>
 //                 Michael Yuen <https://github.com/michaelyuen>
+//                 Dokyun Kim <https://github.com/DoK6n>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+type lineNumberStyleFunction = (lineNumber: number) => React.CSSProperties;
 type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>;
+interface rendererNode {
+    type: "element" | "text";
+    value?: string | number | undefined;
+    tagName?: keyof JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+    properties?: { className: any[], [key: string]: any; };
+    children?: rendererNode[];
+}
+interface rendererProps {
+    rows: rendererNode[];
+    stylesheet: { [key: string]: React.CSSProperties };
+    useInlineStyles: boolean;
+}
 
 declare module 'react-syntax-highlighter' {
     export interface SyntaxHighlighterProps {
         language?: string | undefined;
-        style?: any;
-        customStyle?: any;
-        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement> | undefined;
+        style?: { [key: string]: React.CSSProperties } | undefined;
+        children: string | string[];
+        customStyle?: React.CSSProperties | undefined;
         codeTagProps?: React.HTMLProps<HTMLElement> | undefined;
         useInlineStyles?: boolean | undefined;
         showLineNumbers?: boolean | undefined;
+        showInlineLineNumbers?: boolean | undefined;
         startingLineNumber?: number | undefined;
-        lineNumberStyle?: any;
+        lineNumberContainerStyle?: React.CSSProperties | undefined;
+        lineNumberStyle?: React.CSSProperties | lineNumberStyleFunction | undefined;
+        wrapLines?: boolean | undefined;
+        wrapLongLines?: boolean | undefined;
+        lineProps?: lineTagPropsFunction | React.HTMLProps<HTMLElement> | undefined;
+        renderer?: (props: rendererProps) => React.ReactNode;
+        PreTag?: keyof JSX.IntrinsicElements | React.ComponentType<any> | undefined;
+        CodeTag?: keyof JSX.IntrinsicElements | React.ComponentType<any> | undefined;
         [spread: string]: any;
+    }
+
+    export interface createElementProps {
+        node: rendererNode;
+        stylesheet: { [key: string]: React.CSSProperties };
+        style?: React.CSSProperties;
+        useInlineStyles: boolean;
+        key: React.Key;
     }
 
     export { default } from 'react-syntax-highlighter/dist/esm/default-highlight';
@@ -31,6 +61,8 @@ declare module 'react-syntax-highlighter' {
     export { default as PrismAsync } from 'react-syntax-highlighter/dist/esm/prism-async';
     export { default as PrismLight } from 'react-syntax-highlighter/dist/esm/prism-light';
     export { default as Prism } from 'react-syntax-highlighter/dist/esm/prism';
+
+    export { default as createElement } from 'react-syntax-highlighter/dist/esm/create-element';
 }
 
 // esm start
@@ -86,6 +118,13 @@ declare module 'react-syntax-highlighter/dist/esm/prism' {
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static supportedLanguages: string[];
     }
+}
+
+declare module 'react-syntax-highlighter/dist/esm/create-element' {
+    import * as React from 'react';
+    import { createElementProps } from 'react-syntax-highlighter';
+    function createElement(props: createElementProps): React.ReactNode;
+    export default createElement;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs' {
@@ -186,477 +225,477 @@ declare module 'react-syntax-highlighter/dist/esm/styles/hljs' {
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/agate' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/an-old-hope' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/androidstudio' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/arduino-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/arta' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/ascetic' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-cave-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-dune-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-estuary-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-forest-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-heath-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-lakeside-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-plateau-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-savanna-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-seaside-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atelier-sulphurpool-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark-reasonable' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/atom-one-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/brown-paper' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/codepen-embed' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/color-brewer' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/darcula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/darkula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/default-style' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/docco' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/dracula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/far' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/foundation' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/github-gist' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/github' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/gml' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/googlecode' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/gradient-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/grayscale' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/gruvbox-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/hopscotch' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/hybrid' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/idea' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/ir-black' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/isbl-editor-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/kimbie.dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/kimbie.light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/lightfair' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/lioshi' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/magula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/mono-blue' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/monokai' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/nnfx-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/nnfx' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/nord' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/obsidian' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/ocean' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/paraiso-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/paraiso-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/pojoaque' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/purebasic' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/qtcreator_light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/railscasts' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/rainbow' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/routeros' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/school-book' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/shades-of-purple' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/solarized-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/solarized-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/srcery' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/sunburst' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-blue' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-bright' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night-eighties' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow-night' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/tomorrow' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/vs' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/vs2015' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/xcode' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/xt256' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/hljs/zenburn' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
@@ -665,6 +704,8 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism' {
     export { default as atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism/atom-dark';
     export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/esm/styles/prism/base16-ateliersulphurpool.light';
     export { default as cb } from 'react-syntax-highlighter/dist/esm/styles/prism/cb';
+    export { default as coldarkCold } from 'react-syntax-highlighter/dist/esm/styles/prism/coldark-cold';
+    export { default as coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism/coldark-dark';
     export { default as coy } from 'react-syntax-highlighter/dist/esm/styles/prism/coy';
     export { default as darcula } from 'react-syntax-highlighter/dist/esm/styles/prism/darcula';
     export { default as dark } from 'react-syntax-highlighter/dist/esm/styles/prism/dark';
@@ -677,12 +718,16 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism' {
     export { default as duotoneSpace } from 'react-syntax-highlighter/dist/esm/styles/prism/duotone-space';
     export { default as funky } from 'react-syntax-highlighter/dist/esm/styles/prism/funky';
     export { default as ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism/ghcolors';
+    export { default as gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark';
+    export { default as gruvboxLight } from 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light';
     export { default as hopscotch } from 'react-syntax-highlighter/dist/esm/styles/prism/hopscotch';
     export { default as materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism/material-dark';
     export { default as materialLight } from 'react-syntax-highlighter/dist/esm/styles/prism/material-light';
     export { default as materialOceanic } from 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic';
     export { default as nord } from 'react-syntax-highlighter/dist/esm/styles/prism/nord';
     export { default as okaidia } from 'react-syntax-highlighter/dist/esm/styles/prism/okaidia';
+    export { default as oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism/one-dark';
+    export { default as oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism/one-light';
     export { default as pojoaque } from 'react-syntax-highlighter/dist/esm/styles/prism/pojoaque';
     export { default as prism } from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
     export { default as shadesOfPurple } from 'react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple';
@@ -696,162 +741,192 @@ declare module 'react-syntax-highlighter/dist/esm/styles/prism' {
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/a11y-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/atom-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/base16-ateliersulphurpool.light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/cb' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/coldark-cold' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/coldark-dark' {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/coy' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/darcula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/dracula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/duotone-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/duotone-earth' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/duotone-forest' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/duotone-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/duotone-sea' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/duotone-space' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/funky' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/ghcolors' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light' {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/hopscotch' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/material-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/material-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/material-oceanic' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/nord' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/okaidia' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/one-light' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/esm/styles/prism/one-dark' {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/pojoaque' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/prism' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/solarizedlight' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/synthwave84' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/twilight' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/vs' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/esm/styles/prism/xonokai' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
@@ -3001,6 +3076,13 @@ declare module 'react-syntax-highlighter/dist/cjs/prism' {
     }
 }
 
+declare module 'react-syntax-highlighter/dist/cjs/create-element' {
+    import * as React from 'react';
+    import { createElementProps } from 'react-syntax-highlighter';
+    function createElement(props: createElementProps): React.ReactNode;
+    export default createElement;
+}
+
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs' {
     export { default as a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs/a11y-dark';
     export { default as a11yLight } from 'react-syntax-highlighter/dist/cjs/styles/hljs/a11y-light';
@@ -3100,477 +3182,477 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/hljs' {
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/a11y-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/a11y-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/agate' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/an-old-hope' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/androidstudio' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/arduino-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/arta' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/ascetic' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-cave-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-dune-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-estuary-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-forest-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-heath-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-lakeside-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-plateau-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-savanna-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-seaside-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atelier-sulphurpool-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark-reasonable' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/atom-one-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/brown-paper' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/codepen-embed' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/color-brewer' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/darcula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/darkula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/default-style' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/docco' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/dracula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/far' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/foundation' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/github-gist' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/github' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/gml' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/googlecode' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/gradient-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/grayscale' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/gruvbox-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/hopscotch' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/hybrid' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/idea' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/ir-black' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/isbl-editor-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/isbl-editor-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/kimbie.light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/lightfair' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/lioshi' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/magula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/mono-blue' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/monokai-sublime' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/monokai' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/night-owl' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/nnfx-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/nnfx' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/nord' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/obsidian' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/ocean' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/paraiso-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/pojoaque' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/purebasic' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/qtcreator_light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/railscasts' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/rainbow' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/routeros' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/school-book' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/shades-of-purple' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/solarized-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/solarized-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/srcery' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/sunburst' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-blue' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-bright' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night-eighties' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow-night' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/tomorrow' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/vs' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/vs2015' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/xcode' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/xt256' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/hljs/zenburn' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
@@ -3579,6 +3661,8 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism' {
     export { default as atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark';
     export { default as base16AteliersulphurpoolLight } from 'react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersulphurpool.light';
     export { default as cb } from 'react-syntax-highlighter/dist/cjs/styles/prism/cb';
+    export { default as coldarkCold } from 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-cold';
+    export { default as coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark';
     export { default as coy } from 'react-syntax-highlighter/dist/cjs/styles/prism/coy';
     export { default as darcula } from 'react-syntax-highlighter/dist/cjs/styles/prism/darcula';
     export { default as dark } from 'react-syntax-highlighter/dist/cjs/styles/prism/dark';
@@ -3595,6 +3679,7 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism' {
     export { default as materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism/material-dark';
     export { default as materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism/material-light';
     export { default as materialOceanic } from 'react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic';
+    export { default as nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl';
     export { default as nord } from 'react-syntax-highlighter/dist/cjs/styles/prism/nord';
     export { default as okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism/okaidia';
     export { default as pojoaque } from 'react-syntax-highlighter/dist/cjs/styles/prism/pojoaque';
@@ -3611,167 +3696,182 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism' {
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/a11y-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/base16-ateliersulphurpool.light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/cb' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-cold' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/coldark-dark' {
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/coy' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/darcula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/dracula' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/duotone-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/duotone-earth' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/duotone-forest' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/duotone-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/duotone-sea' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/duotone-space' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/funky' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/ghcolors' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/hopscotch' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/material-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/material-light' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl' {
+  const style: { [key: string]: React.CSSProperties };
+  export default style;
+}
+
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/nord' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/okaidia' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/pojoaque' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/prism' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/shades-of-purple' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/solarizedlight' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/synthwave84' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/twilight' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/vs-dark' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/vs' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/xonokai' {
-    const style: any;
+    const style: { [key: string]: React.CSSProperties };
     export default style;
 }
 

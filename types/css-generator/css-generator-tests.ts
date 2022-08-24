@@ -31,5 +31,5 @@ css.getOutput();
 if (css instanceof Generator) {
     css; // $ExpectType Generator
 }
-// $ExpectError
+// @ts-expect-error
 new Generator();

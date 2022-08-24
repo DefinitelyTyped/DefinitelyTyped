@@ -6,6 +6,7 @@ const currencySource = 'EUR';
 const currencyTarget = 'PLN';
 const extension = 'odt';
 const lang = 'pl';
+const timezone = 'Asia/Tokyo';
 const tempPath = '/tmp';
 const templatePath = './templates';
 
@@ -62,6 +63,7 @@ const options: carbone.Options = {
     tempPath,
     templatePath,
     lang,
+    timezone,
     translations,
     currencySource,
     currencyTarget,
@@ -78,6 +80,7 @@ const renderOptions: carbone.RenderOptions = {
     currencyTarget,
     enum: enums,
     lang,
+    timezone,
     translations,
     variableStr: '',
 };
@@ -101,6 +104,7 @@ const renderXMLOptions: carbone.RenderXMLOptions = {
     complement: data,
     formatters,
     lang,
+    timezone,
     translations,
     existingVariables: variables,
     extension,

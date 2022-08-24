@@ -16,7 +16,7 @@ postcss()
     });
 
 // Try to parse random object with postcss-js parser (errors)
-// $ExpectError
+// @ts-expect-error
 postcss().process('.a {}', { parser: postcssJs.parse });
 
 postcssJs.parse(style);
@@ -24,8 +24,10 @@ postcssJs.parse(style);
 postcssJs.objectify(postcss.root());
 
 // Sync and async fail to work if no parameters are passed
-postcssJs.sync(); // $ExpectError
-postcssJs.async(); // $ExpectError
+// @ts-expect-error
+postcssJs.sync();
+// @ts-expect-error
+postcssJs.async();
 
 postcssJs.sync([])(style); // $ExpectType CssInJs || Record<string, any>
 

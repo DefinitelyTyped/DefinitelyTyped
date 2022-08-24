@@ -19,8 +19,8 @@ const outputWithOptions = CoffeeScript.compile(coffeeScriptFn, {
 // $ExpectType CodeWithSourceMap
 const outputWithSourceMap = CoffeeScript.compile(coffeeScriptFn, { sourceMap: true });
 
-// $ExpectError
+// @ts-expect-error
 const noOutputGotZero = CoffeeScript.compile();
 
-// $ExpectError
+// @ts-expect-error
 const noOutputGotInvalidOptions = CoffeeScript.compile(coffeeScriptFn, { comments: true, indent: 2 });

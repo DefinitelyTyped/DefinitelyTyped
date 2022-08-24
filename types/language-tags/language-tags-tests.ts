@@ -33,22 +33,22 @@ tags.date(); // $ExpectType string
 tag.preferred(); // $ExpectType Tag
 tag.type(); // $ExpectType "grandfathered" | "redundant" | "tag"
 tag.subtags(); // $ExpectType Subtag[]
-const subtag = tag.language(); // $ExpectType Subtag
-tag.region(); // $ExpectType Subtag
-tag.script(); // $ExpectType Subtag
-tag.find('us'); // $ExpectType Subtag
+const subtag = tag.language(); // $ExpectType Subtag | undefined
+tag.region(); // $ExpectType Subtag | undefined
+tag.script(); // $ExpectType Subtag | undefined
+tag.find('us'); // $ExpectType Subtag | undefined
 tag.valid(); // $ExpectType boolean
 tag.format(); // $ExpectType string
 tag.deprecated(); // $ExpectType string | null
 tag.added(); // $ExpectType string
 tag.descriptions(); // $ExpectType string[]
 
-subtag.type(); // $ExpectType "language" | "extlang" | "script" | "region" | "variant"
-subtag.descriptions(); // $ExpectType string[]
-subtag.preferred(); // $ExpectType Subtag | null
-subtag.script(); // $ExpectType Subtag | null
-subtag.scope(); // $ExpectType string | null
-subtag.deprecated(); // $ExpectType string | null
-subtag.added(); // $ExpectType string
-subtag.comments(); // $ExpectType string[]
-subtag.format(); // $ExpectType string
+subtag!.type(); // $ExpectType "language" | "extlang" | "script" | "region" | "variant"
+subtag!.descriptions(); // $ExpectType string[]
+subtag!.preferred(); // $ExpectType Subtag | null
+subtag!.script(); // $ExpectType Subtag | null
+subtag!.scope(); // $ExpectType string | null
+subtag!.deprecated(); // $ExpectType string | null
+subtag!.added(); // $ExpectType string
+subtag!.comments(); // $ExpectType string[]
+subtag!.format(); // $ExpectType string

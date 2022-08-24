@@ -31,6 +31,7 @@ export interface TableSearchProps<T extends object = any> {
     placeholder?: string | undefined;
     onColumnMatch?: ((props: SearchMatchProps<T>) => void) | undefined;
     customMatchFunc?: ((props: SearchMatchProps<T>) => boolean) | undefined;
+    afterSearch?: (newResult: T[]) => void | undefined;
 }
 
 export interface CSVProps {

@@ -352,7 +352,7 @@ export interface TestingLibraryMatchers<E, R> extends Record<string, any> {
      * const button = getByTestId('submit-button')
      * expect(button).toHaveStyle('background-color: green')
      * expect(button).toHaveStyle({
-     *   background-color: 'green',
+     *   'background-color': 'green',
      *   display: 'none'
      * })
      * @see

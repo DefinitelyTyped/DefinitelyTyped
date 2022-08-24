@@ -3586,7 +3586,8 @@ fp.now(); // $ExpectType number
     _.chain(fnWithRestParameters).negate(); // $ExpectType FunctionChain<(...args: number[]) => boolean>
     fp.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
 
-    _.negate(() => 'foo'); // $ExpectError
+    // @ts-expect-error
+    _.negate(() => 'foo');
 
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Function<(a1: number, a2: number) => boolean>
@@ -4131,6 +4132,47 @@ fp.now(); // $ExpectType number
     _({}).isEmpty(); // $ExpectType boolean
     _.chain([]).isEmpty(); // $ExpectType PrimitiveChain<boolean>
     fp.isEmpty(anything); // $ExpectType boolean
+
+    if (_.isEmpty(anything)) {
+        const result: undefined | null | '' | [] | never[] | Record<never, never> = anything;
+    } else {
+        anything; // $ExpectType any
+    }
+
+    let string = 'isEmpty';
+    if (Math.random()) {
+        string = '';
+    }
+    if (_.isEmpty(string)) {
+        string; // $ExpectType ""
+    } else {
+        string; // $ExpectType string
+    }
+
+    const array: Array<{ value: boolean }> = [];
+    if (_.isEmpty(array)) {
+        array.push({ value: true });
+    } else {
+        array.push({ value: false });
+    }
+
+    const obj: { value?: boolean } = {};
+    if (_.isEmpty(obj)) {
+        const result: { value?: undefined } = obj;
+    } else {
+        obj; // $ExpectType { value?: boolean | undefined; }
+    }
+    let obj2: { value: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj2 = null;
+    } else if (Math.random()) {
+        obj2 = undefined;
+    }
+    if (_.isEmpty(obj2)) {
+        const result: null | undefined = obj2;
+    } else {
+        obj2; // $ExpectType { value: boolean; }
+    }
 }
 
 // _.isEqual
@@ -4213,13 +4255,13 @@ fp.now(); // $ExpectType number
     const value: number | (() => void) = anything;
 
     if (_.isFunction(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isFunction(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
@@ -4316,13 +4358,13 @@ fp.now(); // $ExpectType number
     const value: number | (() => void) = anything;
 
     if (_.isNative(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isNative(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
@@ -5004,19 +5046,19 @@ fp.now(); // $ExpectType number
     fp.assignInWith(customizer)(obj)(s1); // $ExpectType { a: string; } & { b: number; }
 
     _.defaults(obj); // $ExpectType { a: string; }
-    _.defaults(obj, s1); // $ExpectType { b: number; } & { a: string; }
-    _.defaults(obj, s1, s2, s3, s4); // $ExpectType { e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }
+    _.defaults(obj, s1); // $ExpectType { b: number; } & { a: string; } || NonNullable<{ b: number; } & { a: string; }>
+    _.defaults(obj, s1, s2, s3, s4); // $ExpectType { e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; } || NonNullable<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>
     _.defaults(obj, s1, s2, s3, s4, s5);
     _(obj).defaults(); // $ExpectType Object<{ a: string; }>
-    _(obj).defaults(s1); // $ExpectType Object<{ b: number; } & { a: string; }>
-    _(obj).defaults(s1, s2, s3, s4); // $ExpectType Object<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>
+    _(obj).defaults(s1); // $ExpectType Object<{ b: number; } & { a: string; }> || Object<NonNullable<{ b: number; } & { a: string; }>>
+    _(obj).defaults(s1, s2, s3, s4); // $ExpectType Object<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }> || Object<NonNullable<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>>
     _(obj).defaults(s1, s2, s3, s4, s5);
     _.chain(obj).defaults(); // $ExpectType ObjectChain<{ a: string; }>
-    _.chain(obj).defaults(s1); // $ExpectType ObjectChain<{ b: number; } & { a: string; }>
-    _.chain(obj).defaults(s1, s2, s3, s4); // $ExpectType ObjectChain<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>
+    _.chain(obj).defaults(s1); // $ExpectType ObjectChain<{ b: number; } & { a: string; }> || ObjectChain<NonNullable<{ b: number; } & { a: string; }>>
+    _.chain(obj).defaults(s1, s2, s3, s4); // $ExpectType ObjectChain<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }> || ObjectChain<NonNullable<{ e: number; } & { d: number; } & { c: number; } & { b: number; } & { a: string; }>>
     _.chain(obj).defaults(s1, s2, s3, s4, s5);
-    fp.defaults(obj, s1); // $ExpectType { a: string; } & { b: number; }
-    fp.defaults(obj)(s1); // $ExpectType { a: string; } & { b: number; }
+    fp.defaults(obj, s1); // $ExpectType { a: string; } & { b: number; } || NonNullable<{ a: string; } & { b: number; }>
+    fp.defaults(obj)(s1); // $ExpectType { a: string; } & { b: number; } || NonNullable<{ a: string; } & { b: number; }>
 
     _.extend(obj); // $ExpectType { a: string; }
     _.extend(obj, s1); // $ExpectType { a: string; } & { b: number; }
@@ -6032,11 +6074,11 @@ fp.now(); // $ExpectType number
     _.values(list); // $ExpectType AbcObject[]
     _.values(abcObject); // $ExpectType (string | number | boolean)[]
 
-    // _(true).values(); // $ExpectError
+    // _(true).values(); // @ts-expect-error
     _("hi").values(); // $ExpectType Collection<string>
     _(dict).values(); // $ExpectType Collection<AbcObject>
 
-    // _.chain(true).values(); // $ExpectError
+    // _.chain(true).values(); // @ts-expect-error
     _.chain("hi").values(); // $ExpectType CollectionChain<string>
     _.chain(dict).values(); // $ExpectType CollectionChain<AbcObject>
 
@@ -6660,8 +6702,8 @@ fp.now(); // $ExpectType number
 {
     _.words("fred, barney, & pebbles"); // $ExpectType string[]
     _.words("fred, barney, & pebbles", /[^, ]+/g); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType string[]
+    _("fred, barney, & pebbles").words(); // $ExpectType Collection<string>
+    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType Collection<string>
     _.chain("fred, barney, & pebbles").words(); // $ExpectType CollectionChain<string>
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]

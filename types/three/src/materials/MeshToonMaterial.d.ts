@@ -31,6 +31,7 @@ export interface MeshToonMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
+    fog?: boolean | undefined;
 }
 
 export class MeshToonMaterial extends Material {
@@ -160,6 +161,12 @@ export class MeshToonMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshToonMaterialParameters): void;
 }

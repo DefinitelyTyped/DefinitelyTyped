@@ -1,10 +1,10 @@
-// Type definitions for postcss-preset-env 6.7
-// Project: https://github.com/csstools/postcss-preset-env
+// Type definitions for postcss-preset-env 7.7
+// Project: https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
 // Definitions by: Latif Sulistyo <https://github.com/latipun7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-import { Plugin as PostCSSPlugin } from 'postcss';
+import { PluginCreator as PostCSSPlugin } from 'postcss';
 import { Options as AutoprefixerOptions } from 'autoprefixer';
 
 declare namespace postcssPresetEnv {

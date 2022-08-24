@@ -1,4 +1,9 @@
 {
+    "files": [
+        "index.d.ts",
+        "test/index.tsx",
+        "test/classical.tsx"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": ["es6", "dom"],
@@ -14,6 +19,5 @@
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true
-    },
-    "files": ["index.d.ts", "relay-test-utils-tests.tsx"]
+    }
 }

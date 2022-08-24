@@ -28,7 +28,11 @@ import * as dns from 'node:dns';
     server = http.createServer(reqListener);
     server = http.createServer({ IncomingMessage: MyIncomingMessage });
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
-    server = http.createServer({ insecureHTTPParser: true }, reqListener);
+    server = http.createServer({
+        insecureHTTPParser: true,
+        keepAlive: true,
+        keepAliveInitialDelay: 1000
+    }, reqListener);
 
     // test public props
     const maxHeadersCount: number | null = server.maxHeadersCount;
@@ -39,6 +43,8 @@ import * as dns from 'node:dns';
     const keepAliveTimeout: number = server.keepAliveTimeout;
     const requestTimeout: number = server.requestTimeout;
     server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+    server.closeIdleConnections(); // $ExpectType void
+    server.closeAllConnections(); // $ExpectType void
 }
 
 // http IncomingMessage

@@ -1,4 +1,4 @@
-// Type definitions for Azure Data Studio 1.36
+// Type definitions for Azure Data Studio 1.38
 // Project: https://github.com/microsoft/azuredatastudio
 // Definitions by: Charles Gagnon <https://github.com/Charles-Gagnon>
 //                 Alan Ren: <https://github.com/alanrenmsft>
@@ -13,7 +13,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Azure Data Studio 1.36 Extension API
+ * Type Definition for Azure Data Studio 1.38 Extension API
  * See https://docs.microsoft.com/sql/azure-data-studio/extensibility-apis for more information
  */
 
@@ -204,8 +204,10 @@ declare module 'azdata' {
             connectionCompletionOptions?: IConnectionCompletionOptions): Thenable<Connection>;
 
         /**
-         * Opens the connection and add it to object explorer and opens the dashboard and returns the ConnectionResult
-         * @param connectionProfile connection profile
+         * Attempts to open a new connection with the options from the given connection profile.
+         * @param connectionProfile The {@link IConnectionProfile} containing the information for the connection
+         * @param saveConnection Whether to save the connection in the saved connections list of the Servers view. Default is true
+         * @param showDashboard Whether to show the dashboard for the connection upon success. Default is true
          */
         export function connect(connectionProfile: IConnectionProfile, saveConnection?: boolean, showDashboard?: boolean): Thenable<ConnectionResult>;
 
@@ -581,10 +583,28 @@ declare module 'azdata' {
 
         buildConnectionInfo?(connectionString: string): Thenable<ConnectionInfo>;
 
+        /**
+         * Registers a handler for ConnectionComplete events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnConnectionComplete(handler: (connSummary: ConnectionInfoSummary) => any): void;
 
+        /**
+         * Registers a handler for IntellisenseCacheComplete events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): void;
 
+        /**
+         * Registers a handler for ConnectionChanged events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnConnectionChanged(handler: (changedConnInfo: ChangedConnectionInfo) => any): void;
     }
 
@@ -746,45 +766,45 @@ declare module 'azdata' {
 
         defaultValue: string;
 
-        /// <summary>
-        /// Escaped identifier for the name of the column
-        /// </summary>
+        /**
+         * Escaped identifier for the name of the column
+         */
         escapedName: string;
 
-        /// <summary>
-        /// Whether or not the column is computed
-        /// </summary>
+        /**
+         * Whether or not the column is computed
+         */
         isComputed: boolean;
 
-        /// <summary>
-        /// Whether or not the column is deterministically computed
-        /// </summary>
+        /**
+         * Whether or not the column is deterministically computed
+         */
         isDeterministic: boolean;
 
-        /// <summary>
-        /// Whether or not the column is an identity column
-        /// </summary>
+        /**
+         * Whether or not the column is an identity column
+         */
         isIdentity: boolean;
 
-        /// <summary>
-        /// The ordinal ID of the column
-        /// </summary>
+        /**
+         * The ordinal ID of the column
+         */
         ordinal: number;
 
-        /// <summary>
-        /// Whether or not the column is calculated on the server side. This could be a computed
-        /// column or a identity column.
-        /// </summary>
+        /**
+         * Whether or not the column is calculated on the server side. This could be a computed
+         * column or a identity column.
+         */
         isCalculated: boolean;
 
-        /// <summary>
-        /// Whether or not the column is used in a key to uniquely identify a row
-        /// </summary>
+        /**
+         * Whether or not the column is used in a key to uniquely identify a row
+         */
         isKey: boolean;
 
-        /// <summary>
-        /// Whether or not the column can be trusted for uniqueness
-        /// </summary>
+        /**
+         * Whether or not the column can be trusted for uniqueness
+         */
         isTrustworthyForUniqueness: boolean;
     }
 
@@ -831,6 +851,12 @@ declare module 'azdata' {
     export interface ScriptingProvider extends DataProvider {
         scriptAsOperation(connectionUri: string, operation: ScriptOperation, metadata: ObjectMetadata, paramDetails: ScriptingParamDetails): Thenable<ScriptingResult>;
 
+        /**
+         * Registers a handler for ScriptingComplete events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnScriptingComplete(handler: (scriptingCompleteResult: ScriptingCompleteResult) => any): void;
     }
 
@@ -896,11 +922,47 @@ declare module 'azdata' {
         setQueryExecutionOptions(ownerUri: string, options: QueryExecutionOptions): Thenable<void>;
 
         // Notifications
+        /**
+         * Registers a handler for QueryComplete events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnQueryComplete(handler: (result: QueryExecuteCompleteNotificationResult) => any): void;
+        /**
+         * Registers a handler for BatchStart events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnBatchStart(handler: (batchInfo: QueryExecuteBatchNotificationParams) => any): void;
+        /**
+         * Registers a handler for BatchComplete events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnBatchComplete(handler: (batchInfo: QueryExecuteBatchNotificationParams) => any): void;
+        /**
+         * Registers a handler for ResultSetAvailable events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnResultSetAvailable(handler: (resultSetInfo: QueryExecuteResultSetNotificationParams) => any): void;
+        /**
+         * Registers a handler for ResultSetUpdated events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnResultSetUpdated(handler: (resultSetInfo: QueryExecuteResultSetNotificationParams) => any): void;
+        /**
+         * Registers a handler for Message events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnMessage(handler: (message: QueryExecuteMessageParams) => any): void;
 
         // Edit Data Requests
@@ -915,6 +977,12 @@ declare module 'azdata' {
         getEditRows(rowData: EditSubsetParams): Thenable<EditSubsetResult>;
 
         // Edit Data Notifications
+        /**
+         * Registers a handler for EditSessionReady events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnEditSessionReady(handler: (ownerUri: string, success: boolean, message: string) => any): void;
     }
 
@@ -1357,6 +1425,12 @@ declare module 'azdata' {
 
         findNodes(findNodesInfo: FindNodesInfo): Thenable<ObjectExplorerFindNodesResponse>;
 
+        /**
+         * Registers a handler for ExpandCompleted events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnExpandCompleted(handler: (response: ObjectExplorerExpandInfo) => any): void;
     }
 
@@ -1365,8 +1439,20 @@ declare module 'azdata' {
 
         closeSession(closeSessionInfo: ObjectExplorerCloseSessionInfo): Thenable<ObjectExplorerCloseSessionResponse>;
 
+        /**
+         * Registers a handler for SessionCreated events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnSessionCreated(handler: (response: ObjectExplorerSession) => any): void;
 
+        /**
+         * Registers a handler for SessionDisconnected events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnSessionDisconnected?(handler: (response: ObjectExplorerSession) => any): void;
     }
 
@@ -1958,8 +2044,20 @@ declare module 'azdata' {
 
         cancelTask(cancelTaskParams: CancelTaskParams): Thenable<boolean>;
 
+        /**
+         * Registers a handler for TaskCreated events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnTaskCreated(handler: (response: TaskInfo) => any): void;
 
+        /**
+         * Registers a handler for TaskStatusChanged events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnTaskStatusChanged(handler: (response: TaskProgressInfo) => any): void;
     }
 
@@ -2139,10 +2237,28 @@ declare module 'azdata' {
 
     export interface FileBrowserProvider extends DataProvider {
         openFileBrowser(ownerUri: string, expandPath: string, fileFilters: string[], changeFilter: boolean): Thenable<boolean>;
+        /**
+         * Registers a handler for FileBrowserOpened events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnFileBrowserOpened(handler: (response: FileBrowserOpenedParams) => any): void;
         expandFolderNode(ownerUri: string, expandPath: string): Thenable<boolean>;
+        /**
+         * Registers a handler for FolderNodeExpanded events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnFolderNodeExpanded(handler: (response: FileBrowserExpandedParams) => any): void;
         validateFilePaths(ownerUri: string, serviceType: string, selectedFiles: string[]): Thenable<boolean>;
+        /**
+         * Registers a handler for FilePathsValidated events.
+         *
+         * **WARNING** This should only ever be called by the extension creating the provider. Any other extensions calling this
+         * will overwrite the handler registered by the provider extension which will likely break this functionality.
+         */
         registerOnFilePathsValidated(handler: (response: FileBrowserValidatedParams) => any): void;
         closeFileBrowser(ownerUri: string): Thenable<FileBrowserCloseResponse>;
     }
@@ -2368,11 +2484,17 @@ declare module 'azdata' {
         /**
          * Kusto
          */
-        AzureKusto = 10
+        AzureKusto = 10,
+        /**
+         * Power BI
+         */
+        PowerBi = 11
     }
 
     export interface DidChangeAccountsParams {
-        // Updated accounts
+        /**
+         * Updated accounts
+         */
         accounts: Account[];
     }
 
@@ -2700,7 +2822,7 @@ declare module 'azdata' {
      * Supports defining a model that can be instantiated as a view in the UI
      */
     export interface ModelBuilder {
-        navContainer(): ContainerBuilder<NavContainer, any, any, ComponentProperties>;
+        navContainer(): ContainerBuilder<NavContainer, any, any, ContainerProperties>;
         divContainer(): DivBuilder;
         flexContainer(): FlexBuilder;
         splitViewContainer(): SplitViewBuilder;
@@ -2771,16 +2893,16 @@ declare module 'azdata' {
         withProps(properties: TPropertyBag): ComponentBuilder<TComponent, TPropertyBag>;
         withValidation(validation: (component: TComponent) => boolean | Thenable<boolean>): ComponentBuilder<TComponent, TPropertyBag>;
     }
-    export interface ContainerBuilder<TComponent extends Component, TLayout, TItemLayout, TPropertyBag extends ComponentProperties> extends ComponentBuilder<TComponent, TPropertyBag> {
+    export interface ContainerBuilder<TComponent extends Component, TLayout, TItemLayout, TPropertyBag extends ContainerProperties> extends ComponentBuilder<TComponent, TPropertyBag> {
         withLayout(layout: TLayout): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
         withItems(components: Array<Component>, itemLayout?: TItemLayout): ContainerBuilder<TComponent, TLayout, TItemLayout, TPropertyBag>;
     }
 
-    export interface FlexBuilder extends ContainerBuilder<FlexContainer, FlexLayout, FlexItemLayout, ComponentProperties> {
+    export interface FlexBuilder extends ContainerBuilder<FlexContainer, FlexLayout, FlexItemLayout, ContainerProperties> {
     }
 
     // Building on top of flex item
-    export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout, ComponentProperties> {
+    export interface SplitViewBuilder extends ContainerBuilder<SplitViewContainer, SplitViewLayout, FlexItemLayout, ContainerProperties> {
     }
 
     export interface DivBuilder extends ContainerBuilder<DivContainer, DivLayout, DivItemLayout, DivContainerProperties> {
@@ -2789,8 +2911,8 @@ declare module 'azdata' {
     export interface GroupBuilder extends ContainerBuilder<GroupContainer, GroupLayout, GroupItemLayout, GroupContainerProperties> {
     }
 
-    export interface ToolbarBuilder extends ContainerBuilder<ToolbarContainer, ToolbarLayout, any, ComponentProperties> {
-        withToolbarItems(components: ToolbarComponent[]): ContainerBuilder<ToolbarContainer, ToolbarLayout, any, ComponentProperties>;
+    export interface ToolbarBuilder extends ContainerBuilder<ToolbarContainer, ToolbarLayout, any, ContainerProperties> {
+        withToolbarItems(components: ToolbarComponent[]): ContainerBuilder<ToolbarContainer, ToolbarLayout, any, ContainerProperties>;
 
         /**
          * Creates a collection of child components and adds them all to this container
@@ -2815,7 +2937,7 @@ declare module 'azdata' {
         withItem(component: Component): LoadingComponentBuilder;
     }
 
-    export interface FormBuilder extends ContainerBuilder<FormContainer, FormLayout, FormItemLayout, ComponentProperties> {
+    export interface FormBuilder extends ContainerBuilder<FormContainer, FormLayout, FormItemLayout, ContainerProperties> {
         withFormItems(components: (FormComponent | FormComponentGroup)[], itemLayout?: FormItemLayout): FormBuilder;
 
         /**
@@ -3044,7 +3166,7 @@ declare module 'azdata' {
         'run-in' |
         'table' |
         'table-caption' |
-        ' table-column-group' |
+        'table-column-group' |
         'table-header-group' |
         'table-footer-group' |
         'table-row-group' |
@@ -3332,6 +3454,11 @@ declare module 'azdata' {
         CSSStyles?: CssStyles | undefined;
     }
 
+    /**
+     * Common properties for container components such as {@link DivContainer} or {@link FlexContainer}
+     */
+    export interface ContainerProperties extends ComponentProperties { }
+
     export type ThemedIconPath = { light: string | vscode.Uri; dark: string | vscode.Uri };
     export type IconPath = string | vscode.Uri | ThemedIconPath;
 
@@ -3430,9 +3557,18 @@ declare module 'azdata' {
     }
 
     export enum ColumnSizingMode {
-        ForceFit = 0, // all columns will be sized to fit in viewable space, no horizontal scroll bar
-        AutoFit = 1, // columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
-        DataFit = 2 // columns use sizing based on cell data, horizontal scroll bar present if more cells than visible in view area
+        /**
+         * All columns will be sized to fit in viewable space, no horizontal scroll bar
+         */
+        ForceFit = 0,
+        /**
+         * Columns will be ForceFit up to a certain number; currently 3.  At 4 or more the behavior will switch to NO force fit
+         */
+        AutoFit = 1,
+        /**
+         * Columns use sizing based on cell data, horizontal scroll bar present if more cells than visible in view area
+         */
+        DataFit = 2
     }
 
     export interface TableComponentProperties extends ComponentProperties {
@@ -3552,7 +3688,7 @@ declare module 'azdata' {
     export interface ImageComponentProperties extends ComponentWithIconProperties {
     }
 
-    export interface GroupContainerProperties extends ComponentProperties {
+    export interface GroupContainerProperties extends ContainerProperties {
         collapsed: boolean;
     }
 
@@ -3825,7 +3961,7 @@ declare module 'azdata' {
         loadingCompletedText?: string | undefined;
     }
 
-    export interface DivContainerProperties extends ComponentProperties {
+    export interface DivContainerProperties extends ContainerProperties {
         /**
          * Matches the overflow-y CSS property and its available values.
          */
@@ -4365,12 +4501,12 @@ declare module 'azdata' {
     /**
      * Builder for TabbedPanelComponent
      */
-    export interface TabbedPanelComponentBuilder extends ContainerBuilder<TabbedPanelComponent, TabbedPanelLayout, any, ComponentProperties> {
+    export interface TabbedPanelComponentBuilder extends ContainerBuilder<TabbedPanelComponent, TabbedPanelLayout, any, ContainerProperties> {
         /**
          * Add the tabs to the component
          * @param tabs tabs/tab groups to be added
          */
-        withTabs(tabs: (Tab | TabGroup)[]): ContainerBuilder<TabbedPanelComponent, TabbedPanelLayout, any, ComponentProperties>;
+        withTabs(tabs: (Tab | TabGroup)[]): ContainerBuilder<TabbedPanelComponent, TabbedPanelLayout, any, ContainerProperties>;
     }
 
     export interface SliderComponentProperties extends ComponentProperties {
@@ -5000,31 +5136,48 @@ declare module 'azdata' {
             | 'executionPlan'
             | 'visualize';
 
-        /**
-         * args for each event type
-         * queryStart: undefined
-         * queryStop: undefined
-         * executionPlan: string
-         * visualize: ResultSetSummary
-         */
         export interface QueryEventListener {
+            /**
+             * A callback that is called whenever a query event occurs
+             * @param type The type of query event
+             * @param document The document this event was sent by
+             * @param args The extra information for the event, if any
+             * The args sent depend on the type of event :
+             * queryStart: undefined
+             * queryStop: undefined
+             * executionPlan: string (the plan itself)
+             * visualize: ResultSetSummary (the result set to be visualized)
+             */
             onQueryEvent(type: QueryEventType, document: QueryDocument, args: ResultSetSummary | string | undefined): void;
         }
 
-        // new extensibility interfaces
         export interface QueryDocument {
+            /**
+             * The ID of the connection provider for this query document
+             */
             providerId: string;
 
+            /**
+             * The URI identifying this document
+             */
             uri: string;
 
-            // set the document's execution options
+            /**
+             * Set the document's execution options, which will be used whenever a query is executed.
+             * @param options The execution options
+             */
             setExecutionOptions(options: Map<string, any>): Thenable<void>;
 
-            // tab content is build using the modelview UI builder APIs
-            // probably should rename DialogTab class since it is useful outside dialogs
+            /**
+             * Adds a custom tab to the query editor results view
+             * @param tab The tab to add
+             */
             createQueryTab(tab: window.DialogTab): void;
 
-            // connect the query document using the given connection profile
+            /**
+             * Connect the query document using the given connection profile
+             * @param connectionProfile The profile to use as the connection
+             */
             connect(connectionProfile: connection.ConnectionProfile): Thenable<void>;
         }
 
@@ -5252,10 +5405,28 @@ declare module 'azdata' {
     }
 
     export interface ConnectionResult {
+        /**
+         * Whether the connection was successful
+         */
         connected: boolean;
-        connectionId: string;
-        errorMessage: string;
-        errorCode: number;
+        /**
+         * The ID of the connection if it was successful. {@link connection.getUriForConnection} can be used to get
+         * the URI for this connection used by many of the other Extension API functions.
+         */
+        connectionId?: string | undefined;
+        /**
+         * The error message if the connection was unsuccessful
+         *
+         * e.g. Login failed for user '<user>'.
+         */
+        errorMessage?: string | undefined;
+        /**
+         * The error code number associated with the error if the connection was unsuccessful.
+         *
+         * e.g. 18456
+         * (https://docs.microsoft.com/sql/relational-databases/errors-events/mssqlserver-18456-database-engine-error)
+         */
+        errorCode?: number | undefined;
     }
 
     export namespace nb {

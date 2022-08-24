@@ -47,122 +47,165 @@ let cookies: CookieJarCookies;
 let jar: CookieJar;
 
 // del
-del(); // $ExpectError
-del(5); // $ExpectError
+// @ts-expect-error
+del();
+// @ts-expect-error
+del(5);
 del(addressFromHttpURL);
 responseDefault = del(address);
-del(address, 5); // $ExpectError
+// @ts-expect-error
+del(address, 5);
 responseDefault = del(address, 'skadoosh');
 responseDefault = del(address, {});
 responseDefault = del(address, { item: '576' });
-del(address, {}, 5); // $ExpectError
+// @ts-expect-error
+del(address, {}, 5);
 responseBinary = del(address, null, { responseType: 'binary' });
-del(address, {}, {}, 5); // $ExpectError
+// @ts-expect-error
+del(address, {}, {}, 5);
 
 // head
-head(); // $ExpectError
-head(5); // $ExpectError
+// @ts-expect-error
+head();
+// @ts-expect-error
+head(5);
 head(addressFromHttpURL);
 responseDefault = head(address);
-head(address, 5); // $ExpectError
+// @ts-expect-error
+head(address, 5);
 responseDefault = head(address, {});
 responseBinary = head(address, { responseType: 'binary' });
 responseNone = head(address, { responseType: 'none' });
 responseText = head(address, { responseType: 'text' });
-head(address, {}, 5); // $ExpectError
+// @ts-expect-error
+head(address, {}, 5);
 
 // get
-get(); // $ExpectError
-get(5); // $ExpectError
+// @ts-expect-error
+get();
+// @ts-expect-error
+get(5);
 get(addressFromHttpURL);
 responseDefault = get(address);
-get(address, 5); // $ExpectError
+// @ts-expect-error
+get(address, 5);
 responseDefault = get(address, {});
 responseBinary = get(address, { responseType: 'binary' });
 responseNone = get(address, { responseType: 'none' });
 responseText = get(address, { responseType: 'text' });
-get(address, {}, 5); // $ExpectError
+// @ts-expect-error
+get(address, {}, 5);
 
 // options
-options(); // $ExpectError
-options(5); // $ExpectError
+// @ts-expect-error
+options();
+// @ts-expect-error
+options(5);
 options(addressFromHttpURL);
 responseDefault = options(address);
-options(address, 5); // $ExpectError
+// @ts-expect-error
+options(address, 5);
 responseDefault = options(address, 'choices choices');
 responseDefault = options(address, {});
 responseDefault = options(address, { theme: 'forest' });
 responseDefault = options(address, new ArrayBuffer(8));
-options(address, {}, 5); // $ExpectError
+// @ts-expect-error
+options(address, {}, 5);
 responseNone = options(address, {}, { responseType: 'none' });
-options(address, {}, {}, 5); // $ExpectError
+// @ts-expect-error
+options(address, {}, {}, 5);
 
 // patch
-patch(); // $ExpectError
-patch(5); // $ExpectError
+// @ts-expect-error
+patch();
+// @ts-expect-error
+patch(5);
 patch(addressFromHttpURL);
 responseDefault = patch(address);
-patch(address, 5); // $ExpectError
+// @ts-expect-error
+patch(address, 5);
 responseDefault = patch(address, 'a life of contrasts and patchwork');
 responseDefault = patch(address, {});
 responseDefault = patch(address, { weaponOfChoice: 'pen' });
 responseDefault = patch(address, new ArrayBuffer(8));
-patch(address, {}, 5); // $ExpectError
+// @ts-expect-error
+patch(address, {}, 5);
 responseBinary = patch(address, {}, { responseType: 'binary' });
-patch(address, {}, {}, 5); // $ExpectError
+// @ts-expect-error
+patch(address, {}, {}, 5);
 
 // post
-post(); // $ExpectError
-post(5); // $ExpectError
+// @ts-expect-error
+post();
+// @ts-expect-error
+post(5);
 post(addressFromHttpURL);
 responseDefault = post(address);
-post(address, 5); // $ExpectError
+// @ts-expect-error
+post(address, 5);
 responseDefault = post(address, 'hello in cyberspace');
 responseDefault = post(address, {});
 responseDefault = post(address, { query: 'kittens' });
 responseDefault = post(address, new ArrayBuffer(8));
-post(address, {}, 5); // $ExpectError
+// @ts-expect-error
+post(address, {}, 5);
 responseNone = post(address, null, { responseType: 'none' });
-post(address, {}, {}, 5); // $ExpectError
+// @ts-expect-error
+post(address, {}, {}, 5);
 
 // put
-put(); // $ExpectError
-put(5); // $ExpectError
+// @ts-expect-error
+put();
+// @ts-expect-error
+put(5);
 put(addressFromHttpURL);
 responseDefault = put(address);
-put(address, 5); // $ExpectError
+// @ts-expect-error
+put(address, 5);
 responseDefault = put(address, 'cat in box');
 responseDefault = put(address, {});
 responseDefault = put(address, { box: 'cat' });
 responseDefault = put(address, new ArrayBuffer(8));
-put(address, {}, 5); // $ExpectError
+// @ts-expect-error
+put(address, {}, 5);
 responseText = put(address, null, { responseType: 'text' });
-put(address, {}, {}, 5); // $ExpectError
+// @ts-expect-error
+put(address, {}, {}, 5);
 
 // request
-request(); // $ExpectError
-request(5); // $ExpectError
-request('get'); // $ExpectError
-request('get', 5); // $ExpectError
+// @ts-expect-error
+request();
+// @ts-expect-error
+request(5);
+// @ts-expect-error
+request('get');
+// @ts-expect-error
+request('get', 5);
 request('get', addressFromHttpURL);
 responseDefault = request('get', address);
-request('post', address, 5); // $ExpectError
+// @ts-expect-error
+request('post', address, 5);
 responseDefault = request('post', address, 'welcome to the internet');
 responseDefault = request('post', address, {});
 responseDefault = request('post', address, { query: 'quokka' });
 responseDefault = request('post', address, new ArrayBuffer(8));
-request('post', address, {}, 5); // $ExpectError
+// @ts-expect-error
+request('post', address, {}, 5);
 responseBinary = request('post', address, {}, { responseType: 'binary' });
-request('post', address, {}, {}, 5); // $ExpectError
+// @ts-expect-error
+request('post', address, {}, {}, 5);
 
 // request params
 responseDefault = request('post', address, {}, {timeout: '10s'});
 responseDefault = request('post', address, {}, {timeout: 10});
 
 // batch
-batch(); // $ExpectError
-batch(5); // $ExpectError
-batch([ address ], 5); // $ExpectError
+// @ts-expect-error
+batch();
+// @ts-expect-error
+batch(5);
+// @ts-expect-error
+batch([ address ], 5);
 
 // batch(Array)
 responsesArray = batch([]);
@@ -194,7 +237,7 @@ Incorrectly passes due to https://github.com/microsoft/TypeScript/issues/32070
 This is an obscure pattern that probably won't happen in practice.
 To be enabled when the ability becomes available.
 
-/// $ExpectError
+/// @ts-expect-error
 responsesArrayText = batch([
     [ 'GET', address, null, { responseType: 'binary' } ],
     [ 'GET', address, null, { responseType: 'none' } ],
@@ -246,7 +289,7 @@ responsesMapText = batch({
     about: [ 'GET', address, null, { responseType: 'text' } ],
     forum: [ 'GET', address, null, { responseType: 'text' } ]
 });
-// $ExpectError
+// @ts-expect-error
 responsesMapBinary = batch({
     home: [ 'GET', address, null, { responseType: 'binary' } ],
     about: [ 'GET', address, null, { responseType: 'none' } ],
@@ -275,16 +318,21 @@ responsesMap = batch({
 });
 
 // file
-file(); // $ExpectError
-file(5); // $ExpectError
+// @ts-expect-error
+file();
+// @ts-expect-error
+file(5);
 fileData = file('important data');
 fileData = file([ 1, 2, 3 ]);
 fileData = file(new Uint8Array([10, 12]).buffer);
-file('', 5); // $ExpectError
+// @ts-expect-error
+file('', 5);
 fileData = file('important data', 'data.txt');
-file('important data', 'data.txt', 5); // $ExpectError
+// @ts-expect-error
+file('important data', 'data.txt', 5);
 fileData = file('important data', 'data.txt', 'text/plain');
-file('important data', 'data.txt', 'text/plain', 5); // $ExpectError
+// @ts-expect-error
+file('important data', 'data.txt', 'text/plain', 5);
 post(address, {
     recipient: 'research-lab-XIII',
     data: file('important data', 'data.txt'),
@@ -299,32 +347,39 @@ response.status_text;
 // Response.clickLink
 response = get(address);
 responseDefault = response.clickLink();
-response.clickLink(5); // $ExpectError
+// @ts-expect-error
+response.clickLink(5);
 responseDefault = response.clickLink({});
 responseBinary = response.clickLink({
     selector: 'div.menu span#home',
     params: { responseType: 'binary' }
 });
-response.clickLink({}, 5); // $ExpectError
+// @ts-expect-error
+response.clickLink({}, 5);
 
 // Response.html
 response = get(address);
 html = response.html();
-response.html(5); // $ExpectError
+// @ts-expect-error
+response.html(5);
 html = response.html('div span.item');
-response.html('div span.item', 5); // $ExpectError
+// @ts-expect-error
+response.html('div span.item', 5);
 
 // Response.json
 response = get(address);
 json = response.json();
-response.json(5); // $ExpectError
+// @ts-expect-error
+response.json(5);
 json = response.json('user.name');
-response.json('user.name', 5); // $ExpectError
+// @ts-expect-error
+response.json('user.name', 5);
 
 // Response.submitForm
 response = get(address);
 responseDefault = response.submitForm();
-response.submitForm(5); // $ExpectError
+// @ts-expect-error
+response.submitForm(5);
 responseDefault = response.submitForm({});
 responseText = response.submitForm({
     formSelector: 'div.input form',
@@ -335,37 +390,52 @@ responseText = response.submitForm({
     submitSelector: 'div.input form button.submit',
     params: { responseType: 'text' }
 });
-response.submitForm({}, 5); // $ExpectError
+// @ts-expect-error
+response.submitForm({}, 5);
 
 // CookieJar
 jar = new CookieJar();
-new CookieJar(5); // $ExpectError
+// @ts-expect-error
+new CookieJar(5);
 
 // cookieJar
 jar = cookieJar();
-cookieJar(5); // $ExpectError
+// @ts-expect-error
+cookieJar(5);
 
 // CookieJar.cookiesForURL
 jar = cookieJar();
-jar.cookiesForURL(); // $ExpectError
-jar.cookiesForURL(5); // $ExpectError
+// @ts-expect-error
+jar.cookiesForURL();
+// @ts-expect-error
+jar.cookiesForURL(5);
 cookies = jar.cookiesForURL(address);
-jar.cookiesForURL(address, 5); // $ExpectError
+// @ts-expect-error
+jar.cookiesForURL(address, 5);
 
 // CookieJar.set
 jar = cookieJar();
-jar.set(); // $ExpectError
-jar.set(5); // $ExpectError
-jar.set('session'); // $ExpectError
-jar.set('session', 5); // $ExpectError
-jar.set('session', 'abc123'); // $ExpectError
-jar.set('session', 'abc123', null); // $ExpectError
-jar.set('session', 'abc123', {}); // $ExpectError
-jar.set('session', 'abc123', { domain: 'example.com' }); // $ExpectError
+// @ts-expect-error
+jar.set();
+// @ts-expect-error
+jar.set(5);
+// @ts-expect-error
+jar.set('session');
+// @ts-expect-error
+jar.set('session', 5);
+// @ts-expect-error
+jar.set('session', 'abc123');
+// @ts-expect-error
+jar.set('session', 'abc123', null);
+// @ts-expect-error
+jar.set('session', 'abc123', {});
+// @ts-expect-error
+jar.set('session', 'abc123', { domain: 'example.com' });
 jar.set(address, 'session', 'abc123'); // $ExpectType void
 jar.set(address, 'session', 'abc123', null); // $ExpectType void
 jar.set(address, 'session', 'abc123', {}); // $ExpectType void
-jar.set(address, 'session', 'abc123', { badoption: true }); // $ExpectError
+// @ts-expect-error
+jar.set(address, 'session', 'abc123', { badoption: true });
 jar.set(address, 'session', 'abc123', { domain: 'example.com' }); // $ExpectType void
 // $ExpectType void
 jar.set(address, 'session', 'abc123', {
@@ -376,8 +446,10 @@ jar.set(address, 'session', 'abc123', {
     secure: true,
     http_only: true,
 });
-jar.set('session', 'abc123', {}, 5); // $ExpectError
-jar.set(address, 'session', 'abc123', {}, 5); // $ExpectError
+// @ts-expect-error
+jar.set('session', 'abc123', {}, 5);
+// @ts-expect-error
+jar.set(address, 'session', 'abc123', {}, 5);
 
 // expectedStatuses
 expectedStatuses(200);
@@ -385,13 +457,16 @@ expectedStatuses({min: 200, max: 300});
 expectedStatuses(200, 400);
 expectedStatuses(200, {min: 200, max: 300}, 400);
 expectedStatuses(200, {min: 200, max: 300}, 400, {min: 500, max: 600});
-expectedStatuses(200, {min: 200, max: 300}, 400, {hola: 500, max: 600}); // $ExpectError
+// @ts-expect-error
+expectedStatuses(200, {min: 200, max: 300}, 400, {hola: 500, max: 600});
 expectedStatuses(406, 500, {min: 200, max: 204}, 302, {min: 305, max: 405});
 
 http.expectedStatuses(200);
 
-setResponseCallback(); // $ExpectError
-setResponseCallback('hola'); // $ExpectError
+// @ts-expect-error
+setResponseCallback();
+// @ts-expect-error
+setResponseCallback('hola');
 setResponseCallback(expectedStatuses(200));
 
 http.setResponseCallback(http.expectedStatuses(200));

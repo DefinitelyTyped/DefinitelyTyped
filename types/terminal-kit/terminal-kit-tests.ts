@@ -483,6 +483,12 @@ screen1.fill({
     bgColor: 0
   }
 });
+screen1.fill({
+    attr: {
+        color: 'black',
+        bgColor: 'black',
+    },
+});
 
 ScreenBuffer.loadImage(
   path_to_image,
@@ -496,3 +502,41 @@ ScreenBuffer.loadImage(
     screen.draw();
   }
 );
+
+// Output table (https://github.com/cronvel/terminal-kit/blob/HEAD/doc/high-level.md#table-tablecells--options-)
+term.table([
+  ['header #1', 'header #2', 'header #3'],
+  ['row #1', 'a much bigger cell, a much bigger cell, a much bigger cell... ', 'cell'],
+  ['row #2', 'cell', 'a medium cell'],
+  ['row #3', 'cell', 'cell'],
+  ['row #4', 'cell\nwith\nnew\nlines', '^YThis ^Mis ^Ca ^Rcell ^Gwith ^Bmarkup^R^+!']
+], {
+  hasBorder: true,
+  contentHasMarkup: true,
+  borderChars: 'lightRounded',
+  borderAttr: { color: 'blue' },
+  textAttr: { bgColor: 'default' },
+  firstCellTextAttr: { bgColor: 'blue' },
+  firstRowTextAttr: { bgColor: 'yellow' },
+  firstColumnTextAttr: { bgColor: 'red' },
+  width: 60,
+  fit: true
+});
+
+term.width; // $ExpectType number
+term.height; // $ExpectType number
+
+// See https://github.com/cronvel/terminal-kit/blob/master/doc/high-level.md#ref.spinner
+
+// Example of the classic line spinner:
+term.spinner() ;
+
+// Example of a colorful unboxing spinner with a text appended after it:
+async function test() {
+  const spinner = await term.spinner('unboxing-color') ;
+  term(' Loading... ') ;
+  spinner.animate(2);
+  setTimeout(() => spinner.animate(false) , 5000) ;
+}
+
+test();

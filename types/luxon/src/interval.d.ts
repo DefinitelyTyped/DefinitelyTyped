@@ -74,6 +74,8 @@ export class Interval {
      */
     static isInterval(o: unknown): o is Interval;
 
+    private constructor(config: unknown);
+
     /**
      * Returns the start of the Interval
      */

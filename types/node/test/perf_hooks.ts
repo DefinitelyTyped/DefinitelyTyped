@@ -11,9 +11,11 @@ import {
     RecordableHistogram,
     createHistogram,
     NodeGCPerformanceDetail,
+    PerformanceMeasure,
+    PerformanceMark,
 } from 'node:perf_hooks';
 
-performance.mark('start');
+const startMark: PerformanceMark = performance.mark('start');
 (() => {})();
 performance.mark('end');
 
@@ -25,7 +27,7 @@ performance.mark('test', {
 performance.measure('test', {
     detail: 'something',
     duration: 123,
-    start: 'startMark',
+    start: startMark.name,
     end: 'endMark',
 });
 
@@ -36,8 +38,9 @@ performance.measure('test', {
     end: 456,
 });
 
-performance.measure('name', 'startMark', 'endMark');
-performance.measure('name', 'startMark');
+const measure1: PerformanceMeasure = performance.measure('name', startMark.name, 'endMark');
+measure1.toJSON();
+performance.measure('name', startMark.name);
 performance.measure('name');
 
 const timeOrigin: number = performance.timeOrigin;
@@ -99,3 +102,46 @@ histogram = createHistogram();
 histogram.record(123);
 histogram.record(123n);
 histogram.recordDelta();
+
+// intelligence is working
+declare let histo1: RecordableHistogram;
+declare let histo2: RecordableHistogram;
+declare let histo3: RecordableHistogram;
+
+histo1.add(histo2);
+histo1.add(histo3);
+
+histo1 = createHistogram();
+histo2 = createHistogram();
+histo3 = createHistogram();
+
+histo1.record(456);
+histo1.record(547);
+histo1.record(789);
+histo1.record(123);
+
+histo2.record(456);
+histo2.record(547);
+histo2.record(789);
+histo2.record(123);
+
+histo3.record(456);
+histo3.record(547);
+histo3.record(789);
+histo3.record(123);
+
+histo1.add(histo2);
+histo1.add(histo3);
+
+performance.clearMarks();
+performance.clearMarks("test");
+
+performance.clearMeasures();
+performance.clearMeasures("test");
+
+performance.getEntries(); // $ExpectType PerformanceEntry[]
+
+performance.getEntriesByName("test"); // $ExpectType PerformanceEntry[]
+performance.getEntriesByName("test", "mark"); // $ExpectType PerformanceEntry[]
+
+performance.getEntriesByType("mark"); // $ExpectType PerformanceEntry[]

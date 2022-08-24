@@ -23,9 +23,9 @@ const assignTypedToPlain: NamespaceBuilder = restrictedBuilder;
 
 const foo = restrictedBuilder.foo;
 const bar = restrictedBuilder('bar');
-// $ExpectError
+// @ts-expect-error
 const bazProp = restrictedBuilder.baz;
-// $ExpectError
+// @ts-expect-error
 const bazArg = restrictedBuilder('baz');
 
 const exports: ['namespace'] = Factory.exports;

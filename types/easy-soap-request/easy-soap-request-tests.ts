@@ -33,5 +33,5 @@ soapRequest({
 });
 
 // Missing required options
-// $ExpectError
+// @ts-expect-error
 soapRequest({});

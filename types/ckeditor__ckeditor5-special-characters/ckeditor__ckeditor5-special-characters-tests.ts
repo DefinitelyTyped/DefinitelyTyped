@@ -50,9 +50,27 @@ if (dropdown instanceof DropdownView) {
 
 new CharacterGridView().render();
 new CharacterGridView().destroy();
+new CharacterGridView().on('execute', (ev, args) => {
+    // $ExpectType EventInfo<CharacterGridView, "execute">
+    ev;
+    // $ExpectType { name: string; character: string; }
+    args;
+});
+new CharacterGridView().fire('execute', { name: '', character: '' });
+new CharacterGridView().on('tileHover', (ev, args) => {
+    // $ExpectType EventInfo<CharacterGridView, "tileHover">
+    ev;
+    // $ExpectType { name: string; character: string; }
+    args;
+});
 
 new CharacterInfoView().render();
 new CharacterInfoView().destroy();
+
+// @ts-expect-error
+SpecialCharactersArrows.requires = null;
+// @ts-expect-error
+SpecialCharactersEssentials.requires = null;
 
 // $ExpectType SpecialCharacters
 editor.plugins.get('SpecialCharacters');

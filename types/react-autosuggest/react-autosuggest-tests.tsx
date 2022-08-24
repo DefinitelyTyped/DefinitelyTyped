@@ -568,7 +568,8 @@ ReactDOM.render(
 const test: Autosuggest.InputProps<{ foo: string }> = {
     onChange: () => {},
     value: 'foo',
-    anything: false // $ExpectError
+    // @ts-expect-error
+    anything: false
 };
 
 function testSingleSection() {
@@ -612,7 +613,8 @@ const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = e
     // called with a `target` pointing to a non-input element. For example, when
     // the user clicks on a suggestion. Reduced test case:
     // https://stackblitz.com/edit/oliverjash-react-autosuggest-1lhfk3?file=index.tsx
-    element.value; // $ExpectError
+    // @ts-expect-error
+    element.value;
 };
 
 {
@@ -621,7 +623,7 @@ const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = e
     const invalidOnChange = (event: React.FormEvent<HTMLDivElement>) => { };
     const onChange = (event: React.FormEvent<HTMLElement>) => { };
     <CustomInput
-        // $ExpectError
+        // @ts-expect-error
         onChange={invalidOnChange}
     />;
     <CustomInput onChange={onChange} />;
@@ -633,7 +635,7 @@ const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = e
     const invalidOnBlur = (event: React.FocusEvent<HTMLDivElement>) => { };
     const onBlur = (event: React.FocusEvent<HTMLElement>) => { };
     <CustomInput
-        // $ExpectError
+        // @ts-expect-error
         onBlur={invalidOnBlur}
     />;
     <CustomInput onBlur={onBlur} />;

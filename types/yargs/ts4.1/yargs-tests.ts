@@ -123,8 +123,11 @@ async function Argv$parsing() {
     const argv1 = await yargs.parse();
     const argv2 = yargs(['-x', '1', '-y', '2']).parseSync();
     const argv3 = yargs.parseSync(['-x', '1', '-y', '2']);
-    const argv4 = await yargs();
+    const argv4 = await yargs(['-x', '1', '-y', '2']).parseAsync();
     console.log(argv1.x, argv2.x, argv3.x, argv4.x);
+
+    // $ExpectType Argv<{}>
+    yargs();
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
     yargs.parse();
@@ -136,7 +139,7 @@ async function Argv$parsing() {
     yargs.argv;
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
-    yargs();
+    yargs().argv;
 
     // $ExpectType { [x: string]: unknown; update: boolean | undefined; extern: boolean | undefined; _: (string | number)[]; $0: string; }
     yargs(['--update'])
@@ -1218,7 +1221,7 @@ async function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectType unknown
     argv.c;
 
-    // $ExpectError
+    // @ts-expect-error
     const x: string = (await yargs.argv).x;
     return x;
 }

@@ -370,6 +370,16 @@ export interface ConnectionAuthenticationOptions {
      * Authentication token used when type is 'azure-active-directory-access-token'
      */
     token?: string | undefined;
+
+    /**
+     * Optional application (client) ID from your registered Azure application
+     */
+    clientId?: string | undefined;
+
+    /**
+     * Optional parameter for specific Azure tenant ID
+     */
+    tenantId?: string | undefined;
 }
 
 export interface ConnectionAuthentication {

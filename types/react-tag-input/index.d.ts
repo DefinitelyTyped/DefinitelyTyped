@@ -1,4 +1,4 @@
-// Type definitions for React-Tags (react-tag-input) 6.1
+// Type definitions for React-Tags (react-tag-input) 6.6
 // Project: https://github.com/prakhar1989/react-tags
 // Definitions by: Ogglas <https://github.com/Ogglas>
 //                  Jan Karres <https://github.com/jankarres>
@@ -37,7 +37,6 @@ export interface ReactTagsProps {
     removeComponent?: React.Component<any, any> | undefined;
     autocomplete?: boolean | 1 | undefined;
     readOnly?: boolean | undefined;
-    resetInputOnDelete?: boolean | undefined;
 
     name?: string | undefined;
     id?: string | undefined;
@@ -46,6 +45,7 @@ export interface ReactTagsProps {
 
     inline?: boolean | undefined;
     inputFieldPosition?: 'top' | 'bottom' | 'inline' | undefined;
+    inputProps?: React.InputHTMLAttributes<HTMLInputElement> | undefined;
     allowUnique?: boolean | undefined;
     allowDragDrop?: boolean | undefined;
     renderSuggestion?(tag: Tag, query: string): React.ReactChild | void;

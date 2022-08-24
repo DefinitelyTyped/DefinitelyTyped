@@ -13,6 +13,12 @@ declare namespace SelectControl {
          * the value passed to `onChange` when the option is selected.
          */
         value: string;
+        /**
+         * Whether or not the option should have the disabled attribute.
+         *
+         * @defaultValue false
+         */
+        disabled?: boolean;
     }
     type Props<T extends string | readonly string[]> = Omit<
         HTMLProps<HTMLSelectElement>,

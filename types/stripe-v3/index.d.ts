@@ -117,6 +117,10 @@ declare namespace stripe {
             clientSecret: string,
             options?: ConfirmSofortPaymentOptions
         ): Promise<PaymentIntentResponse>;
+        confirmAuBecsDebitPayment(
+            clientSecret: string,
+            options?: ConfirmSofortPaymentOptions
+        ): Promise<PaymentIntentResponse>;
     }
 
     type StripeRedirectResponse = never | {
@@ -978,7 +982,7 @@ declare namespace stripe {
             locale?: string | undefined;
         }
 
-        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank';
+        type elementsType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton' | 'iban' | 'idealBank' | 'auBankAccount';
         interface Elements {
             create(type: elementsType, options?: ElementsOptions): Element;
             getElement(type: elementsType): Element | null;

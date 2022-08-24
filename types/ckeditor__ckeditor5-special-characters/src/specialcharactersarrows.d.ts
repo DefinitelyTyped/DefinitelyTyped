@@ -1,7 +1,17 @@
-import { Plugin } from "@ckeditor/ckeditor5-core";
+import { Plugin } from '@ckeditor/ckeditor5-core';
 
+/**
+ * A plugin that provides special characters for the "Arrows" category.
+ *
+ *    ClassicEditor
+ *      .create( {
+ *        plugins: [ ..., SpecialCharacters, SpecialCharactersArrows ],
+ *      } )
+ *      .then( ... )
+ *      .catch( ... );
+ */
 export default class SpecialCharactersArrows extends Plugin {
-    static readonly pluginName: "SpecialCharactersArrows";
+    static readonly pluginName: 'SpecialCharactersArrows';
     init(): void;
 }
 

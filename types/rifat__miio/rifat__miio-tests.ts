@@ -1,8 +1,11 @@
-import { AirPurifier3, device } from '@rifat/miio';
+import { device, devices, browse } from '@rifat/miio';
+import { AirPurifier3 } from '@rifat/miio/device';
 
 device({ address: '192.168.0.1' }); // $ExpectType Promise<MiioDevice>
-device({}); // $ExpectError
-device({ token: '' }); // $ExpectError
+// @ts-expect-error
+device({});
+// @ts-expect-error
+device({ token: '' });
 device({ address: '192.168.0.1', token: '' }); // $ExpectType Promise<MiioDevice>
 
 device({ address: '192.168.0.1' }); // $ExpectType Promise<MiioDevice>
@@ -29,3 +32,6 @@ device({ address: '192.168.0.1' }).then(miooDevice => {
 
     d.debug(); // $ExpectType void
 });
+
+devices({}); // $ExpectType any
+browse({}); // $ExpectType any

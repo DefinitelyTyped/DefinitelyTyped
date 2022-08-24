@@ -25,6 +25,10 @@ interface WebApp {
      */
     initDataUnsafe: WebAppInitData;
     /**
+     * The version of the Bot API available in the user's Telegram app.
+     */
+    version: string;
+    /**
      * The color scheme currently used in the Telegram app. Either “light” or
      * “dark”. Also available as the CSS variable var(--tg-color-scheme).
      */
@@ -75,18 +79,58 @@ interface WebApp {
      */
     viewportStableHeight: number;
     /**
-     * An object for controlling the main button, which is displayed at the bottom
-     * of the Web App in the Telegram interface.
+     * Current header color in the #RRGGBB format.
+     */
+    headerColor: string;
+    /**
+     * Current background color in the #RRGGBB format.
+     */
+    backgroundColor: string;
+    /**
+     * An object for controlling the back button which can be displayed in the
+     * header of the Web App in the Telegram interface.
+     */
+    BackButton: BackButton;
+    /**
+     * An object for controlling the main button, which is displayed at the
+     * bottom of the Web App in the Telegram interface.
      */
     MainButton: MainButton;
+    /**
+     * An object for controlling haptic feedback.
+     */
+    HapticFeedback: HapticFeedback;
+    /**
+     * Returns true if the user's app supports a version of the Bot API that is
+     * equal to or higher than the version passed as the parameter.
+     */
+    isVersionAtLeast(version: string): boolean;
+    /**
+     * A method that sets the app header color. You can only pass
+     * Telegram.WebApp.themeParams.bg_color or
+     * Telegram.WebApp.themeParams.secondary_bg_colo as a color or you can use
+     * keywords bg_color, secondary_bg_color instead.
+     */
+    setHeaderColor(color: 'bg_color' | 'secondary_bg_color'): void;
+    /**
+     * A method that sets the app background color in the #RRGGBB format or you
+     * can use keywords bg_color, secondary_bg_color instead.
+     */
+    setBackgroundColor(color: 'bg_color' | 'secondary_bg_color' | string): void;
     /**
      * A method that sets the app event handler. Check the list of available
      * events.
      */
-    onEvent(eventType: 'themeChanged' | 'mainButtonClicked', eventHandler: () => void): void;
+    onEvent(
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
+        eventHandler: () => void,
+    ): void;
     onEvent(eventType: 'viewPortChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     /** A method that deletes a previously set event handler. */
-    offEvent(eventType: 'themeChanged' | 'mainButtonClicked', eventHandler: () => void): void;
+    offEvent(
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
+        eventHandler: () => void,
+    ): void;
     offEvent(eventType: 'viewPortChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -97,6 +141,25 @@ interface WebApp {
      * This method is only available for Web Apps launched via a Keyboard button.
      */
     sendData(data: string): void;
+    /**
+     * A method that opens a link in an external browser. The Web App will not
+     * be closed. Note that this method can be called only in response to the
+     * user interaction with the Web App interface (e.g. click inside the Web
+     * App or on the main button)
+     */
+    openLink(url: string): void;
+    /**
+     * A method that opens a telegram link inside Telegram app. The Web App will
+     * be closed.
+     */
+    openTelegramLink(url: string): void;
+    /**
+     * A method that opens an invoice using the link url. The Web App will
+     *  receive the event invoiceClosed when the invoice is closed. If an
+     *  optional callback parameter was passed, the callback function will be
+     *  called and the invoice status will be passed as the first argument.
+     */
+    openInvoice(url: string, callback: () => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -152,6 +215,40 @@ interface ThemeParams {
      * var(--tg-theme-button-text-color).
      */
     button_text_color: string;
+    /**
+     * Optional. Bot API 6.1+ Secondary background color in the #RRGGBB format.
+     * Also available as the CSS variable var(--tg-theme-secondary-bg-color).
+     */
+    secondary_bg_color: string;
+}
+
+/**
+ * This object controls the back button, which can be displayed in the header of
+ * the Web App in the Telegram interface.
+ */
+interface BackButton {
+    /**
+     * Shows whether the button is visible. Set to false by default.
+     */
+    isVisible: boolean;
+    /**
+     * A method that sets the button press event handler. An alias for
+     * Telegram.WebApp.onEvent('backButtonClicked', callback)
+     */
+    onClick(callback: () => void): BackButton;
+    /**
+     *  A method that removes the button press event handler. An alias for
+     *  Telegram.WebApp.offEvent('backButtonClicked', callback)
+     */
+    offClick(callback: () => void): BackButton;
+    /**
+     * A method to make the button active and visible.
+     */
+    show(): void;
+    /**
+     * A method to hide the button.
+     */
+    hide(): void;
 }
 
 /**
@@ -229,6 +326,41 @@ interface MainButtonParams {
 }
 
 /**
+ *  This object controls haptic feedback.
+ */
+interface HapticFeedback {
+    /**
+     * A method tells that an impact occurred. The Telegram app may play the
+     * appropriate haptics based on style value passed. Style can be one of
+     * these values:
+     * - light, indicates a collision between small or lightweight UI objects,
+     * - medium, indicates a collision between medium-sized or medium-weight UI
+     *   objects,
+     * - heavy, indicates a collision between large or heavyweight UI objects,
+     * - rigid, indicates a collision between hard or inflexible UI objects,
+     * - soft, indicates a collision between soft or flexible UI objects.
+     */
+    impactOccurred(style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft'): () => void;
+    /**
+     * A method tells that a task or action has succeeded, failed, or produced a
+     * warning. The Telegram app may play the appropriate haptics based on type
+     * value passed. Type can be one of these values:
+     * - error, indicates that a task or action has failed,
+     * - success, indicates that a task or action has completed successfully,
+     * - warning, indicates that a task or action produced a warning.
+     */
+    notificationOccurred(type: 'error' | 'success' | 'warning'): () => void;
+    /**
+     * A method tells that the user has changed a selection. The Telegram app
+     * may play the appropriate haptics.
+     *
+     * Do not use this feedback when the user makes or confirms a selection; use
+     * it only when the selection changes.
+     */
+    selectionChanged(): void;
+}
+
+/**
  * This object contains data that is transferred to the Web App when it is
  * opened. It is empty if the Web App was launched from a keyboard button.
  */
@@ -247,6 +379,12 @@ interface WebAppInitData {
      */
     receiver?: WebAppUser;
     /**
+     * An object containing data about the chat where the bot was launched via
+     * the attachment menu. Returned for supergroups, channels and group chats –
+     * only for Web Apps launched via the attachment menu.
+     */
+    chat?: WebAppChat;
+    /**
      * The value of the startattach parameter, passed via link. Only returned for
      * Web Apps when launched from the attachment menu via link. The value of the
      * start_param parameter will also be passed in the GET-parameter
@@ -254,6 +392,11 @@ interface WebAppInitData {
      * away.
      */
     start_param?: string;
+    /**
+     * Time in seconds, after which a message can be sent via the
+     * answerWebAppQuery method.
+     */
+    can_send_after?: number;
     /** Unix time when the form was opened. */
     auth_date: number;
     /**
@@ -286,6 +429,37 @@ interface WebAppUser {
     /**
      * URL of the user’s profile photo. The photo can be in .jpeg or .svg formats.
      * Only returned for Web Apps launched from the attachment menu.
+     */
+    photo_url?: string;
+}
+
+/**
+ * This object represents a chat.
+ */
+interface WebAppChat {
+    /**
+     * Unique identifier for this chat. This number may have more than 32
+     * significant bits and some programming languages may have
+     * difficulty/silent defects in interpreting it. But it has at most 52
+     * significant bits, so a signed 64-bit integer or double-precision float
+     * type are safe for storing this identifier.
+     */
+    id: number;
+    /**
+     * Type of chat, can be either “group”, “supergroup” or “channel”
+     */
+    type: 'group' | 'supergroup' | 'channel';
+    /**
+     * Title of the chat
+     */
+    title: string;
+    /**
+     * Username of the chat
+     */
+    username?: string;
+    /**
+     * URL of the chat’s photo. The photo can be in .jpeg or .svg formats. Only
+     * returned for Web Apps launched from the attachment menu.
      */
     photo_url?: string;
 }

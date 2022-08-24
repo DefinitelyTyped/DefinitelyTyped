@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/events.js)
  */
 declare module 'events' {
     interface EventEmitterOptions {
@@ -50,7 +50,7 @@ declare module 'events' {
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
-            },
+            }
         ): any;
     }
     interface StaticEventEmitterOptions {
@@ -154,11 +154,7 @@ declare module 'events' {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once(
-            emitter: NodeEventTarget,
-            eventName: string | symbol,
-            options?: StaticEventEmitterOptions,
-        ): Promise<any[]>;
+        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
         static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
@@ -218,11 +214,7 @@ declare module 'events' {
          * @param eventName The name of the event being listened for
          * @return that iterates `eventName` events emitted by the `emitter`
          */
-        static on(
-            emitter: NodeJS.EventEmitter,
-            eventName: string,
-            options?: StaticEventEmitterOptions,
-        ): AsyncIterableIterator<any>;
+        static on(emitter: NodeJS.EventEmitter, eventName: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
@@ -269,23 +261,21 @@ declare module 'events' {
          */
         static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
-         * By default `EventEmitter`s will print a warning if more than `10` listeners are
-         * added for a particular event. This is a useful default that helps finding
-         * memory leaks. The `EventEmitter.setMaxListeners()` method allows the default limit to be
-         * modified (if eventTargets is empty) or modify the limit specified in every `EventTarget` | `EventEmitter` passed as arguments.
-         * The value can be set to`Infinity` (or `0`) to indicate an unlimited number of listeners.
-         *
          * ```js
-         * EventEmitter.setMaxListeners(20);
-         * // Equivalent to
-         * EventEmitter.defaultMaxListeners = 20;
+         * const {
+         *   setMaxListeners,
+         *   EventEmitter
+         * } = require('events');
          *
-         * const eventTarget = new EventTarget();
-         * // Only way to increase limit for `EventTarget` instances
-         * // as these doesn't expose its own `setMaxListeners` method
-         * EventEmitter.setMaxListeners(20, eventTarget);
+         * const target = new EventTarget();
+         * const emitter = new EventEmitter();
+         *
+         * setMaxListeners(5, target, emitter);
          * ```
-         * @since v15.3.0, v14.17.0
+         * @since v15.4.0
+         * @param n A non-negative number. The maximum number of listeners per `EventTarget` event.
+         * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+         * objects.
          */
         static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
         /**
@@ -403,8 +393,8 @@ declare module 'events' {
                  * called multiple times to remove each instance.
                  *
                  * Once an event is emitted, all listeners attached to it at the
-                 * time of emitting are called in order. This implies that any`removeListener()` or `removeAllListeners()` calls _after_ emitting and_before_ the last listener finishes execution will
-                 * not remove them from`emit()` in progress. Subsequent events behave as expected.
+                 * time of emitting are called in order. This implies that any`removeListener()` or `removeAllListeners()` calls _after_ emitting and _before_ the last listener finishes execution
+                 * will not remove them from`emit()` in progress. Subsequent events behave as expected.
                  *
                  * ```js
                  * const myEmitter = new MyEmitter();
@@ -606,7 +596,7 @@ declare module 'events' {
                  */
                 prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
-                 * Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
+                 * Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
                  *
                  * ```js

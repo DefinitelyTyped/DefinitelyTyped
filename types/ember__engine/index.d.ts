@@ -17,7 +17,8 @@ import Resolver from 'ember-resolver';
  * The `Engine` class contains core functionality for both applications and
  * engines.
  */
-export default class Engine extends EmberObject.extend(RegistryProxyMixin) {
+
+export default class Engine extends EmberObject {
     /**
      * The goal of initializers should be to register dependencies and injections.
      * This phase runs once. Because these initializers may load code, they are
@@ -43,6 +44,9 @@ export default class Engine extends EmberObject.extend(RegistryProxyMixin) {
      */
     buildInstance(options?: object): EngineInstance;
 }
+
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface Engine extends RegistryProxyMixin {}
 
 /**
  * `getEngineParent` retrieves an engine instance's parent instance.

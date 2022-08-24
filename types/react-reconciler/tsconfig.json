@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "test/ReactFiberHostConfigWithNoHydration.ts",
+        "test/ReactFiberHostConfigWithNoMicrotasks.ts",
         "test/ReactFiberHostConfigWithNoPersistence.ts",
         "test/ReactFiberHostConfigWithNoTestSelectors.ts",
         "test/ReactTestHostConfig.ts",
