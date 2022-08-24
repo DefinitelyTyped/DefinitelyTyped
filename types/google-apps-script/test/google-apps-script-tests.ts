@@ -668,3 +668,7 @@ const formAppCheckboxValidation = FormApp.createCheckboxValidation()
 const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .requireTextDoesNotContainPattern('string')
     .build();
+
+const mimeTypes: string[] = [
+    MimeType.GOOGLE_APPS_SCRIPT,
+];

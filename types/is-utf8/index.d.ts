@@ -5,6 +5,6 @@
 
 /// <reference types="node" />
 
-declare function isUtf8(buffer: Buffer): boolean;
+declare function isUtf8(buffer: ArrayLike<number>): boolean;
 
 export = isUtf8;

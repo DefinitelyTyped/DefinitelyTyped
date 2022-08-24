@@ -27,6 +27,7 @@ import './test/readline';
 import './test/repl';
 import './test/stream';
 import './test/string_decoder';
+import './test/test';
 import './test/timers_promises';
 import './test/timers';
 import './test/tls';
