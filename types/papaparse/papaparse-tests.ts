@@ -115,6 +115,48 @@ Papa.parse<[string]>(file, {
     },
 });
 
+// Async parsing is allowed to specify only step, only complete, or both
+Papa.parse<string[]>(file, {
+    step(results, parser) {
+        // $ExpectType string[]
+        results.data;
+        // $ExpectType ParseError[]
+        results.errors;
+        // $ExpectType Parser
+        parser;
+    },
+});
+
+Papa.parse<string[]>(file, {
+    complete(results, file) {
+        // $ExpectType string[][]
+        results.data;
+        // $ExpectType ParseError[]
+        results.errors;
+        // $ExpectType LocalFile
+        file;
+    },
+});
+
+Papa.parse<string[]>(file, {
+    step(results, parser) {
+        // $ExpectType string[]
+        results.data;
+        // $ExpectType ParseError[]
+        results.errors;
+        // $ExpectType Parser
+        parser;
+    },
+    complete(results, file) {
+        // $ExpectType string[][]
+        results.data;
+        // $ExpectType ParseError[]
+        results.errors;
+        // $ExpectType LocalFile
+        file;
+    },
+});
+
 // $ExpectType void
 Papa.parse('/resources/files/normal.csv', {
     download: true,
@@ -159,17 +201,17 @@ const papaStream: Duplex = Papa.parse(Papa.NODE_STREAM_INPUT);
 readable.pipe(papaStream);
 
 // generic
-Papa.parse<string>('a,b,c', {
+Papa.parse<string[]>('a,b,c', {
     step(a) {
-        a.data[0];
+        a.data[0].toLowerCase();
     },
 });
 
 // `chunk` Works only with local and remote files
 // @ts-expect-error
-Papa.parse<string>('a,b,c', {
+Papa.parse<string[]>('a,b,c', {
     chunk(a) {
-        a.data[0];
+        console.log(a);
     },
 });
 
