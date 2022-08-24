@@ -8,7 +8,10 @@ declare module 'https' {
     import * as tls from 'node:tls';
     import * as http from 'node:http';
     import { URL } from 'node:url';
-    type ServerOptions = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions;
+    type ServerOptions<
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
+    > = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions<Request, Response>;
     type RequestOptions = http.RequestOptions &
         tls.SecureContextOptions & {
             rejectUnauthorized?: boolean | undefined; // Defaults to true
@@ -27,19 +30,22 @@ declare module 'https' {
         options: AgentOptions;
     }
     interface Server<
-        Request extends http.IncomingMessage = http.IncomingMessage,
-        Response extends http.ServerResponse<Request> = http.ServerResponse<Request>,
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
     > extends http.Server<Request, Response> {}
     /**
      * See `http.Server` for more information.
      * @since v0.3.4
      */
     class Server<
-        Request extends http.IncomingMessage = http.IncomingMessage,
-        Response extends http.ServerResponse<Request> = http.ServerResponse<Request>,
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
     > extends tls.Server {
         constructor(requestListener?: http.RequestListener<Request, Response>);
-        constructor(options: ServerOptions, requestListener?: http.RequestListener<Request, Response>);
+        constructor(
+            options: ServerOptions<Request, Response>,
+            requestListener?: http.RequestListener<Request, Response>,
+        );
         /**
          * Closes all connections connected to this server.
          * @since v18.2.0
@@ -77,9 +83,15 @@ declare module 'https' {
         addListener(event: 'checkContinue', listener: http.RequestListener<Request, Response>): this;
         addListener(event: 'checkExpectation', listener: http.RequestListener<Request, Response>): this;
         addListener(event: 'clientError', listener: (err: Error, socket: Duplex) => void): this;
-        addListener(event: 'connect', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        addListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void,
+        ): this;
         addListener(event: 'request', listener: http.RequestListener<Request, Response>): this;
-        addListener(event: 'upgrade', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        addListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void,
+        ): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: 'keylog', line: Buffer, tlsSocket: tls.TLSSocket): boolean;
         emit(
@@ -101,12 +113,24 @@ declare module 'https' {
         emit(event: 'connection', socket: Duplex): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
-        emit(event: 'checkContinue', req: Request, res: Response): boolean;
-        emit(event: 'checkExpectation', req: Request, res: Response): boolean;
+        emit(
+            event: 'checkContinue',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(
+            event: 'checkExpectation',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
         emit(event: 'clientError', err: Error, socket: Duplex): boolean;
-        emit(event: 'connect', req: Request, socket: Duplex, head: Buffer): boolean;
-        emit(event: 'request', req: Request, res: Response): boolean;
-        emit(event: 'upgrade', req: Request, socket: Duplex, head: Buffer): boolean;
+        emit(event: 'connect', req: InstanceType<Request>, socket: Duplex, head: Buffer): boolean;
+        emit(
+            event: 'request',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(event: 'upgrade', req: InstanceType<Request>, socket: Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
         on(
@@ -134,9 +158,9 @@ declare module 'https' {
         on(event: 'checkContinue', listener: http.RequestListener<Request, Response>): this;
         on(event: 'checkExpectation', listener: http.RequestListener<Request, Response>): this;
         on(event: 'clientError', listener: (err: Error, socket: Duplex) => void): this;
-        on(event: 'connect', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        on(event: 'connect', listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void): this;
         on(event: 'request', listener: http.RequestListener<Request, Response>): this;
-        on(event: 'upgrade', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        on(event: 'upgrade', listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
         once(
@@ -164,9 +188,9 @@ declare module 'https' {
         once(event: 'checkContinue', listener: http.RequestListener<Request, Response>): this;
         once(event: 'checkExpectation', listener: http.RequestListener<Request, Response>): this;
         once(event: 'clientError', listener: (err: Error, socket: Duplex) => void): this;
-        once(event: 'connect', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        once(event: 'connect', listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void): this;
         once(event: 'request', listener: http.RequestListener<Request, Response>): this;
-        once(event: 'upgrade', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        once(event: 'upgrade', listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
         prependListener(
@@ -194,9 +218,15 @@ declare module 'https' {
         prependListener(event: 'checkContinue', listener: http.RequestListener<Request, Response>): this;
         prependListener(event: 'checkExpectation', listener: http.RequestListener<Request, Response>): this;
         prependListener(event: 'clientError', listener: (err: Error, socket: Duplex) => void): this;
-        prependListener(event: 'connect', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        prependListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void,
+        ): this;
         prependListener(event: 'request', listener: http.RequestListener<Request, Response>): this;
-        prependListener(event: 'upgrade', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        prependListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
         prependOnceListener(
@@ -224,9 +254,15 @@ declare module 'https' {
         prependOnceListener(event: 'checkContinue', listener: http.RequestListener<Request, Response>): this;
         prependOnceListener(event: 'checkExpectation', listener: http.RequestListener<Request, Response>): this;
         prependOnceListener(event: 'clientError', listener: (err: Error, socket: Duplex) => void): this;
-        prependOnceListener(event: 'connect', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'request', listener: http.RequestListener<Request, Response>): this;
-        prependOnceListener(event: 'upgrade', listener: (req: Request, socket: Duplex, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: Duplex, head: Buffer) => void,
+        ): this;
     }
     /**
      * ```js
@@ -266,13 +302,16 @@ declare module 'https' {
      * @param requestListener A listener to be added to the `'request'` event.
      */
     function createServer<
-        Request extends http.IncomingMessage = http.IncomingMessage,
-        Response extends http.ServerResponse<Request> = http.ServerResponse<Request>,
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
     >(requestListener?: http.RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
-        Request extends http.IncomingMessage = http.IncomingMessage,
-        Response extends http.ServerResponse<Request> = http.ServerResponse<Request>,
-    >(options: ServerOptions, requestListener?: http.RequestListener<Request, Response>): Server<Request, Response>;
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
+    >(
+        options: ServerOptions<Request, Response>,
+        requestListener?: http.RequestListener<Request, Response>,
+    ): Server<Request, Response>;
     /**
      * Makes a request to a secure web server.
      *

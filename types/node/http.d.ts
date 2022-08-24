@@ -135,12 +135,17 @@ declare module 'http' {
         timeout?: number | undefined;
         setHost?: boolean | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
-        createConnection?: ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket) | undefined;
+        createConnection?:
+            | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
+            | undefined;
         lookup?: LookupFunction | undefined;
     }
-    interface ServerOptions {
-        IncomingMessage?: typeof IncomingMessage | undefined;
-        ServerResponse?: typeof ServerResponse | undefined;
+    interface ServerOptions<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    > {
+        IncomingMessage?: Request | undefined;
+        ServerResponse?: Response | undefined;
         /**
          * Optionally overrides the value of
          * `--max-http-header-size` for requests received by this server, i.e.
@@ -156,13 +161,19 @@ declare module 'http' {
          */
         insecureHTTPParser?: boolean | undefined;
     }
-    type RequestListener<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse<Request> = ServerResponse<Request>> = (req: Request, res: Response) => void;
+    type RequestListener<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
      */
-    class Server<Request extends IncomingMessage = IncomingMessage, Response extends ServerResponse<Request> = ServerResponse<Request>> extends NetServer {
+    class Server<
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    > extends NetServer {
         constructor(requestListener?: RequestListener<Request, Response>);
-        constructor(options: ServerOptions, requestListener?: RequestListener<Request, Response>);
+        constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
         /**
          * Sets the timeout value for sockets, and emits a `'timeout'` event on
          * the Server object, passing the socket as an argument, if a timeout
@@ -267,20 +278,38 @@ declare module 'http' {
         addListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
         addListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         addListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        addListener(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         addListener(event: 'request', listener: RequestListener<Request, Response>): this;
-        addListener(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        addListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: 'close'): boolean;
         emit(event: 'connection', socket: Socket): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
-        emit(event: 'checkContinue', req: Request, res: Response): boolean;
-        emit(event: 'checkExpectation', req: Request, res: Response): boolean;
+        emit(
+            event: 'checkContinue',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(
+            event: 'checkExpectation',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
         emit(event: 'clientError', err: Error, socket: stream.Duplex): boolean;
-        emit(event: 'connect', req: Request, socket: stream.Duplex, head: Buffer): boolean;
-        emit(event: 'request', req: Request, res: Response): boolean;
-        emit(event: 'upgrade', req: Request, socket: stream.Duplex, head: Buffer): boolean;
+        emit(event: 'connect', req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
+        emit(
+            event: 'request',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(event: 'upgrade', req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'connection', listener: (socket: Socket) => void): this;
@@ -289,9 +318,9 @@ declare module 'http' {
         on(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
         on(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        on(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'connect', listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
         on(event: 'request', listener: RequestListener<Request, Response>): this;
-        on(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: 'upgrade', listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'close', listener: () => void): this;
         once(event: 'connection', listener: (socket: Socket) => void): this;
@@ -300,9 +329,15 @@ declare module 'http' {
         once(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
         once(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         once(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        once(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        once(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         once(event: 'request', listener: RequestListener<Request, Response>): this;
-        once(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        once(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'connection', listener: (socket: Socket) => void): this;
@@ -311,9 +346,15 @@ declare module 'http' {
         prependListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
         prependListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         prependListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependListener(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         prependListener(event: 'request', listener: RequestListener<Request, Response>): this;
-        prependListener(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        prependListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
@@ -322,9 +363,15 @@ declare module 'http' {
         prependOnceListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
         prependOnceListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
         prependOnceListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-        prependOnceListener(event: 'connect', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'request', listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: 'upgrade', listener: (req: Request, socket: stream.Duplex, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+        ): this;
     }
     /**
      * This class serves as the parent class of {@link ClientRequest} and {@link ServerResponse}. It is an abstract of outgoing message from
@@ -566,7 +613,11 @@ declare module 'http' {
          * will result in a `TypeError` being thrown.
          * @since v0.1.30
          */
-        writeHead(statusCode: number, statusMessage?: string, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        writeHead(
+            statusCode: number,
+            statusMessage?: string,
+            headers?: OutgoingHttpHeaders | OutgoingHttpHeader[],
+        ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
          * Sends a HTTP/1.1 102 Processing message to the client, indicating that
@@ -739,13 +790,19 @@ declare module 'http' {
          * @deprecated
          */
         addListener(event: 'abort', listener: () => void): this;
-        addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         addListener(event: 'continue', listener: () => void): this;
         addListener(event: 'information', listener: (info: InformationEvent) => void): this;
         addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         addListener(event: 'socket', listener: (socket: Socket) => void): this;
         addListener(event: 'timeout', listener: () => void): this;
-        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'drain', listener: () => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
@@ -793,13 +850,19 @@ declare module 'http' {
          * @deprecated
          */
         prependListener(event: 'abort', listener: () => void): this;
-        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependListener(event: 'continue', listener: () => void): this;
         prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         prependListener(event: 'socket', listener: (socket: Socket) => void): this;
         prependListener(event: 'timeout', listener: () => void): this;
-        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'drain', listener: () => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
@@ -811,13 +874,19 @@ declare module 'http' {
          * @deprecated
          */
         prependOnceListener(event: 'abort', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'connect',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'continue', listener: () => void): this;
         prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
         prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'timeout', listener: () => void): this;
-        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(
+            event: 'upgrade',
+            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+        ): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'drain', listener: () => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
@@ -1186,13 +1255,16 @@ declare module 'http' {
      * @since v0.1.13
      */
     function createServer<
-        Request extends IncomingMessage = IncomingMessage,
-        Response extends ServerResponse<Request> = ServerResponse<Request>,
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
-        Request extends IncomingMessage = IncomingMessage,
-        Response extends ServerResponse<Request> = ServerResponse<Request>,
-    >(options: ServerOptions, requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
+        Request extends typeof IncomingMessage = typeof IncomingMessage,
+        Response extends typeof ServerResponse = typeof ServerResponse,
+    >(
+        options: ServerOptions<Request, Response>,
+        requestListener?: RequestListener<Request, Response>,
+    ): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
     interface RequestOptions extends ClientRequestArgs {}
@@ -1383,7 +1455,11 @@ declare module 'http' {
      * @since v0.3.6
      */
     function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function request(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    function request(
+        url: string | URL,
+        options: RequestOptions,
+        callback?: (res: IncomingMessage) => void,
+    ): ClientRequest;
     /**
      * Since most requests are GET requests without bodies, Node.js provides this
      * convenience method. The only difference between this method and {@link request} is that it sets the method to GET and calls `req.end()`automatically. The callback must take care to consume the
