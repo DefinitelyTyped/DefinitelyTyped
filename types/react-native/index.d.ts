@@ -7484,12 +7484,6 @@ export interface LinkingStatic extends NativeEventEmitter {
     addEventListener(type: 'url', handler: (event: { url: string }) => void): EmitterSubscription;
 
     /**
-     * Remove a handler by passing the `url` event type and the handler
-     * @deprecated Call remove() on the return value of addEventListener() instead.
-     */
-    removeEventListener(type: 'url', handler: (event: { url: string }) => void): void;
-
-    /**
      * Try to open the given url with any of the installed apps.
      * You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with the installed apps.
      * NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
