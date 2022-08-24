@@ -236,13 +236,16 @@ declare module 'https' {
     }
 
     function createServer<
-        Request extends http.IncomingMessage = http.IncomingMessage,
-        Response extends http.ServerResponse = http.ServerResponse,
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
     >(requestListener?: http.RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
-        Request extends http.IncomingMessage = http.IncomingMessage,
-        Response extends http.ServerResponse = http.ServerResponse,
-    >(options: ServerOptions, requestListener?: http.RequestListener<Request, Response>): Server<Request, Response>;
+        Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
+        Response extends typeof http.ServerResponse = typeof http.ServerResponse,
+    >(
+        options: ServerOptions<Request, Response>,
+        requestListener?: http.RequestListener<Request, Response>,
+    ): Server<Request, Response>;
     function request(
         options: RequestOptions | string | URL,
         callback?: (res: http.IncomingMessage) => void,
