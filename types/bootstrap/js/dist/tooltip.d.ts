@@ -300,7 +300,7 @@ declare namespace Tooltip {
          *
          * @see {@link https://v5.getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer}
          */
-        allowList: Record<keyof HTMLElementTagNameMap, string[]>;
+        allowList: Record<keyof HTMLElementTagNameMap | '*', Array<string | RegExp>>;
 
         /**
          * Here you can supply your own sanitize function. This can be useful if

@@ -31,6 +31,10 @@ Tooltip.Default.allowList;
 Tooltip.Default.offset;
 Tooltip.Default.popperConfig;
 
+Tooltip.Default.allowList['*'];
+Tooltip.Default.allowList['*'].push(/^data-my-app-[\w-]+/);
+Tooltip.Default.allowList['td'];
+
 Tooltip.DefaultType.animation; // $ExpectType string
 Tooltip.DefaultType.container; // $ExpectType string
 Tooltip.DefaultType.delay; // $ExpectType string
