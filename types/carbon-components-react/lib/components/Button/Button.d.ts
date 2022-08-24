@@ -50,14 +50,14 @@ interface ButtonBaseProps extends ButtonBaseIsolatedProps {
     disabled?: boolean | undefined;
 }
 
-export interface ButtonDefaultProps extends ButtonBaseProps, ReactButtonAttr {
+export interface ButtonDefaultProps extends ButtonBaseProps, Omit<ReactButtonAttr, keyof ButtonBaseProps> {
     as?: undefined;
     href?: undefined;
 }
 // alias for old type that used to be exported
 export type ButtonProps = ButtonDefaultProps;
 
-export interface ButtonAnchorProps extends ButtonBaseProps, Omit<ReactAnchorAttr, "href"> {
+export interface ButtonAnchorProps extends ButtonBaseProps, Omit<ReactAnchorAttr, "href" | keyof ButtonBaseProps> {
     as?: undefined;
     href: string;
 }

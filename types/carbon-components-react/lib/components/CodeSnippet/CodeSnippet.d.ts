@@ -28,7 +28,7 @@ export interface CodeSnippetMultiProps extends SharedProps, Omit<ReactDivAttr, '
     type: 'multi';
 }
 
-export interface CodeSnippetInlineProps extends SharedProps, Omit<CopyProps, 'children' | 'type'> {
+export interface CodeSnippetInlineProps extends SharedProps, Omit<CopyProps, 'type' | keyof SharedProps> {
     type: 'inline';
 }
 
