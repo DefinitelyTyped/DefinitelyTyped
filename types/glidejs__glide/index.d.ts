@@ -2,7 +2,7 @@
 // Project: https://glidejs.com/
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.3
 
 declare namespace Glide {
     type Type = 'slider' | 'carousel';
