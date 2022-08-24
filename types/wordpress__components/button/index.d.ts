@@ -129,8 +129,8 @@ declare namespace Button {
          */
         variant?: ButtonVariant | undefined;
     }
-    interface AnchorProps extends BaseProps, HTMLProps<HTMLAnchorElement> {}
-    interface ButtonProps extends BaseProps, HTMLProps<HTMLButtonElement> {
+    interface AnchorProps extends BaseProps, Omit<HTMLProps<HTMLAnchorElement>, keyof BaseProps> {}
+    interface ButtonProps extends BaseProps, Omit<HTMLProps<HTMLButtonElement>, keyof BaseProps> {
         href?: never | undefined;
     }
     type Props = AnchorProps | ButtonProps;
