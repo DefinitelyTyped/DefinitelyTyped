@@ -48,6 +48,20 @@ const chartConfig: zc.graphset[] = [
         }]
       },
     },
+    options: {
+      link: {
+        aspect: 'arc'
+      },
+      maxSize: 15,
+      minSize: 5,
+      node: {
+        type: 'circle',
+        tooltip: {
+          padding: '8px',
+          borderRadius: '3px',
+        }
+      }
+    },
     'scale-x': {
       itemsOverlap: false,
       label: {
