@@ -215,8 +215,12 @@ declare var GM: {
      */
     getValue<TValue = GM.Value>(
         name: string,
-        defaultValue?: TValue
     ): Promise<TValue | undefined>
+    
+    getValue<TValue = GM.Value>(
+        name: string,
+        defaultValue: TValue
+    ): Promise<TValue>
 
     /**
      * Deletes an existing name / value pair from storage.
