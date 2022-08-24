@@ -68,6 +68,9 @@ const testCases = [
             event;
         }}
     ></dialog>,
+    <span title={null}/>,
+    <span onClick={null}/>,
+    <span aria-details={null}/>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
