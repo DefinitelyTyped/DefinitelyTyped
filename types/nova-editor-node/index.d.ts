@@ -10,9 +10,7 @@
 
 /// <reference no-default-lib="true"/>
 /// <reference lib="es7" />
-
-type ReadableStream<T = any> = unknown;
-type WritableStream<T = any> = unknown;
+/// <reference lib="WebWorker" />
 
 /// https://docs.nova.app/api-reference/assistants-registry/
 
@@ -640,14 +638,14 @@ declare class Process {
     readonly env?: { [key: string]: string };
     readonly command: string;
     readonly pid: number;
-    readonly stdio?: [
-        ReadableStream | WritableStream | null,
-        ReadableStream | WritableStream | null,
-        ReadableStream | WritableStream | null,
+    readonly stdio: [
+        WritableStream | null,
+        ReadableStream | null,
+        ReadableStream | null,
     ];
-    readonly stdin?: ReadableStream | WritableStream | null;
-    readonly stdout?: ReadableStream | WritableStream | null;
-    readonly stderr?: ReadableStream | WritableStream | null;
+    readonly stdin:  WritableStream | null;
+    readonly stdout: ReadableStream | null;
+    readonly stderr: ReadableStream | null;
 
     onStdout(callback: (line: string) => void): Disposable;
     onStderr(callback: (line: string) => void): Disposable;
@@ -1074,8 +1072,6 @@ interface Workspace {
 
 declare function atob(data: string): string;
 declare function btoa(data: string): string;
-
-type TimerHandler = string | Function;
 
 declare function setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
 declare function clearTimeout(handle?: number): void;
