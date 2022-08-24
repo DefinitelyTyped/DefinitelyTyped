@@ -419,7 +419,7 @@ export interface NativeUIEvent {
 /**
  * https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
  */
- export interface NativeMouseEvent extends NativeUIEvent {
+export interface NativeMouseEvent extends NativeUIEvent {
     /**
      * The X coordinate of the mouse pointer in global (screen) coordinates.
      */
@@ -660,7 +660,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
     /**
      * Duration (in milliseconds) to wait after press down before calling onPressIn.
      */
-    unstable_pressDelay?: number
+    unstable_pressDelay?: number;
 }
 
 // TODO use React.AbstractComponent when available
@@ -684,18 +684,18 @@ export const Touchable: {
 };
 
 export interface PointerEvents {
-    onPointerEnter?: ((event: PointerEvent) => void) | undefined,
-    onPointerEnterCapture?: ((event: PointerEvent) => void) | undefined,
-    onPointerLeave?: ((event: PointerEvent) => void) | undefined
-    onPointerLeaveCapture?: ((event: PointerEvent) => void) | undefined
-    onPointerMove?: ((event: PointerEvent) => void) | undefined
-    onPointerMoveCapture?: ((event: PointerEvent) => void) | undefined
-    onPointerCancel?: ((event: PointerEvent) => void) | undefined
-    onPointerCancelCapture?: ((event: PointerEvent) => void) | undefined
-    onPointerDown?: ((event: PointerEvent) => void) | undefined
-    onPointerDownCapture?: ((event: PointerEvent) => void) | undefined
-    onPointerUp?: ((event: PointerEvent) => void) | undefined
-    onPointerUpCapture?: ((event: PointerEvent) => void) | undefined
+    onPointerEnter?: ((event: PointerEvent) => void) | undefined;
+    onPointerEnterCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerLeave?: ((event: PointerEvent) => void) | undefined;
+    onPointerLeaveCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerMove?: ((event: PointerEvent) => void) | undefined;
+    onPointerMoveCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerCancel?: ((event: PointerEvent) => void) | undefined;
+    onPointerCancelCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerDown?: ((event: PointerEvent) => void) | undefined;
+    onPointerDownCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerUp?: ((event: PointerEvent) => void) | undefined;
+    onPointerUpCapture?: ((event: PointerEvent) => void) | undefined;
 }
 
 export type ComponentProvider = () => React.ComponentType<any>;
@@ -742,23 +742,13 @@ export namespace AppRegistry {
     function getRunnable(appKey: string): Runnable | undefined;
 }
 
-export type LayoutAnimationType =
-    | 'spring'
-    | 'linear'
-    | 'easeInEaseOut'
-    | 'easeIn'
-    | 'easeOut'
-    | 'keyboard';
+export type LayoutAnimationType = 'spring' | 'linear' | 'easeInEaseOut' | 'easeIn' | 'easeOut' | 'keyboard';
 
 export type LayoutAnimationTypes = {
     [type in LayoutAnimationType]: type;
 };
 
-export type LayoutAnimationProperty =
-    | 'opacity'
-    | 'scaleX'
-    | 'scaleY'
-    | 'scaleXY';
+export type LayoutAnimationProperty = 'opacity' | 'scaleX' | 'scaleY' | 'scaleXY';
 
 export type LayoutAnimationProperties = {
     [prop in LayoutAnimationProperty]: prop;
@@ -800,7 +790,7 @@ export interface LayoutAnimationStatic {
     create: (
         duration: number,
         type?: LayoutAnimationType,
-        creationProp?: LayoutAnimationProperty
+        creationProp?: LayoutAnimationProperty,
     ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
@@ -844,7 +834,14 @@ export interface FlexStyle {
     flexShrink?: number | undefined;
     flexWrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | undefined;
     height?: number | string | undefined;
-    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly' | undefined;
+    justifyContent?:
+        | 'flex-start'
+        | 'flex-end'
+        | 'center'
+        | 'space-between'
+        | 'space-around'
+        | 'space-evenly'
+        | undefined;
     left?: number | string | undefined;
     margin?: number | string | undefined;
     marginBottom?: number | string | undefined;
@@ -964,21 +961,23 @@ interface MatrixTransform {
 }
 
 export interface TransformsStyle {
-    transform?: (
-        | PerpectiveTransform
-        | RotateTransform
-        | RotateXTransform
-        | RotateYTransform
-        | RotateZTransform
-        | ScaleTransform
-        | ScaleXTransform
-        | ScaleYTransform
-        | TranslateXTransform
-        | TranslateYTransform
-        | SkewXTransform
-        | SkewYTransform
-        | MatrixTransform
-    )[] | undefined;
+    transform?:
+        | (
+              | PerpectiveTransform
+              | RotateTransform
+              | RotateXTransform
+              | RotateYTransform
+              | RotateZTransform
+              | ScaleTransform
+              | ScaleXTransform
+              | ScaleYTransform
+              | TranslateXTransform
+              | TranslateYTransform
+              | SkewXTransform
+              | SkewYTransform
+              | MatrixTransform
+          )[]
+        | undefined;
     /**
      * @deprecated Use matrix in transform prop instead.
      */
@@ -1122,11 +1121,7 @@ export interface TextPropsAndroid {
     /**
      * Hyphenation strategy
      */
-    android_hyphenationFrequency?:
-        | 'normal'
-        | 'none'
-        | 'full'
-        | undefined;
+    android_hyphenationFrequency?: 'normal' | 'none' | 'full' | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
@@ -1520,7 +1515,7 @@ export interface TextInputAndroidProps {
      * Unlike the behavior of `selectionColor` the cursor color will be set independently
      * from the color of the text selection box.
      * @platform android
-    */
+     */
     cursorColor?: ColorValue | null | undefined;
 
     /**
@@ -3350,7 +3345,11 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollTo(y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }, x?: number, animated?: boolean): void;
+    scrollTo(
+        y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+        x?: number,
+        animated?: boolean,
+    ): void;
 
     /**
      * Returns a reference to the underlying scroll responder, which supports
@@ -4045,10 +4044,9 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: ((
-        data: Array<ItemT> | null | undefined,
-        index: number,
-    ) => { length: number; offset: number; index: number }) | undefined;
+    getItemLayout?:
+        | ((data: Array<ItemT> | null | undefined, index: number) => { length: number; offset: number; index: number })
+        | undefined;
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
@@ -4105,7 +4103,10 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
-    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null | undefined;
+    onViewableItemsChanged?:
+        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | null
+        | undefined;
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -4174,7 +4175,11 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: { animated?: boolean | null | undefined; item: ItemT; viewPosition?: number | undefined }) => void;
+    scrollToItem: (params: {
+        animated?: boolean | null | undefined;
+        item: ItemT;
+        viewPosition?: number | undefined;
+    }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
@@ -4201,7 +4206,11 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.ElementRef<typeof View> | React.ElementRef<typeof ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () =>
+        | React.ElementRef<typeof View>
+        | React.ElementRef<typeof ScrollViewComponent>
+        | null
+        | undefined;
 
     getScrollableNode: () => any;
 
@@ -4297,10 +4306,12 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      * )}
      * ```
      */
-    getItemLayout?: ((
-        data: SectionListData<ItemT, SectionT>[] | null,
-        index: number,
-    ) => { length: number; offset: number; index: number }) | undefined;
+    getItemLayout?:
+        | ((
+              data: SectionListData<ItemT, SectionT>[] | null,
+              index: number,
+          ) => { length: number; offset: number; index: number })
+        | undefined;
 
     /**
      * How many items to render in the initial batch
@@ -4343,11 +4354,9 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
      * as possible and then try again after more items have been rendered.
      */
-    onScrollToIndexFailed?: ((info: {
-        index: number;
-        highestMeasuredFrameIndex: number;
-        averageItemLength: number;
-    }) => void) | undefined;
+    onScrollToIndexFailed?:
+        | ((info: { index: number; highestMeasuredFrameIndex: number; averageItemLength: number }) => void)
+        | undefined;
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -4362,12 +4371,16 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null) | undefined;
+    renderSectionHeader?:
+        | ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null)
+        | undefined;
 
     /**
      * Rendered at the bottom of each section.
      */
-    renderSectionFooter?: ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null) | undefined;
+    renderSectionFooter?:
+        | ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null)
+        | undefined;
 
     /**
      * An array of objects with data for each section.
@@ -4458,7 +4471,12 @@ export interface SectionListStatic<ItemT, SectionT = DefaultSectionT>
 
 export class VirtualizedList<ItemT> extends React.Component<VirtualizedListProps<ItemT>> {
     scrollToEnd: (params?: { animated?: boolean | undefined }) => void;
-    scrollToIndex: (params: { animated?: boolean | undefined; index: number; viewOffset?: number | undefined; viewPosition?: number | undefined }) => void;
+    scrollToIndex: (params: {
+        animated?: boolean | undefined;
+        index: number;
+        viewOffset?: number | undefined;
+        viewPosition?: number | undefined;
+    }) => void;
     scrollToItem: (params: { animated?: boolean | undefined; item: ItemT; viewPosition?: number | undefined }) => void;
 
     /**
@@ -4535,14 +4553,16 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      */
     getItemCount?: ((data: any) => number) | undefined;
 
-    getItemLayout?: ((
-        data: any,
-        index: number,
-    ) => {
-        length: number;
-        offset: number;
-        index: number;
-    }) | undefined;
+    getItemLayout?:
+        | ((
+              data: any,
+              index: number,
+          ) => {
+              length: number;
+              offset: number;
+              index: number;
+          })
+        | undefined;
 
     horizontal?: boolean | null | undefined;
 
@@ -4594,17 +4614,18 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
      * as possible and then try again after more items have been rendered.
      */
-    onScrollToIndexFailed?: ((info: {
-        index: number;
-        highestMeasuredFrameIndex: number;
-        averageItemLength: number;
-    }) => void) | undefined;
+    onScrollToIndexFailed?:
+        | ((info: { index: number; highestMeasuredFrameIndex: number; averageItemLength: number }) => void)
+        | undefined;
 
     /**
      * Called when the viewability of rows changes, as defined by the
      * `viewabilityConfig` prop.
      */
-    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null | undefined;
+    onViewableItemsChanged?:
+        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | null
+        | undefined;
 
     /**
      * Set this when offset is needed for the loading indicator to show correctly.
@@ -4685,10 +4706,12 @@ export interface ListViewProps extends ScrollViewProps {
      * that have changed their visibility, with true indicating visible, and
      * false indicating the view has moved out of view.
      */
-    onChangeVisibleRows?: ((
-        visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
-        changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
-    ) => void) | undefined;
+    onChangeVisibleRows?:
+        | ((
+              visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
+              changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
+          ) => void)
+        | undefined;
 
     /**
      * Called when all rows have been rendered and the list has been scrolled
@@ -4771,11 +4794,9 @@ export interface ListViewProps extends ScrollViewProps {
      * but not the last row if there is a section header below.
      * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
      */
-    renderSeparator?: ((
-        sectionID: string | number,
-        rowID: string | number,
-        adjacentRowHighlighted?: boolean,
-    ) => React.ReactElement) | undefined;
+    renderSeparator?:
+        | ((sectionID: string | number, rowID: string | number, adjacentRowHighlighted?: boolean) => React.ReactElement)
+        | undefined;
 
     /**
      * How early to start rendering rows before they come on screen, in
@@ -4844,7 +4865,11 @@ export class ListView extends ListViewBase {
      *
      * See `ScrollView#scrollTo`.
      */
-    scrollTo: (y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }, x?: number, animated?: boolean) => void;
+    scrollTo: (
+        y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+        x?: number,
+        animated?: boolean,
+    ) => void;
 }
 
 interface MaskedViewIOSProps extends ViewProps {
@@ -4908,9 +4933,9 @@ export interface ModalPropsIOS {
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
      */
-    supportedOrientations?: Array<
-        'portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right'
-    > | undefined;
+    supportedOrientations?:
+        | Array<'portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right'>
+        | undefined;
 
     /**
      * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
@@ -6076,9 +6101,7 @@ export interface InteractionManagerStatic {
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
      */
-    runAfterInteractions(
-        task?: (() => any) | SimpleTask | PromiseTask,
-    ): {
+    runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
         then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>;
         done: (...args: any[]) => any;
         cancel: () => void;
@@ -6481,10 +6504,13 @@ export interface ScrollViewPropsIOS {
      * Occlusion, transforms, and other complexity won't be taken into account as to whether
      * content is "visible" or not.
      */
-    maintainVisibleContentPosition?: null | {
-        autoscrollToTopThreshold?: number | null | undefined;
-        minIndexForVisible: number;
-    } | undefined;
+    maintainVisibleContentPosition?:
+        | null
+        | {
+              autoscrollToTopThreshold?: number | null | undefined;
+              minIndexForVisible: number;
+          }
+        | undefined;
     /**
      * The maximum allowed zoom scale. The default value is 1.0.
      */
@@ -6734,7 +6760,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
 
     /**
      * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
-    */
+     */
     stickyHeaderHiddenOnScroll?: boolean;
 
     /**
@@ -6825,7 +6851,11 @@ export class ScrollView extends ScrollViewBase {
      * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollTo(y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }, x?: number, animated?: boolean): void;
+    scrollTo(
+        y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+        x?: number,
+        animated?: boolean,
+    ): void;
 
     /**
      * A helper function that scrolls to the end of the scrollview;
@@ -7185,7 +7215,10 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): EmitterSubscription;
+    addEventListener(
+        eventName: AccessibilityChangeEventName,
+        handler: AccessibilityChangeEventHandler,
+    ): EmitterSubscription;
     addEventListener(
         eventName: AccessibilityAnnouncementEventName,
         handler: AccessibilityAnnouncementFinishedEventHandler,
@@ -7412,18 +7445,18 @@ export interface BackHandlerStatic {
 export interface ButtonProps
     extends Pick<
         TouchableNativeFeedbackProps & TouchableOpacityProps,
-        | "accessibilityLabel"
-        | "accessibilityState"
-        | "hasTVPreferredFocus"
-        | "nextFocusDown"
-        | "nextFocusForward"
-        | "nextFocusLeft"
-        | "nextFocusRight"
-        | "nextFocusUp"
-        | "testID"
-        | "disabled"
-        | "onPress"
-        | "touchSoundDisabled"
+        | 'accessibilityLabel'
+        | 'accessibilityState'
+        | 'hasTVPreferredFocus'
+        | 'nextFocusDown'
+        | 'nextFocusForward'
+        | 'nextFocusLeft'
+        | 'nextFocusRight'
+        | 'nextFocusUp'
+        | 'testID'
+        | 'disabled'
+        | 'onPress'
+        | 'touchSoundDisabled'
     > {
     /**
      * Text to display inside the button. On Android the given title will be converted to the uppercased form.
@@ -7729,20 +7762,32 @@ export interface PanResponderGestureState {
  * @see documentation of GestureResponderHandlers
  */
 export interface PanResponderCallbacks {
-    onMoveShouldSetPanResponder?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
-    onStartShouldSetPanResponder?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
+    onMoveShouldSetPanResponder?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
+    onStartShouldSetPanResponder?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
     onPanResponderGrant?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderMove?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderRelease?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderTerminate?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
 
-    onMoveShouldSetPanResponderCapture?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
-    onStartShouldSetPanResponderCapture?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
+    onMoveShouldSetPanResponderCapture?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
+    onStartShouldSetPanResponderCapture?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
     onPanResponderReject?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderStart?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderEnd?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
-    onPanResponderTerminationRequest?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
-    onShouldBlockNativeResponder?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
+    onPanResponderTerminationRequest?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
+    onShouldBlockNativeResponder?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
 }
 
 export interface PanResponderInstance {
@@ -8474,9 +8519,7 @@ export interface UIManagerStatic {
         success: (item: string, index: number | undefined) => void,
     ): void;
 
-    getViewManagerConfig: (
-        name: string,
-    ) => {
+    getViewManagerConfig: (name: string) => {
         Commands: { [key: string]: number };
     };
 
@@ -8714,21 +8757,21 @@ export namespace Animated {
     }
 
     type RgbaValue = {
-        readonly r: number,
-        readonly g: number,
-        readonly b: number,
-        readonly a: number,
-      };
+        readonly r: number;
+        readonly g: number;
+        readonly b: number;
+        readonly a: number;
+    };
 
     type RgbaAnimatedValue = {
-        readonly r: AnimatedValue,
-        readonly g: AnimatedValue,
-        readonly b: AnimatedValue,
-        readonly a: AnimatedValue,
+        readonly r: AnimatedValue;
+        readonly g: AnimatedValue;
+        readonly b: AnimatedValue;
+        readonly a: AnimatedValue;
     };
 
     type AnimatedConfig = {
-        readonly useNativeDriver: boolean
+        readonly useNativeDriver: boolean;
     };
 
     class AnimatedColor extends AnimatedWithChildren {
@@ -8750,7 +8793,7 @@ export namespace Animated {
         resetAnimation: (callback: (value: ColorValue) => unknown) => void;
     }
 
-    class AnimatedInterpolation<OutputT extends number |string> extends AnimatedWithChildren {
+    class AnimatedInterpolation<OutputT extends number | string> extends AnimatedWithChildren {
         interpolate(config: InterpolationConfigType): AnimatedInterpolation<OutputT>;
     }
 
@@ -8934,7 +8977,14 @@ export namespace Animated {
     }
 
     interface SpringAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | RgbaValue | AnimatedColor | AnimatedInterpolation<number>;
+        toValue:
+            | number
+            | AnimatedValue
+            | { x: number; y: number }
+            | AnimatedValueXY
+            | RgbaValue
+            | AnimatedColor
+            | AnimatedInterpolation<number>;
         overshootClamping?: boolean | undefined;
         restDisplacementThreshold?: number | undefined;
         restSpeedThreshold?: number | undefined;
@@ -8963,7 +9013,7 @@ export namespace Animated {
      */
     export function add<OutputT extends number | string>(a: Animated, b: Animated): AnimatedAddition<OutputT>;
 
-    class AnimatedAddition<OutputT extends number|string> extends AnimatedInterpolation<OutputT> {}
+    class AnimatedAddition<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed by subtracting the second Animated
@@ -8971,7 +9021,7 @@ export namespace Animated {
      */
     export function subtract<OutputT extends number | string>(a: Animated, b: Animated): AnimatedSubtraction<OutputT>;
 
-    class AnimatedSubtraction<OutputT extends number|string> extends AnimatedInterpolation<OutputT> {}
+    class AnimatedSubtraction<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed by dividing the first Animated
@@ -8985,7 +9035,10 @@ export namespace Animated {
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
-    export function multiply<OutputT extends number | string>(a: Animated, b: Animated): AnimatedMultiplication<OutputT>;
+    export function multiply<OutputT extends number | string>(
+        a: Animated,
+        b: Animated,
+    ): AnimatedMultiplication<OutputT>;
 
     class AnimatedMultiplication<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
@@ -9006,7 +9059,11 @@ export namespace Animated {
      * This is useful with scroll events, for example, to show the navbar when
      * scrolling up and to hide it when scrolling down.
      */
-    export function diffClamp<OutputT extends number | string>(a: Animated, min: number, max: number): AnimatedDiffClamp<OutputT>;
+    export function diffClamp<OutputT extends number | string>(
+        a: Animated,
+        min: number,
+        max: number,
+    ): AnimatedDiffClamp<OutputT>;
 
     class AnimatedDiffClamp<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
@@ -9124,7 +9181,10 @@ export namespace Animated {
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T, options?: AnimatedComponentOptions): AnimatedComponent<T>;
+    export function createAnimatedComponent<T extends React.ComponentType<any>>(
+        component: T,
+        options?: AnimatedComponentOptions,
+    ): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
@@ -9237,13 +9297,13 @@ export interface ImageStoreStatic {
 //
 
 export interface TurboModule {
-    getConstants?(): {}
+    getConstants?(): {};
 }
 
 export const TurboModuleRegistry: {
     get<T extends TurboModule>(name: string): T | null;
     getEnforcing<T extends TurboModule>(name: string): T;
-}
+};
 
 //
 // Interfacing with Native Modules
