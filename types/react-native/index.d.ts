@@ -6045,18 +6045,6 @@ export interface Dimensions {
         type: 'change',
         handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
     ): EmitterSubscription;
-
-    /**
-     * Remove an event listener
-     * @deprecated Use `remove` on the EventSubscription from `addEventListener`.
-     *
-     * @param type the type of event
-     * @param handler the event handler
-     */
-    removeEventListener(
-        type: 'change',
-        handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
-    ): void;
 }
 
 export function useWindowDimensions(): ScaledSize;
