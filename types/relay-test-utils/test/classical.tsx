@@ -1,14 +1,15 @@
 import React from 'react';
-import { MockEnvironment, MockPayloadGenerator, createMockEnvironment, unwrapContainer } from 'relay-test-utils';
+import { MockPayloadGenerator, createMockEnvironment, unwrapContainer } from 'relay-test-utils';
 import { createFragmentContainer, graphql, QueryRenderer } from 'react-relay';
 
+// @ExpectType MockEnvironment
 const environment = createMockEnvironment();
 
 environment.mock.resolveMostRecentOperation(operation => {
-    MockPayloadGenerator.generate(operation);
+    return MockPayloadGenerator.generate(operation);
 });
 
-environment.mock.queuePendingOperation(graphql``, {foo: 'bar'});
+environment.mock.queuePendingOperation(graphql``, { foo: 'bar' });
 
 function Test() {
     return <div />;
@@ -36,5 +37,3 @@ function TestQueryRenderer() {
         />
     );
 }
-
-const mockEnvironment: MockEnvironment = createMockEnvironment();
