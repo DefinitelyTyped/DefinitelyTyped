@@ -713,11 +713,7 @@ declare namespace __MaterialUI {
         containerElement?: React.ReactNode | string | undefined;
     }
 
-    type ExcludeNull<T> ={
-        [P in keyof T]: Exclude<T[P], null>;
-    }
-
-    export interface EnhancedButtonProps extends ExcludeNull<React.HTMLAttributes<{}>>, SharedEnhancedButtonProps<EnhancedButton> {
+    export interface EnhancedButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<EnhancedButton> {
         // container element, <button/>, or <span/>(if disabled link) is the element that get the 'other' properties
         containerElement?: React.ReactNode | string | undefined;
         disabled?: boolean | undefined;
@@ -725,7 +721,7 @@ declare namespace __MaterialUI {
     export class EnhancedButton extends React.Component<EnhancedButtonProps> {
     }
 
-    export interface FlatButtonProps extends ExcludeNull<React.DOMAttributes<{}>>, SharedEnhancedButtonProps<FlatButton> {
+    export interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string | undefined;
         className?: string | undefined;
@@ -780,7 +776,7 @@ declare namespace __MaterialUI {
     export class RaisedButton extends React.Component<RaisedButtonProps> {
     }
 
-    export interface FloatingActionButtonProps extends ExcludeNull<React.HTMLAttributes<{}>>, SharedEnhancedButtonProps<FloatingActionButton> {
+    export interface FloatingActionButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<FloatingActionButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string | undefined;
         className?: string | undefined;
@@ -802,7 +798,7 @@ declare namespace __MaterialUI {
     export class FloatingActionButton extends React.Component<FloatingActionButtonProps> {
     }
 
-    export interface IconButtonProps extends ExcludeNull<React.HTMLAttributes<{}>>, SharedEnhancedButtonProps<IconButton> {
+    export interface IconButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<IconButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         className?: string | undefined;
         disableTouchRipple?: boolean | undefined;
