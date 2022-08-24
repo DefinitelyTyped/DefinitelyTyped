@@ -1,5 +1,5 @@
-import Client from "chromecast-api";
-import { MediaResource } from "chromecast-api/lib/device";
+import Client = require('chromecast-api');
+import { MediaResource } from 'chromecast-api/lib/device';
 
 const client = new Client();
 
@@ -11,7 +11,7 @@ client.devices;
 
 client.destroy();
 
-client.on("device", (device) => {
+client.on('device', (device) => {
     const testMedia: MediaResource = {
         url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4',
         subtitles: [

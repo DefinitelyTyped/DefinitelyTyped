@@ -1,12 +1,10 @@
-import { EventEmitter } from "events";
-import Device from "./device";
+import { EventEmitter } from 'events';
+import Device = require('./device');
 
 /**
  * Initialize the client to start searching for chromecast devices.
  */
-export default class Client extends EventEmitter {
-    constructor();
-
+declare class Client extends EventEmitter {
     /**
      * An array of all devices found by the client.
      */
@@ -15,7 +13,7 @@ export default class Client extends EventEmitter {
     /**
      * The device event is emitted each time a new device has been found.
      */
-    on(event: "device", listener: (d: Device) => void): this;
+    on(event: 'device', listener: (d: Device) => void): this;
 
     /**
      * Trigger the mDNS search again. Warning: the device event will trigger again (it might return the same device).
@@ -34,3 +32,5 @@ export default class Client extends EventEmitter {
 
     destroy(): void;
 }
+
+export = Client;
