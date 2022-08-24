@@ -22,7 +22,9 @@ import ComputedProperty from '@ember/object/computed';
  * of `Ember.CoreObject` with the `Ember.Observable` mixin applied. For details,
  * see the documentation for each of these.
  */
-export default class EmberObject extends CoreObject.extend(Observable) {}
+export default class EmberObject extends CoreObject {}
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface EmberObject extends Observable {}
 
 /**
  * This helper returns a new property descriptor that wraps the passed computed

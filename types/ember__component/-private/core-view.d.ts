@@ -8,4 +8,6 @@ import ActionHandler from '@ember/object/-private/action-handler';
  *
  * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
  */
-export default class CoreView extends EmberObject.extend(Evented, ActionHandler) {}
+export default class CoreView extends EmberObject {}
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface CoreView extends Evented, ActionHandler {}
