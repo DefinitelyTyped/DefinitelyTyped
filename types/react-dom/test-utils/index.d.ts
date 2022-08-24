@@ -281,23 +281,16 @@ export function createRenderer(): ShallowRenderer;
  * Wrap any code rendering and triggering updates to your components into `act()` calls.
  *
  * Ensures that the behavior in your tests matches what happens in the browser
- * more closely by executing pending `useEffect`s before returning. This also
- * reduces the amount of re-renders done.
+ * more closely by executing pending `useEffect`s before returning.
+ * 
+ * All `useEffect`s scheduled by the actions within the callback will be condensed into
+ * a single action, with only the latest values returned, to improve the efficiency of the test.
  *
- * @param callback A synchronous, void callback that will execute as a single, complete React commit.
+ * @param callback A synchronous or asyncronous callback that will execute as a single, complete React commit.
  *
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
  */
-// NOTES
-// - the order of these signatures matters - typescript will check the signatures in source order.
-//   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
-//   `strictNullChecks: false`.
-// - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
-declare const UNDEFINED_VOID_ONLY: unique symbol;
-// tslint:disable-next-line: void-return
-type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-export function act(callback: () => Promise<void>): Promise<undefined>;
-export function act(callback: () => VoidOrUndefinedOnly): void;
+export function act<T>(callback: () => Promise<T> | T): Promise<T>;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.
