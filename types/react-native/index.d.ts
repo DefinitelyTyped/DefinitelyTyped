@@ -208,13 +208,6 @@ declare class EventEmitter {
     removeAllListeners(eventType?: string): void;
 
     /**
-     * Removes a specific subscription. Called by the `remove()` method of the
-     * subscription itself to ensure any necessary cleanup is performed.
-     * @deprecated Use `remove` on the EventSubscription from `addListener`.
-     */
-    removeSubscription(subscription: EmitterSubscription): void;
-
-    /**
      * Returns the number of listeners that are currently registered for the given
      * event.
      *
