@@ -1370,7 +1370,7 @@ declare namespace React {
     }
 
     interface DOMAttributes<T> {
-        children?: ReactNode | undefined | null;
+        children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
             __html: string;
         } | undefined | null;
