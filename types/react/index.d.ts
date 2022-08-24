@@ -1722,7 +1722,19 @@ declare namespace React {
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions removals' | 'additions text' | 'all' | 'removals' | 'removals additions' | 'removals text' | 'text' | 'text additions' | 'text removals' | undefined | null;
+        'aria-relevant'?:
+            | 'additions'
+            | 'additions removals'
+            | 'additions text'
+            | 'all'
+            | 'removals'
+            | 'removals additions'
+            | 'removals text'
+            | 'text'
+            | 'text additions'
+            | 'text removals'
+            | undefined
+            | null;
         /** Indicates that user input is required on the element before a form may be submitted. */
         'aria-required'?: Booleanish | undefined | null;
         /** Defines a human-readable, author-localized description for the role of an element. */
