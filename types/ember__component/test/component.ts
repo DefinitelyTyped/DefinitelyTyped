@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component, { getComponentTemplate } from '@ember/component';
 import Object, { computed, get } from '@ember/object';
 import hbs from 'htmlbars-inline-precompile';
 import { assertType } from './lib/assert';
@@ -155,3 +155,9 @@ class SigExample extends Component<MySig> {
         return `${name} is ${age} years old`;
     }
 }
+
+// $ExpectType TemplateFactory | undefined
+getComponentTemplate(component1);
+
+// @ts-expect-error
+getComponentTemplate('foo');

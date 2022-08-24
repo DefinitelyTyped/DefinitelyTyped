@@ -38,6 +38,7 @@ ReactDOM.render(
         maxLength={64}
         inputValue="Some input value"
         inputFieldPosition="top"
+        inputProps={{ disabled: false }}
         renderSuggestion={({ id, text }: Tag, query: string) => console.log('tag' + id, text)}
         shouldRenderSuggestions={ q => q !== 'ignore_query' }
         name="react-tags-field"

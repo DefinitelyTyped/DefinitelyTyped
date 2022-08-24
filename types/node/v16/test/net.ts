@@ -44,7 +44,10 @@ import { Socket } from 'node:dgram';
 }
 
 {
-    let server = net.createServer();
+    let server = net.createServer({
+        keepAlive: true,
+        keepAliveInitialDelay: 1000
+    });
     // Check methods which return server instances by chaining calls
     server = server.listen(0)
         .close()
@@ -105,7 +108,9 @@ import { Socket } from 'node:dgram';
         lookup: (_hostname: string, _options: LookupOneOptions, _callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void): void => {
             // nothing
         },
-        port: 80
+        port: 80,
+        keepAlive: true,
+        keepAliveInitialDelay: 1000
     };
     _socket = _socket.connect(ipcConnectOpts);
     _socket = _socket.connect(ipcConnectOpts, (): void => {});

@@ -127,6 +127,8 @@ export class Node {
         whitespace: boolean;
         type: 'xml'|'html'|'xhtml'
     }): string;
+    text(): string;
+    text(newText: string): this;
 }
 
 export class Element extends Node {

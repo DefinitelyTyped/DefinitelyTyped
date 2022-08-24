@@ -8,7 +8,7 @@ import RouterService from "@ember/routing/router-service";
  * The `Ember.Router` class manages the application state and URLs. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Router extends EmberObject.extend(Evented) {
+export default class Router extends EmberObject {
     /**
      * The `Router.map` function allows you to define mappings from URLs to routes
      * in your application. These mappings are defined within the
@@ -35,6 +35,9 @@ export default class Router extends EmberObject.extend(Evented) {
     transitionTo(name: string, ...models: any[]): Transition;
     transitionTo(name: string, options: {}): Transition;
 }
+
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface Router extends Evented {}
 
 declare module '@ember/service' {
     interface Registry {

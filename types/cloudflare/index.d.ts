@@ -114,7 +114,14 @@ declare namespace Cloudflare {
         addMulti(
             account_id: string,
             namespace_id: string,
-            data: Array<{ pattern: string; script: string }>,
+            data: Array<{
+                key: string;
+                value: string;
+                expiration?: number;
+                expiration_ttl?: number;
+                metadata?: object;
+                base64?: boolean;
+            }>,
         ): ResponseObjectPromise;
         delMulti(account_id: string, namespace_id: string, data: string[]): ResponseObjectPromise;
     }

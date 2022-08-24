@@ -53,6 +53,7 @@ const htmlOptions: HtmlToTextOptions = {
                 linkBrackets: ['===> ', ' <==='],
                 hideLinkHrefIfSameAsText: true,
             },
+            format: "anchor",
         },
         h1: headerOptions,
         h3: {
@@ -207,6 +208,53 @@ console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
         {
             selector: "foo",
             format: 'fooFormatter',
+        },
+    ]
+}));
+
+console.log('Test with linkBrackets false');
+console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>", {
+    selectors: [
+        {
+            selector: "a",
+            options: { linkBrackets: false }
+        }
+    ]
+}));
+
+console.log('Test with custom linkBrackets');
+console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>", {
+    selectors: [
+        {
+            selector: "a",
+            options: { linkBrackets: ['@', '@'] }
+        }
+    ]
+}));
+
+console.log('Test without linkBrackets');
+console.log(htmlToText("<a href=\"https://github.com/DefinitelyTyped\">Link</a>", {
+    selectors: [
+        {
+            selector: "a",
+            options: { linkBrackets: undefined }
+        }
+    ]
+}));
+
+console.log('Test with user defined options that should be in output');
+console.log(htmlToText("<h1>Starting foo test</h1><foo>bar</foo>", {
+    formatters: {
+        fooFormatter: (elem, walk, builder, options) => {
+            builder.addInline(`beginning ${options.foo} fooFormatter: `, { noWordTransform: false });
+            walk(elem.children, builder);
+        }
+    },
+    selectors: [
+        {
+            selector: "foo",
+            format: 'fooFormatter',
+            options: { foo: "show-me" },
         },
     ]
 }));
