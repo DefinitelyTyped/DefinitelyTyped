@@ -1,10 +1,9 @@
 // @ts-check
-const { flatMap, mapDefined } = require('@definitelytyped/utils');
-const os = require('node:os');
-const path = require("path");
-const { writeFileSync, readFileSync, readdirSync, existsSync } = require('fs-extra');
-const hp = require("@definitelytyped/header-parser");
-const { Octokit } = require('@octokit/core');
+import { flatMap, mapDefined } from "@definitelytyped/utils";
+import * as os from "node:os";
+import { writeFileSync, readFileSync, readdirSync, existsSync } from "fs-extra";
+import hp from "@definitelytyped/header-parser";
+import { Octokit } from "@octokit/core";
 
 /**
  * @param {string} indexPath
@@ -44,14 +43,14 @@ function bust(indexPath, header, ghosts) {
 }
 
 /**
- * @param {string} dir
- * @param {(subpath: string) => void} fn
+ * @param {URL} dir
+ * @param {(subpath: URL) => void} fn
  */
 function recurse(dir, fn) {
     const entryPoints = readdirSync(dir, { withFileTypes: true })
     for (const subdir of entryPoints) {
         if (subdir.isDirectory() && subdir.name !== "node_modules") {
-            const subpath = path.join(dir, subdir.name);
+            const subpath = new URL(`${subdir.name}/`, dir);
             fn(subpath);
             recurse(subpath, fn);
         }
@@ -62,8 +61,8 @@ function getAllHeaders() {
     /** @type {Record<string, hp.Header & { raw: string }>} */
     const headers = {};
     console.log("Reading headers...");
-    recurse(path.join(__dirname, "../types"), subpath => {
-        const index = path.join(subpath, "index.d.ts");
+    recurse(new URL("../types/", import.meta.url), subpath => {
+        const index = new URL("index.d.ts", subpath);
         if (existsSync(index)) {
             const indexContent = readFileSync(index, "utf-8");
             let parsed;

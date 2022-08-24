@@ -1,5 +1,5 @@
-const fs = require('node:fs')
-const path = require('node:path');
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 for (const d of fs.readdirSync('./types')) {
     const dir = path.join('./types', d);
     const files = fs.readdirSync(dir);

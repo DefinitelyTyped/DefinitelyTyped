@@ -1,10 +1,8 @@
-/// <reference lib="esnext.asynciterable" />
-// Must reference esnext.asynciterable lib, since octokit uses AsyncIterable internally
-const cp = require('node:child_process');
-const os = require('node:os');
-const { AllPackages, getDefinitelyTyped, parseDefinitions, clean } = require('@definitelytyped/definitions-parser');
-const { loggerWithErrors } = require('@definitelytyped/utils');
-const { writeFile } = require('fs-extra');
+import * as cp from 'node:child_process';
+import * as os from 'node:os';
+import { AllPackages, getDefinitelyTyped, parseDefinitions, clean } from '@definitelytyped/definitions-parser';
+import { loggerWithErrors } from '@definitelytyped/utils';
+import { writeFile } from 'fs-extra';
 
 async function main() {
     const options = { definitelyTypedPath: '.', progress: false, parseInParallel: true };

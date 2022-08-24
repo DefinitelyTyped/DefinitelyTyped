@@ -14,15 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@adobe/*": [
-                "adobe__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "adobe__node-fetch-retry-tests.ts"
+        "parse-dds-tests.ts"
     ]
 }

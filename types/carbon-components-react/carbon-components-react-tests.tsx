@@ -1256,5 +1256,17 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
 // ComboBox
 //
 {
-    <ComboBox id="cbId" items={['item 1', 'item 2', 'item 3']} />;
+    const comboBoxWithMandatoryProps = <ComboBox id="cbId" items={['item 1', 'item 2', 'item 3']} />;
+    const comboBoxWithOptionalProps = (
+        <ComboBox
+            id="someId"
+            light={false}
+            items={['item 1', 'item 2', 'item 3']}
+            selectedItem={'item 1'}
+            placeholder={'filter...'}
+            titleText={'some title'}
+            invalid={false}
+            invalidText={'Please select one of the available items.'}
+        />
+    );
 }

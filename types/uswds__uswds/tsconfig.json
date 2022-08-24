@@ -7,21 +7,23 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "jasmine": [ "jasmine/v1" ]
-        },
         "types": [],
+        "paths": {
+            "@uswds/*": [
+                "uswds__*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "jasmine-node-tests.ts"
+        "uswds__uswds-tests.ts"
     ]
 }

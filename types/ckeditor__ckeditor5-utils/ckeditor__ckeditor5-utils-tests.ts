@@ -252,6 +252,12 @@ new Collection([{ name: '' }]).remove({ surname: '' });
 new Collection([{ name: '' }]).map(item => item.name);
 // $ExpectType number[]
 new Collection([{ name: '' }]).map((_, idx) => idx);
+new Collection().off("foo", (ev, ...args) => {
+    // $ExpectType EventInfo<Collection<Record<string, any>, "id">, "foo">
+    ev;
+    // $ExpectError any[]
+    args;
+});
 
 // collection#bindTo
 
