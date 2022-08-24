@@ -10,6 +10,6 @@
       "dt-header": "error",
       "no-dead-reference": "error",
       "no-const-enum": "error",
-      "no-useless-files": "error",
+      "no-useless-files": "error"
     }
 }
