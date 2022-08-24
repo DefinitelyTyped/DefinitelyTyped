@@ -129,8 +129,11 @@ declare namespace Button {
          */
         variant?: ButtonVariant | undefined;
     }
-    interface AnchorProps extends BaseProps, HTMLProps<HTMLAnchorElement> {}
-    interface ButtonProps extends BaseProps, HTMLProps<HTMLButtonElement> {
+    type ExcludeNull<T> ={
+        [P in keyof T]: Exclude<T[P], null>;
+    }
+    interface AnchorProps extends BaseProps, ExcludeNull<HTMLProps<HTMLAnchorElement>> {}
+    interface ButtonProps extends BaseProps, ExcludeNull<HTMLProps<HTMLButtonElement>> {
         href?: never | undefined;
     }
     type Props = AnchorProps | ButtonProps;
