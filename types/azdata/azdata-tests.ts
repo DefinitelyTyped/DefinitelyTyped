@@ -1,4 +1,5 @@
 import * as azdata from 'azdata';
+import * as vscode from 'vscode';
 
 azdata.dataprotocol.registerConnectionProvider({
     providerId: 'MyProvider',
@@ -84,3 +85,9 @@ const updateDisplayData: azdata.nb.IUpdateDisplayData = {
 const connectionResult: azdata.ConnectionResult = {
     connected: true
 };
+
+const disposable: vscode.Disposable = azdata.queryeditor.registerQueryEventListener({
+    onQueryEvent(type: azdata.queryeditor.QueryEventType, document: azdata.queryeditor.QueryDocument, args: azdata.ResultSetSummary | string | undefined) {
+        return;
+    }
+});
