@@ -5910,7 +5910,7 @@ interface PlatformIOSStatic extends PlatformStatic {
     };
     OS: 'ios';
     isPad: boolean;
-    isTVOS: boolean;
+    isTV: boolean;
     Version: string;
 }
 
