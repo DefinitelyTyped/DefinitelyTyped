@@ -811,7 +811,7 @@ async function typedThemes() {
         background: ${props => {
             // $ExpectType string
             props.theme.color;
-            // $ExpectType number | undefined
+            // $ExpectType number | null | undefined
             props.tabIndex;
             return props.theme.color;
         }};
@@ -819,7 +819,7 @@ async function typedThemes() {
     const ThemedDiv2 = styled.div(props => {
         // $ExpectType string
         props.theme.color;
-        // $ExpectType number | undefined
+        // $ExpectType number | null | undefined
         props.tabIndex;
 
         return {
@@ -829,7 +829,7 @@ async function typedThemes() {
     const ThemedDiv3 = styled.div(props => {
         // $ExpectType string
         props.theme.color;
-        // $ExpectType number | undefined
+        // $ExpectType number | null | undefined
         props.tabIndex;
 
         return css`
