@@ -132,7 +132,7 @@ function ShallowWrapperTest() {
     let buttonElement: HTMLButtonElement;
     let boolVal: boolean;
     let stringVal: string;
-    let numOrStringVal: number | string | undefined;
+    let numOrStringVal: number | string | undefined | null;
     let elementWrapper: ShallowWrapper<HTMLAttributes<{}>>;
     let anotherStatelessWrapper: ShallowWrapper<AnotherStatelessProps, never>;
     let anotherComponentWrapper: ShallowWrapper<AnotherComponentProps, any>;
