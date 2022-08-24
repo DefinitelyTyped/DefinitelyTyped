@@ -52,129 +52,130 @@ import * as dns from 'node:dns';
         foo: typeof foo;
     }
 
-    class MyServerResponse extends http.ServerResponse<MyIncomingMessage> {
+    class MyServerResponse<
+        Request extends http.IncomingMessage = http.IncomingMessage,
+    > extends http.ServerResponse<Request> {
         bar: typeof bar;
     }
 
     function reqListener(req: MyIncomingMessage, res: MyServerResponse): void {}
 
-    let server: http.Server<MyIncomingMessage, MyServerResponse> = new http.Server<MyIncomingMessage, MyServerResponse>();
-    server = new http.Server<MyIncomingMessage, MyServerResponse>((req, res) => {
+    let server = new http.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse });
+    server = new http.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse }, (req, res) => {
         foo = req.foo;
         bar = res.bar;
         foo = res.req.foo;
     });
-    server = http.createServer<MyIncomingMessage, MyServerResponse>(reqListener);
-    server = http.createServer<MyIncomingMessage, MyServerResponse>({}, reqListener);
+    server = new http.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse }, reqListener);
 
     server.addListener('checkContinue', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
     server.addListener('checkExpectation', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.addListener('connect', (req) => {
-       foo = req.foo;
+    server.addListener('connect', req => {
+        foo = req.foo;
     });
     server.addListener('request', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.addListener('upgrade', (req) => {
-       foo = req.foo;
+    server.addListener('upgrade', req => {
+        foo = req.foo;
     });
 
     server.on('checkContinue', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
     server.on('checkExpectation', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.on('connect', (req) => {
-       foo = req.foo;
+    server.on('connect', req => {
+        foo = req.foo;
     });
     server.on('request', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.on('upgrade', (req) => {
-       foo = req.foo;
+    server.on('upgrade', req => {
+        foo = req.foo;
     });
 
     server.once('checkContinue', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
     server.once('checkExpectation', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.once('connect', (req) => {
-       foo = req.foo;
+    server.once('connect', req => {
+        foo = req.foo;
     });
     server.once('request', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.once('upgrade', (req) => {
-       foo = req.foo;
+    server.once('upgrade', req => {
+        foo = req.foo;
     });
 
     server.prependListener('checkContinue', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
     server.prependListener('checkExpectation', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.prependListener('connect', (req) => {
-       foo = req.foo;
+    server.prependListener('connect', req => {
+        foo = req.foo;
     });
     server.prependListener('request', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.prependListener('upgrade', (req) => {
-       foo = req.foo;
+    server.prependListener('upgrade', req => {
+        foo = req.foo;
     });
 
     server.prependOnceListener('checkContinue', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
     server.prependOnceListener('checkExpectation', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.prependOnceListener('connect', (req) => {
-       foo = req.foo;
+    server.prependOnceListener('connect', req => {
+        foo = req.foo;
     });
     server.prependOnceListener('request', (req, res) => {
-       foo = req.foo;
-       bar = res.bar;
-       foo = res.req.foo;
+        foo = req.foo;
+        bar = res.bar;
+        foo = res.req.foo;
     });
-    server.prependOnceListener('upgrade', (req) => {
-       foo = req.foo;
+    server.prependOnceListener('upgrade', req => {
+        foo = req.foo;
     });
 }
 
