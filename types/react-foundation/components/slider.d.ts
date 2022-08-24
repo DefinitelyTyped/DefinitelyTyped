@@ -58,7 +58,7 @@ export interface SliderFillProps {
  */
 export declare const SliderFill: React.FunctionComponent<SliderFillProps>;
 export interface SliderCommonProps {
-    className?: string | undefined;
+    className?: string | undefined | null;
     isVertical?: boolean | undefined;
     isDisabled?: boolean | undefined;
 }

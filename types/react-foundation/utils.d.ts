@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types';
 import { Breakpoints, FloatTypes, HorizontalAlignments, VerticalAlignments, SpaceControls, ExtendedBreakpoints } from './enums';
 export interface ClassNameProps {
     noDefaultClassName?: string | undefined;
-    className?: string | undefined;
+    className?: string | undefined | null;
 }
 /**
  * Property types for general properties.
