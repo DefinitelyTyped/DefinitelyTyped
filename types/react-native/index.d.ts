@@ -237,21 +237,6 @@ declare class EventEmitter {
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
     emit(eventType: string, ...params: any[]): void;
-
-    /**
-     * Removes the given listener for event of specific type.
-     *
-     * @param eventType - Name of the event to emit
-     * @param listener - Function to invoke when the specified event is
-     *   emitted
-     *
-     * @example
-     *   emitter.removeListener('someEvent', function(message) {
-     *     console.log(message);
-     *   }); // removes the listener if already registered
-     * @deprecated Use `remove` on the EventSubscription from `addListener`.
-     */
-    removeListener(eventType: string, listener: (...args: any[]) => any): void;
 }
 
 /**
