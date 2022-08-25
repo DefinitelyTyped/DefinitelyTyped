@@ -17,7 +17,7 @@
 // TypeScript Version: 4.5
 // Nightwatch Version: 2.3.0
 
-import { WebElement, WebElementPromise, By, RelativeBy, Actions } from 'selenium-webdriver';
+import { WebElement, By, RelativeBy, Actions } from 'selenium-webdriver';
 import { Protocol } from 'devtools-protocol';
 
 export * from './globals';
