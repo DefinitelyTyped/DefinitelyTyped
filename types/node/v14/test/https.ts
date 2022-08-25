@@ -106,10 +106,7 @@ import * as dns from 'node:dns';
 
     function reqListener(req: MyIncomingMessage, res: MyServerResponse): void {}
 
-    let server = new https.Server<typeof MyIncomingMessage, typeof MyServerResponse>({
-        IncomingMessage: MyIncomingMessage,
-        ServerResponse: MyServerResponse,
-    });
+    let server = new https.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse });
     server = new https.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse }, (req, res) => {
         foo = req.foo;
         bar = res.bar;

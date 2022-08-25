@@ -7,7 +7,7 @@ declare module 'https' {
     type ServerOptions<
         Request extends typeof http.IncomingMessage = typeof http.IncomingMessage,
         Response extends typeof http.ServerResponse = typeof http.ServerResponse,
-    > = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions;
+    > = tls.SecureContextOptions & tls.TlsOptions & http.ServerOptions<Request, Response>;
 
     type RequestOptions = http.RequestOptions &
         tls.SecureContextOptions & {
