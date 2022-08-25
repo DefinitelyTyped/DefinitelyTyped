@@ -15157,31 +15157,31 @@ export interface EntityQueryOptions {
      * Excludes entities that match one or more of the specified
      * families.
      */
-    excludeFamilies: string[];
+    excludeFamilies?: string[];
     /**
      * Excludes entities if have a specific gamemode that matches
      * the specified gamemode.
      */
-    excludeGameModes: GameMode[];
+    excludeGameModes?: GameMode[];
     /**
      * Excludes entities that have a name that match one of the
      * specified values.
      */
-    excludeNames: string[];
+    excludeNames?: string[];
     /**
      * Excludes entities with a tag that matches one of the
      * specified values.
      */
-    excludeTags: string[];
+    excludeTags?: string[];
     /**
      * Excludes entities if they are one of the specified types.
      */
-    excludeTypes: string[];
+    excludeTypes?: string[];
     /**
      * If specified, includes entities that match all of the
      * specified families.
      */
-    families: string[];
+    families?: string[];
     /**
      * Limits the number of entities to return, opting for the
      * farthest N entities as specified by this property. The
@@ -15249,11 +15249,11 @@ export interface EntityQueryOptions {
      * Gets/sets a collection of EntityQueryScoreOptions objects
      * with filters for specific scoreboard objectives.
      */
-    scoreOptions: EntityQueryScoreOptions[];
+    scoreOptions?: EntityQueryScoreOptions[];
     /**
      * Includes entities that match all of the specified tags.
      */
-    tags: string[];
+    tags?: string[];
     /**
      * If defined, entities that match this type are included.
      */
