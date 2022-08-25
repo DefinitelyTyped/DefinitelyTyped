@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "wx-js-sdk-tests.ts"
+        "wx-js-sdk-tests-browser.ts"
     ]
 }
