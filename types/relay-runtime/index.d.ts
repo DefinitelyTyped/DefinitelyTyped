@@ -142,7 +142,7 @@ export { RelayReplaySubject as ReplaySubject } from './lib/util/RelayReplaySubje
 export * from './lib/util/RelayRuntimeTypes';
 
 // Core API
-export { default as Environment } from './lib/store/RelayModernEnvironment';
+export { default as Environment, EnvironmentConfig } from './lib/store/RelayModernEnvironment';
 export { RelayNetwork as Network } from './lib/network/RelayNetwork';
 export { RelayObservable as Observable } from './lib/network/RelayObservable';
 import QueryResponseCache from './lib/network/RelayQueryResponseCache';

@@ -77,6 +77,8 @@ declare namespace DOMPurify {
         RETURN_TRUSTED_TYPE?: boolean | undefined;
         SAFE_FOR_TEMPLATES?: boolean | undefined;
         SANITIZE_DOM?: boolean | undefined;
+        /** @default false */
+        SANITIZE_NAMED_PROPS?: boolean | undefined;
         USE_PROFILES?:
             | false
             | {
