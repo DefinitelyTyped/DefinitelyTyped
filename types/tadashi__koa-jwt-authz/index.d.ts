@@ -12,6 +12,6 @@ declare namespace koaJwtAuthz {
     }
 }
 
-declare function jwtAuthz(expectedScopes: ReadonlyArray<string>, options?: koaJwtAuthz.Options): Middleware;
+declare function jwtAuthz(expectedScopes: ReadonlyArray<string>, options?: Partial<koaJwtAuthz.Options>): Middleware;
 
 export default jwtAuthz;
