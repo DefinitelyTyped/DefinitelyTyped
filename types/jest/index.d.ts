@@ -563,13 +563,13 @@ declare namespace jest {
 
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
-    type MatcherUtils = import('expect').MatcherUtils;
+    type MatcherUtils = import('expect').MatcherUtils & { [other: string]: any };
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
     }
 
-    type MatcherContext = import('expect').MatcherContext & { [other: string]: any };
+    type MatcherContext = MatcherUtils & Readonly<MatcherState>;
     type CustomMatcher = (
         this: MatcherContext,
         received: any,
@@ -619,6 +619,7 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
+    type MatcherState = import('expect').MatcherState;
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -720,7 +721,7 @@ declare namespace jest {
         not: InverseAsymmetricMatchers;
 
         setState(state: object): void;
-        getState(): import('expect').MatcherState & Record<string, any>;
+        getState(): MatcherState & Record<string, any>;
     }
 
     type JestMatchers<T> = JestMatchersShape<Matchers<void, T>, Matchers<Promise<void>, T>>;
