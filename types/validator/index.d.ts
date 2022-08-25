@@ -1051,20 +1051,25 @@ declare namespace validator {
      */
 
     interface strongPasswordOptions {
-        minLength?: number | undefined;
-        minLowercase?: number | undefined;
-        minUppercase?: number | undefined;
-        minNumbers?: number | undefined;
-        minSymbols?: number | undefined;
-        returnScore?: boolean | undefined;
-        pointsPerUnique?: number | undefined;
-        pointsPerRepeat?: number | undefined;
-        pointsForContainingLower?: number | undefined;
-        pointsForContainingUpper?: number | undefined;
-        pointsForContainingNumber?: number | undefined;
-        pointsForContainingSymbol?: number | undefined;
+        minLength?: number;
+        minLowercase?: number;
+        minUppercase?: number;
+        minNumbers?: number;
+        minSymbols?: number;
+        returnScore?: boolean;
+        pointsPerUnique?: number;
+        pointsPerRepeat?: number;
+        pointsForContainingLower?: number;
+        pointsForContainingUpper?: number;
+        pointsForContainingNumber?: number;
+        pointsForContainingSymbol?: number;
     }
-    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
+    function isStrongPassword(
+        str: string,
+        options?: strongPasswordOptions & { returnScore: false | undefined },
+    ): boolean;
+    function isStrongPassword(str: string, options?: strongPasswordOptions & { returnScore: true }): number;
+
     /**
      * Check if the string contains any surrogate pairs chars.
      */
