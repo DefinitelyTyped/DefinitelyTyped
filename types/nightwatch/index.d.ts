@@ -1854,7 +1854,7 @@ export interface NightwatchAPI
         NightwatchApiCommands {
     baseURL: string;
     assert: NightwatchAssertions;
-    actions(options?: { async: boolean; bridge: boolean } | { async: boolean } | { bridge: boolean }): Actions;
+    actions(options?: { async?: boolean; bridge?: boolean }): Actions;
     expect: Expect;
     ensure: Ensure;
     verify: NightwatchAssertions;
