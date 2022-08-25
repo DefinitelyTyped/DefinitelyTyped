@@ -330,6 +330,11 @@ declare class BN {
     idivn(b: number): BN;
 
     /**
+     * @description division with remainder
+     */
+    divmod(b: BN, mode?: 'div' | 'mod', positive?: boolean): { div: BN; mod: BN };
+
+    /**
      * @description reduct
      */
     mod(b: BN): BN;
