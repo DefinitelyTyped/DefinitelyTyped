@@ -249,7 +249,7 @@ export interface FileStat extends stream.Readable, Fields {
     size: number;
 }
 
-export interface ReadEntry extends MiniPass, HeaderProperties {
+export interface ReadEntry extends MiniPass.default, HeaderProperties {
     /** The extended metadata object provided to the constructor. */
     extended: any;
     /** The global extended metadata object provided to the constructor. */
@@ -681,7 +681,7 @@ export type RequiredFileOptions = {
      * Alias for file.
      */
     f: string;
-}
+};
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -763,12 +763,11 @@ export const x: typeof extract;
  * are listed. If the archive is gzipped, then tar will detect this and unzip
  * it.
  */
-export function list(options: ListOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function list(options: ListOptions & RequiredFileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
 export function list(options: ListOptions & RequiredFileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
-export function list(callback: (err?: Error) => void): Parse;
-export function list(fileList: ReadonlyArray<string>, callback: (err?: Error) => void): Parse;
-export function list(options: ListOptions, callback: (err?: Error) => void): Parse;
-export function list(options: ListOptions, fileList: ReadonlyArray<string>, callback: (err?: Error) => void): Parse;
+export function list(callback?: (err?: Error) => void): Parse;
+export function list(optionsOrFileList: ListOptions | ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
+export function list(options: ListOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
 
 /**
  * Alias for list
