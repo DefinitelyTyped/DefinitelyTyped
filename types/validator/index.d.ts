@@ -1051,18 +1051,18 @@ declare namespace validator {
      */
 
     interface strongPasswordOptions {
-        minLength?: number;
-        minLowercase?: number;
-        minUppercase?: number;
-        minNumbers?: number;
-        minSymbols?: number;
-        returnScore?: boolean;
-        pointsPerUnique?: number;
-        pointsPerRepeat?: number;
-        pointsForContainingLower?: number;
-        pointsForContainingUpper?: number;
-        pointsForContainingNumber?: number;
-        pointsForContainingSymbol?: number;
+        minLength?: number | undefined;
+        minLowercase?: number | undefined;
+        minUppercase?: number | undefined;
+        minNumbers?: number | undefined;
+        minSymbols?: number | undefined;
+        returnScore?: boolean | undefined;
+        pointsPerUnique?: number | undefined;
+        pointsPerRepeat?: number | undefined;
+        pointsForContainingLower?: number | undefined;
+        pointsForContainingUpper?: number | undefined;
+        pointsForContainingNumber?: number | undefined;
+        pointsForContainingSymbol?: number | undefined;
     }
     function isStrongPassword(
         str: string,
