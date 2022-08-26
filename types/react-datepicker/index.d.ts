@@ -120,7 +120,7 @@ export interface ReactDatePickerProps<
     onBlur?(event: React.FocusEvent<HTMLInputElement>): void;
     onCalendarClose?(): void;
     onCalendarOpen?(): void;
-    onChange(
+    onChange?(
         date: WithRange extends false | undefined ? Date | null : [Date | null, Date | null],
         event: React.SyntheticEvent<any> | undefined,
     ): void;
