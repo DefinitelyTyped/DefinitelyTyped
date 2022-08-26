@@ -25,6 +25,7 @@
         "test/testExpect.ts",
         "test/testProgrammaticApi.ts",
         "test/react.tsx",
-        "test/testComponent.ts"
+        "test/testComponent.ts",
+        "test/testActions.ts"
     ]
 }

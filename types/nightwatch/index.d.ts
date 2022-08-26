@@ -17,7 +17,7 @@
 // TypeScript Version: 4.5
 // Nightwatch Version: 2.3.0
 
-import { WebElement, WebElementPromise, By, RelativeBy } from 'selenium-webdriver';
+import { WebElement, WebElementPromise, By, RelativeBy, Actions } from 'selenium-webdriver';
 import { Protocol } from 'devtools-protocol';
 
 export * from './globals';
@@ -1854,6 +1854,7 @@ export interface NightwatchAPI
         NightwatchApiCommands {
     baseURL: string;
     assert: NightwatchAssertions;
+    actions(options?: { async?: boolean; bridge?: boolean }): Actions;
     expect: Expect;
     ensure: Ensure;
     verify: NightwatchAssertions;
