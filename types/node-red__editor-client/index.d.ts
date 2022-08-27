@@ -59,7 +59,6 @@ declare namespace editorClient {
         | 'id'
         | 'info'
         | 'inputLabels'
-        | 'inputs'
         | 'outputLabels'
         | 'ports'
         | 'selected'
