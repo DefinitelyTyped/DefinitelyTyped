@@ -49,6 +49,7 @@ declare namespace editorClient {
      */
     interface NodeProperties {
         name?: string | undefined;
+        inputs?: 0 | 1 | undefined;
     }
 
     /** Reserved name for properties that MUST NOT BE USED. */
