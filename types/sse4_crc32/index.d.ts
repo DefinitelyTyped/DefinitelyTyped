@@ -26,7 +26,7 @@ export function fromStream(stream: ReadStream, crc?: number): Crc32CStream;
 export function calculate(buf: Buffer | string, initial?: number): number;
 
 // only available when NODE_ENV='production'
-export type hardware_support = boolean;
+export const hardware_support: boolean;
 /**
  * Calculates CRC-32C for the specified string/buffer using SSE 4.2 extensions
  * @param buf Buffer object or string
