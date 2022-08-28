@@ -16,14 +16,6 @@ const StyledView = styled.View`
     background-color: papayawhip;
 `;
 
-const StyledViewWrapped = styled(ReactNative.View)`
-    background-color: red;
-`;
-
-const StyledViewAsObject = styled(ReactNative.View)({
-    backgroundColor: 'red',
-});
-
 const StyledText = styled(ReactNative.Text)`
     color: palevioletred;
 `;
@@ -31,28 +23,9 @@ const StyledText = styled(ReactNative.Text)`
 class MyReactNativeComponent extends React.Component {
     render() {
         return (
-            <>
-                <StyledView
-                    // just any react-native props to make sure is available through styled-components
-                    accessibilityRole="text"
-                >
-                    <StyledText>Hello World!</StyledText>
-                </StyledView>
-
-                <StyledViewWrapped
-                    // just any react-native props to make sure is available through styled-components
-                    accessibilityRole="text"
-                >
-                    <StyledText>Hello World!</StyledText>
-                </StyledViewWrapped>
-
-                <StyledViewAsObject
-                    // just any react-native props to make sure is available through styled-components
-                    accessibilityRole="text"
-                >
-                    <StyledText>Hello World!</StyledText>
-                </StyledViewAsObject>
-            </>
+            <StyledView>
+                <StyledText>Hello World!</StyledText>
+            </StyledView>
         );
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for styled-components-react-native 6.0
+// Type definitions for styled-components-react-native 5.1
 // Project: https://github.com/styled-components/styled-components
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
@@ -62,25 +62,22 @@ declare module "styled-components/native" {
         ActivityIndicator: ReactNativeThemedStyledFunction<typeof ReactNative.ActivityIndicator, T>;
         ActivityIndicatorIOS: ReactNativeThemedStyledFunction<typeof ReactNative.ActivityIndicator, T>;
         Button: ReactNativeThemedStyledFunction<typeof ReactNative.Button, T>;
-        /** @deprecated */
         DatePickerIOS: ReactNativeThemedStyledFunction<typeof ReactNative.DatePickerIOS, T>;
         DrawerLayoutAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.DrawerLayoutAndroid, T>;
         Image: ReactNativeThemedStyledFunction<typeof ReactNative.Image, T>;
         ImageBackground: ReactNativeThemedStyledFunction<typeof ReactNative.ImageBackground, T>;
         KeyboardAvoidingView: ReactNativeThemedStyledFunction<typeof ReactNative.KeyboardAvoidingView, T>;
-        /** @deprecated */
         ListView: ReactNativeThemedStyledFunction<typeof ReactNative.ListView, T>;
         Modal: ReactNativeThemedStyledFunction<typeof ReactNative.Modal, T>;
         NavigatorIOS: ReactNativeThemedStyledFunction<typeof ReactNative.NavigatorIOS, T>;
+        Picker: ReactNativeThemedStyledFunction<typeof ReactNative.Picker, T>;
+        PickerIOS: ReactNativeThemedStyledFunction<typeof ReactNative.PickerIOS, T>;
         Pressable: ReactNativeThemedStyledFunction<typeof ReactNative.Pressable, T>;
-        /** @deprecated */
         ProgressBarAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.ProgressBarAndroid, T>;
-        /** @deprecated */
         ProgressViewIOS: ReactNativeThemedStyledFunction<typeof ReactNative.ProgressViewIOS, T>;
         ScrollView: ReactNativeThemedStyledFunction<typeof ReactNative.ScrollView, T>;
-        /** @deprecated */
+        SegmentedControlIOS: ReactNativeThemedStyledFunction<typeof ReactNative.SegmentedControlIOS, T>;
         Slider: ReactNativeThemedStyledFunction<typeof ReactNative.Slider, T>;
-        /** @deprecated */
         SliderIOS: ReactNativeThemedStyledFunction<typeof ReactNative.Slider, T>;
         SnapshotViewIOS: ReactNativeThemedStyledFunction<typeof ReactNative.SnapshotViewIOS, T>;
         Switch: ReactNativeThemedStyledFunction<typeof ReactNative.Switch, T>;
@@ -91,12 +88,9 @@ declare module "styled-components/native" {
         RefreshControl: ReactNativeThemedStyledFunction<typeof ReactNative.RefreshControl, T>;
         SafeAreaView: ReactNativeThemedStyledFunction<typeof ReactNative.SafeAreaView, T>;
         StatusBar: ReactNativeThemedStyledFunction<typeof ReactNative.StatusBar, T>;
-        /** @deprecated */
         SwipeableListView: ReactNativeThemedStyledFunction<typeof ReactNative.SwipeableListView, T>;
         SwitchAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.Switch, T>;
-        /** @deprecated */
         SwitchIOS: ReactNativeThemedStyledFunction<typeof ReactNative.SwitchIOS, T>;
-        /** @deprecated */
         TabBarIOS: ReactNativeThemedStyledFunction<typeof ReactNative.TabBarIOS, T>;
         Text: ReactNativeThemedStyledFunction<typeof ReactNative.Text, T>;
         TextInput: ReactNativeThemedStyledFunction<typeof ReactNative.TextInput, T>;
@@ -105,7 +99,6 @@ declare module "styled-components/native" {
         TouchableOpacity: ReactNativeThemedStyledFunction<typeof ReactNative.TouchableOpacity, T>;
         TouchableWithoutFeedback: ReactNativeThemedStyledFunction<typeof ReactNative.TouchableWithoutFeedback, T>;
         View: ReactNativeThemedStyledFunction<typeof ReactNative.View, T>;
-        /** @deprecated */
         ViewPagerAndroid: ReactNativeThemedStyledFunction<typeof ReactNative.ViewPagerAndroid, T>;
         FlatList: ReactNativeThemedStyledFunction<typeof ReactNative.FlatList, T>;
         SectionList: ReactNativeThemedStyledFunction<typeof ReactNative.SectionList, T>;
