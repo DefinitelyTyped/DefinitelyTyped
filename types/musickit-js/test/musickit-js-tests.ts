@@ -57,6 +57,25 @@ const test = async () => {
         // $ExpectType string | undefined
         artistUrl,
     } = attributes;
+
+    // $ExpectType Resource[]
+    const recentlyAddedResources = await player.api.library.recentlyAdded();
+
+    const {
+        // $ExpectType Array<{chart: string; data: Array<Albums>; href?: string; name: string; next?: string; }>
+        albums: chartAlbums,
+        // $ExpectType Array<{chart: string; data: Array<MusicVideos>; href?: string; name: string; next?: string; }>
+        "music-videos": chartMusicVideos,
+        // $ExpectType Array<{chart: string; data: Array<Artists>; href?: string; name: string; next?: string; }>
+        playlists: chartPlaylists,
+        // $ExpectType Array<{chart: string; data: Array<Songs>; href?: string; name: string; next?: string; }>
+        songs: chartSongs,
+    } = await player.api.charts([
+        "albums",
+        "music-videos",
+        "playlists",
+        "songs",
+    ]);
 };
 
 player.addEventListener("playbackStateDidChange", ({ oldState, state }) => ({ oldState, state }));
