@@ -17,14 +17,11 @@
             "react-native": [
                 "react-native/v0.65"
             ],
-            "react-native/*": [
-                "react-native/v0.65/*"
-            ],
             "react": [
                 "react/v17"
             ],
-            "react/*": [
-                "react/v17/*"
+            "styled-components-react-native": [
+                "styled-components-react-native/v5.1"
             ]
         },
         "types": [],

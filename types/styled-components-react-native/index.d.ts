@@ -1,8 +1,9 @@
-// Type definitions for styled-components-react-native 6.0
+// Type definitions for styled-components-react-native 5.3
 // Project: https://github.com/styled-components/styled-components
 // Definitions by: Nathan Bierema <https://github.com/Methuselah96>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.8
 
 // tslint:disable-next-line:no-single-declare-module
 declare module 'styled-components/native' {
