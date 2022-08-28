@@ -62,20 +62,41 @@ const test = async () => {
     const recentlyAddedResources = await player.api.library.recentlyAdded();
 
     const {
-        // $ExpectType Array<{chart: string; data: Array<Albums>; href?: string; name: string; next?: string; }>
+        // $ExpectType SearchChartResult<Albums>[]
         albums: chartAlbums,
-        // $ExpectType Array<{chart: string; data: Array<MusicVideos>; href?: string; name: string; next?: string; }>
-        "music-videos": chartMusicVideos,
-        // $ExpectType Array<{chart: string; data: Array<Artists>; href?: string; name: string; next?: string; }>
+        // $ExpectType SearchChartResult<MusicVideos>[]
+        'music-videos': chartMusicVideos,
+        // $ExpectType SearchChartResult<Playlists>[]
         playlists: chartPlaylists,
-        // $ExpectType Array<{chart: string; data: Array<Songs>; href?: string; name: string; next?: string; }>
+        // $ExpectType SearchChartResult<Songs>[]
         songs: chartSongs,
-    } = await player.api.charts([
-        "albums",
-        "music-videos",
-        "playlists",
-        "songs",
-    ]);
+    } = await player.api.charts(['albums', 'music-videos', 'playlists', 'songs']);
+
+    const {
+        // $ExpectType SearchResult<Activities> | undefined
+        activities: searchActivities,
+        // $ExpectType SearchResult<Albums> | undefined
+        albums: searchAlbums,
+        // $ExpectType SearchResult<Artists> | undefined
+        artists: searchArtists,
+        // $ExpectType SearchResult<Curators> | undefined
+        curators: searchCurators,
+        // $ExpectType SearchResult<MusicVideos> | undefined
+        'music-videos': searchMusicVideos,
+        // $ExpectType SearchResult<Playlists> | undefined
+        playlists: searchPlaylists,
+        // $ExpectType SearchResult<RecordLabels> | undefined
+        'record-labels': searchRecordLabels,
+        // $ExpectType SearchResult<Stations> | undefined
+        stations: searchStations,
+        // $ExpectType SearchResult<Songs> | undefined
+        songs: searchSongs,
+    } = await player.api.search('james+brown');
+
+    const {
+        // $ExpectType string[]
+        terms: searchHintsTerms,
+    } = await player.api.searchHints('james+brown');
 };
 
 player.addEventListener("playbackStateDidChange", ({ oldState, state }) => ({ oldState, state }));
