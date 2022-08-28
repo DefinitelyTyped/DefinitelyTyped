@@ -3,10 +3,10 @@
 // Definitions by: naeemy <https://github.com/naeemy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace injectpromise;
-
 /**
  * Make a function accepting a callback return a Promise
  * @param scope - object scope
  */
-export default function injectpromise(scope: any): (func: (...args: any) => any, ...args: any) => Promise<any>;
+declare function injectpromise(scope: any): (func: (...args: any) => any, ...args: any) => Promise<any>;
+
+export = injectpromise;
