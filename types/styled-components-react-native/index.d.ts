@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // tslint:disable-next-line:no-single-declare-module
-declare module "styled-components/native" {
-    import * as ReactNative from "react-native";
-    import * as React from "react";
+declare module 'styled-components/native' {
+    import * as ReactNative from 'react-native';
+    import * as React from 'react';
 
     export {
         css,
@@ -19,7 +19,7 @@ declare module "styled-components/native" {
         ThemeProvider,
         withTheme,
         useTheme,
-    } from "styled-components";
+    } from 'styled-components';
 
     import {
         AnyStyledComponent,
@@ -32,14 +32,14 @@ declare module "styled-components/native" {
         ThemedStyledFunction,
         ThemeProviderComponent,
         WithThemeFnInterface,
-    } from "styled-components";
+    } from 'styled-components';
 
     type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;
 
     export type ReactNativeThemedStyledFunction<
         C extends React.ComponentType<any>,
-        T extends object
-        > = ThemedStyledFunction<C, T>;
+        T extends object,
+    > = ThemedStyledFunction<C, T>;
 
     // Copied over from "ThemedBaseStyledInterface" in index.d.ts in order to remove DOM element typings
     interface ReactNativeThemedBaseStyledInterface<T extends object> {
@@ -52,7 +52,7 @@ declare module "styled-components/native" {
         <C extends React.ComponentType<any>>(
             // unfortunately using a conditional type to validate that it can receive a `theme?: Theme`
             // causes tests to fail in TS 3.1
-            component: C
+            component: C,
         ): ThemedStyledFunction<C, T>;
     }
 
