@@ -3,6 +3,7 @@
 // Definitions by: snaveevans <https://github.com/snaveevans>
 //                 doniyor2109 <https://github.com/doniyor2109>
 //                 jleider <https://github.com/jleider>
+//                 sysix <https://github.com/sysix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -11,7 +12,7 @@ import flatpickr from "flatpickr";
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
-export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'children' | 'value'> {
+export interface DateTimePickerProps extends Omit<React.ComponentPropsWithoutRef<'input'>, 'children' | 'value' | 'onChange'> {
     defaultValue?: string | undefined;
     options?: flatpickr.Options.Options | undefined;
     onChange?: flatpickr.Options.Hook | undefined;
