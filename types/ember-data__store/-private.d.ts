@@ -1,3 +1,3 @@
 import DS from 'ember-data';
 
-export import Snapshot = DS.Snapshot;
+export const Snapshot: typeof DS.Snapshot;
