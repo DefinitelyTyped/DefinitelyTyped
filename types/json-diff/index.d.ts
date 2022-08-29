@@ -11,6 +11,8 @@ export interface DiffOptions {
     full?: boolean;
     sort?: boolean;
     outputKeys?: string[];
+    keepUnchangedValues?: boolean;
+    outputNewOnly?: boolean;
 }
 export interface DiffStringOptions extends DiffOptions {
     color?: boolean;
