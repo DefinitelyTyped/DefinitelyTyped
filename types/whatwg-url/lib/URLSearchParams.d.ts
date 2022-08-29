@@ -1,6 +1,5 @@
-import { Options as WebIDLConversionOptions } from "webidl-conversions";
-import { URLSearchParams } from "../index";
-import { implementation as URLSearchParamsImpl } from "./URLSearchParams-impl";
+import { URLSearchParams } from '../index';
+import { implementation as URLSearchParamsImpl } from './URLSearchParams-impl';
 
 /**
  * Checks whether `obj` is a `URLSearchParams` object with an implementation
@@ -19,7 +18,13 @@ export function isImpl(obj: unknown): obj is URLSearchParamsImpl;
  *
  * @throws {TypeError} If `obj` is not a `URLSearchParams` wrapper instance provided by this package.
  */
-export function convert(obj: unknown, options?: WebIDLConversionOptions): URLSearchParamsImpl;
+export function convert(globalObject: object, obj: unknown, { context }?: { context: string }): URLSearchParamsImpl;
+
+export function createDefaultIterator<TIteratorKind extends 'key' | 'value' | 'key+value'>(
+    globalObject: object,
+    target: URLSearchParamsImpl,
+    kind: TIteratorKind,
+): IterableIterator<TIteratorKind extends 'key' | 'value' ? string : [name: string, value: string]>;
 
 /**
  * Creates a new `URLSearchParams` instance.
@@ -31,10 +36,7 @@ export function convert(obj: unknown, options?: WebIDLConversionOptions): URLSea
 export function create(
     globalObject: object,
     constructorArgs?: readonly [
-        init:
-            | ReadonlyArray<[name: string, value: string]>
-            | { readonly [name: string]: string }
-            | string,
+        init: ReadonlyArray<[name: string, value: string]> | { readonly [name: string]: string } | string,
     ],
     privateData?: { doNotStripQMark?: boolean | undefined },
 ): URLSearchParams;
@@ -49,10 +51,7 @@ export function create(
 export function createImpl(
     globalObject: object,
     constructorArgs?: readonly [
-        init:
-            | ReadonlyArray<[name: string, value: string]>
-            | { readonly [name: string]: string }
-            | string,
+        init: ReadonlyArray<[name: string, value: string]> | { readonly [name: string]: string } | string,
     ],
     privateData?: { doNotStripQMark?: boolean | undefined },
 ): URLSearchParamsImpl;
@@ -66,10 +65,7 @@ export function setup<T extends URLSearchParams>(
     obj: T,
     globalObject: object,
     constructorArgs?: readonly [
-        init:
-            | ReadonlyArray<[name: string, value: string]>
-            | { readonly [name: string]: string }
-            | string,
+        init: ReadonlyArray<[name: string, value: string]> | { readonly [name: string]: string } | string,
     ],
     privateData?: { doNotStripQMark?: boolean | undefined },
 ): T;
@@ -80,7 +76,12 @@ export function setup<T extends URLSearchParams>(
  * Useful when implementing specifications that initialize objects
  * in different ways than their constructors do.
  */
-declare function _new(globalObject: object): URLSearchParamsImpl;
+declare function _new(
+    globalObject: object,
+    newTarget?: new (
+        init: ReadonlyArray<[name: string, value: string]> | { readonly [name: string]: string } | string,
+    ) => URLSearchParams,
+): URLSearchParamsImpl;
 export { _new as new };
 
 /**
