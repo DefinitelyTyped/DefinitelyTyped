@@ -240,6 +240,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // dashicon
 //
 <C.Dashicon icon="editor-code" size={50} />;
+<C.Dashicon icon="calculator" />;
 
 //
 // date-time
