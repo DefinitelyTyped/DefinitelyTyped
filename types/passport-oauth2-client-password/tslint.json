@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "import-spacing": false,
         "interface-name": false,
         "member-access": false,

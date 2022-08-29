@@ -5137,8 +5137,9 @@ export interface BookingStaffMember extends BookingStaffMemberBase {
      */
     emailAddress?: NullableOption<string>;
     /**
-     * The role of the staff member in the business. Possible values are: guest, administrator, viewer, externalGuest and
-     * unknownFutureValue. Required.
+     * The role of the staff member in the business. Possible values are: guest, administrator, viewer, externalGuest,
+     * unknownFutureValue, scheduler and member. Note that you must use the Prefer: include-unknown-enum-members request
+     * header to get the following value(s) in this evolvable enum: scheduler, member. Required.
      */
     role?: BookingStaffRole;
     // The time zone of the staff member. For a list of possible values, see dateTimeTimeZone.
@@ -5437,7 +5438,7 @@ export interface Group extends DirectoryObject {
      */
     allowExternalSenders?: NullableOption<boolean>;
     /**
-     * Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set this
+     * Indicates if new members added to the group will be auto-subscribed to receive email notifications. You can set ,this
      * property in a PATCH request for the group; do not set it in the initial POST request that creates the group. Default
      * value is false. Returned only on $select. Supported only on the Get group API (GET /groups/{ID}).
      */
@@ -6273,8 +6274,8 @@ export interface AdministrativeUnit extends DirectoryObject {
      */
     displayName?: NullableOption<string>;
     /**
-     * Controls whether the administrative unit and its members are hidden or public. Can be set to HiddenMembership. If not
-     * set (value is null), the default behavior is public. When set to HiddenMembership, only members of the administrative
+     * Controls whether the administrative unit and its members are hidden or public. Can be set to HiddenMembership or
+     * Public. If not set, the default behavior is Public. When set to HiddenMembership, only members of the administrative
      * unit can list other members of the administrative unit.
      */
     visibility?: NullableOption<string>;
@@ -14677,6 +14678,30 @@ export interface SoftwareOathAuthenticationMethod extends AuthenticationMethod {
     // The secret key of the method. Always returns null.
     secretKey?: NullableOption<string>;
 }
+export interface PasswordAuthenticationMethod extends AuthenticationMethod {
+    createdDateTime?: NullableOption<string>;
+    // For security, the password is always returned as null from a LIST or GET operation.
+    password?: NullableOption<string>;
+}
+export interface PhoneAuthenticationMethod extends AuthenticationMethod {
+    /**
+     * The phone number to text or call for authentication. Phone numbers use the format '+&amp;lt;country code&amp;gt;
+     * &amp;lt;number&amp;gt;x&amp;lt;extension&amp;gt;', with extension optional. For example, +1 5555551234 or +1
+     * 5555551234x123 are valid. Numbers are rejected when creating/updating if they do not match the required format.
+     */
+    phoneNumber?: NullableOption<string>;
+    // The type of this phone. Possible values are: mobile, alternateMobile, or office.
+    phoneType?: NullableOption<AuthenticationPhoneType>;
+    /**
+     * Whether a phone is ready to be used for SMS sign-in or not. Possible values are: notSupported, notAllowedByPolicy,
+     * notEnabled, phoneNumberNotUnique, ready, or notConfigured, unknownFutureValue.
+     */
+    smsSignInState?: NullableOption<AuthenticationMethodSignInState>;
+}
+export interface SoftwareOathAuthenticationMethod extends AuthenticationMethod {
+    // The secret key of the method. Always returns null.
+    secretKey?: NullableOption<string>;
+}
 export interface TemporaryAccessPassAuthenticationMethod extends AuthenticationMethod {
     // The date and time when the Temporary Access Pass was created.
     createdDateTime?: NullableOption<string>;
@@ -16315,7 +16340,7 @@ export interface AlternativeSecurityId {
     type?: NullableOption<number>;
 }
 export interface PreAuthorizedApplication {
-    // The unique identifier for the application.
+    // The unique identifier for the client application.
     appId?: NullableOption<string>;
     // The unique identifier for the oauth2PermissionScopes the application requires.
     delegatedPermissionIds?: string[];
@@ -21139,8 +21164,8 @@ export interface ParticipantInfo {
      */
     countryCode?: NullableOption<string>;
     /**
-     * The type of endpoint the participant is using. Possible values are: default, skypeForBusiness, or
-     * skypeForBusinessVoipPhone. Read-only.
+     * The type of endpoint the participant is using. Possible values are: default, voicemail, skypeForBusiness,
+     * skypeForBusinessVoipPhone and unknownFutureValue. Read-only.
      */
     endpointType?: NullableOption<EndpointType>;
     // The identitySet associated with this participant. Read-only.
@@ -22761,7 +22786,7 @@ export namespace CallRecords {
         wasMediaBypassed?: NullableOption<boolean>;
     }
     interface TraceRouteHop {
-        // The network path count of this hop that was used to compute the RTT.
+        // The network path count of this hop that was used to compute the round-trip time.
         hopCount?: NullableOption<number>;
         // IP address used for this hop in the network trace.
         ipAddress?: NullableOption<string>;

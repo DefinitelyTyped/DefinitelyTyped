@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 62.0
+// Type definitions for @nginstack/engine 63.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -35,6 +35,7 @@
 /// <reference path="lib/array/split.d.ts" />
 /// <reference path="lib/array/splitIntoChunks.d.ts" />
 /// <reference path="lib/barcode/Barcode.d.ts" />
+/// <reference path="lib/barcode/QRCode.d.ts" />
 /// <reference path="lib/classdef/AfterPersistEvent.d.ts" />
 /// <reference path="lib/classdef/BeforePersistEvent.d.ts" />
 /// <reference path="lib/classdef/ClassDef.d.ts" />

@@ -1,4 +1,4 @@
-// Type definitions for UglifyJS 3.16
+// Type definitions for UglifyJS 3.17
 // Project: https://github.com/mishoo/UglifyJS
 // Definitions by: Alan Agius <https://github.com/alan-agius4>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
@@ -413,6 +413,11 @@ export interface MinifyOptions {
      * @default {}
      */
     compress?: false | CompressOptions | undefined;
+    /**
+     * Parse as a single expression, e.g. JSON.
+     * @default false
+     */
+    expression?: boolean | undefined;
     /**
      * Pass `false` to skip mangling names,
      * or pass an object to specify mangle options (see below).

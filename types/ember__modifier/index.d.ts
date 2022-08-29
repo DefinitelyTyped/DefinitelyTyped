@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
+import Owner from '@ember/owner';
 import { Opaque } from 'ember/-private/type-utils';
 
 // In normal TypeScript, this modifier is essentially an opaque token
@@ -30,7 +31,7 @@ export const on: OnModifier;
  * @param modifier The modifier definition to associate with the manager.
  */
 export function setModifierManager<T>(
-  factory: (owner: unknown) => unknown,
+  factory: (owner: Owner) => unknown,
   modifier: T
 ): T;
 

@@ -1,6 +1,6 @@
-import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from '../..';
-import Choice from './choice';
-import Separator from './separator';
+import { AllChoiceMap, Answers, KeyUnion, UnionToIntersection } from '../../index.js';
+import Choice from './choice.js';
+import Separator from './separator.js';
 
 /**
  * Represents a valid choice for the {@link Choices `Choices<T>`} class.

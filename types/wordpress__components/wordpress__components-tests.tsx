@@ -783,6 +783,17 @@ const kbshortcuts = {
     ]}
     onChange={size => console.log(size)}
 />;
+<C.SelectControl
+    label="Size"
+    value={['50%']}
+    multiple
+    options={[
+        { label: 'Big', value: '100%', disabled: true },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
+    onChange={size => console.log(size)}
+/>;
 
 //
 // snackbar

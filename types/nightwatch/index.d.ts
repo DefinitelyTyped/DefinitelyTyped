@@ -17,7 +17,7 @@
 // TypeScript Version: 4.5
 // Nightwatch Version: 2.3.0
 
-import { WebElement, WebElementPromise, By, RelativeBy } from 'selenium-webdriver';
+import { WebElement, WebElementPromise, By, RelativeBy, Actions } from 'selenium-webdriver';
 import { Protocol } from 'devtools-protocol';
 
 export * from './globals';
@@ -114,9 +114,9 @@ export interface ChromeOptions {
 //  TODO: visit later
 export interface NightwatchDesiredCapabilities {
     /**
-     * The name of the browser being used; should be one of {android|chrome|firefox|htmlunit|internet explorer|iPhone|iPad|opera|safari}.
+     * The name of the browser being used; examples: {chrome|firefox|safari|edge|internet explorer|android|iPhone|iPad|opera|brave}.
      */
-    browserName?: string | undefined;
+    browserName?: string | null;
 
     /**
      * The browser version, or the empty string if unknown.
@@ -1047,13 +1047,13 @@ export interface Expect {
     /**
      * Expect assertions operating on a single element, specified by its CSS/Xpath selector.
      */
-    element(property: string | Element | RelativeBy): ExpectElement;
+    element(property: Definition): ExpectElement;
 
     /**
      * Expect assertions operating on a collection of elements, specified by a CSS/Xpath selector.
      * So far only .count is available.
      */
-    elements(property: string | Element | RelativeBy): ExpectElements;
+    elements(property: Definition): ExpectElements;
 
     /**
      * Retrieves the page title value in order to be used for performing equal, match or contains assertions on it.
@@ -1831,9 +1831,9 @@ export type NightwatchPage = {
 };
 
 export interface NightwatchApiCommands {
-    get WEBDRIVER_ELEMENT_ID(): string;
-    get browserName(): string;
-    get platformName(): string;
+    readonly WEBDRIVER_ELEMENT_ID: string;
+    readonly browserName: string;
+    readonly platformName: string;
     __isBrowserName(browser: string, alternateName: string): boolean;
     __isPlatformName(platform: string): boolean;
     isIOS(): boolean;
@@ -1854,6 +1854,7 @@ export interface NightwatchAPI
         NightwatchApiCommands {
     baseURL: string;
     assert: NightwatchAssertions;
+    actions(options?: { async?: boolean; bridge?: boolean }): Actions;
     expect: Expect;
     ensure: Ensure;
     verify: NightwatchAssertions;
@@ -1991,26 +1992,142 @@ export class DescribeInstance {
     '[instance]': any;
     '[attributes]': {};
     '[client]': NightwatchClient;
-    name(): string;
-    tags(): string | string[];
-    unitTest(): boolean;
-    endSessionOnFail(): boolean;
-    skipTestcasesOnFail(): boolean;
-    disabled(): boolean;
-    desiredCapabilities(): NightwatchDesiredCapabilities;
-    page(): any;
-    globals(): NightwatchGlobals;
-    settings(): NightwatchOptions;
-    argv(): any;
+
+    /**
+     * Title of the describe suite.
+     */
+    get name(): string;
+
+    /**
+     * Get or set tags for the test suite.
+     *
+     * @see https://nightwatchjs.org/guide/running-tests/filtering-by-test-tags.html
+     */
+    get tags(): string | string[];
+    set tags(value: string | string[]);
+
+    /**
+     * Enable if the current test is a unit/integration test
+     * (no webdriver session is required).
+     */
+    get unitTest(): boolean;
+    set unitTest(value: boolean);
+
+    /**
+     * Set to false if you'd like the browser window to be kept open
+     * in case of a failure or error (useful for debugging).
+     */
+    get endSessionOnFail(): boolean;
+    set endSessionOnFail(value: boolean);
+
+    /**
+     * Set to false if you'd like the rest of the test cases/test steps
+     * to be executed in the event of an assertion failure/error.
+     */
+    get skipTestcasesOnFail(): boolean;
+    set skipTestcasesOnFail(value: boolean);
+
+    /**
+     * Set to true if you'd like this test suite to be skipped by the
+     * test runner.
+     */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+
+    /**
+     * Get or set testsuite specific capabilities.
+     */
+    get desiredCapabilities(): NightwatchDesiredCapabilities;
+    set desiredCapabilities(value: NightwatchDesiredCapabilities);
+
+    /**
+     * Get available page objects.
+     */
+    get page(): NightwatchAPI['page'];
+
+    /**
+     * Get all current globals.
+     */
+    get globals(): NightwatchGlobals;
+
+    /**
+     * Get all current settings.
+     */
+    get settings(): NightwatchOptions;
+
+    /**
+     * Get all current cli arguments.
+     */
+    get argv(): {[key: string]: any};
+
+    /**
+     * Get all current mocha options.
+     */
+    get mochaOptions(): {[key: string]: any} | undefined;
+
+    /**
+     * Control the unit test timeout.
+     *
+     * Control the assertion and element commands timeout until when
+     * an element should be located or assertion passed.
+     *
+     * @param value Timeout in `ms`
+     */
     timeout(value: number): void;
-    waitForTimeout(value: number): number | void;
-    waitForRetryInterval(value: number): number | void;
+
+    /**
+     * Get the assertion and element commands timeout until when
+     * an element would be located or assertion passed.
+     *
+     * @return Timeout in `ms`
+     */
+    waitForTimeout(): number;
+
+    /**
+     * Control the assertion and element commands timeout until when
+     * an element should be located or assertion passed.
+     *
+     * @param value Timeout in `ms`
+     */
+    waitForTimeout(value: number): void;
+
+    /**
+     * Get the polling interval between re-tries for assertions
+     * or element commands.
+     *
+     * @return Time interval in `ms`
+     */
+    waitForRetryInterval(): number;
+
+    /**
+     * Control the polling interval between re-tries for assertions
+     * or element commands.
+     *
+     * @param value Time interval in `ms`
+     */
+    waitForRetryInterval(value: number): void;
+
+    /**
+     * Control the polling interval between re-tries for assertions
+     * or element commands.
+     *
+     * @param value Time interval in `ms`
+     */
     retryInterval(value: number): void;
-    retries(n: any): void;
-    suiteRetries(n: any): void;
-    define(name: any, value: any): any;
-    [key: string]: any;
+
+    /**
+     * How many time to retry a failed testcase inside this test suite
+     */
+    retries(n: number): void;
+
+    /**
+     * How many times to retry the current test suite in case of an
+     * assertion failure or error
+     */
+    suiteRetries(n: number): void;
 }
+
+export type ExtendDescribeThis<T> = DescribeInstance & {[P in keyof T]?: T[P]};
 
 interface SuiteFunction {
     (title: string, fn?: (this: DescribeInstance) => void): this;

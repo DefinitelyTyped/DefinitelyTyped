@@ -11,7 +11,7 @@
 このセクションではレポジトリと公開プロセスの稼働状況を追跡できます。
 PR やパッケージに何か不具合がある場合は、これらが役に立つかもしれません。
 
-* 直近のビルドの[型チェックと Lint](https://github.com/Microsoft/dtslint) が正常終了したか: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* 直近のビルドの[型チェックと Lint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) が正常終了したか: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 次バージョンの TypeScript 上で全パッケージの型チェックと Lint が正常終了したか: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * 1時間以内に全パッケージが [npm に公開](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)されているか: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * Definitely Typed 上で [typescript-bot](https://github.com/typescript-bot) がアクティブかどうか: [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -186,7 +186,7 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 `npm test <テストしたいパッケージ名>`（`<テストしたいパッケージ名>`をパッケージ名に置き換える）を実行して、変更をテストしてください。
 
-このスクリプトは [dtslint](https://github.com/microsoft/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
+このスクリプトは [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) を使用して、 dts ファイルに対し TypeScript コンパイラを実行しています。
 
 #### Naming
 
@@ -242,7 +242,7 @@ f(1);
 f("one");
 ```
 
-詳しくは、 [dtslint](https://github.com/Microsoft/dtslint#write-tests) の README を参照してください。
+詳しくは、 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) の README を参照してください。
 
 #### Linter: `tslint.json`
 
