@@ -13,5 +13,5 @@ sse42_crc('123', 1);
 // $ExpectType number
 table_crc('123', 1);
 
-// $ExpectType boolean
+// $ExpectType boolean | undefined
 hardware_support;
