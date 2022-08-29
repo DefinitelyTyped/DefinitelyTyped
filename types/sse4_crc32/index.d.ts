@@ -15,27 +15,27 @@ export class Crc32CStream extends Writable {
 /**
  *
  * @param stream Readable stream object
- * @param crc Non-zero integer value
+ * @param [crc] Non-zero integer value
  */
 export function fromStream(stream: ReadStream, crc?: number): Crc32CStream;
 /**
  *
  * @param buf Buffer object or string
- * @param initial Non-zero integer value
+ * @param [initial] Non-zero integer value
  */
 export function calculate(buf: Buffer | string, initial?: number): number;
 
 // only available when NODE_ENV='production'
-export const hardware_support: boolean;
+export const hardware_support: boolean | undefined;
 /**
  * Calculates CRC-32C for the specified string/buffer using SSE 4.2 extensions
  * @param buf Buffer object or string
- * @param initial Non-zero integer value
+ * @param [initial] Non-zero integer value
  */
 export function sse42_crc(buf: Buffer | string, initial?: number): number;
 /**
  * Calculates CRC-32C for the specified string/buffer using table-lookups
  * @param buf Buffer object or string
- * @param initial Non-zero integer value
+ * @param [initial] Non-zero integer value
  */
 export function table_crc(buf: Buffer | string, initial?: number): number;
