@@ -1,8 +1,8 @@
-// Type definitions for react-native-modal-dropdown 1.0.2
+// Type definitions for react-native-modal-dropdown 1.0
 // Project: https://github.com/siemiatj/react-native-modal-dropdown
 // Definitions by: Carlos Li <https://github.com/echoulen>, Stefan Schweiger <https://github.com/stefan-schweiger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.0
 
 import * as React from 'react';
 import { StyleProp, TextStyle, ViewProps, ViewStyle, Constructor, NativeMethodsMixin } from 'react-native';
