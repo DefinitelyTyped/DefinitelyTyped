@@ -82,10 +82,10 @@ type FilterConstructorsByScope<T extends AnyConstructors, S> = {
  * "flattens" the tuple into an union type
  */
 type ConstructorUnion<T extends AnyConstructors> =
-    | (T['a'] extends undefined ? never : T['a'])
-    | (T['b'] extends undefined ? never : T['b'])
-    | (T['c'] extends undefined ? never : T['c'])
-    | (T['d'] extends undefined ? never : T['d']);
+    | Exclude<T['a'], undefined>
+    | Exclude<T['b'], undefined>
+    | Exclude<T['c'], undefined>
+    | Exclude<T['d'], undefined>;
 
 /**
  * Extract list of possible scopes - union of the first paramter
