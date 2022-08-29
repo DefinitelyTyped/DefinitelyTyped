@@ -57,7 +57,7 @@ export type APIGatewayProxyCallbackV2 = Callback<APIGatewayProxyResultV2>;
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
-export type APIGatewayProxyEvent = APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>;
+export type APIGatewayProxyEvent<TBody extends Record<string, unknown> = {}> = APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext, TBody>;
 
 export type APIGatewayProxyWithLambdaAuthorizerHandler<TAuthorizerContext> =
     Handler<APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext>, APIGatewayProxyResult>;
@@ -66,7 +66,7 @@ export type APIGatewayProxyWithCognitoAuthorizerHandler =
     Handler<APIGatewayProxyWithCognitoAuthorizerEvent, APIGatewayProxyResult>;
 
 export type APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext> =
-    APIGatewayProxyEventBase<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>>;
+    APIGatewayProxyEventBase<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>, {}>;
 
 export type APIGatewayProxyWithLambdaAuthorizerEventRequestContext<TAuthorizerContext> =
     APIGatewayEventRequestContextWithAuthorizer<APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext>>;
@@ -80,7 +80,7 @@ export type APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext> = {
     integrationLatency: number;
 };
 
-export type APIGatewayProxyWithCognitoAuthorizerEvent = APIGatewayProxyEventBase<APIGatewayProxyCognitoAuthorizer>;
+export type APIGatewayProxyWithCognitoAuthorizerEvent = APIGatewayProxyEventBase<APIGatewayProxyCognitoAuthorizer, {}>;
 
 // All claims are coerced into strings.
 export interface APIGatewayProxyCognitoAuthorizer {
@@ -113,8 +113,8 @@ export interface APIGatewayProxyEventStageVariables {
     [name: string]: string | undefined;
 }
 
-export interface APIGatewayProxyEventBase<TAuthorizerContext> {
-    body: string | null;
+export interface APIGatewayProxyEventBase<TAuthorizerContext, TBody extends Record<string, unknown>> {
+    body: TBody | Record<string, unknown>;
     headers: APIGatewayProxyEventHeaders;
     multiValueHeaders: APIGatewayProxyEventMultiValueHeaders;
     httpMethod: string;
