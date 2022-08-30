@@ -103,11 +103,23 @@ declare module 'https' {
         emit(event: 'connection', socket: Duplex): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
-        emit(event: 'checkContinue', req: InstanceType<Request>, res: Response): boolean;
-        emit(event: 'checkExpectation', req: InstanceType<Request>, res: Response): boolean;
+        emit(
+            event: 'checkContinue',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
+        emit(
+            event: 'checkExpectation',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
         emit(event: 'clientError', err: Error, socket: Duplex): boolean;
         emit(event: 'connect', req: InstanceType<Request>, socket: Duplex, head: Buffer): boolean;
-        emit(event: 'request', req: InstanceType<Request>, res: Response): boolean;
+        emit(
+            event: 'request',
+            req: InstanceType<Request>,
+            res: InstanceType<Response> & { req: InstanceType<Request> },
+        ): boolean;
         emit(event: 'upgrade', req: InstanceType<Request>, socket: Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
