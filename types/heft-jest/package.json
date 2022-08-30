@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "jest-mock": "^29.0.0"
+    }
+}
