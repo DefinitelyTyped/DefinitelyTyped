@@ -5,10 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
-/// <reference types="jest"/>
+import { Matchers } from 'expect';
 
-declare namespace jest {
-    interface Expect {
+// tslint:disable-next-line: no-single-declare-module
+declare module 'expect' {
+    interface BaseExpect {
         /**
          * The `expect` function is used every time you want to test a value.
          * You will rarely call `expect` by itself.
@@ -16,6 +17,6 @@ declare namespace jest {
          * @param actual The value to apply matchers against.
          * @param message Clarification message
          */
-        <T = any>(actual: T, message: string): JestMatchers<T>;
+        (actual: any, message: string): Matchers<void>;
     }
 }

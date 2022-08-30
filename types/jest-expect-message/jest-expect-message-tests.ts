@@ -1,6 +1,3 @@
-import 'jest';
-import 'jest-expect-message';
+import { expect } from 'expect';
 
-declare const expect: jest.Expect;
-
-expect(2, "Two is always two").toBe(2);
+expect(2, 'Two is always two').toBe(2);
