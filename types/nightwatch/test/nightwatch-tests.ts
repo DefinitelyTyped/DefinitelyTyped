@@ -285,11 +285,12 @@ const testPage = {
             .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
             .assert.not.titleContains('DuckDuckGo')
-            // @ts-expect-error
-            .assert.not.not.elementPresent('@searchbar')
             .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
+
+        // @ts-expect-error
+        google.assert.not.not.elementPresent('@searchbar');
 
         browser.end();
     },
