@@ -1,8 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "expect": "^29.0.0",
-        "pretty-format": "^29.0.0"
+        "@jest/globals": "^29.0.0"
     },
     "exports": {
         ".": {
