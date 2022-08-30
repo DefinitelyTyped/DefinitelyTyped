@@ -7,7 +7,7 @@
 // TypeScript Version: 2.8
 
 export interface CachingConfig {
-    ttl: number | TtlFunction;
+    ttl?: number | TtlFunction;
 }
 
 export interface TtlFunction {

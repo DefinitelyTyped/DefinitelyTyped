@@ -1,5 +1,10 @@
 import * as cacheManager from 'cache-manager'
 
+// Args should all be optional
+const memoryCacheWithNoArgs: cacheManager.Cache = cacheManager.caching({
+    store: 'memory',
+});
+
 const memoryCache: cacheManager.Cache = cacheManager.caching({
     store: 'memory',
     max: 20,
