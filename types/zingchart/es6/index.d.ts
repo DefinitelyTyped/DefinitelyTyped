@@ -4786,8 +4786,8 @@ declare namespace zingchart {
     /**
      * Bar Charts and Bullet Charts Only: Sets the width of each bar. "10" | "10%" | "10px"
      */
-    'bar-width'?: number;
-    barWidth?: number;
+    'bar-width'?: any;
+    barWidth?: any;
     /**
      * Bar Charts and Bullet Charts Only: Defines how much the bars in each plot index should overlap. "10" | "10%" | "10px"
      */
@@ -15737,8 +15737,12 @@ declare namespace zingchart {
     scaleV?: scaleV;
     'scale-x'?: scaleX;
     scaleX?: scaleX;
+    [key: `scale-x-${number}`]: scaleX;
+    [key: `scaleX${number}`]: scaleX;
     'scale-y'?: scaleY;
     scaleY?: scaleY;
+    [key: `scale-y-${number}`]: scaleY;
+    [key: `scaleY${number}`]: scaleY;
     scale?: {
       /**
        * To modify the size of the chart. Provide a value in relation to 1.0 or 100%. 0.3 | 0.9 | "30%" | "90%" | ...
@@ -18185,8 +18189,8 @@ declare namespace zingchart {
     /**
      * Bar Charts and Bullet Charts Only: Sets the width of each bar. "10" | "10%" | "10px"
      */
-    'bar-width'?: number;
-    barWidth?: number;
+    'bar-width'?: any;
+    barWidth?: any;
     /**
      * Bar Charts and Bullet Charts Only: Defines how much the bars in each plot index should overlap. "10" | "10%" | "10px"
      */
