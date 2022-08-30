@@ -18,7 +18,10 @@ export type FontAwesome5IconVariants = keyof Omit<typeof FA5Style, "regular">;
 
 export type FontAwesome5IconProps = { [K in FontAwesome5IconVariants]?: boolean } & IconProps;
 
-export type FontAwesome5IconButtonProps = { [K in FontAwesome5IconVariants]?: boolean } & IconButtonProps;
+export class FontAwesome5IconButton extends Component<
+    { [K in FontAwesome5IconVariants]?: boolean } & IconButtonProps,
+    any
+> {}
 
 export default class FontAwesome5Icon extends Component<
     FontAwesome5IconProps,
@@ -40,5 +43,5 @@ export default class FontAwesome5Icon extends Component<
     static hasIcon(name: string): boolean;
     static TabBarItem: typeof Icon.TabBarItem;
     static TabBarItemIOS: typeof Icon.TabBarItemIOS;
-    static Button: typeof Component<FontAwesome5IconButtonProps, any>;
+    static Button: typeof FontAwesome5IconButton;
 }
