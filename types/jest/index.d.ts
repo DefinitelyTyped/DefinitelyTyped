@@ -1,4 +1,4 @@
-// Type definitions for Jest 28.1
+// Type definitions for Jest 29.0
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -563,21 +563,7 @@ declare namespace jest {
 
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
-    type MatcherUtils = Pick<
-        import('expect').MatcherState,
-        | 'isNot'
-        | 'dontThrow'
-        | 'promise'
-        | 'assertionCalls'
-        | 'expectedAssertionsNumber'
-        | 'isExpectingAssertions'
-        | 'suppressedErrors'
-        | 'expand'
-        | 'testPath'
-        | 'currentTestName'
-        | 'utils'
-        | 'equals'
-    > & { [other: string]: any };
+    type MatcherUtils = import('expect').MatcherUtils & { [other: string]: any };
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
@@ -633,16 +619,7 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-    type MatcherState = Pick<
-        import('expect').MatcherState,
-        | 'assertionCalls'
-        | 'currentTestName'
-        | 'expand'
-        | 'expectedAssertionsNumber'
-        | 'isExpectingAssertions'
-        | 'suppressedErrors'
-        | 'testPath'
-    >;
+    type MatcherState = import('expect').MatcherState;
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.

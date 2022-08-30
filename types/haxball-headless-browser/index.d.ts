@@ -1,4 +1,4 @@
-// Type definitions for non-npm package haxball-headless-browser 0.1
+// Type definitions for non-npm package haxball-headless-browser 0.2
 // Project: https://github.com/haxball/haxball-issues/wiki/Headless-Host
 // Definitions by: Jakub Juszko <https://github.com/jakjus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -44,9 +44,9 @@ declare class RoomObject {
     sendAnnouncement(msg: string, targetId?: number, color?: number, style?: string, sound?: number): void;
     setKickRateLimit(min: number, rate: number, burst: number): void;
     setPlayerAvatar(playerId: number, avatar: string): void;
-    setDiscProperties(discIndex: number, properties: DiscPropertiesObject): void;
+    setDiscProperties(discIndex: number, properties: Partial<DiscPropertiesObject>): void;
     getDiscProperties(discIndex: number): DiscPropertiesObject;
-    setPlayerDiscProperties(playerId: number, properties: DiscPropertiesObject): void;
+    setPlayerDiscProperties(playerId: number, properties: Partial<DiscPropertiesObject>): void;
     getPlayerDiscProperties(playerId: number): DiscPropertiesObject;
     getDiscCount(): number;
     CollisionFlags: CollisionFlagsObject;
@@ -107,4 +107,18 @@ declare class DiscPropertiesObject {
     cGroup: number;
 }
 
-type CollisionFlagsObject = "ball" | "red" | "blue" | "redKO" | "blueKO" | "wall" | "all" | "kick" | "score" | "c0" | "c1" | "c2" | "c3" | "c4";
+interface CollisionFlagsObject {
+    "ball": number;
+    "red": number;
+    "blue": number;
+    "redKO": number;
+    "blueKO": number;
+    "wall": number;
+    "all": number;
+    "kick": number;
+    "score": number;
+    "c0": number;
+    "c1": number;
+    "c2": number;
+    "c3": number;
+}

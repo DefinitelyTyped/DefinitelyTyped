@@ -284,9 +284,13 @@ const testPage = {
             .assert.title('Google') // deprecated
             .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .assert.not.titleContains('DuckDuckGo')
             .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
+
+        // @ts-expect-error
+        google.assert.not.not.elementPresent('@searchbar');
 
         browser.end();
     },
@@ -296,7 +300,7 @@ const testPage = {
         iFrame.navigate();
         const frame = await browser.findElement(iFrame.elements.iframe);
         console.log(frame.getId());
-        browser.frame(frame);
+        browser.frame(frame.getId());
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();

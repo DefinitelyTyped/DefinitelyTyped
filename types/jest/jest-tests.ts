@@ -817,9 +817,9 @@ expectState.testPath;
 expectState.expand;
 // $ExpectType number
 expectState.assertionCalls;
-// $ExpectType number | null | undefined
+// $ExpectType number | null
 expectState.expectedAssertionsNumber;
-// $ExpectType boolean | undefined
+// $ExpectType boolean
 expectState.isExpectingAssertions;
 // $ExpectType Error[]
 expectState.suppressedErrors;
@@ -936,7 +936,7 @@ expect.extend({
 
 expect.extend({
     foo(this: jest.MatcherContext) {
-        const isNot: boolean = this.isNot;
+        const isNot: boolean | undefined = this.isNot;
         const expand: boolean | undefined = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
@@ -980,7 +980,7 @@ expect.extend({
 
         const equals: boolean = this.equals({}, {});
 
-        this.dontThrow!();
+        this.dontThrow();
         this.fromState;
         const currentTestName: string | undefined = this.currentTestName;
         const testPath: string | undefined = this.testPath;
