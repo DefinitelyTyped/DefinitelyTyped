@@ -1,4 +1,5 @@
-// These examples are adapted from Woosmap Map JS Developers Documentation (https://developers.woosmap.com/products/map-api/get-started/)
+// These examples are adapted from Woosmap Map JS Developers Documentation
+// https://developers.woosmap.com/products/map-api/get-started/
 
 /**
  * Display a Map
@@ -22,7 +23,7 @@ const mapOptions = expectType({
 }) as woosmap.map.MapOptions;
 const map = new woosmap.map.Map(document.getElementById('mapContainer') as HTMLElement, mapOptions);
 
-// $ExpectType LatLngBounds | null
+// $ExpectType LatLngBounds
 const bounds = map.getBounds({left: 100});
 // $ExpectType number
 const heading = map.getHeading();

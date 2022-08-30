@@ -99,6 +99,11 @@ declare namespace woosmap.map {
 declare namespace woosmap.map.data {
     class Feature {
         /**
+         * Constructs a new Data.Feature
+         */
+        constructor(featureData: woosmap.map.FeatureData | woosmap.map.GeoJSONFeature);
+
+        /**
          * Returns the feature geometry.
          */
         getGeometry(): woosmap.map.GeometryCollectionElement | woosmap.map.Data.GeometryCollection;
@@ -247,7 +252,7 @@ declare namespace woosmap.map.Data {
         /**
          * Constructs a Polygon, using a set of linear ring.
          */
-        constructor();
+        constructor(elements: woosmap.map.Data.LinearRing[] | woosmap.map.LatLng[][] | woosmap.map.LatLngLiteral[][] | woosmap.map.Coordinates[][]);
 
         /**
          * Returns the n-th LinearRing of the Polygon.
@@ -332,6 +337,8 @@ declare namespace woosmap.map.Data {
 }
 declare namespace woosmap.map {
     class DirectionsRenderer extends woosmap.map.MVCObject {
+        constructor(options: woosmap.map.DirectionsRendererOptions);
+
         /**
          * Sets the map where to render the directions.
          */
@@ -354,7 +361,7 @@ declare namespace woosmap.map {
         /**
          * Issue a directions search request.
          */
-        route(request: woosmap.map.DirectionRequest, callback: (result: woosmap.map.DirectionResult, status: woosmap.map.DirectionStatus) => void): void;
+        route(request: woosmap.map.DirectionRequest, callback: (result: woosmap.map.DirectionResult, status: string) => any): void;
     }
 }
 declare namespace woosmap.map {
@@ -556,7 +563,7 @@ declare namespace woosmap.map {
          * Creates a `LatLng` object representing a geographic point.Latitude is specified in degrees within the range [-90, 90].Longitude is specified in degrees within the range [-180, 180].Set `noWrap` to `true` to enable values outside of this range.
          * Note the ordering of latitude and longitude.
          */
-        constructor(lat: number | Function, lng: number | Function, noWrap?: boolean);
+        constructor(lat: number | (() => number), lng: number | (() => number));
 
         /**
          * Returns the latitude in degrees.
@@ -576,6 +583,8 @@ declare namespace woosmap.map {
          * Converts to JSON representation. This function is intended to be used via `JSON.stringify`.
          */
         toJSON(): woosmap.map.LatLngLiteral;
+
+        toString(): string;
     }
 }
 declare namespace woosmap.map {
@@ -632,6 +641,11 @@ declare namespace woosmap.map {
          * Creates a Point object
          */
         constructor(x: number, y: number);
+
+        /**
+         * Indicates whether some other object is "equal to" this one.
+         */
+        equals(other: woosmap.map.Point): boolean;
     }
 }
 declare namespace woosmap.map {
@@ -640,14 +654,19 @@ declare namespace woosmap.map {
          * Creates a Size object
          */
         constructor(width: number, height: number);
+
+        /**
+         * Indicates whether some other object is "equal to" this one.
+         */
+        equals(other: woosmap.map.Size): boolean;
     }
 }
 declare namespace woosmap.map {
     class Map extends woosmap.map.MVCObject {
         /**
-         * Creates a new map inside of the given HTML container, which is typically a `DIV` element.
+         * Creates a new map inside the given HTML container, which is typically a `DIV` element.
          */
-        constructor(mapDiv: HTMLElement | String, options?: woosmap.map.MapOptions);
+        constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
 
         /**
          * An instance of `Data`, bound to the map.
@@ -664,14 +683,14 @@ declare namespace woosmap.map {
          * Returns the lat/lng bounds of the current viewport.
          * Optionally takes a padding parameter.
          */
-        getBounds(padding?: woosmap.map.Padding): (woosmap.map.LatLngBounds | null);
+        getBounds(padding?: woosmap.map.Padding): woosmap.map.LatLngBounds;
 
         /**
          * Returns the position displayed at the center of the map.
          */
         getCenter(): woosmap.map.LatLng;
 
-        getDiv(): Element;
+        getDiv(): HTMLElement;
 
         /**
          * Returns the compass heading.
@@ -705,7 +724,7 @@ declare namespace woosmap.map {
          * except that the map will be panned to show as much of the bounds as possible inside
          * `{currentMapSizeInPx} - {padding}.`
          */
-        panToBounds(latLngBounds: woosmap.map.LatLngBounds | woosmap.map.LatLngBoundsLiteral, padding?: (woosmap.map.Padding | null)): void;
+        panToBounds(latLngBounds: woosmap.map.LatLngBounds | woosmap.map.LatLngBoundsLiteral, padding: number | woosmap.map.Padding): void;
 
         /**
          * Sets the map center
@@ -717,9 +736,9 @@ declare namespace woosmap.map {
          */
         setHeading(heading: number): void;
 
-        setTilt(tilt: Number): void;
+        setTilt(tilt: number): void;
 
-        setZoom(zoom: Number): void;
+        setZoom(zoom: number): void;
     }
 }
 declare namespace woosmap.map {
@@ -732,7 +751,7 @@ declare namespace woosmap.map {
         map: woosmap.map.Map | null;
         position: woosmap.map.LatLng;
 
-        setIcon(icon: woosmap.map.Icon | String): void;
+        setIcon(icon: woosmap.map.Icon | string): void;
 
         setMap(map?: (woosmap.map.Map | null)): void;
 
@@ -811,6 +830,8 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     class MVCArray<T> extends woosmap.map.MVCObject {
+        constructor(array?: T[]);
+
         /**
          * Removes all elements from the array.
          */
@@ -907,7 +928,7 @@ declare namespace woosmap.map {
         /**
          * Adds a listener for eventName.
          */
-        addListener(eventName: String, handler: Function): woosmap.map.MapEventListener;
+        addListener(eventName: string, handler: (...args: any[]) => any): woosmap.map.MapEventListener;
     }
 }
 declare namespace woosmap.map {
@@ -930,13 +951,18 @@ declare namespace woosmap.map {
         /**
          * Sets the selected store
          */
-        setSelection(feature: Object): void;
+        setSelection(feature: object): void;
 
         /**
          * Sets the query used to fetch stores.
          * To clear the query set it to undefined.
          */
         setQuery(query?: (string | null)): void;
+
+        /**
+         * Updates the style.
+         */
+        setStyle(style: woosmap.map.Style): void;
 
         setMap(map: woosmap.map.Map): void;
     }
@@ -945,7 +971,7 @@ declare namespace woosmap.map {
     interface FeatureData {
         geometry?: woosmap.map.GeometryClasses | woosmap.map.LatLng | woosmap.map.LatLngLiteral;
         id?: any;
-        properties?: Object;
+        properties?: object;
     }
 }
 declare namespace woosmap.map {
@@ -1108,7 +1134,7 @@ declare namespace woosmap.map {
         directions?: woosmap.map.DirectionResult;
         draggable?: boolean;
         map?: woosmap.map.Map;
-        markerOption?: Object;
+        markerOption?: object;
         preserveViewport?: boolean;
         routeIndex?: number;
         suppressBicyclingLayer?: boolean;
@@ -1388,6 +1414,12 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    interface SizeLiteral {
+        height: number;
+        width: number;
+    }
+}
+declare namespace woosmap.map {
     interface MapStyler {
         /**
          * The color to use to style features.
@@ -1575,10 +1607,10 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     interface Icon {
-        anchor?: woosmap.map.Point;
-        labelOrigin?: woosmap.map.Point;
-        scaledSize?: woosmap.map.Size;
-        size?: woosmap.map.Size;
+        anchor?: woosmap.map.Point | woosmap.map.PointLiteral;
+        labelOrigin?: woosmap.map.Point | woosmap.map.PointLiteral;
+        scaledSize?: woosmap.map.Size | woosmap.map.SizeLiteral;
+        size?: woosmap.map.Size | woosmap.map.SizeLiteral;
         url: string;
     }
 }
@@ -1624,20 +1656,19 @@ declare namespace woosmap.map {
         OK = 'OK'
     }
 }
-
 declare namespace woosmap.map.event {
     /**
      * Adds the given listener function to the given event name for the given object instance.
      * Returns an identifier for this listener that can be used with `removeListener()`.
      */
-    function addListener(instance: Object, eventName: string, handler: Function): woosmap.map.MapEventListener;
+    function addListener(instance: object, eventName: string, handler: (...args: any[]) => any): woosmap.map.MapEventListener;
 
     /**
      * Like addListener, but the handler removes itself after handling the first event.
      */
-    function addListenerOnce(instance: Object, eventName: string, handler: Function): woosmap.map.MapEventListener;
+    function addListenerOnce(instance: object, eventName: string, handler: (...args: any[]) => any): woosmap.map.MapEventListener;
 
-    function addDomListener(element: Element, eventName: string, handler: Function): void;
+    function addDomListener(element: Element, eventName: string, handler: (...args: any[]) => any): void;
 
     /**
      * Removes the given listener, which should have been returned by addListener above.
@@ -1648,17 +1679,17 @@ declare namespace woosmap.map.event {
     /**
      * Removes all listeners for all events for the given instance.
      */
-    function clearInstanceListeners(instance: Object): void;
+    function clearInstanceListeners(instance: object): void;
 
     /**
      * Removes all listeners for the given event for the given instance.
      */
-    function clearListeners(instance: Object, eventName: string): void;
+    function clearListeners(instance: object, eventName: string): void;
 
     /**
      * Triggers the given event. All arguments after eventName are passed as arguments to the listeners.
      */
-    function trigger(instance: Object, eventName: string, eventArgs?: (any[] | null)): void;
+    function trigger(instance: object, eventName: string, eventArgs?: (any[] | null)): void;
 }
 declare namespace woosmap.map.geometry {
     /**
