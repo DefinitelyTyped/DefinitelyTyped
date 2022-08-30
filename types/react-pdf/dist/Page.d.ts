@@ -170,7 +170,7 @@ export interface Props {
      */
     renderForms?: boolean | undefined;
 
-     /**
+    /**
      * Defines the rendering mode of the page.
      * @default 'canvas'
      */

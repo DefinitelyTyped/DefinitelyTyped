@@ -59,6 +59,7 @@ export class MyApp extends React.Component<{}, State> {
                         pageNumber={pageNumber}
                         onLoadSuccess={this.onPageLoadSuccess}
                         canvasRef={c => { this.canvas = c; }}
+                        renderForms={false}
                      />
                 </Document>
 
