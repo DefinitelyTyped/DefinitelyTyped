@@ -1580,6 +1580,6 @@ declare namespace jasmine {
     }
 }
 
-interface ImportMeta {
+export declare interface JestImportMeta extends ImportMeta {
     jest: typeof jest;
 }
