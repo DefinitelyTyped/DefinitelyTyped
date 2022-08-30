@@ -24,7 +24,7 @@ const mapOptions = expectType({
 const map = new woosmap.map.Map(document.getElementById('mapContainer') as HTMLElement, mapOptions);
 
 // $ExpectType LatLngBounds
-const bounds = map.getBounds({left: 100});
+const bounds = map.getBounds({ left: 100 });
 // $ExpectType number
 const heading = map.getHeading();
 // $ExpectType number
@@ -32,13 +32,13 @@ const tilt = map.getTilt();
 // $ExpectType number
 const zoom = map.getZoom();
 // $ExpectType void
-map.fitBounds(new woosmap.map.LatLngBounds({lat: 43.3, lng: 3.3}, {lat: 48.3, lng: 2.3}), {left: 100});
+map.fitBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.3, lng: 2.3 }), { left: 100 });
 // $ExpectType void
 map.panBy(100, 50);
 // $ExpectType void
-map.panTo({lat: 43.3, lng: 3.3});
+map.panTo({ lat: 43.3, lng: 3.3 });
 // $ExpectType void
-map.panToBounds(new woosmap.map.LatLngBounds({lat: 43.3, lng: 3.3}, {lat: 48.3, lng: 2.3}), {left: 100});
+map.panToBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.3, lng: 2.3 }), { left: 100 });
 // $ExpectType void
 map.setZoom(12);
 
@@ -91,7 +91,7 @@ marker.setOpacity(0.5);
 // $ExpectType Marker
 marker.setOffset(new woosmap.map.Point(12, 12));
 // $ExpectType void
-marker.setPosition({lat: 43.3, lng: 3.883});
+marker.setPosition({ lat: 43.3, lng: 3.883 });
 // $ExpectType Marker
 marker.setDraggable(true);
 // $ExpectType Marker
@@ -109,7 +109,7 @@ marker.addListener('click', () => {
  * Marker Label
  */
 const labelMarkerOptions = expectType({
-    position: {lat: 43.3, lng: 3.883},
+    position: { lat: 43.3, lng: 3.883 },
     icon: {
         labelOrigin: new woosmap.map.Point(12, 12),
         url: 'https://images.woosmap.com/marker-red.svg',
@@ -204,18 +204,18 @@ storesOverlay.setMap(map);
  * Shapes
  */
 const outerShape = [
-    {lat: 28.59, lng: -100.65},
-    {lat: 28.59, lng: -96.08},
-    {lat: 31.33, lng: -96.08},
-    {lat: 31.33, lng: -100.65},
-    {lat: 28.59, lng: -100.65},
+    { lat: 28.59, lng: -100.65 },
+    { lat: 28.59, lng: -96.08 },
+    { lat: 31.33, lng: -96.08 },
+    { lat: 31.33, lng: -100.65 },
+    { lat: 28.59, lng: -100.65 },
 ];
 const innerShape = [
-    {lat: 29.07, lng: -98.81},
-    {lat: 29.07, lng: -96.63},
-    {lat: 30.16, lng: -96.63},
-    {lat: 30.16, lng: -98.81},
-    {lat: 29.07, lng: -98.81},
+    { lat: 29.07, lng: -98.81 },
+    { lat: 29.07, lng: -96.63 },
+    { lat: 30.16, lng: -96.63 },
+    { lat: 30.16, lng: -98.81 },
+    { lat: 29.07, lng: -98.81 },
 ];
 const polygonOption = expectType({
     paths: [outerShape, innerShape],
@@ -229,10 +229,10 @@ const polygon = new woosmap.map.Polygon(polygonOption);
 polygon.setMap(map);
 
 const polylinePath = [
-    {lng: -0.12638568878173828, lat: 51.50099581189912},
-    {lng: -0.12201905250549315, lat: 51.500832183172456},
-    {lng: -0.11891841888427736, lat: 51.50078877137083},
-    {lng: -0.11869311332702637, lat: 51.500832183172456},
+    { lng: -0.12638568878173828, lat: 51.50099581189912 },
+    { lng: -0.12201905250549315, lat: 51.500832183172456 },
+    { lng: -0.11891841888427736, lat: 51.50078877137083 },
+    { lng: -0.11869311332702637, lat: 51.500832183172456 },
 ];
 const polyLineOptions = expectType({
     path: polylinePath,
@@ -243,7 +243,7 @@ const polyLineOptions = expectType({
 const polyline = new woosmap.map.Polyline(polyLineOptions);
 polyline.setMap(map);
 
-const latlng = {lat: 43.34, lng: -24.76};
+const latlng = { lat: 43.34, lng: -24.76 };
 const radius50km = 50000;
 const circleOptions = expectType({
     strokeColor: '#b71c1c',
@@ -261,7 +261,7 @@ const cityCircle = new woosmap.map.Circle(circleOptions);
 const feature = expectType({
     geometry: new woosmap.map.Data.Point(new woosmap.map.LatLng(43.34, -24.76)),
     id: 'ID_1234',
-    properties: {some_properties: 'some_value'},
+    properties: { some_properties: 'some_value' },
 }) as woosmap.map.FeatureData;
 
 map.data.add(feature);
@@ -289,30 +289,32 @@ map.data.addListener('click', (event: any) => {
  * Directions
  */
 const directionsRequest = expectType({
-    origin: {lat: 48.86288, lng: 2.34946},
-    destination: {lat: 52.52457, lng: 13.42347},
+    origin: { lat: 48.86288, lng: 2.34946 },
+    destination: { lat: 52.52457, lng: 13.42347 },
     provideRouteAlternatives: false,
     travelMode: woosmap.map.TravelMode.DRIVING,
     unitSystem: woosmap.map.UnitSystem.IMPERIAL,
-    waypoints: [{
-        location: new woosmap.map.LatLng(50.84670, 4.35684)
-    }, {
-        location: new woosmap.map.LatLng(52.37342, 4.84631)
-    }]
+    waypoints: [
+        {
+            location: new woosmap.map.LatLng(50.8467, 4.35684),
+        },
+        {
+            location: new woosmap.map.LatLng(52.37342, 4.84631),
+        },
+    ],
 }) as woosmap.map.DirectionRequest;
 
 let directionsService;
 directionsService = new woosmap.map.DirectionsService();
-directionsService.route(directionsRequest, (result, status) => {
-});
+directionsService.route(directionsRequest, (result, status) => {});
 
 /**
  * InfoWindow
  */
 let infoWindow;
 infoWindow = new woosmap.map.InfoWindow({});
-infoWindow.setContent("<div>Some Content</div>");
-infoWindow = new woosmap.map.InfoWindow({content: "<div>Some Content</div>"});
+infoWindow.setContent('<div>Some Content</div>');
+infoWindow = new woosmap.map.InfoWindow({ content: '<div>Some Content</div>' });
 infoWindow.open(map, marker);
 infoWindow.close();
 
@@ -321,13 +323,13 @@ infoWindow.close();
  */
 const listener = woosmap.map.event.addListener(map, 'click', () => {}); // $ExpectType MapEventListener
 woosmap.map.event.addListenerOnce(map, 'click', () => {}); // $ExpectType MapEventListener
-woosmap.map.event.removeListener(listener);  // $ExpectType void
-listener.remove();  // $ExpectType void
+woosmap.map.event.removeListener(listener); // $ExpectType void
+listener.remove(); // $ExpectType void
 
 /**
  * woosmap.map.geometry
  */
-const isContained = woosmap.map.geometry.containsLocation({lat: 43.3, lng: 3.3}, polygon); // $ExpectType boolean
+const isContained = woosmap.map.geometry.containsLocation({ lat: 43.3, lng: 3.3 }, polygon); // $ExpectType boolean
 
 /**
  * helper functions for testing purpose
