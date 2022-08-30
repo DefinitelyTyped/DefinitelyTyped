@@ -17,6 +17,8 @@ import TransformRegistry from 'ember-data/types/registries/transform';
 import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
+import boolean from './transforms/boolean';
+import string from './transforms/string';
 
 /**
   The keys from the actual Model class, removing all the keys which come from
@@ -29,6 +31,14 @@ type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filte
 
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
+}
+
+interface FindOptions {
+    reload?: boolean,
+    backgroundReload?: boolean,
+    include?: string,
+    adapterOptions?: Record<string,unknown>,
+    preload?: Record<string, unknown>
 }
 interface AttributeMeta<Model extends DS.Model> {
     type: keyof TransformRegistry;
@@ -791,7 +801,7 @@ export namespace DS {
          * loaded. If the relationship is already loaded this method does not
          * trigger a new load.
          */
-        load(options?: Record<string, any>): RSVP.Promise<any>;
+        load(options?: FindOptions): RSVP.Promise<any>;
         /**
          * Triggers a reload of the value in this relationship. If the
          * remoteType is `"link"` Ember Data will use the relationship link to
