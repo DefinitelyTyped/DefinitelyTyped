@@ -178,8 +178,6 @@ declare namespace braintree {
         webhookTesting: WebhookTestingGateway;
     }
 
-    export function connect(config: GatewayConfig): BraintreeGateway;
-
     interface ValidatedResponse<T> {
         success: boolean;
         errors: ValidationErrorsCollection;
