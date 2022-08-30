@@ -17,8 +17,6 @@ import TransformRegistry from 'ember-data/types/registries/transform';
 import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
-import boolean from './transforms/boolean';
-import string from './transforms/string';
 
 /**
   The keys from the actual Model class, removing all the keys which come from
