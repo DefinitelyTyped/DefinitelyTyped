@@ -3,10 +3,10 @@
 // Definitions by: Ferotiq <https://github.com/Ferotiq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Chart from 'chart.js';
+import type { Plugin } from 'chart.js';
 
 declare module 'chart.js' {
-    interface ChartPluginsOptions {
+    interface ChartDatasetProperties<TType extends ChartType, TData> {
         trendlineLinear?: TrendlineLinearPlugin.TrendlineLinearOptions;
     }
 }
@@ -20,7 +20,7 @@ declare namespace TrendlineLinearPlugin {
     }
 }
 
-declare const TrendlineLinearPlugin: Chart.PluginServiceGlobalRegistration & Chart.PluginServiceRegistrationOptions;
+declare const TrendlineLinearPlugin: Plugin;
 
 export = TrendlineLinearPlugin;
 export as namespace TrendlineLinearPlugin;

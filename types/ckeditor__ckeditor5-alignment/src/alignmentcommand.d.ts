@@ -18,9 +18,3 @@ export default class AlignmentCommand extends Command {
      */
     execute(options?: { value?: AlignmentCommand['value'] }): void;
 }
-
-declare module '@ckeditor/ckeditor5-core/src/commandcollection' {
-    interface Commands {
-        AlignmentCommand: AlignmentCommand;
-    }
-}

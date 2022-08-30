@@ -727,6 +727,12 @@ declare namespace cytoscape {
         removeListener(eventsMap: { [value: string]: EventHandler }, selector?: Selector): this;
 
         /**
+         * Remove all event handlers.
+         * https://js.cytoscape.org/#cy.removeAllListeners
+         */
+        removeAllListeners(): this;
+
+        /**
          * Trigger one or more events.
          *
          * @param events A space separated list of event names to trigger.
@@ -1362,7 +1368,8 @@ declare namespace cytoscape {
             NodeCollectionMetadata,
             NodeCollectionPosition,
             NodeCollectionTraversing,
-            NodeCollectionCompound {}
+            NodeCollectionCompound,
+            NodeCollectionLayout {}
 
     type SingularElementArgument = EdgeSingular | NodeSingular;
     type SingularElementReturnValue = EdgeSingular & NodeSingular;
@@ -1386,7 +1393,8 @@ declare namespace cytoscape {
             NodeCollection,
             NodeSingularMetadata,
             NodeSingularPosition,
-            NodeSingularCompound {}
+            NodeSingularCompound,
+            NodeSingularLayout {}
 
     /**
      * http://js.cytoscape.org/#collection/graph-manipulation
@@ -1453,22 +1461,22 @@ declare namespace cytoscape {
     interface CollectionEvents {
         /**
          * http://js.cytoscape.org/#eles.on
+         * @param events A space separated list of event names.
+         * @param selector [optional] A delegate selector to specify child elements for which the handler runs.
+         * @param handler The handler function called when one of the specified events occurs. Takes the event object as a parameter.
          */
-        on(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         on(events: EventNames, selector: string, handler: EventHandler): this;
         on(events: EventNames, handler: EventHandler): this;
-        bind(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         bind(events: EventNames, selector: string, handler: EventHandler): this;
         bind(events: EventNames, handler: EventHandler): this;
-        listen(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         listen(events: EventNames, selector: string, handler: EventHandler): this;
         listen(events: EventNames, handler: EventHandler): this;
-        addListener(events: EventNames, selector: string, data: any, handler: EventHandler): this;
         addListener(events: EventNames, selector: string, handler: EventHandler): this;
         addListener(events: EventNames, handler: EventHandler): this;
+
         /**
          * http://js.cytoscape.org/#eles.promiseOn
-         * alias: pon
+         * @alias pon
          */
         promiseOn(events: EventNames, selector?: string): Promise<EventHandler>;
         pon(events: EventNames, selector?: string): Promise<EventHandler>;
@@ -1492,18 +1500,22 @@ declare namespace cytoscape {
         once(events: EventNames, handler: EventHandler): this;
         /**
          * http://js.cytoscape.org/#eles.off
-         * alias unbind, unlisten, removeListener
+         * @alias unbind, unlisten, removeListener
          */
         off(events: EventNames, selector?: string, handler?: EventHandler): this;
         unbind(events: EventNames, selector?: string, handler?: EventHandler): this;
         unlisten(events: EventNames, selector?: string, handler?: EventHandler): this;
         removeListener(events: EventNames, selector?: string, handler?: EventHandler): this;
         /**
-         * http://js.cytoscape.org/#eles.trigger
-         * alias: emit
+         * https://js.cytoscape.org/#eles.removeAllListeners
          */
-        trigger(events: EventNames, extra?: string[]): this;
-        emit(events: EventNames, extra?: string[]): this;
+        removeAllListeners(): this;
+        /**
+         * http://js.cytoscape.org/#eles.trigger
+         * @alias emit
+         */
+        trigger(events: EventNames, extra?: unknown[]): this;
+        emit(events: EventNames, extra?: unknown[]): this;
     }
 
     /**
@@ -1515,24 +1527,6 @@ declare namespace cytoscape {
      * parent: The parent field defines the parent (compound) node.
      */
     interface CollectionData {
-        /**
-         * Remove developer-defined data associated with the elements.
-         * http://js.cytoscape.org/#eles.removeData
-         * @param names A space-separated list of fields to delete.
-         */
-        removeData(names?: string): CollectionReturnValue;
-        removeAttr(names?: string): CollectionReturnValue;
-
-        /**
-         * Get an array of the plain JavaScript object
-         * representation of all elements in the collection.
-         */
-        jsons(): string[];
-    }
-    /**
-     * http://js.cytoscape.org/#collection/data
-     */
-    interface SingularData {
         /**
          * Read and write developer-defined data associated with the elements
          * http://js.cytoscape.org/#eles.data
@@ -1571,6 +1565,24 @@ declare namespace cytoscape {
          */
         attr(obj: any): this;
 
+        /**
+         * Remove developer-defined data associated with the elements.
+         * http://js.cytoscape.org/#eles.removeData
+         * @param names A space-separated list of fields to delete.
+         */
+        removeData(names?: string): CollectionReturnValue;
+        removeAttr(names?: string): CollectionReturnValue;
+
+        /**
+         * Get an array of the plain JavaScript object
+         * representation of all elements in the collection.
+         */
+        jsons(): string[];
+    }
+    /**
+     * http://js.cytoscape.org/#collection/data
+     */
+    interface SingularData {
         /**
          * Get or set the scratchpad at a particular namespace,
          * where temporary or non-JSON data can be stored.
@@ -1970,14 +1982,14 @@ declare namespace cytoscape {
          * @param options An object containing options for the function.
          * http://js.cytoscape.org/#eles.boundingBox
          */
-        boundingBox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
-        boundingbox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        boundingBox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        boundingbox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
         /**
          * Get the bounding box of the elements in rendered coordinates.
          * @param options An object containing options for the function.
          */
-        renderedBoundingBox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
-        renderedBoundingbox(options: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        renderedBoundingBox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
+        renderedBoundingbox(options?: BoundingBoxOptions): BoundingBox12 & BoundingBoxWH;
     }
 
     /**
@@ -2042,13 +2054,17 @@ declare namespace cytoscape {
         // Boolean which changes whether label dimensions are included when calculating node dimensions
         nodeDimensionsIncludeLabels: boolean;
     }
+
+    /**
+     * https://js.cytoscape.org/#node.layoutDimensions
+     */
     interface NodeSingularLayout {
         /**
          * Returns the node width and height.
          * Meant for use in layout positioning to do overlap detection.
          * @param options The layout options object.
          */
-        layoutDimensions(options: LayoutDimensionOptions): { x: number; y: number };
+        layoutDimensions(options: LayoutDimensionOptions): { w: number; h: number };
     }
 
     /**
@@ -2068,7 +2084,7 @@ declare namespace cytoscape {
         selectable(): boolean;
     }
     /**
-     * http://js.cytoscape.org/#collection/layout
+     * https://js.cytoscape.org/#collection/selection
      */
     interface CollectionSelection {
         /**
@@ -2339,18 +2355,14 @@ declare namespace cytoscape {
      * http://js.cytoscape.org/#collection/comparison
      */
     interface CollectionComparision {
-        // http://js.cytoscape.org/#collection/comparison
-
         /**
          * Determine whether this collection contains exactly the same elements as another collection.
-         *
          * @param eles The other elements to compare to.
          */
         same(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether this collection contains any of the same elements as another collection.
-         *
          * @param eles The other elements to compare to.
          */
         anySame(eles: CollectionArgument): boolean;
@@ -2359,22 +2371,13 @@ declare namespace cytoscape {
          * Determine whether this collection contains all of the elements of another collection.
          */
         contains(eles: CollectionArgument): boolean;
-        /**
-         * Determine whether this collection contains all of the elements of another collection.
-         */
         has(eles: CollectionArgument): boolean;
 
         /**
          * Determine whether all elements in the specified collection are in the neighbourhood of the calling collection.
-         *
          * @param eles The other elements to compare to.
          */
         allAreNeighbors(eles: CollectionArgument): boolean;
-        /**
-         * Determine whether all elements in the specified collection are in the neighbourhood of the calling collection.
-         *
-         * @param eles The other elements to compare to.
-         */
         allAreNeighbours(eles: CollectionArgument): boolean;
 
         /**
@@ -4167,7 +4170,7 @@ declare namespace cytoscape {
          *
          * https://js.cytoscape.org/#style/loop-edges
          */
-         interface LoopEdges {
+        interface LoopEdges {
             /**
              * Determines the angle that loops extend from the node in cases when the source and
              * target node of an edge is the same. The angle is specified from the 12 o’clock
@@ -4265,7 +4268,7 @@ declare namespace cytoscape {
          *
          * https://js.cytoscape.org/#style/taxi-edges
          */
-         interface TaxiEdges {
+        interface TaxiEdges {
             /**
              * The main direction of the edge, the direction starting out from the source node; may be one of:
              *  * `auto`: Automatically use `vertical` or `horizontal`, based on whether the vertical or horizontal distance is largest.
@@ -5384,6 +5387,12 @@ declare namespace cytoscape {
         unbind(events: EventNames, handler?: EventHandler): this;
         unlisten(events: EventNames, handler?: EventHandler): this;
         removeListener(events: EventNames, handler?: EventHandler): this;
+
+        /**
+         * Remove all event handlers on the layout.
+         * https://js.cytoscape.org/#layout.removeAllListeners
+         */
+        removeAllListeners(): this;
 
         /**
          * Trigger one or more events on the layout.

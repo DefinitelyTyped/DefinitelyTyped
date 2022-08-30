@@ -7,7 +7,7 @@ const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 function autoPlayTest() {
-    // $ExpectError
+    // @ts-expect-error
     <AutoPlaySwipeableViews />;
     <AutoPlaySwipeableViews
         index={1}
@@ -19,7 +19,7 @@ function autoPlayTest() {
 }
 
 function virtualizeTest() {
-    // $ExpectError
+    // @ts-expect-error
     <VirtualizeSwipeableViews />;
     <VirtualizeSwipeableViews
         index={1}
@@ -33,7 +33,7 @@ function virtualizeTest() {
 }
 
 function bindKeyboardTest() {
-    // $ExpectError
+    // @ts-expect-error
     <BindKeyboardSwipeableViews />;
     <BindKeyboardSwipeableViews
         index={1}

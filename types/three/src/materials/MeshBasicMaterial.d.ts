@@ -16,6 +16,7 @@ export interface MeshBasicMaterialParameters extends MaterialParameters {
     aoMapIntensity?: number | undefined;
     specularMap?: Texture | null | undefined;
     alphaMap?: Texture | null | undefined;
+    fog?: boolean | undefined;
     envMap?: Texture | null | undefined;
     combine?: Combine | undefined;
     reflectivity?: number | undefined;
@@ -113,6 +114,12 @@ export class MeshBasicMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshBasicMaterialParameters): void;
 }

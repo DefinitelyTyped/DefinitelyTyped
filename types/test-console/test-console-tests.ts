@@ -6,9 +6,9 @@ for (const std of [stdout, stderr]) {
     // $ExpectType Inspector
     std.inspect({ isTTY: true });
 
-    // $ExpectError
+    // @ts-expect-error
     std.inspectSync();
-    // $ExpectError
+    // @ts-expect-error
     std.inspectSync({});
     // $ExpectType ReadonlyArray<string> || Output
     std.inspectSync(() => {});
@@ -23,17 +23,17 @@ for (const std of [stdout, stderr]) {
     // $ExpectType ReadonlyArray<string> || Output
     std.inspectSync({ isTTY: false }, _ => {});
 
-    // $ExpectError
+    // @ts-expect-error
     std.inspectAsync();
-    // $ExpectError
+    // @ts-expect-error
     std.inspectAsync({});
-    // $ExpectError
+    // @ts-expect-error
     std.inspectAsync(async output => output);
     // $ExpectType Promise<ReadonlyArray<string>> || Promise<Output>
     std.inspectAsync(async () => {});
     // $ExpectType Promise<ReadonlyArray<string>> || Promise<Output>
     std.inspectAsync(async _ => {});
-    // $ExpectError
+    // @ts-expect-error
     std.inspectAsync({ isTTY: false }, async output => output);
     // $ExpectType Promise<ReadonlyArray<string>> || Promise<Output>
     std.inspectAsync({ isTTY: false }, async () => {});
@@ -45,36 +45,36 @@ for (const std of [stdout, stderr]) {
     // $ExpectType Restore
     std.ignore({ isTTY: false });
 
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreSync();
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreSync({});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreSync(_ => {});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreSync(output => output);
     // $ExpectType void
     std.ignoreSync(() => {});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreSync({ isTTY: false }, _ => {});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreSync({ isTTY: false }, output => output);
     // $ExpectType void
     std.ignoreSync({ isTTY: false }, () => {});
 
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreAsync();
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreAsync({});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreAsync(async _ => {});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreAsync(async output => output);
     // $ExpectType Promise<void>
     std.ignoreAsync(async () => {});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreAsync({ isTTY: false }, async _ => {});
-    // $ExpectError
+    // @ts-expect-error
     std.ignoreAsync({ isTTY: false }, async output => output);
     // $ExpectType Promise<void>
     std.ignoreAsync({ isTTY: false }, async () => {});

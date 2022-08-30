@@ -1,5 +1,5 @@
-import type { ConnectionMetadata } from "../handlers/connection/ConnectionHandler";
-import type { ConcreteRequest } from "./RelayConcreteNode";
+import type { ConnectionMetadata } from '../handlers/connection/ConnectionHandler';
+import type { ConcreteRequest } from './RelayConcreteNode';
 
 export interface ReaderFragmentSpread {
     readonly kind: string; // 'FragmentSpread';
@@ -18,12 +18,15 @@ export interface ReaderFragment {
     readonly name: string;
     readonly type: string;
     readonly abstractKey?: string | null | undefined;
-    readonly metadata?: {
-        readonly connection?: ReadonlyArray<ConnectionMetadata>;
-        readonly mask?: boolean;
-        readonly plural?: boolean;
-        readonly refetch?: ReaderRefetchMetadata;
-    } | null | undefined;
+    readonly metadata?:
+        | {
+              readonly connection?: ReadonlyArray<ConnectionMetadata>;
+              readonly mask?: boolean;
+              readonly plural?: boolean;
+              readonly refetch?: ReaderRefetchMetadata;
+          }
+        | null
+        | undefined;
     readonly argumentDefinitions: ReadonlyArray<ReaderArgumentDefinition>;
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
@@ -42,7 +45,7 @@ export interface ReaderPaginationFragment extends ReaderFragment {
         readonly connection: [ConnectionMetadata];
         readonly refetch: ReaderRefetchMetadata & {
             connection: ReaderPaginationMetadata;
-        }
+        };
     };
 }
 
@@ -77,9 +80,7 @@ export type ReaderArgument =
     | ReaderObjectValueArgument
     | ReaderVariableArgument;
 
-export type ReaderArgumentDefinition =
-    | ReaderLocalArgument
-    | ReaderRootArgument;
+export type ReaderArgumentDefinition = ReaderLocalArgument | ReaderRootArgument;
 
 export interface ReaderCondition {
     readonly kind: string; // 'Condition';
@@ -93,10 +94,7 @@ export interface ReaderClientExtension {
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
-export type ReaderField =
-    | ReaderScalarField
-    | ReaderLinkedField
-    | ReaderRelayResolver;
+export type ReaderField = ReaderScalarField | ReaderLinkedField | ReaderRelayResolver;
 
 export interface ReaderRootArgument {
     readonly kind: string; // 'RootArgument';
@@ -163,11 +161,7 @@ export interface ReaderObjectValueArgument {
     readonly fields: ReadonlyArray<ReaderArgument>;
 }
 
-export type ReaderNode =
-    | ReaderCondition
-    | ReaderLinkedField
-    | ReaderFragment
-    | ReaderInlineFragment;
+export type ReaderNode = ReaderCondition | ReaderLinkedField | ReaderFragment | ReaderInlineFragment;
 
 export interface ReaderScalarField {
     readonly kind: string; // 'ScalarField';
@@ -195,7 +189,7 @@ export interface ReaderStream {
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
-export type RequiredFieldAction = "NONE" | "LOG" | "THROW";
+export type RequiredFieldAction = 'NONE' | 'LOG' | 'THROW';
 
 export interface ReaderRequiredField {
     readonly kind: string; // 'RequiredField';

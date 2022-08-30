@@ -51,7 +51,7 @@ bezier.getLUT()[0].x;
 bezier.hull(0);
 // $ExpectType Inflection
 bezier.extrema();
-// $ExpectType number[] | string[]
+// $ExpectType number[] | string[] || string[] | number[]
 bezier.intersects(bezier);
 // $ExpectType number
 bezier.length();

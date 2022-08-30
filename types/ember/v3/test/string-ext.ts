@@ -5,25 +5,32 @@ declare global {
     interface String extends Ember.StringPrototypeExtensions {}
 }
 
-''.dasherize('foo'); // $ExpectError
+// @ts-expect-error
+''.dasherize('foo');
 ''.dasherize(); // $ExpectType string
 
 ''.camelize(); // $ExpectType string
-''.camelize('blue man group'); // $ExpectError
+// @ts-expect-error
+''.camelize('blue man group');
 
 ''.decamelize(); // $ExpectType string
-''.decamelize('blue man group'); // $ExpectError
+// @ts-expect-error
+''.decamelize('blue man group');
 
 ''.underscore(); // $ExpectType string
-''.underscore('blue man group'); // $ExpectError
+// @ts-expect-error
+''.underscore('blue man group');
 
 ''.w(); // $ExpectType string[]
 
 ''.classify(); // $ExpectType string
-''.classify('blue man group'); // $ExpectError
+// @ts-expect-error
+''.classify('blue man group');
 
 ''.capitalize(); // $ExpectType string
-''.capitalize('blue man group'); // $ExpectError
+// @ts-expect-error
+''.capitalize('blue man group');
 
 ''.loc(); // $ExpectType string
-''.loc('_Hello World'); // $ExpectError
+// @ts-expect-error
+''.loc('_Hello World');

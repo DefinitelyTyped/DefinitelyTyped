@@ -19,7 +19,7 @@ export interface Request extends RequestOptions {
     /** Defaults to `/`. */
     path?: string;
     /** Defaults to `""`. */
-    body?: string;
+    body?: string | Buffer;
     /** Defaults to {@link RequestSigner.matchHost}()[0], or `""`. */
     service?: string;
     /** Defaults to {@link RequestSigner.matchHost}()[1], or `"us-east-1"`. */

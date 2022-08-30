@@ -2,7 +2,7 @@ import Tasks, { Queue } from "@google-cloud/tasks";
 
 const client = new Tasks({});
 
-// $ExpectError
+// @ts-expect-error
 const failedClient = new Tasks({ unrecognized: "" });
 
 const formattedParent = client.locationPath("[PROJECT]", "[LOCATION]");

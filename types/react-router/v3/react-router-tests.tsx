@@ -47,7 +47,7 @@ interface MasterContext {
     router: InjectedRouter;
 }
 
-class Master extends Component {
+class Master extends Component<{ children?: React.ReactNode }> {
     static contextTypes: ValidationMap<any> = {
         router: routerShape
     };
@@ -124,6 +124,7 @@ class UserList extends React.Component<UserListProps & WithRouterProps> {
 const UserListWithRouter = withRouter(UserList);
 
 interface AvatarProps {
+    children?: React.ReactNode;
     user: string;
 }
 

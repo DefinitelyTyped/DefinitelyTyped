@@ -7,7 +7,7 @@ import * as remote from './remote';
  *
  * @extends {webdriver.WebDriver}
  */
-export class Driver extends webdriver.WebDriver {
+export class Driver extends webdriver.ChromiumWebDriver {
   /**
    * Creates a new session with the ChromeDriver.
    *
@@ -348,3 +348,11 @@ export function getDefaultService(): remote.DriverService;
  * @throws {Error} If the default service is currently running.
  */
 export function setDefaultService(service: remote.DriverService): void;
+
+/**
+ * _Synchronously_ attempts to locate the chromedriver executable on the current
+ * system.
+ *
+ * @return {?string} the located executable, or `null`.
+ */
+export function locateSynchronously(): string | null;

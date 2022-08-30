@@ -1,7 +1,7 @@
 /**
  * The `assert` module provides a set of assertion functions for verifying
  * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/assert.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/assert.js)
  */
 declare module 'assert' {
     /**
@@ -237,8 +237,8 @@ declare module 'assert' {
          * > Stability: 3 - Legacy: Use {@link strictEqual} instead.
          *
          * Tests shallow, coercive equality between the `actual` and `expected` parameters
-         * using the [Abstract Equality Comparison](https://tc39.github.io/ecma262/#sec-abstract-equality-comparison) ( `==` ). `NaN` is special handled
-         * and treated as being identical in case both sides are `NaN`.
+         * using the [`==` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Equality). `NaN` is specially handled
+         * and treated as being identical if both sides are `NaN`.
          *
          * ```js
          * import assert from 'assert';
@@ -270,9 +270,8 @@ declare module 'assert' {
          *
          * > Stability: 3 - Legacy: Use {@link notStrictEqual} instead.
          *
-         * Tests shallow, coercive inequality with the [Abstract Equality Comparison](https://tc39.github.io/ecma262/#sec-abstract-equality-comparison)(`!=` ). `NaN` is special handled and treated as
-         * being identical in case both
-         * sides are `NaN`.
+         * Tests shallow, coercive inequality with the [`!=` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Inequality). `NaN` is
+         * specially handled and treated as being identical if both sides are `NaN`.
          *
          * ```js
          * import assert from 'assert';
@@ -362,7 +361,7 @@ declare module 'assert' {
         function notDeepEqual(actual: unknown, expected: unknown, message?: string | Error): void;
         /**
          * Tests strict equality between the `actual` and `expected` parameters as
-         * determined by the [SameValue Comparison](https://tc39.github.io/ecma262/#sec-samevalue).
+         * determined by [`Object.is()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
          *
          * ```js
          * import assert from 'assert/strict';
@@ -400,7 +399,7 @@ declare module 'assert' {
         function strictEqual<T>(actual: unknown, expected: T, message?: string | Error): asserts actual is T;
         /**
          * Tests strict inequality between the `actual` and `expected` parameters as
-         * determined by the [SameValue Comparison](https://tc39.github.io/ecma262/#sec-samevalue).
+         * determined by [`Object.is()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
          *
          * ```js
          * import assert from 'assert/strict';

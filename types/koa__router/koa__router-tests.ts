@@ -206,13 +206,13 @@ router6.post<MyState, MyContext>('/foo', async (ctx) => {
 });
 router6.put<MyState>('/bar', async (ctx) => {
     ctx.state.foo = 'bar';
-    // $ExpectError
+    // @ts-expect-error
     ctx.bar = 'foo';
 });
 router6.del('/baz', async (ctx) => {
-    // $ExpectError
+    // @ts-expect-error
     ctx.state.foo = 'bar';
-    // $ExpectError
+    // @ts-expect-error
     ctx.bar = 'foo';
 });
 router6.put<number>('/blah', async (ctx) => {

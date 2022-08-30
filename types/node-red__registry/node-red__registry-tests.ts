@@ -21,7 +21,7 @@ function registryTests() {
         RED.settings.myKey;
         // $ExpectType boolean | undefined
         RED.settings.verbose;
-        // $ExpectError
+        // @ts-expect-error
         RED.settings.wrongKey;
 
         // tslint:disable-next-line:space-before-function-paren
@@ -30,20 +30,20 @@ function registryTests() {
 
             // $ExpectType string
             nodeDef.defKey;
-            // $ExpectError
+            // @ts-expect-error
             nodeDef.wrongKey;
 
             // $ExpectType string
             this.credentials.password;
             // $ExpectType string
             this.credentials.username;
-            // $ExpectError
+            // @ts-expect-error
             this.credentials.wrongKey;
 
             this.instanceKey = 'value';
-            // $ExpectError
+            // @ts-expect-error
             this.instanceKey = 123;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
 
             const status: registry.NodeStatus = {
@@ -51,9 +51,9 @@ function registryTests() {
                 fill: 'blue',
                 shape: 'dot',
             };
-            // $ExpectError
+            // @ts-expect-error
             status.fill = 'invalid-fill';
-            // $ExpectError
+            // @ts-expect-error
             status.shape = 'invalid-shape';
             this.status(status);
             this.status({});

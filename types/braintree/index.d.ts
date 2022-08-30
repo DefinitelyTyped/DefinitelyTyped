@@ -316,7 +316,7 @@ declare namespace braintree {
 
     interface SubscriptionGateway {
         cancel(subscriptionId: string): Promise<void>;
-        create(request: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
+        create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Subscription>>;
         find(subscriptionId: string): Promise<Subscription>;
         retryCharge(
             subscriptionId: string,
@@ -324,7 +324,7 @@ declare namespace braintree {
             submitForSettlement?: boolean,
         ): Promise<ValidatedResponse<Subscription>>;
         search(searchFn: any): stream.Readable;
-        update(subscriptionId: string, updates: SubscriptionRequest): Promise<ValidatedResponse<Subscription>>;
+        update(subscriptionId: string, updates: SubscriptionUpdateRequest): Promise<ValidatedResponse<Subscription>>;
     }
 
     interface TestingGateway {
@@ -1316,7 +1316,6 @@ declare namespace braintree {
                   update?: AddOnUpdateRequest[] | undefined;
               }
             | undefined;
-        billingDayOfMonth?: number | undefined;
         descriptor?: Descriptor | undefined;
         discounts?:
             | {
@@ -1330,6 +1329,14 @@ declare namespace braintree {
         merchantAccountId?: string | undefined;
         neverExpires?: boolean | undefined;
         numberOfBillingCycles?: number | undefined;
+        paymentMethodNonce?: string | undefined;
+        paymentMethodToken?: string | undefined;
+        planId: string;
+        price?: string | undefined;
+    }
+
+    export interface SubscriptionCreateRequest extends SubscriptionRequest {
+        billingDayOfMonth?: number | undefined;
         options?:
             | {
                   doNotInheritAddOnsOrDiscounts?: boolean | undefined;
@@ -1341,13 +1348,24 @@ declare namespace braintree {
                   startImmediately?: boolean | undefined;
               }
             | undefined;
-        paymentMethodNonce?: string | undefined;
-        paymentMethodToken?: string | undefined;
-        planId: string;
-        price?: string | undefined;
         trialDuration?: number | undefined;
         trialDurationUnit?: string | undefined;
         trialPeriod?: boolean | undefined;
+    }
+
+    export interface SubscriptionUpdateRequest extends SubscriptionRequest {
+        options?:
+            | {
+                  paypal?:
+                      | {
+                            description?: string | undefined;
+                        }
+                      | undefined;
+                  prorateCharges?: boolean | undefined;
+                  replaceAllAddOnsAndDiscounts?: boolean | undefined;
+                  revertSubscriptionOnProrationFailure: boolean | undefined;
+              }
+            | undefined;
     }
 
     export interface SubscriptionHistory {

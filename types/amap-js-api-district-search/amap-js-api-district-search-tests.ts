@@ -51,7 +51,7 @@ districtSearch.setLevel();
 // $ExpectType void
 districtSearch.setSubdistrict(3);
 
-// $ExpectError
+// @ts-expect-error
 districtSearch.setSubdistrict(4);
 
 districtSearch.on('complete', (event: AMap.DistrictSearch.EventMap['complete']) => {

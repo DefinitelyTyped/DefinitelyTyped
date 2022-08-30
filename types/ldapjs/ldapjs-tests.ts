@@ -173,3 +173,60 @@ server.listen(1389, '127.0.0.1', () => {
         // Server closed
     });
 });
+
+let attribute = new ldap.Attribute({
+    type: 'foo',
+    vals: [42, undefined, null, {key: 'value'}, 'string', Buffer.from('buffer')],
+});
+// $ExpectType string
+attribute.type;
+// $ExpectType string | string[]
+attribute.vals;
+attribute.vals = 'string'
+ldap.Attribute.isAttribute(attribute);
+
+
+let rdn = new ldap.dn.RDN({cn: "Nice Person", org: "Somewhere"});
+rdn.set("foo", "bar");
+rdn.set("foo", "bar", {obj: "yes"});
+// @ts-expect-error
+rdn.set("foo", "bar", 42);
+
+const rdn2 = new ldap.dn.RDN({cn: "Other person", org: "Somewhere"})
+rdn.equals(rdn2);
+
+rdn2.format();
+rdn2.format({});
+rdn2.format({
+    keepOrder: true,
+    keepQuote: true,
+    keepSpace: true,
+    keepCase: true,
+    upperName: true,
+    skipSpace: true,
+})
+// @ts-expect-error
+rdn2.format({badOption: "nope"});
+
+new ldap.dn.DN();
+let dn = new ldap.dn.DN([rdn, rdn2])
+// $ExpectType number
+dn.length;
+// $ExpectType string
+dn.format();
+dn.setFormat({keepOrder: true});
+dn.parentOf(new ldap.dn.DN());
+dn.childOf(new ldap.dn.DN());
+// $ExpectType boolean
+dn.isEmpty();
+let dn2 = dn.clone();
+// $ExpectType boolean
+dn.equals(dn2);
+let popped = dn.pop();
+dn.push(popped);
+let shifted = dn.shift();
+dn.unshift(shifted);
+ldap.dn.parse("cn=person,org=Place");
+
+new ldap.DN();
+new ldap.RDN();

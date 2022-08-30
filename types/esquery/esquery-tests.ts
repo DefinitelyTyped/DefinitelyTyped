@@ -19,19 +19,19 @@ const nodes = esquery.query(AST, s);
 // $ExpectType Node[]
 esquery(AST, s);
 
-// $ExpectError
+// @ts-expect-error
 esquery.parse(3);
 
 // $ExpectType Node[]
 esquery.match(AST, selector);
 
-// $ExpectError
+// @ts-expect-error
 esquery.match(AST, 'VariableDeclarator');
 
 // $ExpectType boolean
 esquery.matches(nodes[0], selector, esquery(AST, 'FunctionDeclaration'));
 
-// $ExpectError
+// @ts-expect-error
 esquery.match(3, selector);
 
 switch (selector.type) {

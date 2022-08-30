@@ -1,8 +1,14 @@
 import { SalesforceId } from './salesforce-id';
 
 interface ErrorResult {
-    errors: string[];
+    errors: Error[];
     success: false;
+}
+
+interface Error {
+    statusCode: string;
+    message: string;
+    fields: string[];
 }
 
 interface SuccessResult {

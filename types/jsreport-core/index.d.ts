@@ -237,8 +237,9 @@ declare namespace JsReport {
         store?: {
             provider?: ReporterOptionsStoreProvider | undefined;
         } | undefined;
-        blobStorge?: {
+        blobStorage?: {
             provider?: ReporterOptionsBlobStorageProvider | undefined;
+            dataDirectory?: string | undefined;
         } | undefined;
         extensions?: any;
         extensionsList?: string[] | undefined;

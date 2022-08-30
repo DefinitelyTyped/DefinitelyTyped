@@ -1,9 +1,10 @@
-import * as React from 'react';
 import DatePicker from 'gestalt-datepicker';
+import * as React from 'react';
 
 const handleChange = (value: Date) => value;
 
 <DatePicker id="example-basic" label="Select a date" onChange={({ value }) => handleChange(value)} />;
+
 <DatePicker
     disabled
     id="example-preselected value"

@@ -26,4 +26,5 @@ function test() {
     expect(testElement).to.be.visible;
     expect(testElement).to.have.tagName('foo');
     expect(testElement).to.have.focus;
+    expect(testElement).to.be.checked;
 }

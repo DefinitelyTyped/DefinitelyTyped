@@ -1,7 +1,4 @@
-import { Emitter, EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
-import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 import DocumentSelection from './documentselection';
 import Element from './element';
 import { Item } from './item';
@@ -10,6 +7,9 @@ import Position from './position';
 import Range from './range';
 import Selection from './selection';
 import Writer from './writer';
+
+// tslint:disable-next-line:no-empty-interface
+export default interface Schema extends Observable {}
 
 export default class Schema implements Observable {
     addAttributeCheck(callback: (context: SchemaContext, name: string) => any): void;
@@ -37,37 +37,6 @@ export default class Schema implements Observable {
     register(itemName: string, definition: SchemaItemDefinition): void;
     removeDisallowedAttributes(nodes: Iterable<Node>, writer: Writer): void;
     setAttributeProperties(attributeName: string, properties: AttributeProperties): void;
-
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
-    bind(...bindProperties: string[]): BindChain;
-    unbind(...unbindProperties: string[]): void;
-    decorate(methodName: string): void;
-    on<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    once<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
-    listenTo<P extends string, E extends Emitter>(
-        emitter: E,
-        event: P,
-        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    stopListening<E extends Emitter, P extends string>(
-        emitter?: E,
-        event?: P,
-        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-    ): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    stopDelegating(event?: string, emitter?: Emitter): void;
 }
 
 export interface SchemaItemDefinition {

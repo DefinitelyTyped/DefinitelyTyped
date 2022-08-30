@@ -61,7 +61,7 @@ RecordRTC.getSeekableBlob(new Blob(), outputBlob => {
 RecordRTC.DiskStorage.Fetch((dataUrl, type) => {
     dataUrl; // $ExpectType string
     const check1 = type === 'audioBlob';
-    // $ExpectError
+    // @ts-expect-error
     const check2 = type === 'invalid';
 });
 RecordRTC.DiskStorage.Store({

@@ -1,4 +1,4 @@
-// Type definitions for ember-data 4.0
+// Type definitions for ember-data 4.4
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -173,6 +173,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
@@ -886,11 +892,9 @@ export namespace DS {
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
      * relationship.
      */
-    interface ManyArray<T> extends Ember.MutableArray<T> {}
-    class ManyArray<T> extends Ember.Object.extend(
-        Ember.MutableArray as {},
-        Ember.Evented
-    ) {
+    // tslint:disable-next-line:no-empty-interface -- used for declaration merge
+    interface ManyArray<T> extends Ember.MutableArray<T>, Evented {}
+    class ManyArray<T> extends Ember.Object {
         /**
          * The loading state of this array
          */
@@ -993,7 +997,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */
@@ -1388,6 +1392,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */

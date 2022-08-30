@@ -63,7 +63,7 @@ testArrayBounds.getCenter();
 const testBounds = new AMap.Bounds(lnglat, lnglat);
 // $ExpectType Bounds
 new AMap.Bounds();
-// $ExpectError
+// @ts-expect-error
 new AMap.Bounds([0, 0, 0]);
 // $ExpectType Bounds
 new AMap.Bounds([0, 0, 0, 0]);
@@ -307,7 +307,7 @@ domUtil.rotate(div, 10);
 domUtil.rotate(div, 10, { x: 10, y: 10 });
 
 const util2: typeof AMap.DomUtil = domUtil.setCss(div, { textAlign: 'left' });
-// $ExpectError
+// @ts-expect-error
 domUtil.setCss(div, { textAlign: 10 });
 
 // $ExpectType void
@@ -880,7 +880,7 @@ testMap.on('dblclick', dblClickHandler);
 testMap.on('complete', (event: AMap.Map.EventMap['complete']) => {
     // $ExpectType "complete"
     event.type;
-    // $ExpectError
+    // @ts-expect-error
     event.value;
 });
 // $ExpectType Map
@@ -1020,7 +1020,7 @@ util.argbHex2Rgba('argbHex');
 
 // $ExpectType boolean
 util.isEmpty({});
-// $ExpectError
+// @ts-expect-error
 util.isEmpty(1);
 
 // $ExpectType number[]
@@ -1031,7 +1031,7 @@ util.deleteItemFromArrayByIndex([1], 1);
 
 // $ExpectType number
 util.indexOf([1], 1);
-// $ExpectError
+// @ts-expect-error
 util.indexOf([1], '1');
 
 // $ExpectType number
@@ -1063,7 +1063,7 @@ if (util.isDOM(value2)) {
 
 // $ExpectType boolean
 util.includes([1], 1);
-// $ExpectError
+// @ts-expect-error
 util.includes([1], '1');
 
 // $ExpectType number
@@ -1347,7 +1347,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
         data.id;
         // $ExpectType string
         data.name;
-        // $ExpectType [number, number] | [string, string]
+        // $ExpectType [number, number] | [string, string] || [string, string] | [number, number]
         data.position;
         // $ExpectType number | undefined
         data.rank;
@@ -1463,7 +1463,7 @@ testLabelsLayer.on('click', (event: AMap.LabelsLayer.EventMap['click']) => {
  * layer/layer.ts
  */
 
-// $ExpectError
+// @ts-expect-error
 new AMap.Layer();
 
 // $ExpectType HTMLDivElement | undefined
@@ -1499,7 +1499,7 @@ layer.getzIndex();
  * layer/layerGroup.ts
  */
 
-// $ExpectError
+// @ts-expect-error
 new AMap.LayerGroup();
 
 // $ExpectType LayerGroup<TileLayer>
@@ -1513,7 +1513,7 @@ const testAnyLauerGroup = new AMap.LayerGroup<any>([]);
 testTileLayerGroup.addLayer(tileLayer);
 // $ExpectType LayerGroup<TileLayer>
 testTileLayerGroup.addLayer([tileLayer]);
-// $ExpectError
+// @ts-expect-error
 testTileLayerGroup.addLayer(massMarksLayer);
 
 // $ExpectType TileLayer[]
@@ -1596,7 +1596,7 @@ testTileLayerGroup.setOptions({
     tileSize: 256
 });
 // layerGruop.setOptions({
-//     // $ExpectError
+//     // @ts-expect-error
 //     interval: 1
 // });
 
@@ -1638,9 +1638,9 @@ const massMarksMassMarksCustomData: MassMarksCustomData = {
     id: ''
 };
 
-// $ExpectError
+// @ts-expect-error
 new AMap.MassMarks();
-// $ExpectError
+// @ts-expect-error
 new AMap.MassMarks([], {});
 
 new AMap.MassMarks([], {
@@ -1666,9 +1666,9 @@ testMassMarks.getStyle();
 // $ExpectType void
 testMassMarks.setData('');
 
-// $ExpectError
+// @ts-expect-error
 testMassMarks.setData(massMarksData1);
-// $ExpectError
+// @ts-expect-error
 testMassMarks.setData(massMarksMassMarksCustomData);
 
 const massMarksCustomData = testMassMarks.getData()[0];
@@ -1985,9 +1985,9 @@ const bezierCurvePath = [
     [1, 2]
 ];
 
-// $ExpectError
+// @ts-expect-error
 new AMap.BezierCurve();
-// $ExpectError
+// @ts-expect-error
 new AMap.BezierCurve({});
 // $ExpectType BezierCurve<BezierCurveExtraData>
 const testBezierCurve = new AMap.BezierCurve<BezierCurveExtraData>({
@@ -2095,7 +2095,7 @@ testBezierCurve.setMap(map);
 
 // $ExpectType void
 testBezierCurve.setExtData({ test: 1 });
-// $ExpectError
+// @ts-expect-error
 testBezierCurve.setExtData({ test: '123' });
 
 // $ExpectType {} | BezierCurveExtraData
@@ -2120,7 +2120,7 @@ testBezierCurve.on('show', (event: AMap.BezierCurve.EventMap<typeof testBezierCu
 testBezierCurve.on('options', (event: AMap.BezierCurve.EventMap<typeof testBezierCurve>['options']) => {
     // $ExpectType "options"
     event.type;
-    // $ExpectError
+    // @ts-expect-error
     event.target;
 });
 
@@ -2243,7 +2243,7 @@ testCircle.setMap(map);
 
 // $ExpectType void
 testCircle.setExtData({ test: 2 });
-// $ExpectError
+// @ts-expect-error
 testCircle.setExtData({ test: '1' });
 
 // $ExpectType {} | CircleExtraData
@@ -2264,7 +2264,7 @@ testCircle.on('click', (event: AMap.Circle.EventMap<typeof testCircle>['click'])
 testCircle.on('setCenter', (event: AMap.Circle.EventMap<typeof testCircle>['setCenter']) => {
     // $ExpectType "setCenter"
     event.type;
-    // $ExpectError
+    // @ts-expect-error
     event.target;
 });
 
@@ -2707,7 +2707,7 @@ const testLabelMarker = new AMap.LabelMarker({
 // $ExpectType void
 testLabelMarker.setPosition(lnglatTuple);
 
-// $ExpectType [number, number] | [string, string]
+// $ExpectType [number, number] | [string, string] || [string, string] | [number, number]
 testLabelMarker.getPosition();
 
 // $ExpectType [number, number]
@@ -2895,7 +2895,7 @@ testMarker.getContent();
 
 // $ExpectType void
 testMarker.moveAlong([lnglat], 100);
-// $ExpectError
+// @ts-expect-error
 testMarker.moveAlong([[1, 2]], 100);
 // $ExpectType void
 testMarker.moveAlong([lnglat], 100, t => t, false);
@@ -2921,7 +2921,7 @@ testMarker.setMap(map);
 
 // $ExpectType void
 testMarker.setTitle('title');
-// $ExpectError
+// @ts-expect-error
 testMarker.setTitle();
 
 // $ExpectType string | undefined
@@ -2976,12 +2976,12 @@ new AMap.MarkerShape({
     coords: [1, 2, 3, 4, 5]
 });
 
-// $ExpectError
+// @ts-expect-error
 new AMap.MarkerShape({
     type: 'circle',
     coords: [1, 1]
 });
-// $ExpectError
+// @ts-expect-error
 new AMap.MarkerShape({
     type: 'rect',
     coords: [1, 1, 1, 2, 2]
@@ -3010,10 +3010,10 @@ testOverlay.setMap(map);
 // $ExpectType void
 testOverlay.setMap(null);
 
-// $ExpectError
+// @ts-expect-error
 testOverlay.setExtData({ any: 123 });
 
-// $ExpectError OverlayExtraData
+// $ExpectType {} | OverlayExtraData
 testOverlay.getExtData();
 
 /**
@@ -3031,7 +3031,7 @@ const testOverlayGroup = new AMap.OverlayGroup<AMap.Marker>([marker]);
 testOverlayGroup.addOverlay(marker);
 // $ExpectType OverlayGroup<Marker<any>, any>
 testOverlayGroup.addOverlay([marker]);
-// $ExpectError
+// @ts-expect-error
 testOverlayGroup.addOverlay([testCircle]);
 
 // $ExpectType OverlayGroup<Marker<any>, any>
@@ -3499,7 +3499,7 @@ testRectangle.on('click', (event: AMap.Rectangle.EventMap<typeof testRectangle>[
 testRectangle.on('setBounds', (event: AMap.Rectangle.EventMap<typeof testRectangle>['setBounds']) => {
     // $ExpectType "setBounds"
     event.type;
-    // $ExpectError
+    // @ts-expect-error
     event.target;
 });
 
@@ -3625,7 +3625,7 @@ testText.moveAlong([lnglat], 100);
 
 // $ExpectType void
 testText.moveAlong([lnglat], 100);
-// $ExpectError
+// @ts-expect-error
 testText.moveAlong([[1, 2]], 100);
 // $ExpectType void
 testText.moveAlong([lnglat], 100, t => t, false);
@@ -3651,7 +3651,7 @@ testText.setMap(map);
 
 // $ExpectType void
 testText.setTitle('title');
-// $ExpectError
+// @ts-expect-error
 testText.setTitle();
 
 // $ExpectType string | undefined

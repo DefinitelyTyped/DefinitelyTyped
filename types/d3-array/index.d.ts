@@ -6,9 +6,10 @@
 //                 denisname <https://github.com/denisname>
 //                 Hugues Stefanski <https://github.com/ledragon>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Fil <https://github.com/Fil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.1.0
+// Last module patch version validated against: 3.1.6
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -235,21 +236,23 @@ export function quantileSorted<T>(
 ): number | undefined;
 
 /**
- * Returns an array with the rank of each value in the iterable, i.e. the index of the value when the iterable is sorted.
+ * Returns an array with the rank of each value in the iterable, i.e. the zero-based index of the value when the iterable is sorted.
  * Nullish values are sorted to the end and ranked NaN.
- * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the ranks.
+ * An optional comparator or accessor function may be specified; the latter is equivalent to calling array.map(accessor) before computing the ranks.
+ * If comparator is not specified, it defaults to ascending.
  * Ties (equivalent values) all get the same rank, defined as the first time the value is found.
  */
 export function rank(iterable: Iterable<Numeric | undefined | null>): Float64Array;
 /**
- * Returns an array with the rank of each value in the iterable, i.e. the index of the value when the iterable is sorted.
+ * Returns an array with the rank of each value in the iterable, i.e. the zero-based index of the value when the iterable is sorted.
  * Nullish values are sorted to the end and ranked NaN.
- * An optional accessor function may be specified, which is equivalent to calling array.map(accessor) before computing the ranks.
+ * An optional comparator or accessor function may be specified; the latter is equivalent to calling array.map(accessor) before computing the ranks.
+ * If comparator is not specified, it defaults to ascending.
  * Ties (equivalent values) all get the same rank, defined as the first time the value is found.
  */
 export function rank<T>(
     iterable: Iterable<T>,
-    accessor: (datum: T, index: number, array: Iterable<T>) => number | undefined | null
+    accessorOrComparator: ((datum: T, index: number, array: Iterable<T>) => number | undefined | null) | ((a: T, b: T) => number | undefined | null)
 ): Float64Array;
 
 /**

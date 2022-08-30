@@ -24,7 +24,7 @@ async function testProxyOptions() {
     });
 
     // send invalid proxy values
-    // $ExpectError
+    // @ts-expect-error
     new sf.Connection({ httpProxy: { host: '127.0.0.1:8080' } });
 }
 
@@ -102,14 +102,14 @@ async function testSObject(connection: sf.Connection) {
     {
         // Test SObject.update
         // if we require that records have an id field this will fail
-        // //$ExpectError
+        // // @ts-expect-error
         await dummySObject.update({ thing: false });
 
         // If we require that the records have an Id field
         // await dummySObject.update({ thing: false, Id: 'asdf' }); // $ExpectType RecordResult
 
         // invalid field
-        // $ExpectError
+        // @ts-expect-error
         await dummySObject.update({ asdf: false });
 
         // with rest api options
@@ -144,6 +144,11 @@ async function testSObject(connection: sf.Connection) {
         dummySObject.update([{ thing: false }], (err, res) => {
             err; // $ExpectType Error | null
             res; // $ExpectType RecordResult[]
+        });
+
+        // find and update
+        dummySObject.find({ Id: '50130000000014C' }).update({
+            thing: true,
         });
     }
 
@@ -226,7 +231,7 @@ async function testSObject(connection: sf.Connection) {
         dummySObject.select(['thing', 'other']);
 
         // note the following should never compile:
-        // $ExpectError
+        // @ts-expect-error
         dummySObject.select(['lol']);
     }
 
@@ -880,14 +885,14 @@ async function testDescribe() {
         object.fields.forEach(field => {
             const type: sf.FieldType = field.type;
             // following should never compile
-            // $ExpectError
+            // @ts-expect-error
             const fail = type === 'hey';
 
             const isString = type === 'string';
         });
 
         // following should never compile (if StrictNullChecks is on)
-        // $ExpectError
+        // @ts-expect-error
         object.keyPrefix.length;
 
         console.log(`${sobject.name} Label: `, object.label);

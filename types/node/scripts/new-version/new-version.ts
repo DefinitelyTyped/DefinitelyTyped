@@ -7,7 +7,7 @@ const nodeDir = resolve(__dirname, '../../');
 
 const [,,newVersion] = process.argv;
 
-if (!newVersion.match(/^\d+$/)) {
+if (!newVersion || !newVersion.match(/^\d+$/)) {
     throw new Error('Argument must be only major version number');
 }
 
@@ -24,7 +24,7 @@ mkdirSync(tempSubfolder);
 
 copySync(nodeDir, tempSubfolder, {
     filter(src) {
-        if (src.match(/v\d+$/)) {
+        if (src.match(/v[^a-z8]+$/) || src.endsWith('package.json') || src.endsWith('package-lock.json')) {
             return false;
         }
         return !src.includes('/script');
@@ -49,4 +49,4 @@ oldTSConfig.compilerOptions.paths = {
     ]
 }
 
-writeFileSync(tsConfigPath, JSON.stringify(oldTSConfig, null, '  '), )
+writeFileSync(tsConfigPath, JSON.stringify(oldTSConfig, null, '  '), 'utf8')

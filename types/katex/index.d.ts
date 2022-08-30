@@ -1,16 +1,12 @@
-// Type definitions for KaTeX 0.11
+// Type definitions for KaTeX 0.14
 // Project: http://khan.github.io/KaTeX/
 // Definitions by: Michael Randolph <https://github.com/mrand01>
 //                 Kevin Nguyen <https://github.com/knguyen0125>
 //                 bLue <https://github.com/dreamerblue>
 //                 Sebastian Weigand <https://github.com/s-weigand>
 //                 sapphi-red <https://github.com/sapphi-red>
+//                 Stefaans <https://github.com/Stefaans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-/// <reference path="contrib/index.d.ts" />
-
-export as namespace katex;
 
 export interface TrustContext {
     command: string
@@ -138,21 +134,25 @@ export interface KatexOptions {
 
 export class ParseError implements Error {
     constructor(message: string, lexer: any, position: number);
+
     name: string;
     message: string;
     position: number;
 }
 
-/**
- * Renders a TeX expression into the specified DOM element
- * @param tex A TeX expression
- * @param element The DOM element to render into
- * @param options KaTeX options
- */
-export function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
-/**
- * Renders a TeX expression into an HTML string
- * @param tex A TeX expression
- * @param options KaTeX options
- */
-export function renderToString(tex: string, options?: KatexOptions): string;
+export default class katex {
+    /**
+     * Renders a TeX expression into the specified DOM element
+     * @param tex A TeX expression
+     * @param element The DOM element to render into
+     * @param options KaTeX options
+     */
+    static render(tex: string, element: HTMLElement, options?: KatexOptions): void;
+
+    /**
+     * Renders a TeX expression into an HTML string
+     * @param tex A TeX expression
+     * @param options KaTeX options
+     */
+    static renderToString(tex: string, options?: KatexOptions): string;
+}

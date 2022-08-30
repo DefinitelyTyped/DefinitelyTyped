@@ -138,7 +138,7 @@ export namespace Cookie {
     interface Properties {
         key?: string | undefined;
         value?: string | undefined;
-        expires?: Date | undefined;
+        expires?: Date | 'Infinity' | undefined;
         maxAge?: number | 'Infinity' | '-Infinity' | undefined;
         domain?: string | undefined;
         path?: string | undefined;
@@ -262,4 +262,26 @@ export abstract class Store {
     getAllCookies(cb: (err: Error | null, cookie: Cookie[]) => void): void;
 }
 
-export class MemoryCookieStore extends Store { }
+export class MemoryCookieStore extends Store {
+    findCookie(domain: string, path: string, key: string, cb: (err: Error | null, cookie: Cookie | null) => void): void;
+    findCookie(domain: string, path: string, key: string): Promise<Cookie | null>;
+
+    findCookies(domain: string, path: string, allowSpecialUseDomain: boolean, cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    findCookies(domain: string, path: string, cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    findCookies(domain: string, path: string, allowSpecialUseDomain?: boolean): Promise<Cookie[]>;
+
+    putCookie(cookie: Cookie, cb: (err: Error | null) => void): void;
+    putCookie(cookie: Cookie): Promise<void>;
+
+    updateCookie(oldCookie: Cookie, newCookie: Cookie, cb: (err: Error | null) => void): void;
+    updateCookie(oldCookie: Cookie, newCookie: Cookie): Promise<void>;
+
+    removeCookie(domain: string, path: string, key: string, cb: (err: Error | null) => void): void;
+    removeCookie(domain: string, path: string, key: string): Promise<void>;
+
+    removeCookies(domain: string, path: string, cb: (err: Error | null) => void): void;
+    removeCookies(domain: string, path: string): Promise<void>;
+
+    getAllCookies(cb: (err: Error | null, cookie: Cookie[]) => void): void;
+    getAllCookies(): Promise<Cookie[]>;
+}

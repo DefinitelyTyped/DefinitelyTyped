@@ -1,4 +1,5 @@
 import { dispatch, select } from '@wordpress/data';
+import type { Notice, Action } from '@wordpress/notices';
 
 //
 // store
@@ -43,3 +44,6 @@ select('core/notices').getNotices();
 
 // $ExpectType Notice[]
 select('core/notices').getNotices('foo');
+
+// $ExpectType Notice
+const { type, id, actions } = select('core/notices').getNotices('foo')[0];

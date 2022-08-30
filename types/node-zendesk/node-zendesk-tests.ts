@@ -9,6 +9,10 @@ const client: Client = createClient({
 
 const zendeskCallback = () => {};
 
+const listPayload = client.organizations.list(() => {});
+listPayload.next_page; // $ExpectType string | null
+listPayload.previous_page; // $ExpectType string | null
+
 /** Job Statuses Methods */
 client.jobstatuses.show(123, zendeskCallback);
 client.jobstatuses.show(123).then(zendeskCallback);
@@ -147,6 +151,33 @@ client.tickets.exportAudit(123, zendeskCallback);
 client.tickets.exportAudit(123).then(zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"], zendeskCallback);
 client.tickets.addTags(123, ["foo", "bar"]).then(zendeskCallback);
+
+/** Ticket Fields */
+client.ticketfields.create(
+    {
+        type: "subject",
+        title: "Subject",
+        description: "This is the agent only description for the subject field",
+        position: 0,
+        active: true,
+        key: "subject"
+    },
+    zendeskCallback,
+);
+
+/** Groups Methods */
+client.groups.list(zendeskCallback);
+client.groups.list().then(zendeskCallback);
+client.groups.assignable(zendeskCallback);
+client.groups.assignable().then(zendeskCallback);
+client.groups.show(123, zendeskCallback);
+client.groups.show(123).then(zendeskCallback);
+client.groups.create({ group: { name: "foo", default: false, description: "bar" } }, zendeskCallback);
+client.groups.create({ group: { name: "foo", default: false, description: "bar" } }).then(zendeskCallback);
+client.groups.update(123, { group: { name: "foo" } }, zendeskCallback);
+client.groups.update(123, { group: { name: "foo" } }).then(zendeskCallback);
+client.groups.delete(123, zendeskCallback);
+client.groups.delete(123).then(zendeskCallback);
 
 /** Users Methods */
 client.users.auth(zendeskCallback);

@@ -64,6 +64,12 @@ export namespace UserScripts {
          * Optional.
          */
         runAt?: ExtensionTypes.RunAt;
+
+        /**
+         * limit the set of matched tabs to those that belong to the given cookie store id
+         * Optional.
+         */
+        cookieStoreId?: string[] | string;
     }
 
     /**

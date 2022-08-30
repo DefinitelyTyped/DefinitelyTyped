@@ -713,6 +713,28 @@ declare namespace Xrm {
             getStage(): ProcessFlow.Stage;
         }
 
+        /**
+         * Interface for process status changed event arguments.
+         */
+        interface ProcessStatusChangedEventArguments {
+            /**
+             * Gets the selected stage object
+             * @returns The stage object
+             */
+            getStage(): ProcessFlow.Stage;
+
+            /**
+             * Gets the destination process status
+             * @returns The process status
+             */
+            getStatus(): ProcessFlow.ProcessStatus;
+
+            /**
+             * Prevents the stage or status change operation from being submitted to the server.
+             */
+            preventDefault(): void;
+        }
+
         interface LookupTagClickEventArguments {
             /**
              * Gets the selected tag value
@@ -815,6 +837,14 @@ declare namespace Xrm {
             getEventArgs(): StageSelectedEventArguments;
         }
 
+        interface ProcessStatusChangedEventContext extends EventContext {
+            /**
+             * Gets process status changed event arguments.
+             * @returns The event arguments.
+             */
+            getEventArgs(): ProcessStatusChangedEventArguments;
+        }
+
         interface LookupTagClickEventContext extends EventContext {
             /**
              * Gets an object that contains details about the lookup tag clicked
@@ -828,11 +858,7 @@ declare namespace Xrm {
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
 
-        /**
-         * Type for a process status change handler.
-         * @param status The process status.
-         */
-        type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
+        type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
 
         type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
     }
@@ -1735,31 +1761,31 @@ declare namespace Xrm {
         /**
          * @deprecated Use {@link Xrm.Controls.AddControlNotificationOptions} instead.
          */
-        interface AddControlNotificationOptions extends Controls.AddControlNotificationOptions {}
+        interface AddControlNotificationOptions extends Controls.AddControlNotificationOptions { }
 
         /**
          * Interface to define the actions on a control notification
          * @deprecated Use {@link Xrm.Controls.ControlNotificationAction} instead.
          */
-        interface ControlNotificationAction extends Controls.ControlNotificationAction {}
+        interface ControlNotificationAction extends Controls.ControlNotificationAction { }
 
         /**
          * Interface for an entity's form selector item.
          * @deprecated Use {@link Xrm.Controls.FormItem} instead.
          */
-        interface FormItem extends Controls.FormItem {}
+        interface FormItem extends Controls.FormItem { }
 
         /**
          * Interface for the form selector API.
          * @deprecated Use {@link Xrm.Controls.FormSelector} instead.
          */
-        interface FormSelector extends Controls.FormSelector {}
+        interface FormSelector extends Controls.FormSelector { }
 
         /**
          * Interface for Xrm.Page.ui.navigation.
          * @deprecated Use {@link Xrm.Controls.Navigation} instead.
          */
-        interface Navigation extends Controls.Navigation {}
+        interface Navigation extends Controls.Navigation { }
 
         /**
          * Interface for a navigation item.
@@ -1767,7 +1793,7 @@ declare namespace Xrm {
          * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.NavigationItem} instead.
          */
-        interface NavigationItem extends Controls.NavigationItem {}
+        interface NavigationItem extends Controls.NavigationItem { }
 
         /**
          * Constants to use with the addNotification method of form controls
@@ -1863,42 +1889,42 @@ declare namespace Xrm {
          * Interface for a CRM Business Process Flow instance.
          * @deprecated Use {@link Xrm.ProcessFlow.Process} instead.
          */
-        interface Process extends ProcessFlow.Process {}
+        interface Process extends ProcessFlow.Process { }
 
         /**
          * Interface for CRM Business Process Flow stages.
          * @deprecated Use {@link Xrm.ProcessFlow.Stage} instead.
          */
-        interface Stage extends ProcessFlow.Stage {}
+        interface Stage extends ProcessFlow.Stage { }
 
         /**
          * Interface for CRM Business Process Flow steps.
          * @deprecated Use {@link Xrm.ProcessFlow.Step} instead.
          */
-        interface Step extends ProcessFlow.Step {}
+        interface Step extends ProcessFlow.Step { }
 
         /**
          * Interface for the event context.
          * @deprecated Use {@link Xrm.Events.EventContext} instead.
          */
-        interface EventContext extends Events.EventContext {}
+        interface EventContext extends Events.EventContext { }
 
         /**
          * Interface for a save event context
          * @deprecated Use {@link Xrm.Events.SaveEventContext} instead.
          */
-        interface SaveEventContext extends Events.SaveEventContext {}
+        interface SaveEventContext extends Events.SaveEventContext { }
 
         /**
          * Interface for a process stage change event context
          * @deprecated Use {@link Xrm.Events.StageChangeEventContext} instead.
          */
-        interface StageChangeEventContext extends Events.StageChangeEventContext {}
+        interface StageChangeEventContext extends Events.StageChangeEventContext { }
 
         /**
          * Interface for a process stage select event context
          * @deprecated  Use {@link Xrm.Events.StageSelectedEventContext} instead.
-         */ interface StageSelectedEventContext extends Events.StageSelectedEventContext {}
+         */ interface StageSelectedEventContext extends Events.StageSelectedEventContext { }
 
         /**
          * Type for a context-sensitive handler.
@@ -1918,167 +1944,167 @@ declare namespace Xrm {
          * Interface for UI elements with labels.
          * @deprecated Use {@link Xrm.Controls.UiLabelElement} instead.
          */
-        interface UiLabelElement extends Controls.UiLabelElement {}
+        interface UiLabelElement extends Controls.UiLabelElement { }
 
         /**
          * Interface for UI elements which can have the visibility value read.
          * @deprecated Use {@link Xrm.Controls.UiCanGetVisibleElement} instead.
          */
-        interface UiCanGetVisibleElement extends Controls.UiCanGetVisibleElement {}
+        interface UiCanGetVisibleElement extends Controls.UiCanGetVisibleElement { }
 
         /**
          * Interface for UI elements which can have the visibility value updated.
          * @deprecated Use {@link Xrm.Controls.UiCanSetVisibleElement} instead.
          */
-        interface UiCanSetVisibleElement extends Controls.UiCanSetVisibleElement {}
+        interface UiCanSetVisibleElement extends Controls.UiCanSetVisibleElement { }
 
         /**
          * Base interface for standard UI elements.
          * @deprecated Use {@link Xrm.Controls.UiStandardElement} instead.
          */
-        interface UiStandardElement extends Controls.UiStandardElement {}
+        interface UiStandardElement extends Controls.UiStandardElement { }
 
         /**
          * Interface for focusable UI elements.
          * @deprecated Use {@link Xrm.Controls.UiFocusable} instead.
          */
-        interface UiFocusable extends Controls.UiFocusable {}
+        interface UiFocusable extends Controls.UiFocusable { }
 
         /**
          * Interface for controls which methods provide immediate feedback or take actions as user types in a control.
          * Contains methods which can be used to perform data validations in a control even before the user commits (saves) the value in a form.
          * @deprecated Use {@link Xrm.Controls.UiKeyPressable} instead.
          */
-        interface UiKeyPressable extends Controls.UiKeyPressable {}
+        interface UiKeyPressable extends Controls.UiKeyPressable { }
 
         /**
          * Interface for Result value of AutoCompleteResultSet
          * @deprecated Use {@link Xrm.Controls.AutoCompleteResult} instead.
          */
-        interface AutoCompleteResult extends Controls.AutoCompleteResult {}
+        interface AutoCompleteResult extends Controls.AutoCompleteResult { }
 
         /**
          * Interface for command of AutoCompleteResultSet.  This is displayed at the bottom of the auto complete view
          * @deprecated Use {@link Xrm.Controls.AutoCompleteCommand} instead.
          */
-        interface AutoCompleteCommand extends Controls.AutoCompleteCommand {}
+        interface AutoCompleteCommand extends Controls.AutoCompleteCommand { }
 
         /**
          * Interface for showAutoComplete argument
          * @deprecated Use {@link Xrm.Controls.AutoCompleteResultSet} instead.
          */
-        interface AutoCompleteResultSet extends Controls.AutoCompleteResultSet {}
+        interface AutoCompleteResultSet extends Controls.AutoCompleteResultSet { }
 
         /**
          * Interface for a Lookup value.
          * @deprecated Use {@link Xrm.LookupValue} instead.
          */
-        interface LookupValue extends Xrm.LookupValue {}
+        interface LookupValue extends Xrm.LookupValue { }
 
         /**
          * Interface for an OptionSet value.
          * @deprecated Use {@link Xrm.OptionSetValue} instead.
          */
-        interface OptionSetValue extends Xrm.OptionSetValue {}
+        interface OptionSetValue extends Xrm.OptionSetValue { }
 
         /**
          * Interface for a privilege.
          * @deprecated Use {@link Xrm.Privilege} instead.
          */
-        interface Privilege extends Xrm.Privilege {}
+        interface Privilege extends Xrm.Privilege { }
 
         /**
          * Interface for an Entity attribute.
          * @deprecated Use {@link Xrm.Attributes.Attribute} instead.
          */
-        interface Attribute extends Attributes.Attribute {}
+        interface Attribute extends Attributes.Attribute { }
 
         /**
          * Interface for a Number attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.NumberAttribute} instead.
          */
-        interface NumberAttribute extends Attributes.NumberAttribute {}
+        interface NumberAttribute extends Attributes.NumberAttribute { }
 
         /**
          * Interface for a String attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.StringAttribute} instead.
          */
-        interface StringAttribute extends Attributes.StringAttribute {}
+        interface StringAttribute extends Attributes.StringAttribute { }
 
         /**
          * Common interface for enumeration attributes (OptionSet and Boolean).
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.EnumAttribute} instead.
          */
-        interface EnumAttribute extends Attributes.EnumAttribute<number | boolean> {}
+        interface EnumAttribute extends Attributes.EnumAttribute<number | boolean> { }
 
         /**
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          * @deprecated Use {@link Xrm.Attributes.BooleanAttribute} instead.
          */
-        interface BooleanAttribute extends Attributes.BooleanAttribute {}
+        interface BooleanAttribute extends Attributes.BooleanAttribute { }
 
         /**
          * Interface for a Date attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.DateAttribute} instead.
          */
-        interface DateAttribute extends Attributes.DateAttribute {}
+        interface DateAttribute extends Attributes.DateAttribute { }
 
         /**
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          * @deprecated Use {@link Xrm.Attributes.OptionSetAttribute} instead.
          */
-        interface OptionSetAttribute extends Attributes.OptionSetAttribute {}
+        interface OptionSetAttribute extends Attributes.OptionSetAttribute { }
 
         /**
          * Interface a Lookup attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.LookupAttribute} instead.
          */
-        interface LookupAttribute extends Attributes.LookupAttribute {}
+        interface LookupAttribute extends Attributes.LookupAttribute { }
 
         /**
          * Interface for the form's record context, Xrm.Page.data.entity
          * @deprecated Use {@link Xrm.Entity} instead.
          */
-        interface Entity extends Xrm.Entity {}
+        interface Entity extends Xrm.Entity { }
 
         /**
          * Interface for save event arguments.
          * @deprecated Use {@link Xrm.Events.SaveEventContext} instead.
          */
-        interface SaveEventArguments extends Events.SaveEventContext {}
+        interface SaveEventArguments extends Events.SaveEventContext { }
 
         /**
          * Interface for process stage change event arguments.
          * @deprecated Use {@link Xrm.Events.StageChangeEventArguments} instead.
          */
-        interface StageChangeEventArguments extends Events.StageChangeEventArguments {}
+        interface StageChangeEventArguments extends Events.StageChangeEventArguments { }
 
         /**
          * Interface for process stage selected event arguments.
          * @deprecated Use {@link Xrm.Events.StageSelectedEventArguments} instead.
          */
-        interface StageSelectedEventArguments extends Events.StageSelectedEventArguments {}
+        interface StageSelectedEventArguments extends Events.StageSelectedEventArguments { }
 
         /**
          * Interface for Xrm.Page.ui controls.
          * @see {@link UiElement}
          * @deprecated Use {@link Xrm.Controls.Control} instead.
          */
-        interface Control extends Controls.Control {}
+        interface Control extends Controls.Control { }
 
         /**
          * Interface for a standard control.
          * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.StandardControl} instead.
          */
-        interface StandardControl extends Controls.StandardControl {}
+        interface StandardControl extends Controls.StandardControl { }
 
         /**
          * Interface for Auto Lookup Control.
@@ -2087,42 +2113,42 @@ declare namespace Xrm {
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.AutoLookupControl} instead.
          */
-        interface AutoLookupControl extends Controls.AutoLookupControl {}
+        interface AutoLookupControl extends Controls.AutoLookupControl { }
 
         /**
          * Interface for a String control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.StringControl} instead.
          */
-        interface StringControl extends Controls.StringControl {}
+        interface StringControl extends Controls.StringControl { }
 
         /**
          * Interface for a Number control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.NumberControl} instead.
          */
-        interface NumberControl extends AutoLookupControl {}
+        interface NumberControl extends AutoLookupControl { }
 
         /**
          * Interface for a Date control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.DateControl} instead.
          */
-        interface DateControl extends StandardControl {}
+        interface DateControl extends StandardControl { }
 
         /**
          * Interface for a Lookup control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.LookupControl} instead.
          */
-        interface LookupControl extends Controls.LookupControl {}
+        interface LookupControl extends Controls.LookupControl { }
 
         /**
          * Interface for an OptionSet control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.OptionSetControl} instead.
          */
-        interface OptionSetControl extends Controls.OptionSetControl {}
+        interface OptionSetControl extends Controls.OptionSetControl { }
 
         /**
          * Interface for a CRM grid control.
@@ -2130,7 +2156,7 @@ declare namespace Xrm {
          * @see {@link Control}
          * @deprecated  Use {@link Xrm.Controls.GridControl} instead.
          */
-        interface GridControl extends Controls.GridControl {}
+        interface GridControl extends Controls.GridControl { }
 
         /**
          * Interface for a framed control, which is either a Web Resource or an Iframe.
@@ -2139,28 +2165,28 @@ declare namespace Xrm {
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          * @deprecated  Use {@link Xrm.Controls.FramedControl} instead.
          */
-        interface FramedControl extends Controls.FramedControl {}
+        interface FramedControl extends Controls.FramedControl { }
 
         /**
          * Interface for an Iframe control.
          * @see {@link FramedControl}
          * @deprecated  Use {@link Xrm.Controls.IframeControl} instead.
          */
-        interface IframeControl extends Controls.IframeControl {}
+        interface IframeControl extends Controls.IframeControl { }
 
         /**
          * Interface for a Silverlight control.
          * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.SilverlightControl} instead.
          */
-        interface SilverlightControl extends Controls.SilverlightControl {}
+        interface SilverlightControl extends Controls.SilverlightControl { }
 
         /**
          * Interface for a Timeline control.
          * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.TimelineWall} instead.
          */
-        interface TimelineWall extends Controls.TimelineWall {}
+        interface TimelineWall extends Controls.TimelineWall { }
 
         /**
          * Interface for a form tab.
@@ -2168,14 +2194,14 @@ declare namespace Xrm {
          * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.Tab} instead.
          */
-        interface Tab extends Controls.Tab {}
+        interface Tab extends Controls.Tab { }
 
         /**
          * Interface for a form section.
          * @see {@link UiElement}
          * @deprecated Use {@link Xrm.Controls.Section} instead.
          */
-        interface Section extends Controls.Section {}
+        interface Section extends Controls.Section { }
 
         /**
          * Module for the Xrm.Page.data API.
@@ -2186,7 +2212,7 @@ declare namespace Xrm {
              * Interface for the Xrm.Page.data.process API.
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessManager} instead.
              */
-            interface ProcessManager extends ProcessFlow.ProcessManager {}
+            interface ProcessManager extends ProcessFlow.ProcessManager { }
 
             /**
              * Called when method to get active processes is complete
@@ -2240,7 +2266,7 @@ declare namespace Xrm {
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessDictionary} instead.
              */
-            interface ProcessDictionary extends ProcessFlow.ProcessDictionary {}
+            interface ProcessDictionary extends ProcessFlow.ProcessDictionary { }
         }
 
         /**
@@ -2264,14 +2290,14 @@ declare namespace Xrm {
              * Interface for Xrm.Page.ui.process API
              * @deprecated Use {@link Xrm.Controls.ProcessControl} instead.
              */
-            interface ProcessManager extends Controls.ProcessControl {}
+            interface ProcessManager extends Controls.ProcessControl { }
 
             /**
              * Interface for a grid.  Use Grid methods to access information about data in the grid. Grid is returned by the
              * GridControl.getGrid method.
              * @deprecated Use {@link Xrm.Controls.Grid} instead.
              */
-            interface Grid extends Controls.Grid {}
+            interface Grid extends Controls.Grid { }
 
             /**
              * Interface for a grid row.  Use the GridRow.getData method to access the GridRowData. A collection of GridRow is
@@ -2279,42 +2305,42 @@ declare namespace Xrm {
              * In V9 - this is essentailly a form context.
              * @deprecated Use {@link Xrm.Controls.Grid.GridRow} instead.
              */
-            interface GridRow extends Controls.Grid.GridRow {}
+            interface GridRow extends Controls.Grid.GridRow { }
 
             /**
              * Interface for grid row data.  Use the GridRowData.getEntity method to access the GridEntity. GridRowData is
              * returned by the GridRow.getData method.
              * @deprecated Use {@link Xrm.Controls.Grid.GridRowData} instead.
              */
-            interface GridRowData extends Controls.Grid.GridRowData {}
+            interface GridRowData extends Controls.Grid.GridRowData { }
 
             /**
              * Interface for a grid entity.  Use the GridEntity methods to access data about the specific records in the rows.
              * GridEntity is returned by the GridRowData.getEntity method.
              * @deprecated Use {@link Xrm.Controls.Grid.GridRowData} instead.v
              */
-            interface GridEntity extends Controls.Grid.GridEntity {}
+            interface GridEntity extends Controls.Grid.GridEntity { }
 
             /**
              * Interface for the view selector.  Use the ViewSelector methods to get or set information about the view selector
              * of the grid control.
              * @deprecated Use {@link Xrm.Controls.ViewSelector} instead.
              */
-            interface ViewSelector extends Controls.ViewSelector {}
+            interface ViewSelector extends Controls.ViewSelector { }
 
             /**
              * Interface for a view selector item. This object contains data that identifies a view. Use this as a parameter to
              * the ViewSelector.setCurrentView method.
              * @deprecated Use {@link Xrm.Controls.ViewSelectorItem} instead.
              */
-            interface ViewSelectorItem extends Controls.ViewSelectorItem {}
+            interface ViewSelectorItem extends Controls.ViewSelectorItem { }
 
             /**
              * Interface for a quick view control instance on a form.
              * @see {@link https://msdn.microsoft.com/en-us/library/mt736908.aspx External Link: Xrm.Page.ui quickForms (client-side reference)}
              * @deprecated Use {@link Xrm.Controls.ViewSelectorItem} instead.
              */
-            interface QuickForm extends Controls.QuickFormControl {}
+            interface QuickForm extends Controls.QuickFormControl { }
         }
     }
 
@@ -2664,7 +2690,7 @@ declare namespace Xrm {
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          */
-        interface BooleanAttribute extends EnumAttribute<boolean> {}
+        interface BooleanAttribute extends EnumAttribute<boolean> { }
 
         /**
          * Interface for a Date attribute.
@@ -3047,10 +3073,10 @@ declare namespace Xrm {
          */
         interface StandardControl
             extends Control,
-                UiStandardElement,
-                UiFocusable,
-                UiCanGetDisabledElement,
-                UiCanSetDisabledElement {
+            UiStandardElement,
+            UiFocusable,
+            UiCanGetDisabledElement,
+            UiCanSetDisabledElement {
             /**
              * Clears the notification identified by uniqueId.
              * @param uniqueId (Optional) Unique identifier.
@@ -3686,12 +3712,12 @@ declare namespace Xrm {
          */
         interface QuickFormControl
             extends Control,
-                UiLabelElement,
-                UiFocusable,
-                UiCanGetDisabledElement,
-                UiCanSetDisabledElement,
-                UiCanGetVisibleElement,
-                UiCanSetVisibleElement {
+            UiLabelElement,
+            UiFocusable,
+            UiCanGetDisabledElement,
+            UiCanSetDisabledElement,
+            UiCanGetVisibleElement,
+            UiCanSetVisibleElement {
             /**
              * Gets the constituent controls in a quick view control.
              * @returns An array of controls.
@@ -5897,7 +5923,7 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse extends Response {}
+    interface ExecuteResponse extends Response { }
 }
 
 declare namespace XrmEnum {
@@ -6189,7 +6215,7 @@ declare namespace XrmEnum {
         Lookup = "lookup",
         Memo = "memo",
         Money = "money",
-        MultiOptionSet = "multioptionset",
+        MultiOptionSet = "multiselectoptionset",
         OptionSet = "optionset",
         String = "string",
     }

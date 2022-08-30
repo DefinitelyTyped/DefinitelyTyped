@@ -131,7 +131,12 @@ declare global {
             Read extends "read" ? ioBroker.Object : AnyObject;
 
         type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
-        type StringOrTranslated = string | { [lang in Languages]?: string; };
+        type StringOrTranslated = string | {
+            // The "en" property is required when an object is used for the languages
+            [lang in Languages as lang extends "en" ? lang : never]: string;
+        } & {
+            [lang in Languages as lang extends "en" ? never : lang]?: string;
+        };
 
         type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 

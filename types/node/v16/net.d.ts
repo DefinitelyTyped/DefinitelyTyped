@@ -54,11 +54,15 @@ declare module 'net' {
         hints?: number | undefined;
         family?: number | undefined;
         lookup?: LookupFunction | undefined;
+        noDelay?: boolean | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveInitialDelay?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
     /**
      * This class is an abstraction of a TCP socket or a streaming `IPC` endpoint
      * (uses named pipes on Windows, and Unix domain sockets otherwise). It is also
@@ -263,6 +267,12 @@ declare module 'net' {
          */
         readonly localPort?: number;
         /**
+         * This property represents the state of the connection as a string.
+         * @see {https://nodejs.org/api/net.html#socketreadystate}
+         * @since v0.5.0
+         */
+        readonly readyState: SocketReadyState;
+        /**
          * The string representation of the remote IP address. For example,`'74.125.127.100'` or `'2001:4860:a005::68'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
@@ -278,6 +288,11 @@ declare module 'net' {
          * @since v0.5.10
          */
         readonly remotePort?: number | undefined;
+        /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
         /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
@@ -387,6 +402,25 @@ declare module 'net' {
          * @default false
          */
         pauseOnConnect?: boolean | undefined;
+        /**
+         * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
+         * @default false
+         * @since v16.5.0
+         */
+        noDelay?: boolean | undefined;
+        /**
+         * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
+         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * @default false
+         * @since v16.5.0
+         */
+        keepAlive?: boolean | undefined;
+        /**
+         * If set to a positive number, it sets the initial delay before the first keepalive probe is sent on an idle socket.
+         * @default 0
+         * @since v16.5.0
+         */
+        keepAliveInitialDelay?: number | undefined;
     }
     /**
      * This class is used to create a TCP or `IPC` server.

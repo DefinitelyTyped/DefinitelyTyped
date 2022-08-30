@@ -416,6 +416,7 @@ export interface ArcSeriesProps extends AbstractSeriesProps<ArcSeriesPoint> {
 export class ArcSeries extends AbstractSeries<ArcSeriesProps> {}
 
 export interface LineMarkSeriesProps extends AbstractSeriesProps<LineMarkSeriesPoint> {
+    size?: number;
     curve?: string | ((x: any) => any) | undefined; // default: null
     getNull?: RVGetNull<LineMarkSeriesPoint> | undefined;
     lineStyle?: CSSProperties | undefined; // default: {}

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package @recurly/recurly-js 4.19
+// Type definitions for non-npm package @recurly/recurly-js 4.21
 // Project: https://github.com/recurly/recurly-js
 // Definitions by: Christopher Rogers <https://github.com/chrissrogers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -200,7 +200,9 @@ map = new L.Map(htmlElement, mapOptions);
 let doesItHaveLayer: boolean;
 doesItHaveLayer = map.hasLayer(L.tileLayer(''));
 
-map.on('zoomanim', (_e: L.ZoomAnimEvent) => {});
+map.on('zoomanim', e => {
+    e; // $ExpectType ZoomAnimEvent
+});
 
 map.once({
     dragend: (_e: L.DragEndEvent) => {},
@@ -208,12 +210,20 @@ map.once({
 });
 
 map.off('moveend');
-map.off('resize', (_e: L.ResizeEvent) => {});
-map.off('baselayerchange', (_e: L.LayersControlEvent) => {}, {});
+map.off('resize', e => {
+    e; // $ExpectType ResizeEvent
+});
+map.off('baselayerchange', e => {
+    e; // $ExpectType LayersControlEvent
+}, {});
 
 map.removeEventListener('loading');
-map.removeEventListener('dblclick', (_e: L.LeafletMouseEvent) => {});
-map.removeEventListener('locationerror', (_e: L.ErrorEvent) => {}, {});
+map.removeEventListener('dblclick', e => {
+    e; // $ExpectType LeafletMouseEvent
+});
+map.removeEventListener('locationerror', e => {
+    e; // $ExpectType ErrorEvent
+}, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100], animate: true, duration: 0.5 });

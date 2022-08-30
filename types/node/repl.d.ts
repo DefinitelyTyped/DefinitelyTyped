@@ -6,7 +6,7 @@
  * ```js
  * const repl = require('repl');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/repl.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/repl.js)
  */
 declare module 'repl' {
     import { Interface, Completer, AsyncCompleter } from 'node:readline';
@@ -277,7 +277,7 @@ declare module 'repl' {
          * Goodbye!
          * ```
          * @since v0.3.0
-         * @param keyword The command keyword (*without* a leading `.` character).
+         * @param keyword The command keyword (_without_ a leading `.` character).
          * @param cmd The function to invoke when the command is processed.
          */
         defineCommand(keyword: string, cmd: REPLCommandAction | REPLCommand): void;

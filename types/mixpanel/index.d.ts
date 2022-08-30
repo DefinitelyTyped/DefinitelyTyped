@@ -3,6 +3,7 @@
 //          https://github.com/mixpanel/mixpanel-js
 // Definitions by: Knut Eirik Leira Hjelle <https://github.com/hjellek>
 //                 Manduro <https://github.com/Manduro>
+//                 Noam Golani <https://github.com/noamgolani>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Mixpanel {
@@ -69,6 +70,34 @@ interface Mixpanel {
      * @param callback If provided, the callback function will be called after tracking the event.
      */
     track(eventName: string, properties?: { [index: string]: any }, callback?: () => void): void;
+
+    /**
+     * Track an event. With a predefined EventType
+     *
+     * ### Usage:
+     *
+     *     // Create the event type, extending the EventBaseType
+     *     interface ErrorEvent {
+     *          eventName: 'ERROR' | 'VERY_BAD_ERROR';
+     *          properties: {
+     *              message: string;
+     *              id: number;
+     *          }
+     *     }
+     *
+     *     // Track the error event with the generic
+     *     mixpanel.track<ErrorEvent>('ERROR', { message: 'on no!', id: 1 });
+     *
+     * @param eventName The name of the event. This can be anything the user does - 'Button Click', 'Sign Up', 'Item Purchased', etc.
+     * @param properties A set of properties to include with the event you're sending. These describe the user who did the event or details about the event itself.
+     * @param callback If provided, the callback function will be called after tracking the event.
+     * @template EventType The Event type. Use this to set specific properties for an event name
+     */
+    track<EventType extends Mixpanel.EventBaseType>(
+        eventName: EventType['eventName'],
+        properties: EventType['properties'],
+        callback?: () => void,
+    ): void;
 
     /**
      * Track clicks on a set of document elements. Selector must be a
@@ -389,7 +418,7 @@ declare namespace Mixpanel {
          * @param callback If provided, the callback will be called after the tracking event
          */
         increment(prop: string, value?: number, callback?: () => void): void;
-        increment(keys: { [index: string]: number}, callback?: () => void): void;
+        increment(keys: { [index: string]: number }, callback?: () => void): void;
 
         /**
          * Merge a given list with a list-valued people analytics property,
@@ -627,6 +656,13 @@ declare namespace Mixpanel {
     }
 
     type Query = string | Element | Element[];
+
+    interface EventBaseType {
+        eventName: string;
+        properties: {
+            [key: string]: any;
+        };
+    }
 }
 
 declare var mixpanel: Mixpanel;

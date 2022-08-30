@@ -4,11 +4,9 @@
 //                 Guy Adler <https://github.com/Guy-Adler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-
+import { PackageJson } from "@npm/types";
 import fetch = require("npm-registry-fetch");
 import { Response } from "node-fetch";
-import { Manifest } from "pacote";
 
 /**
  * Sends the package represented by the manifest and tarData to the configured registry.
@@ -26,7 +24,7 @@ import { Manifest } from "pacote";
  * await libpub.publish(manifest, tarData, { npmVersion: 'my-pub-script@1.0.2', token: 'my-auth-token-here' }, opts)
  * // Package has been published to the npm registry.
  */
-export function publish(manifest: Manifest, tarballData: Buffer, options?: fetch.Options): Promise<Response>;
+export function publish(manifest: PackageJson, tarballData: Buffer, options?: fetch.Options): Promise<Response>;
 
 /**
  * Unpublishes spec from the appropriate registry. The registry in question may have its own limitations on unpublishing.

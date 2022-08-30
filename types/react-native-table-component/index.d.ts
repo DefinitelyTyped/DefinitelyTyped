@@ -3,7 +3,7 @@
 // Definitions by: David Cole <https://github.com/davidcole1340>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, ReactChildren, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { TextStyle, ViewStyle, StyleProp } from 'react-native';
 
 // cell.js
@@ -76,7 +76,7 @@ export interface TableProps {
 }
 
 export class Table extends Component<TableProps> {
-  _renderChildren(props: TableProps): ReactChildren;
+  _renderChildren(props: TableProps): ReactNode;
 }
 
 export interface TableWrapperProps {
@@ -86,5 +86,5 @@ export interface TableWrapperProps {
 }
 
 export class TableWrapper extends Component<TableWrapperProps> {
-  _renderChildren(props: TableWrapperProps): ReactChildren;
+  _renderChildren(props: TableWrapperProps): ReactNode;
 }

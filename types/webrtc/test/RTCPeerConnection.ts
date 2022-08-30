@@ -105,9 +105,9 @@ const error = new RTCError({
 
 // RPCDtlsTransport
 const dtlsTransport = pc.sctp!.transport;
-dtlsTransport.onerror = ev => console.log(ev.error.errorDetail);
+dtlsTransport.onerror = (ev: RTCErrorEvent) => console.log(ev.error.errorDetail);
 dtlsTransport.onstatechange = ev => console.log(ev.type);
-dtlsTransport.addEventListener('error', ev => console.log(ev.error.errorDetail));
+dtlsTransport.addEventListener('error', (ev: RTCErrorEvent) => console.log(ev.error.errorDetail));
 dtlsTransport.addEventListener('statechange', ev => console.log(ev.type));
 console.log(dtlsTransport.state);
 

@@ -12,12 +12,11 @@ import type {
     ReactNode,
     ReactSVG,
     ReactSVGElement,
-    ReactText,
 } from 'react';
 
 export = $;
 
-type Children = ReactNode[] | ReactText;
+type Children = ReactNode[] | number | string;
 
 declare function $(
     children?: Children,

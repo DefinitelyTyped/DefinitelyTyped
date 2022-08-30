@@ -88,6 +88,8 @@ import * as dns from 'node:dns';
         const maxRequestsPerSocket: number | null = server.maxRequestsPerSocket;
         const headersTimeout: number = server.headersTimeout;
         server.setTimeout().setTimeout(1000).setTimeout(() => {}).setTimeout(100, () => {});
+        server.closeIdleConnections(); // $ExpectType void
+        server.closeAllConnections(); // $ExpectType void
     }
 }
 

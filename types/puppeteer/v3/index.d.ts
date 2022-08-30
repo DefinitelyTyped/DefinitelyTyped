@@ -2102,7 +2102,7 @@ export interface ChromeArgOptions {
     headless?: boolean | undefined;
     /**
      * Additional arguments to pass to the browser instance.
-     * The list of Chromium flags can be found here.
+     * The list of Chromium flags can be found here: https://peter.sh/experiments/chromium-command-line-switches
      */
     args?: string[] | undefined;
     /**

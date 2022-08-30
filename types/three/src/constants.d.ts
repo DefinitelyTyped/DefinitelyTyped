@@ -115,7 +115,6 @@ export const CubeRefractionMapping: Mapping;
 export const EquirectangularReflectionMapping: Mapping;
 export const EquirectangularRefractionMapping: Mapping;
 export const CubeUVReflectionMapping: Mapping;
-export const CubeUVRefractionMapping: Mapping;
 
 // Wrapping modes
 export enum Wrapping {}
@@ -153,6 +152,7 @@ export const UnsignedInt248Type: TextureDataType;
 // Pixel formats
 export enum PixelFormat {}
 export const AlphaFormat: PixelFormat;
+export const RGBFormat: PixelFormat;
 export const RGBAFormat: PixelFormat;
 export const LuminanceFormat: PixelFormat;
 export const LuminanceAlphaFormat: PixelFormat;
@@ -301,7 +301,6 @@ export const TriangleFanDrawMode: TrianglesDrawModes;
 export enum TextureEncoding {}
 export const LinearEncoding: TextureEncoding;
 export const sRGBEncoding: TextureEncoding;
-export const LogLuvEncoding: TextureEncoding;
 
 // Depth packing strategies
 export enum DepthPackingStrategies {}
@@ -312,6 +311,11 @@ export const RGBADepthPacking: DepthPackingStrategies;
 export enum NormalMapTypes {}
 export const TangentSpaceNormalMap: NormalMapTypes;
 export const ObjectSpaceNormalMap: NormalMapTypes;
+
+export type ColorSpace = NoColorSpace | SRGBColorSpace | LinearSRGBColorSpace;
+export type NoColorSpace = '';
+export type SRGBColorSpace = 'srgb';
+export type LinearSRGBColorSpace = 'srgb-linear';
 
 // Stencil Op types
 export enum StencilOp {}

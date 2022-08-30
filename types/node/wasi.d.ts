@@ -68,7 +68,7 @@
  * The `--experimental-wasi-unstable-preview1` CLI argument is needed for this
  * example to run.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/wasi.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/wasi.js)
  */
 declare module 'wasi' {
     interface WASIOptions {

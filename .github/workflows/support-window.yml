@@ -10,13 +10,18 @@ on:
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   support-window:
+    permissions:
+      contents: write  # for Git to git push
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         #with:
         #  cache: npm
       - run: npm install

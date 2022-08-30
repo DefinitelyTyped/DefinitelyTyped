@@ -33,4 +33,5 @@ deepExtend(obj1, obj2, { ccc: 3 }, { ddd: 4 });
 deepExtend(obj1, obj1, obj1, obj1, obj1, obj1); // More than 5 arguments
 
 deepExtend({ a: 1 }, { b: true }); // $ExpectType { a: number; } & { b: boolean; }
-deepExtend({ a: 1 }, 1); // $ExpectError
+// @ts-expect-error
+deepExtend({ a: 1 }, 1);

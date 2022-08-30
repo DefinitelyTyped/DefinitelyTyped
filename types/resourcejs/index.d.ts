@@ -2,7 +2,7 @@
 // Project: https://github.com/travist/resourcejs
 // Definitions by: Shaun Luttin <https://github.com/shaunluttin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
 import express = require("express");
 import mongoose = require("mongoose");

@@ -95,7 +95,8 @@ import { URL } from 'node:url';
         exclusive: true,
         parent: 0,
         weight: 0,
-        waitForTrailers: true
+        waitForTrailers: true,
+        signal: new AbortController().signal,
     };
     (http2Session as ClientHttp2Session).request();
     (http2Session as ClientHttp2Session).request(headers);

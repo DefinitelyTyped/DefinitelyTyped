@@ -112,17 +112,20 @@ declare namespace PouchDB {
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<
+            Result extends {},
+            Model extends {} = Content
+        >(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<Result extends {}, Model extends {} = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
+        query<Result extends {}, Model extends {} = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
     }
 }
 

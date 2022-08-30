@@ -1,11 +1,11 @@
 import UIkit from 'uikit';
 
 function testDropdown() {
-    UIkit.dropdown("#parent");
-    const dropdown = UIkit.dropdown("#parent", {
+    UIkit.dropdown('#parent');
+    const dropdown = UIkit.dropdown('#parent', {
         pos: 'bottom-center',
         mode: 'click, hover',
-        flip: true
+        flip: true,
     });
 
     dropdown.show();
@@ -13,13 +13,13 @@ function testDropdown() {
 }
 
 function testModal() {
-    UIkit.modal.alert("Attention!");
+    UIkit.modal.alert('Attention!');
 
     const modal = UIkit.modal('#modal', {
         stack: true,
-        container: false
+        container: false,
     });
-    UIkit.modal.confirm("Are you sure?").then(() => alert('success'));
+    UIkit.modal.confirm('Are you sure?').then(() => alert('success'));
     modal.hide();
     setTimeout(() => modal.show(), 2000);
 
@@ -30,14 +30,34 @@ function testModal() {
 }
 
 function testOffCanvas() {
-    UIkit.offcanvas("#id").show();
-    UIkit.offcanvas("#id").hide();
+    UIkit.offcanvas('#id').show();
+    UIkit.offcanvas('#id').hide();
 }
 
 function testUpload() {
     UIkit.upload('#upload', {
         abort: (asd: number) => {
             return asd;
-        }
+        },
     });
 }
+
+function testUse() {
+    const plugin = (uikit: typeof UIkit) => {};
+    plugin.installed = false;
+    UIkit.use(plugin);
+}
+
+import Icons from 'uikit/dist/js/uikit-icons';
+
+// $ExpectType boolean
+Icons.installed;
+
+UIkit.icon.add('icon', '<svg>...</svg>');
+UIkit.icon.add({
+    icon1: '<svg>A</svg>',
+    icon2: '<svg>B</svg>',
+});
+UIkit.icon('#app', {
+    icon: 'home',
+});

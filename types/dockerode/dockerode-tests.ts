@@ -173,8 +173,32 @@ docker.createContainer({ HostConfig: { Init: true } }, (err, container) => {
     });
 });
 
+docker.createContainer({ HostConfig: { DnsSearch: ['example.com'], CpuCount: 2, CpuPercent: 50, CpuRealtimePeriod: 0, CpuRealtimeRuntime: 0 } }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createContainer({ Healthcheck: { Test: ["CMD", "true"], Interval: 10, Timeout: 10, Retries: 3, StartPeriod: 10 } }, (err, container) => {
+    container.start((err, data) => {
+        // NOOP
+    });
+});
+
 docker.createNetwork({Name: 'networkName'},  (err, network) => {
     network.remove((err, data) => {
+        // NOOP
+    });
+});
+
+docker.createVolume();
+
+docker.createVolume({Name: 'volumeName'});
+
+docker.createVolume({Name: 'volumeName', Driver: 'local', DriverOpts: {device: '/dev/sda1'}, Labels: {'com.example.some-label': 'some-value'}});
+
+docker.createVolume({Name: 'volumeName'}, (err, volume) => {
+    volume.remove((err, data) => {
         // NOOP
     });
 });
@@ -228,6 +252,14 @@ docker.createService({
 
 const image = docker.getImage('imageName');
 image.remove({force: true, noprune: false}, (err, response) => {
+    // NOOP;
+});
+
+image.distribution({}, (err, response) => {
+    // NOOP;
+});
+
+image.distribution((err, response) => {
     // NOOP;
 });
 

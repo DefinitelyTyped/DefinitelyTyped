@@ -25,11 +25,11 @@ export function TestTagsChildren(): React.ReactElement {
         <Tags>a,b,c</Tags>
         <Tags>{["a", "b", "c"]}</Tags>
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags><span>a</span></Tags>
         }
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags>{{ foo: 'bar' }}</Tags>
         }
     </div>);
@@ -57,7 +57,7 @@ export function TestTagsInputMode(): React.ReactElement {
         <Tags InputMode='input' />
         <Tags InputMode='textarea' />
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags InputMode='select' />
         }
     </div>);
@@ -325,15 +325,15 @@ export function TestTagsTypeParam(): React.ReactElement {
             whitelist={[John, Mary, Odo]}
         />
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags<ValueTagData> defaultValue={[InvalidTag]} />
         }
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags<ValueTagData> value={[InvalidTag]} />
         }
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags<ValueTagData> whitelist={[InvalidTag]} />
         }
     </div>);
@@ -360,11 +360,11 @@ export function TestMixedTagsChildren(): React.ReactElement {
         <Tags>a,b,c</Tags>
         <Tags>{["a", "b", "c"]}</Tags>
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags><span>a</span></Tags>
         }
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags>{{ foo: 'bar' }}</Tags>
         }
     </div>);
@@ -646,7 +646,7 @@ export function TestMixedTagsTypeParam(): React.ReactElement {
             whitelist={[John, Mary, Odo]}
         />
         {
-            // $ExpectError
+            // @ts-expect-error
             <Tags<ValueTagData> value={[John]} whitelist={[InvalidTag]} />
         }
     </div>);
@@ -656,7 +656,7 @@ export function TestMixedTagsTypeParam(): React.ReactElement {
 export function TestMixedTagsNoInputMode(): React.ReactElement {
     return (<div>
         {
-            // $ExpectError
+            // @ts-expect-error
             <MixedTags InputMode='textarea' />
         }
     </div>);

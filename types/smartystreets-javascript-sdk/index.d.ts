@@ -216,7 +216,7 @@ export namespace usStreet {
         /** City, state, and ZIP Code combined */
         lastLine: string;
         /** The name of the person or company at this address */
-        adressee: string;
+        addressee: string;
         /** The neighborhood (only Puerto Rican addresses) */
         urbanization: string;
         /**

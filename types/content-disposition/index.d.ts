@@ -17,7 +17,7 @@ declare namespace contentDisposition {
          * An object of the parameters in the disposition
          * (name of parameter always lower case and extended versions replace non-extended versions)
          */
-        parameters: any;
+        parameters: {[key: string]: string};
     }
 
     interface Options {

@@ -89,8 +89,10 @@ new create.InternalServerError(); // $ExpectType HttpError<500>
 new create[404](); // $ExpectType HttpError<404>
 new create['404'](); // $ExpectType HttpError<404>
 
-create['404'](); // $ExpectError
-new create(); // $ExpectError
+// @ts-expect-error
+create['404']();
+// @ts-expect-error
+new create();
 
 // Error messages can have custom messages
 new create.NotFound('This might be a problem'); // $ExpectType HttpError<404>

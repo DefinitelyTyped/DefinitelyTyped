@@ -260,6 +260,14 @@ declare namespace i18n {
      * @returns The translated phrase
      */
     function __n(singular: string, plural: string, count: number | string): string;
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param phrase - The phrase to translate or a flattened key path in locale json file
+     * @param count - The number which allow to select from plural to singular
+     * @param replacements - An object containing replacements
+     * @returns The translated phrase
+     */
+    function __n(phrase: string, count: number | string, replacements: Replacements): string;
 
     //#endregion
 
@@ -379,6 +387,8 @@ declare namespace i18n {
     const version: string;
 
     class I18n {
+        constructor(options?: ConfigurationOptions);
+
         configure(options: ConfigurationOptions): void;
 
         init(request: Express.Request, response: Express.Response, next?: () => void): void;

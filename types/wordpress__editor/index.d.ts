@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/editor 10.0
+// Type definitions for @wordpress/editor 11.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/editor/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

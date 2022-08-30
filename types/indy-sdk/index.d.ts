@@ -76,6 +76,12 @@ export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promis
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
 
+// Logging
+export function setLogger(
+    logFn: (level: number, target: string, message: string, modulePath: string, file: string, line: number) => void,
+): void;
+export function setDefaultLogger(pattern: 'trace' | 'info' | 'debug'): void;
+
 // Revocation Ledger methods
 export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
 export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;
@@ -121,7 +127,14 @@ export function appendTxnAuthorAgreementAcceptanceToRequest(
 ): Promise<LedgerRequest>;
 export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
-
+export function generateWalletKey(config?: GenerateWalletKeyConfig): Promise<string>;
+export function buildAttribRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    hash: string | null,
+    raw: Record<string, unknown> | null,
+    enc: string | null,
+): Promise<LedgerRequest>;
 export function buildGetAttribRequest(
     submitterDid: Did | null,
     targetDid: Did,
@@ -202,7 +215,7 @@ export function proverStoreCredential(
     credDef: CredDef,
     revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
-// TODO: proverGetCredentials
+export function proverGetCredentials(wh: WalletHandle, filter: GetCredentialsFilter): Promise<IndyCredentialInfo[]>;
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
 // TODO: proverSearchCredentials
 // TODO: proverFetchCredentials
@@ -308,10 +321,10 @@ export interface WalletStorageConfig {
 export interface WalletCredentials {
     key: string;
     storage_credentials?:
-    | {
-        [key: string]: unknown;
-    }
-    | undefined;
+        | {
+              [key: string]: unknown;
+          }
+        | undefined;
     key_derivation_method?: KeyDerivationMethod | undefined;
 }
 
@@ -323,6 +336,10 @@ export interface OpenWalletCredentials extends WalletCredentials {
 export interface WalletExportImportConfig {
     key: string;
     path: string;
+}
+
+export interface GenerateWalletKeyConfig {
+    seed?: string;
 }
 
 export interface DidConfig {
@@ -450,6 +467,15 @@ export interface CredOffer {
     cred_def_id: CredDefId;
     nonce: string;
     key_correctness_proof: Record<string, unknown>;
+}
+
+export interface GetCredentialsFilter {
+    schema_id?: string;
+    schema_issuer_did?: string;
+    schema_name?: string;
+    schema_version?: string;
+    issuer_did?: string;
+    cred_def_id?: string;
 }
 
 export interface IndyCredentialInfo {
@@ -656,10 +682,10 @@ export interface WalletRecord {
     type?: string | undefined;
     value?: string | undefined;
     tags?:
-    | {
-        [key: string]: string | undefined;
-    }
-    | undefined;
+        | {
+              [key: string]: string | undefined;
+          }
+        | undefined;
 }
 
 export interface WalletRecordSearch {
