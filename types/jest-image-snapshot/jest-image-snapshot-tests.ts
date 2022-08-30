@@ -1,9 +1,12 @@
+import { expect } from 'expect';
 import {
     configureToMatchImageSnapshot,
     MatchImageSnapshotOptions,
     toMatchImageSnapshot,
     updateSnapshotState,
 } from 'jest-image-snapshot';
+
+declare const it: any;
 
 it('should be able to use toMatchImageSnapshot in a test', () => {
     expect.extend({ toMatchImageSnapshot });

@@ -6,8 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
-/// <reference types="jest" />
-
 import { PixelmatchOptions } from 'pixelmatch';
 import { Options as SSIMOptions } from 'ssim.js';
 
@@ -140,10 +138,8 @@ export function updateSnapshotState<TObject, TPartial>(
     partialSnapshotState: TPartial,
 ): TObject & TPartial;
 
-declare global {
-    namespace jest {
-        interface Matchers<R, T> {
-            toMatchImageSnapshot(options?: MatchImageSnapshotOptions): R;
-        }
+declare module 'expect' {
+    interface Matchers<R> {
+        toMatchImageSnapshot(options?: MatchImageSnapshotOptions): R;
     }
 }
