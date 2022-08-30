@@ -1,9 +1,9 @@
 // Type definitions for non-npm package Woosmap Map JS API 1.4
 // Project: https://developers.woosmap.com/products/map-api/get-started/
-// Definitions by: Emmanuel Peralta <https://github.com/manz>
-//                 Samuel Mendes <https://github.com/smendes>
-//                 Gael Simon <https://github.com/gaelsimon>
+// Definitions by: Gael Simon <https://github.com/gaelsimon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// Credits to Emmanuel Peralta <https://github.com/manz> and Samuel Mendes <https://github.com/smendes>
 
 declare namespace woosmap.map {
     /**
