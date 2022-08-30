@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
-/// <reference types="jest" />
-
 import { AxeResults, Result, RunOptions, Spec } from 'axe-core';
 
 export interface JestAxeConfigureOptions extends RunOptions {
@@ -69,13 +67,13 @@ export const toHaveNoViolations: {
     toHaveNoViolations: IToHaveNoViolations;
 };
 
-declare global {
-    namespace jest {
-        interface Matchers<R, T> {
-            toHaveNoViolations(): R;
-        }
+declare module 'expect' {
+    interface Matchers<R> {
+        toHaveNoViolations(): R;
     }
+}
 
+declare global {
     // axe-core depends on a global Node
     interface Node {}
 }

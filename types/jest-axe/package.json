@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "axe-core": "^3.5.5"
+        "axe-core": "^3.5.5",
+        "expect": "^29.0.0"
     }
 }
