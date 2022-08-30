@@ -1,5 +1,6 @@
 import { ElementHandle, Page } from "puppeteer";
 import { getDefaultOptions, setDefaultOptions } from 'expect-puppeteer';
+import { expect } from 'expect';
 
 const testGlobal = async (instance: ElementHandle | Page) => {
     await expect(instance).toClick({ type: 'css', value: 'selector' });

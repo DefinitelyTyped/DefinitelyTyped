@@ -5,8 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
-/// <reference types="jest" />
-
 import { ElementHandle, Page, Dialog } from "puppeteer";
 
 /**
@@ -90,20 +88,18 @@ interface ExpectPuppeteer {
     toUploadFile(selector: string | MatchSelector, filePath: string, options?: ExpectTimingActions): Promise<void>;
 }
 
-declare global {
-    namespace jest {
-        interface Matchers<R, T> {
-            // These must all match the ExpectPuppeteer interface above.
-            // We can't extend from it directly because some method names conflict in type-incompatible ways.
-            toClick(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
-            toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
-            toFill(selector: string | MatchSelector, value: string, options?: ExpectTimingActions): Promise<void>;
-            toFillForm(selector: string | MatchSelector, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
-            toMatch(matcher: string | RegExp, options?: ExpectTimingActions): Promise<void>;
-            toMatchElement(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<ElementHandle>;
-            toSelect(selector: string | MatchSelector, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
-            toUploadFile(selector: string | MatchSelector, filePath: string, options?: ExpectTimingActions): Promise<void>;
-        }
+declare module 'expect' {
+    interface Matchers<R> {
+        // These must all match the ExpectPuppeteer interface above.
+        // We can't extend from it directly because some method names conflict in type-incompatible ways.
+        toClick(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
+        toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
+        toFill(selector: string | MatchSelector, value: string, options?: ExpectTimingActions): Promise<void>;
+        toFillForm(selector: string | MatchSelector, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
+        toMatch(matcher: string | RegExp, options?: ExpectTimingActions): Promise<void>;
+        toMatchElement(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<ElementHandle>;
+        toSelect(selector: string | MatchSelector, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
+        toUploadFile(selector: string | MatchSelector, filePath: string, options?: ExpectTimingActions): Promise<void>;
     }
 }
 
