@@ -125,4 +125,5 @@ client.on('device', (device) => {
     device.on('status', (status) => {});
 
     device._connect(() => {});
+    device._tryConnect(() => {});
 });
