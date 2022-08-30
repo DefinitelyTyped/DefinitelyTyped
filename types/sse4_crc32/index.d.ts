@@ -32,10 +32,10 @@ export const hardware_support: boolean | undefined;
  * @param buf Buffer object or string
  * @param [initial] Non-zero integer value
  */
-export function sse42_crc(buf: Buffer | string, initial?: number): number;
+ export const  sse42_crc: ((buf: Buffer | string, initial?: number) => number) | undefined;
 /**
  * Calculates CRC-32C for the specified string/buffer using table-lookups
  * @param buf Buffer object or string
  * @param [initial] Non-zero integer value
  */
-export function table_crc(buf: Buffer | string, initial?: number): number;
+export const table_crc: ((buf: Buffer | string, initial?: number) => number) | undefined;

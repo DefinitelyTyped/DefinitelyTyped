@@ -8,10 +8,10 @@ fromStream(createReadStream('./test.txt'), 1);
 calculate('123', 1);
 
 // $ExpectType number
-sse42_crc('123', 1);
+sse42_crc!('123', 1);
 
 // $ExpectType number
-table_crc('123', 1);
+table_crc!('123', 1);
 
 // $ExpectType boolean | undefined
 hardware_support;
