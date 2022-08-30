@@ -31,6 +31,12 @@ Sortable.create(list, {
         } else if (Sortable.utils.is(control, '.js-edit')) {
             // ..
         }
+
+        if (event.target === item) {
+            Sortable.utils.select(item);
+        } else {
+            Sortable.utils.deselect(item);
+        }
     },
 });
 
