@@ -1,10 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "max-line-length": false,
         "no-mergeable-namespace": false,
-        "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false
     }
 }
