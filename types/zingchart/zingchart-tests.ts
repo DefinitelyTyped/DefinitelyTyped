@@ -86,6 +86,17 @@ const chartConfig: zc.graphset[] = [
         }],
       },
     },
+    scaleY2: {
+      autoFit: true,
+      zooming: true,
+      guide: {
+        items: [{
+          borderRadius: 8,
+        }, {
+          borderRadius: 2,
+        }],
+      },
+    },
     values: [1, 2, 3],
     zoom: {
       shared: true,
@@ -94,6 +105,7 @@ const chartConfig: zc.graphset[] = [
       {
         values: [2, 4, 5, 6, 3, 6, 6, 4, 5, 6],
         borderRadius: 3,
+        barWidth: '50%',
         legendMarker: {
           lineStyle: 'dotted',
         },
