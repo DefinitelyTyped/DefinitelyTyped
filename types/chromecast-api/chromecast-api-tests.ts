@@ -123,4 +123,6 @@ client.on('device', (device) => {
     device.on('connected', () => {});
     device.on('finished', () => {});
     device.on('status', (status) => {});
+
+    device._connect(() => {});
 });

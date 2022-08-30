@@ -214,6 +214,8 @@ declare class Device extends EventEmitter {
 
     on(event: 'connected' | 'finished', callback: () => void): this;
     on(event: 'status', callback: (status: DeviceStatus) => void): this;
+
+    _connect(callback: () => void): void;
 }
 
 export = Device;
