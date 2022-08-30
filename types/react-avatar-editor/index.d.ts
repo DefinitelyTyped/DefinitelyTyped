@@ -1,4 +1,4 @@
-// Type definitions for react-avatar-editor 12.0
+// Type definitions for react-avatar-editor 13.0
 // Project: https://github.com/mosch/react-avatar-editor
 // Definitions by: Diogo Corrêa <https://github.com/diogocorrea>
 //                 Gabriel Prates <https://github.com/gabsprates>
@@ -40,8 +40,8 @@ export interface AvatarEditorProps {
     rotate?: number | undefined;
     crossOrigin?: string | undefined;
     disableBoundaryChecks?: boolean | undefined;
-    disableDrop?: boolean | undefined;
-    onDropFile?(event: DragEvent): void;
+    disableHiDPIScaling?: boolean | undefined;
+    disableCanvasRotation?: boolean | undefined;
     onLoadFailure?(event: Event): void;
     onLoadSuccess?(imgInfo: ImageState): void;
     onImageReady?(event: Event): void;

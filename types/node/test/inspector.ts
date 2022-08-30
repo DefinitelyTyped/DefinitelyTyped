@@ -10,7 +10,6 @@ const inspectorUrl: string | undefined = inspector.url();
 
 const session = new inspector.Session();
 session.connect();
-session.connectToMainThread();
 session.disconnect();
 
 // Unknown post method

@@ -33,6 +33,11 @@ jsonLogic.apply({ cat: ['Hello, ', { var: '' }] }, 'Dolly');
 jsonLogic.apply({ missing: ['a', 'b'] }, { a: 'apple', c: 'carrot' });
 // $ExpectType any
 jsonLogic.apply({ if: [{ missing: ['a', 'b'] }, 'Not enough fruit', 'OK to proceed'] }, { a: 'apple', b: 'banana' });
+jsonLogic.apply(
+    // @ts-expect-error
+    { if: [{ missing: ['a', 'b'] }, 'Need three or more (odd total) elements for "if"'] },
+    { a: 'apple', b: 'banana' },
+);
 
 // $ExpectType any
 jsonLogic.apply({ missing_some: [1, ['a', 'b', 'c']] }, { a: 'apple' });
@@ -222,14 +227,51 @@ jsonLogic.apply({ log: 'apple' });
 
 // $ExpectType void
 jsonLogic.add_operation('op', () => true);
-// $ExpectError
+// @ts-expect-error
 jsonLogic.add_operation(1, (x: number, y: number) => x + y);
-// $ExpectError
+// @ts-expect-error
 jsonLogic.add_operation();
 
 // $ExpectType void
 jsonLogic.rm_operation('op');
-// $ExpectError
+// @ts-expect-error
 jsonLogic.rm_operation(1);
-// $ExpectError
+// @ts-expect-error
 jsonLogic.rm_operation();
+
+// Undocumented functions
+
+// $ExpectType boolean
+jsonLogic.is_logic({ logic: ['test', 'test'] });
+// $ExpectType boolean
+jsonLogic.truthy({ logic: ['test', 'test'] });
+// $ExpectType string
+jsonLogic.get_operator({ logic: ['test', 'test'] });
+// $ExpectType any
+jsonLogic.get_values({ logic: ['test', 'test'] });
+// $ExpectType any[]
+jsonLogic.uses_data({ logic: ['test', 'test'] });
+// $ExpectType boolean
+jsonLogic.rule_like('test', 'test');
+
+// Test the extensibility of the RulesLogic type
+
+type StartsWithAndEndsWith =
+    | { startsWith: [JsonLogicWithAdditionalOperations, JsonLogicWithAdditionalOperations] }
+    | { endsWith: [JsonLogicWithAdditionalOperations, JsonLogicWithAdditionalOperations] };
+type JsonLogicWithAdditionalOperations = jsonLogic.RulesLogic<StartsWithAndEndsWith>;
+const jsonExtendedLogic: JsonLogicWithAdditionalOperations = {
+    and: [{ startsWith: ['Springfield', 'Spring'] }, { endsWith: ['Springfield', 'field'] }],
+};
+// $ExpectType any
+jsonLogic.apply(jsonExtendedLogic);
+// @ts-expect-error
+const invalidExtendedLogic: JsonLogicWithAdditionalOperations = { invalidOperator: ['Springfield', 'Spring'] };
+
+// Test prevention of overriding reserved operations
+
+interface OverrideReservedOp {
+    and: [string, string];
+}
+// @ts-expect-error
+type JsonLogicOverridden = jsonLogic.RulesLogic<OverrideReservedOp>;

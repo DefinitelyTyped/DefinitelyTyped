@@ -1,7 +1,8 @@
 /**
- * A single instance of Node.js runs in a single thread. To take advantage of
- * multi-core systems, the user will sometimes want to launch a cluster of Node.js
- * processes to handle the load.
+ * Clusters of Node.js processes can be used to run multiple instances of Node.js
+ * that can distribute workloads among their application threads. When process
+ * isolation is not needed, use the `worker_threads` module instead, which
+ * allows running multiple application threads within a single Node.js instance.
  *
  * The cluster module allows easy creation of child processes that all share
  * server ports.
@@ -49,7 +50,7 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/cluster.js)
  */
 declare module 'cluster' {
     import * as child from 'node:child_process';
@@ -99,9 +100,9 @@ declare module 'cluster' {
         /**
          * Send a message to a worker or primary, optionally with a handle.
          *
-         * In the primary this sends a message to a specific worker. It is identical to `ChildProcess.send()`.
+         * In the primary, this sends a message to a specific worker. It is identical to `ChildProcess.send()`.
          *
-         * In a worker this sends a message to the primary. It is identical to`process.send()`.
+         * In a worker, this sends a message to the primary. It is identical to`process.send()`.
          *
          * This example will echo back all messages from the primary:
          *
@@ -123,19 +124,13 @@ declare module 'cluster' {
         send(message: child.Serializable, sendHandle: child.SendHandle, callback?: (error: Error | null) => void): boolean;
         send(message: child.Serializable, sendHandle: child.SendHandle, options?: child.MessageOptions, callback?: (error: Error | null) => void): boolean;
         /**
-         * This function will kill the worker. In the primary, it does this
-         * by disconnecting the `worker.process`, and once disconnected, killing
-         * with `signal`. In the worker, it does it by disconnecting the channel,
-         * and then exiting with code `0`.
+         * This function will kill the worker. In the primary worker, it does this by
+         * disconnecting the `worker.process`, and once disconnected, killing with`signal`. In the worker, it does it by killing the process with `signal`.
          *
-         * Because `kill()` attempts to gracefully disconnect the worker process, it is
-         * susceptible to waiting indefinitely for the disconnect to complete. For example,
-         * if the worker enters an infinite loop, a graceful disconnect will never occur.
-         * If the graceful disconnect behavior is not needed, use `worker.process.kill()`.
+         * The `kill()` function kills the worker process without waiting for a graceful
+         * disconnect, it has the same behavior as `worker.process.kill()`.
          *
-         * Causes `.exitedAfterDisconnect` to be set.
-         *
-         * This method is aliased as `worker.destroy()` for backward compatibility.
+         * This method is aliased as `worker.destroy()` for backwards compatibility.
          *
          * In a worker, `process.kill()` exists, but it is not this function;
          * it is `kill()`.
@@ -253,7 +248,8 @@ declare module 'cluster' {
          */
         isDead(): boolean;
         /**
-         * This property is `true` if the worker exited due to `.kill()` or`.disconnect()`. If the worker exited any other way, it is `false`. If the
+         * This property is `true` if the worker exited due to `.disconnect()`.
+         * If the worker exited any other way, it is `false`. If the
          * worker has not exited, it is `undefined`.
          *
          * The boolean `worker.exitedAfterDisconnect` allows distinguishing between

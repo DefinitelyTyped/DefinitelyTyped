@@ -6,5 +6,5 @@ parse('{}', 'filepath');
 parse('{}', () => null);
 parse('{}', () => null, 'filepath');
 
-// $ExpectError
+// @ts-expect-error
 parse(1);

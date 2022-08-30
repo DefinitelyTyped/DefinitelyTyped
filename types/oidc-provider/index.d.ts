@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.8
+// Type definitions for oidc-provider 7.11
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1058,11 +1058,6 @@ export interface Configuration {
             ack?: string | undefined;
         } | undefined;
 
-        issAuthResp?: {
-            enabled?: boolean | undefined;
-            ack?: string | undefined;
-        } | undefined;
-
         jwtResponseModes?: {
             enabled?: boolean | undefined;
             ack?: string | undefined;
@@ -1126,6 +1121,8 @@ export interface Configuration {
     jwks?: JWKS | undefined;
 
     responseTypes?: ResponseType[] | undefined;
+
+    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
 
     pkce?: {
         methods: PKCEMethods[];

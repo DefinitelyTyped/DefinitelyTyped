@@ -68,8 +68,6 @@ export default class XmlDataProcessor implements DataProcessor {
      * bloats the editor data with additional markup.
      *
      * This mode may be required by some features and will be turned on by them automatically.
-     *
-     * @param {'default'|'marked'} type Whether to use the default or the marked `&nbsp;` block fillers.
      */
     useFillerType(type: 'default' | 'marked'): void;
 }

@@ -1,4 +1,4 @@
-// Type definitions for cookie 0.4
+// Type definitions for cookie 0.5
 // Project: https://github.com/jshttp/cookie
 // Definitions by: Pine Mizune <https://github.com/pine>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -68,6 +68,20 @@ export interface CookieSerializeOptions {
      */
     path?: string | undefined;
     /**
+     * Specifies the `string` to be the value for the [`Priority` `Set-Cookie` attribute][rfc-west-cookie-priority-00-4.1].
+     *
+     * - `'low'` will set the `Priority` attribute to `Low`.
+     * - `'medium'` will set the `Priority` attribute to `Medium`, the default priority when not set.
+     * - `'high'` will set the `Priority` attribute to `High`.
+     *
+     * More information about the different priority levels can be found in
+     * [the specification][rfc-west-cookie-priority-00-4.1].
+     *
+     * **note** This is an attribute that has not yet been fully standardized, and may change in the future.
+     * This also means many clients may ignore this attribute until they understand it.
+     */
+    priority?: 'low' | 'medium' | 'high' | undefined;
+    /**
      * Specifies the boolean or string to be the value for the {@link https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03#section-4.1.2.7|`SameSite` `Set-Cookie` attribute}.
      *
      * - `true` will set the `SameSite` attribute to `Strict` for strict same
@@ -122,7 +136,7 @@ export interface CookieParseOptions {
  * @param str the string representing a `Cookie` header value
  * @param [options] object containing parsing options
  */
-export function parse(str: string, options?: CookieParseOptions): { [key: string]: string };
+export function parse(str: string, options?: CookieParseOptions): Record<string, string>;
 
 /**
  * Serialize a cookie name-value pair into a `Set-Cookie` header string.

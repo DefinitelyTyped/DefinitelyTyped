@@ -18,7 +18,8 @@ const Person = DS.Model.extend({
     oldPoint: DS.attr('oldPoint', { defaultValue: () => Point.create({ x: 1, y: 2 })}),
 
     // Can't have a non-primitive as default
-    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })}) // $ExpectError
+    // @ts-expect-error
+    anotherPoint: DS.attr('point', { defaultValue: Point.create({ x: 1, y: 2 })})
 });
 
 const person = Person.create();

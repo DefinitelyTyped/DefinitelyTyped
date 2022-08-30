@@ -26,7 +26,7 @@ using(
         },
     },
     async mapFileToUri => {
-        // $ExpectError
+        // @ts-expect-error
         mapFileToUri['unknown-file.js'];
     },
 );
@@ -52,7 +52,7 @@ waitFor(() => 1);
 // $ExpectType Promise<{ [codeActionTitle: string]: () => Thenable<void>; }>
 take.codeActions(uri, range);
 
-// $ExpectType Promise<(Location | LocationLink)[]>
+// $ExpectType Promise<(Location | LocationLink)[]> || Promise<(LocationLink | Location)[]>
 take.definitions(uri, position);
 
 // $ExpectType Promise<string>
@@ -69,5 +69,5 @@ take.hovers(uri, position);
 // $ExpectType string
 dedent('');
 
-// $ExpectError
+// @ts-expect-error
 dedent(1);

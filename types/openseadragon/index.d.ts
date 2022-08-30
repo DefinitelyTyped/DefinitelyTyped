@@ -103,9 +103,7 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: (event: Event) => void,
-        useCapture?:
-            | boolean
-            | { capture?: boolean; passive?: boolean; once?: boolean }
+        useCapture?: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
     ): void;
 
     function cancelEvent(event?: OSDEvent<any>): void;
@@ -166,9 +164,7 @@ declare namespace OpenSeadragon {
     function makeTransparentImage(src: string): Element;
 
     function normalizeEventListenerOptions(
-        options:
-            | boolean
-            | { capture?: boolean; passive?: boolean; once?: boolean }
+        options: boolean | { capture?: boolean; passive?: boolean; once?: boolean },
     ): string;
 
     function now(): number;
@@ -187,15 +183,12 @@ declare namespace OpenSeadragon {
         element: Element | string,
         eventName: string,
         handler: EventHandler<any>,
-        useCapture?: boolean | { capture?: boolean }
+        useCapture?: boolean | { capture?: boolean },
     ): void;
 
     function setElementOpacity(element: Element | string, opacity: number, usesAlpha?: boolean): void;
 
-    function setElementPointerEvents(
-        element: Element | string,
-        value: string
-    ): void;
+    function setElementPointerEvents(element: Element | string, value: string): void;
 
     function setElementPointerEventsNone(element: Element | string): void;
 
@@ -272,7 +265,7 @@ declare namespace OpenSeadragon {
                       };
                   };
               }
-            | Array<string | TileSource | { type: "openstreetmaps" }>;
+            | Array<string | TileSource | { type: 'openstreetmaps' }>;
         tabIndex?: number | undefined;
         overlays?: any[] | undefined;
         prefixUrl?: string | undefined;
@@ -297,7 +290,8 @@ declare namespace OpenSeadragon {
             | 'destination-out'
             | 'lighter'
             | 'copy'
-            | 'xor' | undefined;
+            | 'xor'
+            | undefined;
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
         degrees?: number | undefined;
         flipped?: boolean | undefined;
@@ -459,10 +453,7 @@ declare namespace OpenSeadragon {
         getHandler(eventName: ButtonEventName): (source: ButtonEventName, ...args: any[]) => void;
         raiseEvent(eventName: ButtonEventName, eventArgs: object): void;
         removeAllHandlers(eventName: ButtonEventName): void;
-        removeHandler(
-            eventName: ButtonEventName,
-            handler: EventHandler<ButtonEvent>
-        ): void;
+        removeHandler(eventName: ButtonEventName, handler: EventHandler<ButtonEvent>): void;
         notifyGroupEnter(): void;
         notifyGroupExit(): void;
         destroy(): void;
@@ -522,7 +513,12 @@ declare namespace OpenSeadragon {
         context: CanvasRenderingContext2D | null;
         // element : Element; // Deprecated
 
-        constructor(options: { viewer: Viewer; viewport: Viewport; element: Element; debugGridColor?: string | undefined });
+        constructor(options: {
+            viewer: Viewer;
+            viewport: Viewport;
+            element: Element;
+            debugGridColor?: string | undefined;
+        });
 
         blendSketch(options: {
             opacity: number;
@@ -613,33 +609,34 @@ declare namespace OpenSeadragon {
         dblClickDistThreshold?: number | undefined;
         stopDelay?: number | undefined;
         preProcessEventHandler?: PreprocessEventHandler | undefined;
-        contextMenuHandler?: EventHandler<OSDEvent<any>> | undefined;
-        enterHandler?: EventHandler<OSDEvent<any>> | undefined;
+        contextMenuHandler?: EventHandler<ContextMenuMouseTrackerEvent> | undefined;
+        enterHandler?: EventHandler<MouseTrackerEvent> | undefined;
         /**
          * @deprecated use leaveHandler instead
          */
-        exitHandler?: EventHandler<OSDEvent<any>> | undefined;
-        leaveHandler?: EventHandler<OSDEvent<any>> | undefined;
-        overHandler?: EventHandler<OSDEvent<any>> | undefined;
-        outHandler?: EventHandler<OSDEvent<any>> | undefined;
-        pressHandler?: EventHandler<OSDEvent<any>> | undefined;
-        nonPrimaryPressHandler?: EventHandler<OSDEvent<any>> | undefined;
-        releaseHandler?: EventHandler<OSDEvent<any>> | undefined;
-        nonPrimaryReleaseHandler?: EventHandler<OSDEvent<any>> | undefined;
-        moveHandler?: EventHandler<OSDEvent<any>> | undefined;
-        scrollHandler?: EventHandler<OSDEvent<any>> | undefined;
-        clickHandler?: EventHandler<OSDEvent<any>> | undefined;
-        dblClickHandler?: EventHandler<OSDEvent<any>> | undefined;
-        dragHandler?: EventHandler<OSDEvent<any>> | undefined;
-        dragEndHandler?: EventHandler<OSDEvent<any>> | undefined;
-        pinchHandler?: EventHandler<OSDEvent<any>> | undefined;
-        keyDownHandler?: EventHandler<OSDEvent<any>> | undefined;
-        keyUpHandler?: EventHandler<OSDEvent<any>> | undefined;
-        keyHandler?: EventHandler<OSDEvent<any>> | undefined;
-        focusHandler?: EventHandler<OSDEvent<any>> | undefined;
-        blurHandler?: EventHandler<OSDEvent<any>> | undefined;
+        exitHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        leaveHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        overHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        outHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        pressHandler?: EventHandler<PressMouseTrackerEvent> | undefined;
+        nonPrimaryPressHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        releaseHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        nonPrimaryReleaseHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        moveHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        scrollHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        clickHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dblClickHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dragHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        dragEndHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        pinchHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyDownHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyUpHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        keyHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        focusHandler?: EventHandler<MouseTrackerEvent> | undefined;
+        blurHandler?: EventHandler<MouseTrackerEvent> | undefined;
         userData?: object | undefined;
     }
+
     class MouseTracker {
         clickTimeThreshold: number;
         clickDistThreshold: number;
@@ -649,45 +646,64 @@ declare namespace OpenSeadragon {
 
         constructor(options: MouseTrackerOptions);
 
-        blurHandler: (event: OSDEvent<any>) => void;
-        clickHandler: (event: OSDEvent<any>) => void;
-        contextMenuHandler: (event: OSDEvent<any>) => void;
-        dblClickHandler: (event: OSDEvent<any>) => void;
+        blurHandler: EventHandler<MouseTrackerEvent>;
+        clickHandler: EventHandler<MouseTrackerEvent>;
+        contextMenuHandler: EventHandler<ContextMenuMouseTrackerEvent>;
+        dblClickHandler: EventHandler<MouseTrackerEvent>;
         destroy(): void;
-        dragEndHandler: (event: OSDEvent<any>) => void;
-        dragHandler: (event: OSDEvent<any>) => void;
-        enterHandler: (event: OSDEvent<any>) => void;
+        dragEndHandler: EventHandler<MouseTrackerEvent>;
+        dragHandler: EventHandler<MouseTrackerEvent>;
+        enterHandler: EventHandler<MouseTrackerEvent>;
         /**
          * @deprecated use leaveHandler instead
          */
-        exitHandler: (event: OSDEvent<any>) => void;
-        leaveHandler: (event: OSDEvent<any>) => void;
-        focusHandler: (event: OSDEvent<any>) => void;
+        exitHandler: EventHandler<MouseTrackerEvent>;
+        leaveHandler: EventHandler<MouseTrackerEvent>;
+        focusHandler: EventHandler<MouseTrackerEvent>;
         getActivePointerCount(): number;
         getActivePointersListByType(type: string): GesturePointList;
-        keyDownHandler: (event: OSDEvent<any>) => void;
-        keyHandler: (event: OSDEvent<any>) => void;
-        keyUpHandler: (event: OSDEvent<any>) => void;
-        moveHandler: (event: OSDEvent<any>) => void;
-        nonPrimaryPressHandler: (event: OSDEvent<any>) => void;
-        nonPrimaryReleaseHandler: (event: OSDEvent<any>) => void;
-        overHandler: (event: OSDEvent<any>) => void;
-        outHandler: (event: OSDEvent<any>) => void;
-        pinchHandler: (event: OSDEvent<any>) => void;
-        pressHandler: (event: OSDEvent<any>) => void;
-        preProcessEventHandler: (event: EventProcessInfo) => void;
-        releaseHandler: (event: OSDEvent<any>) => void;
-        scrollHandler: (event: OSDEvent<any>) => void;
+        keyDownHandler: EventHandler<KeyMouseTrackerEvent>;
+        keyHandler: EventHandler<KeyMouseTrackerEvent>;
+        keyUpHandler: EventHandler<KeyMouseTrackerEvent>;
+        moveHandler: EventHandler<MouseTrackerEvent>;
+        nonPrimaryPressHandler: EventHandler<MouseTrackerEvent>;
+        nonPrimaryReleaseHandler: EventHandler<MouseTrackerEvent>;
+        overHandler: EventHandler<MouseTrackerEvent>;
+        outHandler: EventHandler<MouseTrackerEvent>;
+        pinchHandler: EventHandler<MouseTrackerEvent>;
+        pressHandler: EventHandler<PressMouseTrackerEvent>;
+        preProcessEventHandler: PreprocessEventHandler;
+        releaseHandler: EventHandler<MouseTrackerEvent>;
+        scrollHandler: EventHandler<MouseTrackerEvent>;
         setTracking(track: boolean): any;
-        stopHandler: (event: OSDEvent<any>) => void;
+        stopHandler: EventHandler<MouseTrackerEvent>;
     }
 
     interface EventProcessInfo {
         eventSource: MouseTracker;
         originalEvent: Event;
         originalTarget: Element;
-        eventPhase: number;
-        eventType: string;
+        eventPhase: EventPhase;
+        eventType:
+            | 'keydown'
+            | 'keyup'
+            | 'keypress'
+            | 'focus'
+            | 'blur'
+            | 'contextmenu'
+            | 'gotpointercapture'
+            | 'lostpointercapture'
+            | 'pointerenter'
+            | 'pointerleave'
+            | 'pointerover'
+            | 'pointerout'
+            | 'pointerdown'
+            | 'pointerup'
+            | 'pointermove'
+            | 'pointercancel'
+            | 'wheel'
+            | 'click'
+            | 'dblclick';
         pointerType: string;
         isEmulated: boolean;
         isStoppable: boolean;
@@ -698,7 +714,7 @@ declare namespace OpenSeadragon {
         stopPropagation: boolean;
         shouldCapture: boolean;
         shouldReleaseCapture: boolean;
-        userData: any;
+        userData: unknown;
     }
 
     interface GesturePoint {
@@ -760,7 +776,7 @@ declare namespace OpenSeadragon {
         checkResize?: boolean | undefined;
         width?: number | undefined;
         height?: number | undefined;
-        rotationMode?: boolean | undefined;
+        rotationMode?: OverlayRotationMode | undefined;
     }
 
     class Overlay {
@@ -950,8 +966,16 @@ declare namespace OpenSeadragon {
             ajaxHeaders?: object | undefined;
         });
 
-        addHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
-        addOnceHandler(eventName: string, handler: EventHandler<TiledImageEvent>, userData?: object): void;
+        addHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+            userData?: object,
+        ): void;
         destroy(): void;
         draw(): void;
         fitBounds(bounds: Rect, anchor?: Placement, immediately?: boolean): void;
@@ -985,8 +1009,11 @@ declare namespace OpenSeadragon {
         imageToWindowCoordinates(pixel: Point): Point;
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(eventName: string, handler: EventHandler<TiledImageEvent>): void;
+        removeAllHandlers(eventName: keyof TiledImageEventMap): void;
+        removeHandler<T extends keyof TiledImageEventMap>(
+            eventName: T,
+            handler: EventHandler<TiledImageEventMap[T]>,
+        ): void;
         reset(): void;
         resetCroppingPolygons(): void;
         setClip(newClip: Rect | null): void;
@@ -1023,10 +1050,14 @@ declare namespace OpenSeadragon {
         ready: boolean;
         tileOverlap: number;
         constructor(options: TileSourceOptions);
-        addHandler(eventName: string, handler: EventHandler<TileSourceEvent>, userData?: object): void;
-        addOnceHandler(
-            eventName: string,
-            handler: EventHandler<TileSourceEvent>,
+        addHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
             userData?: object,
             times?: number,
         ): void;
@@ -1044,16 +1075,13 @@ declare namespace OpenSeadragon {
         getTileUrl(level: number, x: number, y: number): string;
         getTileWidth(level: number): number;
         raiseEvent(eventName: string, eventArgs: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(
-            eventName: string,
-            handler: EventHandler<TileSourceEvent>
+        removeAllHandlers(eventName: keyof TileSourceEventMap): void;
+        removeHandler<T extends keyof TileSourceEventMap>(
+            eventName: T,
+            handler: EventHandler<TileSourceEventMap[T]>,
         ): void;
         setMaxLevel(level: number): void;
-        supports(
-            data: string | object | any[] | Document,
-            url: string
-        ): boolean;
+        supports(data: string | object | any[] | Document, url: string): boolean;
         tileExists(level: number, x: number, y: number): boolean;
     }
 
@@ -1106,15 +1134,19 @@ declare namespace OpenSeadragon {
 
         constructor(options: Options);
         _cancelPendingImages(): void;
-        addHandler(eventName: ViewerEventName, callback: EventHandler<ViewerEvent>, userData?: object): void;
-        addOnceHandler(
-            eventName: ViewerEventName,
-            callback: EventHandler<ViewerEvent>,
+        addHandler<T extends keyof ViewerEventMap>(
+            eventName: T,
+            callback: EventHandler<ViewerEventMap[T]>,
+            userData?: object,
+        ): void;
+        addOnceHandler<T extends keyof ViewerEventMap>(
+            eventName: T,
+            callback: EventHandler<ViewerEventMap[T]>,
             userData?: object,
             times?: number,
         ): void;
         addOverlay(
-            element: HTMLElement | string | object,
+            element: HTMLElement | string | OverlayOptions,
             location?: Point | Rect,
             placement?: Placement,
             onDraw?: (element: HTMLElement, location: Location, placement: Placement) => void,
@@ -1139,11 +1171,8 @@ declare namespace OpenSeadragon {
         isVisible(): boolean;
         open(tileSources: string | object | TileSource[], initialPage?: number): Viewer;
         raiseEvent(eventName: string, eventArgs?: object): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(
-            eventName: string,
-            handler: EventHandler<ViewerEvent>
-        ): void;
+        removeAllHandlers(eventName: keyof ViewerEventMap): void;
+        removeHandler<T extends keyof ViewerEventMap>(eventName: T, handler: EventHandler<ViewerEventMap[T]>): void;
         removeOverlay(overlay: Element | string): Viewer;
         removeReferenceStrip(): void;
         setControlsEnabled(enabled: boolean): Viewer;
@@ -1245,9 +1274,18 @@ declare namespace OpenSeadragon {
     class World extends EventSource {
         constructor(options: object);
 
-        addHandler(eventName: WorldEventName, callback: EventHandler<WorldEvent>, userData?: object): void;
+        addHandler<T extends keyof WorldEventMap>(
+            eventName: T,
+            callback: EventHandler<WorldEventMap[T]>,
+            userData?: object,
+        ): void;
         addItem(item: TiledImage, options?: { index?: number | undefined }): void;
-        addOnceHandler(eventName: string, handler: EventHandler<WorldEvent>, userData?: object, times?: number): void;
+        addOnceHandler<T extends keyof WorldEventMap>(
+            eventName: T,
+            callback: EventHandler<WorldEventMap[T]>,
+            userData?: object,
+            times?: number,
+        ): void;
         arrange(options: {
             immediately?: boolean | undefined;
             layout?: 'horizontal' | 'vertical' | undefined;
@@ -1266,11 +1304,8 @@ declare namespace OpenSeadragon {
         needsDraw(): boolean;
         raiseEvent(eventName: string, eventArgs?: object): void;
         removeAll(): void;
-        removeAllHandlers(eventName: string): void;
-        removeHandler(
-            eventName: string,
-            handler: EventHandler<WorldEvent>
-        ): void;
+        removeAllHandlers(eventName: keyof WorldEventMap): void;
+        removeHandler<T extends keyof WorldEventMap>(eventName: T, callback: EventHandler<WorldEventMap[T]>): void;
         removeItem(item: TiledImage): void;
         resetItems(): void;
         setAutoRefigureSizes(value?: boolean): void;
@@ -1282,158 +1317,460 @@ declare namespace OpenSeadragon {
         constructor(width: number, height: number, tileSize: number, tilesUrl: string);
     }
 
-    // TODO: use proper eventName type aliases, and OSDEvent where appropriate
-
-    type EventHandler<T extends OSDEvent<any>> = (event: T) => void;
+    type EventHandler<T extends OSDEvent<unknown>> = (event: T) => void;
 
     type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
     type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
-    type TiledImageEventName =
-        | 'bounds-change'
-        | 'clip-change'
-        | 'composite-operation-change'
-        | 'fully-loaded-change'
-        | 'opacity-change';
-    type TileSourceEventName = 'open-failed' | 'ready';
-    type ViewerEventName =
-        | 'add-item-failed'
-        | 'add-overlay'
-        | 'animation'
-        | 'animation-finish'
-        | 'animation-start'
-        | 'canvas-click'
-        | 'canvas-contextmenu'
-        | 'canvas-double-click'
-        | 'canvas-drag'
-        | 'canvas-drag-end'
-        | 'canvas-enter'
-        | 'canvas-exit'
-        | 'canvas-key'
-        | 'canvas-nonprimary-press'
-        | 'canvas-nonprimary-release'
-        | 'canvas-pinch'
-        | 'canvas-press'
-        | 'canvas-release'
-        | 'canvas-scroll'
-        | 'clear-overlay'
-        | 'close'
-        | 'constrain'
-        | 'container-enter'
-        | 'container-exit'
-        | 'controls-enabled'
-        | 'flip'
-        | 'full-page'
-        | 'full-screen'
-        | 'home'
-        | 'mouse-enabled'
-        | 'navigator-click'
-        | 'navigator-drag'
-        | 'navigator-scroll'
-        | 'open'
-        | 'open-failed'
-        | 'page'
-        | 'pan'
-        | 'pre-full-page'
-        | 'pre-full-screen'
-        | 'remove-overlay'
-        | 'reset-size'
-        | 'resize'
-        | 'rotate'
-        | 'tile-drawing'
-        | 'tile-drawn'
-        | 'tile-load-failed'
-        | 'tile-loaded'
-        | 'tile-unloaded'
-        | 'update-level'
-        | 'update-overlay'
-        | 'update-tile'
-        | 'update-viewport'
-        | 'viewport-change'
-        | 'visible'
-        | 'zoom';
-    type WorldEventName = 'add-item' | 'item-index-change' | 'metrics-change' | 'remove-item';
 
-    interface OSDEvent<T> extends Event {
-        eventSource?: T | undefined;
-        userData: any;
+    interface TiledImageEventMap {
+        'bounds-change': TiledImageEvent;
+        'clip-change': TiledImageEvent;
+        'composite-operation-change': CompositeOperationChangeTiledImageEvent;
+        'fully-loaded-change': FullyLoadedChangeTiledImageEvent;
+        'opacity-change': OpacityChangeTiledImageEvent;
+    }
+
+    interface TileSourceEventMap {
+        'open-failed': OpenFailedTileSourceEvent;
+        'ready': ReadyTileSourceEvent;
+    }
+
+    interface ViewerEventMap {
+        'add-item-failed': AddItemFailedEvent;
+        'add-overlay': AddOverlayEvent;
+        'animation': ViewerEvent;
+        'animation-finish': ViewerEvent;
+        'animation-start': ViewerEvent;
+        'canvas-click': CanvasClickEvent;
+        'canvas-contextmenu': CanvasContextMenuEvent;
+        'canvas-double-click': CanvasDoubleClickEvent;
+        'canvas-drag': CanvasDragEvent;
+        'canvas-drag-end': CanvasDragEvent;
+        'canvas-enter': CanvasEnterEvent;
+        'canvas-exit': CanvasExitEvent;
+        'canvas-key': CanvasKeyEvent;
+        'canvas-nonprimary-press': CanvasNonPrimaryButtonEvent;
+        'canvas-nonprimary-release': CanvasNonPrimaryButtonEvent;
+        'canvas-pinch': CanvasPinchEvent;
+        'canvas-press': CanvasPressEvent;
+        'canvas-release': CanvasReleaseEvent;
+        'canvas-scroll': CanvasScrollEvent;
+        'clear-overlay': ViewerEvent;
+        'close': ViewerEvent;
+        'constrain': ConstrainEvent;
+        'container-enter': ContainerEvent;
+        'container-exit': ContainerEvent;
+        'controls-enabled': ControlsEnabledEvent;
+        'flip': FlipEvent;
+        'full-page': FullPageEvent;
+        'full-screen': FullScreenEvent;
+        'home': HomeEvent;
+        'mouse-enabled': MouseEnabledEvent;
+        'navigator-click': NavigatorClickEvent;
+        'navigator-drag': NavigatorDragEvent;
+        'navigator-scroll': NavigatorScrollEvent;
+        'open': OpenEvent;
+        'open-failed': OpenFailedEvent;
+        'page': PageEvent;
+        'pan': PanEvent;
+        'pre-full-page': PreFullPageEvent;
+        'pre-full-screen': PreFullScreenEvent;
+        'remove-overlay': RemoveOverlayEvent;
+        'reset-size': ResetSizeEvent;
+        'resize': ResizeEvent;
+        'rotate': RotateEvent;
+        'tile-drawing': TileDrawingEvent;
+        'tile-drawn': TileEvent;
+        'tile-load-failed': TileLoadFailedEvent;
+        'tile-loaded': TileLoadedEvent;
+        'tile-unloaded': TileEvent;
+        'update-level': UpdateLevelEvent;
+        'update-overlay': UpdateOverlayEvent;
+        'update-tile': TileEvent;
+        'update-viewport': ViewerEvent;
+        'viewport-change': ViewerEvent;
+        'visible': VisibleEvent;
+        'zoom': ZoomEvent;
+    }
+
+    interface WorldEventMap {
+        'add-item': AddItemWorldEvent;
+        'item-index-change': ItemIndexChangeWorldEvent;
+        'metrics-change': WorldEvent;
+        'remove-item': RemoveItemWorldEvent;
+    }
+
+    interface OSDEvent<T> {
+        eventSource: T;
+        userData: unknown;
     }
 
     interface ButtonEvent extends OSDEvent<Button> {
         originalEvent: Event;
     }
 
-    interface TiledImageEvent extends OSDEvent<TiledImage> {
-        compositeOperationChange?: string | undefined;
-        fullyLoaded?: boolean | undefined;
-        opacity?: boolean | undefined;
+    // -- TILED IMAGE EVENTS --
+    interface TiledImageEvent extends OSDEvent<TiledImage> {}
+
+    interface CompositeOperationChangeTiledImageEvent extends TiledImageEvent {
+        compositeOperationChange: string;
     }
 
-    interface TileSourceEvent extends OSDEvent<TileSource> {
-        message?: string | undefined;
-        source?: string | undefined;
-        tileSource?: object | undefined;
+    interface FullyLoadedChangeTiledImageEvent extends TiledImageEvent {
+        fullyLoaded: boolean;
     }
 
-    interface ViewerEvent extends OSDEvent<Viewer> {
-        message?: string | undefined;
-        source?: string | undefined;
-        options?: object | undefined;
-        element?: Element | undefined;
-        location?: Point | Rect | undefined;
-        placement?: Placement | undefined;
-        tracker?: MouseTracker | undefined;
-        position?: Point | undefined;
-        quick?: boolean | undefined;
-        shift?: boolean | undefined;
-        preventDefaultAction?: true | undefined;
-        delta?: Point | undefined;
-        speed?: number | undefined;
-        direction?: number | undefined;
-        pointerType?: string | undefined;
-        button?: number | undefined;
-        buttons?: number | undefined;
-        pointers?: number | undefined;
-        insideElementPressed?: boolean | undefined;
-        buttonDownAny?: boolean | undefined;
-        preventVerticalPan?: boolean | undefined;
-        preventHorizontalPan?: boolean | undefined;
-        gesturePoints?: GesturePoint[] | undefined;
-        lastCenter?: Point | undefined;
-        center?: Point | undefined;
-        lastDistance?: number | undefined;
-        insideElementReleased?: boolean | undefined;
-        scroll?: number | undefined;
-        immediately?: number | undefined;
-        enabled?: boolean | undefined;
-        flipped?: number | undefined;
-        fullPage?: boolean | undefined;
-        fullScreen?: boolean | undefined;
-        page?: number | undefined;
-        contentSize?: Point | undefined;
-        contentBounds?: Rect | undefined;
-        homeBounds?: Rect | undefined;
-        contentFactor?: number | undefined;
-        newContainerSize?: Point | undefined;
-        maintain?: boolean | undefined;
-        degrees?: number | undefined;
-        tile?: Tile | undefined;
-        tiledImage?: TiledImage | XMLHttpRequest | undefined;
-        context?: Tile | undefined;
-        rendered?: Tile | undefined;
-        time?: number | undefined;
-        tileRequest?: XMLHttpRequest | undefined;
-        getCompletionCallback?: ((...args: any) => void) | undefined;
-        visible?: boolean | undefined;
-        refPoint?: Point | undefined;
-        zoom?: number | undefined;
+    interface OpacityChangeTiledImageEvent extends TiledImageEvent {
+        opacity: boolean;
     }
 
-    interface WorldEvent extends OSDEvent<World> {
-        item?: TiledImage | undefined;
-        previousIndex?: number | undefined;
-        newIndex?: number | undefined;
+    // -- TILE SOURCE EVENTS --
+    interface TileSourceEvent extends OSDEvent<TileSource> {}
+
+    interface OpenFailedTileSourceEvent extends TileSourceEvent {
+        message: string;
+        source: string;
     }
+
+    interface ReadyTileSourceEvent extends TileSourceEvent {
+        tileSource: object;
+    }
+
+    // -- VIEWER EVENTS --
+    interface ViewerEvent extends OSDEvent<Viewer> {}
+
+    interface AddItemFailedEvent extends ViewerEvent {
+        message: string;
+        source: string;
+        options: object;
+    }
+
+    interface AddOverlayEvent extends ViewerEvent {
+        element: Element;
+        location: Point | Rect;
+        placement: Placement;
+    }
+
+    interface CanvasEvent extends ViewerEvent {
+        tracker: MouseTracker;
+        position: Point;
+        originalEvent: Event;
+    }
+
+    interface CanvasClickEvent extends CanvasEvent {
+        quick: boolean;
+        shift: boolean;
+        originalTarget: Element;
+        preventDefaultAction: boolean;
+    }
+
+    interface CanvasContextMenuEvent extends CanvasEvent {
+        preventDefault: boolean;
+    }
+
+    interface CanvasDoubleClickEvent extends CanvasEvent {
+        shift: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface CanvasDragEvent extends CanvasEvent {
+        pointerType: PointerType;
+        delta: Point;
+        speed: number;
+        direction: number;
+        shift: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface CanvasEnterEvent extends CanvasEvent {
+        pointerType: PointerType;
+        buttons: number;
+        pointers: number;
+        insideElementPressed: boolean;
+        /**
+         * @deprecated Use `buttons` instead
+         */
+        buttonDownAny: boolean;
+    }
+
+    interface CanvasExitEvent extends CanvasEvent {
+        pointerType: PointerType;
+        buttons: number;
+        pointers: number;
+        insideElementPressed: boolean;
+        /**
+         * @deprecated Use `buttons` instead
+         */
+        buttonDownAny: boolean;
+    }
+
+    interface CanvasKeyEvent extends CanvasEvent {
+        preventDefaultAction: boolean;
+        preventVerticalPan: boolean;
+        preventHorizontalPan: boolean;
+    }
+
+    interface CanvasNonPrimaryButtonEvent extends CanvasEvent {
+        pointerType: PointerType;
+        button: number;
+        buttons: number;
+    }
+
+    interface CanvasPinchEvent extends CanvasEvent {
+        pointerType: PointerType;
+        gesturePoints: GesturePoint[];
+        lastCenter: Point;
+        center: Point;
+        lastDistance: number;
+        distance: number;
+        shift: boolean;
+        preventDefaultPanAction: boolean;
+        preventDefaultZoomAction: boolean;
+        preventDefaultRotateAction: boolean;
+    }
+
+    interface CanvasPressEvent extends CanvasEvent {
+        pointerType: PointerType;
+        insideElementPressed: boolean;
+        insideElementReleased: boolean;
+    }
+
+    interface CanvasReleaseEvent extends CanvasEvent {
+        pointerType: PointerType;
+        insideElementPressed: boolean;
+        insideElementReleased: boolean;
+    }
+
+    interface CanvasScrollEvent extends CanvasEvent {
+        scroll: number;
+        shift: boolean;
+        preventDefaultAction: boolean;
+        preventDefault: boolean;
+    }
+
+    interface ConstrainEvent extends ViewerEvent {
+        immediately: boolean;
+    }
+
+    interface ContainerEvent extends ViewerEvent {
+        tracker: MouseTracker;
+        pointerType: PointerType;
+        position: Point;
+        buttons: number;
+        pointers: number;
+        insideElementPressed: boolean;
+        /**
+         * @deprecated Use `buttons` instead
+         */
+        buttonDownAny: boolean;
+        originalEvent: Event;
+    }
+
+    interface ControlsEnabledEvent extends ViewerEvent {
+        enabled: boolean;
+    }
+
+    interface FlipEvent extends ViewerEvent {
+        flipped: number;
+    }
+
+    interface FullPageEvent extends ViewerEvent {
+        fullPage: boolean;
+    }
+
+    interface FullScreenEvent extends ViewerEvent {
+        fullScreen: boolean;
+    }
+
+    interface HomeEvent extends ViewerEvent {
+        immediately: boolean;
+    }
+
+    interface MouseEnabledEvent extends ViewerEvent {
+        enabled: boolean;
+    }
+
+    interface NavigatorEvent extends ViewerEvent {
+        tracker: MouseTracker;
+        position: Point;
+        shift: boolean;
+        originalEvent: Event;
+    }
+
+    interface NavigatorClickEvent extends NavigatorEvent {
+        quick: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface NavigatorDragEvent extends NavigatorEvent {
+        delta: Point;
+        speed: number;
+        direction: number;
+        preventDefaultAction: boolean;
+    }
+
+    interface NavigatorScrollEvent extends NavigatorEvent {
+        scroll: number;
+        preventDefault: boolean;
+    }
+
+    interface OpenEvent extends ViewerEvent {
+        source: TileSource;
+    }
+
+    interface OpenFailedEvent extends OpenEvent {
+        message: string;
+    }
+
+    interface PageEvent extends ViewerEvent {
+        page: number;
+    }
+
+    interface PanEvent extends ViewerEvent {
+        center: Point;
+        immediately: boolean;
+    }
+
+    interface PreFullPageEvent extends ViewerEvent {
+        fullPage: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface PreFullScreenEvent extends ViewerEvent {
+        fullScreen: boolean;
+        preventDefaultAction: boolean;
+    }
+
+    interface RemoveOverlayEvent extends ViewerEvent {
+        element: Element;
+    }
+
+    interface ResetSizeEvent extends ViewerEvent {
+        contentSize: Point;
+        contentBounds: Rect;
+        homeBounds: Rect;
+        contentFactor: number;
+    }
+
+    interface ResizeEvent extends ViewerEvent {
+        newContainerSize: Point;
+        maintain: boolean;
+    }
+
+    interface RotateEvent extends ViewerEvent {
+        degrees: number;
+    }
+
+    interface TileEvent extends ViewerEvent {
+        tile: Tile;
+        tiledImage: TiledImage;
+    }
+
+    interface TileDrawingEvent extends TileEvent {
+        context: Tile;
+        rendered: Tile;
+    }
+
+    interface TileLoadFailedEvent extends TileEvent {
+        time: number;
+        message: string;
+        tileRequest: XMLHttpRequest;
+    }
+
+    interface TileLoadedEvent extends TileEvent {
+        image: any;
+        tileRequest: XMLHttpRequest;
+        getCompletionCallback: () => () => void;
+    }
+
+    interface UpdateLevelEvent extends ViewerEvent {
+        tiledImage: TiledImage;
+        havedrawn: object;
+        level: object;
+        opacity: object;
+        visibility: object;
+        drawArea: Rect;
+        /**
+         * @deprecated use `drawArea` instead
+         */
+        topleft: object;
+        /**
+         * @deprecated use `drawArea` instead
+         */
+        bottomright: object;
+        currenttime: object;
+        best: object;
+    }
+
+    interface UpdateOverlayEvent extends ViewerEvent {
+        element: Element;
+        location: Point | Rect;
+        placement: Placement;
+    }
+
+    interface VisibleEvent extends ViewerEvent {
+        visible: boolean;
+    }
+
+    interface ZoomEvent extends ViewerEvent {
+        zoom: number;
+        refPoint: Point;
+        immediately: boolean;
+    }
+
+    // -- WORLD EVENTS --
+    interface WorldEvent extends OSDEvent<World> {}
+
+    interface AddItemWorldEvent extends WorldEvent {
+        item: TiledImage | undefined;
+    }
+
+    interface ItemIndexChangeWorldEvent extends WorldEvent {
+        item: TiledImage;
+        previousIndex: number;
+        newIndex: number;
+    }
+
+    interface RemoveItemWorldEvent extends WorldEvent {
+        item: TiledImage;
+    }
+
+    // -- MOUSE TRACKER EVENTS --
+    interface MouseTrackerEvent<T extends Event = Event> extends OSDEvent<MouseTracker> {
+        originalEvent: T;
+    }
+
+    interface PointerMouseTrackerEvent extends MouseTrackerEvent<PointerEvent> {
+        pointerType: PointerType;
+        position: Point;
+        /**
+         * @deprecated Use `pointerType` and/or `originalEvent` instead
+         */
+        isTouchEvent: boolean;
+    }
+
+    interface KeyMouseTrackerEvent extends MouseTrackerEvent<KeyboardEvent> {
+        keyCode: number;
+        ctrl: boolean;
+        shift: boolean;
+        alt: boolean;
+        meta: boolean;
+        preventDefault: boolean;
+    }
+
+    interface ContextMenuMouseTrackerEvent extends MouseTrackerEvent<MouseEvent> {
+        position: Point;
+        preventDefault: boolean;
+    }
+
+    interface PressMouseTrackerEvent extends PointerMouseTrackerEvent {
+        buttons: number;
+    }
+
+    type PointerType = 'mouse' | 'touch' | 'pen';
+
+    type EventPhase = 0 | 1 | 2 | 3;
 }
 
 export as namespace OpenSeadragon;

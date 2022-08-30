@@ -18,6 +18,7 @@ export type ViewCallback = (props: ViewCallbackProperties) => void;
 export type DrillCallback = (props: DrillCallbackProperties) => void;
 
 export default function Calendar(props: CalendarProps): JSX.Element;
+export function Calendar(props: CalendarProps): JSX.Element;
 
 export interface CalendarProps {
     activeStartDate?: Date | undefined;
@@ -76,7 +77,7 @@ export interface CalendarProps {
     tileClassName?: string | string[] | ((props: CalendarTileProperties) => string | string[] | null) | undefined;
     tileContent?: string | JSX.Element | ((props: CalendarTileProperties) => JSX.Element | null) | undefined;
     tileDisabled?: ((props: CalendarTileProperties) => boolean) | undefined;
-    value?: Date | Date[] | null | undefined;
+    value?: Date | null | undefined | [Date | null, Date | null];
     view?: Detail | undefined;
 }
 

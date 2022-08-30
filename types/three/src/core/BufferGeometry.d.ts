@@ -22,8 +22,6 @@ export class BufferGeometry extends EventDispatcher {
      */
     constructor();
 
-    static MaxIndex: number;
-
     /**
      * Unique number of this buffergeometry instance
      */

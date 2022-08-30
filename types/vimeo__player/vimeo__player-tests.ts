@@ -16,13 +16,14 @@ player = new Player('handstick', {
     color: '#00adef',
     controls: true,
     dnt: false,
-    interactiveparams: 'key1=value1,key2=value2',
+    interactive_params: 'key1=value1,key2=value2',
     keyboard: true,
     loop: false,
     muted: false,
     pip: false,
     playsinline: true,
     portrait: true,
+    quality: 'auto',
     responsive: false,
     speed: false,
     title: true,
@@ -70,7 +71,35 @@ player
 
 player
     .loadVideo('http://vimeo.com/video/76979871')
-    .then(id => {
+    .then(url => {
+        // the video successfully loaded
+    })
+    .catch(error => {
+        switch (error.name) {
+            case 'TypeError':
+                // the id was not a number
+                break;
+
+            case 'PasswordError':
+                // the video is password-protected and the viewer needs to enter the
+                // password first
+                break;
+
+            case 'PrivacyError':
+                // the video is password-protected or private
+                break;
+
+            default:
+                // some other error occurred
+                break;
+        }
+    });
+
+player
+    .loadVideo({
+        id: 76979871,
+    })
+    .then(options => {
         // the video successfully loaded
     })
     .catch(error => {
@@ -187,6 +216,60 @@ player
     });
 
 player
+    .requestFullscreen()
+    .then(() => {
+        // the player entered fullscreen
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .exitFullscreen()
+    .then(() => {
+        // the player exits fullscreen
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .getFullscreen()
+    .then(() => {
+        // fullscreen = whether fullscreen is turned on or off
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .requestPictureInPicture()
+    .then(() => {
+        // the player entered picture-in-picture
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .exitPictureInPicture()
+    .then(() => {
+        // the player exits picture-in-picture
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .getPictureInPicture()
+    .then(() => {
+        // pip = whether picture-in-picture is turned on or off
+    })
+    .catch(() => {
+        // an error occurred
+    });
+
+player
     .getAutopause()
     .then(autopause => {
         // autopause = whether autopause is turned on or off
@@ -253,6 +336,24 @@ player
                 // some other error occurred
                 break;
         }
+    });
+
+player
+    .getChapters()
+    .then(chapters => {
+        // chapters = an array of chapters objects
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .getCurrentChapter()
+    .then(chapter => {
+        // chapter = a chapter object
+    })
+    .catch(error => {
+        // an error occurred
     });
 
 player
@@ -534,6 +635,71 @@ player
                 // the volume was less than 0 or greater than 1
                 break;
 
+            default:
+                // some other error occurred
+                break;
+        }
+    });
+
+player
+    .getQualities()
+    .then(qualities => {
+        // qualities = an array of quality objects
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .getQuality()
+    .then(quality => {
+        // quality = the current selected quality
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .setQuality('540p')
+    .then(quality => {
+        // quality was successfully set
+    })
+    .catch(error => {
+        switch (error.name) {
+            case 'TypeError':
+                // the quality selected is not valid
+                break;
+
+            default:
+                // some other error occurred
+                break;
+        }
+    });
+
+player
+    .getCameraProps()
+    .then(cameraProps => {
+        // cameraProps = the current camera properties
+    })
+    .catch(error => {
+        // an error occurred
+    });
+
+player
+    .setCameraProps({
+        yaw: 360, // Number between 0 and 360, left and right.
+        pitch: 90, // Number between -90 and 90, up and down.
+        roll: 180, // Number between -180 and 180.
+        fov: 45, // The field of view in degrees.
+    })
+    .then(cameraProps => {
+        // cameraProps was successfully set
+    })
+    .catch(error => {
+        switch (error.name) {
+            case 'RangeError':
+                // one of the camera properties is out of range
+                break;
             default:
                 // some other error occurred
                 break;

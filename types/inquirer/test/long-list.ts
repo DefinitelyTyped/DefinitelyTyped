@@ -1,9 +1,9 @@
-import inquirer = require('inquirer');
+import inquirer, { ChoiceCollection } from 'inquirer';
 
 /**
  * Paginated list
  */
-const choices: inquirer.ChoiceCollection = new Array(26).fill(undefined).map((x, y) => String.fromCharCode(y + 65));
+const choices: ChoiceCollection = new Array(26).fill(undefined).map((x, y) => String.fromCharCode(y + 65));
 choices.push('Multiline option \n  super cool feature');
 choices.push({
     name:

@@ -176,8 +176,8 @@ tap.test("all-assertions", t => {
 });
 
 tap.test("async test", async t => {
-    const wanted: any = 1;
-    const expectedError: any = "foo";
+    const wanted = 1;
+    const expectedError = "foo";
 
     const message = "message";
     const extra = {

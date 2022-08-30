@@ -224,7 +224,7 @@ function testUtilTypes(
         object; // $ExpectType Boolean
     }
     if (util.types.isBoxedPrimitive(object)) {
-        object; // $ExpectType String | Number | Boolean | BigInt | Symbol
+        object; // $ExpectType String | Number | Boolean | BigInt | Symbol || String | Number | Boolean | Symbol | BigInt
     }
     if (util.types.isDataView(object)) {
         object; // $ExpectType DataView
@@ -257,7 +257,7 @@ function testUtilTypes(
         object; // $ExpectType Map<any, any>
 
         if (util.types.isMap(readonlyMapOrRecord)) {
-            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any>
+            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || Map<any, any> | ReadonlyMap<any, any>
         }
     }
     if (util.types.isNativeError(object)) {
@@ -289,7 +289,7 @@ function testUtilTypes(
         object; // $ExpectType Set<any>
 
         if (util.types.isSet(readonlySetOrArray)) {
-            readonlySetOrArray; // $ExpectType ReadonlySet<any>
+            readonlySetOrArray; // $ExpectType ReadonlySet<any> || Set<any> | ReadonlySet<any>
         }
     }
     if (util.types.isSharedArrayBuffer(object)) {

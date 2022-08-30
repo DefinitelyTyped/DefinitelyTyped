@@ -6,7 +6,7 @@
 
 export type BigSource = number | string | Big;
 
-// tslint:disable-next-line:no-const-enum
+// eslint-disable-next-line no-const-enum
 export const enum Comparison {
     /**
      * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
@@ -28,7 +28,7 @@ export const enum Comparison {
     LT = -1,
 }
 
-// tslint:disable-next-line:no-const-enum
+// eslint-disable-next-line no-const-enum
 export const enum RoundingMode {
     /**
      * Rounds towards zero.
@@ -126,6 +126,14 @@ export interface BigConstructor {
      * Default value: 21
      */
     PE: number;
+    /**
+     * When set to true, an error will be thrown if a primitive number is passed to the Big constructor,
+     * or if valueOf is called, or if toNumber is called on a Big which cannot be converted to a primitive number without a loss of precision.
+     *
+     * true|false
+     * Default value: false
+     */
+    strict: boolean;
 
     /** Readonly rounding modes */
 

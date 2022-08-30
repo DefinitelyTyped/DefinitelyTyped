@@ -5,19 +5,22 @@ interface Person {
     lastName: string;
 }
 
-const myData: Person[] = [{
-    firstName: 'Alice',
-    lastName: 'Smith'
-}, {
-    firstName: 'Bob',
-    lastName: 'Smith'
-}];
+const myData: Person[] = [
+    {
+        firstName: 'Alice',
+        lastName: 'Smith',
+    },
+    {
+        firstName: 'Bob',
+        lastName: 'Smith',
+    },
+];
 
 const chart = new OrgChart<Person>()
     .container('#my-container')
     .svgHeight(1000)
     .data(myData)
-    .nodeHeight(d => d.data.firstName === 'Alice' ? 200 : 100)
+    .nodeHeight(d => (d.data.firstName === 'Alice' ? 200 : 100))
     .nodeWidth(d => {
         // $ExpectType HierarchyNode<Person>
         d;
@@ -25,14 +28,14 @@ const chart = new OrgChart<Person>()
         d.data;
         // $ExpectType string
         d.data.firstName;
-        // $ExpectError
+        // @ts-expect-error
         d.data.middleName;
-        // $ExpectError
+        // @ts-expect-error
         d.firstName;
         if (d.depth === 0) return 500;
         return 330;
     })
-    .nodeId(d => 'firstName' in d ? d.firstName : d.data.firstName)
+    .nodeId(d => ('firstName' in d ? d.firstName : d.data.firstName))
     .childrenMargin(d => 90)
     .compactMarginBetween(d => 65)
     .compactMarginPair(d => 100)
@@ -70,21 +73,37 @@ chart;
 // $ExpectType Person[] | null
 chart.data();
 
+// $ExpectType Person[] | null
+chart.getChartState().data;
+
 // $ExpectType OrgChart<Person>
-chart.nodeHeight((node) => node.data.firstName.length);
+chart.nodeHeight(node => node.data.firstName.length);
 
 // $ExpectType string
 chart.backgroundColor();
 
 chart
     .backgroundColor()
-    // $ExpectError
+    // @ts-expect-error
     .render();
 
 // $ExpectType OrgChart<Person>
-chart
-    .backgroundColor('#eee')
-    .render();
+chart.backgroundColor('#eee').render();
 
 // $ExpectType OrgChart<Person>
 chart.addNode({ firstName: 'Charlie', lastName: 'Brown' });
+
+// $ExpectType OrgChart<Person>
+chart.expandAll();
+
+// $ExpectType OrgChart<Person>
+chart.collapseAll();
+
+// $ExpectType number
+chart.getChartState().lastTransform.x;
+
+// $ExpectType string[]
+chart.getChartState().svg.data();
+
+// $ExpectType Selection<SVGSVGElement, string, null, undefined>
+chart.getChartState().svg.on('wheel.zoom', null);

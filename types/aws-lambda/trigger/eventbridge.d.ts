@@ -15,4 +15,5 @@ export interface EventBridgeEvent<TDetailType extends string, TDetail> {
     source: string;
     'detail-type': TDetailType;
     detail: TDetail;
+    'replay-name'?: string;
 }

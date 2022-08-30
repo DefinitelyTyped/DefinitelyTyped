@@ -14,3 +14,6 @@ resolveValue({
 
 // $ExpectType Promise<{ prop: string; }[]>
 resolveValue([{ prop: Promise.resolve('Hi') }]);
+
+// $ExpectType Promise<{ promise: boolean; }>
+resolveValue(Promise.resolve({ promise: Promise.resolve(false) }));

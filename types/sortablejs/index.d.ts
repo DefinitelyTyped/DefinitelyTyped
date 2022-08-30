@@ -83,8 +83,9 @@ declare class Sortable {
     /**
      * Sorts the elements according to the array.
      * @param order an array of strings to sort.
+     * @param useAnimation default: false.
      */
-    sort(order: ReadonlyArray<string>): void;
+    sort(order: ReadonlyArray<string>, useAnimation?: boolean): void;
 
     /**
      * Saving and restoring of the sort.

@@ -1,4 +1,4 @@
-// Type definitions for find-test-names 1.14
+// Type definitions for find-test-names 1.17
 // Project: https://github.com/bahmutov/find-test-names
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -112,4 +112,17 @@ export function visitEachNode(structure: Structure, fn: VisitCallback, parentSui
  * @param structure
  */
 export function setParentSuite(structure: Structure): void;
+/**
+ * Visits each test and counts its tags and its parents' tags
+ * to compute the "effective" tags list.
+ * @param structure
+ */
+export function setEffectiveTags(structure: Structure): Structure;
+/**
+ * Visits each individual test in the structure and checks if it
+ * has any effective tags from the given list.
+ * @param structure
+ * @param tags
+ */
+export function filterByEffectiveTags(structure: string | Structure, tags: string[]): Test[];
 export { formatTestList };

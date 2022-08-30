@@ -14,5 +14,5 @@ interface TotpOptions {
     timestamp?: number | undefined;
 }
 
-declare function getToken(key: string, options?: TotpOptions): number;
+declare function getToken(key: string, options?: TotpOptions): string;
 export = getToken;

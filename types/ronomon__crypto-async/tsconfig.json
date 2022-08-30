@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ronomon/*": ["ronomon__*"]
+        }
     },
     "files": [
         "index.d.ts",

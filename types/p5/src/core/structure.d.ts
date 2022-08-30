@@ -47,7 +47,7 @@ declare module '../../index' {
          *   loop(), isLooping() returns the current state for
          *   use within custom event handlers.
          */
-        isLooping(): void;
+        isLooping(): boolean;
 
         /**
          *   The push() function saves the current drawing

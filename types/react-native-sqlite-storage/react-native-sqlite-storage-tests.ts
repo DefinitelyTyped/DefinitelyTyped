@@ -44,7 +44,7 @@ sqlite.openDatabase({ name: 'test.db', location: 'default' }).then(db => {
     );
 });
 
-// $ExpectError
+// @ts-expect-error
 const invalidIOSDatabaseParams: sqlite.DatabaseParamsIOS = {
     name: 'db',
 };

@@ -189,6 +189,7 @@ declare module 'crypto' {
 
     type CipherCCMTypes = 'aes-128-ccm' | 'aes-192-ccm' | 'aes-256-ccm' | 'chacha20-poly1305';
     type CipherGCMTypes = 'aes-128-gcm' | 'aes-192-gcm' | 'aes-256-gcm';
+    type CipherOCBTypes = 'aes-128-ocb' | 'aes-192-ocb' | 'aes-256-ocb';
 
     type BinaryLike = string | NodeJS.ArrayBufferView;
 
@@ -200,6 +201,9 @@ declare module 'crypto' {
     interface CipherGCMOptions extends stream.TransformOptions {
         authTagLength?: number | undefined;
     }
+    interface CipherOCBOptions extends stream.TransformOptions {
+        authTagLength: number;
+    }
     /** @deprecated since v10.0.0 use `createCipheriv()` */
     function createCipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): CipherCCM;
     /** @deprecated since v10.0.0 use `createCipheriv()` */
@@ -210,13 +214,19 @@ declare module 'crypto' {
     function createCipheriv(
         algorithm: CipherCCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): CipherCCM;
     function createCipheriv(
+        algorithm: CipherOCBTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options: CipherOCBOptions,
+    ): CipherOCB;
+    function createCipheriv(
         algorithm: CipherGCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
@@ -246,6 +256,10 @@ declare module 'crypto' {
         setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
         getAuthTag(): Buffer;
     }
+    interface CipherOCB extends Cipher {
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
+        getAuthTag(): Buffer;
+    }
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: CipherCCMTypes, password: BinaryLike, options: CipherCCMOptions): DecipherCCM;
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
@@ -256,13 +270,19 @@ declare module 'crypto' {
     function createDecipheriv(
         algorithm: CipherCCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
+        algorithm: CipherOCBTypes,
+        key: CipherKey,
+        iv: BinaryLike,
+        options: CipherOCBOptions,
+    ): DecipherOCB;
+    function createDecipheriv(
         algorithm: CipherGCMTypes,
         key: CipherKey,
-        iv: BinaryLike | null,
+        iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
@@ -289,6 +309,10 @@ declare module 'crypto' {
         setAAD(buffer: NodeJS.ArrayBufferView, options: { plaintextLength: number }): this;
     }
     interface DecipherGCM extends Decipher {
+        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+        setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
+    }
+    interface DecipherOCB extends Decipher {
         setAuthTag(buffer: NodeJS.ArrayBufferView): this;
         setAAD(buffer: NodeJS.ArrayBufferView, options?: { plaintextLength: number }): this;
     }
@@ -382,9 +406,9 @@ declare module 'crypto' {
         private constructor();
         generateKeys(): Buffer;
         generateKeys(encoding: BinaryToTextEncoding): string;
-        computeSecret(other_public_key: NodeJS.ArrayBufferView): Buffer;
-        computeSecret(other_public_key: string, input_encoding: BinaryToTextEncoding): Buffer;
-        computeSecret(other_public_key: NodeJS.ArrayBufferView, output_encoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, inputEncoding?: null, outputEncoding?: null): Buffer;
+        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding, outputEncoding?: null): Buffer;
+        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, inputEncoding: null, outputEncoding: BinaryToTextEncoding): string;
         computeSecret(
             other_public_key: string,
             input_encoding: BinaryToTextEncoding,
@@ -404,7 +428,42 @@ declare module 'crypto' {
         setPrivateKey(private_key: string, encoding: BufferEncoding): void;
         verifyError: number;
     }
-    function getDiffieHellman(group_name: string): DiffieHellman;
+    /**
+     * The `DiffieHellmanGroup` class takes a well-known modp group as its argument.
+     * It works the same as `DiffieHellman`, except that it does not allow changing its keys after creation.
+     * In other words, it does not implement `setPublicKey()` or `setPrivateKey()` methods.
+     *
+     * ```js
+     * const { createDiffieHellmanGroup } = await import('node:crypto');
+     * const dh = createDiffieHellmanGroup('modp1');
+     * ```
+     * The name (e.g. `'modp1'`) is taken from [RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt) (modp1 and 2) and [RFC 3526](https://www.rfc-editor.org/rfc/rfc3526.txt):
+     * ```bash
+     * $ perl -ne 'print "$1\n" if /"(modp\d+)"/' src/node_crypto_groups.h
+     * modp1  #  768 bits
+     * modp2  # 1024 bits
+     * modp5  # 1536 bits
+     * modp14 # 2048 bits
+     * modp15 # etc.
+     * modp16
+     * modp17
+     * modp18
+     * ```
+     * @since v0.7.5
+     */
+    const DiffieHellmanGroup: DiffieHellmanGroupConstructor;
+    interface DiffieHellmanGroupConstructor {
+        new(name: string): DiffieHellmanGroup;
+        (name: string): DiffieHellmanGroup;
+        readonly prototype: DiffieHellmanGroup;
+    }
+    type DiffieHellmanGroup = Omit<DiffieHellman, 'setPublicKey' | 'setPrivateKey'>;
+    function getDiffieHellman(groupName: string): DiffieHellmanGroup;
+    /**
+     * An alias for {@link getDiffieHellman}
+     * @since v0.9.3
+     */
+    function createDiffieHellmanGroup(name: string): DiffieHellmanGroup;
     function pbkdf2(
         password: BinaryLike,
         salt: BinaryLike,
@@ -507,6 +566,12 @@ declare module 'crypto' {
     function getCiphers(): string[];
     function getCurves(): string[];
     function getFips(): 1 | 0;
+    /**
+     * Enables the FIPS compliant crypto provider in a FIPS-enabled Node.js build. Throws an error if FIPS mode is not available.
+     * @since v10.0.0
+     * @param bool `true` to enable FIPS mode.
+     */
+    function setFips(bool: boolean): void;
     function getHashes(): string[];
     class ECDH {
         private constructor();
@@ -1183,6 +1248,35 @@ declare module 'crypto' {
      * 'dh' (for Diffie-Hellman), 'ec' (for ECDH), 'x448', or 'x25519' (for ECDH-ES).
      */
     function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): Buffer;
+    /**
+     * Load and set the `engine` for some or all OpenSSL functions (selected by flags).
+     *
+     * `engine` could be either an id or a path to the engine's shared library.
+     *
+     * The optional `flags` argument uses `ENGINE_METHOD_ALL` by default.
+     * The `flags` is a bit field taking one of or a mix of the following flags (defined in `crypto.constants`):
+     *
+     * - `crypto.constants.ENGINE_METHOD_RSA`
+     * - `crypto.constants.ENGINE_METHOD_DSA`
+     * - `crypto.constants.ENGINE_METHOD_DH`
+     * - `crypto.constants.ENGINE_METHOD_RAND`
+     * - `crypto.constants.ENGINE_METHOD_EC`
+     * - `crypto.constants.ENGINE_METHOD_CIPHERS`
+     * - `crypto.constants.ENGINE_METHOD_DIGESTS`
+     * - `crypto.constants.ENGINE_METHOD_PKEY_METHS`
+     * - `crypto.constants.ENGINE_METHOD_PKEY_ASN1_METHS`
+     * - `crypto.constants.ENGINE_METHOD_ALL`
+     * - `crypto.constants.ENGINE_METHOD_NONE`
+     *
+     * The flags below are deprecated in OpenSSL-1.1.0.
+     *
+     * - `crypto.constants.ENGINE_METHOD_ECDH`
+     * - `crypto.constants.ENGINE_METHOD_ECDSA`
+     * - `crypto.constants.ENGINE_METHOD_STORE`
+     * @since v0.11.11
+     * @param [flags=crypto.constants.ENGINE_METHOD_ALL]
+     */
+    function setEngine(engine: string, flags?: number): void;
 }
 declare module 'node:crypto' {
     export * from 'crypto';

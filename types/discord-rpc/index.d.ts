@@ -8,7 +8,9 @@
 //                 HanchaiN <https://github.com/HanchaiN>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter, Listener } from 'events';
+import { EventEmitter } from 'events';
+
+export type Listener = (...args: any[]) => void;
 
 export function register(id: string): boolean;
 
@@ -228,8 +230,7 @@ export class Client extends BaseClient {
      * @param event Name of event e.g. `MESSAGE_CREATE`
      * @param args Args for event e.g. `{ channel_id: '1234' }`
      */
-    subscribe(event: RPCEvents, callback: (data: any) => void): Promise<Subscription>;
-    subscribe(event: RPCEvents, args: any, callback: (data: any) => void): Promise<Subscription>;
+    subscribe(event: RPCEvents, args: any): Promise<Subscription>;
 
     /**
      * Destroy the client

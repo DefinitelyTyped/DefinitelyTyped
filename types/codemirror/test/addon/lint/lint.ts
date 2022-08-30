@@ -21,7 +21,8 @@ const asyncLintedCm3: CodeMirror.Editor = CodeMirror(document.body, {
     lint: {
         async: true,
         getAnnotations(content: string, callback, options: any, cm: CodeMirror.Editor) {
-            callback(cm); // $ExpectError
+            // @ts-expect-error
+            callback(cm);
         }
     }
 });
@@ -57,7 +58,7 @@ const promiseLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
 });
 
 const syncLintedCm3: CodeMirror.Editor = CodeMirror(document.body, {
-    // $ExpectError
+    // @ts-expect-error
     lint: {
         getAnnotations(content: string, options: any, cm: CodeMirror.Editor) {
             return null;
@@ -92,7 +93,8 @@ const syncLintOptions: LintStateOptions<any> = {
 
 const customLintOptions: LintStateOptions<{foo: boolean}> = {
     async: false,
-    options: {}, // $ExpectError
+    // @ts-expect-error
+    options: {},
     getAnnotations: (
         content: string,
         options: {foo: boolean},

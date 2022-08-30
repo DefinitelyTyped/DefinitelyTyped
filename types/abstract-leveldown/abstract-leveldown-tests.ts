@@ -36,7 +36,7 @@ const testMany = (levelDown: AbstractLevelDOWN<any, string>) => {
 // Init db (in order to test properties/methods)
 const db = new AbstractLevelDOWN('here');
 
-// $ExpectType "new" | "opening" | "open" | "closing" | "closed"
+// $ExpectType "open" | "new" | "opening" | "closing" | "closed" || "new" | "opening" | "open" | "closing" | "closed"
 db.status;
 
 // $ExpectType boolean

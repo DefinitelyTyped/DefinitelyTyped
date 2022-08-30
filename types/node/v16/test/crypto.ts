@@ -190,6 +190,34 @@ import { promisify } from 'node:util';
 }
 
 {
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext),
+    });
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length,
+    });
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
+}
+
+{
     // crypto_cipheriv_decipheriv_cbc_string_encoding_test
     const key: string | null = 'keykeykeykeykeykeykeykey';
     const nonce = crypto.randomBytes(12);
@@ -1160,7 +1188,8 @@ import { promisify } from 'node:util';
     cert.ca; // $ExpectType boolean
     cert.fingerprint; // $ExpectType string
     cert.fingerprint256; // $ExpectType string
-    cert.infoAccess; // $ExpectType string
+    cert.fingerprint512; // $ExpectType string
+    cert.infoAccess; // $ExpectType string | undefined
     cert.issuer; // $ExpectType string
     cert.issuerCertificate; // $ExpectType X509Certificate | undefined
     cert.keyUsage; // $ExpectType string[]
@@ -1168,7 +1197,7 @@ import { promisify } from 'node:util';
     cert.raw; // $ExpectType Buffer
     cert.serialNumber; // $ExpectType string
     cert.subject; // $ExpectType string
-    cert.subjectAltName; // $ExpectType string
+    cert.subjectAltName; // $ExpectType string | undefined
     cert.validFrom; // $ExpectType string
     cert.validTo; // $ExpectType string
 
@@ -1182,10 +1211,10 @@ import { promisify } from 'node:util';
 
     cert.checkEmail('test@test.com'); // $ExpectType string | undefined
     cert.checkEmail('test@test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
-    cert.checkIP('1.1.1.1', checkOpts); // $ExpectType string | undefined
     cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
     cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
     cert.toLegacyObject(); // $ExpectType PeerCertificate
@@ -1282,4 +1311,94 @@ import { promisify } from 'node:util';
 
 {
     crypto.generateKeySync('aes', { length: 128 }); // $ExpectType KeyObject
+}
+
+{
+    crypto.DiffieHellmanGroup('modp14');
+    new crypto.DiffieHellmanGroup('modp14');
+
+    const alice: crypto.DiffieHellmanGroup = crypto.getDiffieHellman('modp14');
+    const bob: crypto.DiffieHellmanGroup = crypto.createDiffieHellmanGroup('modp14');
+
+    // Check that DiffieHellman still has setPublicKey/setPrivateKey:
+    crypto.createDiffieHellman(2).setPublicKey('abcd', 'hex');
+    crypto.createDiffieHellman(2).setPrivateKey('abcd', 'hex');
+
+    // While DiffieHellmanGroup should not have them:
+    // @ts-expect-error
+    alice.setPublicKey('abcd', 'hex');
+    // @ts-expect-error
+    bob.setPrivateKey('abcd', 'hex');
+
+    // Those 2 methods aside, DiffieHellmanGroup should work the same as DiffieHellman
+    alice.generateKeys();
+    bob.generateKeys();
+    const aliceSecret = alice.computeSecret(bob.getPublicKey(), null, 'hex'); // $ExpectType string
+    const bobSecret = bob.computeSecret(alice.getPublicKey(), null, 'hex'); // $ExpectType string
+    aliceSecret === bobSecret;
+}
+
+{
+    crypto.setFips(false);
+    crypto.setEngine('dynamic');
+    crypto.setEngine('dynamic', crypto.constants.ENGINE_METHOD_RSA);
+}
+
+{
+    // The Cryto and SubtleCrypto classes are not exposed at runtime.
+    // @ts-expect-error
+    crypto.webcrypto.Crypto;
+    // @ts-expect-error
+    crypto.webcrypto.SubtleCrypto;
+
+    // The Crypto and SubtleCrypto classes should still be exposed as types.
+    const a: crypto.webcrypto.Crypto = crypto.webcrypto;
+    const b: crypto.webcrypto.SubtleCrypto = crypto.webcrypto.subtle;
+
+    crypto.webcrypto.randomUUID(); // $ExpectType string
+    crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
+    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+    // @ts-expect-error
+    crypto.webcrypto.getRandomValues(new Float64Array(4));
+    crypto.webcrypto.CryptoKey.name;
+    crypto.webcrypto.CryptoKey.length;
+    crypto.webcrypto.CryptoKey.prototype;
+    crypto.webcrypto.CryptoKey.toString();
+    // @ts-expect-error
+    new crypto.webcrypto.CryptoKey(); // Illegal constructor
+
+    crypto.webcrypto.subtle.generateKey({ name: 'HMAC', hash: 'SHA-1' }, true, ['sign', 'decrypt', 'deriveBits']).then((out) => {
+        out.algorithm; // $ExpectType KeyAlgorithm
+        out.extractable; // $ExpectType boolean
+        out.usages; // $ExpectType KeyUsage[]
+    });
+}
+
+{
+    // Note: The following tests are not examples of correct usage of these APIs and are simply for typechecking testing.
+    const subtle = crypto.webcrypto.subtle;
+    // The lack of top level await makes it annoying to use generateKey so let's just fake it for typings.
+    const key = null as unknown as crypto.webcrypto.CryptoKey;
+    const buf = new Uint8Array(16);
+
+    subtle.encrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new TextEncoder().encode('hello')); // $ExpectType Promise<ArrayBuffer>
+    subtle.decrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-512', salt: new ArrayBuffer(8), iterations: 1000 }, key, length); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveKey({
+        name: 'PBKDF2',
+        hash: 'SHA-512',
+        salt: new ArrayBuffer(8),
+        iterations: 1000
+    }, key, {
+        name: 'AES-GCM',
+        length: 256
+    }, true, ['encrypt', 'decrypt']);
+    subtle.digest('SHA-384', buf); // $ExpectType Promise<ArrayBuffer>
+    subtle.exportKey('jwk', key); // $ExpectType Promise<JsonWebKey>
+    subtle.importKey('pkcs8', buf, { name: 'RSA-PSS', hash: 'SHA-1' }, false, []); // $ExpectType Promise<CryptoKey>
+    subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveKey', 'deriveBits']); // $ExpectType Promise<CryptoKeyPair>
+    subtle.sign({ name: 'RSA-PSS', saltLength: 64 }, key, buf); // $ExpectType Promise<ArrayBuffer>
+    subtle.unwrapKey('raw', buf, key, { name: 'AES-CTR', length: 192, counter: buf }, { name: 'RSA-OAEP', hash: 'SHA-512' }, true, []);
+    subtle.verify({ name: 'RSASSA-PKCS1-v1_5' }, key, buf, buf); // $ExpectType Promise<boolean>
+    subtle.wrapKey('spki', key, key, { name: 'AES-GCM', tagLength: 104, iv: buf }); // $ExpectType Promise<ArrayBuffer>
 }

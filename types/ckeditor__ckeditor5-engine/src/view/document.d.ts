@@ -17,8 +17,7 @@ export default class Document implements BubblingEmitter, Observable {
     get isReadOnly(): boolean;
     protected set isReadOnly(value: boolean);
     isFocused: boolean;
-    get isSelecting(): boolean;
-    protected set isSelecting(value: boolean);
+    isSelecting: boolean;
     get isComposing(): boolean;
     protected set isComposing(value: boolean);
     /**
@@ -77,20 +76,19 @@ export default class Document implements BubblingEmitter, Observable {
      */
     destroy(): void;
 
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
+    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;
     on<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: { priority?: number | PriorityString | undefined; context?: string | undefined },
     ): void;
     once<K extends string>(
         event: K,
         callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
+        options?: { priority?: number | PriorityString | undefined; context?: string | undefined },
     ): void;
     off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
     listenTo<P extends string, E extends Emitter>(

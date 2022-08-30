@@ -3,11 +3,32 @@ import { SubProcess, ExecOptions } from 'teen_process';
 
 export { DEFAULT_ADB_EXEC_TIMEOUT } from '../helpers';
 
+export interface ConnectedDevicesOptions {
+    /**
+     * Whether to get long output, which includes extra properties in each device.
+     * Akin to running `adb devices -l`.
+     */
+    verbose?: boolean;
+}
+
 export interface Device {
     /** The device udid. */
     udid: string;
     /** Current device state, as it is visible in _adb devices -l_ output. */
     state: string;
+}
+
+export interface VerboseDevice extends Device {
+    /** The product codename of the device, such as "razor". */
+    product: string;
+    /** The model name of the device, such as "Nexus_7". */
+    model: string;
+    /** The device codename, such as "flow". */
+    device: string;
+    /** Represents the USB port the device is connected to, such as "1-1". */
+    usb?: string;
+    /** The Transport ID for the device, such as "1". */
+    transport_id?: string;
 }
 
 export interface AdbExecOptions extends ExecOptions {
@@ -176,7 +197,8 @@ interface SystemCalls {
      *                          no devices are connected.
      * @throws If there was an error while listing devices.
      */
-    getConnectedDevices(): Promise<Device[]>;
+    getConnectedDevices(opts: ConnectedDevicesOptions & { verbose: true }): Promise<VerboseDevice[]>;
+    getConnectedDevices(opts?: ConnectedDevicesOptions): Promise<Device[]>;
 
     /**
      * Retrieve the list of devices visible to adb within the given timeout.

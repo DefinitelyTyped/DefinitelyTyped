@@ -120,6 +120,9 @@ export function fixupHtmlDocs(input: string, context: DocContext): string {
         input = input.replace(/<pre><code class="language-cjs">.*?<\/code><\/pre>/igms, '');
     }
 
+    // workaround markdown generation bug
+    input = input.replaceAll(/([^ ])\n<em>/g, '$1 \n<em>');
+
     input = input.replaceAll(/language\-[mc]js/g, 'language-js');
     // fixup breaking comments
     input = input.replace(/\/\*(.*?)\*\//g, '//$1');

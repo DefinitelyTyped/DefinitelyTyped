@@ -12,7 +12,7 @@ export function schedule(cronExpression: string, func: (now: Date) => void, opti
 
 export function validate(cronExpression: string): boolean;
 
-export function getTasks(): ScheduledTask[];
+export function getTasks(): Map<string, ScheduledTask>;
 
 export interface ScheduledTask extends EventEmitter {
     start: () => this;

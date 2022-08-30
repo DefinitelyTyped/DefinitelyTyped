@@ -1,4 +1,4 @@
-// Type definitions for @vimeo/player 2.16.3
+// Type definitions for @vimeo/player 2.16.4
 // Project: https://github.com/vimeo/player.js
 // Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
 //                 Felix Albert <f.albert.work@icloud.com>
@@ -6,6 +6,7 @@
 //                 Terry Mun <https://github.com/terrymun>
 //                 Coskun Deniz <deniz@tassomai.com>
 //                 Kohei Watanabe <https://github.com/kou029w>
+//                 Michael Markey <https://github.com/mikeamarkey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type TrackKind = 'captions' | 'subtitles';
@@ -76,7 +77,7 @@ export interface TextTrackChangeEvent {
     language: string | null;
 }
 
-export interface ChapterChangeEvent {
+export interface VimeoChapter {
     startTime: number;
     title: string;
 
@@ -135,11 +136,17 @@ export interface FullScreenChangeEvent {
     fullscreen: boolean;
 }
 
+export interface VimeoVideoQualityObject {
+    label: string;
+    id: string;
+    active: boolean;
+}
+
 export interface QualityChangeEvent {
     quality: VimeoVideoQuality;
 }
 
-export interface CameraChangeEvent {
+export interface VimeoCameraProps {
     yaw: number;
     pitch: number;
     roll: number;
@@ -200,7 +207,7 @@ export interface EventMap {
     /**
      * Triggered when the current chapter changes.
      */
-    chapterchange: ChapterChangeEvent;
+    chapterchange: VimeoChapter;
 
     /**
      * Triggered when the active cue for the current text track changes. It also fires when the active text track changes. There may be multiple cues active.
@@ -265,7 +272,7 @@ export interface EventMap {
     /**
      * Triggered when any of the camera properties change for 360° videos.
      */
-    camerachange: CameraChangeEvent;
+    camerachange: VimeoCameraProps;
 
     /**
      * Triggered when the intrinsic size of the media changes.
@@ -286,7 +293,7 @@ export interface EventMap {
 export type EventCallback<Data = any> = (data: Data) => any;
 
 export type VimeoTimeRange = [number, number];
-export type VimeoVideoQuality = '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
+export type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
 
 export class Player {
     constructor(element: HTMLIFrameElement | HTMLElement | string, options?: Options);
@@ -295,7 +302,11 @@ export class Player {
     on(event: string, callback: EventCallback): void;
     off<EventName extends keyof EventMap>(event: EventName, callback: EventCallback<EventMap[EventName]>): void;
     off(event: string, callback?: EventCallback): void;
-    loadVideo(id: number | string): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(id: number): VimeoPromise<number, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(url: string): VimeoPromise<string, TypeError | PasswordError | PrivacyError | Error>;
+    loadVideo(
+        options: Options,
+    ): VimeoPromise<{ [prop: string]: any }, TypeError | PasswordError | PrivacyError | Error>;
     ready(): VimeoPromise<void, Error>;
     enableTextTrack(
         language: string,
@@ -305,10 +316,18 @@ export class Player {
     pause(): VimeoPromise<void, PasswordError | PrivacyError | Error>;
     play(): VimeoPromise<void, PasswordError | PrivacyError | Error>;
     unload(): VimeoPromise<void, Error>;
+    requestFullscreen(): VimeoPromise<void, Error>;
+    exitFullscreen(): VimeoPromise<void, Error>;
+    getFullscreen(): VimeoPromise<boolean, Error>;
+    requestPictureInPicture(): VimeoPromise<void, Error>;
+    exitPictureInPicture(): VimeoPromise<void, Error>;
+    getPictureInPicture(): VimeoPromise<boolean, Error>;
     getAutopause(): VimeoPromise<boolean, UnsupportedError | Error>;
     setAutopause(autopause: boolean): VimeoPromise<boolean, UnsupportedError | Error>;
     getColor(): VimeoPromise<string, Error>;
     setColor(color: string): VimeoPromise<string, ContrastError | TypeError | Error>;
+    getChapters(): VimeoPromise<VimeoChapter[], Error>;
+    getCurrentChapter(): VimeoPromise<VimeoChapter, Error>;
     addCuePoint(time: number, data: VimeoCuePointData): VimeoPromise<string, UnsupportedError | RangeError | Error>;
     removeCuePoint(id: string): VimeoPromise<string, UnsupportedError | InvalidCuePoint | Error>;
     getCuePoints(): VimeoPromise<VimeoCuePoint[], UnsupportedError | Error>;
@@ -336,6 +355,11 @@ export class Player {
     getVideoUrl(): VimeoPromise<string, PrivacyError | Error>;
     getVolume(): VimeoPromise<number, Error>;
     setVolume(volume: number): VimeoPromise<number, RangeError | Error>;
+    getQualities(): VimeoPromise<VimeoVideoQualityObject[], Error>;
+    getQuality(): VimeoPromise<VimeoVideoQuality, Error>;
+    setQuality(quality: VimeoVideoQuality): VimeoPromise<VimeoVideoQuality, TypeError | Error>;
+    getCameraProps(): VimeoPromise<VimeoCameraProps, Error>;
+    setCameraProps(cameraProps: VimeoCameraProps): VimeoPromise<VimeoCameraProps, RangeError | Error>;
     destroy(): VimeoPromise<void, Error>;
 }
 
@@ -367,7 +391,7 @@ export interface Options {
     controls?: boolean | undefined;
     dnt?: boolean | undefined;
     height?: number | undefined;
-    interactiveparams?: string | undefined;
+    interactive_params?: string | undefined;
     keyboard?: boolean | undefined;
     loop?: boolean | undefined;
     maxheight?: number | undefined;

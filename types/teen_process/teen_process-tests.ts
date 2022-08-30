@@ -1,4 +1,4 @@
-import { exec, SubProcess, SubProcessOptions } from 'teen_process';
+import { exec, ExecError, SubProcess, SubProcessOptions } from 'teen_process';
 
 exec('bigfix');
 exec('echo', ['my name is bob', 'lol']);
@@ -36,6 +36,11 @@ const props: {
     pid: number | null | undefined;
 } = new SubProcess('ls');
 
+try {
+    exec('exit', ['1'], {shell: true});
+} catch (err) {
+    const {stdout, stderr, code} = err as ExecError;
+}
 const subproc = new SubProcess('ls', [], { cwd: process.cwd() });
 subproc.on('lines-stdout', (newLines: string[]) => {});
 subproc.once('lines-stderr', (newLines: string[]) => {});

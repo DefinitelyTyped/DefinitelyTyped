@@ -580,6 +580,7 @@ declare module 'http2' {
         parent?: number | undefined;
         weight?: number | undefined;
         waitForTrailers?: boolean | undefined;
+        signal?: AbortSignal | undefined;
     }
     export interface SessionState {
         effectiveLocalWindowSize?: number | undefined;

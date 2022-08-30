@@ -1,6 +1,7 @@
 import AceDiff = require('ace-diff');
 
-new AceDiff(); // $ExpectError
+// @ts-expect-error
+new AceDiff();
 
 const aceDiffConstructorOpts = {
     element: '.acediff',
@@ -12,7 +13,8 @@ new AceDiff(aceDiffConstructorOpts); // $ExpectType AceDiff
 const differ = new AceDiff(aceDiffConstructorOpts);
 
 differ.getEditors(); // $ExpectType { left: any; right: any; }
-differ.setOptions(); // $ExpectError
+// @ts-expect-error
+differ.setOptions();
 const aceDiffOpts = {
     diffGranularity: 'broad' as 'broad', // workaround: cast to avoid https://github.com/Microsoft/TypeScript/issues/11465#issuecomment-252453037
 };

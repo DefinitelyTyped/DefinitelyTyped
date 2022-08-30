@@ -22,7 +22,7 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tty.js)
  */
 declare module 'tty' {
     import * as net from 'node:net';
@@ -52,7 +52,9 @@ declare module 'tty' {
          *
          * When in raw mode, input is always available character-by-character, not
          * including modifiers. Additionally, all special processing of characters by the
-         * terminal is disabled, including echoing input characters.Ctrl+C will no longer cause a `SIGINT` when in this mode.
+         * terminal is disabled, including echoing input
+         * characters. Ctrl+C will no longer cause a `SIGINT` when
+         * in this mode.
          * @since v0.7.7
          * @param mode If `true`, configures the `tty.ReadStream` to operate as a raw device. If `false`, configures the `tty.ReadStream` to operate in its default mode. The `readStream.isRaw`
          * property will be set to the resulting mode.

@@ -60,7 +60,7 @@ ref.derefType(typeLike);
 // $ExpectType Type<number>
 ref.derefType(numberPointerType);
 
-// $ExpectType "LE" | "BE"
+// $ExpectType "LE" | "BE" || "BE" | "LE"
 ref.endianness;
 
 // $ExpectType any

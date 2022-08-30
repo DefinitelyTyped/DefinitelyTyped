@@ -2,7 +2,8 @@ import resize = require('gulp-image-resize');
 
 resize();                       // $ExpectType Transform
 resize(undefined);
-resize("1");                  // $ExpectError
+// @ts-expect-error
+resize("1");
 
 resize({                        // $ExpectType Transform
     width: 100,
@@ -12,7 +13,8 @@ resize({                        // $ExpectType Transform
 });
 
 resize({
-    widt: 5                     // $ExpectError
+    // @ts-expect-error
+    widt: 5
 });
 
 resize({

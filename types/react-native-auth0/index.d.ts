@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.10
+// Type definitions for react-native-auth0 2.13
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
@@ -200,9 +200,9 @@ export const users: Users;
  * Web Auth
  */
 export interface AuthorizeParams {
-    state?: string; // Random string to prevent CSRF attacks and used to discard unexepcted results. By default its a cryptographically secure random.
+    state?: string; // Random string to prevent CSRF attacks and used to discard unexpected results. By default it is a cryptographically secure random.
     nonce?: string; // Random string to prevent replay attacks of id_tokens.
-    audience?: string; // Identifier of Resource Server (RS) to be included as audience (aud claim) of the issued access token
+    audience?: string; // Identifier of Resource Server (RS) to be included as the audience (aud claim) of the issued access token
     scope?: string; // Scopes requested for the issued tokens. e.g. `openid profile`
     connection?: string; // The name of the identity provider to use, e.g. "google-oauth2" or "facebook". When not set, it will display Auth0's Universal Login Page.
     language?: string;
@@ -210,6 +210,7 @@ export interface AuthorizeParams {
     max_age?: number; // The allowable elapsed time in seconds since the last time the user was authenticated (optional).
     organization?: string; // The ID of the organization to join
     invitationUrl?: string; // The invitation URL to join an organization. Takes precedence over the "organization" parameter.
+    [key: string]: string | number | boolean | undefined; // Optional user-defined values appended to the auth page URL query parameters.
 }
 
 export interface AuthorizeOptions {
@@ -220,7 +221,7 @@ export interface AuthorizeOptions {
 }
 
 export interface ClearSessionParams {
-    federated: boolean;
+    federated?: boolean;
     customScheme?: string;
 }
 

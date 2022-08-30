@@ -1,7 +1,10 @@
 import * as React from 'react';
 import Video, { FilterType } from 'react-native-video';
 
+const playerRef = React.useRef<Video>(null);
+
 <Video
+    ref={playerRef}
     source={{ uri: '//:example.com/test.mp4', headers: { accept: "*/*" }, type: 'mp4' }}
     onProgress={data => console.log(data.currentTime, data.playableDuration, data.seekableDuration)}
     onError={error => console.log(error.error[''], error.error.errorString)}
@@ -29,9 +32,22 @@ import Video, { FilterType } from 'react-native-video';
     onPictureInPictureStatusChanged={data => {
         console.log(data.isActive);
     }}
+    onRestoreUserInterfaceForPictureInPictureStop={() => {
+        if (playerRef.current) {
+            playerRef.current.restoreUserInterfaceForPictureInPictureStopCompleted(true);
+        }
+    }}
     filterEnabled={true}
     filter={FilterType.MONO}
     selectedAudioTrack={{ type: 'index', value: 6 }}
     selectedVideoTrack={{ type: 'auto' }}
     preventsDisplaySleepDuringVideoPlayback={true}
 />;
+
+if (playerRef.current) {
+    playerRef.current.dismissFullscreenPlayer();
+    playerRef.current.presentFullscreenPlayer();
+    playerRef.current.seek(120);
+    playerRef.current.seek(120, 50);
+    playerRef.current.save();
+}

@@ -210,7 +210,7 @@ declare namespace GoogleAppsScript {
       getBody(): Body;
       getBookmark(id: string): Bookmark;
       getBookmarks(): Bookmark[];
-      getCursor(): Position;
+      getCursor(): Position | null;
       getEditors(): Base.User[];
       getFooter(): FooterSection;
       getFootnotes(): Footnote[];

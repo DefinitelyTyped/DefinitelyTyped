@@ -53,6 +53,21 @@ const nestedJsonEvent: EventBridgeEvent<string, { nested: { TestValue: string } 
     },
 };
 
+const replayedEvent: EventBridgeEvent<string, { TestValue: string }> = {
+    version: '0',
+    id: '5a6adfad-1e1d-abe0-ffab-cb99acf3159b',
+    'detail-type': 'ApiKeyGenerated',
+    source: 'subscription.apikeys',
+    account: 'theAccount',
+    time: '2020-03-31T01:07:37Z',
+    region: 'eu-west-1',
+    resources: [],
+    detail: {
+        TestValue: 'aTestValue',
+    },
+    "replay-name": "test-replay-name"
+};
+
 // Multiple events handler;
 
 type Event01 = EventBridgeEvent<'event01', { detailProp1: string }>;

@@ -1,0 +1,15 @@
+{
+    "root": true,
+    "extends": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+      "dt-header": "error",
+      "no-dead-reference": "error",
+      "no-const-enum": "error",
+      "no-useless-files": "error"
+    }
+}

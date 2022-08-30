@@ -13,7 +13,7 @@ const vtf = new VectorTileFeature();
 // $ExpectType number
 vtf.extent;
 
-// $ExpectType 1 | 2 | 3
+// $ExpectType 1 | 2 | 3 || 2 | 1 | 3
 vtf.type;
 
 // $ExpectType number

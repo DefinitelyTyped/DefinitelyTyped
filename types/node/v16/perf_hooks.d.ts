@@ -192,6 +192,35 @@ declare module 'perf_hooks' {
          */
         clearMarks(name?: string): void;
         /**
+         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
+         * If name is provided, removes only the named measure.
+         * @param name
+         * @since v16.7.0
+         */
+        clearMeasures(name?: string): void;
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`.
+         * If you are only interested in performance entries of certain types or that have certain names, see
+         * `performance.getEntriesByType()` and `performance.getEntriesByName()`.
+         * @since v16.7.0
+         */
+        getEntries(): PerformanceEntry[];
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
+         * whose `performanceEntry.name` is equal to `name`, and optionally, whose `performanceEntry.entryType` is equal to `type`.
+         * @param name
+         * @param type
+         * @since v16.7.0
+         */
+        getEntriesByName(name: string, type?: EntryType): PerformanceEntry[];
+        /**
+         * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`
+         * whose `performanceEntry.entryType` is equal to `type`.
+         * @param type
+         * @since v16.7.0
+         */
+        getEntriesByType(type: EntryType): PerformanceEntry[];
+        /**
          * Creates a new PerformanceMark entry in the Performance Timeline.
          * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
          * and whose performanceEntry.duration is always 0.

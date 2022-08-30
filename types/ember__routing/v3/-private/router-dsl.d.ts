@@ -1,5 +1,5 @@
 export default class RouterDSL {
-    constructor(name: string, options: object);
+    constructor(name: string | null, options: object);
     route(name: string, callback: (this: RouterDSL) => void): void;
     route(
         name: string,

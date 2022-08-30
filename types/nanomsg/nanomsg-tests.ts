@@ -1,17 +1,18 @@
-import { Socket, socket } from "nanomsg";
-const pub: Socket = socket("pub");
-const sub: Socket = socket("sub");
+import { Socket, socket } from 'nanomsg';
+const pub: Socket = socket('pub'); // $ExpectType Socket
+const sub: Socket = socket("sub"); // $ExpectType Socket
 
-const addr = "tcp://127.0.0.1:7789";
-pub.bind(addr);
-sub.connect(addr);
+const addr = 'tcp://127.0.0.1:7789';
+pub.bind(addr); // $ExpectType number | null
+sub.connect(addr); // $ExpectType number | null
 
+// $ExpectType Socket
 sub.on('data', buf => {
-  console.log(String(buf));
-  pub.close();
-  sub.close();
+    console.log(String(buf));
+    pub.close(); // $ExpectType void
+    sub.close(); // $ExpectType void
 });
 
-setTimeout(() => {
-  pub.send("Hello from nanomsg!");
+setTimeout(_ => {
+    pub.send('Hello from nanomsg!'); // $ExpectType number
 }, 100);

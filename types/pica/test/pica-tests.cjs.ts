@@ -35,7 +35,7 @@ const resizeOptions: pica.PicaResizeOptions = {
     quality: 1,
 };
 const resizeOptionsError: pica.PicaResizeOptions = {
-    // $ExpectError
+    // @ts-expect-error
     quality: 9,
 };
 resizer.resize(image, canvas, resizeOptions);
@@ -56,13 +56,13 @@ resizer.toBlob(canvas, 'image/png', 9);
 resizerWithOptions.toBlob(canvas, 'image/png', 9);
 
 // Resize buffer
-const resizeBufferSrc: number[] = [21, 31];
+const resizeBufferSrc = Uint8Array.of(21, 31);
 const resizeBufferOptions: pica.PicaResizeBufferOptions = {
     src: resizeBufferSrc,
     width: 100,
     height: 100,
     toWidth: 50,
-    toHeigh: 50,
+    toHeight: 50,
 };
 resizer.resizeBuffer(resizeBufferOptions);
 resizerWithOptions.resizeBuffer(resizeBufferOptions);

@@ -332,7 +332,7 @@ declare namespace Sinon {
         /**
          * Returns the nth call.
          * Accessing individual calls helps with more detailed behavior verification when the spy is called more than once.
-         * @param n Zero based index of the spy call.
+         * @param n Zero-based index of the spy call.
          */
         getCall(n: number): SinonSpyCall<TArgs, TReturnValue>;
         /**
@@ -569,7 +569,7 @@ declare namespace Sinon {
          * Defines the behavior of the stub on the @param n call. Useful for testing sequential interactions.
          * There are methods onFirstCall, onSecondCall,onThirdCall to make stub definitions read more naturally.
          * onCall can be combined with all of the behavior defining methods in this section. In particular, it can be used together with withArgs.
-         * @param n
+         * @param n Zero-based index of the spy call.
          */
         onCall(n: number): SinonStub<TArgs, TReturnValue>;
         /**
@@ -785,12 +785,6 @@ declare namespace Sinon {
          */
         restore(): void;
     };
-
-    interface SinonFakeTimersConfig {
-        now: number | Date;
-        toFake: string[];
-        shouldAdvanceTime: boolean;
-    }
 
     interface SinonFakeUploadProgress {
         eventListeners: {
@@ -1450,7 +1444,7 @@ declare namespace Sinon {
          * If set to true, the sandbox will have a clock property.
          * You can optionally pass in a configuration object that follows the specification for fake timers, such as { toFake: ["setTimeout", "setInterval"] }.
          */
-        useFakeTimers: boolean | Partial<SinonFakeTimersConfig>;
+        useFakeTimers: boolean | Partial<FakeTimers.FakeTimerInstallOpts>;
         /**
          * If true, server and requests properties are added to the sandbox. Can also be an object to use for fake server.
          * The default one is sinon.fakeServer, but if you’re using jQuery 1.3.x or some other library that does not set the XHR’s onreadystatechange handler,
@@ -1572,7 +1566,7 @@ declare namespace Sinon {
          * You would have to call either clock.next(), clock.tick(), clock.runAll() or clock.runToLast() (see example below). Please refer to the lolex documentation for more information.
          * @param config
          */
-        useFakeTimers(config?: number | Date | Partial<SinonFakeTimersConfig>): SinonFakeTimers;
+        useFakeTimers(config?: number | Date | Partial<FakeTimers.FakeTimerInstallOpts>): SinonFakeTimers;
         /**
          * Causes Sinon to replace the native XMLHttpRequest object in browsers that support it with a custom implementation which does not send actual requests.
          * In browsers that support ActiveXObject, this constructor is replaced, and fake objects are returned for XMLHTTP progIds.

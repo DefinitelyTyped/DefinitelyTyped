@@ -77,7 +77,7 @@ module('misc and async', function (hooks) {
             result: string;
         }
 
-        const subject = this.owner.lookup('foo') as Foo;
+        const subject = this.owner.lookup('foo:bar') as Foo;
 
         subject.set('value', 'foo');
         assert.equal(subject.get('result'), 'bar');

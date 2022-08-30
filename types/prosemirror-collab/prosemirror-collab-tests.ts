@@ -18,4 +18,5 @@ declare const clientIDs: Array<string | number>;
 collab.receiveTransaction(state, steps, clientIDs);
 collab.receiveTransaction(state, steps, clientIDs, {});
 collab.receiveTransaction(state, steps, clientIDs, { mapSelectionBackward: true });
-collab.receiveTransaction(state, steps, clientIDs, { invalidOption: true }); // $ExpectError
+// @ts-expect-error
+collab.receiveTransaction(state, steps, clientIDs, { invalidOption: true });

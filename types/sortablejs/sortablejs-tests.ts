@@ -10,6 +10,7 @@ var angular: any;
 var Ply: any;
 
 sortable.sort(order.reverse());
+sortable.sort(order.reverse(), true);
 
 Sortable.create(list, {
     delay: 500,

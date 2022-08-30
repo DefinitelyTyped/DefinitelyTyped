@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "paths": {
+            "@gatsbyjs/*": [
+                "gatsbyjs__*"
+            ],
+            "@reach/*": [
+                "reach__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "gatsbyjs__reach-router-tests.tsx"
+    ]
+}

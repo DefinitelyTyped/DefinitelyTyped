@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 4.0
+// Type definitions for Jasmine 4.3
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -114,7 +114,7 @@ declare function afterEach(action: jasmine.ImplementationCallback, timeout?: num
 declare function beforeAll(action: jasmine.ImplementationCallback, timeout?: number): void;
 
 /**
- * Run some shared teardown once before all of the specs in the describe are run.
+ * Run some shared teardown once after all of the specs in the describe are run.
  * Note: Be careful, sharing the teardown from a afterAll makes it easy to accidentally leak state between your specs so that they erroneously pass or fail.
  * @param action Function that contains the code to teardown your specs.
  * @param timeout Custom timeout for an async afterAll
@@ -191,7 +191,10 @@ declare function spyOn<T, K extends keyof T = keyof T>(
  * @param property The name of the property to replace with a `Spy`.
  * @param accessType The access type (get|set) of the property to `Spy` on.
  */
-declare function spyOnProperty<T>(object: T, property: keyof T, accessType?: "get" | "set"): jasmine.Spy;
+declare function spyOnProperty<T, K extends keyof T = keyof T>(
+    object: T, property: K, accessType?: "get"): jasmine.Spy<(this: T) => T[K]>;
+declare function spyOnProperty<T, K extends keyof T = keyof T>(
+    object: T, property: K, accessType: "set"): jasmine.Spy<(this: T, value: T[K]) => void>;
 
 /**
  * Installs spies on all writable and configurable properties of an object.
@@ -350,6 +353,7 @@ declare namespace jasmine {
     function setContaining<T>(sample: Set<T>): AsymmetricMatcher<Set<T>>;
 
     function setDefaultSpyStrategy<Fn extends Func = Func>(fn?: (and: SpyAnd<Fn>) => void): void;
+    function spyOnGlobalErrorsAsync(fn?: (globalErrorSpy: Error) => Promise<void>): Promise<void>;
     function addSpyStrategy<Fn extends Func = Func>(name: string, factory: Fn): void;
     function createSpy<Fn extends Func>(name?: string, originalFn?: Fn): Spy<Fn>;
     function createSpyObj(baseName: string, methodNames: SpyObjMethodNames, propertyNames?: SpyObjPropertyNames): any;
@@ -714,6 +718,15 @@ declare namespace jasmine {
          * expect(array).toHaveSize(2);
          */
         toHaveSize(expected: number): void;
+
+        /**
+         * {@link expect} the actual (a {@link SpyObj}) spies to have been called.
+         * @since 4.1.0
+         * @example
+         * expect(mySpyObj).toHaveSpyInteractions();
+         * expect(mySpyObj).not.toHaveSpyInteractions();
+         */
+        toHaveSpyInteractions(): void;
 
         /**
          * Add some context for an expect.

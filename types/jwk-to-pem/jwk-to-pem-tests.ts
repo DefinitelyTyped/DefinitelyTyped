@@ -3,10 +3,14 @@ import jwkToPem = require('jwk-to-pem');
 const jwk: jwkToPem.JWK = { kty: 'EC', crv: 'P-256', x: '...', y: '...' };
 jwkToPem(jwk); // $ExpectType string
 
-jwkToPem('hi'); // $ExpectError
-jwkToPem(null); // $ExpectError
-jwkToPem({ kty: {} }); // $ExpectError
-jwkToPem({ kty: 'foozleberries' }); // $ExpectError
+// @ts-expect-error
+jwkToPem('hi');
+// @ts-expect-error
+jwkToPem(null);
+// @ts-expect-error
+jwkToPem({ kty: {} });
+// @ts-expect-error
+jwkToPem({ kty: 'foozleberries' });
 
 const ec1: jwkToPem.JWK = {
     crv: 'P-256',
@@ -23,9 +27,12 @@ const ec2: jwkToPem.JWK = {
 };
 jwkToPem(ec2); // $ExpectType string
 jwkToPem(ec2, { private: true }); // $ExpectType string
-jwkToPem(ec2, {}); // $ExpectError
-jwkToPem(ec2, { foo: 'bar' }); // $ExpectError
-jwkToPem(ec2, 'foo'); // $ExpectError
+// @ts-expect-error
+jwkToPem(ec2, {});
+// @ts-expect-error
+jwkToPem(ec2, { foo: 'bar' });
+// @ts-expect-error
+jwkToPem(ec2, 'foo');
 
 const ec5: jwkToPem.JWK = {
     crv: 'P-384',
@@ -35,12 +42,18 @@ const ec5: jwkToPem.JWK = {
 };
 jwkToPem(ec5); // $ExpectType string
 
-jwkToPem({ kty: 'EC', x: 'foo', y: 'bar' }); // $ExpectError
-jwkToPem({ kty: 'EC', crv: {}, x: 'foo', y: 'bar' }); // $ExpectError
-jwkToPem({ kty: 'EC', crv: 'P-256', y: 'bar' }); // $ExpectError
-jwkToPem({ kty: 'EC', crv: 'P-256', x: {}, y: 'bar' }); // $ExpectError
-jwkToPem({ kty: 'EC', crv: 'P-256', x: 'foo' }); // $ExpectError
-jwkToPem({ kty: 'EC', crv: 'P-256', x: 'foo', y: {} }); // $ExpectError
+// @ts-expect-error
+jwkToPem({ kty: 'EC', x: 'foo', y: 'bar' });
+// @ts-expect-error
+jwkToPem({ kty: 'EC', crv: {}, x: 'foo', y: 'bar' });
+// @ts-expect-error
+jwkToPem({ kty: 'EC', crv: 'P-256', y: 'bar' });
+// @ts-expect-error
+jwkToPem({ kty: 'EC', crv: 'P-256', x: {}, y: 'bar' });
+// @ts-expect-error
+jwkToPem({ kty: 'EC', crv: 'P-256', x: 'foo' });
+// @ts-expect-error
+jwkToPem({ kty: 'EC', crv: 'P-256', x: 'foo', y: {} });
 
 const rsa1: jwkToPem.JWK = {
     kty: 'RSA',
@@ -62,7 +75,11 @@ const rsa2: jwkToPem.JWK = {
 };
 jwkToPem(rsa2); // $ExpectType string
 
-jwkToPem({ kty: 'RSA', e: 'AQAB' }); // $ExpectError
-jwkToPem({ kty: 'RSA', n: {}, e: 'AQAB' }); // $ExpectError
-jwkToPem({ kty: 'RSA', n: 'foo' }); // $ExpectError
-jwkToPem({ kty: 'RSA', n: 'foo', e: {} }); // $ExpectError
+// @ts-expect-error
+jwkToPem({ kty: 'RSA', e: 'AQAB' });
+// @ts-expect-error
+jwkToPem({ kty: 'RSA', n: {}, e: 'AQAB' });
+// @ts-expect-error
+jwkToPem({ kty: 'RSA', n: 'foo' });
+// @ts-expect-error
+jwkToPem({ kty: 'RSA', n: 'foo', e: {} });

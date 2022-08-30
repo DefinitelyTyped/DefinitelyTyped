@@ -1,4 +1,4 @@
-// Type definitions for @koa/cors 3.1
+// Type definitions for @koa/cors 3.3
 // Project: https://github.com/koajs/cors
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 //                 Steve Hipwell <https://github.com/stevehipwell>
@@ -71,5 +71,19 @@ declare namespace cors {
          * Add set headers to `err.header` if an error is thrown
          */
         keepHeadersOnError?: boolean | undefined;
+
+        /**
+         * Add `Cross-Origin-Opener-Policy` & `Cross-Origin-Embedder-Policy` to response headers
+         *
+         * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer/Planned_changes
+         */
+        secureContext?: boolean | undefined;
+
+        /**
+         * Handle `Access-Control-Request-Private-Network` request by return `Access-Control-Allow-Private-Network`
+         *
+         * @see https://wicg.github.io/private-network-access/
+         */
+        privateNetworkAccess?: boolean | undefined;
     }
 }

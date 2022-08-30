@@ -1,21 +1,22 @@
 declare module 'fs/promises' {
     import {
-        Stats,
+        BaseEncodingOptions,
         BigIntStats,
-        StatOptions,
-        WriteVResult,
-        ReadVResult,
+        BufferEncodingOption,
+        constants as fsConstants,
+        Dir,
+        Dirent,
+        MakeDirectoryOptions,
+        Mode,
+        OpenDirOptions,
+        OpenMode,
         PathLike,
+        ReadVResult,
         RmDirOptions,
         RmOptions,
-        MakeDirectoryOptions,
-        Dirent,
-        OpenDirOptions,
-        Dir,
-        BaseEncodingOptions,
-        BufferEncodingOption,
-        OpenMode,
-        Mode,
+        StatOptions,
+        Stats,
+        WriteVResult,
     } from 'fs';
 
     interface FileHandle {
@@ -161,6 +162,8 @@ declare module 'fs/promises' {
         close(): Promise<void>;
     }
 
+    const constants: typeof fsConstants;
+
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
@@ -184,10 +187,11 @@ declare module 'fs/promises' {
     /**
      * Asynchronous open(2) - open and possibly create a file.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not
+     * @param [flags='r'] See `support of file system `flags``.
+     * @param [mode] A file mode. If a string is passed, it is parsed as an octal integer. If not
      * supplied, defaults to `0o666`.
      */
-    function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
+    function open(path: PathLike, flags?: string | number, mode?: string | number): Promise<FileHandle>;
 
     /**
      * Asynchronously reads data from the file referenced by the supplied `FileHandle`.

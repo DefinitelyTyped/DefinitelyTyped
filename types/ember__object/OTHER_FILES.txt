@@ -1,3 +1,2 @@
 -private/action-handler.d.ts
-internals.d.ts
 promise-proxy-mixin.d.ts

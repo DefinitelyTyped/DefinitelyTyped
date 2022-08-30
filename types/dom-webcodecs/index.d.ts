@@ -2,7 +2,7 @@
 // Project: https://w3c.github.io/webcodecs/
 // Definitions by: Ben Wagner <https://github.com/dogben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
+// Minimum TypeScript Version: 4.7
 
 // Versioning:
 // Until the WebCodecs spec is finalized, the major version number is 0. I have chosen to use minor

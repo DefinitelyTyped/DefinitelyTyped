@@ -4,7 +4,7 @@ import wrapSuperagent = require('superagent-retry-delay');
 // $ExpectType EnhancedSuperAgentStatic
 const request = wrapSuperagent(superagent);
 
-// $ExpectError
+// @ts-expect-error
 const badRequest = wrapSuperagent({ something: 'else' });
 
 // typical usage
@@ -16,6 +16,6 @@ request
 // standard .retry() usage should no longer work
 request
   .get('http://my.url')
-  // $ExpectError
+  // @ts-expect-error
   .retry(5, () => 'callback')
   .ok(res => res.status === 200);

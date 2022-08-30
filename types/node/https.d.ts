@@ -1,7 +1,7 @@
 /**
  * HTTPS is the HTTP protocol over TLS/SSL. In Node.js this is implemented as a
  * separate module.
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/https.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/https.js)
  */
 declare module 'https' {
     import { Duplex } from 'node:stream';
@@ -34,6 +34,16 @@ declare module 'https' {
     class Server extends tls.Server {
         constructor(requestListener?: http.RequestListener);
         constructor(options: ServerOptions, requestListener?: http.RequestListener);
+        /**
+         * Closes all connections connected to this server.
+         * @since v18.2.0
+         */
+        closeAllConnections(): void;
+        /**
+         * Closes all connections connected to this server which are not sending a request or waiting for a response.
+         * @since v18.2.0
+         */
+        closeIdleConnections(): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'keylog', listener: (line: Buffer, tlsSocket: tls.TLSSocket) => void): this;
         addListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: (err: Error, resp: Buffer) => void) => void): this;

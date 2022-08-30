@@ -4,8 +4,9 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
-    NightwatchBrowser,
     NightwatchTests,
+    PageObjectModel,
+    ELEMENT_KEY,
 } from 'nightwatch';
 
 //
@@ -14,7 +15,7 @@ import {
 
 const testGeneral: NightwatchTests = {
     'Demo test Google 1': () => {
-        browser.url('https://google.com').pause(1000);
+        browser.registerBasicAuth('test-username', 'test-password').navigateTo('https://google.com').pause(1000);
 
         // expect element <body> to be present in 1000ms
         browser.expect.element('body').to.be.present.before(1000);
@@ -51,6 +52,20 @@ const testGeneral: NightwatchTests = {
             .end();
     },
 
+    'Demo Nightwatch API commands': () => {
+        browser.isChrome();
+        browser.isAndroid();
+        browser.isMobile();
+        const element_id = browser.WEBDRIVER_ELEMENT_ID;
+        console.log(element_id);
+        const browserName = browser.browserName;
+        console.log(browserName);
+        // @ts-expect-errors
+        browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
+        // @ts-expect-errors
+        browser.browserName = 'firefox';
+    },
+
     'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')
@@ -61,6 +76,68 @@ const testGeneral: NightwatchTests = {
 
     'step two: click input': () => {
         browser.click('input[name=btnK]').pause(1000).assert.containsText('#main', 'Night Watch').end();
+    },
+
+    'test user defined globals': () => {
+        browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
+    },
+    'Demo test for built-in API commands for working with the Chrome Devtools Protocol': () => {
+        // setGeolocation
+        browser
+            // Set location of Tokyo, Japan
+            .setGeolocation({
+                latitude: 35.689487,
+                longitude: 139.691706,
+                accuracy: 100,
+            })
+            .captureNetworkRequests(requestParams => {
+                console.log('Request URL:', requestParams.request.url);
+                console.log('Request method:', requestParams.request.method);
+                console.log('Request headers:', requestParams.request.headers);
+            })
+            .navigateTo('https://www.gps-coordinates.net/my-location')
+            .end();
+
+        browser
+            .mockNetworkResponse(
+                'https://www.google.com/',
+                {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'UTF-8',
+                    },
+                    body: 'Hello there!',
+                },
+                res => {
+                    console.log(res);
+                },
+            )
+            .setDeviceDimensions({
+                width: 400,
+                height: 600,
+                deviceScaleFactor: 50,
+                mobile: true,
+            })
+            .navigateTo('https://www.google.com')
+            .end();
+
+        browser
+            .enablePerformanceMetrics()
+            .navigateTo('https://www.google.com')
+            .getPerformanceMetrics(metrics => {
+                console.log(metrics);
+            });
+
+        browser.navigateTo('https://www.google.com').takeHeapSnapshot('./snap.heapsnapshot').end();
+
+        browser
+            .captureBrowserConsoleLogs(event => {
+                console.log(event.type, event.timestamp, event.args[0].value);
+            })
+            .navigateTo('https://www.google.com')
+            .executeScript(() => {
+                console.error('here');
+            }, []);
     },
 };
 
@@ -119,17 +196,17 @@ interface MenuSection
         { apps: AppsSection }
     > {}
 
-const googlePage = {
-    commands: [
-        {
-            submit(this: GooglePage) {
-                this.api.pause(1000);
-                return this.waitForElementVisible('@submitButton', 1000)
-                    .click('@submitButton')
-                    .waitForElementNotPresent('@submitButton');
-            },
-        },
-    ],
+const googleCommands = {
+    submit(this: GooglePage) {
+        this.api.pause(1000);
+        return this.waitForElementVisible('@submitButton', 1000)
+            .click('@submitButton')
+            .waitForElementNotPresent('@submitButton');
+    },
+};
+
+const googlePage: PageObjectModel = {
+    commands: [googleCommands],
     elements: {
         searchBar: {
             selector: 'input[type=text]',
@@ -145,7 +222,7 @@ const googlePage = {
 
 // export = googlePage;
 
-const iFrame = {
+const iFrame: PageObjectModel = {
     elements: {
         iframe: '#mce_0_ifr',
         textbox: 'body#tinymce p',
@@ -162,7 +239,7 @@ const iFrame = {
 // export = iFrame
 
 interface GooglePage
-    extends EnhancedPageObject<typeof googlePage.commands[0], typeof googlePage.elements, { menu: MenuSection }> {}
+    extends EnhancedPageObject<typeof googleCommands, typeof googlePage.elements, { menu: MenuSection }> {}
 
 interface iFramePage extends EnhancedPageObject<typeof iFrame.commands[0], typeof iFrame.elements> {}
 
@@ -200,12 +277,14 @@ const testPage = {
     },
 
     'Test assertions on page': () => {
-        const google = browser.page.google();
+        const google: GooglePage = browser.page.google();
 
         google
             .navigate()
-            .assert.title('Google')
+            .assert.title('Google') // deprecated
+            .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
 
@@ -221,6 +300,18 @@ const testPage = {
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();
+    },
+
+    'Test passing CSS selector string to frame': () => {
+        const iFrame = browser.page.IFrame();
+        iFrame.navigate().waitForElementPresent('#mce_0_ifr', 10000);
+        browser.frame('#mce_0_ifr');
+        iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
+        browser.end();
+    },
+
+    'Test nested page objects': () => {
+        const google = browser.page.subfolder1.subfolder2.subfolder3.google();
     },
 };
 
@@ -350,7 +441,7 @@ function text(this: NightwatchAssertion<string>, selector: string, expectedText:
                 callback(null);
                 return;
             }
-            this.api.elementIdText(elementResult.value.ELEMENT, textResult => {
+            this.api.elementIdText(elementResult.value[ELEMENT_KEY], textResult => {
                 if (textResult.status) {
                     callback(null);
                     return;
@@ -375,3 +466,51 @@ const testCustomAssertion = {
         browser.assert.text('#checkme', 'Exactly match text');
     },
 };
+
+// test global element
+
+describe('demo element() global', () => {
+    const signupEl = element(by.css('#signupSection'));
+    const loginEl = element('#weblogin');
+
+    test('element globals command', async () => {
+        // use elements created with element() to regular nightwatch assertions
+        browser.assert.visible(loginEl);
+
+        // use elements created with element() to expect assertions
+        browser.expect.element(loginEl).to.be.visible;
+
+        // retrieve the WebElement instance
+        const loginWebElement = await loginEl.getWebElement();
+    });
+});
+
+// Ensure test
+
+it('Ensure demo test', () => {
+    browser
+        .url('https://nightwatchjs.org')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+});
+
+// chai expect test
+
+it('Chai demo test', () => {
+    const infoElement = element('.info');
+    expect(infoElement.property('innerHTML')).to.be.a('string').and.to.include('validation code');
+});
+
+// Relative locator test
+
+describe('sample with relative locators', () => {
+    before(browser => browser.navigateTo('https://archive.org/account/login'));
+
+    it('locates password input', () => {
+        const passwordElement = locateWith(By.tagName('input')).below(By.css('input[type=email]'));
+
+        browser.waitForElementVisible(passwordElement).expect.element(passwordElement).to.be.an('input');
+
+        browser.expect.element(passwordElement).attribute('type').equal('password');
+    });
+});

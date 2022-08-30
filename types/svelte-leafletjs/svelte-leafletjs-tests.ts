@@ -1,3 +1,4 @@
+import { Map } from 'leaflet';
 import { getContext } from 'svelte';
 import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs';
 
@@ -61,6 +62,18 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
         // $ExpectType LeafletMouseEvent
         e;
     });
+}
+
+{
+    /* tslint:disable-next-line */
+    let getMap: () => Map;
+
+    const f = () => {
+        const mapEl = new LeafletMap({
+            target: document.body,
+            props: { options: { center: [-36.84111, 174.7682] }, getMap, events: ['moveend', 'zoom', 'resize'] },
+        });
+    };
 }
 
 //
