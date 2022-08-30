@@ -159,11 +159,18 @@ export interface Props {
     /**
      * Defines whether interactive forms should be rendered.
      * `renderAnnotationLayer` prop must be set to true.
-     * @default false
+     * @deprecated Use the new {@link Props.renderForms} property instead.
      */
     renderInteractiveForms?: boolean | undefined;
 
     /**
+     * Defines whether forms should be rendered.
+     * `renderAnnotationLayer` prop must be set to true.
+     * @default false
+     */
+    renderForms?: boolean | undefined;
+
+     /**
      * Defines the rendering mode of the page.
      * @default 'canvas'
      */
