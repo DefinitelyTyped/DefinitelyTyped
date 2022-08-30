@@ -847,8 +847,6 @@ const any: any = null;
 
     result = validator.isSemVer('sample');
 
-    result = validator.isStrongPassword('sample');
-
     result = validator.isSurrogatePair('sample');
 
     const isURLOptions: validator.IsURLOptions = {
@@ -924,6 +922,15 @@ const any: any = null;
 
     result = validator.toInt(any);
     result = validator.toInt(any, 10);
+}
+
+{
+    let result: boolean;
+    result = validator.isStrongPassword('sample23#@test');
+    result = validator.isStrongPassword('sample23#@test', { returnScore: false });
+
+    let score: number;
+    score = validator.isStrongPassword('sample23#@test', { returnScore: true });
 }
 
 {
