@@ -9,6 +9,7 @@ import {
   Tool,
   MODE_PANNING,
   TOOL_NONE,
+  TOOL_PAN,
   UncontrolledReactSVGPanZoom
 } from 'react-svg-pan-zoom';
 
@@ -112,8 +113,9 @@ class MyViewer extends React.Component {
   render() {
     return (
       <UncontrolledReactSVGPanZoom
-        width={200} height={400}
+        width={200} height={400} defaultTool={TOOL_PAN}
       >
+        <svg />
       </UncontrolledReactSVGPanZoom>
     );
   }

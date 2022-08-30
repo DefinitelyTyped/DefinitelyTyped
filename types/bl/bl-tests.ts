@@ -20,17 +20,21 @@ bl = bls.duplicate();
 
 // is not assignable as it lacks the Duplex methods
 var bls2: BufferListStream;
-bls2 = bl; // $ExpectError
+// @ts-expect-error
+bls2 = bl;
 
 // does not have Duplex methods
-bl.pause(); // $ExpectError
-bl.resume(); // $ExpectError
+// @ts-expect-error
+bl.pause();
+// @ts-expect-error
+bl.resume();
 
 bl.append(buffer);
 bl.append(bl);
 bl.append(bls);
 
 bls = new BufferListStream();
+bls = new BufferListStream((err, data) => {});
 bls = new BufferListStream(bls);
 bls = new BufferListStream([bls]);
 bls = new BufferListStream(Buffer.from("asdf"));

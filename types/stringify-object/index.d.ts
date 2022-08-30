@@ -1,7 +1,6 @@
 // Type definitions for stringify-object 4.0
 // Project: https://github.com/yeoman/stringify-object
-// Definitions by: Chris Khoo <https://github.com/khoomeister>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

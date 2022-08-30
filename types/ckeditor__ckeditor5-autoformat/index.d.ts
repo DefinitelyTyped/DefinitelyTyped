@@ -1,4 +1,4 @@
-// Type definitions for @ckeditor/ckeditor5-autoformat 29.0
+// Type definitions for @ckeditor/ckeditor5-autoformat 31.0
 // Project: https://ckeditor.com/docs/ckeditor5/latest/api/autoformat.html
 // Definitions by: Federico Panico <https://github.com/fedemp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,7 +1,6 @@
 // Type definitions for cli-color 2.0
 // Project: https://github.com/medikoo/cli-color
-// Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
-//                 OpportunityLiu <https://github.com/OpportunityLiu>
+// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import art = require('./art');

@@ -68,7 +68,7 @@ export interface ButtonProps
 export const Button: React.FunctionComponent<ButtonProps>;
 
 export interface CardProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}
-export const Card: React.FunctionComponent<BoxKnownProps>;
+export const Card: React.FunctionComponent<CardProps>;
 
 // tslint:disable-next-line no-empty-interface
 interface FlexKnownProps extends BoxKnownProps {}

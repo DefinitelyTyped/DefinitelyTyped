@@ -41,7 +41,7 @@ export default class MentionCommand extends Command {
     /**
      * Executes the command.
      */
-    execute(options?: {
+    execute(options: {
         mention: string | { id: string; text: string };
         marker: string;
         text?: string;

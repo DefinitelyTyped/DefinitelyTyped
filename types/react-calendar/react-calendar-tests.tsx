@@ -22,6 +22,10 @@ export default class Sample extends React.Component<{}, State> {
         this.setState({ value: values[0] });
     }
 
+    onViewChange = (action: string) => {
+        console.log(`action changed by ${action}`);
+    }
+
     render() {
         const { value } = this.state;
 
@@ -44,6 +48,7 @@ export default class Sample extends React.Component<{}, State> {
                         <Calendar
                             onChange={this.onRangeChange}
                             showWeekNumbers
+                            onViewChange={({action}) => this.onViewChange(action)}
                             closeCalendar={true}
                             value={value}
                             locale="ko-KR"

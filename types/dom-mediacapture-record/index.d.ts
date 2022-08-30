@@ -3,7 +3,7 @@
 // Definitions by: Elias Meire <https://github.com/elsmr>
 //                 AppLover69 <https://github.com/AppLover69>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
+// Minimum TypeScript Version: 4.5
 
 interface MediaRecorderErrorEventInit extends EventInit {
     error: DOMException;
@@ -45,7 +45,7 @@ interface MediaRecorderOptions {
 
 interface MediaRecorderEventMap {
     "dataavailable": BlobEvent;
-    "error": Event;
+    "error": MediaRecorderErrorEvent;
     "pause": Event;
     "resume": Event;
     "start": Event;
@@ -61,7 +61,7 @@ interface MediaRecorder extends EventTarget {
     readonly audioBitrateMode: BitrateMode;
 
     ondataavailable: ((this: MediaRecorder, event: BlobEvent) => any) | null;
-    onerror: ((this: MediaRecorder, event: Event) => any) | null;
+    onerror: ((this: MediaRecorder, event: MediaRecorderErrorEvent) => any) | null;
     onpause: ((this: MediaRecorder, event: Event) => any) | null;
     onresume: ((this: MediaRecorder, event: Event) => any) | null;
     onstart: ((this: MediaRecorder, event: Event) => any) | null;

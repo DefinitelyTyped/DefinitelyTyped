@@ -21,14 +21,14 @@ declare global {
      * @see LegacyPatcher
      */
     // tslint:disable-next-line no-unnecessary-generics
-    function registerPatcher<L = {}, S = {}>(patcher: LegacyPatcher<S, L>): void;
+    function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: LegacyPatcher<S, L>): void;
     /**
      * Function for registering a patcher with UPF
      *
      * Generics are needed for inference within Patcher interface to work
      */
     // tslint:disable-next-line no-unnecessary-generics unified-signatures
-    function registerPatcher<L = {}, S = {}>(patcher: Patcher<S, L>): void;
+    function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: Patcher<S, L>): void;
 
     /**
      * @see FileHelpers
@@ -276,7 +276,7 @@ export interface Patcher<S extends {}, L extends {}> {
  *
  * @see Patcher
  */
-export type LegacyPatcher<S, L> = Patcher<S, L> &
+export type LegacyPatcher<S extends {}, L extends {}> = Patcher<S, L> &
     (
         | {
               /**

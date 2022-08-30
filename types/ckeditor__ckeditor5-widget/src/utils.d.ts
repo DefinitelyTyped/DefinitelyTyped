@@ -7,13 +7,11 @@ import EditableElement from '@ckeditor/ckeditor5-engine/src/view/editableelement
 import Element from '@ckeditor/ckeditor5-engine/src/view/element';
 import Node from '@ckeditor/ckeditor5-engine/src/view/node';
 import Position from '@ckeditor/ckeditor5-engine/src/view/position';
-import { Rect } from '@ckeditor/ckeditor5-utils';
 import EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 
 export const WIDGET_CLASS_NAME: 'ck-widget';
 export const WIDGET_SELECTED_CLASS_NAME: 'ck-widget_selected';
 
-export function centeredBalloonPositionForLongWidgets(widgetRect: Rect, balloonRect: Rect): Position | null;
 export function checkSelectionOnObject(selection: Selection | DocumentSelection, schema: Schema): boolean;
 /**
  * Returns a model range which is optimal (in terms of UX) for inserting a widget block.
@@ -32,8 +30,8 @@ export function isWidget(node: Node): boolean;
 export function setHighlightHandling(
     element: Element,
     writer: DowncastWriter,
-    add: (descriptor: HighlightDescriptor, writer: DowncastWriter) => void,
-    remove: (id: string, writer: DowncastWriter) => void,
+    add?: (descriptor: HighlightDescriptor, writer: DowncastWriter) => void,
+    remove?: (id: string, writer: DowncastWriter) => void,
 ): void;
 export function setLabel(element: Element, labelOrCreator: string | (() => string), writer: DowncastWriter): void;
 export function toWidget(

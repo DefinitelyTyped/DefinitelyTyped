@@ -35,9 +35,11 @@ declare module '../../index' {
          *   passed in, then an int array of the same length is
          *   returned.
          *   @param ns values to parse
+         *   @param [radix] the radix to convert to (default:
+         *   10)
          *   @return integer representation of values
          */
-        int(ns: any[]): number[];
+        int(ns: any[], radix?: number): number[];
 
         /**
          *   Converts a boolean, string or number to its string

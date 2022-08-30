@@ -16,12 +16,35 @@ import * as http from 'http';
 
 // for docs go to https://github.com/expressjs/body-parser/tree/1.19.0#body-parser
 
-/** @deprecated */
-declare function bodyParser(
-    options?: bodyParser.OptionsJson & bodyParser.OptionsText & bodyParser.OptionsUrlencoded,
-): NextHandleFunction;
-
 declare namespace bodyParser {
+    interface BodyParser {
+        /**
+         * @deprecated  use individual json/urlencoded middlewares
+         */
+        (options?: OptionsJson & OptionsText & OptionsUrlencoded): NextHandleFunction;
+        /**
+         * Returns middleware that only parses json and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        json(options?: OptionsJson): NextHandleFunction;
+        /**
+         * Returns middleware that parses all bodies as a Buffer and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        raw(options?: Options): NextHandleFunction;
+
+        /**
+         * Returns middleware that parses all bodies as a string and only looks at requests
+         * where the Content-Type header matches the type option.
+         */
+        text(options?: OptionsText): NextHandleFunction;
+        /**
+         * Returns middleware that only parses urlencoded bodies and only looks at requests
+         * where the Content-Type header matches the type option
+         */
+        urlencoded(options?: OptionsUrlencoded): NextHandleFunction;
+    }
+
     interface Options {
         /** When set to true, then deflated (compressed) bodies will be inflated; when false, deflated bodies are rejected. Defaults to true. */
         inflate?: boolean | undefined;
@@ -77,28 +100,8 @@ declare namespace bodyParser {
          */
         parameterLimit?: number | undefined;
     }
-
-    /**
-     * Returns middleware that only parses json and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function json(options?: OptionsJson): NextHandleFunction;
-    /**
-     * Returns middleware that parses all bodies as a Buffer and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function raw(options?: Options): NextHandleFunction;
-
-    /**
-     * Returns middleware that parses all bodies as a string and only looks at requests
-     * where the Content-Type header matches the type option.
-     */
-    function text(options?: OptionsText): NextHandleFunction;
-    /**
-     * Returns middleware that only parses urlencoded bodies and only looks at requests
-     * where the Content-Type header matches the type option
-     */
-    function urlencoded(options?: OptionsUrlencoded): NextHandleFunction;
 }
+
+declare const bodyParser: bodyParser.BodyParser;
 
 export = bodyParser;

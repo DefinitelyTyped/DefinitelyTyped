@@ -1,6 +1,6 @@
-import * as crypto from 'crypto';
-import assert = require('assert');
-import { promisify } from 'util';
+import * as crypto from 'node:crypto';
+import assert = require('node:assert');
+import { promisify } from 'node:util';
 
 {
     const copied: crypto.Hash = crypto.createHash('md5').copy();
@@ -185,6 +185,34 @@ import { promisify } from 'util';
     });
     const receivedPlaintext: string = decipher.update(ciphertext, undefined, 'utf8');
     decipher.final();
+}
+
+{
+    // crypto_cipheriv_decipheriv_aad_ocb_test
+    const key = 'keykeykeykeykeykeykeykey';
+    const iv = crypto.randomBytes(12);
+    const aad = Buffer.from('0123456789', 'hex');
+
+    const cipher = crypto.createCipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    const plaintext = 'Hello world';
+    cipher.setAAD(aad, {
+        plaintextLength: Buffer.byteLength(plaintext),
+    });
+    const ciphertext = Buffer.concat([
+        cipher.update(plaintext, 'utf8'),
+        cipher.final(),
+    ]);
+    const tag = cipher.getAuthTag();
+
+    const decipher = crypto.createDecipheriv('aes-192-ocb', key, iv, { authTagLength: 16 });
+    decipher.setAuthTag(tag);
+    decipher.setAAD(aad, {
+        plaintextLength: ciphertext.length,
+    });
+    const receivedPlaintext: Buffer = Buffer.concat([
+        decipher.update(ciphertext),
+        decipher.final(),
+    ]);
 }
 
 {
@@ -972,4 +1000,35 @@ import { promisify } from 'util';
 
 {
     crypto.createSecretKey(new Uint8Array([0])); // $ExpectType KeyObject
+}
+
+{
+    crypto.DiffieHellmanGroup('modp14');
+    new crypto.DiffieHellmanGroup('modp14');
+
+    const alice: crypto.DiffieHellmanGroup = crypto.getDiffieHellman('modp14');
+    const bob: crypto.DiffieHellmanGroup = crypto.createDiffieHellmanGroup('modp14');
+
+    // Check that DiffieHellman still has setPublicKey/setPrivateKey:
+    crypto.createDiffieHellman(2).setPublicKey('abcd', 'hex');
+    crypto.createDiffieHellman(2).setPrivateKey('abcd', 'hex');
+
+    // While DiffieHellmanGroup should not have them:
+    // @ts-expect-error
+    alice.setPublicKey('abcd', 'hex');
+    // @ts-expect-error
+    bob.setPrivateKey('abcd', 'hex');
+
+    // Those 2 methods aside, DiffieHellmanGroup should work the same as DiffieHellman
+    alice.generateKeys();
+    bob.generateKeys();
+    const aliceSecret = alice.computeSecret(bob.getPublicKey(), null, 'hex'); // $ExpectType string
+    const bobSecret = bob.computeSecret(alice.getPublicKey(), null, 'hex'); // $ExpectType string
+    aliceSecret === bobSecret;
+}
+
+{
+    crypto.setFips(false);
+    crypto.setEngine('dynamic');
+    crypto.setEngine('dynamic', crypto.constants.ENGINE_METHOD_RSA);
 }

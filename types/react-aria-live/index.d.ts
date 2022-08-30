@@ -11,13 +11,13 @@ export class LiveAnnouncer extends React.Component {
     announceAssertive(message: string, id?: string): void;
 }
 
-export const LiveMessage: React.StatelessComponent<{
+export const LiveMessage: React.FunctionComponent<{
     'aria-live': 'assertive' | 'polite';
     clearOnUnmount?: boolean | 'true' | 'false' | undefined;
     message: string;
 }>;
 
-export const LiveMessenger: React.StatelessComponent<{
+export const LiveMessenger: React.FunctionComponent<{
     children(contextProps: {
         announceAssertive(message: string, id?: string): void;
         announcePolite(message: string, id?: string): void;

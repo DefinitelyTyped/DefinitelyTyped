@@ -1,6 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
+        "no-outside-dependencies": false,
         "npm-naming": [
             true,
             {

@@ -15,6 +15,7 @@ import {
 
 // FlipCard
 export interface FlipCardProps {
+  children?: ReactNode[];
   style?: StyleProp<ViewStyle> | undefined;
   flip?: boolean | undefined;
   friction?: number | undefined;

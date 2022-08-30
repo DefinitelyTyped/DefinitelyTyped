@@ -1,10 +1,12 @@
-import { encode, decode, encodingLength, Packet, Answer, Question } from "dns-packet";
+import { encode, decode, encodingLength, streamEncode, streamDecode, Packet, Answer, Question, RECURSION_DESIRED } from "dns-packet";
 
 const answer: Answer = {
     type: "A",
     name: "localhost",
     ttl: 3600,
     data: "127.0.0.1",
+    class: "ANY",
+    flush: true
 };
 
 const question: Question = {
@@ -107,5 +109,64 @@ const records: Answer[] = [
         class: "CH",
         data: "1.2.3",
     },
+    {
+        type: "OPT",
+        name: ".",
+        udpPayloadSize: 65535,
+        extendedRcode: 255,
+        ednsVersion: 255,
+        flags: 65535,
+        flag_do: true,
+        options: [
+            {
+                code: 8,
+				type: "CLIENT_SUBNET",
+				sourcePrefixLength: 0,
+				scopePrefixLength: 0,
+				ip: "127.0.0.1",
+            },
+			{
+                code: 8,
+				ip: "127.0.0.1",
+            },
+			{
+                code: 11,
+                type: "TCP_KEEPALIVE"
+            },
+			{
+                code: 11,
+				timeout: 2468,
+            },
+			{
+                code: 12,
+				length: 13,
+            },
+			{
+                code: 14,
+				tags: [],
+            },
+			{
+                code: 14,
+				tags: [256],
+            }
+        ]
+    }
 ];
 encode({ answers: records });
+
+// https://github.com/mafintosh/dns-packet/blob/5aebb85c3221292e994d01b68cadf067e78efabf/examples/tcp.js
+function getRandomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+let buf = streamEncode({
+  type: 'query',
+  id: getRandomInt(1, 65534),
+  flags: RECURSION_DESIRED,
+  questions: [{
+    type: 'A',
+    name: 'google.com'
+  }]
+});
+streamDecode(buf);
+buf = buf.slice(2 + streamDecode.bytes);

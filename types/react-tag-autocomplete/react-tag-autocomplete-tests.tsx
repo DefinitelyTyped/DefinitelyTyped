@@ -9,7 +9,7 @@ const TestRequired = () => {
 
 const TestRequiredNegative = () => {
     const onAddTag = (tag: { id: string | number; name: string }) => {};
-    // $ExpectError
+    // @ts-expect-error
     return <ReactTags onAddition={onAddTag} />;
 };
 

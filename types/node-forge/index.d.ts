@@ -1,4 +1,4 @@
-// Type definitions for node-forge 0.10.0
+// Type definitions for node-forge 1.0.0
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal       <https://github.com/westy92>
 //                 Kay Schecker        <https://github.com/flynetworks>
@@ -7,7 +7,6 @@
 //                 Beeno Tung          <https://github.com/beenotung>
 //                 Joe Flateau         <https://github.com/joeflateau>
 //                 timhwang21          <https://github.com/timhwang21>
-//                 supaiku0            <https://github.com/supaiku0>
 //                 Anders Kaseorg      <https://github.com/andersk>
 //                 Sascha Zarhuber     <https://github.com/saschazar21>
 //                 Rogier Schouten     <https://github.com/rogierschouten>
@@ -236,7 +235,7 @@ declare module "node-forge" {
                 dQ: jsbn.BigInteger;
                 qInv: jsbn.BigInteger;
                 decrypt(data: Bytes, scheme?: EncryptionScheme, schemeOptions?: any): Bytes;
-                sign(md: md.MessageDigest, scheme?: SignatureScheme): Bytes;
+                sign(md: md.MessageDigest | Bytes, scheme?: SignatureScheme): Bytes;
             }
 
             interface KeyPair {
@@ -288,6 +287,10 @@ declare module "node-forge" {
                 privateKey: NativeBuffer;
             };
 
+            function privateKeyFromAsn1(obj: asn1.Asn1): { privateKeyBytes: NativeBuffer };
+
+            function publicKeyFromAsn1(obj: asn1.Asn1): NativeBuffer;
+
             function publicKeyFromPrivateKey(options: { privateKey: BinaryBuffer }): NativeBuffer;
 
             function sign(options: ToNativeBufferParameters & {
@@ -326,13 +329,13 @@ declare module "node-forge" {
             issuer: {
                 getField(sn: string | CertificateFieldOptions): any;
                 addField(attr: CertificateField): void;
-                attributes: any[];
+                attributes: CertificateField[];
                 hash: any;
             };
             subject: {
                 getField(sn: string | CertificateFieldOptions): any;
                 addField(attr: CertificateField): void;
-                attributes: any[];
+                attributes: CertificateField[];
                 hash: any;
             };
             extensions: any[];
@@ -778,7 +781,7 @@ declare module "node-forge" {
         function pkcs12FromAsn1(obj: any, password?: string): Pkcs12Pfx;
 
         function toPkcs12Asn1(
-            key: pki.PrivateKey,
+            key: pki.PrivateKey | null,
             cert: pki.Certificate | pki.Certificate[],
             password: string | null,
             options?: {
@@ -840,12 +843,14 @@ declare module "node-forge" {
 
     namespace pkcs5 {
         function pbkdf2(password: string, salt: string, iterations: number, keySize: number): string;
-        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest: md.MessageDigest): string;
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest: md.MessageDigest | md.Algorithm): string;
         function pbkdf2(password: string, salt: string, iterations: number, keySize: number, callback: (err: Error | null, dk: string | null) => any): void;
-        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest?: md.MessageDigest, callback?: (err: Error | null, dk: string | null) => any): void;
+        function pbkdf2(password: string, salt: string, iterations: number, keySize: number, messageDigest?: md.MessageDigest | md.Algorithm, callback?: (err: Error | null, dk: string) => any): void;
     }
 
     namespace md {
+
+        type Algorithm = "md5" | "sha1" | "sha256" | "sha384" | "sha512";
 
         interface MessageDigest {
             update(msg: string, encoding?: Encoding): MessageDigest;

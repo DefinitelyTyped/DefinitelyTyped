@@ -2,6 +2,7 @@
 // Project: https://github.com/mscdex/node-ftp
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Nathan Rajlich <https://github.com/TooTallNate>
+//                 Marvin Witt <https://github.com/NurMarvin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -114,6 +115,14 @@ declare namespace Client {
     }
 }
 
+declare interface Client {
+  on(event: 'error', listener: (error: Error) => void): this;
+  on(event: 'greeting', listener: (msg: string) => void): this;
+  on(event: 'ready', listener: () => void): this;
+  on(event: 'end', listener: () => void): this;
+  on(event: 'close', listener: (hadErr: boolean) => void): this;
+  on(event: string, listener: () => void): this;
+}
 
 /**
  * FTP client.

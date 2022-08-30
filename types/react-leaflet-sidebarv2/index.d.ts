@@ -11,6 +11,7 @@ type Anchor = 'top' | 'bottom';
 type Position = 'left' | 'right';
 
 interface TabProps {
+  children?: React.ReactNode;
   id: string;
   header: string;
   icon: Icon;

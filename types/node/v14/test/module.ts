@@ -1,5 +1,5 @@
-import Module = require('module');
-import { URL } from 'url';
+import Module = require('node:module');
+import { URL } from 'node:url';
 require.extensions[".ts"] = () => "";
 
 Module.runMain();

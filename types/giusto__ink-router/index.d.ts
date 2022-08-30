@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { History, Location } from "history";
-import { Component, ComponentType } from "react";
+import { Component, ComponentType, ReactNode } from "react";
 
 export interface RouterProps {
+    children: NonNullable<ReactNode>;
     initialEntries?: Array<(string | {
         pathname: string;
         search?: string | undefined;
@@ -21,6 +22,7 @@ export interface RouterProps {
 export class Router extends Component<RouterProps> { }
 
 export interface CommandLineRouterProps {
+    children: NonNullable<ReactNode>;
     args?: string[] | undefined;
     options?: Record<string, any> | undefined;
     initialEntries?: string[] | undefined;

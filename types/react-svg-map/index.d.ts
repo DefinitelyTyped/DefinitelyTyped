@@ -45,4 +45,4 @@ export interface OnChangeMapProps extends BaseMapProps {
 
 export class CheckboxSVGMap extends React.Component<OnChangeMapProps> {}
 export class RadioSVGMap extends React.Component<OnChangeMapProps> {}
-export const SVGMap: React.SFC<SVGMapProps>;
+export const SVGMap: React.FC<SVGMapProps>;

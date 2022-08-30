@@ -23,8 +23,9 @@ const testWithPrefixes = (config: karma.Config) => {
             prefixes: {
                 success: 'OK',
                 failure: 'KO',
-                skipped: '--'
-            }
+                skipped: '--',
+            },
+            suppressSummary: true,
         },
         plugins: ['karma-spec-reporter'],
     });

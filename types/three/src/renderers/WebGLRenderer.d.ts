@@ -5,24 +5,23 @@ import { WebGLInfo } from './webgl/WebGLInfo';
 import { WebGLShadowMap } from './webgl/WebGLShadowMap';
 import { WebGLCapabilities } from './webgl/WebGLCapabilities';
 import { WebGLProperties } from './webgl/WebGLProperties';
-import { WebGLProgram } from './webgl/WebGLProgram';
-import { RenderTarget, WebGLRenderLists } from './webgl/WebGLRenderLists';
+import { WebGLRenderLists } from './webgl/WebGLRenderLists';
 import { WebGLState } from './webgl/WebGLState';
 import { Vector2 } from './../math/Vector2';
 import { Vector4 } from './../math/Vector4';
 import { Color } from './../math/Color';
 import { WebGLRenderTarget } from './WebGLRenderTarget';
+import { WebGLMultipleRenderTargets } from './WebGLMultipleRenderTargets';
 import { Object3D } from './../core/Object3D';
 import { Material } from './../materials/Material';
 import { ToneMapping, ShadowMapType, CullFace, TextureEncoding } from '../constants';
 import { WebXRManager } from '../renderers/webxr/WebXRManager';
 import { BufferGeometry } from './../core/BufferGeometry';
 import { Texture } from '../textures/Texture';
-import { DataTexture3D } from '../textures/DataTexture3D';
-import { XRAnimationLoopCallback } from './webxr/WebXR';
+import { Data3DTexture } from '../textures/Data3DTexture';
 import { Vector3 } from '../math/Vector3';
 import { Box3 } from '../math/Box3';
-import { DataTexture2DArray } from '../textures/DataTexture2DArray';
+import { DataArrayTexture } from '../textures/DataArrayTexture';
 import { ColorRepresentation } from '../utils';
 
 export interface Renderer {
@@ -129,11 +128,6 @@ export class WebGLRenderer implements Renderer {
     domElement: HTMLCanvasElement;
 
     /**
-     * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
-     */
-    context: WebGLRenderingContext;
-
-    /**
      * Defines whether the renderer should automatically clear its output before rendering.
      * @default true
      */
@@ -218,9 +212,10 @@ export class WebGLRenderer implements Renderer {
     /**
      * Return the WebGL context.
      */
-    getContext(): WebGLRenderingContext;
+    getContext(): WebGLRenderingContext | WebGL2RenderingContext;
     getContextAttributes(): any;
     forceContextLoss(): void;
+    forceContextRestore(): void;
 
     /**
      * @deprecated Use {@link WebGLCapabilities#getMaxAnisotropy .capabilities.getMaxAnisotropy()} instead.
@@ -322,8 +317,6 @@ export class WebGLRenderer implements Renderer {
     resetGLState(): void;
     dispose(): void;
 
-    renderBufferImmediate(object: Object3D, program: WebGLProgram): void;
-
     renderBufferDirect(
         camera: Camera,
         scene: Scene,
@@ -337,7 +330,7 @@ export class WebGLRenderer implements Renderer {
      * A build in function that can be used instead of requestAnimationFrame. For WebXR projects this function must be used.
      * @param callback The function will be called every available frame. If `null` is passed it will stop any already ongoing animation.
      */
-    setAnimationLoop(callback: XRAnimationLoopCallback | null): void;
+    setAnimationLoop(callback: XRFrameRequestCallback | null): void;
 
     /**
      * @deprecated Use {@link WebGLRenderer#setAnimationLoop .setAnimationLoop()} instead.
@@ -375,12 +368,12 @@ export class WebGLRenderer implements Renderer {
     /**
      * Returns the current render target. If no render target is set, null is returned.
      */
-    getRenderTarget(): RenderTarget | null;
+    getRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * @deprecated Use {@link WebGLRenderer#getRenderTarget .getRenderTarget()} instead.
      */
-    getCurrentRenderTarget(): RenderTarget | null;
+    getCurrentRenderTarget(): WebGLRenderTarget | null;
 
     /**
      * Sets the active render target.
@@ -389,10 +382,14 @@ export class WebGLRenderer implements Renderer {
      * @param activeCubeFace Specifies the active cube side (PX 0, NX 1, PY 2, NY 3, PZ 4, NZ 5) of {@link WebGLCubeRenderTarget}.
      * @param activeMipmapLevel Specifies the active mipmap level.
      */
-    setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
+    setRenderTarget(
+        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets | null,
+        activeCubeFace?: number,
+        activeMipmapLevel?: number,
+    ): void;
 
     readRenderTargetPixels(
-        renderTarget: RenderTarget,
+        renderTarget: WebGLRenderTarget | WebGLMultipleRenderTargets,
         x: number,
         y: number,
         width: number,
@@ -433,7 +430,7 @@ export class WebGLRenderer implements Renderer {
         sourceBox: Box3,
         position: Vector3,
         srcTexture: Texture,
-        dstTexture: DataTexture3D | DataTexture2DArray,
+        dstTexture: Data3DTexture | DataArrayTexture,
         level?: number,
     ): void;
 
@@ -448,11 +445,6 @@ export class WebGLRenderer implements Renderer {
      * Can be used to reset the internal WebGL state.
      */
     resetState(): void;
-
-    /**
-     * @deprecated
-     */
-    gammaFactor: number;
 
     /**
      * @deprecated Use {@link WebGLRenderer#xr .xr} instead.

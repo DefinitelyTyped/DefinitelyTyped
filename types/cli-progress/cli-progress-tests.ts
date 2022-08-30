@@ -34,7 +34,6 @@ function test1() {
         barsize: 65,
         etaAsynchronousUpdate: true,
     });
-    bar.calculateETA();
     bar.updateETA();
 }
 
@@ -101,7 +100,7 @@ function test5() {
 }
 
 function test6() {
-    // SingleBar
+    // SingleBar & MultiBar
     const bar2 = new progress.SingleBar({}, progress.Presets.shades_classic);
     bar2.increment();
     bar2.increment(10);
@@ -115,6 +114,8 @@ function test6() {
     subBar1.update({ speed: '42 kbps' });
 
     subBar1.stop();
+
+    multiBar.log('testdata\n');
 
     const removed = multiBar.remove(subBar1);
 

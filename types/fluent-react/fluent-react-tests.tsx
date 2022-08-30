@@ -20,7 +20,7 @@ function* generateBundles(currentLocales: string[]) {
 
 ReactDOM.render(
   <LocalizationProvider bundles={generateBundles(['en-US'])}>
-    Content
+    <div />
   </LocalizationProvider>,
   document.getElementById('root')
 );
@@ -49,12 +49,12 @@ const Test2 = () => (
 );
 // Should not allow `getString` prop:
 const Test3 = () => (
-  // $ExpectError
+  // @ts-expect-error
   <LocalizedHelloButton otherProp={2} someOtherProp='abc' getString={() => {}}/>
 );
 
 // Should not allow any other props to be omitted:
 const Test4 = () => (
-  // $ExpectError
+  // @ts-expect-error
   <LocalizedHelloButton otherProp={2}/>
 );

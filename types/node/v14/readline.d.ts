@@ -45,6 +45,7 @@ declare module 'readline' {
         resume(): this;
         close(): void;
         write(data: string | Buffer, key?: Key): void;
+        write(data: undefined | null | string | Buffer, key: Key): void;
 
         /**
          * Returns the real position of the cursor in relation to the input
@@ -167,4 +168,7 @@ declare module 'readline' {
      * Moves this WriteStream's cursor relative to its current position.
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+}
+declare module 'node:readline' {
+    export * from 'readline';
 }

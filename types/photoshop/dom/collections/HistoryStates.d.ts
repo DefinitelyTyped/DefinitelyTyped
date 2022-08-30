@@ -1,4 +1,4 @@
-import HistoryState from "../HistoryState";
+import { HistoryState } from "../HistoryState";
 /**
  * A collections class allowing for array access into a document's history states,
  * while also providing familiar methods from ExtendScript, like `getByName`
@@ -11,7 +11,7 @@ import HistoryState from "../HistoryState";
  * var snapshots = app.activeDocument.historyStates.filter(h => h.snapshot)
  * ```
  */
-export default class HistoryStates {
+export declare class HistoryStates {
     /**
      * @ignore
      */
@@ -20,6 +20,10 @@ export default class HistoryStates {
      * @ignore
      */
     private proxy;
+    /**
+     * Used to access the history states in the collection
+     */
+    [index: number]: HistoryState;
     /**
      * @ignore
      */

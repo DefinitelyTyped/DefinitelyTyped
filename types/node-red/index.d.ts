@@ -1,4 +1,4 @@
-// Type definitions for node-red 1.1
+// Type definitions for node-red 1.2
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red, https://nodered.org/
 // Definitions by: Anders E. Andersen <https://github.com/andersea>
 //                 Thomas B. Mørch <https://github.com/tbowmo>
@@ -68,6 +68,11 @@ declare namespace nodeRed {
         events: EventEmitter;
 
         /**
+         * Runtime hooks engine
+         */
+        hooks: util.Hooks;
+
+        /**
          * This provides access to the internal settings module of the
          * runtime.
          */
@@ -115,7 +120,7 @@ declare namespace nodeRed {
     interface NodeInitializer<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
         extends registry.NodeInitializer<TSets> {}
 
-    interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds>
+    interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds extends {}>
         extends registry.NodeConstructor<TNode, TNodeDef, TCreds> {}
 
     interface NodeAPISettingsWithData extends registry.NodeAPISettingsWithData {}

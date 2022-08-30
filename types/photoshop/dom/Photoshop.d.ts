@@ -1,20 +1,27 @@
-import { ColorDescType as Color } from "../util/colorTypes";
-import Document from "./Document";
-import Layer from "./Layer";
+import { Document } from "./Document";
+import { Layer } from "./Layer";
 import { ActionSet, Action } from "./Actions";
-import Documents from "./collections/Documents";
+import * as Constants from "./Constants";
+import { SolidColor } from "./objects/SolidColor";
+import { Documents } from "./collections/Documents";
+import { TextFonts } from "./collections/TextFonts";
 import { Tool } from "./objects/Tool";
 import { DocumentCreateOptions } from "./objects/CreateOptions";
 /**
- * The top level application object, root of our DOM
+ * The top level application object, root of the Photoshop DOM
  *
  * ```
  * const app = require('photoshop').app
  * ```
  *
- * From here, you can access open documents, tools, UI elements and run commands or menu items.
+ * From here you can access open documents, tools, UI elements and run commands or menu items.
  */
 export declare class Photoshop {
+    /**
+     * @ignore
+     */
+    constructor();
+    private currentDialogMode;
     /**
      * @ignore
      * Allows for polyfills into the Document class
@@ -41,16 +48,31 @@ export declare class Photoshop {
      */
     Photoshop: typeof Photoshop;
     /**
+     * The class name of the referenced Photoshop object
+     */
+    get typename(): string;
+    /**
      * @ignore
      * Disabled validation checks, use at your own risk!
      */
     set validation(enable: boolean);
     /**
+     * @ignore
+     * Exposes SolidColor class for constructing objects
+     */
+    SolidColor: typeof SolidColor;
+    /**
+     * The dialog mode for the application, which controls what types of
+     * dialogs should be displayed when your plugin is interacting with Photoshop.
+     */
+    get displayDialogs(): Constants.DialogModes;
+    set displayDialogs(mode: Constants.DialogModes);
+    /**
      * The current active document
      */
     get activeDocument(): Document;
     /**
-     * Set the current active document to be given one
+     * Set the current active document to the provided Document
      */
     set activeDocument(doc: Document);
     /**
@@ -69,34 +91,16 @@ export declare class Photoshop {
     /**
      * The default foreground color (used to paint, fill, and stroke selections)
      */
-    get foregroundColor(): Color;
+    get foregroundColor(): SolidColor;
+    set foregroundColor(color: SolidColor);
     /**
      * The default background color and color style for documents.
      */
-    get backgroundColor(): Color;
+    get backgroundColor(): SolidColor;
     /**
-     * A callback for event notifications in Photoshop. This will cause your plugin to get a notification
-     * on every event the user is doing, so it may slow things down. But it will be helpful to figure out
-     * different descriptors
-     *
-     * ```javascript
-     * app.eventNotifier = (event, descriptor) => {
-     *    console.log(event, JSON.stringify(descriptor, null, ' '));
-     * }
-     * ```
-     *
-     * > This is temporary while we are in Alpha, we are working on a more structured notification system
-     * > This setter will not function outside developer mode
+     * The fonts installed on this system.
      */
-    set eventNotifier(handler: (event: string, descriptor: object) => void);
-    /**
-     * @ignore
-     */
-    _eventHandler: (event: string, descriptor: object) => void;
-    /**
-     * @ignore
-     */
-    constructor();
+    get fonts(): TextFonts;
     /**
      * Shows an alert in Photoshop with the given message
      */
@@ -162,5 +166,5 @@ export declare class Photoshop {
     createDocument(options?: DocumentCreateOptions): Promise<Document | null>;
 }
 /** @ignore */
-declare const photoshop: Photoshop;
-export default photoshop;
+declare const app: Photoshop;
+export default app;

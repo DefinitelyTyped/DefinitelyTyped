@@ -21,7 +21,8 @@ const RouteExample = () => (
             path="/single/:id"
             render={route => {
                 const { params } = route.match;
-                const notDefined = params.notDefined; // $ExpectError
+                // @ts-expect-error
+                const notDefined = params.notDefined;
                 const id: string = params.id;
                 return <>{id}</>;
             }}
@@ -30,7 +31,8 @@ const RouteExample = () => (
             path="/optional/:id?"
             render={route => {
                 const { params } = route.match;
-                const notDefined = params.notDefined; // $ExpectError
+                // @ts-expect-error
+                const notDefined = params.notDefined;
                 const id: string | undefined = params.id;
                 return <>{id}</>;
             }}
@@ -40,8 +42,10 @@ const RouteExample = () => (
             render={route => {
                 const { params } = route.match;
 
-                const notDefined = params.notDefined; // $ExpectError
-                const unionParams = params.id; // $ExpectError
+                // @ts-expect-error
+                const notDefined = params.notDefined;
+                // @ts-expect-error
+                const unionParams = params.id;
 
                 if ('id' in params) {
                     const id: string = params.id;
@@ -66,7 +70,8 @@ const RouteExample = () => (
             children={route => {
                 if (!route.match) return null;
                 const { params } = route.match;
-                const notDefined = params.notDefined; // $ExpectError
+                // @ts-expect-error
+                const notDefined = params.notDefined;
                 const id: string = params.id;
                 return <>{id}</>;
             }}
@@ -77,8 +82,10 @@ const RouteExample = () => (
                 if (!route.match) return null;
                 const { params } = route.match;
 
-                const notDefined = params.notDefined; // $ExpectError
-                const unionParams = params.id; // $ExpectError
+                // @ts-expect-error
+                const notDefined = params.notDefined;
+                // @ts-expect-error
+                const unionParams = params.id;
 
                 if ('id' in params) {
                     const id: string = params.id;

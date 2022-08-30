@@ -1,149 +1,134 @@
-import { Material, Texture, TextureEncoding, WebGLRenderer } from '../../../../src/Three';
+import {
+    BufferGeometry,
+    Material,
+    Object3D,
+    Renderer,
+    Scene,
+    Texture,
+    TextureEncoding,
+    WebGLRenderTarget,
+} from '../../../../src/Three';
+import FogNode from '../fog/FogNode';
+import LightsNode from '../lighting/LightsNode';
+import { nodeObject } from '../Nodes';
+import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants';
+import Node from './Node';
+import NodeAttribute from './NodeAttribute';
+import NodeParser from './NodeParser';
+import NodeUniform from './NodeUniform';
+import NodeVar from './NodeVar';
+import NodeVary from './NodeVary';
 
-import { Node } from './Node';
-import { NodeUniform } from './NodeUniform';
+export type BuildStageOption = 'construct' | 'analyze' | 'generate';
 
-export class NodeBuilder {
-    constructor();
+export interface FlowData {
+    code: string;
+}
 
-    slots: string[];
-    caches: string[];
-    contexts: object[];
+export interface NodeData {
+    vertex: AnyObject;
+    fragment: AnyObject;
+    compute: AnyObject;
+}
 
-    keywords: object;
-    nodeData: object;
+export type NodeBuilderContext = AnyObject;
 
-    requires: {
-        uv: boolean[];
-        color: boolean[];
-        lights: boolean;
-        fog: boolean;
-        transparent: boolean;
-        irradiance: boolean;
-    };
+export default abstract class NodeBuilder {
+    object: Object3D;
+    material: Material;
+    geometry: BufferGeometry;
+    renderer: Renderer;
+    parser: NodeParser;
 
-    includes: {
-        consts: object[];
-        functions: object[];
-        structs: object[];
-    };
+    nodes: Node[];
+    updateNodes: Node[];
+    hashNodes: { [hash: string]: Node };
 
-    attributes: object;
-    prefixCode: string;
+    scene: Scene;
+    lightsNode: LightsNode;
+    fogNode: FogNode;
 
-    parsCode: {
-        vertex: string;
-        fragment: string;
-    };
+    vertexShader: string;
+    fragmentShader: string;
+    computeShader: string;
 
-    code: {
-        vertex: string;
-        fragment: string;
-    };
+    shaderStage: NodeShaderStageOption | null;
+    buildStage: BuildStageOption | null;
+    stack: Node[];
+    get node(): Node;
 
-    nodeCode: {
-        vertex: string;
-        fragment: string;
-    };
+    addStack(node: Node): void;
+    removeStack(node: Node): void;
+    setHashNode(node: Node, hash: string): void;
+    addNode(node: Node): void;
+    getMethod(method: string): string;
+    getNodeFromHash(hash: string): Node;
 
-    resultCode: {
-        vertex: string;
-        fragment: string;
-    };
+    addFlow(shaderStage: NodeShaderStageOption, node: Node): Node;
 
-    finalCode: {
-        vertex: string;
-        fragment: string;
-    };
+    setContext(context: NodeBuilderContext): void;
+    getContext(): NodeBuilderContext;
+    isAvailable(name: string): boolean;
 
-    inputs: {
-        uniforms: {
-            list: object[];
-            vertex: object[];
-            fragment: object[];
-        };
-        vars: {
-            varying: object[];
-            vertex: object[];
-            fragment: object[];
-        };
-    };
+    abstract getInstanceIndex(): string;
 
-    defines: object;
-    uniforms: object;
-    extensions: object;
-    updaters: object[];
-    nodes: object[];
+    abstract getFrontFacing(): string;
 
-    analyzing: boolean;
+    abstract getTexture(textureProperty: string, uvSnippet: string): string;
 
-    build(vertex: Node, fragment: Node): this;
-    buildShader(shader: string, node: Node): void;
-    setMaterial(material: Material, renderer: WebGLRenderer): this;
-    addFlow(slot: string, cache?: string, context?: object): this;
-    removeFlow(): this;
-    addCache(name: string): this;
-    removeCache(): this;
-    addContext(context: object): this;
-    removeContext(): this;
-    addSlot(name: string): this;
-    removeSlot(): this;
-    addVertexCode(code: string): void;
-    addFragmentCode(code: string): void;
-    addCode(code: string, shader?: string): void;
-    addVertexNodeCode(code: string): void;
-    addFragmentNodeCode(code: string): void;
-    addNodeCode(code: string, shader?: string): void;
-    clearNodeCode(shader: string): string;
-    clearVertexNodeCode(): string;
-    clearFragmentNodeCode(): string;
-    addVertexFinalCode(code: string): void;
-    addFragmentFinalCode(code: string): void;
-    addFinalCode(code: string, shader?: string): void;
-    addVertexParsCode(code: string): void;
-    addFragmentParsCode(code: string): void;
-    addParsCode(code: string, shader?: string): void;
-    addVaryCode(code: string): void;
-    isCache(name: string): boolean;
-    isSlot(name: string): boolean;
-    define(name: string, value: any): void;
-    isDefined(name: string): boolean;
-    getVar(uuid: string, type: string, ns: string, labelOrShader?: string, prefix?: string, label?: string): object;
-    getAttribute(name: string, type: string): any;
-    getCode(shader: string): string;
-    getVarListCode(vars: object[], prefix?: string): string;
-    getVars(shader: string): object[];
-    getNodeData(node: Node): object;
-    createUniform(
-        shader: string,
-        type: string,
+    abstract getTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
+
+    abstract getCubeTexture(textureProperty: string, uvSnippet: string): string;
+    abstract getCubeTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
+
+    // @TODO: rename to .generateConst()
+    getConst(type: NodeTypeOption, value: unknown): Node;
+    getType(type: NodeTypeOption): NodeTypeOption;
+
+    generateMethod(method: string): string;
+
+    getAttribute(name: string, type: NodeTypeOption): NodeAttribute;
+
+    getPropertyName(node: Node, shaderStage: NodeShaderStageOption): string;
+    isVector(type: NodeTypeOption): boolean;
+
+    isMatrix(type: NodeTypeOption): boolean;
+    isReference(type: NodeTypeOption): boolean;
+    isShaderStage(shaderStage: NodeShaderStageOption): boolean;
+    getTextureEncodingFromMap(map: Texture | WebGLRenderTarget | unknown): TextureEncoding;
+    getComponentType(type: NodeTypeOption): NodeTypeOption;
+    getVectorType(type: NodeTypeOption): NodeTypeOption;
+    getTypeFromLength(length: number): NodeTypeOption;
+    getTypeLength(type: NodeTypeOption): number;
+    getVectorFromMatrix(type: NodeTypeOption): NodeTypeOption;
+    getDataFromNode(node: Node, shaderStage?: NodeShaderStageOption): NodeData;
+    getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
+    getUniformFromNode(node: Node, shaderStage: NodeShaderStageOption, type: NodeTypeOption): NodeUniform;
+    getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
+    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVary;
+    getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;
+    addFlowCode(code: string): void;
+    getFlowData(node: Node, shaderStage: NodeShaderStageOption): FlowData;
+    flowNode(node: Node): FlowData;
+    flowChildNode(node: Node, output?: string | null): FlowData;
+    flowNodeFromShaderStage(
+        shaderStage: NodeShaderStageOption,
         node: Node,
-        ns?: string,
-        needsUpdate?: boolean,
-        label?: string,
-    ): NodeUniform;
-    createVertexUniform(type: string, node: Node, ns?: string, needsUpdate?: boolean, label?: string): NodeUniform;
-    createFragmentUniform(type: string, node: Node, ns?: string, needsUpdate?: boolean, label?: string): NodeUniform;
-    include(node: Node, parent?: boolean, source?: string): void;
-    colorToVectorProperties(color: string): string;
-    colorToVector(color: string): string;
-    getIncludes(type: string, shader: string): object[];
-    getIncludesCode(type: string, shader: string): string;
-    getConstructorFromLength(len: number): string;
-    isTypeMatrix(format: string): boolean;
-    getTypeLength(type: string): number;
-    getTypeFromLength(len: number): string;
-    findNode(): Node;
-    resolve(): void;
-    format(code: string, from: string, to: string): string;
-    getTypeByFormat(format: string): string;
-    getFormatByType(type: string): string;
-    getUuid(uuid: string, useCache?: boolean): string;
-    getElementByIndex(index: number): string;
-    getIndexByElement(elm: string): number;
-    isShader(shader: string): boolean;
-    setShader(shader: string): this;
-    mergeDefines(defines: object): object;
-    mergeUniform(uniforms: object): object;
-    getTextureEncodingFromMap(map: Texture): TextureEncoding;
+        output?: string | null,
+        propertyName?: string,
+    ): FlowData;
+    abstract getAttributes(shaderStage: NodeShaderStageOption): string;
+    abstract getVarys(shaderStage: NodeShaderStageOption): string;
+    getVars(shaderStage: NodeShaderStageOption): string;
+    abstract getUniforms(stage: NodeShaderStageOption): string;
+    getCodes(shaderStage: NodeShaderStageOption): string;
+    getHash(): string;
+    setShaderStage(shaderStage: NodeShaderStageOption): void;
+    getShaderStage(): NodeShaderStageOption;
+    setBuildStage(buildStage: BuildStageOption): void;
+    getBuildStage(): BuildStageOption;
+    abstract buildCode(): void;
+    build(): this;
+    format(snippet: string, fromType: NodeTypeOption, toType: NodeTypeOption): string;
+    getSignature(): string;
 }

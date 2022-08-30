@@ -7,9 +7,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(async (ctx): Promise<void> => {
+    // $ExpectType boolean
     ctx.isAuthenticated();
+    // $ExpectType boolean
     ctx.isUnauthenticated();
+    // $ExpectType Promise<void>
     ctx.login({});
+    // $ExpectType void
     ctx.logout();
     ctx.state.user;
 });

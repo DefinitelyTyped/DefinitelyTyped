@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "comment-format": false,
-        "dt-header": false,
         "new-parens": false,
         "no-var-keyword": false,
         "npm-naming": false,

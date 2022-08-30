@@ -22,7 +22,6 @@
 //                 David Recuenco <https://github.com/RecuencoJones>
 //                 Frederic Reisenhauer <https://github.com/freisenhauer>
 //                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
-//                 Simcha Wood <https://github.com/SimchaWood>
 //                 Steven Barnett <https://github.com/stevendesu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8

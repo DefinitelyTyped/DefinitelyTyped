@@ -1,4 +1,4 @@
-// Type definitions for node-config
+// Type definitions for node-config 3.3
 // Project: https://github.com/lorenwest/node-config
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Forrest Bice <https://github.com/forrestbice>
@@ -17,6 +17,8 @@ declare namespace c {
     interface IUtil {
         // Extend an object (and any object it contains) with one or more objects (and objects contained in them).
         extendDeep(mergeInto: any, mergeFrom: any, depth?: number): any;
+        extendDeep(mergeInto: any, mergeFrom1: any, mergeFrom2: any, depth?: number): any;
+        extendDeep(mergeInto: any, ...mergeFrom: any): any;
 
         // Return a deep copy of the specified object.
         cloneDeep(copyFrom: any, depth?: number): any;
@@ -41,14 +43,13 @@ declare namespace c {
 
         // Return the sources for the configurations
         getConfigSources(): IConfigSource[];
-        
+
         // Returns a new deep copy of the current config object, or any part of the config if provided.
         toObject(config?: any): any;
 
         /**
-         * This allows module developers to attach their configurations onto
-         * the 6 years agoInitial 0.4 checkin default configuration object so
-         * they can be configured by the consumers of the module.
+         * This allows module developers to attach their configurations onto the default configuration object
+         * so they can be configured by the consumers of the module.
          */
         setModuleDefaults(moduleName:string, defaults:any): any;
     }

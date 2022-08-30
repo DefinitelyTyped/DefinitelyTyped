@@ -1,3 +1,4 @@
+import { CookieJar } from 'k6/http';
 import { Response, Socket, WebSocketError, connect } from 'k6/ws';
 
 const address = 'http://example.com';
@@ -8,92 +9,138 @@ const handler = () => {};
 let response: Response;
 
 // connect
-connect(); // $ExpectError
-connect(5); // $ExpectError
-connect(address); // $ExpectError
+// @ts-expect-error
+connect();
+// @ts-expect-error
+connect(5);
+// @ts-expect-error
+connect(address);
 response = connect(address, executor);
-connect(address, 5, executor); // $ExpectError
+// @ts-expect-error
+connect(address, 5, executor);
 response = connect(address, null, executor);
 response = connect(address, {}, executor);
 response = connect(address, {
     headers: { 'User-Agent': 'ITS' },
     tags: { user: 'zbt' }
 }, executor);
-connect(address, executor, 5); // $ExpectError
-connect(address, {}, executor, 5); // $ExpectError
+response = connect(address, {
+    compression: 'deflate'
+}, executor);
+response = connect(address, {
+    jar: new CookieJar()
+}, executor);
+// @ts-expect-error
+connect(address, executor, 5);
+// @ts-expect-error
+connect(address, {}, executor, 5);
 
 // Socket.close
 connect(address, (socket: Socket) => {
     socket.close(); // $ExpectType void
-    socket.close('not-a-close-code'); // $ExpectError
+    // @ts-expect-error
+    socket.close('not-a-close-code');
     socket.close(7); // $ExpectType void
-    socket.close(7, 5); // $ExpectError
+    // @ts-expect-error
+    socket.close(7, 5);
 });
 
 // Socket.on
 connect(address, (socket: Socket) => {
-    socket.on(); // $ExpectError
-    socket.on(5); // $ExpectError
-    socket.on('not-an-event'); // $ExpectError
-    socket.on('message'); // $ExpectError
-    socket.on('message', 5); // $ExpectError
-    socket.on('binaryMessage'); // $ExpectError
-    socket.on('binaryMessage', 5); // $ExpectError
-    socket.on('close', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on();
+    // @ts-expect-error
+    socket.on(5);
+    // @ts-expect-error
+    socket.on('not-an-event');
+    // @ts-expect-error
+    socket.on('message');
+    // @ts-expect-error
+    socket.on('message', 5);
+    // @ts-expect-error
+    socket.on('binaryMessage');
+    // @ts-expect-error
+    socket.on('binaryMessage', 5);
+    // @ts-expect-error
+    socket.on('close', badHandler);
     socket.on('close', (code: number) => {});
-    socket.on('error', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on('error', badHandler);
     socket.on('error', (error: WebSocketError) => {});
-    socket.on('message', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on('message', badHandler);
     socket.on('message', (message: string) => {});
-    socket.on('binaryMessage', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on('binaryMessage', badHandler);
     socket.on('binaryMessage', (message: ArrayBuffer) => {});
-    socket.on('open', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on('open', badHandler);
     socket.on('open', () => {});
-    socket.on('ping', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on('ping', badHandler);
     socket.on('ping', () => {});
-    socket.on('pong', badHandler); // $ExpectError
+    // @ts-expect-error
+    socket.on('pong', badHandler);
     socket.on('pong', () => {});
-    socket.on('open', () => {}, 5); // $ExpectError
+    // @ts-expect-error
+    socket.on('open', () => {}, 5);
 });
 
 // Socket.ping
 connect(address, (socket: Socket) => {
     socket.ping(); // $ExpectType void
-    socket.ping(5); // $ExpectError
+    // @ts-expect-error
+    socket.ping(5);
 });
 
 // Socket.send
 connect(address, (socket: Socket) => {
-    socket.send(); // $ExpectError
-    socket.send(5); // $ExpectError
+    // @ts-expect-error
+    socket.send();
+    // @ts-expect-error
+    socket.send(5);
     socket.send('super secret information'); // $ExpectType void
-    socket.send('super secret information', 5); // $ExpectError
+    // @ts-expect-error
+    socket.send('super secret information', 5);
 });
 
 // Socket.sendBinary
 connect(address, (socket: Socket) => {
-    socket.sendBinary(); // $ExpectError
-    socket.sendBinary(5); // $ExpectError
+    // @ts-expect-error
+    socket.sendBinary();
+    // @ts-expect-error
+    socket.sendBinary(5);
     socket.sendBinary(new Uint8Array([10, 12]).buffer); // $ExpectType void
-    socket.sendBinary(new Uint8Array([10, 12]).buffer, 5); // $ExpectError
+    // @ts-expect-error
+    socket.sendBinary(new Uint8Array([10, 12]).buffer, 5);
 });
 
 // Socket.setInterval
 connect(address, (socket: Socket) => {
-    socket.setInterval(); // $ExpectError
-    socket.setInterval(5); // $ExpectError
-    socket.setInterval(handler); // $ExpectError
-    socket.setInterval(handler, 'not-a-duration'); // $ExpectError
+    // @ts-expect-error
+    socket.setInterval();
+    // @ts-expect-error
+    socket.setInterval(5);
+    // @ts-expect-error
+    socket.setInterval(handler);
+    // @ts-expect-error
+    socket.setInterval(handler, 'not-a-duration');
     socket.setInterval(handler, 7); // $ExpectType void
-    socket.setInterval(handler, 7, 5); // $ExpectError
+    // @ts-expect-error
+    socket.setInterval(handler, 7, 5);
 });
 
 // Socket.setTimeout
 connect(address, (socket: Socket) => {
-    socket.setTimeout(); // $ExpectError
-    socket.setTimeout(5); // $ExpectError
-    socket.setTimeout(handler); // $ExpectError
-    socket.setTimeout(handler, 'not-a-duration'); // $ExpectError
+    // @ts-expect-error
+    socket.setTimeout();
+    // @ts-expect-error
+    socket.setTimeout(5);
+    // @ts-expect-error
+    socket.setTimeout(handler);
+    // @ts-expect-error
+    socket.setTimeout(handler, 'not-a-duration');
     socket.setTimeout(handler, 7); // $ExpectType void
-    socket.setTimeout(handler, 7, 5); // $ExpectError
+    // @ts-expect-error
+    socket.setTimeout(handler, 7, 5);
 });

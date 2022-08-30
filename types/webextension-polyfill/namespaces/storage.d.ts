@@ -64,6 +64,13 @@ export namespace Storage {
          * @returns Callback on success, or on failure (in which case $(ref:runtime.lastError) will be set).
          */
         clear(): Promise<void>;
+
+        /**
+         * Fired when one or more items change.
+         *
+         * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+         */
+        onChanged: Events.Event<(changes: StorageAreaOnChangedChangesType) => void>;
     }
 
     interface StorageAreaSync {
@@ -113,6 +120,13 @@ export namespace Storage {
          * @returns Callback on success, or on failure (in which case $(ref:runtime.lastError) will be set).
          */
         clear(): Promise<void>;
+
+        /**
+         * Fired when one or more items change.
+         *
+         * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+         */
+        onChanged: Events.Event<(changes: StorageAreaSyncOnChangedChangesType) => void>;
     }
 
     interface SyncStorageAreaSync extends StorageAreaSync {
@@ -167,6 +181,20 @@ export namespace Storage {
          * The maximum size (in bytes) of the managed storage JSON manifest file. Files larger than this limit will fail to load.
          */
         QUOTA_BYTES: 5242880;
+    }
+
+    /**
+     * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+     */
+    interface StorageAreaOnChangedChangesType extends StorageChange {
+        [s: string]: unknown;
+    }
+
+    /**
+     * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+     */
+    interface StorageAreaSyncOnChangedChangesType extends StorageChange {
+        [s: string]: unknown;
     }
 
     interface Static {

@@ -14,12 +14,6 @@
             "../../"
         ],
         "paths": {
-            "history": [
-                "history/v3"
-            ],
-            "history/*": [
-                "history/v3/*"
-            ],
             "react-router-redux": [
                 "react-router-redux/v3"
             ]

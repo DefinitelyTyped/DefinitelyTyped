@@ -12,6 +12,9 @@
             "webpack": [
                 "webpack/v4"
             ],
+            "webpack-bundle-analyzer": [
+                "webpack-bundle-analyzer/v3"
+            ],
             "tapable": [
                 "tapable/v1"
             ],

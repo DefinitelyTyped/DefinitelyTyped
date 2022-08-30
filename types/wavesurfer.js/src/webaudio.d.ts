@@ -1,4 +1,4 @@
-import { WebAudioBackend } from "../types/backend";
+import { WebAudioBackend } from '../types/backend';
 
 export default class WebAudio extends WebAudioBackend {
     /** Returns the current time in seconds relative to the audio-clip's duration. */

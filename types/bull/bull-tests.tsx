@@ -86,7 +86,8 @@ imageQueue.process((job, done) => {
 
     // update job data
     job.update({ image: 'image2.jpg' });
-    job.update({ url: 'image2.jpg' }); // $ExpectError
+    // @ts-expect-error
+    job.update({ url: 'image2.jpg' });
 
     // call done when finished
     done();
@@ -103,15 +104,22 @@ imageQueue.process((job, done) => {
 
 videoQueue.add({ video: 'http://example.com/video1.mov' });
 audioQueue.add({ audio: 'http://example.com/audio1.mp3' });
-imageQueue.add({ image: 'http://example.com/image1.tiff' });
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { repeat: { cron: "00 06 * * 1", tz: "America/New_York" } });
 videoQueue.addBulk([
     { name: 'frame1', data: { video: 'http://example.com/video1.mov' }, opts: { attempts: 6 } },
     { data: { audio: 'http://example.com/video1.mov' } },
+    {
+      opts: {
+        // @ts-expect-error
+        repeat: { cron: "00 06 * * 1", tz: "America/New_York" }
+      }
+    }
 ]);
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { removeOnComplete: { age: 60 * 60 * 24 }, removeOnFail: { age: 60 * 60 * 24, count: 10 } });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-// Test Redis Cluster connexion
+// Test Redis Cluster connection
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -283,6 +291,13 @@ myQueue.obliterate({ force: true }).then(() => {
     console.log('queue obliterated');
 });
 
+myQueue.add({ foo: 'bar' }).then(job => {
+    job.getState().then(state => {
+        // state could equal 'stuck'
+        state === 'stuck';
+    });
+});
+
 // Close queues
 
 myQueue.close();
@@ -299,7 +314,7 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
-// $ExpectError
+// @ts-expect-error
 new Queue('profile', { redis: 'url' });
 
 // Use low-level API

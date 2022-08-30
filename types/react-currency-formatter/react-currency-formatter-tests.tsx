@@ -6,7 +6,7 @@ interface Props {
     currency: string;
 }
 
-const ProductionPrice: React.SFC<Props> = (props: Props) => (
+const ProductionPrice: React.FC<Props> = (props: Props) => (
     <CurrencyFormatter quantity={props.price} currency={props.currency} />
 );
 

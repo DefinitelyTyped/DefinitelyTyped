@@ -1,7 +1,8 @@
-// Type definitions for Consul v0.23.0
+// Type definitions for Consul v0.40.0
 // Project: https://github.com/silas/node-consul
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 //                 Vadym Vakhovskiy <https://github.com/vadim-v>
+//                 Radoslav Kirilov <https://github.com/smoke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -11,12 +12,6 @@
 import { IncomingMessage as HttpIncomingMessage } from "http";
 
 declare namespace Consul {
-
-    interface Thenable<T> {
-        then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-        then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
-        catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-    }
 
     interface CommonOptions {
         consistent?: boolean | undefined;
@@ -79,7 +74,7 @@ declare namespace Consul {
         create: {
             <TData>(opts: Acl.CreateOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Acl.CreateOptions): Thenable<TData>;
+            <TData>(opts?: Acl.CreateOptions): Promise<TData>;
         };
 
         /**
@@ -87,7 +82,7 @@ declare namespace Consul {
          */
         update: {
             <TData>(opts: Acl.UpdateOptions, callback: Callback<TData>): void;
-            <TData>(opts: Acl.UpdateOptions): Thenable<TData>;
+            <TData>(opts: Acl.UpdateOptions): Promise<TData>;
         }
 
         /**
@@ -96,8 +91,8 @@ declare namespace Consul {
         destroy: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.DestroyOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.DestroyOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.DestroyOptions): Promise<TData>;
         };
 
         /**
@@ -106,14 +101,14 @@ declare namespace Consul {
         info: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.InfoOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.InfoOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.InfoOptions): Promise<TData>;
         };
         get: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.GetOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.GetOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.GetOptions): Promise<TData>;
         };
 
         /**
@@ -122,8 +117,8 @@ declare namespace Consul {
         clone: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Acl.CloneOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Acl.CloneOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Acl.CloneOptions): Promise<TData>;
         };
 
         /**
@@ -132,7 +127,7 @@ declare namespace Consul {
         list: {
             <TData>(opts: Acl.ListOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Acl.ListOptions): Thenable<TData>;
+            <TData>(opts?: Acl.ListOptions): Promise<TData>;
         };
     }
 
@@ -187,7 +182,7 @@ declare namespace Consul {
             list: {
                 <TData>(opts: Check.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(opts?: Check.ListOptions): Thenable<TData>;
+                <TData>(opts?: Check.ListOptions): Promise<TData>;
             };
 
             /**
@@ -195,7 +190,7 @@ declare namespace Consul {
              */
             register: {
                 <TData>(opts: Check.RegisterOptions, callback: Callback<TData>): void;
-                <TData>(opts: Check.RegisterOptions): Thenable<TData>;
+                <TData>(opts: Check.RegisterOptions): Promise<TData>;
             };
 
             /**
@@ -204,8 +199,8 @@ declare namespace Consul {
             deregister: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.DeregisterOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.DeregisterOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.DeregisterOptions): Promise<TData>;
             };
 
             /**
@@ -214,8 +209,8 @@ declare namespace Consul {
             pass: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.PassOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.PassOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.PassOptions): Promise<TData>;
             };
 
             /**
@@ -224,8 +219,8 @@ declare namespace Consul {
             warn: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.WarnOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.WarnOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.WarnOptions): Promise<TData>;
             };
 
             /**
@@ -234,8 +229,8 @@ declare namespace Consul {
             fail: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Check.FailOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Check.FailOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Check.FailOptions): Promise<TData>;
             };
         }
 
@@ -262,6 +257,7 @@ declare namespace Consul {
                 tags?: string[] | undefined;
                 address?: string | undefined;
                 port?: number | undefined;
+                meta?: Record<string, string> | undefined;
                 check?: RegisterCheck | undefined;
                 checks?: RegisterCheck[] | undefined;
             }
@@ -286,7 +282,7 @@ declare namespace Consul {
             list: {
                 <TData>(opts: Service.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(opts?: Service.ListOptions): Thenable<TData>;
+                <TData>(opts?: Service.ListOptions): Promise<TData>;
             };
 
             /**
@@ -295,8 +291,8 @@ declare namespace Consul {
             register: {
                 <TData>(name: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.RegisterOptions, callback: Callback<TData>): void;
-                <TData>(name: string): Thenable<TData>;
-                <TData>(opts: Service.RegisterOptions): Thenable<TData>;
+                <TData>(name: string): Promise<TData>;
+                <TData>(opts: Service.RegisterOptions): Promise<TData>;
             };
 
             /**
@@ -305,8 +301,8 @@ declare namespace Consul {
             deregister: {
                 <TData>(id: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.DeregisterOptions, callback: Callback<TData>): void;
-                <TData>(id: string): Thenable<TData>;
-                <TData>(opts: Service.DeregisterOptions): Thenable<TData>;
+                <TData>(id: string): Promise<TData>;
+                <TData>(opts: Service.DeregisterOptions): Promise<TData>;
             };
 
             /**
@@ -314,7 +310,7 @@ declare namespace Consul {
              */
             maintenance: {
                 <TData>(opts: Service.MaintenanceOptions, callback: Callback<TData>): void;
-                <TData>(opts: Service.MaintenanceOptions): Thenable<TData>;
+                <TData>(opts: Service.MaintenanceOptions): Promise<TData>;
             };
         }
 
@@ -358,7 +354,7 @@ declare namespace Consul {
         checks: {
             <TData>(opts: Agent.ChecksOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.ChecksOptions): Thenable<TData>;
+            <TData>(opts?: Agent.ChecksOptions): Promise<TData>;
         };
 
         /**
@@ -367,7 +363,7 @@ declare namespace Consul {
         services: {
             <TData>(opts: Agent.ServicesOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.ServicesOptions): Thenable<TData>;
+            <TData>(opts?: Agent.ServicesOptions): Promise<TData>;
         };
 
         /**
@@ -376,7 +372,7 @@ declare namespace Consul {
         members: {
             <TData>(opts: Agent.MembersOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.MembersOptions): Thenable<TData>;
+            <TData>(opts?: Agent.MembersOptions): Promise<TData>;
         };
 
         /**
@@ -385,7 +381,7 @@ declare namespace Consul {
         self: {
             <TData>(opts: Agent.SelfOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Agent.SelfOptions): Thenable<TData>;
+            <TData>(opts?: Agent.SelfOptions): Promise<TData>;
         };
 
         /**
@@ -394,8 +390,8 @@ declare namespace Consul {
         maintenance: {
             <TData>(enable: boolean, callback: Callback<TData>): void;
             <TData>(opts: Agent.MaintenanceOptions, callback: Callback<TData>): void;
-            <TData>(enable: boolean): Thenable<TData>;
-            <TData>(opts: Agent.MaintenanceOptions): Thenable<TData>;
+            <TData>(enable: boolean): Promise<TData>;
+            <TData>(opts: Agent.MaintenanceOptions): Promise<TData>;
         };
 
         /**
@@ -404,8 +400,8 @@ declare namespace Consul {
         join: {
             <TData>(address: string, callback: Callback<TData>): void;
             <TData>(opts: Agent.JoinOptions, callback: Callback<TData>): void;
-            <TData>(address: string): Thenable<TData>;
-            <TData>(opts: Agent.JoinOptions): Thenable<TData>;
+            <TData>(address: string): Promise<TData>;
+            <TData>(opts: Agent.JoinOptions): Promise<TData>;
         };
 
         /**
@@ -414,8 +410,8 @@ declare namespace Consul {
         forceLeave: {
             <TData>(node: string, callback: Callback<TData>): void;
             <TData>(opts: Agent.ForceLeaveOptions, callback: Callback<TData>): void;
-            <TData>(node: string): Thenable<TData>;
-            <TData>(opts: Agent.ForceLeaveOptions): Thenable<TData>;
+            <TData>(node: string): Promise<TData>;
+            <TData>(opts: Agent.ForceLeaveOptions): Promise<TData>;
         };
     }
 
@@ -449,8 +445,8 @@ declare namespace Consul {
                 <TData>(dc: string, callback: Callback<TData>): void;
                 <TData>(opts: Node.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(dc?: string): Thenable<TData>;
-                <TData>(opts?: Node.ListOptions): Thenable<TData>;
+                <TData>(dc?: string): Promise<TData>;
+                <TData>(opts?: Node.ListOptions): Promise<TData>;
             };
 
             /**
@@ -459,8 +455,8 @@ declare namespace Consul {
             services: {
                 <TData>(node: string, callback: Callback<TData>): void;
                 <TData>(opts: Node.ServicesOptions, callback: Callback<TData>): void;
-                <TData>(node: string): Thenable<TData>;
-                <TData>(opts: Node.ServicesOptions): Thenable<TData>;
+                <TData>(node: string): Promise<TData>;
+                <TData>(opts: Node.ServicesOptions): Promise<TData>;
             };
         }
 
@@ -493,8 +489,8 @@ declare namespace Consul {
                 <TData>(dc: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.ListOptions, callback: Callback<TData>): void;
                 <TData>(callback: Callback<TData>): void;
-                <TData>(dc?: string): Thenable<TData>;
-                <TData>(opts?: Service.ListOptions): Thenable<TData>;
+                <TData>(dc?: string): Promise<TData>;
+                <TData>(opts?: Service.ListOptions): Promise<TData>;
             };
 
             /**
@@ -503,8 +499,8 @@ declare namespace Consul {
             nodes: {
                 <TData>(service: string, callback: Callback<TData>): void;
                 <TData>(opts: Service.NodesOptions, callback: Callback<TData>): void;
-                <TData>(service: string): Thenable<TData>;
-                <TData>(opts: Service.NodesOptions): Thenable<TData>;
+                <TData>(service: string): Promise<TData>;
+                <TData>(opts: Service.NodesOptions): Promise<TData>;
             };
         }
 
@@ -530,7 +526,7 @@ declare namespace Consul {
         datacenters: {
             <TData>(opts: Catalog.DatacentersOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Catalog.DatacentersOptions): Thenable<TData>;
+            <TData>(opts?: Catalog.DatacentersOptions): Promise<TData>;
         };
 
         /**
@@ -540,8 +536,8 @@ declare namespace Consul {
             <TData>(dc: string, callback: Callback<TData>): void;
             <TData>(opts: Catalog.NodesOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(dc?: string): Thenable<TData>;
-            <TData>(opts?: Catalog.NodesOptions): Thenable<TData>;
+            <TData>(dc?: string): Promise<TData>;
+            <TData>(opts?: Catalog.NodesOptions): Promise<TData>;
         };
 
         /**
@@ -551,8 +547,8 @@ declare namespace Consul {
             <TData>(dc: string, callback: Callback<TData>): void;
             <TData>(opts: Catalog.ServicesOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(dc?: string): Thenable<TData>;
-            <TData>(opts?: Catalog.ServicesOptions): Thenable<TData>;
+            <TData>(dc?: string): Promise<TData>;
+            <TData>(opts?: Catalog.ServicesOptions): Promise<TData>;
         };
     }
 
@@ -588,9 +584,9 @@ declare namespace Consul {
             <TData>(name: string, payload: string | Buffer, callback: Callback<TData>): void;
             <TData>(name: string, callback: Callback<TData>): void;
             <TData>(opts: Event.FireOptions, callback: Callback<TData>): void;
-            <TData>(name: string, payload: string | Buffer): Thenable<TData>;
-            <TData>(name: string): Thenable<TData>;
-            <TData>(opts: Event.FireOptions): Thenable<TData>;
+            <TData>(name: string, payload: string | Buffer): Promise<TData>;
+            <TData>(name: string): Promise<TData>;
+            <TData>(opts: Event.FireOptions): Promise<TData>;
         };
 
         /**
@@ -600,8 +596,8 @@ declare namespace Consul {
             <TData>(name: string, callback: Callback<TData>): void;
             <TData>(opts: Event.ListOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(name?: string): Thenable<TData>;
-            <TData>(opts?: Event.ListOptions): Thenable<TData>;
+            <TData>(name?: string): Promise<TData>;
+            <TData>(opts?: Event.ListOptions): Promise<TData>;
         };
     }
 
@@ -644,8 +640,8 @@ declare namespace Consul {
         node: {
             <TData>(node: string, callback: Callback<TData>): void;
             <TData>(opts: Health.NodeOptions, callback: Callback<TData>): void;
-            <TData>(node: string): Thenable<TData>;
-            <TData>(opts: Health.NodeOptions): Thenable<TData>;
+            <TData>(node: string): Promise<TData>;
+            <TData>(opts: Health.NodeOptions): Promise<TData>;
         };
 
         /**
@@ -654,8 +650,8 @@ declare namespace Consul {
         checks: {
             <TData>(service: string, callback: Callback<TData>): void;
             <TData>(opts: Health.ChecksOptions, callback: Callback<TData>): void;
-            <TData>(service: string): Thenable<TData>;
-            <TData>(opts: Health.ChecksOptions): Thenable<TData>;
+            <TData>(service: string): Promise<TData>;
+            <TData>(opts: Health.ChecksOptions): Promise<TData>;
         };
 
         /**
@@ -664,8 +660,8 @@ declare namespace Consul {
         service: {
             <TData>(service: string, callback: Callback<TData>): void;
             <TData>(opts: Health.ServiceOptions, callback: Callback<TData>): void;
-            <TData>(service: string): Thenable<TData>;
-            <TData>(opts: Health.ServiceOptions): Thenable<TData>;
+            <TData>(service: string): Promise<TData>;
+            <TData>(opts: Health.ServiceOptions): Promise<TData>;
         };
 
         /**
@@ -674,8 +670,8 @@ declare namespace Consul {
         state: {
             <TData>(state: string, callback: Callback<TData>): void;
             <TData>(opts: Health.StateOptions, callback: Callback<TData>): void;
-            <TData>(state: string): Thenable<TData>;
-            <TData>(opts: Health.StateOptions): Thenable<TData>;
+            <TData>(state: string): Promise<TData>;
+            <TData>(opts: Health.StateOptions): Promise<TData>;
         };
     }
 
@@ -730,8 +726,8 @@ declare namespace Consul {
         get: {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.GetOptions, callback: Callback<TData>): void;
-            <TData>(key: string): Thenable<TData>;
-            <TData>(opts: Kv.GetOptions): Thenable<TData>;
+            <TData>(key: string): Promise<TData>;
+            <TData>(opts: Kv.GetOptions): Promise<TData>;
         };
 
         /**
@@ -741,8 +737,8 @@ declare namespace Consul {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.KeysOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(key?: string): Thenable<TData>;
-            <TData>(opts?: Kv.KeysOptions): Thenable<TData>;
+            <TData>(key?: string): Promise<TData>;
+            <TData>(opts?: Kv.KeysOptions): Promise<TData>;
         };
 
         /**
@@ -752,9 +748,9 @@ declare namespace Consul {
             <TData>(key: string, value: string | Buffer, opts: Kv.SetOptions, callback: Callback<TData>): void;
             <TData>(key: string, value: string | Buffer, callback: Callback<TData>): void;
             <TData>(opts: Kv.SetOptions, callback: Callback<TData>): void;
-            <TData>(key: string, value: string | Buffer, opts: Kv.SetOptions): Thenable<TData>;
-            <TData>(key: string, value: string | Buffer): Thenable<TData>;
-            <TData>(opts: Kv.SetOptions): Thenable<TData>;
+            <TData>(key: string, value: string | Buffer, opts: Kv.SetOptions): Promise<TData>;
+            <TData>(key: string, value: string | Buffer): Promise<TData>;
+            <TData>(opts: Kv.SetOptions): Promise<TData>;
         };
 
         /**
@@ -763,14 +759,14 @@ declare namespace Consul {
         del: {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.DelOptions, callback: Callback<TData>): void;
-            <TData>(key: string): Thenable<TData>;
-            <TData>(opts: Kv.DelOptions): Thenable<TData>;
+            <TData>(key: string): Promise<TData>;
+            <TData>(opts: Kv.DelOptions): Promise<TData>;
         };
         delete: {
             <TData>(key: string, callback: Callback<TData>): void;
             <TData>(opts: Kv.DeleteOptions, callback: Callback<TData>): void;
-            <TData>(key: string): Thenable<TData>;
-            <TData>(opts: Kv.DeleteOptions): Thenable<TData>;
+            <TData>(key: string): Promise<TData>;
+            <TData>(opts: Kv.DeleteOptions): Promise<TData>;
         };
     }
 
@@ -856,7 +852,7 @@ declare namespace Consul {
         create: {
             <TData>(opts: Session.CreateOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Session.CreateOptions): Thenable<TData>;
+            <TData>(opts?: Session.CreateOptions): Promise<TData>;
         };
 
         /**
@@ -865,8 +861,8 @@ declare namespace Consul {
         destroy: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.DestroyOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.DestroyOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.DestroyOptions): Promise<TData>;
         };
 
         /**
@@ -875,14 +871,14 @@ declare namespace Consul {
         info: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.InfoOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.InfoOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.InfoOptions): Promise<TData>;
         };
         get: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.GetOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.GetOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.GetOptions): Promise<TData>;
         };
 
         /**
@@ -891,8 +887,8 @@ declare namespace Consul {
         node: {
             <TData>(node: string, callback: Callback<TData>): void;
             <TData>(opts: Session.NodeOptions, callback: Callback<TData>): void;
-            <TData>(node: string): Thenable<TData>;
-            <TData>(opts: Session.NodeOptions): Thenable<TData>;
+            <TData>(node: string): Promise<TData>;
+            <TData>(opts: Session.NodeOptions): Promise<TData>;
         };
 
         /**
@@ -901,7 +897,7 @@ declare namespace Consul {
         list: {
             <TData>(opts: Session.ListOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Session.ListOptions): Thenable<TData>;
+            <TData>(opts?: Session.ListOptions): Promise<TData>;
         };
 
         /**
@@ -910,8 +906,8 @@ declare namespace Consul {
         renew: {
             <TData>(id: string, callback: Callback<TData>): void;
             <TData>(opts: Session.RenewOptions, callback: Callback<TData>): void;
-            <TData>(id: string): Thenable<TData>;
-            <TData>(opts: Session.RenewOptions): Thenable<TData>;
+            <TData>(id: string): Promise<TData>;
+            <TData>(opts: Session.RenewOptions): Promise<TData>;
         };
     }
 
@@ -935,7 +931,7 @@ declare namespace Consul {
         leader: {
             <TData>(opts: Status.LeaderOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Status.LeaderOptions): Thenable<TData>;
+            <TData>(opts?: Status.LeaderOptions): Promise<TData>;
         };
 
         /**
@@ -944,7 +940,7 @@ declare namespace Consul {
         peers: {
             <TData>(opts: Status.PeersOptions, callback: Callback<TData>): void;
             <TData>(callback: Callback<TData>): void;
-            <TData>(opts?: Status.PeersOptions): Thenable<TData>;
+            <TData>(opts?: Status.PeersOptions): Promise<TData>;
         };
     }
 

@@ -1,46 +1,56 @@
 import xml = require('@xmpp/xml');
+import { Parser as LtxParser } from 'ltx';
 
-xml.escapeXML('');
-xml.unescapeXML('');
-xml.escapeXMLText('');
-xml.unescapeXMLText('');
+// test type exports
+type Element = xml.Element;
+type Node = xml.Node;
+type XMLError = xml.XMLError;
 
+xml.escapeXML(''); // $ExpectType string
+xml.unescapeXML(''); // $ExpectType string
+xml.escapeXMLText(''); // $ExpectType string
+xml.unescapeXMLText(''); // $ExpectType string
+
+xml.Parser.XMLError; // $ExpectType typeof XMLError
 const parser = new xml.Parser();
-parser.onStartElement('el');
-parser.onEndElement('el');
-parser.onText('text');
-parser.write((null as any) as Buffer);
-parser.end((null as any) as Buffer);
+const ltxParser: LtxParser = parser;
+parser.parser; // $ExpectType SaxLtx
+parser.root; // $ExpectType Element | null
+parser.cursor; // $ExpectType Element | null
+parser.onStartElement('el'); // $ExpectType void
+parser.onEndElement('el'); // $ExpectType void
+parser.onText('text'); // $ExpectType void
+parser.write('foo'); // $ExpectType void
+parser.end('foo'); // $ExpectType void
 
 const recipient = 'user@example.com';
 const days = ['Monday', 'Tuesday'];
+// $ExpectType Element
 const message = xml(
     'message',
     { to: recipient },
-    xml('body', {}, 1 + 2),
-    xml('days', days.map(day => xml('day', {}, day)))
-);
-xml.x(
-    'message',
-    { to: recipient },
-    xml('body', {}, 1 + 2),
-    xml('days', days.map(day => xml('day', {}, day)))
+    xml('body', {}, 'foo'),
+    xml('days', undefined, ...days.map(day => xml('day', {}, day))),
 );
 
-message.attrs;
-message.getChild('body')!.text();
-message.getChild('body')!.toString();
-message.getChild('days')!.getChildren('day');
-message.getChildText('body');
+message.attrs; // $ExpectType { [attrName: string]: any; }
+message.getChild('body')!.text(); // $ExpectType string
+message.getChild('body')!.toString(); // $ExpectType string
+message.getChild('days')!.getChildren('day'); // $ExpectType Element[]
+message.getChildText('body'); // $ExpectType string | null
 
 message.attrs.type = 'chat';
 Object.assign(message.attrs, { type: 'chat' });
-message.getChild('body')!.text('Hello world');
-message.append(xml('foo'));
-message.append('bar');
-message.append(days.map(day => xml('day', {}, day)));
-message.prepend(xml('foo'));
-message.prepend('bar');
-message.prepend(days.map(day => xml('day', {}, day)));
+message.getChild('body')!.text('Hello world'); // $ExpectType Element
+message.append(xml('foo')); // $ExpectType void
+message.append('bar'); // $ExpectType void
+message.append(...days.map(day => xml('day', {}, day))); // $ExpectType void
+message.prepend(xml('foo')); // $ExpectType void
+message.prepend('bar'); // $ExpectType void
+message.prepend(...days.map(day => xml('day', {}, day))); // $ExpectType void
 const body = message.getChild('body');
-message.remove(body!);
+message.remove(body!); // $ExpectType Element
+
+const xmlError = new xml.XMLError('foo');
+const error: Error = xmlError;
+xmlError.name; // $ExpectType "XMLError"

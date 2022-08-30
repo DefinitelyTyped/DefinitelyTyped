@@ -1,6 +1,7 @@
 import { Handler } from "../handler";
 
-export type KinesisStreamHandler = Handler<KinesisStreamEvent, void>;
+// tslint:disable-next-line:void-return
+export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;
 
 // Kinesis Streams
 // https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-streams
@@ -25,4 +26,13 @@ export interface KinesisStreamRecord {
 
 export interface KinesisStreamEvent {
     Records: KinesisStreamRecord[];
+}
+
+// https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html
+export interface KinesisStreamBatchResponse {
+    batchItemFailures: KinesisStreamBatchItemFailure[];
+}
+
+export interface KinesisStreamBatchItemFailure {
+    itemIdentifier: string;
 }

@@ -116,7 +116,7 @@ type.construct;
 type.instanceOf;
 // $ExpectType ((data: object) => boolean) | null
 type.predicate;
-// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null
+// $ExpectType ((data: object) => any) | { [x: string]: (data: object) => any; } | null || { [x: string]: (data: object) => any; } | ((data: object) => any) | null
 type.represent;
 // $ExpectType string | null
 type.defaultStyle;

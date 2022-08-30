@@ -75,6 +75,19 @@ declare module 'node_helper' {
     }
 }
 
+declare module 'logger' {
+    function info(message?: any, ...optionalParams: any[]): void;
+    function log(message?: any, ...optionalParams: any[]): void;
+    function error(message?: any, ...optionalParams: any[]): void;
+    function warn(message?: any, ...optionalParams: any[]): void;
+    function group(groupTitle?: string, ...optionalParams: any[]): void;
+    function groupCollapsed(groupTitle?: string, ...optionalParams: any[]): void;
+    function groupEnd(): void;
+    function time(timerName?: string): void;
+    function timeEnd(timerName?: string): void;
+    function timeStamp(timerName?: string): void;
+}
+
 declare const config: {
     address: string;
     customCss: string;

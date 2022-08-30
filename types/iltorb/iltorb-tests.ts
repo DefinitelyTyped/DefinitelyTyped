@@ -13,8 +13,10 @@ const opts: br.BrotliEncodeParams = {
 declare const mode: number;
 declare const quality: number;
 
-const myMode: br.BrotliMode = mode; // $ExpectError
-const myQuality: br.BrotliCompressionQuality = quality; // $ExpectError
+// @ts-expect-error
+const myMode: br.BrotliMode = mode;
+// @ts-expect-error
+const myQuality: br.BrotliCompressionQuality = quality;
 
 const onCompress = (err1: Error | null | undefined, compressed: Buffer) => {
     br.decompress(compressed, (err2: Error | null | undefined, decompressed: Buffer) => {

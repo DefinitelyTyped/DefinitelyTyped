@@ -1,5 +1,5 @@
 // Type definitions for stream-json 1.7
-// Project: http://github.com/uhop/stream-json
+// Project: https://github.com/uhop/stream-json
 // Definitions by: Eugene Lazutkin <https://github.com/uhop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

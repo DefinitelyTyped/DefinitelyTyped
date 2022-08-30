@@ -1,7 +1,7 @@
 import Koa = require('koa');
 import * as route from 'koa-route';
 
-const app = new Koa();
+const app: Koa = new Koa();
 
 const getData = async (param: string) => Promise.resolve({ foo: param });
 

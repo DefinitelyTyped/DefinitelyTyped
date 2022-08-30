@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Breadcrumbs, Breadcrumb } from "react-breadcrumbs";
 
-class Wrapper extends React.Component {
+class Wrapper extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return <div>{this.props.children}</div>;
     }
@@ -28,9 +28,17 @@ class MyComponent extends React.Component {
                     wrapper={FunctionWrapper}
                 />
 
+                <Breadcrumbs className="demo__crumbs">
+                    Children
+                </Breadcrumbs>
+
                 <Breadcrumb data={{ title: "Dashboard", pathname: "/" }} />
 
                 <Breadcrumb data={{ pathname: "/dashboard" }} hidden />
+
+                <Breadcrumb data={{ title: "Dashboard", pathname: "/" }}>
+                    Children
+                </Breadcrumb>
             </div>
         );
     }

@@ -71,6 +71,9 @@ declare namespace echarts {
                 handleIcon?: string | undefined;
                 handleSize?: number | string | undefined;
                 handleStyle?: object | undefined;
+                moveHandleIcon?: string | undefined;
+                moveHandleSize?: number | undefined;
+                moveHandleStyle?: object | undefined;
                 labelPrecision?: number | undefined;
                 labelFormatter?: string | Function | undefined;
                 showDetail?: boolean | undefined;

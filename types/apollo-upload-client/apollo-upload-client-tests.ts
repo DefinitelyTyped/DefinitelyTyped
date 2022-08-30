@@ -1,10 +1,8 @@
-import {
-    UploadLinkOptions,
-    createUploadLink,
-    formDataAppendFile,
-    ReactNativeFile,
-    isExtractableFile,
-} from 'apollo-upload-client';
+import { ReactNativeFile } from 'apollo-upload-client';
+
+import isExtractableFile from 'apollo-upload-client/public/isExtractableFile';
+import createUploadLink, { UploadLinkOptions } from 'apollo-upload-client/public/createUploadLink';
+import formDataAppendFile from 'apollo-upload-client/public/formDataAppendFile';
 
 // ==============================================================================
 // UploadLinkOptions
@@ -19,6 +17,7 @@ const uploadLinkOptions: UploadLinkOptions = {
     headers: { special: 'Special header value' },
     includeExtensions: true,
     credentials: 'beepboop',
+    FormData,
 };
 
 // ==============================================================================

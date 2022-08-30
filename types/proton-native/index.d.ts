@@ -8,6 +8,7 @@
 import * as React from 'react';
 
 export interface AppProps {
+    children?: React.ReactNode;
     /**
      * Called when the quit menu item is called, right before the entire app quits.
      */
@@ -20,6 +21,7 @@ export interface AppProps {
 export class App extends React.Component<AppProps> { }
 
 export interface AreaBaseProps extends GridChildrenProps, Label, Stretchy {
+    children?: React.ReactNode;
     /**
      * The fill color for the component.
      */
@@ -287,6 +289,7 @@ export class Area extends React.Component<AreaProps> {
 }
 
 export interface BoxProps extends GridChildrenProps, Label, Stretchy {
+    children?: React.ReactNode;
     /**
      * Whether the Box is enabled.
      */
@@ -378,6 +381,7 @@ export interface ColorButtonProps extends GridChildrenProps, Label, Stretchy {
 export class ColorButton extends React.Component<ColorButtonProps> { }
 
 export interface FormProps extends GridChildrenProps, Stretchy {
+    children?: React.ReactNode;
     /**
      * Whether the Form is enabled.
      */
@@ -432,6 +436,7 @@ export interface GridChildrenProps {
 }
 
 export interface GridProps {
+    children?: React.ReactNode;
     /**
      * Whether the Grid is enabled.
      */
@@ -489,6 +494,7 @@ export interface Label {
 }
 
 export interface MenuProps {
+    children?: React.ReactNode;
     /**
      * The name of the menu.
      */
@@ -609,6 +615,7 @@ export interface RadioButtonsItemProps {
 export class RadioButtonsItem extends React.Component<RadioButtonsItemProps> { }
 
 export interface RadioButtonsProps extends GridChildrenProps, Label, Stretchy {
+    children?: React.ReactNode;
     /**
      * Whether the RadioButtons can be used.
      */

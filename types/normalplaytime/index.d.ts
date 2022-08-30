@@ -1,6 +1,6 @@
 // Type definitions for normalplaytime 1.0
 // Project: https://github.com/eteubert/normalplaytime
-// Definitions by: Mimiste <https://github.com/Mimiste>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

@@ -14,6 +14,193 @@ import { Interval } from './interval';
 export type DateTimeUnit = 'year' | 'quarter' | 'month' | 'week' | 'day' | 'hour' | 'minute' | 'second' | 'millisecond';
 export type ToRelativeUnit = 'years' | 'quarters' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds';
 
+export type MonthNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type WeekdayNumbers = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+export type DayNumbers =
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31;
+
+export type SecondNumbers =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31
+    | 32
+    | 33
+    | 34
+    | 35
+    | 36
+    | 37
+    | 38
+    | 39
+    | 40
+    | 41
+    | 42
+    | 43
+    | 44
+    | 45
+    | 46
+    | 47
+    | 48
+    | 49
+    | 50
+    | 51
+    | 52
+    | 53
+    | 54
+    | 55
+    | 56
+    | 57
+    | 58
+    | 59;
+
+export type MinuteNumbers = SecondNumbers;
+
+export type HourNumbers =
+    | 0
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23;
+
+export type WeekNumbers =
+    | 1
+    | 2
+    | 3
+    | 4
+    | 5
+    | 6
+    | 7
+    | 8
+    | 9
+    | 10
+    | 11
+    | 12
+    | 13
+    | 14
+    | 15
+    | 16
+    | 17
+    | 18
+    | 19
+    | 20
+    | 21
+    | 22
+    | 23
+    | 24
+    | 25
+    | 26
+    | 27
+    | 28
+    | 29
+    | 30
+    | 31
+    | 32
+    | 33
+    | 34
+    | 35
+    | 36
+    | 37
+    | 38
+    | 39
+    | 40
+    | 41
+    | 42
+    | 43
+    | 44
+    | 45
+    | 46
+    | 47
+    | 48
+    | 49
+    | 50
+    | 51
+    | 52
+    | 53;
+
+export type QuarterNumbers = 1 | 2 | 3 | 4;
+
+export type PossibleDaysInMonth = 28 | 29 | 30 | 31;
+export type PossibleDaysInYear = 365 | 366;
+export type PossibleWeeksInYear = 52 | 53;
+
 export interface ToObjectOutput extends DateTimeJSOptions {
     year: number;
     month: number;
@@ -74,6 +261,11 @@ export interface ToSQLOptions {
      * @default false
      */
     includeZone?: boolean | undefined;
+    /**
+     * include the space between the time and the offset, such as '05:15:16.345 -04:00'
+     * @default true
+     */
+    includeOffsetSpace?: boolean;
 }
 
 export interface ToISODateOptions {
@@ -90,6 +282,12 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default true
      */
     includeOffset?: boolean | undefined;
+
+    /**
+     * add the time zone format extension
+     * @default false
+     */
+    extendedZone?: boolean | undefined;
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -103,6 +301,7 @@ export interface LocaleOptions {
     outputCalendar?: CalendarSystem | undefined;
     numberingSystem?: NumberingSystem | undefined;
 }
+
 export type ResolvedLocaleOptions = Required<LocaleOptions>;
 
 export interface DateTimeOptions extends LocaleOptions {
@@ -547,6 +746,19 @@ export class DateTime {
      */
     static isDateTime(o: unknown): o is DateTime;
 
+    /**
+     * Produce the format string for a set of options
+     *
+     * @param formatOpts - Intl.DateTimeFormat constructor options and configuration options
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     *
+     * @example
+     * DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); //=> "MMMM d, yyyyy, h:m a ZZZ"
+     */
+    static parseFormatForOpts(formatOpts?: DateTimeFormatOptions, localeOpts?: LocaleOptions): string | null;
+
+    private constructor(config: unknown);
+
     // INFO
 
     /**
@@ -615,28 +827,28 @@ export class DateTime {
      *
      * @example DateTime.local(2017, 5, 25).quarter //=> 2
      */
-    get quarter(): number;
+    get quarter(): QuarterNumbers;
 
     /**
      * Get the month (1-12).
      *
      * @example DateTime.local(2017, 5, 25).month //=> 5
      */
-    get month(): number;
+    get month(): MonthNumbers;
 
     /**
      * Get the day of the month (1-30ish).
      *
      * @example DateTime.local(2017, 5, 25).day //=> 25
      */
-    get day(): number;
+    get day(): DayNumbers;
 
     /**
      * Get the hour of the day (0-23).
      *
      * @example DateTime.local(2017, 5, 25, 9).hour //=> 9
      */
-    get hour(): number;
+    get hour(): HourNumbers;
 
     /**
      * Get the minute of the hour (0-59).
@@ -644,7 +856,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30).minute //=> 30
      */
-    get minute(): number;
+    get minute(): MinuteNumbers;
 
     /**
      * Get the second of the minute (0-59).
@@ -652,7 +864,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25, 9, 30, 52).second //=> 52
      */
-    get second(): number;
+    get second(): SecondNumbers;
 
     /**
      * Get the millisecond of the second (0-999).
@@ -678,7 +890,7 @@ export class DateTime {
      * @example
      * DateTime.local(2017, 5, 25).weekNumber //=> 21
      */
-    get weekNumber(): number;
+    get weekNumber(): WeekNumbers;
 
     /**
      * Get the day of the week.
@@ -688,7 +900,7 @@ export class DateTime {
      * @example
      * DateTime.local(2014, 11, 31).weekday //=> 4
      */
-    get weekday(): number;
+    get weekday(): WeekdayNumbers;
 
     /**
      * Get the ordinal (meaning the day of the year)
@@ -784,7 +996,7 @@ export class DateTime {
      * @example
      * DateTime.local(2016, 3).daysInMonth //=> 31
      */
-    get daysInMonth(): number;
+    get daysInMonth(): PossibleDaysInMonth;
 
     /**
      * Returns the number of days in this DateTime's year
@@ -794,7 +1006,7 @@ export class DateTime {
      * @example
      * DateTime.local(2013).daysInYear //=> 365
      */
-    get daysInYear(): number;
+    get daysInYear(): PossibleDaysInYear;
 
     /**
      * Returns the number of weeks in this DateTime's year
@@ -805,7 +1017,7 @@ export class DateTime {
      * @example
      * DateTime.local(2013).weeksInWeekYear //=> 52
      */
-    get weeksInWeekYear(): number;
+    get weeksInWeekYear(): PossibleWeeksInYear;
 
     /**
      * Returns the resolved Intl options for this DateTime.
@@ -1164,6 +1376,11 @@ export class DateTime {
      * Returns the epoch seconds of this DateTime.
      */
     toSeconds(): number;
+
+    /**
+     * Returns the epoch seconds (as a whole number) of this DateTime.
+     */
+    toUnixInteger(): number;
 
     /**
      * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.

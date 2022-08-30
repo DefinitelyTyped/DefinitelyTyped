@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text } from 'react-native';
 import ReactNativePhoneInput from 'react-native-phone-input';
 
-const test: React.SFC = () => (
+const test: React.FC = () => (
     <ReactNativePhoneInput<typeof Text>
         initialCountry={'us'}
         allowZeroAfterCountryCode={false}

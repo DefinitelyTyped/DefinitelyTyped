@@ -256,6 +256,12 @@ export interface Page {
     _URL?: string | null | undefined;
     /** _non-standard_  */
     _visualComplete?: number | null | undefined;
+    /**
+     * _non-standard_
+     *
+     * See "Custom Fields" under http://www.softwareishard.com/blog/har-12-spec
+     */
+    [customField: `_${string}`]: unknown | null | undefined;
 }
 /**
  * This object describes timings for various events (states) fired during the
@@ -285,6 +291,15 @@ export interface PageTiming {
     /** A comment provided by the user or the application */
     comment?: string | undefined;
     _startRender?: number | null | undefined;
+}
+/**
+ * _non-standard_
+ *
+ * Data for Chunk as provided by e.g. WebPageTest
+ */
+export interface Chunk {
+    bytes: number;
+    ts: number;
 }
 /**
  * This object represents an array with all exported HTTP requests. Sorting
@@ -359,6 +374,8 @@ export interface Entry {
     _cdn_provider?: string | null | undefined;
     /** _non-standard_  */
     _certificate_bytes?: number | string | null | undefined;
+    /** _non-standard_  */
+    _chunks?: Chunk[] | null | undefined;
     /** _non-standard_  */
     _client_port?: number | string | null | undefined;
     /** _non-standard_  */
@@ -501,6 +518,12 @@ export interface Entry {
     _renderBlocking?: string | null | undefined;
     /** _non-standard_  */
     _isLCP?: boolean | null | undefined;
+    /**
+     * _non-standard_
+     *
+     * See "Custom Fields" under http://www.softwareishard.com/blog/har-12-spec
+     */
+    [customField: `_${string}`]: unknown | null | undefined;
 }
 /**
  * This object contains detailed info about performed request.

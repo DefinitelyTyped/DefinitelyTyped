@@ -1,6 +1,6 @@
 // Type definitions for gifffer 1.5
 // Project: https://github.com/krasimir/gifffer#readme
-// Definitions by: William Lohan <https://github.com/gatimus>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Gifffer {

@@ -84,11 +84,29 @@ interface ServerResult {
 $("#mySelect2").select2({
     ajax: {
         url: "/example/api",
+        delay: 250,
+        cache: true,
+        dataType: "json",
         processResults: (data: ServerResult) => {
             return {
-                results: data.items
+                results: data.items,
             };
-        }
+        },
+        transport: (params, success, failure) => {
+            const $request = $.ajax(params);
+
+            $request.then(success);
+            $request.fail(failure);
+
+            return $request;
+        },
+        data: params => {
+            const queryParameters = {
+                q: params.term,
+            };
+
+            return queryParameters;
+        },
     }
 });
 
@@ -778,8 +796,8 @@ const selectedData: Select2.OptionData[] = $("#mySelect2").select2("data");
 declare let select: HTMLSelectElement;
 const $select: JQuery<HTMLSelectElement> = $(select);
 
-select = $select.select2().get(0);
-select = $select.select2({tags: true}).get(0);
-select = $select.select2("open").get(0);
-select = $select.select2("close").get(0);
-select = $select.select2("destroy").get(0);
+select = $select.select2().get(0)!;
+select = $select.select2({tags: true}).get(0)!;
+select = $select.select2("open").get(0)!;
+select = $select.select2("close").get(0)!;
+select = $select.select2("destroy").get(0)!;

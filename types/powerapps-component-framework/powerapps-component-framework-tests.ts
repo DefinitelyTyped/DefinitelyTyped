@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 interface TInputs {
     inputString?: string | undefined;
 }
@@ -14,6 +16,21 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
     ) {}
     updateView(context: ComponentFramework.Context<TInputs>) {}
     destroy() {}
+    getOutputs() {
+        return {
+            testString: '',
+        };
+    }
+}
+
+class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutputs> {
+    init(context: ComponentFramework.Context<TInputs>, notifyOutputChanged?: () => void) {
+    }
+    updateView(context: ComponentFramework.Context<TInputs>) {
+        return React.createElement('div', { id: 'test-id' });
+    }
+    destroy() {
+    }
     getOutputs() {
         return {
             testString: '',

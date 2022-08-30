@@ -20,7 +20,7 @@ export interface ButtonProps extends ButtonPropsCommon, React.HTMLAttributes<HTM
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Button: React.StatelessComponent<ButtonProps>;
+export declare const Button: React.FunctionComponent<ButtonProps>;
 export interface LinkProps extends ButtonPropsCommon, React.AnchorHTMLAttributes<HTMLAnchorElement> {
     color?: ButtonColors | undefined;
 }
@@ -31,4 +31,4 @@ export interface LinkProps extends ButtonPropsCommon, React.AnchorHTMLAttributes
  * @param {Object} props
  * @returns {Object}
  */
-export declare const Link: React.StatelessComponent<LinkProps>;
+export declare const Link: React.FunctionComponent<LinkProps>;

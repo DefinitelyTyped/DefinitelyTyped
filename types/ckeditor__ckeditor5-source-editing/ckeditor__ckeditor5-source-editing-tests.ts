@@ -8,16 +8,16 @@ const editor = new MyEditor();
 SourceEditing.requires.forEach(Plugin => new Plugin(editor).init());
 // $ExpectType boolean
 new SourceEditing(editor).isSourceEditingMode;
-// $ExpectError
+// @ts-expect-error
 new SourceEditing(editor).isSourceEditingMode = true;
-// $ExpectError
+// @ts-expect-error
 new SourceEditing(editor)._elementReplacer;
-// $ExpectError
+// @ts-expect-error
 new SourceEditing(editor)._handleReadOnlyMode(true);
 
-// $ExpectError
+// @ts-expect-error
 formatHtml('') === true;
-// $ExpectError
+// @ts-expect-error
 formatHtml(5);
 formatHtml('') === '';
 

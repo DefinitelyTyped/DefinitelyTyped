@@ -1,15 +1,15 @@
 import { Command, Editor } from '@ckeditor/ckeditor5-core';
-import { FindAndReplaceState } from './findandreplaceediting';
+import FindAndReplaceState from './findandreplacestate';
 
 /**
  * The find next command. Moves the highlight to the next search result.
  */
 export default class FindNextCommand extends Command {
-    isEnabled: boolean;
     /**
      * Creates a new `FindNextCommand` instance.
      */
     constructor(editor: Editor, state: FindAndReplaceState);
+    readonly affectsData: false;
     refresh(): void;
     execute(): void;
 }

@@ -1,7 +1,6 @@
-// Type definitions for @koa/cors 3.0
+// Type definitions for @koa/cors 3.3
 // Project: https://github.com/koajs/cors
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
-//                 Izayoi Ko <https://github.com/izayoiko>
 //                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Steven McDowall <https://github.com/sjmcdowall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,12 +55,35 @@ declare namespace cors {
 
         /**
          * `Access-Control-Allow-Credentials`
+         *
+         * @remarks
+         * If a function is provided, it will be called for each request with
+         * the koa context object. It may return a boolean or a promise that
+         * will resolve with a boolean.
          */
-        credentials?: boolean | undefined;
+        credentials?:
+            | ((ctx: Koa.Context) => boolean)
+            | ((ctx: Koa.Context) => PromiseLike<boolean>)
+            | boolean
+            | undefined;
 
         /**
          * Add set headers to `err.header` if an error is thrown
          */
         keepHeadersOnError?: boolean | undefined;
+
+        /**
+         * Add `Cross-Origin-Opener-Policy` & `Cross-Origin-Embedder-Policy` to response headers
+         *
+         * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer/Planned_changes
+         */
+        secureContext?: boolean | undefined;
+
+        /**
+         * Handle `Access-Control-Request-Private-Network` request by return `Access-Control-Allow-Private-Network`
+         *
+         * @see https://wicg.github.io/private-network-access/
+         */
+        privateNetworkAccess?: boolean | undefined;
     }
 }

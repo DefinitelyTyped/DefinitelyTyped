@@ -1,4 +1,4 @@
-// Type definitions for Sortable.js 1.10
+// Type definitions for Sortable.js 1.13
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 //                 Maarten Staa <https://github.com/maartenstaa>
@@ -83,8 +83,9 @@ declare class Sortable {
     /**
      * Sorts the elements according to the array.
      * @param order an array of strings to sort.
+     * @param useAnimation default: false.
      */
-    sort(order: ReadonlyArray<string>): void;
+    sort(order: ReadonlyArray<string>, useAnimation?: boolean): void;
 
     /**
      * Saving and restoring of the sort.

@@ -1,57 +1,116 @@
-import { TempNode } from '../core/TempNode';
-import { NodeBuilder } from '../core/NodeBuilder';
-import { Node } from '../core/Node';
+import Node from '../core/Node';
+import TempNode from '../core/TempNode';
 
-export class MathNode extends TempNode {
-    constructor(a: Node, bOrMethod: Node | string, cOrMethod?: Node | string, method?: string);
+export type MathNodeMethod1 =
+    | typeof MathNode.RADIANS
+    | typeof MathNode.DEGREES
+    | typeof MathNode.EXP
+    | typeof MathNode.EXP2
+    | typeof MathNode.LOG
+    | typeof MathNode.LOG2
+    | typeof MathNode.SQRT
+    | typeof MathNode.INVERSE_SQRT
+    | typeof MathNode.FLOOR
+    | typeof MathNode.CEIL
+    | typeof MathNode.NORMALIZE
+    | typeof MathNode.FRACT
+    | typeof MathNode.SIN
+    | typeof MathNode.COS
+    | typeof MathNode.TAN
+    | typeof MathNode.ASIN
+    | typeof MathNode.ACOS
+    | typeof MathNode.ATAN
+    | typeof MathNode.ABS
+    | typeof MathNode.SIGN
+    | typeof MathNode.LENGTH
+    | typeof MathNode.NEGATE
+    | typeof MathNode.INVERT
+    | typeof MathNode.DFDX
+    | typeof MathNode.DFDY
+    | typeof MathNode.SATURATE
+    | typeof MathNode.ROUND;
 
-    a: Node;
-    b: Node | string | undefined;
-    c: Node | string | undefined;
-    method: string;
-    nodeType: string;
+export type MathNodeMethod2 =
+    | typeof MathNode.ATAN2
+    | typeof MathNode.MIN
+    | typeof MathNode.MAX
+    | typeof MathNode.MOD
+    | typeof MathNode.STEP
+    | typeof MathNode.REFLECT
+    | typeof MathNode.DISTANCE
+    | typeof MathNode.DOT
+    | typeof MathNode.CROSS
+    | typeof MathNode.POW
+    | typeof MathNode.TRANSFORM_DIRECTION;
 
-    getNumInputs(builder: NodeBuilder): number;
-    getInputType(builder: NodeBuilder): string;
-    copy(source: MathNode): this;
+export type MathNodeMethod3 =
+    | typeof MathNode.MIX
+    | typeof MathNode.CLAMP
+    | typeof MathNode.REFRACT
+    | typeof MathNode.SMOOTHSTEP
+    | typeof MathNode.FACEFORWARD;
 
-    static RAD: string;
-    static DEG: string;
-    static EXP: string;
-    static EXP2: string;
-    static LOG: string;
-    static LOG2: string;
-    static SQRT: string;
-    static INV_SQRT: string;
-    static FLOOR: string;
-    static CEIL: string;
-    static NORMALIZE: string;
-    static SATURATE: string;
-    static SIN: string;
-    static COS: string;
-    static TAN: string;
-    static ASIN: string;
-    static ACOS: string;
-    static ARCTAN: string;
-    static ABS: string;
-    static SIGN: string;
-    static LENGTH: string;
-    static NEGATE: string;
-    static INVERT: string;
+export type MathNodeMethod = MathNodeMethod1 | MathNodeMethod2 | MathNodeMethod3;
 
-    static MIN: string;
-    static MAX: string;
-    static MOD: string;
-    static STEP: string;
-    static REFLECT: string;
-    static DISTANCE: string;
-    static DOT: string;
-    static CROSS: string;
-    static POW: string;
+export default class MathNode extends TempNode {
+    // 1 input
 
-    static MIX: string;
-    static CLAMP: string;
-    static REFRACT: string;
-    static SMOOTHSTEP: string;
-    static FACEFORWARD: string;
+    static RADIANS: 'radians';
+    static DEGREES: 'degrees';
+    static EXP: 'exp';
+    static EXP2: 'exp2';
+    static LOG: 'log';
+    static LOG2: 'log2';
+    static SQRT: 'sqrt';
+    static INVERSE_SQRT: 'inversesqrt';
+    static FLOOR: 'floor';
+    static CEIL: 'ceil';
+    static NORMALIZE: 'normalize';
+    static FRACT: 'fract';
+    static SIN: 'sin';
+    static COS: 'cos';
+    static TAN: 'tan';
+    static ASIN: 'asin';
+    static ACOS: 'acos';
+    static ATAN: 'atan';
+    static ABS: 'abs';
+    static SIGN: 'sign';
+    static LENGTH: 'length';
+    static NEGATE: 'negate';
+    static INVERT: 'invert';
+    static DFDX: 'dFdx';
+    static DFDY: 'dFdy';
+    static SATURATE: 'saturate';
+    static ROUND: 'round';
+
+    // 2 inputs
+
+    static ATAN2: 'atan2';
+    static MIN: 'min';
+    static MAX: 'max';
+    static MOD: 'mod';
+    static STEP: 'step';
+    static REFLECT: 'reflect';
+    static DISTANCE: 'distance';
+    static DOT: 'dot';
+    static CROSS: 'cross';
+    static POW: 'pow';
+    static TRANSFORM_DIRECTION: 'transformDirection';
+
+    // 3 inputs
+
+    static MIX: 'mix';
+    static CLAMP: 'clamp';
+    static REFRACT: 'refract';
+    static SMOOTHSTEP: 'smoothstep';
+    static FACEFORWARD: 'faceforward';
+
+    method: MathNodeMethod;
+    aNode: Node;
+    bNode: Node | null;
+    cNode: Node | null;
+
+    constructor(method: MathNodeMethod1, aNode: Node);
+    constructor(method: MathNodeMethod2, aNode: Node, bNode: Node);
+    constructor(method: MathNodeMethod3, aNode: Node, bNode: Node, cNode: Node);
 }

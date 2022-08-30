@@ -1,5 +1,5 @@
 {
-  "extends": "dtslint/dt.json",
+  "extends": "@definitelytyped/dtslint/dt.json",
   "rules": {
     // This package sets module.exports = function, but then sets module.exports.default = object. Following the advice from the CI logs, I'm editing the rule behavior.
     "npm-naming": [

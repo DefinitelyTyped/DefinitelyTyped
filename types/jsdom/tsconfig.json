@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["ESNext", "DOM"],
+        "lib": ["ESNext"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/diagnostics_channel.js)
  */
 declare module 'diagnostics_channel' {
     /**
@@ -37,6 +37,7 @@ declare module 'diagnostics_channel' {
      *   // There are subscribers, prepare and publish message
      * }
      * ```
+     * @since v15.1.0, v14.17.0
      * @param name The channel name
      * @return If there are active subscribers
      */
@@ -51,11 +52,12 @@ declare module 'diagnostics_channel' {
      *
      * const channel = diagnostics_channel.channel('my-channel');
      * ```
+     * @since v15.1.0, v14.17.0
      * @param name The channel name
      * @return The named channel object
      */
     function channel(name: string): Channel;
-    type ChannelListener = (name: string, message: unknown) => void;
+    type ChannelListener = (message: unknown, name: string) => void;
     /**
      * The class `Channel` represents an individual named channel within the data
      * pipeline. It is use to track subscribers and to publish messages when there
@@ -63,6 +65,7 @@ declare module 'diagnostics_channel' {
      * lookups at publish time, enabling very fast publish speeds and allowing
      * for heavy use while incurring very minimal cost. Channels are created with {@link channel}, constructing a channel directly
      * with `new Channel(name)` is not supported.
+     * @since v15.1.0, v14.17.0
      */
     class Channel {
         readonly name: string;
@@ -82,9 +85,28 @@ declare module 'diagnostics_channel' {
          *   // There are subscribers, prepare and publish message
          * }
          * ```
+         * @since v15.1.0, v14.17.0
          */
         readonly hasSubscribers: boolean;
         private constructor(name: string);
+        /**
+         * Publish a message to any subscribers to the channel. This will
+         * trigger message handlers synchronously so they will execute within
+         * the same context.
+         *
+         * ```js
+         * import diagnostics_channel from 'diagnostics_channel';
+         *
+         * const channel = diagnostics_channel.channel('my-channel');
+         *
+         * channel.publish({
+         *   some: 'message'
+         * });
+         * ```
+         * @since v15.1.0, v14.17.0
+         * @param message The message to send to the channel subscribers
+         */
+        publish(message: unknown): void;
         /**
          * Register a message handler to subscribe to this channel. This message handler
          * will be run synchronously whenever a message is published to the channel. Any
@@ -99,6 +121,7 @@ declare module 'diagnostics_channel' {
          *   // Received data
          * });
          * ```
+         * @since v15.1.0, v14.17.0
          * @param onMessage The handler to receive channel messages
          */
         subscribe(onMessage: ChannelListener): void;
@@ -118,7 +141,9 @@ declare module 'diagnostics_channel' {
          *
          * channel.unsubscribe(onMessage);
          * ```
+         * @since v15.1.0, v14.17.0
          * @param onMessage The previous subscribed handler to remove
+         * @return `true` if the handler was found, `false` otherwise.
          */
         unsubscribe(onMessage: ChannelListener): void;
     }

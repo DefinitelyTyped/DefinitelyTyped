@@ -149,7 +149,7 @@ export namespace Delaunay {
     /**
      * A point represented as an array tuple [x, y].
      */
-    type Point = number[];
+    type Point = [number, number];
 
     /**
      * A closed polygon [[x0, y0], [x1, y1], [x2, y2], [x0, y0]] representing a triangle.
@@ -164,7 +164,7 @@ export namespace Delaunay {
     /**
      * A rectangular area [x, y, width, height].
      */
-    type Bounds = number[];
+    type Bounds = [number, number, number, number];
 
     /**
      * A function to extract a x- or y-coordinate from the specified point.

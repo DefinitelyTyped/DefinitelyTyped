@@ -10,7 +10,7 @@
  * ```js
  * const net = require('net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/net.js)
  */
 declare module 'net' {
     import * as stream from 'node:stream';
@@ -27,6 +27,7 @@ declare module 'net' {
         allowHalfOpen?: boolean | undefined;
         readable?: boolean | undefined;
         writable?: boolean | undefined;
+        signal?: AbortSignal;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -53,11 +54,15 @@ declare module 'net' {
         hints?: number | undefined;
         family?: number | undefined;
         lookup?: LookupFunction | undefined;
+        noDelay?: boolean | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveInitialDelay?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
     /**
      * This class is an abstraction of a TCP socket or a streaming `IPC` endpoint
      * (uses named pipes on Windows, and Unix domain sockets otherwise). It is also
@@ -203,7 +208,7 @@ declare module 'net' {
          */
         unref(): this;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will_not_ let the program exit if it's the only socket left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will _not_ let the program exit if it's the only socket left (the default behavior).
          * If the socket is `ref`ed calling `ref` again will have no effect.
          * @since v0.9.1
          * @return The socket itself.
@@ -255,12 +260,18 @@ declare module 'net' {
          * connects on `'192.168.1.1'`, the value of `socket.localAddress` would be`'192.168.1.1'`.
          * @since v0.9.6
          */
-        readonly localAddress: string;
+        readonly localAddress?: string;
         /**
          * The numeric representation of the local port. For example, `80` or `21`.
          * @since v0.9.6
          */
-        readonly localPort: number;
+        readonly localPort?: number;
+        /**
+         * This property represents the state of the connection as a string.
+         * @see {https://nodejs.org/api/net.html#socketreadystate}
+         * @since v0.5.0
+         */
+        readonly readyState: SocketReadyState;
         /**
          * The string representation of the remote IP address. For example,`'74.125.127.100'` or `'2001:4860:a005::68'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
@@ -278,6 +289,11 @@ declare module 'net' {
          */
         readonly remotePort?: number | undefined;
         /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
+        /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
          *
@@ -287,9 +303,9 @@ declare module 'net' {
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
-        end(callback?: () => void): void;
-        end(buffer: Uint8Array | string, callback?: () => void): void;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(buffer: Uint8Array | string, callback?: () => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
         /**
          * events.EventEmitter
          *   1. close
@@ -386,6 +402,25 @@ declare module 'net' {
          * @default false
          */
         pauseOnConnect?: boolean | undefined;
+        /**
+         * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
+         * @default false
+         * @since v16.5.0
+         */
+        noDelay?: boolean | undefined;
+        /**
+         * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
+         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * @default false
+         * @since v16.5.0
+         */
+        keepAlive?: boolean | undefined;
+        /**
+         * If set to a positive number, it sets the initial delay before the first keepalive probe is sent on an idle socket.
+         * @default 0
+         * @since v16.5.0
+         */
+        keepAliveInitialDelay?: number | undefined;
     }
     /**
      * This class is used to create a TCP or `IPC` server.
@@ -491,7 +526,7 @@ declare module 'net' {
          */
         getConnections(cb: (error: Error | null, count: number) => void): void;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will_not_ let the program exit if it's the only server left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will _not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.
          * @since v0.9.1
          */
@@ -560,12 +595,12 @@ declare module 'net' {
      * The `BlockList` object can be used with some network APIs to specify rules for
      * disabling inbound or outbound access to specific IP addresses, IP ranges, or
      * IP subnets.
-     * @since v15.0.0
+     * @since v15.0.0, v14.18.0
      */
     class BlockList {
         /**
          * Adds a rule to block the given IP address.
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param address An IPv4 or IPv6 address.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
@@ -573,7 +608,7 @@ declare module 'net' {
         addAddress(address: SocketAddress): void;
         /**
          * Adds a rule to block a range of IP addresses from `start` (inclusive) to`end` (inclusive).
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param start The starting IPv4 or IPv6 address in the range.
          * @param end The ending IPv4 or IPv6 address in the range.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
@@ -582,7 +617,7 @@ declare module 'net' {
         addRange(start: SocketAddress, end: SocketAddress): void;
         /**
          * Adds a rule to block a range of IP addresses specified as a subnet mask.
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param net The network IPv4 or IPv6 address.
          * @param prefix The number of CIDR prefix bits. For IPv4, this must be a value between `0` and `32`. For IPv6, this must be between `0` and `128`.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
@@ -606,7 +641,7 @@ declare module 'net' {
          * console.log(blockList.check('::ffff:7b7b:7b7b', 'ipv6')); // Prints: true
          * console.log(blockList.check('::ffff:123.123.123.123', 'ipv6')); // Prints: true
          * ```
-         * @since v15.0.0
+         * @since v15.0.0, v14.18.0
          * @param address The IP address to check
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
@@ -637,7 +672,7 @@ declare module 'net' {
      *
      * The server can be a TCP server or an `IPC` server, depending on what it `listen()` to.
      *
-     * Here is an example of an TCP echo server which listens for connections
+     * Here is an example of a TCP echo server which listens for connections
      * on port 8124:
      *
      * ```js
@@ -716,19 +751,39 @@ declare module 'net' {
     function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
     function createConnection(path: string, connectionListener?: () => void): Socket;
     /**
-     * Tests if input is an IP address. Returns `0` for invalid strings,
-     * returns `4` for IP version 4 addresses, and returns `6` for IP version 6
-     * addresses.
+     * Returns `6` if `input` is an IPv6 address. Returns `4` if `input` is an IPv4
+     * address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no leading zeroes. Otherwise, returns`0`.
+     *
+     * ```js
+     * net.isIP('::1'); // returns 6
+     * net.isIP('127.0.0.1'); // returns 4
+     * net.isIP('127.000.000.001'); // returns 0
+     * net.isIP('127.0.0.1/24'); // returns 0
+     * net.isIP('fhqwhgads'); // returns 0
+     * ```
      * @since v0.3.0
      */
     function isIP(input: string): number;
     /**
-     * Returns `true` if input is a version 4 IP address, otherwise returns `false`.
+     * Returns `true` if `input` is an IPv4 address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no
+     * leading zeroes. Otherwise, returns `false`.
+     *
+     * ```js
+     * net.isIPv4('127.0.0.1'); // returns true
+     * net.isIPv4('127.000.000.001'); // returns false
+     * net.isIPv4('127.0.0.1/24'); // returns false
+     * net.isIPv4('fhqwhgads'); // returns false
+     * ```
      * @since v0.3.0
      */
     function isIPv4(input: string): boolean;
     /**
-     * Returns `true` if input is a version 6 IP address, otherwise returns `false`.
+     * Returns `true` if `input` is an IPv6 address. Otherwise, returns `false`.
+     *
+     * ```js
+     * net.isIPv6('::1'); // returns true
+     * net.isIPv6('fhqwhgads'); // returns false
+     * ```
      * @since v0.3.0
      */
     function isIPv6(input: string): boolean;
@@ -754,26 +809,26 @@ declare module 'net' {
         port?: number | undefined;
     }
     /**
-     * @since v15.14.0
+     * @since v15.14.0, v14.18.0
      */
     class SocketAddress {
         constructor(options: SocketAddressInitOptions);
         /**
          * Either \`'ipv4'\` or \`'ipv6'\`.
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly address: string;
         /**
          * Either \`'ipv4'\` or \`'ipv6'\`.
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly family: IPVersion;
         /**
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly port: number;
         /**
-         * @since v15.14.0
+         * @since v15.14.0, v14.18.0
          */
         readonly flowlabel: number;
     }

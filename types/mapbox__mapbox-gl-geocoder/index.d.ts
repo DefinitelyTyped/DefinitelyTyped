@@ -4,8 +4,10 @@
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="mapbox-gl" />
 /// <reference types="geojson" />
+
+import mapboxgl = require('mapbox-gl');
+
 export as namespace MapboxGeocoder;
 export = MapboxGeocoder;
 
@@ -38,7 +40,7 @@ declare namespace MapboxGeocoder {
         /**
          * A [mapbox-gl](https://github.com/mapbox/mapbox-gl-js) instance to use when creating [Markers](https://docs.mapbox.com/mapbox-gl-js/api/#marker). Required if `options.marker` is `true`.
          */
-        mapboxgl?: mapboxgl.Map | undefined;
+        mapboxgl?: typeof mapboxgl | undefined;
         /**
          * On geocoded result what zoom level should the map animate to when a bbox isn't found in the response. If a bbox is found the map will fit to the bbox. (optional, default 16)
          */
@@ -167,9 +169,8 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
     /**
      * Clear and then focus the input.
      * [ev] the event that triggered the clear, if available
-     *
      */
-    clear(ev: Event): void;
+    clear(ev?: Event): void;
     /**
      * Set & query the input
      */

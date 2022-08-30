@@ -1,6 +1,6 @@
-// Type definitions for Leaflet.markercluster 1.4
+// Type definitions for Leaflet.markercluster 1.5
 // Project: https://github.com/Leaflet/Leaflet.markercluster
-// Definitions by: Robert Imig <https://github.com/rimig>
+// Definitions by: Robert Imig <https://github.com/rimig>, Nenad Filipovic <https://github.com/nenadfilipovic>, Yaroslav Kormushyn <https://github.com/YaroslavKormushyn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,9 +27,49 @@ declare module 'leaflet' {
         * Returns the cluster bounds.
         */
         getBounds(): LatLngBounds;
+
+        /*
+        * Spiderfies the child markers of this cluster.
+        */
+        spiderfy(): void;
+
+        /*
+        * Unspiderfies a cluster (opposite of spiderfy).
+        */
+        unspiderfy(): void;
     }
 
     interface MarkerClusterGroupOptions extends LayerOptions {
+        /*
+        * The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
+        * Decreasing will make more, smaller clusters. You can also use a function that accepts
+        * the current map zoom and returns the maximum cluster radius in pixels
+        */
+        maxClusterRadius?: number | ((zoom: number) => number) | undefined;
+
+        /*
+        * Function used to create the cluster icon
+        */
+        iconCreateFunction?: ((cluster: MarkerCluster) => Icon | DivIcon) | undefined;
+
+        /*
+        * Map pane where the cluster icons will be added.
+        * Defaults to L.Marker's default (currently 'markerPane')
+        */
+        clusterPane?: string | undefined;
+
+        /*
+        * When you click a cluster at any zoom level we spiderfy it
+        * so you can see all of its markers.
+        */
+        spiderfyOnEveryZoom?: boolean | undefined;
+
+        /*
+        * When you click a cluster at the bottom zoom level we spiderfy it
+        * so you can see all of its markers.
+        */
+        spiderfyOnMaxZoom?: boolean | undefined;
+
         /*
         * When you mouse over a cluster it shows the bounds of its markers.
         */
@@ -41,10 +81,14 @@ declare module 'leaflet' {
         zoomToBoundsOnClick?: boolean | undefined;
 
         /*
-        * When you click a cluster at the bottom zoom level we spiderfy it
-        * so you can see all of its markers.
+        * If set to true, overrides the icon for all added markers to make them appear as a 1 size cluster.
         */
-        spiderfyOnMaxZoom?: boolean | undefined;
+        singleMarkerMode?: boolean | undefined;
+
+        /*
+        * If set, at this zoom level and below markers will not be clustered. This defaults to disabled.
+        */
+        disableClusteringAtZoom?: number | undefined;
 
         /*
         * Clusters and markers too far from the viewport are removed from the map
@@ -67,33 +111,9 @@ declare module 'leaflet' {
         animateAddingMarkers?: boolean | undefined;
 
         /*
-        * If set, at this zoom level and below markers will not be clustered. This defaults to disabled.
+        * Custom function to calculate spiderfy shape positions
         */
-        disableClusteringAtZoom?: number | undefined;
-
-        /*
-        * The maximum radius that a cluster will cover from the central marker (in pixels). Default 80.
-        * Decreasing will make more, smaller clusters. You can also use a function that accepts
-        * the current map zoom and returns the maximum cluster radius in pixels
-        */
-        maxClusterRadius?: number | ((zoom: number) => number) | undefined;
-
-        /*
-        * Options to pass when creating the L.Polygon(points, options) to show the bounds of a cluster.
-        * Defaults to empty
-        */
-        polygonOptions?: PolylineOptions | undefined;
-
-        /*
-        * If set to true, overrides the icon for all added markers to make them appear as a 1 size cluster.
-        */
-        singleMarkerMode?: boolean | undefined;
-
-        /*
-        * Allows you to specify PolylineOptions to style spider legs.
-        * By default, they are { weight: 1.5, color: '#222', opacity: 0.5 }.
-        */
-        spiderLegPolylineOptions?: PolylineOptions | undefined;
+        spiderfyShapePositions?: ((count: number, centerPoint: Point) => Point[]) | undefined;
 
         /*
         * Increase from 1 to increase the distance away from the center that spiderfied markers are placed.
@@ -102,15 +122,10 @@ declare module 'leaflet' {
         spiderfyDistanceMultiplier?: number | undefined;
 
         /*
-        * Function used to create the cluster icon
+        * Allows you to specify PolylineOptions to style spider legs.
+        * By default, they are { weight: 1.5, color: '#222', opacity: 0.5 }.
         */
-        iconCreateFunction?: ((cluster: MarkerCluster) => Icon | DivIcon) | undefined;
-
-        /*
-        * Map pane where the cluster icons will be added.
-        * Defaults to L.Marker's default (currently 'markerPane')
-         */
-        clusterPane?: string | undefined;
+        spiderLegPolylineOptions?: PolylineOptions | undefined;
 
         /*
         * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
@@ -133,6 +148,76 @@ declare module 'leaflet' {
         * Typically used to implement a progress indicator. Defaults to null.
         */
         chunkProgress?: ((processedMarkers: number, totalMarkers: number, elapsedTime: number) => void) | undefined;
+
+        /*
+        * Options to pass when creating the L.Polygon(points, options) to show the bounds of a cluster.
+        * Defaults to empty
+        */
+        polygonOptions?: PolylineOptions | undefined;
+    }
+
+    /*
+     * Cluster-related handler functions.
+     */
+    type AnimationEndEventHandlerFn = (event: LeafletEvent) => void;
+    type SpiderfyEventHandlerFn = (event: MarkerClusterSpiderfyEvent) => void;
+
+    /*
+     * Event fired on spiderfy cluster actions.
+     */
+    interface MarkerClusterSpiderfyEvent extends LeafletEvent {
+        /*
+         * The cluster that fired the event.
+         */
+        cluster: MarkerCluster;
+
+        /*
+         * The markers in the cluster that fired the event.
+         */
+        markers: Marker[];
+    }
+
+    /*
+     * Extend existing event handler function map to include cluster events.
+     */
+    interface LeafletEventHandlerFnMap {
+        /*
+         * Fires when overlapping markers get spiderified.
+         */
+        spiderfied?: SpiderfyEventHandlerFn | undefined;
+
+        /*
+         * Fires when overlapping markers get unspiderified.
+         */
+        unspiderfied?: SpiderfyEventHandlerFn | undefined;
+
+        /*
+         * Fires when marker clustering/unclustering animation has completed.
+         */
+        animationend?: AnimationEndEventHandlerFn | undefined;
+    }
+
+    /*
+     * Extend Evented to include cluster events.
+     */
+    interface Evented {
+        on(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        on(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        off(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        off(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        once(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        once(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        addEventListener(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        addEventListener(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        removeEventListener(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        removeEventListener(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
+
+        addOneTimeEventListener(type: 'spiderfied' | 'unspiderfied', fn?: SpiderfyEventHandlerFn, context?: any): this;
+        addOneTimeEventListener(type: 'animationend', fn?: AnimationEndEventHandlerFn, context?: any): this;
     }
 
     class MarkerClusterGroup extends FeatureGroup {

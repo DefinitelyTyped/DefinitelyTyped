@@ -1,11 +1,10 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,

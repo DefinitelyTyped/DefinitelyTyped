@@ -6,30 +6,59 @@
 
 export type BigSource = number | string | Big;
 
+// eslint-disable-next-line no-const-enum
 export const enum Comparison {
+    /**
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use > 0 instead.
+     */
     GT = 1,
+    /**
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 0 instead.
+     */
     EQ = 0,
+    /**
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use < 0 instead.
+     */
     LT = -1,
 }
 
+// eslint-disable-next-line no-const-enum
 export const enum RoundingMode {
     /**
      * Rounds towards zero.
      * I.e. truncate, no rounding.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 0 or Big.roundDown instead.
      */
     RoundDown = 0,
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds away from zero.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 1 or Big.roundHalfUp instead.
      */
     RoundHalfUp = 1,
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds towards even neighbour.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 2 or Big.roundHalfEven instead.
      */
     RoundHalfEven = 2,
     /**
      * Rounds away from zero.
+     * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
+     * {@link https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/dtslint/docs/no-const-enum.md}.
+     * Use 3 or Big.roundUp instead.
      */
     RoundUp = 3,
 }
@@ -97,6 +126,14 @@ export interface BigConstructor {
      * Default value: 21
      */
     PE: number;
+    /**
+     * When set to true, an error will be thrown if a primitive number is passed to the Big constructor,
+     * or if valueOf is called, or if toNumber is called on a Big which cannot be converted to a primitive number without a loss of precision.
+     *
+     * true|false
+     * Default value: false
+     */
+    strict: boolean;
 
     /** Readonly rounding modes */
 
@@ -104,21 +141,21 @@ export interface BigConstructor {
      * Rounds towards zero.
      * I.e. truncate, no rounding.
      */
-    readonly roundDown: RoundingMode.RoundDown;
+    readonly roundDown: 0;
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds away from zero.
      */
-    readonly roundHalfUp: RoundingMode.RoundHalfUp;
+    readonly roundHalfUp: 1;
     /**
      * Rounds towards nearest neighbour.
      * If equidistant, rounds towards even neighbour.
      */
-    readonly roundHalfEven: RoundingMode.RoundHalfEven;
+    readonly roundHalfEven: 2;
     /**
      * Rounds away from zero.
      */
-    readonly roundUp: RoundingMode.RoundUp;
+    readonly roundUp: 3;
 }
 
 export interface Big {
@@ -218,7 +255,7 @@ export interface Big {
      * significant digits using rounding mode rm, or Big.RM if rm is not specified.
      *
      * @param sd Significant digits: integer, 1 to MAX_DP inclusive.
-     * @param [rm] The rounding mode, one of the RoundingMode enumeration values
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!prec!` if sd is invalid.
      * @throws `!Big.RM!` if rm is invalid.
      */
@@ -227,7 +264,7 @@ export interface Big {
      * Returns a Big number whose value is the value of this Big number rounded using rounding mode rm to a maximum of dp decimal places.
      *
      * @param dp Decimal places, 0 to 1e+6 inclusive
-     * @param rm The rounding mode, one of the RoundingMode enumeration values
+     * @param rm Rounding mode: 0 (down), 1 (half-up), 2 (half-even) or 3 (up).
      * @throws `!round!` if dp is invalid.
      * @throws `!Big.RM!` if rm is invalid.
      */

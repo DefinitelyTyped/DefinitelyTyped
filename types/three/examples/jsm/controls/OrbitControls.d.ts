@@ -4,7 +4,7 @@ export class OrbitControls {
     constructor(object: Camera, domElement?: HTMLElement);
 
     object: Camera;
-    domElement: HTMLElement | HTMLDocument;
+    domElement: HTMLElement | Document;
 
     // API
     enabled: boolean;
@@ -42,14 +42,17 @@ export class OrbitControls {
     autoRotate: boolean;
     autoRotateSpeed: number;
 
-    enableKeys: boolean;
     keys: { LEFT: string; UP: string; RIGHT: string; BOTTOM: string };
-    mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
-    touches: { ONE: TOUCH; TWO: TOUCH };
+    mouseButtons: Partial<{ LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE }>;
+    touches: Partial<{ ONE: TOUCH; TWO: TOUCH }>;
+
+    target0: Vector3;
+    position0: Vector3;
+    zoomO: number;
 
     update(): boolean;
 
-    listenToKeyEvents(domElement: HTMLElement): void;
+    listenToKeyEvents(domElement: HTMLElement | Window): void;
 
     saveState(): void;
 

@@ -1,37 +1,63 @@
-import sort = require('sort-array');
+import sortArray = require('sort-array');
 
-interface AlphabetItem {
-    letter: string;
-    position: number;
+// examples taken from README.md
+// ---
+
+// API listed in readme, but does not contain code example
+const exampleTimes = ['twilight', 'afternoon', 'morning', 'evening'];
+// $ExpectType string[]
+sortArray(exampleTimes, { nullRank: 1, undefinedRank: 1 });
+
+// https://github.com/75lb/sort-array#sorting-an-array-of-primitives
+const partsOfTheDay = ['twilight', 'afternoon', 'morning', 'evening'];
+// $ExpectType string[]
+sortArray(partsOfTheDay);
+// $ExpectType string[]
+sortArray(partsOfTheDay, { order: 'desc' });
+// $ExpectType string[]
+sortArray(partsOfTheDay, {
+    order: 'time',
+    customOrders: {
+        time: ['morning', 'afternoon', 'evening', 'twilight'],
+    },
+});
+
+// https://github.com/75lb/sort-array#sorting-an-array-of-objects
+interface SortArrayOfObjects {
+    name: string;
+    openIssues: number;
+    closedIssues: number;
 }
-
-const alphabet: AlphabetItem[] = [
-    { letter: 'b', position: 2 },
-    { letter: 'a', position: 1 },
-    { letter: 'c', position: 3 }
+const repositories: SortArrayOfObjects[] = [
+    { name: '75lb/sort-array', openIssues: 0, closedIssues: 4 },
+    { name: 'lwsjs/local-web-server', openIssues: 4, closedIssues: 80 },
+    { name: 'jsdoc2md/jsdoc-api', openIssues: 3, closedIssues: 47 },
 ];
+// $ExpectType SortArrayOfObjects[]
+sortArray(repositories, {
+    by: 'openIssues',
+    order: 'desc',
+});
+// $ExpectType SortArrayOfObjects[]
+sortArray(repositories, {
+    by: 'total',
+    order: 'desc',
+    computed: {
+        total: repository => repository.openIssues + repository.closedIssues,
+    },
+});
 
-// $ExpectType AlphabetItem[]
-sort(alphabet, 'letter');
-sort(alphabet, ['letter']);
-sort(alphabet, 'letter');
-
-sort<AlphabetItem>(alphabet, 'letter', { letter: ['c', 'a'] });
-
-// Allow to use string and number, because we cannot get type of the current property
-sort<AlphabetItem>(alphabet, 'letter', { letter: ['c', 'a', 1] });
-
-interface Input {
-    inner: { number: number };
+// https://github.com/75lb/sort-array#sort-by-deep-object-values
+interface SortArrayOfDeepObjects {
+    inner: {
+        number: number;
+    };
 }
-
-const input: Input[] = [
-    { inner: { number: 5 } },
-    { inner: { number: 3 } }
-];
-
-// Allow to use without types
-
-// $ExpectType object[]
-sort(input, 'inner.number');
-sort(input, 'inner.number', { 'inner.number': [5, 3] });
+const data: SortArrayOfDeepObjects[] = [{ inner: { number: 2 } }, { inner: { number: 3 } }, { inner: { number: 1 } }];
+// $ExpectType SortArrayOfDeepObjects[]
+sortArray(data, {
+    by: 'number',
+    computed: {
+        number: row => row.inner.number,
+    },
+});

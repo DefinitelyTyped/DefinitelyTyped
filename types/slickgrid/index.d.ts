@@ -307,7 +307,7 @@ declare namespace Slick {
     * @extends Slick.NonDataItem
     * @constructor
     */
-    export class GroupTotals<T> extends NonDataRow {
+    export class GroupTotals<T extends SlickData> extends NonDataRow {
 
         constructor();
 
@@ -507,7 +507,7 @@ declare namespace Slick {
     }
 
     export interface EditorFactory {
-        getEditor<T>(column: Column<T>): Editors.Editor<T>;
+        getEditor<T extends SlickData>(column: Column<T>): Editors.Editor<T>;
     }
 
     export interface FormatterFactory<T extends SlickData> {
@@ -743,7 +743,7 @@ declare namespace Slick {
         // todo ? might be able to leave as empty
     }
 
-    export interface RowMetadata<T> {
+    export interface RowMetadata<T extends SlickData> {
         /**
          * One or more (space-separated) CSS classes to be added to the entire row.
          */
@@ -1671,7 +1671,7 @@ declare namespace Slick {
             public onPagingInfoChanged: Slick.Event<OnPagingInfoChangedEventData>;
         }
 
-        export interface GroupingOptions<T> {
+        export interface GroupingOptions<T extends SlickData> {
             getter?: ((item?: T) => any) | string | undefined;
             formatter?: ((item?: T) => string) | undefined;
             comparer?: ((a: Group<T>, b: Group<T>) => number) | undefined;
@@ -1717,19 +1717,19 @@ declare namespace Slick {
                 public storeResult(groupTotals: GroupTotals<T>): void;
             }
 
-            export class Avg<T> extends Aggregator<T> {
+            export class Avg<T extends Slick.SlickData> extends Aggregator<T> {
 
             }
 
-            export class Min<T> extends Aggregator<T> {
+            export class Min<T extends Slick.SlickData> extends Aggregator<T> {
 
             }
 
-            export class Max<T> extends Aggregator<T> {
+            export class Max<T extends Slick.SlickData> extends Aggregator<T> {
 
             }
 
-            export class Sum<T> extends Aggregator<T> {
+            export class Sum<T extends Slick.SlickData> extends Aggregator<T> {
 
             }
         }

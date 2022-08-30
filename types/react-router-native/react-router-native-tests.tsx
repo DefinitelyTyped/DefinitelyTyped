@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { AndroidBackButton, BackButton, Link, NativeRouter as Router, Route } from 'react-router-native';
 
-const Home: React.SFC = () => {
+const Home: React.FC = () => {
   return (
     <View>
       <Text style={styles.welcome}>
@@ -16,7 +16,7 @@ const Home: React.SFC = () => {
  );
 };
 
-const About: React.SFC = () => {
+const About: React.FC = () => {
   return (
     <Text style={styles.header}>
       About
@@ -28,7 +28,7 @@ interface ButtonTextProps extends TouchableOpacityProps {
     text: string;
 }
 
-const ButtonText: React.SFC<ButtonTextProps> = ({ text, ...props }) => (
+const ButtonText: React.FC<ButtonTextProps> = ({ text, ...props }) => (
   <TouchableOpacity {...props}><Text>{text}</Text></TouchableOpacity>
 );
 

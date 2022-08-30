@@ -12,7 +12,10 @@ const Example = ({ sample, children }: { sample: ImageSourcePropType; children: 
 );
 
 class CanvasTest extends React.Component {
-    handleImageData(canvas: Canvas) {
+    handleImageData(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 
@@ -33,7 +36,10 @@ class CanvasTest extends React.Component {
         });
     }
 
-    handlePurpleRect(canvas: Canvas) {
+    handlePurpleRect(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 
@@ -48,7 +54,10 @@ class CanvasTest extends React.Component {
         const { width } = context.measureText('yo');
     }
 
-    handleRedCircle(canvas: Canvas) {
+    handleRedCircle(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 
@@ -59,7 +68,10 @@ class CanvasTest extends React.Component {
         context.fill();
     }
 
-    handleImageRect(canvas: Canvas) {
+    handleImageRect(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         const image = new CanvasImage(canvas);
         canvas.width = 100;
         canvas.height = 100;
@@ -73,7 +85,10 @@ class CanvasTest extends React.Component {
         });
     }
 
-    handlePath(canvas: Canvas) {
+    handlePath(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
         const context = canvas.getContext('2d');
@@ -96,7 +111,10 @@ class CanvasTest extends React.Component {
         context.restore();
     }
 
-    handleGradient(canvas: Canvas) {
+    handleGradient(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
         const ctx = canvas.getContext('2d');
@@ -107,7 +125,10 @@ class CanvasTest extends React.Component {
         ctx.fillRect(0, 0, 100, 100);
     }
 
-    handleEmbedHTML(canvas: Canvas) {
+    handleEmbedHTML(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         const image = new CanvasImage(canvas);
         canvas.width = 100;
         canvas.height = 100;
@@ -133,7 +154,10 @@ class CanvasTest extends React.Component {
         });
     }
 
-    handleToDataURL(canvas: Canvas) {
+    handleToDataURL(canvas: Canvas | null) {
+        if (canvas === null) {
+            return;
+        }
         canvas.width = 100;
         canvas.height = 100;
 

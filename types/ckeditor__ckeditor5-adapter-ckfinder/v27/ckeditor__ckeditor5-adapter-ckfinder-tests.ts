@@ -18,11 +18,11 @@ utils.getCsrfToken();
 
 utils.setCookie("foo", "bar");
 
-// $ExpectError
+// @ts-expect-error
 utils.setCookie("foo", 5);
 // $ExpectType string
 utils.getCsrfToken();
-// $ExpectError
+// @ts-expect-error
 utils.getCookie(null);
 
 class Foo extends UploadAdapter {

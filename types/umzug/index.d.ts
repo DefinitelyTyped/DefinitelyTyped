@@ -212,7 +212,7 @@ declare namespace umzug {
 
     interface Migration {
         file: string;
-        
+
         migration(): Promise<any>;
         up(): Promise<any>;
         down(): Promise<any>;
@@ -222,7 +222,7 @@ declare namespace umzug {
     interface MigrationDefinitionWithName extends Migration {
         name: string;
     }
-    
+
     interface Umzug extends EventEmitter {
         /**
          * The execute method is a general purpose function that runs for

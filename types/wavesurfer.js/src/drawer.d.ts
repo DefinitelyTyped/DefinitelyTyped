@@ -1,5 +1,5 @@
-import { WaveSurferParams } from "../types/params";
-import Observer from "./util/observer";
+import { WaveSurferParams } from '../types/params';
+import Observer from './util/observer';
 
 export default class Drawer extends Observer {
     constructor(container: HTMLElement, params: WaveSurferParams);

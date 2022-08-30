@@ -1,8 +1,1 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "dt-header": false,
-        "no-trailing-whitespace": false,
-        "only-arrow-functions": false
-    }
-}
+{ "extends": "@definitelytyped/dtslint/dt.json" }

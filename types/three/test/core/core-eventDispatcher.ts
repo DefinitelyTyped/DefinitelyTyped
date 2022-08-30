@@ -26,17 +26,18 @@ eveDisForTestEvent.addEventListener('foo', e => {
 
     // NOTE: Error in ts lower than 3.9. The minimum typescript version cannot be raised from 3.6 because of the dependency from aframe.
     // e.foo; // $ExpectType number
-    e.bar; // $ExpectError
+    // @ts-expect-error
+    e.bar;
 });
 // call addEventListener with an invalid event
-// $ExpectError
+// @ts-expect-error
 eveDisForTestEvent.addEventListener('baz', () => {});
 
 eveDisForTestEvent.dispatchEvent({ type: 'foo', foo: 42 });
 // call dispatchEvent with an invalid event
-// $ExpectError
+// @ts-expect-error
 eveDisForTestEvent.dispatchEvent({ type: 'foo', foo: '42' });
-// $ExpectError
+// @ts-expect-error
 eveDisForTestEvent.dispatchEvent({ type: 'foo', bar: '42' });
 
 eveDisForTestEvent.removeEventListener('bar', () => {});

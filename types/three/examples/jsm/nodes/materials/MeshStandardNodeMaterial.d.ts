@@ -1,21 +1,27 @@
-import { Color } from '../../../../src/math/Color';
-import { Texture } from '../../../../src/textures/Texture';
-import { CubeTexture } from '../../../../src/textures/CubeTexture';
-import { Vector2 } from '../../../../src/math/Vector2';
+import { ShaderMaterialParameters } from '../../../../src/Three';
+import Node from '../core/Node';
+import NodeMaterial from './NodeMaterial';
 
-import { Node } from '../core/Node';
-import { NodeMaterial } from './NodeMaterial';
+export default class MeshStandardNodeMaterial extends NodeMaterial {
+    isMeshStandardNodeMaterial: true;
 
-export class MeshStandardNodeMaterial extends NodeMaterial {
-    constructor();
+    colorNode: Node | null;
+    opacityNode: Node | null;
+    alphaTestNode: Node | null;
+    normalNode: Node | null;
+    emissiveNode: Node | null;
 
-    color: Color | Node;
-    roughness: number | Node;
-    metalness: number | Node;
-    map: Texture | Node;
-    normalMap: Texture | Node;
-    normalScale: Vector2 | Node;
-    metalnessMap: Texture | Node;
-    roughnessMap: Texture | Node;
-    envMap: CubeTexture | Node;
+    metalnessNode: Node | null;
+    roughnessNode: Node | null;
+
+    clearcoatNode: Node | null;
+    clearcoatRoughnessNode: Node | null;
+
+    envNode: Node | null;
+
+    lightsNode: Node | null;
+    positionNode: Node | null;
+
+    constructor(paramters?: ShaderMaterialParameters);
+    copy(source: MeshStandardNodeMaterial): this;
 }

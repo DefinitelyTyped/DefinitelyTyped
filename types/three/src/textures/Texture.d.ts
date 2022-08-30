@@ -1,5 +1,6 @@
 import { Vector2 } from './../math/Vector2';
 import { Matrix3 } from './../math/Matrix3';
+import { Source } from './Source';
 import { EventDispatcher } from './../core/EventDispatcher';
 import {
     Mapping,
@@ -47,9 +48,30 @@ export class Texture extends EventDispatcher {
     sourceFile: string;
 
     /**
-     * @default THREE.Texture.DEFAULT_IMAGE
+     * The data definition of a texture. A reference to the data source can be shared across textures.
+     * This is often useful in context of spritesheets where multiple textures render the same data but with different texture transformations.
      */
-    image: any; // HTMLImageElement or ImageData or { width: number, height: number } in some children;
+    source: Source;
+
+    /**
+     * An image object, typically created using the {@link TextureLoader.load} method.
+     * This can be any image (e.g., PNG, JPG, GIF, DDS) or video (e.g., MP4, OGG/OGV) type supported by three.js.
+     *
+     * To use video as a texture you need to have a playing HTML5
+     * video element as a source for your texture image and continuously update this texture
+     * as long as video is playing - the {@link VideoTexture} class handles this automatically.
+     */
+    get image(): any;
+
+    /**
+     * An image object, typically created using the {@link TextureLoader.load} method.
+     * This can be any image (e.g., PNG, JPG, GIF, DDS) or video (e.g., MP4, OGG/OGV) type supported by three.js.
+     *
+     * To use video as a texture you need to have a playing HTML5
+     * video element as a source for your texture image and continuously update this texture
+     * as long as video is playing - the {@link VideoTexture} class handles this automatically.
+     */
+    set image(data: any);
 
     /**
      * @default []
@@ -159,10 +181,21 @@ export class Texture extends EventDispatcher {
     isRenderTargetTexture: boolean;
 
     /**
+     * @default false
+     */
+    needsPMREMUpdate: boolean;
+
+    /**
+     * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
+     * @default {}
+     */
+    userData: any;
+
+    /**
      * @default 0
      */
     version: number;
-    needsUpdate: boolean;
+    set needsUpdate(value: boolean);
     readonly isTexture: true;
 
     onUpdate: () => void;

@@ -79,6 +79,12 @@ export namespace Downloads {
         incognito: boolean;
 
         /**
+         * The cookie store ID of the contextual identity.
+         * Optional.
+         */
+        cookieStoreId?: string;
+
+        /**
          * Indication of whether this download is thought to be safe or known to be suspicious.
          */
         danger: DangerType;
@@ -289,6 +295,12 @@ export namespace Downloads {
         filename?: string;
 
         /**
+         * The cookie store ID of the contextual identity.
+         * Optional.
+         */
+        cookieStoreId?: string;
+
+        /**
          * Indication of whether this download is thought to be safe or known to be suspicious.
          * Optional.
          */
@@ -372,6 +384,12 @@ export namespace Downloads {
          * Optional.
          */
         incognito?: boolean;
+
+        /**
+         * The cookie store ID of the contextual identity; requires "cookies" permission.
+         * Optional.
+         */
+        cookieStoreId?: string;
 
         /**
          * Optional.

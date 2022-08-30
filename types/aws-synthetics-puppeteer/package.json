@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "aws-sdk": ">=2.7.15",
+        "aws-sdk": ">=2.814.0",
         "aws-xray-sdk-core": "=3.3.1"
     }
 }

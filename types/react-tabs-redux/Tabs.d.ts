@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 export interface TabsProps {
+    children?: React.ReactNode;
     name?: string | undefined;
     onChange?: ((selectedTab: string, name: string) => void) | undefined;
     handleSelect?: ((tab: string, name: string) => void) | undefined;

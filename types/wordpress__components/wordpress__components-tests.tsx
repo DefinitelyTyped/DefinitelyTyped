@@ -1,7 +1,12 @@
 import * as C from '@wordpress/components';
 import { Component } from '@wordpress/element';
 import { Value } from '@wordpress/rich-text';
-import { createRef, MouseEvent as ReactMouseEvent } from 'react';
+import {
+    createRef,
+    KeyboardEvent as ReactKeyboardEvent,
+    MouseEvent as ReactMouseEvent,
+    FocusEvent as ReactFocusEvent,
+} from 'react';
 
 //
 // primitives
@@ -12,11 +17,7 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 //
 // angle-picker-control
 //
-<C.AnglePickerControl
-    value={350}
-    label="Test label"
-    onChange={value => console.log(value)}
-/>;
+<C.AnglePickerControl value={350} label="Test label" onChange={value => console.log(value)} />;
 
 //
 // animate
@@ -24,6 +25,7 @@ import { createRef, MouseEvent as ReactMouseEvent } from 'react';
 <C.Animate type="appear" options={{ origin: 'top left' }}>
     {({ className }) => <h1 className={className}>Hello World</h1>}
 </C.Animate>;
+<C.Animate type="loading">{({ className }) => <h1 className={className}>Hello World</h1>}</C.Animate>;
 
 //
 // autocomplete
@@ -39,8 +41,8 @@ let record: Value = {
     text: '',
 };
 <C.Autocomplete<MyCompleteOption>
-    onReplace={(value) => (record = value)}
-    onChange={(value) => (record = value)}
+    onReplace={value => (record = value)}
+    onChange={value => (record = value)}
     record={record}
     isSelected={false}
     completers={[
@@ -97,7 +99,11 @@ let record: Value = {
     Anchor Button
 </C.Button>;
 
-<C.Button autoFocus isDestructive isLarge isSecondary>
+<C.Button autoFocus isDestructive isSecondary>
+    Deprecated Button
+</C.Button>;
+
+<C.Button autoFocus isDestructive variant="primary">
     Button Button
 </C.Button>;
 
@@ -118,20 +124,16 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // card
 //
 <C.Card>I'm a card!</C.Card>;
-<C.Card isElevated isBorderless className="card" size="large">
+<C.Card elevation={4} isBorderless className="card" size="large">
     I'm a card with props!
 </C.Card>;
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 
-// These components can be rendered as other components:
-<C.Card as={C.HorizontalRule} />;
 // Card renders a `div` by default:
 <C.Card onClick={(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {}} />;
 // `div` doesn't support autoFocus:
-// $ExpectError
+// @ts-expect-error
 <C.Card autoFocus />;
-// With `as="button"`, a `button` element is rendered and `button` props are accepted:
-<C.Card as="button" autoFocus onClick={(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) => {}} />;
 
 <C.CardBody isShady size="extraSmall">
     Hello world!
@@ -146,9 +148,9 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 </C.CardFooter>;
 
 // Divider has no children or props except className
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider>Hello world!</C.CardDivider>;
-// $ExpectError
+// @ts-expect-error
 <C.CardDivider isShady />;
 <C.CardDivider />;
 
@@ -199,6 +201,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 <C.ColorPicker onChangeComplete={color => console.log(color.hex)} disableAlpha />;
 
 //
+// combobox-control
+//
+<C.ComboboxControl
+    label={'Region'}
+    value={'UK'}
+    onChange={value => {
+        console.log(value);
+    }}
+    options={[
+        {
+            label: 'test',
+            value: 'test',
+        },
+    ]}
+/>;
+
+//
 // custom-select-control
 //
 <C.CustomSelectControl
@@ -215,6 +234,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // dashicon
 //
 <C.Dashicon icon="editor-code" size={50} />;
+<C.Dashicon icon="calculator" />;
 
 //
 // date-time
@@ -277,7 +297,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
     )}
 </C.DropdownMenu>;
 <C.DropdownMenu
-    icon="move"
+    icon={<span>icon</span>}
     label="Select a direction"
     controls={[
         {
@@ -302,6 +322,21 @@ const buttonGroupRef = createRef<HTMLDivElement>();
         },
     ]}
 />;
+<C.DropdownMenu
+    icon={<span>icon</span>}
+    label="Select a direction"
+    controls={[
+        {
+            title: 'Up',
+            icon: 'arrow-up-alt',
+            onClick: () => console.log('up'),
+        },
+    ]}
+    menuProps={{ orientation: 'vertical' }}
+    popoverProps={{ animate: true }}
+    toggleProps={{ variant: 'primary' }}
+    disableOpenOnArrowDown={true}
+/>;
 
 //
 // external-link
@@ -311,23 +346,15 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 //
 // flex
 //
-<C.Flex
-    isReversed
-    gap={3}
-    align='bottom'
-    justify='left'
-    className="test-classname"
->
+<C.Flex direction="column" gap={3} align="bottom" justify="left" className="test-classname">
     <C.FlexBlock className="test-classname">Test Flex Block</C.FlexBlock>
-    <C.FlexItem className="test-classname">
-        Flex Item 1
-    </C.FlexItem>
-    <C.FlexItem>
-        Flex Item 2
-    </C.FlexItem>
+    <C.FlexItem className="test-classname">Flex Item 1</C.FlexItem>
+    <C.FlexItem>Flex Item 2</C.FlexItem>
 </C.Flex>;
 
-<C.Flex><div /></C.Flex>;
+<C.Flex>
+    <div />
+</C.Flex>;
 
 //
 // focal-point-picker
@@ -402,6 +429,23 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 />;
 
 //
+// guide
+//
+<C.Guide
+    finishButtonText="Finish"
+    contentLabel="Guide title"
+    onFinish={() => {
+        console.log('finished');
+    }}
+    pages={[
+        {
+            content: <h1>My Page</h1>,
+            image: <h1>My Page Image</h1>,
+        },
+    ]}
+/>;
+
+//
 // icon
 //
 <C.Icon />;
@@ -432,7 +476,7 @@ const IconFunctionComponent = (props: { foo: number; bar: number }) => (
 // keyboard-shortcuts
 //
 const kbshortcutActionOne = () => console.log('action 1');
-const kbshortcutActionTwo = () => console.log('action 1');
+const kbshortcutActionTwo = (event: KeyboardEvent) => console.log('action 1', event);
 const kbshortcuts = {
     'mod+a': kbshortcutActionOne,
     'ctrl+shift+j': kbshortcutActionTwo,
@@ -446,7 +490,7 @@ const kbshortcuts = {
 // menu-group, menu-item
 //
 <C.MenuGroup>
-    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isLarge>
+    <C.MenuItem icon="yes" isSelected={true} onClick={() => console.log('clicked')} isSmall>
         Toggle
     </C.MenuItem>
 </C.MenuGroup>;
@@ -481,7 +525,13 @@ const kbshortcuts = {
 //
 // modal
 //
-<C.Modal title="This is my modal" isDismissible={true} onRequestClose={() => console.log('closing modal')}>
+<C.Modal
+    title="This is my modal"
+    isDismissible={true}
+    onRequestClose={(event: ReactKeyboardEvent | ReactMouseEvent | ReactMouseEvent) =>
+        console.log(`The ${event.type} event told me to close myself!`)
+    }
+>
     <button onClick={() => console.log('clicked')}>My custom close button</button>
 </C.Modal>;
 
@@ -659,6 +709,28 @@ const kbshortcuts = {
         topLeft: false,
     }}
 />;
+<C.ResizableBox
+    showHandle
+    className="testing"
+    size={{
+        height: 100,
+        width: 100,
+    }}
+    minHeight="50"
+    minWidth={50}
+    enable={{
+        top: false,
+        right: true,
+        bottom: true,
+        left: false,
+        topRight: false,
+        bottomRight: true,
+        bottomLeft: false,
+        topLeft: false,
+    }}
+>
+    <div>hello</div>
+</C.ResizableBox>;
 
 //
 // responsive-wrapper
@@ -696,6 +768,17 @@ const kbshortcuts = {
     multiple
     options={[
         { label: 'Big', value: '100%' },
+        { label: 'Medium', value: '50%' },
+        { label: 'Small', value: '25%' },
+    ]}
+    onChange={size => console.log(size)}
+/>;
+<C.SelectControl
+    label="Size"
+    value={['50%']}
+    multiple
+    options={[
+        { label: 'Big', value: '100%', disabled: true },
         { label: 'Medium', value: '50%' },
         { label: 'Small', value: '25%' },
     ]}
@@ -787,6 +870,11 @@ const kbshortcuts = {
 />;
 
 //
+// tip
+//
+<C.Tip>Hello</C.Tip>;
+
+//
 // toggle-control
 //
 <C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
@@ -863,6 +951,25 @@ const kbshortcuts = {
     subscript="hi"
     title="Toolbar Button"
     onClick={() => console.log('clicked')}
+/>;
+<C.ToolbarButton icon={<span>click</span>} label="Paragraph" />;
+<C.ToolbarButton>Text</C.ToolbarButton>;
+
+//
+// toolbar-group
+//
+<C.ToolbarGroup
+    isCollapsed
+    icon={undefined}
+    label="More rich text controls"
+    controls={[
+        { icon: <div>icon</div>, title: 'Inline code' },
+        { icon: <div>icon</div>, title: 'Inline image' },
+        {
+            icon: <div>icon</div>,
+            title: 'Strikethrough',
+        },
+    ]}
 />;
 
 //
@@ -976,6 +1083,14 @@ const MySlotFillProvider = () => {
         ) : null
     }
 </C.Slot>;
+
+//
+// visually-hidden
+//
+<C.VisuallyHidden>Hello</C.VisuallyHidden>;
+<C.VisuallyHidden as="span" className="test-class">
+    Hello
+</C.VisuallyHidden>;
 
 //
 // higher-order/navigate-regions

@@ -1,4 +1,4 @@
-// Type definitions for ember-data 3.16
+// Type definitions for ember-data 4.4
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -6,7 +6,7 @@
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 import Ember from 'ember';
 import Evented from '@ember/object/evented';
@@ -173,6 +173,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
@@ -603,7 +609,7 @@ export namespace DS {
          * for each relationship with that type, describing the name of the relationship
          * as well as the type.
          */
-        static relationships: Ember.ComputedProperty<Ember.Map>;
+        static relationships: Ember.ComputedProperty<Map<string, unknown>>;
         /**
          * A hash containing lists of the model's relationships, grouped
          * by the relationship kind. For example, given a model with this
@@ -620,13 +626,13 @@ export namespace DS {
          * A map whose keys are the relationships of a model and whose values are
          * relationship descriptors.
          */
-        static relationshipsByName: Ember.ComputedProperty<Ember.Map>;
+        static relationshipsByName: Ember.ComputedProperty<Map<string, unknown>>;
         /**
          * A map whose keys are the fields of the model and whose values are strings
          * describing the kind of the field. A model's fields are the union of all of its
          * attributes and relationships.
          */
-        static fields: Ember.ComputedProperty<Ember.Map>;
+        static fields: Ember.ComputedProperty<Map<string, unknown>>;
         /**
          * Given a callback, iterates over each of the relationships in the model,
          * invoking the callback with the name of each relationship and its relationship
@@ -648,14 +654,14 @@ export namespace DS {
          * described by DS.attr) and whose values are the meta object for the
          * property.
          */
-        static attributes: Ember.ComputedProperty<Ember.Map>;
+        static attributes: Ember.ComputedProperty<Map<string, unknown>>;
         /**
          * A map whose keys are the attributes of the model (properties
          * described by DS.attr) and whose values are type of transformation
          * applied to each attribute. This map does not include any
          * attributes that do not have an transformation type.
          */
-        static transformedAttributes: Ember.ComputedProperty<Ember.Map>;
+        static transformedAttributes: Ember.ComputedProperty<Map<string, unknown>>;
         /**
          * Iterates through the attributes of the model, calling the passed function on each
          * attribute.
@@ -886,11 +892,9 @@ export namespace DS {
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
      * relationship.
      */
-    interface ManyArray<T> extends Ember.MutableArray<T> {}
-    class ManyArray<T> extends Ember.Object.extend(
-        Ember.MutableArray as {},
-        Ember.Evented
-    ) {
+    // tslint:disable-next-line:no-empty-interface -- used for declaration merge
+    interface ManyArray<T> extends Ember.MutableArray<T>, Evented {}
+    class ManyArray<T> extends Ember.Object {
         /**
          * The loading state of this array
          */
@@ -993,7 +997,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */
@@ -1388,6 +1392,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */

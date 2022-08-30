@@ -1100,7 +1100,7 @@ export interface ResponseToolkit {
      * There is no difference between throwing the error or passing it with the h.unauthenticated() method is no credentials are passed, but it might still be helpful for code clarity.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-hunauthenticatederror-data)
      */
-    unauthenticated(error: Error, data?: AuthenticationData): void;
+    unauthenticated(error: Error, data?: AuthenticationData): Auth;
 
     /**
      * Clears a response cookie using the same arguments as
@@ -1495,7 +1495,7 @@ export interface RouteOptionsResponse {
 
     /**
      * @default none.
-     * [joi](http://github.com/hapijs/joi) options object pass to the validation function. Useful to set global options such as stripUnknown or abortEarly (the complete list is available here). If a
+     * [joi](https://github.com/hapijs/joi) options object pass to the validation function. Useful to set global options such as stripUnknown or abortEarly (the complete list is available here). If a
      * custom validation function is defined via schema or status then options can an arbitrary object that will be passed to this function as the second argument.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-routeoptionsresponseoptions)
      */
@@ -1620,7 +1620,7 @@ export interface RouteOptionsSecureObject {
      * Note: this setting can create a security vulnerability in versions of Internet Exploere below 8, as well as unpatched versions of IE8. See here and here for more information. If you actively
      * support old versions of IE, it may be wise to explicitly set this flag to false.
      */
-    xss: boolean;
+    xss?: boolean | undefined;
     /**
      * boolean controlling the 'X-Download-Options' header for Internet Explorer, preventing downloads from executing in your context. Defaults to true setting the header to 'noopen'.
      */

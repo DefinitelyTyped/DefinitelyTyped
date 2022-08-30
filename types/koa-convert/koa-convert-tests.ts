@@ -3,14 +3,16 @@ import Koa = require('koa');
 
 const app = new Koa();
 
-app.use(modernMiddleware);
-
-app.use(convert(legacyMiddleware));
-
-function * legacyMiddleware(next: any) {
+function *legacyMiddleware(next: any) {
   yield next;
 }
+app.use(convert(legacyMiddleware));
+app.use(convert.back(legacyMiddleware));
 
-function modernMiddleware(ctx: Koa.Context, next: any) {
+function modernMiddleware(ctx: Koa.Context, next: Koa.Next) {
   return next().then(() => {});
 }
+app.use(convert(modernMiddleware));
+app.use(convert.back(modernMiddleware));
+
+app.use(convert.compose(legacyMiddleware, modernMiddleware));

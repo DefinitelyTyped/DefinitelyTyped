@@ -55,7 +55,9 @@ const modem9 = new DockerModem({
 const customAgent = new Agent();
 const modem10 = new DockerModem({ agent: customAgent });
 
-modem.dial({ path: '/path' }, (err, result) => {
+const abortController = new AbortController();
+
+modem.dial({ path: '/path', abortSignal: abortController.signal }, (err, result) => {
     // NOOP;
 });
 

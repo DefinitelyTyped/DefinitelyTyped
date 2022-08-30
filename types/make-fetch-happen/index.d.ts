@@ -1,12 +1,12 @@
-// Type definitions for make-fetch-happen 9.0
+// Type definitions for make-fetch-happen 10.0
 // Project: https://github.com/npm/make-fetch-happen
 // Definitions by: Jesse Rosenberger <https://github.com/abernix>
 //                 Trevor Scheer <https://github.com/trevor-scheer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.0
 /// <reference lib="dom" />
 import { ClientRequestArgs, AgentOptions } from 'http';
-import { CommonConnectionOptions, SecureContextOptions } from 'tls';
+import { SecureContextOptions } from 'tls';
 import { URL as NodeURL } from 'url';
 
 import { RequestInit, Response } from 'node-fetch';
@@ -26,7 +26,7 @@ declare namespace fetch {
     >;
 
     type TlsOptions = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
-        strictSSL?: CommonConnectionOptions['rejectUnauthorized'] | undefined;
+        strictSSL?: boolean | undefined;
     };
 
     interface MakeFetchHappenOptions {

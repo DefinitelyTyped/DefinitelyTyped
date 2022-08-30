@@ -1,6 +1,6 @@
 // Type definitions for @babel/standalone 7.1
 // Project: https://github.com/babel/babel/tree/master/packages/babel-standalone
-// Definitions by: Matheus Goncalves da Silva <https://github.com/PlayMa256>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 

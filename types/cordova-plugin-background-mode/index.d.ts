@@ -1,6 +1,6 @@
 // Type definitions for Apache Background Mode plugin
 // Project: https://github.com/katzer/cordova-plugin-background-mode
-// Definitions by: Paul Thiel <https://github.com/Lordnoname>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

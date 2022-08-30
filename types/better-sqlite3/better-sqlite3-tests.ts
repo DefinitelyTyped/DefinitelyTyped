@@ -2,11 +2,12 @@ import Sqlite = require('better-sqlite3');
 
 const err = new Sqlite.SqliteError('ok', 'ok');
 const result: Sqlite.RunResult = { changes: 1, lastInsertRowid: 1 };
-const options: Sqlite.Options = { fileMustExist: true, readonly: true };
+const options: Sqlite.Options = { fileMustExist: true, readonly: true, nativeBinding: "/some/native/binding/path" };
 const registrationOptions: Sqlite.RegistrationOptions = {
     deterministic: true,
     safeIntegers: true,
     varargs: true,
+    directOnly: true,
 };
 
 let db: Sqlite.Database = Sqlite(':memory:');
@@ -21,12 +22,17 @@ db.table('vtable', {
     },
 });
 db.function('noop', () => {});
-db.function('noop', { deterministic: true, varargs: true }, () => {});
+db.function('noop', {
+    deterministic: true,
+    varargs: true,
+    directOnly: true
+}, () => {});
 db.aggregate('add', {
     start: 0,
     step: (t, n) => t + n,
     deterministic: true,
     varargs: true,
+    directOnly: true,
 });
 db.aggregate('getAverage', {
     start: () => [],
@@ -48,6 +54,8 @@ const vtable: Sqlite.Statement = db.prepare('SELECT * FROM vtable');
 vtable.all();
 
 const stmt: Sqlite.Statement = db.prepare('SELECT * FROM test WHERE name == ?;');
+stmt.busy; // $ExpectType boolean
+
 stmt.get(['name']);
 stmt.all({ name: 'name' });
 for (const row of stmt.iterate('name')) {
@@ -74,7 +82,7 @@ stmtWithBindTyped.run('alice', 20, BigInt(1234));
 // note the following is technically legal according to the docs, but we do not have a way to express both typed args
 // and variable tuples in typescript. If you want to group tuples, you must specify it that way in the prepare function
 // https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md#binding-parameters
-// $ExpectError
+// @ts-expect-error
 stmtWithBindTyped.run(['alice', 20, BigInt(1234)]);
 interface NamedBindParameters {
     name: string;
@@ -98,12 +106,14 @@ trans.default(1);
 trans.deferred(1);
 trans.immediate(1);
 trans.exclusive(1);
-// $ExpectError
+// @ts-expect-error
 transTyped('name');
 
 const transReturn = db.transaction(() => 1);
 // $ExpectType number
 transReturn();
+
+db.serialize();
 
 db.backup('backup-today.db').then(({ totalPages, remainingPages }) => {});
 const paused = false;
@@ -112,3 +122,9 @@ db.backup('backup-today.db', {
         return paused ? 0 : 200;
     },
 });
+
+const newDb = new Sqlite(db.serialize());
+db.close();
+
+const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>('INSERT INTO test VALUES (@name, @age, @id)');
+stmtWithNamedBindForNewDb.run({ name: 'bob1', age: 201, id: BigInt(1234) });

@@ -6,7 +6,7 @@
  * ```js
  * const util = require('util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/util.js)
  */
 declare module 'util' {
     import * as types from 'node:util/types';
@@ -114,6 +114,20 @@ declare module 'util' {
      */
     export function formatWithOptions(inspectOptions: InspectOptions, format?: any, ...param: any[]): string;
     /**
+     * Returns the string name for a numeric error code that comes from a Node.js API.
+     * The mapping between error codes and error names is platform-dependent.
+     * See `Common System Errors` for the names of common errors.
+     *
+     * ```js
+     * fs.access('file/that/does/not/exist', (err) => {
+     *   const name = util.getSystemErrorName(err.errno);
+     *   console.error(name);  // ENOENT
+     * });
+     * ```
+     * @since v9.7.0
+     */
+    export function getSystemErrorName(err: number): string;
+    /**
      * Returns a Map of all system error codes available from the Node.js API.
      * The mapping between error codes and error names is platform-dependent.
      * See `Common System Errors` for the names of common errors.
@@ -125,7 +139,7 @@ declare module 'util' {
      *   console.error(name);  // ENOENT
      * });
      * ```
-     * @since v16.0.0
+     * @since v16.0.0, v14.17.0
      */
     export function getSystemErrorMap(): Map<number, [string, string]>;
     /**
@@ -145,7 +159,7 @@ declare module 'util' {
      * Returns the `string` after replacing any surrogate code points
      * (or equivalently, any unpaired surrogate code units) with the
      * Unicode "replacement character" U+FFFD.
-     * @since v16.8.0
+     * @since v16.8.0, v14.18.0
      */
     export function toUSVString(string: string): string;
     /**
@@ -295,6 +309,21 @@ declare module 'util' {
      * );
      * ```
      *
+     * The `numericSeparator` option adds an underscore every three digits to all
+     * numbers.
+     *
+     * ```js
+     * const { inspect } = require('util');
+     *
+     * const thousand = 1_000;
+     * const million = 1_000_000;
+     * const bigNumber = 123_456_789n;
+     * const bigDecimal = 1_234.123_45;
+     *
+     * console.log(thousand, million, bigNumber, bigDecimal);
+     * // 1_000 1_000_000 123_456_789n 1_234.123_45
+     * ```
+     *
      * `util.inspect()` is a synchronous method intended for debugging. Its maximum
      * output length is approximately 128 MB. Inputs that result in longer output will
      * be truncated.
@@ -303,7 +332,7 @@ declare module 'util' {
      * @return The representation of `object`.
      */
     export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export function inspect(object: any, options?: InspectOptions): string;
     export namespace inspect {
         let colors: NodeJS.Dict<[number, number]>;
         let styles: {
@@ -314,6 +343,9 @@ declare module 'util' {
          * Allows changing inspect settings from the repl.
          */
         let replDefaults: InspectOptions;
+        /**
+         * That can be used to declare custom inspect functions.
+         */
         const custom: unique symbol;
     }
     /**
@@ -520,6 +552,7 @@ declare module 'util' {
      * @return The logging function
      */
     export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
+    export const debug: typeof debuglog;
     /**
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
      *
@@ -790,6 +823,16 @@ declare module 'util' {
      */
     export function isDeepStrictEqual(val1: unknown, val2: unknown): boolean;
     /**
+     * Returns `str` with any ANSI escape codes removed.
+     *
+     * ```js
+     * console.log(util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'));
+     * // Prints "value"
+     * ```
+     * @since v16.11.0
+     */
+    export function stripVTControlCharacters(str: string): string;
+    /**
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument. In the callback, the
@@ -831,7 +874,7 @@ declare module 'util' {
      * callbackFunction((err, ret) => {
      *   // When the Promise was rejected with `null` it is wrapped with an Error and
      *   // the original value is stored in `reason`.
-     *   err &#x26;&#x26; err.hasOwnProperty('reason') &#x26;&#x26; err.reason === null;  // true
+     *   err &#x26;&#x26; Object.hasOwn(err, 'reason') &#x26;&#x26; err.reason === null;  // true
      * });
      * ```
      * @since v8.2.0
@@ -961,19 +1004,18 @@ declare module 'util' {
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
+        /**
+         * That can be used to declare custom promisified variants of functions.
+         */
         const custom: unique symbol;
     }
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
      *
      * ```js
-     * const decoder = new TextDecoder('shift_jis');
-     * let string = '';
-     * let buffer;
-     * while (buffer = getNextChunkSomehow()) {
-     *   string += decoder.decode(buffer, { stream: true });
-     * }
-     * string += decoder.decode(); // end-of-stream
+     * const decoder = new TextDecoder();
+     * const u8arr = new Uint8Array([72, 101, 108, 108, 111]);
+     * console.log(decoder.decode(u8arr)); // Hello
      * ```
      * @since v8.3.0
      */
@@ -1063,6 +1105,193 @@ declare module 'util' {
          */
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
+
+    /**
+     * Provides a high-level API for command-line argument parsing. Takes a
+     * specification for the expected arguments and returns a structured object
+     * with the parsed values and positionals.
+     *
+     * `config` provides arguments for parsing and configures the parser. It
+     * supports the following properties:
+     *
+     *   - `args` The array of argument strings. **Default:** `process.argv` with
+     *     `execPath` and `filename` removed.
+     *   - `options` Arguments known to the parser. Keys of `options` are the long
+     *     names of options and values are objects accepting the following properties:
+     *
+     *     - `type` Type of argument, which must be either `boolean` (for options
+     *        which do not take values) or `string` (for options which do).
+     *     - `multiple` Whether this option can be provided multiple
+     *       times. If `true`, all values will be collected in an array. If
+     *       `false`, values for the option are last-wins. **Default:** `false`.
+     *     - `short` A single character alias for the option.
+     *
+     *   - `strict`: Whether an error should be thrown when unknown arguments
+     *     are encountered, or when arguments are passed that do not match the
+     *     `type` configured in `options`. **Default:** `true`.
+     *   - `allowPositionals`: Whether this command accepts positional arguments.
+     *     **Default:** `false` if `strict` is `true`, otherwise `true`.
+     *   - `tokens`: Whether tokens {boolean} Return the parsed tokens. This is useful
+     *     for extending the built-in behavior, from adding additional checks through
+     *     to reprocessing the tokens in different ways.
+     *     **Default:** `false`.
+     *
+     * @returns The parsed command line arguments:
+     *
+     *   - `values` A mapping of parsed option names with their string
+     *     or boolean values.
+     *   - `positionals` Positional arguments.
+     *   - `tokens` Detailed parse information (only if `tokens` was specified).
+     *
+     */
+    export function parseArgs<T extends ParseArgsConfig>(config: T): ParsedResults<T>;
+
+    interface ParseArgsOptionConfig {
+        type: 'string' | 'boolean';
+        short?: string;
+        multiple?: boolean;
+    }
+
+    interface ParseArgsOptionsConfig {
+        [longOption: string]: ParseArgsOptionConfig;
+    }
+
+    export interface ParseArgsConfig {
+        strict?: boolean;
+        allowPositionals?: boolean;
+        tokens?: boolean;
+        options?: ParseArgsOptionsConfig;
+        args?: string[];
+    }
+
+    /*
+    IfDefaultsTrue and IfDefaultsFalse are helpers to handle default values for missing boolean properties.
+    TypeScript does not have exact types for objects: https://github.com/microsoft/TypeScript/issues/12936
+    This means it is impossible to distinguish between "field X is definitely not present" and "field X may or may not be present".
+    But we expect users to generally provide their config inline or `as const`, which means TS will always know whether a given field is present.
+    So this helper treats "not definitely present" (i.e., not `extends boolean`) as being "definitely not present", i.e. it should have its default value.
+    This is technically incorrect but is a much nicer UX for the common case.
+    The IfDefaultsTrue version is for things which default to true; the IfDefaultsFalse version is for things which default to false.
+    */
+    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true
+        ? IfTrue
+        : T extends false
+        ? IfFalse
+        : IfTrue;
+
+    // we put the `extends false` condition first here because `undefined` compares like `any` when `strictNullChecks: false`
+    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false
+        ? IfFalse
+        : T extends true
+        ? IfTrue
+        : IfFalse;
+
+    type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
+        T['strict'],
+        O['type'] extends 'string' ? string : O['type'] extends 'boolean' ? boolean : string | boolean,
+        string | boolean
+    >;
+
+    type ParsedValues<T extends ParseArgsConfig> =
+        & IfDefaultsTrue<T['strict'], unknown, { [longOption: string]: undefined | string | boolean }>
+        & (T['options'] extends ParseArgsOptionsConfig
+            ? {
+                -readonly [LongOption in keyof T['options']]: IfDefaultsFalse<
+                    T['options'][LongOption]['multiple'],
+                    undefined | Array<ExtractOptionValue<T, T['options'][LongOption]>>,
+                    undefined | ExtractOptionValue<T, T['options'][LongOption]>
+                >;
+            }
+            : {});
+
+    type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
+        T['strict'],
+        IfDefaultsFalse<T['allowPositionals'], string[], []>,
+        IfDefaultsTrue<T['allowPositionals'], string[], []>
+    >;
+
+    type PreciseTokenForOptions<
+        K extends string,
+        O extends ParseArgsOptionConfig,
+    > = O['type'] extends 'string'
+        ? {
+              kind: 'option';
+              index: number;
+              name: K;
+              rawName: string;
+              value: string;
+              inlineValue: boolean;
+          }
+        : O['type'] extends 'boolean'
+        ? {
+              kind: 'option';
+              index: number;
+              name: K;
+              rawName: string;
+              value: undefined;
+              inlineValue: undefined;
+          }
+        : OptionToken & { name: K };
+
+    type TokenForOptions<
+        T extends ParseArgsConfig,
+        K extends keyof T['options'] = keyof T['options'],
+    > = K extends unknown
+        ? T['options'] extends ParseArgsOptionsConfig
+            ? PreciseTokenForOptions<K & string, T['options'][K]>
+            : OptionToken
+        : never;
+
+    type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
+
+    type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
+        T['strict'],
+        IfDefaultsFalse<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>,
+        IfDefaultsTrue<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>
+    >;
+
+    type ParsedTokens<T extends ParseArgsConfig> = Array<
+        ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: 'option-terminator'; index: number }
+    >;
+
+    type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
+        T['tokens'],
+        {
+            values: ParsedValues<T>;
+            positionals: ParsedPositionals<T>;
+            tokens: ParsedTokens<T>;
+        },
+        {
+            values: ParsedValues<T>;
+            positionals: ParsedPositionals<T>;
+        }
+    >;
+
+    type OptionToken =
+        | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
+        | {
+              kind: 'option';
+              index: number;
+              name: string;
+              rawName: string;
+              value: undefined;
+              inlineValue: undefined;
+          };
+
+    type Token =
+        | OptionToken
+        | { kind: 'positional'; index: number; value: string }
+        | { kind: 'option-terminator'; index: number };
+
+    // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
+    // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
+    type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T
+        ? {
+              values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+              positionals: string[];
+              tokens?: Token[];
+          }
+        : PreciseParsedResults<T>;
 }
 declare module 'util/types' {
     export * from 'util/types';

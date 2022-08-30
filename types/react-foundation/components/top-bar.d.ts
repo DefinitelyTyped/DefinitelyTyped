@@ -10,25 +10,25 @@ export interface TopBarProps extends FlexboxPropTypes, React.HTMLAttributes<HTML
  * @param {Object} props
  * @returns {Object}
  */
-export declare const TopBar: React.StatelessComponent<TopBarProps>;
+export declare const TopBar: React.FunctionComponent<TopBarProps>;
 /**
  * Top bar title sub-component.
  *
  * @param {Object} props
  * @returns {Object}
  */
-export declare const TopBarTitle: React.StatelessComponent<TopBarProps>;
+export declare const TopBarTitle: React.FunctionComponent<TopBarProps>;
 /**
  * Top bar left sub-component.
  *
  * @param {Object} props
  * @returns {Object}
  */
-export declare const TopBarLeft: React.StatelessComponent<TopBarProps>;
+export declare const TopBarLeft: React.FunctionComponent<TopBarProps>;
 /**
  * Top bar right sub-component.
  *
  * @param {Object} props
  * @returns {Object}
  */
-export declare const TopBarRight: React.StatelessComponent<TopBarProps>;
+export declare const TopBarRight: React.FunctionComponent<TopBarProps>;

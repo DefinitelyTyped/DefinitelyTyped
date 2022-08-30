@@ -24,6 +24,7 @@ es/call.d.ts
 es/chain.d.ts
 es/clamp.d.ts
 es/clone.d.ts
+es/collectBy.d.ts
 es/comparator.d.ts
 es/complement.d.ts
 es/compose.d.ts
@@ -36,6 +37,7 @@ es/construct.d.ts
 es/constructN.d.ts
 es/contains.d.ts
 es/converge.d.ts
+es/count.d.ts
 es/countBy.d.ts
 es/curry.d.ts
 es/curryN.d.ts
@@ -133,6 +135,7 @@ es/merge.d.ts
 es/mergeWith.d.ts
 es/mergeWithKey.d.ts
 es/minBy.d.ts
+es/modify.d.ts
 es/min.d.ts
 es/modulo.d.ts
 es/move.d.ts
@@ -147,12 +150,14 @@ es/o.d.ts
 es/objOf.d.ts
 es/of.d.ts
 es/omit.d.ts
+es/on.d.ts
 es/once.d.ts
 es/or.d.ts
 es/over.d.ts
 es/otherwise.d.ts
 es/pair.d.ts
 es/partial.d.ts
+es/partialObject.d.ts
 es/partialRight.d.ts
 es/partition.d.ts
 es/path.d.ts
@@ -171,6 +176,7 @@ es/pluck.d.ts
 es/prepend.d.ts
 es/product.d.ts
 es/project.d.ts
+es/promap.d.ts
 es/prop.d.ts
 es/propEq.d.ts
 es/propIs.d.ts
@@ -198,6 +204,7 @@ es/splitAt.d.ts
 es/split.d.ts
 es/splitEvery.d.ts
 es/splitWhen.d.ts
+es/splitWhenever.d.ts
 es/startsWith.d.ts
 es/subtract.d.ts
 es/sum.d.ts
@@ -278,6 +285,7 @@ src/call.d.ts
 src/chain.d.ts
 src/clamp.d.ts
 src/clone.d.ts
+src/collectBy.d.ts
 src/comparator.d.ts
 src/complement.d.ts
 src/compose.d.ts
@@ -290,6 +298,7 @@ src/construct.d.ts
 src/constructN.d.ts
 src/contains.d.ts
 src/converge.d.ts
+src/count.d.ts
 src/countBy.d.ts
 src/curry.d.ts
 src/curryN.d.ts
@@ -387,6 +396,7 @@ src/merge.d.ts
 src/mergeWith.d.ts
 src/mergeWithKey.d.ts
 src/minBy.d.ts
+src/modify.d.ts
 src/min.d.ts
 src/modulo.d.ts
 src/move.d.ts
@@ -401,12 +411,14 @@ src/o.d.ts
 src/objOf.d.ts
 src/of.d.ts
 src/omit.d.ts
+src/on.d.ts
 src/once.d.ts
 src/or.d.ts
 src/over.d.ts
 src/otherwise.d.ts
 src/pair.d.ts
 src/partial.d.ts
+src/partialObject.d.ts
 src/partialRight.d.ts
 src/partition.d.ts
 src/path.d.ts
@@ -425,6 +437,7 @@ src/pluck.d.ts
 src/prepend.d.ts
 src/product.d.ts
 src/project.d.ts
+src/promap.d.ts
 src/prop.d.ts
 src/propEq.d.ts
 src/propIs.d.ts
@@ -452,6 +465,7 @@ src/splitAt.d.ts
 src/split.d.ts
 src/splitEvery.d.ts
 src/splitWhen.d.ts
+src/splitWhenever.d.ts
 src/startsWith.d.ts
 src/subtract.d.ts
 src/sum.d.ts

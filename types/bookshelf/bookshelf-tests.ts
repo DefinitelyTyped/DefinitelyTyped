@@ -490,6 +490,19 @@ new Book({'ISBN-13': '9780440180296'})
     })
 }
 
+/* model.fetchPage(), see https://bookshelfjs.org/api.html#Model-instance-fetchPage */
+{
+    (new User).fetchPage({
+        columns: ['id', 'name'],
+        withRelated: ['posts.tags'],
+        pageSize: 3,
+        page: 5,
+        limit: 10,
+    }).then((user) => {
+        console.log(user.pagination);
+    })
+}
+
 /* model.format(), see http://bookshelfjs.org/#Model-instance-format */
 
 /* model.get(), see http://bookshelfjs.org/#Model-instance-get */
@@ -556,10 +569,23 @@ modelB.isNew(); // false
 class Posts extends bookshelf.Collection<Post> {}
 new Posts().fetch().then(collection => {
     collection.at(0)
-        .load(['author', 'content', 'comments.tags'])
+        .load([
+            'author',
+            'content',
+            'comments.tags',
+            { comments(qb) {
+                qb.where('comments.is_approved', '=', true)
+            }}
+        ])
         .then(model => {
             JSON.stringify(model);
         });
+    // withRelated is not a valid option in model.load()
+    // @ts-expect-error
+    collection.at(1).load(['author', 'content'], { withRelated: ['comments.tags'] })
+    collection.at(2).load({ comments(qb) {
+        qb.where('comments.is_approved', '=', true)
+    }})
 });
 /*
 {
@@ -1201,12 +1227,21 @@ ships.trigger('fetched');
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
 
-(new Author())
-    .where('first_name', 'in', ['User', 'Resu'])
-    .fetchAll()
-    .then(() => {
-        // ...
-    })
+collection.where('favorite_color', '<>', 'green').fetch().then(() => {
+    //...
+});
+// or
+collection.where('favorite_color', 'red').fetch().then(() => {
+    //...
+});
+// or
+collection.where({ favorite_color: 'red', shoe_size: 12 }).fetch().then(() => {
+    //...
+});
+// or
+collection.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+    // ...
+});
 
 /* collection.withPivot(), see http://bookshelfjs.org/#Collection-instance-withPivot */
 

@@ -1,10 +1,11 @@
-// Type definitions for mixpanel-browser 2.35
+// Type definitions for mixpanel-browser 2.38
 // Project: https://github.com/mixpanel/mixpanel-js
 // Definitions by: Carlos López <https://github.com/karlos1337>
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 //                 Kristian Randall <https://github.com/randak>
 //                 Dan Wilt <https://github.com/dwilt>
 //                 Lee Dogeon <https://github.com/moreal>
+//                 Justin Helmer <https://github.com/justinhelmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,6 +21,7 @@ export interface Dict {
 
 export interface RequestOptions {
     transport?: 'xhr' | 'sendBeacon' | undefined;
+    send_immediately?: boolean | undefined;
 }
 
 export interface XhrHeadersDef {
@@ -66,7 +68,6 @@ export interface Config {
     test: boolean;
     verbose: boolean;
     img: boolean;
-    track_pageview: boolean;
     debug: boolean;
     track_links_timeout: number;
     cookie_expiration: number;
@@ -133,7 +134,7 @@ export interface Group {
         to?: Prop extends string ? string : undefined,
         callback?: Callback,
     ): Group;
-    setOnce<Prop extends string | Dict>(
+    set_once<Prop extends string | Dict>(
         prop: Prop,
         to?: Prop extends string ? string : undefined,
         callback?: Callback,

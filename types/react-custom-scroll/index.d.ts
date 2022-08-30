@@ -5,12 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { ComponentClass } from 'react';
+import { ComponentClass, ReactNode } from 'react';
 
 /**
  * Props for a CustomScroll component.
  */
 export interface CustomScrollProps {
+    children?: ReactNode;
     allowOuterScroll?: boolean | undefined;
     heightRelativeToParent?: string | undefined;
     flex?: number | string | undefined;

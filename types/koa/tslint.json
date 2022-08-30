@@ -1,9 +1,8 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "interface-over-type-literal": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,

@@ -633,7 +633,7 @@ declare module "pkijs/src/CryptoEngine" {
          */
         constructor(parameters?: any);
 
-        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: readonly string[]): Promise<CryptoKey>;
         importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
         exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
@@ -652,9 +652,9 @@ declare module "pkijs/src/CryptoEngine" {
          */
         convert(inputFormat: string, outputFormat: string, keyData: BufferSource | JsonWebKey, algorithm: Algorithm, extractable: boolean, keyUsages: string[]): PromiseLike<BufferSource | JsonWebKey>;
 
-        generateKey(algorithm: string, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair | CryptoKey>;
-        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: string[]): Promise<CryptoKeyPair>;
-        generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: string[]): Promise<CryptoKey>;
+        generateKey(algorithm: string, extractable: boolean, keyUsages: readonly string[]): Promise<CryptoKeyPair | CryptoKey>;
+        generateKey(algorithm: RsaHashedKeyGenParams | EcKeyGenParams, extractable: boolean, keyUsages: readonly string[]): Promise<CryptoKeyPair>;
+        generateKey(algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params, extractable: boolean, keyUsages: readonly string[]): Promise<CryptoKey>;
         importKey(format: "jwk", keyData: JsonWebKey, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         importKey(format: "raw" | "pkcs8" | "spki", keyData: BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
         importKey(format: string, keyData: JsonWebKey | BufferSource, algorithm: string | RsaHashedImportParams | EcKeyImportParams | HmacImportParams, extractable: boolean, keyUsages: string[]): PromiseLike<CryptoKey>;
@@ -934,6 +934,16 @@ declare module "pkijs/src/EnvelopedData" {
             keyEncryptionAlgorithmParams?: any;
         }, variant: number): boolean;
         /**
+         * Add a "RecipientInfo" using a KeyAgreeRecipientInfo of type RecipientKeyIdentifier.
+         * @param {CryptoKey} [key] Recipient's public key
+         * @param {ArrayBuffer} [keyId] The id for the recipient's public key
+         * @param {*} [parameters] Additional parameters for "fine tuning" the encryption process
+         */
+        addRecipientByKeyIdentifier(key: CryptoKey, keyId: ArrayBuffer, parameters?: {
+            kdfAlgorithm?: string | undefined;
+            kekEncryptionLength?: number | undefined;
+        }): boolean;
+        /**
          * Create a new CMS Enveloped Data content with encrypted data
          * @param {Algorithm} contentEncryptionAlgorithm WebCrypto algorithm. For the moment here could be only "AES-CBC" or "AES-GCM" algorithms.
          * @param {ArrayBuffer} contentToEncrypt Content to encrypt
@@ -947,7 +957,7 @@ declare module "pkijs/src/EnvelopedData" {
          * @returns {Promise}
          */
         decrypt(recipientIndex: number, parameters: {
-            recipientCertificate: Certificate;
+            recipientCertificate?: Certificate;
             recipientPrivateKey: ArrayBuffer;
         }): PromiseLike<ArrayBuffer>;
 

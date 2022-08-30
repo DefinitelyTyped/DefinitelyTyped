@@ -21,6 +21,7 @@ import * as timers from 'node:timers';
             .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
+        timers.clearInterval(timeout[Symbol.toPrimitive]());
     }
     {
         const timeout = timers
@@ -32,6 +33,7 @@ import * as timers from 'node:timers';
             .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
+        timers.clearTimeout(timeout[Symbol.toPrimitive]());
     }
     async function testPromisify(doSomething: {
         (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;
@@ -39,11 +41,11 @@ import * as timers from 'node:timers';
     }) {
         const setTimeout = promisify(timers.setTimeout);
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
-        let s: string = await setTimeout(100, "");
+        let s: string = await setTimeout(100, '');
 
         const setImmediate = promisify(timers.setImmediate);
         v = await setImmediate();
-        s = await setImmediate("");
+        s = await setImmediate('');
 
         // $ExpectType (foo: any) => Promise<string>
         const doSomethingPromise = promisify(doSomething);
@@ -90,4 +92,13 @@ import * as timers from 'node:timers';
     queueMicrotask(() => {
         // cool
     });
+
+    function waitFor(options?: { timeout: number }) {
+        const timerId = options && setTimeout(() => {}, options.timeout);
+        clearTimeout(timerId);
+        const intervalId = options && setTimeout(() => {}, options.timeout);
+        clearInterval(intervalId);
+        const immediateId = options && setImmediate(() => {});
+        clearImmediate(immediateId);
+    }
 }

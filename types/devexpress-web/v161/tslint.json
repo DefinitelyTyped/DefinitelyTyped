@@ -1,9 +1,8 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "dt-header": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,

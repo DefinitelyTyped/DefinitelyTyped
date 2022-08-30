@@ -11,7 +11,21 @@ const config: Pubnub.PubnubConfig = {
     secretKey: '',
     ssl: true,
     authKey: '',
-    useRandomIVs: false
+    useRandomIVs: false,
+    subscribeRequestTimeout: 60,
+    uuid: 'myUUID'
+};
+
+// userId should work
+const pnconfig: Pubnub.PubnubConfig = {
+    subscribeKey: '',
+    publishKey: '',
+    secretKey: '',
+    ssl: true,
+    authKey: '',
+    useRandomIVs: false,
+    subscribeRequestTimeout: 60,
+    userId: 'myUniqueUserId'
 };
 
 const pubnub = new Pubnub(config);
@@ -61,21 +75,6 @@ pubnub.addListener({
             uuid,
         }),
     signal: ({ message }) => console.log(message),
-    user: ({
-        message: {
-            data: { id, name, externalId, profileUrl, email, custom, eTag, created, updated },
-        },
-    }) => console.log({ id, name, externalId, profileUrl, email, custom, eTag, created, updated }),
-    space: ({
-        message: {
-            data: { id, name, description, custom, eTag, created, updated },
-        },
-    }) => console.log({ id, name, description, custom, eTag, created, updated }),
-    membership: ({
-        message: {
-            data: { userId, spaceId, eTag, created, updated, custom },
-        },
-    }) => console.log({ userId, spaceId, eTag, created, updated, custom }),
     messageAction: ({
         channel,
         publisher,
@@ -217,6 +216,59 @@ const grantchannelGroupsOptions = {
 pubnub.grant(grantchannelGroupsOptions).then(status => {
     console.log(status);
 });
+
+const grantTokenParameters = {
+    ttl: 15,
+    authorized_uuid: 'my-authorized-uuid',
+    resources: {
+        channels: {
+            'channel-a': {
+                read: true,
+            },
+            'channel-b': {
+                read: true,
+                write: true,
+            },
+            'channel-c': {
+                read: true,
+                write: true,
+            },
+            'channel-d': {
+                read: true,
+                write: true,
+            },
+        },
+        groups: {
+            'channel-group-b': {
+                read: true,
+            },
+        },
+        uuids: {
+            'uuid-c': {
+                get: true,
+            },
+            'uuid-d': {
+                get: true,
+                update: true,
+            },
+        },
+    },
+    patterns: {
+        channels: {
+            '^channel-[A-Za-z0-9]$': {
+                read: true,
+            },
+        },
+    }
+};
+
+pubnub.grantToken(grantTokenParameters).then(token => console.log(token));
+
+pubnub.parseToken('someToken');
+
+pubnub.setToken('someToken');
+
+pubnub.revokeToken('someToken');
 
 pubnub.history({ channel: 'channel-1', count: 2 }, (status, res) => console.log(status, res));
 
@@ -397,339 +449,6 @@ pubnub.channelGroups.listGroups((status, response) => console.log(status, respon
 pubnub.channelGroups.removeChannels({ channelGroup, channels }, status => console.log(status));
 
 pubnub.channelGroups.deleteGroup({ channelGroup }, status => console.log(status));
-
-/**
- * Objects
- */
-
-pubnub.createUser(
-    {
-        id: 'user-1',
-        name: 'John Doe',
-    },
-    (
-        { error, category, operation, statusCode, errorData },
-        { data: { id, name, externalId, profileUrl, email, custom, eTag, created, updated }, status },
-    ) => {
-        console.log(statusCode, operation);
-
-        if (error) {
-            console.log(category);
-            console.error(errorData);
-            return;
-        }
-
-        console.log(status);
-        console.log({ user: { id, name, externalId, profileUrl, email, custom, eTag, created, updated } });
-    },
-);
-
-pubnub
-    .createUser({
-        id: 'user-1',
-        name: 'John Doe',
-    })
-    .then(res => console.log(res));
-
-pubnub.updateUser(
-    {
-        id: 'user-1',
-        name: 'John Updated Doe',
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .updateUser({
-        id: 'user-1',
-        name: 'John Updated Doe',
-    })
-    .then(res => console.log(res));
-
-pubnub.deleteUser('user-1', (status, res) => console.log(status, res));
-
-pubnub.deleteUser('user-1').then(res => console.log(res));
-
-pubnub.getUsers(
-    {
-        limit: 10,
-    },
-    (status, { data }) => {
-        data.forEach(({ id, name, externalId, profileUrl, email, custom, eTag, created, updated }, index) => {
-            console.log(index, { id, name, externalId, profileUrl, email, custom, eTag, created, updated });
-        });
-    },
-);
-
-pubnub
-    .getUsers({
-        limit: 10,
-    })
-    .then(res => console.log(res));
-
-pubnub.getUser(
-    {
-        userId: 'user-1',
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .getUser({
-        userId: 'user-1',
-    })
-    .then(res => console.log(res));
-
-pubnub.createSpace(
-    {
-        id: 'space-1',
-        name: 'Demo Space',
-    },
-    ({ error }, { data: { id, name, description, custom, eTag, created, updated } }) => {
-        if (error) {
-            return;
-        }
-        console.log({ space: { id, name, description, custom, eTag, created, updated } });
-    },
-);
-
-pubnub
-    .createSpace({
-        id: 'space-1',
-        name: 'Updated Space Name',
-    })
-    .then(res => console.log(res));
-
-pubnub.updateSpace(
-    {
-        id: 'space-1',
-        name: 'Updated Space Name',
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .updateSpace({
-        id: 'space-1',
-        name: 'Updated Space Name',
-    })
-    .then(res => console.log(res));
-
-pubnub.deleteSpace('space-1', (status, res) => console.log(status, res));
-
-pubnub.deleteSpace('space-1').then(res => console.log(res));
-
-pubnub.getSpaces(
-    {
-        limit: 10,
-    },
-    (status, { data }) => {
-        data.forEach(({ id, name, description, custom, eTag, created, updated }, index) => {
-            console.log(index, { id, name, description, custom, eTag, created, updated });
-        });
-    },
-);
-
-pubnub
-    .getSpaces({
-        limit: 10,
-    })
-    .then(res => console.log(res));
-
-pubnub.getSpace(
-    {
-        spaceId: 'space-1',
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .getSpace({
-        spaceId: 'space-1',
-    })
-    .then(res => console.log(res));
-
-pubnub.getMemberships(
-    {
-        userId: 'user-1',
-    },
-    (status, { data }) => {
-        data.forEach(({ id, custom, eTag, created, updated }, index) => {
-            console.log(index, { id, custom, eTag, created, updated });
-        });
-    },
-);
-
-pubnub
-    .getMemberships({
-        userId: 'user-1',
-    })
-    .then(res => console.log(res));
-
-pubnub.getMembers(
-    {
-        spaceId: 'space-1',
-    },
-    (status, { data }) => {
-        data.forEach(({ id, custom, eTag, created, updated }, index) => {
-            console.log(index, { id, custom, eTag, created, updated });
-        });
-    },
-);
-
-pubnub
-    .getMembers({
-        spaceId: 'space-1',
-    })
-    .then(res => console.log(res));
-
-pubnub.joinSpaces(
-    {
-        userId: 'user-1',
-        spaces: [
-            {
-                id: 'space-1',
-            },
-            {
-                id: 'space-2',
-            },
-        ],
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .joinSpaces({
-        userId: 'user-1',
-        spaces: [
-            {
-                id: 'space-1',
-            },
-            {
-                id: 'space-2',
-            },
-        ],
-    })
-    .then(res => console.log(res));
-
-pubnub.updateMemberships(
-    {
-        userId: 'user-1',
-        spaces: [
-            {
-                id: 'space-1',
-                custom: { starred: true },
-            },
-        ],
-        include: { customFields: true },
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .updateMemberships({
-        userId: 'user-1',
-        spaces: [
-            {
-                id: 'space-1',
-                custom: { starred: true },
-            },
-        ],
-        include: { customFields: true },
-    })
-    .then(res => console.log(res));
-
-pubnub.leaveSpaces(
-    {
-        userId: 'user-1',
-        spaces: ['space-1', 'space-2'],
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .leaveSpaces({
-        userId: 'user-1',
-        spaces: ['space-1', 'space-2'],
-    })
-    .then(res => console.log(res));
-
-pubnub.addMembers(
-    {
-        spaceId: 'space-1',
-        users: [
-            {
-                id: 'user-1',
-                custom: {
-                    starred: true,
-                },
-            },
-        ],
-    },
-    (status, res) => console.log(status, res),
-);
-
-pubnub
-    .addMembers({
-        spaceId: 'space-1',
-        users: [
-            {
-                id: 'user-1',
-                custom: {
-                    starred: true,
-                },
-            },
-        ],
-    })
-    .then(res => console.log(res));
-
-pubnub.updateMembers(
-    {
-        spaceId: 'space-1',
-        users: [
-            {
-                id: 'user-1',
-                custom: {
-                    starred: true,
-                },
-            },
-        ],
-    },
-    (status, res) => {
-        console.log(status, res);
-    },
-);
-
-pubnub
-    .updateMembers({
-        spaceId: 'space-1',
-        users: [
-            {
-                id: 'user-1',
-                custom: {
-                    starred: true,
-                },
-            },
-        ],
-    })
-    .then(res => console.log(res));
-
-pubnub.removeMembers(
-    {
-        spaceId: 'space-1',
-        users: ['user-1', 'user-2'],
-    },
-    (status, res) => {
-        console.log(status, res);
-    },
-);
-
-pubnub
-    .removeMembers({
-        spaceId: 'space-1',
-        users: ['user-1', 'user-2'],
-    })
-    .then(res => console.log(res));
 
 pubnub.addMessageAction(
     {

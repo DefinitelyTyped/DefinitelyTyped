@@ -1,7 +1,11 @@
-import { BindChain, Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 import { ResizerOptions } from '../widgetresize';
 
+// tslint:disable-next-line:no-empty-interface
+export default interface ResizeState extends Observable {}
+
 export default class ResizeState implements Observable {
+    constructor(options: ResizerOptions);
     activeHandlePosition: string | null;
     readonly aspectRatio: number;
     readonly originalHeight: number;
@@ -10,13 +14,5 @@ export default class ResizeState implements Observable {
     proposedHeightPixels: number | null;
     proposedWidthPercents: number | null;
     proposedWidthPixels: number | null;
-
-    constructor(options: ResizerOptions);
     begin(domResizeHandle: HTMLElement, domHandleHost: HTMLElement, domResizeHost: HTMLElement): void;
-
-    set(option: Record<string, string>): void;
-    set(name: string, value: unknown): void;
-    bind(...bindProperties: string[]): BindChain;
-    unbind(...unbindProperties: string[]): void;
-    decorate(methodName: string): void;
 }

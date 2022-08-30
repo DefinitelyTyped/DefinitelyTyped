@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { Readable, EventEmitter } from 'stream';
 import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
 import grouped = require('rdf-dataset-ext');
 import addAll = require('rdf-dataset-ext/addAll');
@@ -78,9 +78,9 @@ const toCanonical4: string = grouped.toCanonical(dataset2);
 
 // toStream
 
-const toStream1: Stream = toStream(dataset1);
-const toStream2: Stream<BaseQuad> = toStream(dataset2);
-const toStream3: Stream<BaseQuad> = toStream<BaseQuad>(dataset2);
-const toStream4: Stream = grouped.toStream(dataset1);
-const toStream5: Stream<BaseQuad> = grouped.toStream(dataset2);
-const toStream6: Stream<BaseQuad> = grouped.toStream<BaseQuad>(dataset2);
+const toStream1: Readable & Stream = toStream(dataset1);
+const toStream2: Readable & Stream<BaseQuad> = toStream(dataset2);
+const toStream3: Readable & Stream<BaseQuad> = toStream<BaseQuad>(dataset2);
+const toStream4: Readable & Stream = grouped.toStream(dataset1);
+const toStream5: Readable & Stream<BaseQuad> = grouped.toStream(dataset2);
+const toStream6: Readable & Stream<BaseQuad> = grouped.toStream<BaseQuad>(dataset2);

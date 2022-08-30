@@ -13,6 +13,7 @@ var fopts: nconf.IFileOptions;
 var store: nconf.IStore;
 var callback: (err: Error) => void;
 var fmt: nconf.IFormat;
+var version: string = nconf.version;
 
 value = nconf.clear(str, callback);
 value = nconf.get (str, callback);

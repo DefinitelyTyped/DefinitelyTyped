@@ -376,3 +376,12 @@ RNFetchBlob.fetch('POST', 'http://example.com/upload', { 'Transfer-Encoding': 'C
 RNFetchBlob.config({
     trusty: true
 });
+
+RNFetchBlob.fs
+    .df()
+    .then(res => {
+        console.log(res);
+    })
+    .catch(err => {
+        // error handling ..
+    });

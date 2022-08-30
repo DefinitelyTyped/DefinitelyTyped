@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "file-saver-tests.ts"
+        "test/file-saver-tests.ts",
+        "test/file-saver-tests.umd.ts"
     ]
 }

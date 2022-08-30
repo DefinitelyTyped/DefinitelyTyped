@@ -1,13 +1,14 @@
-// Type definitions for Mapbox GL JS 2.4
+// Type definitions for Mapbox GL JS 2.7
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 André Fonseca <https://github.com/amxfonseca>
 //                 makspetrov <https://github.com/Nosfit>
+//                 Michael Bullington <https://github.com/mbullington>
+//                 Olivier Pascal <https://github.com/pascaloliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -73,11 +74,7 @@ declare namespace mapboxgl {
 
     type PluginStatus = 'unavailable' | 'loading' | 'loaded' | 'error';
 
-    type LngLatLike =
-        | [number, number]
-        | LngLat
-        | { lng: number; lat: number }
-        | { lon: number; lat: number };
+    type LngLatLike = [number, number] | LngLat | { lng: number; lat: number } | { lon: number; lat: number };
 
     type LngLatBoundsLike = LngLatBounds | [LngLatLike, LngLatLike] | [number, number, number, number] | LngLatLike;
     type PointLike = Point | [number, number];
@@ -91,6 +88,7 @@ declare namespace mapboxgl {
         | 'format'
         | 'literal'
         | 'number'
+        | 'number-format'
         | 'object'
         | 'string'
         | 'image'
@@ -144,6 +142,7 @@ declare namespace mapboxgl {
         // Color
         | 'rgb'
         | 'rgba'
+        | 'to-rgba'
         // Math
         | '-'
         | '*'
@@ -186,6 +185,15 @@ declare namespace mapboxgl {
         | 'top-right'
         | 'bottom-left'
         | 'bottom-right';
+
+    type DragPanOptions = {
+        linearity?: number;
+        easing?: (t: number) => number;
+        deceleration?: number;
+        maxSpeed?: number;
+    };
+
+    type InteractiveOptions = { around?: 'center' };
 
     /**
      * Map
@@ -292,7 +300,10 @@ declare namespace mapboxgl {
             } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
-        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined }): this;
+        setStyle(
+            style: mapboxgl.Style | string,
+            options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined },
+        ): this;
 
         getStyle(): mapboxgl.Style;
 
@@ -351,15 +362,15 @@ declare namespace mapboxgl {
 
         getFilter(layer: string): any[];
 
-        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getPaintProperty(layer: string, name: string): any;
 
-        setLayoutProperty(layer: string, name: string, value: any): this;
+        setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
 
-        setLight(options: mapboxgl.Light, lightOptions?: any): this;
+        setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
 
@@ -547,7 +558,7 @@ declare namespace mapboxgl {
 
         on<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -555,7 +566,7 @@ declare namespace mapboxgl {
 
         once<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -564,7 +575,7 @@ declare namespace mapboxgl {
 
         off<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -643,12 +654,22 @@ declare namespace mapboxgl {
         /** ID of the container element */
         container: string | HTMLElement;
 
+        /**
+         * If `true` , scroll zoom will require pressing the ctrl or ⌘ key while scrolling to zoom map,
+         * and touch pan will require using two fingers while panning to move the map.
+         * Touch pitch will require three fingers to activate if enabled.
+         */
+        cooperativeGestures?: boolean;
+
         /** String or strings to show in an AttributionControl.
          * Only applicable if options.attributionControl is `true`. */
         customAttribution?: string | string[] | undefined;
 
-        /** If true, enable the "drag to pan" interaction (see DragPanHandler). */
-        dragPan?: boolean | undefined;
+        /**
+         * If `true`, the "drag to pan" interaction is enabled.
+         * An `Object` value is passed as options to {@link DragPanHandler#enable}.
+         */
+        dragPan?: boolean | DragPanOptions | undefined;
 
         /** If true, enable the "drag to rotate" interaction (see DragRotateHandler). */
         dragRotate?: boolean | undefined;
@@ -752,6 +773,25 @@ declare namespace mapboxgl {
         pitch?: number | undefined;
 
         /**
+         * A style's projection property sets which projection a map is rendered in.
+         *
+         * @default 'mercator'
+         */
+        projection?: {
+            name:
+                | 'albers'
+                | 'equalEarth'
+                | 'equirectangular'
+                | 'lambertConformalConic'
+                | 'mercator'
+                | 'naturalEarth'
+                | 'winkelTripel'
+                | 'globe';
+            center?: [number, number];
+            parallels?: [number, number];
+        };
+
+        /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
          *
          * @default true
@@ -773,8 +813,11 @@ declare namespace mapboxgl {
          */
         renderWorldCopies?: boolean | undefined;
 
-        /** If true, enable the "scroll to zoom" interaction */
-        scrollZoom?: boolean | undefined;
+        /**
+         * If `true`, the "scroll to zoom" interaction is enabled.
+         * An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
+         */
+        scrollZoom?: boolean | InteractiveOptions | undefined;
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
@@ -790,11 +833,17 @@ declare namespace mapboxgl {
          */
         transformRequest?: TransformRequestFunction | undefined;
 
-        /** If true, enable the "pinch to rotate and zoom" interaction (see TouchZoomRotateHandler). */
-        touchZoomRotate?: boolean | undefined;
+        /**
+         * If `true`, the "pinch to rotate and zoom" interaction is enabled.
+         * An `Object` value is passed as options to {@link TouchZoomRotateHandler#enable}.
+         */
+        touchZoomRotate?: boolean | InteractiveOptions | undefined;
 
-        /** If true, the "drag to pitch" interaction is enabled */
-        touchPitch?: boolean | undefined;
+        /**
+         * If `true`, the "drag to pitch" interaction is enabled.
+         * An `Object` value is passed as options to {@link TouchPitchHandler#enable}.
+         */
+        touchPitch?: boolean | InteractiveOptions | undefined;
 
         /** Initial zoom level */
         zoom?: number | undefined;
@@ -818,7 +867,7 @@ declare namespace mapboxgl {
          * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
          *
          * @default null
-        */
+         */
         testMode?: boolean | undefined;
     }
 
@@ -940,7 +989,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -959,7 +1008,7 @@ declare namespace mapboxgl {
 
         isActive(): boolean;
 
-        enable(): void;
+        enable(options?: DragPanOptions): void;
 
         disable(): void;
     }
@@ -968,7 +1017,10 @@ declare namespace mapboxgl {
      * DragRotateHandler
      */
     export class DragRotateHandler {
-        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined });
+        constructor(
+            map: mapboxgl.Map,
+            options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined },
+        );
 
         isEnabled(): boolean;
 
@@ -1040,7 +1092,7 @@ declare namespace mapboxgl {
 
         isEnabled(): boolean;
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         disable(): void;
 
@@ -1052,7 +1104,7 @@ declare namespace mapboxgl {
     export class TouchPitchHandler {
         constructor(map: mapboxgl.Map);
 
-        enable(): void;
+        enable(options?: InteractiveOptions): void;
 
         isActive(): boolean;
 
@@ -1082,7 +1134,11 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor(options?: { showCompass?: boolean | undefined; showZoom?: boolean | undefined; visualizePitch?: boolean | undefined });
+        constructor(options?: {
+            showCompass?: boolean | undefined;
+            showZoom?: boolean | undefined;
+            visualizePitch?: boolean | undefined;
+        });
     }
 
     export class PositionOptions {
@@ -1247,16 +1303,17 @@ declare namespace mapboxgl {
     }
 
     export interface Style {
+        layers: AnyLayer[];
+        sources: Sources;
+
         bearing?: number | undefined;
         center?: number[] | undefined;
         fog?: Fog | undefined;
         glyphs?: string | undefined;
-        layers?: AnyLayer[] | undefined;
         metadata?: any;
         name?: string | undefined;
         pitch?: number | undefined;
         light?: Light | undefined;
-        sources?: Sources | undefined;
         sprite?: string | undefined;
         terrain?: TerrainSpecification | undefined;
         transition?: Transition | undefined;
@@ -1298,7 +1355,8 @@ declare namespace mapboxgl {
         | CanvasSourceRaw
         | VectorSource
         | RasterSource
-        | RasterDemSource;
+        | RasterDemSource
+        | CustomSourceInterface<HTMLImageElement | ImageData | ImageBitmap>;
 
     interface VectorSourceImpl extends VectorSource {
         /**
@@ -1325,10 +1383,11 @@ declare namespace mapboxgl {
         | CanvasSource
         | VectorSourceImpl
         | RasterSource
-        | RasterDemSource;
+        | RasterDemSource
+        | CustomSource<HTMLImageElement | ImageData | ImageBitmap>;
 
     export interface Source {
-        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas';
+        type: 'vector' | 'raster' | 'raster-dem' | 'geojson' | 'image' | 'video' | 'canvas' | 'custom';
     }
 
     /**
@@ -1484,9 +1543,29 @@ declare namespace mapboxgl {
         exaggeration?: PropertyValueSpecification<number> | undefined;
     }
 
+    /**
+     * @see https://github.com/mapbox/tilejson-spec/tree/master/3.0.0#33-vector_layers
+     */
+    type SourceVectorLayer = {
+        id: string;
+        fields?: Record<string, string>;
+        description?: string;
+        minzoom?: number;
+        maxzoom?: number;
+
+        // Non standard extensions that are valid in a Mapbox context.
+        source?: string;
+        source_name?: string;
+    };
+
     interface VectorSource extends Source {
         type: 'vector';
+        format?: 'pbf';
+
         url?: string | undefined;
+        id?: string;
+        name?: string;
+
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
         scheme?: 'xyz' | 'tms' | undefined;
@@ -1494,10 +1573,16 @@ declare namespace mapboxgl {
         maxzoom?: number | undefined;
         attribution?: string | undefined;
         promoteId?: PromoteIdSpecification | undefined;
+
+        vector_layers?: SourceVectorLayer[];
     }
 
     interface RasterSource extends Source {
+        name?: string;
         type: 'raster';
+        id?: string;
+        format?: 'webp' | string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -1509,7 +1594,10 @@ declare namespace mapboxgl {
     }
 
     interface RasterDemSource extends Source {
+        name?: string;
         type: 'raster-dem';
+        id?: string;
+
         url?: string | undefined;
         tiles?: string[] | undefined;
         bounds?: number[] | undefined;
@@ -1518,6 +1606,36 @@ declare namespace mapboxgl {
         tileSize?: number | undefined;
         attribution?: string | undefined;
         encoding?: 'terrarium' | 'mapbox' | undefined;
+    }
+
+    interface CustomSourceInterface<T> {
+        id: string;
+        type: 'custom';
+        dataType: 'raster';
+        minzoom?: number;
+        maxzoom?: number;
+        scheme?: string;
+        tileSize?: number;
+        attribution?: string;
+        bounds?: [number, number, number, number];
+        hasTile?: (tileID: { z: number; x: number; y: number }) => boolean;
+        loadTile: (tileID: { z: number; x: number; y: number }, options: { signal: AbortSignal }) => Promise<T>;
+        prepareTile?: (tileID: { z: number; x: number; y: number }) => T | undefined;
+        unloadTile?: (tileID: { z: number; x: number; y: number }) => void;
+        onAdd?: (map: Map) => void;
+        onRemove?: (map: Map) => void;
+    }
+
+    interface CustomSource<T> extends Source {
+        id: string;
+        type: 'custom';
+        scheme: string;
+        minzoom: number;
+        maxzoom: number;
+        tileSize: number;
+        attribution: string;
+
+        _implementation: CustomSourceInterface<T>;
     }
 
     /**
@@ -2391,7 +2509,7 @@ declare namespace mapboxgl {
         'text-pitch-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-rotation-alignment'?: 'map' | 'viewport' | 'auto' | undefined;
         'text-field'?: string | StyleFunction | Expression | undefined;
-        'text-font'?: string | string[] | Expression | undefined;
+        'text-font'?: string[] | Expression | undefined;
         'text-size'?: number | StyleFunction | Expression | undefined;
         'text-max-width'?: number | StyleFunction | Expression | undefined;
         'text-line-height'?: number | Expression | undefined;
@@ -2530,6 +2648,6 @@ declare namespace mapboxgl {
     }
 
     export type ElevationQueryOptions = {
-        exaggerated: boolean
+        exaggerated: boolean;
     };
 }

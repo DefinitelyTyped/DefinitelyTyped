@@ -557,6 +557,7 @@ export type Sensor = (api: SensorAPI) => void;
  */
 
 export interface DragDropContextProps {
+    children?: React.ReactNode;
     onBeforeCapture?(before: BeforeCapture): void;
     onBeforeDragStart?(initial: DragStart): void;
     onDragStart?(initial: DragStart, provided: ResponderProvided): void;

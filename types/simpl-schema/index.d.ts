@@ -7,7 +7,7 @@
 //                 Rafa Horo <https://github.com/rafahoro>
 //                 Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 import { check } from 'meteor/check';
 
@@ -99,6 +99,7 @@ export interface SchemaDefinition {
     type: any;
     label?: string | (() => string) | undefined;
     optional?: boolean | (() => boolean) | undefined;
+    required?: boolean | (() => boolean) | undefined;
     min?: number | boolean | Date | (() => number | boolean | Date) | undefined;
     max?: number | boolean | Date | (() => number | boolean | Date) | undefined;
     minCount?: number | (() => number) | undefined;

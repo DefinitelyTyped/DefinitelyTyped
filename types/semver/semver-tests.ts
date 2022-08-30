@@ -81,6 +81,10 @@ semverSatisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3'); // $ExpectType bool
 semverGt('1.2.3', '9.8.7'); // $ExpectType boolean
 semverLt('1.2.3', '9.8.7'); // $ExpectType boolean
 semverMinVersion('>=1.0.0'); // $ExpectType SemVer | null
+semverMinVersion('>=1.0.0', true); // $ExpectType SemVer | null
+semverMinVersion('>=1.0.0', { loose: false }); // $ExpectType SemVer | null
+// @ts-expect-error
+semverMinVersion('>=1.0.0', { includePrerelease: false }); // $ExpectType SemVer | null
 semverValid(semverCoerce('v2')); // $ExpectType string | null
 semverValid(semverCoerce('42.6.7.9.3-alpha')); // $ExpectType string | null
 
@@ -122,46 +126,137 @@ strn = semver.valid(str);
 strn = semver.clean(str);
 
 strn = semver.valid(str, loose);
+strn = semver.valid(str, { loose: false });
+// @ts-expect-error
+strn = semver.valid(str, { includePrerelease: false });
 strn = semver.clean(str, loose);
+strn = semver.clean(str, { loose: false });
+// @ts-expect-error
+strn = semver.clean(str, { includePrerelease: false });
 strn = semver.inc(str, 'major', loose);
+strn = semver.inc(str, 'major', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'major', { includePrerelease: false });
 strn = semver.inc(str, 'premajor', loose);
+strn = semver.inc(str, 'premajor', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'premajor', { includePrerelease: false });
 strn = semver.inc(str, 'minor', loose);
+strn = semver.inc(str, 'minor', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'minor', { includePrerelease: false });
 strn = semver.inc(str, 'preminor', loose);
+strn = semver.inc(str, 'preminor', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'preminor', { includePrerelease: false });
 strn = semver.inc(str, 'patch', loose);
+strn = semver.inc(str, 'patch', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'patch', { includePrerelease: false });
 strn = semver.inc(str, 'prepatch', loose);
+strn = semver.inc(str, 'prepatch', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'prepatch', { includePrerelease: false });
 strn = semver.inc(str, 'prerelease', loose);
+strn = semver.inc(str, 'prerelease', { loose: false });
+// @ts-expect-error
+strn = semver.inc(str, 'prerelease', { includePrerelease: false });
 strn = semver.inc(str, 'prerelease', loose, 'alpha');
+strn = semver.inc(str, 'prerelease', { loose: false }, 'alpha');
+// @ts-expect-error
+strn = semver.inc(str, 'prerelease', { includePrerelease: false }, 'alpha');
 strn = semver.inc(str, 'prerelease', 'beta');
 num = semver.major(str, loose);
+num = semver.major(str, { loose: false });
+// @ts-expect-error
+num = semver.major(str, { includePrerelease: false });
 num = semver.minor(str, loose);
+num = semver.minor(str, { loose: false });
+// @ts-expect-error
+num = semver.minor(str, { includePrerelease: false });
 num = semver.patch(str, loose);
+num = semver.patch(str, { loose: false });
+// @ts-expect-error
+num = semver.patch(str, { includePrerelease: false });
 prereleaseIdAttr = semver.prerelease(str, loose);
+prereleaseIdAttr = semver.prerelease(str, { loose: false });
+// @ts-expect-error
+prereleaseIdAttr = semver.prerelease(str, { includePrerelease: false });
 
 // Comparison
 bool = semver.gt(v1, v2, loose);
+bool = semver.gt(v1, v2, { loose: false });
+// @ts-expect-error
+bool = semver.gt(v1, v2, { includePrerelease: false });
 bool = semver.gte(v1, v2, loose);
+bool = semver.gte(v1, v2, { loose: false });
+// @ts-expect-error
+bool = semver.gte(v1, v2, { includePrerelease: false });
 bool = semver.lt(v1, v2, loose);
+bool = semver.lt(v1, v2, { loose: false });
+// @ts-expect-error
+bool = semver.lt(v1, v2, { includePrerelease: false });
 bool = semver.lte(v1, v2, loose);
+bool = semver.lte(v1, v2, { loose: false });
+// @ts-expect-error
+bool = semver.lte(v1, v2, { includePrerelease: false });
 bool = semver.eq(v1, v2, loose);
+bool = semver.eq(v1, v2, { loose: false });
+// @ts-expect-error
+bool = semver.eq(v1, v2, { includePrerelease: false });
 bool = semver.neq(v1, v2, loose);
+bool = semver.neq(v1, v2, { loose: false });
+// @ts-expect-error
+bool = semver.neq(v1, v2, { includePrerelease: false });
 bool = semver.cmp(v1, op, v2, loose);
+bool = semver.cmp(v1, op, v2, { loose: false });
+// @ts-expect-error
+bool = semver.cmp(v1, op, v2, { includePrerelease: false });
 comparatorResult = semver.compare(v1, v2, loose);
+comparatorResult = semver.compare(v1, v2, { loose: false });
+// @ts-expect-error
+comparatorResult = semver.compare(v1, v2, { includePrerelease: false });
+comparatorResult = semver.compareBuild(v1, v2, loose);
+comparatorResult = semver.compareBuild(v1, v2, { loose: false });
+// @ts-expect-error
+comparatorResult = semver.compareBuild(v1, v2, { includePrerelease: false });
 comparatorResult = semver.rcompare(v1, v2, loose);
+comparatorResult = semver.rcompare(v1, v2, { loose: false });
+// @ts-expect-error
+comparatorResult = semver.rcompare(v1, v2, { includePrerelease: false });
 comparatorResult = semver.compareIdentifiers(str, str);
 comparatorResult = semver.rcompareIdentifiers(str, str);
 versionsArr = semver.sort(['', new semver.SemVer('')]);
 versionsArr = semver.rsort(['', new semver.SemVer('')]);
+diff = semver.diff(v1, v2);
+// @ts-expect-error
 diff = semver.diff(v1, v2, loose);
 
 // Ranges
 strn = semver.validRange(str, loose);
+strn = semver.validRange(str, { loose: false });
+strn = semver.validRange(str, { includePrerelease: false });
 bool = semver.satisfies(version, str, loose);
+bool = semver.satisfies(version, str, { loose: false });
+bool = semver.satisfies(version, str, { includePrerelease: false });
 strn = semver.maxSatisfying(versions, str, loose);
+strn = semver.maxSatisfying(versions, str, { loose: false });
+strn = semver.maxSatisfying(versions, str, { includePrerelease: false });
 strn = semver.minSatisfying(versions, str, loose);
+strn = semver.minSatisfying(versions, str, { loose: false });
+strn = semver.minSatisfying(versions, str, { includePrerelease: false });
 bool = semver.gtr(version, str, loose);
+bool = semver.gtr(version, str, { loose: false });
+bool = semver.gtr(version, str, { includePrerelease: false });
 bool = semver.ltr(version, str, loose);
+bool = semver.ltr(version, str, { loose: false });
+bool = semver.ltr(version, str, { includePrerelease: false });
 bool = semver.outside(version, str, '<', loose);
+bool = semver.outside(version, str, '<', { loose: false });
+bool = semver.outside(version, str, '<', { includePrerelease: false });
 bool = semver.intersects(str, str, loose);
+bool = semver.intersects(str, str, { loose: false });
+bool = semver.intersects(str, str, { includePrerelease: false });
 sem = semver.minVersion(str, loose);
 semver.simplifyRange(versions, '1.x'); // $ExpectType string | Range
 semver.simplifyRange(versions, '1.0.0 || 1.0.1 || 1.0.2 || 1.0.3 || 1.0.4'); // $ExpectType string | Range
@@ -174,6 +269,8 @@ semver.subset('1.x', '1.x'); // $ExpectType boolean
 semver.subset(new Range('1.2.3'), new Range('1.2.3')); // $ExpectType boolean
 semver.subset('^1.2.3-pre.0', '1.x', { includePrerelease: true }); // $ExpectType boolean
 semver.subset('', ''); // $ExpectType boolean
+semver.toComparators('1.x'); // $ExpectType string[][]
+semver.toComparators(new Range('1.2.3')); // $ExpectType string[][]
 
 // Coercion
 sem = semver.coerce(str);

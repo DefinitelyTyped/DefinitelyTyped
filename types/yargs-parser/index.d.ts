@@ -1,4 +1,4 @@
-// Type definitions for yargs-parser 20.2
+// Type definitions for yargs-parser 21.0
 // Project: https://github.com/yargs/yargs-parser#readme
 // Definitions by: Miles Johnson <https://github.com/milesj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,9 @@
 declare namespace yargsParser {
     interface Arguments {
         /** Non-option arguments */
-        _: string[];
-        /** The script name or node command */
-        $0: string;
+        _: Array<string | number>;
+        /** Arguments after the end-of-options flag `--` */
+        '--'?: Array<string | number>;
         /** All remaining options */
         [argName: string]: any;
     }
@@ -74,7 +74,10 @@ declare namespace yargsParser {
          * Indicate that keys should be parsed as an array and coerced to booleans / numbers:
          * { array: [ { key: 'foo', boolean: true }, {key: 'bar', number: true} ] }`.
          */
-        array?: string[] | Array<{ key: string; boolean?: boolean | undefined, number?: boolean | undefined }> | undefined;
+        array?:
+            | string[]
+            | Array<{ key: string; boolean?: boolean | undefined; number?: boolean | undefined }>
+            | undefined;
         /** Arguments should be parsed as booleans: `{ boolean: ['x', 'y'] }`. */
         boolean?: string[] | undefined;
         /** Indicate a key that represents a path to a configuration file (this file will be loaded and parsed). */
@@ -105,6 +108,9 @@ declare namespace yargsParser {
     interface Parser {
         (argv: string | string[], opts?: Options): Arguments;
         detailed(argv: string | string[], opts?: Options): DetailedArguments;
+        camelCase(str: string): string;
+        decamelize(str: string, joinString?: string): string;
+        looksLikeNumber(value: string | number | null | undefined): boolean;
     }
 }
 

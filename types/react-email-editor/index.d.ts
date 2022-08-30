@@ -24,6 +24,19 @@ export interface User {
     readonly email?: string | undefined;
 }
 
+export interface GroupedSpecialLink {
+    readonly name: string;
+    readonly specialLinks: Array<SimpleSpecialLink | GroupedSpecialLink>;
+}
+
+export interface SimpleSpecialLink {
+    readonly name: string;
+    readonly href: string;
+    readonly target: string;
+}
+
+export type SpecialLink = SimpleSpecialLink | GroupedSpecialLink;
+
 export interface GroupedMergeTag {
     readonly name: string;
     readonly mergeTags: Array<SimpleMergeTag | GroupedMergeTag>;
@@ -32,6 +45,7 @@ export interface GroupedMergeTag {
 export interface SimpleMergeTag {
     readonly name: string;
     readonly value: string;
+    readonly sample?: string;
 }
 
 export interface ConditionalMergeTagRule {
@@ -49,7 +63,7 @@ export interface ConditionalMergeTag {
 export type MergeTag = SimpleMergeTag | ConditionalMergeTag | GroupedMergeTag;
 
 export interface DesignTagConfig {
-    readonly delimeter: [string, string];
+    readonly delimiter: [string, string];
 }
 
 export interface DisplayCondition {
@@ -103,6 +117,7 @@ export interface UnlayerOptions {
     readonly appearance?: AppearanceConfig | undefined;
     readonly user?: User | undefined;
     readonly mergeTags?: MergeTag[] | undefined;
+    readonly specialLinks?: SpecialLink[] | undefined;
     readonly designTags?: StringList | undefined;
     readonly designTagsConfig?: DesignTagConfig | undefined;
     readonly tools?: ToolsConfig | undefined;
@@ -118,12 +133,14 @@ export interface UnlayerOptions {
 
 export interface EmailEditorProps {
     readonly style?: CSSProperties | undefined;
-    readonly minHeight?: number | undefined;
+    readonly minHeight?: number | string | undefined;
     readonly options?: UnlayerOptions | undefined;
     readonly tools?: ToolsConfig | undefined;
     readonly appearance?: AppearanceConfig | undefined;
     readonly projectId?: number | undefined;
+    /** @deprecated Use **onReady** instead */
     onLoad?(): void;
+    onReady?(): void;
 }
 
 export interface HtmlExport {

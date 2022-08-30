@@ -45,6 +45,14 @@ const client = TRTC.createClient({
     mode: 'live',
 });
 
+const clientNotAutoSubscribed = TRTC.createClient({
+    sdkAppId: 123,
+    userId: '123',
+    userSig: 'userSig',
+    mode: 'live',
+    autoSubscribe: false,
+});
+
 const stream = TRTC.createStream({
     userId: '123',
     audio: true,

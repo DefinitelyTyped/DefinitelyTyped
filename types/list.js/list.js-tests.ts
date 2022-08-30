@@ -60,7 +60,8 @@ list.on('searchComplete', list => {});
 list.on('sortStart', list => {});
 list.on('sortComplete', list => {});
 list.on('updated', list => {}).clear();
-list.on('invalid', list => {}); // $ExpectError
+// @ts-expect-error
+list.on('invalid', list => {});
 
 const item = list.get("name", "value")[0];
 

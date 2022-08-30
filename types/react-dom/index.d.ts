@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 17.0
+// Type definitions for React (react-dom) 18.0
 // Project: https://reactjs.org
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -10,10 +10,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-// NOTE: Users of the upcoming React 18 release should add a reference
-// to 'react-dom/next' in their project. See next.d.ts's top comment
-// for reference and documentation on how exactly to do it.
-
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react-dom/experimental' in their project. See experimental.d.ts's top comment
 // for reference and documentation on how exactly to do it.
@@ -22,14 +18,14 @@ export as namespace ReactDOM;
 
 import {
     ReactInstance, Component, ComponentState,
-    ReactElement, SFCElement, CElement,
+    ReactElement, FunctionComponentElement, CElement,
     DOMAttributes, DOMElement, ReactNode, ReactPortal
 } from 'react';
 
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
-export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
+export function createPortal(children: ReactNode, container: Element | DocumentFragment, key?: null | string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;
@@ -77,7 +73,7 @@ export interface Renderer {
     ): Element;
 
     (
-        element: SFCElement<any> | Array<SFCElement<any>>,
+        element: FunctionComponentElement<any> | Array<FunctionComponentElement<any>>,
         container: Container| null,
         callback?: () => void
     ): void;

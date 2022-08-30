@@ -1,4 +1,16 @@
 import * as verovio from 'verovio';
+import createVerovioModule from 'verovio/wasm';
+import { VerovioToolkit } from 'verovio/esm';
+
+(async () => {
+    const VerovioModule = await createVerovioModule();
+    const tk = new VerovioToolkit(VerovioModule);
+    // $ExpectType AvailableOptions
+    tk.getAvailableOptions();
+    // $ExpectType VerovioOptions
+    tk.getOptions();
+})();
+
 verovio.module.onRuntimeInitialized = () => {
     verovio.module.FS_unlink('/data/text/Times.xml');
     verovio.module.FS_createDataFile(

@@ -11,7 +11,7 @@ import {
     ShallowRendererProps,
     ComponentClass as EnzymeComponentClass
 } from "enzyme";
-import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, StatelessComponent } from "react";
+import { Component, ReactElement, ReactNode, HTMLAttributes, ComponentClass, FunctionComponent } from "react";
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -45,7 +45,7 @@ interface MyProviderProps {
     value: string;
 }
 
-function toComponentType<T>(Component: ComponentClass<T> | StatelessComponent<T>): ComponentClass<T> | StatelessComponent<T> {
+function toComponentType<T>(Component: ComponentClass<T> | FunctionComponent<T>): ComponentClass<T> | FunctionComponent<T> {
   return Component;
 }
 
@@ -100,9 +100,12 @@ const CommonWrapperHelper = {
         wrapper.invoke('singleArg'); // $ExpectType (arg: any) => void
         wrapper.invoke('multipleArg'); // $ExpectType (arg1: number, arg2: string, arg3: boolean) => void
         wrapper.invoke('multipleReturn'); // $ExpectType () => string | number | boolean | void | null | undefined || () => string | number | boolean | void | null
-        wrapper.invoke(undefined); // $ExpectError
-        wrapper.invoke(null); // $ExpectError
-        wrapper.invoke('nonFun'); // $ExpectError
+        // @ts-expect-error
+        wrapper.invoke(undefined);
+        // @ts-expect-error
+        wrapper.invoke(null);
+        // @ts-expect-error
+        wrapper.invoke('nonFun');
     },
 };
 
@@ -149,15 +152,15 @@ function ShallowWrapperTest() {
             handleEcho // $ExpectType (value: string) => string
         } = wrapper.instance();
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({stateProperty: 123});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({statePropertyzasd: 'hello'});
         wrapper.setState({stateProperty: 'hello'});
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberProp: '123'});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberPropzasd: 'hello'});
         wrapper.setProps({numberProp: 123});
     }
@@ -451,7 +454,7 @@ function ShallowWrapperTest() {
 
         const wrapperPropsOnly = shallow<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
         wrapperPropsOnly.setProps({stringProp: 'new value'});
-        // $ExpectError
+        // @ts-expect-error
         wrapperPropsOnly.instance().handleEcho;
     }
 
@@ -467,7 +470,7 @@ function ShallowWrapperTest() {
     }
 
     function test_type() {
-        const type: string | StatelessComponent<MyComponentProps> | ComponentClass<MyComponentProps> = shallowWrapper.type();
+        const type: string | FunctionComponent<MyComponentProps> | ComponentClass<MyComponentProps> = shallowWrapper.type();
     }
 
     function test_name() {
@@ -590,15 +593,15 @@ function ReactWrapperTest() {
             handleEcho // $ExpectType (value: string) => string
         } = wrapper.instance();
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({stateProperty: 123});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setState({statePropertyzasd: 'hello'});
         wrapper.setState({stateProperty: 'hello'});
 
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberProp: '123'});
-        // $ExpectError
+        // @ts-expect-error
         wrapper.setProps({numberPropzasd: 'hello'});
         wrapper.setProps({numberProp: 123});
     }
@@ -885,7 +888,7 @@ function ReactWrapperTest() {
 
         const wrapperPropsOnly = mount<MyComponentProps>(<MyComponent stringProp="value" numberProp={1}/>);
         wrapperPropsOnly.setProps({stringProp: 'new value'});
-        // $ExpectError
+        // @ts-expect-error
         wrapperPropsOnly.instance().handleEcho;
 
         const wrapper = mount<MyComponent>(<MyComponent stringProp="value" numberProp={1}/>);
@@ -904,7 +907,7 @@ function ReactWrapperTest() {
     }
 
     function test_type() {
-        const type: string | StatelessComponent<MyComponentProps> | ComponentClass<MyComponentProps> = reactWrapper.type();
+        const type: string | FunctionComponent<MyComponentProps> | ComponentClass<MyComponentProps> = reactWrapper.type();
     }
 
     function test_name() {
@@ -993,6 +996,11 @@ function ReactWrapperTest() {
         );
         const provider = wrapper.getWrappingComponent();
         provider.setProps({ value: 'test new' });
+    }
+
+    function test_renderProp() {
+        let reactWrapper = new ReactWrapper<MyRenderPropProps>(<MyRenderPropComponent children={(params) => <div className={params} />} />);
+        reactWrapper = reactWrapper.renderProp('children')('test');
     }
 }
 

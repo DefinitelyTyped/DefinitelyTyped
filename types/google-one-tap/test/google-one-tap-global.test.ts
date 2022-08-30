@@ -9,11 +9,12 @@ const idConfiguration: google.IdConfiguration = {
     cancel_on_tap_outside: false,
     prompt_parent_id: '',
     nonce: '',
-    context: '',
+    context: 'signin',
     state_cookie_domain: '',
     allowed_parent_origin: ['test1', 'test2'],
     intermediate_iframe_close_callback: () => {},
-    ux_mode: 'popup'
+    ux_mode: 'popup',
+    log_level: 'debug'
 };
 
 google.accounts.id.initialize(idConfiguration);
@@ -21,8 +22,7 @@ google.accounts.id.initialize(idConfiguration);
 google.accounts.id.disableAutoSelect();
 google.accounts.id.storeCredential('', () => {});
 google.accounts.id.cancel();
-
-google.accounts.id.onGoogleLibraryLoad = () => {};
+google.accounts.id.revoke('', (_: google.RevocationResponse) => {});
 
 google.accounts.id.prompt(promptMomentNotification => {
     const isDisplayMoment: boolean = promptMomentNotification.isDisplayMoment();

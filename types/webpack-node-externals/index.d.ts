@@ -6,11 +6,16 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { ExternalsFunctionElement } from 'webpack';
+/// <reference types="node" />
+import { ExternalsPlugin } from 'webpack';
 
 export = webpackNodeExternals;
 
-declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalsFunctionElement;
+type GetArrayInnerType<T> = T extends Array<infer U> ? U : never;
+/** The webpack types don't export this so we have to derive it. */
+type ExternalItem = GetArrayInnerType<ExternalsPlugin['externals']>;
+
+declare function webpackNodeExternals(options?: webpackNodeExternals.Options): ExternalItem;
 
 declare namespace webpackNodeExternals {
     type AllowlistOption = string | RegExp | AllowlistFunctionType;

@@ -287,6 +287,8 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 
     // self-sign certificate
     cert.sign(keypair.privateKey, forge.md.sha256.create());
+
+    cert.issuer.attributes.map(attr => attr.name)
 }
 
 {
@@ -355,6 +357,8 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
         else
             throw Error("pbkdf2 key derivation fail");
     });
+
+    const key5: string = forge.pkcs5.pbkdf2("password", "salt", 1000, 32, 'sha256');
 }
 
 {
@@ -491,6 +495,37 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 }
 
 {
+    // combined private/public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.3
+    const ecBytes = Buffer.from(
+        'MHICAQEwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhCoB8wHQYKKoZIhvcNAQkJFDEPDA1DdXJkbGUgQ2hhaXJzgSEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=',
+        'base64'
+    ).toString('binary');
+    const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
+    forge.pki.ed25519.privateKeyFromAsn1(ecAsn1);
+    forge.pki.ed25519.publicKeyFromAsn1(ecAsn1);
+}
+
+{
+    // public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.1
+    const ecBytes = Buffer.from(
+        '   MC4CAQAwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhC',
+        'base64'
+    ).toString('binary');
+    const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
+    forge.pki.ed25519.privateKeyFromAsn1(ecAsn1);
+}
+
+{
+    // public key from https://datatracker.ietf.org/doc/html/rfc8410#section-10.1
+    const ecBytes = Buffer.from(
+        'MCowBQYDK2VwAyEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=',
+        'base64'
+    ).toString('binary');
+    const ecAsn1 = forge.asn1.fromDer(forge.util.createBuffer().putBytes(ecBytes));
+    forge.pki.ed25519.publicKeyFromAsn1(ecAsn1);
+}
+
+{
     let byteBuffer: forge.util.ByteBuffer = forge.pki.getPublicKeyFingerprint(cert.publicKey, {
         type: 'SubjectPublicKeyInfo',
         md: forge.md.sha256.create(),
@@ -516,6 +551,13 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     p7.content = forge.util.createBuffer('content');
     p7.encrypt();
     let asn1: forge.asn1.Asn1 = p7.toAsn1();
+}
+
+{
+    let key = null;
+    let cert = forge.pki.createCertificate();
+    let password = null;
+    let p17 = forge.pkcs12.toPkcs12Asn1(key, cert, password);
 }
 
 {
@@ -620,4 +662,14 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     isBigInteger = bn.gcd(bn);
     isBigInteger = bn.modInverse(bn);
     isBoolean = bn.isProbablePrime(0);
+}
+
+{
+    forge.pki.rsa.generateKeyPair({ bits: 2048,}, (err, keypair) => {
+        if (err) {
+            throw err;
+        }
+        const msg = '0102030405060708090a0b0c0d0e0f00';
+        keypair.privateKey.sign(forge.util.hexToBytes(msg), 'NONE');
+    });
 }

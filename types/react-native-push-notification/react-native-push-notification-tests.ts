@@ -1,11 +1,11 @@
 import PushNotification, { Importance } from "react-native-push-notification";
 
 PushNotification.configure({
-    onNotification: ({ finish, action, data }) => {
+    onNotification: ({ id, finish, action, data }) => {
         finish("UIBackgroundFetchResultNoData");
     },
     onRegister: token => {},
-    onAction: ({ action, userInfo }) => {},
+    onAction: ({ id, action, userInfo }) => {},
     onRegistrationError: err => {},
     onRemoteFetch: notificationData => {},
     permissions: { alert: true, badge: true, sound: true },
@@ -14,12 +14,12 @@ PushNotification.configure({
 });
 
 PushNotification.unregister();
-PushNotification.localNotification({ message: "", actions: ["Yes", "No"] });
-PushNotification.localNotificationSchedule({ date: new Date(), message: "", actions: ["Yes", "No"] });
+PushNotification.localNotification({ id: "", message: "", actions: ["Yes", "No"] });
+PushNotification.localNotificationSchedule({ id: "", date: new Date(), message: "", actions: ["Yes", "No"] });
 PushNotification.requestPermissions();
 PushNotification.subscribeToTopic("topic");
-PushNotification.presentLocalNotification({ message: "" });
-PushNotification.scheduleLocalNotification({ date: new Date(), message: "" });
+PushNotification.presentLocalNotification({ id: "", message: "" });
+PushNotification.scheduleLocalNotification({ id: "", date: new Date(), message: "" });
 PushNotification.cancelLocalNotifications({ id: "123" });
 PushNotification.cancelAllLocalNotifications();
 PushNotification.setApplicationIconBadgeNumber(1);

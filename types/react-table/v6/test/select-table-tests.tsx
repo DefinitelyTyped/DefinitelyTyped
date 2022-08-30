@@ -10,7 +10,7 @@ import selectTableHOC, {
 
 const SelectTable = selectTableHOC(ReactTable);
 
-const SelectInput: React.StatelessComponent<SelectInputComponentProps> = ({
+const SelectInput: React.FunctionComponent<SelectInputComponentProps> = ({
     onClick,
     id,
     checked,
@@ -23,7 +23,7 @@ const SelectInput: React.StatelessComponent<SelectInputComponentProps> = ({
     />
 );
 
-const SelectAllInput: React.StatelessComponent<
+const SelectAllInput: React.FunctionComponent<
     SelectAllInputComponentProps
 > = ({ onClick, checked }) => (
     <input type="checkbox" onClick={onClick} checked={checked} />

@@ -1,4 +1,4 @@
-// Type definitions for React Elemental 1.2
+// Type definitions for non-npm package React Elemental 1.2
 // Project: https://github.com/LINKIWI/react-elemental
 // Definitions by: Fernando Chen <https://github.com/wzfc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -49,6 +49,7 @@ declare module 'process' {
                 openssl: string;
             }
             type Platform = 'aix' | 'android' | 'darwin' | 'freebsd' | 'haiku' | 'linux' | 'openbsd' | 'sunos' | 'win32' | 'cygwin' | 'netbsd';
+            type Architecture = 'arm' | 'arm64' | 'ia32' | 'mips' | 'mipsel' | 'ppc' | 'ppc64' | 's390' | 's390x' | 'x64';
             type Signals =
                 | 'SIGABRT'
                 | 'SIGALRM'
@@ -94,7 +95,11 @@ declare module 'process' {
             type ExitListener = (code: number) => void;
             type RejectionHandledListener = (promise: Promise<unknown>) => void;
             type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
-            type UnhandledRejectionListener = (reason: {} | null | undefined, promise: Promise<unknown>) => void;
+            /**
+             * Most of the time the unhandledRejection will be an Error, but this should not be relied upon
+             * as *anything* can be thrown/rejected, it is therefore unsafe to assume that the value is an Error.
+             */
+            type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: unknown, sendHandle: unknown) => void;
             type SignalsListener = (signal: Signals) => void;
@@ -142,7 +147,7 @@ declare module 'process' {
                 /**
                  * If true, a diagnostic report is generated when the process
                  * receives the signal specified by process.report.signal.
-                 * @defaul false
+                 * @default false
                  */
                 reportOnSignal: boolean;
                 /**
@@ -585,7 +590,7 @@ declare module 'process' {
                  *
                  * The reason this is problematic is because writes to `process.stdout` in Node.js
                  * are sometimes _asynchronous_ and may occur over multiple ticks of the Node.js
-                 * event loop. Calling `process.exit()`, however, forces the process to exit_before_ those additional writes to `stdout` can be performed.
+                 * event loop. Calling `process.exit()`, however, forces the process to exit _before_ those additional writes to `stdout` can be performed.
                  *
                  * Rather than calling `process.exit()` directly, the code _should_ set the`process.exitCode` and allow the process to exit naturally by avoiding
                  * scheduling any additional work for the event loop:
@@ -637,7 +642,7 @@ declare module 'process' {
                  * Android).
                  * @since v0.1.31
                  */
-                getgid(): number;
+                getgid?: () => number;
                 /**
                  * The `process.setgid()` method sets the group identity of the process. (See [`setgid(2)`](http://man7.org/linux/man-pages/man2/setgid.2.html).) The `id` can be passed as either a
                  * numeric ID or a group name
@@ -664,7 +669,7 @@ declare module 'process' {
                  * @since v0.1.31
                  * @param id The group name or ID
                  */
-                setgid(id: number | string): void;
+                setgid?: (id: number | string) => void;
                 /**
                  * The `process.getuid()` method returns the numeric user identity of the process.
                  * (See [`getuid(2)`](http://man7.org/linux/man-pages/man2/getuid.2.html).)
@@ -681,7 +686,7 @@ declare module 'process' {
                  * Android).
                  * @since v0.1.28
                  */
-                getuid(): number;
+                getuid?: () => number;
                 /**
                  * The `process.setuid(id)` method sets the user identity of the process. (See [`setuid(2)`](http://man7.org/linux/man-pages/man2/setuid.2.html).) The `id` can be passed as either a
                  * numeric ID or a username string.
@@ -707,7 +712,7 @@ declare module 'process' {
                  * This feature is not available in `Worker` threads.
                  * @since v0.1.28
                  */
-                setuid(id: number | string): void;
+                setuid?: (id: number | string) => void;
                 /**
                  * The `process.geteuid()` method returns the numerical effective user identity of
                  * the process. (See [`geteuid(2)`](http://man7.org/linux/man-pages/man2/geteuid.2.html).)
@@ -724,7 +729,7 @@ declare module 'process' {
                  * Android).
                  * @since v2.0.0
                  */
-                geteuid(): number;
+                geteuid?: () => number;
                 /**
                  * The `process.seteuid()` method sets the effective user identity of the process.
                  * (See [`seteuid(2)`](http://man7.org/linux/man-pages/man2/seteuid.2.html).) The `id` can be passed as either a numeric ID or a username
@@ -751,7 +756,7 @@ declare module 'process' {
                  * @since v2.0.0
                  * @param id A user name or ID
                  */
-                seteuid(id: number | string): void;
+                seteuid?: (id: number | string) => void;
                 /**
                  * The `process.getegid()` method returns the numerical effective group identity
                  * of the Node.js process. (See [`getegid(2)`](http://man7.org/linux/man-pages/man2/getegid.2.html).)
@@ -768,7 +773,7 @@ declare module 'process' {
                  * Android).
                  * @since v2.0.0
                  */
-                getegid(): number;
+                getegid?: () => number;
                 /**
                  * The `process.setegid()` method sets the effective group identity of the process.
                  * (See [`setegid(2)`](http://man7.org/linux/man-pages/man2/setegid.2.html).) The `id` can be passed as either a numeric ID or a group
@@ -795,7 +800,7 @@ declare module 'process' {
                  * @since v2.0.0
                  * @param id A group name or ID
                  */
-                setegid(id: number | string): void;
+                setegid?: (id: number | string) => void;
                 /**
                  * The `process.getgroups()` method returns an array with the supplementary group
                  * IDs. POSIX leaves it unspecified if the effective group ID is included but
@@ -813,7 +818,7 @@ declare module 'process' {
                  * Android).
                  * @since v0.9.4
                  */
-                getgroups(): number[];
+                getgroups?: () => number[];
                 /**
                  * The `process.setgroups()` method sets the supplementary group IDs for the
                  * Node.js process. This is a privileged operation that requires the Node.js
@@ -839,7 +844,7 @@ declare module 'process' {
                  * This feature is not available in `Worker` threads.
                  * @since v0.9.4
                  */
-                setgroups(groups: ReadonlyArray<string | number>): void;
+                setgroups?: (groups: ReadonlyArray<string | number>) => void;
                 /**
                  * The `process.setUncaughtExceptionCaptureCallback()` function sets a function
                  * that will be invoked when an uncaught exception occurs, which will receive the
@@ -1036,7 +1041,7 @@ declare module 'process' {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'s390'`, `'s390x'`, `'x32'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'s390'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'process';
@@ -1045,10 +1050,10 @@ declare module 'process' {
                  * ```
                  * @since v0.5.0
                  */
-                readonly arch: string;
+                readonly arch: Architecture;
                 /**
                  * The `process.platform` property returns a string identifying the operating
-                 * system platform on which the Node.js process is running.
+                 * system platform for which the Node.js binary was compiled.
                  *
                  * Currently possible values are:
                  *
@@ -1401,7 +1406,7 @@ declare module 'process' {
                 emit(event: 'unhandledRejection', reason: unknown, promise: Promise<unknown>): boolean;
                 emit(event: 'warning', warning: Error): boolean;
                 emit(event: 'message', message: unknown, sendHandle: unknown): this;
-                emit(event: Signals, signal: Signals): boolean;
+                emit(event: Signals, signal?: Signals): boolean;
                 emit(event: 'multipleResolves', type: MultipleResolveType, promise: Promise<unknown>, value: unknown): this;
                 emit(event: 'worker', listener: WorkerListener): this;
                 on(event: 'beforeExit', listener: BeforeExitListener): this;

@@ -1,3 +1,3 @@
-import { Element } from './Element';
+import stringify from '../src/stringify';
 
-export function stringify(el: Element, indent?: number, level?: number): string;
+export = stringify;

@@ -1,6 +1,8 @@
 QUnit.module( "group a" );
 
 QUnit.test( "a basic test example", function( assert ) {
+  assert.timeout(5_000);
+
   assert.ok( true, "this test is fine" );
 });
 QUnit.test( "a basic test example 2", function( assert ) {
@@ -58,6 +60,14 @@ QUnit.module( "Machine Maker", {
     this.maker = new Maker();
     this.parts = [ "wheels", "motor", "chassis" ];
   }
+});
+
+QUnit.hooks.beforeEach(function (assert) {
+  assert.ok(true)
+});
+
+QUnit.hooks.afterEach(function (assert) {
+  assert.ok(true)
 });
 
 QUnit.test( "makes a robot", function( assert ) {
@@ -139,6 +149,9 @@ QUnit.test( "`ok` assertion defined in the callback parameter", function( assert
 
 QUnit.begin(function( details ) {
   console.log( "Test amount:", details.totalTests );
+  for (const {name, moduleId} of details.modules) {
+    console.log(name, moduleId)
+  }
 });
 
 QUnit.config.autostart = false;
@@ -475,6 +488,12 @@ QUnit.test( "notOk test", function( assert ) {
   assert.notOk( "not-empty", "not-empty string fails" );
 });
 
+QUnit.test( "notPropContains test", function( assert ) {
+    const obj = { foo: 1, bar: "baz" }
+
+    assert.notPropContains( obj, { foo: 1 }, "Subset of values are strictly compared." );
+    assert.notPropContains( obj, { bar: { length: 3 } }, "Subset of values are strictly compared." );
+});
 
 QUnit.test( "notPropEqual test", function( assert ) {
   class Foo {
@@ -499,6 +518,13 @@ QUnit.test( "notPropEqual test", function( assert ) {
 
 QUnit.test( "a test", function( assert ) {
   assert.notStrictEqual( 1, "1", "String '1' and number 1 have the same value but not the same type" );
+});
+
+QUnit.test( "propContains test", function( assert ) {
+    const obj = { foo: 1, bar: "baz" }
+
+    assert.propContains( obj, { foo: 1 }, "Subset of values are strictly compared." );
+    assert.propContains( obj, { bar: { length: 3 } }, "Subset of values are strictly compared." );
 });
 
 QUnit.test( "propEqual test", function( assert ) {
@@ -526,22 +552,25 @@ QUnit.test( "propEqual test", function( assert ) {
   assert.propEqual( foo, bar, "Strictly the same properties without comparing objects constructors." );
 });
 
-// QUnit.assert['mod2'] = function( value: any, expected: any, message: string ): any {
-//     var actual = value % 2;
-//     this.pushResult({
-//         result: actual === expected,
-//         actual: actual,
-//         expected: expected,
-//         message: message
-//     });
-// };
+QUnit.test( "Assert plugin", function ( assert ) {
+    const actual = 42;
+    const from = 40;
+    const to = 50;
+    const isBetween = (actual >= from && actual <= to);
+    assert.pushResult({
+        result: isBetween,
+        actual: actual,
+        expected: `between ${from} and ${to} inclusive`,
+        message: 'message'
+    });
 
-// QUnit.test( "mod2", function( assert ) {
-//     assert.expect( 2 );
-
-//     assert['mod2']( 2, 0, "2 % 2 == 0" );
-//     assert['mod2']( 3, 1, "3 % 2 == 1" );
-// });
+    // without message
+    assert.pushResult({
+        result: isBetween,
+        actual: actual,
+        expected: `between ${from} and ${to} inclusive`
+    });
+});
 
 QUnit.test( "throws", function( assert ) {
 
@@ -651,6 +680,20 @@ QUnit.test( "rejects", function( assert ) {
   );
 });
 
+QUnit.test('stateful rejects example', async assert => {
+  let value;
+
+  function asyncChecker () {
+    return (value < 5) ? Promise.resolve(true) : Promise.reject('bad value: ' + value);
+  }
+
+  value = 8;
+  await assert.rejects(asyncChecker(), /bad value: 8/);
+
+  value = Infinity;
+  await assert.rejects(asyncChecker(), /bad value: Infinity/);
+});
+
 QUnit.module( "module", {
   beforeEach: function( assert ) {
     assert.ok( true, "one extra assert per test" );
@@ -727,6 +770,15 @@ QUnit.skip( "async skip", async function( assert ) {
   assert.ok(true);
 });
 
+QUnit.hooks.beforeEach(async function () {
+  await timeout();
+});
+
+QUnit.hooks.afterEach(async function () {
+  await timeout();
+});
+
+
 QUnit.module( "async", {
   async after( assert ) {
     await timeout();
@@ -770,3 +822,9 @@ QUnit.module( "async nested hooks", function( hooks ) {
     assert.ok( true, "async afterEach called" );
   } );
 });
+
+QUnit.onUncaughtException = (error: unknown) => {
+  if (error instanceof Error) {
+    console.log(error.message);
+  }
+};

@@ -48,6 +48,7 @@ export type AnimationTypes =
     | "flash";
 
 export interface ModalProps {
+    children?: React.ReactNode;
     closemodal: () => void;
     visible: boolean;
     /** @default 'flipInX' */

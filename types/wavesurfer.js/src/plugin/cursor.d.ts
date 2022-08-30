@@ -1,7 +1,7 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import { Styles } from "../../types/util";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import { Styles } from '../../types/util';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 export default class CursorPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: CursorPluginParams, ws: WaveSurfer);
     static create(params: CursorPluginParams): PluginDefinition;
@@ -10,7 +10,6 @@ export default class CursorPlugin extends Observer implements WaveSurferPlugin {
 
     formatTime(cursorTime: number): string;
     hideCursor(): void;
-    outerWidth(element: Element): number;
     showCursor(): void;
     updateCursorPosition(xpos: number, ypos: number, flip: boolean): void;
 
@@ -22,7 +21,7 @@ export default class CursorPlugin extends Observer implements WaveSurferPlugin {
     readonly params: CursorPluginParams;
     /** Displays the time next to the cursor. */
     readonly showTime: HTMLElement;
-    readonly style: WaveSurfer["util"]["style"];
+    readonly style: WaveSurfer['util']['style'];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }

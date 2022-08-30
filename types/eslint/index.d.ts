@@ -1,4 +1,4 @@
-// Type definitions for eslint 7.28
+// Type definitions for eslint 8.4
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -9,10 +9,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="helpers.d.ts" />
-/// <reference path="lib/rules/index.d.ts" />
 
-import { JSONSchema4 } from "json-schema";
 import * as ESTree from "estree";
+import { JSONSchema4 } from "json-schema";
 
 export namespace AST {
     type TokenType =
@@ -86,6 +85,7 @@ export namespace Scope {
 
     interface Variable {
         name: string;
+        scope: Scope;
         identifiers: ESTree.Identifier[];
         references: Reference[];
         defs: Definition[];
@@ -552,22 +552,51 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
-            /** provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
+            /** Provides a short description of the rule. */
             description?: string | undefined;
-            /** specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated no longer used
+             */
             category?: string | undefined;
-            /** is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
+            /** Whether the rule is enabled in the plugin's `recommended` configuration. */
             recommended?: boolean | undefined;
-            /** specifies the URL at which the full documentation can be accessed */
+            /** Specifies the URL at which the full documentation can be accessed (enabling code editors to provide a helpful link on highlighted rule violations). */
             url?: string | undefined;
-            /** specifies whether rules can return suggestions (defaults to false if omitted) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated use `meta.hasSuggestions` instead
+             */
             suggestion?: boolean | undefined;
         } | undefined;
+        /** Violation and suggestion messages. */
         messages?: { [messageId: string]: string } | undefined;
+        /**
+         * Specifies if the `--fix` option on the command line automatically fixes problems reported by the rule.
+         * Mandatory for fixable rules.
+         */
         fixable?: "code" | "whitespace" | undefined;
+        /**
+         * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
+         * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
+         */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+        /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /**
+         * Indicates the type of rule:
+         * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
+         * - `"suggestion"` means the rule is identifying something that could be done in a better way but no errors will occur if the code isn’t changed.
+         * - `"layout"` means the rule cares primarily about whitespace, semicolons, commas, and parentheses,
+         *   all the parts of the program that determine how the code looks rather than how it executes.
+         *   These rules work on parts of the code that aren’t specified in the AST.
+         */
         type?: "problem" | "suggestion" | "layout" | undefined;
+        /**
+         * Specifies whether the rule can return suggestions (defaults to `false` if omitted).
+         * Mandatory for rules that provide suggestions.
+         */
+        hasSuggestions?: boolean | undefined;
     }
 
     interface RuleContext {
@@ -717,7 +746,7 @@ export namespace Linter {
     }
 
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | undefined;
+        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | "latest" | undefined;
         sourceType?: "script" | "module" | undefined;
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
@@ -760,6 +789,15 @@ export namespace Linter {
         /** @deprecated Use `linter.getSourceCode()` */
         source?: string | null | undefined;
         suggestions?: LintSuggestion[] | undefined;
+    }
+
+    interface LintSuppression {
+        kind: string;
+        justification: string;
+    }
+
+    interface SuppressedLintMessage extends LintMessage {
+        suppressions: LintSuppression[];
     }
 
     interface FixOptions extends LintOptions {
@@ -817,6 +855,8 @@ export class ESLint {
 
     lintText(code: string, options?: { filePath?: string | undefined; warnIgnored?: boolean | undefined }): Promise<ESLint.LintResult[]>;
 
+    getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData['rulesMeta'];
+
     calculateConfigForFile(filePath: string): Promise<any>;
 
     isPathIgnored(filePath: string): Promise<boolean>;
@@ -825,6 +865,20 @@ export class ESLint {
 }
 
 export namespace ESLint {
+    type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
+
+    interface Environment {
+        globals?: { [name: string]: boolean; } | undefined;
+        parserOptions?: Linter.ParserOptions | undefined;
+    }
+
+    interface Plugin {
+        configs?: Record<string, ConfigData> | undefined;
+        environments?: Record<string, Environment> | undefined;
+        processors?: Record<string, Linter.Processor> | undefined;
+        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
+    }
+
     interface Options {
         // File enumeration
         cwd?: string | undefined;
@@ -839,7 +893,7 @@ export namespace ESLint {
         baseConfig?: Linter.Config | undefined;
         overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
-        plugins?: Record<string, any> | undefined;
+        plugins?: Record<string, Plugin> | undefined;
         reportUnusedDisableDirectives?: Linter.RuleLevel | undefined;
         resolvePluginsRelativeTo?: string | undefined;
         rulePaths?: string[] | undefined;
@@ -858,7 +912,9 @@ export namespace ESLint {
     interface LintResult {
         filePath: string;
         messages: Linter.LintMessage[];
+        suppressedMessages: Linter.SuppressedLintMessage[];
         errorCount: number;
+        fatalErrorCount: number;
         warningCount: number;
         fixableErrorCount: number;
         fixableWarningCount: number;
@@ -868,6 +924,7 @@ export namespace ESLint {
     }
 
     interface LintResultData {
+        cwd: string;
         rulesMeta: {
             [ruleId: string]: Rule.RuleMetaData;
         };
@@ -879,93 +936,11 @@ export namespace ESLint {
     }
 
     interface Formatter {
-        format(results: LintResult[], data?: LintResultData): string;
+        format(results: LintResult[], data?: LintResultData): string | Promise<string>;
     }
 
     // Docs reference the type by this name
     type EditInfo = Rule.Fix;
-}
-
-//#endregion
-
-//#region CLIEngine
-
-/** @deprecated Deprecated in favor of `ESLint` */
-export class CLIEngine {
-    static version: string;
-
-    constructor(options: CLIEngine.Options);
-
-    executeOnFiles(patterns: string[]): CLIEngine.LintReport;
-
-    resolveFileGlobPatterns(patterns: string[]): string[];
-
-    getConfigForFile(filePath: string): Linter.Config;
-
-    executeOnText(text: string, filename?: string): CLIEngine.LintReport;
-
-    addPlugin(name: string, pluginObject: any): void;
-
-    isPathIgnored(filePath: string): boolean;
-
-    getFormatter(format?: string): CLIEngine.Formatter;
-
-    getRules(): Map<string, Rule.RuleModule>;
-
-    static getErrorResults(results: CLIEngine.LintResult[]): CLIEngine.LintResult[];
-
-    static getFormatter(format?: string): CLIEngine.Formatter;
-
-    static outputFixes(report: CLIEngine.LintReport): void;
-}
-
-/** @deprecated Deprecated in favor of `ESLint` */
-export namespace CLIEngine {
-    class Options {
-        allowInlineConfig?: boolean | undefined;
-        baseConfig?: false | { [name: string]: any } | undefined;
-        cache?: boolean | undefined;
-        cacheFile?: string | undefined;
-        cacheLocation?: string | undefined;
-        cacheStrategy?: "content" | "metadata" | undefined;
-        configFile?: string | undefined;
-        cwd?: string | undefined;
-        envs?: string[] | undefined;
-        errorOnUnmatchedPattern?: boolean | undefined;
-        extensions?: string[] | undefined;
-        fix?: boolean | undefined;
-        globals?: string[] | undefined;
-        ignore?: boolean | undefined;
-        ignorePath?: string | undefined;
-        ignorePattern?: string | string[] | undefined;
-        useEslintrc?: boolean | undefined;
-        parser?: string | undefined;
-        parserOptions?: Linter.ParserOptions | undefined;
-        plugins?: string[] | undefined;
-        resolvePluginsRelativeTo?: string | undefined;
-        rules?: {
-            [name: string]: Linter.RuleLevel | Linter.RuleLevelAndOptions;
-        } | undefined;
-        rulePaths?: string[] | undefined;
-        reportUnusedDisableDirectives?: boolean | undefined;
-    }
-
-    type LintResult = ESLint.LintResult;
-
-    type LintResultData = ESLint.LintResultData;
-
-    interface LintReport {
-        results: LintResult[];
-        errorCount: number;
-        warningCount: number;
-        fixableErrorCount: number;
-        fixableWarningCount: number;
-        usedDeprecatedRules: DeprecatedRuleUse[];
-    }
-
-    type DeprecatedRuleUse = ESLint.DeprecatedRuleUse;
-
-    type Formatter = (results: LintResult[], data?: LintResultData) => string;
 }
 
 //#endregion
@@ -983,13 +958,19 @@ export class RuleTester {
             invalid?: RuleTester.InvalidTestCase[] | undefined;
         },
     ): void;
+
+    static only(
+        item: string | RuleTester.ValidTestCase | RuleTester.InvalidTestCase,
+    ): RuleTester.ValidTestCase | RuleTester.InvalidTestCase;
 }
 
 export namespace RuleTester {
     interface ValidTestCase {
+        name?: string;
         code: string;
         options?: any;
         filename?: string | undefined;
+        only?: boolean;
         parserOptions?: Linter.ParserOptions | undefined;
         settings?: { [name: string]: any } | undefined;
         parser?: string | undefined;

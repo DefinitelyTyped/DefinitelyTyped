@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "member-access": false,
         "no-empty-interface": false,
         "no-unnecessary-callback-wrapper": false,

@@ -3,7 +3,6 @@
 // Definitions by: Ozytis <https://ozytis.fr>,
 //                 Salim <https://github.com/salim7>,
 //                 Jemmyw <https://github.com/jemmyw>
-//                 Mikael Lirbank <https://github.com/lirbank>
 //                 Yuji Tabata <https://github.com/uztbt>
 //                 LBLZR_ <https://github.com/LaBlazer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,6 +52,7 @@ export interface SwitchChangeEvent extends Event {
 
 /*** splitter ***/
 export class SplitterSide extends Component<{
+    children?: React.ReactNode;
     side?: "left" | "right" | undefined,
     collapse?: "portrait" | "landscape" | boolean | undefined,
     isOpen?: boolean | undefined,
@@ -70,9 +70,9 @@ export class SplitterSide extends Component<{
     mode?: "collapse" | "split" | undefined,
 }, any> { }
 
-export class SplitterContent extends Component { }
+export class SplitterContent extends Component<{ children?: React.ReactNode }> { }
 
-export class Splitter extends Component { }
+export class Splitter extends Component<{ children?: React.ReactNode }> { }
 
 /*** toolbar ***/
 
@@ -103,6 +103,7 @@ export class Icon extends Component<{
 
 /*** page ***/
 export class Page extends Component<{
+    children?: React.ReactNode;
     contentStyle?: any,
     modifier?: string | undefined,
     renderModal?(): void,
@@ -350,6 +351,7 @@ export class Input extends Component<InputHTMLAttributes<'min' | 'max' | 'step'>
     disabled?: boolean | undefined,
     readOnly?: boolean | undefined,
     onChange?: ((e: React.ChangeEvent<any>) => void) | undefined,
+    onInput?: ((e: React.ChangeEvent<any>) => void) | undefined,
     onBlur?: ((e: React.FocusEvent<any>) => void) | undefined,
     onFocus?: ((e: React.FocusEvent<any>) => void) | undefined,
     value?: string | undefined,
@@ -394,12 +396,15 @@ export class Range extends Component<{
 export class SearchInput extends Component<{
     modifier?: string | undefined,
     disabled?: boolean | undefined,
-    onChange?(e: Event): void,
+    onChange?: ((e: React.ChangeEvent<any>) => void) | undefined,
+    onInput?: ((e: React.ChangeEvent<any>) => void) | undefined,
+    placeholder?: string | undefined,
     value?: string | undefined,
     inputId?: string | undefined,
 }, any> {}
 
 export class Select extends Component<{
+    children?: React.ReactNode;
     modifier?: string | undefined,
     disabled?: boolean | undefined,
     onChange?: ((e: React.ChangeEvent<any>) => void) | undefined,
@@ -479,6 +484,7 @@ export class ListHeader extends Component<{
 }, any> {}
 
 export class ListItem extends Component<{
+    children?: React.ReactNode;
     modifier?: string | undefined,
     tappable?: boolean | undefined,
     tapBackgroundColor?: string | undefined,

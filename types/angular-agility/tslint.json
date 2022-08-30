@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "arrow-return-shorthand": false,
-        "dt-header": false,
         "interface-name": false,
         "no-consecutive-blank-lines": false,
         "no-object-literal-type-assertion": false,
@@ -11,12 +10,7 @@
         "npm-naming": [
             true,
             {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
+                "errors": [["NeedsExportEquals", false]],
                 "mode": "code"
             }
         ],

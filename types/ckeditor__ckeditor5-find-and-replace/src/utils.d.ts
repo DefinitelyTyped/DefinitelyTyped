@@ -1,5 +1,6 @@
 import { Model, Range } from '@ckeditor/ckeditor5-engine';
-import { FindAndReplaceState } from './findandreplaceediting';
+import { TreeWalkerValue } from '@ckeditor/ckeditor5-engine/src/model/treewalker';
+import FindAndReplaceState from './findandreplacestate';
 
 /**
  * Executes findCallback and updates search results list.
@@ -17,10 +18,10 @@ import { FindAndReplaceState } from './findandreplaceediting';
 export function updateFindResultFromRange(
     range: Range,
     model: Model,
-    findCallback: (
-        str: string,
-        options?: { matchCase?: boolean; wholeWords?: boolean },
-    ) => (query: { text: string }) => Array<{ label: [string]; start: number; end: number }>,
+    findCallback: (arg: {
+        item: TreeWalkerValue['item'];
+        text: string;
+    }) => Array<{ label: string; start: number; end: number }>,
     startResults?: FindAndReplaceState['results'],
 ): FindAndReplaceState['results'];
 
@@ -32,7 +33,10 @@ export function updateFindResultFromRange(
  */
 export function rangeToText(range: Range): string;
 
+/**
+ * Creates a text matching callback for a specified search term and matching options.
+ */
 export function findByTextCallback(
     searchTerm: string,
     options?: { matchCase?: boolean; wholeWords?: boolean },
-): (query: { text: string }) => Array<{ label: [string]; start: number; end: number }>;
+): (query: { text: string }) => Array<{ label: string; start: number; end: number }>;

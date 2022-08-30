@@ -9,14 +9,14 @@ export namespace Index {
         ADD_DEFAULT = 0,
         ADD_FORCE = 1,
         ADD_DISABLE_PATHSPEC_MATCH = 2,
-        ADD_CHECK_PATHSPEC = 4
+        ADD_CHECK_PATHSPEC = 4,
     }
 
     const enum CAP {
         IGNORE_CASE = 1,
         NO_FILEMODE = 2,
         NO_SYMLINKS = 4,
-        FROM_OWNER = -1
+        FROM_OWNER = -1,
     }
 }
 

@@ -12,6 +12,11 @@ app.use(livereload({
     ignore: [".js", ".svg"]
 }));
 
+// With plugins
+app.use(livereload({
+  plugins: ['a']
+}));
+
 // With RegExp options
 app.use(livereload({
     port: 35729,

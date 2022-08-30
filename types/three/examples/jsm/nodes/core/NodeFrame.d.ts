@@ -1,17 +1,19 @@
-import { Texture, WebGLRenderer } from '../../../../src/Three';
+import { Camera, Material, Object3D, Renderer } from '../../../../src/Three';
 
-import { Node } from './Node';
+import Node from './Node';
 
-export class NodeFrame {
-    constructor(time: number);
+export default class NodeFrame {
     time: number;
-    id: number;
-    delta: number | undefined;
-    renderer: WebGLRenderer | undefined;
-    renderTexture: Texture | undefined;
+    deltaTime: number;
+    frameId: number;
+    startTime: null | number;
+    renderer: null | Renderer;
+    material: null | Material;
+    camera: null | Camera;
+    object: null | Object3D;
 
-    update(delta: number): this;
-    setRenderer(renderer: WebGLRenderer): this;
-    setRenderTexture(renderTexture: Texture): this;
-    updateNode(node: Node): this;
+    constructor();
+
+    updateNode(node: Node): void;
+    update(): void;
 }

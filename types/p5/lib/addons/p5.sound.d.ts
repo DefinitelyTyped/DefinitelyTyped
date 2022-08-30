@@ -46,36 +46,6 @@ declare module '../../index' {
         );
 
         /**
-         *   loadSound() returns a new p5.SoundFile from a
-         *   specified path. If called during preload(), the
-         *   p5.SoundFile will be ready to play in time for
-         *   setup() and draw(). If called outside of preload,
-         *   the p5.SoundFile will not be ready immediately, so
-         *   loadSound accepts a callback as the second
-         *   parameter. Using a  local server is recommended
-         *   when loading external files.
-         *   @param path Path to the sound file, or an array
-         *   with paths to soundfiles in multiple formats i.e.
-         *   ['sound.ogg', 'sound.mp3']. Alternately, accepts
-         *   an object: either from the HTML5 File API, or a
-         *   p5.File.
-         *   @param [successCallback] Name of a function to
-         *   call once file loads
-         *   @param [errorCallback] Name of a function to call
-         *   if there is an error loading the file.
-         *   @param [whileLoading] Name of a function to call
-         *   while file is loading. This function will receive
-         *   the percentage loaded so far, from 0.0 to 1.0.
-         *   @return Returns a p5.SoundFile
-         */
-        loadSound(
-            path: string | any[],
-            successCallback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any,
-            whileLoading?: (...args: any[]) => any
-        ): SoundFile;
-
-        /**
          *   Returns true if the sound file finished loading
          *   successfully.
          */
@@ -171,24 +141,6 @@ declare module '../../index' {
         stop(startTime?: number): void;
 
         /**
-         *   Multiply the output volume (amplitude) of a sound
-         *   file between 0.0 (silence) and 1.0 (full volume).
-         *   1.0 is the maximum amplitude of a digital sound,
-         *   so multiplying by greater than 1.0 may cause
-         *   digital distortion. To fade, provide a rampTime
-         *   parameter. For more complex fades, see the
-         *   Envelope class. Alternately, you can pass in a
-         *   signal source such as an oscillator to modulate
-         *   the amplitude with an audio signal.
-         *   @param volume Volume (amplitude) between 0.0 and
-         *   1.0 or modulating signal/oscillator
-         *   @param [rampTime] Fade for t seconds
-         *   @param [timeFromNow] Schedule this event to happen
-         *   at t seconds in the future
-         */
-        setVolume(volume: number | object, rampTime?: number, timeFromNow?: number): void;
-
-        /**
          *   Set the stereo panning of a p5.sound object to a
          *   floating point number between -1.0 (left) and 1.0
          *   (right). Default is 0.0 (center).
@@ -218,6 +170,24 @@ declare module '../../index' {
         rate(playbackRate?: number): void;
 
         /**
+         *   Multiply the output volume (amplitude) of a sound
+         *   file between 0.0 (silence) and 1.0 (full volume).
+         *   1.0 is the maximum amplitude of a digital sound,
+         *   so multiplying by greater than 1.0 may cause
+         *   digital distortion. To fade, provide a rampTime
+         *   parameter. For more complex fades, see the
+         *   Envelope class. Alternately, you can pass in a
+         *   signal source such as an oscillator to modulate
+         *   the amplitude with an audio signal.
+         *   @param volume Volume (amplitude) between 0.0 and
+         *   1.0 or modulating signal/oscillator
+         *   @param [rampTime] Fade for t seconds
+         *   @param [timeFromNow] Schedule this event to happen
+         *   at t seconds in the future
+         */
+        setVolume(volume: number | object, rampTime?: number, timeFromNow?: number): void;
+
+        /**
          *   Returns the duration of a sound file in seconds.
          *   @return The duration of the soundFile in seconds.
          */
@@ -233,10 +203,12 @@ declare module '../../index' {
         currentTime(): number;
 
         /**
-         *   Move the playhead of the song to a position, in
-         *   seconds. Start timing and playback duration. If
-         *   none are given, will reset the file to play entire
-         *   duration from start to finish.
+         *   Move the playhead of a soundfile that is currently
+         *   playing to a new position and a new duration, in
+         *   seconds. If none are given, will reset the file to
+         *   play entire duration from start to finish. To set
+         *   the position of a soundfile that is not currently
+         *   playing, use the play or loop methods.
          *   @param cueTime cueTime of the soundFile in
          *   seconds.
          *   @param duration duration in seconds.
@@ -300,9 +272,9 @@ declare module '../../index' {
          *   Connects the output of a p5sound object to input
          *   of another p5.sound object. For example, you may
          *   connect a p5.SoundFile to an FFT or an Effect. If
-         *   no parameter is given, it will connect to the
-         *   master output. Most p5sound objects connect to the
-         *   master output when they are created.
+         *   no parameter is given, it will connect to the main
+         *   output. Most p5sound objects connect to the master
+         *   output when they are created.
          *   @param [object] Audio object that accepts an input
          */
         connect(object?: object): void;
@@ -328,36 +300,6 @@ declare module '../../index' {
          *   a mono source.
          */
         setBuffer(buf: any[]): void;
-
-        /**
-         *   processPeaks returns an array of timestamps where
-         *   it thinks there is a beat. This is an asynchronous
-         *   function that processes the soundfile in an
-         *   offline audio context, and sends the results to
-         *   your callback function.
-         *
-         *   The process involves running the soundfile through
-         *   a lowpass filter, and finding all of the peaks
-         *   above the initial threshold. If the total number
-         *   of peaks are below the minimum number of peaks, it
-         *   decreases the threshold and re-runs the analysis
-         *   until either minPeaks or minThreshold are reached.
-         *   @param callback a function to call once this data
-         *   is returned
-         *   @param [initThreshold] initial threshold defaults
-         *   to 0.9
-         *   @param [minThreshold] minimum threshold defaults
-         *   to 0.22
-         *   @param [minPeaks] minimum number of peaks defaults
-         *   to 200
-         *   @return Array of timestamped peaks
-         */
-        processPeaks(
-            callback: (...args: any[]) => any,
-            initThreshold?: number,
-            minThreshold?: number,
-            minPeaks?: number
-        ): any[];
 
         /**
          *   Schedule events to trigger every time a
@@ -433,11 +375,11 @@ declare module '../../index' {
         constructor(smoothing?: number);
 
         /**
-         *   Connects to the p5sound instance (master output)
-         *   by default. Optionally, you can pass in a specific
+         *   Connects to the p5sound instance (main output) by
+         *   default. Optionally, you can pass in a specific
          *   source (i.e. a soundfile).
          *   @param [snd] set the sound source (optional,
-         *   defaults to master output)
+         *   defaults to main output)
          *   @param [smoothing] a range between 0.0 and 1.0 to
          *   smooth amplitude readings
          */
@@ -569,14 +511,14 @@ declare module '../../index' {
          *   Returns the amount of energy (volume) at a
          *   specific  frequency, or the average amount of
          *   energy between two frequencies. Accepts Number(s)
-         *   corresponding to frequency (in Hz), or a String
+         *   corresponding to frequency (in Hz), or a "string"
          *   corresponding to predefined frequency ranges
          *   ("bass", "lowMid", "mid", "highMid", "treble").
          *   Returns a range between 0 (no energy/volume at
          *   that frequency) and 255 (maximum energy). NOTE:
          *   analyze() must be called prior to getEnergy().
-         *   Analyze() tells the FFT to analyze frequency data,
-         *   and getEnergy() uses the results determine the
+         *   analyze() tells the FFT to analyze frequency data,
+         *   and getEnergy() uses the results to determine the
          *   value at a specific frequency or range of
          *   frequencies.
          *   @param frequency1 Will return a value representing
@@ -597,8 +539,8 @@ declare module '../../index' {
          *   getCentroid(). Analyze() tells the FFT to analyze
          *   frequency data, and getCentroid() uses the results
          *   determine the spectral centroid.
-         *   @return Spectral Centroid Frequency Frequency of
-         *   the spectral centroid in Hz.
+         *   @return Spectral Centroid Frequency of the
+         *   spectral centroid in Hz.
          */
         getCentroid(): number;
 
@@ -654,77 +596,6 @@ declare module '../../index' {
          */
         getOctaveBands(N: number, fCtr0: number): any[];
     }
-    class Signal {
-        /**
-         *   p5.Signal is a constant audio-rate signal used by
-         *   p5.Oscillator and p5.Envelope for modulation math.
-         *   This is necessary because Web Audio is processed
-         *   on a seprate clock. For example, the p5 draw loop
-         *   runs about 60 times per second. But the audio
-         *   clock must process samples 44100 times per second.
-         *   If we want to add a value to each of those
-         *   samples, we can't do it in the draw loop, but we
-         *   can do it by adding a constant-rate audio
-         *   signal.</p.
-         *
-         *   This class mostly functions behind the scenes in
-         *   p5.sound, and returns a Tone.Signal from the
-         *   Tone.js library by Yotam Mann. If you want to work
-         *   directly with audio signals for modular synthesis,
-         *   check out tone.js.
-         *
-         *   @return A Signal object from the Tone.js library
-         */
-        constructor();
-
-        /**
-         *   Fade to value, for smooth transitions
-         *   @param value Value to set this signal
-         *   @param [secondsFromNow] Length of fade, in seconds
-         *   from now
-         */
-        fade(value: number, secondsFromNow?: number): void;
-
-        /**
-         *   Connect a p5.sound object or Web Audio node to
-         *   this p5.Signal so that its amplitude values can be
-         *   scaled.
-         */
-        setInput(input: object): void;
-
-        /**
-         *   Add a constant value to this audio signal, and
-         *   return the resulting audio signal. Does not change
-         *   the value of the original signal, instead it
-         *   returns a new p5.SignalAdd.
-         *   @return object
-         */
-        add(number: number): Signal;
-
-        /**
-         *   Multiply this signal by a constant value, and
-         *   return the resulting audio signal. Does not change
-         *   the value of the original signal, instead it
-         *   returns a new p5.SignalMult.
-         *   @param number to multiply
-         *   @return object
-         */
-        mult(number: number): Signal;
-
-        /**
-         *   Scale this signal value to a given range, and
-         *   return the result as an audio signal. Does not
-         *   change the value of the original signal, instead
-         *   it returns a new p5.SignalScale.
-         *   @param number to multiply
-         *   @param inMin input range minumum
-         *   @param inMax input range maximum
-         *   @param outMin input range minumum
-         *   @param outMax input range maximum
-         *   @return object
-         */
-        scale(number: number, inMin: number, inMax: number, outMin: number, outMax: number): Signal;
-    }
     class Oscillator {
         /**
          *   Creates a signal that oscillates between -1.0 and
@@ -744,9 +615,11 @@ declare module '../../index' {
         constructor(freq?: number, type?: string);
 
         /**
-         *   Start an oscillator. Accepts an optional parameter
-         *   to determine how long (in seconds from now) until
-         *   the oscillator starts.
+         *   Start an oscillator. Starting an oscillator on a
+         *   user gesture will enable audio in browsers that
+         *   have a strict autoplay policy, including Chrome
+         *   and most mobile devices. See also:
+         *   userStartAudio().
          *   @param [time] startTime in seconds from now.
          *   @param [frequency] frequency in Hz.
          */
@@ -777,6 +650,12 @@ declare module '../../index' {
         amp(vol: number | object, rampTime?: number, timeFromNow?: number): AudioParam;
 
         /**
+         *   Returns the value of output gain
+         *   @return Amplitude value between 0.0 and 1.0
+         */
+        getAmp(): number;
+
+        /**
          *   Set frequency of an oscillator to a value. Or,
          *   pass in an object such as an oscillator to
          *   modulate the frequency with an audio signal.
@@ -792,12 +671,26 @@ declare module '../../index' {
         freq(Frequency: number | object, rampTime?: number, timeFromNow?: number): AudioParam;
 
         /**
+         *   Returns the value of frequency of oscillator
+         *   @return Frequency of oscillator in Hertz
+         */
+        getFreq(): number;
+
+        /**
          *   Set type to 'sine', 'triangle', 'sawtooth' or
          *   'square'.
          *   @param type 'sine', 'triangle', 'sawtooth' or
          *   'square'.
          */
         setType(type: string): void;
+
+        /**
+         *   Returns current type of oscillator eg. 'sine',
+         *   'triangle', 'sawtooth' or 'square'.
+         *   @return type of oscillator eg . 'sine',
+         *   'triangle', 'sawtooth' or 'square'.
+         */
+        getType(): string;
 
         /**
          *   Connect to a p5.sound / Web Audio object.
@@ -817,6 +710,14 @@ declare module '../../index' {
          *   seconds from now
          */
         pan(panning: number, timeFromNow: number): void;
+
+        /**
+         *   Returns the current value of panPosition , between
+         *   Left (-1) and Right (1)
+         *   @return panPosition of oscillator , between Left
+         *   (-1) and Right (1)
+         */
+        getPan(): number;
 
         /**
          *   Set the phase of an oscillator between 0.0 and
@@ -999,7 +900,7 @@ declare module '../../index' {
          *   @param unit p5.sound Object or Web Audio Param
          *   @param secondsFromNow When to trigger the ramp
          *   @param v Target value
-         *   @param [v2] Second target value (optional)
+         *   @param [v2] Second target value
          */
         ramp(unit: object, secondsFromNow: number, v: number, v2?: number): void;
 
@@ -1069,6 +970,23 @@ declare module '../../index' {
          */
         releaseLevel: any;
     }
+    class Noise extends Oscillator {
+        /**
+         *   Noise is a type of oscillator that generates a
+         *   buffer with random values.
+         *
+         *   @param type Type of noise can be 'white'
+         *   (default), 'brown' or 'pink'.
+         */
+        constructor(type: string);
+
+        /**
+         *   Set type of noise to 'white', 'pink' or 'brown'.
+         *   White is the default.
+         *   @param [type] 'white', 'pink' or 'brown'
+         */
+        setType(type?: string): void;
+    }
     class Pulse extends Oscillator {
         /**
          *   Creates a Pulse object, an oscillator that
@@ -1092,23 +1010,6 @@ declare module '../../index' {
          *   defaults to 0)
          */
         width(width?: number): void;
-    }
-    class Noise extends Oscillator {
-        /**
-         *   Noise is a type of oscillator that generates a
-         *   buffer with random values.
-         *
-         *   @param type Type of noise can be 'white'
-         *   (default), 'brown' or 'pink'.
-         */
-        constructor(type: string);
-
-        /**
-         *   Set type of noise to 'white', 'pink' or 'brown'.
-         *   White is the default.
-         *   @param [type] 'white', 'pink' or 'brown'
-         */
-        setType(type?: string): void;
     }
     class AudioIn {
         /**
@@ -1164,7 +1065,7 @@ declare module '../../index' {
 
         /**
          *   Connect to an audio unit. If no parameter is
-         *   provided, will connect to the master output (i.e.
+         *   provided, will connect to the main output (i.e.
          *   your speakers).
          *   @param [unit] An object that accepts audio input,
          *   such as an FFT
@@ -1202,11 +1103,8 @@ declare module '../../index' {
 
         /**
          *   Returns a list of available input sources. This is
-         *   a wrapper for <a
-         *   title="MediaDevices.enumerateDevices() - Web APIs
-         *   | MDN" target="_blank" href=
-         *   "https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices"
-         *   and it returns a Promise.
+         *   a wrapper for  MediaDevices.enumerateDevices() -
+         *   Web APIs | MDN and it returns a Promise.
          *   @param [successCallback] This callback function
          *   handles the sources when they have been
          *   enumerated. The callback function receives the
@@ -1223,11 +1121,8 @@ declare module '../../index' {
          *   Set the input source. Accepts a number
          *   representing a position in the array returned by
          *   getSources(). This is only available in browsers
-         *   that support <a
-         *   title="MediaDevices.enumerateDevices() - Web APIs
-         *   | MDN" target="_blank" href=
-         *   "https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/enumerateDevices"
-         *   navigator.mediaDevices.enumerateDevices().
+         *   that support
+         *   navigator.mediaDevices.enumerateDevices()
          *   @param num position of input source in the array
          */
         setSource(num: number): void;
@@ -1240,7 +1135,7 @@ declare module '../../index' {
         /**
          *   Client must allow browser to access their
          *   microphone / audioin source. Default: false. Will
-         *   become true when the client enables acces.
+         *   become true when the client enables access.
          */
         enabled: boolean;
 
@@ -1282,7 +1177,7 @@ declare module '../../index' {
         amp(vol?: number, rampTime?: number, tFromNow?: number): void;
 
         /**
-         *   Link effects together in a chainExample usage:
+         *   Link effects together in a chain Example usage:
          *   filter.chain(reverb, delay, panner); May be used
          *   with an open-ended number of arguments
          *   @param [arguments] Chain together multiple sound
@@ -1311,23 +1206,23 @@ declare module '../../index' {
         /**
          *   A p5.Filter uses a Web Audio Biquad Filter to
          *   filter the frequency response of an input source.
-         *   Subclasses include:
+         *   Subclasses include: p5.LowPass: Allows frequencies
+         *   below the cutoff frequency to pass through, and
+         *   attenuates frequencies above the cutoff.
+         *   p5.HighPass: The opposite of a lowpass filter.
          *
-         *   - p5.LowPass: Allows frequencies below the cutoff
-         *   frequency to pass through, and attenuates
-         *   frequencies above the cutoff.
-         *   - p5.HighPass: The opposite of a lowpass filter.
-         *   - p5.BandPass: Allows a range of frequencies to
-         *   pass through and attenuates the frequencies below
-         *   and above this frequency range.
+         *   p5.BandPass: Allows a range of frequencies to pass
+         *   through and attenuates the frequencies below and
+         *   above this frequency range.
+         *
          *
          *   The .res() method controls either width of the
          *   bandpass, or resonance of the low/highpass cutoff
          *   frequency.
          *
-         *   This class extends p5.Effect.
-         *   Methods amp(), chain(), drywet(), connect(), and
-         *   disconnect() are available.
+         *   This class extends p5.Effect. Methods amp(),
+         *   chain(), drywet(), connect(), and disconnect() are
+         *   available.
          *
          *   @param [type] 'lowpass' (default), 'highpass',
          *   'bandpass'
@@ -1534,12 +1429,9 @@ declare module '../../index' {
         /**
          *   Web Audio Spatial Panner Node Properties include
          *
-         *   - <a title="w3 spec for Panning Model"
-         *   href="https://www.w3.org/TR/webaudio/#idl-def-PanningModelType"
-         *   panningModel: "equal power" or "HRTF"
-         *   - <a title="w3 spec for Distance Model"
-         *   href="https://www.w3.org/TR/webaudio/#idl-def-DistanceModelType"
-         *   distanceModel: "linear", "inverse", or
+         *   Panning Model : "equal power" or "HRTF"
+         *
+         *   DistanceModel : "linear", "inverse", or
          *   "exponential"
          */
         panner: AudioNode;
@@ -1551,7 +1443,7 @@ declare module '../../index' {
          *   that sound. The p5.Delay can produce different
          *   effects depending on the delayTime, feedback,
          *   filter, and type. In the example below, a feedback
-         *   of 0.5 (the defaul value) will produce a looping
+         *   of 0.5 (the default value) will produce a looping
          *   delay that decreases in volume by 50% each repeat.
          *   A filter will cut out the high frequencies so that
          *   the delay does not sound as piercing as the
@@ -1748,26 +1640,7 @@ declare module '../../index' {
         constructor(path: string, callback?: (...args: any[]) => any, errorCallback?: (...args: any[]) => any);
 
         /**
-         *   Create a p5.Convolver. Accepts a path to a
-         *   soundfile that will be used to generate an impulse
-         *   response.
-         *   @param path path to a sound file
-         *   @param [callback] function to call if loading is
-         *   successful. The object will be passed in as the
-         *   argument to the callback function.
-         *   @param [errorCallback] function to call if loading
-         *   is not successful. A custom error will be passed
-         *   in as the argument to the callback function.
-         */
-        createConvolver(
-            path: string,
-            callback?: (...args: any[]) => any,
-            errorCallback?: (...args: any[]) => any
-        ): Convolver;
-
-        /**
-         *   Connect a source to the reverb, and assign reverb
-         *   parameters.
+         *   Connect a source to the convolver.
          *   @param src p5.sound / Web Audio object with a
          *   sound output.
          */
@@ -1813,15 +1686,6 @@ declare module '../../index' {
          *   .impulses Array (Number).
          */
         toggleImpulse(id: string | number): void;
-
-        /**
-         *   Set the global tempo, in beats per minute, for all
-         *   p5.Parts. This method will impact all active
-         *   p5.Parts.
-         *   @param BPM Beats Per Minute
-         *   @param rampTime Seconds from now
-         */
-        setBPM(BPM: number, rampTime: number): void;
 
         /**
          *   Internally, the p5.Convolver uses the a  Web Audio
@@ -2030,8 +1894,10 @@ declare module '../../index' {
          *
          *   @param callback this function will be called on
          *   each iteration of theloop
-         *   @param [interval] amount of time or beats for each
-         *   iteration of the loop defaults to 1
+         *   @param [interval] amount of time (if a number) or
+         *   beats (if a string, following Tone.Time
+         *   convention) for each iteration of the loop.
+         *   Defaults to 1 second.
          */
         constructor(callback: (...args: any[]) => any, interval?: number | string);
 
@@ -2054,29 +1920,17 @@ declare module '../../index' {
         pause(timeFromNow?: number): void;
 
         /**
-         *   Synchronize loops. Use this method to start two
-         *   more more loops in synchronization or to start a
-         *   loop in synchronization with a loop that is
-         *   already playing This method will schedule the
-         *   implicit loop in sync with the explicit master
-         *   loop i.e. loopToStart.syncedStart(loopToSyncWith)
+         *   Synchronize loops. Use this method to start two or
+         *   more loops in synchronization or to start a loop
+         *   in synchronization with a loop that is already
+         *   playing This method will schedule the implicit
+         *   loop in sync with the explicit master loop i.e.
+         *   loopToStart.syncedStart(loopToSyncWith)
          *   @param otherLoop a p5.SoundLoop to sync with
          *   @param [timeFromNow] Start the loops in sync after
          *   timeFromNow seconds
          */
         syncedStart(otherLoop: object, timeFromNow?: number): void;
-
-        /**
-         *   musicalTimeMode uses Tone.Time convention true if
-         *   string, false if number
-         */
-        musicalTimeMode: boolean;
-
-        /**
-         *   Set a limit to the number of loops to play.
-         *   defaults to Infinity
-         */
-        maxIterations: number;
 
         /**
          *   Getters and Setters, setting any paramter will
@@ -2101,6 +1955,18 @@ declare module '../../index' {
          *   how many times the callback has been called so far
          */
         iterations: number;
+
+        /**
+         *   musicalTimeMode uses Tone.Time convention true if
+         *   string, false if number
+         */
+        musicalTimeMode: boolean;
+
+        /**
+         *   Set a limit to the number of loops to play.
+         *   defaults to Infinity
+         */
+        maxIterations: number;
     }
     class Compressor extends Effect {
         /**
@@ -2114,10 +1980,10 @@ declare module '../../index' {
          *   (sound distortion due to peaks in volume) and is
          *   especially useful when many sounds are played at
          *   once. Compression can be used on indivudal sound
-         *   sources in addition to the master output.  This
-         *   class extends p5.Effect.
-         *   Methods amp(), chain(), drywet(), connect(), and
-         *   disconnect() are available.
+         *   sources in addition to the main output. This class
+         *   extends p5.Effect. Methods amp(), chain(),
+         *   drywet(), connect(), and disconnect() are
+         *   available.
          *
          */
         constructor();
@@ -2237,55 +2103,6 @@ declare module '../../index' {
          */
         compressor: AudioNode;
     }
-    class SoundRecorder {
-        /**
-         *   Record sounds for playback and/or to save as a
-         *   .wav file. The p5.SoundRecorder records all sound
-         *   output from your sketch, or can be assigned a
-         *   specific source with setInput(). The record()
-         *   method accepts a p5.SoundFile as a parameter. When
-         *   playback is stopped (either after the given amount
-         *   of time, or with the stop() method), the
-         *   p5.SoundRecorder will send its recording to that
-         *   p5.SoundFile for playback.
-         *
-         */
-        constructor();
-
-        /**
-         *   Connect a specific device to the p5.SoundRecorder.
-         *   If no parameter is given, p5.SoundRecorer will
-         *   record all audible p5.sound from your sketch.
-         *   @param [unit] p5.sound object or a web audio unit
-         *   that outputs sound
-         */
-        setInput(unit?: object): void;
-
-        /**
-         *   Start recording. To access the recording, provide
-         *   a p5.SoundFile as the first parameter. The
-         *   p5.SoundRecorder will send its recording to that
-         *   p5.SoundFile for playback once recording is
-         *   complete. Optional parameters include duration (in
-         *   seconds) of the recording, and a callback function
-         *   that will be called once the complete recording
-         *   has been transfered to the p5.SoundFile.
-         *   @param soundFile p5.SoundFile
-         *   @param [duration] Time (in seconds)
-         *   @param [callback] The name of a function that will
-         *   be called once the recording completes
-         */
-        record(soundFile: SoundFile, duration?: number, callback?: (...args: any[]) => any): void;
-
-        /**
-         *   Stop the recording. Once the recording is stopped,
-         *   the results will be sent to the p5.SoundFile that
-         *   was given on .record(), and if a callback function
-         *   was provided on record, that function will be
-         *   called.
-         */
-        stop(): void;
-    }
     class PeakDetect {
         /**
          *   PeakDetect works in conjunction with p5.FFT to
@@ -2344,6 +2161,108 @@ declare module '../../index' {
          *   function when a peak is detected.
          */
         onPeak(callback: (...args: any[]) => any, val?: object): void;
+    }
+    class SoundRecorder {
+        /**
+         *   Record sounds for playback and/or to save as a
+         *   .wav file. The p5.SoundRecorder records all sound
+         *   output from your sketch, or can be assigned a
+         *   specific source with setInput(). The record()
+         *   method accepts a p5.SoundFile as a parameter. When
+         *   playback is stopped (either after the given amount
+         *   of time, or with the stop() method), the
+         *   p5.SoundRecorder will send its recording to that
+         *   p5.SoundFile for playback.
+         *
+         */
+        constructor();
+
+        /**
+         *   Connect a specific device to the p5.SoundRecorder.
+         *   If no parameter is given, p5.SoundRecorer will
+         *   record all audible p5.sound from your sketch.
+         *   @param [unit] p5.sound object or a web audio unit
+         *   that outputs sound
+         */
+        setInput(unit?: object): void;
+
+        /**
+         *   Start recording. To access the recording, provide
+         *   a p5.SoundFile as the first parameter. The
+         *   p5.SoundRecorder will send its recording to that
+         *   p5.SoundFile for playback once recording is
+         *   complete. Optional parameters include duration (in
+         *   seconds) of the recording, and a callback function
+         *   that will be called once the complete recording
+         *   has been transfered to the p5.SoundFile.
+         *   @param soundFile p5.SoundFile
+         *   @param [duration] Time (in seconds)
+         *   @param [callback] The name of a function that will
+         *   be called once the recording completes
+         */
+        record(soundFile: SoundFile, duration?: number, callback?: (...args: any[]) => any): void;
+
+        /**
+         *   Stop the recording. Once the recording is stopped,
+         *   the results will be sent to the p5.SoundFile that
+         *   was given on .record(), and if a callback function
+         *   was provided on record, that function will be
+         *   called.
+         */
+        stop(): void;
+    }
+    class Distortion extends Effect {
+        /**
+         *   A Distortion effect created with a Waveshaper
+         *   Node, with an approach adapted from Kevin Ennis
+         *   This class extends p5.Effect. Methods amp(),
+         *   chain(), drywet(), connect(), and disconnect() are
+         *   available.
+         *
+         *   @param [amount] Unbounded distortion amount.
+         *   Normal values range from 0-1.
+         *   @param [oversample] 'none', '2x', or '4x'.
+         */
+        constructor(amount?: number, oversample?: string);
+
+        /**
+         *   Process a sound source, optionally specify amount
+         *   and oversample values.
+         *   @param [amount] Unbounded distortion amount.
+         *   Normal values range from 0-1.
+         *   @param [oversample] 'none', '2x', or '4x'.
+         */
+        process(amount?: number, oversample?: string): void;
+
+        /**
+         *   Set the amount and oversample of the waveshaper
+         *   distortion.
+         *   @param [amount] Unbounded distortion amount.
+         *   Normal values range from 0-1.
+         *   @param [oversample] 'none', '2x', or '4x'.
+         */
+        set(amount?: number, oversample?: string): void;
+
+        /**
+         *   Return the distortion amount, typically between
+         *   0-1.
+         *   @return Unbounded distortion amount. Normal values
+         *   range from 0-1.
+         */
+        getAmount(): number;
+
+        /**
+         *   Return the oversampling.
+         *   @return Oversample can either be 'none', '2x', or
+         *   '4x'.
+         */
+        getOversample(): string;
+
+        /**
+         *   The p5.Distortion is built with a  Web Audio
+         *   WaveShaper Node.
+         */
+        WaveShaperNode: AudioNode;
     }
     class Gain {
         /**
@@ -2424,7 +2343,7 @@ declare module '../../index' {
          *   @param [secondsFromNow] time from now (in seconds)
          *   at which to play
          *   @param [sustainTime] time to sustain before
-         *   releasing the envelope
+         *   releasing the envelope. Defaults to 0.15 seconds.
          */
         play(note: string | number, velocity?: number, secondsFromNow?: number, sustainTime?: number): void;
 
@@ -2656,59 +2575,6 @@ declare module '../../index' {
          */
         AudioVoice: any;
     }
-    class Distortion extends Effect {
-        /**
-         *   A Distortion effect created with a Waveshaper
-         *   Node, with an approach adapted from Kevin Ennis
-         *   This class extends p5.Effect.
-         *   Methods amp(), chain(), drywet(), connect(), and
-         *   disconnect() are available.
-         *
-         *   @param [amount] Unbounded distortion amount.
-         *   Normal values range from 0-1.
-         *   @param [oversample] 'none', '2x', or '4x'.
-         */
-        constructor(amount?: number, oversample?: string);
-
-        /**
-         *   Process a sound source, optionally specify amount
-         *   and oversample values.
-         *   @param [amount] Unbounded distortion amount.
-         *   Normal values range from 0-1.
-         *   @param [oversample] 'none', '2x', or '4x'.
-         */
-        process(amount?: number, oversample?: string): void;
-
-        /**
-         *   Set the amount and oversample of the waveshaper
-         *   distortion.
-         *   @param [amount] Unbounded distortion amount.
-         *   Normal values range from 0-1.
-         *   @param [oversample] 'none', '2x', or '4x'.
-         */
-        set(amount?: number, oversample?: string): void;
-
-        /**
-         *   Return the distortion amount, typically between
-         *   0-1.
-         *   @return Unbounded distortion amount. Normal values
-         *   range from 0-1.
-         */
-        getAmount(): number;
-
-        /**
-         *   Return the oversampling.
-         *   @return Oversample can either be 'none', '2x', or
-         *   '4x'.
-         */
-        getOversample(): string;
-
-        /**
-         *   The p5.Distortion is built with a  Web Audio
-         *   WaveShaper Node.
-         */
-        WaveShaperNode: AudioNode;
-    }
     class SinOsc extends Oscillator {
         /**
          *   Constructor: new p5.SinOsc(). This creates a Sine
@@ -2789,7 +2655,73 @@ declare module '../../index' {
          */
         constructor();
     }
+    class OnsetDetect {
+        /**
+         *   Listen for onsets (a sharp increase in volume)
+         *   within a given frequency range.
+         *
+         *   @param freqLow Low frequency
+         *   @param freqHigh High frequency
+         *   @param threshold Amplitude threshold between 0 (no
+         *   energy) and 1 (maximum)
+         *   @param callback Function to call when an onset is
+         *   detected
+         */
+        constructor(freqLow: number, freqHigh: number, threshold: number, callback: (...args: any[]) => any);
+    }
     interface p5InstanceExtensions {
+        /**
+         *   Returns the Audio Context for this sketch. Useful
+         *   for users who would like to dig deeper into the
+         *   Web Audio API . Some browsers require users to
+         *   startAudioContext with a user gesture, such as
+         *   touchStarted in the example below.
+         *   @return AudioContext for this sketch
+         */
+        getAudioContext(): object;
+
+        // TODO: Fix userStartAudio() errors in lib/addons/p5.sound.js, line 198:
+        //
+        //    param "element(s)" is not a valid JS symbol name
+        //
+        // userStartAudio(element(s)?: Element|any[], callback?: (...args: any[]) => any): Promise<any>
+
+        /**
+         *   Returns a number representing the output volume
+         *   for sound in this sketch.
+         *   @return Output volume for sound in this sketch.
+         *   Should be between 0.0 (silence) and 1.0.
+         */
+        getOutputVolume(): number;
+
+        /**
+         *   Scale the output of all sound in this sketch
+         *   Scaled between 0.0 (silence) and 1.0 (full
+         *   volume). 1.0 is the maximum amplitude of a digital
+         *   sound, so multiplying by greater than 1.0 may
+         *   cause digital distortion. To fade, provide a
+         *   rampTime parameter. For more complex fades, see
+         *   the Envelope class. Alternately, you can pass in a
+         *   signal source such as an oscillator to modulate
+         *   the amplitude with an audio signal.
+         *
+         *   How This Works: When you load the p5.sound module,
+         *   it creates a single instance of p5sound. All sound
+         *   objects in this module output to p5sound before
+         *   reaching your computer's output. So if you change
+         *   the amplitude of p5sound, it impacts all of the
+         *   sound in this module.
+         *
+         *   If no value is provided, returns a Web Audio API
+         *   Gain Node
+         *   @param volume Volume (amplitude) between 0.0 and
+         *   1.0 or modulating signal/oscillator
+         *   @param [rampTime] Fade for t seconds
+         *   @param [timeFromNow] Schedule this event to happen
+         *   at t seconds in the future
+         */
+        outputVolume(volume: number | object, rampTime?: number, timeFromNow?: number): void;
+
         /**
          *   Returns a number representing the sample rate, in
          *   samples per second, of all sound objects in this
@@ -2840,5 +2772,71 @@ declare module '../../index' {
          *   @param fileName name of the resulting .wav file.
          */
         saveSound(soundFile: SoundFile, fileName: string): void;
+
+        /**
+         *   loadSound() returns a new p5.SoundFile from a
+         *   specified path. If called during preload(), the
+         *   p5.SoundFile will be ready to play in time for
+         *   setup() and draw(). If called outside of preload,
+         *   the p5.SoundFile will not be ready immediately, so
+         *   loadSound accepts a callback as the second
+         *   parameter. Using a  local server is recommended
+         *   when loading external files.
+         *   @param path Path to the sound file, or an array
+         *   with paths to soundfiles in multiple formats i.e.
+         *   ['sound.ogg', 'sound.mp3']. Alternately, accepts
+         *   an object: either from the HTML5 File API, or a
+         *   p5.File.
+         *   @param [successCallback] Name of a function to
+         *   call once file loads
+         *   @param [errorCallback] Name of a function to call
+         *   if there is an error loading the file.
+         *   @param [whileLoading] Name of a function to call
+         *   while file is loading. This function will receive
+         *   the percentage loaded so far, from 0.0 to 1.0.
+         *   @return Returns a p5.SoundFile
+         */
+        loadSound(
+            path: string | any[],
+            successCallback?: (...args: any[]) => any,
+            errorCallback?: (...args: any[]) => any,
+            whileLoading?: (...args: any[]) => any
+        ): SoundFile;
+
+        /**
+         *   Create a p5.Convolver. Accepts a path to a
+         *   soundfile that will be used to generate an impulse
+         *   response.
+         *   @param path path to a sound file
+         *   @param [callback] function to call if loading is
+         *   successful. The object will be passed in as the
+         *   argument to the callback function.
+         *   @param [errorCallback] function to call if loading
+         *   is not successful. A custom error will be passed
+         *   in as the argument to the callback function.
+         */
+        createConvolver(
+            path: string,
+            callback?: (...args: any[]) => any,
+            errorCallback?: (...args: any[]) => any
+        ): Convolver;
+
+        /**
+         *   Set the global tempo, in beats per minute, for all
+         *   p5.Parts. This method will impact all active
+         *   p5.Parts.
+         *   @param BPM Beats Per Minute
+         *   @param rampTime Seconds from now
+         */
+        setBPM(BPM: number, rampTime: number): void;
+
+        /**
+         *   p5.soundOut is the p5.sound final output bus. It
+         *   sends output to the destination of this window's
+         *   web audio context. It contains Web Audio API nodes
+         *   including a dyanmicsCompressor (.limiter), and
+         *   Gain Nodes for .input and .output.
+         */
+        soundOut: object;
     }
 }

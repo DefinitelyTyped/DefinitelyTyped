@@ -7,7 +7,7 @@ declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
   interface Gtag {
     (command: 'config', targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams): void;
-    (command: 'set', targetId: string, config: CustomParams | boolean): void;
+    (command: 'set', targetId: string, config: CustomParams | boolean | string): void;
     (command: 'set', config: CustomParams): void;
     (command: 'js', config: Date): void;
     (
@@ -15,11 +15,14 @@ declare namespace Gtag {
       eventName: EventNames | string,
       eventParams?: ControlParams | EventParams | CustomParams,
     ): void;
-    (command: 'get', targetId: string, fieldName: FieldNames | string, callback?: (field: string) => any): void;
+    (command: 'get', targetId: string, fieldName: FieldNames | string, callback?: (field: string | CustomParams | undefined) => any): void;
     (command: 'consent', consentArg: ConsentArg | string, consentParams: ConsentParams): void;
   }
 
   interface ConfigParams {
+    page_title?: string | undefined;
+    page_location?: string | undefined;
+    page_path?: string | undefined;
     send_page_view?: boolean | undefined;
   }
 

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Container Analysis API v1beta1 1.0
+// Type definitions for non-npm package Container Analysis API v1 1.0
 // Project: https://cloud.google.com/container-analysis/api/reference/rest/
 // Definitions by: Maxim Mazurok <https://github.com/Maxim-Mazurok>
 //                 Nick Amoscato <https://github.com/namoscato>

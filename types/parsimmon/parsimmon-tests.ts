@@ -122,7 +122,8 @@ barPar = strPar.promap((f) => {
 let constStrPar: P.Parser<"foo">;
 
 constStrPar = P.string("foo");
-constStrPar = P.string("bar"); // $ExpectError
+// @ts-expect-error
+constStrPar = P.string("bar");
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -207,7 +208,8 @@ const byteParObj: Parser<ByteSeqObj> = P.bitSeqObj([
     ['third', 9],
 ]);
 
-const byteParObjErr: Parser<ByteSeqObj> = P.bitSeqObj([ // $ExpectError
+// @ts-expect-error
+const byteParObjErr: Parser<ByteSeqObj> = P.bitSeqObj([
     ['first', 3],
     6,
     ['second', 8],
@@ -377,10 +379,11 @@ myLanguage.StringRule;
 
 const noRules = P.createLanguage<{}>({});
 
-// $ExpectError
+// @ts-expect-error
 P.createLanguage<{MissingRule: string}>({});
 
 P.createLanguage<{SomeRule: string}>({
     SomeRule: r => strPar,
-    AnotherRule: (r: any) => strPar // $ExpectError
+    // @ts-expect-error
+    AnotherRule: (r: any) => strPar
 });

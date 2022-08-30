@@ -42,7 +42,8 @@ Money.fromDecimal(100, Money.KZT, Math.ceil); // $ExpectType Money
 // static properties (currency) check
 Money.KZT; // $ExpectType Currency
 Money.RUB; // $ExpectType Currency
-Money.BLABLA; // $ExpectError
+// @ts-expect-error
+Money.BLABLA;
 // currency object check
 Money.RUB.code; // $ExpectType string
 Money.RUB.decimal_digits; // $ExpectType number

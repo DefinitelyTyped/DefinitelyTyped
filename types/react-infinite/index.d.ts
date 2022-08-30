@@ -12,7 +12,9 @@ export = Infinite;
 export as namespace Infinite;
 
 declare namespace Infinite {
-    interface InfiniteProps extends React.Props<Infinite> {
+    interface InfiniteProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Infinite> | undefined;
         elementHeight: number | number[];
         containerHeight?: number | undefined;
         preloadBatchSize?: number | Object | undefined;

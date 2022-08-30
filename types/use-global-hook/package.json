@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "immer": "^7.0.7"
+        "immer": "^9.0.6"
     }
 }

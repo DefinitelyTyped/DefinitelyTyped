@@ -3,12 +3,12 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import Codemirror = require("react-codemirror");
 
-class CodemirrorTest extends React.Component<React.Props<{}>> {
-    private editorRef: ReactCodeMirror.ReactCodeMirror;
+class CodemirrorTest extends React.Component {
+    private editorRef: Codemirror | null = null;
 
     componentDidMount() {
-        this.editorRef.focus();
-        this.editorRef.getCodeMirror();
+        this.editorRef!.focus();
+        this.editorRef!.getCodeMirror();
     }
 
     render() {
@@ -35,7 +35,7 @@ class CodemirrorTest extends React.Component<React.Props<{}>> {
                         onScroll={onScroll}
                         options={options}
                         preserveScrollPosition={true}
-                        ref={(r: ReactCodeMirror.ReactCodeMirror) => this.editorRef = r}
+                        ref={(r: Codemirror | null) => this.editorRef = r}
                         value="foo bar" />
         </div>;
     }

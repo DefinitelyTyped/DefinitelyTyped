@@ -8,6 +8,10 @@ module.exports = (config: karma.Config) => {
             specLength: 50,
             overviewColumn: true,
             browserList: 'ifneeded',
+            symbols: {
+                success: 'o',
+                failure: 'x',
+            },
         },
     });
 };

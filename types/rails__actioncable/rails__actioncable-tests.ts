@@ -168,3 +168,25 @@ const subscriptions = new Subscriptions(consumer); // $ExpectType Subscriptions<
 
 subscriptions.create('channel'); // $ExpectType Subscription<Consumer> & Mixin
 subscriptions.create({ channel: 'channel', room: 'room' }); // $ExpectType Subscription<Consumer> & Mixin
+// @ts-expect-error
+subscriptions.add(subscription);
+// @ts-expect-error
+subscriptions.remove(subscription);
+// @ts-expect-error
+subscriptions.reject(subscription.identifier);
+// @ts-expect-error
+subscriptions.forget(subscription);
+// @ts-expect-error
+subscriptions.findAll(subscription.identifier);
+// @ts-expect-error
+subscriptions.reload();
+// @ts-expect-error
+subscriptions.notifyAll('callbackName');
+// @ts-expect-error
+subscriptions.notify(subscription, 'callbackName');
+// @ts-expect-error
+subscriptions.subscribe(subscription);
+// @ts-expect-error
+subscriptions.confirmSubscription(subscription.identifier);
+// @ts-expect-error
+subscriptions.sendCommand(subscription, {});

@@ -2,9 +2,8 @@
 // Project: https://github.com/markshapiro/webpack-merge-and-include-globally#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
-import { Plugin, compilation } from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 
 declare namespace MergeIntoFile {
     /**
@@ -31,6 +30,10 @@ declare namespace MergeIntoFile {
         [key: string]: string[];
     }
 
+    interface TransformFileNameFunction {
+        (fileNameBase: string, extension: string, hash: string): string;
+    }
+
     interface Options {
         /**
          * array of entry points (strings) for which this plugin should run only
@@ -53,11 +56,18 @@ declare namespace MergeIntoFile {
         hash?: boolean | undefined;
         /**
          * Object that maps resulting file names to transform methods that will be applied on merged content before saving. Use to minify / uglify the result.
-         * {@linkhttps://github.com/markshapiro/webpack-merge-and-include-globally#transform}
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#transform}
          */
-        transform?: {
-            [key: string]: (code: string) => string;
-        } | undefined;
+        transform?:
+            | {
+                  [key: string]: (code: string) => string;
+              }
+            | undefined;
+        /**
+         * A function for change output file name with hash
+         * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#transformfilename}
+         */
+        transformFileName?: TransformFileNameFunction | undefined;
         /**
          * string used between files when joining them together
          * {@link https://github.com/markshapiro/webpack-merge-and-include-globally#separator}
@@ -72,8 +82,10 @@ declare namespace MergeIntoFile {
  * and achieving same effect as you would by including them all separately through <script> or <link>.
  */
 declare class MergeIntoFile extends Plugin {
-    constructor(options: MergeIntoFile.Options, onComplete?: (files: { [key: string]: string }) => void);
     static getHashOfRelatedFile(assets: any, fileName: string): string | null;
+    constructor(options: MergeIntoFile.Options, onComplete?: (files: { [key: string]: string }) => void);
+    /** Hook into the Webpack compiler */
+    apply(compiler: Compiler): void;
 }
 
 export = MergeIntoFile;

@@ -2,7 +2,7 @@ declare const map: AMap.Map;
 declare const lnglat: AMap.LngLat;
 declare const lnglatTuple: [number, number];
 
-// $ExpectError
+// @ts-expect-error
 new AMap.Transfer();
 // $ExpectType Transfer
 new AMap.Transfer({

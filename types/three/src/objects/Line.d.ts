@@ -20,6 +20,6 @@ export class Line<
     morphTargetDictionary?: { [key: string]: number } | undefined;
 
     computeLineDistances(): this;
-    raycast(raycaster: Raycaster, intersects: Array<Intersection<Object3D>>): void;
+    raycast(raycaster: Raycaster, intersects: Intersection[]): void;
     updateMorphTargets(): void;
 }

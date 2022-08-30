@@ -32,6 +32,7 @@ declare namespace slug {
         remove?: RegExp | null | undefined;
         replacement?: string | null | undefined;
         symbols?: boolean | null | undefined;
+        trim?: boolean | null | undefined;
     }
 
     type Options = {

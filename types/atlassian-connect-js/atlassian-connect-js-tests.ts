@@ -5,22 +5,39 @@ AP.resize('10px', '10px'); // $ExpectType void
 AP.sizeToParent(true); // $ExpectType void
 AP.hideFooter(true); // $ExpectType void
 AP.addRequestMarshal(); // $ExpectType void
+AP.request('http://example.com'); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
 AP.request('http://example.com', {}); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request('http://example.com', { binaryAttachment: false }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
 AP.request({ url: 'http://example.com' }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request({ url: 'http://example.com', binaryAttachment: false }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request('http://example.com', { success: (response: string) => {} }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request('http://example.com', { binaryAttachment: false, success: (response: string) => {} }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request({ url: 'http://example.com', success: (response: string) => {} }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request({ url: 'http://example.com', binaryAttachment: false, success: (response: string) => {} }); // $ExpectType Promise<{ body: string; xhr: XMLHttpRequest }>
+AP.request('http://example.com', { binaryAttachment: true }); // $ExpectType Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>
+AP.request({ url: 'http://example.com', binaryAttachment: true }); // $ExpectType Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>
+AP.request('http://example.com', { binaryAttachment: true, success: (response: ArrayBuffer) => {} }); // $ExpectType Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>
+AP.request({ url: 'http://example.com', binaryAttachment: true, success: (response: ArrayBuffer) => {} }); // $ExpectType Promise<{ body: ArrayBuffer; xhr: XMLHttpRequest }>
 
-AP.confluence.saveMacro({foo: 'bar'}, "a new macro body"); // $ExpectType void
-AP.confluence.saveMacro({foo: 'bar'}); // $ExpectType void
+AP.confluence.saveMacro({ foo: 'bar' }, 'a new macro body'); // $ExpectType void
+AP.confluence.saveMacro({ foo: 'bar' }); // $ExpectType void
 AP.confluence.closeMacroEditor(); // $ExpectType void
 AP.confluence.getMacroBody(body => console.log(body)); // $ExpectType void
 AP.confluence.getMacroData(data => console.log(data)); // $ExpectType void
-AP.confluence.onMacroPropertyPanelEvent({"{event-type}.{control-key}.{macro-key}.macro.property-panel": () => null}); // $ExpectType void
+AP.confluence.onMacroPropertyPanelEvent({ '{event-type}.{control-key}.{macro-key}.macro.property-panel': () => null }); // $ExpectType void
 AP.confluence.closeMacroPropertyPanel(); // $ExpectType void
 AP.confluence.getContentProperty('propertyKey', property => console.log(property)); // $ExpectType void
-AP.confluence.setContentProperty({ key: 'propertyKey', value: 'propertyValue', version: { number: 2 }}, result => console.log(result)); // $ExpectType void
+// $ExpectType void
+AP.confluence.setContentProperty({ key: 'propertyKey', value: 'propertyValue', version: { number: 2 } }, result =>
+    console.log(result),
+);
 AP.confluence.syncPropertyFromServer('propertyKey', property => console.log(property)); // $ExpectType void
 
 AP.context.getToken(token => console.log(token)); // $ExpectType void
 AP.context.getContext(context => console.log(context)); // $ExpectType void
+
+AP.context.getToken(); // $ExpectType Promise<string>
+AP.context.getContext(); // $ExpectType Promise<any>
 
 AP.cookie.save('name', 'value', 10); // $ExpectType void
 AP.cookie.read('name', value => console.log(value)); // $ExpectType void
@@ -58,13 +75,14 @@ AP.events.on('name', data => console.log(data)); // $ExpectType void
 AP.events.onPublic('n', () => null, filter); // $ExpectType void
 AP.events.once('name', data => console.log(data)); // $ExpectType void
 AP.events.oncePublic('name', data => console.log(data), filter); // $ExpectType void
-AP.events.onAny(data => console.log(data)); // $ExpectType void
-AP.events.onAnyPublic(data => console.log(data), filter); // $ExpectType void
+AP.events.onAny((name, data) => console.log(name, data)); // $ExpectType void
+AP.events.onAnyPublic((name, data) => console.log(name, data), filter); // $ExpectType void
 AP.events.off('name', data => console.log(data)); // $ExpectType void
 AP.events.offPublic('name', data => console.log(data)); // $ExpectType void
 AP.events.offAll('name'); // $ExpectType void
 AP.events.offAllPublic('name'); // $ExpectType void
-AP.events.offAnyPublic(data => console.log(data)); // $ExpectType void
+AP.events.offAny((name, data) => console.log(name, data)); // $ExpectType void
+AP.events.offAnyPublic((name, data) => console.log(name, data)); // $ExpectType void
 AP.events.emit('name', ['data']); // $ExpectType void
 AP.events.emitPublic('name', ['data']); // $ExpectType void
 
@@ -94,6 +112,18 @@ AP.jira.isNativeApp(isNative => console.log(isNative)); // $ExpectType void
 AP.navigator.getLocation(location => console.log(location)); // $ExpectType void
 AP.navigator.go('contentview', {}); // $ExpectType void
 AP.navigator.go('issue', {}); // $ExpectType void
+// $ExpectType void
+AP.navigator.go('addonModule', {
+    addonKey: 'my-addon-key',
+    moduleKey: 'my-module-key',
+    customData: { foo: 'bar', answer: 42, valid: true, undef: undefined, nil: null },
+});
+// $ExpectType void
+AP.navigator.go('addonModule', {
+    addonKey: 'my-addon-key',
+    moduleKey: 'my-module-key',
+    customData: { arr: ['bar', 42, false, null, undefined] },
+});
 AP.navigator.reload(); // $ExpectType void
 
 AP.user.getUser(user => console.log(user.id, user.key, user.fullName)); // $ExpectType void

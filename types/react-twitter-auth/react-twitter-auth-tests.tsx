@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TwitterLogin from 'react-twitter-auth';
 
-const ReactTwitterAuth: React.StatelessComponent = () => {
+const ReactTwitterAuth: React.FunctionComponent = () => {
     function handleSucess(response: string) {}
     function handleFailure(msg: string) {}
 

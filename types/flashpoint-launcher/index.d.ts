@@ -1,6 +1,7 @@
-// Type definitions for non-npm package flashpoint-launcher 9.1
+// Type definitions for non-npm package flashpoint-launcher 10.1
 // Project: Flashpoint Launcher https://github.com/FlashpointProject/launcher
 // Definitions by: Colin Berry <https://github.com/colin969>
+//                 Joel Puig Rubio <https://github.com/XXLuigiMario>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -20,6 +21,9 @@
 declare module 'flashpoint-launcher' {
     /** Version of the Flashpoint Launcher */
     const version: string;
+
+    /** Data Version of the Flashpoint Launcher */
+    const dataVersion: string | undefined;
 
     /** Path to own extension */
     const extensionPath: string;
@@ -65,6 +69,10 @@ declare module 'flashpoint-launcher' {
      * Gets an extension configuration value given its key and a new value
      */
     function setExtConfigValue(key: string, value: any): Promise<void>;
+    /**
+     * Fires when an extension configuration value changes
+     */
+    const onExtConfigChange: Event<{key: string, value: any}>;
 
     /**
      * Log functions to properly pass messages to the Logs Page.
@@ -75,6 +83,7 @@ declare module 'flashpoint-launcher' {
         const info: (message: string) => void;
         const warn: (message: string) => void;
         const error: (message: string) => void;
+        const onLog: Event<ILogEntry>;
     }
 
     /** Collection of Command related API functions */
@@ -140,6 +149,12 @@ declare module 'flashpoint-launcher' {
          * @param playlistGames Playlist Game entries to save
          */
         function updatePlaylistGames(playlistGames: PlaylistGame[]): Promise<void>;
+        /**
+         * Adds a Game to a Playlist
+         * @param playlistId Playlist to add the Game to
+         * @param gameId ID of the Game to add
+         */
+        function addPlaylistGame(playlistId: string, gameId: string): Promise<void>;
 
         // Games
         /** Returns the total number of games in the database */
@@ -188,16 +203,24 @@ declare module 'flashpoint-launcher' {
          * @param library Library to use instead of Playlist defined library
          */
         function createPlaylistFromJson(jsonData: any, library?: string): Playlist;
+        /**
+         * Returns whether a game is extreme based on its tags.
+         * @param game Game to check
+         */
+        function isGameExtreme(game: Game): boolean;
 
         // Events
         const onWillLaunchGame: Event<GameLaunchInfo>;
         const onWillLaunchAddApp: Event<AdditionalApp>;
         const onWillLaunchCurationGame: Event<GameLaunchInfo>;
         const onWillLaunchCurationAddApp: Event<AdditionalApp>;
+        const onWillUninstallGameData: Event<GameData>;
         const onDidLaunchGame: Event<Game>;
         const onDidLaunchAddApp: Event<AdditionalApp>;
         const onDidLaunchCurationGame: Event<Game>;
         const onDidLaunchCurationAddApp: Event<AdditionalApp>;
+        const onDidInstallGameData: Event<GameData>;
+        const onDidUninstallGameData: Event<GameData>;
 
         const onDidUpdateGame: Event<{ oldGame: Game; newGame: Game }>;
         const onDidRemoveGame: Event<Game>;
@@ -207,6 +230,21 @@ declare module 'flashpoint-launcher' {
         const onDidRemovePlaylistGame: Event<PlaylistGame>;
 
         const onWillImportGame: Event<CurationImportState>;
+    }
+
+    /** Collection of Game Data related API functions */
+    namespace gameData {
+        function findOne(id: number): Promise<GameData | undefined>;
+        function findGameData(gameId: string): Promise<GameData[]>;
+        function findSourceDataForHashes(hashes: string[]): Promise<SourceData[]>;
+        function save(gameData: GameData): Promise<GameData>;
+        function importGameData(gameId: string, filePath: string): Promise<GameData>;
+        function downloadGameData(gameDataId: number): Promise<void>;
+        const onDidImportGameData: Event<GameData>;
+    }
+
+    namespace sources {
+        function findOne(sourceId: number): Promise<Source | undefined>;
     }
 
     /** Collection of Tag related API functions */
@@ -325,12 +363,7 @@ declare module 'flashpoint-launcher' {
          * @param basePath Override for directory to start in (info is relative to this), Extension path if none given
          * @returns A managed process.
          */
-        function createProcess(
-            name: string,
-            info: ProcessInfo,
-            opts: ProcessOpts,
-            basePath?: string,
-        ): DisposableChildProcess;
+        function createProcess(name: string, info: ProcessInfo, opts: ProcessOpts, basePath?: string): DisposableChildProcess;
         /**
          * Kills and removes a service process started by runService
          * @param process Service process to remove
@@ -453,6 +486,8 @@ declare module 'flashpoint-launcher' {
         notes: string;
         /** List of tags attached to the game */
         tags: Tag[];
+        /** List of tags attached to the game in a string format */
+        tagsStr: string;
         /** Source if the game files, either full URL or the name of the website */
         source: string;
         /** Path to the application that runs the game */
@@ -475,6 +510,63 @@ declare module 'flashpoint-launcher' {
         orderTitle: string;
         /** If the game is a placeholder (and can therefore not be saved) */
         placeholder: boolean;
+        /** ID of the active data */
+        activeDataId?: number | undefined;
+        /** Whether the data is present on disk */
+        activeDataOnDisk: boolean;
+        data?: GameData[] | undefined;
+        updateTagsStr: () => void;
+    };
+
+    type GameData = {
+        id: number;
+        /** ID of the related game */
+        game?: Game | undefined;
+        gameId: string;
+        /** Title of this data pack */
+        title: string;
+        /** Date this data pack was added on */
+        dateAdded: Date;
+        /** Expected SHA256 hash of this data pack */
+        sha256: string;
+        /** Expected CRC32 of this data pack */
+        crc32: number;
+        /** Is the data pack present on disk */
+        presentOnDisk: boolean;
+        /** Path this data pack should reside at, if present on disk */
+        path?: string | undefined;
+        /** Size of this data pack */
+        size: number;
+        /** Parameters passed to the mounter */
+        parameters?: string;
+    };
+
+    type SourceData = {
+        id: number;
+        /** Source providing the download */
+        source?: Source | undefined;
+        sourceId: number;
+        /** SHA256 hash of this download */
+        sha256: string;
+        urlPath: string;
+    };
+
+    type Source = {
+        id: number;
+        /** Name of the Source */
+        name: string;
+        /** Base URL of the Source */
+        sourceFileUrl: string;
+        /** Base URL of the Source */
+        baseUrl: string;
+        /** File Count provided as SourceData */
+        count: number;
+        /** When this Source was added */
+        dateAdded: Date;
+        /** Last time this Source was updated */
+        lastUpdated: Date;
+        /** Any data provided by this Source */
+        data?: SourceData[] | undefined;
     };
 
     type AdditionalApp = {
@@ -681,15 +773,61 @@ declare module 'flashpoint-launcher' {
         id: string;
         title: string;
         platform: string;
-        tags: Tag[];
+        tagsStr: string;
         developer: string;
         publisher: string;
     };
 
     /** Data contained in the Config file */
     type AppConfigData = {
-        /** Path to the Flashpoint root folder (relative or absolute) */
+        /** Path to the FlashPoint root folder (relative or absolute) */
         flashpointPath: string;
+        /** If the custom title bar should be used in MainWindow */
+        useCustomTitlebar: boolean;
+        /**
+         * If the Server should be started, and closed, together with this application.
+         * The "server" is defined in "services.json".
+         */
+        startServer: boolean;
+        // Name of the Server process to run
+        server: string;
+        /** Lower limit of the range of ports that the back should listen on. */
+        backPortMin: number;
+        /** Upper limit of the range of ports that the back should listen on. */
+        backPortMax: number;
+        /** Lower limit of the range of ports that the back image server should listen on. */
+        imagesPortMin: number;
+        /** Upper limit of the range of ports that the back image server should listen on. */
+        imagesPortMax: number;
+        /** Base URL of the server to do pastes of the Logs to. */
+        logsBaseUrl: string;
+        /** Whether to notify that launcher updates are available */
+        updatesEnabled: boolean;
+    };
+
+    type TagFilterGroup = {
+        name: string;
+        description: string;
+        /** Enabled */
+        enabled: boolean;
+        /** Tags to filter */
+        tags: TagFilter;
+        /** Tag categories to filter */
+        categories: TagFilter;
+        /** Filters to auto apply when this is applied */
+        childFilters: string[];
+        /** Are these tags considered Extreme? */
+        extreme: boolean;
+    };
+
+    type TagFilter = string[];
+
+    /**
+     * Contains state of all non-config settings the user can change in the application.
+     * This is the data contained in the Preferences file.
+     */
+    type AppPreferencesData = {
+        [key: string]: any;
         /** Path to the image folder (relative to the flashpoint path) */
         imageFolderPath: string;
         /** Path to the logo folder (relative to the flashpoint path) */
@@ -698,6 +836,8 @@ declare module 'flashpoint-launcher' {
         playlistFolderPath: string;
         /** Path to the json folder (relative to the flashpoint path) */
         jsonFolderPath: string;
+        /** Path to the htdocs folder (relative to the flashpoint path) */
+        htdocsFolderPath: string;
         /** Path to the platform folder (relative to the flashpoint path) */
         platformFolderPath: string;
         /** Path to the theme folder (relative to the flashpoint path) */
@@ -708,47 +848,8 @@ declare module 'flashpoint-launcher' {
         metaEditsFolderPath: string;
         /** Path to load User extensions from (relative to the flashpoint path) */
         extensionsPath: string;
-        /** If the custom title bar should be used in MainWindow */
-        useCustomTitlebar: boolean;
-        /**
-         * If the Server should be started, and closed, together with this application.
-         * The "server" is defined in "services.json".
-         */
-        startServer: boolean;
-        // Name of the Server process to run
-        server: string;
-        /** If games flagged as "extreme" should be hidden (mainly for parental control) */
-        disableExtremeGames: boolean;
-        /** If games flagged as "broken" should be hidden */
-        showBrokenGames: boolean;
-        /** Array of native locked platforms */
-        nativePlatforms: string[];
-        /** Lower limit of the range of ports that the back should listen on. */
-        backPortMin: number;
-        /** Upper limit of the range of ports that the back should listen on. */
-        backPortMax: number;
-        /** Lower limit of the range of ports that the back image server should listen on. */
-        imagesPortMin: number;
-        /** Upper limit of the range of ports that the back image server should listen on. */
-        imagesPortMax: number;
-        /** Metadata Server Host (For Online Sync) */
-        metadataServerHost: string;
-        /** Last time the Metadata Server Host was synced with */
-        lastSync: number;
-        /** Base URL of the server to download missing thumbnails/screenshots from. */
-        onDemandBaseUrl: string;
-        /** Base URL of the server to do pastes of the Logs to. */
-        logsBaseUrl: string;
-        /** Whether to notify that launcher updates are available */
-        updatesEnabled: boolean;
-    };
-
-    /**
-     * Contains state of all non-config settings the user can change in the application.
-     * This is the data contained in the Preferences file.
-     */
-    type AppPreferencesData = {
-        [key: string]: any;
+        /** Path to store Game Data packs */
+        dataPacksFolderPath: string;
         /** Scale of the games at the BrowsePage. */
         browsePageGameScale: number;
         /** If "Extreme" games should be shown at the BrowsePage. */
@@ -789,22 +890,38 @@ declare module 'flashpoint-launcher' {
         defaultLibrary: string;
         /** Save curations after importing */
         saveImportedCurations: boolean;
+        /** Assign the same UUID to imported games as in the curation archive */
+        keepArchiveKey: boolean;
         /** Whether to symlink or copy curation content when running (Symlink required for MAD4FP) */
         symlinkCurationContent: boolean;
         /** Download missing thumbnails/screenshots from a remote server. */
         onDemandImages: boolean;
+        /** Base URL of the server to download missing thumbnails/screenshots from. */
+        onDemandBaseUrl: string;
+        /** Proxy server to use during Browser Mode */
+        browserModeProxy: string;
         /** Sources to show/hide in the log page. */
         showLogSource: {
-            [key: string]: boolean;
-        };
+          [key: string]: boolean;
+        }
         /** Levels to show/hide in the log page. */
         showLogLevel: {
-            [key in LogLevel]: boolean;
-        };
+          [key in LogLevel]: boolean;
+        }
         /** Libraries that should be excluded from random picks. */
         excludedRandomLibraries: string[];
         /** Application path overrides to check during app launches */
         appPathOverrides: AppPathOverride[];
+        /** Tag filter groups */
+        tagFilters: TagFilterGroup[];
+        /** Use Tag Filters in the Curate suggestions */
+        tagFiltersInCurate: boolean;
+        /** Array of native locked platforms */
+        nativePlatforms: string[];
+        /** If games flagged as "extreme" should be hidden (mainly for parental control) */
+        disableExtremeGames: boolean;
+        /** If games flagged as "broken" should be hidden */
+        showBrokenGames: boolean;
     };
 
     type AppPathOverride = {
@@ -845,7 +962,7 @@ declare module 'flashpoint-launcher' {
     class DisposableChildProcess extends ManagedChildProcess implements Disposable {
         toDispose: Disposable[];
         isDisposed: boolean;
-        onDispose?: (() => void) | undefined;
+        onDispose?: () => void | undefined;
     }
 
     type ProcessOpts = {
@@ -865,9 +982,8 @@ declare module 'flashpoint-launcher' {
         on(event: 'change', listener: (newState: ProcessState) => void): this;
         /** Fires whenever the process exits */
         on(event: 'exit', listener: (code: number | null, signal: string | null) => void): this;
-
-        emit(event: 'exit', code: number | null, signal: string | null): boolean;
         emit(event: 'change', newState: ProcessState): boolean;
+        emit(event: 'exit', code: number | null, signal: string | null): boolean;
     }
 
     class ManagedChildProcess {
@@ -912,6 +1028,7 @@ declare module 'flashpoint-launcher' {
     /** Info type passed to onWillLaunch events */
     type GameLaunchInfo = {
         game: Game;
+        activeData?: GameData | undefined;
         launchInfo: LaunchInfo;
     };
 
@@ -1020,5 +1137,21 @@ declare module 'flashpoint-launcher' {
     /** Utility type. Recursively set all properties as optional. */
     type DeepPartial<T> = {
         [K in keyof T]?: T[K] extends ObjectLike ? DeepPartial<T[K]> : T[K];
+    };
+
+    /** A log entry _before_ it is added to the main log */
+    type ILogPreEntry = {
+        /** Name of the source of the log entry (name of what added the log entry) */
+        source: string;
+        /** Content of the log entry */
+        content: string;
+    };
+
+    /** A log entry from the main log */
+    type ILogEntry = ILogPreEntry & {
+        /** Timestamp of when the entry was added to the main's log */
+        timestamp: number;
+        /** Level of the log, 0-5, Trace, Info, Warn, Error, Fatal, Silent */
+        logLevel: number;
     };
 }

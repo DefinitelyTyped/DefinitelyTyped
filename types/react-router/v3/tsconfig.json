@@ -15,12 +15,6 @@
             "../../"
         ],
         "paths": {
-            "history": [
-                "history/v3"
-            ],
-            "history/*": [
-                "history/v3/*"
-            ],
             "react-router": [
                 "react-router/v3"
             ],

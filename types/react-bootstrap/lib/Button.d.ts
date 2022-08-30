@@ -8,7 +8,7 @@ declare namespace Button {
         block?: boolean | undefined;
         bsStyle?: string | null | undefined;
         bsSize?: Sizes | undefined;
-        componentClass?: React.ReactType | undefined;
+        componentClass?: React.ElementType | undefined;
         disabled?: boolean | undefined;
     }
 }

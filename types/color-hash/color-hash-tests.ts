@@ -24,8 +24,8 @@ new ColorHash({
 
 // Custom Lightness
 new ColorHash({ lightness: 0.5 });
-new ColorHash({ lightness: [0.35, 0.5, 0.65] });
+new ColorHash({ lightness: [0.2, 0.35, 0.5, 0.65, 0.8] });
 
 // Custom Saturation
 new ColorHash({ saturation: 0.5 });
-new ColorHash({ saturation: [0.35, 0.5, 0.65] });
+new ColorHash({ saturation: [0.2, 0.35, 0.5, 0.65, 0.8] });

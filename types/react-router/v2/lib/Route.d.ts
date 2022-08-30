@@ -8,7 +8,9 @@ export default self;
 
 declare namespace self {
 
-    interface RouteProps extends React.Props<Route> {
+    interface RouteProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Route> | undefined;
         path?: Router.RoutePattern | undefined;
         component?: Router.RouteComponent | undefined;
         components?: Router.RouteComponents | undefined;

@@ -6,6 +6,7 @@
 //                  Daryl LaBar <https://github.com/daryllabar>
 //                  Tully H <https://github.com/clownwilleatme>
 //                  Scott Durow <https://github.com/scottdurow>
+//                  Phil Cole <https://github.com/filcole>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -85,6 +86,12 @@ declare namespace Xrm {
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-encoding External Link: Xrm.Encoding (Client API reference)}
          */
         Encoding: Encoding;
+
+        /**
+         * Provides app-related methods.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+         */
+        App: App;
     }
 
     /**
@@ -157,6 +164,11 @@ declare namespace Xrm {
          * Returns information whether the server is online or offline.
          */
         isOffline(): boolean;
+
+        /**
+         * Returns information whether the network is available or not.
+         */
+        isNetworkAvailable(): boolean;
     }
 
     /**
@@ -485,6 +497,13 @@ declare namespace Xrm {
          * @returns A path string with the organization name. Format: "/"+ OrgName + sPath
          */
         prependOrgName(sPath: string): string;
+
+        /**
+         * Gets the current value of a settings row.
+         * @param settingName Name of the setting youd like to receive the value from.
+         * @returns The current value of the setting.
+         */
+        getCurrentAppSetting(settingName: string): string | number | boolean;
     }
 
     /**
@@ -695,6 +714,48 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for process status changed event arguments.
+         */
+        interface ProcessStatusChangedEventArguments {
+            /**
+             * Gets the selected stage object
+             * @returns The stage object
+             */
+            getStage(): ProcessFlow.Stage;
+
+            /**
+             * Gets the destination process status
+             * @returns The process status
+             */
+            getStatus(): ProcessFlow.ProcessStatus;
+
+            /**
+             * Prevents the stage or status change operation from being submitted to the server.
+             */
+            preventDefault(): void;
+        }
+
+        interface LookupTagClickEventArguments {
+            /**
+             * Gets the selected tag value
+             * @returns The lookups TagValue object
+             */
+            getTagValue(): TagValue;
+
+            /**
+             * Prevents the default onClick behaviour from executing.
+             * All remaining "onLookupTagClick" handlers will continue execution.
+             */
+            preventDefault(): void;
+
+            /**
+             * Returns a boolean value to indicate if the lookups onClick has been prevented.
+             * @returns true if saving is prevented, otherwise false.
+             */
+            isDefaultPrevented(): boolean;
+        }
+
+        /**
          * Interface for the event context.
          * In the API documentation, this is sometimes refferred to as the executionContext.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/clientapi-execution-context External Link: Client API execution context}
@@ -776,17 +837,30 @@ declare namespace Xrm {
             getEventArgs(): StageSelectedEventArguments;
         }
 
+        interface ProcessStatusChangedEventContext extends EventContext {
+            /**
+             * Gets process status changed event arguments.
+             * @returns The event arguments.
+             */
+            getEventArgs(): ProcessStatusChangedEventArguments;
+        }
+
+        interface LookupTagClickEventContext extends EventContext {
+            /**
+             * Gets an object that contains details about the lookup tag clicked
+             */
+            getEventArgs(): LookupTagClickEventArguments;
+        }
+
         /**
          * Type for a context-sensitive handler.
          * @param context The context.
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
 
-        /**
-         * Type for a process status change handler.
-         * @param status The process status.
-         */
-        type ProcessStatusChangeHandler = (status: ProcessFlow.ProcessStatus) => void;
+        type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
+
+        type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
     }
 
     /**
@@ -1013,6 +1087,16 @@ declare namespace Xrm {
         close(): void;
 
         /**
+         * Provides information on how to set the visibility of footer section.
+         */
+        footerSection: Controls.FooterSection;
+
+        /**
+         * Provides information on how to set the visibility of header section.
+         */
+        headerSection: Controls.HeaderSection;
+
+        /**
          * Gets form type.
          * @returns The form type.
          * @remarks **Values returned are**:
@@ -1047,6 +1131,13 @@ declare namespace Xrm {
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
         refreshRibbon(refreshAll?: boolean): void;
+
+        /**
+         * Sets the name of the table to be displayed on the form.
+         * @param name Name of the table to be displayed on the form.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/formcontext-ui/setformentityname External Link: setFormEntityName (Client API reference)}
+         */
+        setFormEntityName(name: string): void;
 
         /**
          * The business process flow API, used to interact with the business process flow control in a form.
@@ -1271,8 +1362,11 @@ declare namespace Xrm {
          * @param parameters (Optional) A dictionary object that passes extra query string parameters to the form. Invalid query string parameters will cause an error.
          * @returns Returns an asynchronous promise.
          */
-        openQuickCreate(entityLogicalName: string, createFromEntity?: LookupValue, parameters?: Utility.OpenParameters):
-            Async.PromiseLike<Async.OpenQuickCreateSuccessCallbackObject>;
+        openQuickCreate(
+            entityLogicalName: string,
+            createFromEntity?: LookupValue,
+            parameters?: Utility.OpenParameters,
+        ): Async.PromiseLike<Async.OpenQuickCreateSuccessCallbackObject>;
 
         /**
          * Opens an entity form.
@@ -1283,7 +1377,12 @@ declare namespace Xrm {
          * @param parameters (Optional) A dictionary object that passes extra query string parameters to the form.
          * @param windowOptions (Optional) Options for controlling the window.
          */
-        openEntityForm(name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions): void;
+        openEntityForm(
+            name: string,
+            id?: string,
+            parameters?: Utility.FormOpenParameters,
+            windowOptions?: Utility.WindowOptions,
+        ): void;
 
         /**
          * Opens an HTML Web Resource in a new browser window.
@@ -1349,7 +1448,10 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.createRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        createRecord(entityType: string, data: { [attributeName: string]: any }): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
+        createRecord(
+            entityType: string,
+            data: { [attributeName: string]: any },
+        ): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
         /**
          * Retrieves an entity record in mobile clients while working in the offline mode.
@@ -1368,7 +1470,11 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.retrieveRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        retrieveRecord(entityType: string, id: string, options?: string): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
+        retrieveRecord(
+            entityType: string,
+            id: string,
+            options?: string,
+        ): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
         /**
          * Retrieves a collection of entity records in mobile clients while working in the offline mode.
@@ -1391,7 +1497,11 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.retrieveMultipleRecords} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        retrieveMultipleRecords(entityType: string, options?: string, maxPageSize?: number): Async.PromiseLike<Array<{ [key: string]: any }>>;
+        retrieveMultipleRecords(
+            entityType: string,
+            options?: string,
+            maxPageSize?: number,
+        ): Async.PromiseLike<Array<{ [key: string]: any }>>;
 
         /**
          * Updates an entity record in mobile clients while working in the offline mode.
@@ -1407,7 +1517,11 @@ declare namespace Xrm {
          * @deprecated Use {@link Xrm.WebApi.updateRecord} instead.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/get-started/whats-new/customer-engagement/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
-        updateRecord(entityType: string, id: string, data: { [attributeName: string]: any }): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
+        updateRecord(
+            entityType: string,
+            id: string,
+            data: { [attributeName: string]: any },
+        ): Async.PromiseLike<Async.OfflineOperationSuccessCallbackObject>;
 
         /**
          * Deletes an entity record in mobile clients while working in the offline mode.
@@ -1500,8 +1614,10 @@ declare namespace Xrm {
              * @param onrejected The callback to execute when the Promise is rejected.
              * @returns A Promise for the completion of which ever callback is executed.
              */
-            then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>):
-                PromiseLike<U>;
+            then<U>(
+                onFulfilled?: (value: T) => U | PromiseLike<U>,
+                onRejected?: (error: any) => U | PromiseLike<U>,
+            ): PromiseLike<U>;
             then<U>(onFulfilled?: (value: T) => U | PromiseLike<U>, onRejected?: (error: any) => void): PromiseLike<U>;
 
             /**
@@ -1512,7 +1628,7 @@ declare namespace Xrm {
             /**
              * UNDOCUMENTED (Web Client only): Add handlers to be called when the Deferred object is either resolved or rejected.
              */
-            always<U>(alwaysCallback: (() => U | PromiseLike<U>)): PromiseLike<U>;
+            always<U>(alwaysCallback: () => U | PromiseLike<U>): PromiseLike<U>;
 
             /**
              * UNDOCUMENTED (Unified Client only): Add handlers to be called when the Deferred object is rejected.
@@ -1522,7 +1638,7 @@ declare namespace Xrm {
             /**
              * UNDOCUMENTED (Unified Client only): Add handlers to be called when the Deferred object is either resolved or rejected.
              */
-            finally<U>(finallyCallback: (() => U | PromiseLike<U>)): PromiseLike<U>;
+            finally<U>(finallyCallback: () => U | PromiseLike<U>): PromiseLike<U>;
         }
     }
 
@@ -1808,7 +1924,7 @@ declare namespace Xrm {
         /**
          * Interface for a process stage select event context
          * @deprecated  Use {@link Xrm.Events.StageSelectedEventContext} instead.
-         */interface StageSelectedEventContext extends Events.StageSelectedEventContext { }
+         */ interface StageSelectedEventContext extends Events.StageSelectedEventContext { }
 
         /**
          * Type for a context-sensitive handler.
@@ -2096,8 +2212,7 @@ declare namespace Xrm {
              * Interface for the Xrm.Page.data.process API.
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessManager} instead.
              */
-            interface ProcessManager extends ProcessFlow.ProcessManager {
-            }
+            interface ProcessManager extends ProcessFlow.ProcessManager { }
 
             /**
              * Called when method to get active processes is complete
@@ -2250,6 +2365,16 @@ declare namespace Xrm {
     }
 
     /**
+     * Interface for a (lookup) Tag value
+     */
+    interface TagValue extends LookupValue {
+        /**
+         * The originating lookup column that raised the event.
+         */
+        fieldName: string;
+    }
+
+    /**
      * Interface for an OptionSet value.
      */
     interface OptionSetValue {
@@ -2305,8 +2430,18 @@ declare namespace Xrm {
          * Attribute types for {@link Attributes.Attribute.setDisplayState()}.
          * @see {@link XrmEnum.AttributeType}
          */
-        type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" |
-            "lookup" | "memo" | "money" | "multiselectoptionset" | "optionset" | "string";
+        type AttributeType =
+            | "boolean"
+            | "datetime"
+            | "decimal"
+            | "double"
+            | "integer"
+            | "lookup"
+            | "memo"
+            | "money"
+            | "multiselectoptionset"
+            | "optionset"
+            | "string";
 
         /**
          * Attribute formats for {@link Attributes.Attribute.getFormat Attributes.Attribute.getFormat()}.
@@ -2315,7 +2450,11 @@ declare namespace Xrm {
          * @see {@link XrmEnum.OptionSetAttributeFormat}
          * @see {@link XrmEnum.StringAttributeFormat}
          */
-        type AttributeFormat = DateAttributeFormat | IntegerAttributeFormat | OptionSetAttributeFormat | StringAttributeFormat;
+        type AttributeFormat =
+            | DateAttributeFormat
+            | IntegerAttributeFormat
+            | OptionSetAttributeFormat
+            | StringAttributeFormat;
 
         /**
          * Interface for an Entity attribute.
@@ -2447,11 +2586,11 @@ declare namespace Xrm {
             setValue(value: T | null): void;
 
             /**
-            * Sets a value for a column to determine whether it is valid or invalid with a message
-            * @param isValid Specify false to set the column value to invalid and true to set the value to valid.
-            * @param message The message to display.
-            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
-            */
+             * Sets a value for a column to determine whether it is valid or invalid with a message
+             * @param isValid Specify false to set the column value to invalid and true to set the value to valid.
+             * @param message The message to display.
+             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setisvalid External Link: setIsValid (Client API reference)}
+             */
             setIsValid(isValid: boolean, message?: string): void;
         }
 
@@ -2492,11 +2631,11 @@ declare namespace Xrm {
             controls: Collection.ItemCollection<Controls.NumberControl>;
 
             /**
-            * Sets the number of digits allowed to the right of the decimal point.
-            * @param precision Number of digits allowed to the right of the decimal point.
-            * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
-            */
-             setPrecision(precision: number): void;
+             * Sets the number of digits allowed to the right of the decimal point.
+             * @param precision Number of digits allowed to the right of the decimal point.
+             * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/attributes/setPrecision External Link: setPrecision (Client API reference)}
+             */
+            setPrecision(precision: number): void;
         }
 
         /**
@@ -2551,8 +2690,7 @@ declare namespace Xrm {
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          */
-        interface BooleanAttribute extends EnumAttribute<boolean> {
-        }
+        interface BooleanAttribute extends EnumAttribute<boolean> { }
 
         /**
          * Interface for a Date attribute.
@@ -2670,9 +2808,18 @@ declare namespace Xrm {
          * Control types for {@link Controls.Control.getControlType Controls.Control.getControlType()}.
          * @see {@link XrmEnum.StandardControlType}
          */
-        type ControlType = "standard" | "iframe" | "lookup" | "optionset" |
-            "subgrid" | "webresource" | "notes" | "timercontrol" | "kbsearch" |
-            "timelinewall" | ControlQuickFormType;
+        type ControlType =
+            | "standard"
+            | "iframe"
+            | "lookup"
+            | "optionset"
+            | "subgrid"
+            | "webresource"
+            | "notes"
+            | "timercontrol"
+            | "kbsearch"
+            | "timelinewall"
+            | ControlQuickFormType;
 
         /**
          * Interface for UI elements with labels.
@@ -2865,7 +3012,7 @@ declare namespace Xrm {
              * * webresource
              * * notes
              * * timercontrol
-             * * kbsearch (CRM Online Only, use parature.d.ts)
+             * * kbsearch
              * * quickform (see ui.QuickForm)
              * * customcontrol: <namespace>.<name> (A custom control for mobile phone and tablet clients).
              * * customsubgrid: <namespace>.<name> (A custom dataset control for mobile phone and tablet clients).
@@ -2924,7 +3071,12 @@ declare namespace Xrm {
          * Interface for a standard control.
          * @see {@link Control}
          */
-        interface StandardControl extends Control, UiStandardElement, UiFocusable, UiCanGetDisabledElement, UiCanSetDisabledElement {
+        interface StandardControl
+            extends Control,
+            UiStandardElement,
+            UiFocusable,
+            UiCanGetDisabledElement,
+            UiCanSetDisabledElement {
             /**
              * Clears the notification identified by uniqueId.
              * @param uniqueId (Optional) Unique identifier.
@@ -3083,7 +3235,20 @@ declare namespace Xrm {
              * @example Example viewId value: "{00000000-0000-0000-0000-000000000001}"
              * @see {@link http://msdn.microsoft.com/en-us/library/gg334522.aspx External Link: Layout XML Reference}
              */
-            addCustomView(viewId: string, entityName: string, viewDisplayName: string, fetchXml: string, layoutXml: string, isDefault: boolean): void;
+            addCustomView(
+                viewId: string,
+                entityName: string,
+                viewDisplayName: string,
+                fetchXml: string,
+                layoutXml: string,
+                isDefault: boolean,
+            ): void;
+
+            /**
+             * Adds an event handler to the "lookup tag click" event.
+             * @param handler The function to add to the OnLookupTagClick event.
+             */
+            addOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
 
             /**
              * Gets the control's bound attribute.
@@ -3097,6 +3262,12 @@ declare namespace Xrm {
              * @example Example return: "{00000000-0000-0000-0000-000000000000}"
              */
             getDefaultView(): string;
+
+            /**
+             * Removes the handler from the "lookup tag click" event.
+             * @param handler The function to be removed from the OnLookupTagClick event.
+             */
+            removeOnLookupTagClick(handler: Events.LookupTagClickHandler): void;
 
             /**
              * Removes the handler from the "pre search" event of the Lookup control.
@@ -3369,10 +3540,184 @@ declare namespace Xrm {
         }
 
         /**
+          * Interface for a knowledge base search control
+          */
+        interface KbSearchControl extends Control {
+            /**
+              * Adds an event handler to the PostSearch event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonpostsave
+              */
+            addOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Adds an event handler to the OnResultOpened event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened
+              */
+            addOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+
+            addOnSelection(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Gets the text used as the search criteria for the knowledge base management control.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery
+              */
+            getSearchQuery(): string;
+
+            /**
+              * Gets the currently selected result of the search control. The currently selected result also represents the result that is currently open.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults
+              */
+            getSelectedResults(): KbSearchResult;
+
+            /**
+              * Gets the count of results found in the search control.
+              * @returns The count of the search result.
+              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount
+              */
+            getTotalResultCount(): number;
+
+            /**
+              * Opens a search result in the search control by specifying the result number.
+              * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
+              * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
+              * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
+              * @see             https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult
+              */
+            openSearchResult(resultNumber: number, mode?: XrmEnum.OpenSearchResultMode): boolean;
+
+            /**
+              * Removes an event handler from the PostSearch event.
+              * @param handler The function to remove from the PostSearch event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch
+              */
+            removeOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Removes an event handler from the OnResultOpened event.
+              * @param handler The function to remove from the OnResultOpened event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened
+              */
+            removeOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Removes an event handler from the OnResultSelection event.
+              * @param handler The function to remove from the OnSelection event.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonselection
+              */
+            removeOnSelection(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+              * Sets the text used as the search criteria for the knowledge base search control.
+              * @param searchString The text for the search query.
+              * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery
+              */
+            setSearchQuery(searchString: string): void;
+        }
+
+        /**
+         * Interface for a knowledge base search result.
+         */
+        interface KbSearchResult {
+            /**
+             * The HTML markup containing the content of the article.
+             */
+            answer: string;
+
+            /**
+             * The article ID that is used as an alternate key.
+             * @remarks You can use this to see if this article already exists in Microsoft Dataverse.
+             */
+            articleId: string;
+
+            /**
+             * The unique article ID. This value is used as an alternate key.
+             */
+            articleUid: string;
+
+            /**
+             * Number of attachments in the article.
+             */
+            attachmentCount: number;
+
+            /**
+             * The date the article was created in the user's current time zone and format.
+             */
+            createdOn: Date;
+
+            /**
+             * The date the article was or will be expired.
+             */
+            expiredDate: Date;
+
+            /**
+             * The link to the folder path of the article.
+             */
+            folderHref: string;
+
+            /**
+             * The direct link to the article.
+             */
+            href: string;
+
+            /**
+             * Indicates whether the article is associated with the parent record.
+             */
+            isAssociated: boolean;
+
+            /**
+             * Date on which the article was last modified in the current user's timezone and format.
+             */
+            lastModifiedOn: Date;
+
+            /**
+             * Support Portal URL of the article.
+             * @remarks If the Portal URL option is turned off, this will be blank.
+             */
+            publicUrl: string;
+
+            /**
+             * Whether the Article is in published or draft state.
+             */
+            published: boolean;
+
+            /**
+             * The title of the article.
+             */
+            question: string;
+
+            /**
+             * The rating of the article.
+             */
+            rating: number;
+
+            /**
+             * A short snippet of article content which contains the areas where the search query was hit.
+             */
+            searchBlurb: string;
+
+            /**
+             * Link to the article. Use this link to open the article.
+             */
+            serviceDeskUri: string;
+
+            /**
+             * The number of times an article is viewed on the portal by customers.
+             */
+            timesViewed: number;
+        }
+
+        /**
          * Interface for a quick view control instance on a form.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
          */
-        interface QuickFormControl extends Control, UiLabelElement, UiFocusable, UiCanGetDisabledElement, UiCanSetDisabledElement, UiCanGetVisibleElement, UiCanSetVisibleElement {
+        interface QuickFormControl
+            extends Control,
+            UiLabelElement,
+            UiFocusable,
+            UiCanGetDisabledElement,
+            UiCanSetDisabledElement,
+            UiCanGetVisibleElement,
+            UiCanSetVisibleElement {
             /**
              * Gets the constituent controls in a quick view control.
              * @returns An array of controls.
@@ -3523,6 +3868,7 @@ declare namespace Xrm {
             /**
              * Sets display state of the tab.
              * @param displayState Display state of the tab, as either "expanded" or "collapsed"
+             * @deprecated Deprecated in the 2021 release wave 1 (April 2021). Use the setFocus method in Unified Interface to ensure the correct tab is opened on a form.
              */
             setDisplayState(displayState: DisplayState): void;
 
@@ -3555,6 +3901,64 @@ declare namespace Xrm {
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
             controls: Collection.ItemCollection<Control>;
+        }
+
+        interface FooterSection {
+            /**
+             * Returns the footer section visibility.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            getVisible(): boolean;
+
+            /**
+             * Sets the visibility of the footer section.
+             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
+             * @see {@link https://docs.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
+             */
+            setVisible(bool: boolean): void;
+        }
+
+        interface HeaderSection {
+            /**
+             * Returns the header's body visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getBodyVisible(): boolean;
+
+            /**
+             * Returns the command bar visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getCommandBarVisible(): boolean;
+
+            /**
+             * Returns the tab navigator visibility.
+             * @remarks Available only for Unified Interface.
+             */
+            getTabNavigatorVisible(): boolean;
+
+            /**
+             * Sets the header's body visibility.
+             * @arg bool Specify true to show the body; false to hide the body.
+             * @remarks Available only for Unified Interface.
+             */
+            setBodyVisible(bool: boolean): void;
+
+            /**
+             * Sets the command bar visibility.
+             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @remarks Available only for Unified Interface.
+             */
+            setCommandBarVisible(bool: boolean): void;
+
+            /**
+             * Sets the tab navigator visibility.
+             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @remarks Available only for Unified Interface.
+             */
+            setTabNavigatorVisible(bool: boolean): void;
         }
 
         interface AddControlNotificationOptions {
@@ -3638,6 +4042,12 @@ declare namespace Xrm {
             getLabel(): string;
 
             /**
+             * Returns a value that indicates whether the form is currently visible.
+             * @returns true if the form is visible; false otherwise.
+             */
+            getVisible(): boolean;
+
+            /**
              * Navigates the user to this form.
              */
             navigate(): void;
@@ -3718,7 +4128,7 @@ declare namespace Xrm {
          */
         addOnPostSave(handler: Events.ContextSensitiveHandler): void;
 
-         /**
+        /**
          * Adds a handler to be called when the record is saved.
          * @param handler The handler.
          */
@@ -4632,7 +5042,7 @@ declare namespace Xrm {
              * * 0:OneToMany
              * * 1:ManyToMany
              */
-            relationshipType?: XrmEnum.RelationshipType | undefined;    //
+            relationshipType?: XrmEnum.RelationshipType | undefined; //
             /**
              * Role type in relationship.Specify one of the following values:
              * * 1:Referencing
@@ -4733,6 +5143,14 @@ declare namespace Xrm {
             data?: string | undefined;
         }
 
+        interface Dashboard {
+            pageType: "dashboard";
+            /**
+             * The GUID of the dashboard to load. If not specified, navigates to the default dashboard
+             */
+            dashboardId?: string | undefined;
+        }
+
         /**
          * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          * */
@@ -4747,8 +5165,8 @@ declare namespace Xrm {
              * */
             width?: number | NavigationOptions.SizeValue | undefined;
             /**
-            * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
-            * */
+             * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
+             * */
             height?: number | NavigationOptions.SizeValue | undefined;
             /**
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
@@ -4783,21 +5201,35 @@ declare namespace Xrm {
          * @param pageInput Input about the page to navigate to. The object definition changes depending on the type of page to navigate to: entity list or HTML web resource.
          * @param navigationOptions Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          */
-        navigateTo(pageInput: Navigation.PageInputEntityRecord | Navigation.PageInputEntityList | Navigation.CustomPage | Navigation.PageInputHtmlWebResource, navigationOptions?: Navigation.NavigationOptions): Async.PromiseLike<any>;
+        navigateTo(
+            pageInput:
+                | Navigation.PageInputEntityRecord
+                | Navigation.PageInputEntityList
+                | Navigation.CustomPage
+                | Navigation.PageInputHtmlWebResource
+                | Navigation.Dashboard,
+            navigationOptions?: Navigation.NavigationOptions,
+        ): Async.PromiseLike<any>;
 
         /**
          * Displays an alert dialog containing a message and a button.
          * @param alertStrings The strings to be used in the alert dialog.
          * @param alertOptions The height and width options for alert dialog
          */
-        openAlertDialog(alertStrings: Navigation.AlertStrings, alertOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<any>;
+        openAlertDialog(
+            alertStrings: Navigation.AlertStrings,
+            alertOptions?: Navigation.DialogSizeOptions,
+        ): Async.PromiseLike<any>;
 
         /**
          * Displays a confirmation dialog box containing a message and two buttons.
          * @param confirmStrings The strings to be used in the confirm dialog.
          * @param confirmOptions The height and width options for alert dialog
          */
-        openConfirmDialog(confirmStrings: Navigation.ConfirmStrings, confirmOptions?: Navigation.DialogSizeOptions): Async.PromiseLike<Navigation.ConfirmResult>;
+        openConfirmDialog(
+            confirmStrings: Navigation.ConfirmStrings,
+            confirmOptions?: Navigation.DialogSizeOptions,
+        ): Async.PromiseLike<Navigation.ConfirmResult>;
 
         /**
          * Displays an error dialog.
@@ -4813,7 +5245,10 @@ declare namespace Xrm {
         /**
          * Opens an entity form or a quick create form.
          */
-        openForm(entityFormOptions: Navigation.EntityFormOptions, formParameters?: Utility.OpenParameters): Async.PromiseLike<Navigation.OpenFormResult>;
+        openForm(
+            entityFormOptions: Navigation.EntityFormOptions,
+            formParameters?: Utility.OpenParameters,
+        ): Async.PromiseLike<Navigation.OpenFormResult>;
 
         /**
          * Opens a URL, including file URLs.
@@ -4828,7 +5263,11 @@ declare namespace Xrm {
          * @param windowOptions (Optional) Window options for opening the web resource.
          *                                                 It is advised to use encodeURIcomponent() to encode the value.
          */
-        openWebResource(webResourceName: string, windowOptions?: Navigation.OpenWebresourceOptions, data?: string): void;
+        openWebResource(
+            webResourceName: string,
+            windowOptions?: Navigation.OpenWebresourceOptions,
+            data?: string,
+        ): void;
     }
 
     /**
@@ -5093,6 +5532,27 @@ declare namespace Xrm {
      */
     interface Encoding {
         /**
+         * Encodes the specified string so that it can be used in HTML.
+         * @param arg String to be encoded.
+         * @returns Encoded string
+         */
+        htmlAttributeEncode(arg: string): string;
+
+        /**
+         * Converts a string that has been HTML-encoded into a decoded string.
+         * @param arg HTML-encoded string to be decoded.
+         * @returns Decoded string
+         */
+        htmlDecode(arg: string): string;
+
+        /**
+         * Converts a string to an HTML-encoded string.
+         * @param arg String to be encoded.
+         * @returns Encoded string
+         */
+        htmlEncode(arg: string): string;
+
+        /**
          * Applies attribute encoding to a string.
          * @param arg String to be encoded.
          * @returns Encoded string.
@@ -5238,7 +5698,11 @@ declare namespace Xrm {
          * @returns On success, returns a promise object containing the attributes specified earlier in the description of the successCallback parameter.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/xrm-webapi/retrievemultiplerecords External Link: retrieveMultipleRecords (Client API reference)}
          */
-        retrieveMultipleRecords(entityLogicalName: string, options?: string, maxPageSize?: number): Async.PromiseLike<RetrieveMultipleResult>;
+        retrieveMultipleRecords(
+            entityLogicalName: string,
+            options?: string,
+            maxPageSize?: number,
+        ): Async.PromiseLike<RetrieveMultipleResult>;
 
         /**
          * Updates an entity record.
@@ -5282,6 +5746,181 @@ declare namespace Xrm {
     }
 
     /**
+     * Namespace to hold Xrm.App related types
+     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     */
+    namespace App {
+        /**
+         * Defines the action of notification
+         * @see {@link Xmr.App.Notification}
+         */
+        interface Action {
+            /**
+             * The label for the action in the message.
+             */
+            actionLabel?: string;
+            /**
+             * The function to execute when the action label is clicked.
+             */
+            eventHandler?: () => void;
+        }
+
+        /**
+         * Defines the notification object for Xrm.App.addGlobalNotification
+         * @see {@link Xmr.App.addGlobalNotification}
+         */
+        interface Notifcation {
+            /**
+             * @see {@link Xrm.App.Action}
+             */
+            action?: Action;
+            /**
+             * Defines the level of notification.
+             */
+            level: number;
+            /**
+             * The message to display in the notification.
+             */
+            message: string;
+            /**
+             * Indicates whether or not the user can close or dismiss the notification. If you don't specify this parameter, users can't close or dismiss the notification by default.
+             */
+            showCloseButton?: boolean;
+            /**
+             * Defines the type of notification. Currently, only a value of 2 is supported, which displays a message bar at the top of the app.
+             */
+            type: number;
+        }
+
+        /**
+         * Defines single side pane.
+         * @see {@link Xrm.App.sidePanes.createPane}
+         */
+        interface PaneOptions {
+            /**
+             * The title of the pane. Used in pane header and for tooltip.
+             */
+            title?: string;
+            /**
+             * The ID of the new pane. If the value is not passed, the ID value is auto-generated.
+             */
+            paneId?: string;
+            /**
+             * Whether the pane header will show a close button or not.
+             */
+            canClose?: boolean;
+            /**
+             * The path of the icon to show in the panel switcher control.
+             */
+            imageSrc?: string;
+            /**
+             * Hides the header pane, including the title and close button. Default value is false.
+             */
+            hideHeader?: boolean;
+            /**
+             * When set to false, the created pane is not selected and leaves the existing pane selected. It also does not expand the pane if collapsed.
+             */
+            isSelected?: boolean;
+            /**
+             * The width of the pane in pixels.
+             */
+            width?: number;
+            /**
+             * Hides the pane and tab.
+             */
+            hidden?: boolean;
+            /**
+             * Prevents the pane from unmounting when it is hidden.
+             */
+            alwaysRender?: boolean;
+            /**
+             * Prevents the badge from getting cleared when the pane becomes selected.
+             */
+            keepBadgeOnSelect?: boolean;
+        }
+
+        /**
+         * Defines methods single side pane.
+         */
+        interface PaneObject extends Omit<PaneOptions, "isSelected" | "hideHeader"> {
+            /**
+             * Closes the side pane and removes it from the side bar.
+             */
+            close(): void;
+
+            /**
+             * Specify whether the pane should be selected or expanded.
+             */
+            select(): void;
+
+            /**
+             * Opens a page within the selected pane. This is similar to the navigateTo method.
+             */
+            navigate(
+                pageInput:
+                    | Navigation.PageInputEntityRecord
+                    | Navigation.PageInputEntityList
+                    | Navigation.CustomPage
+                    | Navigation.PageInputHtmlWebResource,
+                navigationOptions?: Navigation.NavigationOptions,
+            ): Async.PromiseLike<any>;
+        }
+    }
+
+    /**
+     * Interface for Xrm.App API
+     * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app External Link: Xrm.App (Client API reference)}
+     */
+    interface App {
+        /**
+         * Displays an error, information, warning, or success notification for an app, and lets you specify actions to execute based on the notification.
+         * @param notification The notification to add.
+         * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
+         */
+        addGlobalNotification(notification: App.Notifcation): Async.PromiseLike<string>;
+
+        /**
+         * Clears a notification in the app.
+         * @param uniqueId The ID to use to clear a specific notification that was set using addGlobalNotification.
+         * @returns On success, returns a promise object.
+         */
+        clearGlobalNotification(uniqueId: string): Async.PromiseLike<string>;
+
+        /**
+         * Provides methods for managing side panes.
+         * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-app-sidepanes External Link: sidePanes (Client API reference)}
+         */
+        sidePanes: {
+            /**
+             * @returns whether the selected pane is collapsed or expanded.
+             */
+            state: number;
+
+            /**
+             * Provides all the information to create side panes.
+             * @param paneOptions The ID to use to clear a specific notification that was set using addGlobalNotification.
+             */
+            createPane(paneOptions?: App.PaneOptions): Async.PromiseLike<App.PaneObject>;
+
+            /**
+             * @returns a collection containing all active panes.
+             */
+            getAllPanes(): App.PaneObject[];
+
+            /**
+             * @param panelId string
+             * @returns the side pane corresponding to the input ID. If the side pane does not exist, undefined is returned.
+             */
+            getPane(panelId: string): App.PaneObject | undefined;
+
+            /**
+             * @returns the currently selected pane.
+             */
+            getSelectedPane(): App.PaneObject;
+        };
+    }
+
+    /**
      * Interface for the WebAPI Execute request response
      */
     interface ExecuteResponse extends Response { }
@@ -5305,7 +5944,7 @@ declare namespace XrmEnum {
         /**
          * @deprecated ReadOptimized has been deprecated.
          */
-        ReadOptimized = 11
+        ReadOptimized = 11,
     }
 
     /**
@@ -5322,7 +5961,7 @@ declare namespace XrmEnum {
         Assign = 47,
         Send = 7,
         Qualify = 16,
-        Disqualify = 15
+        Disqualify = 15,
     }
 
     /**
@@ -5335,7 +5974,7 @@ declare namespace XrmEnum {
         Close = 3,
         Identify = 4,
         Research = 5,
-        Resolve = 6
+        Resolve = 6,
     }
 
     /**
@@ -5346,7 +5985,7 @@ declare namespace XrmEnum {
         RibbonContextForm = 1,
         RibbonContextListing = 2,
         FormContextUnrelated = 3,
-        FormContextRelated = 4
+        FormContextRelated = 4,
     }
 
     /**
@@ -5354,7 +5993,7 @@ declare namespace XrmEnum {
      */
     const enum ViewType {
         SystemView = 1039,
-        UserView = 4230
+        UserView = 4230,
     }
 
     /**
@@ -5381,7 +6020,7 @@ declare namespace XrmEnum {
         Virtual = 17,
         BigInt = 18,
         ManagedProperty = 19,
-        EntityName = 20
+        EntityName = 20,
     }
 
     /**
@@ -5391,7 +6030,7 @@ declare namespace XrmEnum {
         None = 0,
         SystemRequired = 1,
         ApplicationRequired = 2,
-        Recommended = 3
+        Recommended = 3,
     }
 
     /**
@@ -5399,7 +6038,7 @@ declare namespace XrmEnum {
      */
     const enum OpenFileOptions {
         Open = 1,
-        Save = 2
+        Save = 2,
     }
 
     /**
@@ -5407,7 +6046,7 @@ declare namespace XrmEnum {
      */
     const enum WindowPositions {
         Center = 1,
-        Side = 2
+        Side = 2,
     }
 
     /**
@@ -5415,7 +6054,7 @@ declare namespace XrmEnum {
      */
     const enum RelationshipType {
         OneToMany = 0,
-        ManyToMany = 1
+        ManyToMany = 1,
     }
 
     /**
@@ -5423,14 +6062,14 @@ declare namespace XrmEnum {
      */
     const enum RoleType {
         Referencing = 1,
-        AssociationEntity = 2
+        AssociationEntity = 2,
     }
 
     const enum ClientFormFactor {
         Unknown = 0,
         Desktop = 1,
         Tablet = 2,
-        Phone = 3
+        Phone = 3,
     }
 
     /**
@@ -5442,7 +6081,7 @@ declare namespace XrmEnum {
         Outlook = "Outlook",
         Mobile = "Mobile",
         UnifiedServiceDesk = "UnifiedServiceDesk",
-        USD = "UnifiedServiceDesk"
+        USD = "UnifiedServiceDesk",
     }
 
     /**
@@ -5451,7 +6090,7 @@ declare namespace XrmEnum {
      */
     const enum ClientState {
         Online = "Online",
-        Offline = "Offline"
+        Offline = "Offline",
     }
 
     /**
@@ -5460,7 +6099,7 @@ declare namespace XrmEnum {
      */
     const enum DisplayState {
         Expanded = "expanded",
-        Collapsed = "collapsed"
+        Collapsed = "collapsed",
     }
 
     /**
@@ -5471,7 +6110,7 @@ declare namespace XrmEnum {
      */
     const enum EntitySaveMode {
         SaveAndClose = "saveandclose",
-        SaveAndNew = "saveandnew"
+        SaveAndNew = "saveandnew",
     }
 
     /**
@@ -5481,7 +6120,7 @@ declare namespace XrmEnum {
     const enum FormNotificationLevel {
         Error = "ERROR",
         Info = "INFO",
-        Warning = "WARNING"
+        Warning = "WARNING",
     }
 
     /**
@@ -5491,7 +6130,7 @@ declare namespace XrmEnum {
     const enum SubmitMode {
         Always = "always",
         Dirty = "dirty",
-        Never = "never"
+        Never = "never",
     }
 
     /**
@@ -5501,7 +6140,7 @@ declare namespace XrmEnum {
     const enum Theme {
         Default = "default",
         Office12Blue = "Office12Blue",
-        Office14Silver = "Office14Silver"
+        Office14Silver = "Office14Silver",
     }
 
     /**
@@ -5509,7 +6148,7 @@ declare namespace XrmEnum {
      */
     const enum AdvancedConfigSettingOption {
         MaxChildIncidentNumber = "MaxChildIncidentNumber",
-        MaxIncidentMergeNumber = "MaxIncidentMergeNumber"
+        MaxIncidentMergeNumber = "MaxIncidentMergeNumber",
     }
 
     /**
@@ -5520,7 +6159,7 @@ declare namespace XrmEnum {
     const enum AttributeRequirementLevel {
         None = "none",
         Recommended = "recommended",
-        Required = "required"
+        Required = "required",
     }
 
     /**
@@ -5529,7 +6168,7 @@ declare namespace XrmEnum {
      */
     const enum DateAttributeFormat {
         Date = "date",
-        DateTime = "datetime"
+        DateTime = "datetime",
     }
 
     /**
@@ -5538,7 +6177,7 @@ declare namespace XrmEnum {
      */
     const enum IntegerAttributeFormat {
         Duration = "duration",
-        None = "none"
+        None = "none",
     }
 
     /**
@@ -5547,7 +6186,7 @@ declare namespace XrmEnum {
      */
     const enum OptionSetAttributeFormat {
         Language = "language",
-        TimeZone = "timezone"
+        TimeZone = "timezone",
     }
 
     /**
@@ -5560,7 +6199,7 @@ declare namespace XrmEnum {
         Text = "text",
         TextArea = "textarea",
         TickerSymbol = "tickersymbol",
-        URL = "url"
+        URL = "url",
     }
 
     /**
@@ -5576,9 +6215,9 @@ declare namespace XrmEnum {
         Lookup = "lookup",
         Memo = "memo",
         Money = "money",
-        MultiOptionSet = "multioptionset",
+        MultiOptionSet = "multiselectoptionset",
         OptionSet = "optionset",
-        String = "string"
+        String = "string",
     }
 
     /**
@@ -5597,7 +6236,7 @@ declare namespace XrmEnum {
         TimerControl = "timercontrol",
         KBSearch = "kbsearch",
         TimeLineWall = "timelinewall",
-        QuickForm = "quickform"
+        QuickForm = "quickform",
     }
 
     /**
@@ -5606,7 +6245,7 @@ declare namespace XrmEnum {
      */
     const enum StageChangeDirection {
         Next = "Next",
-        Previous = "Previous"
+        Previous = "Previous",
     }
 
     /**
@@ -5615,7 +6254,7 @@ declare namespace XrmEnum {
      */
     const enum StageStatus {
         Active = "active",
-        Inactive = "inactive"
+        Inactive = "inactive",
     }
 
     /**
@@ -5625,7 +6264,7 @@ declare namespace XrmEnum {
     const enum ProcessStatus {
         Active = "active",
         Aborted = "aborted",
-        Finished = "finished"
+        Finished = "finished",
     }
 
     /**
@@ -5634,7 +6273,7 @@ declare namespace XrmEnum {
      */
     const enum CmdBarDisplay {
         True = "true",
-        False = "false"
+        False = "false",
     }
 
     /**
@@ -5644,7 +6283,7 @@ declare namespace XrmEnum {
     const enum NavBarDisplay {
         Entity = "entity",
         On = "on",
-        Off = "off"
+        Off = "off",
     }
 
     /**
@@ -5653,7 +6292,7 @@ declare namespace XrmEnum {
      */
     const enum ReportAction {
         Filter = "filter",
-        Run = "run"
+        Run = "run",
     }
 
     /**
@@ -5663,6 +6302,11 @@ declare namespace XrmEnum {
     const enum DevicePickFileType {
         Audio = "audio",
         Video = "video",
-        Image = "image"
+        Image = "image",
+    }
+
+    const enum OpenSearchResultMode {
+        Inline = "Inline",
+        Popup = "Popup"
     }
 }

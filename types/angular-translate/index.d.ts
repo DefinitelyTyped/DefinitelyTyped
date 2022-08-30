@@ -1,4 +1,4 @@
-// Type definitions for Angular Translate (pascalprecht.translate module) 2.16
+// Type definitions for Angular Translate (pascalprecht.translate module) 2.19
 // Project: https://github.com/PascalPrecht/angular-translate
 // Definitions by: Michel Salib <https://github.com/michelsalib>,
 //                 Gabriel Gil <https://github.com/GabrielGil>,
@@ -53,6 +53,7 @@ declare module 'angular' {
             (translationId: string[], interpolateParams?: any, interpolationId?: string, defaultTranslationText?: string, forceLanguage?: string, sanitizeStrategy?: string): angular.IPromise<{ [key: string]: string }>;
             cloakClassName(): string;
             cloakClassName(name: string): ITranslateProvider;
+            allowNamespaces(): boolean;
             fallbackLanguage(langKey?: string): string;
             fallbackLanguage(langKey?: string[]): string;
             instant(translationId: string, interpolateParams?: any, interpolationId?: string, forceLanguage?: string, sanitizeStrategy?: string): string;
@@ -94,6 +95,8 @@ declare module 'angular' {
             translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
             cloakClassName(): string;
             cloakClassName(name: string): ITranslateProvider;
+            allowNamespaces(): boolean;
+            allowNamespaces(namespacesEnabled: boolean): ITranslateProvider;
             addInterpolation(factory: any): ITranslateProvider;
             useMessageFormatInterpolation(): ITranslateProvider;
             useInterpolation(factory: string): ITranslateProvider;

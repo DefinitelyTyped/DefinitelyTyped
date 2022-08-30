@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "chokidar": "^2.1.2"
+    "chokidar": "^3.0.0"
   }
 }

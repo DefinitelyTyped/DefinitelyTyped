@@ -236,3 +236,6 @@ declare module 'worker_threads' {
      */
     function receiveMessageOnPort(port: MessagePort): { message: any } | undefined;
 }
+declare module 'node:worker_threads' {
+    export * from 'worker_threads';
+}

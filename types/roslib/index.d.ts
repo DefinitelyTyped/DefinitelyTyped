@@ -1,9 +1,8 @@
 // Type definitions for roslib.js 1.1.0
 // Project: http://wiki.ros.org/roslibjs
-// Definitions by: Stefan Profanter <https://github.com/Pro>,
-//                 Cooper Benson <https://github.com/skycoop>,
+// Definitions by: Stefan Profanter <https://github.com/Pro>
 //                 David Gonzalez <https://github.com/dgorobopec>
-//                 Arvid Norlander <https://github.com/VorpalBlade>
+//                 Aluma Gelbard <https://github.com/alumag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
@@ -12,6 +11,8 @@
  NOTE: This typescript definition is not yet complete. I should be extended if definitions are missing.
 
  ---------------------------------- */
+
+import { EventEmitter2 } from 'eventemitter2';
 
 export = ROSLIB;
 export as namespace ROSLIB;
@@ -28,7 +29,7 @@ declare namespace ROSLIB {
         z?: number | null | undefined;
         w?: number | null | undefined;
     }
-    export class Ros {
+    export class Ros extends EventEmitter2 {
         /**
          * Manages connection to the server and all interactions with ROS.
          *
@@ -43,17 +44,25 @@ declare namespace ROSLIB {
          * @param options - possible keys include:
          *   * url (optional) - (can be specified later with `connect`) the WebSocket URL for rosbridge or the node server url to connect using socket.io (if socket.io exists in the page) <br>
          *   * groovyCompatibility - don't use interfaces that changed after the last groovy release or rosbridge_suite and related tools (defaults to true)
-         *   * transportLibrary (optional) - one of 'websocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
+         *   * transportLibrary (optional) - one of 'websocket', 'workersocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
          *   * transportOptions (optional) - the options to use use when creating a connection. Currently only used if `transportLibrary` is RTCPeerConnection.
          */
         constructor(options: {
             url?: string | undefined;
             groovyCompatibility?: boolean | undefined;
-            transportLibrary?: 'websocket' | 'socket.io' | RTCPeerConnection | undefined;
+            transportLibrary?: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection | undefined;
             transportOptions?: RTCDataChannelInit | undefined;
         });
 
-        on(eventName: string, callback: (event: any) => void): void;
+        readonly isConnected: boolean;
+
+        readonly transportLibrary: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection;
+
+        readonly transportOptions: RTCDataChannelInit | {};
+
+        on(eventName: string, callback: (event: any) => void): this;
+
+        on(eventName: 'connection' | 'close' | 'error', callback: (event: Event) => void): this;
 
         /**
          * Connect to the specified WebSocket.
@@ -282,10 +291,7 @@ declare namespace ROSLIB {
         delete(callback: (response: any) => void): void;
     }
 
-    export class Service <
-        TServiceRequest = any,
-        TServiceResponse = any
-    > {
+    export class Service<TServiceRequest = any, TServiceResponse = any> {
         /**
          * A ROS service client.
          *
@@ -352,7 +358,7 @@ declare namespace ROSLIB {
         constructor(values?: any);
     }
 
-    export class Topic <TMessage = Message> {
+    export class Topic<TMessage = Message> extends EventEmitter2 {
         /**
          * Publish and/or subscribe to a topic in ROS.
          *
@@ -405,7 +411,7 @@ declare namespace ROSLIB {
          *     * provided and other listeners are registered the topic won't
          *     * unsubscribe, just stop emitting to the passed listener
          */
-        unsubscribe(callback?: (callback: (message: TMessage) => void) => void): void;
+        unsubscribe(callback?: (message: TMessage) => void): void;
 
         /**
          * Registers as a publisher for the topic.
@@ -502,7 +508,10 @@ declare namespace ROSLIB {
          *   * translation - the Vector3 describing the translation
          *   * rotation - the ROSLIB.Quaternion describing the rotation
          */
-        constructor(options?: { translation?: Vector3Like | null | undefined; rotation?: QuaternionLike | null | undefined });
+        constructor(options?: {
+            translation?: Vector3Like | null | undefined;
+            rotation?: QuaternionLike | null | undefined;
+        });
 
         // getters
         public translation: Vector3;
@@ -524,7 +533,13 @@ declare namespace ROSLIB {
          *   * y - the y value
          *   * z - the z value
          */
-        constructor(options?: { x?: number | null | undefined; y?: number | null | undefined; z?: number | null | undefined } | null);
+        constructor(
+            options?: {
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+            } | null,
+        );
 
         // getters
         public x: number;
@@ -568,7 +583,14 @@ declare namespace ROSLIB {
          *   * z - the z value
          *   * w - the w value
          */
-        constructor(options?: { x?: number | null | undefined; y?: number | null | undefined; z?: number | null | undefined; w?: number | null | undefined } | null);
+        constructor(
+            options?: {
+                x?: number | null | undefined;
+                y?: number | null | undefined;
+                z?: number | null | undefined;
+                w?: number | null | undefined;
+            } | null,
+        );
 
         // getters
         public x: number;
@@ -658,13 +680,21 @@ declare namespace ROSLIB {
          *   * serverName - the action server name, like /fibonacci
          *   * actionName - the action message name, like 'actionlib_tutorials/FibonacciAction'
          *   * timeout - the timeout length when connecting to the action server
+         *   * omitFeedback - the boolean flag to indicate whether to omit the feedback channel or not
+         *   * omitStatus - the boolean flag to indicate whether to omit the status channel or not
+         *   * omitResult - the boolean flag to indicate whether to omit the result channel or not
          */
-        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout: number });
+        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout?: number; omitFeedback?: boolean; omitStatus?: boolean; omitResult?: boolean });
 
         /**
          * Cancel all goals associated with this ActionClient.
          */
         cancel(): void;
+
+        /**
+         * Unsubscribe and unadvertise all topics associated with this ActionClient.
+         */
+        dispose(): void;
     }
 
     class Goal {

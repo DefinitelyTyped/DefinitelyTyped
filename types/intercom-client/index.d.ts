@@ -5,6 +5,7 @@
 //                 Mikhail Monchak <https://github.com/mikhail-monchak>
 //                 Chris Doe <https://github.com/cdoe>
 //                 Malith Wijenayake <https://github.com/malithrw>
+//                 Kroustille <https://github.com/kroustille>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 /// <reference types="node" />
@@ -63,6 +64,7 @@ export class Client {
      * Note that certain request options (such as `json`, and certain `headers` names cannot be overridden).
      */
     useRequestOpts(options?: request.CoreOptions): this;
+    usePromises(): this;
 }
 
 export class ApiResponse<T> extends IncomingMessage {
@@ -70,6 +72,11 @@ export class ApiResponse<T> extends IncomingMessage {
 }
 
 export type callback<T> = ((d: T) => void) | ((err: IntercomError, d: T) => void);
+
+interface BulkOperation {
+    create?: any
+    delete?: any
+}
 
 export class Users {
     create(user: Partial<CreateUpdateUser>): Promise<ApiResponse<User>>;
@@ -95,6 +102,9 @@ export class Users {
 
     archive(identifier: UserIdentifier): Promise<ApiResponse<User>>;
     archive(identifier: UserIdentifier, cb: callback<ApiResponse<User>>): void;
+
+    bulk(operations: Array<BulkOperation>): Promise<ApiResponse<any>>;
+    bulk(operations: Array<BulkOperation>, cb: callback<ApiResponse<any>>): void;
 
     requestPermanentDeletion(id: string): Promise<{ id: number }>;
     requestPermanentDeletion(id: string, cb: callback<{ id: number }>): void;
@@ -200,6 +210,9 @@ export class Events {
 
     listBy(params: EventListParam): Promise<ApiResponse<CompanyList>>;
     listBy(params: EventListParam, cb: callback<ApiResponse<CompanyList>>): void;
+
+    bulk(operations: Array<BulkOperation>): Promise<ApiResponse<any>>;
+    bulk(operations: Array<BulkOperation>, cb: callback<ApiResponse<any>>): void
 }
 
 export class Messages {

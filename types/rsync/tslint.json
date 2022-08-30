@@ -1,15 +1,13 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "semicolon": false,
-        "unified-signatures": false
+        "semicolon": false
     }
 }

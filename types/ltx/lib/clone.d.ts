@@ -1,3 +1,3 @@
-import { Element } from './Element';
+import clone from '../src/clone';
 
-export function clone<T extends Element>(el: T): T;
+export = clone;

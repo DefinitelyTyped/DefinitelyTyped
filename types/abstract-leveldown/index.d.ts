@@ -1,7 +1,8 @@
-// Type definitions for abstract-leveldown 5.0
+// Type definitions for abstract-leveldown 7.2
 // Project: https://github.com/Level/abstract-leveldown
 // Definitions by: Meirion Hughes <https://github.com/MeirionHughes>
 //                 Daniel Byrne <https://github.com/danwbyrne>
+//                 Steffen Park <https://github.com/istherepie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -37,6 +38,9 @@ export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
   del(key: K, cb: ErrorCallback): void;
   del(key: K, options: AbstractOptions, cb: ErrorCallback): void;
 
+  getMany(key: K[], cb: ErrorValueCallback<V[]>): void;
+  getMany(key: K[], options: AbstractGetOptions, cb: ErrorValueCallback<V[]>): void;
+
   batch(): AbstractChainedBatch<K, V>;
   batch(array: ReadonlyArray<AbstractBatch<K, V>>, cb: ErrorCallback): AbstractChainedBatch<K, V>;
   batch(
@@ -46,6 +50,9 @@ export interface AbstractLevelDOWN<K = any, V = any> extends AbstractOptions {
   ): AbstractChainedBatch<K, V>;
 
   iterator(options?: AbstractIteratorOptions<K>): AbstractIterator<K, V>;
+
+  readonly status: "new" | "opening" | "open" | "closing" | "closed";
+  isOperational(): boolean;
 }
 
 export interface AbstractLevelDOWNConstructor {

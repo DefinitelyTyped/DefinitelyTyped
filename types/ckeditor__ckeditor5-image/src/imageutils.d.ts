@@ -1,14 +1,18 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import { DocumentSelection, Element } from '@ckeditor/ckeditor5-engine';
+import { DocumentSelection, DowncastWriter, Element } from '@ckeditor/ckeditor5-engine';
+import DocumentFragment from '@ckeditor/ckeditor5-engine/src/model/documentfragment';
+import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import Selection, { Selectable } from '@ckeditor/ckeditor5-engine/src/model/selection';
+import ViewDocumentSelection from '@ckeditor/ckeditor5-engine/src/view/documentselection';
 import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
+import ViewSelection from '@ckeditor/ckeditor5-engine/src/view/selection';
 
 export default class ImageUtils extends Plugin {
     static readonly pluginName: 'ImageUtils';
     /**
      * Checks if the provided model element is an `image` or `imageInline`.
      */
-    isImage(modelElement?: Element | null): boolean;
+    isImage(modelElement: ModelElement): boolean;
 
     /**
      * Checks if the provided view element represents an inline image.
@@ -39,19 +43,42 @@ export default class ImageUtils extends Plugin {
     ): ViewElement | null;
 
     /**
+     * Returns an image widget editing view element if one is selected or is among the selection's ancestors.
+     */
+    getClosestSelectedImageWidget(selection: ViewSelection | ViewDocumentSelection): ViewElement | null;
+
+    /**
      * Returns a image model element if one is selected or is among the selection's ancestors.
      */
     getClosestSelectedImageElement(selection: Selection | DocumentSelection): Element | null;
 
     /**
+     * Checks if image can be inserted at current model selection.
+     */
+    isImageAllowed(): boolean;
+
+    /**
+     * Converts a given {@link module:engine/view/element~Element} to an image widget:
+     * * Adds a {@link module:engine/view/element~Element#_setCustomProperty custom property} allowing to recognize the image widget
+     * element.
+     * * Calls the {@link module:widget/utils~toWidget} function with the proper element's label creator.
+     */
+    toImageWidget(viewElement: ViewElement, writer: DowncastWriter, label: string): ViewElement;
+
+    /**
+     * Checks if a given view element is an image widget.
+     */
+    isImageWidget(viewElement: ViewElement): boolean;
+
+    /**
      * Checks if the provided model element is an `image`.
      */
-    isBlockImage(modelElement?: Element | null): boolean;
+    isBlockImage(modelElement?: ModelElement | DocumentFragment | null): boolean;
 
     /**
      * Checks if the provided model element is an `imageInline`.
      */
-    isInlineImage(modelElement?: Element | null): boolean;
+    isInlineImage(modelElement?: ModelElement | null): boolean;
 
     /**
      * Get the view `<img>` from another view element, e.g. a widget (`<figure class="image">`), a link (`<a>`).

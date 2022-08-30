@@ -1,6 +1,6 @@
 // Type definitions for easy-rbac 3.1
 // Project: https://github.com/DeadAlready/easy-rbac
-// Definitions by:  Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface RoleObject {

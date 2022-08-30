@@ -4,7 +4,7 @@ export class FirstPersonControls {
     constructor(object: Camera, domElement?: HTMLElement);
 
     object: Camera;
-    domElement: HTMLElement | HTMLDocument;
+    domElement: HTMLElement | Document;
 
     enabled: boolean;
     movementSpeed: number;

@@ -81,6 +81,8 @@ export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex
  *   vertically or horizontally.
  */
 export interface TableProps extends React.ClassAttributes<Table> {
+    children?: React.ReactNode;
+
     /**
      * Pixel width of table. If all columns do not fit,
      * a horizontal scrollbar will appear.
@@ -302,6 +304,11 @@ export interface TableProps extends React.ClassAttributes<Table> {
      * Callback that is called when a row is clicked.
      */
     onRowClick?: TableRowEventHandler | undefined;
+
+    /**
+     * Callback that is called when a contextual-menu event happens on a row.
+     */
+    onRowContextMenu?: TableRowEventHandler | undefined;
 
     /**
      * Callback that is called when a row is double clicked.
@@ -590,6 +597,8 @@ export interface ColumnGroupHeaderProps {
  * Component that defines the attributes of a table column group.
  */
 export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
+    children?: React.ReactNode;
+
     /**
      * The horizontal alignment of the table cell content.
      */

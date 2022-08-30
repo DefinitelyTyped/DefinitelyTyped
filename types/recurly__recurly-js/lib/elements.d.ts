@@ -4,94 +4,94 @@ export type CommonElementStyle = {
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color|color}
    */
-  fontColor?: string | undefined;
+  fontColor?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-family|font-family}
    */
-  fontFamily?: string | undefined;
+  fontFamily?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-feature-settings|feature-settings}
    */
-  fontFeatureSettings?: string | undefined;
+  fontFeatureSettings?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-kerning|font-kerning}
    */
-  fontKerning?: string | undefined;
+  fontKerning?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size|font-size}
    */
-  fontSize?: string | undefined;
+  fontSize?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-smoothing|font-smoothing}
    */
-  fontSmooth?: string | undefined;
+  fontSmooth?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch|font-stretch}
    */
-  fontStretch?: string | undefined;
+  fontStretch?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-style|font-style}
    */
-  fontStyle?: string | undefined;
+  fontStyle?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant|font-variant}
    */
-  fontVariant?: string | undefined;
+  fontVariant?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight|font-weight}
    */
-  fontWeight?: string | undefined;
+  fontWeight?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing|letter-spacing}
    */
-  letterSpacing?: string | undefined;
+  letterSpacing?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/line-height|line-height}
    */
-  lineHeight?: string | undefined;
+  lineHeight?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/text-align|text-align}
    */
-  textAlign?: string | undefined;
+  textAlign?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration|text-decoration}
    */
-  textDecoration?: string | undefined;
+  textDecoration?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering|text-rendering}
    */
-  textRendering?: string | undefined;
+  textRendering?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow|text-shadow}
    */
-  textShadow?: string | undefined;
+  textShadow?: string;
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform|text-transform}
    */
-  textTransform?: string | undefined;
+  textTransform?: string;
 };
 
 export type CardElementOptions = {
   /**
    * If false, the card brand icon will be hidden
    */
-  displayIcon?: boolean | undefined;
+  displayIcon?: boolean;
 
   /**
    * Modifies the input type of the card field:
@@ -104,12 +104,12 @@ export type CardElementOptions = {
    * 'select' - Expiration date will be input using a select field on all devices. Mobile devices will display an
    * optimized interface.
    */
-  inputType?: string | undefined;
+  inputType?: string;
 
   /**
    * `tabindex` property to be applied to the outer iframe.
    */
-  tabIndex?: string | undefined;
+  tabIndex?: string;
 
   /**
    * Style to apply to input elements
@@ -122,36 +122,36 @@ export type CardElementOptions = {
      *
      * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#styling-the-individual-card-elements|Styling the invididual card elements}
      */
-    invalid?: CommonElementStyle | undefined;
+    invalid?: CommonElementStyle;
 
     placeholder?: {
       /**
        * Font color applied to all placeholder text.
        */
-      color?: string | undefined;
+      color?: string;
 
       /**
        * Font weight applied to all placeholder text.
        */
-      fontWeight?: string | undefined;
+      fontWeight?: string;
       content?: {
         /**
          * Placeholder content (e.g. 'Card number', 'CVV')
          */
-        number?: string | undefined;
+        number?: string;
 
         /**
          * Placeholder content for the expiry input.
          */
-        expiry?: string | undefined;
+        expiry?: string;
 
         /**
          * Placeholder content for the card verification value input.
          */
-        cvv?: string | undefined;
-      } | undefined;
-    } | undefined;
-  } | undefined;
+        cvv?: string;
+      };
+    };
+  };
 };
 
 export type IndividualElementOptions = {
@@ -159,18 +159,18 @@ export type IndividualElementOptions = {
    * Enables contextual input formatting, injecting spaces to match the card brand, and forcing numeric input on expiry
    * and cvv.
    */
-  format?: boolean | undefined;
+  format?: boolean;
 
   /**
    * Modifies the input type of the expiry fields. 'text' - normal text input. 'mobileSelect' - if the user is using a
    * mobile device, a native select interface will appear. 'select' - A select field will display on all devices
    */
-  inputType?: string | undefined;
+  inputType?: string;
 
   /**
    * tabIndex property to be applied to the outer iframe.
    */
-  tabIndex?: string | undefined;
+  tabIndex?: string;
 
   /**
    * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#common-field-style-properties|Common field style properties}
@@ -181,25 +181,25 @@ export type IndividualElementOptions = {
      *
      * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#styling-the-individual-card-elements|Styling the invididual card elements}
      */
-    invalid?: CommonElementStyle | undefined;
+    invalid?: CommonElementStyle;
 
     /**
      * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/padding}
      */
-    padding?: string | undefined;
+    padding?: string;
 
     placeholder?: {
       /**
        * Font {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color|color} applied to the placeholder text.
        */
-      color?: string | undefined;
+      color?: string;
 
       /**
        * Placeholder content (e.g. 'Card number', 'CVV')
        */
-      content?: string | undefined;
-    } | undefined;
-  } | undefined;
+      content?: string;
+    };
+  };
 };
 
 export type Attach<ElementType> = (el: string | HTMLElement) => ElementType;

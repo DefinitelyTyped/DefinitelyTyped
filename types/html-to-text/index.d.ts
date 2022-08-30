@@ -1,4 +1,4 @@
-// Type definitions for html-to-text 8.0
+// Type definitions for html-to-text 8.1
 // Project: https://github.com/html-to-text/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 //                 Carson Full <https://github.com/CarsonF>
@@ -288,6 +288,11 @@ export interface FormatOptions {
      */
     baseUrl?: string | undefined;
     /**
+     * Surround links with these brackets.<br/>Set to `false` or `['', '']` to disable.
+     * @default ['[', ']']
+     */
+    linkBrackets?: [string, string] | false | undefined;
+    /**
      * (Only for: `anchor` formatter.) By default links are translated in the following way:
      *
      * `<a href='link'>text</a>` => becomes => `text [link]`.
@@ -305,6 +310,7 @@ export interface FormatOptions {
      */
     noAnchorUrl?: boolean | undefined;
     /**
+     * @deprecated. Use linkBrackets instead.
      * (Only for: `anchor` formatter.) Don't print brackets around links.
      */
     noLinkBrackets?: boolean | undefined;
@@ -351,6 +357,10 @@ export interface FormatOptions {
      * (Only for: `table`, `dataTable` formatter.) Number of empty lines between data table rows.
      */
     rowSpacing?: number | undefined;
+    /**
+     * User defined values are supported.
+     */
+    [key: string]: any;
 }
 
 /**

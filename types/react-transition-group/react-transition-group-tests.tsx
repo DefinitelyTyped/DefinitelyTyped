@@ -8,11 +8,11 @@ interface ContainerProps {
     children?: React.ReactElement[] | undefined;
 }
 
-const Container: React.StatelessComponent<ContainerProps> = (props: ContainerProps) => {
+const Container: React.FunctionComponent<ContainerProps> = (props: ContainerProps) => {
     return <div data-theme={props.theme}>{props.children}</div>;
 };
 
-const Test: React.StatelessComponent = () => {
+const Test: React.FunctionComponent = () => {
     const nodeRef = React.useRef<HTMLDivElement>(null);
 
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}

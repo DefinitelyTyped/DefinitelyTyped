@@ -39,14 +39,6 @@ const consumableStream = new DummyConsumableStream();
 })();
 
 (async () => {
-    const consumable = consumableStream.createConsumable(20);
-    for await (const data of consumable) {
-        // $ExpectType string
-        data;
-    }
-})();
-
-(async () => {
     const result = await consumableStream.next();
 
     if (!result.done) {

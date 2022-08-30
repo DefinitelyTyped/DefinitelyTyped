@@ -8,12 +8,11 @@ declare module '../../index' {
          *   The keyPressed() function is called once every
          *   time a key is pressed. The keyCode for the key
          *   that was pressed is stored in the keyCode
-         *   variable.  For non-ASCII keys, use the keyCode
+         *   variable. For non-ASCII keys, use the keyCode
          *   variable. You can check if the keyCode equals
          *   BACKSPACE, DELETE, ENTER, RETURN, TAB, ESCAPE,
          *   SHIFT, CONTROL, OPTION, ALT, UP_ARROW, DOWN_ARROW,
          *   LEFT_ARROW, RIGHT_ARROW.
-         *
          *
          *   For ASCII keys, the key that was pressed is stored
          *   in the key variable. However, it does not
@@ -21,7 +20,6 @@ declare module '../../index' {
          *   this reason, it is recommended to use keyTyped()
          *   to read the key variable, in which the case of the
          *   variable will be distinguished.
-         *
          *
          *   Because of how operating systems handle key
          *   repeats, holding down a key may cause multiple
@@ -34,8 +32,10 @@ declare module '../../index' {
          *   attached to various key events. To prevent any
          *   default behavior for this event, add "return
          *   false" to the end of the method.
+         *   @param [event] optional KeyboardEvent callback
+         *   argument.
          */
-        keyPressed(): void;
+        keyPressed(event?: object): void;
 
         /**
          *   The keyReleased() function is called once every
@@ -44,8 +44,10 @@ declare module '../../index' {
          *   default behaviors attached to various key events.
          *   To prevent any default behavior for this event,
          *   add "return false" to the end of the method.
+         *   @param [event] optional KeyboardEvent callback
+         *   argument.
          */
-        keyReleased(): void;
+        keyReleased(event?: object): void;
 
         /**
          *   The keyTyped() function is called once every time
@@ -54,7 +56,7 @@ declare module '../../index' {
          *   ignored. If you are trying to detect a keyCode for
          *   one of these keys, use the keyPressed() function
          *   instead. The most recent key typed will be stored
-         *   in the key variable.  Because of how operating
+         *   in the key variable. Because of how operating
          *   systems handle key repeats, holding down a key
          *   will cause multiple calls to keyTyped() (and
          *   keyReleased() as well). The rate of repeat is set
@@ -66,8 +68,10 @@ declare module '../../index' {
          *   attached to various key events. To prevent any
          *   default behavior for this event, add "return
          *   false" to the end of the method.
+         *   @param [event] optional KeyboardEvent callback
+         *   argument.
          */
-        keyTyped(): void;
+        keyTyped(event?: object): void;
 
         /**
          *   The keyIsDown() function checks if the key is

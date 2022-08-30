@@ -1,9 +1,9 @@
-import Layer from "../Layer";
-import { ColorDescType as Color } from "../../util/colorTypes";
+import { Layer } from "../Layer";
+import { SolidColor } from "./SolidColor";
 import * as Constants from "../Constants";
 /**
  *
- * @targetfolder objects
+ * @targetfolder objects/createoptions
  * @optionobject
  */
 export declare class LayerCreateOptions {
@@ -30,11 +30,18 @@ export declare class LayerCreateOptions {
      */
     opacity?: number;
     /**
-     * Blend mode of the newly created layer
+     * Blend mode of the newly created layer. Deprecated, please use [[LayerCreateOptions.blendMode]]
+     * as it will override this value.
      * @options // TODO:
      * @default normal
      */
     mode?: Constants.BlendMode;
+    /**
+     * Blend mode of the newly created layer
+     * @options // TODO:
+     * @default normal
+     */
+    blendMode?: Constants.BlendMode;
     /**
      * Whether to fill with neutral color when applying Blend Mode
      *
@@ -51,7 +58,7 @@ export declare class LayerCreateOptions {
 }
 /**
  *
- * @targetfolder objects
+ * @targetfolder objects/createoptions
  * @optionobject
  */
 export declare class GroupLayerCreateOptions {
@@ -93,7 +100,7 @@ export declare class GroupLayerCreateOptions {
  * Options to pass into the createDocument API.
  * Provide `width`, `height`, `resolution`, `fill`, color `mode` parameters, or a saved `preset` name.
  *
- * @targetfolder objects
+ * @targetfolder objects/createoptions
  * @optionobject
  */
 export declare class DocumentCreateOptions {
@@ -114,7 +121,7 @@ export declare class DocumentCreateOptions {
     /** Fill color of the document */
     fill?: Constants.DocumentFill;
     /** Custom fill color of the document */
-    fillColor?: Color;
+    fillColor?: SolidColor;
     /** Depth */
     depth?: number;
     /** Pixel Scale Factor */

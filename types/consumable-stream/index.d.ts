@@ -1,8 +1,8 @@
-// Type definitions for consumable-stream 1.0
+// Type definitions for consumable-stream 2.0
 // Project: https://github.com/SocketCluster/consumable-stream
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
+//                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
 
 /// <reference types="node" />
 
@@ -10,7 +10,6 @@ declare abstract class ConsumableStream<T> implements AsyncIterator<T>, AsyncIte
     next(timeout?: number): Promise<IteratorResult<T>>;
     once(timeout?: number): Promise<T>;
     abstract createConsumer(timeout?: number): ConsumableStream.Consumer<T>;
-    createConsumable(timeout?: number): AsyncIterable<T>;
     [Symbol.asyncIterator](): AsyncIterator<T>;
 }
 

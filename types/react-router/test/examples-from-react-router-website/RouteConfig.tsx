@@ -21,7 +21,7 @@ interface PropsWithRoutes extends RouteComponentProps {
   routes: MyRouteProps[];
 }
 
-const Tacos: React.SFC<PropsWithRoutes> = ({ routes }) => (
+const Tacos: React.FC<PropsWithRoutes> = ({ routes }) => (
   <div>
     <h2>Tacos</h2>
     <ul>
@@ -41,7 +41,7 @@ const Cart = () => <h3>Cart</h3>;
 ////////////////////////////////////////////////////////////
 // then our route config
 interface MyRouteProps extends RouteProps {
-  component: React.SFC<PropsWithRoutes>;
+  component: React.FC<PropsWithRoutes>;
   routes?: MyRouteProps[] | undefined;
 }
 const routes: MyRouteProps[] = [

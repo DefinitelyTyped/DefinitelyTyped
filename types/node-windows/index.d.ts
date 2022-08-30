@@ -11,7 +11,7 @@ import { EventEmitter } from 'events';
 
 /**
  * nodewindows
- * This is a standalone module, originally designed for internal use in [NGN](http://github.com/thinkfirst/NGN).
+ * This is a standalone module, originally designed for internal use in [NGN](https://github.com/thinkfirst/NGN).
  * However; it is capable of providing the same features for Node.JS scripts
  * independently of NGN.
  *

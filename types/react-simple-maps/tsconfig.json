@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6",
+            "DOM"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -11,6 +14,9 @@
         "paths": {
             "d3-geo": [
                 "d3-geo/v1"
+            ],
+            "d3-zoom": [
+                "d3-zoom/v1"
             ]
         },
         "jsx": "react",

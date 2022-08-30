@@ -7,7 +7,7 @@
 export interface Response {
     status: number;
 
-    message: string;
+    message: object;
 
     headers: object;
 
@@ -19,15 +19,22 @@ export interface Response {
 export interface ConnectParams {
     plaintext?: boolean;
 
-    timeout?: number;
+    reflect?: boolean;
+
+    timeout?: string | number;
 }
 
 export interface Params {
+    /**
+     * @deprecated Use metadata instead.
+     */
     headers?: object;
+
+    metadata?: object;
 
     tags?: object;
 
-    timeout?: string;
+    timeout?: string | number;
 }
 
 /**
@@ -48,7 +55,7 @@ declare namespace grpc {
         connect(address: string, params?: ConnectParams): void;
 
         /** Loads and parses the protocol buffer descriptors. */
-        load(importPaths: string[], protoFiles: string): void;
+        load(importPaths: string[], ...protoFiles: string[]): void;
 
         /** Invokes an unary RPC request. */
         invoke(url: string, request: object, params?: Params): Response;

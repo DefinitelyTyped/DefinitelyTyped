@@ -7,7 +7,8 @@ import {
     constants,
     kMaxLength,
     kStringMaxLength,
-} from 'buffer';
+    Blob,
+} from 'node:buffer';
 
 const utf8Buffer = new Buffer('test');
 const base64Buffer = new Buffer('', 'base64');
@@ -57,7 +58,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf6: Buffer = Buffer.from(buf1);
     const sb: SharedArrayBuffer = {} as any;
     const buf7: Buffer = Buffer.from(sb);
-    // $ExpectError
+    // @ts-expect-error
     Buffer.from({});
 }
 
@@ -71,7 +72,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     buf = Buffer.from(arr.buffer, 1);
     buf = Buffer.from(arr.buffer, 0, 1);
 
-    // $ExpectError
+    // @ts-expect-error
     Buffer.from("this is a test", 1, 1);
     // Ideally passing a normal Buffer would be a type error too, but it's not
     //  since Buffer is assignable to ArrayBuffer currently
@@ -82,7 +83,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     /* tslint:disable-next-line no-construct */
     Buffer.from(new String("DEADBEEF"), "hex");
-    // $ExpectError
+    // @ts-expect-error
     Buffer.from(buf2, 'hex');
 }
 
@@ -93,7 +94,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const pseudoString = { valueOf() { return "Hello"; }};
     buf = Buffer.from(pseudoString);
     buf = Buffer.from(pseudoString, "utf-8");
-    // $ExpectError
+    // @ts-expect-error
     Buffer.from(pseudoString, 1, 2);
     const pseudoArrayBuf = { valueOf() { return new Uint16Array(2); } };
     buf = Buffer.from(pseudoArrayBuf, 1, 1);
@@ -147,13 +148,17 @@ let a: Buffer | number;
 a = new Buffer(10);
 if (Buffer.isBuffer(a)) {
     a.writeUInt8(3, 4);
+    a.writeUint8(3, 4);
 }
 
 // write* methods return offsets.
 const b = new Buffer(16);
 let result: number = b.writeUInt32LE(0, 0);
+result = b.writeUint32LE(0, 0);
 result = b.writeUInt16LE(0, 4);
+result = b.writeUint16LE(0, 4);
 result = b.writeUInt8(0, 6);
+result = b.writeUint8(0, 6);
 result = b.writeInt8(0, 7);
 result = b.writeDoubleLE(0, 8);
 result = b.write('asd');
@@ -262,3 +267,21 @@ b.fill('a').fill('b');
     const target: TranscodeEncoding = 'ascii';
     transcode(Buffer.from('€'), source, target); // $ExpectType Buffer
 }
+
+// Blob
+async () => {
+    const blob = new Blob(['asd', Buffer.from('test'), new Blob(['dummy'])], {
+        type: 'application/javascript',
+        encoding: 'base64',
+    });
+
+    blob.size; // $ExpectType number
+    blob.type; // $ExpectType string
+
+    blob.arrayBuffer(); // $ExpectType Promise<ArrayBuffer>
+    blob.text(); // $ExpectType Promise<string>
+    blob.slice(); // $ExpectType Blob
+    blob.slice(1); // $ExpectType Blob
+    blob.slice(1, 2); // $ExpectType Blob
+    blob.slice(1, 2, 'other'); // $ExpectType Blob
+};

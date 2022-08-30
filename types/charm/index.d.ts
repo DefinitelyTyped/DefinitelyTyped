@@ -16,10 +16,10 @@ declare namespace charm {
         reset(): void;
 
         /** Emit an "end" event downstream. */
-        destroy(): void;
+        destroy(): any;
 
         /** Emit an "end" event downstream. */
-        end(): void;
+        end(): any;
 
         /**
          * Pass along `msg` to the output stream.

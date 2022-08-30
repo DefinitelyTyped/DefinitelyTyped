@@ -76,7 +76,7 @@ const TestForm = reduxForm<TestFormData, TestFormComponentProps>({ form : "test"
 const TestFormImmRequired = immutableReduxForm<TestFormData, TestFormComponentProps>({})(TestFormComponent);
 const TestFormImm = immutableReduxForm<TestFormData, TestFormComponentProps>({ form : "test" })(TestFormComponent);
 
-const TestFormStatelessComponent: React.StatelessComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
+const TestFormStatelessComponent: React.FunctionComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
     const foo = initialValues.foo;
     return null;
 };
@@ -101,18 +101,20 @@ const ItemListObj = formValues({ fooBar : "foo" })(
 /* Custom FormSection */
 
 interface MyFormSectionProps {
+    children?: React.ReactNode;
     foo: string;
 }
 
-const MyFormSection: React.StatelessComponent<MyFormSectionProps> = ({ children, foo }) => null;
+const MyFormSection: React.FunctionComponent<MyFormSectionProps> = ({ children, foo }) => null;
 
 /* Custom Field */
 
 interface MyFieldCustomProps {
+    children?: React.ReactNode;
     foo: string;
 }
 type MyFieldProps = MyFieldCustomProps & WrappedFieldProps;
-const MyField: React.StatelessComponent<MyFieldProps> = ({
+const MyField: React.FunctionComponent<MyFieldProps> = ({
     children,
     input,
     meta,
@@ -134,11 +136,11 @@ const MyField: React.StatelessComponent<MyFieldProps> = ({
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
 type FieldProps = BaseFieldProps<MyFieldCustomProps> & MyFieldCustomProps;
-const FieldCustomComp: React.StatelessComponent<FieldProps> = props => (
+const FieldCustomComp: React.FunctionComponent<FieldProps> = props => (
     <FieldCustom {...props} component={MyField} />
 );
 
-const MyFieldImm: React.StatelessComponent<MyFieldProps> = ({
+const MyFieldImm: React.FunctionComponent<MyFieldProps> = ({
     children,
     input,
     meta,
@@ -149,10 +151,11 @@ const FieldImmutableCustom = ImmutableField as new () => GenericField<MyFieldCus
 /* Custom Fields */
 
 interface MyFieldsCustomProps {
+    children?: React.ReactNode;
     foo: string;
 }
 type MyFieldsProps = MyFieldsCustomProps & WrappedFieldsProps;
-const MyFields: React.StatelessComponent<MyFieldsCustomProps> = ({
+const MyFields: React.FunctionComponent<MyFieldsCustomProps> = ({
     children,
     foo
 }) => null;
@@ -160,7 +163,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.StatelessComponent<WrappedFieldArrayProps> = ({
+const MyArrayField: React.FunctionComponent<React.PropsWithChildren<WrappedFieldArrayProps>> = ({
     children
 }) => null;
 
@@ -170,11 +173,12 @@ interface MyFieldValue {
     num: number;
 }
 interface MyFieldArrayCustomProps {
+    children?: React.ReactNode;
     foo: string;
     bar: number;
 }
 
-const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
+const MyCustomArrayField: React.FunctionComponent<MyFieldArrayCustomProps & WrappedFieldArrayProps<MyFieldValue>> = ({
     children,
     fields,
     foo,
@@ -184,7 +188,7 @@ const MyCustomArrayField: React.StatelessComponent<MyFieldArrayCustomProps & Wra
 const FieldArrayCustom = FieldArray as new () => GenericFieldArray<MyFieldValue, MyFieldArrayCustomProps>;
 
 /* Tests */
-const TestForms: React.StatelessComponent = () => {
+const TestForms: React.FunctionComponent = () => {
     return (
         <div>
             <TestFormRequired form="test" baz='baz' />

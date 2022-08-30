@@ -2,8 +2,6 @@ import Ember from 'ember';
 import RSVP from 'rsvp';
 import { assertType } from './lib/assert';
 
-assertType<string[]>(Ember.run.queues);
-
 function testRun() {
     const r = Ember.run(() => {
         // code to be executed within a RunLoop

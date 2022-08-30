@@ -70,7 +70,8 @@ declare namespace DNS {
         type: number;
         class: number;
         ttl: number;
-        address: string;
+        address?: string;
+        domain?: string;
     }
 
     type DnsHandler = (
@@ -87,11 +88,7 @@ declare class DnsServer extends EventEmitter {
         doh?: net.AddressInfo;
     };
 
-    listen(ports: {
-        udp?: number,
-        tcp?: number,
-        doh?: number
-    }): Promise<void>;
+    listen(ports: { udp?: number; tcp?: number; doh?: number }): Promise<void>;
 
     close(): Promise<void>;
 }
@@ -106,12 +103,7 @@ declare class TcpDnsServer extends net.Server {
 }
 
 declare class DNS {
-    static createServer(options: {
-        udp?: boolean,
-        tcp?: boolean,
-        doh?: boolean,
-        handle: DNS.DnsHandler
-    }): DnsServer;
+    static createServer(options: { udp?: boolean; tcp?: boolean; doh?: boolean; handle: DNS.DnsHandler }): DnsServer;
 
     static Packet: typeof Packet;
 

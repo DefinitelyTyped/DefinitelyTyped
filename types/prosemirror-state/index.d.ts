@@ -1,10 +1,11 @@
-// Type definitions for prosemirror-state 1.2
+// Type definitions for prosemirror-state 1.3
 // Project: https://github.com/ProseMirror/prosemirror-state, https://github.com/prosemirror/prosemirror
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Mike Morearty <https://github.com/mmorearty>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -456,10 +457,25 @@ export class EditorState<S extends Schema = any> {
      * Create a new state.
      */
     static create<S extends Schema = any>(config: {
+        /**
+         * The schema to use (only relevant if no `doc` is specified).
+         */
         schema?: S | null | undefined;
+        /**
+         * The starting document.
+         */
         doc?: ProsemirrorNode<S> | null | undefined;
+        /**
+         * A valid selection in the document.
+         */
         selection?: Selection<S> | null | undefined;
+        /**
+         * The initial set of [stored marks](#state.EditorState.storedMarks).
+         */
         storedMarks?: Mark[] | null | undefined;
+        /**
+         * The plugins that should be active in this state.
+         */
         plugins?: Array<Plugin<any, S>> | null | undefined;
     }): EditorState<S>;
     /**
@@ -495,6 +511,8 @@ export class EditorState<S extends Schema = any> {
  * a `"paste"` property of true to transactions caused by a paste..
  */
 export class Transaction<S extends Schema = any> extends Transform<S> {
+    private constructor(state: EditorState);
+
     /**
      * The timestamp associated with this transaction, in the same
      * format as `Date.now()`.

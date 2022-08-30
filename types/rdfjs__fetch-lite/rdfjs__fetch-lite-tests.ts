@@ -1,10 +1,11 @@
-import fetch = require('@rdfjs/fetch-lite');
+import fetch from '@rdfjs/fetch-lite';
 import { SinkMap } from '@rdfjs/sink-map';
 import { Stream, Dataset, Quad, DatasetCoreFactory } from 'rdf-js';
 import { EventEmitter } from 'events';
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;
+    serializers: SinkMap<EventEmitter, Stream>;
 } = <any> {};
 
 async function fetchString(): Promise<string> {

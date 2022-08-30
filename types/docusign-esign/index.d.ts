@@ -1,4 +1,4 @@
-// Type definitions for docusign-esign 5.5
+// Type definitions for docusign-esign 5.6
 // Project: https://github.com/docusign/docusign-node-client#readme
 // Definitions by: Edwin Quimbo <https://github.com/equimbo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 /// <reference types="node" />
 
 export class ApiClient {
-    constructor(opts: { basePath: string; oAuthBasePath: string });
+    constructor(opts?: { basePath: string; oAuthBasePath: string });
 
     addDefaultHeader(header: string, value: string): void;
 
@@ -109,6 +109,7 @@ export class ApiClient {
 }
 
 export class Configuration {
+    static default: Configuration;
     constructor();
 
     getDefaultApiClient(): ApiClient;
@@ -117,7 +118,7 @@ export class Configuration {
 }
 
 export class AccountsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     _delete(accountId: string, callback?: () => void): Promise<void>;
 
@@ -322,7 +323,7 @@ export class AccountsApi {
 }
 
 export class AuthenticationApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     deleteSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
 
@@ -340,7 +341,7 @@ export class AuthenticationApi {
 }
 
 export class BillingApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getBillingPlan(billingPlanId: string, callback?: () => void): Promise<BillingPlanResponse>;
 
@@ -379,7 +380,7 @@ export class BillingApi {
 }
 
 export class BulkEnvelopesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createBulkSendList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkSendingList>;
 
@@ -443,7 +444,7 @@ export class BulkEnvelopesApi {
 }
 
 export class CloudStorageApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createProvider(
         accountId: string,
@@ -500,7 +501,7 @@ export class CloudStorageApi {
 }
 
 export class CommentsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createEnvelopeComments(
         accountId: string,
@@ -518,7 +519,7 @@ export class CommentsApi {
 }
 
 export class ConnectApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createConfiguration(
         accountId: string,
@@ -583,7 +584,7 @@ export class ConnectApi {
 }
 
 export class CustomTabsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     _delete(accountId: string, customTabId: string, callback?: () => void): Promise<void>;
 
@@ -597,13 +598,13 @@ export class CustomTabsApi {
 }
 
 export class DataFeedApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getDataFeedElement(accountId: string, dataFeedElementId: string, callback?: () => void): Promise<void>;
 }
 
 export class DiagnosticsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     deleteRequestLogs(callback?: () => void): Promise<void>;
 
@@ -621,7 +622,7 @@ export class DiagnosticsApi {
 }
 
 export class EmailArchiveApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createBCCEmailArchive(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BccEmailArchive>;
 
@@ -642,13 +643,13 @@ export class EmailArchiveApi {
 }
 
 export class EnvelopeApplianceApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getApplianceInfo(accountId: string, envelopeId: string, callback?: () => void): Promise<DisplayApplianceInfo>;
 }
 
 export class EnvelopePurgeConfigurationApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getEnvelopePurgeConfiguration(accountId: string, callback?: () => void): Promise<EnvelopePurgeConfiguration>;
 
@@ -660,7 +661,7 @@ export class EnvelopePurgeConfigurationApi {
 }
 
 export class EnvelopesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     applyTemplate(
         accountId: string,
@@ -952,7 +953,7 @@ export class EnvelopesApi {
         documentId: string,
         optsOrCallback: DocumentOptions,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentPageImage(
         accountId: string,
@@ -961,7 +962,7 @@ export class EnvelopesApi {
         pageNumber: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentTabs(
         accountId: string,
@@ -1029,7 +1030,7 @@ export class EnvelopesApi {
         recipientId: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getRecipientSignature(
         accountId: string,
@@ -1044,7 +1045,7 @@ export class EnvelopesApi {
         recipientId: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getTabsBlob(accountId: string, envelopeId: string, callback?: () => void): Promise<void>;
 
@@ -1291,7 +1292,7 @@ export class EnvelopesApi {
 }
 
 export class FoldersApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     list(
         accountId: string,
@@ -1327,7 +1328,7 @@ export class FoldersApi {
 }
 
 export class GroupsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
 
@@ -1376,7 +1377,7 @@ export class GroupsApi {
 }
 
 export class NotaryApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createNotary(optsOrCallback?: any, callback?: () => void): Promise<Notary>;
 
@@ -1404,7 +1405,7 @@ export class NotaryApi {
 }
 
 export class OrganizationsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     deleteReport(organizationId: string, reportCorrelationId: string, callback?: () => void): Promise<void>;
 
@@ -1412,7 +1413,7 @@ export class OrganizationsApi {
 }
 
 export class PowerFormsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createPowerForm(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerForm>;
 
@@ -1446,7 +1447,7 @@ export class PowerFormsApi {
 }
 
 export class SigningGroupsApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
 
@@ -1483,7 +1484,7 @@ export class SigningGroupsApi {
 }
 
 export class TemplatesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createCustomFields(
         accountId: string,
@@ -1653,7 +1654,7 @@ export class TemplatesApi {
         documentId: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentPageImage(
         accountId: string,
@@ -1662,7 +1663,7 @@ export class TemplatesApi {
         pageNumber: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     getDocumentTabs(
         accountId: string,
@@ -1847,13 +1848,13 @@ export class TemplatesApi {
 }
 
 export class TrustServiceProvidersApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     getSealProviders(accountId: string, callback?: () => void): Promise<AccountSeals>;
 }
 
 export class UsersApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     _delete(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UsersResponse>;
 
@@ -1905,7 +1906,7 @@ export class UsersApi {
 
     getProfile(accountId: string, userId: string, callback?: () => void): Promise<UserProfile>;
 
-    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<object>;
+    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<string>;
 
     getSettings(accountId: string, userId: string, callback?: () => void): Promise<UserSettingsInformation>;
 
@@ -1918,7 +1919,7 @@ export class UsersApi {
         imageType: string,
         optsOrCallback?: any,
         callback?: () => void,
-    ): Promise<object>;
+    ): Promise<string>;
 
     list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UserInformationList>;
 
@@ -1983,7 +1984,7 @@ export class UsersApi {
 }
 
 export class WorkspacesApi {
-    constructor(apiClient: ApiClient);
+    constructor(apiClient?: ApiClient);
 
     createWorkspace(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Workspace>;
 
@@ -12986,6 +12987,58 @@ export interface CompositeTemplate {
      */
     serverTemplates?: ServerTemplate[] | undefined;
 }
+
+export interface ConditionalRecipientRule {
+    /**
+     * An array of conditions that satisfy the rule.
+     */
+    conditions?: ConditionalRecipientRuleCondition[] | undefined;
+    /**
+     * An integer that specifies the order in which rules are processed. Lower values are processed before higher values.
+     */
+    order?: string | undefined;
+    recipientGroup?: RecipientGroup | undefined;
+    /**
+     * Unique for the recipient. It is used by the tab element to indicate which recipient is to sign the Document.
+     */
+    recipientId?: string | undefined;
+}
+
+export interface ConditionalRecipientRuleCondition {
+    filters?: ConditionalRecipientRuleFilter[] | undefined;
+    /**
+     * An integer that specifies the order in which rules are processed. Lower values are processed before higher values.
+     */
+    order?: string | undefined;
+    recipientLabel?: string | undefined;
+}
+
+export interface ConditionalRecipientRuleFilter {
+    operator?: string | undefined;
+    /**
+     * Unique for the recipient. It is used by the tab element to indicate which recipient is to sign the Document.
+     */
+    recipientId?: string | undefined;
+    /**
+     * Must be set to "api".
+     */
+    scope?: string | undefined;
+    /**
+     * The unique identifier for the tab.
+     */
+    tabId?: string | undefined;
+    /**
+     * The label associated with the tab. This value may be an empty string. If no value is provided, the tab type is used as the value.
+     *
+     * Maximum Length: 500 characters.
+     */
+    tabLabel?: string | undefined;
+    /**
+     * Specifies the value of the tab.
+     */
+    value?: string | undefined;
+}
+
 /**
  * This object contains the results of a ConnectConfigurations::GET method.
  */
@@ -19407,7 +19460,15 @@ export interface Envelope {
     /**
      * The status of the item.
      */
-    status?: string | undefined;
+    status?:
+        | 'completed'
+        | 'created'
+        | 'declined'
+        | 'delivered'
+        | 'sent'
+        | 'voided'
+        | 'signed'
+        | undefined;
     /**
      * The data and time that the status changed.
      */
@@ -19440,6 +19501,8 @@ export interface Envelope {
      * The reason the envelope or template was voided.
      */
     voidedReason?: string | undefined;
+
+    workflow?: /* A complex element that specifies the workflow settings for the envelope. */ Workflow | undefined;
 }
 
 export interface EnvelopeAttachment {
@@ -20204,6 +20267,8 @@ export interface EnvelopeDefinition {
      * The reason the envelope or template was voided.
      */
     voidedReason?: string | undefined;
+
+    workflow?: /* A complex element that specifies the workflow settings for the envelope. */ Workflow | undefined;
 }
 
 /**
@@ -33561,6 +33626,21 @@ export interface RecipientFormData {
     SignedTime?: string | undefined;
 }
 
+export interface RecipientGroup {
+    /**
+     * The group message, typically a description of the group.
+     */
+    groupMessage?: string | undefined;
+    /**
+     * The name of the group
+     */
+    groupName?: string | undefined;
+    /**
+     * An array of recipient objects that provides details about the recipients of the envelope.
+     */
+    recipients?: RecipientOption[] | undefined;
+}
+
 export interface RecipientIdentityInputOption {
     name?: string | undefined;
 
@@ -33611,6 +33691,24 @@ export interface RecipientNamesResponse {
      * When set to **true**, new names cannot be added to the email address.
      */
     reservedRecipientEmail?: string | undefined;
+}
+
+export interface RecipientOption {
+    email?: string | undefined;
+    name?: string | undefined;
+    recipientLabel?: string | undefined;
+    /**
+     * Optional element. Specifies the role name associated with the recipient.
+     *
+     * This property is required when you are working with template recipients.
+     */
+    roleName?: string | undefined;
+    /**
+     * When set to **true** and the feature is enabled in the sender's account, the signing recipient is required to draw
+     * signatures and initials at each signature/initial tab ( instead of adopting a signature/initial style or only drawing
+     * a signature/initial once).
+     */
+    signingGroupId?: string | undefined;
 }
 
 /**
@@ -33736,6 +33834,17 @@ export interface RecipientPreviewRequest {
 
 export interface RecipientProofFile {
     isInProofFile?: string | undefined;
+}
+
+export interface RecipientRules {
+    conditionalRecipients?: ConditionalRecipientRule[] | undefined;
+}
+
+export interface RecipientRouting {
+    /**
+     * The recipient routing rules.
+     */
+    rules?: RecipientRules | undefined;
 }
 
 /**
@@ -45244,6 +45353,65 @@ export interface Witness {
      * The GUID of the person or party for whom the recipient is a witness.
      */
     witnessForGuid?: string | undefined;
+}
+
+export interface Workflow {
+    /**
+     * The workflowStepId of the current step.This is not an index into the workflowSteps array in this object.See the workflowStep object.
+     */
+    currentWorkflowStepId?: string | undefined;
+    /**
+     * The status of the workflow:
+     * - `paused` if the workflow is paused
+     * - `in_progress` if the workflow is in progress
+     */
+    workflowStatus?: string | undefined;
+    /**
+     * An array of workflow steps.
+     */
+    workflowSteps?: WorkflowStep[] | undefined;
+}
+
+export interface WorkflowStep {
+    /**
+     * Indicates the action to perform.
+     * - `pause_before`: The workflow should pause before the trigger described by `triggerOnItem` is reached.
+     */
+    action?: string | undefined;
+    /**
+     * The timestamp of when the workflow step transitioned to `completed` status.
+     */
+    completedDate?: string | undefined;
+    /**
+     * The unique ID of the item being triggered.
+     */
+    itemId?: string | undefined;
+    /**
+     * The rules for recipient routing.
+     */
+    recipientRouting?: RecipientRouting | undefined;
+    /**
+     * The status of the step. One of:
+     * - inactive
+     * - in_progress
+     * - paused
+     * - pending
+     * - completed
+     * This is a read-only property.
+     */
+    status?: string | undefined;
+    /**
+     * The timestamp of when the workflow step transitioned to `in_progress` status.
+     */
+    triggeredDate?: string | undefined;
+    /**
+     * The type of item that triggers this workflow step. Currently, only `routing_order`, is the only supported value.
+     */
+    triggerOnItem?: string | undefined;
+    /**
+     * A unique identifier for this workflow step. This value is available from the `currentWorkflowStepId` property of the workflow object,
+     */
+    workflowStepId?: string | undefined;
 }
 
 /**

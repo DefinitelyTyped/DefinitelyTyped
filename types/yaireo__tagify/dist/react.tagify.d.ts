@@ -279,7 +279,7 @@ declare namespace Tags {
 
         /**
          * Callback invoked when the tagify input element (for adding new tags
-         * or editing or editing existing tags) has focus and a key was pressed.
+         * or editing existing tags) has focus and a key was pressed.
          *
          * This property __cannot be updated__, i.e. setting this to a different
          * value after the initial render is not supported.
@@ -307,7 +307,7 @@ declare namespace Tags {
         placeholder?: string | undefined;
 
         /**
-         * Toggles read-only state. When the tagify component is read-only, the
+         * Toggles read-only state. When the tagify component is read-only, the user
          * cannot add, edit, or remove tags.
          *
          * This property can be updated, i.e. setting this to a different value
@@ -324,7 +324,7 @@ declare namespace Tags {
          * value after the initial render is not supported.
          * @default {}
          */
-        settings?: TagifySettings | undefined;
+        settings?: TagifySettings<T> | undefined;
 
         /**
          * If `false`, does not show the suggestions dropdown. If `true`, shows
@@ -352,7 +352,7 @@ declare namespace Tags {
          * value after the initial render is not supported.
          * @default undefined
          */
-        tagifyRef?: MutableRefObject<Tagify | undefined> | undefined;
+        tagifyRef?: MutableRefObject<Tagify<T> | undefined> | undefined;
 
         /**
          * Same as `defaultValue`. Initial value, i.e. the initial tags that are

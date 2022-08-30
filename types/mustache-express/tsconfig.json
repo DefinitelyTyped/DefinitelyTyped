@@ -12,9 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "lru-cache": [ "lru-cache/v4" ]
-        },
+        "paths": {},
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -11,27 +11,33 @@
 declare module 'fs/promises' {
     import { Abortable } from 'node:events';
     import { Stream } from 'node:stream';
+    import { ReadableStream } from 'node:stream/web';
     import {
-        Stats,
         BigIntStats,
-        StatOptions,
-        WriteVResult,
-        ReadVResult,
+        BufferEncodingOption,
+        constants as fsConstants,
+        CopyOptions,
+        Dir,
+        Dirent,
+        MakeDirectoryOptions,
+        Mode,
+        ObjectEncodingOptions,
+        OpenDirOptions,
+        OpenMode,
         PathLike,
+        ReadStream,
+        ReadVResult,
         RmDirOptions,
         RmOptions,
-        MakeDirectoryOptions,
-        Dirent,
-        OpenDirOptions,
-        Dir,
-        ObjectEncodingOptions,
-        BufferEncodingOption,
-        OpenMode,
-        Mode,
-        WatchOptions,
+        StatOptions,
+        Stats,
+        TimeLike,
         WatchEventType,
-        CopyOptions,
+        WatchOptions,
+        WriteStream,
+        WriteVResult,
     } from 'node:fs';
+
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
         filename: T;
@@ -40,11 +46,11 @@ declare module 'fs/promises' {
         mode?: Mode | undefined;
         flag?: OpenMode | undefined;
     }
-    interface FileReadResult<T extends ArrayBufferView> {
+    interface FileReadResult<T extends NodeJS.ArrayBufferView> {
         bytesRead: number;
         buffer: T;
     }
-    interface FileReadOptions<T extends ArrayBufferView = Buffer> {
+    interface FileReadOptions<T extends NodeJS.ArrayBufferView = Buffer> {
         /**
          * @default `Buffer.alloc(0xffff)`
          */
@@ -58,6 +64,20 @@ declare module 'fs/promises' {
          */
         length?: number | null;
         position?: number | null;
+    }
+    interface CreateReadStreamOptions {
+        encoding?: BufferEncoding | null | undefined;
+        autoClose?: boolean | undefined;
+        emitClose?: boolean | undefined;
+        start?: number | undefined;
+        end?: number | undefined;
+        highWaterMark?: number | undefined;
+    }
+    interface CreateWriteStreamOptions {
+        encoding?: BufferEncoding | null | undefined;
+        autoClose?: boolean | undefined;
+        emitClose?: boolean | undefined;
+        start?: number | undefined;
     }
     // TODO: Add `EventEmitter` close
     interface FileHandle {
@@ -91,6 +111,77 @@ declare module 'fs/promises' {
          */
         chmod(mode: Mode): Promise<void>;
         /**
+         * Unlike the 16 kb default `highWaterMark` for a `stream.Readable`, the stream
+         * returned by this method has a default `highWaterMark` of 64 kb.
+         *
+         * `options` can include `start` and `end` values to read a range of bytes from
+         * the file instead of the entire file. Both `start` and `end` are inclusive and
+         * start counting at 0, allowed values are in the
+         * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. If `start` is
+         * omitted or `undefined`, `filehandle.createReadStream()` reads sequentially from
+         * the current file position. The `encoding` can be any one of those accepted by `Buffer`.
+         *
+         * If the `FileHandle` points to a character device that only supports blocking
+         * reads (such as keyboard or sound card), read operations do not finish until data
+         * is available. This can prevent the process from exiting and the stream from
+         * closing naturally.
+         *
+         * By default, the stream will emit a `'close'` event after it has been
+         * destroyed.  Set the `emitClose` option to `false` to change this behavior.
+         *
+         * ```js
+         * import { open } from 'fs/promises';
+         *
+         * const fd = await open('/dev/input/event0');
+         * // Create a stream from some character device.
+         * const stream = fd.createReadStream();
+         * setTimeout(() => {
+         *   stream.close(); // This may not close the stream.
+         *   // Artificially marking end-of-stream, as if the underlying resource had
+         *   // indicated end-of-file by itself, allows the stream to close.
+         *   // This does not cancel pending read operations, and if there is such an
+         *   // operation, the process may still not be able to exit successfully
+         *   // until it finishes.
+         *   stream.push(null);
+         *   stream.read(0);
+         * }, 100);
+         * ```
+         *
+         * If `autoClose` is false, then the file descriptor won't be closed, even if
+         * there's an error. It is the application's responsibility to close it and make
+         * sure there's no file descriptor leak. If `autoClose` is set to true (default
+         * behavior), on `'error'` or `'end'` the file descriptor will be closed
+         * automatically.
+         *
+         * An example to read the last 10 bytes of a file which is 100 bytes long:
+         *
+         * ```js
+         * import { open } from 'fs/promises';
+         *
+         * const fd = await open('sample.txt');
+         * fd.createReadStream({ start: 90, end: 99 });
+         * ```
+         * @since v16.11.0
+         */
+        createReadStream(options?: CreateReadStreamOptions): ReadStream;
+        /**
+         * `options` may also include a `start` option to allow writing data at some
+         * position past the beginning of the file, allowed values are in the
+         * \[0, [`Number.MAX_SAFE_INTEGER`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER)\] range. Modifying a file rather than
+         * replacing it may require the `flags` `open` option to be set to `r+` rather than
+         * the default `r`. The `encoding` can be any one of those accepted by `Buffer`.
+         *
+         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
+         * then the file descriptor won't be closed, even if there's an error.
+         * It is the application's responsibility to close it and make sure there's no
+         * file descriptor leak.
+         *
+         * By default, the stream will emit a `'close'` event after it has been
+         * destroyed.  Set the `emitClose` option to `false` to change this behavior.
+         * @since v16.11.0
+         */
+        createWriteStream(options?: CreateWriteStreamOptions): WriteStream;
+        /**
          * Forces all currently queued I/O operations associated with the file to the
          * operating system's synchronized I/O completion state. Refer to the POSIX [`fdatasync(2)`](http://man7.org/linux/man-pages/man2/fdatasync.2.html) documentation for details.
          *
@@ -120,8 +211,31 @@ declare module 'fs/promises' {
          * integer, the current file position will remain unchanged.
          * @return Fulfills upon success with an object with two properties:
          */
-        read<T extends ArrayBufferView>(buffer: T, offset?: number | null, length?: number | null, position?: number | null): Promise<FileReadResult<T>>;
-        read<T extends ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number | null, length?: number | null, position?: number | null): Promise<FileReadResult<T>>;
+        read<T extends NodeJS.ArrayBufferView = Buffer>(options?: FileReadOptions<T>): Promise<FileReadResult<T>>;
+        /**
+         * Returns a `ReadableStream` that may be used to read the files data.
+         *
+         * An error will be thrown if this method is called more than once or is called after the `FileHandle` is closed
+         * or closing.
+         *
+         * ```js
+         * import { open } from 'node:fs/promises';
+         *
+         * const file = await open('./some/file/to/read');
+         *
+         * for await (const chunk of file.readableWebStream())
+         *   console.log(chunk);
+         *
+         * await file.close();
+         * ```
+         *
+         * While the `ReadableStream` will read the file to completion, it will not close the `FileHandle` automatically. User code must still call the `fileHandle.close()` method.
+         *
+         * @since v17.0.0
+         * @experimental
+         */
+        readableWebStream(): ReadableStream;
         /**
          * Asynchronously reads the entire contents of a file.
          *
@@ -218,13 +332,12 @@ declare module 'fs/promises' {
          * Change the file system timestamps of the object referenced by the `FileHandle` then resolves the promise with no arguments upon success.
          * @since v10.0.0
          */
-        utimes(atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        utimes(atime: TimeLike, mtime: TimeLike): Promise<void>;
         /**
          * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
          * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
-         * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object, or an
-         * object with an own `toString` function
-         * property. The promise is resolved with no arguments upon success.
+         * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
+         * The promise is resolved with no arguments upon success.
          *
          * If `options` is a string, then it specifies the `encoding`.
          *
@@ -242,20 +355,18 @@ declare module 'fs/promises' {
         /**
          * Write `buffer` to the file.
          *
-         * If `buffer` is a plain object, it must have an own (not inherited) `toString`function property.
-         *
          * The promise is resolved with an object containing two properties:
          *
          * It is unsafe to use `filehandle.write()` multiple times on the same file
          * without waiting for the promise to be resolved (or rejected). For this
-         * scenario, use `fs.createWriteStream()`.
+         * scenario, use `filehandle.createWriteStream()`.
          *
          * On Linux, positional writes do not work when the file is opened in append mode.
          * The kernel ignores the position argument and always appends the data to
          * the end of the file.
          * @since v10.0.0
          * @param [offset=0] The start position from within `buffer` where the data to write begins.
-         * @param [length=buffer.byteLength] The number of bytes from `buffer` to write.
+         * @param [length=buffer.byteLength - offset] The number of bytes from `buffer` to write.
          * @param position The offset from the beginning of the file where the data from `buffer` should be written. If `position` is not a `number`, the data will be written at the current position.
          * See the POSIX pwrite(2) documentation for more detail.
          */
@@ -318,12 +429,15 @@ declare module 'fs/promises' {
          */
         close(): Promise<void>;
     }
+
+    const constants: typeof fsConstants;
+
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. Check `File access constants` for possible values
-     * of `mode`. It is possible to create a mask consisting of the bitwise OR of
-     * two or more values (e.g. `fs.constants.W_OK | fs.constants.R_OK`).
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`,`fs.constants.W_OK`, and `fs.constants.X_OK`
+     * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
+     * possible values of `mode`.
      *
      * If the accessibility check is successful, the promise is resolved with no
      * value. If any of the accessibility checks fail, the promise is rejected
@@ -400,7 +514,7 @@ declare module 'fs/promises' {
      * @param [mode=0o666] Sets the file mode (permission and sticky bits) if the file is created.
      * @return Fulfills with a {FileHandle} object.
      */
-    function open(path: PathLike, flags: string | number, mode?: Mode): Promise<FileHandle>;
+    function open(path: PathLike, flags?: string | number, mode?: Mode): Promise<FileHandle>;
     /**
      * Renames `oldPath` to `newPath`.
      * @since v10.0.0
@@ -654,7 +768,7 @@ declare module 'fs/promises' {
      * @since v14.5.0, v12.19.0
      * @return Fulfills with `undefined` upon success.
      */
-    function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    function lutimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
      * Changes the ownership of a file.
      * @since v10.0.0
@@ -672,7 +786,7 @@ declare module 'fs/promises' {
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
-    function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
      * Determines the actual location of `path` using the same semantics as the`fs.realpath.native()` function.
      *
@@ -743,7 +857,9 @@ declare module 'fs/promises' {
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
     /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a `Buffer`, or, an object with an own (not inherited)`toString` function property.
+     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
+     * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
+     * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
      *
      * The `encoding` option is ignored if `data` is a buffer.
      *
@@ -758,7 +874,7 @@ declare module 'fs/promises' {
      *
      * Similarly to `fsPromises.readFile` \- `fsPromises.writeFile` is a convenience
      * method that performs multiple `write` calls internally to write the buffer
-     * passed to it. For performance sensitive code consider using `fs.createWriteStream()`.
+     * passed to it. For performance sensitive code consider using `fs.createWriteStream()` or `filehandle.createWriteStream()`.
      *
      * It is possible to use an `AbortSignal` to cancel an `fsPromises.writeFile()`.
      * Cancelation is "best effort", and some amount of data is likely still
@@ -928,7 +1044,7 @@ declare module 'fs/promises' {
      * @since v12.12.0
      * @return Fulfills with an {fs.Dir}.
      */
-    function opendir(path: string, options?: OpenDirOptions): Promise<Dir>;
+    function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     /**
      * Returns an async iterator that watches for changes on `filename`, where `filename`is either a file or a directory.
      *
@@ -956,7 +1072,7 @@ declare module 'fs/promises' {
      * disappears in the directory.
      *
      * All the `caveats` for `fs.watch()` also apply to `fsPromises.watch()`.
-     * @since v15.9.0
+     * @since v15.9.0, v14.18.0
      * @return of objects with the properties:
      */
     function watch(
@@ -997,7 +1113,7 @@ declare module 'fs/promises' {
      * @param dest destination path to copy to.
      * @return Fulfills with `undefined` upon success.
      */
-    function cp(source: string, destination: string, opts?: CopyOptions): Promise<void>;
+    function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
 }
 declare module 'node:fs/promises' {
     export * from 'fs/promises';

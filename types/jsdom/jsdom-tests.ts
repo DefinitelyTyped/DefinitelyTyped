@@ -1,8 +1,13 @@
 import "./test/core";
 import jsdom = require("jsdom");
+// tslint:disable-next-line:multiple-import-in-one-file test named export
+import { JSDOM } from "jsdom";
 
-const dom = new jsdom.JSDOM();
+const dom = new jsdom.JSDOM() || new JSDOM();
 const domWindow = dom.window; // $ExpectType DOMWindow
+
+dom.virtualConsole; // $ExpectType VirtualConsole
+dom.cookieJar; // $ExpectType CookieJar
 
 domWindow.document.querySelector("slot"); // $ExpectType HTMLSlotElement | null
 domWindow.AbstractRange.prototype; // $ExpectType AbstractRange
@@ -21,3 +26,5 @@ domWindow.external; // $ExpectType External
 
 domWindow.FinalizationRegistry; // $ExpectType FinalizationRegistryConstructor
 domWindow.WeakRef; // $ExpectType WeakRefConstructor
+
+dom.nodeLocation(domWindow.document.createElement('br')); // $ExpectType Location | null | undefined

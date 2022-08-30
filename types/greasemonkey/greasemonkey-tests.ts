@@ -194,6 +194,7 @@ GM.xmlHttpRequest({
     overrideMimeType: 'text/plain',
     password: 'abc123',
     synchronous: false,
+    responseType: 'arraybuffer',
     timeout: 10,
     upload: {
         onabort: (response: GM.Response<MyRequestContext>) => {},

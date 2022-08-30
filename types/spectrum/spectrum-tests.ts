@@ -71,9 +71,9 @@ $("#picker").spectrum("option", "palette", paletteUnmodUnmod);
 const palette = $("#picker").spectrum("option", "palette");
 if (palette) {
     // Disallowed, must use "option" method to apply settings
-    // $ExpectError
+    // @ts-expect-error
     palette[0][0] = "";
-    // $ExpectError
+    // @ts-expect-error
     palette[0] = [""];
 }
 
@@ -105,7 +105,7 @@ $("#picker").spectrum("option", "selectionPalette", selectionPaletteUnmod);
 const selectionPalette = $("#picker").spectrum("option", "selectionPalette");
 if (selectionPalette) {
     // Disallowed, must use "option" method to apply settings
-    // $ExpectError
+    // @ts-expect-error
     selectionPaletteUnmod[0] = "red";
 }
 
@@ -138,7 +138,7 @@ $("#picker").spectrum({
 
 $("#picker").spectrum(
     // Invalid format name raises a type error
-    // $ExpectError
+    // @ts-expect-error
     { preferredFormat: "lol" }
 );
 
@@ -162,7 +162,7 @@ $("#picker").spectrum({
 });
 $("#picker").spectrum(
     // Cannot use values not allowed by JQuery#appendTo
-    // $ExpectError
+    // @ts-expect-error
     { appendTo: [$("#otherPicker")] }
 );
 
@@ -243,19 +243,19 @@ $("#picker").spectrum("option", "preferredFormat");
 // $ExpectType boolean | undefined
 $("#picker").spectrum("option", "disabled");
 // Invalid option name raises a type error
-// $ExpectError
+// @ts-expect-error
 $("#picker").spectrum("option", "foobar");
 
 $("#picker").spectrum("option", "color", "#ededed");
 $("#picker").spectrum("option", "disabled", true);
 // Invalid option name raises a type error
-// $ExpectError
+// @ts-expect-error
 $("#picker").spectrum("option", "foobar", "#ededed");
 // Invalid option value raises a type error
-// $ExpectError
+// @ts-expect-error
 $("#picker").spectrum("option", "disabled", "true");
 // Passing undefined would be interpreted as the getter, not the setter, so this is disallowed
-// $ExpectError
+// @ts-expect-error
 $("#picker").spectrum("option", "disabled", undefined);
 
 // Event handling

@@ -43,11 +43,15 @@ const backend = new ShareDB({
     milestoneDb: new MyMilestoneDB(),
     suppressPublish: false,
     maxSubmitRetries: 3,
+    errorHandler: (error, context) => {
+        console.log(error, context.agent.custom);
+    },
 });
 console.log(backend.db);
 backend.on('error', (error) => console.error(error));
 backend.on('send', (agent, context) => console.log(agent, context));
 backend.addListener('timing', (type, time, request) => console.log(type, new Date(time), request));
+backend.on('someCustomEvent', (arg0: string, arg1: number) => {});
 
 // getOps allows for `from` and `to` to both be `null`:
 // https://github.com/share/sharedb/blob/960f5d152f6a8051ed2dcb00a57681a3ebbd7dc2/README.md#getops
@@ -58,6 +62,20 @@ console.log(backend.pubsub);
 console.log(backend.extraDbs);
 
 backend.addProjection('notes_minimal', 'notes', {title: true, creator: true, lastUpdateTime: true});
+const readonlyProjection = backend.projections['notes_minimal'];
+console.log(readonlyProjection.target, readonlyProjection.fields);
+// backend.projections is used by sharedb internally, so they shouldn't be messed with.
+// Test that marking as readonly in API prevents external modification.
+// @ts-expect-error
+delete backend.projections;
+// @ts-expect-error
+delete backend.projections.notes_minimal;
+// @ts-expect-error
+backend.projections['notes_minimal'].target = 'notes2';
+// @ts-expect-error
+backend.projections['notes_minimal'].fields = {};
+// @ts-expect-error
+backend.projections['notes_minimal'].fields['title'] = true;
 
 // Exercise middleware (backend.use)
 type SubmitRelatedActions = 'afterWrite' | 'apply' | 'commit' | 'submit';
@@ -176,6 +194,21 @@ backend.use('readSnapshots', (context, callback) => {
     callback();
 });
 
+backend.use('receivePresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
+});
+
+backend.use('sendPresence', (context, callback) => {
+    console.log(
+        context.presence.ch,
+        context.presence.id,
+    );
+    callback();
+});
+
 backend.on('submitRequestEnd', (error, request) => {
     console.log(request.op);
 });
@@ -185,6 +218,10 @@ const agent = connection.agent;
 const netRequest = {};  // Passed through to 'connect' middleware, not used by sharedb itself
 const connectionWithReq = backend.connect(null, netRequest);
 const reboundConnection = backend.connect(backend.connect(), netRequest);
+
+const connectionHasPending: boolean = connection.hasPending();
+connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
+connection.send({ a: 'nonExistentAction', some: 'data' });
 
 const doc = connection.get('examples', 'counter');
 
@@ -196,6 +233,8 @@ doc.fetch((err) => {
         startServer();
     }
 });
+
+doc.create({foo: true}, 'http://sharejs.org/types/JSONv0');
 
 function startServer() {
     const server = http.createServer();

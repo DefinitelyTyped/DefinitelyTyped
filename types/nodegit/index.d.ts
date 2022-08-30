@@ -6,6 +6,7 @@
 //                 Jibril Saffi <https://github.com/IGI-111>
 //                 Benjamin Schuster-Boeckler <https://github.com/DaGaMs>
 //                 Julien Chaumond <https://github.com/julien-c>
+//                 Jake Murzy <https://github.com/jmurzy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { AnnotatedCommit } from './annotated-commit';
@@ -111,6 +112,9 @@ export { Treebuilder } from './tree-builder';
 export { TreeEntry } from './tree-entry';
 export { TreeUpdate } from './tree-update';
 export { Tree } from './tree';
+export { Worktree } from './worktree';
+export { WorktreeAddOptions } from './worktree-add-options';
+export { WorktreePruneOptions } from './worktree-prune-options';
 export const version: string;
 declare const _: typeof Promise;
 export { _ as Promise };

@@ -20,7 +20,7 @@ export interface RealOptions {
     withContext?: boolean | undefined;
 }
 
-export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
+export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.FunctionComponent<TProps>;
 
 export type StoresList = Array<FluxStore<any>>;
 

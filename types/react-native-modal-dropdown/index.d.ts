@@ -1,7 +1,6 @@
 // Type definitions for react-native-modal-dropdown 0.7
 // Project: https://github.com/sohobloo/react-native-modal-dropdown
 // Definitions by: Carlos Li <https://github.com/echoulen>
-//                 Ruslan Yurchenko <https://github.com/rusyurchenko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

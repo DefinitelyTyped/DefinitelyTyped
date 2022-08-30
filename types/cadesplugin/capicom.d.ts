@@ -18,6 +18,31 @@ declare namespace CAPICOM {
         readonly Length: number;
     }
 
+    interface PrivateKey {
+        readonly ContainerName: string;
+        readonly KeySpec: CAPICOM_KEY_SPEC;
+        readonly ProviderName: string;
+        readonly ProviderType: CAPICOM_PROV_TYPE;
+        readonly UniqueContainerName: string;
+        ChangePin(): void;
+        CachePin: boolean;
+        KeyPin: string;
+    }
+
+    interface EKU {
+        Name: string;
+        OID: string;
+    }
+    interface EKUs {
+        readonly Count: number;
+        Item(index: number): EKU;
+    }
+    interface ExtendedKeyUsage {
+        readonly EKUs: EKUs;
+        IsCritical(): boolean;
+        IsPresent(): boolean;
+    }
+
     interface Certificate {
         readonly Version: number;
         readonly Thumbprint: string;
@@ -37,7 +62,11 @@ declare namespace CAPICOM {
 
         PublicKey(): PublicKey;
 
+        PrivateKey: PrivateKey;
+
         Export(EncodingType: CADES_Common.ValuesOf<CAPICOM_ENCODING_TYPE>): string;
+
+        ExtendedKeyUsage(): ExtendedKeyUsage;
     }
 
     interface CertificateStatus {

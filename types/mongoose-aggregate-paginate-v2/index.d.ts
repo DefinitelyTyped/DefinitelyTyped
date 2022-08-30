@@ -2,7 +2,7 @@
 // Project: https://github.com/webgangster/mongoose-aggregate-paginate-v2
 // Definitions by: Alexandre Croteau <https://github.com/acrilex1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 //
 // Based on type declarations for mongoose-paginate-v2 1.3.
 //
@@ -10,17 +10,18 @@
 // and LiRen Tu <https://github.com/tuliren> for their contribution
 
 declare module 'mongoose' {
-    interface CustomLabels {
-        totalDocs?: string | undefined;
-        limit?: string | undefined;
-        page?: string | undefined;
-        totalPages?: string | undefined;
-        docs?: string | undefined;
-        nextPage?: string | undefined;
-        prevPage?: string | undefined;
-        pagingCounter?: string | undefined;
-        hasPrevPage?: string | undefined;
-        hasNextPage?: string | undefined;
+    interface CustomLabels<T = string | undefined | boolean> {
+        totalDocs?: T | undefined;
+        docs?: T | undefined;
+        limit?: T | undefined;
+        page?: T | undefined;
+        nextPage?: T | undefined;
+        prevPage?: T | undefined;
+        hasNextPage?: T | undefined;
+        hasPrevPage?: T | undefined;
+        totalPages?: T | undefined;
+        pagingCounter?: T | undefined;
+        meta?: T | undefined;
     }
 
     interface PaginateOptions {

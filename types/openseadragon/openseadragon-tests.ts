@@ -1,6 +1,16 @@
-import OpenSeadragon, { Viewport, Drawer, MouseTracker, IIIFTileSource, Button, ControlAnchor } from 'openseadragon';
+import OpenSeadragon, { Viewport, Drawer, MouseTracker, IIIFTileSource, Button, ControlAnchor, PreprocessEventHandler } from 'openseadragon';
 
 const viewer = OpenSeadragon({ id: 'viewerid' });
+
+// @ts-expect-error
+viewer.addHandler('canvas-click', ({ fullScreen }) => {
+    console.log(fullScreen);
+});
+
+const preProcessHandler: PreprocessEventHandler = ({ eventType }) => {
+    // @ts-expect-error
+    console.log(eventType === 'open');
+};
 
 viewer.addHandler('tile-loaded', event => {
     console.log(event.eventSource);

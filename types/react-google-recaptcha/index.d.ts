@@ -6,6 +6,7 @@
 //                 Meir Keller <https://github.com/meirkl>
 //                 Florian Roher <https://github.com/RohrerF>
 //                 Timotei Mocan <https://github.com/mocantimoteidavid>
+//                 Michael Szmadzinski <https://github.com/smujmaiku>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -52,7 +53,7 @@ type Type = "image" | "audio";
 type Size = "compact" | "normal" | "invisible";
 type Badge = "bottomright" | "bottomleft" | "inline";
 
-export interface ReCAPTCHAProps {
+export interface ReCAPTCHAProps extends Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'onChange' | 'ref'> {
     /**
      * The API client key
      */

@@ -185,3 +185,6 @@ declare module 'v8' {
      */
     function deserialize(data: NodeJS.TypedArray): any;
 }
+declare module 'node:v8' {
+    export * from 'v8';
+}

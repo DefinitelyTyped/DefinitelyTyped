@@ -16,10 +16,25 @@ declare namespace payu {
 
     type tokenType = 'SINGLE' | 'SINGLE_LONGTERM' | 'MULTI';
     interface PayU {
-        secureForms(): SecureForms;
+        secureForms(options?: SecureFormsOptions): SecureForms;
         tokenize(type?: tokenType): Promise<TokenizeResultSuccess | TokenizeResultError>;
         sendCvv(refReqId: string): Promise<SendCvvResultSuccess | SendCvvResultError>;
         extractRefReqId(input: string): string;
+    }
+
+    interface SecureFormsOptions {
+        fonts?: FontOptions[] | undefined;
+    }
+
+    type fontWeightNumber = 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+
+    interface FontOptions {
+        family: string;
+        src: string;
+        display?: 'auto' | 'block' | 'swap' | 'fallback' | 'optional' | undefined;
+        style?: 'normal' | 'italic' | 'oblique' | undefined;
+        weight?: 'normal' | 'bold' | fontWeightNumber | undefined;
+        unicodeRange?: string | undefined;
     }
 
     type secureFormType = 'card' | 'number' | 'date' | 'cvv';
@@ -35,14 +50,7 @@ declare namespace payu {
         cardIcon?: boolean | undefined;
     }
 
-    type fontWeight = number
-        | 'normal'
-        | 'bold'
-        | 'lighter'
-        | 'bolder'
-        | 'inherit'
-        | 'initial'
-        | 'unset';
+    type fontWeight = 'normal' | 'bold' | 'lighter' | 'bolder' | 'inherit' | 'initial' | 'unset' | fontWeightNumber;
     interface StyleOptions {
         basic?: {
             fontColor?: string | undefined;
@@ -113,6 +121,7 @@ declare namespace payu {
         empty: boolean;
         error: false | SecureFormErrorMessage[];
         brand?: 'visa' | 'mastercard' | 'maestro' | undefined;
+        length?: number | undefined;
     }
 
     interface TokenizeResultSuccess {

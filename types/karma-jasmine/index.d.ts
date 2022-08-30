@@ -3,17 +3,19 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+
 /// <reference types="jasmine" />
 
 import karma = require('karma');
 
 declare module 'karma' {
     interface ClientOptions {
-        jasmine?: jasmine.EnvConfiguration & {
-            /** @deprecated undocumented to be removed */
-            timeoutInterval?: number | undefined;
-        } | undefined;
+        jasmine?:
+            | (jasmine.Configuration & {
+                  /** @deprecated undocumented to be removed */
+                  timeoutInterval?: number | undefined;
+              })
+            | undefined;
         /**
          * run a subset of the full set of specs.
          * Complete sharding support needs to be done in the process that calls karma,

@@ -44,3 +44,7 @@ store4.close();
 store4.pruneSessions();
 
 store4.pruneSessions(err => console.log(err));
+
+const store5 = new pgSession({
+    disableTouch: true
+});

@@ -1,11 +1,13 @@
 {
     "files": [
-        "index.d.ts"
+        "index.d.ts",
+        "react-addons-perf-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,

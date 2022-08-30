@@ -44,7 +44,7 @@ const pool = genericPool.createPool<Connection>(factory, opts);
 
 pool.start();
 
-pool.use((conn: Connection) => 'test')
+pool.use((conn: Connection) => Promise.resolve('test'))
     .then((result: string) => { });
 
 pool.acquire()

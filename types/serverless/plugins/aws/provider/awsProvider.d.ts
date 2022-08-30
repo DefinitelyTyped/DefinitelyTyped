@@ -11,6 +11,7 @@ declare namespace Aws {
         enableLocalInstallationFallback?: boolean | undefined;
         variablesResolutionMode?: '20210219' | '20210326' | undefined;
         unresolvedVariablesNotificationMode?: 'warn' | 'error' | undefined;
+        deprecationNotificationMode?: 'warn' | 'warn:summary' | 'error' | undefined;
         disabledDeprecations?: string[] | undefined;
         configValidationMode?: 'warn' | 'error' | 'off' | undefined;
         provider: Provider;
@@ -60,6 +61,7 @@ declare namespace Aws {
         cfnRole?: string | undefined;
         iam?: IamSettings | undefined;
         versionFunctions?: boolean | undefined;
+        architecture?: 'x86_64' | 'arm64' | undefined;
         environment?: Environment | string | undefined;
         endpointType?: 'regional' | 'edge' | 'private' | undefined;
         apiKeys?: string[] | undefined;
@@ -78,6 +80,12 @@ declare namespace Aws {
         tracing?: Tracing | undefined;
         logs?: Logs | undefined;
         kmsKeyArn?: string | undefined;
+        eventBridge?: EventBridge | undefined;
+        layers?: Array<string | Record<string, string>> | undefined;
+    }
+
+    interface EventBridge {
+        useCloudFormation?: boolean;
     }
 
     interface IamSettings {
@@ -196,6 +204,7 @@ declare namespace Aws {
         payload?: string | undefined;
         cors?: boolean | HttpApiCors | undefined;
         authorizers?: Authorizers | undefined;
+        useProviderTags?: boolean | undefined;
     }
 
     interface Quota {
@@ -327,7 +336,7 @@ declare namespace Aws {
 
     interface HttpRequestValidation {
         parameters?: HttpRequestParametersValidation | undefined;
-        schema?: { [key: string]: Record<string, unknown> } | undefined;
+        schemas?: { [key: string]: Record<string, unknown> } | undefined;
     }
 
     interface Http {
@@ -393,7 +402,7 @@ declare namespace Aws {
     interface Schedule {
         name?: string | undefined;
         description?: string | undefined;
-        rate: string;
+        rate: string | string[];
         enabled?: boolean | undefined;
         input?: Input | undefined;
         inputPath?: string | undefined;
@@ -421,9 +430,64 @@ declare namespace Aws {
 
     interface Sqs {
         arn: string | { [key: string]: any };
-        batchSize?: number | string | undefined;
-        maximumRetryAttempts?: number | string | undefined;
+        /**
+         * minimum: 1, maximum: 10000
+         */
+        batchSize?: number | undefined;
+        /**
+         * minimum: 0, maximum: 300
+         */
+        maximumBatchingWindow?: number | undefined;
+        functionResponseType?: 'ReportBatchItemFailures' | undefined;
         enabled?: boolean | undefined;
+        filterPatterns?: FilterPattern[] | undefined;
+    }
+
+    interface ActiveMq {
+        arn: string;
+        basicAuthArn: string;
+        queue: string;
+        batchSize?: number;
+        enabled?: boolean | undefined;
+    }
+
+    interface RabbitMq {
+        arn: string;
+        basicAuthArn: string;
+        queue: string;
+        batchSize?: number;
+        enabled?: boolean | undefined;
+    }
+
+    type NumericFilter =
+        | ['=', number]
+        | ['<', number]
+        | ['<=', number]
+        | ['>', number]
+        | ['>=', number]
+        | ['>', number, '<', number]
+        | ['>=', number, '<', number]
+        | ['>', number, '<=', number]
+        | ['>=', number, '<=', number];
+
+    type Filter =
+        /* Null */
+        | null
+        /* Empty */
+        | ""
+        /* String equality */
+        | string
+        /* Not */
+        | { 'anything-but': Filter[] }
+        /* Numeric */
+        | { numeric: NumericFilter }
+        /* Exists */
+        | { exists: boolean }
+        /* Begins with */
+        | { prefix: string };
+
+    interface FilterPattern {
+        [k: string]: FilterPattern | Filter[];
     }
 
     interface Stream {
@@ -432,6 +496,7 @@ declare namespace Aws {
         startingPosition?: number | string | undefined;
         enabled?: boolean | undefined;
         type?: 'dynamodb' | 'kinesis' | undefined;
+        filterPatterns?: FilterPattern[] | undefined;
     }
 
     interface Msk {
@@ -471,13 +536,28 @@ declare namespace Aws {
     }
 
     interface CloudwatchEvent {
-        event: string;
+        event: CloudwatchEventInternalEvent | string;
         name?: string | undefined;
         description?: string | undefined;
         enabled?: boolean | undefined;
         input?: Input | undefined;
         inputPath?: string | undefined;
         inputTransformer?: InputTransformer | undefined;
+    }
+
+    interface CloudwatchEventInternalEvent {
+        source: string | string[];
+        "detail-type"?: string | string[];
+        detail?: object;
+        region?: string;
+        /**
+         * Supposed to be array of ARNs but needs more info
+         */
+        resources?: string[];
+        version?: string;
+        id?: string;
+        time?: string;
+        account?: string;
     }
 
     interface CloudwatchLog {
@@ -553,11 +633,27 @@ declare namespace Aws {
         alb?: AlbEvent | undefined;
         eventBridge?: EventBridge | undefined;
         cloudFront?: CloudFront | undefined;
+        activemq?: ActiveMq | undefined;
+        rabbitmq?: RabbitMq | undefined;
     }
 
     interface FileSystemConfig {
         arn: string;
         localMountPath: string;
+    }
+
+    interface FunctionUrlConfigCors {
+        allowCredentials?: boolean | undefined;
+        allowedHeaders?: boolean | string[] | undefined;
+        allowedMethods?: boolean | string[] | undefined;
+        allowedOrigins?: boolean | string[] | undefined;
+        exposedResponseHeaders?: boolean | string[] | undefined;
+        maxAge?: number | undefined;
+    }
+
+    interface FunctionUrlConfig {
+        authorizer?: 'aws_iam' | undefined;
+        cors?: boolean | FunctionUrlConfigCors | undefined;
     }
 
     interface AwsFunction {
@@ -585,6 +681,7 @@ declare namespace Aws {
         destinations?: Destinations | undefined;
         events?: Event[] | undefined;
         disableLogs?: boolean | undefined;
+        url?: boolean | FunctionUrlConfig | undefined;
     }
 
     interface AwsFunctionHandler extends AwsFunction {
@@ -616,6 +713,7 @@ declare namespace Aws {
     interface CloudFormationResource {
         Type: string;
         Properties: { [key: string]: any };
+        Condition?: string | undefined;
         DependsOn?: string | { [key: string]: any } | undefined;
         DeletionPolicy?: string | undefined;
     }
@@ -637,8 +735,13 @@ declare namespace Aws {
         [key: string]: Output;
     }
 
+    interface ResourcesConditions {
+        [key: string]: any;
+    }
+
     interface Resources {
         Description?: string | undefined;
+        Conditions?: ResourcesConditions;
         Resources: CloudFormationResources;
         extensions?: CloudFormationResources | undefined;
         Outputs?: Outputs | undefined;
@@ -647,12 +750,17 @@ declare namespace Aws {
     interface Custom {
         [key: string]: any;
     }
+
+    interface Credentials {
+        [key: string]: any;
+    }
 }
 
 declare class Aws {
     constructor(serverless: Serverless, options: Serverless.Options);
 
     naming: { [key: string]: () => string };
+    getCredentials(): Aws.Credentials;
     getProviderName(): string;
     getRegion(): string;
     getServerlessDeploymentBucketName(): Promise<string>;

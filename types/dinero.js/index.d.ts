@@ -1,4 +1,4 @@
-// Type definitions for dinero.js 1.8
+// Type definitions for dinero.js 1.9
 // Project: https://sarahdayan.github.io/dinero.js
 // Definitions by: BendingBender <https://github.com/BendingBender>
 //                 David Acosta <https://github.com/juandaco>
@@ -41,7 +41,7 @@ declare namespace DineroFactory {
         subtract(subtrahend: Dinero): Dinero;
         multiply(multiplier: number, roundingMode?: RoundingMode): Dinero;
         divide(divisor: number, roundingMode?: RoundingMode): Dinero;
-        percentage(percentage: number): Dinero;
+        percentage(percentage: number, roundingMode?: RoundingMode): Dinero;
         allocate(ratios: ReadonlyArray<number>): Dinero[];
         convert(currency: string, options?: ExchangeRatesApiOptions): Promise<Dinero>;
         equalsTo(comparator: Dinero): boolean;

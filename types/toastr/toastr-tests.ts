@@ -15,7 +15,7 @@ declare let clearOptionsOrUndefinedVal: typeof clearOptionsVal | undefined;
 function test_basic() {
     var t: JQuery[] = [];
     t.push(toastr.info('Are you the 6 fingered man?'));
-    t.push(toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!'));
+    t.push(toastr.warning($('<span>My name is Inigo Montoya. You Killed my father, prepare to die!<span>')));
     t.push(toastr.success('Have fun storming the castle!', 'Miracle Max Says'));
     t.push(toastr.error('I do not think that word means what you think it means.', 'Inconceivable!'));
     toastr.clear(t[0]); // clear 1

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Truncate from 'react-truncate';
 
-const TruncateTest: React.SFC = _ => (
+const TruncateTest: React.FC = _ => (
     <div>
         <Truncate>
             Test string

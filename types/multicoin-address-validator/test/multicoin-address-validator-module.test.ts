@@ -11,33 +11,33 @@ WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 'BTC', 'prod');
 WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 'BTC', {});
 // $ExpectType boolean
 WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 'BTC', { networkType: 'prod' });
-// $ExpectError
+// @ts-expect-error
 WAValidator.validate();
-// $ExpectError
+// @ts-expect-error
 WAValidator.validate(0);
-// $ExpectError
+// @ts-expect-error
 WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 0);
-// $ExpectError
+// @ts-expect-error
 WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 'BTC', { networkType: 'prod', nonexistentOption: 0 });
-// $ExpectError
+// @ts-expect-error
 WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 'BTC', 0);
-// $ExpectError
+// @ts-expect-error
 WAValidator.validate('1KFzzGtDdnq5hrwxXGjwVnKzRbvf8WVxck', 'BTC', { networkType: 'prod' }, 0);
 
 /* getCurrencies */
 // $ExpectType Currency[]
 WAValidator.getCurrencies();
-// $ExpectError
+// @ts-expect-error
 WAValidator.getCurrencies(0);
 
 /* findCurrency */
 // $ExpectType Currency | null
 const btc = WAValidator.findCurrency('BTC');
-// $ExpectError
+// @ts-expect-error
 WAValidator.findCurrency();
-// $ExpectError
+// @ts-expect-error
 WAValidator.findCurrency(0);
-// $ExpectError
+// @ts-expect-error
 WAValidator.findCurrency('BTC', 0);
 if (btc !== null) {
     // $ExpectType string

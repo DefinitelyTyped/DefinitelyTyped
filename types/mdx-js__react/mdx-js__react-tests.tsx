@@ -3,6 +3,7 @@ import { MDXProvider, useMDXComponents, withMDXComponents, InjectedMDXProviderPr
 import { renderToString } from 'react-dom/server';
 
 const H1: FC = props => <h1 style={{ color: 'tomato' }} {...props} />;
+const Time: FC = props => <time style={{ color: '#f0f'}} {...props} />;
 
 renderToString(
     <MDXProvider components={{ h1: H1 }}>
@@ -11,7 +12,7 @@ renderToString(
 );
 
 renderToString(
-    <MDXProvider components={c => ({ ...c, h1: H1 })}>
+    <MDXProvider components={c => ({ ...c, h1: H1, time: Time })}>
         <div />
     </MDXProvider>,
 );

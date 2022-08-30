@@ -83,7 +83,10 @@ if (keyframes) {
   // keyframes === `false`
 }
 
-Modernizr._domPrefixes === [ "Moz", "O", "ms", "Webkit" ];
+Modernizr._domPrefixes[0] === "Moz";
+Modernizr._domPrefixes[1] === "O";
+Modernizr._domPrefixes[2] === "ms";
+Modernizr._domPrefixes[3] === "Webkit";
 
 Modernizr.hasEvent('blur'); // true;
 

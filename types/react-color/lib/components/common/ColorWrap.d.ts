@@ -1,4 +1,4 @@
-import { ComponentClass, StatelessComponent } from "react";
+import { ComponentClass, FunctionComponent } from "react";
 import { HSLColor, RGBColor, ColorChangeHandler, Color, ColorResult } from "../../..";
 
 export type ColorWrapChangeHandler = (color: Color | ColorResult) => void;
@@ -16,4 +16,4 @@ export interface ExportedColorProps {
     onChangeComplete?: ColorChangeHandler | undefined;
 }
 
-export default function CustomPicker<A>(component: ComponentClass<A & InjectedColorProps> | StatelessComponent<A & InjectedColorProps>): ComponentClass<A & ExportedColorProps>;
+export default function CustomPicker<A>(component: ComponentClass<A & InjectedColorProps> | FunctionComponent<A & InjectedColorProps>): ComponentClass<A & ExportedColorProps>;

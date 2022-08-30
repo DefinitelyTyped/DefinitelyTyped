@@ -74,6 +74,8 @@ export interface ServerOptions {
     ignoreTrailingSlash?: boolean | undefined;
 
     maxParamLength?: number | undefined;
+
+    strictFormatters?: boolean | undefined;
 }
 
 export interface AddressInterface {
@@ -637,6 +639,9 @@ export interface Request extends http.IncomingMessage {
 
     /** available when bodyParser plugin is used. */
     body?: any;
+
+    /** available when bodyParser plugin is used. */
+    rawBody?: any;
 
     /** available when queryParser or bodyParser plugin is used with mapParams enabled. */
     params?: any;

@@ -252,6 +252,7 @@ declare module 'http2' {
         parent?: number | undefined;
         weight?: number | undefined;
         waitForTrailers?: boolean | undefined;
+        signal?: AbortSignal | undefined;
     }
 
     export interface SessionState {
@@ -594,7 +595,7 @@ declare module 'http2' {
         readonly socket: net.Socket | tls.TLSSocket;
         readonly stream: ServerHttp2Stream;
         readonly trailers: IncomingHttpHeaders;
-        readonly url: string;
+        url: string;
 
         setTimeout(msecs: number, callback?: () => void): void;
         read(size?: number): Buffer | string | null;
@@ -660,9 +661,9 @@ declare module 'http2' {
         statusCode: number;
         statusMessage: '';
         addTrailers(trailers: OutgoingHttpHeaders): void;
-        end(callback?: () => void): void;
-        end(data: string | Uint8Array, callback?: () => void): void;
-        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): void;
+        end(callback?: () => void): this;
+        end(data: string | Uint8Array, callback?: () => void): this;
+        end(data: string | Uint8Array, encoding: BufferEncoding, callback?: () => void): this;
         getHeader(name: string): string;
         getHeaderNames(): string[];
         getHeaders(): OutgoingHttpHeaders;
@@ -955,4 +956,7 @@ declare module 'http2' {
         options?: ClientSessionOptions | SecureClientSessionOptions,
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
+}
+declare module 'node:http2' {
+    export * from 'http2';
 }

@@ -84,11 +84,7 @@ export interface VerifyOptions {
      */
     nonce?: string | undefined;
     subject?: string | undefined;
-    /**
-     * @deprecated
-     * Max age of token
-     */
-    maxAge?: string | undefined;
+    maxAge?: string | number | undefined;
 }
 
 export interface DecodeOptions {
@@ -99,13 +95,14 @@ export type VerifyErrors =
     | JsonWebTokenError
     | NotBeforeError
     | TokenExpiredError;
-export type VerifyCallback<T = JwtPayload> = (
-    err: VerifyErrors | null,
+export type VerifyCallback<T = Jwt | JwtPayload | string> = (
+    error: VerifyErrors | null,
     decoded: T | undefined,
 ) => void;
 
 export type SignCallback = (
-    err: Error | null, encoded: string | undefined
+    error: Error | null,
+    encoded: string | undefined,
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
@@ -136,7 +133,7 @@ export interface JwtPayload {
 
 export interface Jwt {
     header: JwtHeader;
-    payload: JwtPayload;
+    payload: JwtPayload | string;
     signature: string;
 }
 
@@ -149,8 +146,8 @@ export type Algorithm =
     "none";
 
 export type SigningKeyCallback = (
-    err: any,
-    signingKey?: Secret,
+    error: Error | null,
+    signingKey?: Secret
 ) => void;
 
 export type GetPublicKeyOrSecret = (
@@ -202,8 +199,9 @@ export function sign(
  * [options] - Options for the verification
  * returns - The decoded token.
  */
-export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt | string;
-export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): JwtPayload | string;
+export function verify(token: string, secretOrPublicKey: Secret, options: VerifyOptions & { complete: true }): Jwt;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions & { complete?: false }): JwtPayload | string;
+export function verify(token: string, secretOrPublicKey: Secret, options?: VerifyOptions): Jwt | JwtPayload | string;
 
 /**
  * Asynchronously verify given token using a secret or a public key to get a decoded token
@@ -217,13 +215,19 @@ export function verify(token: string, secretOrPublicKey: Secret, options?: Verif
 export function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    callback?: VerifyCallback,
+    callback?: VerifyCallback<JwtPayload | string>,
 ): void;
 export function verify(
     token: string,
     secretOrPublicKey: Secret | GetPublicKeyOrSecret,
-    options?: VerifyOptions & { complete: true },
+    options: VerifyOptions & { complete: true },
     callback?: VerifyCallback<Jwt>,
+): void;
+export function verify(
+    token: string,
+    secretOrPublicKey: Secret | GetPublicKeyOrSecret,
+    options?: VerifyOptions & { complete?: false },
+    callback?: VerifyCallback<JwtPayload | string>,
 ): void;
 export function verify(
     token: string,

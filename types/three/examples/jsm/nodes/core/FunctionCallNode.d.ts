@@ -1,17 +1,13 @@
-import { Node } from './Node';
-import { FunctionNode } from './FunctionNode';
-import { TempNode } from './TempNode';
+import FunctionNode from './FunctionNode';
+import TempNode from './TempNode';
+import Node from './Node';
 
-export class FunctionCallNode extends TempNode {
-    constructor(func: FunctionNode, inputs?: Node[]);
+export default class FunctionCallNode extends TempNode {
+    functionNode: FunctionNode;
+    parameters: { [name: string]: Node };
 
-    nodeType: string;
+    constructor(functionNode?: FunctionNode, parameters?: { [name: string]: Node });
 
-    value: FunctionNode;
-    inputs: Node[];
-
-    setFunction(func: FunctionNode, inputs?: Node[]): void;
-    getFunction(): FunctionNode;
-    getType(): string;
-    copy(source: FunctionCallNode): this;
+    setParameters(parameters: { [name: string]: Node }): this;
+    getParameters(): { [name: string]: Node };
 }

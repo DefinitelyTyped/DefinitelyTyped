@@ -383,7 +383,7 @@ export function withAdalLogin(
     authContext: AuthenticationContext,
     resource: string,
 ): (
-    wrappedComponent: React.ComponentClass | React.StatelessComponent,
+    wrappedComponent: React.ComponentClass | React.FunctionComponent,
     renderLoading: () => JSX.Element | null,
     renderError: (error: any) => JSX.Element | null,
 ) => React.ComponentClass;

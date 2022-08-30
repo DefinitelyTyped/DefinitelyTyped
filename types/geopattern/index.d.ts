@@ -39,7 +39,7 @@ export interface PatternOptions {
     generator?: GeneratorType | undefined;
 }
 
-export type GeneratorType = 'chevrons' | 'octagons' | 'overlappingCircles' |
+export type GeneratorType = 'chevrons' | 'octogons' | 'overlappingCircles' |
     'plusSigns' | 'xes' | 'sineWaves' | 'hexagons' | 'overlappingRings' |
     'plaid' |'triangles' | 'squares' | 'nestedSquares' | 'mosaicSquares' |
     'concentricCircles' | 'diamonds' | 'tessellation';

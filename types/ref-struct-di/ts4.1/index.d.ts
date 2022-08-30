@@ -2,9 +2,9 @@ import ref = require('ref-napi');
 
 declare var StructType: {
     new (fields?: Record<string, string | ref.Type>, opt?: { packed?: boolean }): struct.StructType;
-    new (fields?: Array<[string, string | ref.Type]>, opt?: { packed?: boolean }): struct.StructType;
+    new (fields?: Array<[string | ref.Type, string]>, opt?: { packed?: boolean }): struct.StructType;
     (fields?: Record<string, string | ref.Type>, opt?: { packed?: boolean }): struct.StructType;
-    (fields?: Array<[string, string | ref.Type]>, opt?: { packed?: boolean }): struct.StructType;
+    (fields?: Array<[string | ref.Type, string]>, opt?: { packed?: boolean }): struct.StructType;
 };
 
 type RefModuleLike = Pick<typeof ref, "coerceType" | "get" | "set" | "alignof" | "sizeof" | "NULL">;
@@ -27,12 +27,16 @@ declare namespace struct {
      */
     interface StructType extends ref.Type {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        new (data?: Record<string, any>): Record<string, any>;
+        new (
+            arg?: Buffer | Record<string, any>,
+            data?: Record<string, any>
+        ): Record<string, any>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Record<string, any>): Record<string, any>;
-        (data?: Record<string, any>): Record<string, any>;
+        (
+            arg?: Buffer | Record<string, any>,
+            data?: Record<string, any>
+        ): Record<string, any>;
 
         fields: Record<string, Field>;
 

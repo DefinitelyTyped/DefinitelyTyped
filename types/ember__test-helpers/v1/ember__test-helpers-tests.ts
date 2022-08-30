@@ -1,5 +1,3 @@
-/// <reference types="ember-qunit" />
-
 import { test } from 'qunit';
 import Application from '@ember/application';
 import hbs from 'htmlbars-inline-precompile';

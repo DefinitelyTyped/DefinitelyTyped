@@ -1,4 +1,4 @@
-// Type definitions for non-npm package sugarcube 2.34
+// Type definitions for non-npm package sugarcube 2.36
 // Project: https://github.com/tmedwards/sugarcube-2
 // Definitions by: ezsh <https://github.com/ezsh>
 //                 Thomas M. Edwards <https://github.com/tmedwards>

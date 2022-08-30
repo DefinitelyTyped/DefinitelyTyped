@@ -1,7 +1,6 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "no-declare-current-package": false,
         "no-single-declare-module": false,
         "strict-export-declare-modifiers": false,

@@ -14,7 +14,7 @@ declare module '../../../index' {
          *   opposite direction from the exterior shape. First
          *   draw vertices for the exterior clockwise order,
          *   then for internal shapes, draw vertices shape in
-         *   counter-clockwise.  These functions can only be
+         *   counter-clockwise. These functions can only be
          *   used within a beginShape()/endShape() pair and
          *   transformations such as translate(), rotate(), and
          *   scale() do not work within a
@@ -33,22 +33,42 @@ declare module '../../../index' {
          *   parameter tells it which types of shapes to create
          *   from the provided vertices. With no mode
          *   specified, the shape can be any irregular polygon.
-         *   The parameters available for beginShape() are
-         *   POINTS, LINES, TRIANGLES, TRIANGLE_FAN,
-         *   TRIANGLE_STRIP, QUADS, and QUAD_STRIP. After
-         *   calling the beginShape() function, a series of
-         *   vertex() commands must follow. To stop drawing the
-         *   shape, call endShape(). Each shape will be
+         *   The parameters available for beginShape() are:
+         *
+         *   POINTS Draw a series of points
+         *
+         *   LINES Draw a series of unconnected line segments
+         *   (individual lines)
+         *
+         *   TRIANGLES Draw a series of separate triangles
+         *
+         *   TRIANGLE_FAN Draw a series of connected triangles
+         *   sharing the first vertex in a fan-like fashion
+         *
+         *   TRIANGLE_STRIP Draw a series of connected
+         *   triangles in strip fashion
+         *
+         *   QUADS Draw a series of separate quad
+         *
+         *   QUAD_STRIP Draw quad strip using adjacent edges to
+         *   form the next quad
+         *
+         *   TESS (WebGl only) Handle irregular polygon for
+         *   filling curve by explicit tessellation
+         *
+         *   After calling the beginShape() function, a series
+         *   of vertex() commands must follow. To stop drawing
+         *   the shape, call endShape(). Each shape will be
          *   outlined with the current stroke color and filled
          *   with the fill color.
-         *
          *
          *   Transformations such as translate(), rotate(), and
          *   scale() do not work within beginShape(). It is
          *   also not possible to use other shapes, such as
          *   ellipse() or rect() within beginShape().
          *   @param [kind] either POINTS, LINES, TRIANGLES,
-         *   TRIANGLE_FAN TRIANGLE_STRIP, QUADS, or QUAD_STRIP
+         *   TRIANGLE_FAN TRIANGLE_STRIP, QUADS, QUAD_STRIP or
+         *   TESS
          *   @chainable
          */
         beginShape(kind?: BEGIN_KIND): p5;
@@ -61,7 +81,7 @@ declare module '../../../index' {
          *   shape. For WebGL mode bezierVertex() can be used
          *   in 2D as well as 3D mode. 2D mode expects 6
          *   parameters, while 3D mode expects 9 parameters
-         *   (including z coordinates).  The first time
+         *   (including z coordinates). The first time
          *   bezierVertex() is used within a beginShape() call,
          *   it must be prefaced with a call to vertex() to set
          *   the first anchor point. This function must be used
@@ -88,7 +108,7 @@ declare module '../../../index' {
          *   shape. For WebGL mode bezierVertex() can be used
          *   in 2D as well as 3D mode. 2D mode expects 6
          *   parameters, while 3D mode expects 9 parameters
-         *   (including z coordinates).  The first time
+         *   (including z coordinates). The first time
          *   bezierVertex() is used within a beginShape() call,
          *   it must be prefaced with a call to vertex() to set
          *   the first anchor point. This function must be used
@@ -130,9 +150,9 @@ declare module '../../../index' {
          *   parameter specified to beginShape(). For WebGL
          *   mode curveVertex() can be used in 2D as well as 3D
          *   mode. 2D mode expects 2 parameters, while 3D mode
-         *   expects 3 parameters.  The first and last points
-         *   in a series of curveVertex() lines will be used to
-         *   guide the beginning and end of a the curve. A
+         *   expects 3 parameters. The first and last points in
+         *   a series of curveVertex() lines will be used to
+         *   guide the beginning and end of the curve. A
          *   minimum of four points is required to draw a tiny
          *   curve between the second and third points. Adding
          *   a fifth point with curveVertex() will draw the
@@ -152,9 +172,9 @@ declare module '../../../index' {
          *   parameter specified to beginShape(). For WebGL
          *   mode curveVertex() can be used in 2D as well as 3D
          *   mode. 2D mode expects 2 parameters, while 3D mode
-         *   expects 3 parameters.  The first and last points
-         *   in a series of curveVertex() lines will be used to
-         *   guide the beginning and end of a the curve. A
+         *   expects 3 parameters. The first and last points in
+         *   a series of curveVertex() lines will be used to
+         *   guide the beginning and end of the curve. A
          *   minimum of four points is required to draw a tiny
          *   curve between the second and third points. Adding
          *   a fifth point with curveVertex() will draw the
@@ -179,7 +199,7 @@ declare module '../../../index' {
          *   opposite direction from the exterior shape. First
          *   draw vertices for the exterior clockwise order,
          *   then for internal shapes, draw vertices shape in
-         *   counter-clockwise.  These functions can only be
+         *   counter-clockwise. These functions can only be
          *   used within a beginShape()/endShape() pair and
          *   transformations such as translate(), rotate(), and
          *   scale() do not work within a
@@ -193,7 +213,7 @@ declare module '../../../index' {
         /**
          *   The endShape() function is the companion to
          *   beginShape() and may only be called after
-         *   beginShape(). When endshape() is called, all of
+         *   beginShape(). When endShape() is called, all of
          *   image data defined since the previous call to
          *   beginShape() is written into the image buffer. The
          *   constant CLOSE as the value for the MODE parameter
@@ -215,7 +235,7 @@ declare module '../../../index' {
          *   anchor point. For WebGL mode quadraticVertex() can
          *   be used in 2D as well as 3D mode. 2D mode expects
          *   4 parameters, while 3D mode expects 6 parameters
-         *   (including z coordinates).  This function must be
+         *   (including z coordinates). This function must be
          *   used between beginShape() and endShape() and only
          *   when there is no MODE or POINTS parameter
          *   specified to beginShape().
@@ -238,7 +258,7 @@ declare module '../../../index' {
          *   anchor point. For WebGL mode quadraticVertex() can
          *   be used in 2D as well as 3D mode. 2D mode expects
          *   4 parameters, while 3D mode expects 6 parameters
-         *   (including z coordinates).  This function must be
+         *   (including z coordinates). This function must be
          *   used between beginShape() and endShape() and only
          *   when there is no MODE or POINTS parameter
          *   specified to beginShape().
@@ -274,11 +294,42 @@ declare module '../../../index' {
          *   the beginShape() and endShape() functions.
          *   @param x x-coordinate of the vertex
          *   @param y y-coordinate of the vertex
-         *   @param z z-coordinate of the vertex
-         *   @param [u] the vertex's texture u-coordinate
-         *   @param [v] the vertex's texture v-coordinate
+         *   @param z z-coordinate of the vertex. Defaults to 0
+         *   if not specified.
          *   @chainable
          */
-        vertex(x: number, y: number, z: number, u?: number, v?: number): p5;
+        vertex(x: number, y: number, z: number): p5;
+
+        // TODO: Fix vertex() errors in src/core/shape/vertex.js, line 965:
+        //
+        //    required param "u" follows an optional param
+        //    required param "v" follows an optional param
+        //
+        // vertex(x: number, y: number, z?: number, u: number, v: number): p5
+
+        /**
+         *   Sets the 3d vertex normal to use for subsequent
+         *   vertices drawn with vertex(). A normal is a vector
+         *   that is generally nearly perpendicular to a
+         *   shape's surface which controls how much light will
+         *   be reflected from that part of the surface.
+         *   @param vector A p5.Vector representing the vertex
+         *   normal.
+         *   @chainable
+         */
+        normal(vector: Vector): p5;
+
+        /**
+         *   Sets the 3d vertex normal to use for subsequent
+         *   vertices drawn with vertex(). A normal is a vector
+         *   that is generally nearly perpendicular to a
+         *   shape's surface which controls how much light will
+         *   be reflected from that part of the surface.
+         *   @param x The x component of the vertex normal.
+         *   @param y The y component of the vertex normal.
+         *   @param z The z component of the vertex normal.
+         *   @chainable
+         */
+        normal(x: number, y: number, z: number): p5;
     }
 }

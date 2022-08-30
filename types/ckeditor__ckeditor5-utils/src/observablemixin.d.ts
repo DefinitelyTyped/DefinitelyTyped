@@ -1,3 +1,5 @@
+import { Emitter } from './emittermixin';
+
 export interface BindChain {
     to<O1 extends Observable, K1 extends keyof O1>(
         observable1: O1,
@@ -79,7 +81,7 @@ export interface BindChain {
     ): void;
 }
 
-export interface Observable {
+export interface Observable extends Emitter {
     /**
      * Creates and sets the value of an observable property of this object. Such a property becomes a part
      * of the state and is observable.
@@ -91,8 +93,7 @@ export interface Observable {
      * properties and methods, but means that `foo.set( 'bar', 1 )` may be slightly slower than `foo.bar = 1`.
      *
      */
-    set(option: Record<string, string>): void;
-    set(name: string, value: unknown): void;
+    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
     /**
      * Binds {@link #set observable properties} to other objects implementing the
      * {@link module:utils/observablemixin~Observable} interface.

@@ -24,8 +24,7 @@ interface RequestParams {
     body?: string | undefined;
 }
 
-export class RequestResult {
-}
+export class RequestResult {}
 
 export class Request<T> implements PromiseLike<T> {
     constructor(chatter: Chatter, params: RequestParams);
@@ -36,8 +35,10 @@ export class Request<T> implements PromiseLike<T> {
 
     stream(): Stream;
 
-    then<TResult1, TResult2>(onfulfilled?: ((value: T) => (PromiseLike<TResult1> | TResult1)) | null,
-                             onrejected?: ((reason: any) => (PromiseLike<TResult2> | TResult2)) | null): Promise<TResult1 | TResult2>;
+    then<TResult1, TResult2>(
+        onfulfilled?: ((value: T) => PromiseLike<TResult1> | TResult1) | null,
+        onrejected?: ((reason: any) => PromiseLike<TResult2> | TResult2) | null,
+    ): Promise<TResult1 | TResult2>;
 
     finally(onfinally?: () => void): Promise<T>;
 
@@ -65,5 +66,5 @@ export class Chatter {
 
     request(params: RequestParams, callback?: Callback<Request<RequestResult>>): Request<RequestResult>;
 
-    resource(url: string, queryParams?: object): Resource<RequestResult>
+    resource(url: string, queryParams?: object): Resource<RequestResult>;
 }

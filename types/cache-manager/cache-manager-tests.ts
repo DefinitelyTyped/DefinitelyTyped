@@ -1,6 +1,12 @@
 import * as cacheManager from 'cache-manager'
 
-const memoryCache: cacheManager.Cache = cacheManager.caching({ store: 'memory', max: 100, ttl: 10/*seconds*/ });
+const memoryCache: cacheManager.Cache = cacheManager.caching({
+    store: 'memory',
+    max: 20,
+    maxSize: 100,
+    sizeCalculation: (value: any, key: any) => JSON.stringify(value).length,
+    ttl: 10/*seconds*/
+});
 const ttl = 5;
 
 memoryCache.set('foo', 'bar', { ttl: ttl }, (err) => {
@@ -66,9 +72,14 @@ async function promiseMemoryCache(cache: cacheManager.Cache) {
     const KEY = 'Key';
     const VALUE = 'string';
 
-    const numberWrap: number = await cache.wrap<number>(KEY, () => 1);
-    const stringWrap: string = await cache.wrap<string>(KEY, () => VALUE);
-    const stringWrapWithCacheConfig: string = await cache.wrap<string>(KEY, () => VALUE, { ttl: 10 });
+    const numberWrap: number = await cache.wrap(KEY, () => 1);
+    const numberWrapAsync: number = await cache.wrap(KEY, async () => 1);
+
+    const stringWrap: string = await cache.wrap(KEY, () => VALUE);
+    const stringWrapAsync: string = await cache.wrap(KEY, async () => VALUE);
+
+    const stringWrapWithCacheConfig: string = await cache.wrap(KEY, () => VALUE, { ttl: 10 });
+    const stringWrapWithCacheConfigAsync: string = await cache.wrap(KEY, async () => VALUE, { ttl: 10 });
 
     const setWithoutOptional = await cache.set(KEY, VALUE);
     const setWitOptional = await cache.set(KEY, VALUE, { ttl: 10 });

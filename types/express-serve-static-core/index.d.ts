@@ -1,8 +1,6 @@
 // Type definitions for Express 4.17
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Michał Lytek <https://github.com/19majkel94>
-//                 Kacper Polak <https://github.com/kacepe>
 //                 Satana Charuwichitratana <https://github.com/micksatana>
 //                 Sami Jaber <https://github.com/samijaber>
 //                 Jose Luis Leon <https://github.com/JoseLion>
@@ -916,10 +914,10 @@ export interface Response<
     headersSent: boolean;
 
     /** Get value for header `field`. */
-    get(field: string): string;
+    get(field: string): string|undefined;
 
     /** Clear cookie `name`. */
-    clearCookie(name: string, options?: any): this;
+    clearCookie(name: string, options?: CookieOptions): this;
 
     /**
      * Set cookie `name` to `val`, with the given `options`.
@@ -980,6 +978,7 @@ export interface Response<
      *
      * Examples:
      *
+     *    res.redirect('back');
      *    res.redirect('/foo/bar');
      *    res.redirect('http://example.com');
      *    res.redirect(301, 'http://example.com');
@@ -988,6 +987,7 @@ export interface Response<
      */
     redirect(url: string): void;
     redirect(status: number, url: string): void;
+    /** @deprecated use res.redirect(status, url) instead */
     redirect(url: string, status: number): void;
 
     /**
@@ -1044,7 +1044,9 @@ export type ApplicationRequestHandler<T> = IRouterHandler<T> &
     IRouterMatcher<T> &
     ((...handlers: RequestHandlerParams[]) => T);
 
-export interface Application extends EventEmitter, IRouter, Express.Application {
+export interface Application<
+    Locals extends Record<string, any> = Record<string, any>
+> extends EventEmitter, IRouter, Express.Application {
     /**
      * Express instance itself is a request handler, which could be invoked without
      * third argument.
@@ -1210,7 +1212,7 @@ export interface Application extends EventEmitter, IRouter, Express.Application 
 
     map: any;
 
-    locals: Record<string, any>;
+    locals: Locals;
 
     /**
      * The app.routes object houses all of the routes defined mapped by the

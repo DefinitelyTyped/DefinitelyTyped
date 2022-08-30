@@ -1,5 +1,5 @@
 import { BoxPlotData } from './box';
-import { Color } from '../..';
+import { Color } from '../../index';
 
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/violin/attributes.js
 export interface ViolinData {

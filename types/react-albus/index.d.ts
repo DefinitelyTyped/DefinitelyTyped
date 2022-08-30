@@ -43,11 +43,12 @@ export const Wizard: React.ComponentType<WizardProps>;
 
 export type WizardContextRenderProps =
     | { render?: ((wizard: WizardContext) => React.ReactNode) | undefined }
-    | { children: (wizard: WizardContext) => React.ReactNode };
+    | { children: ((wizard: WizardContext) => React.ReactNode) | React.ReactNode };
 
 export const WithWizard: React.ComponentType<WizardContextRenderProps>;
 
 export interface StepsProps {
+    children: NonNullable<React.ReactNode>;
     step?: StepObject | undefined;
 }
 

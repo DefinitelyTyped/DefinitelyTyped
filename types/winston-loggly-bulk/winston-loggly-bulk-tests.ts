@@ -11,7 +11,7 @@ const loggly = new Loggly({
     },
     isBulk: false,
     json: true,
-    networkErrorOnConsole: false,
+    networkErrorsOnConsole: false,
     proxy: 'www.example.com',
     stripColors: true,
     subdomain: 'my_subdomain',

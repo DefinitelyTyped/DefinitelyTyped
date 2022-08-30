@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.54
+// Type definitions for plotly.js 2.12
 // Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>
 //                 Martin Duparc <https://github.com/martinduparc>
@@ -6,13 +6,11 @@
 //                 taoqf <https://github.com/taoqf>
 //                 Dadstart <https://github.com/Dadstart>
 //                 Jared Szechy <https://github.com/szechyjs>
-//                 Drew Diamantoukos <https://github.com/MercifulCode>
 //                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
 //                 Jon Freedman <https://github.com/jonfreedman>
 //                 Megan Riel-Mehan <https://github.com/meganrm>
 //                 Josh Miles <https://github.com/milesjos>
 //                 Pramod Mathai  <https://github.com/skippercool>
-//                 Takafumi Yamaguchi <https://github.com/zeroyoichihachi>
 //                 Michael Adams <https://github.com/mtadams007>
 //                 Michael Arnett <https://github.com/marnett-git>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -71,6 +69,11 @@ export interface PlotDatum {
 export interface PlotMouseEvent {
     points: PlotDatum[];
     event: MouseEvent;
+}
+
+export interface PlotHoverEvent extends PlotMouseEvent {
+    xvals: Datum[];
+    yvals: Datum[];
 }
 
 export interface PlotCoordinate {
@@ -244,7 +247,8 @@ export interface BeforePlotEvent {
 }
 
 export interface PlotlyHTMLElement extends HTMLElement {
-    on(event: 'plotly_click' | 'plotly_hover' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_click' | 'plotly_unhover', callback: (event: PlotMouseEvent) => void): void;
+    on(event: 'plotly_hover', callback: (event: PlotHoverEvent) => void): void;
     on(event: 'plotly_selecting' | 'plotly_selected', callback: (event: PlotSelectionEvent) => void): void;
     on(event: 'plotly_restyle', callback: (data: PlotRestyleEvent) => void): void;
     on(event: 'plotly_relayout' | 'plotly_relayouting', callback: (event: PlotRelayoutEvent) => void): void;
@@ -301,15 +305,17 @@ export interface PolarLayout {
     uirevision: string | number;
 }
 
+export interface PlotlyDataLayoutConfig {
+    data: Data[];
+    layout?: Partial<Layout>;
+    config?: Partial<Config>;
+}
+
 export type Root = string | HTMLElement;
 
+export type RootOrData = Root | PlotlyDataLayoutConfig;
+
 export function newPlot(
-    root: Root,
-    data: Data[],
-    layout?: Partial<Layout>,
-    config?: Partial<Config>,
-): Promise<PlotlyHTMLElement>;
-export function plot(
     root: Root,
     data: Data[],
     layout?: Partial<Layout>,
@@ -318,7 +324,6 @@ export function plot(
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
-export const d3: typeof _d3;
 export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function update(
     root: Root,
@@ -348,8 +353,8 @@ export function prependTraces(
     update: Data | Data[],
     indices: number | number[],
 ): Promise<PlotlyHTMLElement>;
-export function toImage(root: Root, opts: ToImgopts): Promise<string>;
-export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
+export function toImage(root: RootOrData, opts?: ToImgopts): Promise<string>;
+export function downloadImage(root: RootOrData, opts: DownloadImgopts): Promise<string>;
 export function react(
     root: Root,
     data: Data[],
@@ -358,6 +363,7 @@ export function react(
 ): Promise<PlotlyHTMLElement>;
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
+export function register(modules: PlotlyModule | PlotlyModule[]): void;
 
 // Layout
 export interface Layout {
@@ -617,7 +623,7 @@ export interface Axis {
         | 'median descending';
     categoryarray: any[];
     tickfont: Partial<Font>;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickprefix: string;
     /**
      * If `all`, all tick labels are displayed with a prefix.
@@ -804,6 +810,7 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     autotick: boolean;
     angle: any;
+    griddash: Dash;
 }
 
 export interface SceneAxis extends Axis {
@@ -994,7 +1001,7 @@ export interface PlotNumber {
 }
 
 export interface Template {
-    data?: { [type in PlotType]?: Partial<PlotData> } | undefined;
+    data?: { [type in PlotType]?: Array<Partial<PlotData>> } | undefined;
     layout?: Partial<Layout> | undefined;
 }
 
@@ -1047,7 +1054,6 @@ export type PlotType =
     | 'cone'
     | 'contour'
     | 'contourcarpet'
-    | 'contourgl'
     | 'densitymapbox'
     | 'funnel'
     | 'funnelarea'
@@ -1237,6 +1243,7 @@ export interface PlotData {
     textfont: Partial<Font>;
     fill: 'none' | 'tozeroy' | 'tozerox' | 'tonexty' | 'tonextx' | 'toself' | 'tonext';
     fillcolor: string;
+    fillpattern: Partial<Pattern>;
     showlegend: boolean;
     legendgroup: string;
     parents: string[];
@@ -1297,6 +1304,7 @@ export interface PlotData {
     locations: Datum[];
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
+    offset: number;
 }
 
 /**
@@ -1310,7 +1318,19 @@ export interface TransformStyle {
 
 export interface TransformAggregation {
     target: string;
-    func?: 'count' | 'sum' | 'avg' | 'median' | 'mode' | 'rms' | 'stddev' | 'min' | 'max' | 'first' | 'last' | undefined;
+    func?:
+        | 'count'
+        | 'sum'
+        | 'avg'
+        | 'median'
+        | 'mode'
+        | 'rms'
+        | 'stddev'
+        | 'min'
+        | 'max'
+        | 'first'
+        | 'last'
+        | undefined;
     funcmode?: 'sample' | 'population' | undefined;
     enabled?: boolean | undefined;
 }
@@ -1357,7 +1377,7 @@ export interface ColorBar {
     tickcolor: Color;
     showticklabels: boolean;
     tickfont: Font;
-    tickangle: "auto" | number;
+    tickangle: 'auto' | number;
     tickformat: string;
     tickformatstops: Array<Partial<TickFormatStop>>;
     tickprefix: string;
@@ -1403,12 +1423,15 @@ export interface PlotMarker {
     pad?: Partial<Padding> | undefined;
     width?: number | undefined;
     colorbar?: Partial<ColorBar> | undefined;
-    gradient?: {
-        type: 'radial' | 'horizontal' | 'vertical' | 'none';
-        color: Color;
-        typesrc: any;
-        colorsrc: any;
-    } | undefined;
+    gradient?:
+        | {
+              type: 'radial' | 'horizontal' | 'vertical' | 'none';
+              color: Color;
+              typesrc: any;
+              colorsrc: any;
+          }
+        | undefined;
+    pattern?: Partial<Pattern>;
 }
 
 export type ScatterMarker = PlotMarker;
@@ -1484,6 +1507,12 @@ export interface Config {
     staticPlot: boolean;
 
     /**
+     * Determines whether math should be typeset or not,
+     * when MathJax (either v2 or v3) is present on the page.
+     */
+    typesetMath: boolean;
+
+    /**
      * When set it determines base URL for the 'Edit in Chart Studio' `showEditInChartStudio`/`showSendToCloud` mode bar button and the showLink/sendData on-graph link.
      * To enable sending your data to Chart Studio Cloud, you need to set both `plotlyServerURL` to 'https://chart-studio.plotly.com' and also set `showSendToCloud` to true.
      * @default ''
@@ -1511,6 +1540,9 @@ export interface Config {
 
     /** double click interaction (false, 'reset', 'autosize' or 'reset+autosize') */
     doubleClick: 'reset+autosize' | 'reset' | 'autosize' | false;
+
+    /** sets the delay for registering a double-click in ms */
+    doubleClickDelay: number;
 
     /** new users see some hints about interactivity */
     showTips: boolean;
@@ -1578,7 +1610,7 @@ export interface Config {
      * function to add the background color to a different container
      * or 'opaque' to ensure there's white behind it
      */
-    setBackground: () => string | 'opaque' | 'transparent';
+    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | 'opaque' | 'transparent';
 
     /** URL to topojson files used in geo charts */
     topojsonURL: string;
@@ -1602,8 +1634,34 @@ export interface Config {
     /** Which localization should we use? Should be a string like 'en' or 'en-US' */
     locale: string;
 
+    /**
+     * Localization definitions
+     * Locales can be provided either here (specific to one chart) or globally
+     * by registering them as modules.
+     * Should be an object of objects {locale: {dictionary: {...}, format: {...}}}
+     * {
+     *     da: {
+     *         dictionary: {'Reset axes': 'Nulstil aksler', ...},
+     *         format: {months: [...], shortMonths: [...]}
+     *     },
+     *     ...
+     * }
+     * All parts are optional. When looking for translation or format fields, we
+     * look first for an exact match in a config locale, then in a registered
+     * module. If those fail, we strip off any regionalization ('en-US' -> 'en')
+     * and try each (config, registry) again. The final fallback for translation
+     * is untranslated (which is US English) and for formats is the base English
+     * (the only consequence being the last fallback date format %x is DD/MM/YYYY
+     * instead of MM/DD/YYYY). Currently `grouping` and `currency` are ignored
+     * for our automatic number formatting, but can be used in custom formats.
+     */
+    locales: {};
+
     /** Make the chart responsive to window size */
     responsive: boolean;
+
+    /** Watermark the images with the company's logo */
+    watermark: boolean;
 }
 
 // Components
@@ -2195,29 +2253,114 @@ export interface Slider {
 }
 
 export interface CurrentValue {
-  /**
-   * Shows the currently-selected value above the slider.
-   */
-  visible: boolean;
-  /**
-   * The alignment of the value readout relative to the length of the slider.
-   */
-  xanchor: 'left' | 'center' | 'right';
-  /**
-   * The amount of space, in pixels, between the current value label
-   * and the slider.
-   */
-  offset: number;
-  /**
-   * When currentvalue.visible is true, this sets the prefix of the label.
-   */
-  prefix: string;
-  /**
-   * When currentvalue.visible is true, this sets the suffix of the label.
-   */
-  suffix: string;
-  /**
-   * Sets the font of the current value label text.
-   */
-  font: Partial<Font>;
+    /**
+     * Shows the currently-selected value above the slider.
+     */
+    visible: boolean;
+    /**
+     * The alignment of the value readout relative to the length of the slider.
+     */
+    xanchor: 'left' | 'center' | 'right';
+    /**
+     * The amount of space, in pixels, between the current value label
+     * and the slider.
+     */
+    offset: number;
+    /**
+     * When currentvalue.visible is true, this sets the prefix of the label.
+     */
+    prefix: string;
+    /**
+     * When currentvalue.visible is true, this sets the suffix of the label.
+     */
+    suffix: string;
+    /**
+     * Sets the font of the current value label text.
+     */
+    font: Partial<Font>;
 }
+
+/**
+ * 'Sets the pattern within the marker.
+ */
+export interface Pattern {
+    /**
+     * Sets the shape of the pattern fill.
+     * By default, no pattern is used for filling the area.
+     */
+    shape?: '' | '/' | '\\' | 'x' | '-' | '|' | '+' | '.';
+    /**
+     * Determines whether `marker.color` should be used
+     * as a default to `bgcolor` or a `fgcolor`.
+     */
+    fillmode?: 'replace' | 'overlay';
+    /**
+     * When there is no colorscale sets the color of background pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *overlay*.
+     * Otherwise, defaults to a transparent background.
+     */
+    bgcolor?: string;
+    /**
+     * When there is no colorscale sets the color of foreground pattern fill.
+     * Defaults to a `marker.color` background when `fillmode` is *replace*.
+     * Otherwise, defaults to dark grey or white
+     * to increase contrast with the `bgcolor`.
+     */
+    fgcolor?: string;
+    /**
+     * Sets the opacity of the foreground pattern fill.
+     * Defaults to a 0.5 when `fillmode` is *overlay*.
+     * Otherwise, defaults to 1.
+     */
+    fgopacity?: string;
+    /**
+     * Sets the size of unit squares of the pattern fill in pixels,
+     * which corresponds to the interval of repetition of the pattern.
+     */
+    size?: number;
+    /**
+     * Sets the solidity of the pattern fill.
+     * Solidity is roughly the fraction of the area filled by the pattern.
+     * Solidity of 0 shows only the background color without pattern
+     * and solidty of 1 shows only the foreground color without pattern.
+     */
+    solidity?: number;
+}
+
+interface TraceModule {
+    moduleType: 'trace';
+    name: string;
+    categories: string[];
+    meta: Record<string, unknown>;
+    [key: string]: unknown;
+}
+
+interface LocaleModule {
+    moduleType: 'locale';
+    name: string;
+    dictionary: Record<string, unknown>;
+    format: Record<string, unknown>;
+}
+
+interface TransformModule {
+    moduleType: 'transform';
+    name: string;
+    transform: any;
+    calcTransform: any;
+    attributes: Record<string, unknown>;
+    supplyDefaults: any;
+}
+
+interface ComponentModule {
+    moduleType: 'component';
+    name: string;
+    [key: string]: unknown;
+}
+
+interface ApiMethodModule {
+    moduleType: 'apiMethod';
+    name: string;
+    fn: any;
+}
+
+type PlotlyModule = TraceModule | LocaleModule | TransformModule | ComponentModule | ApiMethodModule;

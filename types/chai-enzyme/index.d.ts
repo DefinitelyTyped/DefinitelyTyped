@@ -11,7 +11,7 @@
 /// <reference types="cheerio" />
 
 declare namespace Chai {
-    type EnzymeSelector = string | React.StatelessComponent<any> | React.ComponentClass<any> | { [key: string]: any };
+    type EnzymeSelector = string | React.FunctionComponent<any> | React.ComponentClass<any> | { [key: string]: any };
 
     interface Match {
         /**

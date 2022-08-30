@@ -45,7 +45,7 @@ declare module 'stream' {
             wrap(oldStream: NodeJS.ReadableStream): this;
             push(chunk: any, encoding?: BufferEncoding): boolean;
             _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -154,12 +154,12 @@ declare module 'stream' {
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, encoding: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding: BufferEncoding, cb?: () => void): this;
             cork(): void;
             uncork(): void;
-            destroy(error?: Error): void;
+            destroy(error?: Error): this;
 
             /**
              * Event emitter
@@ -260,9 +260,9 @@ declare module 'stream' {
             write(chunk: any, encoding?: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean;
             write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
             setDefaultEncoding(encoding: BufferEncoding): this;
-            end(cb?: () => void): void;
-            end(chunk: any, cb?: () => void): void;
-            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): void;
+            end(cb?: () => void): this;
+            end(chunk: any, cb?: () => void): this;
+            end(chunk: any, encoding?: BufferEncoding, cb?: () => void): this;
             cork(): void;
             uncork(): void;
         }
@@ -352,4 +352,8 @@ declare module 'stream' {
     }
 
     export = internal;
+}
+declare module 'node:stream' {
+    import stream = require('stream');
+    export = stream;
 }

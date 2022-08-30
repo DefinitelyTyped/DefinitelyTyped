@@ -33,3 +33,17 @@ tags.forEach((tag) => {
 });
 
 string = doctrine.unwrapComment(string);
+
+const func: doctrine.type.FunctionType = {
+    type: 'FunctionType',
+    this: {
+        type: 'UndefinedLiteral',
+    },
+    new: {
+        type: 'UndefinedLiteral',
+    },
+    params: [],
+    result: {
+        type: 'UndefinedLiteral',
+    },
+};

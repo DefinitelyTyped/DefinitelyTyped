@@ -7,7 +7,7 @@ import ReactInfiniteCalendar, {
     withRange,
 } from 'react-infinite-calendar';
 
-const test: React.SFC = () => (
+const test: React.FC = () => (
     <ReactInfiniteCalendar
         selected={new Date()}
         width={500}
@@ -78,7 +78,7 @@ const test: React.SFC = () => (
     />
 );
 
-const testWithDateSelectionArray: React.SFC = () => (
+const testWithDateSelectionArray: React.FC = () => (
     <ReactInfiniteCalendar
         selected={[new Date()]}
         width={500}

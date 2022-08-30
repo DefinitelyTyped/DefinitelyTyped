@@ -3,11 +3,11 @@
 // Definitions by: Ranjit Singh <https://github.com/rann91>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace objectFillImages;
+export as namespace objectFitImages;
 
-export = objectFillImages;
+export = objectFitImages;
 
-declare function objectFillImages(
+declare function objectFitImages(
     images?: string | HTMLElement | HTMLElement[] | NodeList | null,
     options?: { watchMQ?: boolean | undefined; skipTest?: boolean | undefined },
 ): void;

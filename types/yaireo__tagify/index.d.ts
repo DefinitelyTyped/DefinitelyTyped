@@ -1,4 +1,4 @@
-// Type definitions for @yaireo/tagify 4.7
+// Type definitions for @yaireo/tagify 4.16
 // Project: https://github.com/yairEO/tagify
 // Definitions by: Brakebein <https://github.com/Brakebein>
 //                 Andre Wachsmuth <https://github.com/blutorange>
@@ -23,16 +23,15 @@ declare namespace Tagify {
     type DropDownPosition = 'manual' | 'text' | 'input' | 'all';
 
     /**
-     * Settings for the autocomplete feature that can be configured via the
-     * `autocomplete` option of the settings that are passed to tagify.
+     * Settings for the autocomplete feature at runtime.
      */
-    interface AutoCompleteSettings {
+    interface AutoCompleteRuntimeSettings {
         /**
          * Tries to suggest the input's value while typing (match from
          * whitelist) by adding the rest of term as grayed-out text.
          * @default true
          */
-        enabled?: boolean | undefined;
+        enabled: boolean;
 
         /**
          * If `true`, when the right arrow key is pressed, use the suggested
@@ -40,21 +39,26 @@ declare namespace Tagify {
          * mode this is ignored and treated as `true`.
          * @default false
          */
-        rightKey?: boolean | undefined;
+        rightKey: boolean;
     }
 
     /**
-     * Settings for the dropdown feature that can be configured via the
-     * `dropdown` option of the settings that are passed to tagify.
+     * Settings for the autocomplete feature that can be configured via the
+     * `autocomplete` option of the settings that are passed to tagify.
+     */
+    interface AutoCompleteSettings extends Partial<AutoCompleteRuntimeSettings> {}
+
+    /**
+     * Settings for the dropdown feature at runtime.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface DropDownSettings<T extends BaseTagData = TagData> {
+    interface DropDownRuntimeSettings<T extends BaseTagData = TagData> {
         /**
          * Minimum characters input for showing a suggestions list.
          * `false` will not render a suggestions list.
          * @default 2
          */
-        enabled?: number | false | undefined;
+        enabled: number | false;
 
         /**
          * If `true`, match exact item when a suggestion is selected (from the
@@ -62,57 +66,63 @@ declare namespace Tagify {
          * Ensure `fuzzySearch` is `false` for this to work.
          * @default false
          */
-        caseSensitive?: boolean | undefined;
+        caseSensitive: boolean;
 
         /**
          * Maximum items to show in the suggestions list.
          * @default 10
          */
-        maxItems?: number | undefined;
+        maxItems: number;
 
         /**
          * Custom class name for the dropdown suggestions list.
          * @default Empty string.
          */
-        classname?: string | undefined;
+        classname: string;
 
         /**
          * Enables filtering dropdown items values by string _containing_ and not only _beginning_.
          * @default true
          */
-        fuzzySearch?: boolean | undefined;
+        fuzzySearch: boolean;
 
         /**
          * Enable searching for accented items in the whitelist without typing exact match.
          * @default true
          */
-        accentedSearch?: boolean | undefined;
+        accentedSearch: boolean;
+
+        /**
+         * If `true`, the suggestions list includes already-selected tags (after filtering).
+         * @default false
+         */
+        includeSelectedTags: boolean;
 
         /**
          * Controls where the dropdown menu is positioned.
-         * @default all
+         * @default 'all'
          */
-        position?: DropDownPosition | undefined;
+        position: DropDownPosition;
 
         /**
          * When a suggestions list is shown, highlight the first item,
          * and also suggest it in the input (The suggestion can be accepted with → key).
          * @default false
          */
-        highlightFirst?: boolean | undefined;
+        highlightFirst: boolean;
 
         /**
          * Close the dropdown after selecting an item, if `enabled: 0` is set
          * (which means always show dropdown on focus).
          * @default true
          */
-        closeOnSelect?: boolean | undefined;
+        closeOnSelect: boolean;
 
         /**
          * If `false`, keep typed text after selecting a suggestion.
          * @default true
          */
-        clearOnSelect?: boolean | undefined;
+        clearOnSelect: boolean;
 
         /**
          * If whitelist is an array of tag objects, this setting controls which
@@ -132,21 +142,21 @@ declare namespace Tagify {
          * whitelist objects.
          * @default ['value', 'searchBy']
          */
-        searchKeys?: string[] | undefined;
+        searchKeys: string[];
 
         /**
          * Target node to which the suggestions dropdown is appended (only when
          * rendered). When `null`, appends to `document.body`.
          * @default null
          */
-        appendTarget?: HTMLElement | null | undefined;
+        appendTarget: HTMLElement | null;
 
         /**
          * If defined, will force the placement of the dropdown:
          * - `true` - always show the suggestions dropdown above the input field
          * - `false` - always show the suggestions dropdown below the input field
          *
-         * By default this setting it not defined and the placement of the
+         * By default, this setting it not defined and the placement of the
          * dropdown is automatically decided according to the space available,
          * where opening it below the input is preferred.
          * @default undefined
@@ -155,33 +165,49 @@ declare namespace Tagify {
     }
 
     /**
-     * Options for the mix mode feature that can be activated via the `mode`
-     * option of the settings that are passed to tagify.
+     * Settings for the dropdown feature that can be configured via the
+     * `dropdown` option of the settings that are passed to tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface MixModeSettings {
+    interface DropDownSettings<T extends BaseTagData = TagData> extends Partial<DropDownRuntimeSettings<T>> {}
+
+    /**
+     * Options for the mix mode feature at runtime.
+     */
+    interface MixModeRuntimeSettings {
         /**
          * Add after the added tag.
          * @default '\u00A0'
          */
-        insertAfterTag?: string | HTMLElement | undefined;
+        insertAfterTag: string | HTMLElement;
+    }
+
+    /**
+     * Options for the mix mode feature that can be activated via the `mode`
+     * option of the settings that are passed to tagify.
+     */
+    interface MixModeSettings extends Partial<MixModeRuntimeSettings> {}
+
+    /**
+     * Options related to accessibility at runtime.
+     */
+    interface A11yRuntimeSettings {
+        /**
+         * If `true`, allows to focus tags via tab navigation.
+         * @default false
+         */
+        focusableTags: boolean;
     }
 
     /**
      * Options related to accessibility.
      */
-    interface A11ySettings {
-        /**
-         * If `true`, allows to focus tags via tab navigation.
-         * @default false
-         */
-        focusableTags?: boolean | undefined;
-    }
+    interface A11ySettings extends Partial<A11yRuntimeSettings> {}
 
     /**
-     * Options for the edit tags feature that can be activated via the
-     * `editTags` option of the settings that are passed to tagify.
+     * Options for the edit tags feature at runtime.
      */
-    interface EditTagsSettings {
+    interface EditTagsRuntimeSettings {
         /**
          * Number of clicks to enter `edit` mode: `1` for single click. Any
          * other value is considered as double-click
@@ -196,6 +222,12 @@ declare namespace Tagify {
          */
         keepInvalid: boolean;
     }
+
+    /**
+     * Options for the edit tags feature that can be activated via the
+     * `editTags` option of the settings that are passed to tagify.
+     */
+    interface EditTagsSettings extends Partial<EditTagsRuntimeSettings> {}
 
     /**
      * Messages for reasons if tag validation fails.
@@ -233,10 +265,9 @@ declare namespace Tagify {
     }
 
     /**
-     * Optional class names that can be used to add additional class names to
-     * the corresponding DOM elements.
+     * Class names at runtime.
      */
-    interface ClassNameSettings {
+    interface ClassNameRuntimeSettings {
         /**
          * @default 'tagify'
          */
@@ -308,6 +339,16 @@ declare namespace Tagify {
         dropdownWrapper: string;
 
         /**
+         * @default 'tagify__dropdown__header'
+         */
+        dropdownHeader: string;
+
+        /**
+         * @default 'tagify__dropdown__footer'
+         */
+        dropdownFooter: string;
+
+        /**
          * @default 'tagify__dropdown__item'
          */
         dropdownItem: string;
@@ -316,6 +357,11 @@ declare namespace Tagify {
          * @default 'tagify__dropdown__item--active'
          */
         dropdownItemActive: string;
+
+        /**
+         * @default 'tagify__dropdown__item--hidden'
+         */
+        dropdownItemHidden: string;
 
         /**
          * Initial class for the dropdown menu.
@@ -368,73 +414,120 @@ declare namespace Tagify {
     }
 
     /**
-     * Render functions for the template feature that can be configured via the
-     * `templates` option of the settings that are passed to tagify.
+     * Optional class names that can be used to add additional class names to
+     * the corresponding DOM elements.
+     */
+    interface ClassNameSettings extends Partial<ClassNameRuntimeSettings> {}
+
+    /**
+     * Render functions for the template feature at runtime.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface Templates<T extends BaseTagData = TagData> {
+    interface TemplatesRuntime<T extends BaseTagData = TagData> {
         /**
          * Template for wrapper element for the tags.
          */
-        wrapper?:
+        wrapper:
         /**
          * @param input Original input DOM element.
          * @param settings Tagify instance settings object.
          * @returns HTML string with the wrapper for the tags. Defaults to a
          * `TAGS` DOM element.
          */
-        ((this: Tagify<T>, input: HTMLInputElement | HTMLTextAreaElement, settings: TagifySettings<T>) => string) | undefined;
+        ((this: Tagify<T>, input: HTMLInputElement | HTMLTextAreaElement, settings: TagifyRuntimeSettings<T>) => string);
 
         /**
          * Template for the rendered tags.
          */
-        tag?:
+        tag:
         /**
          * @param tagData Data of the tag to render.
+         * @param tagify Tagify instance to access, e.g., settings.
          * @returns HTML string with the rendered tag. Defaults to a `TAG` DOM
          * element.
          */
-        ((this: Tagify<T>, tagData: T) => string) | undefined;
+        ((this: Tagify<T>, tagData: T, tagify: Tagify<T>) => string);
 
         /**
          * This callback is called when the dropdown menu is about to be shown.
          * It receives the current settings and should return the HTML for the
          * dropdown menu container.
          */
-        dropdown?:
+        dropdown:
         /**
-         * @param Current settings for the dropdown instance.
+         * @param settings Current settings for the dropdown instance.
          * @returns HTML string with the dropdown menu container to use for the
          * dropdown menu.
          */
-        ((this: Tagify<T>, settings: TagifySettings<T>) => string) | undefined;
+        ((this: Tagify<T>, settings: TagifyRuntimeSettings<T>) => string);
+
+        /**
+         * This callback is called to prepend the {@link dropdownHeader} template and
+         * append {@link dropdownFooter} template to the generated HTML string of the
+         * list of dropdown items.
+         */
+        dropdownContent:
+        /**
+         * @param htmlContent List of dropdown items as HTML string.
+         * @returns `htmlContent` wrapped into {@link dropdownHeader} and {@link dropdownFooter}.
+         */
+        ((this: Tagify<T>, htmlContent: string) => string);
 
         /**
          * This callback is called once for each item in the dropdown list. It
          * is given an item and should return the HTML markup for that item.
          */
-        dropdownItem?:
+        dropdownItem:
         /**
          * @param Data of the item to render in the dropdown menu.
          * @returns HTML string with the rendered dropdown item that will be
          * shown in the dropdown menu.
          */
-        ((this: Tagify<T>, item: T) => string) | undefined;
+        ((this: Tagify<T>, item: T) => string);
+
+        /**
+         * Template for a header that is rendered above the list of dropdown items.
+         */
+        dropdownHeader:
+        /**
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the top of the dropdown list.
+         */
+        ((this: Tagify<T>, suggestions: T[]) => string);
+
+        /**
+         * Template for a footer that is rendered beneath the list of dropdown items.
+         */
+        dropdownFooter:
+        /**
+         * @param suggestions An array of all the matched suggested items,
+         * including those which were sliced away due to the {@link DropDownSettings.maxItems} setting.
+         * @returns HTML string that is displayed at the bottom of the dropdown list.
+         */
+        ((this: Tagify<T>, suggestions: T[]) => string);
 
         /**
          * Callback invoked when no matching dropdown item was found. If there
          * is no match for the typed text, a special dropdown item will be
          * rendered using the value returned by this callback.
          */
-        dropdownItemNoMatch?:
+        dropdownItemNoMatch:
         /**
          * @param data Dropdown request data. The `value` is the value by
          * which the whitelist should be filtered.
          * @returns HTML string that is displayed in the dropdown suggestions
          * list when no matching suggestions are found.
          */
-        ((this: Tagify<T>, data: { value: string }) => string) | undefined;
+        ((this: Tagify<T>, data: { value: string }) => string) | null;
     }
+
+    /**
+     * Render functions for the template feature that can be configured via the
+     * `templates` option of the settings that are passed to tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface Templates<T extends BaseTagData = TagData> extends Partial<TemplatesRuntime<T>> {}
 
     /**
      * Data passed with suggestionClick hook {@link Hooks.suggestionClick}.
@@ -475,28 +568,23 @@ declare namespace Tagify {
     }
 
     /**
-     * Promise-based hooks for async program flow scenarios. Allows to "hook"
-     * (intervene) at certain points of the program, which were selected as a
-     * suitable place to pause the program flow and wait for further
-     * instructions on how / if to proceed.
-     *
-     * See also the `hooks` option of the settings that are passed to tagify.
+     * Promise-based hooks for async program flow scenarios at runtime.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface Hooks<T extends BaseTagData = TagData> {
+    interface HooksRuntime<T extends BaseTagData = TagData> {
         /**
          * Hook invoked before a tag is removed. Can be used to perform a custom
          * action. The tag is removed only when the promise is fulfilled. When
          * the promise is rejected, the tag is not removed.
          */
-        beforeRemoveTag?:
+        beforeRemoveTag:
         /**
          * @param tags Tag or tags that are schedule to be removed.
          * @return Promise that controls whether the tags are removed. When the
          * promise resolves, the tags are removed if the promise was fulfilled,
          * or kept when the promise was rejected.
          */
-        ((tags: T[]) => Promise<void>) | undefined;
+        ((tags: T[]) => Promise<void>);
 
         /**
          * Hook invoked when the user clicks on (or selects via Enter key) a suggestion in the dropdown
@@ -506,7 +594,7 @@ declare namespace Tagify {
          * is fulfilled. When the promise is rejected, the suggestion is not
          * accepted and no tag is added.
          */
-        suggestionClick?:
+        suggestionClick:
         /**
          * @param event Click or keyboard event that occurred on a suggestion item.
          * @param data Data and element of selected suggestion item.
@@ -514,18 +602,29 @@ declare namespace Tagify {
          * When the promise resolves, the suggestion is accepted if the promise
          * was fulfilled, and declined when the promise was rejected.
          */
-        ((event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>) | undefined;
+        ((event: MouseEvent | KeyboardEvent, data: SuggestionClickData<T>) => Promise<void>);
 
         /**
-         * Hook invoked when the user pastes a string into Tagify. It can be used to changed
+         * Hook invoked when the user pastes a string into Tagify. It can be used to change
          * the pasted string before it gets added to Tagify.
          * @param event Clipboard event
          * @param data Data object with pasted text and clipboard data.
          * @return Promise with optional string value. If the promise resolves with a string value,
          * this value gets added to Tagify. Without any value, the original paste value gets added.
          */
-        beforePaste?: ((event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string|undefined>) | undefined;
+        beforePaste: ((event: ClipboardEvent, data: BeforePasteData<T>) => Promise<string|undefined>);
     }
+
+    /**
+     * Promise-based hooks for async program flow scenarios. Allows to "hook"
+     * (intervene) at certain points of the program, which were selected as a
+     * suitable place to pause the program flow and wait for further
+     * instructions on how / if to proceed.
+     *
+     * See also the `hooks` option of the settings that are passed to tagify.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface Hooks<T extends BaseTagData = TagData> extends Partial<HooksRuntime<T>> {}
 
     /**
      * Settings that are available after the tagify instance was created.
@@ -533,50 +632,39 @@ declare namespace Tagify {
      * new instance. These are also passed to several callback methods.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface TagifySettings<T extends BaseTagData = TagData> extends TagifyConstructorSettings<T> {
-        /**
-         * Adds a required attribute to the Tagify wrapper element. Does nothing
-         * more.
-         */
-        required?: boolean | undefined;
+    interface TagifyCoreSettings<T extends BaseTagData = TagData> {
         /**
          * No user-interaction (add / remove / edit) is allowed when `true`.
          */
-        readonly?: boolean | undefined;
-    }
+        readonly: boolean;
 
-    /**
-     * Optional settings for creating a new tagify instance. These can be used
-     * to modify how the tagify component behaves.
-     * @template T Type of the tag data. See the Tagify class for more details.
-     */
-    interface TagifyConstructorSettings<T extends BaseTagData = TagData> {
         /**
          * `TagData` property which will be displayed as the tag's text.
          * Remember to keep `value` property unique.
          * @default 'value'
          */
-        tagTextProp?: keyof T | undefined;
+        tagTextProp: keyof T;
 
         /**
          * Placeholder text. If this attribute is set on an input / textarea
          * element it will override this setting.
-         * @default Unset (no placeholder)
+         * @default Empty string
          */
-        placeholder?: string | undefined;
+        placeholder: string;
 
         /**
          * RegEx string. Split tags by any of these delimiters.
          * Example delimiters: ",|.| " (comma, dot, or whitespace)
          * @default ','
          */
-        delimiters?: string | RegExp | undefined;
+        delimiters: string | RegExp;
 
         /**
          * Validate input by RegEx pattern (can also be applied on the input itself as an attribute).
          * Example: /[1-9]/
+         * @default null
          */
-        pattern?: string | RegExp | null | undefined;
+        pattern: string | RegExp | null;
 
         /**
          * Use `select` for single-value dropdown-like select box.
@@ -590,44 +678,45 @@ declare namespace Tagify {
          * tag.
          * @default ['[[', ']]']
          */
-        mixTagsInterpolator?: [string, string] | undefined;
+        mixTagsInterpolator: [string, string];
 
         /**
          * Define conditions in which typed mix-tags content is allowing a tag
          * to be created after.
          * @default /,|\.|\:|\s/
          */
-        mixTagsAllowedAfter?: RegExp | undefined;
+        mixTagsAllowedAfter: RegExp;
 
         /**
          * Should duplicate tags be allowed or not?
          * @default false
          */
-        duplicates?: boolean | undefined;
+        duplicates: boolean;
 
         /**
          * If `true` trim the tag's value (remove before / after white spaces).
          * @default true
          */
-        trim?: boolean | undefined;
+        trim: boolean;
+
+        /**
+         * Assign a unique id to enable the feature to store and load persisted data via `localStorage`.
+         * @default undefined
+         */
+        id?: string | undefined;
 
         /**
          * Should ONLY use tags allowed in whitelist.
          * In `mix` mode, setting it to `false` will not allow creating new tags.
          * @default false
          */
-        enforceWhitelist?: boolean | undefined;
+        enforceWhitelist: boolean;
 
         /**
          * Set `false` to disable manually typing/pasting/editing tags (tags may only be added from the whitelist).
          * @default true
          */
-        userInput?: boolean | undefined;
-
-        /**
-         * Options for offering autocomplete suggestions as the user types.
-         */
-        autoComplete?: AutoCompleteSettings | undefined;
+        userInput: boolean;
 
         /**
          * An array of allowed tags.
@@ -635,33 +724,40 @@ declare namespace Tagify {
          * Also used for auto-completion when `autocomplete.enabled` is `true`.
          * @default Empty array.
          */
-        whitelist?: string[] | T[] | undefined;
+        whitelist: string[] | T[];
 
         /**
          * An array of tags which aren't allowed.
          * @default Empty array.
          */
-        blacklist?: string[] | undefined;
+        blacklist: string[];
 
         /**
          * Automatically adds the text which was entered as a tag when a blur
          * event happens.
          * @default true
          */
-        addTagOnBlur?: boolean | undefined;
+        addTagOnBlur: boolean;
+
+        /**
+         * If `true`, the native way of input's `onChange` event is kept,
+         * and it only fires when the field is blurred.
+         * @default true
+         */
+        onChangeAfterBlur: boolean;
 
         /**
          * Automatically converts pasted text into tags.
          * @default true
          */
-        pasteAsTags?: boolean | undefined;
+        pasteAsTags: boolean;
 
         /**
          * Callbacks that are invoked when the event specified by the key
          * occurs.
          */
         callbacks?: {
-            [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap[K]>) => void;
+            [K in keyof EventDataMap]?: (event: CustomEvent<EventDataMap<T>[K]>) => void;
         } | undefined;
 
         /**
@@ -670,27 +766,12 @@ declare namespace Tagify {
          * When reached, adds a class `tagify--hasMaxTags` to `<tags>`.
          * @default Infinity
          */
-        maxTags?: number | undefined;
-
-        /**
-         * Number of clicks to enter `edit` mode: 1 for single click, `2` for a
-         * double-click.
-         *
-         * `false` or `null` will disallow editing.
-         * @default {clicks: 2, keepInvalid: true}
-         */
-        editTags?: 1 | 2 | false | null | EditTagsSettings | undefined;
+        maxTags: number;
 
         /**
          * Customize messages for reasons if tag validation fails.
          */
         texts?: Partial<InvalidTagsMessages> | undefined;
-
-        /**
-         * Functions that return template strings. Can be used to customize how
-         * tags, drop down menus etc. are rendered.
-         */
-        templates?: Templates<T> | undefined;
 
         /**
          * If the `pattern` setting does not meet your needs, use this function
@@ -707,28 +788,35 @@ declare namespace Tagify {
 
         /**
          * Takes a tag data as an argument and allows mutating it before a tag
-         * is created or edited.
+         * is created or edited and also before validation.
          *
-         * Should not return anything, only mutate.
+         * Should not return anything, only mutate the argument.
          */
-        transformTag?:
+        transformTag:
         /**
          * @param tagData The tag to transform. May be mutated by this method.
          */
-        ((tagData: T) => void) | undefined;
+        ((tagData: T) => void);
 
         /**
          * If `true`, do not remove tags which did not pass validation.
          * @default false
          */
-        keepInvalidTags?: boolean | undefined;
+        keepInvalidTags: boolean;
+
+        /**
+         * If `true`, create invalid tags. Otherwise, keep the editable input
+         * and do not create tags from it.
+         * @default true
+         */
+        createInvalidTags: boolean;
 
         /**
          * If `true`, do not add invalid, temporary tags before automatically
          * removing them.
          * @default false
          */
-        skipInvalid?: boolean | undefined;
+        skipInvalid: boolean;
 
         /**
          * When the backspace key is pressed:
@@ -737,7 +825,7 @@ declare namespace Tagify {
          * `false` - do nothing (useful for outside style)
          * @default true
          */
-        backspace?: boolean | 'edit' | undefined;
+        backspace: boolean | 'edit';
 
         /**
          * If you wish your original input / textarea `value` property format to
@@ -751,6 +839,98 @@ declare namespace Tagify {
          * set on the hidden input or textarea element.
          */
         ((value: T[]) => string) | undefined;
+    }
+
+    /**
+     * Settings that are available after the tagify instance was created.
+     * Includes a few extra properties that are not available when creating a
+     * new instance. These are also passed to several callback methods.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface TagifyRuntimeSettings<T extends BaseTagData = TagData> extends TagifyCoreSettings<T> {
+        /**
+         * Adds a required attribute to the Tagify wrapper element. Does nothing
+         * more.
+         */
+        required: boolean;
+
+        /**
+         * `true` if the input element has the `disabled` attribute
+         * or the Tagify instance has been disabled.
+         */
+        disabled: boolean;
+
+        /**
+         * Functions that return template strings. Can be used to customize how
+         * tags, drop down menus etc. are rendered.
+         */
+        templates: TemplatesRuntime<T>;
+
+        /**
+         * Number of clicks to enter `edit` mode: 1 for single click, `2` for a
+         * double-click.
+         *
+         * `false` or `null` will disallow editing.
+         * @default {clicks: 2, keepInvalid: true}
+         */
+        editTags: 1 | 2 | false | null | EditTagsRuntimeSettings;
+
+        /**
+         * Optional settings to configure how mixed mode behaves, see also the
+         * `mode` setting.
+         */
+        mixMode: MixModeRuntimeSettings;
+
+        /**
+         * Options related to accessibility.
+         */
+        a11y: A11yRuntimeSettings;
+
+        /**
+         * Options for offering autocomplete suggestions as the user types.
+         */
+        autoComplete: AutoCompleteRuntimeSettings;
+
+        /**
+         * Optional class names that are added to the corresponding elements.
+         */
+        classNames: ClassNameRuntimeSettings;
+
+        /**
+         * Options for offering a dropdown menu with available tags.
+         */
+        dropdown: DropDownRuntimeSettings<T>;
+
+        /**
+         * Promise-based hooks for async program flow scenarios. Allows to
+         * "hook" (intervene) at certain points of the program, which were
+         * selected as a suitable place to pause the program flow and wait for
+         * further instructions on how / if to proceed.
+         */
+        hooks: HooksRuntime<T>;
+    }
+
+    /**
+     * Settings that are available after the tagify instance was created.
+     * Includes a few extra properties that are not available when creating a
+     * new instance. These are also passed to several callback methods.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface TagifySettings<T extends BaseTagData = TagData> extends Partial<TagifyCoreSettings<T>> {
+        /**
+         * Functions that return template strings. Can be used to customize how
+         * tags, drop down menus etc. are rendered.
+         */
+        templates?: Templates<T> | undefined;
+
+        /**
+         * Number of clicks to enter `edit` mode: 1 for single click, `2` for a
+         * double-click.
+         *
+         * `false` or `null` will disallow editing.
+         * @default {clicks: 2, keepInvalid: true}
+         */
+        editTags?: 1 | 2 | false | null | EditTagsSettings | undefined;
 
         /**
          * Optional settings to configure how mixed mode behaves, see also the
@@ -762,6 +942,11 @@ declare namespace Tagify {
          * Options related to accessibility.
          */
         a11y?: A11ySettings | undefined;
+
+        /**
+         * Options for offering autocomplete suggestions as the user types.
+         */
+        autoComplete?: AutoCompleteSettings | undefined;
 
         /**
          * Optional class names that are added to the corresponding elements.
@@ -781,6 +966,14 @@ declare namespace Tagify {
          */
         hooks?: Hooks<T> | undefined;
     }
+
+    /**
+     * Optional settings for creating a new tagify instance. These can be used
+     * to modify how the tagify component behaves.
+     * @deprecated Just use {@link TagifySettings}.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface TagifyConstructorSettings<T extends BaseTagData = TagData> extends TagifySettings<T> {}
 
     /**
      * Generic tag format that requires only a value and allows other
@@ -848,7 +1041,7 @@ declare namespace Tagify {
      * @template E Type of the original event wrapped by this event.
      */
     interface DomEventData<T extends BaseTagData = TagData, E extends Event = Event> extends EventData<T> {
-        originalEvent: E;
+        event: E;
     }
 
     /**
@@ -869,9 +1062,7 @@ declare namespace Tagify {
      * Event data for events related to the dropdown feature.
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface DropDownEventData<T extends BaseTagData = TagData> extends EventData<T> {
-        dropdown: HTMLElement;
-    }
+    interface DropDownEventData<T extends BaseTagData = TagData> extends HTMLDivElement, EventData<T> { }
 
     /**
      * A tag has been added.
@@ -938,7 +1129,11 @@ declare namespace Tagify {
      * Suggestions dropdown item selected (by mouse / keyboard/ touch).
      * @template T Type of the tag data. See the Tagify class for more details.
      */
-    interface DropDownSelectEventData<T extends BaseTagData = TagData> extends SingleEventData<T, string> { }
+    interface DropDownSelectEventData<T extends BaseTagData = TagData> extends EventData<T> {
+        data: T;
+        elm: DomReference['dropdown'];
+        event: MouseEvent | {};
+    }
 
     /**
      * Tells the percentage scrolled. (`event.detail.percentage`).
@@ -961,7 +1156,7 @@ declare namespace Tagify {
     interface EditInputEventData<T extends BaseTagData = TagData> extends TagEventData<T> {
         data: T & { newValue: string };
         index: number;
-        originalEvent: Event;
+        event: Event;
     }
 
     /**
@@ -1245,15 +1440,16 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         toggle(show?: boolean): void;
 
         /**
-         * Add all whitelist items as tags and close the suggestion dropdown.
+         * Add all suggested items as tags and close the suggestion dropdown.
+         * @param onlyRendered Include only suggested items that are currently rendered, otherwise include all.
          */
-        selectAll(): void;
+        selectAll(onlyRendered?: boolean): void;
     };
 
     /**
      * The current settings of this tagify instance.
      */
-    settings: Tagify.TagifySettings<T>;
+    settings: Tagify.TagifyRuntimeSettings<T>;
 
     /**
      * List with the currently available options for the dropdown.
@@ -1284,12 +1480,12 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Creates a new tagify editor on the given input element.
      * @param inputElement Input or textarea element to convert into a tagify
      * editor.
-     * @param settings Optional settings to configure the customize the tagify
+     * @param settings Optional settings to configure the tagify
      * editor.
      */
     constructor(
         inputElement: HTMLInputElement | HTMLTextAreaElement,
-        settings?: Tagify.TagifyConstructorSettings<T>
+        settings?: Tagify.TagifySettings<T>
     );
 
     /**
@@ -1492,6 +1688,23 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     editTag(tagElm?: HTMLElement): this;
 
     /**
+     * Get the HTML element which has the actual tag's content
+     * (by default those with the `tagify__tag-text` class).
+     * @param tagElm A tag HTML element (by default those with the `tagify__tag`
+     * class).
+     * @return The node which has the actual tag's content.
+     */
+    getTagTextNode(tagElm: HTMLElement): HTMLElement;
+
+    /**
+     * Set the text of a tag (DOM only, does not affect the actual data).
+     * @param tagElm A tag HTML element (by default those with the `tagify__tag`
+     * class).
+     * @param html New text/html string.
+     */
+    setTagTextNode(tagElm: HTMLElement, html: string): void;
+
+    /**
      * Replaces an existing tag with a new one. Used for updating a tag's data.
      * Also exits the tag's edit mode.
      * @param tagElm A tag HTML element (by default those with the `tagify__tag`
@@ -1565,7 +1778,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * Update `value` (array of tag data) by traversing all valid tags.
      *
      * Iterates all tag DOM nodes and rebuilds the `value` array. Call this if
-     * tags get sorted manually)
+     * tags get sorted manually.
      */
     updateValueByDOMTags(): void;
 
@@ -1576,9 +1789,9 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      * @param data Arguments passed to the template function.
      * @returns The rendered HTML string.
      */
-    parseTemplate<K extends keyof Tagify.Templates>(
+    parseTemplate<K extends keyof Tagify.TemplatesRuntime>(
         template: K,
-        data: Parameters<Exclude<Tagify.Templates[K], undefined>>
+        data: Parameters<Exclude<Tagify.TemplatesRuntime<T>[K], null>>
     ): HTMLElement;
 
     /**
@@ -1603,6 +1816,31 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
     setDisabled(disabled: boolean): void;
 
     /**
+     * Get data for the specific instance by `key` parameter from `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     * @returns Data stored under `key` in `localStorage`.
+     * Returns `undefined` if {@link TagifyConstructorSettings.id} has not been set or no entry exists for `key` in `localStorage`.
+     */
+    getPersistedData(key: string): unknown;
+
+    /**
+     * Set data for the specific instance.
+     * Must supply a second parameter which will be the key to save the data in the `localStorage`
+     * (under the tagify namespace).
+     * In order to use this method, {@link TagifyConstructorSettings.id} must be set.
+     * @param data Data to store in `localStorage`.
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    setPersistedData(data: unknown, key: string): void;
+
+    /**
+     * Clears data for the specific instance by `key` parameter.
+     * If the `key` parameter is omitted, clears all persisted data related to this instance (by its `id` which was set in the settings).
+     * @param key `localStorage` key (under the tagify namespace).
+     */
+    clearPersistedData(key?: string): void;
+
+    /**
      * Removes a listener previously added via `on`.
      * @template K Name of the event.
      * @param event Name of the event.
@@ -1611,7 +1849,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      */
     off<K extends keyof Tagify.EventDataMap>(
         event: K,
-        callback: (event: CustomEvent<Tagify.EventDataMap[K]>) => void
+        callback: (event: CustomEvent<Tagify.EventDataMap<T>[K]>) => void
     ): this;
 
     /**
@@ -1623,7 +1861,7 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
      */
     on<K extends keyof Tagify.EventDataMap>(
         event: K,
-        callback: (event: CustomEvent<Tagify.EventDataMap[K]>) => void
+        callback: (event: CustomEvent<Tagify.EventDataMap<T>[K]>) => void
     ): this;
 }
 

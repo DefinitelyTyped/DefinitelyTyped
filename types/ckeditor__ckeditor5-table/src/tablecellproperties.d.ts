@@ -12,3 +12,18 @@ declare module '@ckeditor/ckeditor5-core/src/plugincollection' {
         TableCellProperties: TableCellProperties;
     }
 }
+
+/**
+ * The configuration of the table cell default properties feature.
+ */
+export interface TableCellPropertiesOptions {
+    width: string;
+    height: string;
+    padding: string;
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth: string;
+    borderStyle?: string;
+    horizontalAlignment?: string;
+    verticalAlignment?: string;
+}

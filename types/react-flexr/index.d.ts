@@ -7,7 +7,9 @@
 /// <reference types="react" />
 
 declare namespace __ReactFlexr {
-    interface GridProps extends React.Props<Grid> {
+    interface GridProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Grid> | undefined;
         /**
          * Vertical Align Sub Cells: top, center, bottom
          */
@@ -34,7 +36,9 @@ declare namespace __ReactFlexr {
     export class Grid extends React.Component<GridProps> {
     }
 
-    interface CellProps extends React.Props<Cell> {
+    interface CellProps {
+        children?: React.ReactNode;
+        ref?: React.LegacyRef<Cell> | undefined;
         /**
          * Vertical Align This Cell: top, center, bottom
          */

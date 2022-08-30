@@ -166,6 +166,24 @@ declare namespace GoogleAppsScript {
       setTextAlignment(textAlignment: TextAlignment): ContainerElement;
     }
     /**
+     * An element representing a formatted date.
+     */
+    interface Date extends Element {
+      copy(): Date;
+      getAttributes(): any;
+      getDisplayText(): string;
+      getLocale(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTimestamp(): Date;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Date;
+      removeFromParent(): Date;
+      setAttributes(attributes: any): Date;
+    }
+    /**
      * A document, containing rich text and elements such as tables and lists.
      *
      * Documents may be opened or created using DocumentApp.
@@ -192,7 +210,7 @@ declare namespace GoogleAppsScript {
       getBody(): Body;
       getBookmark(id: string): Bookmark;
       getBookmarks(): Bookmark[];
-      getCursor(): Position;
+      getCursor(): Position | null;
       getEditors(): Base.User[];
       getFooter(): FooterSection;
       getFootnotes(): Footnote[];
@@ -299,6 +317,7 @@ declare namespace GoogleAppsScript {
      */
     interface Element {
       asBody(): Body;
+      asDate(): Date;
       asEquation(): Equation;
       asEquationFunction(): EquationFunction;
       asEquationFunctionArgumentSeparator(): EquationFunctionArgumentSeparator;
@@ -313,6 +332,8 @@ declare namespace GoogleAppsScript {
       asListItem(): ListItem;
       asPageBreak(): PageBreak;
       asParagraph(): Paragraph;
+      asPerson(): Person;
+      asRichLink(): RichLink;
       asTable(): Table;
       asTableCell(): TableCell;
       asTableOfContents(): TableOfContents;
@@ -340,7 +361,7 @@ declare namespace GoogleAppsScript {
      *       firstChild.asParagraph().setHeading(DocumentApp.ParagraphHeading.HEADING1);
      *     }
      */
-    enum ElementType { BODY_SECTION, COMMENT_SECTION, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
+    enum ElementType { BODY_SECTION, COMMENT_SECTION, DATE, DOCUMENT, EQUATION, EQUATION_FUNCTION, EQUATION_FUNCTION_ARGUMENT_SEPARATOR, EQUATION_SYMBOL, FOOTER_SECTION, FOOTNOTE, FOOTNOTE_SECTION, HEADER_SECTION, HORIZONTAL_RULE, INLINE_DRAWING, INLINE_IMAGE, LIST_ITEM, PAGE_BREAK, PARAGRAPH, PERSON, RICH_LINK, TABLE, TABLE_CELL, TABLE_OF_CONTENTS, TABLE_ROW, TEXT, UNSUPPORTED }
     /**
      * An element representing a mathematical expression. An Equation may contain EquationFunction, EquationSymbol, and Text elements. For more information on
      * document structure, see the guide to
@@ -995,6 +1016,25 @@ declare namespace GoogleAppsScript {
      */
     enum ParagraphHeading { NORMAL, HEADING1, HEADING2, HEADING3, HEADING4, HEADING5, HEADING6, TITLE, SUBTITLE }
     /**
+     * An element representing a link to a person. A person link refers to an email address and might
+     * optionally have a name associated with the address. If the name is set, the name is what is
+     * displayed in the document body.
+     */
+    interface Person extends Element {
+      copy(): Person;
+      getAttributes(): any;
+      getEmail(): string;
+      getName(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getType(): ElementType;
+      isAtDocumentEnd(): boolean;
+      merge(): Person;
+      removeFromParent(): Person;
+      setAttributes(attributes: any): Person;
+    }
+    /**
      * A reference to a location in the document, relative to a specific element. The user's cursor is
      * represented as a Position, among other uses. Scripts can only access the cursor of the
      * user who is running the script, and only if the script is bound to the document.
@@ -1126,6 +1166,24 @@ declare namespace GoogleAppsScript {
       getEndOffsetInclusive(): Integer;
       getStartOffset(): Integer;
       isPartial(): boolean;
+    }
+    /**
+     * An element representing a link to a Google resource, such as a Drive file or a YouTube video.
+     */
+    interface RichLink extends Element {
+      copy(): RichLink;
+      getAttributes(): any;
+      getMimeType(): string;
+      getNextSibling(): Element;
+      getParent(): ContainerElement;
+      getPreviousSibling(): Element;
+      getTitle(): string;
+      getType(): ElementType;
+      getUrl(): string;
+      isAtDocumentEnd(): boolean;
+      merge(): RichLink;
+      removeFromParent(): RichLink;
+      setAttributes(attributes: any): RichLink;
     }
     /**
      * An element representing a table. A Table may only contain TableRow elements. For

@@ -165,6 +165,7 @@ import * as trace_events from 'trace_events';
             .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearInterval(timeout);
+        timers.clearInterval(timeout[Symbol.toPrimitive]());
     }
     {
         const timeout = timers
@@ -176,6 +177,7 @@ import * as trace_events from 'trace_events';
             .refresh();
         const b: boolean = timeout.hasRef();
         timers.clearTimeout(timeout);
+        timers.clearTimeout(timeout[Symbol.toPrimitive]());
     }
     async function testPromisify(doSomething: {
         (foo: any, onSuccessCallback: (result: string) => void, onErrorCallback: (reason: any) => void): void;

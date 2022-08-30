@@ -1,13 +1,19 @@
-import { ImageStyleOptionDefinition } from '../imagestyle';
+import PluginCollection from '@ckeditor/ckeditor5-core/src/plugincollection';
+import { ImageStyleConfig, ImageStyleOptionDefinition } from '../imagestyle';
+import { ImageStyleDropdownDefinition } from './imagestyleui';
 
-declare function isValidOption(
-    option: ImageStyleOptionDefinition,
-    plugins: { isInlinePluginLoaded: boolean; isBlockPluginLoaded: boolean },
-): boolean;
+/**
+ * Returns a list of the normalized and validated image style options.
+ */
+declare function normalizeStyles(config: {
+    isInlinePluginLoaded: boolean;
+    isBlockPluginLoaded: boolean;
+    configuredStyles: ImageStyleConfig;
+}): ImageStyleConfig;
 
 declare const DEFAULT_OPTIONS: {
     // This style represents an image placed in the line of text.
-    inline: {
+    readonly inline: {
         name: 'inline';
         title: 'In line';
         icon: string;
@@ -16,7 +22,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the left and wrapped with text.
-    alignLeft: {
+    readonly alignLeft: {
         name: 'alignLeft';
         title: 'Left aligned image';
         icon: string;
@@ -25,7 +31,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the left.
-    alignBlockLeft: {
+    readonly alignBlockLeft: {
         name: 'alignBlockLeft';
         title: 'Left aligned image';
         icon: string;
@@ -34,7 +40,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents a centered image.
-    alignCenter: {
+    readonly alignCenter: {
         name: 'alignCenter';
         title: 'Centered image';
         icon: string;
@@ -43,7 +49,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the right and wrapped with text.
-    alignRight: {
+    readonly alignRight: {
         name: 'alignRight';
         title: 'Right aligned image';
         icon: string;
@@ -52,7 +58,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This style represents an image aligned to the right.
-    alignBlockRight: {
+    readonly alignBlockRight: {
         name: 'alignBlockRight';
         title: 'Right aligned image';
         icon: string;
@@ -61,7 +67,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This option is equal to the situation when no style is applied.
-    block: {
+    readonly block: {
         name: 'block';
         title: 'Centered image';
         icon: string;
@@ -70,7 +76,7 @@ declare const DEFAULT_OPTIONS: {
     };
 
     // This represents a side image.
-    side: {
+    readonly side: {
         name: 'side';
         title: 'Side image';
         icon: string;
@@ -89,6 +95,43 @@ declare const DEFAULT_ICONS: {
     inline: string;
 };
 
+/*
+ * Returns the default image styles configuration depending on the loaded image editing plugins.
+ */
+declare function getDefaultStylesConfiguration(
+    isBlockPluginLoaded: boolean,
+    isInlinePluginLoaded: boolean,
+):
+    | {
+          options: [
+              'inline',
+              'alignLeft',
+              'alignRight',
+              'alignCenter',
+              'alignBlockLeft',
+              'alignBlockRight',
+              'block',
+              'side',
+          ];
+      }
+    | {
+          options: ['block', 'side'];
+      }
+    | {
+          options: ['inline', 'alignLeft', 'alignRight'];
+      }
+    | {};
+
+// Displays a console warning with the 'image-style-configuration-definition-invalid' error.
+declare function warnInvalidStyle(info: ImageStyleOptionDefinition | ImageStyleDropdownDefinition): void;
+
+/**
+ * Returns a list of the available predefined drop-downs' definitions depending on the loaded image editing plugins.
+ */
+declare function getDefaultDropdownDefinitions(
+    pluginCollection: PluginCollection,
+): typeof DEFAULT_DROPDOWN_DEFINITIONS | [];
+
 declare const DEFAULT_DROPDOWN_DEFINITIONS: [
     {
         name: 'imageStyle:wrapText';
@@ -105,7 +148,10 @@ declare const DEFAULT_DROPDOWN_DEFINITIONS: [
 ];
 
 declare const _default: {
-    isValidOption: typeof isValidOption;
+    normalizeStyles: typeof normalizeStyles;
+    getDefaultStylesConfiguration: typeof getDefaultStylesConfiguration;
+    getDefaultDropdownDefinitions: typeof getDefaultDropdownDefinitions;
+    warnInvalidStyle: typeof warnInvalidStyle;
     DEFAULT_OPTIONS: typeof DEFAULT_OPTIONS;
     DEFAULT_ICONS: typeof DEFAULT_ICONS;
     DEFAULT_DROPDOWN_DEFINITIONS: typeof DEFAULT_DROPDOWN_DEFINITIONS;

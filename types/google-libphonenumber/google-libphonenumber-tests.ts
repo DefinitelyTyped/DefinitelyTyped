@@ -47,3 +47,6 @@ var phoneNumberUtil = PhoneNumberUtil.getInstance();
 
 // phone code should be a number
 phoneNumberUtil.getCountryCodeForRegion('IT'); // $ExpectType number
+
+const aNumber = phoneNumberUtil.parse('+39 02-12345678', 'IT');
+phoneNumberUtil.getNationalSignificantNumber(aNumber); // $ExpectType string

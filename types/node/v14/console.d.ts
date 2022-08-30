@@ -1,4 +1,8 @@
 declare module 'console' {
+    import console = require('node:console');
+    export = console;
+}
+declare module 'node:console' {
     import { InspectOptions } from 'util';
 
     global {

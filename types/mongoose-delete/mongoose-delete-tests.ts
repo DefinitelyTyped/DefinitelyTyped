@@ -20,7 +20,7 @@ PetSchema.plugin(MongooseDelete, {
 PetSchema.plugin(MongooseDelete, {
   overrideMethods: ['count', 'countDocuments', 'find'],
 });
-// or (unrecognized method names will be ignored)
+// @ts-expect-error (unrecognized method names are disallowed)
 PetSchema.plugin(MongooseDelete, { overrideMethods: ['count', 'find', 'errorXyz'] });
 
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedAt: true });
@@ -31,6 +31,7 @@ PetSchema.plugin(MongooseDelete, {
 });
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: ['deleted'] });
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'all' });
+// @ts-expect-error (unrecognized indexFields are disallowed)
 PetSchema.plugin(MongooseDelete, { overrideMethods: 'all', deletedBy: true, indexFields: 'invalid' });
 
 const idUser = new mongoose.Types.ObjectId('53da93b16b4a6670076b16bf');
@@ -85,6 +86,9 @@ Pet.restore({ age: 10 }).exec((err, result) => {});
 // $ExpectType boolean | undefined
 type deletedType = PetDocument["deleted"];
 
+// $ExpectType Date | undefined
+type deletedAtType = PetDocument["deletedAt"];
+
 // Additional Methods for overrides
 Pet.countDeleted({ age: 10 });
 Pet.countWithDeleted({ age: 10 });
@@ -98,6 +102,8 @@ Pet.findOneAndUpdateDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.findOneAndUpdateWithDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateWithDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateOneDeleted({ age: 10 }, { name: 'Fluffy' });
+Pet.updateOneWithDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateManyDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.updateManyWithDeleted({ age: 10 }, { name: 'Fluffy' });
 Pet.aggregateDeleted([{ $match: { age: 10 } }]);

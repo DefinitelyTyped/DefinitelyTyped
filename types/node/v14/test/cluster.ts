@@ -1,4 +1,4 @@
-import * as cluster from 'cluster';
+import * as cluster from 'node:cluster';
 
 cluster.fork();
 Object.keys(cluster.workers).forEach(key => {

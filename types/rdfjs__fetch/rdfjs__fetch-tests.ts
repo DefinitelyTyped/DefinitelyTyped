@@ -1,4 +1,4 @@
-import fetch = require('@rdfjs/fetch');
+import fetch from '@rdfjs/fetch';
 import { SinkMap } from '@rdfjs/sink-map';
 import { Stream, Dataset, Quad, DatasetCoreFactory } from 'rdf-js';
 import { EventEmitter } from 'events';
@@ -6,6 +6,7 @@ import { RdfFetchResponse } from '@rdfjs/fetch-lite';
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;
+    serializers: SinkMap<EventEmitter, Stream>;
 } = <any> {};
 
 function noOptions(): Promise<RdfFetchResponse> {

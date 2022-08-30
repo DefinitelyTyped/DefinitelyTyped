@@ -6,6 +6,7 @@
 import * as React from 'react';
 
 export interface PTRViewProps {
+    children?: React.ReactNode;
     onRefresh?: (() => any) | undefined;
     delay?: number | undefined; // default O
     style?: object | undefined;

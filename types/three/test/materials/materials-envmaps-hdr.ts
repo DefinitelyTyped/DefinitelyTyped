@@ -123,11 +123,12 @@ function init() {
     });
 
     const rgbmUrls = ['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'];
-    rgbmCubeMap = new RGBMLoader().setPath('./textures/cube/pisaRGBM16/').loadCubemap(rgbmUrls, () => {
-        rgbmCubeMap.encoding = THREE.RGBM16Encoding;
-
-        rgbmCubeRenderTarget = pmremGenerator.fromCubemap(rgbmCubeMap);
-    });
+    rgbmCubeMap = new RGBMLoader()
+        .setMaxRange(16)
+        .setPath('./textures/cube/pisaRGBM16/')
+        .loadCubemap(rgbmUrls, () => {
+            rgbmCubeRenderTarget = pmremGenerator.fromCubemap(rgbmCubeMap);
+        });
 
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
     pmremGenerator.compileCubemapShader();

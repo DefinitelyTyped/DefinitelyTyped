@@ -200,6 +200,11 @@ generator.option('opt4', {
   default: 3.2,
 });
 generator.option('opt5');
+generator.option('opt6', {
+  type(opt: string): any {
+    return opt;
+  }
+});
 
 const optionValue1 = generator.options.opt1;
 

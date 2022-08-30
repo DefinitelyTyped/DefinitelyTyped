@@ -23,21 +23,25 @@ class DemoObservable implements Observable {
         this.bar = [false, true];
         this.baz = 9;
         this.addObserver('foo', this, 'fooDidChange');
-        this.addObserver('foo', this, 'fooDidChangeProtected'); // $ExpectError
+        // @ts-expect-error
+        this.addObserver('foo', this, 'fooDidChangeProtected');
         this.addObserver('foo', this, this.fooDidChange);
         this.addObserver('foo', this, this.fooDidChangeProtected);
         const ot = new OtherThing();
         this.addObserver('foo', ot, ot.observerOfDemo);
         Ember.addObserver(this, 'foo', this, 'fooDidChange');
-        Ember.addObserver(this, 'foo', this, 'fooDidChangeProtected'); // $ExpectError
+        // @ts-expect-error
+        Ember.addObserver(this, 'foo', this, 'fooDidChangeProtected');
         Ember.addObserver(this, 'foo', this, this.fooDidChange);
         Ember.addObserver(this, 'foo', this, this.fooDidChangeProtected);
         this.removeObserver('foo', this, 'fooDidChange');
-        this.removeObserver('foo', this, 'fooDidChangeProtected'); // $ExpectError
+        // @ts-expect-error
+        this.removeObserver('foo', this, 'fooDidChangeProtected');
         this.removeObserver('foo', this, this.fooDidChange);
         this.removeObserver('foo', this, this.fooDidChangeProtected);
         Ember.removeObserver(this, 'foo', this, 'fooDidChange');
-        Ember.removeObserver(this, 'foo', this, 'fooDidChangeProtected'); // $ExpectError
+        // @ts-expect-error
+        Ember.removeObserver(this, 'foo', this, 'fooDidChangeProtected');
         Ember.removeObserver(this, 'foo', this, this.fooDidChange);
         const lambda = () => {
             this.fooDidChange(this, 'foo');
@@ -97,12 +101,6 @@ class DemoObservable implements Observable {
     removeObserver(key: any, target: any, method?: any): void {
         throw new Error('Method not implemented.');
     }
-    getWithDefault<K extends keyof this>(
-        key: K,
-        defaultValue: UnwrapComputedPropertyGetter<this[K]>,
-    ): UnwrapComputedPropertyGetter<this[K]> {
-        throw new Error('Method not implemented.');
-    }
     incrementProperty(keyName: ExtractPropertyNamesOfType<this, number | undefined>, increment?: number): number {
         throw new Error('Method not implemented.');
     }
@@ -133,28 +131,22 @@ assertType<number>(o.decrementProperty('baz')); // $ExpectType number
 assertType<number>(o.incrementProperty('baz', 3)); // $ExpectType number
 assertType<number>(o.decrementProperty('baz', 12)); // $ExpectType number
 // non-numeric property case
-assertType<number>(o.incrementProperty('bar')); // $ExpectError
-assertType<number>(o.decrementProperty('bar')); // $ExpectError
+// @ts-expect-error
+assertType<number>(o.incrementProperty('bar'));
+// @ts-expect-error
+assertType<number>(o.decrementProperty('bar'));
 // empty case
-assertType<number>(o.incrementProperty()); // $ExpectError
-assertType<number>(o.decrementProperty()); // $ExpectError
+// @ts-expect-error
+assertType<number>(o.incrementProperty());
+// @ts-expect-error
+assertType<number>(o.decrementProperty());
 
 /**
  * toggleProperty
  */
 o.toggleProperty('isFoo'); // $ExpectType boolean
-o.toggleProperty(); // $ExpectError
-
-/**
- * getWithDefault
- */
-assertType<string>(o.getWithDefault('foo', 'zzz')); // $ExpectType string
-assertType<[boolean, boolean]>(o.getWithDefault('bar', [false, false])); // $ExpectType [boolean, boolean]
-assertType<number | undefined>(o.getWithDefault('baz', 10)); // $ExpectType number | undefined
-// improper arguments cases
-assertType<number | undefined>(o.getWithDefault('baz', '10')); // $ExpectError
-assertType<number | undefined>(o.getWithDefault('baz')); // $ExpectError
-assertType<number | undefined>(o.getWithDefault()); // $ExpectError
+// @ts-expect-error
+o.toggleProperty();
 
 /**
  * getProperties
@@ -167,8 +159,10 @@ assertType<{ foo: string; bar: [boolean, boolean] }>(o.getProperties(['foo', 'ba
 assertType<{}>(o.getProperties()); // $ExpectType {}
 assertType<{}>(o.getProperties([])); // $ExpectType {}
 // property that doesn't exist
-assertType<any>(o.getProperties('jeanShorts', 'foo')); // $ExpectError
-assertType<any>(o.getProperties(['foo', 'jeanShorts'])); // $ExpectError
+// @ts-expect-error
+o.getProperties('jeanShorts', 'foo');
+// @ts-expect-error
+o.getProperties(['foo', 'jeanShorts']);
 
 /**
  * set
@@ -178,7 +172,8 @@ assertType<[boolean, boolean]>(o.set('bar', [false, false])); // $ExpectType [bo
 assertType<number | undefined>(o.set('baz', undefined)); // $ExpectType number | undefined
 assertType<number | undefined>(o.set('baz', 10)); // $ExpectType number | undefined
 // property that doesn't exist
-assertType<any>(o.set('jeanShorts', 10)); // $ExpectError
+// @ts-expect-error
+o.set('jeanShorts', 10);
 
 /**
  * setProperties
@@ -187,10 +182,12 @@ assertType<{ foo: string; bar: [boolean, boolean] }>(o.setProperties({ foo: 'abc
 // empty case
 assertType<{}>(o.setProperties({})); // $ExpectType {}
 // property that doesn't exist
-assertType<any>(o.setProperties({ jeanShorts: 'under the pants' })); // $ExpectError
+// @ts-expect-error
+o.setProperties({ jeanShorts: 'under the pants' });
 
 /**
  * notifyPropertyChange
  */
 assertType<DemoObservable>(o.notifyPropertyChange('foo')); // $ExpectType DemoObservable
-assertType<Observable>(o.notifyPropertyChange('jeanShorts')); // $ExpectError
+// @ts-expect-error
+assertType<Observable>(o.notifyPropertyChange('jeanShorts'));

@@ -1,7 +1,6 @@
 // Type definitions for dbus 1.0
 // Project: https://github.com/Shouqun/node-dbus#readme
 // Definitions by: Luca Lindhorst <https://github.com/lal12>
-//                 Niels Becker <https://github.com/waeco>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.4
 

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package frida-gum 17.1
+// Type definitions for non-npm package frida-gum 18.1
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
@@ -575,25 +575,20 @@ declare namespace Memory {
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
-     *                followed by 0xff. For more advanced matching it is also possible to specify an r2-style mask.
-     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
-     *                a `:` character after the needle, followed by the mask using the same syntax.
-     *                For example: “13 37 13 37 : 1f ff ff f1”.
-     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
-     *                which gets translated into masks behind the scenes.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      * @param callbacks Object with callbacks.
      */
-    function scan(address: NativePointerValue, size: number | UInt64, pattern: string, callbacks: MemoryScanCallbacks): void;
+    function scan(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern,
+        callbacks: MemoryScanCallbacks): Promise<void>;
 
     /**
      * Synchronous version of `scan()`.
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern, see `Memory.scan()` for details.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      */
-    function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string): MemoryScanMatch[];
+    function scanSync(address: NativePointerValue, size: number | UInt64, pattern: string | MatchPattern): MemoryScanMatch[];
 
     /**
      * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
@@ -1162,7 +1157,7 @@ interface MemoryScanCallbacks {
     /**
      * Called when the memory range has been fully scanned.
      */
-    onComplete: () => void;
+    onComplete?: () => void;
 }
 
 interface MemoryScanMatch {
@@ -1196,7 +1191,7 @@ interface KernelMemoryScanCallbacks {
     /**
      * Called when the memory range has been fully scanned.
      */
-    onComplete: () => void;
+    onComplete?: () => void;
 }
 
 interface KernelMemoryScanMatch {
@@ -1962,6 +1957,24 @@ interface MipsCpuContext extends PortableCpuContext {
     k1: NativePointer;
 }
 
+// tslint:disable:no-unnecessary-class
+declare class MatchPattern {
+    /**
+     * Compiles a match pattern for use with e.g. `Memory.scan()`.
+     *
+     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
+     *                followed by 0xff, or “/Some\s*Pattern/” for matching a regular expression.
+     *
+     *                For more advanced matching it is also possible to specify an r2-style mask.
+     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
+     *                a `:` character after the needle, followed by the mask using the same syntax.
+     *                For example: “13 37 13 37 : 1f ff ff f1”.
+     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
+     *                which gets translated into masks behind the scenes.
+     */
+    constructor(pattern: string);
+}
+
 /**
  * TCP and UNIX sockets.
  */
@@ -2316,6 +2329,60 @@ interface UnixEndpointAddress {
  */
 declare class File {
     /**
+     * Passed to `seek()` to specify that the offset is relative to the start
+     * of the file.
+     */
+    static SEEK_SET: number;
+
+    /**
+     * Passed to `seek()` to specify that the offset is relative to the current
+     * file position.
+     */
+    static SEEK_CUR: number;
+
+    /**
+     * Passed to `seek()` to specify that the offset is relative to the end of
+     * the file.
+     */
+    static SEEK_END: number;
+
+    /**
+     * Opens the binary file at `filePath`, reads all of its content into an
+     * ArrayBuffer, and then closes the file.
+     *
+     * @param filePath The file to read from.
+     */
+    static readAllBytes(filePath: string): ArrayBuffer;
+
+    /**
+     * Opens the UTF-8 encoded text file at `filePath`, reads all of its text
+     * into a string, and then closes the file.
+     *
+     * @param filePath The file to read from.
+     */
+    static readAllText(filePath: string): string;
+
+    /**
+     * Creates a new file at `filePath`, writes the specified bytes to it, and
+     * then closes the file. The target file is overwritten in case it already
+     * exists.
+     *
+     * @param filePath The file to write to.
+     * @param bytes The bytes to write to the file.
+     */
+    static writeAllBytes(filePath: string, bytes: ArrayBuffer | number[]): void;
+
+    /**
+     * Creates a new file at `filePath`, writes the specified text to it
+     * encoded as UTF-8, and then closes the file. The target file is
+     * overwritten in case it already exists.
+     *
+     * @param filePath The file to write to.
+     * @param text The string to write to the file.
+     */
+    static writeAllText(filePath: string, text: string): void;
+
+    /**
      * Opens or creates the file at `filePath` with `mode` specifying how
      * it should be opened. For example `"wb"` to open the file for writing
      * in binary mode. This is the same format as `fopen()` from the C
@@ -2327,11 +2394,53 @@ declare class File {
     constructor(filePath: string, mode: string);
 
     /**
+     * Returns the current file position, in bytes.
+     */
+    tell(): number;
+
+    /**
+     * Changes the current file position to the specified `offset`, in bytes.
+     * Returns the resulting offset.
+     *
+     * @param offset The byte offset to seek to.
+     * @param whence What the offset is relative to (default: `File.SEEK_SET`).
+     */
+    seek(offset: number, whence?: number): number;
+
+    /**
+     * Reads up to `n` bytes from the file, or the rest of the file if
+     * unspecified. Returns an empty buffer when the end of the file is
+     * reached.
+     *
+     * @param n The maximum number of bytes to read.
+     */
+    readBytes(n?: number): ArrayBuffer;
+
+    /**
+     * Reads up to `n` bytes from the file into a string. If `n` is omitted,
+     * the rest of the file is read. Returns an empty string when the end of the
+     * file is reached.
+     *
+     * Ensures that the data is valid UTF-8 and throws an error otherwise.
+     *
+     * @param n The maximum number of bytes to read.
+     */
+    readText(n?: number): string;
+
+    /**
+     * Reads one line of text from the file, with the newline included. Returns
+     * an empty string when the end of the file is reached.
+     *
+     * Ensures that the data is valid UTF-8 and throws an error otherwise.
+     */
+    readLine(): string;
+
+    /**
      * Synchronously writes `data` to the file.
      *
      * @param data Data to write.
      */
-    write(data: string | ArrayBuffer): void;
+    write(data: string | ArrayBuffer | number[]): void;
 
     /**
      * Flushes any buffered data to the underlying file.
@@ -2345,6 +2454,67 @@ declare class File {
      */
     close(): void;
 }
+
+/**
+ * Provides access to checksumming algorithms.
+ */
+declare class Checksum {
+    /**
+     * Computes the checksum of the specified `data`. Returns the checksum as an
+     * all-lowercase hexadecimal string. The length of the digest depends on the
+     * type of checksum.
+     *
+     * @param type The desired type of checksum.
+     * @param data The data to compute the checksum of.
+     */
+    static compute(type: ChecksumType, data: string | ArrayBuffer | number[]): string;
+
+    /**
+     * Creates an instance used to compute a checksum for a stream of data.
+     * Starts out in "open" state where data is fed in through one or more calls
+     * to `update()`. Once done, `getString()` or `getDigest()` is called to
+     * obtain the computed checksum. This also moves the instance to "closed"
+     * state, which means `update()` may no longer be called. (Create a new
+     * instance to compute a checksum for subsequent data.)
+     *
+     * @param type The type of checksum to compute.
+     */
+    constructor(type: ChecksumType);
+
+    /**
+     * Feeds `data` into the checksum instance. The checksum must still be open,
+     * i.e. `getString()` or `getDigest()` must not have been called yet.
+     *
+     * @param data The data used to compute the checksum.
+     */
+    update(data: string | ArrayBuffer | number[]): Checksum;
+
+    /**
+     * Gets the digest as an all-lowercase hexadecimal string. The length of the
+     * digest depends on the type of checksum.
+     *
+     * Once this method has been called the checksum can no longer be updated
+     * with `update()`.
+     */
+    getString(): string;
+
+    /**
+     * Gets the digest as a raw binary vector. The size of the digest depends
+     * on the type of checksum.
+     *
+     * Once this method has been called the checksum can no longer be updated
+     * with `update()`.
+     */
+    getDigest(): ArrayBuffer;
+}
+
+type ChecksumType =
+    | "md5"
+    | "sha1"
+    | "sha256"
+    | "sha384"
+    | "sha512"
+    ;
 
 /**
  * Provides read/write access to a SQLite database. Useful for persistence
@@ -3278,6 +3448,11 @@ declare class X86Instruction extends Instruction {
     operands: X86Operand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<X86Register>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: X86Register[];
@@ -3293,6 +3468,11 @@ declare class ArmInstruction extends Instruction {
      * Array of objects describing each operand.
      */
     operands: ArmOperand[];
+
+    /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<ArmRegister>;
 
     /**
      * Registers implicitly read by this instruction.
@@ -3312,6 +3492,11 @@ declare class Arm64Instruction extends Instruction {
     operands: Arm64Operand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<Arm64Register>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: Arm64Register[];
@@ -3329,6 +3514,11 @@ declare class MipsInstruction extends Instruction {
     operands: MipsOperand[];
 
     /**
+     * Registers accessed by this instruction, either implicitly or explicitly.
+     */
+    regsAccessed: RegsAccessed<MipsRegister>;
+
+    /**
      * Registers implicitly read by this instruction.
      */
     regsRead: MipsRegister[];
@@ -3339,12 +3529,20 @@ declare class MipsInstruction extends Instruction {
     regsWritten: MipsRegister[];
 }
 
+interface RegsAccessed<T> {
+    read: T[];
+    written: T[];
+}
+
+type OperandAccess = "" | "r" | "w" | "rw";
+
 type X86Operand = X86RegOperand | X86ImmOperand | X86MemOperand;
 
 type X86OperandType = "reg" | "imm" | "mem";
 
 interface X86BaseOperand {
     size: number;
+    access: OperandAccess;
 }
 
 interface X86RegOperand extends X86BaseOperand {
@@ -3390,6 +3588,7 @@ interface ArmBaseOperand {
     } | undefined;
     vectorIndex?: number | undefined;
     subtracted: boolean;
+    access: OperandAccess;
 }
 
 interface ArmRegOperand extends ArmBaseOperand {
@@ -3463,6 +3662,7 @@ interface Arm64BaseOperand {
     ext?: Arm64Extender | undefined;
     vas?: Arm64Vas | undefined;
     vectorIndex?: number | undefined;
+    access: OperandAccess;
 }
 
 interface Arm64RegOperand extends Arm64BaseOperand {
@@ -3636,16 +3836,11 @@ declare namespace Kernel {
      *
      * @param address Starting address to scan from.
      * @param size Number of bytes to scan.
-     * @param pattern Match pattern of the form “13 37 ?? ff” to match 0x13 followed by 0x37 followed by any byte
-     *                followed by 0xff. For more advanced matching it is also possible to specify an r2-style mask.
-     *                The mask is bitwise AND-ed against both the needle and the haystack. To specify the mask append
-     *                a `:` character after the needle, followed by the mask using the same syntax.
-     *                For example: “13 37 13 37 : 1f ff ff f1”.
-     *                For convenience it is also possible to specify nibble-level wildcards, like “?3 37 13 ?7”,
-     *                which gets translated into masks behind the scenes.
+     * @param pattern Match pattern, see `MatchPattern` for details.
      * @param callbacks Object with callbacks.
      */
-    function scan(address: UInt64, size: number | UInt64, pattern: string, callbacks: KernelMemoryScanCallbacks): void;
+    function scan(address: UInt64, size: number | UInt64, pattern: string | MatchPattern,
+        callbacks: KernelMemoryScanCallbacks): Promise<void>;
 
     /**
      * Synchronous version of `scan()`.
@@ -3654,7 +3849,7 @@ declare namespace Kernel {
      * @param size Number of bytes to scan.
      * @param pattern Match pattern, see `Memory.scan()` for details.
      */
-    function scanSync(address: UInt64, size: number | UInt64, pattern: string): KernelMemoryScanMatch[];
+    function scanSync(address: UInt64, size: number | UInt64, pattern: string | MatchPattern): KernelMemoryScanMatch[];
 
     function readS8(address: UInt64): number;
     function readU8(address: UInt64): number;
@@ -4473,6 +4668,13 @@ declare namespace Java {
     function array(type: string, elements: any[]): any[];
 
     /**
+     * Generates a backtrace for the current thread.
+     *
+     * @param options Options to customize the stack-walking.
+     */
+    function backtrace(options?: BacktraceOptions): Backtrace;
+
+    /**
      * Determines whether the caller is running on the main thread.
      */
     function isMainThread(): boolean;
@@ -4570,7 +4772,7 @@ declare namespace Java {
         methods: [string, ...string[]];
     }
 
-    interface ChooseCallbacks {
+    interface ChooseCallbacks<T extends Members<T> = {}> {
         /**
          * Called with each live instance found with a ready-to-use `instance`
          * just as if you would have called `Java.cast()` with a raw handle to
@@ -4578,12 +4780,64 @@ declare namespace Java {
          *
          * May return `EnumerateAction.Stop` to stop the enumeration early.
          */
-        onMatch: (instance: Wrapper) => void | EnumerateAction;
+        onMatch: (instance: Wrapper<T>) => void | EnumerateAction;
 
         /**
          * Called when all instances have been enumerated.
          */
         onComplete: () => void;
+    }
+
+    /**
+     * Options that may be passed to `Java.backtrace()`.
+     */
+    interface BacktraceOptions {
+        /**
+         * Limit how many frames up the stack to walk. Defaults to 16.
+         */
+        limit?: number;
+    }
+
+    /**
+     * Backtrace returned by `Java.backtrace()`.
+     */
+    interface Backtrace {
+        /**
+         * ID that can be used for deduplicating identical backtraces.
+         */
+        id: string;
+
+        /**
+         * Stack frames.
+         */
+        frames: Frame[];
+    }
+
+    interface Frame {
+        /**
+         * Signature, e.g. `"Landroid/os/Looper;,loopOnce,(Landroid/os/Looper;JI)Z"`.
+         */
+        signature: string;
+
+        /**
+         * Class name that method belongs to, e.g. `"android.os.Looper"`.
+         */
+        className: string;
+
+        /**
+         * Method name, e.g. `"loopOnce"`.
+         */
+        methodName: string;
+
+        /**
+         * Source file name, e.g. `"Looper.java"`.
+         */
+        fileName: string;
+
+        /**
+         * Source line number, e.g. `201`.
+         */
+        lineNumber: number;
     }
 
     type Members<T> = Record<keyof T, MethodDispatcher | Field>;
@@ -4749,14 +5003,14 @@ declare namespace Java {
         fieldReturnType: Type;
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum MethodType {
         Constructor = 1,
         Static = 2,
         Instance = 3,
     }
 
-    // tslint:disable-next-line:no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum FieldType {
         Static = 1,
         Instance = 2,
@@ -5462,6 +5716,16 @@ declare class X86Writer {
     putPopfx(): void;
 
     /**
+     * Puts a SAHF instruction.
+     */
+    putSahf(): void;
+
+    /**
+     * Puts a LAHF instruction.
+     */
+    putLahf(): void;
+
+    /**
      * Puts a TEST instruction.
      */
     putTestRegReg(regA: X86Register, regB: X86Register): void;
@@ -5550,6 +5814,16 @@ declare class X86Writer {
      * Puts `n` NOP instructions.
      */
     putNopPadding(n: number): void;
+
+    /**
+     * Puts a FXSAVE instruction.
+     */
+    putFxsaveRegPtr(reg: X86Register): void;
+
+    /**
+     * Puts a FXRSTOR instruction.
+     */
+    putFxrstorRegPtr(reg: X86Register): void;
 
     /**
      * Puts a uint8.
@@ -5820,6 +6094,16 @@ declare class ArmWriter {
     putCallAddressWithArguments(func: NativePointerValue, args: ArmCallArgument[]): void;
 
     /**
+     * Puts a CALL instruction.
+     */
+    putCallReg(reg: ArmRegister): void;
+
+    /**
+     * Puts code needed for calling a C function with the specified `args`.
+     */
+    putCallRegWithArguments(reg: ArmRegister, args: ArmCallArgument[]): void;
+
+    /**
      * Puts code needed for branching/jumping to the given address.
      */
     putBranchAddress(address: NativePointerValue): void;
@@ -5874,6 +6158,11 @@ declare class ArmWriter {
     putBxReg(reg: ArmRegister): void;
 
     /**
+     * Puts a BL instruction.
+     */
+    putBlReg(reg: ArmRegister): void;
+
+    /**
      * Puts a BLX instruction.
      */
     putBlxReg(reg: ArmRegister): void;
@@ -5884,6 +6173,16 @@ declare class ArmWriter {
     putRet(): void;
 
     /**
+     * Puts a VPUSH RANGE instruction.
+     */
+    putVpushRange(firstReg: ArmRegister, lastReg: ArmRegister): void;
+
+    /**
+     * Puts a VPOP RANGE instruction.
+     */
+    putVpopRange(firstReg: ArmRegister, lastReg: ArmRegister): void;
+
+    /**
      * Puts an LDR instruction.
      */
     putLdrRegAddress(reg: ArmRegister, address: NativePointerValue): void;
@@ -5892,6 +6191,11 @@ declare class ArmWriter {
      * Puts an LDR instruction.
      */
     putLdrRegU32(reg: ArmRegister, val: number): void;
+
+    /**
+     * Puts an LDR instruction.
+     */
+    putLdrRegReg(dstReg: ArmRegister, srcReg: ArmRegister): void;
 
     /**
      * Puts an LDR instruction.
@@ -5907,6 +6211,11 @@ declare class ArmWriter {
      * Puts an LDMIA MASK instruction.
      */
     putLdmiaRegMask(reg: ArmRegister, mask: number): void;
+
+    /**
+     * Puts a STR instruction.
+     */
+    putStrRegReg(srcReg: ArmRegister, dstReg: ArmRegister): void;
 
     /**
      * Puts a STR instruction.
@@ -5982,6 +6291,11 @@ declare class ArmWriter {
      * Puts a SUB instruction.
      */
     putSubRegRegReg(dstReg: ArmRegister, srcReg1: ArmRegister, srcReg2: ArmRegister): void;
+
+    /**
+     * Puts a RSB instruction.
+     */
+    putRsbRegRegImm(dstReg: ArmRegister, srcReg: ArmRegister, immVal: number): void;
 
     /**
      * Puts an ANDS instruction.
@@ -6196,6 +6510,17 @@ declare class ThumbWriter {
     putCallRegWithArguments(reg: ArmRegister, args: ArmCallArgument[]): void;
 
     /**
+     * Puts code needed for branching/jumping to the given address.
+     */
+    putBranchAddress(address: NativePointerValue): void;
+
+    /**
+     * Determines whether a direct branch is possible between the two
+     * given memory locations.
+     */
+    canBranchDirectlyBetween(from: NativePointerValue, to: NativePointerValue): boolean;
+
+    /**
      * Puts a B instruction.
      */
     putBImm(target: NativePointerValue): void;
@@ -6286,6 +6611,16 @@ declare class ThumbWriter {
      * Puts a POP instruction with the specified registers.
      */
     putPopRegs(regs: ArmRegister[]): void;
+
+    /**
+     * Puts a VPUSH RANGE instruction.
+     */
+    putVpushRange(firstReg: ArmRegister, lastReg: ArmRegister): void;
+
+    /**
+     * Puts a VPOP RANGE instruction.
+     */
+    putVpopRange(firstReg: ArmRegister, lastReg: ArmRegister): void;
 
     /**
      * Puts an LDR instruction.
@@ -6396,6 +6731,16 @@ declare class ThumbWriter {
      * Puts an AND instruction.
      */
     putAndRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an OR instruction.
+     */
+    putOrRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a LSL instruction.
+     */
+    putLslRegRegImm(dstReg: ArmRegister, leftReg: ArmRegister, rightValue: number): void;
 
     /**
      * Puts a LSLS instruction.
@@ -6574,6 +6919,86 @@ type ArmRegister =
     | "fp"
     | "ip"
     | "pc"
+    | "s0"
+    | "s1"
+    | "s2"
+    | "s3"
+    | "s4"
+    | "s5"
+    | "s6"
+    | "s7"
+    | "s8"
+    | "s9"
+    | "s10"
+    | "s11"
+    | "s12"
+    | "s13"
+    | "s14"
+    | "s15"
+    | "s16"
+    | "s17"
+    | "s18"
+    | "s19"
+    | "s20"
+    | "s21"
+    | "s22"
+    | "s23"
+    | "s24"
+    | "s25"
+    | "s26"
+    | "s27"
+    | "s28"
+    | "s29"
+    | "s30"
+    | "s31"
+    | "d0"
+    | "d1"
+    | "d2"
+    | "d3"
+    | "d4"
+    | "d5"
+    | "d6"
+    | "d7"
+    | "d8"
+    | "d9"
+    | "d10"
+    | "d11"
+    | "d12"
+    | "d13"
+    | "d14"
+    | "d15"
+    | "d16"
+    | "d17"
+    | "d18"
+    | "d19"
+    | "d20"
+    | "d21"
+    | "d22"
+    | "d23"
+    | "d24"
+    | "d25"
+    | "d26"
+    | "d27"
+    | "d28"
+    | "d29"
+    | "d30"
+    | "d31"
+    | "q0"
+    | "q1"
+    | "q2"
+    | "q3"
+    | "q4"
+    | "q5"
+    | "q6"
+    | "q7"
+    | "q8"
+    | "q9"
+    | "q10"
+    | "q11"
+    | "q12"
+    | "q13"
+    | "q14"
+    | "q15"
     ;
 
 type ArmSystemRegister = "apsr-nzcvq";
@@ -6748,6 +7173,16 @@ declare class Arm64Writer {
     putRet(): void;
 
     /**
+     * Puts a CBZ instruction.
+     */
+    putCbzRegImm(reg: Arm64Register, target: NativePointerValue): void;
+
+    /**
+     * Puts a CBNZ instruction.
+     */
+    putCbnzRegImm(reg: Arm64Register, target: NativePointerValue): void;
+
+    /**
      * Puts a CBZ instruction referencing `labelId`, defined by a past
      * or future `putLabel()`.
      */
@@ -6758,6 +7193,16 @@ declare class Arm64Writer {
      * or future `putLabel()`.
      */
     putCbnzRegLabel(reg: Arm64Register, labelId: string): void;
+
+    /**
+     * Puts a TBZ instruction.
+     */
+    putTbzRegImmImm(reg: Arm64Register, bit: number, target: NativePointerValue): void;
+
+    /**
+     * Puts a TBNZ instruction.
+     */
+    putTbnzRegImmImm(reg: Arm64Register, bit: number, target: NativePointerValue): void;
 
     /**
      * Puts a TBZ instruction referencing `labelId`, defined by a past
@@ -6809,7 +7254,22 @@ declare class Arm64Writer {
     /**
      * Puts an LDR instruction.
      */
+    putLdrRegU32(reg: Arm64Register, val: number): void;
+
+    /**
+     * Puts an LDR instruction.
+     */
     putLdrRegU64(reg: Arm64Register, val: number | UInt64): void;
+
+    /**
+     * Puts an LDR instruction.
+     */
+    putLdrRegU32Ptr(reg: Arm64Register, srcAddress: NativePointerValue): void;
+
+    /**
+     * Puts an LDR instruction.
+     */
+    putLdrRegU64Ptr(reg: Arm64Register, srcAddress: NativePointerValue): void;
 
     /**
      * Puts an LDR instruction with a dangling data reference,
@@ -6827,7 +7287,17 @@ declare class Arm64Writer {
     /**
      * Puts an LDR instruction.
      */
+    putLdrRegReg(dstReg: Arm64Register, srcReg: Arm64Register): void;
+
+    /**
+     * Puts an LDR instruction.
+     */
     putLdrRegRegOffset(dstReg: Arm64Register, srcReg: Arm64Register, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts an LDR MODE instruction.
+     */
+    putLdrRegRegOffsetMode(dstReg: Arm64Register, srcReg: Arm64Register, srcOffset: number | Int64 | UInt64, mode: Arm64IndexMode): void;
 
     /**
      * Puts an LDRSW instruction.
@@ -6842,7 +7312,17 @@ declare class Arm64Writer {
     /**
      * Puts a STR instruction.
      */
+    putStrRegReg(srcReg: Arm64Register, dstReg: Arm64Register): void;
+
+    /**
+     * Puts a STR instruction.
+     */
     putStrRegRegOffset(srcReg: Arm64Register, dstReg: Arm64Register, dstOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a STR MODE instruction.
+     */
+    putStrRegRegOffsetMode(srcReg: Arm64Register, dstReg: Arm64Register, dstOffset: number | Int64 | UInt64, mode: Arm64IndexMode): void;
 
     /**
      * Puts an LDP instruction.
@@ -6858,6 +7338,16 @@ declare class Arm64Writer {
      * Puts a MOV instruction.
      */
     putMovRegReg(dstReg: Arm64Register, srcReg: Arm64Register): void;
+
+    /**
+     * Puts a MOV NZCV instruction.
+     */
+    putMovRegNzcv(reg: Arm64Register): void;
+
+    /**
+     * Puts a MOV NZCV instruction.
+     */
+    putMovNzcvReg(reg: Arm64Register): void;
 
     /**
      * Puts an UXTW instruction.
@@ -6887,7 +7377,7 @@ declare class Arm64Writer {
     /**
      * Puts an AND instruction.
      */
-    putAndRegRegImm(dstReg: Arm64Register, leftReg: Arm64Register, rightValue: number | Int64 | UInt64): void;
+    putAndRegRegImm(dstReg: Arm64Register, leftReg: Arm64Register, rightValue: number | UInt64): void;
 
     /**
      * Puts a TST instruction.

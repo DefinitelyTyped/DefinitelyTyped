@@ -4,7 +4,7 @@ export namespace DiffBinary {
     const enum DIFF_BINARY {
         NONE = 0,
         LITERAL = 1,
-        DELTA = 2
+        DELTA = 2,
     }
 }
 

@@ -1,6 +1,7 @@
 import formidable = require("formidable");
 import {
     defaultOptions,
+    enabledPlugins,
     plugins,
     File,
     formidable as formidableAlias,
@@ -10,6 +11,7 @@ import {
     Options,
     PersistentFile,
     VolatileFile,
+    Part,
 } from "formidable";
 import * as http from "http";
 
@@ -19,34 +21,42 @@ const options: Options = {
     enabledPlugins: [],
     encoding: "utf-8",
     fileWriteStreamHandler: undefined,
-    hash: false,
+    hashAlgorithm: false,
     keepExtensions: false,
     maxFields: 1000,
     maxFieldsSize: 20 * 1024 * 1024,
+    maxFiles: Infinity,
     maxFileSize: 200 * 1024 * 1024,
+    maxTotalFileSize: 200 * 1024 * 1024,
     minFileSize: 1,
     multiples: false,
     uploadDir: "/dir",
+    filter: (part) => {
+        // $ExpectType Part
+        part;
+        return true;
+    },
 };
 
 const file: File = {
-    hash: "sha1",
-    lastModifiedDate: new Date(),
-    name: "name",
-    path: "path",
+    hashAlgorithm: false,
+    hash: "hash",
+    mtime: new Date(),
+    originalFilename: "name",
+    newFilename: "newfilename",
+    filepath: "path",
     size: 20,
-    type: "json",
+    mimetype: "json",
     toJSON: () => ({
-        filename: file.name!,
+        newFilename: file.newFilename,
         length: 10,
-        mime: "string",
-        mtime: file.lastModifiedDate!,
-        name: file.name,
-        path: file.path,
+        mimetype: file.mimetype,
+        mtime: file.mtime!,
+        originalFilename: file.originalFilename,
+        filepath: file.filepath,
         size: file.size,
-        type: file.type,
     }),
-    toString: () => `File: ${file.name}`,
+    toString: () => `File: ${file.originalFilename}`,
 };
 
 // act/assert
@@ -65,6 +75,11 @@ Formidable.DEFAULT_OPTIONS;
 defaultOptions;
 defaultOptions.enabledPlugins; // $ExpectType EnabledPlugins
 
+options.fileWriteStreamHandler; // $ExpectType (() => Writable) | undefined
+
+// $ExpectType EnabledPlugins
+enabledPlugins;
+
 // $ExpectType EnabledPlugins
 plugins;
 
@@ -82,7 +97,7 @@ MultipartParser.stateToString;
 MultipartParser.STATES;
 
 const form = new Formidable(options);
-form.on("data", data => {
+form.on('data', data => {
     // $ExpectType EventData
     data;
 
@@ -102,51 +117,45 @@ form.on("data", data => {
     end;
     // $ExpectType string
     formname;
-});
+})
+    .on('fileBegin', (formname, file) => {
+        // $ExpectType string
+        formname;
+        // $ExpectType File
+        file;
 
-form.on("fileBegin", (formname, file) => {
-    // $ExpectType string
-    formname;
-    // $ExpectType File
-    file;
+        form.emit('data', { name: 'fileBegin', formname, value: file });
+    })
+    .on('file', (formname, file) => {
+        // $ExpectType string
+        formname;
+        // $ExpectType File
+        file;
 
-    form.emit("data", { name: "fileBegin", formname, value: file });
-});
-form.on("file", (formname, file) => {
-    // $ExpectType string
-    formname;
-    // $ExpectType File
-    file;
-
-    form.emit("data", { name: "file", formname, value: file });
-});
-
-form.on("progress", (bytesReceived, bytesExpected) => {
-    // $ExpectType number
-    bytesReceived;
-    // $ExpectType number
-    bytesExpected;
-});
-
-form.on("field", (name, value) => {
-    // $ExpectType string
-    name;
-    // $ExpectType string
-    value;
-});
-
-form.on("error", err => {
-    // $ExpectType any
-    err;
-});
-
-form.on("aborted", () => {});
-
-form.once("end", () => {});
-form.once("error", err => {
-    // $ExpectType any
-    err;
-});
+        form.emit('data', { name: 'file', formname, value: file });
+    })
+    .on('progress', (bytesReceived, bytesExpected) => {
+        // $ExpectType number
+        bytesReceived;
+        // $ExpectType number
+        bytesExpected;
+    })
+    .on('field', (name, value) => {
+        // $ExpectType string
+        name;
+        // $ExpectType string
+        value;
+    })
+    .on('error', err => {
+        // $ExpectType any
+        err;
+    })
+    .on('aborted', () => {})
+    .once('end', () => {})
+    .once('error', err => {
+        // $ExpectType any
+        err;
+    });
 
 form.use((self, options) => {
     // $ExpectType IncomingForm
@@ -164,7 +173,7 @@ form.onPart = part => {
         buffer;
     });
 
-    form.handlePart(part);
+    form._handlePart(part);
 };
 
 http.createServer(req => {
@@ -179,6 +188,10 @@ http.createServer(req => {
         // $ExpectType Files
         files;
     });
+});
+
+http.createServer(req => {
+    form.parse(req); // testing without callback
 });
 
 // $ExpectType IncomingForm

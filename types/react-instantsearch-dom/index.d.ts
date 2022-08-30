@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import { Hit, BasicDoc } from 'react-instantsearch-core';
+import { Hit, BasicDoc, DynamicWidgetsExposed } from 'react-instantsearch-core';
 
 // Core
 export { createConnector } from 'react-instantsearch-core';
@@ -51,6 +51,7 @@ export { connectToggleRefinement } from 'react-instantsearch-core';
 export { EXPERIMENTAL_connectConfigureRelatedItems } from 'react-instantsearch-core';
 export { connectHitInsights } from 'react-instantsearch-core';
 export { connectQueryRules } from 'react-instantsearch-core';
+export { connectDynamicWidgets } from 'react-instantsearch-core';
 
 // DOM
 interface CommonWidgetProps {
@@ -207,3 +208,8 @@ export interface VoiceSearchHelper {
 export function createVoiceSearchHelper(params: VoiceSearchHelperParams): VoiceSearchHelper;
 
 export function createInfiniteHitsSessionStorageCache(...args: any[]): any;
+
+export interface DynamicWidgetsProps extends DynamicWidgetsExposed {
+  className?: string;
+}
+export class DynamicWidgets extends React.Component<DynamicWidgetsProps> {}

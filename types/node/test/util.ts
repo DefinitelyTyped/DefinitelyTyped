@@ -1,6 +1,6 @@
 import * as util from 'node:util';
 import assert = require('node:assert');
-import { readFile } from 'node:fs';
+import { access, readFile } from 'node:fs';
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
@@ -42,6 +42,9 @@ util.inspect.replDefaults = {
 util.inspect({
     [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
 });
+
+(options?: util.InspectOptions) => util.inspect({ }, options);
+(showHidden?: boolean) => util.inspect({ }, showHidden);
 
 util.format('%s:%s', 'foo');
 util.format('%s:%s', 'foo', 'bar', 'baz');
@@ -182,8 +185,96 @@ const errorMap: Map<number, [string, string]> = util.getSystemErrorMap();
     const logger: util.DebugLogger = util.debuglog('section');
     logger.enabled; // $ExpectType boolean
     util.debuglog('section', (fn: util.DebugLoggerFunction) => { });
+    util.debug('section', (fn: util.DebugLoggerFunction) => { });
 }
 
 {
     const foo: string = util.toUSVString('foo');
+}
+
+access('file/that/does/not/exist', (err) => {
+    const name = util.getSystemErrorName(err!.errno!);
+    console.error(name);
+});
+
+{
+    util.stripVTControlCharacters('\u001B[4mvalue\u001B[0m'); // $ExpectType string
+}
+
+{
+    // util.parseArgs: happy path
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        allowPositionals: true,
+        options: {
+            foo: { type: 'string' },
+            bar: { type: 'boolean', multiple: true },
+        },
+    } as const;
+
+    // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
+    util.parseArgs(config);
+}
+
+{
+    // util.parseArgs: positionals not enabled
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        options: {
+            foo: { type: 'string' },
+            bar: { type: 'boolean', multiple: true },
+        },
+    } as const;
+
+    // @ts-expect-error
+    util.parseArgs(config).positionals[0];
+}
+
+{
+    // util.parseArgs: tokens
+    // tslint:disable-next-line:no-object-literal-type-assertion
+    const config = {
+        tokens: true,
+        allowPositionals: true,
+        options: {
+            foo: { type: 'string' },
+            bar: { type: 'boolean' },
+        },
+    } as const;
+
+    // tslint:disable-next-line:max-line-length
+    // $ExpectType { kind: "positional"; index: number; value: string; } | { kind: "option-terminator"; index: number; } | { kind: "option"; index: number; name: "foo"; rawName: string; value: string; inlineValue: boolean; } | { kind: "option"; index: number; name: "bar"; rawName: string; value: undefined; inlineValue: undefined; }
+    util.parseArgs(config).tokens[0];
+}
+
+{
+    // util.parseArgs: strict: false
+
+    // $ExpectType { values: { [longOption: string]: string | boolean | undefined; }; positionals: string[]; }
+    const result = util.parseArgs({
+        strict: false,
+    });
+}
+
+{
+    // util.parseArgs: strict: false
+
+    const result = util.parseArgs({
+        strict: false,
+        options: {
+            x: { type: 'string', multiple: true },
+        },
+    });
+    // $ExpectType (string | boolean)[] | undefined
+    result.values.x;
+    // $ExpectType string | boolean | undefined
+    result.values.y;
+}
+
+{
+    // util.parseArgs: config not inferred precisely
+    const config = {};
+
+    // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
+    const result = util.parseArgs(config);
 }

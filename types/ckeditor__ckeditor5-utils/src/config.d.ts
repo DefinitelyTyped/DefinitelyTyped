@@ -1,11 +1,13 @@
+import { EditorConfig } from '@ckeditor/ckeditor5-core/src/editor/editorconfig';
+
 /**
  * Handles a configuration dictionary.
  */
-export default class Config {
+export default class Config<T extends Record<string, any> = Partial<EditorConfig>> {
     /**
      * Creates an instance of the Config class.
      */
-    constructor(configurations?: object, defaultConfigurations?: object);
+    constructor(configurations?: T, defaultConfigurations?: T);
     /**
      * Set configuration values.
      *
@@ -38,22 +40,22 @@ export default class Config {
      *
      *  config.get( 'toolbar.collapsed' ); // true
      *  config.get( 'toolbar.color' ); // 'red'
-     *
-     * configuration entries. Configuration names are case-sensitive.
      */
+    set<K extends keyof T>(name: K, value: T[K]): void;
     set(name: string, value: any): void;
-    set(values: object): void;
+    set<K extends keyof T>(values: Record<K, T[K]>): void;
+    set(values: Record<string, any>): void;
     /**
      * Does exactly the same as {@link #set} with one exception – passed configuration extends
      * existing one, but does not overwrite already defined values.
      *
      * This method is supposed to be called by plugin developers to setup plugin's configurations. It would be
      * rarely used for other needs.
-     *
-     * configuration entries. Configuration names are case-sensitive.
      */
+    define<K extends keyof T>(name: K, value: T[K]): void;
     define(name: string, value: any): void;
-    define(values: object): void;
+    define<K extends keyof T>(values: Record<K, T[K]>): void;
+    define(values: Record<string, any>): void;
     /**
      * Gets the value for a configuration entry.
      *
@@ -64,10 +66,11 @@ export default class Config {
      *  config.get( 'toolbar.collapsed' );
      *
      */
+    get<K extends keyof T>(name: K): T[K];
     get(name: string): any;
     /**
      * Iterates over all top level configuration names.
      *
      */
-    names(): Iterable<string>;
+    names(): Iterable<keyof T>;
 }

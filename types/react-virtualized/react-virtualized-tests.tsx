@@ -196,6 +196,7 @@ export class ArrowKeyStepperESMExample extends PureComponent<any, any> {
 import { List } from 'react-virtualized';
 
 export class AutoSizerExample extends PureComponent<any, any> {
+    context: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -231,6 +232,7 @@ export class AutoSizerExample extends PureComponent<any, any> {
 import ListCJS from 'react-virtualized/dist/commonjs/List';
 
 export class AutoSizerCJSExample extends PureComponent<any, any> {
+    context: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -266,6 +268,7 @@ export class AutoSizerCJSExample extends PureComponent<any, any> {
 import ListESM from 'react-virtualized/dist/commonjs/List';
 
 export class AutoSizerESMExample extends PureComponent<any, any> {
+    context: any;
     render() {
         const { list } = this.context;
         const { hideDescription } = this.state;
@@ -343,8 +346,8 @@ export class DynamicHeightList extends PureComponent<any> {
 
         return (
             <CellMeasurer cache={this._cache} columnIndex={0} key={key} rowIndex={index} parent={parent}>
-                {({ measure }) => (
-                    <div className={classNames} style={style}>
+                {({ measure, registerChild }) => (
+                    <div ref={registerChild as React.Ref<HTMLDivElement>} className={classNames} style={style}>
                         <img
                             onLoad={measure}
                             src={source}
@@ -525,6 +528,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
 }
 
 export class GridExample extends PureComponent<any, any> {
+    context: any;
     state = {
         columnCount: 1000,
         height: 300,
@@ -657,6 +661,7 @@ export class GridExample extends PureComponent<any, any> {
 }
 
 export class GridCJSExample extends PureComponent<any, any> {
+    context: any;
     state = {
         columnCount: 1000,
         height: 300,
@@ -794,6 +799,7 @@ const STATUS_LOADING = 1;
 const STATUS_LOADED = 2;
 
 export class InfiniteLoaderExample extends PureComponent<any, any> {
+    context: any;
     _timeoutIds = new Set<number>();
 
     componentWillUnmount() {
@@ -887,6 +893,7 @@ export class InfiniteLoaderExample extends PureComponent<any, any> {
 }
 
 export class ListExample extends PureComponent<any, any> {
+    context: any;
     constructor(props: any, context: any) {
         super(props, context);
 
@@ -1008,6 +1015,7 @@ import {
 } from 'react-virtualized';
 
 export class GridExample2 extends PureComponent<any, any> {
+    context: any;
     _columnCount: number;
     _cache: CellMeasurerCache;
     _columnHeights: any;
@@ -1435,6 +1443,7 @@ function mixColors(color1: any, color2: any, amount: any) {
 import { Column, Table, SortDirection, SortIndicator } from 'react-virtualized';
 
 export class TableExample extends PureComponent<{}, any> {
+    context: any;
     state = {
         disableHeader: false,
         headerHeight: 30,
@@ -1636,6 +1645,7 @@ export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
 }
 
 export class WindowScrollerExample extends PureComponent<{}, any> {
+    context: any;
     _windowScroller: WindowScroller;
     state = {
         showHeaderText: true,

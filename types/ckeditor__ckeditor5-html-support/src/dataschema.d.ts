@@ -43,12 +43,28 @@ export default class DataSchema extends Plugin {
     registerInlineElement(definition: Partial<DataSchemaInlineElementDefinition>): void;
 
     /**
+     * Updates schema definition describing block element with new properties.
+     *
+     * Creates new scheme if it doesn't exist.
+     * Array properties are concatenated with original values.
+     */
+    extendBlockElement(definition: DataSchemaBlockElementDefinition): void;
+
+    /**
+     * Updates schema definition describing inline element with new properties.
+     *
+     * Creates new scheme if it doesn't exist.
+     * Array properties are concatenated with original values.
+     */
+    extendInlineElement(definition: DataSchemaInlineElementDefinition): void;
+
+    /**
      * Returns all definitions matching the given view name.
      */
     getDefinitionsForView(
         viewName: string | RegExp,
         includeReferences?: boolean,
-    ): Set<DataSchemaInlineElementDefinition|DataSchemaBlockElementDefinition>;
+    ): Set<DataSchemaInlineElementDefinition | DataSchemaBlockElementDefinition>;
 }
 
 export interface DataSchemaDefinition {
@@ -59,13 +75,13 @@ export interface DataSchemaDefinition {
 }
 
 export interface DataSchemaBlockElementDefinition extends DataSchemaDefinition {
-    isBlock: boolean;
-    allowChildren?: string[];
+    isBlock: true;
+    paragraphLikeModel?: string;
 }
 
 export interface DataSchemaInlineElementDefinition extends DataSchemaDefinition {
     attributeProperties?: AttributeProperties | undefined;
-    isInline: boolean;
+    isInline: true;
     priority?: number | undefined;
 }
 

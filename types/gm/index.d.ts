@@ -1,9 +1,8 @@
 // Type definitions for gm 1.18
 // Project: https://github.com/aheckmann/gm
-// Definitions by:  Joel Spadin <https://github.com/ChaosinaCan>
-//                  Maarten van Vliet <https://github.com/maartenvanvliet>
-//                  Vaclav Mlejnsky <https://github.com/mlejva>
-//                  Dimitry Kooijmans <https://github.com/mrcageman>
+// Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
+//                 Vaclav Mlejnsky <https://github.com/mlejva>
+//                 Dimitry Kooijmans <https://github.com/mrcageman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -18,6 +17,7 @@ declare namespace m {
         appPath?: string | undefined;
         imageMagick?: boolean | undefined;
         nativeAutoOrient?: boolean | undefined;
+        timeout?: string | number;
     }
 
     interface ChannelInfo<T> {

@@ -16,6 +16,10 @@ function test_basic_usage() {
     const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
     console.log(dom.window.document.querySelector("p")!.textContent); // "Hello world"
 
+    dom.window; // $ExpectType DOMWindow
+    dom.virtualConsole; // $ExpectType VirtualConsole
+    dom.window.document; // $ExpectType Document
+
     const { window } = new JSDOM(`...`);
     // or even
     const { document } = new JSDOM(`...`).window;
@@ -45,7 +49,7 @@ function test_executing_scripts2() {
 function test_executing_scripts3() {
     const window = new JSDOM(``, { runScripts: "outside-only" }).window;
 
-    window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`);
+    window.eval(`document.body.innerHTML = "<p>Hello, world!</p>";`); // $ExpectType unknown
     window.document.body.children.length === 1;
 }
 
@@ -204,4 +208,35 @@ function test_custom_resource_loader() {
 
 function test_resource_loader_return_type(resourceLoader: ResourceLoader) {
     resourceLoader.fetch("https://example.com", {}); // $ExpectType AbortablePromise<Buffer> | null
+}
+
+function test_createElementDirectTypes() {
+    const dom = new JSDOM('');
+
+    const document = dom.window.document;
+
+    document.createElement('hr'); // $ExpectType HTMLHRElement
+    document.createElement('br'); // $ExpectType HTMLBRElement
+    document.createElement('body'); // $ExpectType HTMLBodyElement
+    document.createElement('head'); // $ExpectType HTMLHeadElement
+    document.createElement('meta'); // $ExpectType HTMLMetaElement
+    document.createElement('html'); // $ExpectType HTMLHtmlElement
+    document.createElement('ul'); // $ExpectType HTMLUListElement
+    document.createElement('ol'); // $ExpectType HTMLOListElement
+    document.createElement('li'); // $ExpectType HTMLLIElement
+    document.createElement('h1'); // $ExpectType HTMLHeadingElement
+    document.createElement('div'); // $ExpectType HTMLDivElement
+    document.createElement('p'); // $ExpectType HTMLParagraphElement
+    document.createElement('pre'); // $ExpectType HTMLPreElement
+    document.createElement('somethingcustom'); // $ExpectType HTMLElement
+}
+
+function test_supported_contenttypes() {
+    new JSDOM('', { contentType: 'application/xhtml+xml' });
+    new JSDOM('', { contentType: 'application/xml' });
+    new JSDOM('', { contentType: 'text/xml' });
+    new JSDOM('', { contentType: 'text/html' });
+    new JSDOM('', { contentType: 'image/svg+xml' });
+    // @ts-expect-error Only the supported types are possible
+    new JSDOM('', { contentType: 'somethingelse' });
 }

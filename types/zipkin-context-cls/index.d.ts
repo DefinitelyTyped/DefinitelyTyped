@@ -11,7 +11,7 @@ declare class CLSContext implements Context<any> {
     getContext(): TraceId;
     scoped<V>(callback: () => V): V;
     letContext<V>(ctx: TraceId, callback: () => V): V;
-    constructor(name: string)
+    constructor(name: string, supportAsyncAwait?: boolean)
 }
 
 export = CLSContext;

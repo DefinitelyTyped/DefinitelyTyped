@@ -1,5 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
+        "only-arrow-functions": false,
+        "await-promise": [true, "PromiseLike"]
     }
 }

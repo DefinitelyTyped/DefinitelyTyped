@@ -33,6 +33,7 @@ declare namespace WebTorrent {
 
     interface TorrentOptions {
         announce?: string[] | undefined;
+        announceList?: string[][] | undefined;
         getAnnounceOpts?(): void;
         urlList?: string[] | undefined;
         maxWebConns?: number | undefined;
@@ -89,6 +90,8 @@ declare namespace WebTorrent {
         readonly files: TorrentFile[];
 
         readonly announce: string[];
+
+        readonly ['announce-list']: string[][];
 
         readonly pieces: Array<TorrentPiece | null>;
 

@@ -1,6 +1,6 @@
 // Type definitions for webpack-pkg-plugin-v4 2.0
 // Project: https://github.com/Metnew/webpack-pkg-plugin#readme
-// Definitions by: danpintara <https://github.com/danpintara>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 

@@ -15,10 +15,13 @@ let withCredentials: boolean = eventSource.withCredentials;
 eventSource.onmessage = (event: MessageEvent) => {};
 eventSource.onerror = (event: MessageEvent) => {};
 eventSource.onopen = (event: MessageEvent) => {};
-eventSource.addEventListener = (type: string, listener: EventListener) => {};
+eventSource.addEventListener = (type: string, listener: (event: MessageEvent) => void) => {};
 eventSource.dispatchEvent = (event: Event) => true;
-eventSource.removeEventListener = (type: string, listener: EventListener) => {};
+eventSource.removeEventListener = (type: string, listener: (event: MessageEvent) => void) => {};
 eventSource.close();
+
+eventSource.addEventListener("custom", (e: Event) => {});
+eventSource.addEventListener("custom", (e: MessageEvent) => {});
 
 import EventSourcePolyfill = require("eventsource/lib/eventsource-polyfill");
 
@@ -35,7 +38,7 @@ withCredentials = eventSource.withCredentials;
 eventSourcePolyfill.onmessage = (event: MessageEvent) => {};
 eventSourcePolyfill.onerror = (event: MessageEvent) => {};
 eventSourcePolyfill.onopen = (event: MessageEvent) => {};
-eventSourcePolyfill.addEventListener = (type: string, listener: EventListener) => {};
+eventSourcePolyfill.addEventListener = (type: string, listener: (event: MessageEvent) => void) => {};
 eventSourcePolyfill.dispatchEvent = (event: Event) => true;
-eventSourcePolyfill.removeEventListener = (type: string, listener: EventListener) => {};
+eventSourcePolyfill.removeEventListener = (type: string, listener: (event: MessageEvent) => void) => {};
 eventSourcePolyfill.close();

@@ -34,6 +34,7 @@ lookup.street = '4646 Scott St';
 lookup.city = 'Houston';
 lookup.state = 'TX';
 lookup.zipCode = '77004';
+lookup.addressee = 'addressee';
 batch.add(lookup);
 client
     .send(batch)

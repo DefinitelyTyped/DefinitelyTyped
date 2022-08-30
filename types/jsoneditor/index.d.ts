@@ -1,4 +1,4 @@
-// Type definitions for jsoneditor 8.6
+// Type definitions for jsoneditor 9.5
 // Project: https://github.com/josdejong/jsoneditor
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Errietta Kostala <https://github.com/errietta>
@@ -594,6 +594,11 @@ export default class JSONEditor {
      * Also see `setText()`. This method throws an exception when the provided jsonString does not contain valid JSON and the editor is in mode 'tree', 'view', or 'form'.
      */
     updateText(jsonString: string): void;
+    /**
+     * Validate the JSON document against the configured JSON schema or custom validator. See also the `onValidationError` callback.
+     * Returns a promise which resolves with the current validation errors, or an empty list when there are no errors.
+     */
+    validate(): Promise<ReadonlyArray<SchemaValidationError | ParseError>>;
 
     /**
      * An array with the names of all known options.

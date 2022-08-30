@@ -1,25 +1,27 @@
-// Type definitions for multistream 2.1
+// Type definitions for multistream 4.1
 // Project: https://github.com/feross/multistream
-// Definitions by: mrmlnc <https://github.com/mrmlnc>, Kenzie Togami <https://github.com/kenzierocks>
+// Definitions by: mrmlnc <https://github.com/mrmlnc>, mpvharmelen <https://github.com/mpvharmelen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-import { Stream } from 'stream';
+import { Stream, Readable as ReadableStream, ReadableOptions } from 'stream';
 
-declare function multistream(streams: multistream.Streams): NodeJS.ReadableStream;
+declare class MultiStream extends ReadableStream {
+    constructor(streams: MultiStream.Streams, opts?: ReadableOptions);
+}
 
 interface FactoryStreamCallback {
-    (err: Error | null, stream: null): any;
-    (err: null, stream: NodeJS.ReadableStream): any;
+    (err: Error | null, stream: null): void;
+    (err: null, stream: ReadableStream): void;
 }
 
-declare namespace multistream {
+declare namespace MultiStream {
     type LazyStream = () => Stream;
     type FactoryStream = (cb: FactoryStreamCallback) => void;
-    type Streams = Array<LazyStream | NodeJS.ReadableStream> | FactoryStream;
+    type Streams = Array<LazyStream | ReadableStream> | FactoryStream;
 
-    function obj(streams: Streams): NodeJS.ReadableStream;
+    function obj(streams: Streams): MultiStream;
 }
 
-export = multistream;
+export = MultiStream;

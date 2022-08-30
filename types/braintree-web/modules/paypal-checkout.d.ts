@@ -16,6 +16,7 @@ export interface PayPalCheckoutCreatePaymentOptions {
     enableShippingAddress?: boolean | undefined;
     shippingAddressOverride?: paypal.Address | undefined;
     shippingAddressEditable?: boolean | undefined;
+    requestBillingAgreement?: boolean | undefined;
     billingAgreementDescription?: string | undefined;
     landingPageType?: string | undefined;
     lineItems?: paypal.LineItem[] | undefined;
@@ -168,7 +169,7 @@ export interface PayPalCheckout {
      *
      * @link https://braintree.github.io/braintree-web/current/PayPalCheckout.html#loadPayPalSDK
      */
-    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<void>;
+    loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions): Promise<PayPalCheckout>;
     loadPayPalSDK(options?: PayPalCheckoutLoadPayPalSDKOptions, callback?: callback): void;
 
     /**

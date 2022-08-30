@@ -134,7 +134,7 @@ root = {
     type: 'root',
     data,
     position,
-    // $ExpectError
+    // @ts-expect-error
     children: [{ type: 'invalid' }],
 };
 
@@ -143,6 +143,6 @@ element = {
     name: 'foo',
     data,
     position,
-    // $ExpectError
+    // @ts-expect-error
     children: [{ type: 'invalid' }],
 };

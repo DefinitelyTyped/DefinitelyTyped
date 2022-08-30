@@ -39,7 +39,7 @@ declare namespace Ffmpeg {
         options?: any | string | any[] | undefined;
     }
 
-    type GetPreset = (command: FfmpegCommand) => string;
+    type PresetFunction = (command: FfmpegCommand) => void;
 
     interface Filter {
         description: string;
@@ -178,7 +178,7 @@ declare namespace Ffmpeg {
         size?: number | undefined;
         bit_rate?: number | undefined;
         probe_score?: number | undefined;
-        tags?: any[] | undefined;
+        tags?: Record<string, string | number> | undefined;
     }
 
     interface ScreenshotsConfig {
@@ -320,7 +320,6 @@ declare namespace Ffmpeg {
         map(spec: string): FfmpegCommand;
         updateFlvMetadata(): FfmpegCommand;
         flvmeta(): FfmpegCommand;
-        preset(format: string): FfmpegCommand;
 
         // options/custom
         addInputOption(options: string[]): FfmpegCommand;
@@ -359,8 +358,8 @@ declare namespace Ffmpeg {
         complexFilter(spec: string | FilterSpecification | Array<string | FilterSpecification>, map?: string[] | string): FfmpegCommand;
 
         // options/misc
-        usingPreset(proset: string | GetPreset): FfmpegCommand;
-        pnreset(proset: string | GetPreset): FfmpegCommand;
+        usingPreset(preset: string | PresetFunction): FfmpegCommand;
+        preset(preset: string | PresetFunction): FfmpegCommand;
 
         // processor
         renice(niceness: number): FfmpegCommand;

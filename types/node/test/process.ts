@@ -20,10 +20,11 @@ import EventEmitter = require('node:events');
     process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
     process.on("uncaughtException", (error: Error, origin: NodeJS.UncaughtExceptionOrigin) => { });
     process.once("uncaughtExceptionMonitor", (error: Error) => { });
-    process.addListener("unhandledRejection", (reason: {} | null | undefined, promise: Promise<any>) => { });
+    process.addListener("unhandledRejection", (reason: unknown, promise: Promise<unknown>) => { });
     process.once("warning", (warning: Error) => { });
     process.prependListener("message", (message: any, sendHandle: any) => { });
     process.prependOnceListener("SIGBREAK", () => { });
+    process.emit("SIGINT");
     process.on("newListener", (event: string | symbol, listener: Function) => { });
     process.once("removeListener", (event: string | symbol, listener: Function) => { });
     process.on("multipleResolves", (type: NodeJS.MultipleResolveType, prom: Promise<any>, value: any) => {});
@@ -124,3 +125,55 @@ const hrtimeBigint: bigint = process.hrtime.bigint();
 process.allowedNodeEnvironmentFlags.has('asdf');
 
 process.env.TZ = 'test';
+
+{
+    const arch: NodeJS.Architecture = process.arch;
+}
+
+{
+    // @ts-expect-error
+    process.getgid();
+    // $ExpectType number | undefined
+    process.getgid?.();
+    // @ts-expect-error
+    process.setgid(1);
+    // $ExpectType void | undefined
+    process.setgid?.(1);
+    // @ts-expect-error
+    process.getuid();
+    // $ExpectType number | undefined
+    process.getuid?.();
+    // @ts-expect-error
+    process.setuid(1);
+    // $ExpectType void | undefined
+    process.setuid?.(1);
+    // @ts-expect-error
+    process.geteuid();
+    // $ExpectType number | undefined
+    process.geteuid?.();
+    // @ts-expect-error
+    process.seteuid(1);
+    // $ExpectType void | undefined
+    process.seteuid?.(1);
+    // @ts-expect-error
+    process.getegid();
+    // $ExpectType number | undefined
+    process.getegid?.();
+    // @ts-expect-error
+    process.setegid(1);
+    // $ExpectType void | undefined
+    process.setegid?.(1);
+    // @ts-expect-error
+    process.getgroups();
+    // $ExpectType number[] | undefined
+    process.getgroups?.();
+    // @ts-expect-error
+    process.setgroups([1]);
+    // $ExpectType void | undefined
+    process.setgroups?.([1]);
+
+    if (process.getuid) {
+        // $ExpectType number
+        process.getuid();
+    }
+}

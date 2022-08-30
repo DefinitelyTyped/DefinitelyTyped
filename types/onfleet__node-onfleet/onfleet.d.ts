@@ -32,7 +32,14 @@ declare class Onfleet {
         };
     };
 
-    constructor(api_key: string, timeout?: number, bottleneckOptions?: BottleneckOptions, baseURL?: string);
+    constructor(
+        api_key: string,
+        timeout?: number,
+        bottleneckOptions?: BottleneckOptions,
+        baseURL?: string,
+        defaultPath?: string,
+        defaultApiVersion?: string,
+    );
     verifyKey(): Promise<boolean>;
 
     administrators: Administrators;

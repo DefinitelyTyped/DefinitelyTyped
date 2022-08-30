@@ -1,4 +1,4 @@
-// Type definitions for node-email-templates 8.0
+// Type definitions for node-email-templates 10.0
 // Project: https://github.com/forwardemail/email-templates
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Matus Gura <https://github.com/gurisko>
@@ -219,7 +219,7 @@ declare class Email<T = any> {
     juiceResources(html: string, options?: juice.Options): Promise<string>;
 
     /**
-     *
+     * @async
      * @param view The Html pug to render
      * @param locals The template Variables
      */
@@ -229,6 +229,7 @@ declare class Email<T = any> {
      * Render all available template files for a given email
      * template (e.g. `html.pug`, `text.pug`, and `subject.pug`)
      *
+     * @async
      * @param view Name of the template
      * @param locals The template variables
      */
@@ -236,6 +237,7 @@ declare class Email<T = any> {
 
     /**
      * Send the Email
+     * @async
      */
     send(options?: Email.EmailOptions<T>): Promise<any>;
 }

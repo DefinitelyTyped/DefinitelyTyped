@@ -1,8 +1,9 @@
-// Type definitions for AFRAME 1.0
+// Type definitions for AFRAME 1.2
 // Project: https://aframe.io/
 // Definitions by: Paul Shannon <https://github.com/devpaul>
 //                 Roberto Ritger <https://github.com/bertoritger>
 //                 Trygve Wastvedt <https://github.com/twastvedt>
+//                 Marc Buils <https://github.com/metapins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
@@ -10,12 +11,12 @@
  * Extended tests and examples available at https://github.com/devpaul/aframe-experiments.git
  */
 
+import * as anime from 'animejs';
 import * as three from 'three';
 import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
-import * as tween from '@tweenjs/tween.js';
 
 export type ThreeLib = typeof three;
-export type TweenLib = typeof tween;
+export type AnimeLib = typeof anime;
 
 export interface ObjectMap<T = any> {
     [key: string]: T;
@@ -404,7 +405,7 @@ export interface AFrame {
     shaders: ObjectMap<ShaderDescriptor>;
     systems: ObjectMap<SystemConstructor>;
     THREE: ThreeLib;
-    TWEEN: TweenLib;
+    ANIME: AnimeLib;
     utils: Utils;
     version: string;
 
@@ -441,7 +442,7 @@ export const schema: AFrame['schema'];
 export const shaders: AFrame['shaders'];
 export const systems: AFrame['systems'];
 export const THREE: AFrame['THREE'];
-export const TWEEN: AFrame['TWEEN'];
+export const ANIME: AFrame['ANIME'];
 export const utils: AFrame['utils'];
 export const version: AFrame['version'];
 export const registerComponent: AFrame['registerComponent'];
@@ -468,7 +469,7 @@ declare global {
         const shaders: AFrame['shaders'];
         const systems: AFrame['systems'];
         const THREE: AFrame['THREE'];
-        const TWEEN: AFrame['TWEEN'];
+        const ANIME: AFrame['ANIME'];
         const utils: AFrame['utils'];
         const version: string;
 

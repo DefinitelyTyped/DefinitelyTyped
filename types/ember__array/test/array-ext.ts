@@ -7,7 +7,7 @@ declare global {
 }
 
 class Person extends EmberObject {
-    name: string;
+    declare name: string;
 }
 
 const person = Person.create({ name: 'Joe' });

@@ -1,17 +1,20 @@
-// Type definitions for jsdom 16.2
+// Type definitions for jsdom 20.0
 // Project: https://github.com/jsdom/jsdom
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
 //                 ExE Boss <https://github.com/ExE-Boss>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.5
 
-/// <reference path="ts4.0/index.d.ts"/>
+/// <reference path="base.d.ts"/>
 
 // tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module "jsdom" {
     interface DOMWindow {
         FinalizationRegistry: FinalizationRegistryConstructor;
         WeakRef: WeakRefConstructor;
+        InputEvent: typeof InputEvent;
+        External: typeof External;
     }
 }
 

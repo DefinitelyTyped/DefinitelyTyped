@@ -80,16 +80,22 @@ import * as saml2 from 'saml2-js';
 
     // Assert endpoint for when login completes
     app.post('/assert', function(req, res) {
-        const options = { request_body: req.body };
+        const options = {
+            request_body: req.body,
+            notbefore_skew: 5,
+        };
         sp.post_assert(idp, options, function(err, saml_response) {
             if (err != null) return res.send(500);
 
+            let response_id: string = saml_response.response_header.id;
+            let request_id: string = saml_response.response_header.in_response_to;
+
             // Save name_id and session_index for logout
             // Note:  In practice these should be saved in the user session, not globally.
-            let name_id = saml_response.user.name_id;
-            let session_index = saml_response.user.session_index;
+            let name_id: string = saml_response.user.name_id;
+            let session_index: string | undefined = saml_response.user.session_index;
 
-            res.send('Hello #{saml_response.user.name_id}!');
+            res.send(`Hello ${saml_response.user.name_id}!`);
         });
     });
 

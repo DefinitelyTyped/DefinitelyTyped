@@ -1,12 +1,17 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "no-duplicate-imports": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "space-before-function-paren": false,
-        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
+        "npm-naming": [
+            true,
+            {
+                "mode": "code",
+                "errors": [["NeedsExportEquals", false]]
+            }
+        ]
     }
 }

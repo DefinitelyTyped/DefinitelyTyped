@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 52.0
+// Type definitions for @nginstack/engine 63.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -32,7 +32,10 @@
 /// <reference path="lib/array/listToArray.d.ts" />
 /// <reference path="lib/array/remove.d.ts" />
 /// <reference path="lib/array/removeAt.d.ts" />
+/// <reference path="lib/array/split.d.ts" />
+/// <reference path="lib/array/splitIntoChunks.d.ts" />
 /// <reference path="lib/barcode/Barcode.d.ts" />
+/// <reference path="lib/barcode/QRCode.d.ts" />
 /// <reference path="lib/classdef/AfterPersistEvent.d.ts" />
 /// <reference path="lib/classdef/BeforePersistEvent.d.ts" />
 /// <reference path="lib/classdef/ClassDef.d.ts" />
@@ -240,7 +243,6 @@
 /// <reference path="lib/i18n/NumberFormat.d.ts" />
 /// <reference path="lib/i18n/ResourceString.d.ts" />
 /// <reference path="lib/i18n/symbols/pt-BR.d.ts" />
-/// <reference path="lib/ido/BackupEventReader.d.ts" />
 /// <reference path="lib/ido/IdoDB.d.ts" />
 /// <reference path="lib/ido/IdoDBManager.d.ts" />
 /// <reference path="lib/image/getMainImageUrl.d.ts" />
@@ -401,7 +403,6 @@
 /// <reference path="lib/sync/sleep.d.ts" />
 /// <reference path="lib/sync/SyncEvent.d.ts" />
 /// <reference path="lib/testing/assert.d.ts" />
-/// <reference path="lib/testing/AssertionError.d.ts" />
 /// <reference path="lib/testing/classdef/testModelDefs.d.ts" />
 /// <reference path="lib/testing/classdef/testViewDefs.d.ts" />
 /// <reference path="lib/testing/dataset/addFields.d.ts" />

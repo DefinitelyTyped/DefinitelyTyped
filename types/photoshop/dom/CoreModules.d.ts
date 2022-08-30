@@ -1,3 +1,4 @@
+import { ColorDescriptor } from "../util/colorTypes";
 /** @ignore */
 declare type NotificationListener = (name: string, descriptor: ActionDescriptor) => void;
 export interface ActionDescriptor {
@@ -16,6 +17,49 @@ export interface BatchPlayCommandOptions {
         target: object;
     };
     modalBehavior?: "wait" | "execute" | "fail";
+}
+/**
+ * These internal numbers are used by Photoshop as target color spaces during [[photoshopCore.convertColor]] calls.
+ */
+export declare const enum ColorConversionModel {
+    "RGB" = 15,
+    "HSB" = 4,
+    "CMYK" = 5,
+    "Lab" = 6,
+    "Gray" = 16
+}
+export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
+export interface CPUInfo {
+    vendor: CPUVendorKind;
+    physicalCores: number;
+    logicalCores: number;
+    frequencyMhz: number;
+    emulationMode?: "rosetta2";
+}
+export interface OpenGLDeviceInfo {
+    version: string;
+    memoryMB: number;
+    name: string;
+    driverVersion: string;
+    vendor: string;
+    isIntegrated: string;
+    glDriver: string;
+}
+export interface OpenCLDeviceInfo {
+    version: string;
+    memoryMB: number;
+    name: string;
+    driverVersion: string;
+    vendor: string;
+    isIntegrated: string;
+    oclBandwidth: number;
+    oclCompute: number;
+    clDeviceVersion: string;
+    clPlatformVersion: string;
+}
+export interface GPUInfo {
+    gpuInfoList?: OpenGLDeviceInfo[];
+    clgpuInfoList?: OpenCLDeviceInfo[];
 }
 /**
  * The module that facilitates Actions being performed in the
@@ -76,6 +120,11 @@ export declare namespace photoshopCore {
      */
     let apiVersion: number;
     /**
+     * Given a Photoshop ZString (of format `"$$$/slash/separated/key=english default value"`),
+     * will return the translated string for the current UI language
+     */
+    function translateUIString(zstring: string): string;
+    /**
      * Invokes the menu command via its `commandID`. Returns false
      * on failure, or if the command is not available.
      * ```javascript
@@ -122,6 +171,26 @@ export declare namespace photoshopCore {
         classID: string;
     }>;
     /**
+     * Returns information about the host CPU.
+     * ```javascript
+     * { logicalCores, frequencyMhz, vendor } = PhotoshopCore.getCPUInfo()
+     * var isAMD = vendor === "AMD"
+     * var isARM = vendor === "ARM"
+     * ```
+     */
+    function getCPUInfo(): CPUInfo;
+    /**
+     * Returns OpenGL and OpenCL information about the available graphics processor.
+     * ```javascript
+     * { gpuInfoList, clgpuInfoList } = PhotoshopCore.getGPUInfo()
+     * console.log(JSON.stringify(gpuInfoList))
+     * // > [{"version":"2.1 ATI-4.5.14","memoryMB":8192,"name":"16915464", ...}]
+     * console.log(JSON.stringify(clgpuInfoList))
+     * // > [{"version":"OpenCL 1.2 ","memoryMB":8589,"name":"AMD Radeon Pro 580X Compute Engine", ...}]
+     * ```
+     */
+    function getGPUInfo(): GPUInfo;
+    /**
      * End the current modal tool editing state.
      * ```javascript
      * // close the modal dialog, cancelling changes
@@ -158,13 +227,27 @@ export declare namespace photoshopCore {
     }>;
     /**
      * ExecuteAsModal is needed when a plugin wants to make modifications to the Photoshop state.
-     * This includes scenarios where the plugin wants to create or modify documents, or the plugin wants to update UI or preference state.
+     * This includes scenarios where the plugin wants to create or modify documents,
+     * or the plugin wants to update UI or preference state.
      *
      * ExecuteAsModal is only available to plugin that is using apiVersion 2 or higher.
      *
-     * See [Modal Execution](../executeAsModal) for details
+     * See [Modal Execution](../executeasmodal) for details
      */
     function executeAsModal(targetFunction: (executionContext: ExecutionContext) => Promise<any>, options: ExecuteAsModalOptions): Promise<void>;
+    /**
+     * Converts the given color (in descriptor form) to the
+     * given color space, returning the color descriptor.
+     *
+     * This is an internal API that is used for [[SolidColor]]
+     * and all the other color classes.
+     *
+     * Currently, this API uses the application color settings
+     * for conversion (Edit > Color Settings...). '
+     * In the future, we will provide color conversion
+     * based on embedded color profiles.
+     */
+    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel): ColorDescriptor;
 }
 export interface ExecuteAsModalOptions {
     /**
@@ -172,6 +255,25 @@ export interface ExecuteAsModalOptions {
      */
     commandName: string;
 }
+/**
+ * Options for the history state that [[Document.suspendHistory]] will create
+ */
+export interface HistoryStateInfo {
+    /**
+     * Name of the history state to be shown in History panel
+     */
+    name: string;
+    /**
+     * A single document reference in an array with `_id` of the document whose history will be suspended
+     */
+    target: [{
+        _ref: "document";
+        _id: number;
+    }];
+}
+/**
+ * This object is passed to the callback of `core.executeAsModal` for modality related APIs
+ */
 export interface ExecutionContext {
     /**
      * True if user has cancelled the modal interaction.
@@ -192,13 +294,15 @@ export interface ExecutionContext {
      */
     hostControl: {
         /**
-         * Call to suspend history on a target document
+         * Call to suspend history on a target document, returns the suspension ID which can be used for resumeHistory
          */
-        suspendHistory: void;
+        suspendHistory: (info: {
+            historyStateInfo: HistoryStateInfo;
+        }) => Promise<number>;
         /**
          * Call to resume history on a target document
          */
-        resumeHistory: void;
+        resumeHistory: (suspensionID: number) => void;
     };
 }
 export {};

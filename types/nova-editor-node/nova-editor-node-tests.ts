@@ -63,6 +63,25 @@ nova.config.get('test', 'array');
 
 /// https://novadocs.panic.com/api-reference/assistants-registry/
 
+nova.assistants.registerColorAssistant(['foo'], {
+    async provideColors(editor, context) {
+        // $ExpectType TextEditor
+        editor;
+        // $ExpectType ColorInformationContext
+        context;
+        return [colorInformation];
+    },
+    async provideColorPresentations(color, editor, context) {
+        // $ExpectType Color
+        color;
+        // $ExpectType TextEditor
+        editor;
+        // $ExpectType ColorPresentationContext
+        context;
+        return [colorPresentation];
+    },
+});
+
 nova.assistants.registerCompletionAssistant('foo', {
     async provideCompletionItems(editor, context) {
         // $ExpectType TextEditor
@@ -90,6 +109,17 @@ completionItem.insertTextFormat = InsertTextFormat.Snippet;
 completionItem.insertText = 'text to insert';
 completionItem.commitChars = new Charset('-');
 
+/// https://docs.nova.app/api-reference/color-information/
+
+const colorInformation = new ColorInformation(
+    new Range(4, 2),
+    new Color(ColorFormat.rgb, [1, 0, 0.5, 1])
+);
+
+/// https://docs.nova.app/api-reference/color-presentation/
+
+const colorPresentation = new ColorPresentation('#000000', 'hex');
+
 /// https://novadocs.panic.com/api-reference/emitter/
 
 const emitter = new Emitter();
@@ -103,7 +133,7 @@ function doTask() {
 /// https://novadocs.panic.com/api-reference/file-system/
 
 nova.fs.copyAsync('src', 'dst', function callback(err) {
-    // $ExpectError
+    // @ts-expect-error
     this;
     // $ExpectType Error | undefined
     err;
@@ -122,7 +152,7 @@ nova.fs.copyAsync(
 );
 
 nova.fs.moveAsync('src', 'dst', function callback(err) {
-    // $ExpectError
+    // @ts-expect-error
     this;
     // $ExpectType Error | undefined
     err;
@@ -239,6 +269,21 @@ process.onRequest('getCount', request => {
     });
 });
 
+// $ExpectType WritableStream<any> | null
+process.stdin;
+// $ExpectType WritableStreamDefaultWriter<any> | undefined
+process.stdin?.getWriter();
+
+// $ExpectType ReadableStream<any> | null
+process.stdout;
+// $ExpectType ReadableStreamDefaultReader<any> | undefined
+process.stdout?.getReader();
+
+// $ExpectType ReadableStream<any> | null
+process.stderr;
+// $ExpectType ReadableStreamDefaultReader<any> | undefined
+process.stderr?.getReader();
+
 /// https://novadocs.panic.com/api-reference/scanner/
 
 const scanner = new Scanner('Foobar abc 12.0');
@@ -305,7 +350,7 @@ action2.data;
 
 /// https://novadocs.panic.com/api-reference/text-editor/
 
-// $ExpectError
+// @ts-expect-error
 new TextEditor();
 
 declare const editor: TextEditor;
@@ -358,7 +403,7 @@ nova.workspace.showInputPalette('This is an input', {
 nova.workspace.openFile("file:///tmp/test/txt");
 nova.workspace.openFile("file:///tmp/test/txt", { line: 1 });
 nova.workspace.openFile("file:///tmp/test/txt", { line: 1, column: 2 });
-// $ExpectError
+// @ts-expect-error
 nova.workspace.openFile("file:///tmp/test/txt", { column: 2 });
 nova.workspace.openNewTextDocument();
 nova.workspace.openNewTextDocument({ content: "<!doctype html>" });
@@ -367,6 +412,6 @@ nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html" 
 nova.workspace.openNewTextDocument({ line: 1 });
 nova.workspace.openNewTextDocument({ line: 1, column: 2 });
 nova.workspace.openNewTextDocument({ syntax: "html", line: 1 });
-// $ExpectError
+// @ts-expect-error
 nova.workspace.openNewTextDocument({ syntax: "html", column: 2 });
 nova.workspace.openNewTextDocument({ content: "<!doctype html>", syntax: "html", line: 1, column: 2 });

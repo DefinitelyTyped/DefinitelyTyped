@@ -1,7 +1,23 @@
+import stream = require("stream");
 import RStream = require("readable-stream");
 
+function testTypes() {
+    const ANY: any = undefined;
+    const _readableOpts: stream.ReadableOptions = ANY as RStream.ReadableOptions;
+    const _writableOpts: stream.WritableOptions = ANY as RStream.WritableOptions;
+    const _transformOpts: stream.TransformOptions = ANY as RStream.TransformOptions;
+    const _duplexOpts: stream.DuplexOptions = ANY as RStream.DuplexOptions;
+
+    const _readable: stream.Readable = new RStream.Readable(_readableOpts);
+    const _writable: stream.Writable = new RStream.Writable(_writableOpts);
+    const _transform: stream.Transform = new RStream.Transform(_transformOpts);
+    const _duplex: stream.Duplex = new RStream.Duplex(_duplexOpts);
+
+    _readable.pipe(_duplex).pipe(_transform).pipe(_writable);
+}
+
 function test() {
-    const rs: RStream.Stream = (null as any) as RStream.Stream;
+    const rs: stream.Stream = (null as any) as RStream.Stream;
     const RS_Readable = RStream;
     const RS_Writable = RStream.Writable;
     const RS_Transform = RStream.Transform;

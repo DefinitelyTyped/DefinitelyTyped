@@ -8,7 +8,7 @@
 /// <reference types="google.visualization" />
 
 export namespace dygraphs {
-    type DataArray = Array<Array<number | Date | null>>;
+    type DataArray = Array<Array<number | number[] | Date | null>>;
 
     type Data = string | DataArray | google.visualization.DataTable;
 

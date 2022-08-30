@@ -15,9 +15,11 @@ duplexify.obj(writable, readable, {});
 
 const d: duplexify.Duplexify = duplexify();
 d.setReadable(readable);
-d.setReadable(); // $ExpectError
+// @ts-expect-error
+d.setReadable();
 d.setWritable(writable);
-d.setWritable(); // $ExpectError
+// @ts-expect-error
+d.setWritable();
 d.cork();
 d.uncork();
 

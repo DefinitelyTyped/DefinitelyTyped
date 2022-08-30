@@ -37,7 +37,7 @@ export interface MeshPhongMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
@@ -204,6 +204,12 @@ export class MeshPhongMaterial extends Material {
      * @deprecated Use {@link MeshStandardMaterial THREE.MeshStandardMaterial} instead.
      */
     metal: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshPhongMaterialParameters): void;
 }

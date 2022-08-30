@@ -2,7 +2,8 @@
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Vesa Poikajärvi <https://github.com/vesse>
-//                 Ian Serpa <http://github.com/ianldgs>
+//                 Ian Serpa <https://github.com/ianldgs>
+//                 Ryan Williams <https://github.com/RyWilliams>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
 
@@ -26,6 +27,7 @@ declare function Bookshelf(knex: knex): Bookshelf;
 
 declare namespace Bookshelf {
     type SortOrder = 'ASC' | 'asc' | 'DESC' | 'desc';
+    type Relations = string | WithRelatedQuery | (string | WithRelatedQuery)[];
 
     abstract class Events<T> {
         on(event?: string, callback?: EventFunction<T>, context?: any): void;
@@ -124,6 +126,7 @@ declare namespace Bookshelf {
          */
         fetch(options?: FetchOptions): BlueBird<T>;
         fetchAll(options?: FetchAllOptions): BlueBird<Collection<T>>;
+        fetchPage(options?: FetchPageOptions): BlueBird<Collection<T> & Pagination>;
         hasMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             foreignKey?: string,
@@ -134,7 +137,7 @@ declare namespace Bookshelf {
             foreignKey?: string,
             foreignKeyTarget?: string,
         ): R;
-        load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
+        load(relations: Relations, options?: SyncOptions): BlueBird<T>;
         morphMany<R extends Model<any>>(
             target: { new (...args: any[]): R },
             name?: string,
@@ -212,7 +215,12 @@ declare namespace Bookshelf {
         slice(begin?: number, end?: number): void;
         toJSON(options?: SerializeOptions): any[];
         unshift(model: any, options?: CollectionAddOptions): void;
-        where(match: { [key: string]: any }, firstOnly: boolean): T | Collection<T>;
+        where(match: { [key: string]: any }): Collection<T>;
+        where(
+            key: string,
+            operatorOrValue: string | number | boolean,
+            valueIfOperator?: string | string[] | number | number[] | boolean,
+        ): Collection<T>;
 
         // lodash methods
         includes(value: any, fromIndex?: number): boolean;
@@ -289,7 +297,7 @@ declare namespace Bookshelf {
         detach(ids: any[], options?: SyncOptions): BlueBird<any>;
         detach(options?: SyncOptions): BlueBird<any>;
         fetchOne(options?: CollectionFetchOneOptions): BlueBird<T>;
-        load(relations: string | string[], options?: SyncOptions): BlueBird<Collection<T>>;
+        load(relations: Relations, options?: SyncOptions): BlueBird<Collection<T>>;
         orderBy(column: string, order?: SortOrder): Collection<T>;
 
         // Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
@@ -317,10 +325,6 @@ declare namespace Bookshelf {
         parse?: boolean | undefined;
     }
 
-    interface LoadOptions extends SyncOptions {
-        withRelated: (string | WithRelatedQuery)[];
-    }
-
     interface FetchOptions extends SyncOptions {
         /** @default true */
         require?: boolean | undefined;
@@ -329,10 +333,27 @@ declare namespace Bookshelf {
     }
 
     interface WithRelatedQuery {
-        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder;
+        [index: string]: (query: Knex.QueryBuilder) => Knex.QueryBuilder | void;
     }
 
     interface FetchAllOptions extends FetchOptions {}
+
+    interface FetchPageOptions extends FetchOptions {
+        pageSize?: number;
+        page?: number;
+        limit?: number;
+        offset?: number;
+        disableCount?: boolean;
+    }
+
+    interface Pagination {
+        pagination: {
+            rowCount: number;
+            pageCount: number;
+            page: number;
+            pageSize: number;
+        }
+    }
 
     interface SaveOptions extends SyncOptions {
         method?: string | undefined;

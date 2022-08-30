@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-model 1.13
+// Type definitions for prosemirror-model 1.16
 // Project: https://github.com/ProseMirror/prosemirror-model
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
@@ -7,6 +7,7 @@
 //                 Patrick Simmelbauer <https://github.com/patsimm>
 //                 Anthony Weston <https://github.com/AnthonyWeston>
 //                 Martin Staffa <https://github.com/Narretz>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -104,7 +105,12 @@ export class Fragment<S extends Schema = any> {
     /**
      * Extract the text between `from` and `to`. See the same method on {@link ProsemirrorNode.textBetween}
      */
-    textBetween(from: number, to: number, blockSeparator?: string | null, leafText?: string | null): string;
+    textBetween(
+        from: number,
+        to: number,
+        blockSeparator?: string | null,
+        leafText?: string | ((leafNode: ProsemirrorNode) => string) | null,
+    ): string;
     /**
      * Create a new fragment containing the combined content of this
      * fragment and the other.
@@ -556,7 +562,12 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * block node is started. When `leafText` is given, it'll be
      * inserted for every non-text leaf node encountered.
      */
-    textBetween(from: number, to: number, blockSeparator?: string, leafText?: string): string;
+    textBetween(
+        from: number,
+        to: number,
+        blockSeparator?: string,
+        leafText?: string | ((leafNode: ProsemirrorNode) => string) | null,
+    ): string;
     /**
      * Returns this node's first child, or `null` if there are no
      * children.
@@ -671,6 +682,10 @@ declare class ProsemirrorNode<S extends Schema = any> {
      * uneditable [node view](#view.NodeView)).
      */
     isAtom: boolean;
+    /**
+     * The node type's [whitespace](#view.NodeSpec.whitespace) option.
+     */
+    whitespace: 'pre' | 'normal';
     /**
      * Return a string representation of this node for debugging
      * purposes.
@@ -1195,14 +1210,37 @@ export interface NodeSpec {
      */
     code?: boolean | null | undefined;
     /**
+     * Controls way whitespace in this a node is parsed. The default is
+     * `"normal"`, which causes the [DOM parser](#model.DOMParser) to
+     * collapse whitespace in normal mode, and normalize it (replacing
+     * newlines and such with spaces) otherwise. `"pre"` causes the
+     * parser to preserve spaces inside the node. When this option isn't
+     * given, but [`code`](#model.NodeSpec.code) is true, `whitespace`
+     * will default to `"pre"`. Note that this option doesn't influence
+     * the way the node is rendered—that should be handled by `toDOM`
+     * and/or styling.
+     */
+    whitespace?: 'pre' | 'normal';
+
+    /**
      * Determines whether this node is considered an important parent
      * node during replace operations (such as paste). Non-defining (the
      * default) nodes get dropped when their entire content is replaced,
      * whereas defining nodes persist and wrap the inserted content.
-     * Likewise, in _inserted_ content the defining parents of the
-     * content are preserved when possible. Typically,
-     * non-default-paragraph textblock types, and possibly list items,
-     * are marked as defining.
+     */
+    definingAsContext?: boolean | null | undefined;
+
+    /**
+     * In inserted content the defining parents of the content are
+     * preserved when possible. Typically, non-default-paragraph
+     * textblock types, and possibly list items, are marked as defining.
+     */
+    definingForContent?: boolean | null | undefined;
+
+    /**
+     * When enabled, enables both
+     * [`definingAsContext`](#model.NodeSpec.definingAsContext) and
+     * [`definingForContent`](#model.NodeSpec.definingForContent).
      */
     defining?: boolean | null | undefined;
     /**
@@ -1393,7 +1431,7 @@ export interface DOMOutputSpecArray {
     8?: DOMOutputSpec | 0 | undefined;
     9?: DOMOutputSpec | 0 | undefined;
 }
-export type DOMOutputSpec = string | Node | DOMOutputSpecArray | {dom: Node, contentDOM?: Node | undefined};
+export type DOMOutputSpec = string | Node | DOMOutputSpecArray | { dom: Node; contentDOM?: Node | undefined };
 /**
  * A DOM serializer knows how to convert ProseMirror nodes and
  * marks of various types to DOM nodes.

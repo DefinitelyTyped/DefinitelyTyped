@@ -16,6 +16,7 @@ type HammerOptionsWithRecognizers = Omit<HammerOptions, "recognizers"> & {
 
 declare namespace ReactHammer {
     interface ReactHammerProps {
+        children: React.ReactElement;
         direction?:
             | "DIRECTION_NONE"
             | "DIRECTION_LEFT"
@@ -48,6 +49,10 @@ declare namespace ReactHammer {
         onRotateMove?: HammerListener | undefined;
         onRotateStart?: HammerListener | undefined;
         onSwipe?: HammerListener | undefined;
+        onSwipeRight?: HammerListener | undefined;
+        onSwipeLeft?: HammerListener | undefined;
+        onSwipeUp?: HammerListener | undefined;
+        onSwipeDown?: HammerListener | undefined;
         onTap?: HammerListener | undefined;
     }
 }

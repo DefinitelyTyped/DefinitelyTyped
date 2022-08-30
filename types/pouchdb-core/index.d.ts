@@ -9,6 +9,7 @@
 
 /// <reference types="debug" />
 /// <reference types="pouchdb-find" />
+/// <reference lib="dom" />
 
 interface Blob {
     readonly size: number;
@@ -545,7 +546,9 @@ declare namespace PouchDB {
     /**
      * Pass this to `PouchDB.plugin()`.
      */
-    type Plugin = 'This should be passed to PouchDB.plugin()';
+    type Plugin<PluginProps extends object = {}> = PluginProps | ((db: Database & {
+        -readonly [PluginProp in keyof PluginProps]: PluginProps[PluginProp];
+    }) => void);
 
     namespace Configuration {
         interface CommonDatabaseConfiguration {
@@ -611,8 +614,8 @@ declare namespace PouchDB {
                 RemoteDatabaseConfiguration;
     }
 
-    interface Static extends EventEmitter {
-        plugin(plugin: Plugin): Static;
+    interface Static<PluginProps extends object = {}> extends EventEmitter {
+        plugin<PluginSubProps extends object>(plugin: Plugin<PluginSubProps>): Static<PluginProps & PluginSubProps>;
 
         version: string;
 
@@ -623,7 +626,7 @@ declare namespace PouchDB {
         debug: debug.IDebug;
 
         new<Content extends {} = {}>(name?: string,
-                                     options?: Configuration.DatabaseConfiguration): Database<Content>;
+                                     options?: Configuration.DatabaseConfiguration): Database<Content> & PluginProps;
 
         /**
          * The returned object is a constructor function that works the same as PouchDB,
@@ -631,7 +634,7 @@ declare namespace PouchDB {
          */
         defaults(options: Configuration.DatabaseConfiguration): {
             new<Content extends {} = {}>(name?: string,
-                                         options?: Configuration.DatabaseConfiguration): Database<Content>;
+                                         options?: Configuration.DatabaseConfiguration): Database<Content> & PluginProps;
         };
     }
 

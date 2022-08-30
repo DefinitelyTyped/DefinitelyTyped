@@ -8,7 +8,8 @@ declare module '../../index' {
          *   The inverse of cos(), returns the arc cosine of a
          *   value. This function expects the values in the
          *   range of -1 to 1 and values are returned in the
-         *   range 0 to PI (3.1415927).
+         *   range 0 to PI (3.1415927) if the angleMode is
+         *   RADIANS or 0 to 180 if the angle mode is DEGREES.
          *   @param value the value whose arc cosine is to be
          *   returned
          *   @return the arc cosine of the given value
@@ -19,7 +20,8 @@ declare module '../../index' {
          *   The inverse of sin(), returns the arc sine of a
          *   value. This function expects the values in the
          *   range of -1 to 1 and values are returned in the
-         *   range -PI/2 to PI/2.
+         *   range -PI/2 to PI/2 if the angleMode is RADIANS or
+         *   -90 to 90 if the angle mode is DEGREES.
          *   @param value the value whose arc sine is to be
          *   returned
          *   @return the arc sine of the given value
@@ -30,7 +32,9 @@ declare module '../../index' {
          *   The inverse of tan(), returns the arc tangent of a
          *   value. This function expects the values in the
          *   range of -Infinity to Infinity (exclusive) and
-         *   values are returned in the range -PI/2 to PI/2.
+         *   values are returned in the range -PI/2 to PI/2 if
+         *   the angleMode is RADIANS or -90 to 90 if the angle
+         *   mode is DEGREES.
          *   @param value the value whose arc tangent is to be
          *   returned
          *   @return the arc tangent of the given value
@@ -41,12 +45,14 @@ declare module '../../index' {
          *   Calculates the angle (in radians) from a specified
          *   point to the coordinate origin as measured from
          *   the positive x-axis. Values are returned as a
-         *   float in the range from PI to -PI. The atan2()
-         *   function is most often used for orienting geometry
-         *   to the position of the cursor.  Note: The
-         *   y-coordinate of the point is the first parameter,
-         *   and the x-coordinate is the second parameter, due
-         *   the the structure of calculating the tangent.
+         *   float in the range from PI to -PI if the angleMode
+         *   is RADIANS or 180 to -180 if the angleMode is
+         *   DEGREES. The atan2() function is most often used
+         *   for orienting geometry to the position of the
+         *   cursor. Note: The y-coordinate of the point is the
+         *   first parameter, and the x-coordinate is the
+         *   second parameter, due the the structure of
+         *   calculating the tangent.
          *   @param y y-coordinate of the point
          *   @param x x-coordinate of the point
          *   @return the arc tangent of the given point
@@ -74,7 +80,7 @@ declare module '../../index' {
         /**
          *   Calculates the tangent of an angle. This function
          *   takes into account the current angleMode. Values
-         *   are returned in the range -1 to 1.
+         *   are returned in the range of all real numbers.
          *   @param angle the angle
          *   @return the tangent of the angle
          */

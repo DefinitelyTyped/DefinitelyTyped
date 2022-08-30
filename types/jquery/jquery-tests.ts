@@ -317,7 +317,7 @@ function JQueryStatic() {
         const element: Element | Document | Window | JQuery.PlainObject = {} as any;
 
         const value: string | undefined = {} as any;
-        // $ExpectError
+        // @ts-expect-error
         $.data(element, 'myKey', value);
 
         // $ExpectType "myValue"
@@ -810,7 +810,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name"
+            // $ExpectType "myProp" | "name" || "name" | "myProp"
             key;
 
             switch (key) {
@@ -830,7 +830,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name"
+            // $ExpectType "myProp" | "name" || "name" | "myProp"
             key;
 
             return [propertyOfObject, 24];
@@ -846,7 +846,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | number | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name" | "anotherProp"
+            // $ExpectType "myProp" | "name" | "anotherProp" || "name" | "myProp" | "anotherProp"
             key;
 
             switch (key) {
@@ -869,7 +869,7 @@ function JQueryStatic() {
             this;
             // $ExpectType string | number | boolean
             propertyOfObject;
-            // $ExpectType "myProp" | "name" | "anotherProp"
+            // $ExpectType "myProp" | "name" | "anotherProp" || "name" | "myProp" | "anotherProp"
             key;
 
             switch (key) {
@@ -2038,7 +2038,7 @@ function JQueryStatic() {
         });
 
         // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
+        // @ts-expect-error
         $.speed(false);
 
         // $ExpectType EffectsOptions<HTMLElement>
@@ -3042,7 +3042,7 @@ function JQuery() {
             $('p').offset({});
 
             // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-            // $ExpectError
+            // @ts-expect-error
             $('p').offset(20);
 
             // $ExpectType JQuery<HTMLElement>
@@ -3202,7 +3202,7 @@ function JQuery() {
     function data() {
         function data() {
             const value: string | undefined = {} as any;
-            // $ExpectError
+            // @ts-expect-error
             $('p').data('myData', value);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5883,11 +5883,23 @@ function JQuery() {
         }
 
         function children() {
-            // $ExpectType JQuery<HTMLElement>
+            // $ExpectType JQuery<HTMLSpanElement>
             $('p').children('span');
+
+            // $ExpectType JQuery<HTMLDivElement>
+            $('p').children('div');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('.class-name');
 
             // $ExpectType JQuery<HTMLElement>
             $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+
+            // $ExpectType JQuery<HTMLElement>
+            $<HTMLDivElement>('p').children();
         }
 
         function siblings() {
@@ -6327,11 +6339,14 @@ function JQuery() {
         }
 
         function get() {
-            // $ExpectType HTMLElement
+            // $ExpectType HTMLElement | undefined
             $('p').get(0);
 
             // $ExpectType HTMLElement[]
             $('p').get();
+
+            // $ExpectType HTMLElement | undefined
+            $('nonExistentElement').get(0);
         }
 
         function index() {
@@ -6803,7 +6818,7 @@ function JQuery_jqXHR() {
     // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
     // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
-        // $ExpectError
+        // @ts-expect-error
         return p;
     }
 
@@ -6943,7 +6958,7 @@ function JQuery_CSSHooks() {
     };
 
     // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-    // $ExpectError
+    // @ts-expect-error
     $.cssHooks.borderRadius = function get(elem: HTMLElement, computed: any, extra: any) {
         return 1;
     };
@@ -7366,7 +7381,7 @@ function JQuery_Promise3() {
     // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
     // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
-        // $ExpectError
+        // @ts-expect-error
         return p;
     }
 
@@ -7518,7 +7533,7 @@ function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, strin
     // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
     // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
-        // $ExpectError
+        // @ts-expect-error
         return p;
     }
 
@@ -7646,7 +7661,7 @@ function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
     // A JQuery.Promise2 is not Promise/A+ compliant and should not be compatible with an ECMA2015 native promise.
     // APIs that can accept a JQuery.Promise2 should use `PromiseLike`
     function compatibleWithPromise(): Promise<any> {
-        // $ExpectError
+        // @ts-expect-error
         return p;
     }
 
@@ -7896,7 +7911,7 @@ function JQuery_TweenStatic() {
         };
 
         // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
+        // @ts-expect-error
         $.Tween.propHooks['myProp'] = 1;
     }
 
@@ -8276,7 +8291,7 @@ function JQuery_EventExtensions() {
         };
 
         // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-        // $ExpectError
+        // @ts-expect-error
         jQuery.event.special.multiclick = 1;
     }
 }
@@ -8304,7 +8319,7 @@ function JQuery_ValHooks() {
     };
 
     // Weak type test. This may be removed if the TypeScript requirement is increased to 2.4+.
-    // $ExpectError
+    // @ts-expect-error
     jQuery.valHooks.textarea = function get(elem: HTMLTextAreaElement) {
         return elem.value.replace(/\r?\n/g, "\r\n");
     };

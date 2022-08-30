@@ -1,7 +1,6 @@
 // Type definitions for redux-orm 0.16
 // Project: https://github.com/redux-orm/redux-orm
-// Definitions by: Andrey Goncharov <https://github.com/keenondrums>
-//                 Tomasz Zabłocki <https://github.com/tomasz-zablocki>
+// Definitions by: Tomasz Zabłocki <https://github.com/tomasz-zablocki>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 

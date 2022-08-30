@@ -51,7 +51,7 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
         const status = decoder.DecodeBufferToMesh(buffer, mesh);
 
         if (!status.ok() || mesh.ptr === 0) {
-            throw new Error('Decoding failure.');
+            throw new Error('Decoding failure.' + status.error_msg());
         }
 
         // Indices.
@@ -65,6 +65,10 @@ createDecoderModule().then((decoderModule: DecoderModule) => {
         const attribute = decoder.GetAttributeByUniqueId(mesh, 123);
         decoder.GetAttributeDataArrayForAllPoints(mesh, attribute, decoderModule.DT_FLOAT32, 75, ptr);
         const attributeArray = new Float32Array(decoderModule.HEAPF32.buffer, ptr, 24).slice();
+
+        const attributeId = decoder.GetAttributeId(mesh, decoderModule.POSITION);
+        const attribute2 = decoder.GetAttribute(mesh, attributeId);
+
         decoderModule._free(ptr);
     } finally {
         decoderModule.destroy(buffer);

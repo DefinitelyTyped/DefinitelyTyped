@@ -4,7 +4,7 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 export default class ReactVerticalTimelineComponentTests extends React.Component {
     render() {
         return (
-            <VerticalTimeline animate={false} className="vertical-timeline--red" layout='2-columns'>
+            <VerticalTimeline animate={false} className="vertical-timeline--red" layout='2-columns' lineColor='black'>
                 <VerticalTimelineElement
                     iconOnClick={() => console.info('icon has been clicked')}
                     className="vertical-timeline-element--work"
@@ -23,6 +23,13 @@ export default class ReactVerticalTimelineComponentTests extends React.Component
                     <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
                     <p>
                         Creative Direction, User Experience, Visual Design, SEO, Online Marketing
+                    </p>
+                </VerticalTimelineElement>
+                <VerticalTimelineElement className="vertical-timeline-element--work" date="2020 - present" visible={false}>
+                    <h3 className="vertical-timeline-element-title">Master of Coin</h3>
+                    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
+                    <p>
+                        Take doge to the moon
                     </p>
                 </VerticalTimelineElement>
             </VerticalTimeline>

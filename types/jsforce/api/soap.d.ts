@@ -1,4 +1,4 @@
-import { Connection, Callback } from "../connection";
+import { Connection, Callback } from '../connection';
 
 export class SoapApi {
     constructor(conn: Connection);

@@ -15,7 +15,7 @@ function test() {
     function callback() { }
 
     toastr.clean();
-    toastr.confirm("Test", { onOk: callback, onCancel: callback });
+    toastr.confirm("Test", { onOk: callback, onCancel: callback, okText: "Ok text message", cancelText: "Cancel text message" });
     toastr.error("Error", "Error message");
     toastr.info("Info", "Info test", { timeOut: 1000, removeOnHover: true, onShowComplete: callback });
     toastr.success("Test", "Test message", { component: new React.Component({}) });

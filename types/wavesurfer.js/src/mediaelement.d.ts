@@ -1,5 +1,5 @@
-import { Peaks, WebAudioBackend } from "../types/backend";
-import { WaveSurferParams } from "../types/params";
+import { Peaks, WebAudioBackend } from '../types/backend';
+import { WaveSurferParams } from '../types/params';
 
 export default class MediaElement extends WebAudioBackend {
     constructor(params: WaveSurferParams);

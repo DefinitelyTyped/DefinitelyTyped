@@ -33,7 +33,13 @@ declare class Database {
         ignoredTables?: string
     ): DataSet;
     getExecutionPlan(sql: string): void;
-    runScript(scriptKeyOrURI: number | string, parameters?: any, options?: any): any;
+    runScript(
+        scriptKeyOrURI: number | string,
+        parameters?: any,
+        options?: {
+            timeout?: number;
+        }
+    ): any;
     tableExists(tableName: string): boolean;
     viewExists(viewName: string): boolean;
     columnExists(tableOrViewName: string, columnName: string): boolean;

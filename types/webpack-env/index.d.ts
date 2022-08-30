@@ -1,4 +1,4 @@
-// Type definitions for webpack (module API) 1.16
+// Type definitions for webpack (module API) 1.18
 // Project: https://github.com/webpack/webpack
 // Definitions by: use-strict <https://github.com/use-strict>
 //                 rhonsby <https://github.com/rhonsby>
@@ -188,30 +188,14 @@ declare namespace __WebpackModuleApi {
          * apply() is automatically called with autoApply as options parameter.
          * If autoApply is not set the callback will be called with all modules that will be disposed on apply().
          * @param autoApply
-         * @param callback
          */
-        check(autoApply: boolean, callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
-        /**
-         * Throws an exceptions if status() is not idle.
-         * Check all currently loaded modules for updates and apply updates if found.
-         * If no update was found, the callback is called with null.
-         * The callback will be called with all modules that will be disposed on apply().
-         * @param callback
-         */
-        check(callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
+        check(autoApply?: boolean): Promise<null|ModuleId[]>;
         /**
          * If status() != "ready" it throws an error.
          * Continue the update process.
          * @param options
-         * @param callback
          */
-        apply(options: AcceptOptions, callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
-        /**
-         * If status() != "ready" it throws an error.
-         * Continue the update process.
-         * @param callback
-         */
-        apply(callback: (err: Error, outdatedModules: ModuleId[]) => void): void;
+        apply(options?: AcceptOptions): Promise<ModuleId[]>;
         /**
          * Return one of idle, check, watch, watch-delay, prepare, ready, dispose, apply, abort or fail.
          */
@@ -305,9 +289,8 @@ declare var __webpack_require__: any;
  * The internal chunk loading function
  *
  * @param chunkId The id for the chunk to load.
- * @param callback A callback function called once the chunk is loaded.
  */
-declare var __webpack_chunk_load__: (chunkId: any, callback: (require: __WebpackModuleApi.RequireLambda) => void) => void;
+declare var __webpack_chunk_load__: (chunkId: any) => Promise<any>;
 
 /**
  * Access to the internal object of all modules.
@@ -327,6 +310,11 @@ declare var __webpack_hash__: any;
 declare var __non_webpack_require__: any;
 
 /**
+ * Initializes the shared scope. Fills it with known provided modules from this build and all remotes
+ */
+ declare var __webpack_init_sharing__: (scope: string) => Promise<void>;
+
+/**
  * Adds nonce to all scripts that webpack loads.
  *
  * To activate the feature a __webpack_nonce__ variable needs to be set in your entry script.
@@ -340,17 +328,35 @@ declare var DEBUG: boolean;
 
 interface ImportMeta {
     /**
-     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
+     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
      */
-    webpackHot?: __WebpackModuleApi.Hot | undefined;
+    url: string;
     /**
      * `import.meta.webpack` is the webpack major version as number
      */
     webpack: number;
     /**
-     * `import.meta.url` is the `file:` url of the current file (similar to `__filename` but as file url)
+     * `import.meta.webpackHot` is an alias for` module.hot` which is also available in strict ESM
      */
-    url: string;
+    webpackHot?: __WebpackModuleApi.Hot | undefined;
+    /**
+     * `import.meta.webpackContext` as ESM alternative to `require.context`
+     * Available: 5.70.0+
+     */
+    webpackContext?: (
+        request: string,
+        options?: {
+          recursive?: boolean;
+          regExp?: RegExp;
+          include?: RegExp;
+          exclude?: RegExp;
+          preload?: boolean | number;
+          prefetch?: boolean | number;
+          chunkName?: string;
+          exports?: string | string[][];
+          mode?: 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once';
+        }
+      ) => __WebpackModuleApi.RequireContext;
 }
 
 interface NodeModule extends NodeJS.Module {}

@@ -10,8 +10,15 @@ ahoy.configure({
 });
 
 ahoy.configure({
-    cookies: 1, // $ExpectError
+    // @ts-expect-error
+    cookies: 1,
 });
 
 // $ExpectType void
-ahoy.trackAll();
+ahoy.trackSubmits('#selector');
+
+// $ExpectType void
+ahoy.trackClicks('#selector');
+
+// $ExpectType void
+ahoy.trackChanges('#selector');

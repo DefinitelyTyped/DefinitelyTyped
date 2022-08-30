@@ -1,4 +1,11 @@
-import { elementRoles, roleElements, roles, ARIARoleDefintionKey, ARIARoleRelation } from 'aria-query';
+import {
+    elementRoles,
+    roleElements,
+    roles,
+    ARIARoleDefinition,
+    ARIARoleDefintionKey,
+    ARIARoleRelation,
+} from 'aria-query';
 
 function prettyRole(roleName: ARIARoleDefintionKey) {
     const role = roles.get(roleName)!;
@@ -27,3 +34,6 @@ function prettyRoleRelation(relation: ARIARoleRelation): void {
 
 const [selectElement] = Array.from(roleElements.get('combobox')!);
 const selectRoles: string[] = Array.from(elementRoles.get(selectElement)!);
+
+const roleNames: string[] = roles.keys();
+const roleDefinitions: ARIARoleDefinition[] = roles.values();

@@ -5,13 +5,6 @@ const message = 'message';
 // $ExpectType string
 md5(message);
 
-const array = new Array<number>(message.length);
-for (let i = 0; i < message.length; ++i) array[i] = message.charCodeAt(i);
-const buffer = Buffer.from(array);
-
-// $ExpectType string
-md5(buffer);
-
 // $ExpectType string
 md5('message', { asString: true });
 

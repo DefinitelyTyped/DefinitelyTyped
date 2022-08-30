@@ -6,18 +6,22 @@ declare module '../../index' {
     interface p5InstanceExtensions {
         /**
          *   Loads an image from a path and creates a p5.Image
-         *   from it.  The image may not be immediately
-         *   available for rendering If you want to ensure that
-         *   the image is ready before doing anything with it,
-         *   place the loadImage() call in preload(). You may
-         *   also supply a callback function to handle the
+         *   from it. The image may not be immediately
+         *   available for rendering. If you want to ensure
+         *   that the image is ready before doing anything with
+         *   it, place the loadImage() call in preload(). You
+         *   may also supply a callback function to handle the
          *   image when it's ready.
-         *
          *
          *   The path to the image should be relative to the
          *   HTML file that links in your sketch. Loading an
          *   image from a URL or other remote location may be
          *   blocked due to your browser's built-in security.
+         *
+         *   You can also pass in a string of a base64 encoded
+         *   image as an alternative to the file path. Remember
+         *   to add "data:image/png;base64," in front of the
+         *   string.
          *   @param path Path of the image to be loaded
          *   @param [successCallback] Function to be called
          *   once the image is loaded. Will be passed the
@@ -111,14 +115,13 @@ declare module '../../index' {
         /**
          *   Sets the fill value for displaying images. Images
          *   can be tinted to specified colors or made
-         *   transparent by including an alpha value.  To apply
+         *   transparent by including an alpha value. To apply
          *   transparency to an image without affecting its
          *   color, use white as the tint color and specify an
          *   alpha value. For instance, tint(255, 128) will
          *   make an image 50% transparent (assuming the
          *   default alpha range of 0-255, which can be changed
          *   with colorMode()).
-         *
          *
          *   The value for the gray parameter must be less than
          *   or equal to the current maximum value as specified
@@ -135,14 +138,13 @@ declare module '../../index' {
         /**
          *   Sets the fill value for displaying images. Images
          *   can be tinted to specified colors or made
-         *   transparent by including an alpha value.  To apply
+         *   transparent by including an alpha value. To apply
          *   transparency to an image without affecting its
          *   color, use white as the tint color and specify an
          *   alpha value. For instance, tint(255, 128) will
          *   make an image 50% transparent (assuming the
          *   default alpha range of 0-255, which can be changed
          *   with colorMode()).
-         *
          *
          *   The value for the gray parameter must be less than
          *   or equal to the current maximum value as specified
@@ -154,14 +156,13 @@ declare module '../../index' {
         /**
          *   Sets the fill value for displaying images. Images
          *   can be tinted to specified colors or made
-         *   transparent by including an alpha value.  To apply
+         *   transparent by including an alpha value. To apply
          *   transparency to an image without affecting its
          *   color, use white as the tint color and specify an
          *   alpha value. For instance, tint(255, 128) will
          *   make an image 50% transparent (assuming the
          *   default alpha range of 0-255, which can be changed
          *   with colorMode()).
-         *
          *
          *   The value for the gray parameter must be less than
          *   or equal to the current maximum value as specified
@@ -173,14 +174,13 @@ declare module '../../index' {
         /**
          *   Sets the fill value for displaying images. Images
          *   can be tinted to specified colors or made
-         *   transparent by including an alpha value.  To apply
+         *   transparent by including an alpha value. To apply
          *   transparency to an image without affecting its
          *   color, use white as the tint color and specify an
          *   alpha value. For instance, tint(255, 128) will
          *   make an image 50% transparent (assuming the
          *   default alpha range of 0-255, which can be changed
          *   with colorMode()).
-         *
          *
          *   The value for the gray parameter must be less than
          *   or equal to the current maximum value as specified
@@ -193,14 +193,13 @@ declare module '../../index' {
         /**
          *   Sets the fill value for displaying images. Images
          *   can be tinted to specified colors or made
-         *   transparent by including an alpha value.  To apply
+         *   transparent by including an alpha value. To apply
          *   transparency to an image without affecting its
          *   color, use white as the tint color and specify an
          *   alpha value. For instance, tint(255, 128) will
          *   make an image 50% transparent (assuming the
          *   default alpha range of 0-255, which can be changed
          *   with colorMode()).
-         *
          *
          *   The value for the gray parameter must be less than
          *   or equal to the current maximum value as specified
@@ -229,7 +228,6 @@ declare module '../../index' {
          *   parameters of image() as the location of one
          *   corner, and the fourth and fifth parameters as the
          *   opposite corner.
-         *
          *
          *   imageMode(CENTER) interprets the second and third
          *   parameters of image() as the image's center point.

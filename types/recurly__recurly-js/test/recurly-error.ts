@@ -8,3 +8,5 @@ const recurlyError: RecurlyError = {
 };
 
 recurlyError.help = 'help';
+recurlyError.fields = ['field'];
+recurlyError.details =  [{ field: 'field', messages: ['errors'] }];

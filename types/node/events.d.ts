@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/events.js)
  */
 declare module 'events' {
     interface EventEmitterOptions {
@@ -257,9 +257,27 @@ declare module 'events' {
          *   getEventListeners(et, 'foo'); // [listener]
          * }
          * ```
-         * @since v15.2.0
+         * @since v15.2.0, v14.17.0
          */
         static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        /**
+         * ```js
+         * const {
+         *   setMaxListeners,
+         *   EventEmitter
+         * } = require('events');
+         *
+         * const target = new EventTarget();
+         * const emitter = new EventEmitter();
+         *
+         * setMaxListeners(5, target, emitter);
+         * ```
+         * @since v15.4.0
+         * @param n A non-negative number. The maximum number of listeners per `EventTarget` event.
+         * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
+         * objects.
+         */
+        static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
          * events. Listeners installed using this symbol are called before the regular
@@ -375,8 +393,8 @@ declare module 'events' {
                  * called multiple times to remove each instance.
                  *
                  * Once an event is emitted, all listeners attached to it at the
-                 * time of emitting are called in order. This implies that any`removeListener()` or `removeAllListeners()` calls _after_ emitting and_before_ the last listener finishes execution will
-                 * not remove them from`emit()` in progress. Subsequent events behave as expected.
+                 * time of emitting are called in order. This implies that any`removeListener()` or `removeAllListeners()` calls _after_ emitting and _before_ the last listener finishes execution
+                 * will not remove them from`emit()` in progress. Subsequent events behave as expected.
                  *
                  * ```js
                  * const myEmitter = new MyEmitter();
@@ -578,7 +596,7 @@ declare module 'events' {
                  */
                 prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
                 /**
-                 * Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
+                 * Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
                  *
                  * ```js

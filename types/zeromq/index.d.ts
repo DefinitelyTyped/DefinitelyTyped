@@ -133,6 +133,11 @@ export class Context {
 
 export class Socket extends EventEmitter {
     /**
+     * @param type keyof SocketTypes | SocketTypes[keyof SocketTypes]
+     */
+    constructor(type: keyof SocketTypes | SocketTypes[keyof SocketTypes]);
+
+    /**
      * Set `opt` to `val`.
      *
      * @param opt Option

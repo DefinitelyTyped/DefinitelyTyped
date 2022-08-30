@@ -1,13 +1,17 @@
-import { TempNode } from '../core/TempNode';
+import Node from '../core/Node';
 
-export class NormalNode extends TempNode {
-    constructor(scope?: string);
+export type NormalNodeScope =
+    | typeof NormalNode.GEOMETRY
+    | typeof NormalNode.LOCAL
+    | typeof NormalNode.WORLD
+    | typeof NormalNode.VIEW;
 
-    scope: string;
-    nodeType: string;
+export default class NormalNode extends Node {
+    static GEOMETRY: 'geometry';
+    static LOCAL: 'local';
+    static WORLD: 'world';
+    static VIEW: 'view';
+    scope: NormalNodeScope;
 
-    copy(source: NormalNode): this;
-
-    static LOCAL: string;
-    static WORLD: string;
+    constructor(scope?: NormalNodeScope);
 }

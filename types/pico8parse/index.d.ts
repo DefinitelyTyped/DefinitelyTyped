@@ -1,9 +1,9 @@
-// Type definitions for pico8parse 0.3
+// Type definitions for pico8parse 0.4
 // Project: https://pictelm.github.io/pico8parse/
 // Definitions by: Grenier Célestin <https://github.com/PictElm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type LuaVersion = '5.1' | '5.2' | '5.3' | 'LuaJIT' | 'PICO-8' | 'PICO-8-0.2.1' | 'PICO-8-0.2.2';
+export type LuaVersion = '5.1' | '5.2' | '5.3' | 'LuaJIT' | 'PICO-8' | 'PICO-8-0.2.1' | 'PICO-8-0.2.2' | 'PICO-8-0.2.3' | 'PICO-8-0.2.4';
 
 export interface Options {
     /** Explicitly tell the parser when the input ends. */
@@ -44,20 +44,19 @@ export interface Options {
     /**
      * Defines the relation between code points ≥ U+0080 appearing in parser input and raw bytes in source code,
      * and how Lua escape sequences in JavaScript strings should be interpreted.
-     * See the Encoding modes section https://github.com/fstirlitz/luaparse#encoding-modes for more information.
+     * See the Encoding modes section https://pictelm.github.io/pico8parse/upstream.html#encoding-modes for more information.
      */
     encodingMode: "pseudo-latin1" | "x-user-defined" | "none";
     /**
-     * This option should be reserved for testing but may be use if needed;
-     * it overrides the `strictP8FileFormat` feature, making it possible to parse
-     * snippets lacking the proper header and sections
+     * This overrides the `strictP8FileFormat` feature, making it possible to parse
+     * snippets lacking the proper header and sections.
      */
     ignoreStrictP8FileFormat: boolean;
 }
 
 /**
- * The original luaparse describes a was to customize the building of the AST
- * (see https://fstirlitz.github.io/luaparse/#custom-ast)
+ * The original luaparse describes a way to customize the building of the AST
+ * (see https://pictelm.github.io/pico8parse/upstream.html#custom-ast)
  *
  * For that, this exposes the suite of functions that are called exactly before
  * finalizing a node.
@@ -179,7 +178,7 @@ export namespace ast {
 
     interface Chunk extends Base<"Chunk"> {
         body: Statement[];
-        comments?: string[];
+        comments?: Comment[];
         globals?: Identifier[];
     }
 
@@ -384,7 +383,7 @@ export namespace ast {
 //#endregion
 }
 
-// Keep this lower-case the same as in the luaparse.js file itself.
+// Keep this lower-case the same as in the pico8parse.js file itself.
 export enum tokenTypes {
     EOF = 1,
     StringLiteral = 2,
@@ -432,12 +431,17 @@ export interface Parser {
 }
 
 /**
- * This is temporary and may be changed
+ * This is temporary and may be changed.
  *
- * prefer instanceof checking against this rather than the engine built-in SyntaxError
- * (see https://github.com/fstirlitz/luaparse/releases/tag/v0.3.1 and #67)
+ * Prefer instanceof checking against this rather than the engine built-in SyntaxError
+ * (see https://github.com/fstirlitz/luaparse/releases/tag/v0.3.1 and
+ * https://github.com/fstirlitz/luaparse/issues/67).
  */
-export class SyntaxError extends Error { }
+export class SyntaxError extends Error {
+    index: number;
+    line: number;
+    column: number;
+}
 
 export const version: string;
 /**
@@ -460,5 +464,4 @@ export const write: Parser['write'];
 export const end: Parser['end'];
 export const lex: Parser['lex'];
 
-// Note: names outside a module loader environment is still 'luaparse'
-export as namespace luaparse;
+export as namespace pico8parse;

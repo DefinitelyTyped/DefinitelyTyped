@@ -199,6 +199,7 @@ export interface BarData {
 }
 
 export interface BarProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
+    children?: React.ReactNode;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     className?: string;
     fill?: string;
@@ -220,7 +221,7 @@ export interface BarProps extends EventAttributes, Partial<PresentationAttribute
     data?: ReadonlyArray<BarData>;
     background?: boolean | React.ReactElement | ContentRenderer<any> | object;
     // see label section at http://recharts.org/#/en-US/api/Bar
-    label?: boolean | Label | LabelProps | React.SFC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
+    label?: boolean | Label | LabelProps | React.FC<LabelProps> | React.ReactElement<LabelProps> | ContentRenderer<any>;
     id?: string;
 }
 
@@ -465,6 +466,7 @@ export type LineChartProps = CategoricalChartWrapper & EventAttributes;
 export class LineChart extends React.Component<LineChartProps> { }
 
 export interface PieProps extends EventAttributes, Partial<PresentationAttributes>, Animatable {
+    children?: React.ReactNode;
     className?: string;
     dataKey: DataKey; // As the source code states, dataKey will replace valueKey in 1.1.0 and it'll be required (it's already required in current implementation).
     cx?: number | string;
@@ -856,6 +858,7 @@ export interface SectorProps extends EventAttributes, Partial<PresentationAttrib
 export class Sector extends React.Component<SectorProps> { }
 
 export interface TextProps extends Partial<PresentationAttributes> {
+    children?: React.ReactNode;
     className?: string;
     scaleToFit?: boolean;
     angle?: number;
@@ -903,7 +906,7 @@ export interface TooltipPayload {
 }
 
 export interface TooltipProps extends Animatable {
-    content?: React.ReactElement | React.StatelessComponent<any> | ContentRenderer<TooltipProps>;
+    content?: React.ReactElement | React.FunctionComponent<any> | ContentRenderer<TooltipProps>;
     viewBox?: ViewBox;
     allowEscapeViewBox?: AllowEscapeViewBox;
     active?: boolean;
@@ -914,7 +917,7 @@ export interface TooltipProps extends Animatable {
     labelStyle?: object;
     contentStyle?: object;
     wrapperStyle?: object;
-    cursor?: boolean | object | React.ReactElement | React.StatelessComponent<any>;
+    cursor?: boolean | object | React.ReactElement | React.FunctionComponent<any>;
     coordinate?: Coordinate;
     position?: Coordinate;
     label?: string | number;
@@ -986,6 +989,7 @@ export interface XPadding {
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface XAxisProps extends EventAttributes {
     allowDecimals?: boolean;
+    children?: React.ReactNode;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;
@@ -1046,6 +1050,7 @@ export interface YPadding {
 // NOTE: the lib's implementation doesn't inherits the event props (it's kept in this definition due to the previous typing definition has it).
 export interface YAxisProps extends EventAttributes {
     allowDecimals?: boolean;
+    children?: React.ReactNode;
     hide?: boolean;
     // The name of data displayed in the axis
     name?: string | number;

@@ -1,8 +1,7 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-inferrable-types": false,
         "no-var-keyword": false,

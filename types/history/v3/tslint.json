@@ -1,6 +1,0 @@
-{
-    "extends": "dtslint/dt.json",
-    "rules": {
-        "interface-over-type-literal": false
-    }
-}

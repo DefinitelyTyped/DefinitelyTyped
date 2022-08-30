@@ -1,11 +1,10 @@
 {
-    "extends": "dtslint/dt.json",
+    "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "member-access": false,

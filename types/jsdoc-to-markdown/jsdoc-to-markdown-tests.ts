@@ -5,7 +5,7 @@ const output = jsdoc2md.renderSync({ files: 'lib/*.js' });
 
 const JsdocDataOptions: jsdoc2md.JsdocOptions = {
     files: 'file.js',
-    noCache: true,
+    'no-cache': true,
 };
 
 const RenderOptions: jsdoc2md.RenderOptions = {

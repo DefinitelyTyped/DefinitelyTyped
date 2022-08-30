@@ -64,12 +64,12 @@ editor.getSession().selection.on('changeCursor', function (e) {
 });
 
 editor.commands.addCommand({
-name: 'myCommand',
-bindKey: { win: 'Ctrl-M', mac: 'Command-M' },
-exec: function (editor) {
-//...
-},
-readOnly: true // false if this command should not apply in readOnly mode
+    name: 'myCommand',
+    bindKey: { win: 'Ctrl-M', mac: 'Command-M' },
+    exec: function (editor) {
+        //...
+    },
+    readOnly: true // false if this command should not apply in readOnly mode
 });
 
 editor.moveCursorTo(1, 1);

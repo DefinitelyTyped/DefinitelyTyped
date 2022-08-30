@@ -2,16 +2,32 @@
 /// webcodecs APIs
 /////////////////////////////
 
+interface AudioDataCopyToOptions {
+    format?: AudioSampleFormat | undefined;
+    frameCount?: number | undefined;
+    frameOffset?: number | undefined;
+    planeIndex: number;
+}
+
+interface AudioDataInit {
+    data: AllowSharedBufferSource;
+    format: AudioSampleFormat;
+    numberOfChannels: number;
+    numberOfFrames: number;
+    sampleRate: number;
+    timestamp: number;
+}
+
 interface AudioDecoderConfig {
     codec: string;
-    description?: BufferSource | undefined;
+    description?: AllowSharedBufferSource | undefined;
     numberOfChannels: number;
     sampleRate: number;
 }
 
 interface AudioDecoderInit {
     error: WebCodecsErrorCallback;
-    output: AudioFrameOutputCallback;
+    output: AudioDataOutputCallback;
 }
 
 interface AudioDecoderSupport {
@@ -36,17 +52,13 @@ interface AudioEncoderSupport {
     supported: boolean;
 }
 
-interface AudioFrameInit {
-    buffer: AudioBuffer;
-    timestamp: number;
-}
-
 interface AvcEncoderConfig {
     format?: AvcBitstreamFormat | undefined;
 }
 
 interface EncodedAudioChunkInit {
-    data: BufferSource;
+    data: AllowSharedBufferSource;
+    duration?: number | undefined;
     timestamp: number;
     type: EncodedAudioChunkType;
 }
@@ -56,7 +68,7 @@ interface EncodedAudioChunkMetadata {
 }
 
 interface EncodedVideoChunkInit {
-    data: BufferSource;
+    data: AllowSharedBufferSource;
     duration?: number | undefined;
     timestamp: number;
     type: EncodedVideoChunkType;
@@ -87,31 +99,28 @@ interface ImageDecoderInit {
     type: string;
 }
 
-interface PlaneInit {
-    data?: BufferSource | undefined;
-    offset?: number | undefined;
-    src?: BufferSource | undefined;
+interface PlaneLayout {
+    offset: number;
     stride: number;
 }
 
-interface PlaneLayout {
-    offset?: number | undefined;
-    stride?: number | undefined;
+interface VideoColorSpaceInit {
+    fullRange?: boolean | undefined;
+    matrix?: VideoMatrixCoefficients | undefined;
+    primaries?: VideoColorPrimaries | undefined;
+    transfer?: VideoTransferCharacteristics | undefined;
 }
 
 interface VideoDecoderConfig {
     codec: string;
     codedHeight?: number | undefined;
     codedWidth?: number | undefined;
-    cropHeight?: number | undefined;
-    cropLeft?: number | undefined;
-    cropTop?: number | undefined;
-    cropWidth?: number | undefined;
-    description?: BufferSource | undefined;
-    displayHeight?: number | undefined;
-    displayWidth?: number | undefined;
+    colorSpace?: VideoColorSpaceInit | undefined;
+    description?: AllowSharedBufferSource | undefined;
+    displayAspectHeight?: number | undefined;
+    displayAspectWidth?: number | undefined;
     hardwareAcceleration?: HardwarePreference | undefined;
-    visibleRegion?: VideoFrameRegion | undefined;
+    optimizeForLatency?: boolean | undefined;
 }
 
 interface VideoDecoderInit {
@@ -128,12 +137,14 @@ interface VideoEncoderConfig {
     alpha?: AlphaOption | undefined;
     avc?: AvcEncoderConfig | undefined;
     bitrate?: number | undefined;
+    bitrateMode?: BitrateMode | undefined;
     codec: string;
     displayHeight?: number | undefined;
     displayWidth?: number | undefined;
     framerate?: number | undefined;
     hardwareAcceleration?: HardwarePreference | undefined;
     height: number;
+    latencyMode?: LatencyMode | undefined;
     scalabilityMode?: string | undefined;
     width: number;
 }
@@ -152,38 +163,52 @@ interface VideoEncoderSupport {
     supported: boolean;
 }
 
-interface VideoFrameInit {
-    alpha?: AlphaOption | undefined;
-    duration?: number | undefined;
-    timestamp?: number | undefined;
-}
-
-interface VideoFramePlaneInit {
+interface VideoFrameBufferInit {
     codedHeight: number;
     codedWidth: number;
-    cropHeight?: number | undefined;
-    cropLeft?: number | undefined;
-    cropTop?: number | undefined;
-    cropWidth?: number | undefined;
+    colorSpace?: VideoColorSpaceInit | undefined;
     displayHeight?: number | undefined;
     displayWidth?: number | undefined;
     duration?: number | undefined;
-    timestamp: number;
-    visibleRegion?: VideoFrameRegion | undefined;
-}
-
-interface VideoFrameReadIntoOptions {
+    format: VideoPixelFormat;
     layout?: PlaneLayout[] | undefined;
-    region?: VideoFrameRegion | undefined;
+    timestamp: number;
+    visibleRect?: DOMRectInit | undefined;
 }
 
-interface VideoFrameRegion {
-    height: number;
-    left: number;
-    top: number;
-    width: number;
+interface VideoFrameCopyToOptions {
+    layout?: PlaneLayout[] | undefined;
+    rect?: DOMRectInit | undefined;
 }
 
+interface VideoFrameInit {
+    alpha?: AlphaOption | undefined;
+    displayHeight?: number | undefined;
+    displayWidth?: number | undefined;
+    duration?: number | undefined;
+    timestamp?: number | undefined;
+    visibleRect?: DOMRectInit | undefined;
+}
+
+interface AudioData {
+    readonly duration: number;
+    readonly format: AudioSampleFormat;
+    readonly numberOfChannels: number;
+    readonly numberOfFrames: number;
+    readonly sampleRate: number;
+    readonly timestamp: number;
+    allocationSize(options: AudioDataCopyToOptions): number;
+    clone(): AudioData;
+    close(): void;
+    copyTo(destination: AllowSharedBufferSource, options: AudioDataCopyToOptions): void;
+}
+
+declare var AudioData: {
+    prototype: AudioData;
+    new(init: AudioDataInit): AudioData;
+};
+
+/** Available only in secure contexts. */
 interface AudioDecoder {
     readonly decodeQueueSize: number;
     readonly state: CodecState;
@@ -200,12 +225,13 @@ declare var AudioDecoder: {
     isConfigSupported(config: AudioDecoderConfig): Promise<AudioDecoderSupport>;
 };
 
+/** Available only in secure contexts. */
 interface AudioEncoder {
     readonly encodeQueueSize: number;
     readonly state: CodecState;
     close(): void;
     configure(config: AudioEncoderConfig): void;
-    encode(frame: AudioFrame): void;
+    encode(data: AudioData): void;
     flush(): Promise<void>;
     reset(): void;
 }
@@ -216,22 +242,12 @@ declare var AudioEncoder: {
     isConfigSupported(config: AudioEncoderConfig): Promise<AudioEncoderSupport>;
 };
 
-interface AudioFrame {
-    readonly buffer: AudioBuffer;
-    readonly timestamp: number;
-    clone(): AudioFrame;
-    close(): void;
-}
-
-declare var AudioFrame: {
-    prototype: AudioFrame;
-    new(init: AudioFrameInit): AudioFrame;
-};
-
 interface EncodedAudioChunk {
-    readonly data: ArrayBuffer;
+    readonly byteLength: number;
+    readonly duration: number | null;
     readonly timestamp: number;
     readonly type: EncodedAudioChunkType;
+    copyTo(destination: AllowSharedBufferSource): void;
 }
 
 declare var EncodedAudioChunk: {
@@ -240,10 +256,11 @@ declare var EncodedAudioChunk: {
 };
 
 interface EncodedVideoChunk {
-    readonly data: ArrayBuffer;
+    readonly byteLength: number;
     readonly duration: number | null;
     readonly timestamp: number;
     readonly type: EncodedVideoChunkType;
+    copyTo(destination: AllowSharedBufferSource): void;
 }
 
 declare var EncodedVideoChunk: {
@@ -251,8 +268,10 @@ declare var EncodedVideoChunk: {
     new(init: EncodedVideoChunkInit): EncodedVideoChunk;
 };
 
+/** Available only in secure contexts. */
 interface ImageDecoder {
     readonly complete: boolean;
+    readonly completed: Promise<void>;
     readonly tracks: ImageTrackList;
     readonly type: string;
     close(): void;
@@ -291,18 +310,20 @@ declare var ImageTrackList: {
     new(): ImageTrackList;
 };
 
-interface Plane {
-    readonly length: number;
-    readonly rows: number;
-    readonly stride: number;
-    readInto(dst: ArrayBufferView): void;
+interface VideoColorSpace {
+    readonly fullRange: boolean | null;
+    readonly matrix: VideoMatrixCoefficients | null;
+    readonly primaries: VideoColorPrimaries | null;
+    readonly transfer: VideoTransferCharacteristics | null;
+    toJSON(): VideoColorSpaceInit;
 }
 
-declare var Plane: {
-    prototype: Plane;
-    new(): Plane;
+declare var VideoColorSpace: {
+    prototype: VideoColorSpace;
+    new(init?: VideoColorSpaceInit): VideoColorSpace;
 };
 
+/** Available only in secure contexts. */
 interface VideoDecoder {
     readonly decodeQueueSize: number;
     readonly state: CodecState;
@@ -319,6 +340,7 @@ declare var VideoDecoder: {
     isConfigSupported(config: VideoDecoderConfig): Promise<VideoDecoderSupport>;
 };
 
+/** Available only in secure contexts. */
 interface VideoEncoder {
     readonly encodeQueueSize: number;
     readonly state: CodecState;
@@ -337,33 +359,29 @@ declare var VideoEncoder: {
 
 interface VideoFrame {
     readonly codedHeight: number;
-    readonly codedRegion: VideoFrameRegion;
+    readonly codedRect: DOMRectReadOnly | null;
     readonly codedWidth: number;
-    readonly cropHeight: number;
-    readonly cropLeft: number;
-    readonly cropTop: number;
-    readonly cropWidth: number;
+    readonly colorSpace: VideoColorSpace;
     readonly displayHeight: number;
     readonly displayWidth: number;
     readonly duration: number | null;
     readonly format: VideoPixelFormat | null;
-    readonly planes: ReadonlyArray<Plane> | null;
     readonly timestamp: number | null;
-    readonly visibleRegion: VideoFrameRegion;
-    allocationSize(options?: VideoFrameReadIntoOptions): number;
+    readonly visibleRect: DOMRectReadOnly | null;
+    allocationSize(options?: VideoFrameCopyToOptions): number;
     clone(): VideoFrame;
     close(): void;
-    readInto(destination: BufferSource, options?: VideoFrameReadIntoOptions): Promise<PlaneLayout[]>;
+    copyTo(destination: AllowSharedBufferSource, options?: VideoFrameCopyToOptions): Promise<PlaneLayout[]>;
 }
 
 declare var VideoFrame: {
     prototype: VideoFrame;
-    new(source: HTMLOrSVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap | OffscreenCanvas | VideoFrame, init?: VideoFrameInit): VideoFrame;
-    new(format: VideoPixelFormat, planes: PlaneInit[], init: VideoFramePlaneInit): VideoFrame;
+    new(source: CanvasImageSource, init?: VideoFrameInit): VideoFrame;
+    new(data: AllowSharedBufferSource, init: VideoFrameBufferInit): VideoFrame;
 };
 
-interface AudioFrameOutputCallback {
-    (output: AudioFrame): void;
+interface AudioDataOutputCallback {
+    (output: AudioData): void;
 }
 
 interface EncodedAudioChunkOutputCallback {
@@ -382,11 +400,18 @@ interface WebCodecsErrorCallback {
     (error: DOMException): void;
 }
 
+type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
+type BitrateMode = "constant" | "variable";
 type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
-type VideoPixelFormat = string;
 type AlphaOption = "discard" | "keep";
+type AudioSampleFormat = "f32" | "f32-planar" | "s16" | "s16-planar" | "s32" | "s32-planar" | "u8" | "u8-planar";
 type AvcBitstreamFormat = "annexb" | "avc";
 type CodecState = "closed" | "configured" | "unconfigured";
 type EncodedAudioChunkType = "delta" | "key";
 type EncodedVideoChunkType = "delta" | "key";
-type HardwarePreference = "allow" | "deny" | "require";
+type HardwarePreference = "no-preference" | "prefer-hardware" | "prefer-software";
+type LatencyMode = "quality" | "realtime";
+// type VideoColorPrimaries = "bt470bg" | "bt709" | "smpte170m";
+// type VideoMatrixCoefficients = "bt470bg" | "bt709" | "rgb" | "smpte170m";
+type VideoPixelFormat = "BGRA" | "BGRX" | "I420" | "I420A" | "I422" | "I444" | "NV12" | "RGBA" | "RGBX";
+// type VideoTransferCharacteristics = "bt709" | "iec61966-2-1" | "smpte170m";

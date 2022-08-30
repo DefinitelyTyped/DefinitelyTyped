@@ -1,11 +1,10 @@
 // Type definitions for jQuery 2.0
 // Project: http://jquery.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Christian Hoffmeister <https://github.com/choffmeister>
 //                 Steve Fenton <https://github.com/Steve-Fenton>
 //                 Diullei Gomes <https://github.com/Diullei>
 //                 Tass Iliopoulos <https://github.com/tasoili>
-//                 Jason Swearingen <https://github.com/jasons-novaleaf>
 //                 Sean Hill <https://github.com/seanski>
 //                 Guus Goossens <https://github.com/Guuz>
 //                 Kelly Summerlin <https://github.com/ksummerlin>
@@ -15,9 +14,8 @@
 //                 Andrew Gaspar <https://github.com/AndrewGaspar>
 //                 Seikichi Kondo <https://github.com/seikichi>
 //                 Benjamin Jackman <https://github.com/benjaminjackman>
-//                 Poul Sorensen <https://github.com/s093294>
 //                 Josh Strobl <https://github.com/JoshStrobl>
-//                 John Reilly <https://github.com/johnnyreilly/>
+//                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
@@ -3633,10 +3631,10 @@ interface JQuery {
     /**
      * Remove elements from the set of matched elements.
      *
-     * @param selector A string containing a selector expression to match elements against.
+     * @param selector A string containing a selector expression, or an array of elements to match against the set.
      * @see {@link https://api.jquery.com/not/#not-selector}
      */
-    not(selector: string): JQuery;
+    not(selector: string|any[]): JQuery;
     /**
      * Remove elements from the set of matched elements.
      *

@@ -80,7 +80,9 @@ export interface AttemptTimeoutOptions {
  */
 export function operation(options?: OperationOptions): RetryOperation;
 
-export interface OperationOptions extends TimeoutsOptions {
+export type OperationOptions = WrapOptions | number[];
+
+export interface WrapOptions extends TimeoutsOptions {
     /**
      * Whether to retry forever.
      * @default false
@@ -148,4 +150,4 @@ export interface CreateTimeoutOptions {
  *
  */
 export function wrap(object: object, methods?: string[]): void;
-export function wrap(object: object, options?: OperationOptions, methods?: string[]): void;
+export function wrap(object: object, options?: WrapOptions, methods?: string[]): void;

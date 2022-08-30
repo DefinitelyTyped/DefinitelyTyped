@@ -1,4 +1,4 @@
-// Type definitions for connect-pg-simple 4.2
+// Type definitions for connect-pg-simple 7.0
 // Project: https://github.com/voxpelli/node-connect-pg-simple#readme
 // Definitions by: Pasi Eronen <https://github.com/pasieronen>, Samar Mohan <https://github.com/samarmohan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -28,6 +28,7 @@ declare namespace connectPgSimple {
       conString?: string | undefined;
       conObject?: PoolConfig | undefined;
       ttl?: number | undefined;
+      disableTouch?: boolean | undefined;
       createTableIfMissing?: boolean | undefined;
       schemaName?: string | undefined;
       tableName?: string | undefined;

@@ -1,6 +1,6 @@
 import { EJSON } from 'meteor/ejson';
 declare module 'meteor/tools' {
-    module App {
+    namespace App {
         function accessRule(
             pattern: string,
             options?: {
@@ -51,7 +51,7 @@ declare module 'meteor/tools' {
         },
     ): String;
 
-    module Assets {
+    namespace Assets {
         function getBinary(assetPath: string, asyncCallback?: Function): EJSON | undefined;
 
         function getText(assetPath: string, asyncCallback?: Function): string | undefined;
@@ -59,11 +59,11 @@ declare module 'meteor/tools' {
         function absoluteFilePath(assetPath: string): string;
     }
 
-    module Cordova {
+    namespace Cordova {
         function depends(dependencies: { [id: string]: string }): void;
     }
 
-    module Npm {
+    namespace Npm {
         function depends(dependencies: { [id: string]: string }): void;
 
         function require(name: string): any;

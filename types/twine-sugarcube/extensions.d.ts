@@ -1,5 +1,11 @@
 /// <reference types="jquery" />
 declare global {
+    /**
+     * @param value The member being processed.
+     * @param index The index of member being processed.
+     * @param array The array being processed.
+     */
+    type ArrayPredicate<T, ThisType> = (this: ThisType, value: T, index: number, array: T[]) => boolean;
     interface Array<T> {
         /**
          * Concatenates one or more unique members to the end of the base array and returns the result as a new array. Does not modify the original.
@@ -26,6 +32,21 @@ declare global {
          * $fruits.count("Oranges", 2)  → Returns 1
          */
         count(needle: T, position?: number): number;
+
+        /**
+         * Returns the number of times that members within the array pass the test implemented by the given predicate function.
+         * @param predicate The function used to test each member. It is called with three arguments:
+         * value: The member being processed.
+         * index: (optional, integer) The index of member being processed.
+         * array: (optional, array) The array being processed.
+         * @param thisArg The value to use as this when executing predicate.
+         * @since SugarCube 2.36.0
+         * @example
+         * // Given: $fruits = ["Apples", "Oranges", "Plums", "Oranges"]
+         * $fruits.countWith(function (fruit) { return fruit === "Oranges"; })  → Returns 2
+         */
+        countWith<PredicateThisArg>(predicate: ArrayPredicate<T, PredicateThisArg>, thisArg: PredicateThisArg): number;
+        countWith(predicate: ArrayPredicate<T, undefined>): number;
 
         /**
          * Removes all instances of the given members from the array and returns a new array containing the removed members.
@@ -82,7 +103,8 @@ declare global {
          * }) // Returns [{ name : "Apples" }, { name : "Apricots" }];
          * // and now $fruits is [{ name : "Oranges" }]
          */
-        deleteWith(predicate: (value: T, index: number, array: T[]) => boolean, thisArg?: T[]): T[];
+        deleteWith<PredicateThisArg>(predicate: ArrayPredicate<T, PredicateThisArg>, thisArg: PredicateThisArg): T[];
+        deleteWith(predicate: ArrayPredicate<T, undefined>): T[];
 
         /**
          * Returns the first member from the array. Does not modify the original.

@@ -1,0 +1,2 @@
+keys/UpdateScriptStatus.d.ts
+lib/security/copyChildrenViewPermissions.d.ts

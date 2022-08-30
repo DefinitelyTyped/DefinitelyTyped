@@ -16,7 +16,7 @@ import isAsciiFunc from 'validator/lib/isAscii';
 import isBase58Func from 'validator/lib/isBase58';
 import isBase64Func from 'validator/lib/isBase64';
 import isBeforeFunc from 'validator/lib/isBefore';
-import isIBANFunc from 'validator/lib/isIBAN';
+import isIBANFunc, { locales } from 'validator/lib/isIBAN';
 import isBICFunc from 'validator/lib/isBIC';
 import isBooleanFunc from 'validator/lib/isBoolean';
 import isByteLengthFunc from 'validator/lib/isByteLength';
@@ -30,7 +30,7 @@ import isDecimalFunc from 'validator/lib/isDecimal';
 import isDivisibleByFunc from 'validator/lib/isDivisibleBy';
 import isEmailFunc from 'validator/lib/isEmail';
 import isEmptyFunc from 'validator/lib/isEmpty';
-import isFQDNFunc from 'validator/lib/isFQDN';
+import isFQDNFunc, { IsFQDNOptions } from 'validator/lib/isFQDN';
 import isFloatFunc from 'validator/lib/isFloat';
 import isFullWidthFunc from 'validator/lib/isFullWidth';
 import isHalfWidthFunc from 'validator/lib/isHalfWidth';
@@ -48,6 +48,7 @@ import isISINFunc from 'validator/lib/isISIN';
 import isISO8601Func from 'validator/lib/isISO8601';
 import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
+import isISO4217Func from 'validator/lib/isISO4217';
 import isISRCFunc from 'validator/lib/isISRC';
 import isInFunc from 'validator/lib/isIn';
 import isIntFunc from 'validator/lib/isInt';
@@ -73,6 +74,7 @@ import isStrongPasswordFunc from 'validator/lib/isStrongPassword';
 import isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
 import isURLFunc from 'validator/lib/isURL';
 import isUUIDFunc from 'validator/lib/isUUID';
+import isTaxIDFunc from 'validator/lib/isTaxID';
 import isUppercaseFunc from 'validator/lib/isUppercase';
 import isVariableWidthFunc from 'validator/lib/isVariableWidth';
 import isWhitelistedFunc from 'validator/lib/isWhitelisted';
@@ -122,14 +124,15 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isBefore = validator.isBefore;
     _isBefore = isBeforeFunc;
 
-    let _isIBANFunc = validator.isIBAN;
-    _isIBANFunc = isIBANFunc;
+    validator.isIBAN; // $ExpectType (str: string) => boolean
+    isIBANFunc; // $ExpectType (str: string) => boolean
+    validator.ibanLocales;
 
     let _isBIC = validator.isBIC;
     _isBIC = isBICFunc;
 
-    let _isBoolean = validator.isBoolean;
-    _isBoolean = isBooleanFunc;
+    validator.isBoolean; // $ExpectType (str: string, options?: Options | undefined) => boolean
+    isBooleanFunc; // $ExpectType (str: string, options?: Options | undefined) => boolean
 
     let _isByteLength = validator.isByteLength;
     _isByteLength = isByteLengthFunc;
@@ -164,8 +167,11 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isEmpty = validator.isEmpty;
     _isEmpty = isEmptyFunc;
 
-    let _isFQDN = validator.isFQDN;
-    _isFQDN = isFQDNFunc;
+    validator.isFQDN; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
+    isFQDNFunc; // $ExpectType (str: string, options?: IsFQDNOptions | undefined) => boolean
+    const isFQDNOptions: IsFQDNOptions = {
+        allow_numeric_tld: true,
+    };
 
     let _isFloat = validator.isFloat;
     _isFloat = isFloatFunc;
@@ -217,6 +223,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isISO31661Alpha3 = validator.isISO31661Alpha3;
     _isISO31661Alpha3 = isISO31661Alpha3Func;
+
+    validator.isISO4217; // $ExpectType (str: string) => boolean
+    isISO4217Func; // $ExpectType (str: string) => boolean
 
     let _isISRC = validator.isISRC;
     _isISRC = isISRCFunc;
@@ -292,6 +301,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isUUID = validator.isUUID;
     _isUUID = isUUIDFunc;
+
+    let _isTaxID = validator.isTaxID;
+    _isTaxID = isTaxIDFunc;
 
     let _isUppercase = validator.isUppercase;
     _isUppercase = isUppercaseFunc;
@@ -389,6 +401,7 @@ import isISINFuncEs from 'validator/es/lib/isISIN';
 import isISO8601FuncEs from 'validator/es/lib/isISO8601';
 import isISO31661Alpha2FuncEs from 'validator/es/lib/isISO31661Alpha2';
 import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
+import isISO4217FuncEs, { CurrencyCodes } from 'validator/es/lib/isISO4217';
 import isISRCFuncEs from 'validator/es/lib/isISRC';
 import isInFuncEs from 'validator/es/lib/isIn';
 import isIntFuncEs from 'validator/es/lib/isInt';
@@ -414,6 +427,7 @@ import isStrongPasswordFuncEs from 'validator/es/lib/isStrongPassword';
 import isSurrogatePairFuncEs from 'validator/es/lib/isSurrogatePair';
 import isURLFuncEs from 'validator/es/lib/isURL';
 import isUUIDFuncEs from 'validator/es/lib/isUUID';
+import isTaxIDFuncEs from 'validator/es/lib/isTaxID';
 import isUppercaseFuncEs from 'validator/es/lib/isUppercase';
 import isVariableWidthFuncEs from 'validator/es/lib/isVariableWidth';
 import isWhitelistedFuncEs from 'validator/es/lib/isWhitelisted';
@@ -503,6 +517,9 @@ const any: any = null;
     result = validator.isAlpha('sample', 'sv-SE');
     result = validator.isAlpha('sample', 'tr-TR');
     result = validator.isAlpha('sample', 'uk-UA');
+    result = validator.isAlpha('sample', undefined, { ignore: /[\s!?]/g });
+    result = validator.isAlpha('sample', 'fr-FR', { ignore: /[\s!?]/g });
+    result = validator.isAlpha('sample', 'fr-FR', { ignore: ' !?' });
 
     result = validator.isAlphanumeric('sample');
     result = validator.isAlphanumeric('sample', 'ar');
@@ -553,9 +570,9 @@ const any: any = null;
     result = validator.isAlphanumeric('sample', 'sv-SE');
     result = validator.isAlphanumeric('sample', 'tr-TR');
     result = validator.isAlphanumeric('sample', 'uk-UA');
-    result = validator.isAlphanumeric('sample', undefined, {ignore: /[\s!?]/g});
-    result = validator.isAlphanumeric('sample', 'fr-FR', {ignore: /[\s!?]/g});
-    result = validator.isAlphanumeric('sample', 'fr-FR', {ignore: ' !?'});
+    result = validator.isAlphanumeric('sample', undefined, { ignore: /[\s!?]/g });
+    result = validator.isAlphanumeric('sample', 'fr-FR', { ignore: /[\s!?]/g });
+    result = validator.isAlphanumeric('sample', 'fr-FR', { ignore: ' !?' });
 
     result = validator.isAscii('sample');
 
@@ -598,15 +615,25 @@ const any: any = null;
 
     result = validator.isDivisibleBy('sample', 2);
 
-    const isEmailOptions: validator.IsEmailOptions = {};
+    const isEmailOptions: validator.IsEmailOptions = {
+        host_blacklist: ['domain'],
+    };
+
+    const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {
+        blacklisted_chars: 'sample',
+    };
+
     result = validator.isEmail('sample');
     result = validator.isEmail('sample', isEmailOptions);
+    result = validator.isEmail('sample', isEmailOptionsWithBlacklistedCharacters);
 
     const isEmptyOptions: validator.IsEmptyOptions = {};
     result = validator.isEmpty('sample');
     result = validator.isEmpty('sample', isEmptyOptions);
 
-    const isFQDNOptions: validator.IsFQDNOptions = {};
+    const isFQDNOptions: validator.IsFQDNOptions = {
+        allow_wildcard: true,
+    };
     result = validator.isFQDN('sample');
     result = validator.isFQDN('sample', isFQDNOptions);
 
@@ -765,6 +792,7 @@ const any: any = null;
     result = validator.isMobilePhone('sample', 'any');
     result = validator.isMobilePhone('sample');
     result = validator.isMobilePhone('sample', ['pl-PL', 'pt-PT']);
+    result = validator.isMobilePhone('sample', ['es-AR', 'es-CO']); // $ExpectType boolean
 
     result = validator.isMongoId('sample');
 
@@ -772,6 +800,7 @@ const any: any = null;
 
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
+    result = validator.isNumeric('358,50', { locale: 'pt-BR' });
 
     result = validator.isOctal('076543210');
 
@@ -817,8 +846,6 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
-
-    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 
@@ -895,6 +922,15 @@ const any: any = null;
 
     result = validator.toInt(any);
     result = validator.toInt(any, 10);
+}
+
+{
+    let result: boolean;
+    result = validator.isStrongPassword('sample23#@test');
+    result = validator.isStrongPassword('sample23#@test', { returnScore: false });
+
+    let score: number;
+    score = validator.isStrongPassword('sample23#@test', { returnScore: true });
 }
 
 {

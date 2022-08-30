@@ -12,6 +12,23 @@ router.transitionTo(
     { queryParams: {} },
 );
 
+const routeWillChangeHandler = () => {};
+
+// $ExpectType RouterService
+router.on('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType boolean
+router.has('routeWillChange');
+
+// $ExpectType RouterService
+router.off('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType RouterService
+router.one('routeWillChange', routeWillChangeHandler);
+
+// $ExpectType void
+router.trigger('routeWillChange', 'boo');
+
 const transition = router.transitionTo('someRoute');
 
 // $ExpectType Transition<unknown>
@@ -54,34 +71,41 @@ transition.data = { some: 'data' };
 
 // $ExpectType RouteInfoWithAttributes | null
 transition.from;
-// $ExpectError
+// @ts-expect-error
 transition.from = 'from';
 
 // $ExpectType Promise<unknown>
 transition.promise;
-// $ExpectError
+// @ts-expect-error
 transition.promise = 'promise';
 
 // $ExpectType RouteInfo | RouteInfoWithAttributes
 transition.to;
-// $ExpectError
+// @ts-expect-error
 transition.to = 'to';
 
 // $ExpectType unknown
 transition.to.metadata;
-// $ExpectError
+// @ts-expect-error
 transition.to.metadata = 'foo';
 
 // NOTE: we cannot check the validity of invocations with just route name and
 // query params beyond that the second argument is an object of some sort,
 // because TS will always resolve it to the `models` variant if the
 // `queryParams` variant fails.
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', { queryParams: { shouldWork: true } });
+// $ExpectType Transition<unknown>
 router.transitionTo({ queryParams: { areSupported: true } });
-router.transitionTo({ queryParams: 'potato' }); // $ExpectError
+// @ts-expect-error
+router.transitionTo({ queryParams: 'potato' });
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1);
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1, { queryParams: { areSupported: true } });
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1, '13');
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1, '13', { queryParams: { areSupported: true } });
 
 router.recognize('foo/bar'); // $ExpectType RouteInfo
@@ -89,4 +113,8 @@ router.recognize('foo/bar'); // $ExpectType RouteInfo
 router.recognizeAndLoad('foo/bar'); // $ExpectType RouteInfoWithAttributes
 
 router.rootURL; // $ExpectType string
-router.rootURL = 'foo'; // $ExpectError
+// @ts-expect-error
+router.rootURL = 'foo';
+
+router.refresh(); // $ExpectType Transition<unknown>
+router.refresh('my-route'); // $ExpectType Transition<unknown>

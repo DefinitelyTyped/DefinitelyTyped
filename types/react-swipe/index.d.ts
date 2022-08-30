@@ -24,6 +24,7 @@ declare namespace ReactSwipe {
     }
 
     interface Props {
+        children?: React.ReactNode;
         id?: string | undefined;
         swipeOptions?: SwipeOptions | undefined;
         childCount?: number | undefined;

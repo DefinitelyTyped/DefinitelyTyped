@@ -2,6 +2,7 @@
 // Project: https://github.com/Delagen/typings-yandex-maps
 // Definitions by: Delagen <https://github.com/Delagen>
 //                 gastwork13 <https://github.com/gastwork13>
+//                 kaskar2008 <https://github.com/kaskar2008>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -102,6 +103,8 @@ declare namespace ymaps {
     type IconLayoutKey = 'default#image' | 'default#imageWithContent' | string;
     type ClusterLayoutKey = 'cluster#balloonTwoColumns' | 'cluster#balloonCarousel' | 'cluster#balloonAccordion' | string;
     type ClusterContentLayoutKey = 'cluster#balloonTwoColumnsItemContent' | 'cluster#balloonCarouselItemContent' | 'cluster#balloonAccordionItemContent' | string;
+
+    type EventMap = GlobalEventHandlersEventMap;
 
     namespace behavior {
         class DblClickZoom implements IBehavior {
@@ -752,12 +755,17 @@ declare namespace ymaps {
 
         interface IZoomControlParameters {
             options?: {
+                adjustMapMargin?: boolean | undefined,
                 position?: {
                     top?: number | string | 'auto' | undefined;
                     right?: number | string | 'auto' | undefined;
                     bottom?: number | string | 'auto' | undefined;
                     left?: number | string | 'auto' | undefined;
-                } | undefined
+                } | undefined,
+                size?: 'small' | 'large' | 'auto' | undefined,
+                visible?: boolean | undefined,
+                zoomDuration?: number | undefined,
+                zoomStep?: number | undefined
             } | undefined;
         }
 
@@ -810,11 +818,35 @@ declare namespace ymaps {
         }
     }
 
+    namespace domEvent {
+        interface manager {
+            add<K extends keyof EventMap>(htmlElement: HTMLElement | Document, types: K, callback: (event: EventMap[K]) => void, context?: object, capture?: boolean): this;
+            add(htmlElement: HTMLElement | Document, types: string[] | string, callback: (event: any) => void, context?: object, capture?: boolean): this;
+
+            group(htmlElement: HTMLElement | Document, capture?: boolean): event.Group;
+
+            remove(htmlElement: HTMLElement | Document, types: string[] | string, callback: ((event: any) => void) | string, context?: object, capture?: boolean): this;
+        }
+    }
+
     namespace event {
-        class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
+        class Group implements IEventGroup {
+            events: IEventManager;
+
+            add<K extends keyof EventMap>(types: K, callback: (event: EventMap[K] | IEvent) => void, context?: object, priority?: number): this;
+            add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
+
+            removeAll(): this;
+
+            getLength(): number;
+        }
+
+        class Manager<TargetGeometry extends {} = {}> implements IEventManager<TargetGeometry> {
             constructor(params?: { context?: object | undefined; controllers?: IEventWorkflowController[] | undefined; parent?: IEventManager | undefined });
 
-            add(types: 'mousedown', callback: (event: (IEvent<MouseEvent, TargetGeometry>)) => void, context?: object, priority?: number): this;
+            add<K extends keyof EventMap>(types: K, callback: (event: (IEvent<EventMap[K], TargetGeometry>)) => void, context?: object, priority?: number): this;
             add(types: string[][] | string[] | string, callback: (event: (IEvent<{}, TargetGeometry>)) => void, context?: object, priority?: number): this;
 
             getParent(): IEventManager | null;
@@ -830,6 +862,12 @@ declare namespace ymaps {
             createEventObject(type: string, event: object, target: object): Event;
 
             once(types: string[][] | string[] | string, callback: (event: IEvent) => any, context?: object, priority?: number): this;
+        }
+
+        class Mapper implements IEventTrigger {
+            constructor(targetEventManager: IEventManager, mappingTable: Record<string, ((event: IEvent) => IEvent | null) | boolean>);
+
+            fire(type: string, eventObject?: object | IEvent): this;
         }
     }
 
@@ -3162,10 +3200,10 @@ declare namespace ymaps {
 
         callMethod(name: string): void;
 
-        get<T extends {}, K extends keyof T= keyof T>(name: K): T[K];
-        get(name: string): object;
+        get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+        get(name: string): any;
 
-        getSourceEvent(): IEvent<OriginalEvent> | null;
+        getSourceEvent(): IEvent<OriginalEvent, TargetGeometry> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -3191,7 +3229,43 @@ declare namespace ymaps {
         };
     }
 
-    class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
+    class DomEvent<OriginalEvent = {}, TargetGeometry = {}> implements IDomEvent<OriginalEvent, TargetGeometry> {
+        constructor(originalEvent: DomEvent, type?: object);
+
+        allowMapEvent(): void;
+
+        callMethod(name: string): void;
+
+        get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+        get(name: string): any;
+
+        getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
+
+        isDefaultPrevented(): boolean;
+
+        isImmediatePropagationStopped(): boolean;
+
+        isMapEventAllowed(): boolean;
+
+        isPropagationStopped(): boolean;
+
+        preventDefault(): boolean;
+
+        stopImmediatePropagation(): boolean;
+
+        stopPropagation(): boolean;
+
+        originalEvent: {
+            domEvent: {
+                originalEvent: OriginalEvent
+            };
+            target: {
+                geometry?: TargetGeometry | undefined
+            }
+        };
+    }
+
+    class GeoObject<T = IGeometry, TargetGeometry extends {} = {}> implements IGeoObject<T> {
         constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
         geometry: T | null;
@@ -3212,6 +3286,28 @@ declare namespace ymaps {
         setParent(parent: IControlParent): this;
 
         getMap(): Map;
+    }
+
+    class GeocodeResult implements IGeoObject {
+        events: IEventManager;
+        geometry: IGeometry | null;
+        options: IOptionManager;
+        properties: IDataManager;
+        state: IDataManager;
+
+        getAddressLine(): string;
+        getAdministrativeAreas(): ReadonlyArray<string>;
+        getCountry(): string | null;
+        getCountryCode(): string | null;
+        getLocalities(): ReadonlyArray<string>;
+        getMap(): Map;
+        getOverlay(): Promise<IOverlay | null>;
+        getOverlaySync(): IOverlay | null;
+        getParent(): object | null;
+        getPremise(): string | null;
+        getPremiseNumber(): string | null;
+        getThoroughfare(): string | null;
+        setParent(parent: object | null): this;
     }
 
     interface IGeoObjectFeature {
@@ -3368,6 +3464,12 @@ declare namespace ymaps {
         setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
 
         setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
+    }
+
+    class MapEvent<OriginalEvent = {}, TargetGeometry = {}> extends Event<OriginalEvent, TargetGeometry> {
+        get(name: string): any;
+        get(name: 'coords' | 'globalPixels' | 'pagePixels' | 'clientPixels'): [number, number];
+        get(name: 'domEvent'): DomEvent<OriginalEvent, TargetGeometry> | undefined;
     }
 
     interface IMapMarginOptions {
@@ -3575,6 +3677,115 @@ declare namespace ymaps {
 
     function ready(successCallback?: () => any | IReadyObject, errorCallback?: () => any, context?: object): Promise<void>;
 
+    /**
+     * Processes geocoding requests. The request result can be provided in JSON format or as a GeoObjectCollection object.
+     * @param request The address for which coordinates need to be obtained (forward geocoding), or the coordinates for which the address needs to be determined (reverse geocoding).
+     * @param options Options.
+     */
+    function geocode(request: string | ReadonlyArray<number>, options?: IGeocodeOptions): Promise<IGeocodeResult>;
+
+    interface IGeocodeOptions {
+        /**
+         * A rectangular area on the map, where the object being searched for is presumably located.
+         */
+        boundedBy?: ReadonlyArray<ReadonlyArray<number>>;
+
+        /**
+         * If true, JSON is passed to the handler function. Otherwise, the handler function is passed an object containing the geoObjects field with the geocoding results as GeoObjectCollection.
+         * When geocoding using the 'yandex#map' geocoder, the collection contains GeocodeResult objects.
+         */
+        json?: boolean;
+
+        /**
+         * Type of toponym (only for reverse geocoding).
+         */
+        kind?: 'house' | 'street' | 'metro' | 'district' | 'locality';
+
+        /**
+         * Geocoding provider
+         */
+        provider?: IGeocodeProvider | 'yandex#map';
+
+        /**
+         * Maximum number of results to be returned.
+         */
+        results?: number;
+
+        /**
+         * Determines how to interpret the coordinates in the request.
+         */
+        searchCoordOrder?: 'longlat' | 'latlong';
+
+        /**
+         * Number of results that must be skipped.
+         */
+        skip?: number;
+
+        /**
+         * Search only inside the area defined by the "boundedBy" option.
+         */
+        strictBounds?: boolean;
+    }
+
+    interface IGeocodeResult {
+        /**
+         *  Geocoding results.
+         */
+        geoObjects: GeoObjectCollection;
+    }
+
+    /**
+     * Processes requests for search suggestions.
+     * Returns a promise object that is either rejected with an error,
+     * or confirmed by an array of objects in the format { displayName: "Mitishi, Moscow region", value: "Russia, Moscow region, Mitishi " }.
+     * The displayName field represents the toponym in a user-friendly way,
+     * and the value field represents the value which should be inserted into the search field after the user selects the suggestion.
+     * @param request Request string.
+     * @param options Options.
+     */
+    function suggest(request: string, options?: ISuggestOptions): Promise<ISuggestResult[]>;
+
+    interface ISuggestResult {
+        /**
+         * Represents the toponym in a user-friendly way.
+         */
+        displayName: string;
+
+        /**
+         * Represents the value which should be inserted into the search field after the user selects the suggestion.
+         */
+        value: string;
+
+        /**
+         * Array of ranges for highlighting to show which part of the result matched the query.
+         * The range for highlighting is an array of two numbers: the indexes of the starting and ending symbols of the range.
+         */
+         hl: number[][];
+
+         type: string;
+    }
+
+    interface ISuggestProvider {
+        suggest(request: string, options?: Omit<ISuggestOptions, 'provider'>): Promise<ISuggestResult[]>;
+    }
+
+    interface ISuggestOptions {
+        /**
+         * A rectangular area on the map, where the object being searched for is presumably located. Must be set as an array, such as [[30, 40], [50, 50]].
+         */
+        boundedBy?: number[][];
+
+        /**
+         * Search suggestion provider. You can use the 'yandex#map' built-in search suggestion provider for map objects, or specify your own.
+         */
+        provider?: ISuggestProvider | string;
+
+        /**
+         * Maximum number of results to be returned.
+         */
+        results?: number;
+    }
+
     interface IReadyObject {
         require?: string[] | undefined;
         context?: object | undefined;
@@ -3760,7 +3971,7 @@ declare namespace ymaps {
         get(path: string, defaultValue: object): object;
     }
 
-    interface IDomEventEmitter extends IEventEmitter { //tslint:disable-line no-empty-interface
+    interface IDomEventEmitter extends IEventEmitter { // tslint:disable-line no-empty-interface
     }
 
     interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
@@ -3768,15 +3979,15 @@ declare namespace ymaps {
 
         callMethod(name: string): void;
 
-        get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
+        get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
 
         get(name: 'type'): string;
         get(name: 'objectId'): string | undefined;
         get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
-        get(name: string): object;
+        get(name: string): any;
 
-        getSourceEvent(): IEvent<OriginalEvent> | null;
+        getSourceEvent(): IEvent<OriginalEvent, TargetGeometry> | null;
 
         isDefaultPrevented(): boolean;
 
@@ -3802,6 +4013,10 @@ declare namespace ymaps {
         };
     }
 
+    interface IDomEvent<OriginalEvent = {}, TargetGeometry = {}> extends IEvent<OriginalEvent, TargetGeometry> {
+        getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
+    }
+
     interface IEventController {
         onStartListening?(events: IEventManager, type: string): void;
 
@@ -3813,6 +4028,7 @@ declare namespace ymaps {
     }
 
     interface IEventGroup {
+        add<K extends keyof EventMap>(types: K, callback: (event: EventMap[K] | IEvent) => void, context?: object, priority?: number): this;
         add(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
 
         remove(types: string[][] | string[] | string, callback: (event: object | IEvent) => void, context?: object, priority?: number): this;
@@ -3821,7 +4037,7 @@ declare namespace ymaps {
     }
 
     interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
-        add(types: 'mousedown', callback: (event: IEvent<MouseEvent, TargetGeometry>) => void, context?: object, priority?: number): this;
+        add<K extends keyof EventMap>(types: K, callback: (event: IEvent<EventMap[K], TargetGeometry>) => void, context?: object, priority?: number): this;
         add(types: string[][] | string[] | string, callback: (event: IEvent) => void, context?: object, priority?: number): this;
 
         getParent(): object | null;
@@ -3859,9 +4075,24 @@ declare namespace ymaps {
     }
 
     interface IGeocodeProvider {
-        geocode(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, skip?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        geocode(
+            request: string,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                skip?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
 
-        suggest(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        suggest(
+            request: string,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
     }
 
     interface IGeometry extends IBaseGeometry, ICustomizable {
@@ -4572,6 +4803,8 @@ declare namespace ymaps {
             events: IEventManager;
 
             add(object: object): this;
+
+            each(callback: (object: object) => void, context?: object): void;
 
             getById(id: string | null | undefined): object | null;
 

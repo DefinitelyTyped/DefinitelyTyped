@@ -5,6 +5,10 @@ interface Entity {
     value: number;
 }
 
+interface AnotherEntity {
+    property: string;
+}
+
 var config: sql.config = {
     user: 'user',
     password: 'password',
@@ -15,12 +19,21 @@ var config: sql.config = {
         encrypt: true
     },
     pool: {},
+    authentication: {
+        type: "default",
+        options: {
+            userName: "user",
+            password: "password"
+        }
+    },
     beforeConnect: (conn) => {
         conn.on('debug', message => console.info(message));
         conn.on('error', err => console.error(err));
         conn.removeAllListeners();
     }
 }
+
+var connectionString = 'Server=localhost,1433;Database=database;User Id=username;Password=password;Encrypt=true';
 
 var minimalConfig: sql.config = { server: 'ip' };
 
@@ -89,6 +102,17 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
             }
         });
 
+        requestStoredProcedure.execute<[Entity, AnotherEntity]>('StoredProcedureName', function (err, recordsets, returnValue) {
+            if (err != null) {
+                console.error(`Error happened calling Query: ${err.name} ${err.message}`);
+            }
+            else {
+                console.info(returnValue);
+                recordsets.recordsets[0] // $ExpectType IRecordSet<Entity>
+                recordsets.recordsets[1] // $ExpectType IRecordSet<AnotherEntity>
+            }
+        });
+
         var requestStoredProcedureWithOutput = new sql.Request(connection);
         var testId: number = 0;
         var testString: string = 'test';
@@ -144,6 +168,10 @@ var connection: sql.ConnectionPool = new sql.ConnectionPool(config, function (er
         });
     }
 });
+
+function test_connection_string_parser() {
+    var parsedConfig: sql.config = sql.ConnectionPool.parseConnectionString(connectionString);
+}
 
 function test_table() {
     var table = new sql.Table('#temp_table');
@@ -301,7 +329,7 @@ function test_mssql_errors() {
     }
 }
 
-async function test_global_connect() {
+async function test_global_connect_config() {
     const value = 'test_value';
     try {
         let pool = await sql.connect(config)
@@ -324,7 +352,7 @@ async function test_global_connect() {
     }
 }
 
-function test_globa_request_callback() {
+function test_globa_request_callback_config() {
     const value = 'test_value';
     sql.connect(config, err => {
         // ... error checks
@@ -350,13 +378,84 @@ function test_globa_request_callback() {
     })
 }
 
-function test_global_request_promise() {
+function test_global_request_promise_config() {
     const value = 'test_value';
-    sql.connect(config).then(pool => {
+    sql.connect(connectionString).then(pool => {
         // Query
 
         return pool.request()
             .input('input_parameter', sql.Int, value)
             .query('select * from mytable where id = @input_parameter')
     }).then(() => { }).catch(err => { });
+}
+
+async function test_global_connect_connection_string() {
+    const value = 'test_value';
+    try {
+        let pool = await sql.connect(connectionString)
+        let result1 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+
+        console.dir(result1)
+
+        // Stored procedure
+
+        let result2 = await pool.request()
+            .input('input_parameter', sql.Int, value)
+            .output('output_parameter', sql.VarChar(50))
+            .execute('procedure_name')
+
+        console.dir(result2)
+    } catch (err) {
+        // ... error checks
+    }
+}
+
+function test_globa_request_callback_connection_string() {
+    const value = 'test_value';
+    sql.connect(connectionString, err => {
+        // ... error checks
+
+        // Query
+
+        new sql.Request().query('select 1 as number', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+
+        // Stored Procedure
+
+        new sql.Request()
+        .input('input_parameter', sql.Int, value)
+        .output('output_parameter', sql.VarChar(50))
+        .execute('procedure_name', (err, result) => {
+            // ... error checks
+
+            console.dir(result)
+        })
+    })
+}
+
+function test_global_request_promise_connection_string() {
+    const value = 'test_value';
+    sql.connect(connectionString).then(pool => {
+        // Query
+
+        return pool.request()
+            .input('input_parameter', sql.Int, value)
+            .query('select * from mytable where id = @input_parameter')
+    }).then(() => { }).catch(err => { });
+}
+
+function test_connection_options() {
+    sql.connect({
+        options: {
+            // @ts-expect-error
+            useColumnNames: false,
+        },
+    }).then(() => {
+        // noop
+    });
 }

@@ -7,6 +7,8 @@
 
 import { EventEmitter } from "events";
 
+export import DN = dn.DN;
+export import RDN = dn.RDN;
 export interface Error {
     code: number;
     name: string;
@@ -99,6 +101,7 @@ export type Control = any;
 
 export interface Client extends EventEmitter {
 
+    connecting: boolean;
     connected: boolean;
 
     /**
@@ -511,7 +514,11 @@ export interface AttributeJson {
 }
 
 export class Attribute {
-    private type: string;
+    constructor(options?: {
+        type?: string,
+        vals?: any;
+    })
+    readonly type: string;
     readonly buffers: Buffer[];
 
     /**
@@ -596,4 +603,67 @@ export class SearchEntry extends LDAPMessage {
     readonly raw: SearchEntryRaw;
 }
 
-export function parseDN(dn: string): any;
+export function parseDN(dn: string): dn.DN;
+
+/** Options for how a (relative) distinguished name should be textually represented */
+export interface FormatOptions {
+    /** Preserve order of multi-value RDNs */
+    keepOrder?: boolean;
+    /** RDN values which were quoted will remain so */
+    keepQuote?: boolean;
+    /** Leading/trailing space will be preserved */
+    keepSpace?: boolean;
+    /** Attribute name case will be preserved instead of lowercased */
+    keepCase?: boolean;
+    /** RDN names will be uppercased instead of lowercased */
+    upperName?: boolean;
+    /** Disable trailing space after RDN separators */
+    skipSpace?: boolean
+}
+
+declare namespace dn {
+    /** Represents a relative distinguished name */
+    export class RDN {
+        constructor(obj?: {[index: string]: string});
+        set(name: string, value: string, opts?: {[index: string]: any}): void;
+        /** Check if two RDNs have equal attributes. Order does not affect comparison */
+        equals(rdn: RDN): boolean;
+        /** Convert the RDN to its string representation according to the given options */
+        format(options?: FormatOptions): string;
+    }
+
+    /** Represents a distinguished name */
+    export class DN {
+        constructor(rdns?: RDN[]);
+        readonly length: number;
+        /** Returns the string representation the DN according to the given options */
+        format(options?: FormatOptions): string;
+        /** Set the default string formatting options */
+        setFormat(option: FormatOptions): void;
+        /** Checks whether this DN is the parent of another DN */
+        parentOf(dn: string | DN): boolean;
+        /** Checks whether this DN is the child of another DN */
+        childOf(dn: string | DN): boolean;
+        /** Checks whether this DN is empty */
+        isEmpty(): boolean;
+        /** Checks whether this DN is equivalent to another DN */
+        equals(dn: string | DN): boolean;
+        /** Returns the parent DN */
+        parent(): DN | null;
+        /** Duplicate this DN */
+        clone(): DN;
+        /** Reverse the RDNs of this DN */
+        reverse(): this;
+        /** Pops an RDN from this DN */
+        pop(): RDN;
+        /** Pushes and RDN to this DN */
+        push(rdn: RDN): void;
+        shift(): RDN;
+        unshift(rdn: RDN): void;
+        /** Checks if the given value is a DN */
+        static isDN(dn: any): dn is DN;
+    }
+
+    /** Parses a distinguished name */
+    export function parse(name: string): DN;
+}

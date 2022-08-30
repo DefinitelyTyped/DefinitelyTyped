@@ -91,6 +91,12 @@ declare namespace SlowDown {
         skipSuccessfulRequests?: boolean | undefined;
 
         /**
+         * Add `X-SlowDown-Limit`, `X-SlowDown-Remaining`, and if the store supports it,
+         * `X-SlowDown-Reset` headers to all responses.
+         */
+         headers?: boolean;
+
+        /**
          * Function used to generate keys. By default user IP address (`req.ip`) is used.
          * Default: `(req, res) => req.ip`
          */
