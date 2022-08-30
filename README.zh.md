@@ -48,9 +48,9 @@ npm install --save-dev @types/node
 这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
 或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
-#### 旧版本的 TypeScript（3.9 和更早版本）
+#### 旧版本的 TypeScript（4.0 和更早版本）
 
-Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 4.0 及更高版本。如果您使用的是 TypeScript 2.0 到 3.9，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 4.1 及更高版本。如果您使用的是 TypeScript 2.0 到 4.0，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
