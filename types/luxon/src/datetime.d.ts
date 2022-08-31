@@ -757,6 +757,14 @@ export class DateTime {
      */
     static parseFormatForOpts(formatOpts?: DateTimeFormatOptions, localeOpts?: LocaleOptions): string | null;
 
+    /**
+     * Produce the fully expanded format token for the locale
+     * Does NOT quote characters, so quoted tokens will not round trip correctly
+     * @param fmt - the format string
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     */
+    static expandFormat(fmt: string, localeOpts?: LocaleOptions): string;
+
     private constructor(config: unknown);
 
     // INFO

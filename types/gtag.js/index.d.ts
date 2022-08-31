@@ -12,7 +12,7 @@ declare namespace Gtag {
     (command: 'js', config: Date): void;
     (
       command: 'event',
-      eventName: EventNames | string,
+      eventName: EventNames | (string & {}),
       eventParams?: ControlParams | EventParams | CustomParams,
     ): void;
     (command: 'get', targetId: string, fieldName: FieldNames | string, callback?: (field: string | CustomParams | undefined) => any): void;
@@ -39,24 +39,38 @@ declare namespace Gtag {
 
   type EventNames =
     | 'add_payment_info'
+    | 'add_shipping_info'
     | 'add_to_cart'
     | 'add_to_wishlist'
     | 'begin_checkout'
     | 'checkout_progress'
+    | 'earn_virtual_currency'
     | 'exception'
     | 'generate_lead'
+    | 'join_group'
+    | 'level_end'
+    | 'level_start'
+    | 'level_up'
     | 'login'
     | 'page_view'
+    | 'post_score'
     | 'purchase'
     | 'refund'
     | 'remove_from_cart'
     | 'screen_view'
     | 'search'
     | 'select_content'
+    | 'select_item'
+    | 'select_promotion'
     | 'set_checkout_option'
     | 'share'
     | 'sign_up'
+    | 'spend_virtual_currency'
+    | 'tutorial_begin'
+    | 'tutorial_complete'
+    | 'unlock_achievement'
     | 'timing_complete'
+    | 'view_cart'
     | 'view_item'
     | 'view_item_list'
     | 'view_promotion'
