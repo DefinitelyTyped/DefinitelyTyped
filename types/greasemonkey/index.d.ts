@@ -213,10 +213,9 @@ declare var GM: {
      * // For structured data used `JSON.stringify()` to place an object into storage and then `JSON.parse()` to convert it back
      * const storedObject = JSON.parse(await GM.getValue('foo', '{}'));
      */
-    getValue<TValue = GM.Value>(
+    getValue(
         name: string,
-    ): Promise<TValue | undefined>
-    
+    ): Promise<GM.Value | undefined>
     getValue<TValue = GM.Value>(
         name: string,
         defaultValue: TValue
