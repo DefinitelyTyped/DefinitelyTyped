@@ -14,6 +14,8 @@ class Home extends React.Component<HomeProps, any> {
     }
 }
 
+const HomeFC: React.FC<HomeProps> = (props) => React.createElement("p", {"value": props.stringValue});
+
 class ExtendedStore extends BaseStore {
     constructor(public dispatcher: DispatcherInterface) {
         super(dispatcher);
@@ -49,4 +51,16 @@ const ConnectedComponent = connectToStores(Home, [ExtendedStore], (context: Comp
     };
 });
 
+// connecting HomeFn react function component to ExtendedStore
+const ConnectedFunctionComponent = connectToStores(
+    HomeFC,
+    [ExtendedStore],
+    (context: ComponentContext, props: HomeProps) => {
+        return {
+            stringValue: context.getStore(ExtendedStore).getData(),
+        };
+    },
+);
+
 const ConnectedComponentWithContext = provideContext(ConnectedComponent);
+const ConnectedFunctionComponentWithContext = provideContext(ConnectedFunctionComponent);

@@ -20,7 +20,7 @@ import { ComponentContext } from "fluxible";
  * @returns React.Component
  */
 export function connectToStores(
- Component: typeof React.Component,
+ Component: typeof React.Component | React.ComponentType<any>,
  stores: Array<typeof BaseStore> | string[],
  getStateFromStores: (context: ComponentContext, props: any) => any,
  customContextTypes?: any): typeof React.Component;
