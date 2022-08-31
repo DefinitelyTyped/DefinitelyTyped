@@ -1,8 +1,7 @@
-// All examples were taken from:
-// https://github.com/Evilweed/protractor-beautiful-reporter/blob/master/README.md
-// https://github.com/Evilweed/protractor-beautiful-reporter/tree/master/examples/
-
 import HtmlReporter = require('protractor-beautiful-reporter');
+import { Capabilities } from 'selenium-webdriver';
+
+// https://github.com/Evilweed/protractor-beautiful-reporter/blob/master/README.md
 
 // Jasmine 2.x
 jasmine.getEnv().addReporter(
@@ -15,6 +14,44 @@ jasmine.getEnv().addReporter(
 new HtmlReporter({
     baseDirectory: 'tmp/screenshots',
 });
+
+// Path Builder (optional)
+const path = {
+    join: (...paths: readonly string[]) => paths.join('/'),
+};
+
+new HtmlReporter({
+    baseDirectory: 'tmp/screenshots',
+    pathBuilder(spec, descriptions, results, capabilities) {
+        // Return '<browser>/<specname>' as path for screenshots:
+        // Example: 'firefox/list-should work'.
+        return path.join('firefox' /*capabilities.caps_.browser*/, descriptions.join('-'));
+    },
+});
+
+// Jasmine2 Meta Data Builder (optional)
+const originalJasmine2MetaDataBuilder = new HtmlReporter({ baseDirectory: './' })['jasmine2MetaDataBuilder'];
+jasmine.getEnv().addReporter(
+    new HtmlReporter({
+        baseDirectory: 'tmp/screenshots',
+        jasmine2MetaDataBuilder(spec, descriptions, results, capabilities) {
+            // filter for pendings with pending() function and "unfail" them
+            if (
+                results &&
+                results.failedExpectations &&
+                results.failedExpectations.length > 0 &&
+                'Failed: => marked Pending' === results.failedExpectations[0].message
+            ) {
+                results.pendingReason = 'Marked Pending with pending()';
+                results.status = 'pending';
+                results.failedExpectations = [];
+            }
+            // call the original method after my own mods
+            return originalJasmine2MetaDataBuilder(spec, descriptions, results, capabilities);
+        },
+        preserveDirectory: false,
+    }).getJasmine2Reporter(),
+);
 
 // Screenshots Subfolder (optional)
 new HtmlReporter({
@@ -36,7 +73,7 @@ interface SortableMetaData extends HtmlReporter.MetaData {
 
 new HtmlReporter({
     baseDirectory: 'tmp/screenshots',
-    sortFunction: function sortFunction(a: SortableMetaData, b: SortableMetaData) {
+    sortFunction(a: SortableMetaData, b: SortableMetaData) {
         if (a.cachedBase === undefined) {
             const aTemp = a.description.split('|').reverse();
             a.cachedBase = aTemp.slice(0).slice(0, -1);
@@ -74,7 +111,7 @@ new HtmlReporter({
 
 new HtmlReporter({
     baseDirectory: 'tmp/screenshots',
-    sortFunction: function sortFunction(a, b) {
+    sortFunction(a, b) {
         if (a.instanceId < b.instanceId) return -1;
         else if (a.instanceId > b.instanceId) return 1;
 
@@ -204,3 +241,67 @@ new HtmlReporter({
         useAjax: true,
     },
 });
+
+// https://github.com/Evilweed/protractor-beautiful-reporter/tree/master/examples/
+
+// protractor.jasmine2.with.sharding.sort2.conf.js
+jasmine.getEnv().addReporter(
+    new HtmlReporter({
+        preserveDirectory: true,
+        takeScreenShotsOnlyForFailedSpecs: true,
+        screenshotsSubfolder: 'images',
+        jsonsSubfolder: 'jsons',
+        baseDirectory: 'reports-tmp',
+        pathBuilder(spec, descriptions, results, capabilities) {
+            // Return '<30-12-2016>/<browser>/<specname>' as path for screenshots:
+            // Example: '30-12-2016/firefox/list-should work'.
+            const currentDate = new Date();
+            const day = currentDate.getDate();
+            const month = currentDate.getMonth() + 1;
+            const year = currentDate.getFullYear();
+
+            const validDescriptions = descriptions.map(description => {
+                return description.replace('/', '@');
+            });
+
+            return path.join(
+                `${day}-${month}-${year}`,
+                // capabilities.get('browserName'),
+                validDescriptions.join('-'),
+            );
+        },
+        sortFunction(a, b) {
+            if (a.sessionId < b.sessionId) return -1;
+            else if (a.sessionId > b.sessionId) return 1;
+
+            if (a.timestamp < b.timestamp) return -1;
+            else if (a.timestamp > b.timestamp) return 1;
+
+            return 0;
+        },
+    }).getJasmine2Reporter(),
+);
+
+// https://github.com/Evilweed/protractor-beautiful-reporter/blob/master/app/reporter.js
+function app_reporter_js() {
+    const screenshotReporter: HtmlReporter.HtmlReporterConstructorOptions = { baseDirectory: 'tmp/screenshots' };
+    const descriptions = ['description'];
+    const result: jasmine.SpecResult = {
+        passedExpectations: [],
+        pendingReason: 'text',
+        debugLogs: [],
+        id: 'text',
+        description: 'text',
+        fullName: 'text',
+        failedExpectations: [],
+        deprecationWarnings: [],
+        status: 'text',
+        duration: 0,
+        properties: {},
+    };
+    const capabilities = new Capabilities();
+
+    // app/reporter.js always passes a null spec.
+    const baseName = screenshotReporter.pathBuilder?.(null, descriptions, result, capabilities);
+    const metaData = screenshotReporter.jasmine2MetaDataBuilder?.(null, descriptions, result, capabilities);
+}

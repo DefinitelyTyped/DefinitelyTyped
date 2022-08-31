@@ -4,17 +4,31 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import jasmine = require('jasmine');
+import { Capabilities } from 'selenium-webdriver';
 
 export = HtmlReporter;
 
 declare class HtmlReporter {
     constructor(options: HtmlReporter.HtmlReporterConstructorOptions);
     getJasmine2Reporter(): jasmine.CustomReporter;
+    jasmine2MetaDataBuilder(
+        spec: null,
+        descriptions: string[],
+        result: jasmine.SpecResult,
+        capabilities: Capabilities,
+    ): HtmlReporter.StubMetaData;
 }
 
 declare namespace HtmlReporter {
     interface HtmlReporterConstructorOptions {
         baseDirectory: string;
+        pathBuilder?: (
+            spec: null,
+            descriptions: string[],
+            result: jasmine.SpecResult,
+            capabilities: Capabilities,
+        ) => string;
+        jasmine2MetaDataBuilder?: HtmlReporter['jasmine2MetaDataBuilder'];
         screenshotsSubfolder?: string;
         jsonsSubfolder?: string;
         excludeSkippedSpecs?: boolean;
@@ -57,9 +71,22 @@ declare namespace HtmlReporter {
         dangerTime?: number;
     }
 
-    interface MetaData {
-        instanceId: number;
+    interface StubMetaData {
         description: string;
+        passed: boolean;
+        pending: boolean;
+        os: string;
+        sessionId: string;
+        instanceId: number;
+        browser: {
+            name: string;
+            version: string;
+        };
+    }
+
+    interface MetaData extends StubMetaData {
         timestamp: number;
+        duration: number;
+        screenShotFile?: string;
     }
 }
