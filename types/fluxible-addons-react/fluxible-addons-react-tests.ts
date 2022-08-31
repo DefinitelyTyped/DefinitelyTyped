@@ -64,3 +64,4 @@ const ConnectedFunctionComponent = connectToStores(
 
 const ConnectedComponentWithContext = provideContext(ConnectedComponent);
 const ConnectedFunctionComponentWithContext = provideContext(ConnectedFunctionComponent);
+const ConnectedFunctionComponent2WithContext = provideContext(HomeFC);
