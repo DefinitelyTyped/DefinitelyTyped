@@ -17,8 +17,8 @@ declare module 'font-carrier' {
         options: T;
         setOptions(options: T): void;
         defaultOptions: T;
-        get(): any;
-        set(value: string): void;
+        get(key: string): string | number;
+        set(key: string, value: string | number): void;
         init(options: T): void;
         constructor(arg0: T);
     }
