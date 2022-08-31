@@ -12,9 +12,9 @@ export class AppVeyorReporter implements jasmine.CustomReporter {
 
 export namespace AppVeyorReporter {
     interface ConstructorOptions {
-        batchSize: number;
-        color: boolean;
-        verbosity: 0 | 1 | 2;
+        batchSize?: number;
+        color?: boolean;
+        verbosity?: 0 | 1 | 2;
     }
 }
 

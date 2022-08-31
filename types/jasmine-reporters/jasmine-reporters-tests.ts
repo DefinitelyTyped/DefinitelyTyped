@@ -129,6 +129,10 @@ function TeamCityReporterSpec_js() {
 // JSDoc from https://github.com/larrymyers/jasmine-reporters/tree/master/src/
 
 function appveyor_reporter_js() {
+    // Required options
+    jasmine.getEnv().addReporter(new jasmineReporters.AppVeyorReporter());
+    jasmine.getEnv().addReporter(new jasmineReporters.AppVeyorReporter({}));
+    // All options
     jasmine.getEnv().addReporter(
         new jasmineReporters.AppVeyorReporter({
             batchSize: 1,
@@ -139,6 +143,10 @@ function appveyor_reporter_js() {
 }
 
 function junit_reporter_js() {
+    // Required options
+    jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter());
+    jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({}));
+    // All options
     jasmine.getEnv().addReporter(
         new jasmineReporters.JUnitXmlReporter({
             captureStdout: true,
@@ -159,6 +167,10 @@ function junit_reporter_js() {
 }
 
 function nunit_reporter_js() {
+    // Required options
+    jasmine.getEnv().addReporter(new jasmineReporters.NUnitXmlReporter());
+    jasmine.getEnv().addReporter(new jasmineReporters.NUnitXmlReporter({}));
+    // All options
     jasmine.getEnv().addReporter(
         new jasmineReporters.NUnitXmlReporter({
             filename: 'text',
@@ -173,10 +185,22 @@ function tap_reporter_js() {
 }
 
 function teamcity_reporter_js() {
+    // Required options
     jasmine.getEnv().addReporter(new jasmineReporters.TeamCityReporter());
+    jasmine.getEnv().addReporter(new jasmineReporters.TeamCityReporter({}));
+    // All options
+    jasmine.getEnv().addReporter(
+        new jasmineReporters.TeamCityReporter({
+            modifySuiteName: () => 'text',
+        }),
+    );
 }
 
 function terminal_reporter_js() {
+    // Required options
+    jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter());
+    jasmine.getEnv().addReporter(new jasmineReporters.TerminalReporter({}));
+    // All options
     jasmine.getEnv().addReporter(
         new jasmineReporters.TerminalReporter({
             color: true,
