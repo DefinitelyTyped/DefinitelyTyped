@@ -14,19 +14,19 @@ class Home extends React.Component<HomeProps, any> {
     }
 }
 
-const HomeFC: React.FC<HomeProps> = (props) => React.createElement("p", {"value": props.stringValue});
+const HomeFC: React.FC<HomeProps> = props => React.createElement('p', { value: props.stringValue });
 
 class ExtendedStore extends BaseStore {
     constructor(public dispatcher: DispatcherInterface) {
         super(dispatcher);
 
-        this.data = "";
+        this.data = '';
     }
 
     static storeName = 'ExtendedStore';
 
     static handlers = {
-        ACTION_NAME: 'actionHandler'
+        ACTION_NAME: 'actionHandler',
     };
 
     private data: string;
