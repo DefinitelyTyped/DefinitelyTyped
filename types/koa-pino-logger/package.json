@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "pino-http": "^6.5.0",
-        "pino": "^7.0.0"
-    }
-}
