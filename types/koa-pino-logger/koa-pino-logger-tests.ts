@@ -12,6 +12,8 @@ app.use(logger({genReqId: () => 'foo'}));
 
 app.use((ctx) => {
   ctx.log.info('something else');
+  const unknown: unknown = 'unknown';
+  ctx.log.info(unknown);
   ctx.body = 'hello world';
 });
 

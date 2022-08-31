@@ -1,4 +1,4 @@
-// Type definitions for koa-pino-logger 3.0
+// Type definitions for koa-pino-logger 4.0
 // Project: https://github.com/pinojs/koa-pino-logger, https://github.com/davidmarkclements/koa-pino-logger
 // Definitions by: Cameron Yan <https://github.com/khell>
 //                 Jeremy Hull <https://github.com/sourrust>
