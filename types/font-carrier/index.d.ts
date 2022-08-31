@@ -12,6 +12,17 @@ declare module 'font-carrier' {
         path?: string;
         types?: FontType[];
     }
+
+    class Base<T> {
+        options: T;
+        setOptions(options: T): void;
+        defaultOptions: T;
+        get(): any;
+        set(value: string): void;
+        init(options: T): void;
+        constructor(arg0: T);
+    }
+
     namespace FontCarrier {
         interface FontOptions {
             id: string;
@@ -26,13 +37,19 @@ declare module 'font-carrier' {
             horizAdvX: number;
             vertAdvY: number;
         }
+
+        interface FontFaceOptions {
+            fontFamily: string;
+            fontWeight: string;
+            fontStretch: string;
+            unitsPerEm: string;
+            ascent: string;
+            descent: string;
+        }
         /**
          * glyph 字形对象代表了具体某个字的信息。
          */
-        class Glyph {
-            options: GlyphOptions;
-            __font: {};
-            defaultOptions: {};
+        class Glyph extends Base<GlyphOptions> {
             /**
              * 获取当前字形对应的字体对象
              */
@@ -47,39 +64,19 @@ declare module 'font-carrier' {
              * @param path
              * @param options
              */
-            toSvg(path?: string, options?: { width: number; height: number }): string;
-            constructor(arg0: GlyphOptions);
-            setOptions(): void;
-            get(): void;
-            set(): void;
+            toSvg(
+                options?: Partial<{
+                    path: string;
+                    width: number;
+                    height: number;
+                    skipViewport: string;
+                }>,
+            ): string;
         }
 
-        interface FontFaceOptions {
-            fontFamily: string;
-            fontWeight: string;
-            fontStretch: string;
-            unitsPerEm: string;
-            ascent: string;
-            descent: string;
-        }
+        class FontFace extends Base<FontFaceOptions> {}
 
-        class FontFace {
-            options: FontFaceOptions;
-            defaultOptions: {};
-            init(): void;
-            constructor(arg0: FontFaceOptions);
-            constructor();
-            setOptions(): void;
-            get(): void;
-            set(): void;
-        }
-
-        class Font {
-            __glyphs: {};
-            __fontface: {};
-            options: FontOptions;
-            defaultOptions: {};
-            init(arg0: FontOptions): void;
+        class Font extends Base<FontOptions> {
             getFontface(): FontFace;
             setFontface(fontFace: FontFace | FontFaceOptions): void;
             getSvg(keys: string): string | Map<string, string>;
@@ -108,11 +105,6 @@ declare module 'font-carrier' {
              * @param options
              */
             output(options?: FileOptions): Buffer[];
-            constructor(arg0: FontOptions);
-            constructor();
-            setOptions(): void;
-            get(): void;
-            set(): void;
         }
 
         /**
