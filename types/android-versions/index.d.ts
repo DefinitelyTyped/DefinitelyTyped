@@ -51,7 +51,10 @@ declare namespace android {
         | "O_MR1"
         | "P"
         | "Q"
-        | "R";
+        | "R"
+        | "S"
+        | "S_V2"
+        | "TIRAMISU";
 
     type MapVersionSupport = {
         [K in VersionCode]: AndroidVersion;
