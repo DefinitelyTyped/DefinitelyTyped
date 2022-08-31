@@ -1,3 +1,5 @@
+import { Options } from './options';
+
 /*
  * The execution module provides information about the current test execution state.
  * https://k6.io/docs/javascript-api/k6-execution/
@@ -74,7 +76,7 @@ declare namespace execution {
          */
         abort(input?: string): void;
 
-        options: { [key: string]: any };
+        options: Options;
     };
 
     /**
