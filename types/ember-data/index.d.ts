@@ -30,6 +30,14 @@ type RelationshipsFor<Model extends DS.Model> = ModelKeys<Model>; // TODO: filte
 export interface ChangedAttributes {
     [key: string]: [any, any] | undefined;
 }
+
+interface FindOptions {
+    reload?: boolean,
+    backgroundReload?: boolean,
+    include?: string,
+    adapterOptions?: Record<string,unknown>,
+    preload?: Record<string, unknown>
+}
 interface AttributeMeta<Model extends DS.Model> {
     type: keyof TransformRegistry;
     options: object;
@@ -791,7 +799,7 @@ export namespace DS {
          * loaded. If the relationship is already loaded this method does not
          * trigger a new load.
          */
-        load(): RSVP.Promise<any>;
+        load(options?: FindOptions): RSVP.Promise<any>;
         /**
          * Triggers a reload of the value in this relationship. If the
          * remoteType is `"link"` Ember Data will use the relationship link to
