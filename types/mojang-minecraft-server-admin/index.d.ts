@@ -8,13 +8,29 @@
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
 /**
+ * Contains types related to administering a Bedrock Dedicated
+ * Server. These types allow for the configuration of variables
+ * and secrets in JSON files in the Bedrock Dedicated Server
+ * folder. These types cannot be used on Minecraft clients.
+ *
+ * Manifest Details
+ * ```json
+ * {
+ *   // mojang-minecraft-server-admin
+ *   "uuid": "53d7f2bf-bf9c-49c4-ad1f-7c803d947920",
+ *   "version": "1.0.0-beta"
+ * }
+ * ```
+ *
+ */
+/**
  * This represents a placeholder object that represents a
  * secret string. The contents of that string are not available
  * to script; this object is just a placeholder.
  */
+// tslint:disable-next-line:no-unnecessary-class
 export class SecretString {
     constructor(value: string);
-    equals(other: SecretString): boolean;
 }
 /**
  * A collection of server secrets defined in dedicated server

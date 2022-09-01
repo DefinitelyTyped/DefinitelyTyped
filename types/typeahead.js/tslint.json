@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "member-access": false,

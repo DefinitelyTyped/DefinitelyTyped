@@ -556,9 +556,6 @@ declare module 'crypto' {
          */
         namedCurve?: string | undefined;
     }
-    interface JwkKeyExportOptions {
-        format: 'jwk';
-    }
     /**
      * Node.js uses a `KeyObject` class to represent a symmetric or asymmetric key,
      * and each kind of key exposes different functions. The {@link createSecretKey}, {@link createPublicKey} and {@link createPrivateKey} methods are used to create `KeyObject`instances. `KeyObject`
@@ -1481,10 +1478,10 @@ declare module 'crypto' {
      * @param [generator=2]
      * @param generatorEncoding The `encoding` of the `generator` string.
      */
-    function createDiffieHellman(primeLength: number, generator?: number | NodeJS.ArrayBufferView): DiffieHellman;
-    function createDiffieHellman(prime: NodeJS.ArrayBufferView): DiffieHellman;
-    function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding): DiffieHellman;
-    function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding, generator: number | NodeJS.ArrayBufferView): DiffieHellman;
+    function createDiffieHellman(primeLength: number, generator?: number): DiffieHellman;
+    function createDiffieHellman(prime: ArrayBuffer | NodeJS.ArrayBufferView, generator?: number | ArrayBuffer | NodeJS.ArrayBufferView): DiffieHellman;
+    function createDiffieHellman(prime: ArrayBuffer | NodeJS.ArrayBufferView, generator: string, generatorEncoding: BinaryToTextEncoding): DiffieHellman;
+    function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding, generator?: number | ArrayBuffer | NodeJS.ArrayBufferView): DiffieHellman;
     function createDiffieHellman(prime: string, primeEncoding: BinaryToTextEncoding, generator: string, generatorEncoding: BinaryToTextEncoding): DiffieHellman;
     /**
      * The `DiffieHellman` class is a utility for creating Diffie-Hellman key

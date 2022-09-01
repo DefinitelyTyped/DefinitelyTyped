@@ -552,23 +552,50 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
-            /** Provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
+            /** Provides a short description of the rule. */
             description?: string | undefined;
-            /** Specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated no longer used
+             */
             category?: string | undefined;
-            /** Is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
+            /** Whether the rule is enabled in the plugin's `recommended` configuration. */
             recommended?: boolean | undefined;
-            /** Specifies the URL at which the full documentation can be accessed */
+            /** Specifies the URL at which the full documentation can be accessed (enabling code editors to provide a helpful link on highlighted rule violations). */
             url?: string | undefined;
-            /** Specifies whether rules can return suggestions (defaults to false if omitted) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated use `meta.hasSuggestions` instead
+             */
             suggestion?: boolean | undefined;
         } | undefined;
+        /** Violation and suggestion messages. */
         messages?: { [messageId: string]: string } | undefined;
+        /**
+         * Specifies if the `--fix` option on the command line automatically fixes problems reported by the rule.
+         * Mandatory for fixable rules.
+         */
         fixable?: "code" | "whitespace" | undefined;
+        /**
+         * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
+         * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
+         */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+        /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /**
+         * Indicates the type of rule:
+         * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
+         * - `"suggestion"` means the rule is identifying something that could be done in a better way but no errors will occur if the code isn’t changed.
+         * - `"layout"` means the rule cares primarily about whitespace, semicolons, commas, and parentheses,
+         *   all the parts of the program that determine how the code looks rather than how it executes.
+         *   These rules work on parts of the code that aren’t specified in the AST.
+         */
         type?: "problem" | "suggestion" | "layout" | undefined;
-        /** Specifies whether rules can return suggestions (defaults to false if omitted) */
+        /**
+         * Specifies whether the rule can return suggestions (defaults to `false` if omitted).
+         * Mandatory for rules that provide suggestions.
+         */
         hasSuggestions?: boolean | undefined;
     }
 

@@ -5,7 +5,6 @@
 //                 Moritz Gunz <https://github.com/NeoLegends>
 //                 Daniel Almaguer <https://github.com/deini>
 //                 Hanna Becker <https://github.com/hanna-becker>
-//                 Antonia Elsen <https://github.com/aelsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

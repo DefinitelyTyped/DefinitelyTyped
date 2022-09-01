@@ -5,7 +5,6 @@
         "arrow-return-shorthand": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-trailing-whitespace": false,

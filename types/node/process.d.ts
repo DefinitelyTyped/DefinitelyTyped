@@ -97,7 +97,7 @@ declare module 'process' {
             type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
             /**
              * Most of the time the unhandledRejection will be an Error, but this should not be relied upon
-             * as *anything* can be thrown/rejected, it is therefore unsafe to assume the the value is an Error.
+             * as *anything* can be thrown/rejected, it is therefore unsafe to assume that the value is an Error.
              */
             type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
