@@ -1,3 +1,4 @@
+import * as antlr4 from 'antlr4';
 import { Interval, InputStream, CommonTokenStream, Lexer, Parser, ParserRuleContext } from 'antlr4';
 import { TerminalNode } from 'antlr4/tree/Tree';
 
@@ -2173,3 +2174,5 @@ function LA(code: string, offset: number): number {
 function LT(code: string, offset: number): number {
     return new InputStream(code).LT(offset);
 }
+
+export default class ExcelVisitor extends antlr4.tree.ParseTreeVisitor {}
