@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "libav-core-tests.ts"
+        "ffmpeg__libav-core-tests.ts"
     ]
 }
