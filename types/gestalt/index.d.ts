@@ -485,7 +485,7 @@ export interface DatapointProps {
     value: string;
     size?: 'md' | 'lg' | undefined;
     tooltipText?: string | undefined;
-    trend?: { accesibilityLabel: string; value: number } | undefined;
+    trend?: { accessibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
     badge?: BadgeObject | undefined;
     tooltipZIndex?: Indexable | undefined;
