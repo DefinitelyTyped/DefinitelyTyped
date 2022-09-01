@@ -1,4 +1,4 @@
-// Type definitions for libav-core 0.1
+// Type definitions for @ffmpeg/libav-core 0.1
 // Project: https://github.com/ffmpegwasm/libav.wasm
 // Definitions by: Jerome Wu <https://github.com/jeromewu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
