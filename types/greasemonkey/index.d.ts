@@ -10,12 +10,14 @@
 
 declare namespace GM {
     interface ScriptInfo {
+        /** Possibly empty string. */
         description: string;
         excludes: string[];
         includes: string[];
         matches: string[];
         name: string;
-        namespace?: string | undefined;
+        /** Possibly empty string. */
+        namespace: string;
         /**
          * An object keyed by resource name.
          * Each value is an object with keys `name` and `mimetype` and `url`
@@ -31,6 +33,7 @@ declare namespace GM {
         /** @default 'end' */
         runAt: 'start' | 'end' | 'idle';
         uuid: string;
+         /** Possibly empty string. */
         version: string;
     }
 
