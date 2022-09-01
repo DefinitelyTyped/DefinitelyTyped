@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 
+// tslint:disable-next-line: no-declare-current-package no-single-declare-module
 declare module 'font-carrier' {
     type FontType = 'ttf' | 'eot' | 'woff' | 'woff2' | 'svg';
 
