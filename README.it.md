@@ -430,7 +430,7 @@ Se un modulo che utilizzi non ha ancora delle definizioni, puoi chiedere che ven
 
 Se i tipi fanno parte di uno standard web, si può contribuire al [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator), in modo tale che diventino parte del `lib.dom.d.ts` ufficiale.
 
-#### È consigliato aggiunge un namespace vuoto ai package che non esportano un modulo, così da poter usare gli import ES6?
+#### È consigliato aggiungere un namespace vuoto ai package che non esportano un modulo, così da poter usare gli import ES6?
 
 Alcuni package, come [chai-http](https://github.com/chaijs/chai-http), esportano una funzione.
 
