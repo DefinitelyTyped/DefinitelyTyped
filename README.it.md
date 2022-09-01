@@ -270,7 +270,21 @@ Per maggiori dettagli, leggi il readme di [dtslint](https://github.com/microsoft
 
 Il file di configurazione del linter, `tslint.json`, dovrebbe contenere `{ "extends": "@definitelytyped/dtslint/dt.json" }` e nessun'altra regola.
 
-Se per qualche ragione qualche regola necessita di essere disabilitata, [disabilitala solo per la riga di codice in cui dovrebbe esserlo](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` e non disabilitandola per tutto il package.
+Se per qualche ragione qualche regola necessita di essere disabilitata, [disabilitala solo per la riga di codice in cui dovrebbe esserlo](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` e non disabilitandola per tutto il package, in modo tale che tu possa verificarne l'effetto. (CI sono alcune configurazioni lint legacy che hanno del contenuto aggiuntivo tuttavia non dovrebbe più accadere nei lavori futuri).
+
+##### Linter: `.eslintrc.json`
+
+"Definitely Typed" sta migrando ad eslint per il linting.
+Al contrario di tslint qui non è necessario un file di configurazione per il linting.
+Proprio come tslint dovresti disabilitare le regole solo per determinate linee:
+
+```ts
+// eslint-disable-next-line no-const-enum
+const enum Const { One }
+const enum Enum { Two } // eslint-disable-line no-const-enum
+```
+
+Puoi ancora disabilitare determinate regole attraverso il file .eslintrc.json ma non dovresti nei nuovi package.
 
 #### `tsconfig.json`
 
@@ -322,11 +336,13 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 
 * Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write path/to/package/**/*.ts`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
+  
   ```tsx
     // prettier-ignore
     // @ts-expect-error
     const incompleteThemeColorModes: Theme = { colors: { modes: { papaya: {
     ```
+
 * `function sum(nums: number[]): number`: Usa `ReadonlyArray` se una funzione non modifica i suoi parametri.
 * `interface Foo { new(): Foo; }`:
   Definisce un tipo di oggetto su cui si può fare new. Probabilmente ciò che vuoi è `declare class Foo { constructor(); }`.
@@ -386,6 +402,13 @@ Alle pull request che sono state approvate da un'autore presente nella lista dei
 
 I package dovrebbero venire aggiornati us npm in pochi minuti. Se ci mette più di un'ora, riferisciti al numero della pull request sul [serve discord di DefinitelyTyped nella community di TypeScript](https://discord.gg/typescript) ed il mantenitore assegnerà a chi di dovere per investigare.
 
+#### Mi piacerebbe inviare un contributo ad un progetto molto popolare, perchè sono trattati in modo differente?
+
+Per cambiamenti a moduli molto popolari, come Node/Express/Jest che hanno milioni di download ogni settimana su npm, i requisiti per contribuire sono leggermente più esigenti.
+Una variazione a progetti del genere può avere un effetto significativo sull'intero ecosistema, per questa ragione trattiamo questi cambiamenti con moltissima attenzione.
+Questi moduli richiedono una approvazione sia dal mantainer del package che una risposta eccezionale da parte dei proprietari dei moduli. L'asticella per superare questo requisito può essere abbastanza alta e difatti spesso le Pull Request vanno in stallo proprio data l'assenza di un champion.
+Se noti che nessuno interagisce alla PR prova a darle un focus minore.
+
 #### Sto scrivendo un file dts che dipende da altri dts. Cosa dovrei usare, `<reference types="" />` o `import`?
 
 Se il modulo da cui dipendi è un modulo esterno (usa `export`), utilizza `import`.
@@ -393,7 +416,11 @@ Se il modulo da cui dipendi è un modulo d'ambiente (usa `declare module` o semp
 
 #### Alcuni package non hanno un `tslint.json` ed ad altri mancano il `"noImplicitAny": true`, il `"noImplicitThis": true`, o  il`"strictNullChecks": true` nel `tsconfig.json`.
 
-Questo significa che non vanno bene e noi non ce ne siamo ancora accorti. Puoi contribuire inviando una pull request che li sistema.
+Questo significa che non vanno bene e noi non ce ne siamo ancora accorti. Puoi contribuire inviando una pull request che li sistemi.
+
+#### Posso cambiare/imporre una specifica formattazione per alcuni moduli?
+
+No. Abbiamo già provato ad avere una formattazione consistente dei package ma siamo arrivati ad un vicolo cieco data la mole di attività sulla repo. Noi alleghiamo delle impostazioni di formattazione attraverso i file [`.editorconfig`](.editorconfig) e [`.prettierrc.json`](.prettierrc.json). Questi sono esclusivamente per il tuo editor, le loro impostazioni non vanno in conflitto e non abbiamo in piano di modificarle. Né tantomeno abbiamo in piano di imporre uno stile specifico nella repository. Vogliamo tenere le barriere per le contribuzioni basse.
 
 ####  Posso chiedere che venga implementata una definizione per un modulo che non le ha ancora?
 
@@ -403,7 +430,7 @@ Se un modulo che utilizzi non ha ancora delle definizioni, puoi chiedere che ven
 
 Se i tipi fanno parte di uno standard web, si può contribuire al [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator), in modo tale che diventino parte del `lib.dom.d.ts` ufficiale.
 
-####  È consigliato aggiunge un namespace vuoto ai package che non esportano un modulo, così da poter usare gli import ES6?
+#### È consigliato aggiunge un namespace vuoto ai package che non esportano un modulo, così da poter usare gli import ES6?
 
 Alcuni package, come [chai-http](https://github.com/chaijs/chai-http), esportano una funzione.
 
@@ -416,10 +443,12 @@ Questa [risposta su Stack Overflow](https://stackoverflow.com/questions/39415661
 
 Risulta preferibile importare un modulo usando la sintassi `import foo = require("foo");`.
 In ogni caso, se vuoi usare un import default come `import foo from "foo";`, hai due possibilità:
+
 - puoi usare l'opzione del traspilatore TypeScript [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) se il tuo modulo supporta a ntime
 
 Importare il modulo usando la sintassi `import foo = require("foo");` è più appropriato.
 Comunque, se vuoi usare un default import come `import foo from "foo";` hai due possibilità:
+
 - puoi usare [l'opzione di compilazione `--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) se il tuo ambiente di runtime supporta uno schema interop per moduli non ECMAScript, come nel caso in cui gli import di default sono supportati (Webpack, SystemJS, esm, ...)
 - puoi usare [l'opzione di compilazione `--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop) se sia Typescript ad occuparsi dell'interop di moduli non ECMAScript (da TypeScript 2.7 in su).
 
@@ -458,6 +487,7 @@ Ecco qui un breve esempio per iniziare:
    Dovrai eliminare l'header delle definizioni da `ts3.6/index.d.ts` dal momento che solo la root `index.d.ts` può averlo.
 
 3. Cambia le opzioni `baseUrl` e `typeRoots` in `ts3.6/tsconfig.json` per correggere i path, dovrebbe essere simile a:
+
    ```json
     {
         "compilerOptions": {
@@ -472,7 +502,7 @@ Ecco qui un breve esempio per iniziare:
 
    Dai un'occhiata a [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) per averne un esempio.
 
-#### Voglio aggiungere una API DOM che non è presente di default su Typescript.
+#### Voglio aggiungere una API DOM che non è presente di default su Typescript
 
 Questo potrebbe riguardare [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). Dai un'occhiata a quelle guide.
 Se lo standard è ancora una bozza, allora riguarda questa repo.
