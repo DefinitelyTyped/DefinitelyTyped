@@ -59,9 +59,9 @@
         _matchedRouteName: string | undefined;
     }
 
-    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>>;
+    type RouterContext<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = unknown> = Koa.ParameterizedContext<StateT, ContextT & RouterParamContext<StateT, ContextT>, ResponseBodyT>;
 
-    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = Koa.Middleware<StateT, ContextT & RouterParamContext<StateT, ContextT>>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext, ResponseBodyT = unknown> = Koa.Middleware<StateT, ContextT & RouterParamContext<StateT, ContextT>, ResponseBodyT>;
 
     interface ParamMiddleware {
         (param: string, ctx: RouterContext, next: Koa.Next): any;
