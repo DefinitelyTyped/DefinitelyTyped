@@ -11,5 +11,3 @@ export class ShapeGeometry extends BufferGeometry {
 
     static fromJSON(data: any): ShapeGeometry;
 }
-
-export { ShapeGeometry as ShapeBufferGeometry };

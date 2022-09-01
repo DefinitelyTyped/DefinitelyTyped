@@ -7,8 +7,8 @@
 
 import * as THREE from 'three';
 import * as Nodes from 'three/examples/jsm/nodes/Nodes';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { nodeFrame } from 'three/examples/jsm/renderers/webgl/nodes/WebGLNodes.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { nodeFrame } from 'three/examples/jsm/renderers/webgl/nodes/WebGLNodes';
 import { WebGLNodeBuilder } from 'three/examples/jsm/renderers/webgl/nodes/WebGLNodeBuilder';
 const { add, mul } = Nodes;
 class InstanceUniformNode extends Nodes.Node {
