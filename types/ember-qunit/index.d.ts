@@ -15,6 +15,11 @@ import { TestContext } from '@ember/test-helpers';
  */
 export function setResolver(resolver: EmberResolver): void;
 
+/**
+ * @internal
+ * This is exported so that collaborators within the Ember framework layer do
+ * not have to re-create it, but it is *not* public API to call in tests.
+ */
 export interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
