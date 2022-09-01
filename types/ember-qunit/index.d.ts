@@ -16,9 +16,9 @@ import { TestContext } from '@ember/test-helpers';
 export function setResolver(resolver: EmberResolver): void;
 
 /**
- * @internal
- * This is exported so that collaborators within the Ember framework layer do
- * not have to re-create it, but it is *not* public API to call in tests.
+ * Options for configuring the test runner. Normally, you will not need to
+ * customize this. It is exported primarily so that end user app code can name
+ * it when passing it back to the framework.
  */
 export interface SetupTestOptions {
     /**
