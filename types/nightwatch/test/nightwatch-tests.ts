@@ -7,6 +7,7 @@ import {
     NightwatchTests,
     PageObjectModel,
     ELEMENT_KEY,
+    NightwatchEnsureResult,
 } from 'nightwatch';
 
 //
@@ -496,6 +497,20 @@ it('Ensure demo test', () => {
         .url('https://nightwatchjs.org')
         .ensure.titleMatches(/Nightwatch.js/)
         .ensure.elementIsVisible('#index-container');
+});
+
+it('Ensure async/await demo test', async () => {
+    const result = await browser
+        .url('https://nightwatchjs.org')
+        .ensure.urlContains('nightwatch')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+
+        function isNightwatchEnsureResult(v: NightwatchEnsureResult) {}
+        function isNull(v: null) {}
+
+        isNightwatchEnsureResult(result);
+        isNull(result.value);
 });
 
 // chai expect test
