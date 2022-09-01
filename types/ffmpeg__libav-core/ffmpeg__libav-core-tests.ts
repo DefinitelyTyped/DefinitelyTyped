@@ -1,4 +1,4 @@
-import createLibavCore, { LibavCore, Pointer } from 'ffmpeg__libav-core';
+import createLibavCore from 'ffmpeg__libav-core';
 
 (async () => {
     // $ExpectType LibavCore
