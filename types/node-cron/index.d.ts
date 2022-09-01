@@ -36,4 +36,8 @@ export interface ScheduleOptions {
      * Defaults to `false`
      */
     recoverMissedExecutions?: boolean;
+    /**
+     * The schedule name
+     */
+    name?: string;
 }

@@ -50,6 +50,7 @@ const res2: false = mmInst.makeRe();
 mmInst.match(pattern); // $ExpectType boolean
 mmInst.match(pattern, true); // $ExpectType boolean
 mmInst.matchOne([pattern], files, true); // $ExpectType boolean
+mmInst.matchOne([pattern], [/a/], true); // $ExpectType boolean
 mmInst.debug(); // $ExpectType void
 mmInst.make(); // $ExpectType void
 mmInst.parseNegate(); // $ExpectType void
