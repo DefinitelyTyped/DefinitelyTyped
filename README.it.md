@@ -8,12 +8,12 @@
 
 ## Stato attuale
 
-Questa sezione tiene traccia della salute della repo e del processo di pubblicazione.
+Questa sezione tiene traccia della salute della repository e dello stato di pubblicazione.
 Può tornare utile per i contributori che stanno avendo problemi con le loro PR e package.
 
 * Ultima build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) pulita: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Tutti i package sono sottoposti a controllo dei tipi e linting con typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* Tutti i package vengono [pubblicati su npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* Tutti i package vengono [pubblicati su npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in in meno di un ora e mezza: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * Il [bot di Typescript](https://github.com/typescript-bot) è stato attivo su Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Aggiornamenti dello stato dell'infrastruttura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) attuale
 
@@ -34,7 +34,7 @@ npm install --save-dev @types/node
 ```
 
 I tipi dovrebbero poi essere inclusi automaticamente dal complilatore.
-Potresti dover aggiungere un riferimento `types` se non stai usando i moduli:
+Potresti dover aggiungere una `types` reference se non stai usando i moduli:
 
 ```ts
 /// <reference types="node" />
@@ -47,20 +47,20 @@ Se non riesci a trovare i tipi di un package, cercalo su [TypeSearch](https://mi
 
 Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) nel package stesso.
 Di solito vengono specificati nel campo `"types"` o `"typings"` nel `package.json`;
-se vuoi puoi semplicemente cercare per dei file ".d.ts" nel package ed includerli manualmente con `/// <reference path="" />`.
+oppure prova a cercare per dei file ".d.ts" nel package ed includerli manualmente con `/// <reference path="" />`.
 
 #### Vecchie vesioni di TypeScript (4.0 e precedenti)
 
-Definitely Typed testa packages solo su versioni di TypeScript che hanno meno di due anni.
+"Definitely Typed" testa packages solo su versioni di TypeScript che hanno meno di due anni.
 Attualmente vengono testate le versioni 4.1 e successive.
 Se stai usando una versiond di TypeScript tra 2.0 e la 4.0, puoi ancora provare ad installare i package `@types`, in quanto la maggior parte di questi non usano le funzionalità più all'avanguardia di Typescript.
 Non c'è comunque nessuna garanzia che funzioneranno.
-Ecco le informazioni riguardanti le versioni supportate:
+Di seguito la finestra di supporto per ogni versione di TypeScript:
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
-I package `@types` hanno dei tag per la versione di TypeScript che supportano, quindi di solito puoi installare vecchi package che sono più vecchi di due anni.
+I package `@types` hanno dei tag per indicare le specifiche versioni di TypeScript che supportano, quindi di solito puoi installare versioni precedenti di package seppur precedenti alla finestra dei due anni.
 Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 potrà usare i tipi per react@16.0, mentre TypeScript 2.6 e 2.7 potranno usare i tipi per react@16.4:
 
 | Tag    | Versione |
@@ -79,22 +79,31 @@ Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 pot
 * ~~[Typings](https://github.com/typings/typings)~~ (usa altre alternative migliori, in quanto typings è deprecata)
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
 
-Potresti dover aggiungere manualmente i [riferimenti](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+Potresti dover aggiungere manualmente le [reference](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
 ## Come posso contribuire?
 
-Definitely Typed ha successo e può funzionare solamente grazie a contributori come te!
+"Definitely Typed" deve il suo successo e la sua funzionalità solo grazie a contributori come te!
 
-### Test
+### Testing
 
-Prima di condividere il tuo contributo col mondo, provalo tu stesso.
+Prima di condividere il tuo miglioramento col mondo intero, utilizza i tipi tu stesso attraverso la creazione del file `typename.d.ts` nel tuo progetto per poi riempire il suo export:
 
-#### Test per la modifica di un package DT (@types) preesistente
 
-Per testare localmente le tue modifiche, puoi usare [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) per estendere i tipi esistenti del modulo DT su cui vuoi lavorare.
-Altrimenti, puoi modificare i tipi direttamente nel `node_modules/@types/foo/index.d.ts` per validare le tue modifiche, per poi riportarle su questa repo seguendo i passi che troverai scritti più in basso.
+```ts
+declare module "libname" {
+  // Types inside here
+  export function helloWorldMessage(): string
+}
+```
 
-#### Test per un nuovo package DT
+#### Test per la modifica di un package già esistente
+
+Puoi modificare i tipi direttamente in `node_modules/@types/foo/index.d.ts` per verificare i tuoi cambiamenti, successivamente puoi portare questi cambiamenti a questa repository attraverso gli step descritto qui sotto.
+
+In alternativa puoi usare [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) per estendere i tipi esistenti del modulo DT oppure usare la tecnica `declare module` qui sopra che andrà a sovrascrivere la versione presente nei `node_modules`.
+
+#### Test per un nuovo package
 
 Aggiungi al tuo `tsconfig.json`:
 
@@ -105,18 +114,18 @@ Aggiungi al tuo `tsconfig.json`:
 
 Crea un `types/foo/index.d.ts` contenente le dichiarazioni per il tuo modulo "pippo".
 Ora dovresti essere in grado di importare `"pippo"` nel tuo codice, con i tipi riferiti alle dichiarazioni che hai appena creato.
-Poi fai una build **ed** esegui il codice per essere sicuro che le definizioni dei tipi corrispondano effettivamente a ciò che capita a runtime.
+Poi fai una build **ed** esegui il codice per essere sicuro che le definizioni dei tipi corrispondano effettivamente a ciò che accade a runtime.
 
-Una volta che hai testato le definizioni su del codice reale, fai una [pull request](#fai-una-pull-request),
-poi segui le istruzioni per [modificare un package preesistente](#modificare-un-package-preesistente] o [creare un nuovo package](#creare-un-nuovo-package).
+Una volta che hai testato le definizioni su del codice reale, fai una [Pull Request](#fai-una-pull-request)
+e poi segui le istruzioni per [modificare un package preesistente](#modificare-un-package-preesistente] o [creare un nuovo package](#creare-un-nuovo-package).
 
 ### Fai una pull request
 
-Una volta che hai testato il tuo package, puoi condividerlo su Definitely Typed.
+Una volta che hai testato il tuo package, puoi condividerlo su "Definitely Typed".
 
-Inanzitutto, [sdoppia](https://guides.github.com/activities/forking/) questa repo, [clonala](#clone-parziale), installa [node](https://nodejs.org/) ed esegui `npm install`. Se stai usando `npm` v7 devi aggiungere `--legacy-peer-deps` al comando.
+Inanzitutto, fai il [fork](https://guides.github.com/activities/forking/) di questa repository, [clonala](#clone-parziale), installa [node](https://nodejs.org/) ed esegui `npm install`. Se stai usando `npm` v7 devi aggiungere anche la flag `--legacy-peer-deps`.
 
-Utilizziamo un bot per far sì che un gran numero di pull request su Definitely Typed possano essere gestite interamente in modo autonomo. Puoi scoprire di più a riguardo di come e perchè [qui](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/).
+Facciamo uso di un bot per far sì che un gran numero di pull request su Definitely Typed possano essere gestite interamente in modo autonomo. Puoi scoprire di più a riguardo di come e perchè [qui](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/).
 
 Ecco qui un'immagine che mostra il ciclo vitale di una pull request su Definitely Typed.
 
@@ -124,8 +133,8 @@ Ecco qui un'immagine che mostra il ciclo vitale di una pull request su Definitel
 
 #### Clone parziale
 
-Puoi clonare l'intera repo [come di consuetudine](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) che però è molto grande ed include numerose cartelle di package DT. Ci vorrà quindi del tempo per clonarla e può essere un procedimento inutilmente lungo.
-Per clonare la repo in modo più agibile, clonando _solo_ i package DT per te rilevanti, pui usare le funzionalità [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) ed [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) di git.
+Puoi clonare l'intera repo [come di consuetudine](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) che però è molto grande ed include numerose cartelle di package di tipi. Ci vorrà quindi del tempo per clonarla e può essere un procedimento inutilmente lungo.
+Per clonare la repo in modo più agibile, clonando _solo_ i package per te rilevanti, pui usare le funzionalità [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout), [`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt) ed [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) di git.
 
 >:warning: Richiede almeno la [versione di git 2.27.0](https://git-scm.com/downloads), che solitamente è più recente di quelle installate di default. Per le versioni più vecchie sono disponibili procedure più complesse, che non trattiamo qui.
 
@@ -528,17 +537,17 @@ Nota che `/// <reference types=".." />` non funziona con il mapping degli indiri
 La guida di Typescript spiega benissimo [come scrivere le definizioni dei tipi](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) ed ha anche [un file di esempio](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) che è esattamente una libreria che può essere usata sia come modulo su nodejs che come libreria globale in una pagina web.
 
 Per accertarti che le tue definizioni possono essere usate sia globalmente che che modulo importato, crea una cartella `test` e creaci dentro due file di test.
-Chiamane uno `NomeLibreria-global.test.ts` e l'altro `YourLibraryName-module.test.ts`.
-Il file di test *global* dovrebbe controllare che le definizioni funzionano bene quando la libreria è usata globalmente in una pagina web (in questo caso non bisogna specificare un `import`).
+Chiamane uno `NomeLibreria-global.test.ts` e l'altro `NomeLibreria-module.test.ts`.
+Il file di test *global* dovrebbe controllare che le definizioni funzionano bene quando la libreria è usata globalmente in una pagina web (in questo caso non devi specificare un `import`).
 Il file di test *module*, invece, controlla se le definzioni funzionano quando la libreria viene importata come un modulo.
 Se aggiungi la proprietà `files` nel tuo `tsconfig.json`, assicurati di includere entrambi questi file di test. Un [esempio pratico](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) è disponibile nelle dichiarazioni dei tipi di `big.js`.
 
 
-#### E per quanto riguarda i pacchetti npm con scope (`@nome_utente`)?
+#### E per quanto riguarda i pacchetti con scope?
 
-I tipi per un pacchetto `@foo/bar` devono andare su `types/foo__bar`. Nota il doppio underscore.
+I tipi per un pacchetto `@foo/bar` devono andare in `types/foo__bar`. Nota il doppio trattino basso.
 
-Quando `dts-gen` viene usato per uno pacchetto con scope, nel `tsconfig.json`, la proprietà `paths` va cambiata manualmente per referenziarlo correttamente.
+Quando `dts-gen` viene usato per un pacchetto con scope, nel `tsconfig.json`, la proprietà `paths` va cambiata manualmente per referenziarlo correttamente nel package.
 
 ```json
 {
