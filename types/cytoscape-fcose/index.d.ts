@@ -53,7 +53,7 @@ declare namespace cytoscapeFcose {
         // Duration of animation in ms, if enabled
         animationDuration?: number;
         // Easing of animation, if enabled
-        animationEasing?: undefined | "ease-out";
+        animationEasing?: "ease-out" | undefined;
         // Fit the viewport to the repositioned nodes
         fit?: boolean;
         // Padding around layout
@@ -83,9 +83,9 @@ declare namespace cytoscapeFcose {
         // Node repulsion (non overlapping) multiplier
         nodeRepulsion?: number;
         // Ideal edge (non nested) length
-        idealEdgeLength(edge: any): number;
+        idealEdgeLength?(edge: any): number;
         // Divisor to compute edge forces
-        edgeElasticity(edge: any): number;
+        edgeElasticity?(edge: any): number;
         // Nesting factor (multiplier) to compute ideal edge length for nested edges
         nestingFactor?: number;
         // Maximum number of iterations to perform - this is a suggested value and might be adjusted by the algorithm as required
