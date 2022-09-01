@@ -13,7 +13,7 @@ Può tornare utile per i contributori che stanno avendo problemi con le loro PR 
 
 * Ultima build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) pulita: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Tutti i package sono sottoposti a controllo dei tipi e linting con typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
-* Tutti i package vengono [pubblicati su npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in in meno di un ora e mezza: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
+* Tutti i package vengono [pubblicati su npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in meno di un'ora e mezza: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * Il [bot di Typescript](https://github.com/typescript-bot) è stato attivo su Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
 * [Aggiornamenti dello stato dell'infrastruttura](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/44317) attuale
 
@@ -278,6 +278,31 @@ Se per qualche ragione qualche regola necessita di essere disabilitata, [disabil
 
 Potresti dover editare `tsconfig.json` per aggiungere nuovi file di test, per aggiungere le opzioni di traspilazione `"target": "es6"` (necessario per funzioni asincrone), `"lib"` o `"jsx"`.
 
+##### `esModuleInterop`/`allowSyntheticDefaultImports`
+
+Riassunto: `esModuleInterop` e `allowSyntheticDefaultImports` *non sono permessi* nel tuo `tsconfig.json`.
+
+>  Queste opzioni rendono possibile lo scrivere un default import per un CJS export, andando ad alterare l'interoperabilità tra CJS ed i moduli ES in Node ed in alcuni bundler JS:
+>
+> ```tsx
+> // component.d.ts
+> declare class Component {​​​​​}​​​​​
+> // CJS export, modeling `module.exports = Component` in JS
+> export = Component;
+>
+> // index.d.ts
+> // ESM default import, only allowed under 'esModuleInterop' or 'allowSyntheticDefaultExports'
+> import Component from "./component";
+> ```
+>
+> Siccome la valdità durante la compilazione dell'import in `index.d.ts` dipende da specifiche impostazioni di compilazione, che gli utenti che utilizzeranno i tuoi tipi non avranno, un utilizzo di questa modalità in DefinitelyTyped obbligherebbe gli utenti a modificare le loro impostazioni di compilazione, che potrebbero essere incorrette per il loro runtime. Invece, devi scrivere un import CJS per un export CJS per garantire una compatibilità diffondibile e indipendente da configurazioni specifiche:
+>
+> ```ts
+> // index.d.ts
+> // CJS import, modeling `const Component = require("./component")` in JS
+> import Component = require("./component");
+> ```
+
 #### `package.json`
 
 Solitamente non ne avrai bisogno.
@@ -320,6 +345,8 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 
 ### Proprietari delle definizioni
 
+> Riassiunto: non modificare il file `.github/CODEOWNERS`, modifica invece la lista dei proprietari nell'header del file `index.d.ts`
+
 DT ha il concetto di "Proprietari delle definizioni", che sono coloro i quali vogliono mantenere la qualità delle definizioni dei tipi di un certo modulo.
 
 * Aggiungerti da solo farà sì che tu venga notificato (tramite il tuo nome utente GitHub) ogni volta che qualcuno fa una pull request o un issue su quel package.
@@ -349,13 +376,11 @@ Il branch `master` viene pubblicato automaticamente nello scope `@types` di npm 
 
 Dipende, ma alla maggior parte delle pull request viene fatto un merge in meno di una settimana.
 Ad altre pull request può essere fatto il merge dai proprietari di un modulo e ciò può avvenire molto più velocemente.
-It depends, but most pull requests will be merged within a week.
-
-All'incirca:
+Quindi dipende, anche se la maggior parte dei merge avvengono nell'arco di una settimana. Approssimativamente possiamo dire che:
 
 > Le pull request che cambiano solo i tipi di un modulo e che hanno i test corrispondenti vengono vengono accettati più velocemente
 
-Alle pull request che sono state approvate da un'autore presente nella lista dei proprietari vengono di solito fatti i merge più rapidamente; pull request per nuove definizioni ci mettono più tempo in quando hanno bisogno di più controlli da parte dei mantenitori. Ogni pull request viene controllata da un membro di TypeScript o Definitely Type prima di ottenere un merge, quindi abbi pazienza in quanto fattori umani possono causare ritardi. Leggi la [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) tper vedere a che punto sono i mantenitori nel controllare le pull request.
+Alle pull request che sono state approvate da un'autore presente nella lista dei proprietari vengono di solito fatti i merge più rapidamente; le pull request che introducono nuove definizioni ci mettono più tempo in quanto hanno bisogno di più controlli da parte dei mantenitori. Ogni pull request viene controllata da un membro di TypeScript o Definitely Type prima di ottenere un merge, quindi abbi pazienza in quanto fattori umani possono causare ritardi. Leggi la [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) per vedere a che punto sono i mantenitori nel controllare le pull request.
 
 #### La mia pull request ha ottenuto un merge; quand'è che il package `@types` verra aggiornato su npm?
 
@@ -382,11 +407,11 @@ Se i tipi fanno parte di uno standard web, si può contribuire al [TSJS-lib-gene
 
 Alcuni package, come [chai-http](https://github.com/chaijs/chai-http), esportano una funzione.
 
-Importare questo modulo tramite un import ES6 nella forma `import * as pippo from "pippo";` dà errore.
+Importare questo modulo tramite un import ES6 nella forma `import * as pippo from "pippo";` restituisce questo errore:
 
 > error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
 
-Questo errore può essere risolto fondendo la dichiarazione della funzione con un namespace vuoto dello stesso nome, ma di norma va evitato.
+Questo può essere risolto fondendo la dichiarazione della funzione con un namespace vuoto dello stesso nome, ma di norma va evitato.
 Questa [risposta su Stack Overflow](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) è tipicamente citata quando si parla di problemi di questo tipo.
 
 Risulta preferibile importare un modulo usando la sintassi `import foo = require("foo");`.
