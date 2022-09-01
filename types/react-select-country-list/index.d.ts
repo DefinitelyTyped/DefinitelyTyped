@@ -44,4 +44,3 @@ declare class CountryList {
 declare function countryList(): CountryList;
 
 export = countryList;
-
