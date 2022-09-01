@@ -1,5 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import { AnyFn, EmberMethod, MethodNamesOf, MethodParams, MethodsOf } from 'ember/-private/type-utils';
+import { AnyFn, EmberMethod } from 'ember/-private/type-utils';
 
 /**
  * This mixin allows for Ember objects to subscribe to and emit events.

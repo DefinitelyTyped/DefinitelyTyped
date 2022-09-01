@@ -15,7 +15,7 @@ import { TestContext } from '@ember/test-helpers';
  */
 export function setResolver(resolver: EmberResolver): void;
 
-interface SetupTestOptions {
+export interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
      */
