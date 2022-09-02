@@ -8,11 +8,13 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "esModuleInterop": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
+        "paths": {
+          "@ffmpeg/*": ["ffmpeg__*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
