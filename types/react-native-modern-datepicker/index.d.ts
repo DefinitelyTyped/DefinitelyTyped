@@ -16,13 +16,14 @@ export interface ModernDatepickerProps {
     selectorEndingYear?: number;
     disableDateChange?: boolean;
     isGregorian?: boolean;
-    mode?: 'datepicker' | 'calender' | 'monthYear' | 'time';
+    mode?: 'datepicker' | 'calendar' | 'monthYear' | 'time';
     minuteInterval?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
     style?: CSSProperties;
     current?: string;
     selected?: string;
+    locale?: string;
     options?: {
-        baclgroundColor?: string;
+        backgroundColor?: string;
         textHeaderColor?: string;
         textDefaultColor?: string;
         selectedTextColor?: string;
