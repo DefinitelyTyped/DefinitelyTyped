@@ -3,7 +3,7 @@ import { MSKEvent, MSKHandler, MSKRecord, MSKRecordHeader } from 'aws-lambda';
 declare let headers: MSKRecordHeader[];
 declare let header: MSKRecordHeader;
 declare let key: string;
-declare let value: Uint8Array;
+declare let value: number[];
 
 const handler: MSKHandler = (_event, context, callback) => {
     const event: MSKEvent = _event;
