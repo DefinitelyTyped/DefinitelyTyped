@@ -93,7 +93,7 @@ export enum ReadyState {
  * Type alias describe the types of binary data that can be
  * transmitted over a Websocket connection.
  */
-export type BinaryType = 'blob' | 'arrayBuffer';
+export type BinaryType = 'arrayBuffer';
 
 /**
  * EventName describes the possible events that can be emitted
