@@ -32,6 +32,7 @@
         "test/metrics.ts",
         "test/options.ts",
         "test/redis.ts",
+        "test/timers.ts",
         "test/websockets.ts",
         "test/ws.ts"
     ]
