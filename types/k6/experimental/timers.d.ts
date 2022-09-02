@@ -1,6 +1,5 @@
 /**
  *  This module provides setInterval, setTimeout and co.
- * Not to be used mostly for testing purposes.
  */
 
 /**
