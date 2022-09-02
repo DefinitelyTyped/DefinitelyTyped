@@ -3,7 +3,7 @@ import { Handler } from '../handler';
 export type MSKHandler = Handler<MSKEvent, void>;
 
 export interface MSKRecordHeader {
-    [headerKey: string]: Uint8Array;
+    [headerKey: string]: number[];
 }
 
 export interface MSKRecord {
