@@ -1,4 +1,4 @@
-// For Library Version: 1.104.0
+// For Library Version: 1.105.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -2508,8 +2508,24 @@ declare module "sap/ui/integration/widgets/Card" {
      * ```javascript
      *
      * [
-     *     {"content": {"header": {"title": "My title"}}},
-     *     {"content": {"header": {"title": "My new title"}}}
+     * 	{
+     * 		"/sap.card/header/title": "My Configured Title in Default Language",
+     * 		"/sap.card/content/maxItems": 10,
+     * 		"texts": {
+     * 			"en-US": {
+     * 				"/sap.card/header/title": "My Configured Title in US-English"
+     * 			}
+     * 		}
+     * 	},
+     * 	{
+     * 		"/sap.card/header/title": "My Configured Title in Default Language",
+     * 		"/sap.card/content/maxItems": 10,
+     * 		"texts": {
+     * 			"en-US": {
+     * 				"/sap.card/header/title": "My Configured Title in US-English"
+     * 			}
+     * 		}
+     * 	}
      * ]
      * ```
      *
@@ -2807,8 +2823,24 @@ declare module "sap/ui/integration/widgets/Card" {
      * ```javascript
      *
      * [
-     *     {"content": {"header": {"title": "My title"}}},
-     *     {"content": {"header": {"title": "My new title"}}}
+     * 	{
+     * 		"/sap.card/header/title": "My Configured Title in Default Language",
+     * 		"/sap.card/content/maxItems": 10,
+     * 		"texts": {
+     * 			"en-US": {
+     * 				"/sap.card/header/title": "My Configured Title in US-English"
+     * 			}
+     * 		}
+     * 	},
+     * 	{
+     * 		"/sap.card/header/title": "My Configured Title in Default Language",
+     * 		"/sap.card/content/maxItems": 10,
+     * 		"texts": {
+     * 			"en-US": {
+     * 				"/sap.card/header/title": "My Configured Title in US-English"
+     * 			}
+     * 		}
+     * 	}
      * ]
      * ```
      *
@@ -3256,8 +3288,24 @@ declare module "sap/ui/integration/widgets/Card" {
      * ```javascript
      *
      * [
-     *     {"content": {"header": {"title": "My title"}}},
-     *     {"content": {"header": {"title": "My new title"}}}
+     * 	{
+     * 		"/sap.card/header/title": "My Configured Title in Default Language",
+     * 		"/sap.card/content/maxItems": 10,
+     * 		"texts": {
+     * 			"en-US": {
+     * 				"/sap.card/header/title": "My Configured Title in US-English"
+     * 			}
+     * 		}
+     * 	},
+     * 	{
+     * 		"/sap.card/header/title": "My Configured Title in Default Language",
+     * 		"/sap.card/content/maxItems": 10,
+     * 		"texts": {
+     * 			"en-US": {
+     * 				"/sap.card/header/title": "My Configured Title in US-English"
+     * 			}
+     * 		}
+     * 	}
      * ]
      * ```
      */
@@ -3460,6 +3508,8 @@ declare namespace sap {
 
     "sap/ui/integration/editor/fields/DestinationField": undefined;
 
+    "sap/ui/integration/editor/fields/fragment/Controller": undefined;
+
     "sap/ui/integration/editor/fields/IntegerField": undefined;
 
     "sap/ui/integration/editor/fields/NumberField": undefined;
@@ -3477,6 +3527,8 @@ declare namespace sap {
     "sap/ui/integration/editor/fields/viz/IconSelect": undefined;
 
     "sap/ui/integration/editor/fields/viz/ShapeSelect": undefined;
+
+    "sap/ui/integration/editor/fields/viz/VizBase": undefined;
 
     "sap/ui/integration/editor/Settings": undefined;
 

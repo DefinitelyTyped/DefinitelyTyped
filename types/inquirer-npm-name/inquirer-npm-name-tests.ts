@@ -1,4 +1,4 @@
-import inquirer from "inquirer";
+import inquirer = require("inquirer");
 import askName = require("inquirer-npm-name");
 
 // $ExpectType Promise<{ [key: string]: string; }>
@@ -8,6 +8,13 @@ askName("moduleName", inquirer);
 askName(
     {
         name: "moduleName",
-        message: "Whar's the name of your module?"
+        message: "What's the name of your module?"
     },
     inquirer);
+
+askName(
+    "", {
+    prompt<T extends inquirer.Answers>(questions: inquirer.QuestionCollection<T>): Promise<T> {
+        return null as any;
+    }
+});

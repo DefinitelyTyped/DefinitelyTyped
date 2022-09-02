@@ -15,6 +15,7 @@ declare namespace JMuxer {
         fps?: number | undefined;
         debug?: boolean | undefined;
         onReady?: (() => void) | undefined;
+        onError?: ((data: any) => void) | undefined;
     }
 
     interface Feeder {

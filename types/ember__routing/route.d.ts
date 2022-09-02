@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import ActionHandler from '@ember/object/-private/action-handler';
 import Transition from '@ember/routing/transition';
 import Evented from '@ember/object/evented';
-import { RenderOptions, RouteQueryParam } from '@ember/routing/types';
+import { RouteQueryParam } from '@ember/routing/types';
 import Controller from '@ember/controller';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -12,8 +12,7 @@ type RouteModel = object | string | number;
  * The `Ember.Route` class is used to define individual routes. Refer to
  * the [routing guide](http://emberjs.com/guides/routing/) for documentation.
  */
-export default class Route<Model = unknown, Params extends object = object>
-    extends EmberObject.extend(ActionHandler, Evented) {
+export default class Route<Model = unknown, Params extends object = object> extends EmberObject {
     // methods
     /**
      * This hook is called after this route's model has resolved. It follows
@@ -523,3 +522,6 @@ export default class Route<Model = unknown, Params extends object = object>
      */
     buildRouteInfoMetadata(): unknown;
 }
+
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface Route<Model = unknown, Params extends object = object> extends ActionHandler, Evented {}

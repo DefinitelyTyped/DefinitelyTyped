@@ -662,11 +662,6 @@ attributes.forEach((value, key) => {
 });
 googletag.pubads().set('adsense_ad_format', '250x250_as');
 
-// Explicitly binds provided functions to globalThis.
-googletag.cmd.push(function test() {
-    console.log(this.googletag.pubadsReady);
-});
-
 // Rewarded ads for web have launched.
 targetSlot = (
     googletag.defineOutOfPageSlot('/1234567/sports', googletag.enums.OutOfPageFormat.REWARDED) as googletag.Slot

@@ -15,7 +15,12 @@ import { TestContext } from '@ember/test-helpers';
  */
 export function setResolver(resolver: EmberResolver): void;
 
-interface SetupTestOptions {
+/**
+ * Options for configuring the test runner. Normally, you will not need to
+ * customize this. It is exported primarily so that end user app code can name
+ * it when passing it back to the framework.
+ */
+export interface SetupTestOptions {
     /**
      * The resolver to use when instantiating container-managed entities in the test.
      */

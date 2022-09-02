@@ -49,6 +49,7 @@ prompt.get(
             type: 'string',
             required: true,
             message: 'Please dont use the demo credentials',
+            before: line => line.trim(),
             conform: surname => {
                 const name = prompt.history('name')!.value;
                 return name !== 'John' || surname !== 'Smith';

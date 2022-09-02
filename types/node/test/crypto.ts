@@ -1322,6 +1322,16 @@ import { promisify } from 'node:util';
     crypto.createDiffieHellman(2).setPublicKey('abcd', 'hex');
     crypto.createDiffieHellman(2).setPrivateKey('abcd', 'hex');
 
+    // Check permutations of `create` arguments
+    crypto.createDiffieHellman(new ArrayBuffer(8));
+    crypto.createDiffieHellman(new ArrayBuffer(8), 123);
+    crypto.createDiffieHellman(new ArrayBuffer(8), new ArrayBuffer(8));
+    crypto.createDiffieHellman(new ArrayBuffer(8), 'abcd', 'hex');
+    crypto.createDiffieHellman('abcd', 'hex');
+    crypto.createDiffieHellman('abcd', 'hex', 123);
+    crypto.createDiffieHellman('abcd', 'hex', new ArrayBuffer(8));
+    crypto.createDiffieHellman('abcd', 'hex', 'abcd', 'hex');
+
     // While DiffieHellmanGroup should not have them:
     // @ts-expect-error
     alice.setPublicKey('abcd', 'hex');
@@ -1334,6 +1344,32 @@ import { promisify } from 'node:util';
     const aliceSecret = alice.computeSecret(bob.getPublicKey(), null, 'hex'); // $ExpectType string
     const bobSecret = bob.computeSecret(alice.getPublicKey(), null, 'hex'); // $ExpectType string
     aliceSecret === bobSecret;
+}
+
+{
+    const alice = crypto.createECDH('prime256v1');
+    const bob = crypto.createECDH('prime256v1');
+
+    alice.setPrivateKey('abcd', 'hex');
+    bob.setPrivateKey(Buffer.from('abcd', 'hex'));
+
+    alice.generateKeys();
+
+    let alicePublicKey = alice.getPublicKey(); // $ExpectType Buffer
+    alicePublicKey = alice.getPublicKey(null);
+    alicePublicKey = alice.getPublicKey(null, 'compressed');
+    alicePublicKey = alice.getPublicKey(undefined, 'hybrid');
+
+    let bobPublicKey = bob.getPublicKey('hex'); // $ExpectType string
+    bobPublicKey = bob.getPublicKey('hex', 'compressed');
+
+    let aliceSecret = alice.computeSecret(bobPublicKey, 'hex'); // $ExpectType Buffer
+    aliceSecret = alice.computeSecret(Buffer.from(bobPublicKey, 'hex'));
+
+    let bobSecret = bob.computeSecret(alicePublicKey, 'hex'); // $ExpectType string
+    bobSecret = bob.computeSecret(alicePublicKey.toString('hex'), 'hex', 'hex');
+
+    aliceSecret.toString('hex') === bobSecret;
 }
 
 {

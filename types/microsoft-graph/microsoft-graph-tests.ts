@@ -211,3 +211,5 @@ const album: MicrosoftGraph.Album = {
 };
 
 const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+
+const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = "available";

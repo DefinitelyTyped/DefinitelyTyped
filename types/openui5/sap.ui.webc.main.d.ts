@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.105.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -1020,7 +1020,7 @@ declare module "sap/ui/webc/main/Avatar" {
    *
    * Overview:
    *
-   * An image-like control that has different display options for representing images and icons in different
+   * An image-like component that has different display options for representing images and icons in different
    * shapes and sizes, depending on the use case.
    *
    * The shape can be circular or square. There are several predefined sizes, as well as an option to set
@@ -1213,8 +1213,8 @@ declare module "sap/ui/webc/main/Avatar" {
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
-     * Defines the name of the UI5 Icon, that would be displayed.
-     *  **Note:** If `image` slot is provided, the property would be ignored.
+     * Defines the name of the UI5 Icon, that will be displayed.
+     *  **Note:** If `image` slot is provided, the property will be ignored.
      *  **Note:** You should import the desired icon first, then use its name as "icon".
      *
      *  import "@ui5/webcomponents-icons/dist/{icon_name}.js"
@@ -1254,7 +1254,7 @@ declare module "sap/ui/webc/main/Avatar" {
     /**
      * Gets current value of property {@link #getInteractive interactive}.
      *
-     * Defines if the avatar is interactive (focusable and pressable)
+     * Defines if the avatar is interactive (focusable and pressable).
      *
      * Default value is `false`.
      *
@@ -1343,8 +1343,8 @@ declare module "sap/ui/webc/main/Avatar" {
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
-     * Defines the name of the UI5 Icon, that would be displayed.
-     *  **Note:** If `image` slot is provided, the property would be ignored.
+     * Defines the name of the UI5 Icon, that will be displayed.
+     *  **Note:** If `image` slot is provided, the property will be ignored.
      *  **Note:** You should import the desired icon first, then use its name as "icon".
      *
      *  import "@ui5/webcomponents-icons/dist/{icon_name}.js"
@@ -1399,7 +1399,7 @@ declare module "sap/ui/webc/main/Avatar" {
     /**
      * Sets a new value for property {@link #getInteractive interactive}.
      *
-     * Defines if the avatar is interactive (focusable and pressable)
+     * Defines if the avatar is interactive (focusable and pressable).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1489,8 +1489,8 @@ declare module "sap/ui/webc/main/Avatar" {
       | `{${string}}`;
 
     /**
-     * Defines the name of the UI5 Icon, that would be displayed.
-     *  **Note:** If `image` slot is provided, the property would be ignored.
+     * Defines the name of the UI5 Icon, that will be displayed.
+     *  **Note:** If `image` slot is provided, the property will be ignored.
      *  **Note:** You should import the desired icon first, then use its name as "icon".
      *
      *  import "@ui5/webcomponents-icons/dist/{icon_name}.js"
@@ -1510,7 +1510,7 @@ declare module "sap/ui/webc/main/Avatar" {
     initials?: string | PropertyBindingInfo;
 
     /**
-     * Defines if the avatar is interactive (focusable and pressable)
+     * Defines if the avatar is interactive (focusable and pressable).
      */
     interactive?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -2441,6 +2441,22 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
          * The clicked item.
          */
         item?: HTMLElement;
+        /**
+         * Returns whether the "ALT" key was pressed when the event was triggered.
+         */
+        altKey?: boolean;
+        /**
+         * Returns whether the "CTRL" key was pressed when the event was triggered.
+         */
+        ctrlKey?: boolean;
+        /**
+         * Returns whether the "META" key was pressed when the event was triggered.
+         */
+        metaKey?: boolean;
+        /**
+         * Returns whether the "SHIFT" key was pressed when the event was triggered.
+         */
+        shiftKey?: boolean;
       }
     ): boolean;
     /**
@@ -2931,7 +2947,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
    *
    * When to use::
    * 	 - The user needs to be able to cancel the operation.
-   * 	 - Only part of the application or a particular control is affected.
+   * 	 - Only part of the application or a particular component is affected.
    *
    * When not to use::
    * 	 - The operation takes less than one second.
@@ -3581,12 +3597,12 @@ declare module "sap/ui/webc/main/Button" {
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      *
      * Default value is `empty string`.
      *
@@ -3757,12 +3773,12 @@ declare module "sap/ui/webc/main/Button" {
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3916,12 +3932,12 @@ declare module "sap/ui/webc/main/Button" {
     enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -8733,7 +8749,7 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
    * @SINCE 1.95.0
    * @EXPERIMENTAL (since 1.95.0)
    *
-   * The `ui5-combobox-group-item` is type of suggestion item, that can be used to split the `sap.ui.webc.main.ComboBox`
+   * The `sap.ui.webc.main.ComboBoxGroupItem` is type of suggestion item, that can be used to split the `sap.ui.webc.main.ComboBox`
    * suggestions into groups.
    */
   export default class ComboBoxGroupItem
@@ -14316,16 +14332,48 @@ declare module "sap/ui/webc/main/Icon" {
    * Overview:
    *
    * The `sap.ui.webc.main.Icon` component represents an SVG icon. There are two main scenarios how the `sap.ui.webc.main.Icon`
-   * component is used: as a purely decorative element; or as a visually appealing clickable area in the form
-   * of an icon button.
+   * component is used: as a purely decorative element,
+   *  or as an interactive element that can be focused and clicked.
    *
-   *  A large set of built-in icons is available and they can be used by setting the `name` property on the
-   * `sap.ui.webc.main.Icon`. But before using an icon, you need to import the desired icon.
+   * Usage:
+   *
+   * 1. **Get familiar with the icons collections.**
+   *  Before displaying an icon, you need to explore the icons collections to find and import the desired
+   * icon.
+   *  Currently there are 3 icons collection, available as 3 npm packages:
    *
    *
    *
+   * 	 -  @ui5/webcomponents-icons
+   * 			represents the "SAP-icons" collection and includes the following icons.
+   * 	 -  @ui5/webcomponents-icons-tnt
+   * 			represents the "tnt" collection and includes the following icons.
+   * 	 -  @ui5/webcomponents-icons-icons-business-suite represents
+   * 			the "business-suite" collection and includes the following icons.
    *
-   *  Keyboard Handling:
+   * 2. **After exploring the icons collections, add one or more of the packages as dependencies to your project.**
+   *
+   *  `npm i @ui5/webcomponents-icons`
+   *  `npm i @ui5/webcomponents-icons-tnt`
+   *  `npm i @ui5/webcomponents-icons-business-suite`
+   *
+   *
+   *
+   * **For Example**:
+   *
+   *
+   * 4. **Display the icon using the `sap.ui.webc.main.Icon` web component.**
+   *  Set the icon collection ("SAP-icons", "tnt" or "business-suite" - "SAP-icons" is the default icon collection
+   * and can be skipped)
+   *  and the icon name to the `name` property.
+   *
+   *
+   *
+   * `<ui5-icon name="employee"></ui5-icon>`
+   *  `<ui5-icon name="tnt/antenna"></ui5-icon>`
+   *  `<ui5-icon name="business-suite/ab-testing"></ui5-icon>`
+   *
+   * Keyboard Handling:
    *
    *
    * 	 - [SPACE, ENTER, RETURN] - Fires the `click` event if the `interactive` property is set to true.
@@ -14530,7 +14578,7 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the Icon Explorer.
+     * To browse all available icons, see the SAP Icons, SAP Fiori Tools and SAP Business Suite collections.
      *
      *
      * Example:
@@ -14544,6 +14592,15 @@ declare module "sap/ui/webc/main/Icon" {
      *
      * Example:
      *  `name='tnt/antenna'`, `name='tnt/actor'`, `name='tnt/api'`.
+     *
+     *
+     *
+     * **Note:** To use the SAP Business Suite icons, you need to set the `business-suite` prefix in front of
+     * the icon's name.
+     *
+     *
+     * Example:
+     *  `name='business-suite/3d'`, `name='business-suite/1x2-grid-layout'`, `name='business-suite/4x4-grid-layout'`.
      *
      * Default value is `empty string`.
      *
@@ -14673,7 +14730,7 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the Icon Explorer.
+     * To browse all available icons, see the SAP Icons, SAP Fiori Tools and SAP Business Suite collections.
      *
      *
      * Example:
@@ -14687,6 +14744,15 @@ declare module "sap/ui/webc/main/Icon" {
      *
      * Example:
      *  `name='tnt/antenna'`, `name='tnt/actor'`, `name='tnt/api'`.
+     *
+     *
+     *
+     * **Note:** To use the SAP Business Suite icons, you need to set the `business-suite` prefix in front of
+     * the icon's name.
+     *
+     *
+     * Example:
+     *  `name='business-suite/3d'`, `name='business-suite/1x2-grid-layout'`, `name='business-suite/4x4-grid-layout'`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -14772,7 +14838,7 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the Icon Explorer.
+     * To browse all available icons, see the SAP Icons, SAP Fiori Tools and SAP Business Suite collections.
      *
      *
      * Example:
@@ -14786,6 +14852,15 @@ declare module "sap/ui/webc/main/Icon" {
      *
      * Example:
      *  `name='tnt/antenna'`, `name='tnt/actor'`, `name='tnt/api'`.
+     *
+     *
+     *
+     * **Note:** To use the SAP Business Suite icons, you need to set the `business-suite` prefix in front of
+     * the icon's name.
+     *
+     *
+     * Example:
+     *  `name='business-suite/3d'`, `name='business-suite/1x2-grid-layout'`, `name='business-suite/4x4-grid-layout'`.
      */
     name?: string | PropertyBindingInfo;
 
@@ -15332,6 +15407,9 @@ declare module "sap/ui/webc/main/Input" {
      *
      * Sets the maximum number of characters available in the input field.
      *
+     *  **Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input
+     * type is set to Number, the maxlength value is ignored.
+     *
      * @returns Value of property `maxlength`
      */
     getMaxlength(): int;
@@ -15350,6 +15428,16 @@ declare module "sap/ui/webc/main/Input" {
      * @returns Value of property `name`
      */
     getName(): string;
+    /**
+     * Gets current value of property {@link #getNoTypeahead noTypeahead}.
+     *
+     * Defines whether the value will be autcompleted to match an item
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `noTypeahead`
+     */
+    getNoTypeahead(): boolean;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -15637,6 +15725,9 @@ declare module "sap/ui/webc/main/Input" {
      *
      * Sets the maximum number of characters available in the input field.
      *
+     *  **Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input
+     * type is set to Number, the maxlength value is ignored.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15668,6 +15759,23 @@ declare module "sap/ui/webc/main/Input" {
        * New value for property `name`
        */
       sName?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getNoTypeahead noTypeahead}.
+     *
+     * Defines whether the value will be autcompleted to match an item
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNoTypeahead(
+      /**
+       * New value for property `noTypeahead`
+       */
+      bNoTypeahead?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getPlaceholder placeholder}.
@@ -15878,6 +15986,9 @@ declare module "sap/ui/webc/main/Input" {
 
     /**
      * Sets the maximum number of characters available in the input field.
+     *
+     *  **Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input
+     * type is set to Number, the maxlength value is ignored.
      */
     maxlength?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -15890,6 +16001,11 @@ declare module "sap/ui/webc/main/Input" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      */
     name?: string | PropertyBindingInfo;
+
+    /**
+     * Defines whether the value will be autcompleted to match an item
+     */
+    noTypeahead?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a short hint intended to aid the user with data entry when the component has no value.
@@ -16494,14 +16610,34 @@ declare module "sap/ui/webc/main/Link" {
     /**
      * Fires event {@link #event:click click} to attached listeners.
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireClick(
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: object
-    ): this;
+      mParameters?: {
+        /**
+         * Returns whether the "ALT" key was pressed when the event was triggered.
+         */
+        altKey?: boolean;
+        /**
+         * Returns whether the "CTRL" key was pressed when the event was triggered.
+         */
+        ctrlKey?: boolean;
+        /**
+         * Returns whether the "META" key was pressed when the event was triggered.
+         */
+        metaKey?: boolean;
+        /**
+         * Returns whether the "SHIFT" key was pressed when the event was triggered.
+         */
+        shiftKey?: boolean;
+      }
+    ): boolean;
     /**
      * Gets current value of property {@link #getAccessibilityAttributes accessibilityAttributes}.
      *
@@ -17117,8 +17253,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Fired when the `Close` button of any item is clicked
      *
-     *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListItem` items only, not to be
-     * confused with `item-delete`.
+     *  **Note:** This event is only applicable to list items that can be closed (such as notification list
+     * items), not to be confused with `item-delete`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17145,8 +17281,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Fired when the `Close` button of any item is clicked
      *
-     *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListItem` items only, not to be
-     * confused with `item-delete`.
+     *  **Note:** This event is only applicable to list items that can be closed (such as notification list
+     * items), not to be confused with `item-delete`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17217,7 +17353,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Fired when the `Toggle` button of any item is clicked.
      *
-     *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListGroupItem` items only.
+     *  **Note:** This event is only applicable to list items that can be toggled (such as notification group
+     * list items).
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17244,7 +17381,8 @@ declare module "sap/ui/webc/main/List" {
      *
      * Fired when the `Toggle` button of any item is clicked.
      *
-     *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListGroupItem` items only.
+     *  **Note:** This event is only applicable to list items that can be toggled (such as notification group
+     * list items).
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -18234,8 +18372,8 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Fired when the `Close` button of any item is clicked
      *
-     *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListItem` items only, not to be
-     * confused with `item-delete`.
+     *  **Note:** This event is only applicable to list items that can be closed (such as notification list
+     * items), not to be confused with `item-delete`.
      */
     itemClose?: (oEvent: Event) => void;
 
@@ -18249,7 +18387,8 @@ declare module "sap/ui/webc/main/List" {
     /**
      * Fired when the `Toggle` button of any item is clicked.
      *
-     *  **Note:** This event is applicable to `sap.ui.webc.fiori.NotificationListGroupItem` items only.
+     *  **Note:** This event is only applicable to list items that can be toggled (such as notification group
+     * list items).
      */
     itemToggle?: (oEvent: Event) => void;
 
@@ -19318,7 +19457,9 @@ declare module "sap/ui/webc/main/MultiComboBox" {
     $WebComponentSettings,
   } from "sap/ui/webc/common/WebComponent";
 
-  import { IFormContent, ValueState, CSSSize } from "sap/ui/core/library";
+  import { IFormContent, ID, ValueState, CSSSize } from "sap/ui/core/library";
+
+  import Control from "sap/ui/core/Control";
 
   import { IMultiComboBoxItem, IIcon } from "sap/ui/webc/main/library";
 
@@ -19435,6 +19576,17 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      *
@@ -19759,6 +19911,14 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       }
     ): this;
     /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
+     */
+    getAccessibleName(): string;
+    /**
      * Gets current value of property {@link #getAllowCustomValues allowCustomValues}.
      *
      * Defines if the user input will be prevented, if no matching item has been found
@@ -19768,6 +19928,11 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * @returns Value of property `allowCustomValues`
      */
     getAllowCustomValues(): boolean;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
     /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
@@ -19802,6 +19967,16 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Defines the component items.
      */
     getItems(): IMultiComboBoxItem[];
+    /**
+     * Gets current value of property {@link #getNoTypeahead noTypeahead}.
+     *
+     * Defines whether the value will be autcompleted to match an item
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `noTypeahead`
+     */
+    getNoTypeahead(): boolean;
     /**
      * Returns the indicates whether the dropdown is open. True if the dropdown is open, false otherwise.
      */
@@ -19919,6 +20094,12 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -19926,6 +20107,17 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): IMultiComboBoxItem[];
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -19937,6 +20129,21 @@ declare module "sap/ui/webc/main/MultiComboBox" {
        */
       vItem: int | string | IMultiComboBoxItem
     ): IMultiComboBoxItem | null;
+    /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName: string
+    ): this;
     /**
      * Sets a new value for property {@link #getAllowCustomValues allowCustomValues}.
      *
@@ -20000,6 +20207,23 @@ declare module "sap/ui/webc/main/MultiComboBox" {
        * The icon to set
        */
       oIcon: IIcon
+    ): this;
+    /**
+     * Sets a new value for property {@link #getNoTypeahead noTypeahead}.
+     *
+     * Defines whether the value will be autcompleted to match an item
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNoTypeahead(
+      /**
+       * New value for property `noTypeahead`
+       */
+      bNoTypeahead?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getPlaceholder placeholder}.
@@ -20137,6 +20361,11 @@ declare module "sap/ui/webc/main/MultiComboBox" {
 
   export interface $MultiComboBoxSettings extends $WebComponentSettings {
     /**
+     * Defines the accessible aria name of the component.
+     */
+    accessibleName?: string | PropertyBindingInfo;
+
+    /**
      * Defines if the user input will be prevented, if no matching item has been found
      */
     allowCustomValues?: boolean | PropertyBindingInfo | `{${string}}`;
@@ -20152,6 +20381,11 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * and `None`.
      */
     filter?: string | PropertyBindingInfo;
+
+    /**
+     * Defines whether the value will be autcompleted to match an item
+     */
+    noTypeahead?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a short hint intended to aid the user with data entry when the component has no value.
@@ -20221,6 +20455,11 @@ declare module "sap/ui/webc/main/MultiComboBox" {
       | `{${string}}`;
 
     /**
+     * Receives id(or many ids) of the controls that label this control.
+     */
+    ariaLabelledBy?: Array<Control | string>;
+
+    /**
      * Fired when the input operation has finished by pressing Enter or on focusout.
      */
     change?: (oEvent: Event) => void;
@@ -20239,6 +20478,127 @@ declare module "sap/ui/webc/main/MultiComboBox" {
      * Fired when selection is changed by user interaction in `SingleSelect` and `MultiSelect` modes.
      */
     selectionChange?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/webc/common/WebComponent";
+
+  import { IMultiComboBoxItem } from "sap/ui/webc/main/library";
+
+  import WebComponentMetadata from "sap/ui/webc/common/WebComponentMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.92.0
+   * @EXPERIMENTAL (since 1.92.0)
+   *
+   * The `sap.ui.webc.main.MultiComboBoxGroupItem` is type of suggestion item, that can be used to split the
+   * `sap.ui.webc.main.MultiComboBox` suggestions into groups.
+   */
+  export default class MultiComboBoxGroupItem
+    extends WebComponent
+    implements IMultiComboBoxItem {
+    __implements__sap_ui_webc_main_IMultiComboBoxItem: boolean;
+    /**
+     * Constructor for a new `MultiComboBoxGroupItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MultiComboBoxGroupItemSettings
+    );
+    /**
+     * Constructor for a new `MultiComboBoxGroupItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $MultiComboBoxGroupItemSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.webc.main.MultiComboBoxGroupItem with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.webc.common.WebComponent.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, MultiComboBoxGroupItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.webc.main.MultiComboBoxGroupItem.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Gets current value of property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `text`
+     */
+    getText(): string;
+    /**
+     * Sets a new value for property {@link #getText text}.
+     *
+     * Defines the text of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setText(
+      /**
+       * New value for property `text`
+       */
+      sText?: string
+    ): this;
+  }
+
+  export interface $MultiComboBoxGroupItemSettings
+    extends $WebComponentSettings {
+    /**
+     * Defines the text of the component.
+     */
+    text?: string | PropertyBindingInfo;
   }
 }
 
@@ -21103,6 +21463,9 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Sets the maximum number of characters available in the input field.
      *
+     *  **Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input
+     * type is set to Number, the maxlength value is ignored.
+     *
      * @returns Value of property `maxlength`
      */
     getMaxlength(): int;
@@ -21121,6 +21484,16 @@ declare module "sap/ui/webc/main/MultiInput" {
      * @returns Value of property `name`
      */
     getName(): string;
+    /**
+     * Gets current value of property {@link #getNoTypeahead noTypeahead}.
+     *
+     * Defines whether the value will be autcompleted to match an item
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `noTypeahead`
+     */
+    getNoTypeahead(): boolean;
     /**
      * Gets current value of property {@link #getPlaceholder placeholder}.
      *
@@ -21473,6 +21846,9 @@ declare module "sap/ui/webc/main/MultiInput" {
      *
      * Sets the maximum number of characters available in the input field.
      *
+     *  **Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input
+     * type is set to Number, the maxlength value is ignored.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -21504,6 +21880,23 @@ declare module "sap/ui/webc/main/MultiInput" {
        * New value for property `name`
        */
       sName?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getNoTypeahead noTypeahead}.
+     *
+     * Defines whether the value will be autcompleted to match an item
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNoTypeahead(
+      /**
+       * New value for property `noTypeahead`
+       */
+      bNoTypeahead?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getPlaceholder placeholder}.
@@ -21732,6 +22125,9 @@ declare module "sap/ui/webc/main/MultiInput" {
 
     /**
      * Sets the maximum number of characters available in the input field.
+     *
+     *  **Note:** This property is not compatible with the ui5-input type InputType.Number. If the ui5-input
+     * type is set to Number, the maxlength value is ignored.
      */
     maxlength?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -21744,6 +22140,11 @@ declare module "sap/ui/webc/main/MultiInput" {
      * be submitted as part of an HTML form. Do not use this property unless you need to submit a form.
      */
     name?: string | PropertyBindingInfo;
+
+    /**
+     * Defines whether the value will be autcompleted to match an item
+     */
+    noTypeahead?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines a short hint intended to aid the user with data entry when the component has no value.
@@ -22229,6 +22630,7 @@ declare module "sap/ui/webc/main/Panel" {
    * CSS Shadow Parts
    * allow developers to style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Panel` exposes the following CSS Shadow Parts:
+   * 	 - header - Used to style the wrapper of the header
    * 	 - content - Used to style the wrapper of the content
    *
    * Keyboard Handling:
@@ -22435,7 +22837,7 @@ declare module "sap/ui/webc/main/Panel" {
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
-     * Determines the content of the component. The content is visible only when the component is expanded.
+     * Defines the content of the component. The content is visible only when the component is expanded.
      */
     getContent(): Control[];
     /**
@@ -22822,7 +23224,7 @@ declare module "sap/ui/webc/main/Panel" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Determines the content of the component. The content is visible only when the component is expanded.
+     * Defines the content of the component. The content is visible only when the component is expanded.
      */
     content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
@@ -25299,6 +25701,14 @@ declare module "sap/ui/webc/main/RangeSlider" {
       mParameters?: object
     ): this;
     /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
+     */
+    getAccessibleName(): string;
+    /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
      * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
@@ -25411,6 +25821,21 @@ declare module "sap/ui/webc/main/RangeSlider" {
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
+    /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName: string
+    ): this;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -25597,6 +26022,11 @@ declare module "sap/ui/webc/main/RangeSlider" {
   }
 
   export interface $RangeSliderSettings extends $WebComponentSettings {
+    /**
+     * Defines the accessible aria name of the component.
+     */
+    accessibleName?: string | PropertyBindingInfo;
+
     /**
      * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
      * the tab chain.
@@ -27871,12 +28301,12 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      *
      * Default value is `empty string`.
      *
@@ -28028,12 +28458,12 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -28161,12 +28591,12 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
     enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -29088,6 +29518,14 @@ declare module "sap/ui/webc/main/Slider" {
       mParameters?: object
     ): this;
     /**
+     * Gets current value of property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * @returns Value of property `accessibleName`
+     */
+    getAccessibleName(): string;
+    /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
      * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
@@ -29186,6 +29624,21 @@ declare module "sap/ui/webc/main/Slider" {
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
+    /**
+     * Sets a new value for property {@link #getAccessibleName accessibleName}.
+     *
+     * Defines the accessible aria name of the component.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAccessibleName(
+      /**
+       * New value for property `accessibleName`
+       */
+      sAccessibleName: string
+    ): this;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -29351,6 +29804,11 @@ declare module "sap/ui/webc/main/Slider" {
   }
 
   export interface $SliderSettings extends $WebComponentSettings {
+    /**
+     * Defines the accessible aria name of the component.
+     */
+    accessibleName?: string | PropertyBindingInfo;
+
     /**
      * Defines whether the control is enabled. A disabled control can't be interacted with, and it is not in
      * the tab chain.
@@ -37810,12 +38268,12 @@ declare module "sap/ui/webc/main/ToggleButton" {
     /**
      * Gets current value of property {@link #getIcon icon}.
      *
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      *
      * Default value is `empty string`.
      *
@@ -37985,12 +38443,12 @@ declare module "sap/ui/webc/main/ToggleButton" {
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -38143,12 +38601,12 @@ declare module "sap/ui/webc/main/ToggleButton" {
     enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
-     * numerous options.
+     * Defines the icon, displayed as graphical element within the component. The SAP-icons font provides numerous
+     * options.
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons within the Icon Explorer.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -40088,6 +40546,8 @@ declare namespace sap {
     "sap/ui/webc/main/MessageStrip": undefined;
 
     "sap/ui/webc/main/MultiComboBox": undefined;
+
+    "sap/ui/webc/main/MultiComboBoxGroupItem": undefined;
 
     "sap/ui/webc/main/MultiComboBoxItem": undefined;
 

@@ -29,6 +29,7 @@ interface MuiImageProps {
     width?: React.CSSProperties['width'] | number | undefined;
     wrapperClassName?: string | undefined;
     wrapperStyle?: React.CSSProperties | undefined;
+    title?: string;
 }
 
 declare const Image: React.FC<MuiImageProps>;

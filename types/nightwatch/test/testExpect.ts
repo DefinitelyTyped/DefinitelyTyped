@@ -125,6 +125,21 @@ describe('expect.elements()', () => {
         browser.expect.elements('div').count.to.equal(10);
         browser.expect.elements('p').count.to.not.equal(1);
     });
+
+    it('selector element properties - all & required', () => {
+        browser.expect.elements({
+            selector: 'div',
+            locateStrategy: 'css selector',
+            index: 0,
+            timeout: 3000,
+            retryInterval: 1000,
+            suppressNotFoundErrors: false,
+            abortOnFailure: true
+        }).count.to.equal(10);
+        browser.expect.elements({
+            selector: 'div'
+        }).count.to.not.equal(1);
+    });
 });
 
 it('expect.title()', () => {

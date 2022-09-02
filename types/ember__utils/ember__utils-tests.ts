@@ -38,6 +38,9 @@ import { compare, isBlank, isEmpty, isEqual, isNone, isPresent, typeOf } from '@
 
 (function() {
     /** typeOf */
+    let x = "something" as unknown;
+    typeOf(x); // $ExpectType AllTypeNames
+    if (typeOf(x) === 'object') {}
     typeOf(null); // $ExpectType "null"
     typeOf(undefined); // $ExpectType "undefined"
     typeOf('michael'); // $ExpectType "string"

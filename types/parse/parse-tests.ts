@@ -1055,9 +1055,11 @@ async function test_schema(
     // @ts-expect-error
     schema.addRelation('field', 'SomeClass', 'anything');
 
-    schema.addIndex('testIndex', { stringField: 'Number' });
-    // @ts-expect-error
+    schema.addIndex('testIndex', { stringField: 'text' });
     schema.addIndex('testIndex', { stringField: 1 });
+    schema.addIndex('testIndex', { stringField: -1 });
+    // @ts-expect-error
+    schema.addIndex('testIndex', { stringField: true });
 
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');

@@ -1,4 +1,4 @@
-import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from '../..';
+import { Answers, CheckboxChoiceOptions, ExpandChoiceOptions, ListChoiceOptions } from '../../index.js';
 
 /**
  * Represents a choice for several question-types.
