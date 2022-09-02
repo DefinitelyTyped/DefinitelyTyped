@@ -480,6 +480,11 @@ export namespace marked {
 
     interface MarkedExtension {
         /**
+         * True will tell marked to await any walkTokens functions before parsing the tokens and returning an HTML string.
+         */
+        async?: boolean;
+
+        /**
          * A prefix URL for any relative link.
          */
         baseUrl?: string | undefined;
