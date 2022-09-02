@@ -40,6 +40,7 @@ import './http';
 import './metrics';
 import './options';
 import './experimental/redis';
+import './experimental/websockets';
 import './ws';
 import './net/grpc';
 
