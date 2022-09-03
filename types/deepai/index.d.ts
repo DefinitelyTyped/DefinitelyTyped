@@ -1,0 +1,25 @@
+// Type definitions for deepai 1.0
+// Project: https://deepai.org/
+// Definitions by: NicolasNewman <https://github.com/NicolasNewman>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+type Models = 'colorizer'| 'text2img'| 'text-generator'| 'torch-srgan'| 'waifu2x'| 'nsfw-detector'| 'toonify'| 'image-similarity'| 'deepdream'| 'summarization'| 'sentiment-analysis'| 'text-tagging';
+type ModelInputs = {
+    'colorizer': {image: string},
+    'text2img': {text: string},
+    'text-generator': {text: string},
+    'torch-srgan': {image: string},
+    'waifu2x': {image: string},
+    'nsfw-detector': {image: string},
+    'toonify': {image: string},
+    'image-similarity': {image1: string, image2: string},
+    'deepdream': {image: string},
+    'summarization': {text: string},
+    'sentiment-analysis': {text: string}
+    'text-tagging': {text: string}
+}
+type ModelOutputs = {
+    'torch-srgan': {id: string, output_url: string}
+    [key: string]: any
+}
+export function setApiKey(apiKey: string): void
+export function callStandardApi<T extends Models>(modelName: T, inputs_object: ModelInputs[T]): Promise<ModelOutputs[T]>;
