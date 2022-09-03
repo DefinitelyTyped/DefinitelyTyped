@@ -33,7 +33,7 @@ export function marked(src: string, options: marked.MarkedOptions & {async: true
 export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
@@ -41,7 +41,7 @@ export function marked(src: string, options?: marked.MarkedOptions): string;
 export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param options Hash of options
@@ -82,11 +82,19 @@ export namespace marked {
      * Compiles markdown to HTML asynchronously.
      *
      * @param src String of markdown source to be compiled
-     * @param Hash of options having async: true
-     * @param callback Function called when the markdownString has been fully parsed when using async highlighting
+     * @param options Hash of options having async: true
      * @return Promise of string of compiled HTML
      */
-    function parse(src: string, options: MarkedOptions & {async: true}, callback?: (error: any, parseResult: string) => void): Promise<string>;
+    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @return String of compiled HTML
+     */
+    function parse(src: string, options?: MarkedOptions): string;
 
     /**
      * Compiles markdown to HTML synchronously.
@@ -96,7 +104,7 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, options?: MarkedOptions, callback?: (error: any, parseResult: string) => void): string;
+    function parse(src: string, options: MarkedOptions, callback: (error: any, parseResult: string) => void): void;
 
     /**
      * @param src Tokenized source as array of tokens

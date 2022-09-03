@@ -258,16 +258,22 @@ const asyncExtension: marked.MarkedExtension = {
 marked.use(asyncExtension);
 
 (async () => {
-    const a: string = await marked('# foobar', { async: true });
-    const b: string = marked('# foobar', { async: false });
-    const c: string = marked('# foobar');
+    const md = '# foobar';
+    const asyncMarked: string = await marked(md, {async: true});
+    const promiseMarked: Promise<string> = marked(md, {async: true});
+    const notAsyncMarked: string = marked(md, {async: false});
+    const defaultMarked: string = marked(md);
+    const callback: void = marked(md, (_: any, res: string) => { res; });
+    const asyncCallbackwithOpts: void = marked(md, {async: true}, (_: any, res: string) => { res; });
+    const notAsyncCallbackwithOpts: void = marked(md, {async: false}, (_: any, res: string) => { res; });
 
-    const d: string = await marked.parse('# foobar', { async: true });
-    const e: string = marked.parse('# foobar', { async: false });
-    const f: string = marked.parse('# foobar');
-
-    const g: Promise<string> = marked('md', {async: true});
-    const h: Promise<string> = marked.parse('md', {async: true, headerIds: false});
+    const asyncMarkedParse: string = await marked.parse(md, {async: true});
+    const promiseMarkedParse: Promise<string> = marked.parse(md, {async: true, headerIds: false});
+    const notAsyncMarkedParse: string = marked.parse(md, {async: false});
+    const defaultMarkedParse: string = marked.parse(md);
+    const callbackParse: void = marked.parse(md, (_: any, res: string) => { res; });
+    const asyncCallbackwithOptsParse: void = marked(md, {async: true}, (_: any, res: string) => { res; });
+    const notAsyncCallbackwithOptsParse: void = marked(md, {async: false}, (_: any, res: string) => { res; });
 })();
 
 // Tests for List and ListItem
