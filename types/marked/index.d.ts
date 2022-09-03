@@ -15,13 +15,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
+ * Compiles markdown to HTML asynchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Hash of options, having async: true
+ * @return Promise of string of compiled HTML
+ */
+export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
+
+/**
  * Compiles markdown to HTML synchronously.
  *
  * @param src String of markdown source to be compiled
  * @param options Optional hash of options
  * @return String of compiled HTML
  */
-export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
 export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
@@ -71,14 +79,23 @@ export namespace marked {
     function parse(src: string, callback: (error: any, parseResult: string) => void): void;
 
     /**
-     * Compiles markdown to HTML.
+     * Compiles markdown to HTML asynchronously.
      *
      * @param src String of markdown source to be compiled
-     * @param options Hash of options
+     * @param Hash of options having async: true
+     * @param callback Function called when the markdownString has been fully parsed when using async highlighting
+     * @return Promise of string of compiled HTML
+     */
+    function parse(src: string, options: MarkedOptions & {async: true}, callback?: (error: any, parseResult: string) => void): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, options: MarkedOptions & {async: true}, callback?: (error: any, parseResult: string) => void): Promise<string>;
     function parse(src: string, options?: MarkedOptions, callback?: (error: any, parseResult: string) => void): string;
 
     /**
