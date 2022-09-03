@@ -21,6 +21,7 @@
  * @param options Optional hash of options
  * @return String of compiled HTML
  */
+export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
 export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
@@ -67,7 +68,7 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): void;
 
     /**
      * Compiles markdown to HTML.
@@ -77,6 +78,7 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
+    function parse(src: string, options: MarkedOptions & {async: true}, callback?: (error: any, parseResult: string) => void): Promise<string>;
     function parse(src: string, options?: MarkedOptions, callback?: (error: any, parseResult: string) => void): string;
 
     /**

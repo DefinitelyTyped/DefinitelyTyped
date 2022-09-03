@@ -257,6 +257,16 @@ const asyncExtension: marked.MarkedExtension = {
 
 marked.use(asyncExtension);
 
+(async () => {
+    const a: string = await marked('# foobar', { async: true });
+    const b: string = marked('# foobar', { async: false });
+    const d: string = marked('# foobar');
+
+    const e: string = await marked.parse('# foobar', { async: true });
+    const f: string = marked.parse('# foobar', { async: false });
+    const h: string = marked.parse('# foobar');
+})();
+
 // Tests for List and ListItem
 // Dumped from markdown list parsed data
 
