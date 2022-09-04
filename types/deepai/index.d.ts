@@ -2,6 +2,9 @@
 // Project: https://deepai.org/
 // Definitions by: NicolasNewman <https://github.com/NicolasNewman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export as namespace deepai;
+
 export type Models = 'colorizer'
     | 'text2img'
     | 'text-generator'
