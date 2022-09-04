@@ -36,4 +36,5 @@ export interface ModelOutputs {
     [key: string]: any;
 }
 export function setApiKey(apiKey: string): void;
+/** @async */
 export function callStandardApi<T extends Models>(modelName: T, inputs_object: ModelInputs[T]): Promise<ModelOutputs[T]>;
