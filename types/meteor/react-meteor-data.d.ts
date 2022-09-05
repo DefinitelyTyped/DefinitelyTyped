@@ -11,7 +11,7 @@ export function withTracker<TDataProps, TOwnProps>(
  * Hooks (React 16.8 or later) version of tracker.
  * Requires react-meteor-data 2.0.0 or later
  */
-export function useTracker<TDataProps>(getMeteorData: () => TDataProps, deps?: React.DependencyList): TDataProps;
+export function useTracker<TDataProps>(getMeteorData: () => TDataProps, deps?: React.DependencyList, skipUpdate: (prev: TDataProps, next: TDataProps): boolean): TDataProps;
 
 /**
  * Requires react-meteor-data 2.4.0 or later
