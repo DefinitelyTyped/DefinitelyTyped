@@ -1,6 +1,6 @@
 // Type definitions for deepai 1.0
 // Project: https://deepai.org/
-// Definitions by: NicolasNewman <https://github.com/NicolasNewman>
+// Definitions by: Nicolas Newman <https://github.com/NicolasNewman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace deepai;
