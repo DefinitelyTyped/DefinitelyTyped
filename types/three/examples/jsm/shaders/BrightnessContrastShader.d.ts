@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const BrightnessContrastShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        brightness: Uniform;
-        contrast: Uniform;
+        tDiffuse: IUniform;
+        brightness: IUniform;
+        contrast: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

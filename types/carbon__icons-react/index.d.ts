@@ -1,10 +1,10 @@
-// Type definitions for @carbon/icons-react 11.5
+// Type definitions for @carbon/icons-react 11.7
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 1948 icons total */
+/** 1949 icons total */
 
 export interface CarbonIconProps
     extends Omit<React.SVGProps<React.ReactSVGElement>, 'ref' | 'tabIndex' | 'aria-hidden'> {
@@ -883,6 +883,7 @@ export const IbmOpenEnterpriseLanguages: CarbonIconType;
 export const IbmCloud: CarbonIconType;
 export const IbmCloudDedicatedHost: CarbonIconType;
 export const IbmCloudInternetServices: CarbonIconType;
+export const IbmCloudKubernetesService: CarbonIconType;
 export const IbmCloudSecurityComplianceCenter: CarbonIconType;
 export const IbmCloudSubnets: CarbonIconType;
 export const IbmCloudTransitGateway: CarbonIconType;

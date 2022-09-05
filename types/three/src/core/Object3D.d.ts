@@ -324,7 +324,8 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * This method does not support objects having non-uniformly-scaled parent(s).
      * @param vector A world vector to look at.
      */
-    lookAt(vector: Vector3 | number, y?: number, z?: number): void;
+    lookAt(vector: Vector3): void;
+    lookAt(x: number, y: number, z: number): void;
 
     /**
      * Adds object as child of this object.

@@ -857,6 +857,7 @@ export { IbmOpenEnterpriseLanguages } from "../";
 export { IbmCloud } from "../";
 export { IbmCloudDedicatedHost } from "../";
 export { IbmCloudInternetServices } from "../";
+export { IbmCloudKubernetesService } from "../";
 export { IbmCloudSecurityComplianceCenter } from "../";
 export { IbmCloudSubnets } from "../";
 export { IbmCloudTransitGateway } from "../";

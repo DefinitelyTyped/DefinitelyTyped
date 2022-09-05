@@ -27,3 +27,7 @@ execution.test.abort(); // $ExpectType void
 execution.test.abort('this is the reason'); // $ExpectType void
 // @ts-expect-error
 execution.test.abort(2);
+execution.test.options; // $ExpectType Options
+execution.test.options.vus;
+// @ts-expect-error
+execution.test.options.giraffe;
