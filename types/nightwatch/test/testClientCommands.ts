@@ -1,10 +1,8 @@
-import { NightwatchAPI, Cookie } from "nightwatch";
+import { NightwatchAPI, Cookie, NightwatchLogEntry, NightwatchCallbackResult } from "nightwatch";
 
-function isNull(v: null) {}
 function isNightwatchAPI(v: NightwatchAPI) {}
-function isCookie(v: Cookie) {}
-function isString(v: string) {}
-function isBoolean(v: boolean) {}
+function isNightwatchCallbackResult<T>(v1: NightwatchCallbackResult<T>, v2: NightwatchCallbackResult<T>) {}
+function isResultType<T>(v1: T, v2: T) {}
 
 //
 // .navigateTo
@@ -16,19 +14,15 @@ describe('Navigation commands demo', function() {
     // with callback
     browser.navigateTo('https://nightwatchjs.org', function(result) {
       isNightwatchAPI(this);
+      isNightwatchCallbackResult<null>(result, result);
       // @ts-expect-error
       this.navigateTo();
-      console.log(result.value);
-    });
-    // Retrieve to url with callback:
-    browser.getCurrentUrl(function(result) {
-      console.log(result.value);
     });
   });
 
   test('demoTestAsync', async function(browser) {
-    const result = await browser.navigateTo('https://www.nightwatchjs.org');
-    isNull(result);
+    const result = await browser.navigateTo('https://nightwatchjs.org');
+    isResultType<null>(result, result);
   });
 });
 
@@ -40,19 +34,19 @@ describe('openNewWindow demo', function() {
     // open a new window tab (default)
     browser.openNewWindow('tab', function(result) {
       isNightwatchAPI(this);
-      console.log(result.value);
+      isNightwatchCallbackResult<null>(result, result);
     });
 
   // open a new window
     browser.openNewWindow('window', function(result) {
       isNightwatchAPI(this);
-      console.log(result.value);
+      isNightwatchCallbackResult<null>(result, result);
     });
   });
 
   test('async demo test', async function(browser) {
       const result = await browser.openNewWindow('window');
-      isNull(result);
+      isResultType<null>(result, result);
   });
 });
 
@@ -63,13 +57,13 @@ describe('closeWindow demo', function() {
   test('demo test', function(browser) {
     browser.closeWindow(function(result) {
         isNightwatchAPI(this);
-        console.log(result);
+        isNightwatchCallbackResult<null>(result, result);
     });
   });
 
   test('async demo test', async function(browser) {
     const result = await browser.closeWindow();
-    isNull(result);
+    isResultType<null>(result, result);
   });
 });
 
@@ -80,13 +74,13 @@ describe('fullscreenWindow demo', function() {
   test('demo test', function(browser) {
     browser.fullscreenWindow(function(result) {
         isNightwatchAPI(this);
-        console.log(result);
+        isNightwatchCallbackResult<null>(result, result);
     });
   });
 
   test('async demo test', async function(browser) {
     const result = await browser.fullscreenWindow();
-    isNull(result);
+    isResultType<null>(result, result);
   });
 });
 
@@ -97,13 +91,13 @@ describe('minimizeWindow demo', function() {
   test('demo test', function(browser) {
     browser.minimizeWindow(function(result) {
         isNightwatchAPI(this);
-        console.log(result);
+        isNightwatchCallbackResult<null>(result, result);
     });
   });
 
   test('async demo test', async function(browser) {
     const result = await browser.minimizeWindow();
-    isNull(result);
+    isResultType<null>(result, result);
   });
 });
 
@@ -125,13 +119,13 @@ describe('deleteCookie demo', function() {
         })
         .deleteCookie('test_cookie', function(result) {
             isNightwatchAPI(this);
-            console.log(result);
+            isNightwatchCallbackResult<null>(result, result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.deleteCookie('test_cookie');
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -153,13 +147,13 @@ describe('deleteCookies demo', function() {
         })
         .deleteCookies(function(result) {
             isNightwatchAPI(this);
-            console.log(result);
+            isNightwatchCallbackResult<null>(result, result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.deleteCookies();
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -170,7 +164,7 @@ describe('end command demo', function() {
     test('demo test', function(browser) {
         browser.end(function(result) {
             isNightwatchAPI(this);
-            console.log(result);
+            isNightwatchCallbackResult<null>(result, result);
         });
     });
 });
@@ -192,13 +186,13 @@ describe('getCookie command demo', function() {
             httpOnly: undefined
         }).getCookie('test_cookie', function(result) {
             isNightwatchAPI(this);
-            console.log(result);
+            isNightwatchCallbackResult<Cookie>(result, result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getCookie('test_cookie');
-        isCookie(result);
+        isResultType<Cookie>(result, result);
     });
 });
 
@@ -217,9 +211,9 @@ describe('setCookie command demo', function() {
             secure: undefined,
             expiry: undefined,
             httpOnly: undefined
-        }).getCookies(function(result) {
+        }, function(result) {
             isNightwatchAPI(this);
-            console.log(result);
+            isNightwatchCallbackResult<null>(result, result);
         });
     });
 
@@ -233,7 +227,7 @@ describe('setCookie command demo', function() {
           expiry: undefined,
           httpOnly: undefined
         });
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -243,14 +237,15 @@ describe('setCookie command demo', function() {
 describe('getLog command demo', function() {
     test('demo test', function() {
         browser
-        .getLog('browser', function(logEntriesArray) {
-            isNightwatchAPI(this);
-            console.log(logEntriesArray);
-        });
+            .getLog('browser', function(result) {
+                isNightwatchAPI(this);
+                isResultType<NightwatchLogEntry[]>(result, result);
+            });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getLog('browser');
+        isResultType<NightwatchLogEntry[]>(result, result);
     });
 });
 
@@ -261,15 +256,15 @@ describe('getCurrentUrl command demo', function() {
     test('demo test', function() {
         browser
             .navigateTo('https://www.nightwatchjs.org')
-            .getCurrentUrl(function(url) {
+            .getCurrentUrl(function(result) {
                 isNightwatchAPI(this);
-                console.log(url);
+                isNightwatchCallbackResult<string>(result, result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.navigateTo('https://www.nightwatchjs.org').getCurrentUrl();
-        isString(result);
+        isResultType<string>(result, result);
     });
 });
 
@@ -280,15 +275,15 @@ describe('getTitle command demo', function() {
     test('demo test', function() {
         browser
             .navigateTo('https://www.ecosia.org')
-            .getTitle(function(title) {
+            .getTitle(function(result) {
                 isNightwatchAPI(this);
-                console.log(title);
+                isResultType<string>(result, result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.navigateTo('https://www.ecosia.org').getTitle();
-        isString(result);
+        isResultType<string>(result, result);
     });
 });
 
@@ -300,13 +295,13 @@ describe('isLogAvailable command demo', function() {
         browser
             .isLogAvailable('browser', function(result) {
                 isNightwatchAPI(this);
-                console.log(result);
+                isResultType<boolean>(result, result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.isLogAvailable('browser');
-        isBoolean(result);
+        isResultType<boolean>(result, result);
     });
 });
 
@@ -319,13 +314,13 @@ describe('resizeWindow command demo', function() {
             .navigateTo('https://www.ecosia.org')
             .resizeWindow(1000, 500, function(result) {
                 isNightwatchAPI(this);
-                console.log(result);
+                isNightwatchCallbackResult<null>(result, result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.resizeWindow(1000, 800);
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -335,7 +330,7 @@ describe('resizeWindow command demo', function() {
 describe('saveScreenshot command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.saveScreenshot('bcd.jpg');
-        isString(result);
+        isResultType<string>(result, result);
     });
 });
 
@@ -356,7 +351,7 @@ describe('setCookie command demo', function() {
                 httpOnly: undefined
             }, function(result) {
                 isNightwatchAPI(this);
-                console.log(result);
+                isNightwatchCallbackResult<null>(result, result);
             });
     });
 
@@ -370,7 +365,7 @@ describe('setCookie command demo', function() {
           expiry: undefined,
           httpOnly: undefined
         });
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -382,13 +377,13 @@ describe('setWindowPosition command demo', function() {
         browser
             .setWindowPosition(0, 0, function(result) {
                 isNightwatchAPI(this);
-                console.log(result);
+                isNightwatchCallbackResult<null>(result, result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setWindowPosition(0, 0);
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -400,12 +395,12 @@ describe('setWindowRect command demo', function() {
         browser
             .setWindowRect({x: 0, y: 0, width: 500, height: 500}, function(result) {
                 isNightwatchAPI(this);
-                console.log(result);
+                isNightwatchCallbackResult<null>(result, result);
             });
     });
     test('async demo test', async function(browser) {
         const result = await browser.setWindowRect({x: 0, y: 0, width: 500, height: 500});
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -417,13 +412,13 @@ describe('setWindowSize command demo', function() {
         browser
             .setWindowSize(500, 500, function(result) {
                 isNightwatchAPI(this);
-                console.log(result);
+                isNightwatchCallbackResult<null>(result, result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setWindowSize(500, 500);
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -434,7 +429,7 @@ describe('switchToWindow command demo', function() {
     test('async demo test', async function(browser) {
         const handle = await browser.windowHandle();
         const result = await browser.switchToWindow(handle);
-        isNull(result);
+        isResultType<null>(result, result);
     });
 });
 
@@ -445,7 +440,30 @@ describe('init command demo', function() {
   test('demo test', function() {
       browser.init('https://www.google.com', function(result) {
           isNightwatchAPI(this);
-          console.log(result);
+          isNightwatchCallbackResult<null>(result, result);
       });
   });
+});
+
+//
+// .waitUntil
+//
+describe('waitUntil command demo', function() {
+    before(browser => browser.url('https://www.google.com/'));
+
+    test('demo test', function() {
+        browser.waitUntil(async function() {
+            return true;
+        }, 5000, 5000, function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<null>(result, result);
+        });
+    });
+    test('async demo test', async function(browser) {
+        const result = await browser.waitUntil(async function() {
+            return true;
+        });
+        isResultType<null>(result, result);
+    });
+    after(browser => browser.end());
 });
