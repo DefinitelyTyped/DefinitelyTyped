@@ -8311,7 +8311,7 @@ const severalAudioFeaturesResponse: SpotifyApi.MultipleAudioFeaturesResponse = {
  * GET /v1/audio-analysis/{id}
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
  */
- const audioAnalysisResponse: SpotifyApi.AudioAnalysisResponse = {
+const audioAnalysisResponse: SpotifyApi.AudioAnalysisResponse = {
     meta: {
         analyzer_version: '4.0.0',
         platform: 'Linux',
