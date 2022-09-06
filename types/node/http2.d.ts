@@ -780,7 +780,7 @@ declare module 'http2' {
          * @since v8.4.0
          * @param callback Callback that is called once the session is connected or right away if the session is already connected.
          */
-        settings(settings: Settings): void;
+        settings(settings: Settings, callback?: (err: Error | null, settings: Settings, duration: number) => void): void;
         /**
          * Calls `unref()` on this `Http2Session`instance's underlying `net.Socket`.
          * @since v9.4.0
@@ -1642,7 +1642,7 @@ declare module 'http2' {
          * be called multiple times to provide successive parts of the body.
          *
          * In the `http` module, the response body is omitted when the
-         * request is a HEAD request. Similarly, the `204` and `304` responses_must not_ include a message body.
+         * request is a HEAD request. Similarly, the `204` and `304` responses _must not_ include a message body.
          *
          * `chunk` can be a string or a buffer. If `chunk` is a string,
          * the second parameter specifies how to encode it into a byte stream.

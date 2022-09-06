@@ -1,11 +1,11 @@
 {
+    "files": [
+        "index.d.ts",
+        "test/index.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "dom",
-            "es6",
-            "esnext.asynciterable"
-        ],
+        "lib": ["es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -17,9 +17,5 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "relay-compiler-tests.ts"
-    ]
+    }
 }

@@ -58,6 +58,7 @@ module('proper module', function (hooks) {
         const { owner } = this;
         assert.ok(owner, 'owner was setup');
         assert.equal(typeof owner.lookup, 'function', 'has expected lookup interface');
+        owner; // $ExpectType Owner
     });
 
     test('can pauseTest to be resumed "later"', async function(assert) {

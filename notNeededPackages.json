@@ -452,6 +452,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "cacheable-request": {
+            "libraryName": "cacheable-request",
+            "asOfVersion": "8.3.1"
+        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
@@ -2645,6 +2649,10 @@
             "libraryName": "loglevel",
             "asOfVersion": "1.6.2"
         },
+        "long": {
+            "libraryName": "long",
+            "asOfVersion": "5.0.0"
+        },
         "looks-same": {
             "libraryName": "looks-same",
             "asOfVersion": "4.1.0"
@@ -4499,6 +4507,10 @@
             "libraryName": "resolve-pkg",
             "asOfVersion": "2.0.0"
         },
+        "responselike": {
+            "libraryName": "responselike",
+            "asOfVersion": "3.0.0"
+        },
         "rest-io": {
             "libraryName": "rest-io",
             "asOfVersion": "4.1.0"
@@ -5766,6 +5778,10 @@
         "yoctodelay": {
             "libraryName": "yoctodelay",
             "asOfVersion": "1.2.0"
+        },
+        "yup": {
+            "libraryName": "yup",
+            "asOfVersion": "0.32.0"
         },
         "z-schema": {
             "libraryName": "z-schema",

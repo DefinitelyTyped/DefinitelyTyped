@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "dt-header": false,
         "export-just-namespace": false,
         "new-parens": false,
         "no-consecutive-blank-lines": false,

@@ -1,4 +1,13 @@
-import { FileHandle, open as openAsync, writeFile as writeFileAsync, watch as watchAsync, cp as cpAsync } from 'node:fs/promises';
+import {
+    FileHandle,
+    open as openAsync,
+    writeFile as writeFileAsync,
+    watch as watchAsync,
+    cp as cpAsync,
+    copyFile,
+    constants,
+    access,
+} from 'node:fs/promises';
 import * as fs from 'node:fs';
 import * as util from 'node:util';
 import { URL } from 'node:url';
@@ -722,3 +731,9 @@ const anyStats: fs.Stats | fs.BigIntStats = fs.statSync('.', { bigint: Math.rand
         stream.close();
     });
 }
+
+// constants
+async () => {
+    await copyFile('source.txt', 'destination.txt', constants.COPYFILE_EXCL);
+    await access('/etc/passwd', constants.R_OK | constants.W_OK);
+};

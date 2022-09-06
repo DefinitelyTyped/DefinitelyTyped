@@ -167,6 +167,8 @@ declare namespace SimplePeer {
 
         readonly bufferSize: number;
         readonly connected: boolean;
+        readonly streams: MediaStream[];
+
         address():
             | { port: undefined; family: undefined; address: undefined }
             | { port: number; family: "IPv6" | "IPv4"; address: string };

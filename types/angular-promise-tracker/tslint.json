@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "interface-name": false,
         "no-object-literal-type-assertion": false,
         "no-reference-import": false,

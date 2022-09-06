@@ -800,6 +800,7 @@ const any: any = null;
 
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
+    result = validator.isNumeric('358,50', { locale: 'pt-BR' });
 
     result = validator.isOctal('076543210');
 
@@ -845,8 +846,6 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
-
-    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 
@@ -923,6 +922,15 @@ const any: any = null;
 
     result = validator.toInt(any);
     result = validator.toInt(any, 10);
+}
+
+{
+    let result: boolean;
+    result = validator.isStrongPassword('sample23#@test');
+    result = validator.isStrongPassword('sample23#@test', { returnScore: false });
+
+    let score: number;
+    score = validator.isStrongPassword('sample23#@test', { returnScore: true });
 }
 
 {

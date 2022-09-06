@@ -950,6 +950,7 @@ declare namespace validator {
          * @default false
          */
         no_symbols?: boolean | undefined;
+        locale?: AlphaLocale | undefined;
     }
 
     /**
@@ -1063,7 +1064,12 @@ declare namespace validator {
         pointsForContainingNumber?: number | undefined;
         pointsForContainingSymbol?: number | undefined;
     }
-    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
+    function isStrongPassword(
+        str: string,
+        options?: strongPasswordOptions & { returnScore: false | undefined },
+    ): boolean;
+    function isStrongPassword(str: string, options?: strongPasswordOptions & { returnScore: true }): number;
+
     /**
      * Check if the string contains any surrogate pairs chars.
      */

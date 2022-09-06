@@ -1,18 +1,12 @@
-// Type definitions for Visual Studio Code 1.69
+// Type definitions for Visual Studio Code 1.71
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License.
- *  See https://github.com/microsoft/vscode/blob/main/LICENSE.txt for license information.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-
-/**
- * Type Definition for Visual Studio Code 1.69 Extension API
- * See https://code.visualstudio.com/api for more information
- */
 
 declare module 'vscode' {
 
@@ -763,10 +757,10 @@ declare module 'vscode' {
     export interface TextDocumentShowOptions {
         /**
          * An optional view column in which the {@link TextEditor editor} should be shown.
-         * The default is the {@link ViewColumn.Active active}, other values are adjusted to
-         * be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is
-         * not adjusted. Use {@linkcode ViewColumn.Beside} to open the
-         * editor to the side of the currently active one.
+         * The default is the {@link ViewColumn.Active active}. Columns that do not exist
+         * will be created as needed up to the maximum of {@linkcode ViewColumn.Nine}.
+         * Use {@linkcode ViewColumn.Beside} to open the editor to the side of the currently
+         * active one.
          */
         viewColumn?: ViewColumn;
 
@@ -825,10 +819,10 @@ declare module 'vscode' {
     export interface NotebookDocumentShowOptions {
         /**
          * An optional view column in which the {@link NotebookEditor notebook editor} should be shown.
-         * The default is the {@link ViewColumn.Active active}, other values are adjusted to
-         * be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is
-         * not adjusted. Use {@linkcode ViewColumn.Beside} to open the
-         * editor to the side of the currently active one.
+         * The default is the {@link ViewColumn.Active active}. Columns that do not exist
+         * will be created as needed up to the maximum of {@linkcode ViewColumn.Nine}.
+         * Use {@linkcode ViewColumn.Beside} to open the editor to the side of the currently
+         * active one.
          */
         readonly viewColumn?: ViewColumn;
 
@@ -1480,7 +1474,7 @@ declare module 'vscode' {
          * the `skipEncoding`-argument: `uri.toString(true)`.
          *
          * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-         *    the `#` and `?` characters occurring in the path will always be encoded.
+         *	the `#` and `?` characters occurring in the path will always be encoded.
          * @returns A string representation of this Uri.
          */
         toString(skipEncoding?: boolean): string;
@@ -1888,8 +1882,8 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         *     'Images': ['png', 'jpg']
-         *     'TypeScript': ['ts', 'tsx']
+         * 	'Images': ['png', 'jpg']
+         * 	'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
@@ -1923,8 +1917,8 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         *     'Images': ['png', 'jpg']
-         *     'TypeScript': ['ts', 'tsx']
+         * 	'Images': ['png', 'jpg']
+         * 	'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
@@ -2211,23 +2205,23 @@ declare module 'vscode' {
      *
      * ```ts
      * let a: HoverProvider = {
-     *     provideHover(doc, pos, token): ProviderResult<Hover> {
-     *         return new Hover('Hello World');
-     *     }
+     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+     * 		return new Hover('Hello World');
+     * 	}
      * }
      *
      * let b: HoverProvider = {
-     *     provideHover(doc, pos, token): ProviderResult<Hover> {
-     *         return new Promise(resolve => {
-     *             resolve(new Hover('Hello World'));
-     *          });
-     *     }
+     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+     * 		return new Promise(resolve => {
+     * 			resolve(new Hover('Hello World'));
+     * 	 	});
+     * 	}
      * }
      *
      * let c: HoverProvider = {
-     *     provideHover(doc, pos, token): ProviderResult<Hover> {
-     *         return; // undefined
-     *     }
+     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+     * 		return; // undefined
+     * 	}
      * }
      * ```
      */
@@ -4048,7 +4042,7 @@ declare module 'vscode' {
         /**
          * The index of the active parameter.
          *
-         * If provided, this is used in place of {@linkcode SignatureHelp.activeSignature}.
+         * If provided, this is used in place of {@linkcode SignatureHelp.activeParameter}.
          */
         activeParameter?: number;
 
@@ -5419,6 +5413,48 @@ declare module 'vscode' {
     }
 
     /**
+     * An edit operation applied {@link DocumentDropEditProvider on drop}.
+     */
+    export class DocumentDropEdit {
+        /**
+         * The text or snippet to insert at the drop location.
+         */
+        insertText: string | SnippetString;
+
+        /**
+         * An optional additional edit to apply on drop.
+         */
+        additionalEdit?: WorkspaceEdit;
+
+        /**
+         * @param insertText The text or snippet to insert at the drop location.
+         */
+        constructor(insertText: string | SnippetString);
+    }
+
+    /**
+     * Provider which handles dropping of resources into a text editor.
+     *
+     * This allows users to drag and drop resources (including resources from external apps) into the editor. While dragging
+     * and dropping files, users can hold down `shift` to drop the file into the editor instead of opening it.
+     * Requires `editor.dropIntoEditor.enabled` to be on.
+     */
+    export interface DocumentDropEditProvider {
+        /**
+         * Provide edits which inserts the content being dragged and dropped into the document.
+         *
+         * @param document The document in which the drop occurred.
+         * @param position The position in the document where the drop occurred.
+         * @param dataTransfer A {@link DataTransfer} object that holds data about what is being dragged and dropped.
+         * @param token A cancellation token.
+         *
+         * @return A {@link DocumentDropEdit} or a thenable that resolves to such. The lack of a result can be
+         * signaled by returning `undefined` or `null`.
+         */
+        provideDocumentDropEdits(document: TextDocument, position: Position, dataTransfer: DataTransfer, token: CancellationToken): ProviderResult<DocumentDropEdit>;
+    }
+
+    /**
      * A tuple of two characters, like a pair of
      * opening and closing brackets.
      */
@@ -5753,19 +5789,19 @@ declare module 'vscode' {
          * @param section Configuration name, supports _dotted_ names.
          * @param value The new value.
          * @param configurationTarget The {@link ConfigurationTarget configuration target} or a boolean value.
-         *    - If `true` updates {@link ConfigurationTarget.Global Global settings}.
-         *    - If `false` updates {@link ConfigurationTarget.Workspace Workspace settings}.
-         *    - If `undefined` or `null` updates to {@link ConfigurationTarget.WorkspaceFolder Workspace folder settings} if configuration is resource specific,
-         *     otherwise to {@link ConfigurationTarget.Workspace Workspace settings}.
+         *	- If `true` updates {@link ConfigurationTarget.Global Global settings}.
+         *	- If `false` updates {@link ConfigurationTarget.Workspace Workspace settings}.
+         *	- If `undefined` or `null` updates to {@link ConfigurationTarget.WorkspaceFolder Workspace folder settings} if configuration is resource specific,
+         * 	otherwise to {@link ConfigurationTarget.Workspace Workspace settings}.
          * @param overrideInLanguage Whether to update the value in the scope of requested languageId or not.
-         *    - If `true` updates the value under the requested languageId.
-         *    - If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
+         *	- If `true` updates the value under the requested languageId.
+         *	- If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
          * @throws error while updating
-         *    - configuration which is not registered.
-         *    - window configuration to workspace folder
-         *    - configuration to workspace or workspace folder when no workspace is opened.
-         *    - configuration to workspace folder when there is no workspace folder settings.
-         *    - configuration to workspace folder when {@link WorkspaceConfiguration} is not scoped to a resource.
+         *	- configuration which is not registered.
+         *	- window configuration to workspace folder
+         *	- configuration to workspace or workspace folder when no workspace is opened.
+         *	- configuration to workspace folder when there is no workspace folder settings.
+         *	- configuration to workspace folder when {@link WorkspaceConfiguration} is not scoped to a resource.
          */
         update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean | null, overrideInLanguage?: boolean): Thenable<void>;
 
@@ -6442,7 +6478,7 @@ declare module 'vscode' {
          * ```typescript
          * window.onDidCloseTerminal(t => {
          *   if (t.exitStatus && t.exitStatus.code) {
-         *       vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
+         *   	vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
          *   }
          * });
          * ```
@@ -6504,10 +6540,10 @@ declare module 'vscode' {
     export interface TerminalEditorLocationOptions {
         /**
          * A view column in which the {@link Terminal terminal} should be shown in the editor area.
-         * Use {@link ViewColumn.Active active} to open in the active editor group, other values are
-         * adjusted to be `Min(column, columnCount + 1)`, the
-         * {@link ViewColumn.Active active}-column is not adjusted. Use
-         * {@linkcode ViewColumn.Beside} to open the editor to the side of the currently active one.
+         * The default is the {@link ViewColumn.Active active}. Columns that do not exist
+         * will be created as needed up to the maximum of {@linkcode ViewColumn.Nine}.
+         * Use {@linkcode ViewColumn.Beside} to open the editor to the side of the currently
+         * active one.
          */
         viewColumn: ViewColumn;
         /**
@@ -9174,18 +9210,18 @@ declare module 'vscode' {
      * register a command handler with the identifier `extension.sayHello`.
      * ```javascript
      * commands.registerCommand('extension.sayHello', () => {
-     *     window.showInformationMessage('Hello World!');
+     * 	window.showInformationMessage('Hello World!');
      * });
      * ```
      * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
      * ```json
      * {
-     *     "contributes": {
-     *         "commands": [{
-     *             "command": "extension.sayHello",
-     *             "title": "Hello World"
-     *         }]
-     *     }
+     * 	"contributes": {
+     * 		"commands": [{
+     * 			"command": "extension.sayHello",
+     * 			"title": "Hello World"
+     * 		}]
+     * 	}
      * }
      * ```
      */
@@ -9418,8 +9454,8 @@ declare module 'vscode' {
          * to control where the editor is being shown. Might change the {@link window.activeTextEditor active editor}.
          *
          * @param document A text document to be shown.
-         * @param column A view column in which the {@link TextEditor editor} should be shown. The default is the {@link ViewColumn.Active active}, other values
-         * are adjusted to be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is not adjusted. Use {@linkcode ViewColumn.Beside}
+         * @param column A view column in which the {@link TextEditor editor} should be shown. The default is the {@link ViewColumn.Active active}.
+         * Columns that do not exist will be created as needed up to the maximum of {@linkcode ViewColumn.Nine}. Use {@linkcode ViewColumn.Beside}
          * to open the editor to the side of the currently active one.
          * @param preserveFocus When `true` the editor will not take focus.
          * @return A promise that resolves to an {@link TextEditor editor}.
@@ -10155,7 +10191,7 @@ declare module 'vscode' {
          * @param callbackfn Callback for iteration through the data transfer items.
          * @param thisArg The `this` context used when invoking the handler function.
          */
-        forEach(callbackfn: (value: DataTransferItem, key: string, dataTransfer: DataTransfer) => void, thisArg?: any): void;
+        forEach(callbackfn: (item: DataTransferItem, mimeType: string, dataTransfer: DataTransfer) => void, thisArg?: any): void;
 
         /**
          * Get a new iterator with the `[mime, item]` pairs for each element in this data transfer.
@@ -10791,6 +10827,41 @@ declare module 'vscode' {
          *   without providing an exit code.
          */
         readonly code: number | undefined;
+
+        /**
+         * The reason that triggered the exit of a terminal.
+         */
+        readonly reason: TerminalExitReason;
+    }
+
+    /**
+     * Terminal exit reason kind.
+     */
+    export enum TerminalExitReason {
+        /**
+         * Unknown reason.
+         */
+        Unknown = 0,
+
+        /**
+         * The window closed/reloaded.
+         */
+        Shutdown = 1,
+
+        /**
+         * The shell process exited.
+         */
+        Process = 2,
+
+        /**
+         * The user closed the terminal.
+         */
+        User = 3,
+
+        /**
+         * An extension disposed the terminal.
+         */
+        Extension = 4,
     }
 
     /**
@@ -11347,11 +11418,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillSaveTextDocument(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -11396,11 +11467,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -11456,11 +11527,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -11516,11 +11587,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         *     // async, will *throw* an error
-         *     setTimeout(() => event.waitUntil(promise));
+         * 	// async, will *throw* an error
+         * 	setTimeout(() => event.waitUntil(promise));
          *
-         *     // sync, OK
-         *     event.waitUntil(promise);
+         * 	// sync, OK
+         * 	event.waitUntil(promise);
          * })
          * ```
          *
@@ -12267,9 +12338,9 @@ declare module 'vscode' {
      *
      * ```javascript
      * languages.registerHoverProvider('javascript', {
-     *     provideHover(document, position, token) {
-     *         return new Hover('I am a hover!');
-     *     }
+     * 	provideHover(document, position, token) {
+     * 		return new Hover('I am a hover!');
+     * 	}
      * });
      * ```
      *
@@ -12797,6 +12868,16 @@ declare module 'vscode' {
         export function registerLinkedEditingRangeProvider(selector: DocumentSelector, provider: LinkedEditingRangeProvider): Disposable;
 
         /**
+         * Registers a new {@link DocumentDropEditProvider}.
+         *
+         * @param selector A selector that defines the documents this provider applies to.
+         * @param provider A drop provider.
+         *
+         * @return A {@link Disposable} that unregisters this provider when disposed of.
+         */
+        export function registerDocumentDropEditProvider(selector: DocumentSelector, provider: DocumentDropEditProvider): Disposable;
+
+        /**
          * Set a {@link LanguageConfiguration language configuration} for a language.
          *
          * @param language A language identifier like `typescript`.
@@ -12949,7 +13030,7 @@ declare module 'vscode' {
         /**
          * The metadata of this cell. Can be anything but must be JSON-stringifyable.
          */
-        readonly metadata: { [key: string]: any };
+        readonly metadata: { readonly [key: string]: any };
 
         /**
          * The outputs of this cell.
@@ -13283,10 +13364,10 @@ declare module 'vscode' {
          *
          * ```ts
          * new vscode.NotebookCellOutput([
-         *     vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
-         *     vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
-         *     vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
-         *     vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
+         * 	vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
+         * 	vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
+         * 	vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
+         * 	vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
          * ])
          * ```
          */
@@ -14573,7 +14654,7 @@ declare module 'vscode' {
      */
     export enum DebugConfigurationProviderTriggerKind {
         /**
-         *    `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
+         *	`DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
          */
         Initial = 1,
         /**
@@ -14722,16 +14803,16 @@ declare module 'vscode' {
      *
      * ```javascript
      * export function activate(context: vscode.ExtensionContext) {
-     *     let api = {
-     *         sum(a, b) {
-     *             return a + b;
-     *         },
-     *         mul(a, b) {
-     *             return a * b;
-     *         }
-     *     };
-     *     // 'export' public api-surface
-     *     return api;
+     * 	let api = {
+     * 		sum(a, b) {
+     * 			return a + b;
+     * 		},
+     * 		mul(a, b) {
+     * 			return a * b;
+     * 		}
+     * 	};
+     * 	// 'export' public api-surface
+     * 	return api;
      * }
      * ```
      * When depending on the API of another extension add an `extensionDependencies`-entry
@@ -14926,16 +15007,16 @@ declare module 'vscode' {
          * For example, a comment is given a context value as `editable`. When contributing actions to `comments/comment/title`
          * using `menus` extension point, you can specify context value for key `comment` in `when` expression like `comment == editable`.
          * ```json
-         *    "contributes": {
-         *        "menus": {
-         *            "comments/comment/title": [
-         *                {
-         *                    "command": "extension.deleteComment",
-         *                    "when": "comment == editable"
-         *                }
-         *            ]
-         *        }
-         *    }
+         *	"contributes": {
+         *		"menus": {
+         *			"comments/comment/title": [
+         *				{
+         *					"command": "extension.deleteComment",
+         *					"when": "comment == editable"
+         *				}
+         *			]
+         *		}
+         *	}
          * ```
          * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
          */
@@ -15022,7 +15103,7 @@ declare module 'vscode' {
         /**
          * Optional commenting range provider. Provide a list {@link Range ranges} which support commenting to any given resource uri.
          *
-         * If not provided, users can leave comments in any document opened in the editor.
+         * If not provided, users cannot leave any comments.
          */
         commentingRangeProvider?: CommentingRangeProvider;
 

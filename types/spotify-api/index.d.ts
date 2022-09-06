@@ -271,7 +271,7 @@ declare namespace SpotifyApi {
      * At the time of typing, the Audio Analysis Object is absent from the Object Model, so it is typed as any.
      * Object Model: https://developer.spotify.com/web-api/object-model/
      */
-    interface AudioAnalysisResponse extends Object {}
+    interface AudioAnalysisResponse extends AudioAnalysisObject {}
 
     /**
      * Get audio features for a track
@@ -1022,6 +1022,92 @@ declare namespace SpotifyApi {
         type: 'audio_features';
         uri: string;
         valence: number;
+    }
+
+    /**
+     * Audio Analysis Object
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
+     */
+    interface AudioAnalysisObject {
+        meta: AudioAnalysisMeta;
+        track: AudioAnalysisTrack;
+        bars: AudioAnalysisIntervalObject[];
+        beats: AudioAnalysisIntervalObject[];
+        sections: AudioAnalysisSection[];
+        segments: AudioAnalysisSegment[];
+        tatums: AudioAnalysisIntervalObject[];
+    }
+
+    interface AudioAnalysisMeta {
+        analyzer_version: string;
+        platform: string;
+        detailed_status: string;
+        status_code: number;
+        timestamp: number;
+        analysis_time: number;
+        input_process: string;
+    }
+
+    interface AudioAnalysisTrack {
+        num_samples: number;
+        duration: number;
+        sample_md5: string;
+        offset_seconds: number;
+        window_seconds: number;
+        analysis_sample_rate: number;
+        analysis_channels: number;
+        end_of_fade_in: number;
+        start_of_fade_out: number;
+        loudness: number;
+        tempo: number;
+        tempo_confidence: number;
+        time_signature: number;
+        time_signature_confidence: number;
+        key: number;
+        key_confidence: number;
+        mode: number;
+        mode_confidence: number;
+        codestring: string;
+        code_version: number;
+        echoprintstring: string;
+        echoprint_version: number;
+        synchstring: string;
+        synch_version: number;
+        rhythmstring: string;
+        rhythm_version: number;
+    }
+
+    interface AudioAnalysisIntervalObject {
+        start: number;
+        duration: number;
+        confidence: number;
+    }
+
+    interface AudioAnalysisSection {
+        start: number;
+        duration: number;
+        confidence: number;
+        loudness: number;
+        tempo: number;
+        tempo_confidence: number;
+        key: number;
+        key_confidence: number;
+        mode: number;
+        mode_confidence: number;
+        time_signature: number;
+        time_signature_confidence: number;
+    }
+
+    interface AudioAnalysisSegment {
+        start: number;
+        duration: number;
+        confidence: number;
+        loudness_start: number;
+        loudness_max: number;
+        loudness_max_time: number;
+        loudness_end: number;
+        pitches: number[];
+        timbre: number[];
     }
 
     /**

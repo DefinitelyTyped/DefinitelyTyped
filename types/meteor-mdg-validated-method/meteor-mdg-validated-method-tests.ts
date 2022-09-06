@@ -225,3 +225,8 @@ new ValidatedMethod({
         this.unblock();
     }
 });
+
+methodReturnsName.call((error, result) => {
+    // $ExpectType Error | undefined
+    error;
+});

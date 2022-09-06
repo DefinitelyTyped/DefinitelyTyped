@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.6
+// Type definitions for prettier 2.7
 // Project: https://prettier.io
 //          https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
@@ -536,6 +536,7 @@ export interface SupportLanguage {
     filenames?: string[] | undefined;
     linguistLanguageId?: number | undefined;
     vscodeLanguageIds?: string[] | undefined;
+    interpreters?: string[] | undefined;
 }
 
 export interface SupportOptionRange {

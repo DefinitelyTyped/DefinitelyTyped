@@ -196,6 +196,9 @@ declare namespace Terminal {
 
     table(tableCells: ReadonlyArray<ReadonlyArray<string>>, options?: TextTableOptions): void;
 
+    spinner(options?: AnimatedTextOptions): Promise<AnimatedText>;
+
+    spinner(animation: AnimationOption): Promise<AnimatedText>;
     wrapColumn(options?: {
       width: null | number;
       x: number;
@@ -575,7 +578,47 @@ declare namespace Terminal {
     fit?: boolean;
     hasBorder?: boolean;
     borderAttr?: object;
-    borderChars?: object | string;
+    borderChars?: CustomBorderObject | BuiltinBorder;
     textBoxKeyBindings?: object;
+  }
+
+  type AnimationOption = BuiltinAnimation | AnimationArray;
+
+  // see https://github.com/cronvel/terminal-kit/blob/master/doc/spChars.md#ref.spChars.animation
+
+  type BuiltinAnimation =
+      | 'asciiSpinner'
+      | 'lineSpinner'
+      | 'dotSpinner'
+      | 'bitDots'
+      | 'impulse'
+      | 'unboxing'
+      | 'unboxing-color';
+
+  type BuiltinBorder = 'plain' | 'empty' | 'ascii' | 'light' | 'lightRounded' | 'heavy' | 'double' | 'dotted';
+
+  type AnimationArray = string[];
+  interface CustomBorderObject {
+      vertical: string;
+      horizontal: string;
+      topLeft: string;
+      topRight: string;
+      bottomLeft: string;
+      bottomRight: string;
+      topTee: string;
+      bottomTee: string;
+      leftTee: string;
+      rightTee: string;
+      cross: string;
+  }
+
+  interface AnimatedTextOptions {
+      animation: AnimationOption;
+      internal?: boolean;
+      attr?: object;
+  }
+
+  interface AnimatedText {
+      animate(speed: number | false): void;
   }
 }

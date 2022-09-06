@@ -18,6 +18,8 @@ import { Duplex } from "stream";
 
 export as namespace Papa;
 
+export {};   // Don't export all declarations!
+
 /**
  * Parse local files
  * @param file a File object obtained from the DOM.
@@ -130,7 +132,7 @@ export let RemoteChunkSize: number;
 export let DefaultDelimiter: string;
 
 /** File object */
-export type LocalFile = Blob | NodeJS.ReadableStream;
+export type LocalFile = File | NodeJS.ReadableStream;
 
 /**
  * On Papa there are actually more classes exposed
@@ -278,7 +280,8 @@ export interface ParseWorkerConfig<T = any> extends ParseConfig<T> {
     complete(results: ParseResult<T>): void;
 }
 
-export interface ParseAsyncConfig<T = any, TInput = undefined> extends ParseConfig<T, TInput> {
+// Base interface for all async parsing
+interface ParseAsyncConfigBase<T = any, TInput = undefined> extends ParseConfig<T, TInput> {
     /**
      * Whether or not to use a worker thread.
      * Using a worker will keep your page reactive, but may be slightly slower.
@@ -301,16 +304,28 @@ export interface ParseAsyncConfig<T = any, TInput = undefined> extends ParseConf
      * The function is passed two arguments: the error and the File.
      */
     error?(error: Error, file: TInput): void;
-    /** @inheritdoc */
-    complete(results: ParseResult<T>, file: TInput): void;
 }
 
-export interface ParseLocalConfig<T = any, TInput = undefined> extends ParseAsyncConfig<T, TInput> {
+// Async parsing local file can specify encoding
+interface ParseLocalConfigBase<T = any, TInput = undefined> extends ParseAsyncConfigBase<T, TInput> {
     /** The encoding to use when opening local files. If specified, it must be a value supported by the FileReader API. */
     encoding?: string | undefined;
 }
 
-export interface ParseRemoteConfig<T = any> extends ParseAsyncConfig<T, string> {
+interface ParseLocalConfigStep<T = any, TInput = undefined> extends ParseLocalConfigBase<T, TInput> {
+    /** @inheritdoc */
+    step(results: ParseStepResult<T>, parser: Parser): void;
+}
+interface ParseLocalConfigNoStep<T = any, TInput = undefined> extends ParseLocalConfigBase<T, TInput> {
+    /** @inheritdoc */
+    complete(results: ParseResult<T>, file: TInput): void;
+}
+
+// Local parsing is async and thus must specify either `step` or `complete` (but may specify both)
+export type ParseLocalConfig<T = any, TInput = undefined> = ParseLocalConfigStep<T, TInput> | ParseLocalConfigNoStep<T, TInput>;
+
+// Remote parsing has options for the backing web request
+interface ParseRemoteConfigBase<T = any> extends ParseAsyncConfigBase<T, string> {
     /**
      * This indicates that the string you passed as the first argument to `parse()`
      * is actually a URL from which to download a file and parse its contents.
@@ -333,6 +348,18 @@ export interface ParseRemoteConfig<T = any> extends ParseAsyncConfig<T, string> 
      */
     withCredentials?: boolean | undefined;
 }
+
+interface ParseRemoteConfigStep<T = any> extends ParseRemoteConfigBase<T> {
+    /** @inheritdoc */
+    step(results: ParseStepResult<T>, parser: Parser): void;
+}
+interface ParseRemoteConfigNoStep<T = any> extends ParseRemoteConfigBase<T> {
+    /** @inheritdoc */
+    complete(results: ParseResult<T>, file: string): void;
+}
+
+// Remote parsing is async and thus must specify either `step` or `complete` (but may specify both)
+export type ParseRemoteConfig<T = any> = ParseRemoteConfigStep<T> | ParseRemoteConfigNoStep<T>;
 
 export interface UnparseConfig {
     /**
@@ -405,7 +432,7 @@ export interface ParseError {
     /** A generalization of the error */
     type: 'Quotes' | 'Delimiter' | 'FieldMismatch';
     /** Standardized error code */
-    code: 'MissingQuotes' | 'UndetectableDelimiter' | 'TooFewFields' | 'TooManyFields';
+    code: 'MissingQuotes' | 'UndetectableDelimiter' | 'TooFewFields' | 'TooManyFields' | 'InvalidQuotes';
     /** Human-readable details */
     message: string;
     /** Row index of parsed data where error is */
