@@ -249,7 +249,7 @@ export interface FileStat extends stream.Readable, Fields {
     size: number;
 }
 
-export interface ReadEntry extends MiniPass.default, HeaderProperties {
+export interface ReadEntry extends MiniPass, HeaderProperties {
     /** The extended metadata object provided to the constructor. */
     extended: any;
     /** The global extended metadata object provided to the constructor. */
