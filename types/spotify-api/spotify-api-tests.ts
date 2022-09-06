@@ -8306,6 +8306,245 @@ const severalAudioFeaturesResponse: SpotifyApi.MultipleAudioFeaturesResponse = {
 };
 
 /**
+ * Get audio analysis for a track
+ *
+ * GET /v1/audio-analysis/{id}
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
+ */
+ const audioAnalysisResponse: SpotifyApi.AudioAnalysisResponse = {
+    meta: {
+        analyzer_version: '4.0.0',
+        platform: 'Linux',
+        detailed_status: 'OK',
+        status_code: 0,
+        timestamp: 1652411511,
+        analysis_time: 6.93885,
+        input_process: 'libvorbisfile L+R 44100->22050',
+    },
+    track: {
+        num_samples: 5942034,
+        duration: 269.48,
+        sample_md5: '',
+        offset_seconds: 0,
+        window_seconds: 0,
+        analysis_sample_rate: 22050,
+        analysis_channels: 1,
+        end_of_fade_in: 0.0,
+        start_of_fade_out: 264.2663,
+        loudness: -7.071,
+        tempo: 144.973,
+        tempo_confidence: 0.314,
+        time_signature: 4,
+        time_signature_confidence: 0.997,
+        key: 2,
+        key_confidence: 0.767,
+        mode: 0,
+        mode_confidence: 0.687,
+        codestring:
+            'eJxVmwlyJDkOBL9ST-B9_P9j4x4sadRmO2tNKpNJEkAgcFRftbRa-_qUT-_73lF6_fTZPnP1UWc_4zP3-rR61hylns_a7bPnrOe0cT-nlM-8vZ522_n4n0-eXs751FZ5cV7W58-fOsr5jHbKbnWMTyvjfM64ePsqhISZHyxEYXtu4r5muJ_iR5upjgQ0R3jsSidqfkSzYvEr3UPV9kXwOz_L8TLVwiehlfrJNSsEDfWHO_khEjIwKyVpX4kl7NiOujhhoP1UupRMpOIhjWgxvfXCCzs9j50tbeXnSun2RnbDCamfGnpNJDGRcglqMEeQeiW_85R8SeKJwNIyEMqiC0kO-T_NXk4v',
+        code_version: 3.15,
+        echoprintstring:
+            'eJztnQmWHDmObbdknMnlcDDufwn_PrhKpowvZ7QqUqWsPn2yGp0Z5sYRwwMMBK_r8vE6kDxPpOYTGeFE9jgQF8OJ1HEiKxyId-NEcjiROk9khgMJYZ7IHAcSezyR2Q4khXAiZZ6IBv6W5MufiC8n0uaJWPPvSCnxRMY8Q46IVxBV8edKjbB2EsxM-A4XQ4bYYO9cUgGkRUNpnTVaT5G_rqMmNL5XdRpEWpfaAYpw8nG_PQ8vx_Hy8oqA==',
+        echoprint_version: 4.12,
+        synchstring:
+            'eJxlmQ2S5CoMg6_CEWL-uf_FHvpkerbq1e5MpxMCxpZlman1G19ppe77O8popXV9HaXH_RyrjLLKXLpXxilnlhGl79JbmV85Y7AZet9_YfHtAHY4kgoSitUUO-3m0uwGwc-NPuHDIGw7HL9dSaLFpA2M4L3tu36LDkU_p43PM9vu9W1KNu6v5iiZ_UazZF7TPhxJmt_fnh-ajsBj_5nr-lSKVyLDc6wZhBnP55JvxbF2mT1Phb5blowzv8pVh2fEftWH8NQ==',
+        synch_version: 1.0,
+        rhythmstring:
+            'eJx9XAeW5LiOvEoegd7c_2LLMKCk6tn_3tR0VaZEkSBMIAAq51T6r5bf-q0yf3X_9vrlNH-t_MqYvz1-Oaffnr9yPsw5n5_-m_M30i_38st7_0rGT_vtdv6sv5l-s-CPdkYq7bf2L7fKKzqGOBcmjIsPcurnZ-FPXI3v07n3PDuv3zwPK_X8nAHW-fP8ip9-Lj931fOY88_5aeeus4Jz83loyYOTxo116qkLI551nf9qOvOu_wfBkmOh',
+        rhythm_version: 1.0,
+    },
+    bars: [
+        {
+            start: 0.44463,
+            duration: 1.20836,
+            confidence: 0.707,
+        },
+        {
+            start: 1.65299,
+            duration: 1.6507,
+            confidence: 0.417,
+        },
+        {
+            start: 3.30368,
+            duration: 1.65688,
+            confidence: 0.482,
+        },
+    ],
+    beats: [
+        {
+            start: 0.44463,
+            duration: 0.39162,
+            confidence: 0.713,
+        },
+        {
+            start: 0.83625,
+            duration: 0.40505,
+            confidence: 0.567,
+        },
+        {
+            start: 1.2413,
+            duration: 0.41169,
+            confidence: 0.486,
+        },
+        {
+            start: 1.65299,
+            duration: 0.40849,
+            confidence: 0.36,
+        },
+    ],
+    sections: [
+        {
+            start: 118.35756,
+            duration: 54.20168,
+            confidence: 0.322,
+            loudness: -4.749,
+            tempo: 145.037,
+            tempo_confidence: 0.227,
+            key: 2,
+            key_confidence: 0.694,
+            mode: 0,
+            mode_confidence: 0.632,
+            time_signature: 4,
+            time_signature_confidence: 1.0,
+        },
+        {
+            start: 172.55923,
+            duration: 12.44028,
+            confidence: 1.0,
+            loudness: -15.632,
+            tempo: 144.861,
+            tempo_confidence: 0.625,
+            key: 0,
+            key_confidence: 0.011,
+            mode: 1,
+            mode_confidence: 0.404,
+            time_signature: 4,
+            time_signature_confidence: 1.0,
+        },
+        {
+            start: 184.99953,
+            duration: 27.28627,
+            confidence: 0.86,
+            loudness: -8.277,
+            tempo: 144.979,
+            tempo_confidence: 0.318,
+            key: 0,
+            key_confidence: 0.207,
+            mode: 1,
+            mode_confidence: 0.578,
+            time_signature: 4,
+            time_signature_confidence: 0.969,
+        },
+    ],
+    segments: [
+        {
+            start: 0.0,
+            duration: 0.32408,
+            confidence: 1.0,
+            loudness_start: -59.692,
+            loudness_max_time: 0.08651,
+            loudness_max: -29.761,
+            loudness_end: 0.0,
+            pitches: [0.014, 0.108, 0.363, 0.034, 0.015, 0.006, 0.025, 0.003, 0.045, 1.0, 0.028, 0.007],
+            timbre: [
+                22.505, -153.067, -47.5, -115.018, 47.436, 90.497, 13.039, -2.794, -37.921, 103.598, 31.091, -2.627,
+            ],
+        },
+        {
+            start: 0.32408,
+            duration: 0.21333,
+            confidence: 0.37,
+            loudness_start: -35.01,
+            loudness_max_time: 0.08151,
+            loudness_max: -30.891,
+            loudness_end: 0.0,
+            pitches: [0.018, 0.288, 1.0, 0.141, 0.022, 0.012, 0.031, 0.004, 0.055, 0.478, 0.021, 0.008],
+            timbre: [
+                26.769, -180.012, -35.768, -49.867, 23.686, -34.285, 0.491, -8.718, 1.786, 9.423, -10.056, -13.106,
+            ],
+        },
+        {
+            start: 0.53741,
+            duration: 0.16032,
+            confidence: 0.285,
+            loudness_start: -35.321,
+            loudness_max_time: 0.11882,
+            loudness_max: -31.918,
+            loudness_end: 0.0,
+            pitches: [0.085, 0.375, 0.241, 0.018, 0.045, 0.01, 0.024, 0.006, 0.15, 1.0, 0.13, 0.011],
+            timbre: [
+                26.504, -191.592, -49.144, -72.098, 12.416, -37.892, -3.938, -11.801, -15.181, -1.893, -0.331, 4.853,
+            ],
+        },
+        {
+            start: 0.69773,
+            duration: 0.12789,
+            confidence: 0.195,
+            loudness_start: -32.174,
+            loudness_max_time: 0.02115,
+            loudness_max: -29.891,
+            loudness_end: 0.0,
+            pitches: [0.091, 0.246, 0.222, 0.021, 0.028, 0.009, 0.031, 0.007, 0.329, 1.0, 0.175, 0.01],
+            timbre: [
+                29.385, -205.941, -46.058, -60.547, 1.273, -51.343, -15.048, 2.766, -7.125, -13.577, 22.316, -1.46,
+            ],
+        },
+    ],
+    tatums: [
+        {
+            start: 3.71799,
+            duration: 0.20697,
+            confidence: 0.402,
+        },
+        {
+            start: 3.92497,
+            duration: 0.20697,
+            confidence: 0.402,
+        },
+        {
+            start: 4.13194,
+            duration: 0.20697,
+            confidence: 0.578,
+        },
+        {
+            start: 4.33891,
+            duration: 0.20697,
+            confidence: 0.578,
+        },
+        {
+            start: 4.54589,
+            duration: 0.20734,
+            confidence: 0.572,
+        },
+        {
+            start: 4.75323,
+            duration: 0.20734,
+            confidence: 0.572,
+        },
+        {
+            start: 4.96056,
+            duration: 0.20734,
+            confidence: 0.548,
+        },
+        {
+            start: 5.1679,
+            duration: 0.20734,
+            confidence: 0.548,
+        },
+        {
+            start: 5.37524,
+            duration: 0.20679,
+            confidence: 0.506,
+        },
+        {
+            start: 5.58202,
+            duration: 0.20679,
+            confidence: 0.506,
+        },
+    ],
+};
+
+/**
  * Get a list of featured playlists
  *
  * GET /v1/browse/featured-playlists
