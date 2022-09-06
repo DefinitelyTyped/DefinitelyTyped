@@ -1,8 +1,6 @@
 // Type definitions for non-npm package wx-js-sdk 1.6, this is the lts version for types/wx-js-sdk-dt, which is related to wx-js-sdk 1.2
 // Project: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html
 // Definitions by: Xu Anhai <https://github.com/adndyxu>
-//                 Bian Zhongjie <https://github.com/agasbzj>
-//                 Ming Huang <https://github.com/forzoom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace wx {
