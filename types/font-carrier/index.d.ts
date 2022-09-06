@@ -5,19 +5,14 @@
 
 /// <reference types="node" />
 
-import { Font, FontOptions, FontType } from './class/font';
+import { FileOptions, Font, FontOptions } from './class/font';
 import { Glyph } from './class/glyph';
 
 /**
  * 生成一个空白字体对像
  * @param options
  */
-export function create(options?: {
-    /** 支持文件地址，也支持文件 buffer */
-    path?: string | Buffer;
-    /** 导出的字体类型 */
-    types?: FontType[];
-}): Font;
+export function create(options?: FileOptions): Font;
 /**
  * 解析一个已有字体，支持svg,ttf的字体
  * @param input
