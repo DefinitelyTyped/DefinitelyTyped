@@ -1,4 +1,4 @@
-// Type definitions for standard-version 7.0
+// Type definitions for standard-version 9.5
 // Project: https://github.com/conventional-changelog/standard-version#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ import { Config } from 'conventional-changelog-config-spec';
 
 declare function standardVersion(options: Options): Promise<void>;
 
-declare interface FileType {
+interface FileType {
     filename: string;
     type: 'json' | 'plain-text';
 }
@@ -26,7 +26,7 @@ declare namespace standardVersion {
          *   "composer.json"
          * ]
          */
-        packageFiles?: (string | FileType)[] | undefined;
+        packageFiles?: Array<string | FileType> | undefined;
 
         /**
          * @default
@@ -36,7 +36,7 @@ declare namespace standardVersion {
          *   "composer.lock"
          * ]
          */
-        bumpFiles?: (string | FileType)[] | undefined;
+        bumpFiles?: Array<string | FileType> | undefined;
 
         /**
          * Specify the release type manually (like npm version <major|minor|patch>).
