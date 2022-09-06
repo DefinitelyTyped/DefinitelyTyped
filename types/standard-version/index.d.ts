@@ -6,32 +6,37 @@
 
 /// <reference types="node" />
 
-import { Config } from "conventional-changelog-config-spec";
+import { Config } from 'conventional-changelog-config-spec';
 
 declare function standardVersion(options: Options): Promise<void>;
+
+declare interface FileType {
+    filename: string;
+    type: 'json' | 'plain-text';
+}
 
 declare namespace standardVersion {
     interface Options extends Config {
         /**
          * @default
          * [
-         *   'package.json',
-         *   'bower.json',
-         *   'manifest.json',
-         *   'composer.json'
+         *   "package.json",
+         *   "bower.json",
+         *   "manifest.json",
+         *   "composer.json"
          * ]
          */
-        packageFiles?: string[] | undefined;
+        packageFiles?: (string | FileType)[] | undefined;
 
         /**
          * @default
          * [
-         *   'package-lock.json',
-         *   'npm-shrinkwrap.json',
-         *   'composer.lock'
+         *   "package-lock.json",
+         *   "npm-shrinkwrap.json",
+         *   "composer.lock"
          * ]
          */
-        bumpFiles?: string[] | undefined;
+        bumpFiles?: (string | FileType)[] | undefined;
 
         /**
          * Specify the release type manually (like npm version <major|minor|patch>).
@@ -47,7 +52,7 @@ declare namespace standardVersion {
          * Read the CHANGELOG from this file.
          *
          * @default
-         * 'CHANGELOG.md'
+         * "CHANGELOG.md"
          */
         infile?: string | Buffer | URL | number | undefined;
 
@@ -93,7 +98,7 @@ declare namespace standardVersion {
         commitAll?: boolean | undefined;
 
         /**
-         * Don't print logs and errors.
+         * Don"t print logs and errors.
          *
          * @default
          * false
@@ -104,7 +109,7 @@ declare namespace standardVersion {
          * Set a custom prefix for the git tag to be created.
          *
          * @default
-         * 'v'
+         * "v"
          */
         tagPrefix?: string | undefined;
 
@@ -158,7 +163,7 @@ declare namespace standardVersion {
          * Commit message guideline preset.
          *
          * @default
-         * require.resolve('conventional-changelog-conventionalcommits')
+         * require.resolve("conventional-changelog-conventionalcommits")
          */
         preset?: string | undefined;
     }
@@ -215,7 +220,7 @@ declare namespace standardVersion {
             posttag?: string | undefined;
         }
 
-        type Skip = Partial<Record<"bump" | "changelog" | "commit" | "tag", boolean>>;
+        type Skip = Partial<Record<'bump' | 'changelog' | 'commit' | 'tag', boolean>>;
     }
 }
 
