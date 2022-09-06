@@ -86,7 +86,7 @@ function init() {
 
     // ground
     const groundMesh = new THREE.Mesh(
-        new THREE.PlaneBufferGeometry(600, 600),
+        new THREE.PlaneGeometry(600, 600),
         new THREE.MeshPhongMaterial({ color: 0xffffff, depthWrite: true }),
     );
     groundMesh.position.y = -0.1;

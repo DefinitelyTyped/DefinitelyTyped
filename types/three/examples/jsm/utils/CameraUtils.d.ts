@@ -1,4 +1,4 @@
-import { PerspectiveCamera, Vector3 } from '../../../src/Three.js';
+import { PerspectiveCamera, Vector3 } from '../../../src/Three';
 
 export function frameCorners(
     camera: PerspectiveCamera,

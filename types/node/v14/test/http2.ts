@@ -121,6 +121,7 @@ import { URL } from 'node:url';
     };
 
     http2Session.settings(settings);
+    http2Session.settings(settings, (err: Error | null, newSettings: Settings, duration: number) => {});
 
     http2Session.ping((err: Error | null, duration: number, payload: Buffer) => {});
     http2Session.ping(Buffer.from(''), (err: Error | null, duration: number, payload: Buffer) => {});

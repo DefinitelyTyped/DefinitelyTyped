@@ -1,3 +1,3 @@
-import NodeFrame from '../../../nodes/core/NodeFrame.js';
+import NodeFrame from '../../../nodes/core/NodeFrame';
 
 export const nodeFrame: NodeFrame;

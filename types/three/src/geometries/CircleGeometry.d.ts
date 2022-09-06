@@ -23,5 +23,3 @@ export class CircleGeometry extends BufferGeometry {
 
     static fromJSON(data: any): CircleGeometry;
 }
-
-export { CircleGeometry as CircleBufferGeometry };
