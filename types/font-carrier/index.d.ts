@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Font, FontOptions, FontType } from './lib/font';
-import { Glyph } from './lib/glyph';
+import { Font, FontOptions, FontType } from './class/font';
+import { Glyph } from './class/glyph';
 
 /**
  * 生成一个空白字体对像
