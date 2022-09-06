@@ -452,6 +452,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "cacheable-request": {
+            "libraryName": "cacheable-request",
+            "asOfVersion": "8.3.1"
+        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
@@ -4502,6 +4506,10 @@
         "resolve-pkg": {
             "libraryName": "resolve-pkg",
             "asOfVersion": "2.0.0"
+        },
+        "responselike": {
+            "libraryName": "responselike",
+            "asOfVersion": "3.0.0"
         },
         "rest-io": {
             "libraryName": "rest-io",

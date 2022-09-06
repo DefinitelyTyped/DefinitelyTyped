@@ -34,7 +34,7 @@ function init(font: Font) {
 
     //
 
-    let geometry = new TextGeometry('THREE.JS', {
+    let geometry = new TextGeometry('THREE', {
         font,
         size: 40,
         height: 5,

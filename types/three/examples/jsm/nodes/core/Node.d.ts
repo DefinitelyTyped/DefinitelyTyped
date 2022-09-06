@@ -27,4 +27,5 @@ export default abstract class Node {
     serialize(json: AnyJson): void;
     deserialize(json: AnyJson): void;
     toJSON(meta?: string | { textures: {}; images: {}; nodes: {} }): AnyJson;
+    getCacheKey(): string;
 }

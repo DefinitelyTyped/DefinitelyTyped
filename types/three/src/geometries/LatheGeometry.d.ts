@@ -24,5 +24,3 @@ export class LatheGeometry extends BufferGeometry {
 
     static fromJSON(data: any): LatheGeometry;
 }
-
-export { LatheGeometry as LatheBufferGeometry };
