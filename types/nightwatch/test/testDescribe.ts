@@ -1,26 +1,5 @@
 import { ExtendDescribeThis } from "nightwatch";
 
-// TODO: uncomment after fixing async/await issue
-// describe('capture browser exceptions', function () {
-//     it('does', async function () {
-//         await browser.captureBrowserExceptions(event => {
-//             console.log('>>> Exception:', event);
-//         });
-
-//         await browser.navigateTo('https://duckduckgo.com/');
-//         const aboutLink = await browser.findElement('#logo_homepage_link');
-
-//         await browser.executeScript(
-//             function (aboutLink) {
-//                 aboutLink.setAttribute('onclick', 'throw new Error("Hello world!")');
-//             },
-//             [aboutLink],
-//         );
-
-//         await browser.click(aboutLink);
-//     });
-// });
-
 describe('Ecosia', () => {
     before(browser => browser.url('https://www.ecosia.org/'));
 
