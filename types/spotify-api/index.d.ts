@@ -523,9 +523,33 @@ declare namespace SpotifyApi {
      * Get User's Saved Episodes
      *
      * GET /v1/me/episodes
-     * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-episodes
      */
     type UsersSavedEpisodesResponse = PagingObject<SavedEpisodeObject>;
+
+    /**
+     * Save Episodes for Current User
+     *
+     * PUT /v1/me/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/save-episodes-user
+     */
+    interface SaveEpisodesForUserResponse extends VoidResponse {}
+
+    /**
+     * Remove User's Saved Episodes
+     *
+     * DELETE /v1/me/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user
+     */
+    interface RemoveEpisodesForUserResponse extends VoidResponse {}
+
+    /**
+     * Check User's Saved Episodes
+     *
+     * GET /v1/me/shows/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes
+     */
+    interface CheckUserSavedEpisodesResponse extends Array<boolean> {}
 
     /**
      * Get a User’s Top Artists and Tracks (Note: This is only Artists)

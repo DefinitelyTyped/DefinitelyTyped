@@ -6389,7 +6389,7 @@ const removeShowsForUser: SpotifyApi.RemoveShowsForUserResponse = {};
 const checkShowsForUser: SpotifyApi.CheckUserSavedShowsResponse = [true, false];
 
 /**
- * Get user's saved shows
+ * Get User's Saved Episodes
  *
  * GET /v1/me/episodes
  * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
@@ -6560,6 +6560,30 @@ const usersSavedEpisodes: SpotifyApi.UsersSavedEpisodesResponse = {
     previous: null,
     total: 3,
 };
+
+/**
+ * Save Episodes for Current User
+ *
+ * PUT /v1/me/episodes
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/save-episodes-user
+ */
+const saveEpisodesForUser: SpotifyApi.SaveEpisodesForUserResponse = {};
+
+/**
+ * Remove User's Saved Episodes
+ *
+ * DELETE /v1/me/episodes
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user
+ */
+const removeEpisodesForUser: SpotifyApi.RemoveEpisodesForUserResponse = {};
+
+/**
+ * Check User's Saved Episodes
+ *
+ * GET /v1/me/shows/episodes
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes
+ */
+const checkEpisodesForUser: SpotifyApi.CheckUserSavedEpisodesResponse = [true, false];
 
 /**
  * Get a User’s Top Artists and Tracks (Note: This is only Artists)
