@@ -5139,6 +5139,10 @@
             "libraryName": "tailwindcss",
             "asOfVersion": "3.1.0"
         },
+        "tailwindcss__typography": {
+            "libraryName": "@tailwindcss/typography",
+            "asOfVersion": "0.5.6"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
