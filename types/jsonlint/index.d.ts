@@ -1,4 +1,4 @@
-// Type definitions for jsonlint v1.6
+// Type definitions for jsonlint 1.6
 // Project: https://github.com/zaach/jsonlint
 // Definitions by: Timmatt Lee <https://github.com/Timmatt-Lee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
