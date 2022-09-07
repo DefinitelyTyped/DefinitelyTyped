@@ -13,6 +13,8 @@ import {
     Swizzable,
     NodeRepresentation,
     NodeOrType,
+    ProxiedObject,
+    ProxiedTuple,
 } from './ShaderNode';
 import { Material, Texture } from '../../../../src/Three';
 import { NodeTypeOption, NodeUserData, NodeValueOption } from '../core/constants';
@@ -22,13 +24,14 @@ import {
     BypassNode,
     CameraNode,
     CodeNode,
+    CodeNodeInclude,
     ComputeNode,
     ContextNode,
-    ConvertNode,
     ExpressionNode,
     FrontFacingNode,
     FunctionCallNode,
     FunctionNode,
+    FunctionNodeArguments,
     InstanceIndexNode,
     MaterialNode,
     MaterialReferenceNode,
@@ -83,8 +86,6 @@ export const imat4: ConvertType;
 export const umat4: ConvertType;
 export const bmat4: ConvertType;
 
-export function func(code: string): ShaderNode<FunctionNode>;
-
 export function uniform(nodeOrType: Node | Swizzable | NodeValueOption): Swizzable;
 
 export function attribute(attributeName: string, nodeType: NodeTypeOption): Swizzable;
@@ -95,10 +96,27 @@ export function code(code: string, nodeType?: NodeTypeOption): Swizzable<CodeNod
 export function context(node: NodeRepresentation, context: NodeBuilderContext): Swizzable<ContextNode>;
 export function expression(snipped?: string, nodeType?: NodeTypeOption): Swizzable<ExpressionNode>;
 
-export function call(
-    functionNode?: NodeRepresentation,
-    parameters?: { [name: string]: Node },
-): Swizzable<FunctionCallNode>;
+// definition: const call = nodeProxy(FunctionCallNode);
+export function call<P extends FunctionNodeArguments>(
+    functionNode?: FunctionNode<P>,
+    parameters?: ProxiedObject<P>,
+): Swizzable<FunctionCallNode<P>>;
+
+export type Fn<P extends FunctionNodeArguments> = P extends readonly [...unknown[]]
+    ? ProxiedTuple<P>
+    : readonly [ProxiedObject<P>];
+
+// tslint:disable:no-unnecessary-generics
+export function func<P extends FunctionNodeArguments>(
+    code: string,
+    includes?: CodeNodeInclude[],
+): { call: (...params: Fn<P>) => Swizzable };
+
+export function fn<P extends FunctionNodeArguments>(
+    code: string,
+    includes?: CodeNodeInclude[],
+): (...params: Fn<P>) => Swizzable;
+// tslint:enable:no-unnecessary-generics
 
 export const instanceIndex: Swizzable<InstanceIndexNode>;
 export function label(node: NodeRepresentation, name?: string): Swizzable<VarNode>;

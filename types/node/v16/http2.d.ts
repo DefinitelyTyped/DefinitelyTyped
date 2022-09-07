@@ -780,7 +780,7 @@ declare module 'http2' {
          * @since v8.4.0
          * @param callback Callback that is called once the session is connected or right away if the session is already connected.
          */
-        settings(settings: Settings): void;
+        settings(settings: Settings, callback?: (err: Error | null, settings: Settings, duration: number) => void): void;
         /**
          * Calls `unref()` on this `Http2Session`instance's underlying `net.Socket`.
          * @since v9.4.0

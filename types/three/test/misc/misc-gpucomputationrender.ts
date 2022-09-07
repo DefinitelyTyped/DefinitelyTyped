@@ -235,7 +235,7 @@ let mouseMoved = false;
 const mouseCoords = new THREE.Vector2();
 const raycaster = new THREE.Raycaster();
 
-let waterMesh: THREE.Mesh<THREE.PlaneBufferGeometry, THREE.ShaderMaterial>;
+let waterMesh: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>;
 let meshRay: THREE.Mesh;
 let gpuCompute: GPUComputationRenderer;
 let heightmapVariable: Variable;
