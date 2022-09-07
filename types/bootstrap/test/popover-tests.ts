@@ -83,3 +83,4 @@ $('.alert').popover('enable'); // $ExpectType JQuery<HTMLElement>
 $('.alert').popover('disable'); // $ExpectType JQuery<HTMLElement>
 $('.alert').popover('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
 $('.alert').popover('update'); // $ExpectType JQuery<HTMLElement>
+$('.alert').popover('setContent'); // $ExpectType JQuery<HTMLElement>

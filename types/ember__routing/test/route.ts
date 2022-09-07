@@ -2,7 +2,8 @@ import Route from '@ember/routing/route';
 import Array from '@ember/array';
 import EmberObject from '@ember/object';
 import Controller from '@ember/controller';
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
+import RouteInfo, { RouteInfoWithAttributes } from '@ember/routing/route-info';
 
 class Post extends EmberObject {}
 
@@ -203,3 +204,24 @@ class WithImplicitParams extends Route {
 
 // $ExpectType RouteParams
 type ImplicitParams = WithImplicitParams extends Route<any, infer T> ? T : never;
+
+// back-compat for existing users of these
+// NOTE: we will *not* migrate the private import locations when moving to
+// publish from Ember itself.
+import PrivateTransition from '@ember/routing/-private/transition';
+declare let publicTransition: Transition;
+declare let oldPrivateTransition: PrivateTransition;
+publicTransition = oldPrivateTransition;
+oldPrivateTransition = publicTransition;
+
+import PrivateRouteInfo from '@ember/routing/-private/route-info';
+declare let publicRouteInfo: RouteInfo;
+declare let privateRouteInfo: PrivateRouteInfo;
+publicRouteInfo = privateRouteInfo;
+privateRouteInfo = publicRouteInfo;
+
+import PrivateRouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
+declare let publicRouteInfoWithAttributes: RouteInfoWithAttributes;
+declare let privateRouteInfoWithAttributes: PrivateRouteInfoWithAttributes;
+publicRouteInfoWithAttributes = privateRouteInfoWithAttributes;
+privateRouteInfoWithAttributes = publicRouteInfoWithAttributes;

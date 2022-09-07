@@ -108,8 +108,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -264,8 +264,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -351,8 +351,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -361,8 +361,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets the size of the object. 4 | "6px" | ...
      */
@@ -435,8 +435,8 @@ declare namespace zingchart {
       /**
        * Sets the width of the object's border. 4 | "6px" | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the object's font color. Similar to color. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)"
        * | ...
@@ -625,8 +625,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
        */
@@ -702,8 +702,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the font color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
        */
@@ -752,8 +752,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 4 | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
      */
@@ -802,8 +802,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -859,8 +859,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 4 | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
      */
@@ -909,8 +909,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -952,8 +952,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the font color of the object. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15, 15)" | ...
      */
@@ -1019,8 +1019,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -1034,8 +1034,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
      * ear6 | gear7 | gear8
@@ -1063,8 +1063,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -1078,8 +1078,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * The type of the marker object to render. square | circle | diamond | triangle | star5 | star6 | star7 | star8 | rpoly5 | gear5 | g
      * ear6 | gear7 | gear8
@@ -1145,8 +1145,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -1205,8 +1205,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
      */
@@ -1324,13 +1324,13 @@ declare namespace zingchart {
     /**
      * Sets the border radius of the object. 2 | 3 | '5px' | ...
      */
-    'border-radius'?: number | string;
-    borderRadius?: number | string;
+    'border-radius'?: any;
+    borderRadius?: any;
     /**
      * Sets the border width of the object. 1 | 3 | '6px' | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -1393,12 +1393,12 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets the padding of the object. 3 | '5px' | '10px' | ...
      */
-    padding?: number;
+    padding?: any;
     /**
      * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
      */
@@ -1553,8 +1553,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -1832,8 +1832,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -2258,8 +2258,8 @@ declare namespace zingchart {
      * Sets the border width of the object. Requires Legend. Used only inside individual series rather than Plot. See red text in upper r
      * ight box. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. Requires Legend. Used only inside individual series rather than Plot. See
      *  red text in upper right box. Works with output canvas and svg. true | false | 1 | 0
@@ -2688,8 +2688,8 @@ declare namespace zingchart {
      * losed shapes. Requires Legend. Used only inside individual series rather than Plot. See the shape to the left of the text in the u
      * pper right box. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the style of the cursor when hovering over a node. "hand" | "normal"
      */
@@ -2775,6 +2775,471 @@ declare namespace zingchart {
      */
     y?: any;
   }
+  interface link {
+    /**
+     * @description Sets the opacity on the marker, with 0 being fully transparent and 1 being fully opaque. Note that decimal value requires the leading 0.
+     */
+    alpha?: any;
+    /**
+     * @description Sets the transparency level of area in chart. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being
+     * completely opaque. Note that values require the leading 0 before the decimal point.
+     */
+    alphaArea?: any;
+    /**
+     * @description Sets the transparency level of area in chart. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being
+     * completely opaque. Note that values require the leading 0 before the decimal point.
+     */
+    'alpha-area'?: any;
+    /**
+     * @description Sets the rotation angle of the object.
+     */
+    angle?: any;
+    /**
+     * @description Sets the end angle of a pie shape.
+     */
+    angleEnd?: any;
+    /**
+     * @description Sets the end angle of a pie shape.
+     */
+    'angle-end'?: any;
+    /**
+     * @description Sets the beginning angle of a pie shape.
+     */
+    angleStart?: any;
+    /**
+     * @description Sets the beginning angle of a pie shape.
+     */
+    'angle-start'?: any;
+    /**
+     * @description Sets the aspect of the chart.
+     */
+    aspect?: string;
+    /**
+     * @description Clips the background image to the margins of the shape/box.
+     */
+    backgroundClip?: any;
+    /**
+     * @description Clips the background image to the margins of the shape/box.
+     */
+    'background-clip'?: any;
+    /**
+     * @description Sets the background color of the object. Colors can be entered by name (e.g., "purple", "blue"), hexadecimal notation
+     * (e.g., "#666699", #33ccff"), or RGB notation (e.g., "rgb(255,0,0)", "rgb(0,0,255)")
+     */
+    backgroundColor?: string;
+    /**
+     * @description Sets the background color of the object. Colors can be entered by name (e.g., "purple", "blue"), hexadecimal notation
+     * (e.g., "#666699", #33ccff"), or RGB notation (e.g., "rgb(255,0,0)", "rgb(0,0,255)")
+     */
+    'background-color'?: string;
+    /**
+     * @description Sets the first color of a 2 color background gradient of the object. To be used with background-color-2.
+     */
+    backgroundColor1?: string;
+    /**
+     * @description Sets the first color of a 2 color background gradient of the object. To be used with background-color-2.
+     */
+    'background-color-1'?: string;
+    /**
+     * @description Sets the second color of a 2 color background gradient of the object. To be used with background-color-1.
+     */
+    backgroundColor2?: string;
+    /**
+     * @description Sets the second color of a 2 color background gradient of the object. To be used with background-color-1.
+     */
+    'background-color-2'?: string;
+    /**
+     * @description Sets the direction/s on which the background image is being "stretched".
+     */
+    backgroundFit?: string;
+    /**
+     * @description Sets the direction/s on which the background image is being "stretched".
+     */
+    'background-fit'?: string;
+    /**
+     * @description Sets a background image for the object. Value can be a local file or a web image's location.
+     */
+    backgroundImage?: string;
+    /**
+     * @description Sets a background image for the object. Value can be a local file or a web image's location.
+     */
+    'background-image'?: string;
+    /**
+     * @description Sets the position of the background when the background-repeat value is no-repeat.
+     */
+    backgroundPosition?: string;
+    /**
+     * @description Sets the position of the background when the background-repeat value is no-repeat.
+     */
+    'background-position'?: string;
+    /**
+     * @description Sets the repeating mode for the background image.
+     */
+    backgroundRepeat?: any;
+    /**
+     * @description Sets the repeating mode for the background image.
+     */
+    'background-repeat'?: any;
+    /**
+     * @description Scales the background image using the specified ratio.
+     */
+    backgroundScale?: any;
+    /**
+     * @description Scales the background image using the specified ratio.
+     */
+    'background-scale'?: any;
+    /**
+     * @description Sets the border width of the object. Can be a single value or a string of values, setting
+     * the values in the order "top right bottom left"
+     */
+    border?: any;
+    /**
+     * @description Sets the transparency level of the border on the object. Values must range between 0.0 and 1.0,
+     * with 0.0 being completely transparent and 1.0 being completely opaque. Note that values require the leading
+     * 0 before the decimal point.
+     */
+    borderAlpha?: any;
+    /**
+     * @description Sets the transparency level of the border on the object. Values must range between 0.0 and 1.0,
+     * with 0.0 being completely transparent and 1.0 being completely opaque. Note that values require the leading
+     * 0 before the decimal point.
+     */
+    'border-alpha'?: any;
+    /**
+     * @description Sets the border color of the object.
+     */
+    borderColor?: string;
+    /**
+     * @description Sets the border color of the object.
+     */
+    'border-color'?: string;
+    /**
+     * @description Sets the object's border radius for rounded corners. Larger values create rounder corners,
+     * while smaller values create sharper corners. A single value will affect all 4 corners; multiple values
+     * will have separate effects on each corner, with the first value affecting the top-left corner, the second
+     * value affecting the top-right corner, and so on, in a clockwise direction. A negative value will cut a corner off without rounding.
+     */
+    borderRadius?: any;
+    /**
+     * @description Sets the object's border radius for rounded corners. Larger values create rounder corners,
+     * while smaller values create sharper corners. A single value will affect all 4 corners; multiple values
+     * will have separate effects on each corner, with the first value affecting the top-left corner, the second
+     * value affecting the top-right corner, and so on, in a clockwise direction. A negative value will cut a corner off without rounding.
+     */
+    'border-radius'?: any;
+    /**
+     * @description Sets the border width of the object.
+     */
+    borderWidth?: any;
+    /**
+     * @description Sets the border width of the object.
+     */
+    'border-width'?: any;
+    /**
+     * @description Sets a class value on the object.
+     */
+    class?: string;
+    /**
+     * @description Sets the cursor shape when hovering over the object.
+     */
+    cursor?: string;
+    /**
+     * @description Prefix attribute or array using "data-" to define a custom token.
+     */
+    [key: `data${string}`]: any;
+    /**
+     * @description Prefix attribute or array using "data-" to define a custom token.
+     */
+    [key: `data-${string}`]: any;
+    /**
+     * @description Set true to enable optimization for large data set when connecting two points.
+     */
+    fastVectorPath?: any;
+    /**
+     * @description Set true to enable optimization for large data set when connecting two points.
+     */
+    'fast-vector-path'?: any;
+    /**
+     * @description Sets the angle of the axis along which the linear gradient is drawn.
+     */
+    fillAngle?: any;
+    /**
+     * @description Sets the angle of the axis along which the linear gradient is drawn.
+     */
+    'fill-angle'?: any;
+    /**
+     * @description Sets an X offset to apply to the fill.
+     */
+    fillOffsetX?: any;
+    /**
+     * @description Sets an X offset to apply to the fill.
+     */
+    'fill-offset-x'?: any;
+    /**
+     * @description Sets a Y offset to apply to the fill.
+     */
+    fillOffsetY?: any;
+    /**
+     * @description Sets a Y offset to apply to the fill.
+     */
+    'fill-offset-y'?: any;
+    /**
+     * @description Sets the background gradient fill type to either linear or radial.
+     */
+    fillType?: string;
+    /**
+     * @description Sets the background gradient fill type to either linear or radial.
+     */
+    'fill-type'?: string;
+    /**
+     * @description Set to true disables the chart interactivity.
+     */
+    flat?: any;
+    /**
+     * @description Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops.
+     */
+    gradientColors?: string;
+    /**
+     * @description Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops.
+     */
+    'gradient-colors'?: string;
+    /**
+     * @description Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors.
+     */
+    gradientStops?: string;
+    /**
+     * @description Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors.
+     */
+    'gradient-stops'?: string;
+    /**
+     * @description Specifies the group the object is placed in.
+     */
+    group?: any;
+    /**
+     * @description Sets the object's height.
+     */
+    height?: any;
+    /**
+     * @description Sets the id of the object.
+     */
+    id?: string;
+    /**
+     * @description Sets the id or style of the item.
+     */
+    item?: string;
+    /**
+     * @description Configures the object's label.
+     */
+    label?: label;
+    /**
+     * @description Sets the stroke-linecap attribute on SVGs
+     */
+    lineCap?: string;
+    /**
+     * @description Sets the stroke-linecap attribute on SVGs
+     */
+    'line-cap'?: string;
+    /**
+     * @description Sets the line color of the object, applicable on non-closed shapes. See also border-color for closed shapes.
+     */
+    lineColor?: string;
+    /**
+     * @description Sets the line color of the object, applicable on non-closed shapes. See also border-color for closed shapes.
+     */
+    'line-color'?: string;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-segment-size. This will control the size of the gaps between each line segment.
+     */
+    lineGapSize?: any;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-segment-size. This will control the size of the gaps between each line segment.
+     */
+    'line-gap-size'?: any;
+    /**
+     * @description Sets the stroke-linejoin attribute on SVGs
+     */
+    lineJoin?: string;
+    /**
+     * @description Sets the stroke-linejoin attribute on SVGs
+     */
+    'line-join'?: string;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-gap-size. This will control the size of the visible segment of line.
+     */
+    lineSegmentSize?: any;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-gap-size. This will control the size of the visible segment of line.
+     */
+    'line-segment-size'?: any;
+    /**
+     * @description Sets the line style of the object.
+     */
+    lineStyle?: string;
+    /**
+     * @description Sets the line style of the object.
+     */
+    'line-style'?: string;
+    /**
+     * @description Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes.
+     */
+    lineWidth?: any;
+    /**
+     * @description Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes.
+     */
+    'line-width'?: any;
+    /**
+     * @description Sets the map id of the map on which the object/shape is being added.
+     */
+    map?: string;
+    /**
+     * @description Sets an R offset to apply when positioning the object.
+     */
+    offsetR?: any;
+    /**
+     * @description Sets an R offset to apply when positioning the object.
+     */
+    'offset-r'?: any;
+    /**
+     * @description Sets an x-offset to apply when positioning the object.
+     */
+    offsetX?: any;
+    /**
+     * @description Sets an x-offset to apply when positioning the object.
+     */
+    'offset-x'?: any;
+    /**
+     * @description Sets a y-offset to apply when positioning the object.
+     */
+    offsetY?: any;
+    /**
+     * @description Sets a y-offset to apply when positioning the object.
+     */
+    'offset-y'?: any;
+    /**
+     * @description Sets a Z offset to apply when positioning the object.
+     */
+    offsetZ?: any;
+    /**
+     * @description Sets a Z offset to apply when positioning the object.
+     */
+    'offset-z'?: any;
+    /**
+     * @description Sets the object's padding around the text.
+     */
+    padding?: any;
+    /**
+     * @description Sets the coordinates of the object/shape points.
+     */
+    points?: any[];
+    /**
+     * @description Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation.
+     */
+    shadow?: any;
+    /**
+     * @description Sets the transparency of the shadow of the object. The higher the value, the less transparent the shadow will be.
+     */
+    shadowAlpha?: any;
+    /**
+     * @description Sets the transparency of the shadow of the object. The higher the value, the less transparent the shadow will be.
+     */
+    'shadow-alpha'?: any;
+    /**
+     * @description Sets the angle of the shadow underneath the object.
+     */
+    shadowAngle?: any;
+    /**
+     * @description Sets the angle of the shadow underneath the object.
+     */
+    'shadow-angle'?: any;
+    /**
+     * @description Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation.
+     */
+    shadowBlur?: any;
+    /**
+     * @description Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation.
+     */
+    'shadow-blur'?: any;
+    /**
+     * @description Sets the color of the shadow of the object.
+     */
+    shadowColor?: string;
+    /**
+     * @description Sets the color of the shadow of the object.
+     */
+    'shadow-color'?: string;
+    /**
+     * @description Sets the distance between the shadow and the object.
+     */
+    shadowDistance?: any;
+    /**
+     * @description Sets the distance between the shadow and the object.
+     */
+    'shadow-distance'?: any;
+    /**
+     * @description Sets the size of the object.
+     */
+    size?: any;
+    /**
+     * @description Sets the secondary size of the object. Used on ellipses or rectangle shapes.
+     */
+    size2?: any;
+    /**
+     * @description Sets the secondary size of the object. Used on ellipses or rectangle shapes.
+     */
+    'size-2'?: any;
+    /**
+     * @description Sets the radius of the ring in chart. Accepts percentage or pixel value.
+     */
+    slice?: any;
+    /**
+     * @description Sets the target of the object.
+     */
+    target?: string;
+    /**
+     * @description Configures the tooltip element, which appears when hovering over an object.
+     */
+    tooltip?: tooltip;
+    /**
+     * @description Sets the type of the object.
+     */
+    type?: string;
+    /**
+     * @description Sets an URL associated with this object. Used mostly on nodes/labels/shapes with their associated click events.
+     */
+    url?: string;
+    /**
+     * @description Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON.
+     */
+    visible?: any;
+    /**
+     * @description Sets the object's width.
+     */
+    width?: any;
+    /**
+     * @description Sets the X position of the object.
+     */
+    x?: any;
+    /**
+     * @description Sets the Y position of the object.
+     */
+    y?: any;
+    /**
+     * @description Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values.
+     */
+    zIndex?: any;
+    /**
+     * @description Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values.
+     */
+    'z-index'?: any;
+    /**
+     * @description Used to force the sorting of the active areas (which trigger the tooltip) of two shapes in case they overlap.
+     */
+    zSort?: any;
+    /**
+     * @description Used to force the sorting of the active areas (which trigger the tooltip) of two shapes in case they overlap.
+     */
+    'z-sort'?: any;
+  }
   interface minorGuide {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
@@ -2808,8 +3273,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | '6px' | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
      */
@@ -2848,8 +3313,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | '6px' | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets the placement of the object. 'outer' | 'inner' | 'cross'
      */
@@ -2986,8 +3451,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the object's font color. Similar to font-color. "none" | "transparent" | "#f00" | "#f00 #00f" | "red yellow" | "rgb(100, 15,
      * 15)" | ...
@@ -3188,6 +3653,452 @@ declare namespace zingchart {
      */
     y?: any;
   }
+  interface node {
+    /**
+     * @description Sets the opacity on the marker, with 0 being fully transparent and 1 being fully opaque. Note that decimal value requires the leading 0.
+     */
+    alpha?: any;
+    /**
+     * @description Sets the transparency level of area in chart.
+     */
+    alphaArea?: any;
+    /**
+     * @description Sets the transparency level of area in chart.
+     */
+    'alpha-area'?: any;
+    /**
+     * @description Sets the rotation angle of the object.
+     */
+    angle?: any;
+    /**
+     * @description Sets the end angle of a pie shape.
+     */
+    angleEnd?: any;
+    /**
+     * @description Sets the end angle of a pie shape.
+     */
+    'angle-end'?: any;
+    /**
+     * @description Sets the beginning angle of a pie shape.
+     */
+    angleStart?: any;
+    /**
+     * @description Sets the beginning angle of a pie shape.
+     */
+    'angle-start'?: any;
+    /**
+     * @description Clips the background image to the margins of the shape/box.
+     */
+    backgroundClip?: any;
+    /**
+     * @description Clips the background image to the margins of the shape/box.
+     */
+    'background-clip'?: any;
+    /**
+     * @description Sets the background color of the object.
+     */
+    backgroundColor?: string;
+    /**
+     * @description Sets the background color of the object.
+     */
+    'background-color'?: string;
+    /**
+     * @description Sets the first color of a 2 color background gradient of the object. To be used with background-color-2.
+     */
+    backgroundColor1?: string;
+    /**
+     * @description Sets the first color of a 2 color background gradient of the object. To be used with background-color-2.
+     */
+    'background-color-1'?: string;
+    /**
+     * @description Sets the second color of a 2 color background gradient of the object. To be used with background-color-1.
+     */
+    backgroundColor2?: string;
+    /**
+     * @description Sets the second color of a 2 color background gradient of the object. To be used with background-color-1.
+     */
+    'background-color-2'?: string;
+    /**
+     * @description Sets the direction/s on which the background image is being "stretched".
+     */
+    backgroundFit?: string;
+    /**
+     * @description Sets the direction/s on which the background image is being "stretched".
+     */
+    'background-fit'?: string;
+    /**
+     * @description Sets a background image for the object. Value can be a local file or a web image's location.
+     */
+    backgroundImage?: string;
+    /**
+     * @description Sets a background image for the object. Value can be a local file or a web image's location.
+     */
+    'background-image'?: string;
+    /**
+     * @description Sets the position of the background when the background-repeat value is no-repeat.
+     */
+    backgroundPosition?: string;
+    /**
+     * @description Sets the position of the background when the background-repeat value is no-repeat.
+     */
+    'background-position'?: string;
+    /**
+     * @description Sets the repeating mode for the background image.
+     */
+    backgroundRepeat?: any;
+    /**
+     * @description Sets the repeating mode for the background image.
+     */
+    'background-repeat'?: any;
+    /**
+     * @description Scales the background image using the specified ratio.
+     */
+    backgroundScale?: any;
+    /**
+     * @description Scales the background image using the specified ratio.
+     */
+    'background-scale'?: any;
+    /**
+     * @description Sets the border width of the object.
+     */
+    border?: any;
+    /**
+     * @description Sets the transparency level of the border on the object.
+     */
+    borderAlpha?: any;
+    /**
+     * @description Sets the transparency level of the border on the object.
+     */
+    'border-alpha'?: any;
+    /**
+     * @description Sets the border color of the object.
+     */
+    borderColor?: string;
+    /**
+     * @description Sets the border color of the object.
+     */
+    'border-color'?: string;
+    /**
+     * @description Sets the object's border radius for rounded corners.
+     */
+    borderRadius?: any;
+    /**
+     * @description Sets the object's border radius for rounded corners.
+     */
+    'border-radius'?: any;
+    /**
+     * @description Sets the border width of the object.
+     */
+    borderWidth?: any;
+    /**
+     * @description Sets the border width of the object.
+     */
+    'border-width'?: any;
+    /**
+     * @description Sets a class value on the object.
+     */
+    class?: string;
+    /**
+     * @description Sets the cursor shape when hovering over the object.
+     */
+    cursor?: string;
+    /**
+     * @description Prefix attribute or array using "data-" to define a custom token.
+     */
+    [key: `data${string}`]: any;
+    /**
+     * @description Prefix attribute or array using "data-" to define a custom token.
+     */
+    [key: `data-${string}`]: any;
+    /**
+     * @description Sets the angle of the axis along which the linear gradient is drawn.
+     */
+    fillAngle?: any;
+    /**
+     * @description Sets the angle of the axis along which the linear gradient is drawn.
+     */
+    'fill-angle'?: any;
+    /**
+     * @description Sets an X offset to apply to the fill.
+     */
+    fillOffsetX?: any;
+    /**
+     * @description Sets an X offset to apply to the fill.
+     */
+    'fill-offset-x'?: any;
+    /**
+     * @description Sets a Y offset to apply to the fill.
+     */
+    fillOffsetY?: any;
+    /**
+     * @description Sets a Y offset to apply to the fill.
+     */
+    'fill-offset-y'?: any;
+    /**
+     * @description Sets the background gradient fill type to either linear or radial.
+     */
+    fillType?: string;
+    /**
+     * @description Sets the background gradient fill type to either linear or radial.
+     */
+    'fill-type'?: string;
+    /**
+     * @description Set to true disables the chart interactivity.
+     */
+    flat?: any;
+    /**
+     * @description Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops.
+     */
+    gradientColors?: string;
+    /**
+     * @description Sets a set of colors for a complex background gradient consisting of 2 or more colors. To be used with gradient-stops.
+     */
+    'gradient-colors'?: string;
+    /**
+     * @description Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors.
+     */
+    gradientStops?: string;
+    /**
+     * @description Sets the gradient stops for a complex background gradient consisting of 2 or more colors. To be used with gradient-colors.
+     */
+    'gradient-stops'?: string;
+    /**
+     * @description Specifies the group the object is placed in.
+     */
+    group?: any;
+    /**
+     * @description Sets the object's height.
+     */
+    height?: any;
+    /**
+     * @description Sets the hover state styles of the object.
+     */
+    hoverState?: hoverState;
+    /**
+     * @description Sets the hover state styles of the object.
+     */
+    'hover-state'?: hoverState;
+    /**
+     * @description Sets the id of the object.
+     */
+    id?: string;
+    /**
+     * @description Sets the id or style of the item.
+     */
+    item?: string;
+    /**
+     * @description Configures the object's label.
+     */
+    label?: label;
+    /**
+     * @description Sets the stroke-linecap attribute on SVGs
+     */
+    lineCap?: string;
+    /**
+     * @description Sets the stroke-linecap attribute on SVGs
+     */
+    'line-cap'?: string;
+    /**
+     * @description Sets the line color of the object, applicable on non-closed shapes. See also border-color for closed shapes.
+     */
+    lineColor?: string;
+    /**
+     * @description Sets the line color of the object, applicable on non-closed shapes. See also border-color for closed shapes.
+     */
+    'line-color'?: string;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-segment-size.
+     */
+    lineGapSize?: any;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-segment-size.
+     */
+    'line-gap-size'?: any;
+    /**
+     * @description Sets the stroke-linejoin attribute on SVGs
+     */
+    lineJoin?: string;
+    /**
+     * @description Sets the stroke-linejoin attribute on SVGs
+     */
+    'line-join'?: string;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-gap-size.
+     */
+    lineSegmentSize?: any;
+    /**
+     * @description Can be used to create custom dashed or dotted lines when used with line-gap-size.
+     */
+    'line-segment-size'?: any;
+    /**
+     * @description Sets the line style of the object.
+     */
+    lineStyle?: string;
+    /**
+     * @description Sets the line style of the object.
+     */
+    'line-style'?: string;
+    /**
+     * @description Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes.
+     */
+    lineWidth?: any;
+    /**
+     * @description Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes.
+     */
+    'line-width'?: any;
+    /**
+     * @description Sets the map id of the map on which the object/shape is being added.
+     */
+    map?: string;
+    /**
+     * @description Sets an R offset to apply when positioning the object.
+     */
+    offsetR?: any;
+    /**
+     * @description Sets an R offset to apply when positioning the object.
+     */
+    'offset-r'?: any;
+    /**
+     * @description Sets an x-offset to apply when positioning the object.
+     */
+    offsetX?: any;
+    /**
+     * @description Sets an x-offset to apply when positioning the object.
+     */
+    'offset-x'?: any;
+    /**
+     * @description Sets a y-offset to apply when positioning the object.
+     */
+    offsetY?: any;
+    /**
+     * @description Sets a y-offset to apply when positioning the object.
+     */
+    'offset-y'?: any;
+    /**
+     * @description Sets a Z offset to apply when positioning the object.
+     */
+    offsetZ?: any;
+    /**
+     * @description Sets a Z offset to apply when positioning the object.
+     */
+    'offset-z'?: any;
+    /**
+     * @description Sets the object's padding around the text.
+     */
+    padding?: any;
+    /**
+     * @description Sets the coordinates of the object/shape points.
+     */
+    points?: any[];
+    /**
+     * @description Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation.
+     */
+    shadow?: any;
+    /**
+     * @description Sets the transparency of the shadow of the object. The higher the value, the less transparent the shadow will be.
+     */
+    shadowAlpha?: any;
+    /**
+     * @description Sets the transparency of the shadow of the object. The higher the value, the less transparent the shadow will be.
+     */
+    'shadow-alpha'?: any;
+    /**
+     * @description Sets the angle of the shadow underneath the object.
+     */
+    shadowAngle?: any;
+    /**
+     * @description Sets the angle of the shadow underneath the object.
+     */
+    'shadow-angle'?: any;
+    /**
+     * @description Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation.
+     */
+    shadowBlur?: any;
+    /**
+     * @description Sets the blur effect size for the shadow of the object. Has limited effect on HTML5 implementation.
+     */
+    'shadow-blur'?: any;
+    /**
+     * @description Sets the color of the shadow of the object.
+     */
+    shadowColor?: string;
+    /**
+     * @description Sets the color of the shadow of the object.
+     */
+    'shadow-color'?: string;
+    /**
+     * @description Sets the distance between the shadow and the object.
+     */
+    shadowDistance?: any;
+    /**
+     * @description Sets the distance between the shadow and the object.
+     */
+    'shadow-distance'?: any;
+    /**
+     * @description Sets the size of the object.
+     */
+    size?: any;
+    /**
+     * @description Sets the secondary size of the object. Used on ellipses or rectangle shapes.
+     */
+    size2?: any;
+    /**
+     * @description Sets the secondary size of the object. Used on ellipses or rectangle shapes.
+     */
+    'size-2'?: any;
+    /**
+     * @description Sets the radius of the ring in chart. Accepts percentage or pixel value.
+     */
+    slice?: any;
+    /**
+     * @description Sets the target of the object.
+     */
+    target?: string;
+    /**
+     * @description Configures the tooltip element, which appears when hovering over an object.
+     */
+    tooltip?: tooltip;
+    /**
+     * @description Sets the type of the object.
+     */
+    type?: string;
+    /**
+     * @description Sets an URL associated with this object. Used mostly on nodes/labels/shapes with their associated click events.
+     */
+    url?: string;
+    /**
+     * @description Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON.
+     */
+    visible?: any;
+    /**
+     * @description Sets the object's width.
+     */
+    width?: any;
+    /**
+     * @description Sets the X position of the object.
+     */
+    x?: any;
+    /**
+     * @description Sets the Y position of the object.
+     */
+    y?: any;
+    /**
+     * @description Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values.
+     */
+    zIndex?: any;
+    /**
+     * @description Sets the z position of the object. Objects with higher z indexes will appear "above" those with lower z index values.
+     */
+    'z-index'?: any;
+    /**
+     * @description Used to force the sorting of the active areas (which trigger the tooltip) of two shapes in case they overlap.
+     */
+    zSort?: any;
+    /**
+     * @description Used to force the sorting of the active areas (which trigger the tooltip) of two shapes in case they overlap.
+     */
+    'z-sort'?: any;
+  }
   interface pageOff {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -3247,8 +4158,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -3386,8 +4297,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -3582,8 +4493,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -3875,8 +4786,8 @@ declare namespace zingchart {
     /**
      * Bar Charts and Bullet Charts Only: Sets the width of each bar. "10" | "10%" | "10px"
      */
-    'bar-width'?: number;
-    barWidth?: number;
+    'bar-width'?: any;
+    barWidth?: any;
     /**
      * Bar Charts and Bullet Charts Only: Defines how much the bars in each plot index should overlap. "10" | "10%" | "10px"
      */
@@ -3933,8 +4844,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also "line-width" for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -4116,8 +5027,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object, applicable on non-closed shapes. See also "border-width" for closed shapes. 4 | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Applies to charts such as line and area which have markers. When there are too many markers for the chart ZingChart does not displ
      * ay all markers. Example 1000 nodes on a 300px wide chart. Setting max-nodes will override the default setting and force nodes to b
@@ -4431,8 +5342,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -4458,13 +5369,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the height of the object. 10 | "20px"
        */
@@ -4559,8 +5470,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. See the square points between the lines. -45 | 115 | ...
        */
@@ -4697,8 +5608,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 2 | 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
@@ -4735,8 +5646,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
        */
@@ -4745,8 +5656,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
     };
     'value-box'?: valueBox;
     valueBox?: valueBox;
@@ -4869,8 +5780,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -5134,8 +6045,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | '6px' | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets the visibility of the object. true | false
      */
@@ -5189,8 +6100,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. true | false
        */
@@ -5214,8 +6125,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string;
-        borderWidth?: number | string;
+        'border-width'?: any;
+        borderWidth?: any;
       }>;
     };
     item?: {
@@ -5245,13 +6156,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -5280,7 +6191,7 @@ declare namespace zingchart {
       /**
        * Sets the padding of the object 3 | '5px' | '10px' | ...
        */
-      padding?: number;
+      padding?: any;
       /**
        * Sets the text transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 bei
        * ng completely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -5307,8 +6218,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the placement of the object. 'outer' | 'inner' | 'cross'
        */
@@ -5443,8 +6354,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -5699,8 +6610,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the size of the pivot point. 4 | "6px" | ...
        */
@@ -5750,8 +6661,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. true | false
        */
@@ -5784,13 +6695,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -5824,7 +6735,7 @@ declare namespace zingchart {
       /**
        * Sets the padding of the object. 3 | '5px' | '10px' | ...
        */
-      padding?: number;
+      padding?: any;
       /**
        * Sets the text transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 bei
        * ng completely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -5859,13 +6770,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the line color of the object. Colors can be entered by name (e.g., 'purple', 'blue'), hexadecimal notation (e.g., '#666699',
        * '#33ccff'), or RGB notation (e.g., 'rgb(255,0,0)', 'rgb(0,0,255)'). 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15,
@@ -5881,18 +6792,18 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets an ending offset for the scale marker. 0.1 | ...
        */
-      'offset-end'?: number | string;
-      offsetEnd?: number | string;
+      'offset-end'?: any;
+      offsetEnd?: any;
       /**
        * Sets a starting offset for the scale marker. 0.5 | ...
        */
-      'offset-start'?: number | string;
-      offsetStart?: number | string;
+      'offset-start'?: any;
+      offsetStart?: any;
       /**
        * Sets the range of the scale marker. Provide one value for line scale markers and two values (starting and ending) for area scale m
        * arkers. [60] | [20,40] | ...
@@ -5929,13 +6840,13 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object. 2 | 3 | '5px' | ...
          */
-        'border-radius'?: number | string;
-        borderRadius?: number | string;
+        'border-radius'?: any;
+        borderRadius?: any;
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string;
-        borderWidth?: number | string;
+        'border-width'?: any;
+        borderWidth?: any;
         /**
          * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
          */
@@ -5974,7 +6885,7 @@ declare namespace zingchart {
         /**
          * Sets the padding of the object. 3 | '5px' | '10px' | ...
          */
-        padding?: number;
+        padding?: any;
         /**
          * Sets the text alignment of the object. 'left' | 'center' | 'right'
          */
@@ -6019,8 +6930,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string;
-      borderWidth?: number | string;
+      'border-width'?: any;
+      borderWidth?: any;
       /**
        * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
        */
@@ -6053,8 +6964,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the line style of the object. 'solid' | 'dotted' | 'dashed' | 'dashdot'
          */
@@ -6087,8 +6998,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the placement of the object. 'outer' | 'inner' | 'cross'
        */
@@ -6149,8 +7060,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 1 | 3 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. true | false
        */
@@ -6194,13 +7105,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -6229,7 +7140,7 @@ declare namespace zingchart {
       /**
        * Sets the padding of the object 3 | '5px' | '10px' | ...
        */
-      padding?: number;
+      padding?: any;
       /**
        * Sets the text transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 bei
        * ng completely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -6258,8 +7169,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | '6px' | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the placement of the object. 'outer' | 'inner' | 'cross'
        */
@@ -6386,14 +7297,14 @@ declare namespace zingchart {
      * Sets an offset from the end of the plotted data. This will cause the data to appear as if it were 'squeezed' from the right side.
      * 4 | '6px' | '5%' | 35%' | ...
      */
-    'offset-end'?: number | string;
-    offsetEnd?: number | string;
+    'offset-end'?: any;
+    offsetEnd?: any;
     /**
      * Sets an offset at the start of the plotted data. This will cause the data to appear as if it were 'squeezed' from the left side. 4
      *  | '6px' | '5%' | '35%' | ...
      */
-    'offset-start'?: number | string;
-    offsetStart?: number | string;
+    'offset-start'?: any;
+    offsetStart?: any;
     /**
      * Sets an x offset that will be applied to the scale-x object. 4 | '6px' | ...
      */
@@ -6440,7 +7351,7 @@ declare namespace zingchart {
     /**
      * Sets the value of each step along an axis.
      */
-    step?: number | string;
+    step?: any;
     /**
      * When you set the 'thousands-separator': attribute, the punctuation which is used will be placed to separate digits which go into 1,000s, 10,000s, etc. When placed in the 'plot': { } object,
      * this will only effect values which are pulled directly from the series data. Objects such as 'scale-y': { }, 'scale-x': { }, etc..., will need to be set separately.
@@ -6525,8 +7436,8 @@ declare namespace zingchart {
        * Sets the line width of the object, applicable on non-closed shapes. For the scale-x / scale-y guide. See the red lines. 4 | "6px"
        * | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
@@ -6550,7 +7461,7 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string
+        'border-width'?: any
       }>;
     };
     item?: {
@@ -6669,8 +7580,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -7002,8 +7913,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -7337,8 +8248,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -7616,8 +8527,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
        */
@@ -7686,8 +8597,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
        */
@@ -7785,13 +8696,13 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object. 2 | 3 | '5px' | ...
          */
-        'border-radius'?: number | string;
-        borderRadius?: number | string;
+        'border-radius'?: any;
+        borderRadius?: any;
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
          */
@@ -7825,7 +8736,7 @@ declare namespace zingchart {
         /**
          * Sets the padding of the object. 3 | '5px' | '10px' | ...
          */
-        padding?: number;
+        padding?: any;
         /**
          * Sets the text alignment of the object. 'left' | 'center' | 'right'
          */
@@ -7886,8 +8797,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Determines the placement of tick marks along an axis line. inner | cross | outer
        */
@@ -7986,8 +8897,8 @@ declare namespace zingchart {
          * Sets the line width of the object, applicable on non-closed shapes. For the scale-x / scale-y guide. See the red lines. 4 | "6px"
          * | ...
          */
-        'line-width'?: number | string;
-        lineWidth?: number | string;
+        'line-width'?: any;
+        lineWidth?: any;
         /**
          * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
          */
@@ -8109,8 +9020,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -8459,8 +9370,8 @@ declare namespace zingchart {
     /**
      * Sets the width of the axis line. 4 | '6px' | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Logarithmic Scales only: To set the base value, which defaults to Math.E (Euler's number, the base of natural logarithms). Math.E
      * | 10 | 2 | ...
@@ -8546,14 +9457,14 @@ declare namespace zingchart {
      * Sets an offset from the end of the plotted data. This will cause the data to appear as if it were 'squeezed' from the top side. 4
      * | '6px' | '5%' | 35%' | ...
      */
-    'offset-end'?: number | string;
-    offsetEnd?: number | string;
+    'offset-end'?: any;
+    offsetEnd?: any;
     /**
      * Sets an offset at the start of the plotted data. This will cause the data to appear as if it were 'squeezed' from the bottom side.
      *  4 | '6px' | '5%' | 35%' | ...
      */
-    'offset-start'?: number | string;
-    offsetStart?: number | string;
+    'offset-start'?: any;
+    offsetStart?: any;
     /**
      * Sets an x offset that will be applied to the scale-y object. 4 | '6px' | ...
      */
@@ -8614,7 +9525,7 @@ declare namespace zingchart {
     /**
      * Sets the value of each step along an axis.
      */
-    step?: number | string;
+    step?: any;
     /**
      * Sets the characters used to separate thousands in larger numbers. '.' | ',' | ...
      */
@@ -8693,8 +9604,8 @@ declare namespace zingchart {
        * Sets the line width of the object, applicable on non-closed shapes. For the scale-x / scale-y guide. See the red lines. 4 | "6px"
        * | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */
@@ -8718,7 +9629,7 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string
+        'border-width'?: any
         /**
          * Sets the object's border radius, for rounded corners. Larger values create rounder corners, while smaller values create sharper co
          * rners. A single value will affect all 4 corners, while multiple values will have separate effects on each corner, with the first v
@@ -8845,8 +9756,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -9180,8 +10091,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -9458,8 +10369,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
        */
@@ -9528,8 +10439,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
        */
@@ -9627,13 +10538,13 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object. 2 | 3 | '5px' | ...
          */
-        'border-radius'?: number | string;
-        borderRadius?: number | string;
+        'border-radius'?: any;
+        borderRadius?: any;
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
          */
@@ -9667,7 +10578,7 @@ declare namespace zingchart {
         /**
          * Sets the padding of the object. 3 | '5px' | '10px' | ...
          */
-        padding?: number;
+        padding?: any;
         /**
          * Sets the text alignment of the object. 'left' | 'center' | 'right'
          */
@@ -9729,8 +10640,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Determines the placement of tick marks along an axis line. inner | cross | outer
        */
@@ -9954,8 +10865,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -10105,8 +11016,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
      */
@@ -10147,8 +11058,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
      */
@@ -10306,8 +11217,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. For graph plot tooltip. true | false | 1 | 0
      */
@@ -10494,7 +11405,7 @@ declare namespace zingchart {
     /**
      * Sets the padding around the object text. "10%" | "25px" ...
      */
-    padding?: number;
+    padding?: any;
     'padding-bottom'?: any;
     paddingBottom?: any;
     /**
@@ -10629,8 +11540,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -10639,8 +11550,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
   }
   interface trendEqual {
     /**
@@ -10663,8 +11574,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -10673,8 +11584,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
   }
   interface trendUp {
     /**
@@ -10697,8 +11608,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the line color of the object. "none" | "transparent" | "purple" | "#33ccff" | "rgb(100, 15, 15)" | ...
      */
@@ -10707,8 +11618,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object. 1 | 3 | | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
   }
   interface valueBoxRules extends valueBox {
     /**
@@ -10789,8 +11700,8 @@ declare namespace zingchart {
      * Sets the border width of the object, applicable on closed shapes. See the "line-width" attribute for closed shapes. 4 | "6px" | ..
      * .
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether or not the object will have a callout arrow. true | false | 1 | 0
      */
@@ -10938,8 +11849,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
     };
     joined?: {
       /**
@@ -10962,13 +11873,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -10982,7 +11893,7 @@ declare namespace zingchart {
       /**
        * Sets the padding of the object. 3 | '5px' | '10px' | ...
        */
-      padding?: number;
+      padding?: any;
       /**
        * Sets the joined venn diagram text to display. 'Joined' | '%joined-value' | ...
        */
@@ -11009,13 +11920,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object. 2 | 3 | '5px' | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 1 | 3 | '6px' | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the font color of the object. 'none' | 'transparent' | 'purple' | '#33ccff' | 'rgb(100, 15, 15)' | ...
        */
@@ -11029,7 +11940,7 @@ declare namespace zingchart {
       /**
        * Sets the padding of the object. 3 | '5px' | '10px' | ...
        */
-      padding?: number;
+      padding?: any;
       /**
        * Sets the shared venn diagram text to display. 'Shared' | '%shared-value' | ...
        */
@@ -11052,13 +11963,13 @@ declare namespace zingchart {
     /**
      * Sets the border radius of the object, applicable to closed shapes. "3px" | "7px" | ...
      */
-    'border-radius'?: number | string;
-    borderRadius?: number | string;
+    'border-radius'?: any;
+    borderRadius?: any;
     /**
      * Sets the border width of the object, applicable to closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the font color of the object. "none" | "transparent" | "#1A237E" | "purple" | ...
      */
@@ -11120,8 +12031,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object. 1 | 3 | | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets the height of the object. 10 | "20px" | 0.3 | "30%" | ...
      */
@@ -11297,8 +12208,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the direction of the arrow "top" | "bottom" | "left" | "right"
        */
@@ -11492,8 +12403,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Reverses the order of items in plotLabel. Generally used with positive stacked charts.
        */
@@ -11542,8 +12453,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the size of the object/shape. 4 | "6px" | ...
          */
@@ -11780,8 +12691,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -12055,8 +12966,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -12390,8 +13301,8 @@ declare namespace zingchart {
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. Defaults to dark gray if
          * border-color is not set. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -12748,8 +13659,8 @@ declare namespace zingchart {
         /**
          * Requires border-color. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -13007,8 +13918,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-widthfor closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: number | string;
-        lineWidth?: number | string;
+        'line-width'?: any;
+        lineWidth?: any;
         /**
          * Sets an X offset to apply when positioning the object/shape. 4 | "6px" | ...
          */
@@ -13134,8 +14045,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -13366,13 +14277,13 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
          */
-        'border-radius'?: number | string;
-        borderRadius?: number | string;
+        'border-radius'?: any;
+        borderRadius?: any;
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the style of the cursor when hovering over a node. "hand" | "normal"
          */
@@ -13435,8 +14346,8 @@ declare namespace zingchart {
         /**
          * Sets the line width of the object, applicable on non-closed shapes. See also border-widthfor closed shapes. 4 | "6px" | ...
          */
-        'line-width'?: number | string;
-        lineWidth?: number | string;
+        'line-width'?: any;
+        lineWidth?: any;
         /**
          * Sets whether the object's shadow is visible or not. Has limited effect on HTML5 implementation. true | false | 1 | 0
          */
@@ -13656,11 +14567,6 @@ declare namespace zingchart {
       'min-font-size'?: any;
       minFontSize?: any;
       /**
-       * To set the minimum length of the words displayed in the word cloud. 3 | 5 | ...
-       */
-      'min-length'?: any;
-      minLength?: any;
-      /**
        * When the "color-type" attribute is set to "palette", use this attribute to set the color palette of the word cloud. [...]
        */
       palette?: any;
@@ -13805,6 +14711,110 @@ declare namespace zingchart {
           visible?: boolean;
         };
       };
+      link?: link;
+      'link[sibling]'?: link;
+      [key: `link[cls-${string}`]: link;
+      [key: `link[container-${string}`]: link;
+      [key: `link[group-${string}`]: link;
+      [key: `link[level-${string}`]: link;
+      [key: `link[parent-${string}`]: link;
+      [key: `link[source-${string}`]: link;
+      [key: `link[target-${string}`]: link;
+      links?: link;
+      'max-iterations'?: any;
+      /**
+       * @description Sets the maximum level the items have to be on so that they will be processed.
+       */
+      maxLevel?: any;
+      /**
+       * @description Sets the maximum level the items have to be on so that they will be processed.
+       */
+      'max-level'?: any;
+      /**
+       * @description Sets the max width for the links between nodes (available in the force directed graphs).
+       */
+      maxLinkWidth?: any;
+      /**
+       * @description Sets the max width for the links between nodes (available in the force directed graphs).
+       */
+      'max-link-width'?: any;
+      /**
+       * @description Sets the maximum size for the tree nodes.
+       */
+      maxSize?: any;
+      /**
+       * @description Sets the maximum size for the tree nodes.
+       */
+      'max-size'?: any;
+      /**
+       * @description Sets a maximum value.
+       * For heatmap charts, sets a maximum reference value. If not set, the maximum value found in the data is used.
+       * For treemap charts, sets a maximum value that a box has to have in order to be evaluated and displayed on the treemap.
+       */
+      maxValue?: any;
+      /**
+       * @description Sets a maximum value.
+       * For heatmap charts, sets a maximum reference value. If not set, the maximum value found in the data is used.
+       * For treemap charts, sets a maximum value that a box has to have in order to be evaluated and displayed on the treemap.
+       */
+      'max-value'?: any;
+      /**
+       * @description When set, filter out words shorter than minLength from the wordcloud
+       */
+      minLength?: any;
+      /**
+       * @description When set, filter out words shorter than minLength from the wordcloud
+       */
+      'min-length'?: any;
+      /**
+       * @description Sets the minimum level the items have to be on so that they will be processed.
+       */
+      minLevel?: any;
+      /**
+       * @description Sets the minimum level the items have to be on so that they will be processed.
+       */
+      'min-level'?: any;
+      /**
+       * @description Sets the minimum width for the links between nodes (available in the force directed graphs).
+       */
+      minLinkWidth?: any;
+      /**
+       * @description Sets the minimum width for the links between nodes (available in the force directed graphs).
+       */
+      'min-link-width'?: any;
+      /**
+       * @description Sets the minimum size.
+       * For tree module charts, sets the minimum size for the tree nodes.
+       * For bubble pack charts, sets the minimum pixel-size of bubbles.
+       */
+      minSize?: any;
+      /**
+       * @description Sets the minimum size.
+       * For tree module charts, sets the minimum size for the tree nodes.
+       * For bubble pack charts, sets the minimum pixel-size of bubbles.
+       */
+      'min-size'?: any;
+      /**
+       * @description Sets a minimum value.
+       * For heatmap charts, sets a minimum reference value. If not set, the minimum value found in the data is used.
+       * For treemap charts, sets the minimum value box ihas to have in order to be evaluated and displayed on the treemap.
+       */
+      minValue?: any;
+      /**
+       * @description Sets a minimum value.
+       * For heatmap charts, sets a minimum reference value. If not set, the minimum value found in the data is used.
+       * For treemap charts, sets the minimum value box ihas to have in order to be evaluated and displayed on the treemap.
+       */
+      'min-value'?: any;
+      node?: node;
+      'node[collapsed]'?: node;
+      'node[leaf]'?: node;
+      'node[parent]'?: node;
+      [key: `node[cls-${string}`]: node;
+      [key: `node[container-${string}`]: node;
+      [key: `node[group-${string}`]: node;
+      [key: `node[level-${string}`]: node;
+      [key: `node[parent-${string}`]: node;
       style?: {
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
@@ -13828,13 +14838,13 @@ declare namespace zingchart {
         /**
          * Sets the border radius of the object. 2 | 3 | '5px' | ...
          */
-        'border-radius'?: number | string;
-        borderRadius?: number | string;
+        'border-radius'?: any;
+        borderRadius?: any;
         /**
          * Sets the border width of the object. 1 | 3 | '6px' | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the font family of the object. 'Arial' | 'Tahoma,Verdana' | ...
          */
@@ -13848,7 +14858,7 @@ declare namespace zingchart {
         /**
          * Sets the padding of the object. 3 | '5px' | '10px' | ...
          */
-        padding?: number;
+        padding?: any;
         /**
          * Sets the text transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 bei
          * ng completely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -14007,8 +15017,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -14246,8 +15256,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
        */
@@ -14356,8 +15366,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the object's height. 10 | "20px" | 0.3 | "30%" | ...
          */
@@ -14485,8 +15495,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
          */
@@ -14727,8 +15737,12 @@ declare namespace zingchart {
     scaleV?: scaleV;
     'scale-x'?: scaleX;
     scaleX?: scaleX;
+    [key: `scale-x-${number}`]: scaleX;
+    [key: `scaleX${number}`]: scaleX;
     'scale-y'?: scaleY;
     scaleY?: scaleY;
+    [key: `scale-y-${number}`]: scaleY;
+    [key: `scaleY${number}`]: scaleY;
     scale?: {
       /**
        * To modify the size of the chart. Provide a value in relation to 1.0 or 100%. 0.3 | 0.9 | "30%" | "90%" | ...
@@ -14761,8 +15775,8 @@ declare namespace zingchart {
          * Sets the border width of the object, applicable on closed shapes. Defaults to black when border-color is not defined. See also lin
          * e-width for closed shapes. 4 | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
       };
     };
     series?: series[];
@@ -14852,8 +15866,8 @@ declare namespace zingchart {
        * Sets the border width of the object, applicable on closed shapes. Defaults to black when border-color is not defined. See also lin
        * e-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the angle of the axis along which the linear fill is drawn. -45 | 115 | ...
        */
@@ -14917,8 +15931,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the map id of the map on which the object/shape is being added. "mapid" | ...
        */
@@ -15110,8 +16124,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Requires border-width. true | false | 1 | 0
        */
@@ -15511,8 +16525,8 @@ declare namespace zingchart {
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. If no border-color is set
        * , will display in black. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether or not the object will have a callout arrow. true | false | 1 | 0
        */
@@ -15916,8 +16930,8 @@ declare namespace zingchart {
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. If no border-color is set
        * , will display in black.. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets if the object will have a callout arrow. true | false | 1 | 0
        */
@@ -16241,8 +17255,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object. 1 | 3 | | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * API charts only: Sets whether the zoom level is preserved on chart data alteration or reloads. true | false | 1 | 0
        */
@@ -16269,8 +17283,8 @@ declare namespace zingchart {
         /**
          * Sets the border width of the object. 1 | 3 | | "6px" | ...
          */
-        'border-width'?: number | string
-        borderWidth?: number | string
+        'border-width'?: any
+        borderWidth?: any
         /**
          * Sets the font color of the object text. "none" | "transparent" | "purple" | "#33ccff" | ...
          */
@@ -16299,7 +17313,7 @@ declare namespace zingchart {
         /**
          * Sets the padding around the object text. "10%" | "25px" ...
          */
-        padding?: number;
+        padding?: any;
         /**
          * Sets the visibility of the object. true | false | 1 | 0
          */
@@ -16451,8 +17465,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -16657,8 +17671,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. -45 | 115 | ...
        */
@@ -16873,8 +17887,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See also line-width for closed shapes. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
        */
@@ -17175,8 +18189,8 @@ declare namespace zingchart {
     /**
      * Bar Charts and Bullet Charts Only: Sets the width of each bar. "10" | "10%" | "10px"
      */
-    'bar-width'?: number;
-    barWidth?: number;
+    'bar-width'?: any;
+    barWidth?: any;
     /**
      * Bar Charts and Bullet Charts Only: Defines how much the bars in each plot index should overlap. "10" | "10%" | "10px"
      */
@@ -17233,8 +18247,8 @@ declare namespace zingchart {
     /**
      * Sets the border width of the object, applicable on closed shapes. See also "line-width" for closed shapes. 4 | "6px" | ...
      */
-    'border-width'?: number | string;
-    borderWidth?: number | string;
+    'border-width'?: any;
+    borderWidth?: any;
     /**
      * Sets whether an object will have a callout arrow or not. true | false | 1 | 0
      */
@@ -17406,8 +18420,8 @@ declare namespace zingchart {
     /**
      * Sets the line width of the object, applicable on non-closed shapes. See also "border-width" for closed shapes. 4 | "6px" | ...
      */
-    'line-width'?: number | string;
-    lineWidth?: number | string;
+    'line-width'?: any;
+    lineWidth?: any;
     /**
      * Applies to charts such as line and area which have markers. When there are too many markers for the chart ZingChart does not displ
      * ay all markers. Example 1000 nodes on a 300px wide chart. Setting max-nodes will override the default setting and force nodes to b
@@ -17716,8 +18730,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object, applicable on non-closed shapes. See also border-width for closed shapes. 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the size of the object/shape. 4 | "6px" | ...
        */
@@ -17743,13 +18757,13 @@ declare namespace zingchart {
       /**
        * Sets the border radius of the object, for rounded corners. 4 | "6px" | "6px 10px 3px 5px" | "-10px" | ...
        */
-      'border-radius'?: number | string;
-      borderRadius?: number | string;
+      'border-radius'?: any;
+      borderRadius?: any;
       /**
        * Sets the border width of the object. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the height of the object. 10 | "20px"
        */
@@ -17847,8 +18861,8 @@ declare namespace zingchart {
       /**
        * Sets the border width of the object, applicable on closed shapes. See the square points between the lines. 4 | "6px" | ...
        */
-      'border-width'?: number | string
-      borderWidth?: number | string
+      'border-width'?: any
+      borderWidth?: any
       /**
        * Sets the angle of the axis along which the linear gradient is drawn. See the square points between the lines. -45 | 115 | ...
        */
@@ -17995,8 +19009,8 @@ declare namespace zingchart {
       /**
        * Sets the line width of the object. 2 | 4 | "6px" | ...
        */
-      'line-width'?: number | string;
-      lineWidth?: number | string;
+      'line-width'?: any;
+      lineWidth?: any;
       /**
        * Sets the visibility of the object. Allows you to turn off the object without removing lines of JSON. true | false | 1 | 0
        */

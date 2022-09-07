@@ -20,7 +20,7 @@ const BLOCK: blocks.Block<{ foo: string }> = {
                 return { foo: attributes.bar };
             },
             save: () => null,
-        }
+        },
     ],
     edit: () => null,
     icon: {
@@ -413,11 +413,17 @@ blocks.registerBlockType({
             background: true,
             gradients: false,
             link: true,
+            text: true,
         },
         spacing: {
             blockGap: ['horizontal'],
             margin: ['top', 'left'],
         },
+        typography: {
+            fontSize: true,
+            lineHeight: false,
+        },
+        lock: true,
     },
     styles: [
         { name: 'default', label: 'Default', isDefault: true },
@@ -537,6 +543,14 @@ blocks.getBlockVariations('core/columns');
 blocks.registerBlockVariation('core/columns', {
     name: 'core/columns/variation',
     title: 'Core Column Variation',
+    innerBlocks: [
+        [ 'core/paragraph' ],
+        [
+            'core/paragraph',
+            { placeholder: 'Enter side content...' },
+            [ [ 'core/paragraph' ] ]
+        ],
+    ],
 });
 
 // $ExpectType void

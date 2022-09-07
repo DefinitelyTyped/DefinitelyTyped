@@ -13,28 +13,31 @@ declare module 'fs/promises' {
     import { Stream } from 'node:stream';
     import { ReadableStream } from 'node:stream/web';
     import {
-        Stats,
         BigIntStats,
-        StatOptions,
-        WriteVResult,
-        ReadVResult,
+        BufferEncodingOption,
+        constants as fsConstants,
+        CopyOptions,
+        Dir,
+        Dirent,
+        MakeDirectoryOptions,
+        Mode,
+        ObjectEncodingOptions,
+        OpenDirOptions,
+        OpenMode,
         PathLike,
+        ReadStream,
+        ReadVResult,
         RmDirOptions,
         RmOptions,
-        MakeDirectoryOptions,
-        Dirent,
-        OpenDirOptions,
-        Dir,
-        ObjectEncodingOptions,
-        BufferEncodingOption,
-        OpenMode,
-        Mode,
-        WatchOptions,
+        StatOptions,
+        Stats,
+        TimeLike,
         WatchEventType,
-        CopyOptions,
-        ReadStream,
+        WatchOptions,
         WriteStream,
+        WriteVResult,
     } from 'node:fs';
+
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
         filename: T;
@@ -329,7 +332,7 @@ declare module 'fs/promises' {
          * Change the file system timestamps of the object referenced by the `FileHandle` then resolves the promise with no arguments upon success.
          * @since v10.0.0
          */
-        utimes(atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        utimes(atime: TimeLike, mtime: TimeLike): Promise<void>;
         /**
          * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
          * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface) or
@@ -426,6 +429,9 @@ declare module 'fs/promises' {
          */
         close(): Promise<void>;
     }
+
+    const constants: typeof fsConstants;
+
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
@@ -762,7 +768,7 @@ declare module 'fs/promises' {
      * @since v14.5.0, v12.19.0
      * @return Fulfills with `undefined` upon success.
      */
-    function lutimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    function lutimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
      * Changes the ownership of a file.
      * @since v10.0.0
@@ -780,7 +786,7 @@ declare module 'fs/promises' {
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
-    function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
      * Determines the actual location of `path` using the same semantics as the`fs.realpath.native()` function.
      *

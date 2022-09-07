@@ -286,12 +286,17 @@ function testIn() {
 
 function testList() {
     const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
-    const listNodes: Iterable<clownface.AnyPointer<NamedNode, Dataset>> | null = cf.list();
+    const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> | null = cf.list();
 }
 
 function testIsList() {
-    const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
-    const listNodes: boolean = cf.isList();
+    const anyPtr: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
+    const isList: boolean = anyPtr.isList();
+
+    if (anyPtr.isList()) {
+        const graphPtr: clownface.GraphPointer<NamedNode, Dataset> = anyPtr;
+        const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> = anyPtr.list();
+    }
 }
 
 function testLiteral() {

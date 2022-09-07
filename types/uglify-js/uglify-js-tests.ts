@@ -44,6 +44,7 @@ const output = minify(code, {
     },
     module: true,
     nameCache: {},
+    expression: true,
 });
 if (output.warnings) {
     output.warnings.filter(x => x === 'Dropping unused variable');

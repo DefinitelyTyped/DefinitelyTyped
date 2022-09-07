@@ -223,7 +223,7 @@ declare module 'vm' {
         runInNewContext(contextObject?: Context, options?: RunningScriptOptions): any;
         /**
          * Runs the compiled code contained by the `vm.Script` within the context of the
-         * current `global` object. Running code does not have access to local scope, but_does_ have access to the current `global` object.
+         * current `global` object. Running code does not have access to local scope, but _does_ have access to the current `global` object.
          *
          * The following example compiles code that increments a `global` variable then
          * executes that code multiple times:

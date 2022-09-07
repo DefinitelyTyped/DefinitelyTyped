@@ -486,6 +486,33 @@ declare namespace jsts {
              */
             constructor(precisionModel?: PrecisionModel);
 
+            createPointFromInternalCoord(coord: Coordinate, exemplar: Geometry): Point;
+            /**
+             * Creates a Geometry with the same extent as the given envelope. The Geometry returned is guaranteed to be valid. To provide this behaviour, the following cases occur:
+             *
+             * If the Envelope is:
+             * - null : returns an empty Point
+             * - a point : returns a non-empty Point
+             * - a line : returns a two-point LineString
+             * - a rectangle : returns a Polygon whose points are (minx, miny), (minx, maxy), (maxx, maxy), (maxx, miny), (minx, miny).
+             *
+             * @param {Envelope} envelope the Envelope to convert
+             *
+             * @returns {Geometry} an empty Point (for null Envelopes), a Point (when min x = max x and min y = max y) or a Polygon (in all other cases)
+             */
+            toGeometry(envelope: Envelope): Geometry;
+            /**
+             * Returns the PrecisionModel that Geometries created by this factory will be associated with.
+             *
+             * @returns {PrecisionModel} the PrecisionModel for this factory
+             */
+            getPrecisionModel(): PrecisionModel;
+            /**
+             * Constructs an empty LineString geometry.
+             *
+             * @returns an empty LineString
+             */
+            createLineString(): LineString;
             /**
              * Creates a LineString using the given Coordinates; a null or empty array will
              * create an empty LineString. Consecutive points must not be equal.
@@ -497,6 +524,19 @@ declare namespace jsts {
              */
             createLineString(coordinates: Array<Coordinate>): LineString;
             /**
+             * Creates a LineString using the given CoordinateSequence.
+             * A null or empty CoordinateSequence creates an empty LineString.
+             *
+             * @param coordinates a CoordinateSequence (possibly empty), or null
+             */
+            createLineString(coordinates: CoordinateSequence): LineString;
+            /**
+             * Constructs an empty Point geometry.
+             *
+             * @returns {Point} an empty Point
+             */
+            createPoint(): Point;
+            /**
              * Creates a Point using the given Coordinate; a null Coordinate will create an
              * empty Geometry.
              *
@@ -505,6 +545,60 @@ declare namespace jsts {
              * @return {Point} A new Point.
              */
             createPoint(coordinates: Coordinate): Point;
+            /**
+             * Creates a Point using the given CoordinateSequence; a null or empty CoordinateSequence will create an empty Point.
+             *
+             * @param {CoordinateSequence} coordinates a CoordinateSequence (possibly empty), or null
+             *
+             * @returns {Point} the created Point
+             */
+            createPoint(coordinates: CoordinateSequence): Point;
+            /**
+             * Constructs an empty MultiPoint geometry.
+             *
+             * @returns an empty MultiPoint
+             */
+            createMultiPoint(): MultiPoint;
+            /**
+             * Creates a MultiPoint using the given Points. A null or empty array will create an empty MultiPoint.
+             *
+             * @param point an array of Points (without null elements), or an empty array, or null
+             *
+             * @returns a MultiPoint object
+             */
+            createMultiPoint(point: Point[]): MultiPoint;
+            /**
+             * @deprecated Deprecated. Use createMultiPointFromCoords(org.locationtech.jts.geom.Coordinate[]) instead
+             *
+             * Creates a MultiPoint using the given Coordinates. A null or empty array will create an empty MultiPoint.
+             *
+             * @param coordinates an array (without null elements), or an empty array, or null
+             *
+             * @returns a MultiPoint object
+             */
+            createMultiPoint(coordinates: Coordinate[]): MultiPoint;
+            /**
+             * Creates a MultiPoint using the points in the given CoordinateSequence.
+             * A null or empty CoordinateSequence creates an empty MultiPoint.
+             *
+             * @param coordinates a CoordinateSequence (possibly empty), or null
+             * @returns a MultiPoint geometry
+             */
+            createMultiPoint(coordinates: CoordinateSequence): MultiPoint;
+            /**
+             * Creates a MultiPoint using the given Coordinates. A null or empty array will create an empty MultiPoint.
+             *
+             * @param coordinates an array (without null elements), or an empty array, or null
+             *
+             * @returns a MultiPoint object
+             */
+            createMultiPointFromCoords(coordinates: Coordinate[]): MultiPoint;
+            /**
+             * Constructs an empty LinearRing geometry.
+             *
+             * @returns an empty LinearRing
+             */
+            createLinearRing(): LinearRing;
             /**
              * Creates a LinearRing using the given Coordinates; a null or empty array
              * will create an empty LinearRing. Consecutive points must not be equal.
@@ -516,12 +610,126 @@ declare namespace jsts {
              */
             createLinearRing(coordinates: Array<Coordinate>): LinearRing;
             /**
+             * Creates a LinearRing using the given CoordinateSequence.
+             * A null or empty array creates an empty LinearRing.
+             * The points must form a closed and simple linestring.
+             *
+             * @param coordinates a CoordinateSequence (possibly empty), or null
+             *
+             * @returns the created LinearRing
+             *
+             * @throws {IllegalArgumentException} if the ring is not closed, or has too few points
+             */
+            createLinearRing(coordinates: CoordinateSequence): LinearRing;
+            /**
              * Creates a Polygon using the given LinearRing.
              *
-             * @param {LinearRing} A LinearRing constructed by coordinates.
+             * @param {LinearRing} shell A LinearRing constructed by coordinates.
              * @return {Polygon} A new Polygon.
              */
             createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;
+            /**
+             * Constructs a Polygon with the given exterior boundary.
+             *
+             * @param shell the outer boundary of the new Polygon, or null or an empty LinearRing if the empty geometry is to be created.
+             *
+             * @throws {IllegalArgumentException} if the boundary ring is invalid
+             */
+            createPolygon(shell: CoordinateSequence): Polygon;
+            /**
+             * Constructs a Polygon with the given exterior boundary.
+             *
+             * @param shell the outer boundary of the new Polygon, or null or an empty LinearRing if the empty geometry is to be created.
+             *
+             * @throws {IllegalArgumentException} if the boundary ring is invalid
+             */
+            createPolygon(shell: Coordinate[]): Polygon;
+            /**
+             * Constructs a Polygon with the given exterior boundary.
+             *
+             * @param shell the outer boundary of the new Polygon, or null or an empty LinearRing if the empty geometry is to be created.
+             *
+             * @throws {IllegalArgumentException} if the boundary ring is invalid
+             */
+            createPolygon(shell: LinearRing): Polygon;
+            /**
+             * Constructs an empty Polygon geometry.
+             *
+             * @returns an empty polygon
+             */
+            createPolygon(): Polygon;
+            /**
+             * Constructs an empty MultiPolygon geometry.
+             *
+             * @returns an empty MultiPolygon
+             */
+            createMultiPolygon(): MultiPolygon;
+            /**
+             * Creates a MultiPolygon using the given Polygons; a null or empty array will create an empty Polygon. The polygons must conform to the assertions specified in the OpenGIS Simple Features Specification for SQL.
+             *
+             * @param polygons Polygons, each of which may be empty but not null
+             *
+             * @returns the created MultiPolygon
+             */
+            createMultiPolygon(polygons: Polygon[]): MultiPolygon;
+            /**
+             * Constructs an empty MultiLineString geometry.
+             *
+             * @returns {MultiLineString} an empty MultiLineString
+             */
+            createMultiLineString(): MultiLineString;
+            /**
+             * Creates a MultiLineString using the given LineStrings; a null or empty array will create an empty MultiLineString.
+             *
+             * @param lineStrings LineStrings, each of which may be empty but not null
+             *
+             * @returns the created MultiLineString
+             */
+            createMultiLineString(lineStrings: LineString[]): MultiLineString;
+            /**
+             * Constructs an empty GeometryCollection geometry.
+             *
+             * @returns {GeometryCollection} an empty GeometryCollection
+             */
+            createGeometryCollection(): GeometryCollection;
+            /**
+             * Creates a GeometryCollection using the given Geometries; a null or empty array will create an empty GeometryCollection.
+             *
+             * @param geometries an array of Geometries, each of which may be empty but not null, or null
+             *
+             * @returns the created GeometryCollection
+             */
+            createGeometryCollection(geometries: Geometry[]): GeometryCollection;
+            /**
+             * Creates an empty atomic geometry of the given dimension.
+             * If passed a dimension of -1 will create an empty GeometryCollection.
+             *
+             * @param {int} dimension the required dimension (-1, 0, 1 or 2)
+             *
+             * @returns an empty atomic geometry of given dimension
+             */
+            createEmpty(dimension: number): Geometry;
+            /**
+             * Creates a deep copy of the input Geometry.
+             * The CoordinateSequenceFactory defined for this factory is used
+             * to copy the CoordinateSequences of the input geometry.
+             * This is a convenient way to change the CoordinateSequence used to represent a geometry,
+             * or to change the factory used for a geometry.
+             * Geometry.copy() can also be used to make a deep copy,
+             * but it does not allow changing the CoordinateSequence type.
+             *
+             * @returns a deep copy of the input geometry, using the CoordinateSequence type of this factory
+             *
+             * @see Geometry.copy()
+             */
+            createGeometry(g: Geometry): Geometry;
+            /**
+             * Gets the SRID value defined for this factory.
+             *
+             * @returns {int} the factory SRID value
+             */
+            getSRID(): number;
+            getCoordinateSequenceFactory(): CoordinateSequenceFactory;
         }
 
         export class GeometryCollection extends jsts.geom.Geometry {
@@ -550,12 +758,12 @@ declare namespace jsts {
             /**
              * @constructor
              */
-             constructor();
+            constructor();
 
             /**
              * @constructor
              */
-             constructor(x: number, y: number, z: number);
+            constructor(x: number, y: number, z: number);
 
             /**
              * Gets or sets the x value.
@@ -650,6 +858,46 @@ declare namespace jsts {
             static Z: number;
             static M: number;
         }
+
+        export interface CoordinateSequenceFactory {
+            /**
+             * Returns a CoordinateSequence based on the given array.
+             * Whether the array is copied or simply referenced is implementation-dependent.
+             * This method must handle null arguments by creating an empty sequence.
+             *
+             * @param coordinates the coordinates
+             */
+            create(coordinates: Coordinate[]): CoordinateSequence;
+            /**
+             * Creates a CoordinateSequence which is a copy of the given CoordinateSequence.
+             * This method must handle null arguments by creating an empty sequence.
+             *
+             * @param coordSeq the coordinate sequence to copy
+             */
+            create(coordSeq: CoordinateSequence): CoordinateSequence;
+            /**
+             * Creates a CoordinateSequence of the specified size and dimension.
+             * For this to be useful, the CoordinateSequence implementation must be mutable.
+             * If the requested dimension is larger than the CoordinateSequence implementation can provide,
+             * then a sequence of maximum possible dimension should be created. An error should not be thrown.
+             *
+             * @param {int} size the number of coordinates in the sequence
+             * @param {int} dimension the dimension of the coordinates in the sequence (if user-specifiable, otherwise ignored)
+             */
+            create(size: number, dimension: number): CoordinateSequence;
+            /**
+             * Creates a CoordinateSequence of the specified size and dimension with measure support.
+             * For this to be useful, the CoordinateSequence implementation must be mutable.
+             * If the requested dimension or measures are larger than the CoordinateSequence implementation can provide,
+             * then a sequence of maximum possible dimension should be created. An error should not be thrown.
+             *
+             * @param {int} size the number of coordinates in the sequence
+             * @param {int} dimension the dimension of the coordinates in the sequence (if user-specifiable, otherwise ignored)
+             * @param {int} measures the number of measures of the coordinates in the sequence (if user-specifiable, otherwise ignored)
+             */
+            create(size: number, dimension: number, measures: number): CoordinateSequence;
+        }
+
         /**
          * Defines a rectangular region of the 2D coordinate plane. It is often used to
          * represent the bounding box of a {@link Geometry}, e.g. the minimum and
@@ -2244,6 +2492,44 @@ declare namespace jsts {
             isRing(): boolean;
         }
 
+        export class MultiLineString extends GeometryCollection {
+            /**
+             * @construtor
+             */
+            constructor(lineStrings: LineString[], factory: GeometryFactory);
+            /**
+             * @constructor
+             *
+             * @deprecated Use GeometryFactory instead
+             */
+            constructor(lineStrings: LineString[], precisionModel: PrecisionModel, SRID: number);
+            /**
+             * Returns true if the two Geometrys are exactly equal, up to a specified distance tolerance.
+             */
+            equalsExact(other: Geometry, tolerance: number): boolean;
+            /**
+             * Gets the boundary of this geometry.
+             */
+            getBoundary(): Geometry;
+            /**
+             * Returns the dimension of this Geometrys inherent boundary.
+             */
+            getBoundaryDimension(): number;
+            /**
+             * Returns the dimension of this geometry.
+             */
+            getDimension(): number;
+            /**
+             * Returns the name of this Geometry's actual class.
+             */
+            getGeometryType(): string;
+            isClosed(): boolean;
+            /**
+             * @deprecated
+             */
+            reverse(): Geometry;
+        }
+
         export class Point extends Geometry {
             /**
              * @constructor
@@ -2264,6 +2550,43 @@ declare namespace jsts {
              * @return {Point} Reversed point is a cloned point.
              */
             reverse(): Point;
+        }
+
+        export class MultiPoint extends GeometryCollection {
+            /**
+             * @constructor
+             */
+            constructor(points: Point[], factory: GeometryFactory);
+            /**
+             * @constructor
+             *
+             * @deprecated Use GeometryFactory instead
+             */
+            constructor(points: Point[], precisionModel: PrecisionModel, SRID: number);
+            /**
+             * Returns true if the two Geometrys are exactly equal, up to a specified distance tolerance.
+             */
+            equalsExact(other: Geometry, tolerance: number): boolean;
+            /**
+             * Gets the boundary of this geometry.
+             */
+            getBoundary(): Geometry;
+            /**
+             * Returns the dimension of this Geometrys inherent boundary.
+             */
+            getBoundaryDimension(): number;
+            /**
+             * Returns the dimension of this geometry.
+             */
+            getDimension(): number;
+            /**
+             * Returns the name of this Geometry's actual class.
+             */
+            getGeometryType(): string;
+            /**
+             * Tests whether this Geometry is topologically valid, according to the OGC SFS specification.
+             */
+            isValid(): boolean;
         }
 
         /**
@@ -2310,12 +2633,12 @@ declare namespace jsts {
         /**
          * Models a collection of Polygons.
          * As per the OGC SFS specification, the Polygons in a MultiPolygon
-         * may not overlap, and may only touch at single points. This allows 
+         * may not overlap, and may only touch at single points. This allows
          * the topological point-set semantics to be well-defined.
          */
         export class MultiPolygon extends GeometryCollection {
             /**
-             * polygons - the Polygons for this MultiPolygon, or null or an empty 
+             * polygons - the Polygons for this MultiPolygon, or null or an empty
              * array to create the empty geometry. Elements may be empty Polygons,
              * but not nulls. The polygons must conform to the assertions specified
              * in the OpenGIS Simple Features Specification for SQL.

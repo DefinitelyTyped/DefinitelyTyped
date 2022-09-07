@@ -21,9 +21,13 @@
     "files": [
         "index.d.ts",
         "test/nightwatch-tests.ts",
-        "test/testExpect.ts",
-        "test/testProgrammaticApi.ts",
         "test/react.tsx",
-        "test/testComponent.ts"
+        "test/testActions.ts",
+        "test/testChromiumClientCommands.ts",
+        "test/testClientCommands.ts",
+        "test/testComponent.ts",
+        "test/testDescribe.ts",
+        "test/testExpect.ts",
+        "test/testProgrammaticApi.ts"
     ]
 }

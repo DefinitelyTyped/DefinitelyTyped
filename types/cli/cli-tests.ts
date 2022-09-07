@@ -179,3 +179,27 @@ cli.main(function (args, options) {
 
     this.ok('Listening on port ' + options.port);
 });
+
+// Example of exiting the app + type narrowing
+
+function sampleFatalLog(data: string | null) {
+    if (typeof data !== "string") {
+        cli.fatal("Canot proceed without data being a string");
+    }
+
+    cli.ok(`Data received and string has length ${data.length} ✅`);
+    return data;
+}
+
+function sampleCliExit(data: number | string | boolean) {
+    if (typeof data === "boolean") {
+        return cli.exit(2)
+    }
+
+    if (typeof data === "number") {
+        return cli.exit(data);
+    }
+
+    cli.ok(`String data received, exiting OK`);
+    return cli.exit(0);
+}

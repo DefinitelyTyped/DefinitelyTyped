@@ -662,11 +662,6 @@ attributes.forEach((value, key) => {
 });
 googletag.pubads().set('adsense_ad_format', '250x250_as');
 
-// Explicitly binds provided functions to globalThis.
-googletag.cmd.push(function test() {
-    console.log(this.googletag.pubadsReady);
-});
-
 // Rewarded ads for web have launched.
 targetSlot = (
     googletag.defineOutOfPageSlot('/1234567/sports', googletag.enums.OutOfPageFormat.REWARDED) as googletag.Slot
@@ -722,4 +717,39 @@ types.forEach(type => {
     googletag.pubads().addEventListener(type, event => {
         console.log(event);
     });
+});
+
+// Configuration for the component auction.
+const componentAuctionConfig = {
+    seller: 'https://testSeller.com', // should be https and the same as
+    // decisionLogicUrl's origin
+    decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+    interestGroupBuyers: ['https://example-buyer.com'],
+    auctionSignals: { auction_signals: 'auction_signals' },
+    sellerSignals: { seller_signals: 'seller_signals' },
+    perBuyerSignals: {
+        // listed on interestGroupBuyers
+        'https://example-buyer.com': {
+            per_buyer_signals: 'per_buyer_signals',
+        },
+    },
+};
+const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+// To add configKey to the component auction:
+auctionSlot.setConfig({
+    componentAuction: [
+        {
+            configKey: 'https://testSeller.com',
+            auctionConfig: componentAuctionConfig,
+        },
+    ],
+});
+// To remove configKey from the component auction:
+auctionSlot.setConfig({
+    componentAuction: [
+        {
+            configKey: 'https://testSeller.com',
+            auctionConfig: null,
+        },
+    ],
 });

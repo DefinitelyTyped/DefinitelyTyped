@@ -144,6 +144,20 @@ management
             });
     });
 
+// Fetch a user's organizations
+management.users.getUserOrganizations({ id: 'my_id' }).then((organizations: auth0.Organization[]) => {
+    console.log(organizations);
+});
+
+// Fetch a user's organizations using cb style
+management.users.getUserOrganizations({ id: 'my_id' }, (err, orgs) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(orgs);
+});
+
 auth.requestChangePasswordEmail({
     client_id: 'client_id',
     connection: 'My-Connection',

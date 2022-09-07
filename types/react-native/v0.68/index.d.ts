@@ -25,7 +25,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -6336,6 +6335,12 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
+     * Controls whether the ScrollView should automatically adjust its contentInset and
+     * scrollViewInsets when the Keyboard changes its size. The default value is false.
+     */
+    automaticallyAdjustKeyboardInsets?: boolean | undefined;
+
+    /**
      * Controls whether iOS should automatically adjust the scroll indicator
      * insets. The default value is true. Available on iOS 13 and later.
      */
@@ -6937,6 +6942,7 @@ export interface ActionSheetIOSOptions {
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
+    cancelButtonTintColor?: ColorValue | ProcessedColorValue | undefined;
     userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }

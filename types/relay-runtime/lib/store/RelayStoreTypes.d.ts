@@ -419,141 +419,141 @@ interface OperationDescriptor {
 
 export type LogEvent =
     | Readonly<{
-        name: 'suspense.fragment',
-        data: unknown,
-        fragment: ReaderFragment,
-        isRelayHooks: boolean,
-        isMissingData: boolean,
-        isPromiseCached: boolean,
-        pendingOperations: ReadonlyArray<RequestDescriptor>,
-    }>
+          name: 'suspense.fragment';
+          data: unknown;
+          fragment: ReaderFragment;
+          isRelayHooks: boolean;
+          isMissingData: boolean;
+          isPromiseCached: boolean;
+          pendingOperations: ReadonlyArray<RequestDescriptor>;
+      }>
     | Readonly<{
-        name: 'suspense.query',
-        fetchPolicy: string,
-        isPromiseCached: boolean,
-        operation: OperationDescriptor,
-        queryAvailability?: OperationAvailability | undefined,
-        renderPolicy: RenderPolicy,
-    }>
+          name: 'suspense.query';
+          fetchPolicy: string;
+          isPromiseCached: boolean;
+          operation: OperationDescriptor;
+          queryAvailability?: OperationAvailability | undefined;
+          renderPolicy: RenderPolicy;
+      }>
     | Readonly<{
-        name: 'queryresource.fetch';
-        /**
-         * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
-         */
-        resourceID: number;
-        operation: OperationDescriptor;
-        profilerContext: unknown;
-        fetchPolicy: FetchPolicy;
-        renderPolicy: RenderPolicy;
-        queryAvailability: OperationAvailability;
-        shouldFetch: boolean;
-    }>
+          name: 'queryresource.fetch';
+          /**
+           * ID of this query resource request and will be the same if there is an associated queryresource.retain event.
+           */
+          resourceID: number;
+          operation: OperationDescriptor;
+          profilerContext: unknown;
+          fetchPolicy: FetchPolicy;
+          renderPolicy: RenderPolicy;
+          queryAvailability: OperationAvailability;
+          shouldFetch: boolean;
+      }>
     | Readonly<{
-        name: 'queryresource.retain';
-        resourceID: number;
-        // value from ProfilerContext
-        profilerContext: unknown;
-    }>
+          name: 'queryresource.retain';
+          resourceID: number;
+          // value from ProfilerContext
+          profilerContext: unknown;
+      }>
     | Readonly<{
-        name: 'network.info';
-        networkRequestId: number;
-        info: unknown;
-    }>
+          name: 'network.info';
+          networkRequestId: number;
+          info: unknown;
+      }>
     | Readonly<{
-        name: 'network.start';
-        networkRequestId: number;
-        params: RequestParameters;
-        variables: Variables;
-        cacheConfig: CacheConfig;
-    }>
+          name: 'network.start';
+          networkRequestId: number;
+          params: RequestParameters;
+          variables: Variables;
+          cacheConfig: CacheConfig;
+      }>
     | Readonly<{
-        name: 'network.next';
-        networkRequestId: number;
-        response: GraphQLResponse;
-    }>
+          name: 'network.next';
+          networkRequestId: number;
+          response: GraphQLResponse;
+      }>
     | Readonly<{
-        name: 'network.error';
-        networkRequestId: number;
-        error: Error;
-    }>
+          name: 'network.error';
+          networkRequestId: number;
+          error: Error;
+      }>
     | Readonly<{
-        name: 'network.complete';
-        networkRequestId: number;
-    }>
+          name: 'network.complete';
+          networkRequestId: number;
+      }>
     | Readonly<{
-        name: 'network.unsubscribe';
-        networkRequestId: number;
-    }>
+          name: 'network.unsubscribe';
+          networkRequestId: number;
+      }>
     | Readonly<{
-        name: 'execute.start';
-        executeId: number;
-        params: RequestParameters;
-        variables: Variables;
-        cacheConfig: CacheConfig;
-    }>
+          name: 'execute.start';
+          executeId: number;
+          params: RequestParameters;
+          variables: Variables;
+          cacheConfig: CacheConfig;
+      }>
     | Readonly<{
-        name: "execute.next";
-        executeId: number;
-        response: GraphQLResponse;
-        duration: number;
-    }>
+          name: 'execute.next';
+          executeId: number;
+          response: GraphQLResponse;
+          duration: number;
+      }>
     | Readonly<{
-        name: 'execute.async.module';
-        executeId: number;
-        operationName: string;
-        duration: number;
-    }>
+          name: 'execute.async.module';
+          executeId: number;
+          operationName: string;
+          duration: number;
+      }>
     | Readonly<{
-        name: 'execute.flight.payload_deserialize';
-        executeId: number;
-        operationName: string;
-        duration: number;
-    }>
+          name: 'execute.flight.payload_deserialize';
+          executeId: number;
+          operationName: string;
+          duration: number;
+      }>
     | Readonly<{
-        name: 'execute.error';
-        executeId: number;
-        error: Error;
-    }>
+          name: 'execute.error';
+          executeId: number;
+          error: Error;
+      }>
     | Readonly<{
-        name: 'execute.complete';
-        executeId: number;
-    }>
+          name: 'execute.complete';
+          executeId: number;
+      }>
     | Readonly<{
-        name: 'store.publish';
-        source: RecordSource;
-        optimistic: boolean;
-    }>
+          name: 'store.publish';
+          source: RecordSource;
+          optimistic: boolean;
+      }>
     | Readonly<{
-        name: 'store.snapshot';
-    }>
+          name: 'store.snapshot';
+      }>
     | Readonly<{
-        name: 'store.restore';
-    }>
+          name: 'store.restore';
+      }>
     | Readonly<{
-        name: 'store.gc';
-        references: DataIDSet;
-    }>
+          name: 'store.gc';
+          references: DataIDSet;
+      }>
     | Readonly<{
-        name: 'store.notify.start';
-        sourceOperation?: OperationDescriptor | undefined;
-    }>
+          name: 'store.notify.start';
+          sourceOperation?: OperationDescriptor | undefined;
+      }>
     | Readonly<{
-        name: 'store.notify.complete';
-        sourceOperation?: OperationDescriptor | undefined;
-        updatedRecordIDs: DataIDSet;
-        invalidatedRecordIDs: DataIDSet;
-    }>
+          name: 'store.notify.complete';
+          sourceOperation?: OperationDescriptor | undefined;
+          updatedRecordIDs: DataIDSet;
+          invalidatedRecordIDs: DataIDSet;
+      }>
     | Readonly<{
-        name: 'store.notify.subscription';
-        sourceOperation?: OperationDescriptor | undefined;
-        snapshot: Snapshot;
-        nextSnapshot: Snapshot;
-    }>
+          name: 'store.notify.subscription';
+          sourceOperation?: OperationDescriptor | undefined;
+          snapshot: Snapshot;
+          nextSnapshot: Snapshot;
+      }>
     | Readonly<{
-        name: 'entrypoint.root.consume';
-        profilerContext: unknown;
-        rootModuleID: string;
-    }>;
+          name: 'entrypoint.root.consume';
+          profilerContext: unknown;
+          rootModuleID: string;
+      }>;
 
 export type LogFunction = (logEvent: LogEvent) => void;
 
@@ -1014,3 +1014,36 @@ export interface ReactFlightReachableQuery {
 }
 
 export type ReactFlightPayloadDeserializer = (tree: ReactFlightServerTree) => ReactFlightClientResponse;
+
+interface FieldLocation {
+    path: string;
+    owner: string;
+}
+
+export type MissingRequiredFields =
+    | Readonly<{ action: 'THROW'; field: FieldLocation }>
+    | Readonly<{ action: 'LOG'; fields: FieldLocation[] }>;
+
+export interface RelayResolverError {
+    field: FieldLocation;
+    error: Error;
+}
+
+export type RelayResolverErrors = RelayResolverError[];
+
+/**
+ * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
+ * readUpdatableFragment_EXPERIMENTAL.
+ */
+export interface UpdatableData<TData> {
+    readonly updatableData: TData;
+}
+
+/**
+ * A linked field where an updatable fragment is spread has the type
+ * HasUpdatableSpread.
+ * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
+ */
+export interface HasUpdatableSpread<TFragmentType> {
+    readonly $updatableFragmentSpreads: TFragmentType;
+}

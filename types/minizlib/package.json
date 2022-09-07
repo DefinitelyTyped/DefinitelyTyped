@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "minipass": "^3.3.5"
+    }
+}
