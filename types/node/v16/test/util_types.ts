@@ -56,11 +56,12 @@ if (types.isInt16Array(object)) {
 if (types.isInt32Array(object)) {
     object; // $ExpectType Int32Array
 }
+
 if (types.isMap(object)) {
     object; // $ExpectType Map<unknown, unknown>
 
     if (types.isMap(readonlyMapOrRecord)) {
-        readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any>
+        readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || ReadonlyMap<any, any> | Map<unknown, unknown>
     }
 }
 if (types.isNativeError(object)) {

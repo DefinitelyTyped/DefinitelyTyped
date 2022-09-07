@@ -24,6 +24,6 @@ if (weak.isWeakRef(anyVar)) {
 }
 
 if (weak.isDead(weakReference)) {
-    const a = weakReference; // $ExpectType WeakRef<undefined>
+    const a = weakReference; // $ExpectType WeakRef<undefined> || WeakRef<{ a: number; }>
     const value = weak.get(weakReference); // undefined only possible
 }

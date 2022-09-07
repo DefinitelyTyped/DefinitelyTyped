@@ -31,6 +31,10 @@ Tooltip.Default.allowList;
 Tooltip.Default.offset;
 Tooltip.Default.popperConfig;
 
+Tooltip.Default.allowList['*'];
+Tooltip.Default.allowList['*'].push(/^data-my-app-[\w-]+/);
+Tooltip.Default.allowList['td'];
+
 Tooltip.DefaultType.animation; // $ExpectType string
 Tooltip.DefaultType.container; // $ExpectType string
 Tooltip.DefaultType.delay; // $ExpectType string
@@ -77,3 +81,4 @@ $('.alert').tooltip('enable'); // $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip('disable'); // $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
 $('.alert').tooltip('update'); // $ExpectType JQuery<HTMLElement>
+$('.alert').tooltip('setContent'); // $ExpectType JQuery<HTMLElement>

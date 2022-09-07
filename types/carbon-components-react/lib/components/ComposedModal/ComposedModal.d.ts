@@ -11,7 +11,7 @@ export interface ComposedModalProps extends Omit<ReactDivAttr, ExcludedAttribute
     onClose?(): boolean | void;
     open?: boolean | undefined;
     preventCloseOnClickOutside?: boolean | undefined;
-    selectedPrimaryFocus?: string | undefined;
+    selectorPrimaryFocus?: string | undefined;
     selectorsFloatingMenus?: readonly string[] | undefined;
     size?: 'xs' | 'sm' | 'md' | 'lg' | undefined;
     forwardedRef?: React.ForwardedRef<HTMLDivElement>;

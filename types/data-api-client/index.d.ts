@@ -43,7 +43,7 @@ declare namespace Client {
                 | ((prevResult: { insertId?: any }) => any),
         ): Transaction;
 
-        rollback: (error: Error, status: any) => void;
+        rollback(cb: ((error: Error, status: any) => void)): Transaction;
         commit: () => Promise<void>;
     }
 

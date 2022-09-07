@@ -1,4 +1,4 @@
-// Type definitions for parse-path 5.0
+// Type definitions for parse-path 7.0
 // Project: https://github.com/IonicaBizau/parse-path
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,12 +9,18 @@ declare namespace parsePath {
     interface ParsedPath {
         /** The url hash. */
         hash: string;
+        /** The url domain (including subdomain and port). */
+        host: string;
         /** The input url. */
         href: string;
         /**
          * @default ''
          */
         password: string;
+        /**
+         * Whether the parsing failed or not.
+         */
+        parse_failed: boolean;
         /** The url pathname. */
         pathname: string;
         /**

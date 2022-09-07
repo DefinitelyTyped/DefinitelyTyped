@@ -254,3 +254,33 @@ if (pano.aroundControl) {
     pano.aroundControl.getElement();
 }
 pano.controls[0].clear();
+
+// HeatMap Tests
+// https://navermaps.github.io/maps.js.ncp/docs/naver.maps.visualization.WeightedLocation.html#toc0
+// https://navermaps.github.io/maps.js.ncp/docs/naver.maps.visualization.HeatMap.html#setData
+
+const map5 = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10,
+});
+
+const heatmapData = [
+    new naver.maps.visualization.WeightedLocation(37.5529258, 126.9730588, Math.random()),
+    new naver.maps.visualization.WeightedLocation(37.5529088, 126.9732841, Math.random()),
+    new naver.maps.visualization.WeightedLocation(37.5529343, 126.9735738, Math.random()),
+    new naver.maps.visualization.WeightedLocation(37.5526791, 126.9736274, Math.random()),
+    new naver.maps.visualization.WeightedLocation(37.5526877, 126.9733270, Math.random()),
+    new naver.maps.visualization.WeightedLocation(37.5526877, 126.9730910, Math.random()),
+];
+
+const heatmap = new naver.maps.visualization.HeatMap({
+    map: map5,
+    data: heatmapData,
+});
+
+const getHeatmapData = heatmap.getData();
+heatmap.setData([
+    ...heatmapData,
+    new naver.maps.visualization.WeightedLocation(37.5525090, 126.9731125, Math.random()),
+]);
+heatmap.redraw();

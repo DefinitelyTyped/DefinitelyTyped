@@ -8,6 +8,7 @@
 
 import {
     ArrayLike,
+    BaseType,
     selection,
     select,
     selectAll,
@@ -520,7 +521,7 @@ exitTransition = exitTransition
 
 // transition(...) ----------------------------------------------------------
 
-let topTransition: d3Transition.Transition<HTMLElement, any, null, undefined>;
+let topTransition: d3Transition.Transition<BaseType, any, null, undefined>;
 topTransition = d3Transition.transition('top');
 
 // test creation from existing transition
@@ -530,7 +531,7 @@ topTransition = d3Transition.transition(enterTransition);
 // tests with pre-existing datum (typed as string)
 // set datum with a type of string
 select('html').datum('test');
-let topTransition2: d3Transition.Transition<HTMLElement, string, null, undefined>;
+let topTransition2: d3Transition.Transition<BaseType, string, null, undefined>;
 topTransition2 = d3Transition.transition<string>('top');
 topTransition2 = d3Transition.transition<string>(enterTransition);
 

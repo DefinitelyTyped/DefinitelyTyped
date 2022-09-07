@@ -1,12 +1,11 @@
 {
     "private": true,
     "dependencies": {
-        "@types/parse5": "^6.0.3"
+        "parse5": "^7.0.0"
     },
-    "types": "index",
-    "typesVersions": {
-        "<=4.0": {
-            "*": ["ts4.0/*"]
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
         }
     }
 }

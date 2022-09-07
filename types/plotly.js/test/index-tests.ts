@@ -254,12 +254,12 @@ const graphDiv = '#test';
     ];
     const template: Template = {
         data: {
-            bar: { marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' },
-            scatter: {
+            bar: [{ marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' }],
+            scatter: [{
                 mode: 'lines+markers',
                 line: { color: 'red', width: 3 },
                 marker: { color: 'red', size: 8, symbol: 'circle-open' },
-            },
+            }],
         },
         layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };

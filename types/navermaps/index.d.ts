@@ -4,6 +4,7 @@
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
 //                 Minchul Joh <https://github.com/fclemonschool>
 //                 Suhwan Cha <https://github.com/suhwancha>
+//                 Yellowinq <https://github.com/hig4342>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /**
@@ -1234,12 +1235,12 @@ declare namespace naver.maps {
         class HeatMap {
             constructor(heatMapOptions?: HeatMapOptions);
             getColorMap(): SpectrumStyle;
-            getData(): LatLng[] | PointArrayLiteral[];
+            getData(): LatLng[] | PointArrayLiteral[] | WeightedLocation[];
             getMap(): Map | null;
             getOptions(key?: string): HeatMapOptions;
             redraw(): void;
             setColorMap(colormap: SpectrumStyle, inReverse: boolean): void;
-            setData(data: LatLng[] | PointArrayLiteral[]): void;
+            setData(data: LatLng[] | PointArrayLiteral[] | WeightedLocation[]): void;
             setMap(map: Map | null): void;
             setOptions(key: string, value: any): void;
             setOptions(options: HeatMapOptions): void;

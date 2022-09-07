@@ -122,7 +122,7 @@ const cy = cytoscape({
 
     elements: {
         nodes: [
-            { data: { id: 'a', parent: 'b' }, position: { x: 215, y: 85 } },
+            { data: { id: 'a', parent: 'b', foo: 'bar' }, position: { x: 215, y: 85 } },
             { data: { id: 'b' } },
             { data: { id: 'c', parent: 'b' }, position: { x: 300, y: 85 } },
             { data: { id: 'd' }, position: { x: 215, y: 175 } },
@@ -525,6 +525,16 @@ cy.removeData('cytoscape core');
 // $ExpectType Core
 cy.removeData();
 
+// #eles/data
+aliases(eles.data, eles.attr);
+
+eles.data();
+// $ExpectType CollectionReturnValue
+cy.$('#a').data('foo', 'baz');
+cy.$('#a').data('foo');
+// $ExpectType CollectionReturnValue
+cy.$('#a').data({ foo: 'bar' });
+
 // TODO: tests for data flow
 
 const loops = oneOf(true, false);
@@ -574,6 +584,8 @@ const sizes: number[] = [
 
 aliases(eles.boundingBox, eles.boundingbox);
 aliases(eles.renderedBoundingBox, eles.renderedBoundingbox);
+
+node.layoutDimensions({ nodeDimensionsIncludeLabels: true });
 
 const flags: boolean[] = [node.grabbed(), node.grabbable(), node.locked(), ele.active()];
 nodes.lock();

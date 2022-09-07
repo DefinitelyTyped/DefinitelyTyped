@@ -369,3 +369,8 @@ const defaultPosition: Content = {
     text: 'foobar',
     absolutePosition: {} // defaults to 0-0
 };
+
+const unbreakableList: Content = {
+    unbreakable: true,
+    ul: ['One', 'Two', 'Three']
+};

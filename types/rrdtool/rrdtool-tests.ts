@@ -22,21 +22,21 @@ a = 'DS:AvgReqDur:COMPUTE:Duration,Requests,0,EQ,1,Requests,IF,/';
 a = 'DS:mem:GAUGE:1m:0:671744';
 
 // Test invalid data source strings
-// $ExpectError
+// @ts-expect-error
 a = 'DSS:mem:GAUGE:600:0:671744';
-// $ExpectError
+// @ts-expect-error
 a = 'DS:mem:NULL:600:0:671744';
-// $ExpectError
+// @ts-expect-error
 a = 'DS:mem:GAUGE:n:0:671744';
-// $ExpectError
+// @ts-expect-error
 a = 'DS:mem:GAUGE:600:n:671744';
-// $ExpectError
+// @ts-expect-error
 a = 'DS:mem:GAUGE:600:0:n';
 
 let b: DataSource<{ mem: number }>;
 // OK
 b = 'DS:mem:GAUGE:600:0:671744';
-// $ExpectError
+// @ts-expect-error
 b = 'DS:test:GAUGE:600:0:671744';
 
 let c: RoundRobinArchive;
@@ -73,15 +73,15 @@ c = 'RRA:AVERAGE:0.5:1h:18M';
 c = 'RRA:AVERAGE:0.5:1d:10y';
 
 // Test invalid round robin archive strings
-// $ExpectError
+// @ts-expect-error
 c = 'RRAA:AVERAGE:0.5:12:24';
-// $ExpectError
+// @ts-expect-error
 c = 'RRA:NULL:0.5:12:24';
-// $ExpectError
+// @ts-expect-error
 c = 'RRA:AVERAGE:n:12:24';
-// $ExpectError
+// @ts-expect-error
 c = 'RRA:AVERAGE:0.5:n:24';
-// $ExpectError
+// @ts-expect-error
 c = 'RRA:AVERAGE:0.5:12:n';
 
 // $ExpectType number
@@ -92,8 +92,10 @@ let db1: RrdtoolDatabase<{ test: number }>;
 db1 = open(filename);
 db1 = create(filename, { start, step: '1m', force: false }, [
     'RRA:AVERAGE:0.5:1:10',
-    'DS:mem:GAUGE:1:0:100', // $ExpectError
-    'DS:var:GAUGE:1:0:100', // $ExpectError
+    // @ts-expect-error
+    'DS:mem:GAUGE:1:0:100',
+    // @ts-expect-error
+    'DS:var:GAUGE:1:0:100',
     'RRA:AVERAGE:0.5:1:10',
     'DS:test:GAUGE:1:0:100',
     'RRA:AVERAGE:0.5:1:10',
@@ -101,9 +103,9 @@ db1 = create(filename, { start, step: '1m', force: false }, [
 
 db1.update(start + 0, { test: 15 });
 db1.update(start + 1, { test: 90 }, () => {});
-// $ExpectError
+// @ts-expect-error
 db1.update(start + 1, { mem: 90 }, () => {});
-// $ExpectError
+// @ts-expect-error
 db1.update(start + 1, { test: '90' }, () => {});
 
 const db2 = create(filename, { start, step: 1, force: false }, [
@@ -113,7 +115,7 @@ const db2 = create(filename, { start, step: 1, force: false }, [
 db2.update(start + 0, { test: 15 });
 db2.update(start + 1, { test: 90 }, () => {});
 db2.update(start + 1, { mem: 90 }, () => {});
-// $ExpectError
+// @ts-expect-error
 db2.update(start + 1, { test: '90' }, () => {});
 
 const db3 = open(filename);

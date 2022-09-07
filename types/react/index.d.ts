@@ -97,7 +97,7 @@ declare namespace React {
      * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
      *   to component.
      *
-     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     * `C` must be the type _of_ a React component so you need to use typeof as in `React.ElementRef<typeof MyComponent>`.
      *
      * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
      *       `React.forwardRef()` returns.
@@ -1272,7 +1272,6 @@ declare namespace React {
         shiftKey: boolean;
         /** @deprecated */
         which: number;
-        target: EventTarget & T;
     }
 
     interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
@@ -2143,6 +2142,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {

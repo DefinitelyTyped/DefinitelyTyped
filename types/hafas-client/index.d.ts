@@ -1,4 +1,4 @@
-// Type definitions for hafas-client 5.24
+// Type definitions for hafas-client 5.25
 // Project: https://github.com/public-transport/hafas-client
 // Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -250,13 +250,14 @@ declare namespace createClient {
     }
     interface Feature {
         type: 'Feature';
-        properties: object;
+        properties: Station | Stop | Location | {};
         geometry: Geometry;
     }
     interface FeatureCollection {
         type: 'FeatureCollection';
         features: ReadonlyArray<Feature>;
     }
+    type PrognosisType = 'prognosed' | 'calculated';
     /**
      * A stopover represents a vehicle stopping at a stop/station at a specific time.
      */
@@ -281,6 +282,8 @@ declare namespace createClient {
         remarks?: ReadonlyArray<Hint | Status | Warning>;
         passBy?: boolean;
         cancelled?: boolean;
+        departurePrognosisType?: PrognosisType;
+        arrivalPrognosisType?: PrognosisType;
     }
     /**
      * Trip – a vehicle stopping at a set of stops at specific times
@@ -350,6 +353,7 @@ declare namespace createClient {
         currentTripPosition?: Location;
         origin?: Station | Stop | Location;
         destination?: Station | Stop | Location;
+        prognosisType?: PrognosisType;
     }
     /**
      * Leg of journey
@@ -390,6 +394,9 @@ declare namespace createClient {
         polyline?: FeatureCollection;
         remarks?: ReadonlyArray<Hint | Status | Warning>;
         currentLocation?: Location;
+        departurePrognosisType?: PrognosisType;
+        arrivalPrognosisType?: PrognosisType;
+        checkin?: boolean;
     }
     interface ScheduledDays {
         [day: string]: boolean;

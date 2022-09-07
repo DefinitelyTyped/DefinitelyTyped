@@ -21,7 +21,7 @@ export type RefetchFn<TQuery extends OperationType, TOptions = Options> = Refetc
 export type RefetchFnDynamic<
     TQuery extends OperationType,
     TKey extends KeyType | null,
-    TOptions = Options
+    TOptions = Options,
 > = RefetchInexactDynamicResponse<TQuery, TOptions> & RefetchExactDynamicResponse<TQuery, TOptions>;
 
 export type RefetchInexact<TQuery extends OperationType, TOptions> = (

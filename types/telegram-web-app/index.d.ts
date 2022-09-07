@@ -1,6 +1,6 @@
-// Type definitions for non-npm package telegram-web-app 1.0
+// Type definitions for non-npm package telegram-web-app 6.2
 // Project: https://telegram.org/js/telegram-web-app.js
-// Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
+// Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>, MKRhere <https://github.com/MKRhere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Telegram: Telegram;
@@ -87,6 +87,11 @@ interface WebApp {
      */
     backgroundColor: string;
     /**
+     * True, if the confirmation dialog is enabled while the user is trying to close the Web App.
+     * False, if the confirmation dialog is disabled.
+     */
+    isClosingConfirmationEnabled: boolean;
+    /**
      * An object for controlling the back button which can be displayed in the
      * header of the Web App in the Telegram interface.
      */
@@ -118,20 +123,28 @@ interface WebApp {
      */
     setBackgroundColor(color: 'bg_color' | 'secondary_bg_color' | string): void;
     /**
+     * A method that enables a confirmation dialog while the user is trying to close the Web App.
+     */
+    enableClosingConfirmation(): void;
+    /**
+     * A method that disables the confirmation dialog while the user is trying to close the Web App.
+     */
+    disableClosingConfirmation(): void;
+    /**
      * A method that sets the app event handler. Check the list of available
      * events.
      */
     onEvent(
-        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked' | 'popupClosed',
         eventHandler: () => void,
     ): void;
-    onEvent(eventType: 'viewPortChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    onEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     /** A method that deletes a previously set event handler. */
     offEvent(
-        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
+        eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked' | 'popupClosed',
         eventHandler: () => void,
     ): void;
-    offEvent(eventType: 'viewPortChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
+    offEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     /**
      * A method used to send data to the bot. When this method is called, a
      * service message is sent to the bot containing the data data of the length
@@ -160,6 +173,25 @@ interface WebApp {
      *  called and the invoice status will be passed as the first argument.
      */
     openInvoice(url: string, callback: () => void): void;
+    /**
+     * A method that shows a native popup described by the params argument of the type PopupParams.
+     * The Web App will receive the event popupClosed when the popup is closed. If an optional
+     * callback parameter was passed, the callback function will be called and the field id of the
+     * pressed button will be passed as the first argument.
+     */
+    showPopup(params: PopupParams, callback?: (button_id: string) => void): void;
+    /**
+     * A method that shows message in a simple alert with a 'Close' button. If an optional callback
+     * parameter was passed, the callback function will be called when the popup is closed.
+     */
+    showAlert(message: string, callback?: () => void): void;
+    /**
+     * A method that shows message in a simple confirmation window with 'OK' and 'Cancel' buttons.
+     * If an optional callback parameter was passed, the callback function will be called when the
+     * popup is closed and the first argument will be a boolean indicating whether the user
+     * pressed the 'OK' button.
+     */
+    showConfirm(message: string, callback?: (ok?: boolean) => void): void;
     /**
      * A method that informs the Telegram app that the Web App is ready to be
      * displayed. It is recommended to call this method as early as possible, as
@@ -221,6 +253,59 @@ interface ThemeParams {
      */
     secondary_bg_color: string;
 }
+
+/**
+ * This object describes the native popup.
+ */
+interface PopupParams {
+    /**
+     * The text to be displayed in the popup title, 0-64 characters.
+     */
+    title?: string;
+    /**
+     * The message to be displayed in the body of the popup, 1-256 characters.
+     */
+    message: string;
+    /**
+     * List of buttons to be displayed in the popup, 1-3 buttons. Set to [{“type”:“close”}] by default.
+     */
+    buttons?: PopupButton[];
+}
+
+/**
+ * This object describes the native popup button.
+ */
+type PopupButton = {
+    /**
+     * Identifier of the button, 0-64 characters. Set to empty string by default.
+     * If the button is pressed, its id is returned in the callback and the popupClosed event.
+     */
+    id?: string;
+    /**
+     * Type of the button. Set to default by default.
+     * Can be one of these values:
+     * - `default`, a button with the default style,
+     * - `ok`, a button with the localized text “OK”,
+     * - `close`, a button with the localized text “Close”,
+     * - `cancel`, a button with the localized text “Cancel”,
+     * - `destructive`, a button with a style that indicates a destructive action (e.g. “Remove”, “Delete”, etc.).
+     */
+    type?: 'default' | 'ok' | 'close' | 'cancel' | 'destructive';
+    /**
+     * The text to be displayed on the button, 0-64 characters.
+     * Required if type is default or destructive. Irrelevant for other types.
+     */
+    text?: string;
+} & (
+    | {
+          type: 'default' | 'destructive';
+          text: string;
+      }
+    | {
+          type: 'ok' | 'close' | 'cancel';
+          text?: string;
+      }
+);
 
 /**
  * This object controls the back button, which can be displayed in the header of
@@ -426,6 +511,8 @@ interface WebAppUser {
     username?: string;
     /** IETF language tag of the user's language. Returns in user field only. */
     language_code?: string;
+    /** True, if this user is a Telegram Premium user. */
+    is_premium?: true;
     /**
      * URL of the user’s profile photo. The photo can be in .jpeg or .svg formats.
      * Only returned for Web Apps launched from the attachment menu.

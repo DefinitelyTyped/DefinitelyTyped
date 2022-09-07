@@ -113,6 +113,9 @@ export type ReleaseType = 'major' | 'premajor' | 'minor' | 'preminor' | 'patch' 
 
 export interface Options {
     loose?: boolean | undefined;
+}
+
+export interface RangeOptions extends Options {
     includePrerelease?: boolean | undefined;
 }
 export interface CoerceOptions extends Options {

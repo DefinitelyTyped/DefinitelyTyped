@@ -40,5 +40,3 @@ export class CylinderGeometry extends BufferGeometry {
 
     static fromJSON(data: any): CylinderGeometry;
 }
-
-export { CylinderGeometry as CylinderBufferGeometry };

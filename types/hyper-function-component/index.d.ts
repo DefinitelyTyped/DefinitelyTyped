@@ -1,4 +1,4 @@
-// Type definitions for hyper-function-component 1.4
+// Type definitions for hyper-function-component 2.0
 // Project: https://hyper-function.com/hfc/intro
 // Definitions by: terry-fei <https://github.com/terry-fei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,3 +40,5 @@ interface HfcFloat {
 interface HfcAny {
     valueOf(): 'HFC_TYPE_ANY';
 }
+
+declare module "@hyper.fun/*";

@@ -21,6 +21,7 @@ export interface ShareAPIPolyfillOptions {
     linkedin?: boolean | undefined;
     telegram?: boolean | undefined;
     skype?: boolean | undefined;
+    pinterest?: boolean | undefined;
     language?: string | undefined;
 }
 

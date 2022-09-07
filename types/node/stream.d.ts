@@ -520,6 +520,18 @@ declare module 'stream' {
          */
         class Writable extends Stream implements NodeJS.WritableStream {
             /**
+             * A utility method for creating a `Writable` from a web `WritableStream`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static fromWeb(writableStream: streamWeb.WritableStream, options?: Pick<WritableOptions, 'decodeStrings' | 'highWaterMark' | 'objectMode' | 'signal'>): Writable;
+            /**
+             * A utility method for creating a web `WritableStream` from a `Writable`.
+             * @since v17.0.0
+             * @experimental
+             */
+            static toWeb(streamWritable: Writable): streamWeb.WritableStream;
+            /**
              * Is `true` if it is safe to call `writable.write()`, which means
              * the stream has not been destroyed, errored or ended.
              * @since v11.4.0

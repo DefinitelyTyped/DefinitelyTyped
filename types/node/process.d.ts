@@ -97,7 +97,7 @@ declare module 'process' {
             type UncaughtExceptionListener = (error: Error, origin: UncaughtExceptionOrigin) => void;
             /**
              * Most of the time the unhandledRejection will be an Error, but this should not be relied upon
-             * as *anything* can be thrown/rejected, it is therefore unsafe to assume the the value is an Error.
+             * as *anything* can be thrown/rejected, it is therefore unsafe to assume that the value is an Error.
              */
             type UnhandledRejectionListener = (reason: unknown, promise: Promise<unknown>) => void;
             type WarningListener = (warning: Error) => void;
@@ -590,7 +590,7 @@ declare module 'process' {
                  *
                  * The reason this is problematic is because writes to `process.stdout` in Node.js
                  * are sometimes _asynchronous_ and may occur over multiple ticks of the Node.js
-                 * event loop. Calling `process.exit()`, however, forces the process to exit_before_ those additional writes to `stdout` can be performed.
+                 * event loop. Calling `process.exit()`, however, forces the process to exit _before_ those additional writes to `stdout` can be performed.
                  *
                  * Rather than calling `process.exit()` directly, the code _should_ set the`process.exitCode` and allow the process to exit naturally by avoiding
                  * scheduling any additional work for the event loop:

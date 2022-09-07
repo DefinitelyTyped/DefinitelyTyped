@@ -1707,6 +1707,7 @@ export class OrganizationsManager {
 
 export class ManagementClient<A = AppMetadata, U = UserMetadata> {
     organizations: OrganizationsManager;
+    users: UsersManager;
 
     constructor(options: ManagementClientOptions);
 
@@ -2171,4 +2172,7 @@ export class UsersManager<A = AppMetadata, U = UserMetadata> {
 
     impersonate(userId: string, settings: ImpersonateSettingOptions): Promise<any>;
     impersonate(userId: string, settings: ImpersonateSettingOptions, cb: (err: Error, data: any) => void): void;
+
+    getUserOrganizations(data: ObjectWithId): Promise<Organization[]>;
+    getUserOrganizations(data: ObjectWithId, cb: (err: Error, orgs: Organization[]) => void): void;
 }

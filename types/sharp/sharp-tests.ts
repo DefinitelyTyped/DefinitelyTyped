@@ -488,3 +488,46 @@ sharp('input.tiff').jp2({ quality: 50 }).toFile('out.jp2');
 sharp('input.tiff').jp2({ lossless: true }).toFile('out.jp2');
 sharp('input.tiff').jp2({ tileWidth: 128, tileHeight: 128 }).toFile('out.jp2');
 sharp('input.tiff').jp2({ chromaSubsampling: '4:2:0' }).toFile('out.jp2');
+
+// 'failOn' input param
+sharp('input.tiff', { failOn: 'none' });
+sharp('input.tiff', { failOn: 'truncated' });
+sharp('input.tiff', { failOn: 'error' });
+sharp('input.tiff', { failOn: 'warning' });
+
+// Sharpen operation taking an object instead of three params
+sharp('input.tiff').sharpen().toBuffer();
+sharp('input.tiff').sharpen({ sigma: 2 }).toBuffer();
+sharp('input.tiff')
+  .sharpen({
+    sigma: 2,
+    m1: 0,
+    m2: 3,
+    x1: 3,
+    y2: 15,
+    y3: 15,
+  })
+  .toBuffer();
+
+// Affine operator + interpolator hash
+sharp()
+  .affine([[1, 0.3], [0.1, 0.7]], {
+     background: 'white',
+     interpolator: sharp.interpolators.nohalo
+  });
+
+sharp()
+  .affine([1, 1, 1, 1], {
+     background: 'white',
+     idx: 0,
+     idy: 0,
+     odx: 0,
+     ody: 0
+  });
+
+const bicubic: string = sharp.interpolators.bicubic;
+const bilinear: string = sharp.interpolators.bilinear;
+const locallyBoundedBicubic: string = sharp.interpolators.locallyBoundedBicubic;
+const nearest: string = sharp.interpolators.nearest;
+const nohalo: string = sharp.interpolators.nohalo;
+const vertexSplitQuadraticBasisSpline: string = sharp.interpolators.vertexSplitQuadraticBasisSpline;

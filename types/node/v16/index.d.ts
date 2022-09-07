@@ -114,6 +114,7 @@
 /// <reference path="stream/consumers.d.ts" />
 /// <reference path="stream/web.d.ts" />
 /// <reference path="string_decoder.d.ts" />
+/// <reference path="test.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="timers/promises.d.ts" />
 /// <reference path="tls.d.ts" />

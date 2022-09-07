@@ -9,7 +9,7 @@ import { PageLoadStrategy, UserPromptHandler, Platform } from 'selenium-webdrive
 import { Command } from 'selenium-webdriver/lib/command';
 import Symbols from 'selenium-webdriver/lib/symbols';
 import { ShadowRoot, ShadowRootPromise } from 'selenium-webdriver/lib/webdriver';
-import { HttpResponse } from 'selenium-webdriver/networkinterceptor';
+import { HttpResponse } from 'selenium-webdriver/devtools/networkinterceptor';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();

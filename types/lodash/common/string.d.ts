@@ -777,7 +777,7 @@ declare module "../index" {
         /**
          * @see _.words
          */
-        words(pattern?: string | RegExp): string[];
+        words(pattern?: string | RegExp): Collection<string>;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**

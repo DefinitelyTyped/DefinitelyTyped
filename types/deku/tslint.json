@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "export-just-namespace": false,
         "no-padding": false,
         "no-unnecessary-generics": false,

@@ -557,6 +557,27 @@ addAbortSignal(new AbortSignal(), new Readable());
     Readable.fromWeb(web, { emitClose: true });
 }
 
+{
+    const writable = new Writable();
+    // $ExpectType WritableStream<any>
+    Writable.toWeb(writable);
+}
+
+{
+    const web = new WritableStream();
+
+    // $ExpectType Writable
+    Writable.fromWeb(web);
+
+    // Handles subset of WritableStream param
+    // $ExpectType Writable
+    Writable.fromWeb(web, { objectMode: true });
+
+    // When the param includes unsupported WritableStream
+    // @ts-expect-error
+    Writable.fromWeb(web, { write: true });
+}
+
 async function testReadableStream() {
     const SECOND = 1000;
 
