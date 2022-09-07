@@ -1,10 +1,8 @@
 import * as jsonlint from 'jsonlint';
 
-const parse = jsonlint.parse(); // $ExpectType Parser
-
-parse('{"id":1234}');
+jsonlint.parse('{"id":1234}'); // $ExpectType {id: 1234}
 try{
-  parse('{id:1234}');
+  jsonlint.parse('{id:1234}'); // $ExpectType Error
 }catch(err){
   // should fail due to invalid JSON format.
 }

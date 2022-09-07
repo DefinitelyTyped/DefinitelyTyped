@@ -1,3 +1,5 @@
+// Definitions by: Timmatt Lee <https://github.com/Timmatt-Lee>
+
 /**
  * Parse a JSON string to Typescript Object. If there is an error will print it
  * as human readible.
