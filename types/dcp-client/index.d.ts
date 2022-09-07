@@ -1,4 +1,3 @@
-// Type definitions for dcp-client 1.0
 // Project: https://github.com/Distributed-Compute-Labs/dcp-client
 // Definitions by: Roman Fairushyn <https://github.com/roman5364>
 //                 Bryan Hoang <https://github.com/bryan-hoang>
