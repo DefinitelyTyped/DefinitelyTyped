@@ -4,10 +4,17 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
+    NightwatchAssertionsResult,
     NightwatchTests,
     PageObjectModel,
     ELEMENT_KEY,
+    JSON_WEB_OBJECT,
+    NightwatchNodeAssertionsResult,
 } from 'nightwatch';
+
+function isNightwatchAPI(v: NightwatchAPI) {}
+function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
+function isType<T>(v: T): T { return v; }
 
 //
 // ./tests/general.ts
@@ -139,6 +146,50 @@ const testGeneral: NightwatchTests = {
                 console.error('here');
             }, []);
     },
+    'test assert with async/await': async () => {
+        const attributeResult = browser.assert.attributeContains('input[name=q]', 'placeholder', 'Search');
+        isNightwatchAPI(attributeResult);
+        isNightwatchAssertionsResult<string>(await attributeResult);
+
+        const cssPropertyResult = browser.assert.cssProperty('input[name=q]', 'classList', 'searchbox');
+        isNightwatchAPI(cssPropertyResult);
+        isNightwatchAssertionsResult<string | number>(await cssPropertyResult);
+
+        const domPropertyResult = browser.assert.domPropertyContains('input[name=q]', 'classList', 'searchbox');
+        isNightwatchAPI(domPropertyResult);
+        isNightwatchAssertionsResult<any>(await domPropertyResult);
+
+        const elementsCountResult = browser.assert.elementsCount('input', 8);
+        isNightwatchAPI(elementsCountResult);
+        const elementsCountAwaitedResult = await elementsCountResult;
+        isType<JSON_WEB_OBJECT[]>(elementsCountAwaitedResult.value);
+        isType<string>(elementsCountAwaitedResult.WebdriverElementId);
+
+        const elementPresentResult = browser.assert.elementPresent('input');
+        isNightwatchAPI(elementPresentResult);
+        isNightwatchAssertionsResult<Array<{[ELEMENT_KEY]: string}>>(await elementPresentResult);
+
+        const hasAttributeResult = browser.assert.hasAttribute('input[name=q]', 'placeholder');
+        isNightwatchAPI(hasAttributeResult);
+        isNightwatchAssertionsResult<string[]>(await hasAttributeResult);
+
+        const selectedResult = browser.assert.selected('input[name=q]');
+        isNightwatchAPI(selectedResult);
+        isNightwatchAssertionsResult<boolean>(await selectedResult);
+
+        const textResult = browser.assert.textMatches('input[name=q]', /^Search/);
+        isNightwatchAPI(textResult);
+        isNightwatchAssertionsResult<string>(await textResult);
+
+        const urlResult = browser.assert.urlMatches('https://nightwatch.org');
+        isNightwatchAPI(urlResult);
+        isNightwatchAssertionsResult<string>(await urlResult);
+    },
+    'test node assertions with async/await': async () => {
+        const result = browser.assert.strictEqual('nightwatch', 'nightwatch');
+        isNightwatchAPI(result);
+        isType<NightwatchNodeAssertionsResult | Error>(await result);
+    }
 };
 
 //
@@ -284,6 +335,7 @@ const testPage = {
             .assert.title('Google') // deprecated
             .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .assert.strictEqual('Google', 'Google') // node assertion returning NightwatchAPI
             .assert.not.titleContains('DuckDuckGo')
             .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
@@ -291,6 +343,8 @@ const testPage = {
 
         // @ts-expect-error
         google.assert.not.not.elementPresent('@searchbar');
+        // @ts-expect-error
+        google.assert.not.strictEqual('nightwatch', 'nightwatch');
 
         browser.end();
     },

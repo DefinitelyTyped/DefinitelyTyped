@@ -4507,10 +4507,6 @@
             "libraryName": "resolve-pkg",
             "asOfVersion": "2.0.0"
         },
-        "responselike": {
-            "libraryName": "responselike",
-            "asOfVersion": "3.0.0"
-        },
         "rest-io": {
             "libraryName": "rest-io",
             "asOfVersion": "4.1.0"
@@ -5138,6 +5134,10 @@
         "tailwindcss": {
             "libraryName": "tailwindcss",
             "asOfVersion": "3.1.0"
+        },
+        "tailwindcss__typography": {
+            "libraryName": "@tailwindcss/typography",
+            "asOfVersion": "0.5.6"
         },
         "tcomb": {
             "libraryName": "tcomb",

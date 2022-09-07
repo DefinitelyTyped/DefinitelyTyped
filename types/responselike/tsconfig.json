@@ -2,28 +2,22 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "es2018.Promise"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@tailwindcss/*": [
-                "tailwindcss__*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "tailwindcss__typography-tests.ts"
+        "responselike-tests.ts"
     ]
 }
