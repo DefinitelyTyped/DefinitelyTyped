@@ -559,6 +559,11 @@ declare namespace SpotifyApi {
      */
     interface AddToQueueResponse extends VoidResponse {}
 
+    interface UsersQueueResponse {
+        currently_playing: TrackObjectFull | EpisodeObjectFull;
+        queue: (TrackObjectFull | EpisodeObjectFull)[];
+    }
+
     /**
      * Get recommendations based on seeds
      *
@@ -1640,6 +1645,10 @@ declare namespace SpotifyApi {
          * A description of the show.
          */
         description: string;
+        /**
+         * A description of the show. This field may contain HTML tags.
+         */
+        html_description: string;
         /**
          * Whether or not the show has explicit content (true = yes it does; false = no it does not OR unknown).
          */
