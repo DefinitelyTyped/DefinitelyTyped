@@ -1,6 +1,7 @@
 // Type definitions for dcp-client
 // Project: https://github.com/Distributed-Compute-Labs/dcp-client
 // Definitions by: Roman Fairushyn <https://github.com/roman5364>
+//                 Bryan Hoang <https://github.com/bryan-hoang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyType
 
 /* Wallet API Definitions */
