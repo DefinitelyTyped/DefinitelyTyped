@@ -46,9 +46,9 @@ declare namespace GM {
     }
     type Value = string | boolean | number | object;
     type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'TRACE' | 'OPTIONS' | 'CONNECT';
-    type Headers = {
+    interface Headers {
         [header: string]: string;
-    };
+    }
 
     interface XMLRequest<TContext = any> {
         /**
