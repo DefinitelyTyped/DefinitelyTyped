@@ -213,7 +213,7 @@ export interface ConnectionOptions {
      * The default security role to use for the session after connecting.
      */
     role?: string | undefined;
-    
+
     /**
      * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
      */
