@@ -3639,7 +3639,6 @@
 /types/jsonic/                                          @jacobbubu
 /types/jsonld/                                          @sandersn
 /types/jsonlines/                                       @raineorshine
-/types/jsonlint/                                        @timmatt-lee
 /types/jsonminify/                                      @no23reason @peterblazejewicz
 /types/jsonnet/                                         @hookclaw
 /types/jsonp/                                           @surenkov
