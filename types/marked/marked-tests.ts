@@ -263,17 +263,23 @@ marked.use(asyncExtension);
     const promiseMarked: Promise<string> = marked(md, {async: true});
     const notAsyncMarked: string = marked(md, {async: false});
     const defaultMarked: string = marked(md);
-    const callback: void = marked(md, (_: any, res: string) => { res; });
-    const asyncCallbackwithOpts: void = marked(md, {async: true}, (_: any, res: string) => { res; });
-    const notAsyncCallbackwithOpts: void = marked(md, {async: false}, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, {async: true}, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, {async: false}, (_: any, res: string) => { res; });
 
     const asyncMarkedParse: string = await marked.parse(md, {async: true});
     const promiseMarkedParse: Promise<string> = marked.parse(md, {async: true, headerIds: false});
     const notAsyncMarkedParse: string = marked.parse(md, {async: false});
     const defaultMarkedParse: string = marked.parse(md);
-    const callbackParse: void = marked.parse(md, (_: any, res: string) => { res; });
-    const asyncCallbackwithOptsParse: void = marked(md, {async: true}, (_: any, res: string) => { res; });
-    const notAsyncCallbackwithOptsParse: void = marked(md, {async: false}, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked.parse(md, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, {async: true}, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, {async: false}, (_: any, res: string) => { res; });
 })();
 
 // Tests for List and ListItem
