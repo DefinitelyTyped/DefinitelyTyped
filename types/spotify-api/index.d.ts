@@ -561,7 +561,7 @@ declare namespace SpotifyApi {
 
     interface UsersQueueResponse {
         currently_playing: TrackObjectFull | EpisodeObjectFull;
-        queue: (TrackObjectFull | EpisodeObjectFull)[];
+        queue: Array<TrackObjectFull | EpisodeObjectFull>;
     }
 
     /**
