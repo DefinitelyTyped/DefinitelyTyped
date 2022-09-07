@@ -1,4 +1,4 @@
-export class Base<T> {
+declare class Base<T> {
     /** 构造参数 */
     options: T;
     /** 设置构造参数 */
@@ -11,3 +11,5 @@ export class Base<T> {
     init(options: T): void;
     constructor(arg0: T);
 }
+
+export = Base;

@@ -1,3 +1,3 @@
-import * as FontCarrier from 'font-carrier';
+import FontCarrier = require('font-carrier');
 
 const font = FontCarrier.create();

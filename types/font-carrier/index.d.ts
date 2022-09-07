@@ -5,18 +5,19 @@
 
 /// <reference types="node" />
 
-import { FileOptions, Font, FontOptions } from './class/font';
-import { Glyph } from './class/glyph';
+import Font = require('./class/font');
+import Glyph = require('./class/glyph');
+import FontFace = require('./class/fontface');
 
 /**
  * 生成一个空白字体对像
  * @param options
  */
-export function create(options?: FileOptions): Font;
+export function create(options?: Font.FileOptions): Font;
 /**
  * 解析一个已有字体，支持svg,ttf的字体
  * @param input
  */
-export function transfer(path: string | Buffer, options?: FontOptions): Font;
+export function transfer(path: string | Buffer, options?: Font.FontOptions): Font;
 
-export { Font, Glyph };
+export { Font, FontFace, Glyph };
