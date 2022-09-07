@@ -1,10 +1,10 @@
-import Reveal from 'reveal.js';
-import RevealHighlight from 'reveal.js/plugin/highlight/highlight';
-import RevealMarkdown from 'reveal.js/plugin/markdown/markdown';
-import RevealMath from 'reveal.js/plugin/math/math';
-import RevealNotes from 'reveal.js/plugin/notes/notes';
-import RevealSearch from 'reveal.js/plugin/search/search';
-import RevealZoom from 'reveal.js/plugin/zoom/zoom';
+import Reveal = require('reveal.js');
+import RevealHighlight = require('reveal.js/plugin/highlight/highlight');
+import RevealMarkdown = require('reveal.js/plugin/markdown/markdown');
+import RevealMath = require('reveal.js/plugin/math/math');
+import RevealNotes =  require('reveal.js/plugin/notes/notes');
+import RevealSearch = require('reveal.js/plugin/search/search');
+import RevealZoom = require('reveal.js/plugin/zoom/zoom');
 
 // define useful constants
 const el = document.querySelector<HTMLElement>('.deck')!;
@@ -72,15 +72,13 @@ deck.initialize({
     progress: true,
 
     // Display the page number of the current slide
-    // - true:    Show slide number
-    // - false:   Hide slide number
-    //
+    // - true: Show slide number
+    // - false: Hide slide number
     // Can optionally be set as a string that specifies the number formatting:
-    // - "h.v":	  Horizontal . vertical slide number (default)
-    // - "h/v":	  Horizontal / vertical slide number
-    // - "c":	  Flattened slide number
-    // - "c/t":	  Flattened slide number / total slides
-    //
+    // - "h.v": Horizontal . vertical slide number (default)
+    // - "h/v": Horizontal / vertical slide number
+    // - "c": Flattened slide number
+    // - "c/t": Flattened slide number / total slides
     // Alternatively, you can provide a function that returns the slide
     // number for the current slide. The function should take in a slide
     // object and return an array with one string [slideNumber] or

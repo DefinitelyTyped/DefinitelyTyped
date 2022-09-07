@@ -1,4 +1,4 @@
-// Type definitions for Reveal 4.3
+// Type definitions for Reveal 4.3.1
 // Project: https://github.com/hakimel/reveal.js/
 // Definitions by: robertop87 <https://github.com/robertop87>,
 //                 Nava2 <https://github.com/Nava2>,
@@ -940,15 +940,13 @@ declare module 'reveal.js' {
 
             /**
              * Display the page number of the current slide
-             * - true:    Show slide number
-             * - false:   Hide slide number
-             *
+             * - true: Show slide number
+             * - false: Hide slide number
              * Can optionally be set as a string that specifies the number formatting:
-             * - "h.v":	  Horizontal . vertical slide number (default)
-             * - "h/v":	  Horizontal / vertical slide number
-             * - "c":	  Flattened slide number
-             * - "c/t":	  Flattened slide number / total slides
-             *
+             * - "h.v": Horizontal . vertical slide number (default)
+             * - "h/v": Horizontal / vertical slide number
+             * - "c": Flattened slide number
+             * - "c/t":	Flattened slide number / total slides
              * Alternatively, you can provide a function that returns the slide
              * number for the current slide. The function should take in a slide
              * object and return an array with one string [slideNumber] or
