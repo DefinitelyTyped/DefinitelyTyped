@@ -35,11 +35,11 @@ db.aggregate('add', {
     directOnly: true,
 });
 db.aggregate('getAverage', {
-    start: () => [],
+    start: () => [] as number[],
     step: (array, nextValue) => {
         array.push(nextValue);
     },
-    result: array => array.reduce((t: any, v: any) => t + v) / array.length,
+    result: array => array.reduce((t, v) => t + v) / array.length,
 });
 db.aggregate('addAll', {
     start: 0,
