@@ -1,4 +1,5 @@
 import Base = require('./base');
+import Font = require('./font');
 
 declare namespace Glyph {
     interface GlyphOptions {
@@ -42,4 +43,3 @@ declare class Glyph extends Base<Glyph.GlyphOptions> {
 }
 
 export = Glyph;
-export as namespace Glyph;

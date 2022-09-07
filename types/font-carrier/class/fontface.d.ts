@@ -20,4 +20,3 @@ declare namespace FontFace {
 declare class FontFace extends Base<FontFace.FontFaceOptions> {}
 
 export = FontFace;
-export as namespace FontFace;

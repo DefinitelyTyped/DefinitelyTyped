@@ -58,4 +58,3 @@ declare class Font extends Base<Font.FontOptions> {
 }
 
 export = Font;
-export as namespace Font;
