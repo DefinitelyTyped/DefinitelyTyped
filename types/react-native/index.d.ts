@@ -3699,7 +3699,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      *
      * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
      */
-    source: ImageSourcePropType;
+    source?: ImageSourcePropType;
 
     /**
      * similarly to `source`, this property represents the resource used to render
