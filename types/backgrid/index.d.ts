@@ -40,8 +40,8 @@ declare namespace Backgrid {
     }
 
     class CellFormatter {
-        fromRaw(rawData: any, model: Backbone.Model);
-        toRaw(formattedData: any, model: Backbone.Model);
+        fromRaw(rawData: any, model: Backbone.Model): any;
+        toRaw(formattedData: any, model: Backbone.Model): any;
     }
 
     class NumberFormatter extends CellFormatter {}
@@ -57,23 +57,23 @@ declare namespace Backgrid {
     class SelectFormatter extends CellFormatter {}
 
     class CellEditor extends Backbone.View<Backbone.Model>{
-        initialize(options?: any);
-        postRender(model: Backbone.Model, column: Backbone.Model);
+        initialize(options?: any): void;
+        postRender(model: Backbone.Model, column: Backbone.Model): this;
     }
 
     class InputCellEditor extends CellEditor {
-        render();
-        saveOrCancel(event: any);
+        render(): this;
+        saveOrCancel(event: any): void;
     }
 
     class Cell extends Backbone.View<Backbone.Model>{
         tagName: string;
         formatter: CellFormatter;
         editor: InputCellEditor;
-        enterEditMode();
-        renderError();
-        exitEditMode();
-        remove();
+        enterEditMode(): void;
+        renderError(): void;
+        exitEditMode(): void;
+        remove(): this;
     }
 
     class StringCell extends Cell {
@@ -91,18 +91,18 @@ declare namespace Backgrid {
     }
 
     class Column extends Backbone.Model {
-        initialize(options?: any);
+        initialize(options?: any): void;
     }
 
     class Body extends Backbone.View<Backbone.Model> {
         tagName: string;
 
-        initialize(options?: any);
-        insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
-        moveToNextCell(model: Backbone.Model, cell: Column, command: Command);
-        refresh(): Body;
+        initialize(options?: any): void;
+        insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any): this | undefined;
+        moveToNextCell(model: Backbone.Model, cell: Column, command: Command): this;
+        refresh(): this;
         remove(): this;
-        removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any): this | undefined;
         render(): this;
     }
 
@@ -115,13 +115,13 @@ declare namespace Backgrid {
 
         constructor(options: GridOptions);
 
-        initialize(options: any);
+        initialize(options: any): void;
         getSelectedModels(): Backbone.Model[];
-        insertColumn(...options: any[]): Grid;
-        insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        insertColumn(...options: any[]): this;
+        insertRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any): this;
         remove(): this;
-        removeColumn(...options: any[]): Grid;
-        removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any);
+        removeColumn(...options: any[]): this;
+        removeRow(model: Backbone.Model, collection: Backbone.Collection<Backbone.Model>, options: any): this;
         render(): this;
     }
 
