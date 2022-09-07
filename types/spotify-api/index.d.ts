@@ -559,6 +559,12 @@ declare namespace SpotifyApi {
      */
     interface AddToQueueResponse extends VoidResponse {}
 
+    /**
+     * Get the list of objects that make up the user's queue.
+     *
+     * GET /v1/me/player/queue
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-queue
+     */
     interface UsersQueueResponse {
         currently_playing: TrackObjectFull | EpisodeObjectFull;
         queue: Array<TrackObjectFull | EpisodeObjectFull>;

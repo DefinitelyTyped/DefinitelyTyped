@@ -9428,11 +9428,17 @@ const getMyRecentlyPlayedTracks: SpotifyApi.UsersRecentlyPlayedTracksResponse = 
  * GET /v1/markets
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-available-markets
  */
-const getAvailableMarketsResponse: SpotifyApi.AvailableMarketsResponse = {
+const availableMarkets: SpotifyApi.AvailableMarketsResponse = {
     markets: ['AD', 'AE', 'AG', 'AL', 'AM'],
 };
 
-const usersQueueResponse: SpotifyApi.UsersQueueResponse = {
+/**
+ * Get the list of objects that make up the user's queue.
+ *
+ * GET /v1/me/player/queue
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-queue
+ */
+const usersQueue: SpotifyApi.UsersQueueResponse = {
     currently_playing: {
         album: {
             album_type: 'album',
