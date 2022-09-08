@@ -19,7 +19,7 @@ export interface ValidatorMapFunc {
 }
 
 export type ValidatorMap = {
-    [s: string]: ValidatorMapFunc | ValidatorMapFunc[] | any;
+    [s: string]: ValidatorMapFunc | ValidatorMapFunc[] | unknown;
 } | null | undefined;
 
 export type ValidatorAction = {
