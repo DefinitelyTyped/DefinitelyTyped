@@ -1,6 +1,6 @@
 // Type definitions for floyd-steinberg 1.0
 // Project: https://github.com/noopkat/floyd-steinberg
-// Definitions by: tajnymag <https://github.com/tajnymag>
+// Definitions by: Marek Lukas <https://github.com/tajnymag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type ImageDataSubset = Partial<ImageData> & Pick<ImageData, 'width' | 'height' | 'data'>;
