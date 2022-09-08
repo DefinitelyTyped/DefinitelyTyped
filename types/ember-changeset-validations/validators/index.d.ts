@@ -13,7 +13,7 @@ export function validateFormat(
 export function validatePresence(
     options: {
         presence: boolean;
-        message?: string;
+        message: string;
         ignoreBlank?: boolean;
         on?: string | string[];
     } | boolean
@@ -44,7 +44,6 @@ export function validateExclusion(
         list?: string[];
         range?: number[];
         allowBlank?: boolean;
-        message?: string;
     }
 ): ValidatorMapFunc;
 
@@ -54,7 +53,6 @@ export function validateInclusion(
         list?: string[];
         range?: number[];
         allowBlank?: boolean;
-        message?: string;
     }
 ): ValidatorMapFunc;
 
@@ -64,7 +62,6 @@ export function validateLength(
         max?: number;
         is?: number;
         allowBlank?: boolean;
-        message?: string;
     }
 ): ValidatorMapFunc;
 
@@ -81,6 +78,5 @@ export function validateNumber(
         odd?: boolean;
         even?: boolean;
         multipleOf?: number
-        message?: string;
     }
 ): ValidatorMapFunc;

@@ -19,7 +19,7 @@ export interface ValidatorMapFunc {
 }
 
 export type ValidatorMap = {
-    [s: string]: ValidatorMapFunc | ValidatorMapFunc[] | unknown;
+    [s: string]: ValidatorMapFunc | ValidatorMapFunc[] | any;
 } | null | undefined;
 
 export type ValidatorAction = {
@@ -33,3 +33,8 @@ export type ValidatorAction = {
 } | null | undefined;
 
 export default function lookupValidator(validationMap: ValidatorMap): ValidatorAction;
+
+import './validators';
+import './utils';
+
+export {};
