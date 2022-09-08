@@ -1,4 +1,4 @@
-// Type definitions for mocha 9.2.2
+// Type definitions for mocha 9.2
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -7,6 +7,7 @@
 //                 Dmitrii Sorin <https://github.com/1999>
 //                 Noah Hummel <https://github.com/strangedev>
 //                 nicojs <https://github.com/nicojs>
+//                 Konstantin Epishev <https://github.com/lamartire>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -391,13 +392,15 @@ declare namespace Mocha {
         function exports(suite: Suite): void;
     }
 
-    /**
-     * This Runner delegates tests runs to worker threads. Does not execute an Runnables by itself!
-     *
-     * @see https://mochajs.org/api/module-parallel-buffered-runner-parallelbufferedrunner
-     */
     namespace nodejs {
-        class ParallelBufferedRunner extends Mocha.Runner {}
+        /**
+         * This Runner delegates tests runs to worker threads. Does not execute an Runnables by itself!
+         *
+         * @see https://mochajs.org/api/module-parallel-buffered-runner-parallelbufferedrunner
+         */
+        class ParallelBufferedRunner extends Runner {
+            workerReporter(path: string): this;
+        }
     }
 
     // #region Test interface augmentations
@@ -1525,7 +1528,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/runner#workerReporter
          */
-        workerReporter(path: string): this;
+        workerReporter(path: string): this | never;
 
         /**
          * Wrapper for setImmediate, process.nextTick, or browser polyfill.
