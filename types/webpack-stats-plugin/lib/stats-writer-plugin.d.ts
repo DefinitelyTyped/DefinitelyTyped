@@ -1,5 +1,4 @@
-import { Plugin, Stats } from 'webpack';
-import webpack = require('webpack');
+import { Compilation, Compiler, WebpackPluginInstance } from 'webpack';
 
 /**
  * Stats writer module.
@@ -19,7 +18,7 @@ declare namespace StatsWriterPlugin {
 
     interface TransformOptions {
         /** Current compiler instance */
-        compiler: webpack.compilation.Compilation;
+        compiler: Compilation;
     }
 
     interface Options {
@@ -45,11 +44,16 @@ declare namespace StatsWriterPlugin {
         transform?: TransformFunc | undefined;
     }
 }
-declare class StatsWriterPlugin extends Plugin {
+declare class StatsWriterPlugin implements WebpackPluginInstance {
     constructor(opts?: StatsWriterPlugin.Options);
 
-    emitStats(curCompiler: webpack.compilation.Compilation, callback: StatsWriterPlugin.TransformFunc): Promise<void>;
-    emitStats(curCompiler: webpack.compilation.Compilation): Promise<string>;
+    /**
+     * The run point of the plugin, required method.
+     */
+    apply: (compiler: Compiler) => void;
+
+    emitStats(curCompiler: Compilation, callback: StatsWriterPlugin.TransformFunc): Promise<void>;
+    emitStats(curCompiler: Compilation): Promise<string>;
 }
 
 export = StatsWriterPlugin;
