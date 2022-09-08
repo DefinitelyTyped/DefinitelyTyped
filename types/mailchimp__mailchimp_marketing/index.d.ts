@@ -59,6 +59,10 @@ export interface SetListMemberBody extends Body {
     status_if_new: Status;
 }
 
+export interface TriggerCustomerJourneyBody extends Body {
+    email_address: string;
+}
+
 export type StatusTag = 'active' | 'inactive';
 
 export interface TagBody {
@@ -112,6 +116,10 @@ export namespace lists {
     function deleteListMemberPermanent(listId: string, subscriberHash: string): Promise<void>;
 
     function updateListMemberTags(listId: string, subscriberHash: string, body: any): Promise<void>;
+}
+
+export namespace customerJourneys {
+    function trigger(journeyId: number, stepId: number, body: TriggerCustomerJourneyBody): Promise<void>;
 }
 
 export interface MembersSuccessResponse {
