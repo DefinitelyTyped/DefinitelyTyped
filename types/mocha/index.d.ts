@@ -1494,6 +1494,31 @@ declare namespace Mocha {
         uncaught(err: any): void;
 
         /**
+         * Returns `true` if Mocha is running in parallel mode. For reporters.
+         * Subclasses should return an appropriate value.
+         *
+         * @see https://mochajs.org/api/runner#isParallelMode
+         */
+        isParallelMode(): boolean;
+
+        /**
+         * Toggle partial object linking behavior; used for building object references from
+         * unique ID's. Does nothing in serial mode, because the object references already exist.
+         * Subclasses can implement this (e.g., ParallelBufferedRunner)
+         *
+         * @see https://mochajs.org/api/runner#linkPartialObjects
+         */
+        linkPartialObjects(val: boolean): this;
+
+        /**
+         * Configures an alternate reporter for worker processes to use. Subclasses
+         * using worker processes should implement this.
+         *
+         * @see https://mochajs.org/api/runner#workerReporter
+         */
+        workerReporter(path: string): this;
+
+        /**
          * Wrapper for setImmediate, process.nextTick, or browser polyfill.
          */
         protected static immediately(callback: Function): void;
