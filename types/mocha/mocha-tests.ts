@@ -1093,6 +1093,15 @@ function test_mochaRunner_properties(runner: LocalMocha.Runner, suite: LocalMoch
         // $ExpectType number
         failures;
     });
+
+    // $ExpectType boolean
+    runner.isParallelMode();
+
+    // $ExpectType Runner
+    runner.linkPartialObjects(true);
+
+    // $ExpectError
+    runner.workerReporter("path/to/reporter.js");
 }
 
 function test_base_reporter_properties(reporter: LocalMocha.reporters.Base) {
