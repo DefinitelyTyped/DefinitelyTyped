@@ -50,6 +50,10 @@ const updateListMemberTagsBody = {
     ],
 };
 
+const triggerCustomerJourneyBody = {
+    email_address: "some@email.com",
+};
+
 // Promise<MembersSuccessResponse | MemberErrorResponse>
 mailchimp.lists.setListMember('test', 'test', setListMemberBody);
 
@@ -70,3 +74,6 @@ mailchimp.lists.deleteListMember('test', 'test');
 
 // Promise<void>
 mailchimp.lists.updateListMemberTags('test', 'test', updateListMemberTagsBody);
+
+// Promise<void>
+mailchimp.customerJourneys.trigger(123, 456, triggerCustomerJourneyBody);
