@@ -1,4 +1,4 @@
-// Type definitions for mocha 9.1
+// Type definitions for mocha 9.2.2
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
