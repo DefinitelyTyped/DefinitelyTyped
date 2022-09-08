@@ -391,6 +391,15 @@ declare namespace Mocha {
         function exports(suite: Suite): void;
     }
 
+    /**
+     * This Runner delegates tests runs to worker threads. Does not execute an Runnables by itself!
+     *
+     * @see https://mochajs.org/api/module-parallel-buffered-runner-parallelbufferedrunner
+     */
+    namespace nodejs {
+        class ParallelBufferedRunner extends Mocha.Runner {}
+    }
+
     // #region Test interface augmentations
 
     interface HookFunction {
