@@ -8,6 +8,10 @@ diff({}, { Hello: 'World' }, { keysOnly: true });
 diff({}, { Hello: 'World' }, { full: true });
 diff({}, { Hello: 'World' }, { sort: true });
 diff({}, { Hello: 'World' }, { outputKeys: ["Hello"] });
+diff({}, { Hello: 'World' }, { keepUnchangedValues: true });
+diff({}, { Hello: 'World' }, { outputNewOnly: true });
+diff({}, { Hello: 'World' }, { maxElisions: 1 });
+diff({}, { Hello: 'World' }, { precision: 1 });
 
 diffString({}, { Hello: 'World' });
 diffString({}, { Hello: 'World' }, {});
@@ -18,3 +22,7 @@ diffString({}, { Hello: 'World' }, { keysOnly: true });
 diffString({}, { Hello: 'World' }, { full: true });
 diffString({}, { Hello: 'World' }, { sort: true });
 diffString({}, { Hello: 'World' }, { outputKeys: ["Hello"] });
+diffString({}, { Hello: 'World' }, { keepUnchangedValues: true });
+diffString({}, { Hello: 'World' }, { outputNewOnly: true });
+diffString({}, { Hello: 'World' }, { maxElisions: 1 });
+diffString({}, { Hello: 'World' }, { precision: 1 });
