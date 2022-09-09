@@ -14,10 +14,15 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@mapbox/*": [
+                "mapbox__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
-        "png-img-tests.ts"
+        "mapbox__rehype-prism-tests.ts"
     ]
 }
