@@ -15,8 +15,11 @@ const loadOptions: dcpClient.LoadOptions = {
 
 const wallet = new dcpClient.Wallet();
 
-wallet.get(authKeystoreOptions).then(authKeystore => authKeystore); // $ExpectType AuthKeystore
-wallet.load(loadOptions).then(result => result); // $ExpectType LoadResult
+declare function keystoreCallback(err: Error | null, stdout: dcpClient.AuthKeystore, stderr: dcpClient.AuthKeystore): void;
+declare function loadResultCallback(err: Error | null, stdout: dcpClient.LoadResult, stderr: dcpClient.LoadResult): void;
+
+wallet.get(authKeystoreOptions).then(() => keystoreCallback); // $ExpectType AuthKeystore
+wallet.load(loadOptions).then(() => loadResultCallback); // $ExpectType LoadResult
 
 /* Worker API Tests */
 
