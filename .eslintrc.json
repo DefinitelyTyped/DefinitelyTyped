@@ -8,7 +8,6 @@
     ],
     "rules": {
       "dt-header": "error",
-      "no-bad-reference": "error",
       "no-dead-reference": "error",
       "no-const-enum": "error",
       "no-useless-files": "error"
