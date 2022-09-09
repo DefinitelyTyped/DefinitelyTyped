@@ -34,6 +34,17 @@ declare class Stream {
     parseOID(start: number, end: number, maxLength: number): string;
 }
 
+declare class ASN1Tag {
+    constructor(stream: Stream);
+
+    tagClass: number;
+    tagConstructed: boolean;
+    tagNumber: number;
+
+    isUniversal(): boolean;
+    isEOC(): boolean;
+}
+
 export = ASN1;
 
 export as namespace asn1;
