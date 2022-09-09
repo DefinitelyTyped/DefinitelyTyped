@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "tailwindcss": "^3.0.0"
+        "unified": "^10.0.0"
     }
 }

@@ -25,7 +25,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -3700,7 +3699,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      *
      * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
      */
-    source: ImageSourcePropType;
+    source?: ImageSourcePropType;
 
     /**
      * similarly to `source`, this property represents the resource used to render
