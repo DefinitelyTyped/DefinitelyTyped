@@ -53,6 +53,13 @@ declare class ASN1 {
     /** @todo Update type for `sub` */
     constructor(stream: Stream, header: number, length: number, tag: ASN1Tag, tagLen: number, sub: unknown[] | null);
 
+    stream: Stream;
+    header: number;
+    length: number;
+    tag: ASN1Tag;
+    tagLen: number;
+    sub: unknown[] | null;
+
     typeName(): string;
     content(maxLength: number): string | null;
     toString(): string;
