@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
-import * as client from 'filestack-js';
-// These two lines are not mergeable, and this error is considered a false positive
-//   in eslint: https://eslint.org/docs/latest/rules/no-duplicate-imports
-// tslint:disable-next-line:no-duplicate-imports
-import type { ClientOptions, PickerFileMetadata, PickerOptions } from 'filestack-js';
+import { ClientOptions, PickerFileMetadata, PickerOptions } from 'filestack-js';
+
+export * as client from 'filestack-js';
 
 interface PickerBaseProps {
     /**
@@ -37,11 +35,10 @@ interface PickerBaseProps {
      */
     onError?: (error: PickerFileMetadata) => void;
 }
+
 export type PickerInlineProps = PickerBaseProps;
 export type PickerOverlayProps = PickerBaseProps;
 export type PickerDropPaneProps = PickerBaseProps;
 export const PickerInline: React.FC<PickerInlineProps>;
 export const PickerOverlay: React.FC<PickerOverlayProps>;
 export const PickerDropPane: React.FC<PickerDropPaneProps>;
-
-export { client };
