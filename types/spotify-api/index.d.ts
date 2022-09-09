@@ -1293,7 +1293,7 @@ declare namespace SpotifyApi {
      */
     interface RecommendationsObject {
         seeds: RecommendationsSeedObject[];
-        tracks: TrackObjectSimplified[];
+        tracks: TrackObjectFull[];
     }
 
     /**
