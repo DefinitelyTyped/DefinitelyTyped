@@ -27,6 +27,7 @@ import {
     Visibility,
     IbmZ,
     IbmZAndLinuxoneMultiFrame,
+    Ai,
 } from "@carbon/pictograms-react";
 
 <Airplane />; // $ExpectType Element
@@ -57,3 +58,4 @@ import {
 <Visibility />; // $ExpectType Element
 <IbmZ />; // $ExpectType Element
 <IbmZAndLinuxoneMultiFrame />; // $ExpectType Element
+<Ai />; // $ExpectType Element

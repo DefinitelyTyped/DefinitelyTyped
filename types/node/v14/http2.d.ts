@@ -289,7 +289,7 @@ declare module 'http2' {
         ref(): void;
         setLocalWindowSize(windowSize: number): void;
         setTimeout(msecs: number, callback?: () => void): void;
-        settings(settings: Settings): void;
+        settings(settings: Settings, callback?: (err: Error | null, settings: Settings, duration: number) => void): void;
         unref(): void;
 
         addListener(event: "close", listener: () => void): this;
