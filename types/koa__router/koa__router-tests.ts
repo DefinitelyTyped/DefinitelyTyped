@@ -54,8 +54,10 @@ router
         // ...
     });
 
-router.get('user', '/users/:id', (ctx) => {
+router.get<{}, {}, string>('user', '/users/:id', (ctx) => {
     ctx.body = "sdsd";
+    // @ts-expect-error Body can be typed
+    ctx.body = {};
 });
 
 const match = router.match('/users/:id', 'GET');
