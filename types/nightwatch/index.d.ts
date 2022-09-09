@@ -24,8 +24,9 @@ export * from './globals';
 
 export const ELEMENT_KEY = 'element-6066-11e4-a52e-4f735466cecf';
 
-export interface JSON_WEB_OBJECT {
-    [ELEMENT_KEY]: string;
+export interface ElementResult { [ELEMENT_KEY]: string; }
+
+export interface JSON_WEB_OBJECT extends ElementResult {
     getId: () => string;
 }
 
@@ -3053,7 +3054,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      * @see https://nightwatchjs.org/api/pause.html
      */
-    pause(ms?: number, callback?: (this: NightwatchAPI) => void): Awaitable<this, void>;
+    pause(ms?: number, callback?: (this: NightwatchAPI) => void): Awaitable<this, undefined>;
 
     /**
      * This command halts the test execution and provides users with a REPL interface where they can type
@@ -3082,7 +3083,7 @@ export interface ClientCommands extends ChromiumClientCommands {
     debug(
         config?: { useGlobal?: boolean; preview?: boolean; timeout?: number },
         callback?: (this: NightwatchAPI) => void
-    ): Awaitable<this, void>;
+    ): Awaitable<this, undefined>;
 
     /**
      * A simple perform command which allows access to the Nightwatch API in a callback. Can be useful if you want to read variables set by other commands.
@@ -3131,7 +3132,7 @@ export interface ClientCommands extends ChromiumClientCommands {
             | (() => undefined | Promise<any>)
             | ((done: () => void) => void)
             | ((client: NightwatchAPI, done: () => void) => void),
-    ): Awaitable<this, void>;
+    ): Awaitable<this, undefined | Error>;
 
     /**
      * Waits for a condition to evaluate to a "truthy" value. The condition may be specified by any function which
@@ -3276,7 +3277,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @see https://nightwatchjs.org/api/setWindowRect.html
      */
     setWindowRect(
-        options: NightwatchSizeAndPosition,
+        options: WindowSizeAndPosition,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
 
@@ -3305,20 +3306,48 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @example
      *  this.demoTest = function () {
      *    browser.windowHandles(function(result) {
-     *      var handle = result.value[0];
+     *      const handle = result.value[0];
      *      browser.switchWindow(handle);
      *    });
      *  };
      *
      *  this.demoTestAsync = async function () {
-     *    const result = browser.windowHandles();
-     *    var handle = result.value[0];
+     *    const result = await browser.windowHandles();
+     *    const handle = result.value[0];
      *    browser.switchWindow(handle);
+     *  };
+     *
+     * @alias switchToWindow
+     *
+     * @see https://nightwatchjs.org/api/switchWindow.html
+     */
+    switchWindow(
+        handleOrName: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+
+    /**
+     * Change focus to another window. The window to change focus to may be specified by its server assigned window handle, or by the value of its name attribute.
+     *
+     * To find out the window handle use `windowHandles` command
+     *
+     * @example
+     *  this.demoTest = function () {
+     *    browser.windowHandles(function(result) {
+     *      const handle = result.value[0];
+     *      browser.switchToWindow(handle);
+     *    });
+     *  };
+     *
+     *  this.demoTestAsync = async function () {
+     *    const result = await browser.windowHandles();
+     *    const handle = result.value[0];
+     *    browser.switchToWindow(handle);
      *  };
      *
      * @see https://nightwatchjs.org/api/switchToWindow.html
      */
-    switchToWindow(
+     switchToWindow(
         handleOrName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
@@ -3355,9 +3384,9 @@ export interface ClientCommands extends ChromiumClientCommands {
     getWindowRect(
         callback?: (
             this: NightwatchAPI,
-            result: NightwatchCallbackResult<NightwatchSizeAndPosition>,
+            result: NightwatchCallbackResult<WindowSizeAndPosition>,
         ) => void,
-    ): Awaitable<this, NightwatchSizeAndPosition>;
+    ): Awaitable<this, WindowSizeAndPosition>;
 
     /**
      * Retrieves the current window size.
@@ -3386,9 +3415,9 @@ export interface ClientCommands extends ChromiumClientCommands {
     getWindowSize(
         callback?: (
             this: NightwatchAPI,
-            result: NightwatchCallbackResult<NightwatchSizeAndPosition>,
+            result: NightwatchCallbackResult<WindowSizeAndPosition>,
         ) => void,
-    ): Awaitable<this, NightwatchSizeAndPosition>;
+    ): Awaitable<this, WindowSizeAndPosition>;
 
     /**
      * Retrieves the current window position.
@@ -3415,8 +3444,8 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @see https://nightwatchjs.org/api/getWindowPosition.html
      */
     getWindowPosition(
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
-    ): Awaitable<this, NightwatchPosition>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
+    ): Awaitable<this, WindowPosition>;
 
     /**
      * Returns the page source. Uses pageSource protocol command.
@@ -3462,7 +3491,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      * @see https://nightwatchjs.org/api/useCss.html
      */
-    useCss(callback?: (this: NightwatchAPI) => void): Awaitable<this, void>;
+    useCss(callback?: (this: NightwatchAPI) => void): Awaitable<this, undefined>;
 
     /**
      * Sets the locate strategy for selectors to xpath, therefore every following selector needs to be specified as xpath.
@@ -3476,7 +3505,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      * @see https://nightwatchjs.org/api/useXpath.html
      */
-    useXpath(callback?: (this: NightwatchAPI) => void): Awaitable<this, void>;
+    useXpath(callback?: (this: NightwatchAPI) => void): Awaitable<this, undefined>;
 }
 
 export interface ElementCommands {
@@ -3489,11 +3518,11 @@ export interface ElementCommands {
      *
      * @example
      *   describe('clearValue Command demo', function() {
-     *       test('demo test', function() {
+     *     test('demo test', function() {
      *       browser.clearValue('#login input[type=text]');
      *
      *       browser.clearValue('#login input[type=text]', function(result) {
-     *           console.log('clearValue result', result);
+     *         console.log('clearValue result', result);
      *       });
      *
      *       // with explicit locate strategy
@@ -3501,17 +3530,17 @@ export interface ElementCommands {
      *
      *       // with selector object - see https://nightwatchjs.org/guide#element-properties
      *       browser.clearValue({
-     *           selector: '#login input[type=text]',
-     *           index: 1,
-     *           suppressNotFoundErrors: true
+     *         selector: '#login input[type=text]',
+     *         index: 1,
+     *         suppressNotFoundErrors: true
      *       });
      *
      *       browser.clearValue({
-     *           selector: '#login input[type=text]',
-     *           timeout: 2000 // overwrite the default timeout (in ms) to check if the element is present
+     *         selector: '#login input[type=text]',
+     *         timeout: 2000 // overwrite the default timeout (in ms) to check if the element is present
      *       });
      *
-     *       });
+     *     });
      *
      *   });
      *
@@ -4207,18 +4236,18 @@ export interface ElementCommands {
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<[ {ELEMENT_KEY: string }]>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult[]>) => void,
         message?: string,
-    ): Awaitable<this, [ {ELEMENT_KEY: string }]>;
+    ): Awaitable<this, ElementResult[]>;
     waitForElementNotPresent(
         using: LocateStrategy,
         selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<[ {ELEMENT_KEY: string }]>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult[]>) => void,
         message?: string,
-    ): Awaitable<this, [ {ELEMENT_KEY: string }]>;
+    ): Awaitable<this, ElementResult[]>;
 
     /**
      * Opposite of `waitForElementVisible`. Waits a given time in milliseconds (default 5000ms)
@@ -4386,18 +4415,18 @@ export interface ElementCommands {
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<[ {ELEMENT_KEY: string }]>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult[]>) => void,
         message?: string,
-    ): Awaitable<this, [ {ELEMENT_KEY: string }]>;
+    ): Awaitable<this, ElementResult[]>;
     waitForElementPresent(
         using: LocateStrategy,
         selector: Definition,
         time?: number,
         poll?: number,
         abortOnFailure?: boolean,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<[ {ELEMENT_KEY: string }]>) => void,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<ElementResult[]>) => void,
         message?: string,
-    ): Awaitable<this, [ {ELEMENT_KEY: string }]>;
+    ): Awaitable<this, ElementResult[]>;
 
     /**
      * Waits a given time in milliseconds for an element to be visible in the page before performing any other commands or assertions.
@@ -4854,13 +4883,13 @@ export interface ElementCommands {
      */
     getShadowRoot(
         selector: Definition | WebElement | By,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element>) => void,
-    ): Awaitable<this, Element>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element | null>) => void,
+    ): Awaitable<this, Element | null>;
     getShadowRoot(
         using: LocateStrategy,
         selector: Definition | WebElement | By,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element>) => void,
-    ): Awaitable<this, Element>;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Element | null>) => void,
+    ): Awaitable<this, Element | null>;
 
     /**
      * Search for an elements on the page, starting from the document root. The located element will be returned as web element JSON object (with an added .getId() convenience method).
@@ -5172,12 +5201,12 @@ export interface ElementCommands {
      */
     takeElementScreenshot(
         selector: Definition,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): Awaitable<this, string>;
     takeElementScreenshot(
         using: LocateStrategy,
         selector: Definition,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): Awaitable<this, string>;
 }
 
@@ -5434,7 +5463,7 @@ export interface WebDriverProtocolCommandContexts {
      *    });
      * }
      */
-    windowHandles(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void): this;
+    windowHandles(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void): Awaitable<this, string[]>;
 
     /**
      * Increases the window to the maximum available size without going full-screen.

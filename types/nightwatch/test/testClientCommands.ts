@@ -1,8 +1,13 @@
 import { NightwatchAPI, Cookie, NightwatchLogEntry, NightwatchCallbackResult } from "nightwatch";
 
 function isNightwatchAPI(v: NightwatchAPI) {}
-function isNightwatchCallbackResult<T>(v1: NightwatchCallbackResult<T>, v2: NightwatchCallbackResult<T>) {}
-function isResultType<T>(v1: T, v2: T) {}
+function isNightwatchCallbackResult<T>(result: NightwatchCallbackResult<T>): T | void {
+    
+    if (result.status === 0) {
+        return result.value;
+    }
+}
+function isType<T>(v: T): T { return v; }
 
 //
 // .navigateTo
@@ -14,7 +19,7 @@ describe('Navigation commands demo', function() {
     // with callback
     browser.navigateTo('https://nightwatchjs.org', function(result) {
       isNightwatchAPI(this);
-      isNightwatchCallbackResult<null>(result, result);
+      isNightwatchCallbackResult<null>(result);
       // @ts-expect-error
       this.navigateTo();
     });
@@ -22,7 +27,7 @@ describe('Navigation commands demo', function() {
 
   test('demoTestAsync', async function(browser) {
     const result = await browser.navigateTo('https://nightwatchjs.org');
-    isResultType<null>(result, result);
+    isType<null>(result);
   });
 });
 
@@ -34,19 +39,19 @@ describe('openNewWindow demo', function() {
     // open a new window tab (default)
     browser.openNewWindow('tab', function(result) {
       isNightwatchAPI(this);
-      isNightwatchCallbackResult<null>(result, result);
+      isNightwatchCallbackResult<null>(result);
     });
 
   // open a new window
     browser.openNewWindow('window', function(result) {
       isNightwatchAPI(this);
-      isNightwatchCallbackResult<null>(result, result);
+      isNightwatchCallbackResult<null>(result);
     });
   });
 
   test('async demo test', async function(browser) {
       const result = await browser.openNewWindow('window');
-      isResultType<null>(result, result);
+      isType<null>(result);
   });
 });
 
@@ -57,13 +62,13 @@ describe('closeWindow demo', function() {
   test('demo test', function(browser) {
     browser.closeWindow(function(result) {
         isNightwatchAPI(this);
-        isNightwatchCallbackResult<null>(result, result);
+        isNightwatchCallbackResult<null>(result);
     });
   });
 
   test('async demo test', async function(browser) {
     const result = await browser.closeWindow();
-    isResultType<null>(result, result);
+    isType<null>(result);
   });
 });
 
@@ -74,13 +79,13 @@ describe('fullscreenWindow demo', function() {
   test('demo test', function(browser) {
     browser.fullscreenWindow(function(result) {
         isNightwatchAPI(this);
-        isNightwatchCallbackResult<null>(result, result);
+        isNightwatchCallbackResult<null>(result);
     });
   });
 
   test('async demo test', async function(browser) {
     const result = await browser.fullscreenWindow();
-    isResultType<null>(result, result);
+    isType<null>(result);
   });
 });
 
@@ -91,13 +96,13 @@ describe('minimizeWindow demo', function() {
   test('demo test', function(browser) {
     browser.minimizeWindow(function(result) {
         isNightwatchAPI(this);
-        isNightwatchCallbackResult<null>(result, result);
+        isNightwatchCallbackResult<null>(result);
     });
   });
 
   test('async demo test', async function(browser) {
     const result = await browser.minimizeWindow();
-    isResultType<null>(result, result);
+    isType<null>(result);
   });
 });
 
@@ -119,13 +124,13 @@ describe('deleteCookie demo', function() {
         })
         .deleteCookie('test_cookie', function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<null>(result, result);
+            isNightwatchCallbackResult<null>(result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.deleteCookie('test_cookie');
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -147,13 +152,13 @@ describe('deleteCookies demo', function() {
         })
         .deleteCookies(function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<null>(result, result);
+            isNightwatchCallbackResult<null>(result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.deleteCookies();
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -164,7 +169,7 @@ describe('end command demo', function() {
     test('demo test', function(browser) {
         browser.end(function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<null>(result, result);
+            isNightwatchCallbackResult<null>(result);
         });
     });
 });
@@ -186,13 +191,13 @@ describe('getCookie command demo', function() {
             httpOnly: undefined
         }).getCookie('test_cookie', function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<Cookie>(result, result);
+            isNightwatchCallbackResult<Cookie>(result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getCookie('test_cookie');
-        isResultType<Cookie>(result, result);
+        isType<Cookie>(result);
     });
 });
 
@@ -213,7 +218,7 @@ describe('setCookie command demo', function() {
             httpOnly: undefined
         }, function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<null>(result, result);
+            isNightwatchCallbackResult<null>(result);
         });
     });
 
@@ -227,7 +232,7 @@ describe('setCookie command demo', function() {
           expiry: undefined,
           httpOnly: undefined
         });
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -239,13 +244,13 @@ describe('getLog command demo', function() {
         browser
             .getLog('browser', function(result) {
                 isNightwatchAPI(this);
-                isResultType<NightwatchLogEntry[]>(result, result);
+                isType<NightwatchLogEntry[]>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getLog('browser');
-        isResultType<NightwatchLogEntry[]>(result, result);
+        isType<NightwatchLogEntry[]>(result);
     });
 });
 
@@ -258,13 +263,13 @@ describe('getCurrentUrl command demo', function() {
             .navigateTo('https://www.nightwatchjs.org')
             .getCurrentUrl(function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.navigateTo('https://www.nightwatchjs.org').getCurrentUrl();
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 });
 
@@ -277,13 +282,13 @@ describe('getTitle command demo', function() {
             .navigateTo('https://www.ecosia.org')
             .getTitle(function(result) {
                 isNightwatchAPI(this);
-                isResultType<string>(result, result);
+                isType<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.navigateTo('https://www.ecosia.org').getTitle();
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 });
 
@@ -295,13 +300,13 @@ describe('isLogAvailable command demo', function() {
         browser
             .isLogAvailable('browser', function(result) {
                 isNightwatchAPI(this);
-                isResultType<boolean>(result, result);
+                isType<boolean>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.isLogAvailable('browser');
-        isResultType<boolean>(result, result);
+        isType<boolean>(result);
     });
 });
 
@@ -314,13 +319,13 @@ describe('resizeWindow command demo', function() {
             .navigateTo('https://www.ecosia.org')
             .resizeWindow(1000, 500, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.resizeWindow(1000, 800);
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -330,7 +335,7 @@ describe('resizeWindow command demo', function() {
 describe('saveScreenshot command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.saveScreenshot('bcd.jpg');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 });
 
@@ -351,7 +356,7 @@ describe('setCookie command demo', function() {
                 httpOnly: undefined
             }, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
@@ -365,7 +370,7 @@ describe('setCookie command demo', function() {
           expiry: undefined,
           httpOnly: undefined
         });
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -377,13 +382,13 @@ describe('setWindowPosition command demo', function() {
         browser
             .setWindowPosition(0, 0, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setWindowPosition(0, 0);
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -395,12 +400,12 @@ describe('setWindowRect command demo', function() {
         browser
             .setWindowRect({x: 0, y: 0, width: 500, height: 500}, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
     test('async demo test', async function(browser) {
         const result = await browser.setWindowRect({x: 0, y: 0, width: 500, height: 500});
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -412,24 +417,35 @@ describe('setWindowSize command demo', function() {
         browser
             .setWindowSize(500, 500, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setWindowSize(500, 500);
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
 //
 // switchWindow
 //
+describe('switchWindow command demo', function() {
+    test('async demo test', async function(browser) {
+        const handle = await browser.windowHandle();
+        const result = await browser.switchWindow(handle);
+        isType<null>(result);
+    });
+});
+
+//
+// switchToWindow
+//
 describe('switchToWindow command demo', function() {
     test('async demo test', async function(browser) {
         const handle = await browser.windowHandle();
         const result = await browser.switchToWindow(handle);
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -440,7 +456,7 @@ describe('init command demo', function() {
   test('demo test', function() {
       browser.init('https://www.google.com', function(result) {
           isNightwatchAPI(this);
-          isNightwatchCallbackResult<null>(result, result);
+          isNightwatchCallbackResult<null>(result);
       });
   });
 });
@@ -456,14 +472,14 @@ describe('waitUntil command demo', function() {
             return true;
         }, 5000, 5000, function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<null>(result, result);
+            isNightwatchCallbackResult<null>(result);
         });
     });
     test('async demo test', async function(browser) {
         const result = await browser.waitUntil(async function() {
             return true;
         });
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
     after(browser => browser.end());
 });

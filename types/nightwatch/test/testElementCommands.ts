@@ -1,8 +1,13 @@
-import { NightwatchAPI, JSON_WEB_OBJECT, NightwatchCallbackResult, NightwatchSizeAndPosition } from "nightwatch";
+import { NightwatchAPI, JSON_WEB_OBJECT, NightwatchCallbackResult, NightwatchSizeAndPosition, ElementResult } from "nightwatch";
 
 function isNightwatchAPI(v: NightwatchAPI) {}
-function isNightwatchCallbackResult<T>(v1: NightwatchCallbackResult<T>, v2: NightwatchCallbackResult<T>) {}
-function isResultType<T>(v1: T, v2: T) {}
+function isNightwatchCallbackResult<T>(result: NightwatchCallbackResult<T>): T | void {
+    
+    if (result.status === 0) {
+        return result.value;
+    }
+}
+function isType<T>(v: T): T { return v; }
 
 //
 // .clearValue
@@ -15,7 +20,7 @@ describe('clearValue Command demo', function() {
             .setValue('input[type=text]', 'nightwatch.js')
             .clearValue('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             }).expect.element('input[type=text]').text.to.equal('');
     });
 
@@ -25,7 +30,7 @@ describe('clearValue Command demo', function() {
             .waitForElementVisible('input[type=text]')
             .setValue('input[type=text]', 'nightwatch.js')
             .clearValue('input[type=text]');
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 });
 
@@ -40,7 +45,7 @@ describe('click Command demo', function() {
             .setValue('input[type=text]', 'nightwatch.js')
             .click('input[type=submit]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
@@ -50,7 +55,7 @@ describe('click Command demo', function() {
             .waitForElementVisible('input[type=text]')
             .setValue('input[type=text]', 'nightwatch.js')
             .click('input[type=submit]');
-        isResultType(result, result);
+        isType<null>(result);
     });
 });
 
@@ -64,13 +69,13 @@ describe('getAttribute command demo', function() {
         browser
             .getAttribute('input[type=text]', 'title' , function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string | null>(result, result);
+                isNightwatchCallbackResult<string | null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getAttribute('input[type=text]', 'title');
-        isResultType<string | null>(result, result);
+        isType<string | null>(result);
     });
 
     after(browser => browser.end());
@@ -86,13 +91,13 @@ describe('getCssProperty command demo', function() {
         browser
             .getCssProperty('input[type=text]', 'background-color' , function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getCssProperty('input[type=text]', 'background-color');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -107,13 +112,13 @@ describe('getElementSize command demo', function() {
             .url('https://www.ecosia.org/')
             .getElementSize('#navbartop', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<NightwatchSizeAndPosition>(result, result);
+                isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.url('https://www.ecosia.org/').getElementSize('#__nuxt');
-        isResultType<NightwatchSizeAndPosition>(result, result);
+        isType<NightwatchSizeAndPosition>(result);
     });
 });
 
@@ -126,13 +131,13 @@ describe('getLocation command demo', function() {
             .url('https://www.ecosia.org/')
             .getLocation('#__nuxt', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<NightwatchSizeAndPosition>(result, result);
+                isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.url('https://www.ecosia.org/').getLocation('#__nuxt');
-        isResultType<NightwatchSizeAndPosition>(result, result);
+        isType<NightwatchSizeAndPosition>(result);
     });
 });
 
@@ -146,13 +151,13 @@ describe('getTagName command demo', function() {
         browser
             .getTagName('#__nuxt', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getTagName('#__nuxt');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -168,13 +173,13 @@ describe('getText command demo', function() {
         browser
             .getText('#top-section', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getText('#top-section');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -191,13 +196,13 @@ describe('getValue command demo', function() {
             .setValue('input[type=text]', 'nightwatchjs')
             .getValue('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getValue('input[type=text]');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -212,13 +217,13 @@ describe('isVisible command demo', function() {
         browser
             .isVisible('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<boolean>(result, result);
+                isNightwatchCallbackResult<boolean>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.isVisible('input[type=text]');
-        isResultType<boolean>(result, result);
+        isType<boolean>(result);
     });
 
     after(browser => browser.end());
@@ -233,13 +238,13 @@ describe('isPresent command demo', function() {
         browser
             .isPresent('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<boolean>(result, result);
+                isNightwatchCallbackResult<boolean>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.isPresent('input[type=text]');
-        isResultType<boolean>(result, result);
+        isType<boolean>(result);
     });
 
     after(browser => browser.end());
@@ -254,13 +259,13 @@ describe('setValue command demo', function() {
         browser
             .setValue('input[type=text]', 'nightwatchjs', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setValue('input[type=text]', 'nightwatchjs');
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 
     after(browser => browser.end());
@@ -276,13 +281,13 @@ describe('sendKeys command demo', function() {
         browser
             .sendKeys('input[type=text]', 'nightwatchjs', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setValue('input[type=text]', ['nightwatchjs', browser.Keys.ENTER]);
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
     after(browser => browser.end());
 });
@@ -296,13 +301,13 @@ describe('setPassword command demo', function() {
         browser
             .setPassword('input[type=text]', 'nightwatchjs', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<null>(result, result);
+                isNightwatchCallbackResult<null>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setPassword('input[type=text]', ['nightwatchjs', browser.Keys.ENTER]);
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 
     after(browser => browser.end());
@@ -317,13 +322,13 @@ describe('setAttribute command demo', function() {
         browser
             .setAttribute('input[type=text]', 'disabled' , 'true', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<boolean>(result, result);
+                isNightwatchCallbackResult<boolean>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.setAttribute('input[type=text]', 'disabled' , 'false');
-        isResultType<boolean>(result, result);
+        isType<boolean>(result);
     });
 
     after(browser => browser.end());
@@ -339,13 +344,13 @@ describe('isEnabled command demo', function() {
             .setAttribute('input[type=text]', 'disabled', 'true')
             .isEnabled('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<boolean>(result, result);
+                isNightwatchCallbackResult<boolean>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.isEnabled('input[type=text]');
-        isResultType<boolean>(result, result);
+        isType<boolean>(result);
     });
 
     after(browser => browser.end());
@@ -360,13 +365,13 @@ describe('getElementProperty command demo', function() {
         browser
             .getElementProperty('input[type=text]', 'disabled', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<any>(result, result);
+                isNightwatchCallbackResult<any>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getElementProperty('input[type=text]', 'disabled');
-        isResultType<any>(result, result);
+        isType<any>(result);
     });
 
     after(browser => browser.end());
@@ -381,13 +386,13 @@ describe('findElement command demo', function() {
         browser
             .findElement('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<JSON_WEB_OBJECT>(result, result);
+                isNightwatchCallbackResult<JSON_WEB_OBJECT>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.findElement('input[type=text]');
-        isResultType<JSON_WEB_OBJECT>(result, result);
+        isType<JSON_WEB_OBJECT>(result);
     });
 
     after(browser => browser.end());
@@ -403,13 +408,13 @@ describe('getElementRect command demo', function() {
         browser
             .getElementRect('#__nuxt', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<NightwatchSizeAndPosition>(result, result);
+                isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getElementRect('#__nuxt');
-        isResultType<NightwatchSizeAndPosition>(result, result);
+        isType<NightwatchSizeAndPosition>(result);
     });
 
     after(browser => browser.end());
@@ -425,13 +430,13 @@ describe('getAriaRole command demo', function() {
         browser
             .getAriaRole('#__nuxt', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getAriaRole('#__nuxt');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -447,13 +452,13 @@ describe('getAccessibleName command demo', function() {
         browser
             .getAccessibleName('input[type=text]', function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<string>(result, result);
+                isNightwatchCallbackResult<string>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.getAccessibleName('input[type=text]');
-        isResultType<string>(result, result);
+        isType<string>(result);
     });
 
     after(browser => browser.end());
@@ -469,13 +474,13 @@ describe('waitForElementVisible command demo', function() {
         browser
             .waitForElementVisible('input[type=text]', undefined, undefined, true, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<boolean>(result, result);
+                isNightwatchCallbackResult<boolean>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.waitForElementVisible('input[type=text]', undefined, undefined, true);
-        isResultType<boolean>(result, result);
+        isType<boolean>(result);
     });
 
     after(browser => browser.end());
@@ -491,13 +496,13 @@ describe('waitForElementPresent command demo', function() {
         browser
             .waitForElementPresent('input[type=text]', undefined, undefined, undefined, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<[ {ELEMENT_KEY: string }]>(result, result);
+                isNightwatchCallbackResult<ElementResult[]>(result);
             });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.waitForElementPresent('input[type=text]');
-        isResultType<[ {ELEMENT_KEY: string }]>(result, result);
+        isType<ElementResult[]>(result);
     });
 
     after(browser => browser.end());
@@ -512,13 +517,13 @@ describe('dragAndDrop command demo', function() {
     test('hello', function() {
         browser.dragAndDrop('input[type=text]', {x: 50, y: 50}, function(result) {
             isNightwatchAPI(this);
-            isNightwatchCallbackResult<null>(result, result);
+            isNightwatchCallbackResult<null>(result);
         });
     });
 
     test('async demo test', async function(browser) {
         const result = await browser.dragAndDrop('input[type=text]', {x: 50, y: 50});
-        isResultType<null>(result, result);
+        isType<null>(result);
     });
 
     after(browser => browser.end());
