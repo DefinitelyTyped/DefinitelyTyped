@@ -151,7 +151,7 @@ declare namespace GM {
 
         // plus one of the following properties based on responseType, if method is not HEAD
         readonly text?: string;
-        readonly json?: JSON;
+        readonly json?: any;
         readonly blob?: Blob;
         readonly arrayBuffer?: ArrayBuffer;
         readonly formData?: FormData;
