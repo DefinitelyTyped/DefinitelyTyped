@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ASN1 {
+    type StreamOrBinary = Stream | string | number[];
+
     interface StreamParseReturn {
         size: number;
         str: string;
@@ -13,7 +15,7 @@ declare namespace ASN1 {
 declare class Stream {
     static hexDigits: '0123456789ABCDEF';
 
-    constructor(enc: Stream | string | number[], pos: number);
+    constructor(enc: ASN1.StreamOrBinary, pos: number);
 
     enc: string | number[];
     pos: number;
@@ -46,7 +48,7 @@ declare class ASN1Tag {
 }
 
 declare class ASN1 {
-    static decode(stream: Stream, offset?: number): ASN1;
+    static decode(stream: ASN1.StreamOrBinary, offset?: number): ASN1;
 
     /** @todo Update type for `sub` */
     constructor(stream: Stream, header: number, length: number, tag: ASN1Tag, tagLen: number, sub: unknown[] | null);
