@@ -45,6 +45,25 @@ declare class ASN1Tag {
     isEOC(): boolean;
 }
 
+declare class ASN1 {
+    static decode(stream: Stream, offset?: number): ASN1;
+
+    /** @todo Update type for `sub` */
+    constructor(stream: Stream, header: number, length: number, tag: ASN1Tag, tagLen: number, sub: unknown[] | null);
+
+    typeName(): string;
+    content(maxLength: number): string | null;
+    toString(): string;
+    toPrettyString(indent?: string): string;
+    posStart(): number;
+    posContent(): number;
+    posEnd(): number;
+    posLen(): number;
+    toHexString(): string;
+    toB64String(): string;
+    decodeLength(stream: Stream): number;
+}
+
 export = ASN1;
 
 export as namespace asn1;
