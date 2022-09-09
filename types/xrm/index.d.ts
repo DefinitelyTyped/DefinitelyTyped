@@ -5861,7 +5861,8 @@ declare namespace Xrm {
                     | Navigation.PageInputEntityRecord
                     | Navigation.PageInputEntityList
                     | Navigation.CustomPage
-                    | Navigation.PageInputHtmlWebResource,
+                    | Navigation.PageInputHtmlWebResource
+                    | Navigation.Dashboard,
                 navigationOptions?: Navigation.NavigationOptions,
             ): Async.PromiseLike<any>;
         }
