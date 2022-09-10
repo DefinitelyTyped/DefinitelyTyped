@@ -350,6 +350,14 @@ declare namespace SpotifyApi {
     interface CategoryPlaylistsReponse extends CategoryPlaylistsResponse {}
 
     /**
+     * Get Playlist Cover Image
+     *
+     * GET /v1/playlists/playlist_id/image
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist-cover
+     */
+    interface PlaylistCoverImageResponse extends Array<ImageObject> {}
+
+    /**
      * Get Current User’s Profile
      *
      * GET /v1/me

@@ -5411,6 +5411,20 @@ const categoryPlaylists: SpotifyApi.CategoryPlaylistsResponse = {
 };
 
 /**
+ * Get Playlist Cover Image
+ *
+ * GET /v1/playlists/playlist_id/image
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist-cover
+ */
+const playlistCoverImage: SpotifyApi.PlaylistCoverImageResponse = [
+    {
+        height: null,
+        url: 'https://i.scdn.co/image/ab67706c05c2fa64cc5',
+        width: null,
+    },
+];
+
+/**
  * Get Current User’s Profile
  *
  * GET /v1/me
