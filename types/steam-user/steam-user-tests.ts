@@ -13,6 +13,11 @@ user.on('loggedOn', () => {
     user.setUIMode(SteamUser.EClientUIMode.Mobile);
 });
 
+user.on('error', (err) => {
+    console.log(err);
+    console.log(err.eresult);
+});
+
 user.chat.on('chatMessage', (message) => {
     console.log('Got new message!');
     console.log(message.message_no_bbcode);
