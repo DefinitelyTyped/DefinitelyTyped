@@ -50,15 +50,14 @@ declare class ASN1Tag {
 declare class ASN1 {
     static decode(stream: ASN1.StreamOrBinary, offset?: number): ASN1;
 
-    /** @todo Update type for `sub` */
-    constructor(stream: Stream, header: number, length: number, tag: ASN1Tag, tagLen: number, sub: unknown[] | null);
+    constructor(stream: Stream, header: number, length: number, tag: ASN1Tag, tagLen: number, sub: ASN1[] | null);
 
     stream: Stream;
     header: number;
     length: number;
     tag: ASN1Tag;
     tagLen: number;
-    sub: unknown[] | null;
+    sub: ASN1[] | null;
 
     typeName(): string;
     content(maxLength?: number): string | null;
