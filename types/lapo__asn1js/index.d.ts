@@ -61,7 +61,7 @@ declare class ASN1 {
     sub: unknown[] | null;
 
     typeName(): string;
-    content(maxLength: number): string | null;
+    content(maxLength?: number): string | null;
     toString(): string;
     toPrettyString(indent?: string): string;
     posStart(): number;
