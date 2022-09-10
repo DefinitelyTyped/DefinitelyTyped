@@ -36,3 +36,19 @@ function suspenseTest() {
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.SuspenseList>;
+
+const contextUsers = React.createContext(['HAL']);
+const promisedUsers = Promise.resolve(['Dave']);
+
+function useUse() {
+    // @ts-expect-error Missing value
+    React.experimental_use();
+
+    // $ExpectType string[]
+    const users = React.experimental_use(promisedUsers);
+    // @ts-expect-error incompatible type. Mainly to potentially inspect TypeScript error message
+    React.experimental_use({});
+
+    // $ExpectType string[]
+    const contextValue = React.experimental_use(contextUsers);
+}
