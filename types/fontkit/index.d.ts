@@ -197,6 +197,9 @@ export interface Glyph {
 
     /** is a ligature glyph (multiple character, spacing glyph) */
     isLigature: boolean;
+
+    /** Renders the glyph to the given graphics context, at the specified font size. */
+    render(ctx: CanvasRenderingContext2D, size: number): void;
 }
 
 /**
@@ -279,5 +282,5 @@ interface Fontkit {
     create(buffer: Buffer, postscriptName?: string): Font;
 }
 
-declare const defExp: Fontkit;
-export default defExp;
+declare const fontkit: Fontkit;
+export = fontkit;
