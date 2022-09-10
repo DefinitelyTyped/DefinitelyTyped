@@ -332,10 +332,8 @@ const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
-    .clearAllTimers()
     .resetAllMocks()
     .restoreAllMocks()
-    .clearAllTimers()
     .deepUnmock('moduleName')
     .disableAutomock()
     .doMock('moduleName')
@@ -372,6 +370,9 @@ jest.autoMockOff()
 
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType void
+jest.clearAllTimers();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();

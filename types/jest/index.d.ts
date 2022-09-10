@@ -156,7 +156,7 @@ declare namespace jest {
      * been scheduled, they will be cleared and will never have the opportunity
      * to execute in the future.
      */
-    function clearAllTimers(): typeof jest;
+    function clearAllTimers(): void;
     /**
      * Returns the number of fake timers still left to run.
      */
