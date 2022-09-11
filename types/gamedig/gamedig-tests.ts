@@ -1,5 +1,5 @@
 import Gamedig = require('gamedig');
-import GameResolver = require('gamedig/lib/GameResolver.js');
+import GameResolver = require('gamedig/lib/GameResolver');
 
 Gamedig.query(
     {
