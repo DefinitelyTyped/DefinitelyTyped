@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
+        "lib/GameResolver.d.ts",
         "gamedig-tests.ts"
     ]
 }
