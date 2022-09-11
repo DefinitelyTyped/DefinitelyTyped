@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ASN1 {
-    type StreamOrBinary = Stream | string | number[];
+    type Binary = string | number[] | Uint8Array;
+    type StreamOrBinary = Stream | Binary;
 
     interface StreamParseReturn {
         size: number;
@@ -17,7 +18,7 @@ declare class Stream {
 
     constructor(enc: ASN1.StreamOrBinary, pos: number);
 
-    enc: string | number[];
+    enc: ASN1.Binary;
     pos: number;
 
     get(pos?: number): number;

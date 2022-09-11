@@ -9,6 +9,7 @@ ASN1.decode();
 // @ts-expect-error
 ASN1.decode(['a', 'b', 'c']);
 ASN1.decode([1, 2, 3]);
+ASN1.decode(new Uint8Array([1, 2, 3]));
 ASN1.decode('abc');
 ASN1.decode([1, 2, 3], 0);
 
@@ -26,6 +27,7 @@ new ASN1(stream, 0, 0, tag, 0, []);
 // Base64
 Base64.decode('abc'); // $ExpectType Uint8Array
 Base64.decode([1, 2, 3]); // $ExpectType Uint8Array
+Base64.decode(new Uint8Array([1, 2, 3])); // $ExpectType Uint8Array
 Base64.pretty('abc'); // $ExpectType string
 Base64.re; // $ExpectType RegExp
 Base64.unarmor('abc'); // $ExpectType Uint8Array
@@ -33,6 +35,7 @@ Base64.unarmor('abc'); // $ExpectType Uint8Array
 // Hex
 Hex.decode('abc'); // $ExpectType Uint8Array
 Hex.decode([1, 2, 3]); // $ExpectType Uint8Array
+Hex.decode(new Uint8Array([1, 2, 3])); // $ExpectType Uint8Array
 
 // Int10
 new Int10();
