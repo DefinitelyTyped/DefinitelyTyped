@@ -1,4 +1,5 @@
 import Gamedig = require("gamedig");
+import GameResolver = require("gamedig/lib/GameResolver.js");
 
 Gamedig.query({
   type: "tf2",
@@ -24,3 +25,10 @@ Gamedig.query({
     ping
   } = state;
 });
+
+const gameResolver = new GameResolver();
+
+const gamesByKey = gameResolver.gamesByKey;
+const games = gameResolver.games;
+gameResolver.lookup("tf2");
+gameResolver.printReadme();
