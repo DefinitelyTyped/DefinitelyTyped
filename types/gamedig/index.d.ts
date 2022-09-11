@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type Type =
-    '7d2d'
+    | '7d2d'
     | 'ageofchivalry'
     | 'aoe2'
     | 'alienarena'
