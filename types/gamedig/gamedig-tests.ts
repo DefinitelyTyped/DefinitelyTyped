@@ -28,7 +28,31 @@ Gamedig.query({
 
 const gameResolver = new GameResolver();
 
-const gamesByKey = gameResolver.gamesByKey;
-const games = gameResolver.games;
+const gamesByKey: Map<Gamedig.Type, {
+  keys: string[];
+  pretty: string;
+  options: {
+      protocol: string;
+      port?: number;
+      port_query_offset?: number;
+      port_query?: number;
+  };
+  extra: {
+      doc_notes?: string;
+  };
+}> = gameResolver.gamesByKey;
+const games: [{
+  keys: string[];
+  pretty: string;
+  options: {
+      protocol: string;
+      port?: number;
+      port_query_offset?: number;
+      port_query?: number;
+  };
+  extra: {
+      doc_notes?: string;
+  };
+}] = gameResolver.games;
 gameResolver.lookup("tf2");
 gameResolver.printReadme();
