@@ -211,7 +211,7 @@ declare namespace jest {
     /**
      * Creates a mock function. Optionally takes a mock implementation.
      */
-    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
+    function fn<T extends FunctionLike = UnknownFunction>(implementation?: T): Mock<T>;
     /**
      * (renamed to `createMockFromModule` in Jest 26.0.0+)
      * Use the automatic mocking system to generate a mocked version of the given module.
@@ -350,26 +350,24 @@ declare namespace jest {
         method: Key,
         accessType: A,
     ): A extends SetAccessor
-        ? SpyInstance<void, [Value]>
+        ? SpyInstance<(arg: Value) => void>
         : A extends GetAccessor
-        ? SpyInstance<Value, []>
-        : Value extends Constructor
-        ? SpyInstance<InstanceType<Value>, ConstructorArgsType<Value>>
-        : Value extends Func
-        ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
+        ? SpyInstance<() => Value>
+        : Value extends ClassLike
+        ? SpyInstance<(...args: ConstructorParameters<Value>) => InstanceType<Value>>
+        : Value extends FunctionLike
+        ? SpyInstance<(...args: Parameters<Value>) => ReturnType<Value>>
         : never;
-    function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
+
+    function spyOn<T extends object, K extends ConstructorLikeKeys<T>, V extends Required<T>[K]>(
         object: T,
-        method: M,
-    ): FunctionProperties<Required<T>>[M] extends Func
-        ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
-        : never;
-    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        methodKey: K,
+    ): V extends ClassLike ? SpyInstance<(...args: ConstructorParameters<V>) => InstanceType<V>> : never;
+
+    function spyOn<T extends object, K extends MethodLikeKeys<T>, V extends Required<T>[K]>(
         object: T,
-        method: M,
-    ): Required<T>[M] extends new (...args: any[]) => any
-        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
-        : never;
+        methodKey: K,
+    ): V extends FunctionLike ? SpyInstance<(...args: Parameters<V>) => ReturnType<V>> : never;
     /**
      * Indicates that the module system should never return a mocked version of
      * the specified module from require() (e.g. that it should always return the real module).
@@ -388,51 +386,277 @@ declare namespace jest {
         virtual?: boolean | undefined;
     }
 
-    type MockableFunction = (...args: any[]) => any;
-    type MethodKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? K : never }[keyof T];
-    type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
-    type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
+    interface ClassLike {
+        new (...args: any): any;
+    }
+    type FunctionLike = (...args: any) => any;
+
+    type ConstructorLikeKeys<T> = keyof {
+        [K in keyof T as Required<T>[K] extends ClassLike ? K : never]: T[K];
+    };
+
+    type MethodLikeKeys<T> = keyof {
+        [K in keyof T as Required<T>[K] extends FunctionLike ? K : never]: T[K];
+    };
+
+    type PropertyLikeKeys<T> = Exclude<keyof T, ConstructorLikeKeys<T> | MethodLikeKeys<T>>;
+
+    type GetAccessor = 'get';
+    type SetAccessor = 'set';
+    type PropertyAccessors<M extends keyof T, T extends {}> = M extends PropertyLikeKeys<T>
+        ? GetAccessor | SetAccessor
+        : never;
+
+    type UnknownFunction = (...args: unknown[]) => unknown;
+
+    interface Mock<T extends FunctionLike = UnknownFunction> extends Function, MockInstance<T> {
+        new (...args: Parameters<T>): ReturnType<T>;
+        (...args: Parameters<T>): ReturnType<T>;
+    }
+
+    type ResolveType<T extends FunctionLike> = ReturnType<T> extends PromiseLike<infer U> ? U : never;
+
+    type RejectType<T extends FunctionLike> = ReturnType<T> extends PromiseLike<any> ? unknown : never;
+
+    interface MockInstance<T extends FunctionLike = UnknownFunction> {
+        /**
+         * Returns the function that was set as the implementation of the mock (using mockImplementation).
+         */
+        getMockImplementation(): T | undefined;
+        /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
+        getMockName(): string;
+        /** Provides access to the mock's metadata */
+        mock: MockFunctionState<T>;
+        /**
+         * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
+         *
+         * Often this is useful when you want to clean up a mock's usage data between two assertions.
+         *
+         * Beware that `mockClear` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
+         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
+         * don't access stale data.
+         */
+        mockClear(): this;
+        /**
+         * Resets all information stored in the mock, including any initial implementation and mock name given.
+         *
+         * This is useful when you want to completely restore a mock back to its initial state.
+         *
+         * Beware that `mockReset` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
+         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
+         * don't access stale data.
+         */
+        mockReset(): this;
+        /**
+         * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
+         *
+         * This is useful when you want to mock functions in certain test cases and restore the original implementation in others.
+         *
+         * Beware that `mockFn.mockRestore` only works when mock was created with `jest.spyOn`. Thus you have to take care of restoration
+         * yourself when manually assigning `jest.fn()`.
+         *
+         * The [`restoreMocks`](https://jestjs.io/docs/en/configuration.html#restoremocks-boolean) configuration option is available
+         * to restore mocks automatically between tests.
+         */
+        mockRestore(): void;
+        /**
+         * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
+         * all calls that go into and instances that come from itself – the only difference is that the implementation
+         * will also be executed when the mock is called.
+         *
+         * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
+         */
+        mockImplementation(fn: T): this;
+        /**
+         * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
+         * Can be chained so that multiple function calls produce different results.
+         *
+         * @example
+         *
+         * const myMockFn = jest
+         *   .fn()
+         *    .mockImplementationOnce(cb => cb(null, true))
+         *    .mockImplementationOnce(cb => cb(null, false));
+         *
+         * myMockFn((err, val) => console.log(val)); // true
+         *
+         * myMockFn((err, val) => console.log(val)); // false
+         */
+        mockImplementationOnce(fn: T): this;
+        /** Sets the name of the mock. */
+        mockName(name: string): this;
+        /**
+         * Shorthand for: `jest.fn(function() { return this; });`
+         */
+        mockReturnThis(): this;
+        /**
+         * Accepts a value that will be returned whenever the mock function is called.
+         *
+         * @example
+         *
+         * const mock = jest.fn();
+         * mock.mockReturnValue(42);
+         * mock(); // 42
+         * mock.mockReturnValue(43);
+         * mock(); // 43
+         */
+        mockReturnValue(value: ReturnType<T>): this;
+        /**
+         * Accepts a value that will be returned for one call to the mock function. Can be chained so that
+         * successive calls to the mock function return different values. When there are no more
+         * `mockReturnValueOnce` values to use, calls will return a value specified by `mockReturnValue`.
+         *
+         * @example
+         *
+         * const myMockFn = jest.fn()
+         *   .mockReturnValue('default')
+         *   .mockReturnValueOnce('first call')
+         *   .mockReturnValueOnce('second call');
+         *
+         * // 'first call', 'second call', 'default', 'default'
+         * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+         *
+         */
+        mockReturnValueOnce(value: ReturnType<T>): this;
+        /**
+         * Shorthand for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
+         */
+        mockResolvedValue(value: ResolveType<T>): this;
+        /**
+         * Shorthand for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *  const asyncMock = jest
+         *    .fn()
+         *    .mockResolvedValue('default')
+         *    .mockResolvedValueOnce('first call')
+         *    .mockResolvedValueOnce('second call');
+         *
+         *  await asyncMock(); // first call
+         *  await asyncMock(); // second call
+         *  await asyncMock(); // default
+         *  await asyncMock(); // default
+         * });
+         *
+         */
+        mockResolvedValueOnce(value: ResolveType<T>): this;
+        /**
+         * Shorthand for: `jest.fn().mockImplementation(() => Promise.reject(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *   const asyncMock = jest.fn().mockRejectedValue(new Error('Async error'));
+         *
+         *   await asyncMock(); // throws "Async error"
+         * });
+         */
+        mockRejectedValue(value: RejectType<T>): this;
+        /**
+         * Shorthand for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
+         *
+         * @example
+         *
+         * test('async test', async () => {
+         *  const asyncMock = jest
+         *    .fn()
+         *    .mockResolvedValueOnce('first call')
+         *    .mockRejectedValueOnce(new Error('Async error'));
+         *
+         *  await asyncMock(); // first call
+         *  await asyncMock(); // throws "Async error"
+         * });
+         *
+         */
+        mockRejectedValueOnce(value: RejectType<T>): this;
+    }
+
+    type SpyInstance<T extends FunctionLike = UnknownFunction> = MockInstance<T>;
+
+    interface MockFunctionResultIncomplete {
+        type: 'incomplete';
+        /**
+         * Result of a single call to a mock function that has not yet completed.
+         * This occurs if you test the result from within the mock function itself,
+         * or from within a function that was called by the mock.
+         */
+        value: undefined;
+    }
+    interface MockFunctionResultReturn<T extends FunctionLike = UnknownFunction> {
+        type: 'return';
+        /**
+         * Result of a single call to a mock function that returned.
+         */
+        value: ReturnType<T>;
+    }
+    interface MockFunctionResultThrow {
+        type: 'throw';
+        /**
+         * Result of a single call to a mock function that threw.
+         */
+        value: unknown;
+    }
+
+    type MockFunctionResult<T extends FunctionLike = UnknownFunction> =
+        | MockFunctionResultIncomplete
+        | MockFunctionResultReturn<T>
+        | MockFunctionResultThrow;
+
+    interface MockFunctionState<T extends FunctionLike = UnknownFunction> {
+        /**
+         * List of the call arguments of all calls that have been made to the mock.
+         */
+        calls: Array<Parameters<T>>;
+        /**
+         * List of all the object instances that have been instantiated from the mock.
+         */
+        instances: Array<ReturnType<T>>;
+        /**
+         * List of all the function contexts that have been applied to calls to the mock.
+         */
+        contexts: Array<ThisParameterType<T>>;
+        /**
+         * List of the call order indexes of the mock. Jest is indexing the order of
+         * invocations of all mocks in a test file. The index is starting with `1`.
+         */
+        invocationCallOrder: number[];
+        /**
+         * List of the call arguments of the last call that was made to the mock.
+         * If the function was not called, it will return `undefined`.
+         */
+        lastCall?: Parameters<T>;
+        /**
+         * List of the results of all calls that have been made to the mock.
+         */
+        results: Array<MockFunctionResult<T>>;
+    }
+
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
 
-    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
+    interface MockWithArgs<T extends FunctionLike> extends MockInstance<T> {
         new (...args: ConstructorArgumentsOf<T>): T;
-        (...args: ArgumentsOf<T>): ReturnType<T>;
+        (...args: Parameters<T>): ReturnType<T>;
     }
     type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
-        ? MockInstance<R, ConstructorArgumentsOf<T>>
+        ? MockInstance<(...args: ConstructorParameters<T>) => R>
         : T;
-    type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
-    type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
+    type MockedFn<T extends FunctionLike> = MockWithArgs<T> & { [K in keyof T]: T[K] };
+    type MockedFunctionDeep<T extends FunctionLike> = MockWithArgs<T> & MockedObjectDeep<T>;
     type MockedObject<T> = MaybeMockedConstructor<T> & {
-        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFn<T[K]> : T[K];
-    } & { [K in PropertyKeysOf<T>]: T[K] };
+        [K in MethodLikeKeys<T>]: T[K] extends FunctionLike ? MockedFn<T[K]> : T[K];
+    } & { [K in PropertyLikeKeys<T>]: T[K] };
     type MockedObjectDeep<T> = MaybeMockedConstructor<T> & {
-        [K in MethodKeysOf<T>]: T[K] extends MockableFunction ? MockedFunctionDeep<T[K]> : T[K];
-    } & { [K in PropertyKeysOf<T>]: MaybeMockedDeep<T[K]> };
-    type MaybeMockedDeep<T> = T extends MockableFunction
+        [K in MethodLikeKeys<T>]: T[K] extends FunctionLike ? MockedFunctionDeep<T[K]> : T[K];
+    } & { [K in PropertyLikeKeys<T>]: MaybeMockedDeep<T[K]> };
+    type MaybeMockedDeep<T> = T extends FunctionLike
         ? MockedFunctionDeep<T>
         : T extends object // eslint-disable-line @typescript-eslint/ban-types
         ? MockedObjectDeep<T>
         : T;
     // eslint-disable-next-line @typescript-eslint/ban-types
-    type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
-    type EmptyFunction = () => void;
-    type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
-    type Constructor = new (...args: any[]) => any;
-    type Func = (...args: any[]) => any;
-    type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
-    type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
-    type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
-    // see https://github.com/Microsoft/TypeScript/issues/25215
-    type NonFunctionPropertyNames<T> = keyof { [K in keyof T as T[K] extends Func ? never : K]: T[K] };
-    type GetAccessor = 'get';
-    type SetAccessor = 'set';
-    type PropertyAccessors<M extends keyof T, T extends {}> = M extends NonFunctionPropertyNames<Required<T>>
-        ? GetAccessor | SetAccessor
-        : never;
-    type FunctionProperties<T> = { [K in keyof T as T[K] extends (...args: any[]) => any ? K : never]: T[K] };
-    type FunctionPropertyNames<T> = keyof FunctionProperties<T>;
-    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends Constructor ? K : never }[keyof T] & string;
+    type MaybeMocked<T> = T extends FunctionLike ? MockedFn<T> : T extends object ? MockedObject<T> : T;
 
     interface DoneCallback {
         (...args: any[]): any;
@@ -443,10 +667,6 @@ declare namespace jest {
     type ProvidesHookCallback = (() => any) | ProvidesCallback;
 
     type Lifecycle = (fn: ProvidesHookCallback, timeout?: number) => any;
-
-    interface FunctionLike {
-        readonly name: string;
-    }
 
     interface Each {
         // Exclusively arrays.
@@ -551,9 +771,15 @@ declare namespace jest {
         each: Each;
     }
 
+    type EmptyFunction = () => void;
+
+    interface NamedFunctionLike {
+        readonly name: string;
+    }
+
     interface Describe {
         // tslint:disable-next-line ban-types
-        (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
+        (name: number | string | Function | NamedFunctionLike, fn: EmptyFunction): void;
         /** Only runs the tests inside this `describe` for the current file */
         only: Describe;
         /** Skips running the tests inside this `describe` for the current file */
@@ -1127,17 +1353,10 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T = any, Y extends any[] = any> extends Function, MockInstance<T, Y> {
-        new (...args: Y): T;
-        (...args: Y): T;
-    }
-
-    interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
-
     /**
      * Represents a function that has been spied on.
      */
-    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<T>;
 
     /**
      * Wrap a function with mock definitions
@@ -1150,7 +1369,7 @@ declare namespace jest {
      *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
      *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
      */
-    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
+    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<T> & T;
 
     /**
      * Wrap a class with mock definitions
@@ -1165,10 +1384,8 @@ declare namespace jest {
      *  expect(mockedMyClass.mock.calls[0][0]).toBe(42); // Constructor calls
      *  expect(mockedMyClass.prototype.myMethod.mock.calls[0][0]).toBe(42); // Method calls
      */
-
-    type MockedClass<T extends Constructable> = MockInstance<
-        InstanceType<T>,
-        T extends new (...args: infer P) => any ? P : never
+    type MockedClass<T extends ClassLike> = MockInstance<
+        (args: T extends new (...args: infer P) => any ? P : never) => InstanceType<T>
     > & {
         prototype: T extends { prototype: any } ? Mocked<T['prototype']> : never;
     } & T;
@@ -1186,222 +1403,11 @@ declare namespace jest {
      */
     type Mocked<T> = {
         [P in keyof T]: T[P] extends (...args: any[]) => any
-            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>
+            ? MockInstance<T[P]>
             : T[P] extends Constructable
             ? MockedClass<T[P]>
             : T[P];
     } & T;
-
-    interface MockInstance<T, Y extends any[]> {
-        /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
-        getMockName(): string;
-        /** Provides access to the mock's metadata */
-        mock: MockContext<T, Y>;
-        /**
-         * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
-         *
-         * Often this is useful when you want to clean up a mock's usage data between two assertions.
-         *
-         * Beware that `mockClear` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
-         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
-         * don't access stale data.
-         */
-        mockClear(): this;
-        /**
-         * Resets all information stored in the mock, including any initial implementation and mock name given.
-         *
-         * This is useful when you want to completely restore a mock back to its initial state.
-         *
-         * Beware that `mockReset` will replace `mockFn.mock`, not just `mockFn.mock.calls` and `mockFn.mock.instances`.
-         * You should therefore avoid assigning mockFn.mock to other variables, temporary or not, to make sure you
-         * don't access stale data.
-         */
-        mockReset(): this;
-        /**
-         * Does everything that `mockFn.mockReset()` does, and also restores the original (non-mocked) implementation.
-         *
-         * This is useful when you want to mock functions in certain test cases and restore the original implementation in others.
-         *
-         * Beware that `mockFn.mockRestore` only works when mock was created with `jest.spyOn`. Thus you have to take care of restoration
-         * yourself when manually assigning `jest.fn()`.
-         *
-         * The [`restoreMocks`](https://jestjs.io/docs/en/configuration.html#restoremocks-boolean) configuration option is available
-         * to restore mocks automatically between tests.
-         */
-        mockRestore(): void;
-        /**
-         * Returns the function that was set as the implementation of the mock (using mockImplementation).
-         */
-        getMockImplementation(): ((...args: Y) => T) | undefined;
-        /**
-         * Accepts a function that should be used as the implementation of the mock. The mock itself will still record
-         * all calls that go into and instances that come from itself – the only difference is that the implementation
-         * will also be executed when the mock is called.
-         *
-         * Note: `jest.fn(implementation)` is a shorthand for `jest.fn().mockImplementation(implementation)`.
-         */
-        mockImplementation(fn?: (...args: Y) => T): this;
-        /**
-         * Accepts a function that will be used as an implementation of the mock for one call to the mocked function.
-         * Can be chained so that multiple function calls produce different results.
-         *
-         * @example
-         *
-         * const myMockFn = jest
-         *   .fn()
-         *    .mockImplementationOnce(cb => cb(null, true))
-         *    .mockImplementationOnce(cb => cb(null, false));
-         *
-         * myMockFn((err, val) => console.log(val)); // true
-         *
-         * myMockFn((err, val) => console.log(val)); // false
-         */
-        mockImplementationOnce(fn: (...args: Y) => T): this;
-        /** Sets the name of the mock`. */
-        mockName(name: string): this;
-        /**
-         * Just a simple sugar function for:
-         *
-         * @example
-         *
-         *   jest.fn(function() {
-         *     return this;
-         *   });
-         */
-        mockReturnThis(): this;
-        /**
-         * Accepts a value that will be returned whenever the mock function is called.
-         *
-         * @example
-         *
-         * const mock = jest.fn();
-         * mock.mockReturnValue(42);
-         * mock(); // 42
-         * mock.mockReturnValue(43);
-         * mock(); // 43
-         */
-        mockReturnValue(value: T): this;
-        /**
-         * Accepts a value that will be returned for one call to the mock function. Can be chained so that
-         * successive calls to the mock function return different values. When there are no more
-         * `mockReturnValueOnce` values to use, calls will return a value specified by `mockReturnValue`.
-         *
-         * @example
-         *
-         * const myMockFn = jest.fn()
-         *   .mockReturnValue('default')
-         *   .mockReturnValueOnce('first call')
-         *   .mockReturnValueOnce('second call');
-         *
-         * // 'first call', 'second call', 'default', 'default'
-         * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
-         *
-         */
-        mockReturnValueOnce(value: T): this;
-        /**
-         * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.resolve(value));`
-         */
-        mockResolvedValue(value: ResolvedValue<T>): this;
-        /**
-         * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.resolve(value));`
-         *
-         * @example
-         *
-         * test('async test', async () => {
-         *  const asyncMock = jest
-         *    .fn()
-         *    .mockResolvedValue('default')
-         *    .mockResolvedValueOnce('first call')
-         *    .mockResolvedValueOnce('second call');
-         *
-         *  await asyncMock(); // first call
-         *  await asyncMock(); // second call
-         *  await asyncMock(); // default
-         *  await asyncMock(); // default
-         * });
-         *
-         */
-        mockResolvedValueOnce(value: ResolvedValue<T>): this;
-        /**
-         * Simple sugar function for: `jest.fn().mockImplementation(() => Promise.reject(value));`
-         *
-         * @example
-         *
-         * test('async test', async () => {
-         *   const asyncMock = jest.fn().mockRejectedValue(new Error('Async error'));
-         *
-         *   await asyncMock(); // throws "Async error"
-         * });
-         */
-        mockRejectedValue(value: RejectedValue<T>): this;
-
-        /**
-         * Simple sugar function for: `jest.fn().mockImplementationOnce(() => Promise.reject(value));`
-         *
-         * @example
-         *
-         * test('async test', async () => {
-         *  const asyncMock = jest
-         *    .fn()
-         *    .mockResolvedValueOnce('first call')
-         *    .mockRejectedValueOnce(new Error('Async error'));
-         *
-         *  await asyncMock(); // first call
-         *  await asyncMock(); // throws "Async error"
-         * });
-         *
-         */
-        mockRejectedValueOnce(value: RejectedValue<T>): this;
-    }
-
-    /**
-     * Represents the result of a single call to a mock function with a return value.
-     */
-    interface MockResultReturn<T> {
-        type: 'return';
-        value: T;
-    }
-    /**
-     * Represents the result of a single incomplete call to a mock function.
-     */
-    interface MockResultIncomplete {
-        type: 'incomplete';
-        value: undefined;
-    }
-    /**
-     * Represents the result of a single call to a mock function with a thrown error.
-     */
-    interface MockResultThrow {
-        type: 'throw';
-        value: any;
-    }
-
-    type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
-
-    interface MockContext<T, Y extends any[]> {
-        /**
-         * List of the call arguments of all calls that have been made to the mock.
-         */
-        calls: Y[];
-        /**
-         * List of all the object instances that have been instantiated from the mock.
-         */
-        instances: T[];
-        /**
-         * List of the call order indexes of the mock. Jest is indexing the order of
-         * invocations of all mocks in a test file. The index is starting with `1`.
-         */
-        invocationCallOrder: number[];
-        /**
-         * List of the call arguments of the last call that was made to the mock.
-         * If the function was not called, it will return `undefined`.
-         */
-        lastCall?: Y;
-        /**
-         * List of the results of all calls that have been made to the mock.
-         */
-        results: Array<MockResult<T>>;
-    }
 }
 
 // Jest ships with a copy of Jasmine. They monkey-patch its APIs and divergence/deprecation are expected.

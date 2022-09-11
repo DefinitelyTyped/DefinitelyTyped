@@ -430,37 +430,37 @@ const spreadRequireMock = { ...jest.requireMock('./thisAlwaysReturnsTheMock') };
 
 /* Mocks and spies */
 
-// $ExpectType Mock<any, any>
-const mock1: jest.Mock<number> = jest.fn();
-// $ExpectType Mock<undefined, []>
+// $ExpectType Mock<(arg: any) => number>
+const mock1 = jest.fn<(arg: any) => number>();
+// $ExpectType Mock<() => undefined>
 const mock2 = jest.fn(() => undefined);
-// $ExpectType Mock<string, []>
+// $ExpectType Mock<() => string>
 const mock3 = jest.fn(() => 'abc');
-// $ExpectType Mock<"abc", []>
+// $ExpectType Mock<() => "abc">
 const mock4 = jest.fn((): 'abc' => 'abc');
-// $ExpectType Mock<string, string[]>
+// $ExpectType Mock<(...args: string[]) => string>
 const mock5 = jest.fn((...args: string[]) => args.join(''));
-// $ExpectType Mock<{}, [{}]> || Mock<{}, [arg: {}]>
+// $ExpectType Mock<(arg: {}) => {}>
 const mock6 = jest.fn((arg: {}) => arg);
-// $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
+// $ExpectType Mock<(arg: number) => number>
 const mock7 = jest.fn((arg: number) => arg);
-// $ExpectType Mock<number, [number]> || Mock<number, [arg: number]>
-const mock8: jest.Mock = jest.fn((arg: number) => arg);
-// $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
+// $ExpectType Mock<(arg: number) => number>
+const mock8: jest.Mock<(arg: any) => any> = jest.fn((arg: number) => arg);
+// $ExpectType Mock<(a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) => Promise<boolean>>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
     Promise.resolve(_makeItStop),
 );
-// $ExpectType Mock<never, []>
+// $ExpectType Mock<() => never>
 const mock10 = jest.fn(() => {
     throw new Error();
 });
-// $ExpectType Mock<unknown, [unknown]> || Mock<unknown, [arg: unknown]>
+// $ExpectType Mock<(arg: unknown) => unknown>
 const mock11 = jest.fn((arg: unknown) => arg);
 interface TestApi {
     test(x: number): string;
 }
-// $ExpectType Mock<string, [number]> || Mock<string, [x: number]>
-const mock12 = jest.fn<ReturnType<TestApi['test']>, jest.ArgsType<TestApi['test']>>();
+// $ExpectType Mock<(x: number) => string>
+const mock12 = jest.fn<TestApi['test']>();
 
 // $ExpectType number
 mock1('test');
@@ -470,7 +470,7 @@ mock7('abc');
 // @ts-expect-error
 mock7.mockImplementation((arg: string) => 1);
 
-// compiles because mock8 is declared as jest.Mock<{}, any>
+// compiles because mock8 is declared as jest.Mock<(arg: any) => any>
 mock8('abc');
 mock8.mockImplementation((arg: string) => 1);
 
@@ -498,8 +498,8 @@ const mockContextString = jest.fn(() => '').mock;
 jest.fn().mockClear();
 jest.fn().mockReset();
 jest.fn().mockRestore();
-jest.fn().mockImplementation((test: number) => test);
-jest.fn().mockResolvedValue(1);
+jest.fn<(test: number) => number>().mockImplementation(test => test);
+jest.fn<() => Promise<number>>().mockResolvedValue(1);
 
 interface SpyInterface {
     prop?: number | undefined;
@@ -551,6 +551,7 @@ spy1.mockReset();
 
 const spy3Mock = spy3
     .mockImplementation(() => '')
+    // @ts-expect-error
     .mockImplementation()
     // @ts-expect-error
     .mockImplementation((arg: {}) => arg)
@@ -573,7 +574,7 @@ jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockRejectedValueOnce('value');
 
 let spy4: jest.SpyInstance;
-// $ExpectType SpyInstance<string, []>
+// $ExpectType SpyInstance<() => string>
 spy4 = jest.spyOn(spiedTarget, 'returnsString');
 // compiles because spy4 is declared as jest.SpyInstance<any, any>
 spy4.mockImplementation(() => 1);
@@ -581,17 +582,17 @@ spy4.mockRestore();
 
 let spy5: jest.SpiedFunction<typeof spiedTarget.setValue>;
 
-// $ExpectType SpyInstance<void, [string]> || SpyInstance<void, [value: string]>
+// $ExpectType SpyInstance<(value: string) => void>
 spy5 = jest.spyOn(spiedTarget, 'setValue');
-// @ts-expect-error
+// $ExpectType SpyInstance<() => string>
 spy5 = jest.spyOn(spiedTarget, 'returnsString');
 
-// $ExpectType SpyInstance<number, []>
+// $ExpectType SpyInstance<() => number>
 const spy6 = jest.spyOn(spiedTarget2, 'value', 'get');
 // @ts-expect-error
 spy6.mockReturnValue('5');
 
-// $ExpectType SpyInstance<void, [number]>
+// $ExpectType SpyInstance<(arg: number) => void>
 jest.spyOn(spiedTarget2, 'value', 'set');
 
 const spyInterfaceImpl: SpyInterface = {};
@@ -599,16 +600,16 @@ const spyInterfaceImpl: SpyInterface = {};
 jest.spyOn(spyInterfaceImpl, 'method', 'get');
 // @ts-expect-error
 jest.spyOn(spyInterfaceImpl, 'prop');
-// $ExpectType SpyInstance<number, []>
+// $ExpectType SpyInstance<() => number>
 jest.spyOn(spyInterfaceImpl, 'prop', 'get');
-// $ExpectType SpyInstance<void, [boolean]> || SpyInstance<void, [arg1: boolean]>
+// $ExpectType SpyInstance<(arg1: boolean) => void>
 jest.spyOn(spyInterfaceImpl, 'method');
 
 class SpyableClass {
     constructor(a: number, b: string) {}
     foo() {}
 }
-// $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
+// $ExpectType SpyInstance<(a: number, b: string) => SpyableClass>
 jest.spyOn({ SpyableClass }, 'SpyableClass');
 
 interface SpyableWithIndexSignature {
@@ -624,19 +625,19 @@ const spyWithIndexSignatureImpl: SpyableWithIndexSignature = {
     methodTwo: (s, b) => ({ b, n: Number(s) }),
     prop: { some: 'thing' },
 };
-// $ExpectType SpyInstance<void, []>
+// $ExpectType SpyInstance<() => void>
 jest.spyOn(spyWithIndexSignatureImpl, 'methodOne');
-// $ExpectType SpyInstance<{ b: boolean; n: number; }, [s: string, b: boolean]>
+// $ExpectType SpyInstance<(s: string, b: boolean) => { b: boolean; n: number; }>
 jest.spyOn(spyWithIndexSignatureImpl, 'methodTwo');
 // @ts-expect-error
 jest.spyOn(spyWithIndexSignatureImpl, 'nonExistentMethod');
 // @ts-expect-error
 jest.spyOn(spyWithIndexSignatureImpl, 'prop');
-// $ExpectType SpyInstance<{ some: string; }, []>
+// $ExpectType SpyInstance<() => { some: string; }>
 jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
-// $ExpectType MockedObject<{}>
-jest.mocked({});
+// $ExpectType MockedObject<{ test: number; }>
+jest.mocked({ test: 1 });
 // @ts-expect-error
 jest.mocked();
 
@@ -665,31 +666,31 @@ class TestMocked {
     }
 }
 
-const mocked: jest.Mocked<TestMocked> = new TestMocked() as any;
+const mocked = new TestMocked() as jest.Mocked<TestMocked>;
 mocked.test1.mockImplementation(() => Promise.resolve({ a: 1 }));
 // $ExpectType ((x: Type1) => Promise<Type1>) | undefined
 mocked.test1.getMockImplementation();
 mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
-// $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)
+// $ExpectType MockInstance<(x: Type1) => Promise<Type1>> & ((x: Type1) => Promise<Type1>)
 mocked.test1.mockResolvedValue({ a: 1 });
 mocked.test1.mockResolvedValueOnce({ a: 1 });
-// $ExpectType MockInstance<Promise<Type1>, [Type1]> & ((x: Type1) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Type1]> & ((x: Type1) => Promise<Type1>)
-mocked.test1.mockResolvedValue(Promise.resolve({ a: 1 }));
-mocked.test1.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectType MockInstance<(x: Type1) => Promise<Type1>> & ((x: Type1) => Promise<Type1>)
+mocked.test1.mockReturnValue(Promise.resolve({ a: 1 }));
+mocked.test1.mockReturnValueOnce(Promise.resolve({ a: 1 }));
 
-// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
+// $ExpectType MockInstance<(x: Promise<Type1>) => Promise<Type1>> & ((x: Promise<Type1>) => Promise<Type1>)
 mocked.test2.mockResolvedValue({ a: 1 });
 mocked.test2.mockResolvedValueOnce({ a: 1 });
-// $ExpectType MockInstance<Promise<Type1>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>) || MockInstance<Promise<Type1>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type1>)
-mocked.test2.mockResolvedValue(Promise.resolve({ a: 1 }));
-mocked.test2.mockResolvedValueOnce(Promise.resolve({ a: 1 }));
+// $ExpectType MockInstance<(x: Promise<Type1>) => Promise<Type1>> & ((x: Promise<Type1>) => Promise<Type1>)
+mocked.test2.mockReturnValue(Promise.resolve({ a: 1 }));
+mocked.test2.mockReturnValueOnce(Promise.resolve({ a: 1 }));
 
-// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
+// $ExpectType MockInstance<(x: Promise<Type1>) => Promise<Type2>> & ((x: Promise<Type1>) => Promise<Type2>)
 mocked.test3.mockResolvedValue({ b: 1 });
 mocked.test3.mockResolvedValueOnce({ b: 1 });
-// $ExpectType MockInstance<Promise<Type2>, [Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>) || MockInstance<Promise<Type2>, [x: Promise<Type1>]> & ((x: Promise<Type1>) => Promise<Type2>)
-mocked.test3.mockResolvedValue(Promise.resolve({ b: 1 }));
-mocked.test3.mockResolvedValueOnce(Promise.resolve({ b: 1 }));
+// $ExpectType MockInstance<(x: Promise<Type1>) => Promise<Type2>> & ((x: Promise<Type1>) => Promise<Type2>)
+mocked.test3.mockReturnValue(Promise.resolve({ b: 1 }));
+mocked.test3.mockReturnValueOnce(Promise.resolve({ b: 1 }));
 mocked.test3.mockRejectedValue(new Error());
 mocked.test3.mockRejectedValueOnce(new Error());
 
@@ -706,18 +707,18 @@ mocked.test4.mockRejectedValue(new Error());
 // @ts-expect-error
 mocked.test4.mockRejectedValueOnce(new Error());
 
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+// $ExpectType MockInstance<(x: Type1) => Promise<void>> & ((x: Type1) => Promise<void>)
 mocked.test5.mockResolvedValue(undefined);
 mocked.test5.mockResolvedValueOnce(undefined);
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
-mocked.test5.mockResolvedValue(Promise.resolve(undefined));
-mocked.test5.mockResolvedValueOnce(Promise.resolve(undefined));
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
+// $ExpectType MockInstance<(x: Type1) => Promise<void>> & ((x: Type1) => Promise<void>)
+mocked.test5.mockReturnValue(Promise.resolve(undefined));
+mocked.test5.mockReturnValue(Promise.resolve(undefined));
+// $ExpectType MockInstance<(x: Type1) => Promise<void>> & ((x: Type1) => Promise<void>)
 mocked.test5.mockResolvedValue();
 mocked.test5.mockResolvedValueOnce();
-// $ExpectType MockInstance<Promise<void>, [Type1]> & ((x: Type1) => Promise<void>) || MockInstance<Promise<void>, [x: Type1]> & ((x: Type1) => Promise<void>)
-mocked.test5.mockResolvedValue(Promise.resolve());
-mocked.test5.mockResolvedValueOnce(Promise.resolve());
+// $ExpectType MockInstance<(x: Type1) => Promise<void>> & ((x: Type1) => Promise<void>)
+mocked.test5.mockReturnValue(Promise.resolve());
+mocked.test5.mockReturnValue(Promise.resolve());
 
 class TestClass {
     testClassMethod(str: string, num: number): boolean {
