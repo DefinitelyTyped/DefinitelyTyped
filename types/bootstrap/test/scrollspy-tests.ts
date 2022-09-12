@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType ScrollSpy
-new ScrollSpy(element, { offset: 10 });
+new ScrollSpy(element, { offset: 10, threshold: [10] });
 
 // $ExpectType ScrollSpy | null
 ScrollSpy.getInstance(element);

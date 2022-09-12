@@ -741,21 +741,27 @@ const module = {
 const mockedModule = module as jest.Mocked<typeof module>;
 mockedModule.testFunction.mock.calls[0][0]; // $ExpectType number
 mockedModule.testFunction.mock.calls[0][1]; // $ExpectType string
-mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
-mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedModule.testFunction.mock.lastCall) {
+    mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
+    mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+}
 const testFunction_0_ret = mockedModule.testFunction.mock.results[0];
 if (testFunction_0_ret.type === 'return') {
     testFunction_0_ret.value; // $ExpectType boolean
 }
 
 mockedModule.TestClass.mock.calls[0][0]; // $ExpectType string
-mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+if (mockedModule.TestClass.mock.lastCall) {
+    mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+}
 mockedModule.TestClass.mock.instances[0]; // $ExpectType TestClass
 
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+if (mockedModule.TestClass.prototype.testClassMethod.mock.lastCall) {
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const TestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (TestClass_testClassMethod_0_ret.type === 'return') {
     TestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -764,8 +770,10 @@ if (TestClass_testClassMethod_0_ret.type === 'return') {
 const mockedTestFunction = module.testFunction as jest.MockedFunction<typeof module.testFunction>;
 mockedTestFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedTestFunction.mock.lastCall) {
+    mockedTestFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestFunction_0_ret = mockedTestFunction.mock.results[0];
 if (mockedTestFunction_0_ret.type === 'return') {
     mockedTestFunction_0_ret.value; // $ExpectType boolean
@@ -774,8 +782,10 @@ if (mockedTestFunction_0_ret.type === 'return') {
 const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFunction<typeof module.testLambdaFunction>;
 mockedTestLambdaFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestLambdaFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedTestLambdaFunction.mock.lastCall) {
+    mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestLambdaFunction_0_ret = mockedTestLambdaFunction.mock.results[0];
 if (mockedTestLambdaFunction_0_ret.type === 'return') {
     mockedTestLambdaFunction_0_ret.value; // $ExpectType boolean
@@ -784,8 +794,10 @@ if (mockedTestLambdaFunction_0_ret.type === 'return') {
 const MockedTestClass = module.TestClass as jest.MockedClass<typeof module.TestClass>;
 MockedTestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 MockedTestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+if (MockedTestClass.prototype.testClassMethod.mock.lastCall) {
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const MockedTestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (MockedTestClass_testClassMethod_0_ret.type === 'return') {
     MockedTestClass_testClassMethod_0_ret.value; // $ExpectType boolean
