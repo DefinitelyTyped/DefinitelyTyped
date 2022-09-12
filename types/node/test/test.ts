@@ -20,7 +20,7 @@ run({
 });
 
 // TapStream should be a NodeJS.ReadableStream
-run().pipe(process.stdout)
+run().pipe(process.stdout);
 
 test('foo', t => {
     // $ExpectType TestContext
