@@ -33,8 +33,3 @@ export type ValidatorAction = {
 } | null | undefined;
 
 export default function lookupValidator(validationMap: ValidatorMap): ValidatorAction;
-
-import './validators';
-import './utils';
-
-export {};
