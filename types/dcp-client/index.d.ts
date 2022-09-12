@@ -4,209 +4,30 @@
 //                 Bryan Hoang <https://github.com/bryan-hoang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyType
 
-/* Compute API */
+import { Wallet } from './src/wallet';
+import { Worker } from './src/worker';
+import { Compute } from './src/compute';
 
-/**
- *  Dummy JobHandle Object
- */
-export class JobHandle {}
+export function init(): Promise<DCPClient>;
 
-export class JobInfo {
-    status: string;
-    jobInfo: object;
-}
-export class JobHistory {
-    status: string;
-    history: object;
+export interface DCPClient {
+    compute: Compute;
+    wallet: Wallet;
+    worker: Worker;
 }
 
-export interface Ranges {
-    ranges: [];
+export class Keystore {
+    id: number;
 }
-
-export type jobId = number;
-
-/**
- *  Dummy Job Object
- */
-export class Job {}
-
-/**
- *  Dummy WorkValueQuote Object
- */
-export class WorkValueQuote {}
-
-/**
- *  Dummy WorkValueQuote Object
- */
-export class SliceProfile {}
-
-/**
- *  Dummy WorkValue Object
- */
-export class WorkValue {}
-
-export interface Compute {
-    /**
-     * This function allows the client to cancel a running job. This function takes as its sole argument a Job id and tells the scheduler to cancel the job.
-     * This method returns a promise which is resolved once the scheduler acknowledges the cancellation and has transitioned to a state where no further costs will be incurred as a result of the job.
-     * @returns a Promise which will be fulfilled with an object.
-     */
-    cancel(): Promise<any>;
-
-    /**
-     * form 1: compute.do(work, arguments)
-     * This function returns a JobHandle (an object which corresponds to a job), and accepts one or more arguments, depending on form.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param n
-     * @param arguments
-     */
-    do(n: number, arguments: object): Promise<JobHandle>;
-
-    /**
-     * form 2: compute.do(n, work, arguments)
-     * This function returns a JobHandle (an object which corresponds to a job), and accepts one or more arguments, depending on form.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param n
-     * @param work
-     * @param arguments
-     */
-    do(n: number, work: string, arguments: object): Promise<JobHandle>;
-
-    /**
-     * Form 1: for (rangeObject, work, arguments)
-     * This form accepts a range object rangeObject, (see below) and this range object is used as part of the job on the scheduler.
-     * What this means is that this form is very efficient, particularly for large ranges, as the iteration through the set happens on the scheduler,
-     * and one item at a time. When the range has { start:0, step:1 }, the returned promise is resolved with an array of resultant values.
-     * Otherwise, the returned promise is resolved with an object whose keys are the values in the range.
-     * Form 3: for ({ ranges: [rangeObject, rangeObject...] }, work, arguments) Similar to form1,
-     * except with a multi range object containing an array of range objects in the key ranges.
-     * These are used to create multi-dimensional ranges, like nested loops. If they were written as traditional loops,
-     * the outermost loop would be the leftmost range object, and the innermost loop would be the rightmost range object.
-     * Form 4: for (iterableObject, work, arguments)
-     * Future Note - form4 with an ES6 functionjob argument presents the possibility where, in a future version of DCP,
-     * the protocol will support extremely large input sets without transferring the sets to the scheduler in their entirety.
-     * Since these are ES6 function generators, the scheduler could request blocks of data from the client even while the client is ‘blocked’ in an await call,
-     * without altering the API. This means DCP could process, for example,
-     * jobs where the input set is a very long list of video frames and each slice represents one frame.
-     * iterableObject could be an Array, ES6 function* generator, or any other type of iterable object.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param rangeObject: object | Ranges
-     * @param work
-     * @param arguments
-     */
-    for(rangeObject: object | Ranges, work: string, arguments: object): Promise<JobHandle>;
-
-    /**
-     * form 2a: for (start, end, step, work, arguments) - start, end, and step are numbers used to create a range object.
-     * Otherwise, this is the same as form 1.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param start
-     * @param end
-     * @param step
-     * @param work
-     * @param arguments
-     */
-    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
-
-    /**
-     * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param start
-     * @param end
-     * @param step
-     * @param work
-     * @param arguments
-     */
-    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
-
-    /**
-     * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param start
-     * @param end
-     * @param step
-     * @param work
-     * @param arguments
-     */
-    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
-
-    /**
-     * Form 1: compute.status(job): returns a status object describing a given job.
-     * The argument can be either a job Id or a Job Handle.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param job: jobId or JobHandle
-     */
-    status(job: jobId | JobHandle): Promise<JobHandle>;
-
-    /**
-     * Form 2: compute.status(paymentAccount, startTime, endTime): returns an array of status objects corresponding to the status of jobs deployed by the given payment account.
-     * If startTime is specified, jobs older than this will not be listed. If endTime is specified,
-     * jobs newer than this will not be listed. startTime and endTime can be either the number of milliseconds since the epoch, or instances of Date.
-     * The paymentAccount argument can be a Keystore object, or any valid argument to the Keystore constructor (see: Wallet API).
-     * @returns a Promise which will be fulfilled with a JobHandle object.
-     * @param paymentAccount
-     * @param startTime
-     * @param endTime
-     */
-    status(paymentAccount: string, startTime: number, endTime: number): Promise<JobHandle>;
-
-    /**
-     * This async function accepts job Id as its argument and returns information and status of a job specified with jobID.
-     * @returns a Promise which will be fulfilled with a JobInfo object.
-     * @param jobId
-     */
-    getJobInfo(jobId: number): Promise<JobInfo>;
-
-    /**
-     * This async function accepts job Id as its argument and returns status and history of a slice(s) of the job specified with jobID.
-     * @returns a Promise which will be fulfilled with a JobHistory object.
-     * @param jobId
-     */
-    getSliceInfo(jobId: number): Promise<JobHistory>;
-
-    /**
-     * Form 1: compute.marketRate
-     * Using marketRate as a property will use the most recent market rate for each slice
-     * Form 2: compute.marketRate(factor = 1.0)
-     * Calling marketRate as a function will cause the job to use the daily calculated rate, multiplied by the provided factor.
-     * @param factor
-     */
-    marketRate(factor?: number): void;
-
-    /**
-     * This function returns a promise which is resolved with a signed WorkValueQuote object.
-     * This object contains a digital signature which allows it to be used as a firm price quote during the characterization phase of the job lifecycle,
-     * provided the job is deployed before the quoteExpiry and the CPUHour, GPUHour, InputMByte and OutputMByte fields are not modified.
-     * This function ensures the client developer’s ability to control costs during job characterization,
-     * rather than being completely at the mercy of the market. Note: Market rates are treated as spot prices, but are calculated as running averages.
-     */
-    getMarketValue(): Promise<WorkValueQuote>;
-
-    /**
-     * This function accepts as its arguments a SliceProfile object and a WorkValue object,
-     * returning a number which describes the payment required to compute such a slice on a worker or in a market working at the rates described in the WorkValue object.
-     * This function does not take into account job-related overhead.
-     */
-    calculateSlicePayment(sliceProfile: SliceProfile, workValue: WorkValue): Promise<number>;
-}
-
-/* Wallet API Definitions */
 
 export interface Address {
     account: string;
 }
 
-/**
- *  Dummy Keystore Object
- */
-export class Keystore {
-}
+export class AuthKeystore extends Keystore {}
 
-/**
- * Dummy AuthKeystore Object
- */
-export class AuthKeystore extends Keystore {
+export class PaymentKeystore extends Keystore {
+    address: Address;
 }
 
 export interface LoadResult {
@@ -258,32 +79,36 @@ export interface AuthKeystoreOptions {
     checkEmpty: boolean | true;
 }
 
-export class Wallet {
-    /**
-     * Gets a keystore from the wallet
-     * @returns a Promise which will be fulfilled with a AuthKeystore object.
-     * @param options
-     */
-    get(options: AuthKeystoreOptions): Promise<AuthKeystore>;
+export class JobHandle {}
 
-    /**
-     * Gets a keystore from the disk
-     * @returns a Promise which will be fulfilled with a AuthKeystore object.
-     * @param options
-     */
-    load(options: LoadOptions): Promise<LoadResult>;
-
-    constructor();
+export class JobInfo {
+    status: string;
+    jobInfo: object;
+}
+export class JobHistory {
+    status: string;
+    history: object;
 }
 
-/* Worker API Definitions */
+export interface Ranges {
+    ranges: [];
+}
+
+export type jobId = number;
+
+export class Job {}
+
+export class WorkValueQuote {}
+
+export class SliceProfile {}
+
+export class WorkValue {}
+
+export class Supervisor {}
 
 /**
- *  Dummy Supervisor Object
+ * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#schedmsg-commands)
  */
-export class Supervisor {
-}
-
 export interface SchedMsg {
     /**
      * This command instructs the worker to immediately stop working, and can optionally disable the worker to prevent restarting.
@@ -318,6 +143,9 @@ export interface SchedMsg {
     openPopup(href: string): void;
 }
 
+/**
+ * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=ignorenoprogress#new-worker-options-object)
+ */
 export class SandboxOptions {
     /**
      * When true, the sandbox will ignore errors from the sandbox not firing progress events.
@@ -325,6 +153,9 @@ export class SandboxOptions {
     ignoreNoProgress: boolean | false;
 }
 
+/**
+ * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maximum%20number%20sandboxes%20can%20working%20one%20time#new-worker-options-object)
+ */
 export interface WorkerParams {
     /**
      * @summary Maximum number of sandboxes that can be working at one time.
@@ -358,9 +189,10 @@ export interface WorkerParams {
     jobAddress?: string;
 }
 
-export class Sandbox {
-    constructor();
-
+/**
+ * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#sandbox-api)
+ */
+export interface Sandbox {
     /**
      * Emitted when the sandbox begins working on a slice. The job description object. Use job.public for accessing the job’s title/description.
      */
@@ -379,6 +211,9 @@ export class Sandbox {
     on(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): this;
 }
 
+/**
+ * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=string%20representation%20dcc%20value%20paid%20out#events)
+ */
 export interface PaymentParams {
     /**
      * Whether the slice was accepted, payment value will be 0 if not accepted.
@@ -398,67 +233,4 @@ export interface PaymentParams {
     paymentAddress: string;
 }
 
-export class Worker {
-    /**
-     * @start - Emitted when the worker is started.
-     * @stop - Emitted when the worker is stopped.
-     * @fetchStart - Emitted when the worker submits a result. Contains the value of DCC earned.
-     * @fetchEnd - Emitted when the worker’s slice fetch request is finished, on both success and error. If it was emmitted due to an error, the callback argument will be the error instance.
-     * @fetch - Emitted when the worker successfully fetches slices from the scheduler.
-     * @fetchError - Emitted when the worker’s slice fetch request returns an error. The callback argument is the error instance.
-     * @submitStart - Emitted when the worker starts a request to submit a result to the scheduler.
-     * @submitEnd - Emitted when the worker’s result submit request is finished, on both success and error. If it was emitted due to an error, the callback argument wil be the error instance.
-     * @submit - Emitted when the worker successfully submits a result to the scheduler.
-     * @submitError - Emitted when the worker successfully submits a result to the scheduler.
-     */
-    on(event: 'start' | 'stop' | 'fetchStart' | 'fetchEnd' | 'fetch' | 'fetchError' | 'submitStart' | 'submitEnd' | 'submit' | 'submitError', listener: () => void): this;
-
-    /**
-     * Emitted when the worker instantiates a new sandbox. The argument provided to the callback is the Sandbox instance.
-     */
-    on(event: 'sandbox', listener: (sandbox: Sandbox) => void): this;
-
-    /**
-     * Emitted when the worker submits a result. Contains the value of DCC earned.
-     */
-    on(event: 'payment', listener: (paymentParams: PaymentParams) => void): this;
-
-    /**
-     * This contstructor instantiates a worker using the provided options object. workerParams: WorkerParams
-     * @param workerParams: WorkerParams
-     */
-    constructor(workerParams: WorkerParams);
-
-    /**
-     * This boolean indicates the current status of the worker. It should not be set manually.
-     */
-    working: boolean;
-
-    /**
-     * @summary The internal supervisor instance.
-     */
-    supervisor: Supervisor;
-
-    /**
-     * @summary The internal schedMsg client instance. Custom behaviour for schedMsg commands can be provided on this object
-     */
-    schedMsg: SchedMsg;
-
-    /**
-     * This static method will set a key in local storage (or on the file system on Node) to disable the worker.
-     * The user will need to manually intervene before the worker can be started again.
-     */
-    static disableWorker(): void;
-
-    /**
-     * This method will start the worker. It will begin to fetch work from the supervisor and submit the computed results automatically.
-     * It will throw if the worker is already started.
-     */
-    start(): Promise<void>;
-
-    /**
-     * This method will stop the worker. If the immediate flag is true,
-     * the worker will terminate all working sandboxes without waiting for them to finish working.
-     */
-    stop(immediate: boolean): Promise<void>;
-}
+export * from 'dcp-client';

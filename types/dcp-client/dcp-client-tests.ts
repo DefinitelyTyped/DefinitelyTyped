@@ -1,68 +1,64 @@
-import * as dcpClient from 'dcp-client';
+import {
+    AuthKeystoreOptions,
+    init,
+    LoadOptions,
+    PaymentParams,
+    Sandbox,
+} from 'dcp-client';
 
-/* Wallet API Tests */
-
-const authKeystoreOptions: dcpClient.AuthKeystoreOptions = {
+//#region Models
+export const authKeystoreOptions: AuthKeystoreOptions = {
     name: 'default',
-    checkEmpty: false
+    checkEmpty: false,
 };
 
-const loadOptions: dcpClient.LoadOptions = {
+export const loadOptions: LoadOptions = {
     filename: '',
     name: '',
-    dir: ''
+    dir: '',
 };
 
-const wallet = new dcpClient.Wallet();
+//#endregion
 
-declare function keystoreCallback(err: Error | null, stdout: dcpClient.AuthKeystore, stderr: dcpClient.AuthKeystore): void;
-declare function loadResultCallback(err: Error | null, stdout: dcpClient.LoadResult, stderr: dcpClient.LoadResult): void;
+(async () => {
+    const { compute, wallet, worker } = await init();
 
-wallet.get(authKeystoreOptions).then(() => keystoreCallback); // $ExpectType AuthKeystore
-wallet.load(loadOptions).then(() => loadResultCallback); // $ExpectType LoadResult
+    /* Wallet API Tests */
+    await compute.cancel();
 
-/* Worker API Tests */
+    /* Wallet API Tests */
+    await wallet.get(authKeystoreOptions);
+    await wallet.load(loadOptions);
+    await wallet.getId();
 
-const sandboxOptions: dcpClient.SandboxOptions = {
-    ignoreNoProgress: true
-};
+    /* Worker API Tests */
+    await worker.start();
+    await worker.stop(false);
 
-const workerParams: dcpClient.WorkerParams = {
-    maxWorkingSandboxes: 1,
-    sandboxOptions
-};
+    worker.on('start', () => 'worker is started');
+    worker.on('stop', () => 'worker is stopped');
+    worker.on('fetchStart', () => 'fetchStart event triggered');
+    worker.on('fetchEnd', () => 'fetchEnd event triggered');
+    worker.on('fetch', () => 'fetch event triggered');
+    worker.on('fetchError', () => 'fetchError event triggered');
+    worker.on('submitStart', () => 'submitStart event triggered');
+    worker.on('submitEnd', () => 'submitEnd event triggered');
+    worker.on('submit', () => 'submit event triggered');
+    worker.on('submitError', () => 'submitError event triggered');
+    worker.on('payment', (payment: PaymentParams) => payment);
 
-dcpClient.Worker.disableWorker(); // $ExpectType void
+    worker.on('sandbox', (sandbox: Sandbox) => {
+        sandbox.on('sliceStart', (job: object) => job);
+        sandbox.on('sliceFinish', (result: any) => result);
+        sandbox.on('sliceError', () => 'sliceError event triggered');
+        sandbox.on('sliceEnd', () => 'sliceEnd event triggered');
+        sandbox.on('terminate', () => 'terminate event triggered');
+    });
 
-const worker = new dcpClient.Worker(workerParams);
-
-worker.on('start', () => 'worker is started'); // $ExpectType void
-worker.on('stop', () => 'worker is stopped'); // $ExpectType void
-worker.on('fetchStart', () => 'fetchStart event triggered'); // $ExpectType void
-worker.on('fetchEnd', () => 'fetchEnd event triggered'); // $ExpectType void
-worker.on('fetch', () => 'fetch event triggered'); // $ExpectType void
-worker.on('fetchError', () => 'fetchError event triggered'); // $ExpectType void
-worker.on('submitStart', () => 'submitStart event triggered'); // $ExpectType void
-worker.on('submitEnd', () => 'submitEnd event triggered'); // $ExpectType void
-worker.on('submit', () => 'submit event triggered'); // $ExpectType void
-worker.on('submitError', () => 'submitError event triggered'); // $ExpectType void
-
-worker.on('sandbox', (sandbox: dcpClient.Sandbox) => sandbox); // $ExpectType void
-worker.on('payment', (payment: dcpClient.PaymentParams) => payment); // $ExpectType void
-
-const sandbox = new dcpClient.Sandbox();
-sandbox.on('sliceStart', (job: object) => job); // $ExpectType void
-sandbox.on('sliceFinish', (result: any) => result); // $ExpectType void
-sandbox.on('sliceError', () => 'sliceError event triggered'); // $ExpectType void
-sandbox.on('sliceEnd', () => 'sliceEnd event triggered'); // $ExpectType void
-sandbox.on('terminate', () => 'terminate event triggered'); // $ExpectType void
-
-worker.start().then(); // $ExpectType void
-worker.stop(false).then(); // $ExpectType void
-
-worker.schedMsg.reload(); // $ExpectType void
-worker.schedMsg.openPopup('href'); // $ExpectType void
-worker.schedMsg.kill(false); // $ExpectType boolean
-worker.schedMsg.remove('jobAddress'); // $ExpectType void
-worker.schedMsg.restart(); // $ExpectType void
-worker.schedMsg.announce('message'); // $ExpectType void
+    worker.schedMsg.reload();
+    worker.schedMsg.openPopup('href');
+    worker.schedMsg.kill(false);
+    worker.schedMsg.remove('jobAddress');
+    worker.schedMsg.restart();
+    worker.schedMsg.announce('message');
+})();
