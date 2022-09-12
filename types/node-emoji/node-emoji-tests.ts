@@ -1,4 +1,4 @@
-import emoji, { Emoji } = require('node-emoji');
+import emoji = require('node-emoji');
 
 const coffee: string = emoji.get('coffee');
 const result = emoji.random();
@@ -17,8 +17,8 @@ const emojis_from_search: string[] = emoji_search.map(emoji => emoji.emoji);
 
 const unemojified_string: string = emoji.unemojify('I ❤️ 🍕');
 
-const found_emoji: Emoji | undefined = emoji.find('🍕');
-const found_emoji_string: string | undefined = found_emoji.emoji;
+const found_emoji = emoji.find('🍕');
+const found_emoji_string: string | undefined = found_emoji?.emoji;
 
 const hasEmoji: boolean = emoji.hasEmoji('🍕');
 
