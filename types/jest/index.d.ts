@@ -1379,12 +1379,26 @@ declare namespace jest {
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
-        lastCall: Y;
+        /**
+         * List of the call arguments of all calls that have been made to the mock.
+         */
         calls: Y[];
+        /**
+         * List of all the object instances that have been instantiated from the mock.
+         */
         instances: T[];
+        /**
+         * List of the call order indexes of the mock. Jest is indexing the order of
+         * invocations of all mocks in a test file. The index is starting with `1`.
+         */
         invocationCallOrder: number[];
         /**
-         * List of results of calls to the mock function.
+         * List of the call arguments of the last call that was made to the mock.
+         * If the function was not called, it will return `undefined`.
+         */
+        lastCall?: Y;
+        /**
+         * List of the results of all calls that have been made to the mock.
          */
         results: Array<MockResult<T>>;
     }

@@ -2476,11 +2476,11 @@ declare namespace google.maps {
      * Address to geocode. One, and only one, of <code>address</code>,
      * <code>location</code> and <code>placeId</code> must be supplied.
      */
-    address?: string|null;
+    address?: null|string;
     /**
      * <code>LatLngBounds</code> within which to search. Optional.
      */
-    bounds?: google.maps.LatLngBounds|null|google.maps.LatLngBoundsLiteral;
+    bounds?: null|google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral;
     /**
      * Components are used to restrict results to a specific area. A filter
      * consists of one or more of: <code>route</code>, <code>locality</code>,
@@ -2489,7 +2489,7 @@ declare namespace google.maps {
      * returned. Filter values support the same methods of spelling correction
      * and partial matching as other geocoding requests. Optional.
      */
-    componentRestrictions?: google.maps.GeocoderComponentRestrictions|null;
+    componentRestrictions?: null|google.maps.GeocoderComponentRestrictions;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * A language identifier for the language in which results should be
@@ -2497,7 +2497,7 @@ declare namespace google.maps {
      * href="https://developers.google.com/maps/faq#languagesupport">list of
      * supported languages</a>.
      */
-    language?: string|null;
+    language?: null|string;
     /**
      * <code>LatLng</code> (or <code>LatLngLiteral</code>) for which to search.
      * The geocoder performs a reverse geocode. See <a
@@ -2506,7 +2506,7 @@ declare namespace google.maps {
      * <code>address</code>, <code>location</code> and <code>placeId</code> must
      * be supplied.
      */
-    location?: google.maps.LatLng|null|google.maps.LatLngLiteral;
+    location?: null|google.maps.LatLng|google.maps.LatLngLiteral;
     /**
      * The place ID associated with the location. Place IDs uniquely identify a
      * place in the Google Places database and on Google Maps. Learn more about
@@ -2519,14 +2519,14 @@ declare namespace google.maps {
      * <code>address</code>, <code>location</code> and <code>placeId</code> must
      * be supplied.
      */
-    placeId?: string|null;
+    placeId?: null|string;
     /**
      * Country code used to bias the search, specified as a two-character
      * (non-numeric) Unicode region subtag / CLDR identifier. Optional. See <a
      * href="http://developers.google.com/maps/coverage">Google Maps Platform
      * Coverage Details</a> for supported regions.
      */
-    region?: string|null;
+    region?: null|string;
   }
 }
 declare namespace google.maps {
@@ -7766,6 +7766,10 @@ declare namespace google.maps.journeySharing {
    * The details for a delivery vehicle returned by Fleet Engine.
    */
   interface DeliveryVehicle {
+    /**
+     * Custom delivery vehicle attributes.
+     */
+    attributes: {[key: string]: string|null};
     /**
      * The location where the current route segment ends.
      */

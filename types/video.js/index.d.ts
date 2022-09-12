@@ -138,7 +138,7 @@ declare namespace videojs {
      * @return    A player instance or `undefined` if there is no player instance
      *          matching the argument.
      */
-    function getPlayer(id: string): Player;
+    function getPlayer(id: string | Element): Player | undefined;
 
     /**
      * Get an object with the currently created players, keyed by player ID
