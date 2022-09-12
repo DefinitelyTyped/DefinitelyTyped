@@ -232,5 +232,3 @@ export interface PaymentParams {
      */
     paymentAddress: string;
 }
-
-export * from 'dcp-client';
