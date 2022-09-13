@@ -41,7 +41,7 @@ export interface KinesisStreamTumblingWindowEvent {
 }
 
 export interface KinesisStreamStateResponse {
-    state?: { [key: string]: any };
+    state: { [key: string]: any };
 }
 
 // https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-batchfailurereporting
