@@ -1,4 +1,4 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.106.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -2501,14 +2501,18 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * This can be a list of flexibility changes generated during designtime.
      *
-     * Each level of changes is an item in the list. The change has property "content" which contains the configuration,
-     * which will be merged on top of the original `sap.card` section.
+     * Each item in the array represents a separate level of changes. For example, the first item might be created
+     * by an administrator, the second by a page administrator and the third by the end user.
+     *
+     * The order of the items is the order in which the changes will be merged on top of each other. So the
+     * last item will overwrite the previous items where the paths match.
      *
      * Example:
      * ```javascript
      *
      * [
      * 	{
+     * 		// Administrator
      * 		"/sap.card/header/title": "My Configured Title in Default Language",
      * 		"/sap.card/content/maxItems": 10,
      * 		"texts": {
@@ -2518,13 +2522,13 @@ declare module "sap/ui/integration/widgets/Card" {
      * 		}
      * 	},
      * 	{
-     * 		"/sap.card/header/title": "My Configured Title in Default Language",
-     * 		"/sap.card/content/maxItems": 10,
-     * 		"texts": {
-     * 			"en-US": {
-     * 				"/sap.card/header/title": "My Configured Title in US-English"
-     * 			}
-     * 		}
+     * 		// Page administrator
+     * 		"/sap.card/content/maxItems": 5
+     * 	},
+     * 	{
+     * 		// End user
+     *      "/sap.card/header/title": "Title by End User",
+     * 		"/sap.card/content/maxItems": 8
      * 	}
      * ]
      * ```
@@ -2551,7 +2555,8 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Gets current value of property {@link #getReferenceId referenceId}.
      *
-     * Optional property which can be used by the host to reference the card. Does not affect the card behavior.
+     * Optional property which can be used by the host to reference the card. It will be forwarded to any children
+     * cards. Does not affect the card behavior.
      *
      * Default value is `empty string`.
      *
@@ -2816,14 +2821,18 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * This can be a list of flexibility changes generated during designtime.
      *
-     * Each level of changes is an item in the list. The change has property "content" which contains the configuration,
-     * which will be merged on top of the original `sap.card` section.
+     * Each item in the array represents a separate level of changes. For example, the first item might be created
+     * by an administrator, the second by a page administrator and the third by the end user.
+     *
+     * The order of the items is the order in which the changes will be merged on top of each other. So the
+     * last item will overwrite the previous items where the paths match.
      *
      * Example:
      * ```javascript
      *
      * [
      * 	{
+     * 		// Administrator
      * 		"/sap.card/header/title": "My Configured Title in Default Language",
      * 		"/sap.card/content/maxItems": 10,
      * 		"texts": {
@@ -2833,13 +2842,13 @@ declare module "sap/ui/integration/widgets/Card" {
      * 		}
      * 	},
      * 	{
-     * 		"/sap.card/header/title": "My Configured Title in Default Language",
-     * 		"/sap.card/content/maxItems": 10,
-     * 		"texts": {
-     * 			"en-US": {
-     * 				"/sap.card/header/title": "My Configured Title in US-English"
-     * 			}
-     * 		}
+     * 		// Page administrator
+     * 		"/sap.card/content/maxItems": 5
+     * 	},
+     * 	{
+     * 		// End user
+     *      "/sap.card/header/title": "Title by End User",
+     * 		"/sap.card/content/maxItems": 8
      * 	}
      * ]
      * ```
@@ -2858,7 +2867,8 @@ declare module "sap/ui/integration/widgets/Card" {
     /**
      * Sets a new value for property {@link #getReferenceId referenceId}.
      *
-     * Optional property which can be used by the host to reference the card. Does not affect the card behavior.
+     * Optional property which can be used by the host to reference the card. It will be forwarded to any children
+     * cards. Does not affect the card behavior.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2937,6 +2947,14 @@ declare module "sap/ui/integration/widgets/Card" {
         parameters?: object;
       }
     ): void;
+    /**
+     * @EXPERIMENTAL
+     *
+     * Causes all of the controls within the Card that support validation to validate their data.
+     *
+     * @returns if all of the controls validated successfully; otherwise, false
+     */
+    validateControls(): boolean;
   }
   /**
    * @EXPERIMENTAL (since 1.79)
@@ -3232,11 +3250,20 @@ declare module "sap/ui/integration/widgets/Card" {
         parameters?: object;
       }
     ): void;
+    /**
+     * @EXPERIMENTAL
+     *
+     * Causes all of the controls within the Card that support validation to validate their data.
+     *
+     * @returns if all of the controls validated successfully; otherwise, false
+     */
+    validateControls(): boolean;
   }
 
   export interface $CardSettings extends $CardBaseSettings {
     /**
-     * Optional property which can be used by the host to reference the card. Does not affect the card behavior.
+     * Optional property which can be used by the host to reference the card. It will be forwarded to any children
+     * cards. Does not affect the card behavior.
      */
     referenceId?: string | PropertyBindingInfo;
 
@@ -3281,14 +3308,18 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * This can be a list of flexibility changes generated during designtime.
      *
-     * Each level of changes is an item in the list. The change has property "content" which contains the configuration,
-     * which will be merged on top of the original `sap.card` section.
+     * Each item in the array represents a separate level of changes. For example, the first item might be created
+     * by an administrator, the second by a page administrator and the third by the end user.
+     *
+     * The order of the items is the order in which the changes will be merged on top of each other. So the
+     * last item will overwrite the previous items where the paths match.
      *
      * Example:
      * ```javascript
      *
      * [
      * 	{
+     * 		// Administrator
      * 		"/sap.card/header/title": "My Configured Title in Default Language",
      * 		"/sap.card/content/maxItems": 10,
      * 		"texts": {
@@ -3298,13 +3329,13 @@ declare module "sap/ui/integration/widgets/Card" {
      * 		}
      * 	},
      * 	{
-     * 		"/sap.card/header/title": "My Configured Title in Default Language",
-     * 		"/sap.card/content/maxItems": 10,
-     * 		"texts": {
-     * 			"en-US": {
-     * 				"/sap.card/header/title": "My Configured Title in US-English"
-     * 			}
-     * 		}
+     * 		// Page administrator
+     * 		"/sap.card/content/maxItems": 5
+     * 	},
+     * 	{
+     * 		// End user
+     *      "/sap.card/header/title": "Title by End User",
+     * 		"/sap.card/content/maxItems": 8
      * 	}
      * ]
      * ```
@@ -3416,6 +3447,8 @@ declare namespace sap {
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/booleanEditor/BooleanEditor": undefined;
 
+    "sap/ui/integration/designtime/baseEditor/propertyEditor/codeEditor/CodeEditor": undefined;
+
     "sap/ui/integration/designtime/baseEditor/propertyEditor/dateEditor/DateEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/dateTimeEditor/DateTimeEditor": undefined;
@@ -3449,8 +3482,6 @@ declare namespace sap {
     "sap/ui/integration/designtime/baseEditor/propertyEditor/separatorEditor/SeparatorEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/stringEditor/StringEditor": undefined;
-
-    "sap/ui/integration/designtime/baseEditor/propertyEditor/textAreaEditor/TextAreaEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/PropertyEditors": undefined;
 

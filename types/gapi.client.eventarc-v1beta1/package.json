@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@maxim_mazurok/gapi.client.eventarc-v1beta1": "latest"
+  }
+}

@@ -883,6 +883,10 @@ function test_plugins() {
     });
 
     console.log(CKEDITOR.plugins.registered['abbr']);
+
+    CKEDITOR.plugins.add('myPlugin', {
+        icons: 'my-plugin-icon',
+    });
 }
 
 function test_resourceManager() {

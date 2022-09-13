@@ -294,7 +294,7 @@ braintree.Subscription.Status.All;
 /**
  * Gateway function helper
  */
-const gateway2: BraintreeGateway = braintree.connect({
+const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
     merchantId: 'abc123',
     publicKey: 'def456',
