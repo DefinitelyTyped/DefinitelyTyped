@@ -39,7 +39,7 @@ export interface KinesisStreamTumblingWindowEvent extends KinesisStreamEvent {
     isWindowTerminatedEarly: boolean;
 }
 
-export interface KinesisStreamStateResponse {
+export interface KinesisStreamStateResponse extends Partial<KinesisStreamBatchResponse> {
     state: { [key: string]: any };
 }
 
