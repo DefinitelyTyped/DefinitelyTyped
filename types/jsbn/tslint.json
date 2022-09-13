@@ -1,0 +1,10 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-var-keyword": false,
+        "npm-naming": false,
+        "semicolon": false,
+        "unified-signatures": false,
+        "whitespace": false
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "paths": {
+            "@multiavatar/multiavatar": [
+                "multiavatar__multiavatar"
+            ],
+            "@multiavatar/multiavatar/esm": [
+                "multiavatar__multiavatar/esm"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/multiavatar__multiavatar-tests-esm.ts",
+        "test/multiavatar__multiavatar-tests-umd.ts"
+    ]
+}

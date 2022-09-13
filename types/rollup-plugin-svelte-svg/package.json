@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "rollup": "^2",
+        "svelte": "^3"
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "export-just-namespace": false
+    }
+}

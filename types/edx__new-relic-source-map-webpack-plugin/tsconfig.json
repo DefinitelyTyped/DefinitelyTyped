@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths":{
+            "@edx/new-relic-source-map-webpack-plugin": [
+                "edx__new-relic-source-map-webpack-plugin"
+            ],
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "edx__new-relic-source-map-webpack-plugin-tests.ts"
+    ]
+}

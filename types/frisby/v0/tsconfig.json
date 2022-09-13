@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "paths": {
+            "frisby": [
+                "frisby/v0"
+            ]
+        },
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "typeRoots": [
+            "../../"
+        ]
+    },
+    "files": [
+        "index.d.ts",
+        "frisby-tests.ts"
+    ]
+}

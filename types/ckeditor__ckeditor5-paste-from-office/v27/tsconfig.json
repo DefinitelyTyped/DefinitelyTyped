@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@ckeditor/ckeditor5-paste-from-office": [
+                "ckeditor__ckeditor5-paste-from-office/v27"
+            ],
+            "@ckeditor/ckeditor5-paste-from-office/*": [
+                "ckeditor__ckeditor5-paste-from-office/v27/*"
+            ],
+            "@ckeditor/*": [
+                "ckeditor__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "ckeditor__ckeditor5-paste-from-office-tests.ts"
+    ]
+}

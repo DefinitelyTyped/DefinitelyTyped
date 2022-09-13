@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "redux": "^3.6.0",
+        "immutable": "^3.8.1"
+    }
+}

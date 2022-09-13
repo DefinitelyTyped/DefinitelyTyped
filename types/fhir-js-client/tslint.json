@@ -1,0 +1,6 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "object-literal-key-quotes": false
+    }
+}

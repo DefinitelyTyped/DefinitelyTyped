@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "@ember/array": ["ember__array/v3"],
+            "@ember/array/*": ["ember__array/v3/*"],
+            "@ember/object": ["ember__object/v3"],
+            "@ember/object/*": ["ember__object/v3/*"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/lib/assert.ts",
+        "test/array.ts",
+        "test/array-ext.ts",
+        "test/array-proxy.ts"
+    ]
+}

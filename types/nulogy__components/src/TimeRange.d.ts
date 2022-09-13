@@ -1,0 +1,1 @@
+export const TimeRange: any;

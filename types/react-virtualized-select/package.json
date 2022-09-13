@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "@types/react-select": "^1.0.0"
+  }
+}

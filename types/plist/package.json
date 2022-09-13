@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "xmlbuilder": ">=11.0.1"
+    }
+}

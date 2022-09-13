@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "react-dnd": "^10.0.2",
+        "react-dnd-touch-backend": "^10.0.2"
+    }
+}

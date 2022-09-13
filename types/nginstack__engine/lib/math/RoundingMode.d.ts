@@ -1,0 +1,12 @@
+export type exports = number;
+declare const HALF_EVEN: number;
+declare const HALF_ODD: number;
+declare const HALF_POSITIVE: number;
+declare const HALF_NEGATIVE: number;
+declare const HALF_DOWN: number;
+declare const HALF_UP: number;
+declare const FLOOR: number;
+declare const CEILING: number;
+declare const DOWN: number;
+declare const UP: number;
+export {};

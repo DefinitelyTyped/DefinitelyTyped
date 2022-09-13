@@ -1,0 +1,13 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "comment-format": false,
+        "jsdoc-format": false,
+        "no-empty-interface": false,
+        "no-padding": false,
+        "no-var-keyword": false,
+        "npm-naming": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
+}

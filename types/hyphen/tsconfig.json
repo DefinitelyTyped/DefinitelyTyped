@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "hyphen-tests.ts"
+    ]
+}

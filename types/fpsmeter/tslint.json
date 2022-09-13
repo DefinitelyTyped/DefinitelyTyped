@@ -1,0 +1,9 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "member-access": false,
+        "no-consecutive-blank-lines": false,
+        "trim-file": false,
+        "typedef-whitespace": false
+    }
+}

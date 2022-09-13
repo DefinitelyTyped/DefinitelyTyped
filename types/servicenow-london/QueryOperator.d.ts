@@ -1,0 +1,15 @@
+type QueryOperator =
+    | '='
+    | '!='
+    | '>'
+    | '>='
+    | '<'
+    | '<='
+    | 'IN'
+    | 'NOT IN'
+    | 'STARTSWITH'
+    | 'ENDSWITH'
+    | 'CONTAINS'
+    | 'DOES NOT CONTAIN'
+    | 'INSTANCEOF'
+    | 'SAMEAS';

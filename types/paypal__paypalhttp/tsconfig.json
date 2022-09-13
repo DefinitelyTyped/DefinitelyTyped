@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@paypal/*": [
+                "paypal__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "paypal__paypalhttp-tests.ts",
+        "test/serializer-tests.ts"
+    ]
+}

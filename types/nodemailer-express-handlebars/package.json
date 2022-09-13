@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/express-handlebars": "^5"
+    }
+}

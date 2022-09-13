@@ -1,0 +1,2 @@
+ojdiagram-utils/index.d.ts
+ojoffcanvas/index.d.ts

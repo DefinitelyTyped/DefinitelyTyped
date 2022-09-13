@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "types": [],
+        "paths": {
+            "bluebird": [
+                "bluebird/v2"
+            ]
+        }
+    },
+    "files": [
+        "got-resume-tests.ts",
+        "index.d.ts"
+    ]
+}

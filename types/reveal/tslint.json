@@ -1,0 +1,12 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-consecutive-blank-lines": false,
+        "no-trailing-whitespace": false,
+        "npm-naming": false,
+        "space-within-parens": false,
+        "trim-file": false,
+        "typedef-whitespace": false,
+        "whitespace": false
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-padding": false,
+        "one-line": false,
+        "one-variable-per-declaration": false,
+        "semicolon": false
+    }
+}

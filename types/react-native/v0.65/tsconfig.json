@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "paths": {
+            "react-native": [
+                "react-native/v0.65"
+            ],
+            "react-native/*": [
+                "react-native/v0.65/*"
+            ],
+            "react": [
+                "react/v17"
+            ],
+            "react/*": [
+                "react/v17/*"
+            ]
+        },
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "jsx": "react",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/index.tsx",
+        "test/globals.tsx",
+        "test/animated.tsx",
+        "test/init-example.tsx",
+        "test/legacy-properties.tsx",
+        "test/stylesheet-create.tsx",
+        "test/stylesheet-flatten.tsx"
+    ]
+}

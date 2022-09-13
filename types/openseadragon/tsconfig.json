@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "lib": ["es6", "dom"],
+        "noEmit": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": ["index.d.ts", "openseadragon-tests.ts"]
+}

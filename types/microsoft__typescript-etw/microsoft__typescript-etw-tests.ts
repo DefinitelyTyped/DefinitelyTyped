@@ -1,0 +1,22 @@
+import etw = require ('@microsoft/typescript-etw');
+
+etw.logEvent('message');
+etw.logErrEvent('message');
+etw.logPerfEvent('message');
+etw.logInfoEvent('message');
+etw.logStartCommand('command', 'message');
+etw.logStopCommand('command', 'message');
+etw.logStartUpdateProgram('message');
+etw.logStopUpdateProgram('message');
+etw.logStartUpdateGraph();
+etw.logStopUpdateGraph();
+etw.logStartResolveModule('name');
+etw.logStopResolveModule('success');
+etw.logStartParseSourceFile('filename');
+etw.logStopParseSourceFile();
+etw.logStartReadFile('filename');
+etw.logStopReadFile();
+etw.logStartBindFile('filename');
+etw.logStopBindFile();
+etw.logStartScheduledOperation('operationId');
+etw.logStopScheduledOperation();

@@ -1,0 +1,34 @@
+export = XMLHttpRequest;
+declare function XMLHttpRequest(options?: XHRConfig): void;
+declare class XMLHttpRequest {
+    constructor(options?: XHRConfig);
+    open(method: string, url: string): void;
+    setRequestHeader(header: string, value: string): void;
+    send(data?: string | ArrayBuffer): void;
+    readyState: number;
+    status: number;
+    statusText: string;
+    responseText: string;
+    responseType: string;
+    response: string | ArrayBuffer | Record<any, any>;
+    getResponseHeader(header: string): string;
+    getAllResponseHeaders(): string;
+    setTimeout(value: number): void;
+    getTimeout(): number;
+}
+declare namespace XMLHttpRequest {
+    export { UNSENT, OPENED, HEADERS_RECEIVED, LOADING, DONE, XHRConfig };
+}
+interface XHRConfig {
+    keyPath?: string;
+    certPath?: string;
+    pfxPath?: string;
+    passphrase?: string;
+    ignoreSslErrors?: boolean;
+    decodeContentFromLatin1?: boolean;
+}
+declare var UNSENT: number;
+declare var OPENED: number;
+declare var HEADERS_RECEIVED: number;
+declare var LOADING: number;
+declare var DONE: number;

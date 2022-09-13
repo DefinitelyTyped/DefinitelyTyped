@@ -1,0 +1,59 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "baseUrl": "../../",
+        "paths": {
+            "ember": ["ember/v2"]
+        },
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/lib/assert.ts",
+        "test/application.ts",
+        "test/application-instance.ts",
+        "test/engine-instance.ts",
+        "test/ember-tests.ts",
+        "test/error.ts",
+        "test/event.ts",
+        "test/extend.ts",
+        "test/create.ts",
+        "test/create-negative.ts",
+        "test/object.ts",
+        "test/observable.ts",
+        "test/mixin.ts",
+        "test/reopen.ts",
+        "test/detect.ts",
+        "test/detect-instance.ts",
+        "test/array.ts",
+        "test/array-ext.ts",
+        "test/array-proxy.ts",
+        "test/helper.ts",
+        "test/computed.ts",
+        "test/component.ts",
+        "test/function-ext.ts",
+        "test/inject.ts",
+        "test/utils.ts",
+        "test/transition.ts",
+        "test/router.ts",
+        "test/run.ts",
+        "test/test.ts",
+        "test/controller.ts",
+        "test/route.ts",
+        "test/view-utils.ts"
+    ]
+}

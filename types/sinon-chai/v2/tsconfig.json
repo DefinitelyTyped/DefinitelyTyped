@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+          "sinon-chai": [ "sinon-chai/v2" ],
+          "@sinonjs/*": [ "sinonjs__*" ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "sinon-chai-tests.ts"
+    ]
+}
