@@ -1397,6 +1397,10 @@
             "libraryName": "fastify-static",
             "asOfVersion": "2.2.1"
         },
+        "favicons": {
+            "libraryName": "favicons",
+            "asOfVersion": "7.0.0"
+        },
         "favicons-webpack-plugin": {
             "libraryName": "favicons-webpack-plugin",
             "asOfVersion": "2.1.0"
