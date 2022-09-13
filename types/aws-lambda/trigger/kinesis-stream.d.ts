@@ -32,12 +32,11 @@ export interface KinesisStreamEvent {
 }
 
 // https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-windows
-export interface KinesisStreamTumblingWindowEvent {
+export interface KinesisStreamTumblingWindowEvent extends KinesisStreamEvent {
     window: { start: string; end: string };
     state?: { [key: string]: any };
     isFinalInvokeForWindow: boolean;
     isWindowTerminatedEarly: boolean;
-    Records: KinesisStreamRecord[];
 }
 
 export interface KinesisStreamStateResponse {
