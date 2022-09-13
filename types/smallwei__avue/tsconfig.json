@@ -15,12 +15,13 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "paths":{
-            "@smallwei/avue": ["../"]
+            "@smallwei/*":["smallwei__*"]
         }
     },
     "files": [
-        "index.d.ts",
-        "avue-tests.ts"
+        "smallwei__avue-tests.ts",
+        "index.d.ts"
     ]
 }

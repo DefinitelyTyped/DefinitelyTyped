@@ -8,7 +8,7 @@ declare module '@smallwei/avue' {
         // 弹出框宽度
         dialogWidth?: string;
         // 自定义form表单，具体参考avue-form
-        formOption?: FormOption<T>;
+        formOption?: AvueFormOption<T>;
         // 菜单栏
         menu?: boolean;
         // 新增按钮

@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference lib="dom" />
+/// <reference types="web-bluetooth" />
 /// <reference types="./dic" />
 /// <reference types="./form" />
 /// <reference types="./crud" />

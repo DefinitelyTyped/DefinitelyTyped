@@ -1,6 +1,7 @@
 import type { VNode } from 'vue';
 import type { UploadRawFile, UploadFile, UploadUserFile } from 'element-plus';
-import type { TableProps, TableColumnCtx } from 'element-plus/es/components/table/src/table/defaults';
+import type { TableProps } from 'element-plus/es/components/table/src/table/defaults';
+import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
 
 declare module '@smallwei/avue' {
     export interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
