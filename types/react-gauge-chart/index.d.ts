@@ -1,4 +1,4 @@
-// Type definitions for react-gauge-chart 0.3
+// Type definitions for react-gauge-chart 0.4
 // Project: https://github.com/Martin36/react-gauge-chart
 // Definitions by: Meir Keller <https://github.com/meirkl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
