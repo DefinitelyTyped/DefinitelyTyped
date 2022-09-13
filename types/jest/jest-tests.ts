@@ -332,10 +332,8 @@ const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
-    .clearAllTimers()
     .resetAllMocks()
     .restoreAllMocks()
-    .clearAllTimers()
     .deepUnmock('moduleName')
     .disableAutomock()
     .doMock('moduleName')
@@ -357,11 +355,6 @@ jest.autoMockOff()
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3, { logErrorsBeforeRetry: true })
-    .runAllImmediates()
-    .runAllTicks()
-    .runAllTimers()
-    .runOnlyPendingTimers()
-    .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
     .setMock<{ a: 'b' }>('moduleName', { a: 'b' })
@@ -370,8 +363,27 @@ jest.autoMockOff()
     .useFakeTimers()
     .useRealTimers();
 
+// $ExpectType void
+jest.advanceTimersByTime(9001);
+
+// $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType void
+jest.clearAllTimers();
+
+// $ExpectType void
+jest.runAllImmediates();
+
+// $ExpectType void
+jest.runAllTicks();
+
+// $ExpectType void
+jest.runAllTimers();
+
+// $ExpectType void
+jest.runOnlyPendingTimers();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
