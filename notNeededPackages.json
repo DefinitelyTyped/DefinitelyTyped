@@ -532,6 +532,10 @@
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
         },
+        "chartist": {
+            "libraryName": "chartist",
+            "asOfVersion": "1.0.0"
+        },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
             "asOfVersion": "2.5.0"
