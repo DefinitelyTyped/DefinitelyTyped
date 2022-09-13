@@ -532,6 +532,10 @@
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
         },
+        "chartist": {
+            "libraryName": "chartist",
+            "asOfVersion": "1.0.0"
+        },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
             "asOfVersion": "2.5.0"
@@ -3638,6 +3642,10 @@
         "png-async": {
             "libraryName": "png-async",
             "asOfVersion": "0.9.4"
+        },
+        "png-img": {
+            "libraryName": "png-img",
+            "asOfVersion": "4.0.4"
         },
         "poly2tri": {
             "libraryName": "poly2tri",

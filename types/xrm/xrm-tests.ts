@@ -355,8 +355,8 @@ Xrm.App.addGlobalNotification({
     action: {
         actionLabel: "Learn more",
         eventHandler() {
-              Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
-              // perform other operations as required on clicking
+            Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
+            // perform other operations as required on clicking
         }
     }
 }).then(
@@ -460,4 +460,20 @@ function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
     headerSection.setBodyVisible(true);
     headerSection.setCommandBarVisible(true);
     headerSection.setTabNavigatorVisible(true);
+}
+
+function booleanAttributeControls(formContext: Xrm.FormContext) {
+    let booleanAttribute: Xrm.Attributes.BooleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>("prefx_myattribute");
+    const booleanValue: boolean | null = booleanAttribute.getValue();
+
+    // @ts-expect-error
+    const notString: string = booleanAttribute.getValue();
+
+    booleanAttribute = booleanAttribute.controls.get(0).getAttribute();
+
+    booleanAttribute.controls.forEach((c: Xrm.Controls.BooleanControl) => c.setDisabled(true));
+
+    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "boolean";
+    // @ts-expect-error
+    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
 }

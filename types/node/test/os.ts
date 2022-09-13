@@ -10,6 +10,7 @@ import * as os from 'node:os';
     result = os.version();
     result = os.arch();
     result = os.release();
+    result = os.machine();
     result = os.EOL;
 }
 
