@@ -44,7 +44,7 @@ const tumblingWindowHandler: KinesisStreamTumblingWindowHandler = async (event, 
     callback();
     callback(new Error());
 
-    if (str == str) {
+    if (str === str) {
         // return with state...
         return { state: { one: 'two' } };
     } else {
