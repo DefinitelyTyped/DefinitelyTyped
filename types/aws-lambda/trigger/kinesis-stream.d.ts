@@ -3,6 +3,9 @@ import { Handler } from "../handler";
 // tslint:disable-next-line:void-return
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;
 
+// tslint:disable-next-line:void-return
+export type KinesisStreamTumblingWindowHandler = Handler<KinesisStreamTumblingWindowEvent, KinesisStreamStateResponse | void>;
+
 // Kinesis Streams
 // https://docs.aws.amazon.com/lambda/latest/dg/eventsources.html#eventsources-kinesis-streams
 export interface KinesisStreamRecordPayload {
@@ -35,6 +38,10 @@ export interface KinesisStreamTumblingWindowEvent {
     isFinalInvokeForWindow: boolean;
     isWindowTerminatedEarly: boolean;
     Records: KinesisStreamRecord[];
+}
+
+export interface KinesisStreamStateResponse {
+    state?: { [key: string]: any };
 }
 
 // https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html#services-kinesis-batchfailurereporting
