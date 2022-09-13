@@ -164,7 +164,10 @@ messagePage.setTitleLevel(TitleLevel.H1);
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
 const context = odataV4ListBinding.getKeepAliveContext("x");
-(odataV4ListBinding.getModel() as ODataV4Model).delete("something");
+const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
+odataV4Model.delete("something");
+let eTagMap: Record<string, string | null>;
+eTagMap = odataV4Model.getMetaModel().getETags();
 
 const showTimeZone = DateFormatTimezoneDisplay.Show;
 
