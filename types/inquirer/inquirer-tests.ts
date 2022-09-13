@@ -1,11 +1,11 @@
 import { createInterface } from 'readline';
 import inquirer, { Answers, DistinctChoice, DistinctQuestion, InputQuestionOptions } from 'inquirer';
-import InputPrompt from 'inquirer/lib/prompts/input';
-import { fetchAsyncQuestionProperty } from 'inquirer/lib/utils/utils';
-import incrementListIndex from 'inquirer/lib/utils/incrementListIndex';
-import Choices from 'inquirer/lib/objects/choices';
-import Paginator from 'inquirer/lib/utils/paginator';
-import ScreenManager from 'inquirer/lib/utils/screen-manager';
+import InputPrompt from 'inquirer/lib/prompts/input.js';
+import { fetchAsyncQuestionProperty } from 'inquirer/lib/utils/utils.js';
+import incrementListIndex from 'inquirer/lib/utils/incrementListIndex.js';
+import Choices from 'inquirer/lib/objects/choices.js';
+import Paginator from 'inquirer/lib/utils/paginator.js';
+import ScreenManager from 'inquirer/lib/utils/screen-manager.js';
 import { Subject } from 'rxjs';
 {
     new inquirer.Separator('');

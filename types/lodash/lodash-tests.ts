@@ -4132,6 +4132,47 @@ fp.now(); // $ExpectType number
     _({}).isEmpty(); // $ExpectType boolean
     _.chain([]).isEmpty(); // $ExpectType PrimitiveChain<boolean>
     fp.isEmpty(anything); // $ExpectType boolean
+
+    if (_.isEmpty(anything)) {
+        const result: undefined | null | '' | [] | never[] | Record<never, never> = anything;
+    } else {
+        anything; // $ExpectType any
+    }
+
+    let string = 'isEmpty';
+    if (Math.random()) {
+        string = '';
+    }
+    if (_.isEmpty(string)) {
+        string; // $ExpectType ""
+    } else {
+        string; // $ExpectType string
+    }
+
+    const array: Array<{ value: boolean }> = [];
+    if (_.isEmpty(array)) {
+        array.push({ value: true });
+    } else {
+        array.push({ value: false });
+    }
+
+    const obj: { value?: boolean } = {};
+    if (_.isEmpty(obj)) {
+        const result: { value?: undefined } = obj;
+    } else {
+        obj; // $ExpectType { value?: boolean | undefined; }
+    }
+    let obj2: { value: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj2 = null;
+    } else if (Math.random()) {
+        obj2 = undefined;
+    }
+    if (_.isEmpty(obj2)) {
+        const result: null | undefined = obj2;
+    } else {
+        obj2; // $ExpectType { value: boolean; }
+    }
 }
 
 // _.isEqual
@@ -5703,6 +5744,11 @@ fp.now(); // $ExpectType number
     _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.pick(obj1, readonlyArray); // $ExpectType Partial<AbcObject>
     _.pick(obj2, "a", "b"); // $ExpectType Pick<AbcObject, "a" | "b">
+    _.pick(obj1, ["a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [0, "a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [["b", 1], 0, "a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [readonlyArray]); // $ExpectType Partial<AbcObject>
+    _.pick(obj2, ["a", "b"]); // $ExpectType Pick<AbcObject, "a" | "b">
     // We can't use ExpectType here because typescript keeps changing what order the types appear.
     let result1: Pick<AbcObject, "a" | "b">;
     result1 = _.pick(obj2, literalsArray);
@@ -5713,6 +5759,11 @@ fp.now(); // $ExpectType number
     _(obj1).pick(["b", 1], 0, "a"); // $ExpectType Object<Partial<AbcObject>>
     _(obj1).pick(readonlyArray); // $ExpectType Object<Partial<AbcObject>>
     _(obj2).pick("a", "b"); // $ExpectType Object<Pick<AbcObject, "a" | "b">>
+    _(obj1).pick(["a"]); // $ExpectType Object<Pick<AbcObject, "a">>
+    _(obj1).pick([0, "a"]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj1).pick([["b", 1], 0, "a"]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj1).pick([readonlyArray]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj2).pick(["a", "b"]); // $ExpectType Object<Pick<AbcObject, "a" | "b">>
     let result2: _.Object<Pick<AbcObject, "a" | "b">>;
     result2 = _(obj2).pick(literalsArray);
     result2 = _(obj2).pick(roLiteralsArray);
@@ -5722,6 +5773,11 @@ fp.now(); // $ExpectType number
     _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType ObjectChain<Partial<AbcObject>>
     _.chain(obj1).pick(readonlyArray); // $ExpectType ObjectChain<Partial<AbcObject>>
     _.chain(obj2).pick("a", "b"); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
+    _.chain(obj1).pick(["a"]); // $ExpectType ObjectChain<Pick<AbcObject, "a">>
+    _.chain(obj1).pick([0, "a"]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj1).pick([["b", 1], 0, "a"]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj1).pick([readonlyArray]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj2).pick(["a", "b"]); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
     let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
     result3 = _.chain(obj2).pick(roLiteralsArray);
@@ -6661,8 +6717,8 @@ fp.now(); // $ExpectType number
 {
     _.words("fred, barney, & pebbles"); // $ExpectType string[]
     _.words("fred, barney, & pebbles", /[^, ]+/g); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType string[]
+    _("fred, barney, & pebbles").words(); // $ExpectType Collection<string>
+    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType Collection<string>
     _.chain("fred, barney, & pebbles").words(); // $ExpectType CollectionChain<string>
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]

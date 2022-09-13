@@ -34,4 +34,6 @@ export interface ListProps extends Omit<React.HTMLAttributes<HTMLElement>, 'chil
  */
 export const List: React.FC<ListProps>;
 
-export { Headless };
+export * from '@af-utils/react-virtual-headless';
+
+export {};

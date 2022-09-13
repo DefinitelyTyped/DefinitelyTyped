@@ -28,6 +28,12 @@ const config: webpack.Configuration = {
             excludeAssets: ['foo', /foo/, assetName => assetName.indexOf('foo') !== -1],
             logLevel: 'info',
         }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            statsOptions: {
+                ids: true
+            }
+        }),
     ],
 };
 
@@ -100,3 +106,13 @@ const report: BundleAnalyzerPlugin.JsonReport = [
         ],
     },
 ];
+
+const plugin = new BundleAnalyzerPlugin();
+
+plugin.apply;
+plugin.server;
+plugin.startAnalyzerServer;
+plugin.generateJSONReport;
+plugin.generateStatsFile;
+plugin.generateStaticReport;
+plugin.getBundleDirFromCompiler;

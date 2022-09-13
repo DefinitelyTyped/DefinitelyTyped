@@ -325,7 +325,8 @@ declare namespace yargs {
          * @param args An array of the words in the command line to complete.
          * @param done The callback to be called with the resulting completions.
          */
-        getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done: (err: Error|null, completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done?: never): Promise<ReadonlyArray<string>>;
 
         /**
          * Returns a promise which resolves to a string containing the help text.

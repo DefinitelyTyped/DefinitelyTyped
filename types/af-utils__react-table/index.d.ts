@@ -150,4 +150,6 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Table: React.FC<TableProps>;
 
-export { Headless };
+export * from '@af-utils/react-virtual-headless';
+
+export {};

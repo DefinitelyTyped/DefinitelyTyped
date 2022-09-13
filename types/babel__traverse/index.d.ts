@@ -555,16 +555,7 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<K extends keyof T>(
-        key: K,
-        context?: boolean | TraversalContext,
-    ): T[K] extends Array<Node | null | undefined>
-        ? Array<NodePath<T[K][number]>>
-        : T[K] extends Array<Node | null | undefined> | null | undefined
-        ? Array<NodePath<NonNullable<T[K]>[number]>> | NodePath<null | undefined>
-        : T[K] extends Node | null | undefined
-        ? NodePath<T[K]>
-        : never;
+    get<K extends keyof T>(key: K, context?: boolean | TraversalContext): NodePathResult<T[K]>;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
     getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
@@ -1202,3 +1193,7 @@ export interface TraversalContext {
     state: any;
     opts: any;
 }
+
+export type NodePathResult<T> =
+    | (Extract<T, Node | null | undefined> extends never ? never : NodePath<Extract<T, Node | null | undefined>>)
+    | (T extends Array<Node | null | undefined> ? Array<NodePath<T[number]>> : never);

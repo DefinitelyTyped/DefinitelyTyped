@@ -67,7 +67,7 @@ const vertex: Matter.Vertex = {
     isInternal: false,
 };
 // $ExpectType Body
-Bodies.fromVertices(1, 2, [[vertex]]);
+Bodies.fromVertices(1, 2, [[vertex, { x: 3, y: 4 }]]);
 
 const vector = Matter.Vector.create(10, 10);
 var radius = circle1.circleRadius;

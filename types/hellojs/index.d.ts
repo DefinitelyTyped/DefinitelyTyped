@@ -1,11 +1,10 @@
-// Type definitions for hello.js 1.16
+// Type definitions for hello.js 1.19
 // Project: https://adodson.com/hello.js
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 //                 Mikko Vuorinen <https://github.com/vuorinem>
 //                 Vincent Biret <https://github.com/baywet>
 //                 Batuhan Wilhelm <https://github.com/batuhanw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export = hello;
 export as namespace hello;
@@ -125,8 +124,7 @@ declare namespace hello {
     }
 
     interface HelloJSStatic extends HelloJSEvent {
-        init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
-        init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
+        init(serviceAppIdsOrDefs: { [id: string]: string | HelloJSServiceDef; }, options?: HelloJSLoginOptions): void;
         login(callback: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
         login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<HelloJSLoginEventArguement>;
@@ -160,6 +158,7 @@ declare namespace hello {
     type HelloJSUrlMappingFunction = (p: any, callback: (url: string) => void) => void;
 
     interface HelloJSServiceDef {
+        id?: string | undefined;
         name?: string | undefined;
         oauth: HelloJSOAuth2Def | HelloJSOAuth1Def;
         scope?: { [id: string]: string; } | undefined;

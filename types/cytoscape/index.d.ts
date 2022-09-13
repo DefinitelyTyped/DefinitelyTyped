@@ -8,7 +8,6 @@
 //                  Peter Ferrarotto <https://github.com/peterjferrarotto>
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Fredrik Sandström <https://github.com/Veckodag>
-//                  Jan Zak <https://github.com/zakjan>
 //                  Johan Svensson <https://github.com/jsve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //

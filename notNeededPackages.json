@@ -452,6 +452,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "cacheable-request": {
+            "libraryName": "cacheable-request",
+            "asOfVersion": "8.3.1"
+        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
@@ -527,6 +531,10 @@
         "change-case": {
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
+        },
+        "chartist": {
+            "libraryName": "chartist",
+            "asOfVersion": "1.0.0"
         },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
@@ -3635,6 +3643,10 @@
             "libraryName": "png-async",
             "asOfVersion": "0.9.4"
         },
+        "png-img": {
+            "libraryName": "png-img",
+            "asOfVersion": "4.0.4"
+        },
         "poly2tri": {
             "libraryName": "poly2tri",
             "asOfVersion": "1.4.0"
@@ -5131,6 +5143,10 @@
             "libraryName": "tailwindcss",
             "asOfVersion": "3.1.0"
         },
+        "tailwindcss__typography": {
+            "libraryName": "@tailwindcss/typography",
+            "asOfVersion": "0.5.6"
+        },
         "tcomb": {
             "libraryName": "tcomb",
             "asOfVersion": "2.6.0"
@@ -5770,6 +5786,10 @@
         "yoctodelay": {
             "libraryName": "yoctodelay",
             "asOfVersion": "1.2.0"
+        },
+        "yup": {
+            "libraryName": "yup",
+            "asOfVersion": "0.32.0"
         },
         "z-schema": {
             "libraryName": "z-schema",

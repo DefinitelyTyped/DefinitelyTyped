@@ -25,6 +25,7 @@
         "index.d.ts",
         "test/application.ts",
         "test/deprecations.ts",
-        "test/application-instance.ts"
+        "test/application-instance.ts",
+        "test/index.ts"
     ]
 }

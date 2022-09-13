@@ -641,3 +641,34 @@ const onItemSelected = () => {
 };
 
 SlidesApp.getActivePresentation().getSlides()[0].setSkipped(true);
+
+// Examples for form app validation builders:
+
+// Example of building a text validation
+const formAppTextValidation = FormApp.createTextValidation()
+    .requireNumberBetween(1, 100)
+    .build();
+
+// Example of building a grid validation
+const formAppGridValidation = FormApp.createGridValidation()
+    .requireLimitOneResponsePerColumn()
+    .build();
+
+// Example of building a grid validation
+const formAppCheckboxGridValidation = FormApp.createCheckboxGridValidation()
+    .requireLimitOneResponsePerColumn()
+    .build();
+
+// Example of building a checkbox validation
+const formAppCheckboxValidation = FormApp.createCheckboxValidation()
+    .requireSelectAtLeast(1)
+    .build();
+
+// Example of building a paragraph text validation
+const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
+    .requireTextDoesNotContainPattern('string')
+    .build();
+
+const mimeTypes: string[] = [
+    MimeType.GOOGLE_APPS_SCRIPT,
+];

@@ -1,4 +1,4 @@
-// Type definitions for data-urls 2.0
+// Type definitions for data-urls 3.0
 // Project: https://github.com/jsdom/data-urls#readme
 // Definitions by: Jaime Filho <https://github.com/jaimeadf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,7 +14,7 @@ declare function parseDataURL(stringInput: string): parseDataURL.DataURL | null;
 declare namespace parseDataURL {
     interface DataURL {
         mimeType: MIMEType;
-        body: Buffer;
+        body: Uint8Array;
     }
 
     function fromURLRecord(urlRecord: URLRecord): DataURL | null;

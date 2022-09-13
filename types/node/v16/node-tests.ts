@@ -27,6 +27,7 @@ import './test/readline';
 import './test/repl';
 import './test/stream';
 import './test/string_decoder';
+import './test/test';
 import './test/timers_promises';
 import './test/timers';
 import './test/tls';
@@ -107,7 +108,7 @@ import * as trace_events from 'node:trace_events';
             foo: number;
         }
 
-        class MyServerResponse extends http.ServerResponse {
+        class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage> extends http.ServerResponse<Request> {
             foo: string;
         }
 

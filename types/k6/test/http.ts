@@ -472,3 +472,11 @@ setResponseCallback(expectedStatuses(200));
 http.setResponseCallback(http.expectedStatuses(200));
 
 request('post', address, {}, {responseCallback: expectedStatuses(200)});
+
+http.cookieJar().clear('https://test.k6.io');
+http.cookieJar();
+http.cookieJar().delete('https://test.k6.io', 'Oreo');
+// @ts-expect-error
+http.cookieJar().clear();
+// @ts-expect-error
+http.cookieJar().delete();

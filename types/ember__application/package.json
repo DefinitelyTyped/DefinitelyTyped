@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@glimmer/component": "^1.1.0"
+    }
+}

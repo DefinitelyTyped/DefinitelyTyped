@@ -143,7 +143,6 @@ export class BufferGeometry extends EventDispatcher {
      */
     computeVertexNormals(): void;
 
-    merge(geometry: BufferGeometry, offset?: number): BufferGeometry;
     normalizeNormals(): void;
 
     toNonIndexed(): BufferGeometry;

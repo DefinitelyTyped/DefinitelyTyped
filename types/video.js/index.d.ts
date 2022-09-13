@@ -138,7 +138,7 @@ declare namespace videojs {
      * @return    A player instance or `undefined` if there is no player instance
      *          matching the argument.
      */
-    function getPlayer(id: string): Player;
+    function getPlayer(id: string | Element): Player | undefined;
 
     /**
      * Get an object with the currently created players, keyed by player ID
@@ -6921,6 +6921,15 @@ export interface VideoJsPlayer extends videojs.Component {
     playbackRate(rate: number): void;
 
     playbackRate(): number;
+
+    /**
+     * Set or get current playback rates.
+     * Takes an array and updates the playback rates menu with the new items.
+     * Pass in an empty array to hide the menu.
+     */
+    playbackRates(rates: number[]): void;
+
+    playbackRates(): number[];
 
     /**
      * Get a TimeRange object representing the current ranges of time that the user
