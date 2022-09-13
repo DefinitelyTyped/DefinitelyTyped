@@ -1,7 +1,6 @@
 // Type definitions for react-flatpickr 3.8
 // Project: https://github.com/coderhaoxin/react-flatpickr
 // Definitions by: snaveevans <https://github.com/snaveevans>
-//                 doniyor2109 <https://github.com/doniyor2109>
 //                 jleider <https://github.com/jleider>
 //                 sysix <https://github.com/sysix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
