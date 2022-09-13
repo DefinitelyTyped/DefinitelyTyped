@@ -4,6 +4,7 @@ import {
     LoadOptions,
     PaymentParams,
     Sandbox,
+    Keystore
 } from 'dcp-client';
 
 //#region Models
@@ -23,15 +24,43 @@ export const loadOptions: LoadOptions = {
 (async () => {
     const { compute, wallet, worker } = await init();
 
-    /* Wallet API Tests */
-    await compute.cancel();
+    //#region Job Tests
+    const initialSliceProfile = {};
+    const keystore = new Keystore();
+    const iterable = [1, 2, 3, 4, 5];
+    const MY_RESEARCH_URL = 'https://localhost:8080/someURL';
 
-    /* Wallet API Tests */
+    const job = await compute.for(iterable, 'work', [100]);
+
+    job.public.name = `DCP for Physics!`;
+    job.public.description = `Using DCP for electromagnetic force calculations`;
+    job.public.link = MY_RESEARCH_URL;
+    job.useStrict = true;
+
+    await job.exec(1, keystore, initialSliceProfile);
+    await job.localExec(1,  1, keystore, initialSliceProfile);
+    await job.cancel('reason');
+    await job.resume('reason');
+    await job.requires('path');
+
+    job.on('accepted', () => 'job accepted');
+    job.on('complete', () => 'job complete');
+    job.on('readystatechange', () => 'job readystatechange');
+    job.on('console', () => 'job console');
+    job.on('result', () => 'job result');
+    //#endregion
+
+    //#region Compute API Tests
+    await compute.cancel();
+    //#endregion
+
+    //#region Wallet API Tests
     await wallet.get(authKeystoreOptions);
     await wallet.load(loadOptions);
     await wallet.getId();
+    //#endregion
 
-    /* Worker API Tests */
+    //#region Worker API Tests
     await worker.start();
     await worker.stop(false);
 
@@ -61,4 +90,5 @@ export const loadOptions: LoadOptions = {
     worker.schedMsg.remove('jobAddress');
     worker.schedMsg.restart();
     worker.schedMsg.announce('message');
+    //#endregion
 })();

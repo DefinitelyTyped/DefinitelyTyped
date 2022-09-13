@@ -79,7 +79,7 @@ export interface AuthKeystoreOptions {
     checkEmpty: boolean | true;
 }
 
-export class JobHandle {}
+export class JobHandle extends Job {}
 
 export class JobInfo {
     status: string;
@@ -94,9 +94,92 @@ export interface Ranges {
     ranges: [];
 }
 
+export class ResultHandle {}
+
 export type jobId = number;
 
-export class Job {}
+export interface PublicProperties {
+    /**
+     * Public-facing name of the job.
+     */
+    name: string;
+
+    /**
+     * Public-facing description of the job.
+     */
+    description: string;
+
+    /**
+     * Public-facing link to an external resource about the job.
+     */
+    link: string;
+}
+
+/**
+ * [See docs](https://docs.dcp.dev/api/compute/classes/job.html#methods)
+ */
+export class Job {
+    /**
+     * An object to store public-facing attributes of a job. Anything stored in this object will be available for use inside the work function.
+     * Properties of this object can be seen by the worker in order to display what job it is currently working on.
+     */
+    public: PublicProperties;
+
+    /**
+     * Setting Job.useStrict true runs the work function in the strict mode.
+     */
+    useStrict: boolean;
+
+    /**
+     * @accepted - Emitted when the job gets accepted by the DCP Scheduler.
+     * @complete - Emitted when the job finishes.
+     * @readystatechange - Emitted leading up to deployment of the job.
+     * @console - Used to collect the console output of the workers.
+     * @result - Emitted when a slice completes and returns.
+     */
+    on(event: 'accepted' | 'complete' | 'readystatechange' | 'console' | 'result', listener: () => void): this;
+
+    /**
+     * Deploys the job to the scheduler for work to be done by distributed workers all throughout the DCP network.
+     * @param slicePaymentOffer - The amount of DCC user is willing to pay per slice.
+     * @param paymentAccountKeystore – Instance of Wallet API Keystore being used as the payment account for executing a job.
+     * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/GPU and I/O.
+     * @returns Promise<ResultHandle>
+     */
+    exec(slicePaymentOffer: number | object, paymentAccountKeystore: Keystore, initialSliceProfile: object): Promise<ResultHandle>;
+
+    /**
+     * Deploys the job for work to be done in locally in the client.
+     * @param cores – The number of local cores to be used to execute the job.
+     * @param slicePaymentOffer – The amount of DCC user is willing to pay per slice. However, localExec jobs don’t take DCC.
+     * @param paymentAccountKeystore – Instance of Wallet API Keystore being used as the payment account for executing a job.
+     * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/CPU and I/O.
+     * @returns Promise<ResultHandle>
+     */
+    localExec(cores: number, slicePaymentOffer: number | object, paymentAccountKeystore: Keystore, initialSliceProfile: object): Promise<ResultHandle>;
+
+    /**
+     * Deploys the job for work to be done in locally in the client.
+     * @param reason string – The reason for job cancellation, sent to client if provided.
+     * @returns Promise<void>
+     */
+    cancel(reason: string): Promise<void>;
+
+    /**
+     * Resumes the job.
+     * @returns Promise<void>
+     */
+    resume(reason: string): Promise<void>;
+
+    /**
+     * Resumes the job.
+     * modulePaths should not have .js extension at the end of the path. For more information on moduleIdentifiers, view the CommonJs specification in
+     * [See docs](https://wiki.commonjs.org/wiki/Modules/1.1#Module_Identifiers)
+     * @param modulePaths – Either a string or a list of strings that represent the module dependency path.
+     * @returns Promise<void>
+     */
+    requires(modulePaths: string| string[]): Promise<void>;
+}
 
 export class WorkValueQuote {}
 
