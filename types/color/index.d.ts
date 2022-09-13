@@ -10,7 +10,9 @@ import convert = require('color-convert');
 
 type ColorParam = Color | string | ArrayLike<number> | number | { [key: string]: any };
 
-interface Color<T extends ColorParam = ColorParam> {
+export interface ColorExtendMethods { }
+
+interface Color<T extends ColorParam = ColorParam> extends ColorExtendMethods {
     toString(): string;
     toJSON(): Color<T>;
     string(places?: number): string;
@@ -136,4 +138,4 @@ interface ColorConstructor {
 
 declare const Color: ColorConstructor;
 
-export = Color;
+export default Color;
