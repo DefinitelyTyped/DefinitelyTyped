@@ -2,6 +2,5 @@
   "private": true,
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.18"
-  },
-  "types": "index"
+  }
 }
