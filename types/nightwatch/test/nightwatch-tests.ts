@@ -142,7 +142,7 @@ const testGeneral: NightwatchTests = {
             .captureBrowserConsoleLogs(event => {
                 console.log(event.type, event.timestamp, event.args[0].value);
             })
-            .navigateTo('https://www.google.com')
+            .navigateTo(browser.baseUrl)
             .executeScript(() => {
                 console.error('here');
             }, []);

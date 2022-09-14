@@ -1769,7 +1769,7 @@ export interface NightwatchAPI
         WebDriverProtocol,
         NightwatchCustomCommands,
         NightwatchApiCommands {
-    baseURL: string;
+    baseUrl: string;
     assert: Assert;
     actions(options?: { async?: boolean; bridge?: boolean }): Actions;
     expect: Expect;
