@@ -1,4 +1,4 @@
-import { describe, it, test } from 'node:test';
+import { describe, it, test, before, beforeEach, after, afterEach } from 'node:test';
 
 test('foo', t => {
     // $ExpectType TestContext
@@ -121,3 +121,40 @@ describe(1, () => {});
 
 // @ts-expect-error
 it(1, () => {});
+
+// Hooks
+// - without callback
+before(() => {});
+beforeEach(() => {});
+after(() => {});
+beforeEach(() => {});
+// - with callback
+before(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+beforeEach(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+after(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+beforeEach(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+// - with options
+before(() => {}, { signal: new AbortController().signal, timeout: Infinity });
+beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity });
+after(() => {}, { signal: new AbortController().signal, timeout: Infinity });
+beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity });
