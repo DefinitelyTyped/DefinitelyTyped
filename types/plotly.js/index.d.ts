@@ -859,11 +859,11 @@ export interface Margin {
 
 export interface ModeBar {
     activecolor: Color;
-    add: ModeBarDefaultButtons[];
+    add: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     bgcolor: Color;
     color: Color;
     orientation: 'v' | 'h';
-    remove: ModeBarDefaultButtons[];
+    remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
     uirevision: number | string;
 }
 
