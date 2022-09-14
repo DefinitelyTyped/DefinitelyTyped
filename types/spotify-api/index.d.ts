@@ -1391,7 +1391,7 @@ declare namespace SpotifyApi {
          * Known external IDs for the track.
          */
         external_ids: ExternalIdObject;
-        /**
+        /*
          * The popularity of the track. The value will be between `0` and `100`, with `100` being the most popular.
          * The popularity of a track is a value between `0` and `100`, with `100` being the most popular.
          * The popularity is calculated by algorithm and is based, in the most part,
