@@ -1,4 +1,4 @@
-// Type definitions for braintree-web-drop-in 1.33.4
+// Type definitions for braintree-web-drop-in 1.33
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 //                 Ricard Solé Casas <https://github.com/iamricard>
