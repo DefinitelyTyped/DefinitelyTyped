@@ -649,7 +649,7 @@ jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
 // $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
-// $ExpectType MockedObject<{}>
+// $ExpectType MockedObjectDeep<{}>
 jest.mocked({}, { shallow: false });
 // $ExpectType MockedObject<{}>
 jest.mocked({}, { shallow: true });
