@@ -89,7 +89,7 @@ export interface dataCollectorOptions {
 
 export interface googlePayCreateOptions {
     merchantId: string;
-    googlePayVersion?: string | undefined;
+    googlePayVersion?: number | undefined;
     transactionInfo: google.payments.api.TransactionInfo;
     button?: google.payments.api.ButtonOptions | undefined;
 }
