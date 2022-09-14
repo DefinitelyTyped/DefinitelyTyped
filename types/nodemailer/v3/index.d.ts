@@ -118,19 +118,19 @@ export interface SendMailOptions {
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the To: field
      */
-    to?: string|string[] | undefined;
+    to?: string | string[] | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the Cc: field
      */
-    cc?: string|string[] | undefined;
+    cc?: string | string[] | undefined;
     /**
      * Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field
      */
-    bcc?: string|string[] | undefined;
+    bcc?: string | string[] | undefined;
     /**
-     * An e-mail address that will appear on the Reply-To: field
+     * Comma separated list or an array of e-mail addresses that will appear on the Reply-To: field
      */
-    replyTo?: string | undefined;
+    replyTo?: string | string[] | undefined;
     /**
      * The message-id this message is replying
      */
@@ -138,7 +138,7 @@ export interface SendMailOptions {
     /**
      * Message-id list (an array or space separated string)
      */
-    references?: string|string[] | undefined;
+    references?: string | string[] | undefined;
     /**
      * The subject of the e-mail
      */

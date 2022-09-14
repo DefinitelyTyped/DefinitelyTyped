@@ -452,6 +452,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "cacheable-request": {
+            "libraryName": "cacheable-request",
+            "asOfVersion": "8.3.1"
+        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
@@ -527,6 +531,10 @@
         "change-case": {
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
+        },
+        "chartist": {
+            "libraryName": "chartist",
+            "asOfVersion": "1.0.0"
         },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
@@ -1388,6 +1396,10 @@
         "fastify-static": {
             "libraryName": "fastify-static",
             "asOfVersion": "2.2.1"
+        },
+        "favicons": {
+            "libraryName": "favicons",
+            "asOfVersion": "7.0.0"
         },
         "favicons-webpack-plugin": {
             "libraryName": "favicons-webpack-plugin",
@@ -3635,6 +3647,10 @@
             "libraryName": "png-async",
             "asOfVersion": "0.9.4"
         },
+        "png-img": {
+            "libraryName": "png-img",
+            "asOfVersion": "4.0.4"
+        },
         "poly2tri": {
             "libraryName": "poly2tri",
             "asOfVersion": "1.4.0"
@@ -5130,6 +5146,10 @@
         "tailwindcss": {
             "libraryName": "tailwindcss",
             "asOfVersion": "3.1.0"
+        },
+        "tailwindcss__typography": {
+            "libraryName": "@tailwindcss/typography",
+            "asOfVersion": "0.5.6"
         },
         "tcomb": {
             "libraryName": "tcomb",

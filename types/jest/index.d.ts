@@ -156,7 +156,7 @@ declare namespace jest {
      * been scheduled, they will be cleared and will never have the opportunity
      * to execute in the future.
      */
-    function clearAllTimers(): typeof jest;
+    function clearAllTimers(): void;
     /**
      * Returns the number of fake timers still left to run.
      */
@@ -278,30 +278,30 @@ declare namespace jest {
      * > Note: This function is only available when using modern fake timers
      * > implementation
      */
-    function runAllImmediates(): typeof jest;
+    function runAllImmediates(): void;
     /**
      * Exhausts the micro-task queue (usually interfaced in node via process.nextTick).
      */
-    function runAllTicks(): typeof jest;
+    function runAllTicks(): void;
     /**
      * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
      * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
      * in node via process.nextTick).
      */
-    function runAllTimers(): typeof jest;
+    function runAllTimers(): void;
     /**
      * Executes only the macro-tasks that are currently pending (i.e., only the
      * tasks that have been queued by setTimeout() or setInterval() up to this point).
      * If any of the currently pending macro-tasks schedule new macro-tasks,
      * those new tasks will not be executed by this call.
      */
-    function runOnlyPendingTimers(): typeof jest;
+    function runOnlyPendingTimers(): void;
     /**
      * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
      * queued via setTimeout() or setInterval(), and would be executed within this timeframe
      * will be executed.
      */
-    function advanceTimersByTime(msToRun: number): typeof jest;
+    function advanceTimersByTime(msToRun: number): void;
     /**
      * Advances all timers by the needed milliseconds so that only the next
      * timeouts/intervals will run. Optionally, you can provide steps, so it
@@ -1379,12 +1379,26 @@ declare namespace jest {
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
-        lastCall: Y;
+        /**
+         * List of the call arguments of all calls that have been made to the mock.
+         */
         calls: Y[];
+        /**
+         * List of all the object instances that have been instantiated from the mock.
+         */
         instances: T[];
+        /**
+         * List of the call order indexes of the mock. Jest is indexing the order of
+         * invocations of all mocks in a test file. The index is starting with `1`.
+         */
         invocationCallOrder: number[];
         /**
-         * List of results of calls to the mock function.
+         * List of the call arguments of the last call that was made to the mock.
+         * If the function was not called, it will return `undefined`.
+         */
+        lastCall?: Y;
+        /**
+         * List of the results of all calls that have been made to the mock.
          */
         results: Array<MockResult<T>>;
     }

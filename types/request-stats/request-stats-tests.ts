@@ -25,7 +25,7 @@ requestStats(server, stats => {
     stats.res.bytes; // $ExpectType number
     stats.res.headers; // $ExpectType OutgoingHttpHeaders
     stats.res.status; // $ExpectType number
-    stats.res.raw; // $ExpectType ServerResponse
+    stats.res.raw; // $ExpectType ServerResponse<IncomingMessage>
 });
 
 stats.on('complete', stats => {

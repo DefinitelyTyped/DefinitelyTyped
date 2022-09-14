@@ -70,7 +70,7 @@ declare namespace googletag {
      * </script>
      * ```
      */
-    let apiReady: boolean | undefined;
+    const apiReady: boolean | undefined;
     /**
      * Reference to the global command queue for asynchronous execution of GPT-related calls.
      *
@@ -88,14 +88,14 @@ declare namespace googletag {
      * });
      * ```
      */
-    let cmd: CommandArray | Array<() => void>;
+    const cmd: CommandArray | Array<() => void>;
     /**
      * Flag indicating that `PubAdsService` is enabled, loaded and fully operational.
      * This property will be simply `undefined` until `googletag.enableServices()` is called and `PubAdsService` is loaded and initialized.
      *
      * **Note**: Checking `googletag.pubadsReady` is discouraged. Please use `googletag.cmd.push` instead.
      */
-    let pubadsReady: boolean | undefined;
+    const pubadsReady: boolean | undefined;
     /**
      * Returns a reference to the `CompanionAdsService`.
      * @returns The Companion Ads service.
@@ -1605,7 +1605,7 @@ declare namespace googletag {
              * **See also**
              * - [FLEDGE: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
              */
-            auctionConfig: null | {
+            auctionConfig: {
                 auctionSignals?: unknown;
                 decisionLogicUrl?: string;
                 interestGroupBuyers?: string[];
@@ -1618,7 +1618,7 @@ declare namespace googletag {
                 sellerSignals?: unknown;
                 sellerTimeout?: number;
                 trustedScoringSignalsUrl?: string;
-            };
+            } | null;
             /**
              * The configuration key associated with this component auction.
              *
@@ -1633,7 +1633,7 @@ declare namespace googletag {
              *
              * **Experimental**: This feature may be changed or removed in a future release.
              */
-            componentAuction: ComponentAuctionConfig[];
+            componentAuction?: ComponentAuctionConfig[];
         }
     }
     /**
@@ -1803,7 +1803,7 @@ declare namespace googletag {
             /**
              * An object containing information about the reward that was granted.
              */
-            payload: null | RewardedPayload;
+            payload: RewardedPayload | null;
         }
         /**
          * This event is fired when a [rewarded ad](https://support.google.com/admanager/answer/9116812) is ready to be displayed.
