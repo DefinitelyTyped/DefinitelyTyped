@@ -2330,7 +2330,7 @@ declare namespace Matter {
          * @property constraint
          * @type constraint
          */
-        constraint?: Constraint | undefined;
+        constraint?: IConstraintDefinition | undefined;
 
         /**
          * An `Object` that specifies the collision filter properties.
