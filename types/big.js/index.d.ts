@@ -234,6 +234,10 @@ export interface Big {
      */
     mul(n: BigSource): Big;
     /**
+     * Return a new Big whose value is the value of this Big negated.
+     */
+    neg(): Big;
+    /**
      * Returns a Big number whose value is the value of this Big number plus n.
      *
      * @throws `NaN` if n is invalid.

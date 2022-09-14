@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
         "no-consecutive-blank-lines": false,
         "npm-naming": false,
         "trim-file": false,
