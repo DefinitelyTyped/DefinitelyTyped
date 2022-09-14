@@ -29,4 +29,4 @@ newer({
 // invalid options configuration - nothing is specified
 // prettier-ignore
 // @ts-expect-error
-newer({})
+newer({});
