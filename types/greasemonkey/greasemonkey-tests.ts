@@ -32,11 +32,6 @@ GM.setValue('x', new Date());
 
 // GM.getValue
 
-async function getStringValueWithoutDefault() {
-    const a: string | undefined = await GM.getValue<string>('a');
-    return a;
-}
-
 async function getStringValueWithDefault() {
     const a: string = await GM.getValue('a', 'foobar');
     return a;
@@ -45,7 +40,7 @@ async function getStringValueWithDefault() {
 async function getNumberValueWithDefault() {
     const b: number = await GM.getValue('b', 123);
     // @ts-expect-error
-    const x: string  = GM.getValue('x', 123);
+    const x: string = GM.getValue('x', 123);
     return b;
 }
 
@@ -55,17 +50,17 @@ async function getBooleanWithDefault() {
 }
 
 async function getStringValue() {
-    const e = await GM.getValue('e') as string | undefined;
+    const e: string | undefined = await GM.getValue<string>('e');
     return e;
 }
 
 async function getNumberValue() {
-    const f = await GM.getValue('f') as number | undefined;
+    const f: number | undefined = await GM.getValue<number>('f');
     return f;
 }
 
 async function getBooleanValue() {
-    const g = await GM.getValue('g') as boolean | undefined;
+    const g: boolean | undefined = await GM.getValue<boolean>('g');
     return g;
 }
 

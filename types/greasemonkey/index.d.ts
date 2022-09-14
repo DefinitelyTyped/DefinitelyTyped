@@ -216,13 +216,9 @@ declare var GM: {
      * // For structured data used `JSON.stringify()` to place an object into storage and then `JSON.parse()` to convert it back
      * const storedObject = JSON.parse(await GM.getValue('foo', '{}'));
      */
-    getValue<TValue = GM.Value>(
-        name: string,
-    ): Promise<TValue | undefined>
-    getValue<TValue = GM.Value>(
-        name: string,
-        defaultValue: TValue
-    ): Promise<TValue>
+    // tslint:disable-next-line no-unnecessary-generics
+    getValue<TValue = GM.Value>(name: string): Promise<TValue | undefined>
+    getValue<TValue = GM.Value>(name: string, defaultValue: TValue): Promise<TValue>
 
     /**
      * Deletes an existing name / value pair from storage.
