@@ -32,6 +32,11 @@ GM.setValue('x', new Date());
 
 // GM.getValue
 
+async function getStringValueWithoutDefault() {
+    const a: string | undefined = await GM.getValue<string>('a');
+    return a;
+}
+
 async function getStringValueWithDefault() {
     const a: string = await GM.getValue('a', 'foobar');
     return a;
