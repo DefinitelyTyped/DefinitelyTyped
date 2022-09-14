@@ -1,19 +1,11 @@
 declare module 'vue' {
     interface GlobalComponents {
-        // AvueCrud: typeof import('@smallwei/avue').AvueCrud;
-        // AvueForm: typeof import('@smallwei/avue').AvueForm;
-        // AvueTree: typeof import('@smallwei/avue').AvueTree;
+        AvueCrud: typeof AvueCrud;
+        AvueForm: typeof AvueForm;
+        AvueTree: typeof AvueTree;
     }
     interface ComponentCustomProperties {
-        $ImagePreview: (list: { url?: string; thumbUrl?: string }[], index?: number) => void;
-    }
-}
-
-declare global {
-    namespace JSX {
-        interface IntrinsicAttributes {
-            class: string;
-        }
+        $ImagePreview: (list: Array<{ url?: string; thumbUrl?: string }>, index?: number) => void;
     }
 }
 

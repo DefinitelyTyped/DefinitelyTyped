@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference lib="dom" />
-/// <reference types="web-bluetooth" />
+/// <reference types="./element-plus" />
 /// <reference types="./dic" />
 /// <reference types="./form" />
 /// <reference types="./crud" />
 /// <reference types="./tree" />
 /// <reference types="./global" />
 
-import { App } from 'vue';
+// import { App } from 'vue';
 
 interface AvueConfig {
     size?: 'large' | 'default' | 'small';
@@ -20,7 +20,7 @@ interface AvueConfig {
     axios?: any;
 }
 interface AvueInstaller {
-    install(app: App, config?: AvueConfig): void;
+    install(app: any, config?: AvueConfig): void;
 }
 declare const Avue: AvueInstaller;
 
