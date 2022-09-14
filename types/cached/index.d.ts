@@ -6,7 +6,7 @@
 
 import Memcached = require('memcached');
 
-export = cached;
+export default cached;
 
 interface CacheOptions {
     defaults?: CacheDefaults;
@@ -79,7 +79,7 @@ declare namespace cached {
     function deferred<T>(func: (callback: (err: any, result?: T) => void) => void): Promise<T>;
 }
 
-declare class Cache<T> {
+export declare class Cache<T> {
     constructor(options: {
         name: string;
         defaults: CacheDefaults;
