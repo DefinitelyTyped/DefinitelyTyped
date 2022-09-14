@@ -3,7 +3,7 @@
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 export interface ReactTypicalProps {
     steps: Array<string|number>;
