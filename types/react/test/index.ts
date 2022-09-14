@@ -217,6 +217,16 @@ FunctionComponent2.defaultProps = {
     foo: 42
 };
 
+// utility types for components with children
+const FooFunctionComponentWithChildren: React.FunctionComponentWithChildren = props =>
+    React.createElement('div', props.children);
+
+class FooComponentWithChildren extends React.ComponentWithChildren {
+    render() {
+        return React.createElement('div', this.props.children);
+    }
+}
+
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 

@@ -539,6 +539,11 @@ declare namespace React {
         defaultProps?: Partial<P> | undefined;
         displayName?: string | undefined;
     }
+    class ComponentWithChildren<P = {}, S = {}, SS = any> extends Component<
+        P & { children?: ReactNode | undefined },
+        S,
+        SS
+    > {}
 
     type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
 
@@ -555,6 +560,14 @@ declare namespace React {
          * propTypes are not supported on render functions
          */
         propTypes?: never | undefined;
+    }
+
+    interface FunctionComponentWithChildren<P = {}> {
+        (props: P & { children?: ReactNode | undefined }, context?: unknown): ReactElement<unknown, any> | null;
+        propTypes?: WeakValidationMap<P> | undefined;
+        contextTypes?: ValidationMap<unknown> | undefined;
+        defaultProps?: Partial<P> | undefined;
+        displayName?: string | undefined;
     }
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
