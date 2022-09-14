@@ -894,6 +894,10 @@ export interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
     screenshotsPath: string;
 }
 
+export interface NightwatchTestSettings {
+    [key: string]: NightwatchTestSettingScreenshots;
+}
+
 export interface NightwatchTestSuite {
     name: string;
     module: string;
@@ -908,111 +912,112 @@ export interface NightwatchAssertionsError {
     stack: string;
 }
 
-export interface NightwatchTestSettings {
-    [key: string]: NightwatchTestSettingScreenshots;
+export interface NightwatchEnsureResult {
+    value: null;
+    returned: 1;
 }
 
 export interface Ensure {
     /**
      * Ensures that the Nightwatch WebDriver client is able to switch to the designated frame.
      */
-    ableToSwitchToFrame(frame: number | WebElement | By): NightwatchBrowser;
+    ableToSwitchToFrame(frame: number | WebElement | By): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that waits for an alert to be opened.
      */
-    alertIsPresent(): NightwatchBrowser;
+    alertIsPresent(): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to be disabled.
      */
-    elementIsDisabled(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsDisabled(element: WebElement | Element | string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to be enabled.
      */
-    elementIsEnabled(element: WebElement): NightwatchBrowser;
+    elementIsEnabled(element: WebElement): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to be deselected.
      */
-    elementIsNotSelected(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsNotSelected(element: WebElement | Element | string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to be in the DOM, yet not displayed to the user.
      */
-    elementIsNotVisible(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsNotVisible(element: WebElement | Element | string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to be selected.
      */
-    elementIsSelected(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsSelected(element: WebElement | Element | string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to be displayed.
      */
-    elementIsVisible(element: WebElement | Element | string): NightwatchBrowser;
+    elementIsVisible(element: WebElement | Element | string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will loop until an element is found with the given locator.
      */
-    elementLocated(locator: By): NightwatchBrowser;
+    elementLocated(locator: By): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element's text to contain the given substring.
      */
-    elementTextContains(element: WebElement | Element | string, substr: string): NightwatchBrowser;
+    elementTextContains(element: WebElement | Element | string, substr: string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element's text to equal the given text.
      */
-    elementTextIs(element: WebElement | Element | string, text: string): NightwatchBrowser;
+    elementTextIs(element: WebElement | Element | string, text: string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element's text to match a given regular expression.
      */
-    elementTextMatches(element: WebElement | Element | string, regex: RegExp): NightwatchBrowser;
+    elementTextMatches(element: WebElement | Element | string, regex: RegExp): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will loop until at least one element is found with the given locator.
      */
-    elementsLocated(locator: By): NightwatchBrowser;
+    elementsLocated(locator: By): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the given element to become stale.
      * An element is considered stale once it is removed from the DOM, or a new page has loaded.
      */
-    stalenessOf(element: WebElement | Element | string): NightwatchBrowser;
+    stalenessOf(element: WebElement | Element | string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the current page's title to contain the given substring.
      */
-    titleContains(substr: string): NightwatchBrowser;
+    titleContains(substr: string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the current page's title to match the given value.
      */
-    titleIs(title: string): NightwatchBrowser;
+    titleIs(title: string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the current page's title to match the given regular expression.
      */
-    titleMatches(regex: RegExp): NightwatchBrowser;
+    titleMatches(regex: RegExp): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the current page's url to contain the given substring.
      */
-    urlContains(substrUrl: string): NightwatchBrowser;
+    urlContains(substrUrl: string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the current page's url to match the given value.
      */
-    urlIs(url: string): NightwatchBrowser;
+    urlIs(url: string): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 
     /**
      * Creates a condition that will wait for the current page's url to match the given regular expression.
      */
-    urlMatches(regex: RegExp): NightwatchBrowser;
+    urlMatches(regex: RegExp): Awaitable<NightwatchAPI, NightwatchEnsureResult>;
 }
 
 export interface Assert extends NightwatchAssertions, NightwatchNodeAssertions {}
