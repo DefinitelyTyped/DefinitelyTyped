@@ -1,4 +1,4 @@
-// Type definitions for Kendo UI Professional v2022.2.510
+// Type definitions for Kendo UI Professional v2022.3.913
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2384,8 +2384,8 @@ declare namespace kendo.ui {
 
         hide(): void;
         icon(icon: string): void;
+        rounded(rounded: string): void;
         setOptions(options: any): void;
-        shape(shape: string): void;
         show(): void;
         text(text: string): void;
         text(text: number): void;
@@ -2397,11 +2397,11 @@ declare namespace kendo.ui {
         name?: string | undefined;
         align?: string | undefined;
         cutoutBorder?: boolean | undefined;
-        fill?: string | undefined;
+        fillMode?: string | undefined;
         icon?: string | undefined;
         max?: number | undefined;
         position?: string | undefined;
-        shape?: string | undefined;
+        rounded?: string | undefined;
         size?: string | undefined;
         template?: string|Function | undefined;
         text?: string|number | undefined;
@@ -2702,11 +2702,18 @@ declare namespace kendo.ui {
         value(value: Date): void;
         value(value: string): void;
         view(): any;
+    }
 
+    interface CalendarMessagesParentViews {
+        month?: string | undefined;
+        year?: string | undefined;
+        decade?: string | undefined;
     }
 
     interface CalendarMessages {
         weekColumnHeader?: string | undefined;
+        navigateTo?: string | undefined;
+        parentViews?: CalendarMessagesParentViews;
     }
 
     interface CalendarMonth {
@@ -4078,6 +4085,85 @@ declare namespace kendo.ui {
     interface DrawerHideEvent extends DrawerEvent {
     }
 
+    class DropDownButton extends kendo.ui.Widget {
+
+        static fn: DropDownButton;
+
+        options: DropDownButtonOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): DropDownButton;
+
+        constructor(element: Element, options?: DropDownButtonOptions);
+
+
+        enable(state: boolean, items: string): void;
+        enable(state: boolean, items: JQuery): void;
+        hide(items: string): void;
+        hide(items: JQuery): void;
+        show(items: string): void;
+        show(items: JQuery): void;
+        items(): JQuery;
+        open(): void;
+        close(): void;
+
+    }
+
+    interface DropDownButtonItem {
+        attributes?: any | undefined;
+        click?: Function | undefined;
+        data?: Function | undefined;
+        enabled?: boolean | undefined;
+        hidden?: boolean | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
+        imageUrl?: string | undefined;
+        spriteCssClass?: string | undefined;
+        text?: string | undefined;
+    }
+
+    interface DropDownButtonPopup {
+        appendTo?: string | undefined;
+    }
+
+    interface DropDownButtonMessages {
+        labelSuffix?: string | undefined;
+    }
+
+    interface DropDownButtonOptions {
+        name?: string | undefined;
+        enabled?: boolean | undefined;
+        fillMode?: string | undefined;
+        icon?: string | undefined;
+        iconClass?: string | undefined;
+        imageUrl?: string | undefined;
+        items?: DropDownButtonItem[] | undefined;
+        itemTemplate?: string|Function | undefined;
+        popup?: DropDownButtonPopup | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
+        spriteCssClass?: string | undefined;
+        themeColor?: string | undefined;
+        messages?: DropDownButtonMessages | undefined;
+        click?(e: DropDownButtonClickEvent): void;
+        open?(e: DropDownButtonEvent): void;
+        close?(e: DropDownButtonEvent): void;
+    }
+    interface DropDownButtonEvent {
+        sender: DropDownButton;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface DropDownButtonClickEvent extends DropDownButtonEvent {
+        originalEvent?: any | undefined;
+        target?: JQuery | undefined;
+        id?: string | undefined;
+    }
+
     class DropDownList extends kendo.ui.Widget {
 
         static fn: DropDownList;
@@ -5101,6 +5187,9 @@ declare namespace kendo.ui {
     interface FilterMessages {
         and?: string | undefined;
         apply?: string | undefined;
+        filterExpressionLabel?: string | undefined;
+        filterLogicLabel?: string | undefined;
+        mainFilterLogicLabel?: string | undefined;
         or?: string | undefined;
     }
 
@@ -6122,6 +6211,7 @@ declare namespace kendo.ui {
         headerAttributes?: any;
         headerTemplate?: string|Function | undefined;
         hidden?: boolean | undefined;
+        hideOnGroup?: boolean | undefined;
         locked?: boolean | undefined;
         lockable?: boolean | undefined;
         media?: string | undefined;
@@ -6136,6 +6226,7 @@ declare namespace kendo.ui {
         width?: string|number | undefined;
         values?: any;
         menu?: boolean | undefined;
+        columnMenu?: boolean | undefined;
     }
 
     interface GridEditable {
@@ -6259,6 +6350,9 @@ declare namespace kendo.ui {
         commands?: GridMessagesCommands | undefined;
         noRecords?: string | undefined;
         expandCollapseColumnHeader?: string | undefined;
+        toolbarLabel?: string | undefined;
+        groupingHeaderLabel?: string | undefined;
+        filterCellTitle?: string | undefined;
     }
 
     interface GridNoRecords {
@@ -6917,6 +7011,7 @@ declare namespace kendo.ui {
         scrollable?: boolean|string | undefined;
         navigatable?: boolean | undefined;
         selectable?: boolean|string | undefined;
+        pageable?: boolean | ListViewPageable | undefined;
         template?: Function | undefined;
         altTemplate?: Function | undefined;
         cancel?(e: ListViewCancelEvent): void;
@@ -6927,6 +7022,35 @@ declare namespace kendo.ui {
         remove?(e: ListViewRemoveEvent): void;
         save?(e: ListViewSaveEvent): void;
     }
+
+    interface ListViewPageableMessages {
+        display?: string | undefined;
+        empty?: string | undefined;
+        page?: string | undefined;
+        of?: string | undefined;
+        itemsPerPage?: string | undefined;
+        first?: string | undefined;
+        last?: string | undefined;
+        next?: string | undefined;
+        previous?: string | undefined;
+        refresh?: string | undefined;
+        morePages?: string | undefined;
+    }
+
+    interface ListViewPageable {
+        pageSize?: number | undefined;
+        previousNext?: boolean | undefined;
+        numeric?: boolean | undefined;
+        buttonCount?: number | undefined;
+        input?: boolean | undefined;
+        pageSizes?: boolean|any | undefined;
+        refresh?: boolean | undefined;
+        responsive?: boolean | undefined;
+        info?: boolean | undefined;
+        messages?: ListViewPageableMessages | undefined;
+        position?: string | undefined;
+    }
+
     interface ListViewEvent {
         sender: ListView;
         preventDefault: Function;
@@ -7449,6 +7573,14 @@ declare namespace kendo.ui {
         valueMapper?: Function | undefined;
     }
 
+    interface MultiSelectMessages {
+        clear?: string | undefined;
+        deleteTag?: string | undefined;
+        downArrow?: string | undefined;
+        noData?: string | undefined;
+        singleTag?: string | undefined;
+    }
+
     interface MultiSelectOptions {
         name?: string | undefined;
         animation?: boolean | MultiSelectAnimation | undefined;
@@ -7473,6 +7605,7 @@ declare namespace kendo.ui {
         ignoreCase?: boolean | undefined;
         minLength?: number | undefined;
         maxSelectedItems?: number | undefined;
+        messages?: MultiSelectMessages | undefined;
         noDataTemplate?: string|Function|boolean | undefined;
         placeholder?: string | undefined;
         popup?: MultiSelectPopup | undefined;
@@ -8114,7 +8247,9 @@ declare namespace kendo.ui {
         display?: string | undefined;
         empty?: string | undefined;
         allPages?: string | undefined;
+        numbersSelectLabel?: string | undefined;
         pageButtonLabel?: string | undefined;
+        pageSizeDropDownLabel?: string | undefined;
         page?: string | undefined;
         of?: string | undefined;
         itemsPerPage?: string | undefined;
@@ -9778,6 +9913,59 @@ declare namespace kendo.ui {
         page?: number | undefined;
     }
 
+    class Signature extends kendo.ui.Widget {
+
+        static fn: Signature;
+
+        options: SignatureOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): Signature;
+
+        constructor(element: Element, options?: SignatureOptions);
+
+
+        close(): void;
+        destroy(): void;
+        enable(enable: boolean): void;
+        open(): void;
+        readonly(readonly: boolean): void;
+        reset(): void;
+        value(): string;
+        value(value: string): void;
+
+    }
+
+    interface SignatureOptions {
+        name?: string | undefined;
+        backgroundColor?: string | undefined;
+        color?: string | undefined;
+        enable?: boolean | undefined;
+        fillMode?: string | undefined;
+        height?: number | undefined;
+        hideLine?: boolean | undefined;
+        maximizable?: boolean | undefined;
+        popupScale?: number | undefined;
+        readonly?: boolean | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
+        smooth?: boolean | undefined;
+        strokeWidth?: number | undefined;
+        value?: string | undefined;
+        width?: number | undefined;
+        change?(e: SignatureEvent): void;
+        close?(e: SignatureEvent): void;
+        open?(e: SignatureEvent): void;
+    }
+    interface SignatureEvent {
+        sender: Signature;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
     class SkeletonContainer extends kendo.ui.Widget {
 
         static fn: SkeletonContainer;
@@ -9982,6 +10170,85 @@ declare namespace kendo.ui {
         item?: JQuery | undefined;
     }
 
+    class SplitButton extends kendo.ui.Widget {
+
+        static fn: SplitButton;
+
+        options: SplitButtonOptions;
+
+
+        element: JQuery;
+        wrapper: JQuery;
+
+        static extend(proto: Object): SplitButton;
+
+        constructor(element: Element, options?: SplitButtonOptions);
+
+
+        enable(state: boolean, items: string): void;
+        enable(state: boolean, items: JQuery): void;
+        hide(items: string): void;
+        hide(items: JQuery): void;
+        show(items: string): void;
+        show(items: JQuery): void;
+        items(): JQuery;
+        open(): void;
+        close(): void;
+
+    }
+
+    interface SplitButtonItem {
+        attributes?: any | undefined;
+        click?: Function | undefined;
+        data?: Function | undefined;
+        enabled?: boolean | undefined;
+        hidden?: boolean | undefined;
+        icon?: string | undefined;
+        id?: string | undefined;
+        imageUrl?: string | undefined;
+        spriteCssClass?: string | undefined;
+        text?: string | undefined;
+    }
+
+    interface SplitButtonPopup {
+        appendTo?: string | undefined;
+    }
+
+    interface SplitButtonMessages {
+        labelSuffix?: string | undefined;
+    }
+
+    interface SplitButtonOptions {
+        name?: string | undefined;
+        arrowIcon?: string | undefined;
+        enabled?: boolean | undefined;
+        fillMode?: string | undefined;
+        icon?: string | undefined;
+        iconClass?: string | undefined;
+        imageUrl?: string | undefined;
+        items?: SplitButtonItem[] | undefined;
+        itemTemplate?: string|Function | undefined;
+        popup?: SplitButtonPopup | undefined;
+        rounded?: string | undefined;
+        size?: string | undefined;
+        spriteCssClass?: string | undefined;
+        themeColor?: string | undefined;
+        messages?: SplitButtonMessages | undefined;
+        click?(e: SplitButtonClickEvent): void;
+        open?(e: SplitButtonEvent): void;
+        close?(e: SplitButtonEvent): void;
+    }
+    interface SplitButtonEvent {
+        sender: SplitButton;
+        preventDefault: Function;
+        isDefaultPrevented(): boolean;
+    }
+
+    interface SplitButtonClickEvent extends SplitButtonEvent {
+        originalEvent?: any | undefined;
+        target?: JQuery | undefined;
+        id?: string | undefined;
+    }
 
     class Splitter extends kendo.ui.Widget {
 
@@ -11126,7 +11393,6 @@ declare namespace kendo.ui {
         maxLength?: number | undefined;
         placeholder?: string | undefined;
         readonly?: boolean | undefined;
-        resizable?: string | undefined;
         rows?: number | undefined;
         value?: string | undefined;
         fillMode?: string | undefined;
@@ -11468,6 +11734,7 @@ declare namespace kendo.ui {
         name?: string | undefined;
         resizable?: boolean | undefined;
         items?: ToolBarItem[] | undefined;
+        navigateOnTab?: boolean | undefined;
         click?(e: ToolBarClickEvent): void;
         close?(e: ToolBarCloseEvent): void;
         open?(e: ToolBarOpenEvent): void;
@@ -12727,6 +12994,7 @@ declare namespace kendo.ui {
         open?(e: WindowEvent): void;
         refresh?(e: WindowEvent): void;
         resize?(e: WindowEvent): void;
+        restore?(e: WindowEvent): void;
     }
     interface WindowEvent {
         sender: Window;
@@ -25409,6 +25677,10 @@ interface JQuery {
     kendoDraggable(options: kendo.ui.DraggableOptions): JQuery;
     data(key: "kendoDraggable"): kendo.ui.Draggable | undefined;
 
+    kendoDropDownButton(): JQuery;
+    kendoDropDownButton(options: kendo.ui.DropDownButtonOptions): JQuery;
+    data(key: "kendoDropDownButton"): kendo.ui.DropDownButton;
+
     kendoDropDownList(): JQuery;
     kendoDropDownList(options: kendo.ui.DropDownListOptions): JQuery;
     data(key: "kendoDropDownList"): kendo.ui.DropDownList | undefined;
@@ -25689,6 +25961,10 @@ interface JQuery {
     kendoScrollView(options: kendo.ui.ScrollViewOptions): JQuery;
     data(key: "kendoScrollView"): kendo.ui.ScrollView | undefined;
 
+    kendoSignature(): JQuery;
+    kendoSignature(options: kendo.ui.SignatureOptions): JQuery;
+    data(key: "kendoSignature"): kendo.ui.Signature | undefined;
+
     kendoSkeletonContainer(): JQuery;
     kendoSkeletonContainer(options: kendo.ui.SkeletonContainerOptions): JQuery;
     data(key: "kendoSkeletonContainer"): kendo.ui.SkeletonContainer | undefined;
@@ -25704,6 +25980,10 @@ interface JQuery {
     kendoSparkline(): JQuery;
     kendoSparkline(options: kendo.dataviz.ui.SparklineOptions): JQuery;
     data(key: "kendoSparkline"): kendo.dataviz.ui.Sparkline | undefined;
+
+    kendoSplitButton(): JQuery;
+    kendoSplitButton(options: kendo.ui.SplitButtonOptions): JQuery;
+    data(key: "kendoSplitButton"): kendo.ui.SplitButton;
 
     kendoSplitter(): JQuery;
     kendoSplitter(options: kendo.ui.SplitterOptions): JQuery;
@@ -25789,4 +26069,8 @@ interface JQuery {
     kendoWizard(options: kendo.ui.WizardOptions): JQuery;
     data(key: "kendoWizard"): kendo.ui.Wizard | undefined;
 
+}
+
+declare namespace KendoLicensing {
+    function setScriptKey(key: string): void;
 }
