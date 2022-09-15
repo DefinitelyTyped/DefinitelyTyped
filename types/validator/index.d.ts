@@ -487,19 +487,19 @@ declare namespace validator {
         /**
          * less or equal
          */
-        min?: number | undefined;
+        min?: any;
         /**
          * greater or equal
          */
-        max?: number | undefined;
+        max?: any;
         /**
          * greater than
          */
-        gt?: number | undefined;
+        gt?: any;
         /**
          * less than
          */
-        lt?: number | undefined;
+        lt?: any;
         /**
          * FloatLocale
          */
@@ -591,11 +591,11 @@ declare namespace validator {
         /**
          * to check the integer min boundary
          */
-        min?: number | undefined;
+        min?: any;
         /**
          * to check the integer max boundary
          */
-        max?: number | undefined;
+        max?: any;
         /**
          * if `false`, will disallow integer values with leading zeroes
          * @default true
@@ -604,11 +604,11 @@ declare namespace validator {
         /**
          * enforce integers being greater than the value provided
          */
-        lt?: number | undefined;
+        lt?: any;
         /**
          * enforce integers being less than the value provided
          */
-        gt?: number | undefined;
+        gt?: any;
     }
 
     /**

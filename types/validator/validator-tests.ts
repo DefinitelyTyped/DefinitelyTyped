@@ -637,7 +637,7 @@ const any: any = null;
     result = validator.isFQDN('sample');
     result = validator.isFQDN('sample', isFQDNOptions);
 
-    const isFloatOptions: validator.IsFloatOptions = {};
+    const isFloatOptions: validator.IsFloatOptions = { gt: 0, lt: '100' };
     result = validator.isFloat('sample');
     result = validator.isFloat('sample', isFloatOptions);
 
@@ -701,7 +701,7 @@ const any: any = null;
 
     result = validator.isIn('sample', []);
 
-    const isIntOptions: validator.IsIntOptions = {};
+    const isIntOptions: validator.IsIntOptions = { min: '0', max: 100 };
     result = validator.isInt('sample');
     result = validator.isInt('sample', isIntOptions);
 
