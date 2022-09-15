@@ -147,7 +147,7 @@ const English = Yadda.localisation.English;
 }
 
 function quantity_converter(amount: string, units: string, cb: (err: Error | null, quantity: { amount: number, units: string }) => void) {
-    cb(null, { amount: parseInt(amount), units });
+    cb(null, { amount: parseInt(amount, 10), units });
 }
 
 {
