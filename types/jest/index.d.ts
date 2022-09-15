@@ -229,23 +229,15 @@ declare namespace jest {
     function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
 
     /**
-     * The mocked test helper provides typings on your mocked modules and even
-     * their deep methods, based on the typing of its source. It makes use of
-     * the latest TypeScript feature, so you even have argument types
-     * completion in the IDE (as opposed to jest.MockInstance).
-     *
-     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     * Wraps types of the `source` object and its deep members with type definitions
+     * of Jest mock function. Pass `{shallow: true}` option to disable the deeply
+     * mocked behavior.
      */
-    function mocked<T>(item: T, deep?: false): MaybeMocked<T>;
+    function mocked<T>(source: T, options?: { shallow: false }): MaybeMockedDeep<T>;
     /**
-     * The mocked test helper provides typings on your mocked modules and even
-     * their deep methods, based on the typing of its source. It makes use of
-     * the latest TypeScript feature, so you even have argument types
-     * completion in the IDE (as opposed to jest.MockInstance).
-     *
-     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     * Wraps types of the `source` object with type definitions of Jest mock function.
      */
-    function mocked<T>(item: T, deep: true): MaybeMockedDeep<T>;
+    function mocked<T>(source: T, options: { shallow: true }): MaybeMocked<T>;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
