@@ -658,6 +658,13 @@ declare namespace Mocha {
     let describe: SuiteFunction;
 
     /**
+     * Describe a pending suite.
+     *
+     * - _Only available when invoked via the mocha CLI._
+     */
+    let xdescribe: PendingSuiteFunction;
+
+    /**
      * Describes a test case.
      *
      * - _Only available when invoked via the mocha CLI._
