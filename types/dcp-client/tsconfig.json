@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "target": "es2017",
         "module": "commonjs",
         "lib": [
             "es6"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "json-to-csv-export-tests.ts"
+        "dcp-client-tests.ts"
     ]
 }

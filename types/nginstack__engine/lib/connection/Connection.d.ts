@@ -12,7 +12,7 @@ declare class Connection {
     remainingKeys: number;
     trackingId: string;
     remainingHighKeys: number;
-    getServerDate(forced: boolean): Date;
+    serverDate: Date;
     serverVersion: string;
     isOnline: boolean;
     readTimeout: number;
@@ -139,6 +139,7 @@ declare class Connection {
     skipSatSunHoliday(dt: Date, uf: number | null, localidade: number | null): Date;
     getUserGroups(userKey: number): number[];
     isUserInGroup(userKey: number, groupKey: number): boolean;
+    getTimezoneOffset(): number;
 }
 declare namespace Connection {
     export { fromConfig, Database };
