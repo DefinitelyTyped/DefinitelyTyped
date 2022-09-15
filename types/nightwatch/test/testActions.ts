@@ -44,8 +44,9 @@ it('actions.pause', () => {
 
 it('actions.dragAndDrop', () => {
     browser.perform(async () => {
-        const element = await browser.findElement('.element-class');
-        return browser.actions().dragAndDrop(element, {x: 12, y: 234});
+        const sampleElement = element('.element-class');
+        const webElement = await sampleElement.getWebElement();
+        return browser.actions().dragAndDrop(webElement, {x: 12, y: 234});
     });
 });
 

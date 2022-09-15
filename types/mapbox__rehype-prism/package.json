@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "unified": "^10.0.0"
+    }
+}

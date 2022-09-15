@@ -7,17 +7,19 @@ export type Swizzable<T extends Node = Node> = T &
     };
 
 /** anything that can be passed to {@link nodeObject} and returns a proxy */
-export type NodeRepresentation = number | boolean | Node | Swizzable;
+export type NodeRepresentation<T extends Node = Node> = number | boolean | Node | Swizzable<T>;
 
 /** anything that can be passed to {@link nodeObject} */
 export type NodeObjectOption = NodeRepresentation | string;
 
-// same logic as in ShaderNodeObject
+// same logic as in ShaderNodeObject: number,boolean,node->swizzable, otherwise do nothing
 export type NodeObject<T> = T extends Node ? Swizzable<T> : T extends number | boolean ? Swizzable<ConstNode> : T;
 
-type MakeObjectOption<T> = T extends Node ? NodeRepresentation : T;
+// opposite of NodeObject: node -> node|swizzable|boolean|number, otherwise do nothing
+type Proxied<T> = T extends Node ? NodeRepresentation<T> : T;
 // https://github.com/microsoft/TypeScript/issues/42435#issuecomment-765557874
-type MakeObjectOptions<T extends readonly [...unknown[]]> = [...{ [index in keyof T]: MakeObjectOption<T[index]> }];
+export type ProxiedTuple<T extends readonly [...unknown[]]> = [...{ [index in keyof T]: Proxied<T[index]> }];
+export type ProxiedObject<T> = { [index in keyof T]: Proxied<T[index]> };
 type RemoveTail<T extends readonly [...unknown[]]> = T extends [unknown, ...infer X] ? X : [];
 type RemoveHeadAndTail<T extends readonly [...unknown[]]> = T extends [unknown, ...infer X, unknown] ? X : [];
 
@@ -82,10 +84,10 @@ type FilterConstructorsByScope<T extends AnyConstructors, S> = {
  * "flattens" the tuple into an union type
  */
 type ConstructorUnion<T extends AnyConstructors> =
-    | (T['a'] extends undefined ? never : T['a'])
-    | (T['b'] extends undefined ? never : T['b'])
-    | (T['c'] extends undefined ? never : T['c'])
-    | (T['d'] extends undefined ? never : T['d']);
+    | Exclude<T['a'], undefined>
+    | Exclude<T['b'], undefined>
+    | Exclude<T['c'], undefined>
+    | Exclude<T['d'], undefined>;
 
 /**
  * Extract list of possible scopes - union of the first paramter
@@ -121,22 +123,22 @@ export function nodeArray<T extends NodeObjectOption[]>(obj: readonly [...T]): N
 
 export function nodeProxy<T>(
     nodeClass: T,
-): (...params: MakeObjectOptions<GetConstructors<T>>) => Swizzable<ConstructedNode<T>>;
+): (...params: ProxiedTuple<GetConstructors<T>>) => Swizzable<ConstructedNode<T>>;
 
 export function nodeProxy<T, S extends GetPossibleScopes<T>>(
     nodeClass: T,
     scope: S,
-): (...params: MakeObjectOptions<RemoveTail<GetConstructorsByScope<T, S>>>) => Swizzable<ConstructedNode<T>>;
+): (...params: ProxiedTuple<RemoveTail<GetConstructorsByScope<T, S>>>) => Swizzable<ConstructedNode<T>>;
 
 export function nodeProxy<T, S extends GetPossibleScopes<T>>(
     nodeClass: T,
     scope: S,
     factor: NodeObjectOption,
-): (...params: MakeObjectOptions<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => Swizzable<ConstructedNode<T>>;
+): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => Swizzable<ConstructedNode<T>>;
 
 export function nodeImmutable<T>(
     nodeClass: T,
-    ...params: MakeObjectOptions<GetConstructors<T>>
+    ...params: ProxiedTuple<GetConstructors<T>>
 ): Swizzable<ConstructedNode<T>>;
 
 export class ShaderNode<T = {}, R extends Node = Node> {

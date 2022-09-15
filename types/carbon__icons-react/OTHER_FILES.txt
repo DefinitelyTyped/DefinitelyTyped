@@ -859,6 +859,7 @@ es/IbmOpenEnterpriseLanguages.d.ts
 es/IbmCloud.d.ts
 es/IbmCloudDedicatedHost.d.ts
 es/IbmCloudInternetServices.d.ts
+es/IbmCloudKubernetesService.d.ts
 es/IbmCloudSecurityComplianceCenter.d.ts
 es/IbmCloudSubnets.d.ts
 es/IbmCloudTransitGateway.d.ts
@@ -2807,6 +2808,7 @@ lib/IbmOpenEnterpriseLanguages.d.ts
 lib/IbmCloud.d.ts
 lib/IbmCloudDedicatedHost.d.ts
 lib/IbmCloudInternetServices.d.ts
+lib/IbmCloudKubernetesService.d.ts
 lib/IbmCloudSecurityComplianceCenter.d.ts
 lib/IbmCloudSubnets.d.ts
 lib/IbmCloudTransitGateway.d.ts

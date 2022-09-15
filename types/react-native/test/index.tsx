@@ -142,8 +142,8 @@ function dimensionsListener(dimensions: { window: ScaledSize; screen: ScaledSize
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? 'window' : 'screen');
 
-    Dimensions.addEventListener('change', dimensionsListener);
-    Dimensions.removeEventListener('change', dimensionsListener);
+    const subscription = Dimensions.addEventListener('change', dimensionsListener);
+    subscription.remove();
 }
 
 function TextUseWindowDimensions() {
@@ -1346,7 +1346,6 @@ AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
 const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
 AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
 ).remove();
-AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 

@@ -268,7 +268,7 @@ declare namespace minimatch {
          * This method is mainly for internal use, but is exposed so that it can be used
          * by a glob-walker that needs to avoid excessive filesystem calls.
          */
-        matchOne(file: string, pattern: readonly string[], partial: boolean): boolean;
+        matchOne(file: readonly string[], pattern: ReadonlyArray<string | RegExp>, partial: boolean): boolean;
 
         /**
          * @deprecated. For internal use.

@@ -2682,6 +2682,7 @@ declare namespace Xrm {
              * Gets the initial value of the attribute.
              * @returns The initial value.
              * @remarks Valid for OptionSet and boolean attribute types
+             * @see {@link https://docs.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/attributes/getinitialvalue External Link: getInitialValue (Client API reference)}
              */
             getInitialValue(): T | null;
         }
@@ -2690,7 +2691,19 @@ declare namespace Xrm {
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          */
-        interface BooleanAttribute extends EnumAttribute<boolean> { }
+        interface BooleanAttribute extends EnumAttribute<boolean> {
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             */
+             controls: Collection.ItemCollection<Controls.BooleanControl>;
+
+            /**
+             * Gets the attribute format.
+             * @returns the string "boolean"
+             **/
+             getAttributeType(): "boolean";
+        }
 
         /**
          * Interface for a Date attribute.
@@ -3146,6 +3159,18 @@ declare namespace Xrm {
              * @param resultSet The results to show
              */
             showAutoComplete(resultSet: AutoCompleteResultSet): void;
+        }
+
+        /**
+         * Interface for a Boolean (yes/no) control.
+         * @see {@link StandardControl}
+         */
+        interface BooleanControl extends StandardControl {
+            /**
+             * Gets the control's bound attribute.
+             * @returns The attribute.
+             */
+            getAttribute(): Attributes.BooleanAttribute;
         }
 
         /**
@@ -4482,7 +4507,7 @@ declare namespace Xrm {
              * @param handler If an anonymous function is set using the addOnProcessStatusChange method it
              *                cannot be removed using this method.
              */
-            removeOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
+            removeOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnStageChange event.
@@ -5861,7 +5886,8 @@ declare namespace Xrm {
                     | Navigation.PageInputEntityRecord
                     | Navigation.PageInputEntityList
                     | Navigation.CustomPage
-                    | Navigation.PageInputHtmlWebResource,
+                    | Navigation.PageInputHtmlWebResource
+                    | Navigation.Dashboard,
                 navigationOptions?: Navigation.NavigationOptions,
             ): Async.PromiseLike<any>;
         }

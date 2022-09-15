@@ -20,7 +20,8 @@ declare namespace OfficeRuntime {
   /**
    * Function that enables a pop up web dialog box.
    *
-   * [Api set: SharedRuntime 1.1]
+   * @remarks
+   * [Api set: CustomFunctionsRuntime 1.1]
    *
    * @param url Must be a string.
    * @param options Optional parameter. Must be of type DisplayWebDialogOptions.
@@ -133,23 +134,37 @@ declare namespace OfficeRuntime {
      */
     getKeys(): Promise<string[]>;
   }
-  /** Object representing the dialog box. */
+  /**
+   * Object representing the dialog box.
+   *
+   * @remarks
+   * [Api set: CustomFunctionsRuntime 1.1]
+   *
+   */
   interface Dialog {
     /**
      * Method to close a dialog box. Returns a Promise.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     close(): Promise<void>;
   }
-  /** Provides display options and actions a dialog box may take. */
+  /**
+   * Provides display options and actions a dialog box may take.
+   *
+   * @remarks
+   * [Api set: CustomFunctionsRuntime 1.1]
+   *
+   */
   interface DisplayWebDialogOptions {
     /**
      * Optional parameter that determines whether the dialog box displays as a popup (false) or within an IFrame (true).
      * This setting is only applicable to custom functions running on Excel Online.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     displayInIFrame?: boolean;
@@ -157,7 +172,8 @@ declare namespace OfficeRuntime {
      * Optional parameter that defines the height of the dialog box as a percentage of the current display.
      * For example, accepts strings such as: '50%', '50'.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     height?: string;
@@ -165,28 +181,32 @@ declare namespace OfficeRuntime {
      * Optional parameter that defines the width of dialog as a percentage of window.
      * For example, accepts strings such as: '50%', '50'.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     width?: string;
     /**
      * Optional callback that runs when the dialog box sends a message to its parent.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     onMessage?: (message: string, dialog?: Dialog) => void;
     /**
      * Optional callback that runs when the dialog box is closed.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     onClose?: () => void;
     /**
      * Optional callback that runs when the dialog box sends an error.
      *
-     * [Api set: SharedRuntime 1.1]
+     * @remarks
+     * [Api set: CustomFunctionsRuntime 1.1]
      *
      */
     onRuntimeError?: (error: Error, dialog?: Dialog) => void;
@@ -245,8 +265,14 @@ declare namespace OfficeRuntime {
       asyncContext?: any;
       /**
        * Causes Office to return a descriptive error when the add-in wants to access Microsoft Graph and the user/admin has not granted consent to Graph scopes. Default value is `false`.
-       * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+       * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin.
        * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
+       *
+       * @remarks
+       *
+       * **Note**: If you're developing an Outlook add-in that uses single sign-on (SSO), comment out the `forMSGraphAccess` option before sideloading the add-in for testing.
+       * Otherwise, you'll receive {@link https://docs.microsoft.com/office/dev/add-ins/develop/troubleshoot-sso-in-office-add-ins#13012 | error 13012}. For additional guidance, see
+       * {@link https://docs.microsoft.com/office/dev/add-ins/develop/authorize-to-microsoft-graph#details-on-sso-with-an-outlook-add-in | Details on SSO with an Outlook add-in}.
        */
       forMSGraphAccess?: boolean;
   }

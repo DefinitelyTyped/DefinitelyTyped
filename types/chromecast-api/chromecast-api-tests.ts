@@ -42,6 +42,10 @@ client.on('device', (device) => {
         }
     };
 
+    device.name;
+    device.friendlyName;
+    device.host;
+
     device.play(testMedia, {startTime: 20}, (err) => {
     });
     device.play(testMedia, {startTime: 20});
@@ -115,4 +119,11 @@ client.on('device', (device) => {
     device.close();
     device.close(() => {
     });
+
+    device.on('connected', () => {});
+    device.on('finished', () => {});
+    device.on('status', (status) => {});
+
+    device._connect(() => {});
+    device._tryConnect(() => {});
 });
