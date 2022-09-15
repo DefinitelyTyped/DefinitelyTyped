@@ -37,10 +37,11 @@ const writeFileFormatted = (filePath, contents) => {
 
 const [, , tslintRuleName, eslintRuleName = tslintRuleName] = process.argv;
 
+sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-next-line[: ]${tslintRuleName}/eslint-disable-next-line ${eslintRuleName}/'`);
+
 const typeNames = fs.readdirSync('types');
 for (const typeName of typeNames) {
     const typeDirectory = path.join('types', typeName);
-    sh.exec(`find . -path '${typeDirectory}/node_modules' -prune -o -iname '${typeDirectory}/*.ts' -print | xargs sed -i '' 's/tslint:disable-next-line[: ]${tslintRuleName}/eslint-disable-next-line ${eslintRuleName}/'`);
     typeNames.push(
         ...(fs.readdirSync(typeDirectory))
             .filter(childDirectory => /^(ts|v)(\d+|\.)+$/.test(childDirectory))
