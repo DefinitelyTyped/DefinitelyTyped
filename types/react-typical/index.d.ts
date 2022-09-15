@@ -6,7 +6,7 @@
 import { ReactElement } from "react";
 
 export interface ReactTypicalProps {
-    steps: Array<string|number>;
+    steps: Array<string | number>;
     wrapper?: string;
     loop?: number;
 }
