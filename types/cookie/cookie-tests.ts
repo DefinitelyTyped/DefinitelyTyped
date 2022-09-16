@@ -12,10 +12,12 @@ function test_serialize(): void {
 }
 
 function test_parse(): void {
-    let retVal: Record<string, string>;
+    let retVal: Record<string, string | undefined>;
 
     retVal = parse('foo=bar; bar=baz;');
     retVal = cookie.parse('foo=bar; bar=baz', { decode: x => x });
+    // $ExpectType string | undefined
+    retVal["a"];
 }
 
 function test_options(): void {
