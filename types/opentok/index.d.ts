@@ -43,7 +43,7 @@ declare module 'opentok' {
       streamMode?: 'auto' | 'manual' | undefined;
     }
 
-    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions;
+    export type ArchiveLayoutOptions = PredefinedArchiveLayoutOptions | CustomArchiveLayoutOptions | ScreenshareArchiveLayoutOptions;
 
     export interface PredefinedArchiveLayoutOptions {
       type: 'bestFit' | 'pip' | 'verticalPresentation' | 'horizontalPresentation' | 'focus';
@@ -52,6 +52,11 @@ declare module 'opentok' {
     export interface CustomArchiveLayoutOptions {
       type: 'custom';
       stylesheet: string;
+    }
+
+    export interface ScreenshareArchiveLayoutOptions {
+      type: 'bestFit';
+      screenshareType?: 'bestFit' | 'horizontalPresentation' | 'verticalPresentation' | 'pip';
     }
 
     export type MediaMode = 'relayed' | 'routed';
