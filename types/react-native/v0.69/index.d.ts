@@ -2316,6 +2316,12 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
+     * Specifies the nativeID of the associated label text. When the assistive technology focuses on the component with this props, the text is read aloud.
+     * @platform android
+     */
+    accessibilityLabelledBy?: string | string[];
+
+    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.

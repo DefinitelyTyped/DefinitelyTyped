@@ -1304,6 +1304,13 @@ class AccessibilityTest extends React.Component {
     }
 }
 
+const AccessibilityLabelledByTest = () => (
+    <>
+        <View accessibilityLabelledBy="nativeID1"></View>
+        <View accessibilityLabelledBy={["nativeID2", "nativeID3"]}></View>
+    </>
+)
+
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
 );
