@@ -1295,6 +1295,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
+                accessibilityLanguage="sv-SE"
             >
                 <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
