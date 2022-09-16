@@ -66,7 +66,7 @@ export default function configure() {
     }
   });
 
-  // @ts-expect-error
+  // $ExpectError
   window.recurly.configure({
     cors: true,
     currency: 'USD',

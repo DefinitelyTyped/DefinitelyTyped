@@ -13,14 +13,14 @@ export default function paypal() {
     }
   });
 
-  // @ts-expect-error
+  // $ExpectError
   window.recurly.PayPal('string');
 
   paypal.on('token', () => {});
   paypal.on('error', () => {});
   paypal.on('cancel', () => {});
   paypal.on('ready', () => {});
-  // @ts-expect-error
+  // $ExpectError
   paypal.on('fake-event', () => {});
 
   paypal.start();
