@@ -2319,7 +2319,7 @@ export interface AccessibilityPropsAndroid {
      * Specifies the nativeID of the associated label text. When the assistive technology focuses on the component with this props, the text is read aloud.
      * @platform android
      */
-    accessibilityLabelledBy?: string | string[];
+    accessibilityLabelledBy?: string | string[] | undefined;
 
     /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
