@@ -2341,6 +2341,10 @@
             "libraryName": "json-stream-stringify",
             "asOfVersion": "2.0.3"
         },
+        "json-to-csv-export": {
+            "libraryName": "json-to-csv-export",
+            "asOfVersion": "2.0.0"
+        },
         "json5": {
             "libraryName": "json5",
             "asOfVersion": "2.2.0"

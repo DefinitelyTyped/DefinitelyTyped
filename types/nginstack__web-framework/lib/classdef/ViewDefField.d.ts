@@ -30,6 +30,13 @@ declare class ViewDefField {
     alignment: string;
     height: number;
     width: number;
+    enterKeyAction:
+        | {
+              IGNORE: string;
+              NEWLINE: string;
+              DONE: string;
+          }
+        | string;
     private tableViewLabel;
     controlType: string;
     private controlType_;
