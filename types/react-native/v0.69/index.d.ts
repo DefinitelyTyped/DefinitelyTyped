@@ -2316,6 +2316,12 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
+     * Specifies the nativeID of the associated label text. When the assistive technology focuses on the component with this props, the text is read aloud.
+     * @platform android
+     */
+    accessibilityLabelledBy?: string | string[] | undefined;
+
+    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2344,6 +2350,14 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean | undefined;
+
+    /**
+     * Indicates to the accessibility services that the UI component is in
+     * a specific language. The provided string should be formatted following
+     * the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).
+     * @platform ios
+     */
+    accessibilityLanguage?: string | undefined;
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
