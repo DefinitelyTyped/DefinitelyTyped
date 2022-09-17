@@ -5,27 +5,29 @@
 // TypeScript Version: 3.2
 // tslint:disable:max-line-length
 // tslint:disable:no-unnecessary-class
+// tslint:disable:no-empty-interface
+
 declare namespace Tabulator {
-    interface Options extends
-        OptionsGeneral,
-        OptionsMenu,
-        OptionsHistory,
-        OptionsLocale,
-        OptionsDownload,
-        OptionsColumns,
-        OptionsRows,
-        OptionsData,
-        OptionsSorting,
-        OptionsFiltering,
-        OptionsRowGrouping,
-        OptionsPagination,
-        OptionsPersistentConfiguration,
-        OptionsClipboard,
-        OptionsDataTree,
-        OptionsCell,
-        OptionsCells,
-        OptionsDebug,
-        OptionsHTML { }
+    interface Options
+        extends OptionsGeneral,
+            OptionsMenu,
+            OptionsHistory,
+            OptionsLocale,
+            OptionsDownload,
+            OptionsColumns,
+            OptionsRows,
+            OptionsData,
+            OptionsSorting,
+            OptionsFiltering,
+            OptionsRowGrouping,
+            OptionsPagination,
+            OptionsPersistentConfiguration,
+            OptionsClipboard,
+            OptionsDataTree,
+            OptionsCell,
+            OptionsCells,
+            OptionsDebug,
+            OptionsHTML {}
 
     interface OptionsDebug {
         invalidOptionWarning?: boolean;
@@ -977,7 +979,7 @@ declare namespace Tabulator {
 
     type DownloadType = 'csv' | 'json' | 'xlsx' | 'pdf' | 'html';
 
-    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML { }
+    interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML {}
 
     interface DownloadCSV {
         /** By default CSV files are created using a comma (,) delimiter. If you need to change this for any reason the you can pass the options object with a delimiter property to the download function which will then use this delimiter instead of the comma. */
@@ -1186,25 +1188,25 @@ declare namespace Tabulator {
          * You can pass an optional additional property with sorter, sorterParams that should contain an object with additional information for configuring the sorter
          */
         sorter?:
-        | 'string'
-        | 'number'
-        | 'alphanum'
-        | 'boolean'
-        | 'exists'
-        | 'date'
-        | 'time'
-        | 'datetime'
-        | 'array'
-        | ((
-            a: any,
-            b: any,
-            aRow: RowComponent,
-            bRow: RowComponent,
-            column: ColumnComponent,
-            dir: SortDirection,
-            sorterParams: {},
-        ) => number)
-        | undefined;
+            | 'string'
+            | 'number'
+            | 'alphanum'
+            | 'boolean'
+            | 'exists'
+            | 'date'
+            | 'time'
+            | 'datetime'
+            | 'array'
+            | ((
+                  a: any,
+                  b: any,
+                  aRow: RowComponent,
+                  bRow: RowComponent,
+                  column: ColumnComponent,
+                  dir: SortDirection,
+                  sorterParams: {},
+              ) => number)
+            | undefined;
 
         /** If you want to dynamically generate the sorterParams at the time the sort is called you can pass a function into the property that should return the params object. */
         sorterParams?: ColumnDefinitionSorterParams | ColumnSorterParamLookupFunction | undefined;
@@ -1390,9 +1392,9 @@ declare namespace Tabulator {
          * If you want to specify the type of filter used you can pass it to the headerFilterFunc option in the column definition object. This will take any of the standard filters outlined above or a custom function
          */
         headerFilterFunc?:
-        | FilterType
-        | ((headerValue: any, rowValue: any, rowdata: any, filterparams: any) => boolean)
-        | undefined;
+            | FilterType
+            | ((headerValue: any, rowValue: any, rowdata: any, filterparams: any) => boolean)
+            | undefined;
 
         /** additional parameters object passed to the headerFilterFunc function. */
         headerFilterFuncParams?: any;
@@ -1508,7 +1510,7 @@ declare namespace Tabulator {
 
     type TextDirection = 'auto' | 'ltr' | 'rtl';
 
-    type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: (() => void)) => string);
+    type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: () => void) => string);
 
     type CustomMutator = (
         value: any,
@@ -1532,12 +1534,12 @@ declare namespace Tabulator {
     type CustomAccessorParams =
         | {}
         | ((
-            value: any,
-            data: any,
-            type: 'data' | 'download' | 'clipboard',
-            column?: ColumnComponent,
-            row?: RowComponent,
-        ) => any);
+              value: any,
+              data: any,
+              type: 'data' | 'download' | 'clipboard',
+              column?: ColumnComponent,
+              row?: RowComponent,
+          ) => any);
 
     type ColumnCalc =
         | 'avg'
@@ -1599,12 +1601,12 @@ declare namespace Tabulator {
         | 'autocomplete'
         | 'list'
         | ((
-            cell: CellComponent,
-            onRendered: EmptyCallback,
-            success: ValueBooleanCallback,
-            cancel: ValueVoidCallback,
-            editorParams: {},
-        ) => HTMLElement | false);
+              cell: CellComponent,
+              onRendered: EmptyCallback,
+              success: ValueBooleanCallback,
+              cancel: ValueVoidCallback,
+              editorParams: {},
+          ) => HTMLElement | false);
 
     type EditorParams =
         | NumberParams
@@ -2272,7 +2274,7 @@ interface EventCallBackMethods {
 }
 
 declare class Tabulator {
-    static defaultOptions: Tabulator.Options;
+    static defaultOptions: TabulatorOptions;
 
     /**
      * A lot of the modules come with a range of default settings to make setting up your table easier, for example the sorters, formatters and editors that ship with Tabulator as standard.
@@ -2289,14 +2291,14 @@ declare class Tabulator {
     static findTable: (query: string) => Tabulator[];
     static registerModule: (module: Module) => void;
     static bindModules: ([]) => void;
-    constructor(selector: string | HTMLElement, options?: Tabulator.Options);
+    constructor(selector: string | HTMLElement, options?: TabulatorOptions);
     columnManager: any;
     rowManager: any;
     footerManager: any;
     browser: string;
     browserSlow: boolean;
     modules: any;
-    options: Tabulator.Options;
+    options: TabulatorOptions;
     element: HTMLElement;
 
     /**
@@ -2713,7 +2715,7 @@ declare class Tabulator {
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */
     setGroupHeader: (
         values:
-            ((value: any, count: number, data: any, group: Tabulator.GroupComponent) => string)
+            | ((value: any, count: number, data: any, group: Tabulator.GroupComponent) => string)
             | Array<(value: any, count: number, data: any) => string>,
     ) => void;
 
@@ -2806,42 +2808,42 @@ declare class Module {
     static moduleName: string;
     constructor(table: Tabulator);
 }
-declare class AccessorModule { }
-declare class AjaxModule { }
-declare class ClipboardModule { }
-declare class ColumnCalcsModule { }
-declare class DataTreeModule { }
-declare class DownloadModule { }
-declare class EditModule { }
-declare class ExportModule { }
-declare class FilterModule { }
-declare class FormatModule { }
-declare class FrozenColumnsModule { }
-declare class FrozenRowsModule { }
-declare class GroupRowsModule { }
-declare class HistoryModule { }
-declare class HtmlTableImportModule { }
-declare class InteractionModule { }
-declare class KeybindingsModule { }
-declare class MenuModule { }
-declare class MoveColumnsModule { }
-declare class MoveRowsModule { }
-declare class MutatorModule { }
-declare class PageModule { }
-declare class PersistenceModule { }
-declare class PrintModule { }
-declare class PseudoRow { }
-declare class ReactiveDataModule { }
-declare class Renderer { }
-declare class ResizeColumnsModule { }
-declare class ResizeRowsModule { }
-declare class ResizeTableModule { }
-declare class ResponsiveLayoutModule { }
-declare class SelectRowModule { }
-declare class SortModule { }
-declare class TabulatorFull extends Tabulator { }
+declare class AccessorModule {}
+declare class AjaxModule {}
+declare class ClipboardModule {}
+declare class ColumnCalcsModule {}
+declare class DataTreeModule {}
+declare class DownloadModule {}
+declare class EditModule {}
+declare class ExportModule {}
+declare class FilterModule {}
+declare class FormatModule {}
+declare class FrozenColumnsModule {}
+declare class FrozenRowsModule {}
+declare class GroupRowsModule {}
+declare class HistoryModule {}
+declare class HtmlTableImportModule {}
+declare class InteractionModule {}
+declare class KeybindingsModule {}
+declare class MenuModule {}
+declare class MoveColumnsModule {}
+declare class MoveRowsModule {}
+declare class MutatorModule {}
+declare class PageModule {}
+declare class PersistenceModule {}
+declare class PrintModule {}
+declare class PseudoRow {}
+declare class ReactiveDataModule {}
+declare class Renderer {}
+declare class ResizeColumnsModule {}
+declare class ResizeRowsModule {}
+declare class ResizeTableModule {}
+declare class ResponsiveLayoutModule {}
+declare class SelectRowModule {}
+declare class SortModule {}
+declare class TabulatorFull extends Tabulator {}
 declare class TooltipModule {}
-declare class ValidateModule { }
+declare class ValidateModule {}
 
 export {
     Module,
@@ -2883,3 +2885,5 @@ export {
     TooltipModule,
     ValidateModule,
 };
+
+export interface TabulatorOptions extends Tabulator.Options {}

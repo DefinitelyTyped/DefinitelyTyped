@@ -1,4 +1,12 @@
-import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull, TooltipModule } from 'tabulator-tables';
+import {
+    Tabulator,
+    Renderer,
+    Module,
+    DataTreeModule,
+    TabulatorFull,
+    TooltipModule,
+    TabulatorOptions,
+} from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -338,10 +346,10 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
 
 colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: (callback: () => void) => void) => {
     onRendered(() => {
-      console.log('rendering occured');
+        console.log('rendering occured');
     });
     return cell.getValue();
-  };
+};
 
 // Cell Component
 
@@ -361,7 +369,7 @@ row.delete()
     });
 
 // Options
-let options = <Tabulator.Options>{};
+let options = <TabulatorOptions>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
@@ -1059,9 +1067,9 @@ table = new Tabulator('#test', {
     // test editor of type 'list' supported.
     columns: [
         {
-            field: "test_editor",
-            title: "Test Editor",
-            editor: "list"
-        }
-    ]
+            field: 'test_editor',
+            title: 'Test Editor',
+            editor: 'list',
+        },
+    ],
 });
