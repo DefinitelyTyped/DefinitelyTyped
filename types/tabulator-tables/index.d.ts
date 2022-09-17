@@ -5,6 +5,8 @@
 // TypeScript Version: 3.2
 // tslint:disable:max-line-length
 // tslint:disable:no-unnecessary-class
+// tslint:disable:no-empty-interface
+
 declare namespace Tabulator {
     interface Options
         extends OptionsGeneral,
