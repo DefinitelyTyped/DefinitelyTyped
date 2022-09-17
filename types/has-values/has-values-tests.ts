@@ -1,4 +1,4 @@
-import has from 'has-values';
+import has from "has-values";
 
 function tests() {
     has(['a']); // => true
