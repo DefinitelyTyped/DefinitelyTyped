@@ -1,6 +1,7 @@
-// Type definitions for fontkit 1.8
+// Type definitions for fontkit 2.0
 // Project: https://github.com/foliojs/fontkit#readme
 // Definitions by: Teoxoy <https://github.com/Teoxoy>
+//                 Stepan Mikhailiuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -197,6 +198,9 @@ export interface Glyph {
 
     /** is a ligature glyph (multiple character, spacing glyph) */
     isLigature: boolean;
+
+    /** Renders the glyph to the given graphics context, at the specified font size. */
+    render(ctx: CanvasRenderingContext2D, size: number): void;
 }
 
 /**
@@ -256,28 +260,23 @@ export interface BBOX {
     maxY: number;
 }
 
-interface Fontkit {
-    /**
-     * Opens a font file asynchronously, and calls the callback with a font object.
-     * For collection fonts (such as TrueType collection files),
-     * you can pass a postscriptName to get that font out of the collection instead of a collection object.
-     */
-    open(filename: string, postscriptName: string, callback: (err: Error | null, font: Font) => void): void;
+/**
+ * Opens a font file asynchronously, and calls the callback with a font object.
+ * For collection fonts (such as TrueType collection files),
+ * you can pass a postscriptName to get that font out of the collection instead of a collection object.
+ */
+export function open(filename: string, postscriptName: string, callback: (err: Error | null, font: Font) => void): void;
 
-    /**
-     * Opens a font file synchronously, and returns a font object.
-     * For collection fonts (such as TrueType collection files),
-     * you can pass a postscriptName to get that font out of the collection instead of a collection object.
-     */
-    openSync(filename: string, postscriptName?: string): Font;
+/**
+ * Opens a font file synchronously, and returns a font object.
+ * For collection fonts (such as TrueType collection files),
+ * you can pass a postscriptName to get that font out of the collection instead of a collection object.
+ */
+export function openSync(filename: string, postscriptName?: string): Font;
 
-    /**
-     * Returns a font object for the given buffer.
-     * For collection fonts (such as TrueType collection files),
-     * you can pass a postscriptName to get that font out of the collection instead of a collection object.
-     */
-    create(buffer: Buffer, postscriptName?: string): Font;
-}
-
-declare const defExp: Fontkit;
-export default defExp;
+/**
+ * Returns a font object for the given buffer.
+ * For collection fonts (such as TrueType collection files),
+ * you can pass a postscriptName to get that font out of the collection instead of a collection object.
+ */
+export function create(buffer: Buffer, postscriptName?: string): Font;
