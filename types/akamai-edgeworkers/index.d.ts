@@ -588,6 +588,11 @@ declare module "http-request" {
     import { ReadableStream } from "streams";
 
     /**
+     * A request body, either in the form of a static string or a readable stream.
+     */
+    type RequestBody = string | ReadableStream;
+
+    /**
      * Performs a subrequest, fetching the requested resource asynchronously.
      *
      * @param url A String containing the URL to fetch. Can be an absolute
@@ -603,7 +608,7 @@ declare module "http-request" {
     function httpRequest(url: string, options?: {
         method?: string | undefined,
         headers?: { [others: string]: string | string[] } | undefined,
-        body?: string | undefined,
+        body?: RequestBody | undefined,
         timeout?: number | undefined
     }): Promise<HttpResponse>;
 

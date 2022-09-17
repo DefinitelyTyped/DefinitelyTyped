@@ -133,9 +133,11 @@ const environment = new Environment({
     requiredFieldLogger: arg => {
         if (arg.kind === 'missing_field.log') {
             console.log(arg.fieldPath, arg.owner);
-        } else {
-            arg.kind; // $ExpectType "missing_field.throw"
+        } else if (arg.kind === 'missing_field.throw') {
             console.log(arg.fieldPath, arg.owner);
+        } else {
+            arg.kind; // $ExpectType "relay_resolver.error"
+            console.log(arg.fieldPath, arg.owner, arg.error);
         }
     },
 });

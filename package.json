@@ -44,6 +44,7 @@
         "remark-cli": "^11.0.0",
         "remark-gfm": "^3.0.0",
         "remark-validate-links": "^12.0.0",
+        "shelljs": "^0.8.5",
         "source-map-support": "^0.5.21",
         "typescript": "next",
         "w3c-xmlserializer": "^2.0.0",
