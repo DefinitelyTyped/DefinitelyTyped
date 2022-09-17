@@ -21,7 +21,7 @@
         }
     },
     "files": [
-        "smallwei__avue-tests.ts",
-        "index.d.ts"
+        "index.d.ts",
+        "smallwei__avue-tests.ts"
     ]
 }
