@@ -1762,7 +1762,7 @@ declare namespace Tabulator {
     interface TextAreaParams extends SharedEditorParams {
         verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
 
-        /** Allow submission of the value of the editor when the shift and enter keys are pressed togeather. */
+        /** Allow submission of the value of the editor when the shift and enter keys are pressed together. */
         shiftEnterSubmit?: boolean;
     }
 
