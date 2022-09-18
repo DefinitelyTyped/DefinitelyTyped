@@ -3,4 +3,6 @@
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function has(value: unknown): boolean;
+declare function has(value: unknown): boolean;
+
+export = has;
