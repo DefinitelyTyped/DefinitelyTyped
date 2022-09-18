@@ -42,6 +42,7 @@ export interface PDFPageProxy extends _PDFPageProxy {
 }
 
 export interface Props {
+    children?: any
     /**
      * A function that behaves like ref,
      * but it's passed to main `<canvas>` rendered by `<Page>` component.
