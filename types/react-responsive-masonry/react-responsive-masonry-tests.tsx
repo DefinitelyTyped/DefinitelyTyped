@@ -1,9 +1,12 @@
 import * as React from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 
-type CardProps = { title: string; description: string };
+interface CardProps {
+    title: string;
+    description: string;
+}
 
-export const Card = ({ description, title }: CardProps) => {
+const Card = ({ description, title }: CardProps) => {
     return (
         <div
             style={{
@@ -31,38 +34,14 @@ export const Card = ({ description, title }: CardProps) => {
 const Test = () => {
     <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
         <Masonry gutter="40px" columnsCount={5}>
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
-            <Card
-                title="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi"
-                description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi laudantium voluptatibus molestiae fugiat. Beatae ea corrupti magni accusantium, laborum, facilis in iure porro voluptate doloribus commodi libero provident aliquid aut."
-            />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
+            <Card title="Lorem ipsum" description="Lorem ipsum dolor sit." />
         </Masonry>
     </ResponsiveMasonry>;
 };
