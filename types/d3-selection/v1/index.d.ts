@@ -7,7 +7,6 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="trusted-types"/>
-// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.4.1
 
