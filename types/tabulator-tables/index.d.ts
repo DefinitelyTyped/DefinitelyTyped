@@ -5,6 +5,8 @@
 // TypeScript Version: 3.2
 // tslint:disable:max-line-length
 // tslint:disable:no-unnecessary-class
+// tslint:disable:no-empty-interface
+
 declare namespace Tabulator {
     interface Options
         extends OptionsGeneral,
@@ -2309,7 +2311,7 @@ interface EventCallBackMethods {
 }
 
 declare class Tabulator {
-    static defaultOptions: Tabulator.Options;
+    static defaultOptions: TabulatorOptions;
 
     /**
      * A lot of the modules come with a range of default settings to make setting up your table easier, for example the sorters, formatters and editors that ship with Tabulator as standard.
@@ -2326,14 +2328,14 @@ declare class Tabulator {
     static findTable: (query: string) => Tabulator[];
     static registerModule: (module: Module) => void;
     static bindModules: ([]) => void;
-    constructor(selector: string | HTMLElement, options?: Tabulator.Options);
+    constructor(selector: string | HTMLElement, options?: TabulatorOptions);
     columnManager: any;
     rowManager: any;
     footerManager: any;
     browser: string;
     browserSlow: boolean;
     modules: any;
-    options: Tabulator.Options;
+    options: TabulatorOptions;
     element: HTMLElement;
 
     /**
@@ -2920,3 +2922,5 @@ export {
     TooltipModule,
     ValidateModule,
 };
+
+export interface TabulatorOptions extends Tabulator.Options {}

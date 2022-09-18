@@ -1,4 +1,12 @@
-import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull, TooltipModule } from 'tabulator-tables';
+import {
+    Tabulator,
+    Renderer,
+    Module,
+    DataTreeModule,
+    TabulatorFull,
+    TooltipModule,
+    TabulatorOptions,
+} from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -361,7 +369,7 @@ row.delete()
     });
 
 // Options
-let options = <Tabulator.Options>{};
+let options = <TabulatorOptions>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
