@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.2
+// Type definitions for tabulator-tables 5.3
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,8 +37,14 @@ declare namespace Tabulator {
         debugInitialization?: boolean;
         /** The debugEventsExternal option will create a console log for every external event that is fired so you can gain an understanding of which events you should be binding to. */
         debugEventsExternal?: boolean;
-        /** he debugEventsInternal option will create a console log for every internal event that is fired so you can gain an understanding of which events you should be subscribing to in your modules. */
+        /** The debugEventsInternal option will create a console log for every internal event that is fired so you can gain an understanding of which events you should be subscribing to in your modules. */
         debugEventsInternal?: boolean;
+
+        /** Disable component function warnings */
+        debugInvalidComponentFunc?: boolean;
+
+        /** Disable deprecation warnings */
+        debugDeprecation?: boolean;
     }
 
     interface OptionsCells extends CellCallbacks {
@@ -411,6 +417,8 @@ declare namespace Tabulator {
 
         /** Array to hold data that should be loaded on table creation. */
         data?: any[] | undefined;
+        importFormat?: 'array';
+        autoTables?: boolean;
 
         /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
         ajaxURL?: string | undefined;
@@ -702,6 +710,11 @@ declare namespace Tabulator {
 
         /** Allows you to specify the behavior when the user tabs from the last editable cell on the last row of the table. */
         tabEndNewRow?: boolean | JSONRecord | ((row: RowComponent) => any) | undefined;
+
+        frozenRowsField?: string;
+
+        /** Freeze rows of data */
+        frozenRows?: number | string[] | ((row: RowComponent) => boolean);
     }
 
     interface OptionsColumns {
@@ -819,12 +832,9 @@ declare namespace Tabulator {
         /** By setting the headerVisible option to false you can hide the column headers and present the table as a simple list if needed. */
         headerVisible?: boolean | undefined;
 
-        /** If you don't want to show a particular column in the print table you can set the print property in its column definition object to false. */
-        print?: boolean | undefined;
-
         /** The headerSort option can now be set in the table options to affect all columns as well as in column definitions. */
         headerSort?: boolean | undefined;
-        headerSortElement?: string | undefined;
+        headerSortElement?: string | undefined | ((column: ColumnComponent, dir: 'asc' | 'desc' | 'none') => any);
         columnDefaults?: ColumnDefinition;
     }
 
@@ -1014,13 +1024,13 @@ declare namespace Tabulator {
 
     interface OptionsDownload {
         /**
-         * The downloadReady callback allows you to intercept the download file data before the users is prompted to save the file.
+         * Allows you to intercept the download file data before the users is prompted to save the file.
          *
          * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
          *
          * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
          */
-        downloadReady?: ((fileContents: any, blob: any) => any) | undefined;
+        downloadEncoder?: ((fileContents: any, mimeType: string) => Blob | false) | undefined;
 
         /** The downloadComplete callback is triggered when the user has been prompted to download the file. */
         downloadComplete?: (() => void) | undefined;
@@ -1292,7 +1302,7 @@ declare namespace Tabulator {
         accessorClipboardParams?: CustomAccessorParams | undefined;
 
         /** show or hide column in downloaded data */
-        download?: boolean | undefined;
+        download?: boolean | undefined | ((column: ColumnComponent) => boolean);
 
         /** set custom title for column in download. */
         titleDownload?: string | undefined;
@@ -1403,10 +1413,13 @@ declare namespace Tabulator {
         headerFilterLiveFilter?: boolean | undefined;
 
         /** Show/Hide a particular column in the HTML output. */
-        htmlOutput?: boolean | undefined;
+        htmlOutput?: boolean | undefined | ((column: ColumnComponent) => boolean);
 
         /** If you don't want to show a particular column in the clipboard output you can set the clipboard property in its column definition object to false. */
-        clipboard?: boolean | undefined;
+        clipboard?: boolean | undefined | ((column: ColumnComponent) => boolean);
+
+        /** If you don't want to show a particular column in the print table you can set the print property in its column definition object to false. */
+        print?: boolean | undefined | ((column: ColumnComponent) => boolean);
 
         /** A column can be a "group" of columns (Example: group header column -> Measurements, grouped column -> Length, Width, Height) */
         columns?: ColumnDefinition[] | undefined;
@@ -1600,6 +1613,9 @@ declare namespace Tabulator {
         | 'select'
         | 'autocomplete'
         | 'list'
+        | 'date'
+        | 'time'
+        | 'datetime'
         | ((
               cell: CellComponent,
               onRendered: EmptyCallback,
@@ -1615,6 +1631,9 @@ declare namespace Tabulator {
         | AutoCompleteParams
         | InputParams
         | TextAreaParams
+        | DateParams
+        | TimeParams
+        | DateTimeEditorParams
         | ((cell: CellComponent) => {});
 
     type ScrollToRowPosition = 'top' | 'center' | 'bottom' | 'nearest';
@@ -1742,6 +1761,9 @@ declare namespace Tabulator {
 
     interface TextAreaParams extends SharedEditorParams {
         verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
+
+        /** Allow submission of the value of the editor when the shift and enter keys are pressed together. */
+        shiftEnterSubmit?: boolean;
     }
 
     interface CheckboxParams extends SharedEditorParams {
@@ -1760,6 +1782,20 @@ declare namespace Tabulator {
         listItemFormatter?: ((value: string, text: string) => string) | undefined;
         verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
         multiselect?: boolean | number | undefined;
+    }
+
+    interface DateParams extends SharedEditorParams {
+        min?: string;
+        max?: string;
+        format?: string;
+    }
+
+    interface TimeParams extends SharedEditorParams {
+        format?: string;
+    }
+
+    interface DateTimeEditorParams extends SharedEditorParams {
+        format?: string;
     }
 
     interface SelectParamsGroup {
@@ -1886,7 +1922,7 @@ declare namespace Tabulator {
          *
          * If you want to get the position of the row in the currently filtered/sorted data, you can pass a value of true to the optional first argument of the function.
          */
-        getPosition: (filteredPosition?: boolean) => number;
+        getPosition: (filteredPosition?: boolean) => number | false;
 
         /** When using grouped rows, you can retrieve the group component for the current row using the getGroup function. */
         getGroup: () => GroupComponent;
@@ -2222,6 +2258,7 @@ interface EventCallBackMethods {
     groupTapHold: (event: UIEvent, group: Tabulator.GroupComponent) => void;
     tableBuilding: () => void;
     tableBuilt: () => void;
+    tableDestroyed: () => void;
     dataLoading: (data: any[]) => void;
     dataLoaded: (data: any[]) => void;
     dataChanged: (data: any[]) => void;
@@ -2494,9 +2531,9 @@ declare class Tabulator {
      *
      * The first argument is the row you are looking for, it will take any of the standard row component look up options. If you want to get the position of the row in the currently filtered/sorted data, you can pass a value of true to the optional second argument of the function.
      *
-     * Note: If the row is not found, a value of -1 will be returned, row positions start at 0
+     * Note: If the row is not found, a value of false will be returned, row positions start at 0
      */
-    getRowPosition: (row: Tabulator.RowLookup, activeOnly?: boolean) => number;
+    getRowPosition: (row: Tabulator.RowLookup, activeOnly?: boolean) => number | false;
 
     /** To replace the current column definitions for a table use the setColumns function. This function takes a column definition array as its only argument. */
     setColumns: (definitions: Tabulator.ColumnDefinition[]) => void;
