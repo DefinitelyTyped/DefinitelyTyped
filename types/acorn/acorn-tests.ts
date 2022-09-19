@@ -1,4 +1,4 @@
-import * as Acorn from  './';
+import { parse, AcornNodeTypeMap } from 'acorn';
 
 const code = `
 import a from './a.js'
@@ -9,7 +9,8 @@ export default function() {
     console.log(11111)
 }
 `;
-Acorn.parse(code, {
+const node = parse(code, {
     sourceType: 'module',
     ecmaVersion: 'latest',
-}); // $ExpectType Acorn.AcornNodeTypeMap.Program
+});
+node; // $ExpectType Program

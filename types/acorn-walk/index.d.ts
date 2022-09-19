@@ -35,15 +35,15 @@ export type RecursiveWalkerFn<TState> = (
 ) => void;
 
 export type SimpleVisitors<TState> = {
-    [type in Acorn.AcornNodeTypeString]: SimpleWalkerFn<TState>;
+    [type in Acorn.AcornNodeTypeString]?: SimpleWalkerFn<TState>;
 };
 
 export type AncestorVisitors<TState> = {
-    [type in Acorn.AcornNodeTypeString]: AncestorWalkerFn<TState>;
+    [type in Acorn.AcornNodeTypeString]?: AncestorWalkerFn<TState>;
 };
 
 export type RecursiveVisitors<TState> = {
-    [type in Acorn.AcornNodeTypeString]: RecursiveWalkerFn<TState>;
+    [type in Acorn.AcornNodeTypeString]?: RecursiveWalkerFn<TState>;
 };
 
 export type FindPredicate = (type: Acorn.AcornNodeTypeString, node: Acorn.AcornNodeType) => boolean;
