@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "rules": {
-            "npm-naming": false
-        }
+       "npm-naming": false        
     }
 }
