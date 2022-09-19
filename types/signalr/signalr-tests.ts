@@ -1,6 +1,8 @@
 
 
 var connection = $.hubConnection();
+connection.token = "abc123";
+connection.data = "important-stuff";
 var contosoChatHubProxy = connection.createHubProxy('contosoChatHub');
 contosoChatHubProxy.on('addContosoChatMessageToPage', function (name, message) {
     console.log(name + ' ' + message);

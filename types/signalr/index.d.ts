@@ -1,6 +1,6 @@
-// Type definitions for SignalR 2.2.0
+// Type definitions for SignalR 2.4.3
 // Project: http://www.asp.net/signalr
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, T. Michael Keesey <https://github.com/keesey>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, T. Michael Keesey <https://github.com/keesey>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Jason Heard <https://github.com/101100>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -218,6 +218,16 @@ declare namespace SignalR {
         keepAliveWarnAt: number;
 
         /**
+         * Data sent with each request as a query string called "connectionData".
+         */
+        data?: string;
+
+        /**
+         * Data sent with each request as a query string called "connectionToken".
+         */
+        token?: string;
+
+         /**
         * Starts the connection
         */
         start(): JQueryPromise<any>;
