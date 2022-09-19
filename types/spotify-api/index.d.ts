@@ -1392,7 +1392,7 @@ declare namespace SpotifyApi {
     interface RecommendationAlbumObject extends Omit<AlbumObjectSimplified, "album_type"> {
         /**
          * The type of the album: one of “ALBUM”, “SINGLE”, or “COMPILATION”.
-	     * Note that this differs from the types returned by all other spotify APIs by being in all caps.
+         * Note that this differs from the types returned by all other spotify APIs by being in all caps.
          */
         album_type: 'ALBUM' | 'SINGLE' | 'COMPILATION';
     }
