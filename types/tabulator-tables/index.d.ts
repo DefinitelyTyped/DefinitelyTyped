@@ -1,5 +1,5 @@
 // Type definitions for tabulator-tables 5.3.1
-// Project: http://info
+// Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
