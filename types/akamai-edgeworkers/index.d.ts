@@ -223,6 +223,160 @@ declare namespace EW {
          * The cpcode used for reporting.
          */
         readonly cpCode: number;
+
+        /**
+         * The body associated with the incoming request.
+         */
+        readonly body: ReadableStreamEW;
+    }
+
+    interface ReadableStreamDefaultControllerEW<R = any> {
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: R): void;
+        error(error?: any): void;
+    }
+
+    interface ReadableStreamDefaultControllerCallbackEW<R> {
+        (controller: ReadableStreamDefaultControllerEW<R>): void | PromiseLike<void>;
+    }
+
+    interface ReadableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
+    /**
+     * https://streams.spec.whatwg.org/#underlying-source-api
+     */
+    interface UnderlyingSource<R = any> {
+        start?: ReadableStreamDefaultControllerCallbackEW<R>;
+        pull?: ReadableStreamDefaultControllerCallbackEW<R>;
+        cancel?: ReadableStreamErrorCallback;
+        type?: undefined;
+    }
+    interface ReadableStreamBYOBRequest {
+        readonly view: ArrayBufferView;
+        respond(bytesWritten: number): void;
+        respondWithNewView(view: ArrayBufferView): void;
+    }
+
+    interface ReadableByteStreamController {
+        readonly byobRequest: ReadableStreamBYOBRequest | undefined;
+        readonly desiredSize: number | null;
+        close(): void;
+        enqueue(chunk: ArrayBufferView): void;
+        error(error?: any): void;
+    }
+
+    interface ReadableByteStreamControllerCallback {
+        (controller: ReadableByteStreamController): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingByteSource {
+        autoAllocateChunkSize?: number;
+        cancel?: ReadableStreamErrorCallback;
+        pull?: ReadableByteStreamControllerCallback;
+        start?: ReadableByteStreamControllerCallback;
+        type: "bytes";
+    }
+    interface WritableStreamDefaultController {
+        error(error?: any): void;
+    }
+
+    interface WritableStreamDefaultControllerStartCallback {
+        (controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamDefaultControllerWriteCallback<W> {
+        (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamDefaultControllerCloseCallback {
+        (): void | PromiseLike<void>;
+    }
+
+    interface WritableStreamErrorCallback {
+        (reason: any): void | PromiseLike<void>;
+    }
+
+    interface UnderlyingSink<W = any> {
+        start?: WritableStreamDefaultControllerStartCallback;
+        write?: WritableStreamDefaultControllerWriteCallback<W>;
+        close?: WritableStreamDefaultControllerCloseCallback;
+        abort?: WritableStreamErrorCallback;
+        type?: undefined;
+    }
+    interface ReadableStreamReadResult<T> {
+        readonly done: boolean;
+        readonly value: T;
+    }
+
+    interface PipeOptions {
+        preventAbort?: boolean;
+        preventCancel?: boolean;
+        preventClose?: boolean;
+        signal?: { aborted: boolean };
+    }
+
+    interface QueuingStrategySizeCallback<T = any> {
+        (chunk: T): number;
+    }
+
+    interface QueuingStrategy<T = any> {
+        highWaterMark?: number;
+        size?: QueuingStrategySizeCallback<T>;
+    }
+
+    interface WritableStreamDefaultWriter<W = any> {
+        readonly closed: Promise<void>;
+        readonly desiredSize: number | null;
+        readonly ready: Promise<void>;
+        abort(reason?: any): Promise<void>;
+        close(): Promise<void>;
+        releaseLock(): void;
+        write(chunk: W): Promise<void>;
+    }
+
+    interface WritableStreamEW<W = any> {
+        readonly locked: boolean;
+        abort(reason?: any): Promise<void>;
+        close(): Promise<void>;
+        getWriter(): WritableStreamDefaultWriter<W>;
+    }
+
+    const WritableStreamEW: {
+        prototype: WritableStreamEW;
+        new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
+    };
+
+    interface ReadableStreamEW<R = any> {
+        readonly locked: boolean;
+        cancel(reason?: any): Promise<void>;
+        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+        getReader(): ReadableStreamDefaultReader<R>;
+        pipeThrough<T>({ writable, readable }: { writable: WritableStreamEW<R>, readable: ReadableStreamEW<T> }, options?: PipeOptions): ReadableStreamEW<T>;
+        pipeTo(dest: WritableStreamEW<R>, options?: PipeOptions): Promise<void>;
+        tee(): [ReadableStreamEW<R>, ReadableStreamEW<R>];
+    }
+
+    const ReadableStreamEW: {
+        prototype: ReadableStreamEW;
+        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStreamEW<Uint8Array>;
+        new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
+    };
+
+    interface ReadableStreamBYOBReader {
+        readonly closed: Promise<void>;
+        cancel(reason?: any): Promise<void>;
+        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        releaseLock(): void;
+    }
+
+    interface ReadableStreamDefaultReader<R = any> {
+        readonly closed: Promise<void>;
+        cancel(reason?: any): Promise<void>;
+        read(): Promise<ReadableStreamReadResult<R>>;
+        releaseLock(): void;
     }
 
     // Legacy interfaces for backwards compatability
@@ -437,6 +591,8 @@ declare namespace EW {
          */
         readonly isMobile: boolean | undefined;
     }
+
+    export { ReadableStreamEW, WritableStreamEW, ReadableStreamDefaultControllerEW, QueuingStrategy, UnderlyingSource, UnderlyingByteSource, UnderlyingSink, ReadsHeaders, ReadAllHeader, ResponseProviderRequest, IngressClientRequest, IngressOriginRequest, EgressOriginRequest, EgressOriginResponse, EgressClientRequest, EgressClientResponse };
 }
 
 /**
@@ -648,156 +804,24 @@ declare module "http-request" {
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
 declare module "streams" {
-    interface ReadableStreamBYOBRequest {
-        readonly view: ArrayBufferView;
-        respond(bytesWritten: number): void;
-        respondWithNewView(view: ArrayBufferView): void;
-    }
-
-    interface ReadableByteStreamController {
-        readonly byobRequest: ReadableStreamBYOBRequest | undefined;
-        readonly desiredSize: number | null;
-        close(): void;
-        enqueue(chunk: ArrayBufferView): void;
-        error(error?: any): void;
-    }
-
-    interface ReadableByteStreamControllerCallback {
-        (controller: ReadableByteStreamController): void | PromiseLike<void>;
-    }
-
-    interface UnderlyingByteSource {
-        autoAllocateChunkSize?: number | undefined;
-        cancel?: ReadableStreamErrorCallback | undefined;
-        pull?: ReadableByteStreamControllerCallback | undefined;
-        start?: ReadableByteStreamControllerCallback | undefined;
-        type: "bytes";
-    }
-
-    interface ReadableStreamDefaultController<R = any> {
-        readonly desiredSize: number | null;
-        close(): void;
-        enqueue(chunk: R): void;
-        error(error?: any): void;
-    }
-
-    interface ReadableStreamDefaultControllerCallback<R> {
-        (controller: ReadableStreamDefaultController<R>): void | PromiseLike<void>;
-    }
-
-    interface ReadableStreamErrorCallback {
-        (reason: any): void | PromiseLike<void>;
-    }
-
-    /**
-     * https://streams.spec.whatwg.org/#underlying-source-api
-     */
-    interface UnderlyingSource<R = any> {
-        start?: ReadableStreamDefaultControllerCallback<R> | undefined;
-        pull?: ReadableStreamDefaultControllerCallback<R> | undefined;
-        cancel?: ReadableStreamErrorCallback | undefined;
-        type?: undefined;
-    }
-
-    interface WritableStreamDefaultController {
-        error(error?: any): void;
-    }
-
-    interface WritableStreamDefaultControllerStartCallback {
-        (controller: WritableStreamDefaultController): void | PromiseLike<void>;
-    }
-
-    interface WritableStreamDefaultControllerWriteCallback<W> {
-        (chunk: W, controller: WritableStreamDefaultController): void | PromiseLike<void>;
-    }
-
-    interface WritableStreamDefaultControllerCloseCallback {
-        (): void | PromiseLike<void>;
-    }
-
-    interface WritableStreamErrorCallback {
-        (reason: any): void | PromiseLike<void>;
-    }
-
-    interface UnderlyingSink<W = any> {
-        start?: WritableStreamDefaultControllerStartCallback | undefined;
-        write?: WritableStreamDefaultControllerWriteCallback<W> | undefined;
-        close?: WritableStreamDefaultControllerCloseCallback | undefined;
-        abort?: WritableStreamErrorCallback | undefined;
-        type?: undefined;
-    }
-
-    interface ReadableStreamReadResult<T> {
-        readonly done: boolean;
-        readonly value: T;
-    }
-
-    interface PipeOptions {
-        preventAbort?: boolean | undefined;
-        preventCancel?: boolean | undefined;
-        preventClose?: boolean | undefined;
-        signal?: { aborted: boolean } | undefined;
-    }
-
-    interface QueuingStrategySizeCallback<T = any> {
-        (chunk: T): number;
-    }
-
-    interface QueuingStrategy<T = any> {
-        highWaterMark?: number | undefined;
-        size?: QueuingStrategySizeCallback<T> | undefined;
-    }
-
-    interface WritableStreamDefaultWriter<W = any> {
-        readonly closed: Promise<void>;
-        readonly desiredSize: number | null;
-        readonly ready: Promise<void>;
-        abort(reason?: any): Promise<void>;
-        close(): Promise<void>;
-        releaseLock(): void;
-        write(chunk: W): Promise<void>;
-    }
-
-    interface WritableStream<W = any> {
-        readonly locked: boolean;
-        abort(reason?: any): Promise<void>;
-        close(): Promise<void>;
-        getWriter(): WritableStreamDefaultWriter<W>;
-    }
-
-    const WritableStream: {
-        prototype: WritableStream;
-        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
-    };
-
-    interface ReadableStream<R = any> {
-        readonly locked: boolean;
-        cancel(reason?: any): Promise<void>;
-        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
-        getReader(): ReadableStreamDefaultReader<R>;
-        pipeThrough<T>({ writable, readable }: { writable: WritableStream<R>, readable: ReadableStream<T> }, options?: PipeOptions): ReadableStream<T>;
-        pipeTo(dest: WritableStream<R>, options?: PipeOptions): Promise<void>;
-        tee(): [ReadableStream<R>, ReadableStream<R>];
+    interface ReadableStream<R = any> extends  EW.ReadableStreamEW {
     }
 
     const ReadableStream: {
         prototype: ReadableStream;
-        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number | undefined, size?: undefined }): ReadableStream<Uint8Array>;
-        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+        new(underlyingSource: EW.UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
+        new<R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
 
-    interface ReadableStreamBYOBReader {
-        readonly closed: Promise<void>;
-        cancel(reason?: any): Promise<void>;
-        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
-        releaseLock(): void;
+    interface WritableStream<R = any> extends  EW.WritableStreamEW {
     }
 
-    interface ReadableStreamDefaultReader<R = any> {
-        readonly closed: Promise<void>;
-        cancel(reason?: any): Promise<void>;
-        read(): Promise<ReadableStreamReadResult<R>>;
-        releaseLock(): void;
+    const WritableStream: {
+        prototype: WritableStream;
+        new<W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
+    };
+
+    interface ReadableStreamDefaultController<R = any> extends  EW.ReadableStreamDefaultControllerEW {
     }
 
     interface TransformStream<I = any, O = any> {
@@ -807,7 +831,7 @@ declare module "streams" {
 
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
     };
 
     interface Transformer<I = any, O = any> {
@@ -842,7 +866,7 @@ declare module "streams" {
         size(chunk: any): 1;
     }
 
-    interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
+    interface ByteLengthQueuingStrategy extends EW.QueuingStrategy<ArrayBufferView> {
         highWaterMark: number;
         size(chunk: ArrayBufferView): number;
     }
