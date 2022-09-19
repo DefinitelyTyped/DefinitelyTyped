@@ -1,5 +1,3 @@
-// import type { Component, VNode } from 'vue';
-
 interface AvueFormColumn<T = any> {
     /** 表单项类型 */
     type?: string;

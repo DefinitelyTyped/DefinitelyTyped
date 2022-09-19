@@ -1,5 +1,3 @@
-// import type { VNode } from 'vue';
-
 interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
     /** 是否搜索 */
     search?: boolean;

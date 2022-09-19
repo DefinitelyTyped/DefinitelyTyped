@@ -1,9 +1,5 @@
-// import type { VNode } from 'vue';
-// import type { RuleItem } from 'async-validator';
-
 type Component = any;
 type VNode = any;
-type RuleItem = any;
 
 type ColumnCls<T> = string | ((data: { row: T; rowIndex: number }) => string);
 

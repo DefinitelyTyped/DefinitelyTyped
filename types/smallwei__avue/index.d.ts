@@ -4,14 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference lib="dom" />
+/// <reference path="./async-validator.d.ts" />
 /// <reference path="./element-plus.d.ts" />
 /// <reference path="./dic.d.ts" />
 /// <reference path="./form.d.ts" />
 /// <reference path="./crud.d.ts" />
 /// <reference path="./tree.d.ts" />
-/// <reference path="./global.d.ts" />
-
-// import { App } from 'vue';
 
 interface AvueConfig {
     size?: 'large' | 'default' | 'small';
@@ -24,4 +22,15 @@ interface AvueInstaller {
 }
 declare const Avue: AvueInstaller;
 
-export default Avue;
+declare module 'vue' {
+    interface GlobalComponents {
+        AvueCrud: typeof AvueCrud;
+        AvueForm: typeof AvueForm;
+        AvueTree: typeof AvueTree;
+    }
+    interface ComponentCustomProperties {
+        $ImagePreview: (list: Array<{ url?: string; thumbUrl?: string }>, index?: number) => void;
+    }
+}
+
+export = Avue;
