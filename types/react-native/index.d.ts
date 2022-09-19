@@ -41,6 +41,7 @@
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
 //                 Lorenzo Sciandra <https://github.com/kelset>
 //                 Mateusz Wit <https://github.com/MateWW>
+//                 Luna Wei <https://github.com/lunaleaps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
