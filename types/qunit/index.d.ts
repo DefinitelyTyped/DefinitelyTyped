@@ -1,4 +1,4 @@
-// Type definitions for QUnit v2.19.0
+// Type definitions for QUnit 2.19
 // Project: https://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
@@ -452,9 +452,39 @@ declare global {
 
     type moduleFunc1 = (name: string, hooks?: Hooks, nested?: (hooks: NestedHooks) => void) => void;
     type moduleFunc2 = (name: string, nested?: (hooks: NestedHooks) => void) => void;
-    type ModuleOnly = { only: moduleFunc1 & moduleFunc2 };
-    type ModuleSkip = { skip: moduleFunc1 & moduleFunc2 };
-    type ModuleTodo = { todo: moduleFunc1 & moduleFunc2 };
+
+    interface ModuleMethods {
+        only: moduleFunc1 & moduleFunc2;
+        skip: moduleFunc1 & moduleFunc2;
+        todo: moduleFunc1 & moduleFunc2;
+    }
+
+    interface TestEach {
+        <T>(
+        name: string,
+        dataset: T[] | { [s: string]: T },
+        callback: (assert: Assert, data: T) => void | Promise<void>,
+        ): void;
+    }
+    interface TestOnly {
+        (name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        each: TestEach;
+    }
+    interface TestSkip {
+        (name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        each: TestEach;
+    }
+    interface TestTodo {
+        (name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        each: TestEach;
+    }
+    interface Test {
+        (name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        only: TestOnly;
+        skip: TestSkip;
+        todo: TestTodo;
+        each: TestEach;
+    }
 
     namespace QUnit {
         interface BeginDetails {
@@ -633,10 +663,10 @@ declare global {
          * value for each test.
          *
          * @param {string} name Label for this group of tests
-         * @param hookds Callbacks to run during test execution
-         * @param nested A callback with grouped tests and nested modules to run under the current module label
+         * @param {Hooks} [hooks] Callbacks to run during test execution
+         * @param {Function} [nested] A scope to create nested modules and/or add hooks functionally.
          */
-        module: moduleFunc1 & moduleFunc2 & ModuleOnly & ModuleSkip & ModuleTodo;
+        module: moduleFunc1 & moduleFunc2 & ModuleMethods;
 
         /**
          * Register a callback to fire whenever a module ends.
@@ -668,7 +698,7 @@ declare global {
          * @param {string} name Title of unit being tested
          * @param callback Function to close over assertions
          */
-        only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        only: TestOnly;
 
         /**
          * Handle a global error that should result in a failed test run.
@@ -707,7 +737,7 @@ declare global {
          *
          * @param {string} Title of unit being tested
          */
-        skip(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        skip: TestSkip;
 
         /**
          * Returns a single line string representing the stacktrace (call stack).
@@ -753,7 +783,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        test(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+        test: Test;
 
         /**
          * Register a callback to fire whenever a test ends.
@@ -791,7 +821,7 @@ declare global {
          * @param {string} Title of unit being tested
          * @param callback Function to close over assertions
          */
-        todo(name: string, callback?: (assert: Assert) => void | Promise<void>): void;
+        todo: TestTodo;
 
         /**
          * Compares two values. Returns true if they are equivalent.
