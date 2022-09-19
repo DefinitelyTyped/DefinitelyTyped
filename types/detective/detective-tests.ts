@@ -2,6 +2,7 @@ import detective = require("detective");
 
 const opts: detective.Options = {
     parse: {
+        ecmaVersion: 'latest',
         sourceType: "module",
         allowImportExportEverywhere: true
     }
