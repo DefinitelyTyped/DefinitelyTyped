@@ -31,6 +31,8 @@ declare module 'opentok' {
       streamMode?: 'auto' | 'manual' | undefined;
       streams?: Stream[] | undefined;
       url: string;
+      delete(callback: (error: Error | null) => void): void;
+      stop(callback: (error: Error | null, archive?: Archive) => void): void;
     }
 
     export interface ArchiveOptions {
