@@ -6,7 +6,6 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-unnecessary-class
 // tslint:disable:no-empty-interface
-// tslint:disable:npm-naming
 
 export interface Options
     extends OptionsGeneral,
