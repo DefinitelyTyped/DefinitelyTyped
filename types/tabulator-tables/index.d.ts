@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.3.4
+// Type definitions for tabulator-tables 5.31
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,7 @@
 // tslint:disable:max-line-length
 // tslint:disable:no-unnecessary-class
 // tslint:disable:no-empty-interface
+// tslint:disable:npm-naming
 
 export interface Options
     extends OptionsGeneral,
