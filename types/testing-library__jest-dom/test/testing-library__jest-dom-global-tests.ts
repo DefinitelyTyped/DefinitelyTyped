@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 const element: HTMLElement = document.body;
 
 expect(element).toBeInTheDOM();

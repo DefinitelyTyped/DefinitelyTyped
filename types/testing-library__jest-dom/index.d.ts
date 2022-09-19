@@ -7,8 +7,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
-/// <reference types="jest" />
-
 import { TestingLibraryMatchers } from './matchers';
 
 declare global {

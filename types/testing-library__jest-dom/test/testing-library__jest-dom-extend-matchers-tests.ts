@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import matchers, { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers';
 
 const element: HTMLElement = document.body;
