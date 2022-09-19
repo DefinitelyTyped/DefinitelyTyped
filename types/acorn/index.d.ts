@@ -683,13 +683,17 @@ declare namespace acorn {
         ): typeof Parser;
     }
 
-    interface Position {
+    class Position {
         line: number;
         column: number;
-        offset: number;
+
+        offset: (n: number) => Position;
+        constructor(line: number, col: number);
     }
 
     const defaultOptions: Options;
+
+    const keywordTypes: Record<string, TokenType>
 
     function getLineInfo(input: string, offset: number): Position;
 
@@ -700,6 +704,8 @@ declare namespace acorn {
 
         constructor(p: Parser, start: Position, end: Position);
     }
+
+    const nonASCIIwhitespace: RegExp
 
     class Node {
         type: AcornNodeTypeString | '';
