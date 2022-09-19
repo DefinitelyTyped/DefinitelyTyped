@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.11
+// Type definitions for oidc-provider 7.12
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1029,7 +1029,6 @@ export interface Configuration {
 
         backchannelLogout?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         fapi?: {

@@ -178,8 +178,6 @@ declare namespace braintree {
         webhookTesting: WebhookTestingGateway;
     }
 
-    export function connect(config: GatewayConfig): BraintreeGateway;
-
     interface ValidatedResponse<T> {
         success: boolean;
         errors: ValidationErrorsCollection;
@@ -2291,13 +2289,14 @@ declare namespace braintree {
 
     export interface AuthenticationError extends Error {}
     export interface AuthorizationError extends Error {}
-    export interface DownForMaintenanceError extends Error {}
+    export interface GatewayTimeoutError extends Error {}
     export interface InvalidChallengeError extends Error {}
     export interface InvalidKeysError extends Error {}
     export interface InvalidSignatureError extends Error {}
-    export interface InvalidTransparentRedirectHashError extends Error {}
     export interface NotFoundError extends Error {}
+    export interface RequestTimeoutError extends Error {}
     export interface ServerError extends Error {}
+    export interface ServiceUnavailableError extends Error {}
     export interface TestOperationPerformedInProductionError extends Error {}
     export interface TooManyRequestsError extends Error {}
     export interface UnexpectedError extends Error {}

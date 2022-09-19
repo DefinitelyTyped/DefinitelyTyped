@@ -265,8 +265,14 @@ declare namespace OfficeRuntime {
       asyncContext?: any;
       /**
        * Causes Office to return a descriptive error when the add-in wants to access Microsoft Graph and the user/admin has not granted consent to Graph scopes. Default value is `false`.
-       * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin. This information will not be available during development.
+       * Office only supports consent to Graph scopes when the add-in has been deployed by a tenant admin.
        * Setting this option to `true` will cause Office to inform your add-in beforehand (by returning a descriptive error) if Graph access will fail.
+       *
+       * @remarks
+       *
+       * **Note**: If you're developing an Outlook add-in that uses single sign-on (SSO), comment out the `forMSGraphAccess` option before sideloading the add-in for testing.
+       * Otherwise, you'll receive {@link https://docs.microsoft.com/office/dev/add-ins/develop/troubleshoot-sso-in-office-add-ins#13012 | error 13012}. For additional guidance, see
+       * {@link https://docs.microsoft.com/office/dev/add-ins/develop/authorize-to-microsoft-graph#details-on-sso-with-an-outlook-add-in | Details on SSO with an Outlook add-in}.
        */
       forMSGraphAccess?: boolean;
   }

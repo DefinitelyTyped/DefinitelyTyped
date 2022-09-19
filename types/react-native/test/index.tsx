@@ -142,8 +142,8 @@ function dimensionsListener(dimensions: { window: ScaledSize; screen: ScaledSize
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? 'window' : 'screen');
 
-    Dimensions.addEventListener('change', dimensionsListener);
-    Dimensions.removeEventListener('change', dimensionsListener);
+    const subscription = Dimensions.addEventListener('change', dimensionsListener);
+    subscription.remove();
 }
 
 function TextUseWindowDimensions() {
@@ -1295,6 +1295,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
+                accessibilityLanguage="sv-SE"
             >
                 <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
@@ -1302,6 +1303,13 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityLabelledByTest = () => (
+    <>
+        <View accessibilityLabelledBy="nativeID1"></View>
+        <View accessibilityLabelledBy={["nativeID2", "nativeID3"]}></View>
+    </>
+)
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
@@ -1346,7 +1354,6 @@ AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
 const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
 AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
 ).remove();
-AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 

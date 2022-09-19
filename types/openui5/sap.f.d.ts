@@ -1,4 +1,4 @@
-// For Library Version: 1.104.0
+// For Library Version: 1.106.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -5590,7 +5590,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.50
      *
@@ -8965,13 +8965,13 @@ declare module "sap/f/GridContainer" {
 
   import { dnd, NavigationDirection } from "sap/f/library";
 
+  import { ID, CSSSize } from "sap/ui/core/library";
+
   import Event from "sap/ui/base/Event";
 
   import GridContainerSettings from "sap/f/GridContainerSettings";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { CSSSize } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
 
@@ -9132,6 +9132,28 @@ declare module "sap/f/GridContainer" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      *
@@ -9498,6 +9520,16 @@ declare module "sap/f/GridContainer" {
      */
     getAllowDenseFill(): boolean;
     /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
+     * ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
      * Gets current value of property {@link #getContainerQuery containerQuery}.
      *
      * If set to `true` the current range (large, medium or small) is defined by the size of the container surrounding
@@ -9640,6 +9672,18 @@ declare module "sap/f/GridContainer" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -9648,16 +9692,38 @@ declare module "sap/f/GridContainer" {
      */
     removeAllItems(): Control[];
     /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
      * Removes an item from the aggregation named `items`.
      *
-     * @returns The removed item or null.
+     * @returns The removed item or `null`.
      */
     removeItem(
       /**
        * The item to remove or its index or ID.
        */
       vItem: int | string | Item
-    ): Control;
+    ): Control | null;
     /**
      * @EXPERIMENTAL (since 1.66)
      *
@@ -9939,6 +10005,16 @@ declare module "sap/f/GridContainer" {
      * The sap.f.GridContainerSettings applied for size "XL". Range: from 1440px.
      */
     layoutXL?: GridContainerSettings;
+
+    /**
+     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired when the currently active GridSettings change.

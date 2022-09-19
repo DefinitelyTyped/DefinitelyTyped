@@ -432,7 +432,7 @@ const provider = new Provider('https://op.example.com', {
             }
         },
         clientCredentials: { enabled: false },
-        backchannelLogout: { enabled: false, ack: 'draft' },
+        backchannelLogout: { enabled: false },
         dPoP: { enabled: false, ack: 'draft', iatTolerance: 120 },
         deviceFlow: {
             enabled: false,
