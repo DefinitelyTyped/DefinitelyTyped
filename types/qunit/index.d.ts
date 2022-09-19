@@ -369,6 +369,7 @@ declare global {
         autostart: boolean;
         collapse: boolean;
         current: any;
+        failOnZeroTests: boolean;
         filter: string | RegExp;
         fixture: string;
         hidepassed: boolean;
