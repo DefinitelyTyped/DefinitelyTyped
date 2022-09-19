@@ -5,7 +5,22 @@ import {
     DataTreeModule,
     TabulatorFull,
     TooltipModule,
-    TabulatorOptions,
+    AutoCompleteParams,
+    CalculationComponent,
+    CellComponent,
+    ColumnComponent,
+    ColumnDefinition,
+    ColumnDefinitionSorterParams,
+    GroupComponent,
+    MenuObject,
+    MenuSeparator,
+    RowComponent,
+    SelectParams,
+    SorterFromTable,
+    Validator,
+    SortDirection,
+    JSONRecord,
+    Options,
 } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
@@ -99,21 +114,21 @@ table
         // handle error updating data
     });
 
-let row1: Tabulator.RowComponent;
-let row2: Tabulator.RowComponent;
+let row1: RowComponent;
+let row2: RowComponent;
 
 // column definitions
-let colDef: Tabulator.ColumnDefinition = { title: 'title', field: '' };
+let colDef: ColumnDefinition = { title: 'title', field: '' };
 colDef.sorter = customSorter;
 
 // prettier-ignore
-function customSorter(a: any, b: any, aRow: Tabulator.RowComponent,
-    bRow: Tabulator.RowComponent, column: Tabulator.ColumnComponent,
-    dir: Tabulator.SortDirection, sorterParams: Tabulator.ColumnDefinitionSorterParams): number {
+function customSorter(a: any, b: any, aRow: RowComponent,
+    bRow: RowComponent, column: ColumnComponent,
+    dir: SortDirection, sorterParams: ColumnDefinitionSorterParams): number {
     return 1;
 }
 
-colDef.sorterParams = (col: Tabulator.ColumnComponent, dir: Tabulator.SortDirection) => {
+colDef.sorterParams = (col: ColumnComponent, dir: SortDirection) => {
     return {};
 };
 colDef.sorterParams = { format: 'DD/MM/YY' };
@@ -138,7 +153,7 @@ colDef.formatterParams = {
     huge: true,
 };
 // Custom Formatter
-colDef.formatter = (cell: Tabulator.CellComponent, formatterParams: {}, onRendered) => {
+colDef.formatter = (cell: CellComponent, formatterParams: {}, onRendered) => {
     onRendered = () => {};
     return '';
 };
@@ -236,7 +251,7 @@ colDef.editorParams = {
     ],
 };
 
-let selectParamValues: Tabulator.JSONRecord;
+let selectParamValues: JSONRecord;
 selectParamValues = {
     steve: 'Steve Boberson',
     bob: 'Bob Jimmerson',
@@ -250,7 +265,7 @@ colDef.editorParams = cell => {
     return {};
 };
 
-let autoComplete: Tabulator.AutoCompleteParams = {
+let autoComplete: AutoCompleteParams = {
     showListOnEmpty: true, // show all values when the list is empty,
     freetext: true, // allow the user to set the value of the cell to a free text entry
     allowEmpty: true, // allow empty string values
@@ -321,7 +336,7 @@ colDef.validator = {
 colDef.validator = 'float';
 colDef.validator = { type: 'float', parameters: {} };
 
-let validators: Tabulator.Validator[] = [
+let validators: Validator[] = [
     { type: 'integer', parameters: {} },
     {
         type: (cell, value, parameters) => {
@@ -344,7 +359,7 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
     return '';
 };
 
-colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: (callback: () => void) => void) => {
+colDef.tooltip = (event: MouseEvent, cell: CellComponent, onRendered: (callback: () => void) => void) => {
     onRendered(() => {
         console.log('rendering occured');
     });
@@ -353,13 +368,13 @@ colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: 
 
 // Cell Component
 
-let cell = <Tabulator.CellComponent>{};
+let cell = <CellComponent>{};
 
 let data = cell.getData();
 table = cell.getTable();
 
 // Row Component
-let row = <Tabulator.RowComponent>{};
+let row = <RowComponent>{};
 row.delete()
     .then(() => {
         // run code after row has been deleted
@@ -369,7 +384,7 @@ row.delete()
     });
 
 // Options
-let options = <TabulatorOptions>{};
+let options = <Options>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
@@ -511,7 +526,7 @@ table.download('csv', 'data.csv', { delimiter: '.' });
 // 4.4 updates
 table.moveColumn('name', 'age', true);
 
-let column = {} as Tabulator.ColumnComponent;
+let column = {} as ColumnComponent;
 column.move('age', true);
 
 colDef.editorParams = {
@@ -533,7 +548,7 @@ colDef.editorParams = {
 
 colDef.clipboard = false;
 
-let group = {} as Tabulator.GroupComponent;
+let group = {} as GroupComponent;
 let field = group.getField();
 
 options.tabEndNewRow = true;
@@ -554,7 +569,7 @@ colDef.editor = (cell, onRendered, success, cancel, editorParams) => {
     return editor;
 };
 
-let groupColDef: Tabulator.ColumnDefinition = {
+let groupColDef: ColumnDefinition = {
     title: 'Full name',
     field: '',
     columns: [
@@ -610,7 +625,7 @@ table.restoreRedraw();
 table.getRows('visible');
 table.deleteRow([15, 7, 9]);
 
-table.addColumn({} as Tabulator.ColumnDefinition).then(() => {});
+table.addColumn({} as ColumnDefinition).then(() => {});
 
 table.deleteColumn('name').then(() => {});
 
@@ -640,7 +655,7 @@ table = new Tabulator('#example-table', {
 });
 
 // 4.6 updates
-const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabulator.MenuSeparator> = [
+const rowContextMenu: Array<MenuObject<RowComponent> | MenuSeparator> = [
     {
         label: 'Remove row',
         action: (e, row) => {
@@ -659,7 +674,7 @@ const rowContextMenu: Array<Tabulator.MenuObject<Tabulator.RowComponent> | Tabul
     },
 ];
 
-const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+const headerMenu: Array<MenuObject<ColumnComponent> | MenuSeparator> = [
     {
         label: 'Remove Column',
         action: (e, column) => {
@@ -678,7 +693,7 @@ const headerMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabula
     },
 ];
 
-const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> | Tabulator.MenuSeparator> = [
+const headerContextMenu: Array<MenuObject<ColumnComponent> | MenuSeparator> = [
     {
         label: 'Hide Column',
         action: (e, column) => {
@@ -687,7 +702,7 @@ const headerContextMenu: Array<Tabulator.MenuObject<Tabulator.ColumnComponent> |
     },
 ];
 
-const contextMenu: Array<Tabulator.MenuObject<Tabulator.CellComponent> | Tabulator.MenuSeparator> = [
+const contextMenu: Array<MenuObject<CellComponent> | MenuSeparator> = [
     {
         label: 'Restore previous value',
         action: (e, cell) => {
@@ -829,7 +844,7 @@ table.addColumn({
 });
 row.isFrozen();
 
-let autoComplete2: Tabulator.AutoCompleteParams = {
+let autoComplete2: AutoCompleteParams = {
     values: [
         {
             label: 'Steve Boberson',
@@ -850,7 +865,7 @@ let autoComplete2: Tabulator.AutoCompleteParams = {
     ],
 };
 
-let select: Tabulator.SelectParams = {
+let select: SelectParams = {
     multiselect: true,
     values: [
         {
@@ -868,7 +883,7 @@ let select: Tabulator.SelectParams = {
 table = new Tabulator('#example-table', {
     textDirection: 'rtl',
     autoColumnsDefinitions: () => {
-        const columnDefinitions: Tabulator.ColumnDefinition[] = [];
+        const columnDefinitions: ColumnDefinition[] = [];
         return columnDefinitions;
     },
 });
@@ -881,7 +896,7 @@ table = new Tabulator('#example-table', {
     },
 });
 
-let colDefs: Tabulator.ColumnDefinition[] = [];
+let colDefs: ColumnDefinition[] = [];
 colDefs.push({
     field: 'name',
     title: 'input',
@@ -895,9 +910,7 @@ colDefs.push({
     },
 });
 
-const groupContextMenu: Array<Tabulator.MenuObject<Tabulator.GroupComponent> | Tabulator.MenuSeparator> = [
-    { separator: true },
-];
+const groupContextMenu: Array<MenuObject<GroupComponent> | MenuSeparator> = [{ separator: true }];
 
 table = new Tabulator('#example-table', {
     autoColumnsDefinitions: colDefs,
@@ -928,7 +941,7 @@ row.getCells();
 row.getCell(column);
 row.isTreeExpanded();
 
-let calcComponent = {} as Tabulator.CalculationComponent;
+let calcComponent = {} as CalculationComponent;
 calcComponent.getData();
 calcComponent.getElement();
 calcComponent.getTable();
@@ -936,7 +949,7 @@ calcComponent.getCells();
 calcComponent.getCell(column);
 
 // 4.9
-const rowContextMenu2: Array<Tabulator.MenuObject<Tabulator.ColumnComponent>> = [
+const rowContextMenu2: Array<MenuObject<ColumnComponent>> = [
     {
         label: 'Hide Column',
         action: (e, column) => {
@@ -1052,7 +1065,7 @@ class CustomModule extends Module {
 CustomModule.moduleName = 'custom';
 Tabulator.registerModule([CustomModule, DataTreeModule]);
 
-const sortHandler = {} as (sorters: Tabulator.SorterFromTable[]) => void;
+const sortHandler = {} as (sorters: SorterFromTable[]) => void;
 table = new Tabulator('#test', {
     dataSorting: sortHandler,
     dataSorted: sortHandler,
