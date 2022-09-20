@@ -1,4 +1,4 @@
-import { procfs, Procfs, ProcfsError } from 'stroncium__procfs';
+import { procfs, Procfs, ProcfsError } from '@stroncium/procfs';
 
 new Procfs('');
 

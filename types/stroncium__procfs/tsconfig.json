@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@stroncium/*": ["stroncium__*"]
+        }
     },
     "files": [
         "index.d.ts",
