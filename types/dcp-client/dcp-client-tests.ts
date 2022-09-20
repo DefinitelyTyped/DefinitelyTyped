@@ -4,7 +4,11 @@ import {
     LoadOptions,
     PaymentParams,
     Sandbox,
-    Keystore
+    Keystore,
+    RangeObject,
+    ResultHandle,
+    MultiRangeObject,
+    SuperRangeObject
 } from 'dcp-client';
 
 //#region Models
@@ -12,17 +16,51 @@ export const authKeystoreOptions: AuthKeystoreOptions = {
     name: 'default',
     checkEmpty: false,
 };
-
 export const loadOptions: LoadOptions = {
     filename: '',
     name: '',
     dir: '',
 };
-
 //#endregion
 
 (async () => {
     const { compute, wallet, worker } = await init();
+
+    //#region RangeObject Tests
+    const rangeObject = new RangeObject(0, 10);
+    const angeObjectLength = rangeObject.length;
+    rangeObject.toString();
+    rangeObject.toObject();
+    rangeObject.nthValue(1);
+    rangeObject.filter((num: number) => num % 2 === 0);
+    rangeObject.slice(1, 5, 6);
+    //#endregion
+
+    //#region ResultHandle Tests
+    const resultHandle = new ResultHandle();
+    const resultHandleLength = resultHandle.length;
+    resultHandle.entries();
+    resultHandle.key(1);
+    resultHandle.keys();
+    resultHandle.lookupValue('lookupValue');
+    resultHandle.values();
+    resultHandle.fetch(rangeObject, 'resultHandleEvent');
+    //#endregion
+
+    //#region ResultHandle Tests
+    const superRangeObject = new SuperRangeObject();
+    superRangeObject.filter((num: number) => num % 2 === 0);
+    superRangeObject.slice(2, 5);
+    //#endregion
+
+    //#region MultiRangeObject Tests
+    const r0 = new RangeObject(1, 2);
+    const r1 = new RangeObject(1, 3);
+    const multiRangeObject = new MultiRangeObject(r0, r1);
+    multiRangeObject.filter((num: number) => num % 2 === 0);
+    multiRangeObject.slice(2, 3, 5);
+
+    //#endregion
 
     //#region Job Tests
     const initialSliceProfile = {};

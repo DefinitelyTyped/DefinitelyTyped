@@ -4,117 +4,270 @@
 //                 Bryan Hoang <https://github.com/bryan-hoang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyType
 
-import { Wallet } from './src/wallet';
-import { Worker } from './src/worker';
-import { Compute } from './src/compute';
-
+//#region init
 export function init(): Promise<DCPClient>;
-
+//#endregion
+//#region DCPClient
 export interface DCPClient {
     compute: Compute;
     wallet: Wallet;
     worker: Worker;
 }
+//#endregion
+//#region Compute
+export interface Compute {
+    /**
+     * This function allows the client to cancel a running job. This function takes as its sole argument
+     * a Job id and tells the scheduler to cancel the job.
+     * This method returns a promise which is resolved once the scheduler acknowledges the cancellation
+     * and has transitioned to a state where no further costs will be incurred as a result of the job.
+     * @returns a Promise which will be fulfilled with an object.
+     */
+    cancel(): Promise<void>;
 
-export class Keystore {
-    id: number;
+    /**
+     * form 1: compute.do(work, arguments)
+     * This function returns a JobHandle (an object which corresponds to a job), and accepts one or more arguments,
+     * depending on form.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param n
+     * @param arguments
+     */
+    do(n: number, arguments: object): Promise<JobHandle> ;
+
+    /**
+     * form 2: compute.do(n, work, arguments)
+     * This function returns a JobHandle (an object which corresponds to a job), and accepts one or more arguments, depending on form.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param n
+     * @param work
+     * @param arguments
+     */
+    do(n: number, work: string, arguments: object): Promise<JobHandle>;
+
+    /**
+     * Form 1: for (rangeObject, work, arguments)
+     * This form accepts a range object rangeObject, (see below) and this range object is used as part of the job on the scheduler.
+     * What this means is that this form is very efficient, particularly for large ranges, as the iteration through the set happens on the scheduler,
+     * and one item at a time. When the range has { start:0, step:1 }, the returned promise is resolved with an array of resultant values.
+     * Otherwise, the returned promise is resolved with an object whose keys are the values in the range.
+     * Form 3: for ({ ranges: [rangeObject, rangeObject...] }, work, arguments) Similar to form1,
+     * except with a multi range object containing an array of range objects in the key ranges.
+     * These are used to create multi-dimensional ranges, like nested loops. If they were written as traditional loops,
+     * the outermost loop would be the leftmost range object, and the innermost loop would be the rightmost range object.
+     * Form 4: for (iterableObject, work, arguments)
+     * Future Note - form4 with an ES6 functionjob argument presents the possibility where, in a future version of DCP,
+     * the protocol will support extremely large input sets without transferring the sets to the scheduler in their entirety.
+     * Since these are ES6 function generators, the scheduler could request blocks of data from the client even while the client is ‘blocked’ in an await call,
+     * without altering the API. This means DCP could process, for example,
+     * jobs where the input set is a very long list of video frames and each slice represents one frame.
+     * iterableObject could be an Array, ES6 function* generator, or any other type of iterable object.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param rangeObject: object | Ranges
+     * @param work
+     * @param arguments
+     */
+    for(rangeObject: object | Ranges, work: string, arguments: object): Promise<JobHandle>;
+
+    /**
+     * form 2a: for (start, end, step, work, arguments) - start, end, and step are numbers used to create a range object.
+     * Otherwise, this is the same as form 1.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param start
+     * @param end
+     * @param step
+     * @param work
+     * @param arguments
+     */
+    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
+
+    /**
+     * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param start
+     * @param end
+     * @param step
+     * @param work
+     * @param arguments
+     */
+    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
+
+    /**
+     * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param start
+     * @param end
+     * @param step
+     * @param work
+     * @param arguments
+     */
+    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
+
+    /**
+     * Form 1: compute.status(job): returns a status object describing a given job.
+     * The argument can be either a job Id or a Job Handle.
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param job: jobId or JobHandle
+     */
+    status(job: jobId | JobHandle): Promise<JobHandle>;
+
+    /**
+     * Form 2: compute.status(paymentAccount, startTime, endTime): returns an array of status objects corresponding to the status of jobs deployed by the given payment account.
+     * If startTime is specified, jobs older than this will not be listed. If endTime is specified,
+     * jobs newer than this will not be listed. startTime and endTime can be either the number of milliseconds since the epoch, or instances of Date.
+     * The paymentAccount argument can be a Keystore object, or any valid argument to the Keystore constructor (see: Wallet API).
+     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @param paymentAccount
+     * @param startTime
+     * @param endTime
+     */
+    status(paymentAccount: string, startTime: number, endTime: number): Promise<JobHandle>;
+
+    /**
+     * This async function accepts job Id as its argument and returns information and status of a job specified with jobID.
+     * @returns a Promise which will be fulfilled with a JobInfo object.
+     * @param jobId
+     */
+    getJobInfo(jobId: number): Promise<JobInfo>;
+
+    /**
+     * This async function accepts job Id as its argument and returns status and history of a slice(s) of the job specified with jobID.
+     * @returns a Promise which will be fulfilled with a JobHistory object.
+     * @param jobId
+     */
+    getSliceInfo(jobId: number): Promise<JobHistory>;
+
+    /**
+     * Form 1: compute.marketRate
+     * Using marketRate as a property will use the most recent market rate for each slice
+     * Form 2: compute.marketRate(factor = 1.0)
+     * Calling marketRate as a function will cause the job to use the daily calculated rate, multiplied by the provided factor.
+     * @param factor
+     */
+    marketRate(factor?: number): void;
+
+    /**
+     * This function returns a promise which is resolved with a signed WorkValueQuote object.
+     * This object contains a digital signature which allows it to be used as a firm price quote during the characterization phase of the job lifecycle,
+     * provided the job is deployed before the quoteExpiry and the CPUHour, GPUHour, InputMByte and OutputMByte fields are not modified.
+     * This function ensures the client developer’s ability to control costs during job characterization,
+     * rather than being completely at the mercy of the market. Note: Market rates are treated as spot prices, but are calculated as running averages.
+     */
+    getMarketValue(): Promise<WorkValueQuote>;
+
+    /**
+     * This function accepts as its arguments a SliceProfile object and a WorkValue object,
+     * returning a number which describes the payment required to compute such a slice on a worker or in a market working at the rates described in the WorkValue object.
+     * This function does not take into account job-related overhead.
+     */
+    calculateSlicePayment(sliceProfile: SliceProfile, workValue: WorkValue): Promise<number>;
 }
+//#endregion
+//#region Worker
+export class Worker {
+    /**
+     * @start - Emitted when the worker is started.
+     * @stop - Emitted when the worker is stopped.
+     * @fetchStart - Emitted when the worker submits a result. Contains the value of DCC earned.
+     * @fetchEnd - Emitted when the worker’s slice fetch request is finished, on both success and error. If it was emmitted due to an error, the callback argument will be the error instance.
+     * @fetch - Emitted when the worker successfully fetches slices from the scheduler.
+     * @fetchError - Emitted when the worker’s slice fetch request returns an error. The callback argument is the error instance.
+     * @submitStart - Emitted when the worker starts a request to submit a result to the scheduler.
+     * @submitEnd - Emitted when the worker’s result submit request is finished, on both success and error. If it was emitted due to an error, the callback argument wil be the error instance.
+     * @submit - Emitted when the worker successfully submits a result to the scheduler.
+     * @submitError - Emitted when the worker successfully submits a result to the scheduler.
+     */
+    on(event: 'start' | 'stop' | 'fetchStart' | 'fetchEnd' | 'fetch' | 'fetchError' | 'submitStart' | 'submitEnd' | 'submit' | 'submitError', listener: () => void): this;
 
-export interface Address {
-    account: string;
+    /**
+     * Emitted when the worker instantiates a new sandbox. The argument provided to the callback is the Sandbox instance.
+     */
+    on(event: 'sandbox', listener: (sandbox: Sandbox) => void): this;
+
+    /**
+     * Emitted when the worker submits a result. Contains the value of DCC earned.
+     */
+    on(event: 'payment', listener: (paymentParams: PaymentParams) => void): this;
+
+    /**
+     * This boolean indicates the current status of the worker. It should not be set manually.
+     */
+    working: boolean;
+
+    /**
+     * @summary The internal supervisor instance.
+     */
+    supervisor: Supervisor;
+
+    /**
+     * @summary The internal schedMsg client instance. Custom behaviour for schedMsg commands can be provided on this object
+     */
+    schedMsg: SchedMsg;
+
+    /**
+     * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#methods)
+     * This static method will set a key in local storage (or on the file system on Node) to disable the worker.
+     * The user will need to manually intervene before the worker can be started again.
+     */
+    static disableWorker(): void;
+
+    /**
+     * This method will start the worker. It will begin to fetch work from the supervisor and submit the computed results automatically.
+     * It will throw if the worker is already started.
+     */
+    start(): Promise<void>;
+
+    /**
+     * This method will stop the worker. If the immediate flag is true,
+     * the worker will terminate all working sandboxes without waiting for them to finish working.
+     */
+    stop(immediate: boolean): Promise<void>;
 }
+//#endregion
+//#region Wallet
+export interface Wallet {
+    /**
+     * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
+     * Gets a keystore from the wallet
+     * @returns a Promise which will be fulfilled with a AuthKeystore object.
+     * @param options AuthKeystoreOptions
+     */
+    get(options: AuthKeystoreOptions): Promise<AuthKeystore>;
 
-export class AuthKeystore extends Keystore {}
+    /**
+     * This function behaves exactly the same as get(),
+     * except its default keystore file is the id keystore instead of the default keystore.
+     */
+    getId(): Promise<number>;
 
-export class PaymentKeystore extends Keystore {
-    address: Address;
+    /**
+     * This function will add the provided keystore to the wallet API internal cache,
+     * which will return the same keystore when get is called with the same name.
+     *  @param keystore Keystore
+     *  @param name string = ‘default’
+     */
+    add(keystore: Keystore, name: string): Promise<number>;
+
+    /**
+     * This function will clear the wallet API’s internal keystore cache.
+     * @param keystore Keystore
+     */
+    addId(keystore: Keystore): Promise<number>;
+
+    /**
+     * This function will clear the wallet API’s internal keystore cache.
+     */
+    clear(): Promise<void>;
+
+    /**
+     * Gets a keystore from the disk
+     * @returns a Promise which will be fulfilled with a AuthKeystore object.
+     * @param options LoadOptions
+     */
+    load(options: LoadOptions): Promise<LoadResult>;
 }
-
-export interface LoadResult {
-    keystore: Keystore;
-    safe: boolean | false;
-}
-
-export interface LoadOptions {
-    /**
-     * The keystore filename.
-     */
-    filename: string | undefined;
-
-    /**
-     * The keystore label or filename.
-     */
-    name: string | undefined;
-
-    /**
-     * Override paths.
-     */
-    dir: string | undefined;
-
-    /**
-     *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
-     */
-    paths?: string[] | LoadOptions["dir"];
-}
-
-export interface AuthKeystoreOptions {
-    /**
-     * The keystore name.
-     */
-    name: string | 'default';
-
-    /**
-     * An optional, user-defined identifier used for caching keystores.
-     */
-    contextId?: string | undefined;
-
-    /**
-     *  An optional name for the job that they keystore is being requested for.
-     */
-    jobName?: string | undefined;
-
-    /**
-     * Try an empty password before prompting user. Defaults to true.
-     */
-    checkEmpty: boolean | true;
-}
-
-export class JobHandle extends Job {}
-
-export class JobInfo {
-    status: string;
-    jobInfo: object;
-}
-export class JobHistory {
-    status: string;
-    history: object;
-}
-
-export interface Ranges {
-    ranges: [];
-}
-
-export class ResultHandle {}
-
-export type jobId = number;
-
-export interface PublicProperties {
-    /**
-     * Public-facing name of the job.
-     */
-    name: string;
-
-    /**
-     * Public-facing description of the job.
-     */
-    description: string;
-
-    /**
-     * Public-facing link to an external resource about the job.
-     */
-    link: string;
-}
-
+//#endregion
+//#region Job
 /**
  * [See docs](https://docs.dcp.dev/api/compute/classes/job.html#methods)
  */
@@ -180,15 +333,319 @@ export class Job {
      */
     requires(modulePaths: string| string[]): Promise<void>;
 }
+//#endregion
+//#region MultiRangeObject
+/**
+ * Range objects are vanilla ES objects used to describe value range sets for use by compute.for().
+ * Calculations made to derive the set of numbers in a range are carried out with BigNumber, eg. arbitrary-precision, support.
+ * The numbers Infinity and -Infinity are not supported, and the API does not differentiate between +0 and -0.
+ * A multi-range object contains many {@link RangeObject}s.
+ * They are iterated over with the fastest moving index going over the right-most range object in array order.
+ * Each element of a multi range is a tuple of values from constituent ranges.
+ * [See docs](https://docs.dcp.dev/api/compute/classes/multi-range-object.html#multirangeobject)
+ */
+export class MultiRangeObject {
+    /**
+     * Returns a tuple of values from the ranges given by this multi range object.
+     * @param arg – First range object, or array of range objects, or object with ranges key containing an array of range objects.
+     * @param range – If first argument is a RangeObject, subsquent arguments are range objects too.
+     * @returns instance of MultiRangeObject
+     */
+    constructor(arg: RangeObject| RangeObject[] | object, range: RangeObject);
+    /**
+     * See SuperRangeObject.filter()
+     * @returns any[]
+     */
+    filter(...args: any): any[];
 
+    /**
+     * See SuperRangeObject.slice()
+     * @returns any[]
+     */
+    slice(...args: any): any[];
+
+    /**
+     * Returns a tuple of values from the ranges given by this multi range object.
+     * @param n – index of multi-range tuple to return
+     * @returns any
+     */
+    nthValue(n: number): any;
+
+    /**
+     * Create string representation of this MultiRangeObject
+     * @returns object
+     */
+    toString(): object;
+
+    /**
+     * Create object literal with ranges property containing array of range objects.
+     * @returns object
+     */
+    toObject(): object;
+}
+//#endregion
+//#region RangeObject
+/**
+ * Range objects are vanilla ES objects used to describe value range sets for use by compute.for().
+ * The range must be increasing, i.e. start must be less than end. Calculations made to derive the set of numbers in a range are carried out with BigNumber, eg.
+ * arbitrary-precision, support. The numbers Infinity and -Infinity are not supported, and the API does not differentiate between +0 and -0.
+ * An object which represents a range of values.
+ * [See docs](https://docs.dcp.dev/api/compute/classes/range-object.html#rangeobject)
+ */
+export class RangeObject {
+    /**
+     * Number of elements in range, or number of groups if grouped.
+     */
+    length: number;
+    /**
+     * Returns a tuple of values from the ranges given by this multi range object.
+     * @param startOrObject – Beginning of range, or object literal with start and end properties.
+     * @param end – End of range
+     * @param step – Step size in range
+     * @param group – Groups in range
+     * @returns Promise<void>
+     */
+    constructor(startOrObject: number | object, end: number, step?: number, group?: number | object);
+
+    /**
+     * See SuperRangeObject.filter()
+     * @returns any[]
+     */
+    filter(...args: any): any[];
+
+    /**
+     * See SuperRangeObject.slice()
+     * @returns any[]
+     */
+    slice(...args: any): any[];
+
+    /**
+     * Returns a tuple of values from the ranges given by this multi range object.
+     * @param n – index of multi-range tuple to return
+     * @returns Return nth value in range
+     */
+    nthValue(n: number): any;
+
+    /**
+     * Create string representation of range: [object RangeObject start,end,step,group]
+     * @returns string
+     */
+     toString(): string;
+
+    /**
+     * Create object literal for range with properties: start, end, step, and group.
+     * @returns object
+     */
+    toObject(): object;
+}
+//#endregion
+//#region ResultHandle
+/**
+ * This class represents an Array-like object that’s a handle on a job’s results.
+ * It’s used to access the job’s results, or to query the scheduler to fetch results.
+ * Besides the properties and methods of this class, the following standard array
+ * methods are also available for accessing the available results: slice, filter, concat, find, findIndex, indexOf, map,
+ * reduce, includes, toString, and forEach. One can access the results by index (results[i]),
+ * but the class throws an error if the result for that index isn’t yet available.
+ * Instantiated by Job() methods Job.exec() and Job.localExec().
+ * [See docs](https://docs.dcp.dev/api/compute/classes/result-handle.html#resulthandle)
+ */
+export class ResultHandle {
+    /**
+     * The length of the array of available results.
+     */
+    length: number;
+
+    /**
+     * Returns an array of [input, output] pairs, in the order of the slice numbers.
+     * Each input is paired with its associated output produced from the slice it was used in.
+     * Return value is undefined if the input is not an ES5 primitive.
+     * @returns void
+     */
+    entries(): any[];
+
+    /**
+     * Returns an array of [input, output] pairs, in the order of the slice numbers.
+     * Each input is paired with its associated output produced from the slice it was used in.
+     * Return value is undefined if the input is not an ES5 primitive.
+     * @param rangeObject – Not implemented, leave as undefined - should be a RangeObject() to query results, however.
+     * @param emitEvents - If set to ‘all’, emits a results for each result as they’re added to the ResultHandle() object.
+     * @returns any[]
+     */
+    fetch(rangeObject: RangeObject,  emitEvents: string): any[];
+
+    /**
+     * Returns the nth input value in the input set.
+     * @param n – index of the desired input value in the input set.
+     * @returns any
+     */
+    key(n: number): any;
+
+    /**
+     * Returns an array of all input values that have a completed result available.
+     * @returns any[]
+     */
+    keys(): any[];
+
+    /**
+     * Returns an array of all input values that have a completed result available.
+     * @param key – Corresponds to a value in the job’s input set.
+     * @returns any
+     */
+    lookupValue(key: any): any;
+
+    /**
+     * Results an array of all results received from the scheduler.
+     * @returns any[]
+     */
+    values(): any[];
+}
+//#endregion
+//#region SuperRangeObject
+/**
+ * Defines a consistent interface for each of the range object types to inherit from, provides some array methods.
+ * [See docs](https://docs.dcp.dev/api/compute/classes/super-range-object.html#SuperRangeObject)
+ */
+export class SuperRangeObject {
+    /**
+     * Converts range to an Array and then calls filter(…args) on it.
+     * @returns any[]
+     */
+    filter(...args: any): any[];
+
+    /**
+     * See SuperRangeObject.slice()
+     * @param start – index to start slice
+     * @param end – index to end slice, return rest of array if not provided.
+     * @returns any[]
+     */
+    slice(start: number, end: number): any[];
+}
+//#endregion
+//#region Keystore
+export class Keystore {
+    id: number;
+}
+//#endregion
+//#region Address
+export interface Address {
+    account: string;
+}
+//#endregion
+//#region AuthKeystore
+export class AuthKeystore extends Keystore {}
+//#endregion
+//#region PaymentKeystore
+export class PaymentKeystore extends Keystore {
+    address: Address;
+}
+//#endregion
+//#region LoadResult
+export interface LoadResult {
+    keystore: Keystore;
+    safe: boolean | false;
+}
+//#endregion
+//#region LoadOptions
+export interface LoadOptions {
+    /**
+     * The keystore filename.
+     */
+    filename: string | undefined;
+
+    /**
+     * The keystore label or filename.
+     */
+    name: string | undefined;
+
+    /**
+     * Override paths.
+     */
+    dir: string | undefined;
+
+    /**
+     *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
+     */
+    paths?: string[] | LoadOptions["dir"];
+}
+//#endregion
+//#region AuthKeystoreOptions
+export interface AuthKeystoreOptions {
+    /**
+     * The keystore name.
+     */
+    name: string | 'default';
+
+    /**
+     * An optional, user-defined identifier used for caching keystores.
+     */
+    contextId?: string | undefined;
+
+    /**
+     *  An optional name for the job that they keystore is being requested for.
+     */
+    jobName?: string | undefined;
+
+    /**
+     * Try an empty password before prompting user. Defaults to true.
+     */
+    checkEmpty: boolean | true;
+}
+//#endregion
+//#region JobHandle
+export class JobHandle extends Job {}
+//#endregion
+//#region JobInfo
+export class JobInfo {
+    status: string;
+    jobInfo: object;
+}
+//#endregion
+//#region JobHistory
+export class JobHistory {
+    status: string;
+    history: object;
+}
+//#endregion
+//#region Ranges
+export interface Ranges {
+    ranges: [];
+}
+//#endregion
+//#region jobId
+export type jobId = number;
+//#endregion
+//#region PublicProperties
+export interface PublicProperties {
+    /**
+     * Public-facing name of the job.
+     */
+    name: string;
+
+    /**
+     * Public-facing description of the job.
+     */
+    description: string;
+
+    /**
+     * Public-facing link to an external resource about the job.
+     */
+    link: string;
+}
+//#endregion
+//#region WorkValueQuote
 export class WorkValueQuote {}
-
+//#endregion
+//#region SliceProfile
 export class SliceProfile {}
-
+//#endregion
+//#region WorkValue
 export class WorkValue {}
-
+//#endregion
+//#region Supervisor
 export class Supervisor {}
-
+//#endregion
+//#region SchedMsg
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#schedmsg-commands)
  */
@@ -225,7 +682,8 @@ export interface SchedMsg {
      */
     openPopup(href: string): void;
 }
-
+//#endregion
+//#region SandboxOptions
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=ignorenoprogress#new-worker-options-object)
  */
@@ -235,7 +693,8 @@ export class SandboxOptions {
      */
     ignoreNoProgress: boolean | false;
 }
-
+//#endregion
+//#region WorkerParams
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maximum%20number%20sandboxes%20can%20working%20one%20time#new-worker-options-object)
  */
@@ -271,7 +730,8 @@ export interface WorkerParams {
      */
     jobAddress?: string;
 }
-
+//#endregion
+//#region Sandbox
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=maxworkingsandboxes%20number#sandbox-api)
  */
@@ -293,7 +753,8 @@ export interface Sandbox {
      */
     on(event: 'sliceError' | 'sliceEnd' | 'terminate', listener: () => void): this;
 }
-
+//#endregion
+//#region PaymentParams
 /**
  * [See docs](https://docs.dcp.dev/specs/worker-api.html?highlight=string%20representation%20dcc%20value%20paid%20out#events)
  */
@@ -315,3 +776,4 @@ export interface PaymentParams {
      */
     paymentAddress: string;
 }
+//#endregion
