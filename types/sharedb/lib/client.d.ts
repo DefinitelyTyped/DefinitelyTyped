@@ -2,7 +2,7 @@
 import * as ShareDB from './sharedb';
 import Agent = require('./agent');
 
-export class Connection {
+export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap> {
     constructor(ws: ShareDB.Socket);
 
     // This direct reference from connection to agent is not used internal to
