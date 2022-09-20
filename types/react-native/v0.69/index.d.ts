@@ -528,7 +528,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * Duration to wait after hover out before calling `onHoverOut`.
      */
     delayHoverOut?: number | null | undefined;
- 
+
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
      */
