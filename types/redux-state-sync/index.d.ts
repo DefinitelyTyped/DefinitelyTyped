@@ -22,6 +22,7 @@ export interface Config {
     whitelist?: string[] | undefined;
     broadcastChannelOption?: BroadcastChannelOptions | undefined;
     prepareState?: ((state: any) => any) | undefined;
+    receiveState?: ((prevState: any, nextState: any) => any) | undefined;
 }
 
 export interface MessageListenerConfig {
