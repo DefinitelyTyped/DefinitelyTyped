@@ -10,5 +10,6 @@ L.marker([38.912753, -77.032194])
 
 const gl = L.mapboxGL({
     accessToken: token,
-    style: 'mapbox://styles/mapbox/bright-v8'
+    style: 'mapbox://styles/mapbox/bright-v8',
+    attribution: 'John Doe'
 }).addTo(map);
