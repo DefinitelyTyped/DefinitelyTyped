@@ -1,8 +1,6 @@
-import { Field } from './Field';
+import Field from './Field';
 
-export default function(action: object): Action;
-
-export interface Action {
+interface Action {
     name: string;
     href: string;
     class?: string[] | undefined;
@@ -27,4 +25,10 @@ export interface Action {
     getFieldsByType(fieldType: string | RegExp): Field[];
 }
 
-export { Field, FieldType } from './Field';
+declare var Action: {
+    prototype: Action;
+    new (action: object): Action;
+    (action: object): Action;
+};
+
+export default Action;

@@ -1,48 +1,59 @@
-import parseSiren from 'siren-parser';
+import SirenParse, { Action, Entity, Link } from 'siren-parser';
 import * as superagent from 'superagent';
 import * as sirenSuperagent from 'siren-parser/superagent';
 import * as chai from 'chai';
 import 'siren-parser/chai';
 
-parseSiren('{"class":["foo","bar"]}');
+SirenParse('{"class":["foo","bar"]}');
 
 const siren = {
     title: 'My title',
     class: ['outer'],
-    links: [{
-        rel: ['self', 'crazy'],
-        href: 'http://example.com'
-    }, {
-        rel: ['crazy'],
-        href: 'http://example2.com'
-    }],
-    actions: [{
-        name: 'fancy-action',
-        href: 'http://example.com',
-        title: 'A fancy action!',
-        method: 'GET',
-        fields: [{
-            name: 'max',
-            title: 'Maximum value'
-        }]
-    }],
-    entities: [{
-        class: ['inner', 'smaller'],
-        rel: ['child'],
-        links: [{
-            rel: ['self'],
-            href: 'http://example.com/child',
-            title: 'Child entity'
-        }]
-    }],
+    links: [
+        {
+            rel: ['self', 'crazy'],
+            href: 'http://example.com',
+        },
+        {
+            rel: ['crazy'],
+            href: 'http://example2.com',
+        },
+    ],
+    actions: [
+        {
+            name: 'fancy-action',
+            href: 'http://example.com',
+            title: 'A fancy action!',
+            method: 'GET',
+            fields: [
+                {
+                    name: 'max',
+                    title: 'Maximum value',
+                },
+            ],
+        },
+    ],
+    entities: [
+        {
+            class: ['inner', 'smaller'],
+            rel: ['child'],
+            links: [
+                {
+                    rel: ['self'],
+                    href: 'http://example.com/child',
+                    title: 'Child entity',
+                },
+            ],
+        },
+    ],
     properties: {
         one: 1,
         two: 2,
-        pi: 'is exactly three'
-    }
+        pi: 'is exactly three',
+    },
 };
 
-const entity = parseSiren(siren);
+const entity = SirenParse(siren);
 
 D2L.Hypermedia.Siren.Parse(siren);
 
@@ -52,8 +63,9 @@ chai.expect(entity).to.have.sirenLinks.with.classes('foo', 'bar');
 chai.expect(entity).to.have.sirenLinks.all.with.classes('foo', 'bar');
 chai.expect(entity).to.have.a.sirenEntity.with.a.sirenEntity.with.title('foo');
 
-sirenSuperagent.perform(superagent, entity.getAction('fancy-action')!)
-    .send({key: 'value'})
+sirenSuperagent
+    .perform(superagent, entity.getAction('fancy-action')!)
+    .send({ key: 'value' })
     .parse(sirenSuperagent.parse)
     .end((err, res) => {
         const resource = res.body;

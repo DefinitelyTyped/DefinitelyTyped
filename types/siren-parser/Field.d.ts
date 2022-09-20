@@ -1,6 +1,4 @@
-export default function(field: object): Field;
-
-export interface Field {
+interface Field {
     name: string;
     class?: string[] | undefined;
     type?: FieldType | undefined;
@@ -8,10 +6,16 @@ export interface Field {
     value?: any;
     min?: number | undefined;
     max?: number | undefined;
-
     hasClass(cls: string | RegExp): boolean;
 }
 
+declare var Field: {
+    prototype: Field;
+    new (field: object): Field;
+    (field: object): Field;
+};
+
+export default Field;
 export enum FieldType {
     Hidden = 'hidden',
     Text = 'text',
@@ -31,5 +35,5 @@ export enum FieldType {
     Color = 'color',
     Checkbox = 'checkbox',
     Radio = 'radio',
-    File = 'file'
+    File = 'file',
 }

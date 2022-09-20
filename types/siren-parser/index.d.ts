@@ -1,14 +1,12 @@
-// Type definitions for siren-parser 8.4
+// Type definitions for siren-parser 9.0
 // Project: https://github.com/Brightspace/node-siren-parser
 // Definitions by: Dillon Redding <https://github.com/dillonredding>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Link } from './Link';
-import { Action } from './Action';
+import Link from './Link';
+import Action from './Action';
 
-export default function(entity: string | object): Entity;
-
-export interface Entity {
+interface Entity {
     class?: string[] | undefined;
     properties?: object | undefined;
     entities?: Entity[] | undefined;
@@ -77,6 +75,12 @@ export interface Entity {
     getSubEntitiesByType(entityType: string | RegExp): Entity[];
 }
 
+declare var Entity: {
+    prototype: Entity;
+    new (entity: string | object): Entity;
+    (entity: string | object): Entity;
+};
+
 declare global {
     namespace D2L {
         namespace Hypermedia {
@@ -87,5 +91,5 @@ declare global {
     }
 }
 
-export { Link } from './Link';
-export { Action, Field, FieldType } from './Action';
+export default Entity;
+export { Entity, Action, Link };

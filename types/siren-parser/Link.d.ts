@@ -1,6 +1,4 @@
-export default function(link: object): Link;
-
-export interface Link {
+interface Link {
     rel: string[];
     class?: string[] | undefined;
     href: string;
@@ -9,3 +7,11 @@ export interface Link {
 
     hasClass(cls: string | RegExp): boolean;
 }
+
+declare var Link: {
+    prototype: Link;
+    new (link: object): Link;
+    (link: object): Link;
+};
+
+export default Link;
