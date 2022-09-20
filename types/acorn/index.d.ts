@@ -693,7 +693,7 @@ declare namespace acorn {
 
     const defaultOptions: Options;
 
-    const keywordTypes: Record<string, TokenType>
+    const keywordTypes: Record<string, TokenType>;
 
     function getLineInfo(input: string, offset: number): Position;
 
@@ -705,7 +705,7 @@ declare namespace acorn {
         constructor(p: Parser, start: Position, end: Position);
     }
 
-    const nonASCIIwhitespace: RegExp
+    const nonASCIIwhitespace: RegExp;
 
     class Node {
         type: AcornNodeTypeString | '';
