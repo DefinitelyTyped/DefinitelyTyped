@@ -789,7 +789,15 @@ eslintConfig = {
     rules: {
         'capitalized-comments': [2, 'always', { ignorePattern: 'const|let' }],
     },
+    overrides: [{
+        files: '*.json',
+        rules: {
+            'max-len': 0,
+        },
+    }],
 };
+
+eslintConfig.overrides?.[0].rules; // $ExpectType Partial<ESLintRules> | undefined
 
 //#endregion
 

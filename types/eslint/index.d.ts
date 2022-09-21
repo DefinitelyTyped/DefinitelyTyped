@@ -725,7 +725,7 @@ export namespace Linter {
         extends?: string | string[] | undefined;
         globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" } | undefined;
         noInlineConfig?: boolean | undefined;
-        overrides?: ConfigOverride[] | undefined;
+        overrides?: Array<ConfigOverride<Rules>> | undefined;
         parser?: string | undefined;
         parserOptions?: ParserOptions | undefined;
         plugins?: string[] | undefined;
