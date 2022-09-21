@@ -55,5 +55,5 @@ declare namespace Gantt {
 
     type viewModeKey = 'QUARTER_DAY' | 'HALF_DAY' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
 
-    const VIEW_MODE: Record<Gantt.viewModeKey, Gantt.viewMode>;
+    const VIEW_MODE: Record<viewModeKey, viewMode>;
 }
