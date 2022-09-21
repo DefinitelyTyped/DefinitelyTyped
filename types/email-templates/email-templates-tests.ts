@@ -135,12 +135,11 @@ const emailNoTemplate = new Email({
 emailNoTemplate.send();
 emailNoTemplate.send({});
 
-
 const emailPreviewOptions = new Email({
     preview: {
         openSimulator: false,
         urlTransform(path: string) {
-            return `file://${path}`
+            return `file://${path}`;
         }
     }
 });

@@ -73,7 +73,7 @@ declare namespace Email {
          * Defaults to (path) => 'file://[file path]'.
          * This is where you can customize the opened path to handle WSL to Windows transformation or build a http url if dir is served.
          */
-        urlTransform?: ((path: string) => string) | undefined
+        urlTransform?: ((path: string) => string) | undefined;
     }
 
      interface ViewOptions {
