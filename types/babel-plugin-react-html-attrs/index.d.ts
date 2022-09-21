@@ -2007,7 +2007,7 @@ declare namespace React {
     }
 
     interface BdoHTMLAttributes<T> extends HTMLAttributes<T> {
-        dir?: 'ltr' | 'rtl'
+        dir?: 'ltr' | 'rtl';
     }
 
     interface BlockquoteHTMLAttributes<T> extends HTMLAttributes<T> {
