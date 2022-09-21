@@ -41,6 +41,7 @@
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
 //                 Lorenzo Sciandra <https://github.com/kelset>
 //                 Mateusz Wit <https://github.com/MateWW>
+//                 Saad Najmi <https://github.com/saadnajmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -427,7 +428,17 @@ export interface NativeTouchEvent {
     force?: number | undefined;
 }
 
+export interface NativeMouseEvent {
+    clientX: number,
+    clientY: number,
+    pageX: number,
+    pageY: number,
+    timestamp: number,
+}
+
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
+
+export interface MouseEvent extends NativeSyntheticEvent<NativeMouseEvent> {}
 
 // See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointProp {
@@ -455,6 +466,16 @@ export interface PressableAndroidRippleConfig {
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
+     * Called when the hover is activated to provide visual feedback.
+     */
+    onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
+    onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
      * Called when a single tap gesture is detected.
      */
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -476,13 +497,13 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
 
     /**
      * Called after the element loses focus.
-     * @platform windows
+     * @platform macos windows
      */
     onBlur?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
     /**
      * Called after the element is focused.
-     * @platform windows
+     * @platform macos windows
      */
     onFocus?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
@@ -497,6 +518,16 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * scroll event. Defaults to true.
      */
     cancelable?: null | boolean | undefined;
+
+   /**
+    * Duration to wait after hover in before calling `onHoverIn`.
+    */
+    delayHoverIn?: number | null | undefined;
+
+    /**
+     * Duration to wait after hover out before calling `onHoverOut`.
+     */
+    delayHoverOut?: number | null | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
