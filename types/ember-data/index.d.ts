@@ -2214,21 +2214,6 @@ export namespace DS {
 
 export default DS;
 
-declare module '@ember/routing/route' {
-    export default interface Route {
-        store: DS.Store;
-    }
-}
-declare module '@ember/controller' {
-    export default interface Controller {
-        store: DS.Store;
-    }
-}
-declare module '@ember/debug/data-adapter' {
-    export default interface DataAdapter {
-        store: DS.Store;
-    }
-}
 declare module '@ember/service' {
     interface Registry {
         store: DS.Store;
