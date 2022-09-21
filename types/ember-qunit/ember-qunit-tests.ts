@@ -135,6 +135,16 @@ module('misc and async', function (hooks) {
 });
 // end tests ported from ember-test-helpers
 
+module('returning a promise', function () {
+    test('it can return Promise<void>', function (this: TestContext, assert) {
+        return Promise.resolve();
+    });
+
+    test('it can return a non-empty Promise', function (this: TestContext, assert) {
+        return Promise.resolve('foo');
+    });
+});
+
 // https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md#qunit-nested-modules-api
 QUnit.module('some description', function (hooks) {
     hooks.before(() => {});
