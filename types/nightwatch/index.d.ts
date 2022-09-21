@@ -3996,7 +3996,7 @@ export interface ElementCommands {
     /**
      * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
      *
-     * <div class="alert alert-warning"><strong>setValue</strong> does not clear the existing value of the element. To do so, use the <strong>clearValue()</strong> command.</div>
+     * From Nightwatch v2, **setValue** also clears the existing value of the element by calling the **clearValue()** beforehand.
      *
      * An object map with available keys and their respective UTF-8 characters, as defined on [W3C WebDriver draft spec](https://www.w3.org/TR/webdriver/#character-types),
      * is loaded onto the main Nightwatch instance as `browser.Keys`.
@@ -4012,7 +4012,7 @@ export interface ElementCommands {
      *   browser.setValue('input[type=text]', ['nightwatch', browser.Keys.ENTER]);
      * };
      *
-     * @see elementIdValue
+     * @see https://nightwatchjs.org/api/setValue.html
      */
     setValue(
         selector: Definition,
@@ -4025,12 +4025,12 @@ export interface ElementCommands {
         inputValue: string | string[],
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
+
     /**
-     * Alias for `setValue`.
+     * Types a key sequence on the DOM element. Can be used to send a sequence of key strokes to an element.
+     * Any UTF-8 character may be specified.
      *
-     * Types a key sequence on the DOM element.
-     *  Can be used to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
-     *
+     * **sendKeys** does not clear the existing value of the element. To do so, use **setValue()** instead.
      *
      * An object map with available keys and their respective UTF-8 characters,
      * as defined on [W3C WebDriver draft spec](https://www.w3.org/TR/webdriver/#character-types),
@@ -4049,7 +4049,17 @@ export interface ElementCommands {
      *
      * @see https://nightwatchjs.org/api/sendKeys.html
      */
-    sendKeys: SharedCommands['setValue'];
+    sendKeys(
+        selector: Definition,
+        inputValue: string | string[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    sendKeys(
+        using: LocateStrategy,
+        selector: Definition,
+        inputValue: string | string[],
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Submit a FORM element. The submit command may also be applied to any element that is a descendant of a FORM element. Uses `submit` protocol command.
