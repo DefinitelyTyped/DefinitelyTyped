@@ -23,7 +23,7 @@ declare namespace cytoscapeEuler {
          *
          * @default 80
          */
-        springLength?: (_edge: never) => number;
+        springLength?: (_edge: cytoscape.EdgeSingular) => number;
 
         /**
          * Hooke's law coefficient
@@ -32,14 +32,14 @@ declare namespace cytoscapeEuler {
          * - Higher values give tighter springs
          * @default 0.0008
          */
-        springCoeff?: (_edge: never) => number;
+        springCoeff?: (_edge: cytoscape.EdgeSingular) => number;
 
         /**
          * The mass of the node in the physics simulation
          * - The mass affects the gravity node repulsion/attraction
          * @default 4
          */
-        mass?: (_node: never) => number;
+        mass?: (_node: cytoscape.NodeSingular) => number;
 
         /**
          * Coulomb's law coefficient
