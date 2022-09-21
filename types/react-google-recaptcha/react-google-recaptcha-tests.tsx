@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReCAPTCHA, { ReCAPTCHA as ReCAPTCHA2 } from 'react-google-recaptcha';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const handleRef = (ref: ReCAPTCHA | null): void => { return; };
 
@@ -10,9 +10,9 @@ const invisibleRecaptcha: React.FC = () => {
     return <ReCAPTCHA ref={recaptchaRef} sitekey="xxx" size="invisible" asyncScriptOnLoad={() => { }} className="mockclass" />;
 };
 
-const basicRecapchta2 = <ReCAPTCHA2 ref={handleRef} sitekey="xxx" onChange={a => a} className="mockclass" />;
+const basicRecapchta2 = <ReCAPTCHA ref={handleRef} sitekey="xxx" onChange={a => a} className="mockclass" />;
 const invisibleRecaptcha2: React.FC = () => {
-    const recaptchaRef = React.createRef<ReCAPTCHA2>();
+    const recaptchaRef = React.createRef<ReCAPTCHA>();
 
     const handleOnSubmit = async () => {
         if (recaptchaRef.current) {
@@ -20,5 +20,5 @@ const invisibleRecaptcha2: React.FC = () => {
         }
     };
 
-    return <ReCAPTCHA2 ref={recaptchaRef} sitekey="xxx" size="invisible" grecaptcha={{}} className="mockclass" />;
+    return <ReCAPTCHA ref={recaptchaRef} sitekey="xxx" size="invisible" grecaptcha={{}} className="mockclass" />;
 };
