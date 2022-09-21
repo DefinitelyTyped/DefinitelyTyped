@@ -1,4 +1,12 @@
-import { Tabulator, Renderer, Module, DataTreeModule, TabulatorFull, TooltipModule } from 'tabulator-tables';
+import {
+    Tabulator,
+    Renderer,
+    Module,
+    DataTreeModule,
+    TabulatorFull,
+    TooltipModule,
+    TabulatorOptions,
+} from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
 // tslint:disable:whitespace
@@ -338,10 +346,10 @@ colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
 
 colDef.tooltip = (event: MouseEvent, cell: Tabulator.CellComponent, onRendered: (callback: () => void) => void) => {
     onRendered(() => {
-      console.log('rendering occured');
+        console.log('rendering occured');
     });
     return cell.getValue();
-  };
+};
 
 // Cell Component
 
@@ -361,7 +369,7 @@ row.delete()
     });
 
 // Options
-let options = <Tabulator.Options>{};
+let options = <TabulatorOptions>{};
 options.keybindings = {
     navPrev: 'ctrl + 1',
     navNext: false,
@@ -1059,9 +1067,85 @@ table = new Tabulator('#test', {
     // test editor of type 'list' supported.
     columns: [
         {
-            field: "test_editor",
-            title: "Test Editor",
-            editor: "list"
-        }
-    ]
+            field: 'test_editor',
+            title: 'Test Editor',
+            editor: 'list',
+        },
+    ],
+});
+
+// 5.3
+options = {
+    debugInvalidComponentFunc: false,
+    debugDeprecation: false,
+};
+
+table = new Tabulator('#test', {
+    columns: [
+        {
+            field: 'test_editor',
+            title: 'Date Editor',
+            editor: 'date',
+            editorParams: {
+                min: '01/01/2020', // the minimum allowed value for the date picker
+                max: '02/12/2022', // the maximum allowed value for the date picker
+                format: 'dd/MM/yyyy', // the format of the date value stored in the cell
+                elementAttributes: {
+                    title: 'slide bar to choose option', // custom tooltip
+                },
+            },
+        },
+        {
+            field: 'test_editor',
+            title: 'Time Editor',
+            editor: 'time',
+            editorParams: {
+                format: 'dd/MM/yyyy',
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            download: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in download
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            clipboard: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in clipboard data
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            print: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in clipboard data
+            },
+        },
+        {
+            title: 'id',
+            field: 'id',
+            htmlOutput: _column => {
+                // column - column component for current column
+
+                return true; // make column visible in clipboard data
+            },
+        },
+    ],
+    downloadEncoder: (fileContents, mimeType) => {
+        // fileContents - the unencoded contents of the file
+        // mimeType - the suggested mime type for the output
+
+        // custom action to send blob to server could be included here
+
+        return new Blob([fileContents], { type: mimeType }); // must return a blob to proceed with the download, return false to abort download
+    },
 });

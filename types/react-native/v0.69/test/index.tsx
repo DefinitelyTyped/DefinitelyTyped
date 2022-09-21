@@ -1295,6 +1295,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
+                accessibilityLanguage="sv-SE"
             >
                 <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
@@ -1302,6 +1303,13 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityLabelledByTest = () => (
+    <>
+        <View accessibilityLabelledBy="nativeID1"></View>
+        <View accessibilityLabelledBy={["nativeID2", "nativeID3"]}></View>
+    </>
+)
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),

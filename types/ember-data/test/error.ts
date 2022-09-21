@@ -1,3 +1,4 @@
+import { service } from '@ember/service';
 import Ember from 'ember';
 import DS from 'ember-data';
 import { assertType } from './lib/assert';
@@ -74,6 +75,8 @@ assertType<typeof AdapterError>(ForbiddenError);
 const { NotFoundError } = DS;
 assertType<typeof AdapterError>(NotFoundError);
 const notFound = Ember.Route.extend({
+    store: service('store'),
+
     model(params: { post_id: string }): any {
         return this.get('store').findRecord('post', params.post_id);
     },

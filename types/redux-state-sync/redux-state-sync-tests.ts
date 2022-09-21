@@ -18,6 +18,7 @@ const middleware = createStateSyncMiddleware({
     whitelist: [],
     broadcastChannelOption: {},
     prepareState: (state) => state,
+    receiveState: (prevState, nextState) => nextState,
 });
 
 // @ts-expect-error

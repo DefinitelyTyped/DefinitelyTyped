@@ -57,6 +57,7 @@ import {
     LogBox,
     MaskedViewIOS,
     Modal,
+    MouseEvent,
     NativeEventEmitter,
     NativeModule, // Not actually exported, not sure why
     NativeModules,
@@ -438,6 +439,12 @@ export class PressableTest extends React.Component<{}> {
         e.isDefaultPrevented();
     };
 
+    onHoverButton = (e: MouseEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    };
+
     render() {
         return (
             <>
@@ -487,6 +494,12 @@ export class PressableTest extends React.Component<{}> {
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
                 >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* onHoverIn */}
+                <Pressable ref={this.myRef} onHoverIn={this.onHoverButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -1295,6 +1308,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
+                accessibilityLanguage="sv-SE"
             >
                 <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
@@ -1302,6 +1316,13 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityLabelledByTest = () => (
+    <>
+        <View accessibilityLabelledBy="nativeID1"></View>
+        <View accessibilityLabelledBy={["nativeID2", "nativeID3"]}></View>
+    </>
+)
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
