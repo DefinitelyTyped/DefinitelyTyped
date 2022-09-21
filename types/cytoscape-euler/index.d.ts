@@ -7,6 +7,7 @@ import cytoscape = require('cytoscape');
 
 declare const cytoscapeEuler: cytoscape.Ext;
 export = cytoscapeEuler;
+export as namespace cytoscapeEuler;
 
 declare namespace cytoscapeEuler {
     /**
