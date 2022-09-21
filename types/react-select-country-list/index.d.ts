@@ -18,6 +18,10 @@ declare namespace ReactSelectCountries {
         labelMap: LabelValueMap;
         valueMap: LabelValueMap;
     }
+
+    interface NativeCountries extends Countries {
+        nativeData: CountryData[];
+    }
 }
 
 declare class CountryList {
@@ -34,7 +38,7 @@ declare class CountryList {
     getData(): ReactSelectCountries.CountryData[];
     setLabel(value: string, label: string): ReactSelectCountries.Countries;
     setEmpty(label: string): ReactSelectCountries.Countries;
-    native(): ReactSelectCountries.Countries;
+    native(): ReactSelectCountries.NativeCountries;
 }
 
 declare function countryList(): CountryList;
