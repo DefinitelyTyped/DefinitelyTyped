@@ -5246,25 +5246,25 @@ declare namespace cytoscape {
         name: 'concentric';
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
-        startAngle: number;
+        startAngle?: number;
         // how many radians should be between the first and last node (defaults to full circle)
         sweep?: number | undefined;
         // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
         clockwise?: boolean | undefined;
 
         // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-        equidistant: boolean;
-        minNodeSpacing: number; // min spacing between outside of nodes (used for radius adjustment)
+        equidistant?: boolean;
+        minNodeSpacing?: number; // min spacing between outside of nodes (used for radius adjustment)
         // height of layout area (overrides container height)
-        height: undefined;
+        height?: number;
         // width of layout area (overrides container width)
-        width: undefined;
+        width?: number;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
-        spacingFactor: undefined;
+        spacingFactor?: number;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric(node: { degree(): number }): number;
+        concentric?(node: { degree(): number }): number;
         // the variation of concentric values in each level
-        levelWidth(node: { maxDegree(): number }): number;
+        levelWidth?(node: { maxDegree(): number }): number;
     }
 
     /**

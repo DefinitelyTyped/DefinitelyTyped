@@ -8,6 +8,7 @@ import {
     BreadthFirstLayoutOptions,
     CircleLayoutOptions,
     GridLayoutOptions,
+    ConcentricLayoutOptions,
 } from 'cytoscape';
 
 const assert = (tag: boolean) => {};
@@ -935,3 +936,38 @@ const gridAllOptions: GridLayoutOptions = {
     },
 };
 cy.layout(gridAllOptions);
+
+const concentricNoOptions: ConcentricLayoutOptions = {
+    name: 'concentric',
+};
+cy.layout(concentricNoOptions);
+
+const concentricAllOptions: ConcentricLayoutOptions = {
+    name: 'concentric',
+
+    fit: false,
+    padding: 300,
+    startAngle: (1 / 2) * Math.PI,
+    sweep: Math.PI,
+    clockwise: false,
+    equidistant: true,
+    minNodeSpacing: 5,
+    boundingBox: { x1: 0, y1: 1, x2: 2, y2: 3 },
+    avoidOverlap: false,
+    nodeDimensionsIncludeLabels: true,
+    height: 5,
+    width: 3,
+    spacingFactor: 7,
+    concentric: _node => 6,
+    levelWidth: _nodes => 5,
+    animate: true,
+    animationDuration: 50,
+    animationEasing: 'ease-out',
+    animateFilter: (node, i) => false,
+    ready: () => {},
+    stop: () => {},
+    transform: (node, position) => {
+        return position;
+    },
+};
+cy.layout(concentricAllOptions);
