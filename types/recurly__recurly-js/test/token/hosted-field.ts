@@ -13,10 +13,10 @@ export default function hostedFieldToken() {
     });
   }
 
-  // @ts-expect-error
+  // $ExpectError
   window.recurly.token(document.querySelector('div'), () => {});
 
-  // @ts-expect-error
+  // $ExpectError
   window.recurly.token((err, token) => {
     if (err) {
       err.message;

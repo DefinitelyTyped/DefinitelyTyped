@@ -8,15 +8,15 @@ export default function applePay() {
   });
 
   applePay.ready(() => {});
-  // @ts-expect-error
+  // $ExpectError
   applePay.ready(arg => {});
 
   applePay.begin(() => {});
-  // @ts-expect-error
+  // $ExpectError
   applePay.begin(arg => {});
 
   applePay.on('error', () => {});
   applePay.on('token', () => {});
-  // @ts-expect-error
+  // $ExpectError
   applePay.on('fake-event', () => {});
 }
