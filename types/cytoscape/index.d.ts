@@ -922,7 +922,7 @@ declare namespace cytoscape {
          * @param options.zoom The zoom level to set.
          * @param options.pan The pan to set (a rendered position).
          */
-        viewport(options: {zoom: number, pan: Position}): this;
+        viewport(options: { zoom: number; pan: Position }): this;
 
         /**
          * Get whether box selection is enabled.
@@ -4278,7 +4278,9 @@ declare namespace cytoscape {
              *  * `rightward`: Bundle outgoers righwards.
              *  * `leftward`: Bundle outgoers leftwards.
              */
-            'taxi-direction': PropertyValueEdge<'auto' | 'vertical' | 'downward' | 'upward' | 'horizontal' | 'rightward' | 'leftward'>;
+            'taxi-direction': PropertyValueEdge<
+                'auto' | 'vertical' | 'downward' | 'upward' | 'horizontal' | 'rightward' | 'leftward'
+            >;
             /**
              * The distance along the primary axis where the first turn is applied.
              *  * This value may be an absolute distance (e.g. `'20px'`) or it may be a relative distance
@@ -4521,7 +4523,7 @@ declare namespace cytoscape {
              * and no whitespace exists. Using anywhere with text in the Latin alphabet,
              * for example, will split words at arbitrary locations.
              */
-            'text-overflow-wrap': PropertyValue<SingularType, "whitespace" | "anywhere">;
+            'text-overflow-wrap': PropertyValue<SingularType, 'whitespace' | 'anywhere'>;
             /**
              * The justification of multiline (wrapped) labels; may be
              * `left`, `center`, `right`, or `auto` (default). The auto value makes it so that a
@@ -5147,11 +5149,11 @@ declare namespace cytoscape {
     interface RandomLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         name: 'random';
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // fit padding
         padding?: number | undefined;
         // constrain layout bounds
-        boundingBox: undefined | BoundingBox12 | BoundingBoxWH;
+        boundingBox?: undefined | BoundingBox12 | BoundingBoxWH;
     }
 
     /**
@@ -5184,7 +5186,7 @@ declare namespace cytoscape {
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // padding used on fit
         padding?: number | undefined;
         // constrain layout bounds
@@ -5194,7 +5196,7 @@ declare namespace cytoscape {
         avoidOverlap?: boolean | undefined;
 
         // Excludes the label when calculating node bounding boxes for the layout algorithm
-        nodeDimensionsIncludeLabels: boolean;
+        nodeDimensionsIncludeLabels?: boolean;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor?: number | undefined;
 
@@ -5271,13 +5273,19 @@ declare namespace cytoscape {
         name: 'breadthfirst';
 
         // whether the tree is directed downwards (or edges can point in any direction if false)
-        directed: boolean;
+        directed?: boolean;
         // put depths in concentric circles if true, put depths top down if false
-        circle: boolean;
+        circle?: boolean;
         // the roots of the trees
         roots?: string[] | undefined;
-        // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
-        maximalAdjustments: number;
+        // Deprecated: how many times to try to position the nodes in a maximal way (i.e. no backtracking)
+        maximalAdjustments?: number;
+        // whether to shift nodes down their natural BFS depths in order to avoid upwards edges (DAGS only)
+        maximal?: boolean;
+        // whether to create an even grid into which the DAG is placed (circle:false only)
+        grid?: boolean;
+        // a sorting function to order nodes at equal depth. e.g. function(a, b){ return a.data('weight') - b.data('weight') }
+        depthSort?: (a: NodeSingular, b: NodeSingular) => number;
     }
 
     /**

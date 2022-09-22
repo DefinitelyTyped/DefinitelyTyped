@@ -2,7 +2,7 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-import { EdgeSingular, NodeSingular } from 'cytoscape';
+import { EdgeSingular, NodeSingular, BreadthFirstLayoutOptions } from 'cytoscape';
 
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
@@ -58,7 +58,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             'background-clip': 'none',
             'background-width-relative-to': 'inner',
             'background-height-relative-to': 'inner',
-            'bounds-expansion': [1, '5em']
+            'bounds-expansion': [1, '5em'],
         },
     },
     {
@@ -75,7 +75,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             'target-endpoint': 'outside-to-node',
             'line-opacity': 0.5,
             'taxi-turn': '20deg',
-            'taxi-turn-min-distance': '7px'
+            'taxi-turn-min-distance': '7px',
         },
     },
     {
@@ -169,7 +169,7 @@ const cy = cytoscape({
         },
         transform: (node, position) => {
             return position;
-        }
+        },
     },
 
     // additional custom graph data:
@@ -261,7 +261,7 @@ const positions = oneOf(
 );
 
 // #core/viewport
-cy.viewport({ zoom: 1.2, pan: { x: 0, y: 1}});
+cy.viewport({ zoom: 1.2, pan: { x: 0, y: 1 } });
 
 // TODO: uncomment after we have the way to add layout options properties from extensions
 // const layouts = [
@@ -820,17 +820,52 @@ cy.elements().bfs({
 // Check extension registration: https://js.cytoscape.org/#extensions/registration
 
 // $ExpectType void
-cytoscape("core", "prop", () => {});
+cytoscape('core', 'prop', () => {});
 // $ExpectType unknown
-cytoscape("core", "name");
+cytoscape('core', 'name');
 
-const myExt: cytoscape.Ext = (cy) => {
+const myExt: cytoscape.Ext = cy => {
     // $ExpectType void
-    cy("core", "prop", () => {});
+    cy('core', 'prop', () => {});
     // $ExpectType unknown
-    cy("core", "prop");
+    cy('core', 'prop');
 };
 
 // Test CollectionEvents
-collSel.emit('myEvt', ['string', 1, {a: 1, b: true}]);
-collSel.trigger('myEvt', ['string', 1, {a: 1, b: true}]);
+collSel.emit('myEvt', ['string', 1, { a: 1, b: true }]);
+collSel.trigger('myEvt', ['string', 1, { a: 1, b: true }]);
+
+const bfNoOptions: BreadthFirstLayoutOptions = {
+    name: 'breadthfirst',
+};
+cy.layout(bfNoOptions);
+
+const bfAllOptions: BreadthFirstLayoutOptions = {
+    name: 'breadthfirst',
+    fit: false,
+    directed: true,
+    padding: 60,
+    circle: true,
+    grid: true,
+    spacingFactor: 1.0,
+    boundingBox: { x1: 12, y1: 12, w: 200, h: 300 },
+    avoidOverlap: false,
+    nodeDimensionsIncludeLabels: true,
+    roots: [],
+    maximal: true,
+    depthSort: (a, b) => {
+        return 0;
+    },
+    animate: true,
+    animationDuration: 1000,
+    animationEasing: 'ease',
+    animateFilter: (node, i) => {
+        return false;
+    },
+    ready: () => {},
+    stop: () => {},
+    transform: (node, position) => {
+        return position;
+    },
+};
+cy.layout(bfNoOptions);
