@@ -1,4 +1,4 @@
-interface AvueFormColumn<T = any> {
+interface AvueFormColumn<T = any, K = keyof T> {
     /** 表单项类型 */
     type?: string;
     /** 字段位置排序，数字越大位置越靠前 */
@@ -30,7 +30,7 @@ interface AvueFormColumn<T = any> {
     /** 辅助语 */
     placeholder?: string;
     /** 列字段(唯一不重复) */
-    prop?: string;
+    prop?: K;
     /** 深结构数据绑定取值 */
     bind?: string;
     /** 只读 */
