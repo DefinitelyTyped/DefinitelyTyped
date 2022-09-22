@@ -61,6 +61,19 @@ declare namespace Email {
          * a file path to a pug template file (defaults to preview-email's template.pug by default)
          */
         template?: string | undefined;
+
+        /**
+         * Whether or not to open the iOS Simulator with the preview url file path.
+         * Defaults to true via process.env.NODE_ENV !== 'test' and will only run if macOS detected and not in a CI environment.
+         */
+        openSimulator?: boolean | undefined;
+
+        /**
+         * A function to build preview url from file path.
+         * Defaults to (path) => 'file://[file path]'.
+         * This is where you can customize the opened path to handle WSL to Windows transformation or build a http url if dir is served.
+         */
+        urlTransform?: ((path: string) => string) | undefined;
     }
 
      interface ViewOptions {

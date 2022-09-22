@@ -129,4 +129,7 @@ declare module '.' {
     export type Usable<T> = Thenable<T> | Context<T>;
 
     export function experimental_use<T>(usable: Usable<T>): T;
+
+    // tslint:disable-next-line ban-types
+    export function experimental_useEvent<T extends Function>(event: T): T;
 }
