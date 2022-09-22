@@ -9,6 +9,7 @@
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Fredrik Sandström <https://github.com/Veckodag>
 //                  Johan Svensson <https://github.com/jsve>
+//                  Roger Dubbs <https://github.com/rogerdubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
