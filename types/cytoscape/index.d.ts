@@ -5214,13 +5214,13 @@ declare namespace cytoscape {
         avoidOverlapPadding?: number | undefined;
 
         // uses all available space on false, uses minimal space on true
-        condense: boolean;
+        condense?: boolean;
         // force num of rows in the grid
         rows?: number | undefined;
         // force num of columns in the grid
         cols?: number | undefined;
         // returns { row, col } for element
-        position(node: NodeSingular): { row: number; col: number };
+        position?(node: NodeSingular): { row: number; col: number };
     }
 
     /**

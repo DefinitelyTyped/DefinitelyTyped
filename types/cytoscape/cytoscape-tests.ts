@@ -2,7 +2,13 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-import { EdgeSingular, NodeSingular, BreadthFirstLayoutOptions, CircleLayoutOptions } from 'cytoscape';
+import {
+    EdgeSingular,
+    NodeSingular,
+    BreadthFirstLayoutOptions,
+    CircleLayoutOptions,
+    GridLayoutOptions,
+} from 'cytoscape';
 
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
@@ -896,3 +902,36 @@ const circleAllOptions: CircleLayoutOptions = {
     stop: () => {},
 };
 cy.layout(circleAllOptions);
+
+const gridNoOptions: GridLayoutOptions = {
+    name: 'grid',
+};
+cy.layout(gridNoOptions);
+
+const gridAllOptions: GridLayoutOptions = {
+    name: 'grid',
+    fit: false,
+    padding: 0,
+    boundingBox: { x1: 12, y1: 120, w: 240, h: 680 },
+    avoidOverlap: false,
+    avoidOverlapPadding: 5,
+    nodeDimensionsIncludeLabels: true,
+    spacingFactor: 2,
+    condense: true,
+    rows: 12,
+    cols: 6,
+    position: node => {
+        return { row: 3, col: 2 };
+    },
+    sort: (a, b) => 1,
+    animate: true,
+    animationDuration: 150,
+    animationEasing: 'ease-in-sine',
+    animateFilter: (node, i) => false,
+    ready: () => {},
+    stop: () => {},
+    transform: (node, position) => {
+        return { y: position.x, x: position.y };
+    },
+};
+cy.layout(gridAllOptions);
