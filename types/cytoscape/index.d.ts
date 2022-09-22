@@ -5232,7 +5232,7 @@ declare namespace cytoscape {
         radius?: number | undefined;
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
-        startAngle: number;
+        startAngle?: number;
         // how many radians should be between the first and last node (defaults to full circle)
         sweep?: number | undefined;
         // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)

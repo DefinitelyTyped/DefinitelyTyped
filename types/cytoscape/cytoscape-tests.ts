@@ -2,7 +2,7 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-import { EdgeSingular, NodeSingular, BreadthFirstLayoutOptions } from 'cytoscape';
+import { EdgeSingular, NodeSingular, BreadthFirstLayoutOptions, CircleLayoutOptions } from 'cytoscape';
 
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
@@ -868,4 +868,31 @@ const bfAllOptions: BreadthFirstLayoutOptions = {
         return position;
     },
 };
-cy.layout(bfNoOptions);
+cy.layout(bfAllOptions);
+
+const circleNoOptions: CircleLayoutOptions = {
+    name: 'circle',
+};
+cy.layout(circleNoOptions);
+
+const circleAllOptions: CircleLayoutOptions = {
+    name: 'circle',
+    fit: false,
+    padding: 45,
+    boundingBox: { x1: -5, y1: -40, x2: 25, y2: 67 },
+    avoidOverlap: false,
+    nodeDimensionsIncludeLabels: true,
+    spacingFactor: 12,
+    radius: 57,
+    startAngle: 0,
+    sweep: Math.PI,
+    clockwise: false,
+    sort: (x, y) => 0,
+    animate: true,
+    animationDuration: 750,
+    animationEasing: 'ease',
+    animateFilter: (n, i) => false,
+    ready: () => {},
+    stop: () => {},
+};
+cy.layout(circleAllOptions);
