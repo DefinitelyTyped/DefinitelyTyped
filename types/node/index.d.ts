@@ -67,7 +67,7 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support NodeJS and TypeScript 3.7+.
+// NOTE: These definitions support NodeJS and TypeScript 4.9+.
 
 // Reference required types from the default lib:
 /// <reference lib="es2020" />
