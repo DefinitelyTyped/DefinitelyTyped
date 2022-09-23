@@ -6,7 +6,7 @@
 // TypeScript Version: 3.0
 
 import * as React from 'react';
-import { ConsistentWith, Omit, PropInjector } from '@material-ui/types';
+import { PropInjector } from '@material-ui/types';
 import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from 'react-swipeable-views';
 
 export interface WithIndex {
