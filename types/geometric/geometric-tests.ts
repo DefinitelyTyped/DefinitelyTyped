@@ -43,3 +43,4 @@ const t33: Polygon = geometric.polygonRotate(polygon, 45, point);
 const t34: Polygon = geometric.polygonScale(polygon, .5);
 const t35: Polygon = geometric.polygonScale(polygon, .5, point);
 const t36: Polygon = geometric.polygonTranslate(polygon, 45, 100);
+const t37: Line = geometric.lineRotate(line, 1);

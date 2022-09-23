@@ -63,6 +63,12 @@ export as namespace geometric;
      */
     export function lineMidpoint(line: Line): Point;
 
+    /**
+     * Returns the vertices resulting from rotating a line about an origin by an angle in degrees. If origin is not
+     * specified, the origin defaults to [0, 0].
+     */
+    export function lineRotate(line: Line, angle: number, origin?: Point): Line;
+
 // -------------------------------POLYGONS-------------------------------------------//
 
     /**
