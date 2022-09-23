@@ -15,9 +15,13 @@ declare namespace preconditions {
         (req: Request): Promise<ResourceState>;
     }
 
+    interface ErrorCallback {
+        (statusCode: number, message: string, req: Request, res: Response): void;
+    }
+
     interface Options {
         stateAsync?: StateProvider;
-        error?(statusCode: number, message: string, req: Request, res: Response): void;
+        error?: ErrorCallback;
         requiredWith?: string[];
     }
 }
