@@ -15,6 +15,4 @@ export class TextureLoader extends Loader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): Texture;
-
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Texture>;
 }
