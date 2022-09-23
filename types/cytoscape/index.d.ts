@@ -5297,35 +5297,39 @@ declare namespace cytoscape {
 
         // Number of iterations between consecutive screen positions update
         // (0 -> only updated on the end)
-        refresh: number;
+        refresh?: number;
         // Randomize the initial positions of the nodes (true) or use existing positions (false)
-        randomize: boolean;
+        randomize?: boolean;
         // Extra spacing between components in non-compound graphs
-        componentSpacing: number;
+        componentSpacing?: number;
         // Node repulsion (non overlapping) multiplier
-        nodeRepulsion(node: any): number;
+        nodeRepulsion?(node: any): number;
 
         // Node repulsion (overlapping) multiplier
-        nodeOverlap: number;
+        nodeOverlap?: number;
         // Ideal edge (non nested) length
-        idealEdgeLength(edge: any): number;
+        idealEdgeLength?(edge: any): number;
         // Divisor to compute edge forces
-        edgeElasticity(edge: any): number;
+        edgeElasticity?(edge: any): number;
 
         // Nesting factor (multiplier) to compute ideal edge length for nested edges
-        nestingFactor: number;
+        nestingFactor?: number;
         // Gravity force (constant)
-        gravity: number;
+        gravity?: number;
         // Maximum number of iterations to perform
-        numIter: number;
+        numIter?: number;
         // Initial temperature (maximum node displacement)
-        initialTemp: number;
+        initialTemp?: number;
         // Cooling factor (how the temperature is reduced between consecutive iterations
-        coolingFactor: number;
+        coolingFactor?: number;
         // Lower temperature threshold (below this point the layout will end)
-        minTemp: number;
-        // Pass a reference to weaver to use threads for calculations
-        weaver: boolean;
+        minTemp?: number;
+        // Deprecated: Pass a reference to weaver to use threads for calculations
+        weaver?: boolean;
+
+        // The layout animates only after this many milliseconds for animate:true
+        // (prevents flashing on fast runs)
+        animationThreshold?: number;
     }
 
     /**

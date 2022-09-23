@@ -9,6 +9,7 @@ import {
     CircleLayoutOptions,
     GridLayoutOptions,
     ConcentricLayoutOptions,
+    CoseLayoutOptions,
 } from 'cytoscape';
 
 const assert = (tag: boolean) => {};
@@ -971,3 +972,37 @@ const concentricAllOptions: ConcentricLayoutOptions = {
     },
 };
 cy.layout(concentricAllOptions);
+
+const coseNoOptions: CoseLayoutOptions = {
+    name: 'cose',
+};
+cy.layout(coseNoOptions);
+
+const coseAllOptions: CoseLayoutOptions = {
+    name: 'cose',
+    ready: () => {},
+    stop: () => {},
+    animate: false,
+    animationEasing: 'ease-out',
+    animationDuration: undefined,
+    animateFilter: (node, i) => false,
+    animationThreshold: 125,
+    refresh: 30,
+    fit: false,
+    padding: 12,
+    boundingBox: { x1: 9, y1: 23, w: 42, h: 3000 },
+    nodeDimensionsIncludeLabels: true,
+    randomize: true,
+    componentSpacing: 57,
+    nodeRepulsion: node => 32,
+    nodeOverlap: 4,
+    idealEdgeLength: edge => 75,
+    edgeElasticity: edge => 111,
+    nestingFactor: 3.8,
+    gravity: 9.8,
+    numIter: 12000,
+    initialTemp: 5000,
+    coolingFactor: 0.98,
+    minTemp: 10.0,
+};
+cy.layout(coseAllOptions);
