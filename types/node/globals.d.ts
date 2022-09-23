@@ -73,6 +73,7 @@ declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
     // TODO: Add abort() static
+    timeout(milliseconds: number): AbortSignal;
 };
 //#endregion borrowed
 
