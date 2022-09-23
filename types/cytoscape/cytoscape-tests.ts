@@ -10,6 +10,9 @@ import {
     GridLayoutOptions,
     ConcentricLayoutOptions,
     CoseLayoutOptions,
+    NullLayoutOptions,
+    RandomLayoutOptions,
+    PresetLayoutOptions,
 } from 'cytoscape';
 
 const assert = (tag: boolean) => {};
@@ -843,11 +846,49 @@ const myExt: cytoscape.Ext = cy => {
 collSel.emit('myEvt', ['string', 1, { a: 1, b: true }]);
 collSel.trigger('myEvt', ['string', 1, { a: 1, b: true }]);
 
+// None of the LayoutOptions should require anything besides the name property.
+
+const nullNoOptions: NullLayoutOptions = {
+    name: 'null',
+};
+cy.layout(nullNoOptions);
+
+const randomNoOptions: RandomLayoutOptions = {
+    name: 'random',
+};
+cy.layout(randomNoOptions);
+
+const presetNoOptions: PresetLayoutOptions = {
+    name: 'preset',
+};
+cy.layout(presetNoOptions);
+
+const gridNoOptions: GridLayoutOptions = {
+    name: 'grid',
+};
+cy.layout(gridNoOptions);
+
+const circleNoOptions: CircleLayoutOptions = {
+    name: 'circle',
+};
+cy.layout(circleNoOptions);
+
+const concentricNoOptions: ConcentricLayoutOptions = {
+    name: 'concentric',
+};
+cy.layout(concentricNoOptions);
+
 const bfNoOptions: BreadthFirstLayoutOptions = {
     name: 'breadthfirst',
 };
 cy.layout(bfNoOptions);
 
+const coseNoOptions: CoseLayoutOptions = {
+    name: 'cose',
+};
+cy.layout(coseNoOptions);
+
+// Tests for particular options that had problems.
 const bfAllOptions: BreadthFirstLayoutOptions = {
     name: 'breadthfirst',
     fit: false,
@@ -878,11 +919,6 @@ const bfAllOptions: BreadthFirstLayoutOptions = {
 };
 cy.layout(bfAllOptions);
 
-const circleNoOptions: CircleLayoutOptions = {
-    name: 'circle',
-};
-cy.layout(circleNoOptions);
-
 const circleAllOptions: CircleLayoutOptions = {
     name: 'circle',
     fit: false,
@@ -904,11 +940,6 @@ const circleAllOptions: CircleLayoutOptions = {
     stop: () => {},
 };
 cy.layout(circleAllOptions);
-
-const gridNoOptions: GridLayoutOptions = {
-    name: 'grid',
-};
-cy.layout(gridNoOptions);
 
 const gridAllOptions: GridLayoutOptions = {
     name: 'grid',
@@ -937,11 +968,6 @@ const gridAllOptions: GridLayoutOptions = {
     },
 };
 cy.layout(gridAllOptions);
-
-const concentricNoOptions: ConcentricLayoutOptions = {
-    name: 'concentric',
-};
-cy.layout(concentricNoOptions);
 
 const concentricAllOptions: ConcentricLayoutOptions = {
     name: 'concentric',
@@ -972,11 +998,6 @@ const concentricAllOptions: ConcentricLayoutOptions = {
     },
 };
 cy.layout(concentricAllOptions);
-
-const coseNoOptions: CoseLayoutOptions = {
-    name: 'cose',
-};
-cy.layout(coseNoOptions);
 
 const coseAllOptions: CoseLayoutOptions = {
     name: 'cose',
