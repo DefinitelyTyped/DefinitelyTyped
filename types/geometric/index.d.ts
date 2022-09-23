@@ -130,14 +130,18 @@ export function polygonRotate(polygon: Polygon, angle: number, origin?: Point): 
 export function polygonScale(polygon: Polygon, scaleFactor: number, origin?: Point): Polygon;
 
 /**
- * Returns the vertices resulting from scaling the horizontal coordinates of a polygon by a scaleFactor (where 1 is the polygon's current size) from an origin point. The vertical coordinates remain unchanged. If origin is not specified, the origin defaults to the polygon's centroid.
+ * Returns the vertices resulting from scaling the horizontal coordinates of a
+ * polygon by a scaleFactor (where 1 is the polygon's current size) from an
+ * origin point. The vertical coordinates remain unchanged. If origin is not specified, the origin defaults to the polygon's centroid.
  *
  * The returned polygon's area is equal to the input polygon's area multiplied by the scaleFactor.
  */
 export function polygonScaleX(polygon: Polygon, scaleFactor: number, origin?: Point): Polygon;
 
 /**
- * Returns the vertices resulting from scaling the vertical coordinates of a polygon by a scaleFactor (where 1 is the polygon's current size) from an origin point. The horizontal coordinates remain unchanged. If origin is not specified, the origin defaults to the polygon's centroid.
+ * Returns the vertices resulting from scaling the vertical coordinates of a polygon
+ * by a scaleFactor (where 1 is the polygon's current size) from an origin point. The horizontal
+ * coordinates remain unchanged. If origin is not specified, the origin defaults to the polygon's centroid.
  *
  * The returned polygon's area is equal to the input polygon's area multiplied by the scaleFactor.
  */
