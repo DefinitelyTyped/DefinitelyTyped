@@ -5,6 +5,7 @@
  * ```js
  * const os = require('os');
  * ```
+ *
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/os.js)
  */
 declare module 'os' {
