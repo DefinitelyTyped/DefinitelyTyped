@@ -17,6 +17,7 @@ import TransformRegistry from 'ember-data/types/registries/transform';
 import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
+import EmberError from '@ember/error';
 
 /**
   The keys from the actual Model class, removing all the keys which come from
@@ -271,7 +272,9 @@ export namespace DS {
      * subclasses are used to indicate specific error states. The following
      * subclasses are provided:
      */
-    class AdapterError extends Ember.Object {}
+    class AdapterError extends EmberError {
+        static extend(options?: { message?: string }): typeof AdapterError;
+    }
     /**
      * A `DS.InvalidError` is used by an adapter to signal the external API
      * was unable to process a request because the content was not
