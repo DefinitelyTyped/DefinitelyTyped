@@ -1,5 +1,4 @@
 import { error, info, init, log, warn } from 'r7insight_js';
-import R7Insight = require('r7insight_js');
 
 // @ts-expect-error
 init();
@@ -13,7 +12,6 @@ init({ token: 'token' });
 // @ts-expect-error
 init({ region: 'eu' });
 
-R7Insight.init({ token: 'token', region: 'eu' }); // $ExpectType void
 init({ token: 'token', region: 'eu' }); // $ExpectType void
 
 init({

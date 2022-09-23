@@ -105,5 +105,3 @@ export function info(message: string): void;
  * @param args Optional array of additional objects to be logged
  */
 export function info(obj: any, ...args: any[]): void;
-
-export as namespace R7Insight;
