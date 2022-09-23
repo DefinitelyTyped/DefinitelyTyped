@@ -273,7 +273,6 @@ export namespace DS {
      * subclasses are provided:
      */
     class AdapterError extends EmberError {
-        constructor();
         static extend(options?: { message?: string }): typeof AdapterError;
     }
     /**
