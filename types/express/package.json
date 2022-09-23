@@ -1,4 +1,448 @@
-{
+{Neverlandnavelunitreturne}
+Namestd:(adminalmcraven)
+Api:12(00...01100)output:8(00.0100)
+Power(x.y.12)*
+Western Austin downtown 
+310 E.5th st. Austin tx 78701
+11:42pm,Thursday September,22,2022 
+openapi: 3.0.0
+Rooms
+x-publicDocumentationRedocOptions:
+  - rooms_6withdoublebed
+  - max-displayed-enum-values="10"
+
+info:men are to check in for three days and seat with the education board on Friday and congress for a administration meeting with the ambassador of the country as a privilege set of men for the men to take a change to the department back home 
+Make the rooms last till Sunday as it is received it may be status of Saturday to the administration of ambassador
+ No security of department of defense is applies I will order a watch with the boys at the workforce for the accountability of the safety of a event. 
+1511-5643-8640,180631884703, a request to meet with a ambassador of the eastern walfare in alganistan is received and a set time of tomorrow at 3:00pm to make a not of a man and a military concerned with the country and the people. 
+bofdb63m/18435701273/00
+Omb1615-0047
+  title: Advertising Statistics API
+  version: v1.0 latest
+  description: |
+    # Overview
+    **Note**: The following documentation applies to the current API version; aspects of the domain and functionality are subject to change for general release.
+
+    The Statistics API is an HTTP interface that allows advertisers to retrieve acquisition statistics data in CSV format.
+
+    ## SKAdNetwork conversion
+    The Stats API now allows advertisers to start to receive SKadNetwork conversion value data. This supports using SKAd conversion values:
+
+    * as a splitBy dimension as skadConversionValue.
+    * as a filter via the skadConversionValues parameter.
+
+    This functionality is in addition to the recently launched SKAdNetwork install reporting. It's provided to assist advertisers who wish to test the new SKAdNetwork conversion values throughout March 2021, to prepare for Apple's anticipated roll-out of the Apple ATT for iOS14.
+
+    ## Contact
+    If you have any questions or feedback regarding the API you can reach out to us at unityads-support@unity3d.com.
+
+    ## Change Log
+    * August 2, 2021: First draft of the version 1 of the Unity Advertising Statistics API.
+
+
+    # Authentication
+    Using the Unity Ads Statistics API requires an API key token. You can generate an API key token from <a href="https://acquire.dashboard.unity3d.com/">dashboard</a> by selecting **Settings** from the left navigation bar.
+
+    **Note**: The API key is generated for an specific username. If that username is removed from the organization, that API key will be automatically revoked. Please be aware of this if you use the API key as part of an integration with a 3rd party or any other business intelligence solution.
+    
+    You can use the key token in two ways:
+    1. Place the key token in the GET request URL `apikey` parameter. For example:
+    ```
+    https://stats.unityads.unity3d.com/organizations/:organization_id/reports/acquisitions?apikey=<token>
+    ```
+
+    2. Place the key token in the `Authorization` header of the GET request, prefixed with `Bearer`. For example:
+    ```
+    curl -H "Authorization: Bearer <token>" https://stats.unityads.unity3d.com/organizations/:organization_id/reports/acquisitions
+    ```
+
+    # Rate Limits
+    The API has rate limiting in place. The rate limit is 1 request every 3 seconds per IP address.
+
+servers:
+  - url: https://stats.unityads.unity3d.com
+    description: Production server
+
+x-statsErrorResponses: &errorResponses
+  '400':
+    $ref: '#/components/responses/badRequest'
+  '403':
+    $ref: '#/components/responses/forbiddenRequest'
+
+paths:
+  /organizations/{organizationId}/reports/acquisitions:
+    parameters:
+      - $ref: '#/components/parameters/stats.organizationId'
+      - $ref: '#/components/parameters/stats.start'
+      - $ref: '#/components/parameters/stats.end'
+      - $ref: '#/components/parameters/stats.scale'
+      - $ref: '#/components/parameters/stats.splitBy'
+      - $ref: '#/components/parameters/stats.fields'
+      - $ref: '#/components/parameters/stats.filter.campaignSets'
+      - $ref: '#/components/parameters/stats.filter.campaigns'
+      - $ref: '#/components/parameters/stats.filter.targets'
+      - $ref: '#/components/parameters/stats.filter.adTypes'
+      - $ref: '#/components/parameters/stats.filter.countries'
+      - $ref: '#/components/parameters/stats.filter.stores'
+      - $ref: '#/components/parameters/stats.filter.platforms'
+      - $ref: '#/components/parameters/stats.filter.osVersions'
+      - $ref: '#/components/parameters/stats.filter.creativePacks'
+      - $ref: '#/components/parameters/stats.filter.sourceAppIds'
+      - $ref: '#/components/parameters/stats.filter.reachExtension'
+      - $ref: '#/components/parameters/stats.filter.skadConversionValues'
+    get:
+      summary: Acquisitions Report
+      description: |
+        This endpoint returns Acquisitions reports in CSV format that are under the given organizaion.
+      operationId: stats-acquisition
+      tags:
+        - Acquisitions
+      responses:
+        '200':
+          description: OK
+          content:
+            text/csv:
+              example: |
+                timestamp,campaign set id,campaign set name,country,clicks,installs,spend 
+                2013-03-01T00:00:00.000Z,50ed569d57fe1f324a15fbf7,"Campaign set #5",AU,71,30,45
+                2013-03-01T00:00:00.000Z,50ed569d57fe1f324a15fbf7,"Campaign set #5",CA,129,88,132
+                CONFIDENTIAL, Unity Technologies 2017 Advertiser Stats API2013-03-01T00:00:00.000Z,50ed569d57fe1f324a15fbf7,"Campaign set#5",US,1745,855,1282.5
+                2013-03-01T00:00:00.000Z,50eeb7339e10c9d21c0225cb,"Campaign set#6",AT,39,19,28.5
+                2013-03-01T00:00:00.000Z,50eeb7339e10c9d21c0225cb,"Campaign set #6",AU,16,10,15 
+                2013-03-01T00:00:00.000Z,50eeb7339e10c9d21c0225cb,"Campaign set #6",BE,209,120,180
+              schema:
+                $ref: '#/components/schemas/stats.acquisitionsResponseBody'
+
+        <<: *errorResponses
+
+components:
+  parameters:
+    stats.organizationId:
+      name: organizationId
+      in: path
+      description: Unique identifier for an Organization.
+      required: true
+      schema:
+        $ref: '#/components/schemas/stats.organizationId'
+
+    stats.start:
+      name: start
+      in: query
+      description: Start time of the data query in `ISO 8601` format.
+      example: '2021-07-28T13:16:21.691Z'
+      required: true
+      schema:
+        $ref: '#/components/schemas/stats.date'
+
+    stats.end:
+      name: end
+      in: query
+      description: End time of the data query in `ISO 8601` format.
+      example: '2021-08-21T13:16:21.691Z'
+      required: true
+      schema:
+        $ref: '#/components/schemas/stats.date'
+
+    stats.scale:
+      name: scale
+      in: query
+      description: Time resolution of the data.
+      example: hour
+      required: false
+      schema:
+        $ref: '#/components/schemas/stats.scale'
+
+    stats.filter.campaignSets:
+      name: campaignSets
+      in: query
+      description: A comma-separated list of campaign set IDs to filter.
+      required: false
+      schema:
+        type: string
+        example: 5fbfb6c7fc928924a8827e97,5fbfb6c7fc928924a9971e12
+
+    stats.filter.campaigns:
+      name: campaigns
+      in: query
+      description: A comma-separated list of campaign IDs to filter.
+      required: false
+      schema:
+        type: string
+        example: 5fbfb6da37106d5ea98d82a7,5fbfb6c7fc928924a9971e12
+
+    stats.filter.targets:
+      name: targets
+      in: query
+      description: A comma-separated list of target game IDs to filter.
+      required: false
+      schema:
+        type: string
+        example: A1b2C3d4E5f6,a1B2c3D4e5F6
+
+    stats.filter.adTypes:
+      name: adTypes
+      in: query
+      description: | 
+        A comma-separated list of ad types to filter.
+        
+        ##### Options
+          - video
+          - playable
+          - video+playable
+
+      required: false
+      schema:
+        type: string
+        example: video,playable
+
+    stats.filter.stores:
+      name: stores
+      in: query
+      description: |
+        A comma-separated list of app stores to filter.
+        ##### Options
+          - apple
+          - google
+
+      required: false
+      schema:
+        type: string
+        example: apple,google
+
+    stats.filter.platforms:
+      name: platforms
+      in: query
+      description: A comma-separated list of platforms to filter.
+      required: false
+      schema:
+        type: string
+        example: ios,android
+
+    stats.filter.osVersions:
+      name: osVersions
+      in: query
+      description: A comma-separated list of operating system versions to filter.
+      required: false
+      schema:
+        type: string
+        example: 1.0.0,2.1.0
+
+    stats.filter.creativePacks:
+      name: creativePacks
+      in: query
+      description: A comma-separated list of creative packs to filter.
+      required: false
+      schema:
+        type: string
+        example: 5fbfb6da37106d5ea98d82a7,5fbfb6c7fc928924a9971e12
+
+    stats.filter.sourceAppIds:
+      name: sourceAppIds
+      in: query
+      description: |
+        A comma-separated list of source app IDs to filter. 
+        This ID is an identifier derived from the game's app store page. 
+        Prior to migration, this was called source_id or source_game_id. 
+        This identifier is an alphanumeric, 12-character case-sensitive string.
+        
+        **Note**: The identifiers source_id and source_game_id have been deprecated. 
+        They have been replaced with SourceAppID (source_app_id). 
+        While the deprecated source_game_id was an integer, the identifier SourceAppID (source_app_id)
+        is a case-sensitive, 12-character, alphanumeric string. For more information, please see the <a href="https://unityads.unity3d.com/help/advertising/advertising-faq#migration-to-source-app-id-faqs">FAQs</a>.
+      required: false
+      schema:
+        type: string
+        example: A1b2C3d4E5f6,a1B2c3D4e5F6
+
+    stats.filter.reachExtension:
+      name: reachExtension
+      in: query
+      description: A comma-separated list indicating external supply sources to filter. Possible values are `unity` and `exchanges`.
+      required: false
+      schema:
+        type: string
+        example: unity
+
+    stats.filter.skadConversionValues:
+      name: skadConversionValues
+      in: query
+      description: A comma-separated list of SKAdNetwork conversion values to filter. These values must be integers between 0 and 63.
+      required: false
+      schema:
+        type: string
+        example: 0,12,55
+
+    stats.splitBy:
+      name: splitBy
+      in: query
+      description: | 
+        you can specify a comma-separated list of dimensions by which to split data.
+        
+        ##### Options
+          - campaignSet
+          - creativePack
+          - adType
+          - campaign
+          - target
+          - sourceAppId
+          - store
+          - country
+          - platform
+          - osVersion
+          - reachExtension
+          - skadConversionValue
+      required: false
+      schema:
+        type: string
+        example: campaignSet,adType,store
+
+    stats.fields:
+      name: fields
+      in: query
+      description: |
+        you to specify comma-separated fields to display in your report.
+
+        #### SKAD specific fields
+          - **skadInstalls**:	Installs from Appleâ€™s SKAdNetwork.
+          - **skadCpi**:	CPI calculated based on installs from Appleâ€™s SKAdNetwork.
+          - **skadConversion**:	Conversion calculated based on installs from Appleâ€™s SKAdNetwork.
+
+        **Notes**:
+          - SKAd specific fields are not available by default in the response and therefore should be explicitly specified in the fields parameter if required.
+          - In addition, fields above will not be available for the creativePack, adType and osVersion filters since we do not get this granularity of data within the SKAd postbacks.
+
+        ##### Options
+          - timestamp
+          - campaignSet
+          - creativePack
+          - adType
+          - campaign
+          - target
+          - sourceAppId
+          - store
+          - country
+          - platform
+          - osVersion
+          - starts
+          - views
+          - clicks
+          - installs
+          - spend
+          - skadInstalls
+          - skadCpi
+          - skadConversion
+      
+      required: false
+      schema:
+        type: string
+        example: timestamp,campaignSet,osVersion
+        default: all
+
+    stats.filter.countries:
+      name: countries
+      in: query
+      description: |
+        A comma-separated list of country codes to filter.
+
+        Country code in `ISO 3166-1 alpha-2` format.
+      required: false
+      schema:
+        type: string
+        example: US,FI,RU 
+
+  schemas:
+      stats.acquisitionsResponseBody:
+        type: string
+        description: | 
+          CSV response of Acquisitions Report endpoint.
+
+          The data returns in CSV format, with the following delimiters:
+            - Commas (`,`) separate fields.
+            - Periods (`.`) indicate decimals.
+            - Double quotes (`" "`) indicate text fields.
+            - The newline character separates lines within a field.
+
+          #### Split data
+
+          Split `campaignSet` data results in two fields:
+            - campaign set id
+            - campaign set name
+
+          Split `campaign` data results in two fields:
+            - campaign id
+            - campaign name
+
+          Split `creativePack` data results in two fields:
+            - creative pack id
+            - creative pack name
+
+          Split `target` data results in three fields:
+            - target id
+            - target store id
+            - target name
+
+
+          **Note**: Splitting data by too many dimensions may impact response times for querying the API.
+          To avoid lagging or timeouts, we recommend querying 1 day of data at a time when splitting by `sourceAppId` and `country`.
+
+      stats.date:
+        type: string
+        format: date-time
+        description: UTC date and time.
+        example: 2021-07-28T13:16:21.691Z
+
+      stats.scale:
+        type: string
+        description: Time resolution of the data.
+        example: month
+        default: all
+        enum:
+          - all
+          - hour
+          - day
+          - week
+          - month
+          - quarter
+          - year
+
+      stats.organizationId:
+        type: string
+        pattern: '^[0-9a-fA-F]{24}$'
+        description: Unique identifier for an Organization.
+        example: 5eb26a338a232100e4bb5893
+
+  responses:
+    badRequest:
+      description: Bad request
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  parameters:
+                    type: array
+                    items:
+                      type: object
+                      example: {"start": "expected with format YYYY-MM-DDThh:mm:ss"}
+
+    forbiddenRequest:
+      description: Forbidden request
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: object
+                properties:
+                  parameters:
+                    type: array
+                    items:
+                      type: object
+                      example: {"apikey": "access verification error"}
   "private": true,
   "dependencies": {
     "@types/express-serve-static-core": "^4.17.18"
