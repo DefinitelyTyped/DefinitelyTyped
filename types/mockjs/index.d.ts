@@ -26,18 +26,14 @@ declare namespace mockjs {
         body: any;
     }
 
+    type templateOrFn = ((options: MockjsRequestOptions) => any) | any
+
     // Mockjs.mock()
     // see https://github.com/nuysoft/Mock/wiki/Mock.mock()
     interface MockjsMock {
-        // tslint:disable-next-line
-        (rurl: S | RegExp, rtype: S, fn: (options: MockjsRequestOptions) => any): Mockjs;
+        (rurl: S | RegExp, rtype: S, template: templateOrFn): Mockjs;
 
-        (rurl: S | RegExp, rtype: S, template: any): Mockjs;
-
-        // tslint:disable-next-line
-        (rurl: S | RegExp, fn: (options: MockjsRequestOptions) => any): Mockjs;
-
-        (rurl: S | RegExp, template: any): Mockjs;
+        (rurl: S | RegExp, template: templateOrFn): Mockjs;
 
         (template: any): any;
     }

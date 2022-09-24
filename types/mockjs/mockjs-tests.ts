@@ -4,7 +4,7 @@ Mock.mock('/test', 'get', {
     name: 'mockjs',
 }).mock('/login', 'post', {
     status: 0,
-}).mock('/test', 'get', (config) => {
+}).mock('/test', 'get', (config:Mock.MockjsRequestOptions) => {
     console.log(config.url)
     console.log(config.type)
     console.log(config.body)
