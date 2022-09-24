@@ -1,0 +1,36 @@
+// Type definitions for ebay-oauth-nodejs-client 1.2
+// Project: https://github.com/eBay/ebay-oauth-nodejs-client
+// Definitions by: Jeremy Möglich <https://github.com/JeremyMoeglich>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export type EbayEnvironment = 'SANDBOX' | 'PRODUCTION';
+
+export type EbayAuthTokenOptions =
+    | {
+          filePath: string;
+      }
+    | {
+          clientId: string;
+          clientSecret: string;
+          env?: EbayEnvironment;
+          baseUrl?: string;
+          redirectUri?: string;
+          scope?: string[] | string;
+      };
+
+export default class EbayAuthToken {
+    constructor(options: EbayAuthTokenOptions);
+    getApplicationToken(environment: EbayEnvironment, scopes?: string[] | string): Promise<string>;
+    generateUserAuthorizationUrl(
+        environment: EbayEnvironment,
+        scopes: string[] | string,
+        options?: {
+            prompt?: 'login' | 'consent';
+            state?: string;
+        },
+    ): string;
+    exchangeCodeForAccessToken(environment: EbayEnvironment, code: string): Promise<string>;
+    getAccessToken(environment: EbayEnvironment, refreshToken: string, scopes: string[] | string): Promise<string>;
+    setRefreshToken(refreshToken: string): void;
+    getRefreshToken(): string;
+}
