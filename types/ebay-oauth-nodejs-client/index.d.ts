@@ -3,9 +3,9 @@
 // Definitions by: Jeremy Möglich <https://github.com/JeremyMoeglich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type EbayEnvironment = 'SANDBOX' | 'PRODUCTION';
+type EbayEnvironment = 'SANDBOX' | 'PRODUCTION';
 
-export type EbayAuthTokenOptions =
+type EbayAuthTokenOptions =
     | {
           filePath: string;
       }
@@ -18,7 +18,7 @@ export type EbayAuthTokenOptions =
           scope?: string[] | string;
       };
 
-export default class EbayAuthToken {
+declare class EbayAuthToken {
     constructor(options: Readonly<EbayAuthTokenOptions>);
     getApplicationToken(environment: EbayEnvironment, scopes?: ReadonlyArray<string> | string): Promise<string>;
     generateUserAuthorizationUrl(
@@ -38,3 +38,5 @@ export default class EbayAuthToken {
     setRefreshToken(refreshToken: string): void;
     getRefreshToken(): string;
 }
+
+export = EbayAuthToken;

@@ -1,4 +1,4 @@
-import EbayAuthToken from 'ebay-oauth-nodejs-client';
+import EbayAuthToken = require('ebay-oauth-nodejs-client');
 
 // These are examples from https://github.com/eBay/ebay-oauth-nodejs-client
 
