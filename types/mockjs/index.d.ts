@@ -26,7 +26,7 @@ declare namespace mockjs {
         body: any;
     }
 
-    type templateOrFn = ((options: MockjsRequestOptions) => any) | any
+    type templateOrFn = ((options: MockjsRequestOptions) => any) | object
 
     // Mockjs.mock()
     // see https://github.com/nuysoft/Mock/wiki/Mock.mock()
