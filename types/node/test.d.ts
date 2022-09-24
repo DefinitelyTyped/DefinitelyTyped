@@ -4,6 +4,14 @@
  */
 declare module 'node:test' {
     /**
+     * Programmatically start the test runner.
+     * @since v18.9.0
+     * @param options Configuration options for running tests.
+     * @returns A {@link TapStream} that emits events about the test execution.
+     */
+    function run(options?: RunOptions): TapStream;
+
+    /**
      * The `test()` function is the value imported from the test module. Each invocation of this
      * function results in the creation of a test point in the TAP output.
      *
@@ -86,6 +94,122 @@ declare module 'node:test' {
      */
     type ItFn = (done: (result?: any) => void) => any;
 
+    interface RunOptions {
+        /**
+         * @default false
+         */
+        concurrency?: number | boolean;
+
+        /**
+         * An array containing the list of files to run. If unspecified, the test runner execution model will be used.
+         */
+        files?: readonly string[];
+
+        /**
+         * Allows aborting an in-progress test.
+         * @default undefined
+         */
+        signal?: AbortSignal;
+
+        /**
+         * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
+         * value from their parent.
+         * @default Infinity
+         */
+        timeout?: number;
+    }
+
+    /**
+     * A successful call of the run() method will return a new TapStream object, streaming a TAP output.
+     * TapStream will emit events in the order of the tests' definitions.
+     * @since v18.9.0
+     */
+    interface TapStream extends NodeJS.ReadableStream {
+        addListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        addListener(event: 'test:fail', listener: (data: TestFail) => void): this;
+        addListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        emit(event: 'test:diagnostic', message: string): boolean;
+        emit(event: 'test:fail', data: TestFail): boolean;
+        emit(event: 'test:pass', data: TestPass): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
+        on(event: 'test:diagnostic', listener: (message: string) => void): this;
+        on(event: 'test:fail', listener: (data: TestFail) => void): this;
+        on(event: 'test:pass', listener: (data: TestPass) => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
+        once(event: 'test:diagnostic', listener: (message: string) => void): this;
+        once(event: 'test:fail', listener: (data: TestFail) => void): this;
+        once(event: 'test:pass', listener: (data: TestPass) => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        prependListener(event: 'test:fail', listener: (data: TestFail) => void): this;
+        prependListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: 'test:diagnostic', listener: (message: string) => void): this;
+        prependOnceListener(event: 'test:fail', listener: (data: TestFail) => void): this;
+        prependOnceListener(event: 'test:pass', listener: (data: TestPass) => void): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+    }
+
+    interface TestFail {
+        /**
+         * The test duration.
+         */
+        duration: number;
+
+        /**
+         * The failure casing test to fail.
+         */
+        error: Error;
+
+        /**
+         * The test name.
+         */
+        name: string;
+
+        /**
+         * The ordinal number of the test.
+         */
+        testNumber: number;
+
+        /**
+         * Present if `context.todo` is called.
+         */
+        todo?: string;
+
+        /**
+         * Present if `context.skip` is called.
+         */
+        skip?: string;
+    }
+
+    interface TestPass {
+        /**
+         * The test duration.
+         */
+        duration: number;
+
+        /**
+         * The test name.
+         */
+        name: string;
+
+        /**
+         * The ordinal number of the test.
+         */
+        testNumber: number;
+
+        /**
+         * Present if `context.todo` is called.
+         */
+        todo?: string;
+
+        /**
+         * Present if `context.skip` is called.
+         */
+        skip?: string;
+    }
+
     /**
      * An instance of `TestContext` is passed to each test function in order to interact with the
      * test runner. However, the `TestContext` constructor is not exposed as part of the API.
@@ -159,7 +283,7 @@ declare module 'node:test' {
 
         /**
          * Allows aborting an in-progress test.
-         * @since 8.7.0
+         * @since v18.8.0
          */
         signal?: AbortSignal;
 
@@ -174,7 +298,7 @@ declare module 'node:test' {
          * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
          * value from their parent.
          * @default Infinity
-         * @since 8.7.0
+         * @since v18.7.0
          */
         timeout?: number;
 
@@ -186,5 +310,5 @@ declare module 'node:test' {
         todo?: boolean | string;
     }
 
-    export { test as default, test, describe, it };
+    export { test as default, run, test, describe, it };
 }
