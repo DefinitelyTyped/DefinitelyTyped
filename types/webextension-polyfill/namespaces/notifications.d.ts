@@ -28,6 +28,19 @@ export namespace Notifications {
         message: string;
     }
 
+    interface NotificationButton {
+        /**
+         * Title of one button of a list notification.
+         */
+        title: string;
+
+        /**
+         * @Deprecated since Chrome 59
+         * URL pointing to an icon for the button.
+         */
+        iconUrl?: string;
+    }
+
     interface CreateNotificationOptions {
         /**
          * Which type of notification to display.
@@ -85,6 +98,13 @@ export namespace Notifications {
          * Optional.
          */
         items?: NotificationItem[];
+
+        /**
+         * An array of up to 2 buttons to include in the notification.
+         * Maximum: 2
+         * Optional.
+         */
+        buttons?: NotificationButton[];
 
         /**
          * Current progress ranges from 0 to 100.
@@ -159,6 +179,13 @@ export namespace Notifications {
          * Optional.
          */
         items?: NotificationItem[];
+
+        /**
+         * An array of up to 2 buttons to include in the notification.
+         * Maximum: 2
+         * Optional.
+         */
+        buttons?: NotificationButton[];
 
         /**
          * Current progress ranges from 0 to 100.
