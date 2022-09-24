@@ -29,9 +29,13 @@ declare namespace mockjs {
     // Mockjs.mock()
     // see https://github.com/nuysoft/Mock/wiki/Mock.mock()
     interface MockjsMock {
+        // tslint:disable-next-line
         (rurl: S | RegExp, rtype: S, fn: (options: MockjsRequestOptions) => any): Mockjs;
 
         (rurl: S | RegExp, rtype: S, template: any): Mockjs;
+
+        // tslint:disable-next-line
+        (rurl: S | RegExp, fn: (options: MockjsRequestOptions) => any): Mockjs;
 
         (rurl: S | RegExp, template: any): Mockjs;
 
