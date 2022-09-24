@@ -1,5 +1,5 @@
 // Type definitions for eth-url-parser 1.0
-// Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Project: https://github.com/brunobar79/eth-url-parser
 // Definitions by: gomes <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
