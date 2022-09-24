@@ -19,7 +19,7 @@ const ebayAuthToken = new EbayAuthToken({
     redirectUri: '<redirect uri>',
     baseUrl: 'https://api.sandbox.ebay.com',
     scope: ['https://api.ebay.com/oauth/api_scope', 'https://api.ebay.com/oauth/api_scope/sell.marketing.readonly'],
-    env: "PRODUCTION"
+    env: 'PRODUCTION',
 });
 
 (async () => {
@@ -42,5 +42,5 @@ const ebayAuthToken = new EbayAuthToken({
 })();
 
 (async () => {
-    const _: string = await ebayAuthToken.getAccessToken('PRODUCTION', "<some_refresh_token>", 'SomeScope');
+    const _: string = await ebayAuthToken.getAccessToken('PRODUCTION', '<some_refresh_token>', 'SomeScope');
 })();
