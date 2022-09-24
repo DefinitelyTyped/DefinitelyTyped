@@ -25,5 +25,5 @@ declare namespace ethUrlParser {
   function build(input: BuildInput): string;
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line export-just-namespace
 export = ethUrlParser;
