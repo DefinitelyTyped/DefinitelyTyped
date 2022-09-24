@@ -19,8 +19,8 @@ export type EbayAuthTokenOptions =
       };
 
 export default class EbayAuthToken {
-    constructor(options: EbayAuthTokenOptions);
-    getApplicationToken(environment: EbayEnvironment, scopes?: string[] | string): Promise<string>;
+    constructor(options: Readonly<EbayAuthTokenOptions>);
+    getApplicationToken(environment: EbayEnvironment, scopes?: ReadonlyArray<string> | string): Promise<string>;
     generateUserAuthorizationUrl(
         environment: EbayEnvironment,
         scopes: string[] | string,
@@ -30,7 +30,11 @@ export default class EbayAuthToken {
         },
     ): string;
     exchangeCodeForAccessToken(environment: EbayEnvironment, code: string): Promise<string>;
-    getAccessToken(environment: EbayEnvironment, refreshToken: string, scopes: string[] | string): Promise<string>;
+    getAccessToken(
+        environment: EbayEnvironment,
+        refreshToken: string,
+        scopes: ReadonlyArray<string> | string,
+    ): Promise<string>;
     setRefreshToken(refreshToken: string): void;
     getRefreshToken(): string;
 }
