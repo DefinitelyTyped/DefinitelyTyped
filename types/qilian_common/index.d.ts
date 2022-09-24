@@ -1,4 +1,4 @@
-// Type definitions for qilian_common
+// Type definitions for qilian_common 1.0
 // Project: https://github.com/jazzg62/qilian
 // Definitions by: jazzg62 <https://github.com/jazzg62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
