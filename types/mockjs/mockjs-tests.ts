@@ -5,9 +5,9 @@ Mock.mock('/test', 'get', {
 }).mock('/login', 'post', {
     status: 0,
 }).mock('/test', 'get', (config) => {
-    console.log(config.url)
-    console.log(config.type)
-    console.log(config.body)
+    console.log(config.url);
+    console.log(config.type);
+    console.log(config.body);
     return {
         name: 'mockjs',
     };
