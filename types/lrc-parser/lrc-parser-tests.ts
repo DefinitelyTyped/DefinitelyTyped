@@ -1,4 +1,4 @@
-import lrcParser from 'lrc-parser';
+import lrcParser = require('lrc-parser');
 
 // $ExpectType LrcData
 const result = lrcParser('');
