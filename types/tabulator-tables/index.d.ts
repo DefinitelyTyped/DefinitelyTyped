@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.31
+// Type definitions for tabulator-tables 5.32
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,7 +30,7 @@ export interface Options
 
 export interface OptionsDebug {
     invalidOptionWarning?: boolean;
-    /** Enabled by default this will provide a console warning if you are trying to set an option on the table that does not exist. With the new optional modular structure this is particularly valueable as it will prompt you if you are trying to use an option for a module that has not been installed */
+    /** Enabled by default this will provide a console warning if you are trying to set an option on the table that does not exist. With the new optional modular structure this is particularly valuable as it will prompt you if you are trying to use an option for a module that has not been installed */
     debugInvalidOptions?: boolean;
     /** Enabled by default this will provide a console warning if you try and call a function on the table before it has been initialized. */
     debugInitialization?: boolean;
@@ -873,9 +873,6 @@ export interface OptionsGeneral {
     /** Footer  element to display for the table. */
     footerElement?: string | HTMLElement | undefined;
 
-    /** When to regenerate cell tooltip value. */
-    tooltipGenerationMode?: 'load' | 'hover' | undefined;
-
     /** Keybinding configuration object. */
     keybindings?: false | KeyBinding | undefined;
 
@@ -962,11 +959,12 @@ export interface OptionsMenu {
     rowClickMenu?: RowContextMenuSignature | undefined;
     groupClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
+    popupContainer?: boolean | string | HTMLElement;
 }
 
 export type RowContextMenuSignature =
     | Array<MenuObject<RowComponent> | MenuSeparator>
-    | ((component: RowComponent, e: MouseEvent) => MenuObject<RowComponent> | false | any[]);
+    | ((e: MouseEvent, component: RowComponent) => MenuObject<RowComponent> | false | any[]);
 
 export type GroupContextMenuSignature =
     | Array<MenuObject<GroupComponent> | MenuSeparator>
@@ -1430,6 +1428,11 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
     clickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
 
+    /** Popups work in a similar way to menus, but instead of only displaying lists of menu items they allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
+    cellPopup?:
+        | string
+        | ((e: MouseEvent, component: RowComponent | CellComponent | ColumnComponent, onRendered: () => any) => any);
+
     /** When copying to the clipboard you may want to apply a different formatter from the one usually used to format the cell, you can do this using the formatterClipboard column definition option. You can use the formatterClipboardParams to pass in any additional params to the formatter. */
     formatterClipboard?: Formatter | false | undefined;
     formatterClipboardParams?: FormatterParams | undefined;
@@ -1606,8 +1609,7 @@ export type Editor =
     | 'range'
     | 'tickCross'
     | 'star'
-    | 'select'
-    | 'autocomplete'
+    | 'list'
     | 'list'
     | 'date'
     | 'time'
@@ -1623,8 +1625,7 @@ export type Editor =
 export type EditorParams =
     | NumberParams
     | CheckboxParams
-    | SelectParams
-    | AutoCompleteParams
+    | ListEditorParams
     | InputParams
     | TextAreaParams
     | DateParams
@@ -1773,13 +1774,6 @@ export interface SharedSelectAutoCompleteEditorParams {
     sortValuesList?: 'asc' | 'desc' | undefined;
 }
 
-export interface SelectParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
-    values: true | string[] | JSONRecord | SelectParamsGroup[] | string;
-    listItemFormatter?: ((value: string, text: string) => string) | undefined;
-    verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
-    multiselect?: boolean | number | undefined;
-}
-
 export interface DateParams extends SharedEditorParams {
     min?: string;
     max?: string;
@@ -1794,34 +1788,33 @@ export interface DateTimeEditorParams extends SharedEditorParams {
     format?: string;
 }
 
-export interface SelectParamsGroup {
-    label: string;
-    value?: string | number | boolean | undefined;
-    options?: SelectLabelValue[] | undefined;
-    elementAttributes?: {} | undefined;
-}
-
-export interface SelectLabelValue {
+export interface LabelValue {
     label: string;
     value: string | number | boolean;
 }
 
-export interface AutoCompleteParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
-    values: true | string[] | JSONRecord | string | any[];
-    listItemFormatter?: ((value: string, text: string) => string) | undefined;
-    searchFunc?: ((term: string, values: string[]) => string[] | Promise<string[]>) | undefined;
+export interface ListEditorParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
+    values?: true | string[] | JSONRecord | string | any[] | LabelValue[];
+    valuesURL?: string;
+    valuesLookup?: RowRangeLookup;
+    valuesLookupField?: string;
+    clearable?: boolean;
+    itemFormatter?: ((label: string, value: string, item: any, element: HTMLElement) => string) | undefined;
+    sort?: SortDirection;
+    emptyValue?: any;
+    maxWidth?: boolean;
+    placeholderLoading?: string;
+    placeholderEmpty?: string;
+    multiselect?: boolean;
+    autocomplete?: boolean;
+    filterFunc?: ((term: string, label: string, value: string[], item: any) => any) | undefined;
+    filterRemote?: boolean;
+    filterDelay?: number;
     allowEmpty?: boolean | undefined;
+    listOnEmpty?: boolean;
     freetext?: boolean | undefined;
     showListOnEmpty?: boolean | undefined;
     verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
-
-    /**
-     * If you return a promise from the searchFunc callback then a "Searching..." placeholder will be displayed until the promise resolved.
-     *
-     * You can customize this placeholder using the searchingPlaceholder option.
-     */
-    searchingPlaceholder?: string | HTMLElement | undefined;
-    emptyPlaceholder?: string | HTMLElement | undefined;
 }
 
 export type ValueStringCallback = (value: any) => string;
@@ -2108,8 +2101,8 @@ export interface ColumnComponent {
     /** Get the current header filter value of a column. */
     getHeaderFilterValue: () => any;
 
-    /** Update the definition of a column. */
-    updateDefinition: (definition: ColumnDefinition) => Promise<void>;
+    /** Update the definition of a column. It is worth noting that using this function actually replaces the old column with a totally new column component, therefore any references to the previous column component will no longer work after this function has been run. The function will return a promise that will resolve when the column has been updated, passing in the updated column component as an argument. */
+    updateDefinition: (definition: ColumnDefinition) => Promise<ColumnComponent>;
 
     /** Returns the width of the column in pixels */
     getWidth: () => number;
@@ -2195,14 +2188,14 @@ export interface CellComponent {
     /** The clearEdited can be called on a Cell Component to clear the edited flag used by the isEdited function and mark the cell as unedited. */
     clearEdited: () => void;
 
-    /** The isValid can be called on a Cell Component to check if a cell has previously passed a validation check without revalidating it. */
-    isValid: () => boolean;
+    /** The isValid can be called on a Cell Component to check if a cell has previously passed a validation check without revalidating it. Returns true if the cell passes validation, or an array of failed validators if it fails validation. */
+    isValid: () => boolean | Validator[];
 
     /** The clearValidation can be called on a Cell Component to clear the invalid flag used by the isValid function and mark the cell as valid. */
     clearValidation: () => void;
 
-    /** You can validate a cell by calling the validate method on any Cell Component. */
-    validate: () => boolean;
+    /** You can validate a cell by calling the validate method on any Cell Component. Returns true if the cell passes validation, or an array of failed validators if it fails validation. */
+    validate: () => boolean | Validator[];
 }
 
 export interface EventCallBackMethods {
@@ -2352,6 +2345,9 @@ declare class Tabulator {
 
     /** If you want to open the generated file in a new browser tab rather than downloading it straight away, you can use the downloadToTab function. This is particularly useful with the PDF downloader, as it allows you to preview the resulting PDF in a new browser ta */
     downloadToTab: (downloadType: DownloadType, fileName: string, params?: DownloadOptions) => void;
+
+    /** Load data from a local file */
+    import: (data: any, fileName: string) => any;
 
     /**
      * The copyToClipboard function allows you to copy the current table data to the clipboard.
@@ -2840,6 +2836,7 @@ declare class MoveRowsModule {}
 declare class MutatorModule {}
 declare class PageModule {}
 declare class PersistenceModule {}
+declare class PopupModule {}
 declare class PrintModule {}
 declare class PseudoRow {}
 declare class ReactiveDataModule {}
@@ -2879,6 +2876,7 @@ export {
     MutatorModule,
     PageModule,
     PersistenceModule,
+    PopupModule,
     PrintModule,
     PseudoRow,
     ReactiveDataModule,

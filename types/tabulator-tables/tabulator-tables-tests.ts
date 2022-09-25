@@ -5,7 +5,6 @@ import {
     DataTreeModule,
     TabulatorFull,
     TooltipModule,
-    AutoCompleteParams,
     CalculationComponent,
     CellComponent,
     ColumnComponent,
@@ -15,12 +14,12 @@ import {
     MenuObject,
     MenuSeparator,
     RowComponent,
-    SelectParams,
     SorterFromTable,
     Validator,
     SortDirection,
     JSONRecord,
     Options,
+    ListEditorParams,
 } from 'tabulator-tables';
 
 // tslint:disable:no-object-literal-type-assertion
@@ -261,28 +260,36 @@ colDef.editorParams = {
     values: selectParamValues,
 };
 
-colDef.editorParams = cell => {
-    return {};
+let listEditor: ListEditorParams = {
+    values: ['red', 'green', 'blue'],
+    valuesURL: 'http://myvalues.com',
+    valuesLookup: 'active',
+    valuesLookupField: 'color',
+    clearable: true,
+    itemFormatter: (label, value, item, element) => {
+        return '<strong>';
+    },
+    verticalNavigation: 'hybrid',
+    sort: 'asc',
+    defaultValue: 'Steve Johnson',
+    emptyValue: null,
+    maxWidth: true,
+    placeholderLoading: 'Loading List...',
+    placeholderEmpty: 'No Results Found',
+    multiselect: true,
+    autocomplete: true,
+    filterFunc: (term, label, value, item) => {
+        return label === term;
+    },
+    filterRemote: true,
+    filterDelay: 100,
+    allowEmpty: true,
+    listOnEmpty: true,
+    mask: 'AAA-999',
+    freetext: true,
 };
 
-let autoComplete: AutoCompleteParams = {
-    showListOnEmpty: true, // show all values when the list is empty,
-    freetext: true, // allow the user to set the value of the cell to a free text entry
-    allowEmpty: true, // allow empty string values
-    searchFunc: (term, values) => {
-        // search for exact matches
-        const matches: string[] = [];
-        return matches;
-    },
-    listItemFormatter: (value, title) => {
-        // prefix all titles with the work "Mr"
-        return 'Mr ' + title;
-    },
-    values: true, // create list of values from all values contained in this column,
-    sortValuesList: 'asc', // sort the values by ascending order,
-};
-
-colDef.editorParams = autoComplete;
+colDef.editorParams = listEditor;
 
 colDef.editorParams = {
     values: [
@@ -743,22 +750,6 @@ table = new Tabulator('#example-table', {
             contextMenu,
             vertAlign: 'bottom',
             hozAlign: 'right',
-            editorParams: {
-                mask: 'A!!-9BBB$',
-                maskLetterChar: 'B',
-                maskNumberChar: '!',
-                maskWildcardChar: '$',
-                maskAutoFill: true,
-                searchFunc: (term, values) => {
-                    return new Promise((resolve, reject) => {
-                        fetch('http://test.com?search=' + term).then(response => {
-                            resolve(response.json());
-                        });
-                    });
-                },
-                searchingPlaceholder: 'Filtering...',
-                emptyPlaceholder: 'no matching results',
-            },
             accessorHtmlOutput: (value, data, type, params, column) => {
                 if (column) {
                     const filterVal = column.getHeaderFilterValue();
@@ -844,40 +835,6 @@ table.addColumn({
 });
 row.isFrozen();
 
-let autoComplete2: AutoCompleteParams = {
-    values: [
-        {
-            label: 'Steve Boberson',
-            value: 'steve',
-        },
-        {
-            label: 'Bob Jimmerson',
-            value: 'bob',
-        },
-        {
-            label: 'Jenny Jillerson',
-            value: 'jenny',
-        },
-        {
-            label: 'Jill Betterson',
-            value: 'jill',
-        },
-    ],
-};
-
-let select: SelectParams = {
-    multiselect: true,
-    values: [
-        {
-            label: 'Steve Boberson',
-            value: 'steve',
-            elementAttributes: {
-                class: 'primary-name',
-            },
-        },
-    ],
-};
-
 // 4.8
 
 table = new Tabulator('#example-table', {
@@ -915,7 +872,7 @@ const groupContextMenu: Array<MenuObject<GroupComponent> | MenuSeparator> = [{ s
 table = new Tabulator('#example-table', {
     autoColumnsDefinitions: colDefs,
 
-    rowContextMenu: (component, e: MouseEvent) => {
+    rowContextMenu: (e: MouseEvent, component) => {
         component.delete();
         return false;
     },
@@ -1075,8 +1032,11 @@ table.on('dataSorted', ([sorter]) => sorter.field);
 
 Tabulator.registerModule([TooltipModule]);
 
+table.import('json', '.json');
+
 // 5.2
 table = new Tabulator('#test', {
+    popupContainer: true,
     // test editor of type 'list' supported.
     columns: [
         {
