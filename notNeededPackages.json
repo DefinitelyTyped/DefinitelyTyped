@@ -2249,6 +2249,10 @@
             "libraryName": "jest-each",
             "asOfVersion": "24.3.0"
         },
+        "jest-expect-message": {
+            "libraryName": "jest-expect-message",
+            "asOfVersion": "1.1.0"
+        },
         "jest-get-type": {
             "libraryName": "jest-get-type",
             "asOfVersion": "24.2.0"

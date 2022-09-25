@@ -21,7 +21,6 @@
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _d3 from 'd3';
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
 import { OhclData } from './lib/traces/ohcl';

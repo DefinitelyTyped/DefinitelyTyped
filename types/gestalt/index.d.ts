@@ -1,4 +1,4 @@
-// Type definitions for gestalt 62.0
+// Type definitions for gestalt 71.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -343,7 +343,7 @@ export interface ActionData {
 export interface CalloutProps {
     iconAccessibilityLabel: string;
     message: string;
-    type: 'error' | 'info' | 'warning';
+    type: 'error' | 'info' | 'recommendation' | 'success' | 'warning';
     dismissButton?:
         | {
               accessibilityLabel: string;
@@ -485,7 +485,7 @@ export interface DatapointProps {
     value: string;
     size?: 'md' | 'lg' | undefined;
     tooltipText?: string | undefined;
-    trend?: { accesibilityLabel: string; value: number } | undefined;
+    trend?: { accessibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
     badge?: BadgeObject | undefined;
     tooltipZIndex?: Indexable | undefined;
@@ -628,7 +628,7 @@ export interface FlexProps {
     children?: React.ReactNode | undefined;
     direction?: 'row' | 'column' | undefined;
     flex?: 'grow' | 'shrink' | 'none' | undefined;
-    gap?: UnsignedUpTo12 | undefined;
+    gap?: UnsignedUpTo12 | { row: UnsignedUpTo12; column: UnsignedUpTo12 } | undefined;
     height?: number | string | undefined;
     justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
     maxHeight?: number | string | undefined;
@@ -653,7 +653,7 @@ export interface FlexItemProps {
  */
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 'none' | undefined;
-    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
+    align?: 'start' | 'end' | 'center' | 'forceLeft' | 'forceRight' | undefined;
     children?: React.ReactNode | undefined;
     color?:
         | 'default'
@@ -1014,7 +1014,7 @@ export interface MaskProps {
  * https://gestalt.netlify.app/Masonry
  */
 export interface MasonryProps<T = any> {
-    comp: React.ComponentType<{ data: T; itemIdx?: number | undefined; isMeasuring?: boolean | undefined }>;
+    Item: React.ComponentType<{ data: T; itemIdx: number; isMeasuring: boolean }>;
     items: ReadonlyArray<T>;
     columnWidth?: number | undefined;
     flexible?: boolean | undefined;
@@ -1122,6 +1122,10 @@ export interface NumberFieldProps {
      */
     disabled?: boolean | undefined;
     /**
+     *  Optionally specify the action label to present for the enter key on virtual keyboards.
+     */
+    enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
+    /**
      * For most cases, pass a string with a helpful error message (be sure to localize!).
      * In certain instances it can be useful to make some text clickable; to suppor this you may instead pass a React.Node to wrap text in Link or TapArea.
      */
@@ -1189,8 +1193,8 @@ export interface OnLinkNavigationProviderProps {
 }
 
 export interface PageHeaderBadge {
-    title: string;
-    tootipText?: string | undefined;
+    text: string;
+    tooltipText?: string | undefined;
 }
 
 export interface PageHeaderHelperIconButton {
@@ -1225,12 +1229,13 @@ export interface PageHeaderProps {
     borderStyle?: 'sm' | 'none' | undefined;
     helperIconButton?: PageHeaderHelperIconButton | undefined;
     helperLink?: {
+        accessibilityLabel: string;
         text: string;
         href: string;
-        onClick: (args: {
+        onClick?: (args: {
             event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
             dangerouslyDisableOnNavigation: () => void;
-        }) => void;
+        }) => void | undefined;
     };
     items?: ReadonlyArray<React.ReactNode> | undefined;
     dropdownAccessibilityLabel?: string | undefined;
@@ -1374,9 +1379,9 @@ export interface SegmentedControlProps {
  * https://gestalt.netlify.app/SelectList
  */
 export interface SelectListProps {
+    children: React.ReactNode;
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
-    options: ReadonlyArray<{ label: string; value: string }>;
     disabled?: boolean | undefined;
     errorMessage?: string | undefined;
     helperText?: string | undefined;
@@ -1389,7 +1394,27 @@ export interface SelectListProps {
 }
 
 /**
- * SelectList Props Interface
+ * SelectList Options Props Interface
+ * https://gestalt.pinterest.systems/web/selectlist#SelectList.OptionProps
+ */
+export interface SelectListOptionProps {
+    label: string;
+    value: string;
+    disabled?: boolean | undefined;
+}
+
+/**
+ * SelectList Group Props Interface
+ * https://gestalt.pinterest.systems/web/selectlist#SelectList.GroupProps
+ */
+export interface SelectListGroupProps {
+    children: React.ReactNode;
+    label: string;
+    disabled?: boolean | undefined;
+}
+
+/**
+ * SideNavigation Props Interface
  * https://gestalt.netlify.app/SideNavigation
  */
 export interface SideNaviationProps {
@@ -1703,6 +1728,7 @@ export interface TableProps {
     borderStyle?: 'sm' | 'none' | undefined;
     children?: React.ReactNode | undefined;
     maxHeight?: number | string | undefined;
+    stickyColumns?: number | undefined;
 }
 
 export interface TableBodyProps {
@@ -1721,6 +1747,7 @@ export interface TableFooterProps {
 
 export interface TableHeaderProps {
     children?: React.ReactNode | undefined;
+    display?: 'tableHeaderGroup' | 'visuallyHidden';
     sticky?: boolean | undefined;
 }
 
@@ -1922,6 +1949,10 @@ export interface TextFieldProps {
      * @default false
      */
     disabled?: boolean | undefined;
+    /**
+     *  Optionally specify the action label to present for the enter key on virtual keyboards.
+     */
+    enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
     errorMessage?: React.ReactNode | undefined;
     /**
      * More information about how to complete the form field
@@ -2159,7 +2190,12 @@ export const RadioGroup: React.FunctionComponent<RadioGroupProps> & RadioGroupSu
 export const Row: React.FunctionComponent<RowProps>;
 export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export const SegmentedControl: React.FunctionComponent<SegmentedControlProps>;
-export const SelectList: React.FunctionComponent<SelectListProps>;
+
+export interface SelectListSubComponents {
+    Option: React.FC<SelectListOptionProps>;
+    Group: React.FC<SelectListGroupProps>;
+}
+export const SelectList: React.FunctionComponent<SelectListProps> & SelectListSubComponents;
 
 export interface SideNavigationSubcomponents {
     Section: React.FC<SideNavigationSectionProps>;
