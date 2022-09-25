@@ -19,6 +19,7 @@ import {
     TextClearFormat,
     IceVision,
     IbmCloudKubernetesService,
+    LogoSvelte,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -45,3 +46,4 @@ import {
 <Barcode />; // $ExpectType Element
 <CalculationAlt />; // $ExpectType Element
 <IbmCloudKubernetesService />; // $ExpectType Element
+<LogoSvelte />; // $ExpectType Element

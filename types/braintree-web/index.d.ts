@@ -6,7 +6,19 @@
 
 import { VERSION, BraintreeError, callback } from './modules/core';
 import { AmericanExpress } from './modules/american-express';
-import { ApplePay, ApplePaySession, ApplePayStatusCodes, ApplePayPayload } from './modules/apple-pay';
+import {
+    ApplePay,
+    ApplePaySession,
+    ApplePayStatusCodes,
+    ApplePayDetails,
+    ApplePayPayload,
+    ApplePayPaymentRequest,
+    ApplePayLineItem,
+    ApplePayLineItemType,
+    ApplePayPaymentTiming,
+    ApplePayRecurringPaymentDateUnit,
+    ApplePayTokenizeValues
+} from './modules/apple-pay';
 import { Client, CreditCardInfo } from './modules/client';
 import { DataCollector } from './modules/data-collector';
 import { GooglePayment, GooglePaymentTokenizePayload } from './modules/google-payment';
@@ -54,8 +66,15 @@ export {
     AmericanExpress,
     ApplePay,
     ApplePaySession,
+    ApplePayDetails,
     ApplePayStatusCodes,
     ApplePayPayload,
+    ApplePayPaymentRequest,
+    ApplePayLineItem,
+    ApplePayLineItemType,
+    ApplePayPaymentTiming,
+    ApplePayRecurringPaymentDateUnit,
+    ApplePayTokenizeValues,
     Client,
     CreditCardInfo,
     DataCollector,

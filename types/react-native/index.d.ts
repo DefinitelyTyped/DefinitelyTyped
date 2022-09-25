@@ -41,6 +41,8 @@
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
 //                 Lorenzo Sciandra <https://github.com/kelset>
 //                 Mateusz Wit <https://github.com/MateWW>
+//                 Luna Wei <https://github.com/lunaleaps>
+//                 Saad Najmi <https://github.com/saadnajmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -545,6 +547,8 @@ export type PointerEvent = NativeSyntheticEvent<NativePointerEvent>;
 
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
+export interface MouseEvent extends NativeSyntheticEvent<NativeMouseEvent> {}
+
 // See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointProp {
     x: number;
@@ -571,6 +575,16 @@ export interface PressableAndroidRippleConfig {
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
+     * Called when the hover is activated to provide visual feedback.
+     */
+    onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
+    onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
      * Called when a single tap gesture is detected.
      */
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -592,13 +606,13 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
 
     /**
      * Called after the element loses focus.
-     * @platform windows
+     * @platform macos windows
      */
     onBlur?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
     /**
      * Called after the element is focused.
-     * @platform windows
+     * @platform macos windows
      */
     onFocus?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
@@ -613,6 +627,18 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * scroll event. Defaults to true.
      */
     cancelable?: null | boolean | undefined;
+
+    /**
+     * Duration to wait after hover in before calling `onHoverIn`.
+     * @platform macos windows
+     */
+    delayHoverIn?: number | null | undefined;
+
+    /**
+     * Duration to wait after hover out before calling `onHoverOut`.
+     * @platform macos windows
+     */
+    delayHoverOut?: number | null | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -2450,6 +2476,12 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
+     * Specifies the nativeID of the associated label text. When the assistive technology focuses on the component with this props, the text is read aloud.
+     * @platform android
+     */
+    accessibilityLabelledBy?: string | string[] | undefined;
+
+    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2478,6 +2510,14 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean | undefined;
+
+    /**
+     * Indicates to the accessibility services that the UI component is in
+     * a specific language. The provided string should be formatted following
+     * the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).
+     * @platform ios
+     */
+    accessibilityLanguage?: string | undefined;
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.

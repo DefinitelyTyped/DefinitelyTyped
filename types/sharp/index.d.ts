@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.30
+// Type definitions for sharp 0.31
 // Project: https://github.com/lovell/sharp
 // Definitions by: Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
@@ -486,7 +486,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        linear(a?: number | null, b?: number): Sharp;
+        linear(a?: number | number[] | null, b?: number | number[]): Sharp;
 
         /**
          * Recomb the image with the specified matrix.
@@ -755,13 +755,14 @@ declare namespace sharp {
         extract(region: Region): Sharp;
 
         /**
-         * Trim "boring" pixels from all edges that contain values similar to the top-left pixel.
+         * Trim pixels from all edges that contain values similar to the given background colour, which defaults to that of the top-left pixel.
+         * Images with an alpha channel will use the combined bounding box of alpha and non-alpha channels.
          * The info response Object will contain trimOffsetLeft and trimOffsetTop properties.
-         * @param threshold The allowed difference from the top-left pixel, a number greater than zero. (optional, default 10)
+         * @param trim The specific background colour to trim, the threshold for doing so or an Object with both.
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        trim(threshold?: number): Sharp;
+        trim(trim?: string | number | TrimOptions): Sharp;
 
         //#endregion
     }
@@ -806,6 +807,8 @@ declare namespace sharp {
         raw?: Raw | undefined;
         /** Describes a new image to be created. */
         create?: Create | undefined;
+        /** Describes a new text image to be created. */
+        text?: CreateText | undefined;
     }
 
     interface CacheOptions {
@@ -846,6 +849,35 @@ declare namespace sharp {
         background: Color;
         /** Describes a noise to be created. */
         noise?: Noise | undefined;
+    }
+
+    interface CreateText {
+        /** Text to render as a UTF-8 string. It can contain Pango markup, for example `<i>Le</i>Monde`. */
+        text: string;
+        /** Font name to render with. */
+        font?: string;
+        /** Absolute filesystem path to a font file that can be used by `font`. */
+        fontfile?: string;
+        /** Integral number of pixels to word-wrap at. Lines of text wider than this will be broken at word boundaries. (optional, default `0`) */
+        width?: number;
+        /**
+         * Integral number of pixels high. When defined, `dpi` will be ignored and the text will automatically fit the pixel resolution
+         * defined by `width` and `height`. Will be ignored if `width` is not specified or set to 0. (optional, default `0`)
+         */
+        height?: number;
+        /** Text alignment ('left', 'centre', 'center', 'right'). (optional, default 'left') */
+        align?: string;
+        /** Set this to true to apply justification to the text. (optional, default `false`) */
+        justify?: boolean;
+        /** The resolution (size) at which to render the text. Does not take effect if `height` is specified. (optional, default `72`) */
+        dpi?: number;
+        /**
+         * Set this to true to enable RGBA output. This is useful for colour emoji rendering,
+         * or support for pango markup features like `<span foreground="red">Red!</span>`. (optional, default `false`)
+         */
+        rgba?: boolean;
+        /** Text line height in points. Will use the font line height if none is specified. (optional, default `0`) */
+        spacing?: number;
     }
 
     interface WriteableMetadata {
@@ -1006,11 +1038,10 @@ declare namespace sharp {
         smartSubsample?: boolean | undefined;
         /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
         effort?: number | undefined;
-        /**
-         * Level of CPU effort to reduce file size, integer 0-6 (optional, default 4)
-         * @deprecated Use `effort` instead
-         */
-        reductionEffort?: number | undefined;
+        /** Prevent use of animation key frames to minimise file size (slow) (optional, default false) */
+        minSize?: number;
+        /** Allow mixture of lossy and lossless animation frames (slow) (optional, default false) */
+        mixed?: boolean;
     }
 
     interface AvifOptions extends OutputOptions {
@@ -1018,11 +1049,6 @@ declare namespace sharp {
         quality?: number | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /**
-         * CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5)
-         * @deprecated Use `effort` instead
-         */
-        speed?: number | undefined;
         /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
         effort?: number | undefined;
         /** set to '4:2:0' to use chroma subsampling, requires libvips v8.11.0 (optional, default '4:4:4') */
@@ -1036,19 +1062,18 @@ declare namespace sharp {
         compression?: 'av1' | 'hevc' | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /**
-         * effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5)
-         * @deprecated Use `effort` instead
-         */
-        speed?: number | undefined;
         /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
         effort?: number | undefined;
     }
 
     interface GifOptions extends OutputOptions, AnimationOptions {
+        /** Always generate new palettes (slow), re-use existing by default (optional, default false) */
+        reoptimise?: boolean | undefined;
+        /** Alternative spelling of "reoptimise" (optional, default false) */
+        reoptimize?: boolean | undefined;
         /** Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
         colours?: number | undefined;
-        /** Alternative Spelling of "colours". Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
+        /** Alternative spelling of "colours". Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
         colors?: number | undefined;
         /** Level of CPU effort to reduce file size, between 1 (fastest) and 10 (slowest) (optional, default 7) */
         effort?: number | undefined;
@@ -1059,7 +1084,7 @@ declare namespace sharp {
     interface TiffOptions extends OutputOptions {
         /** Quality, integer 1-100 (optional, default 80) */
         quality?: number | undefined;
-        /** Compression options: lzw, deflate, jpeg, ccittfax4 (optional, default 'jpeg') */
+        /** Compression options: none, jpeg, deflate, packbits, ccittfax4, lzw, webp, zstd, jp2k (optional, default 'jpeg') */
         compression?: string | undefined;
         /** Compression predictor options: none, horizontal, float (optional, default 'horizontal') */
         predictor?: string | undefined;
@@ -1171,6 +1196,13 @@ declare namespace sharp {
         background?: Color | undefined;
     }
 
+    interface TrimOptions {
+        /** background colour, parsed by the color module, defaults to that of the top-left pixel. (optional) */
+        background?: Color | undefined;
+        /** the allowed difference from the above colour, a positive number. (optional, default `10`) */
+        threshold?: number | undefined;
+    }
+
     interface RawOptions {
         depth?: 'char' | 'uchar' | 'short' | 'ushort' | 'int' | 'uint' | 'float' | 'complex' | 'double' | 'dpcomplex';
     }
@@ -1218,7 +1250,7 @@ declare namespace sharp {
 
     interface OverlayOptions {
         /** Buffer containing image data, String containing the path to an image file, or Create object  */
-        input?: string | Buffer | { create: Create } | undefined;
+        input?: string | Buffer | { create: Create } | { text: CreateText } | undefined;
         /** how to blend this image with the image below. (optional, default `'over'`) */
         blend?: Blend | undefined;
         /** gravity at which to place the overlay. (optional, default 'centre') */
@@ -1321,12 +1353,14 @@ declare namespace sharp {
         trimOffsetLeft?: number | undefined;
         /** Only defined when using a trim method */
         trimOffsetTop?: number | undefined;
+        /** DPI the font was rendered at, only defined when using `text` input */
+        textAutofitDpi?: number | undefined;
     }
 
     interface AvailableFormatInfo {
         id: string;
-        input: { file: boolean; buffer: boolean; stream: boolean };
-        output: { file: boolean; buffer: boolean; stream: boolean };
+        input: { file: boolean; buffer: boolean; stream: boolean; fileSuffix?: string[] };
+        output: { file: boolean; buffer: boolean; stream: boolean; alias?: string[] };
     }
 
     interface FitEnum {

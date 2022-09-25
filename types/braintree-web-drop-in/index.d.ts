@@ -19,7 +19,7 @@ https://braintree.github.io/braintree-web-drop-in/docs/current/module-braintree-
 
 import { ApplePayPaymentRequest } from 'braintree-web/modules/apple-pay';
 import { HostedFieldsField } from 'braintree-web/modules/hosted-fields';
-import { ThreeDSecureVerifyPayload } from 'braintree-web/modules/three-d-secure';
+import { ThreeDSecureInfo } from 'braintree-web/modules/three-d-secure';
 import { ButtonStyle } from 'paypal-checkout-components';
 
 /**
@@ -207,7 +207,7 @@ export interface cardPaymentMethodPayload {
     deviceData?: string | undefined;
     liabilityShifted?: boolean | undefined;
     liabilityShiftPossible?: boolean | undefined;
-    threeDSecureInfo?: ThreeDSecureVerifyPayload | undefined;
+    threeDSecureInfo?: ThreeDSecureInfo | undefined;
 }
 
 export interface googlePayPaymentMethodPayload {

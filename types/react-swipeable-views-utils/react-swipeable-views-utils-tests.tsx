@@ -7,8 +7,6 @@ const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
 
 function autoPlayTest() {
-    // @ts-expect-error
-    <AutoPlaySwipeableViews />;
     <AutoPlaySwipeableViews
         index={1}
         onChangeIndex={(index: number) => {
@@ -22,6 +20,12 @@ function virtualizeTest() {
     // @ts-expect-error
     <VirtualizeSwipeableViews />;
     <VirtualizeSwipeableViews
+        slideRenderer={(renderer: SlideRenderProps) => {
+            return <div>Slide {renderer.index}</div>;
+        }}
+        enableMouseEvents
+    />;
+    <VirtualizeSwipeableViews
         index={1}
         onChangeIndex={(index: number) => {
             index;
@@ -33,7 +37,6 @@ function virtualizeTest() {
 }
 
 function bindKeyboardTest() {
-    // @ts-expect-error
     <BindKeyboardSwipeableViews />;
     <BindKeyboardSwipeableViews
         index={1}

@@ -176,7 +176,7 @@ declare global {
          * @param callback Function to close over assertions
          */
         // tslint:disable-next-line no-unnecessary-generics
-        test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
+        test<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<unknown>): void;
 
         /**
          * Adds a test to exclusively run, preventing all other tests from running.
@@ -195,7 +195,7 @@ declare global {
          * @param callback Function to close over assertions
          */
         // tslint:disable-next-line no-unnecessary-generics
-        only<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
+        only<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<unknown>): void;
 
         /**
          * Use this method to test a unit of code which is still under development (in a “todo” state).
@@ -208,7 +208,7 @@ declare global {
          * @param callback Function to close over assertions
          */
         // tslint:disable-next-line no-unnecessary-generics
-        todo<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<void>): void;
+        todo<TC extends TestContext>(name: string, callback: (this: TC, assert: Assert) => void | Promise<unknown>): void;
 
         /**
          * Adds a test like object to be skipped.
@@ -224,6 +224,6 @@ declare global {
          * @param callback Function to close over assertions
          */
         // tslint:disable-next-line no-unnecessary-generics
-        skip<TC extends TestContext>(name: string, callback?: (this: TC, assert: Assert) => void | Promise<void>): void;
+        skip<TC extends TestContext>(name: string, callback?: (this: TC, assert: Assert) => void | Promise<unknown>): void;
     }
 }

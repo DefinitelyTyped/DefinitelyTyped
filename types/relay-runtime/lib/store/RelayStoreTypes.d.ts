@@ -913,8 +913,8 @@ export type MissingFieldHandler =
       };
 
 /**
- * A handler for events related to @required fields. Currently reports missing
- * fields with either `action: LOG` or `action: THROW`.
+ * A handler for events related to @required fields or Relay Resolvers. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW` or when a Relay Resolver throws.
  */
 export type RequiredFieldLogger = (
     arg:
@@ -927,6 +927,12 @@ export type RequiredFieldLogger = (
               kind: 'missing_field.throw';
               owner: string;
               fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'relay_resolver.error';
+              owner: string;
+              fieldPath: string;
+              error: Error;
           }>,
 ) => void;
 

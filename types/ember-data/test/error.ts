@@ -1,8 +1,13 @@
+import EmberError from '@ember/error';
+import { service } from '@ember/service';
 import Ember from 'ember';
 import DS from 'ember-data';
 import { assertType } from './lib/assert';
 
 const { AdapterError } = DS;
+
+// assert AdapterError extends EmberError
+assertType<typeof EmberError>(AdapterError);
 
 // https://emberjs.com/api/ember-data/2.16/classes/DS.AdapterError
 const MaintenanceError = DS.AdapterError.extend({
@@ -74,6 +79,8 @@ assertType<typeof AdapterError>(ForbiddenError);
 const { NotFoundError } = DS;
 assertType<typeof AdapterError>(NotFoundError);
 const notFound = Ember.Route.extend({
+    store: service('store'),
+
     model(params: { post_id: string }): any {
         return this.get('store').findRecord('post', params.post_id);
     },

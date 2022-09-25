@@ -57,14 +57,6 @@ declare module '../../index' {
          *   another vector. See examples for more context.
          *   @param v1 dividend p5.Vector
          *   @param v2 divisor p5.Vector
-         */
-        static rem(v1: Vector, v2: Vector): void;
-
-        /**
-         *   Gives remainder of a vector when it is divided by
-         *   another vector. See examples for more context.
-         *   @param v1 dividend p5.Vector
-         *   @param v2 divisor p5.Vector
          *   @return the resulting p5.Vector
          */
         static rem(v1: Vector, v2: Vector): Vector;
@@ -101,38 +93,12 @@ declare module '../../index' {
          *   Additionally, you may provide arguments to this
          *   function as an array. See the examples for more
          *   context.
-         *   @param x The number to multiply with the x
-         *   component of the vector
-         *   @param y The number to multiply with the y
-         *   component of the vector
-         *   @param [z] The number to multiply with the z
-         *   component of the vector
-         *   @return The resulting new p5.Vector
-         */
-        static mult(x: number, y: number, z?: number): Vector;
-
-        /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the non
-         *   static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
          *   @param v The vector to multiply with the
          *   components of the original vector
          *   @param n The number to multiply with the vector
          *   @param [target] the vector to receive the result
          */
-        static mult(v: Vector, n: number, target?: Vector): void;
+        static mult(v: Vector, n: number, target?: Vector): Vector;
 
         /**
          *   Multiplies the vector by a scalar, multiplies the
@@ -152,7 +118,7 @@ declare module '../../index' {
          *   context.
          *   @param [target] the vector to receive the result
          */
-        static mult(v0: Vector, v1: Vector, target?: Vector): void;
+        static mult(v0: Vector, v1: Vector, target?: Vector): Vector;
 
         /**
          *   Multiplies the vector by a scalar, multiplies the
@@ -174,34 +140,7 @@ declare module '../../index' {
          *   components of the vector
          *   @param [target] the vector to receive the result
          */
-        static mult(v0: Vector, arr: number[], target?: Vector): void;
-
-        /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor (for example with two vectors a and b: a.x
-         *   / b.x, a.y / b.y, a.z / b.z). The static version
-         *   of this method creates a new p5.Vector while the
-         *   non static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param x The number to divide with the x component
-         *   of the vector
-         *   @param y The number to divide with the y component
-         *   of the vector
-         *   @param [z] The number to divide with the z
-         *   component of the vector
-         *   @return The resulting new p5.Vector
-         */
-        static div(x: number, y: number, z?: number): Vector;
+        static mult(v0: Vector, arr: number[], target?: Vector): Vector;
 
         /**
          *   Divides the vector by a scalar, divides a vector
@@ -225,7 +164,7 @@ declare module '../../index' {
          *   @param n The number to divide the vector by
          *   @param [target] the vector to receive the result
          */
-        static div(v: Vector, n: number, target?: Vector): void;
+        static div(v: Vector, n: number, target?: Vector): Vector;
 
         /**
          *   Divides the vector by a scalar, divides a vector
@@ -246,7 +185,7 @@ declare module '../../index' {
          *   context.
          *   @param [target] the vector to receive the result
          */
-        static div(v0: Vector, v1: Vector, target?: Vector): void;
+        static div(v0: Vector, v1: Vector, target?: Vector): Vector;
 
         /**
          *   Divides the vector by a scalar, divides a vector
@@ -269,7 +208,7 @@ declare module '../../index' {
          *   the vector by
          *   @param [target] the vector to receive the result
          */
-        static div(v0: Vector, arr: number[], target?: Vector): void;
+        static div(v0: Vector, arr: number[], target?: Vector): Vector;
 
         /**
          *   Calculates the magnitude (length) of the vector
@@ -300,7 +239,7 @@ declare module '../../index' {
          *   @param v2 the second p5.Vector
          *   @return the cross product
          */
-        static cross(v1: Vector, v2: Vector): number;
+        static cross(v1: Vector, v2: Vector): Vector;
 
         /**
          *   Calculates the Euclidean distance between two
@@ -328,7 +267,7 @@ declare module '../../index' {
          *   @param angle the angle of rotation
          *   @param [target] the vector to receive the result
          */
-        static rotate(v: Vector, angle: number, target?: Vector): void;
+        static rotate(v: Vector, angle: number, target?: Vector): Vector;
 
         /**
          *   Linear interpolate the vector to another vector
@@ -856,7 +795,7 @@ declare module '../../index' {
          *   Equality check against a p5.Vector
          *   @param value the vector to compare
          */
-        equals(value: Vector | any[]): boolean;
+        equals(value: Vector | number[]): boolean;
 
         /**
          *   The x component of the vector
