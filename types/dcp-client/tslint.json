@@ -2,6 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "array-type": false
+        "array-type": false,
+        "redundant-undefined": false
     }
 }
