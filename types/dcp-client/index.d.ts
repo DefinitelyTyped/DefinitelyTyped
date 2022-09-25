@@ -14,8 +14,29 @@ export interface DCPClient {
     worker: Worker;
 }
 //#endregion
+
+export type URL = string;
+export type DcpURL = object | string;
+export class Status {}
+
+//#region EnoProgressError
+export class EnoProgressError implements Error {
+    name: string;
+    stack?: string | undefined;
+    message: string;
+}
+//#endregion
 //#region Compute
 export interface Compute {
+    /**
+     * Emits a progress event. Every work function must invoke this function.
+     * If a progress event is not emitted within 30 seconds, the scheduler will throw an ENOPROGRESS error.
+     * @param n – An estimate between 0 and 1 (inclusive) of the ratio of work completed to the total amount of work that needs to be done for one slice.
+     * This value must be between 6 significant digits and must always be increasing as more work is continuously being done.
+     * @returns void
+     */
+    progress(n?: string | number | undefined): void | EnoProgressError;
+
     /**
      * This function allows the client to cancel a running job. This function takes as its sole argument
      * a Job id and tells the scheduler to cancel the job.
@@ -40,10 +61,10 @@ export interface Compute {
      * This function returns a JobHandle (an object which corresponds to a job), and accepts one or more arguments, depending on form.
      * @returns a Promise which will be fulfilled with a JobHandle object.
      * @param n
-     * @param work
+     * @param work: Function | string | URL | DcpURL
      * @param arguments
      */
-    do(n: number, work: string, arguments: object): Promise<JobHandle>;
+    do(n: number, work: Function | string | URL | DcpURL, arguments?: object): Promise<JobHandle>;
 
     /**
      * Form 1: for (rangeObject, work, arguments)
@@ -53,7 +74,7 @@ export interface Compute {
      * Otherwise, the returned promise is resolved with an object whose keys are the values in the range.
      * Form 3: for ({ ranges: [rangeObject, rangeObject...] }, work, arguments) Similar to form1,
      * except with a multi range object containing an array of range objects in the key ranges.
-     * These are used to create multi-dimensional ranges, like nested loops. If they were written as traditional loops,
+     * These are used to create multidimensional ranges, like nested loops. If they were written as traditional loops,
      * the outermost loop would be the leftmost range object, and the innermost loop would be the rightmost range object.
      * Form 4: for (iterableObject, work, arguments)
      * Future Note - form4 with an ES6 functionjob argument presents the possibility where, in a future version of DCP,
@@ -62,12 +83,12 @@ export interface Compute {
      * without altering the API. This means DCP could process, for example,
      * jobs where the input set is a very long list of video frames and each slice represents one frame.
      * iterableObject could be an Array, ES6 function* generator, or any other type of iterable object.
-     * @returns a Promise which will be fulfilled with a JobHandle object.
+     * @returns a Promise which will be fulfilled with a Job object.
      * @param rangeObject: object | Ranges
-     * @param work
+     * @param work: Function | string | URL | DcpURL
      * @param arguments
      */
-    for(rangeObject: object | Ranges, work: string, arguments: object): Promise<JobHandle>;
+    for(rangeObject: object | Ranges, work: Function | string | URL | DcpURL, arguments?: object): Promise<Job>;
 
     /**
      * form 2a: for (start, end, step, work, arguments) - start, end, and step are numbers used to create a range object.
@@ -76,10 +97,10 @@ export interface Compute {
      * @param start
      * @param end
      * @param step
-     * @param work
+     * @param work: Function | string | URL | DcpURL
      * @param arguments
      */
-    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
+    for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments?: object): Promise<Job>;
 
     /**
      * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
@@ -90,7 +111,7 @@ export interface Compute {
      * @param work
      * @param arguments
      */
-    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
+    for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments?: object): Promise<Job>;
 
     /**
      * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
@@ -98,10 +119,10 @@ export interface Compute {
      * @param start
      * @param end
      * @param step
-     * @param work
+     * @param work: Function | string | URL | DcpURL
      * @param arguments
      */
-    for(start: number, end: number, step: number, work: string, arguments: object): Promise<JobHandle>;
+    for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments: object): Promise<Job>;
 
     /**
      * Form 1: compute.status(job): returns a status object describing a given job.
@@ -109,7 +130,7 @@ export interface Compute {
      * @returns a Promise which will be fulfilled with a JobHandle object.
      * @param job: jobId or JobHandle
      */
-    status(job: jobId | JobHandle): Promise<JobHandle>;
+    status(job: jobId | JobHandle): Promise<Status|Array<Status>>;
 
     /**
      * Form 2: compute.status(paymentAccount, startTime, endTime): returns an array of status objects corresponding to the status of jobs deployed by the given payment account.
@@ -121,7 +142,7 @@ export interface Compute {
      * @param startTime
      * @param endTime
      */
-    status(paymentAccount: string, startTime: number, endTime: number): Promise<JobHandle>;
+    status(startTime: number, endTime: number, paymentAccount: Keystore): Promise<JobHandle>;
 
     /**
      * This async function accepts job Id as its argument and returns information and status of a job specified with jobID.
@@ -290,7 +311,7 @@ export class Job {
      * @console - Used to collect the console output of the workers.
      * @result - Emitted when a slice completes and returns.
      */
-    on(event: 'accepted' | 'complete' | 'readystatechange' | 'console' | 'result', listener: () => void): this;
+    on(event: "accepted" | "complete" | "readystatechange" | "console" | "result", listener: (ev?: any) => void): this;
 
     /**
      * Deploys the job to the scheduler for work to be done by distributed workers all throughout the DCP network.

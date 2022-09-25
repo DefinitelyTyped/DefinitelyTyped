@@ -90,6 +90,21 @@ export const loadOptions: LoadOptions = {
 
     //#region Compute API Tests
     await compute.cancel();
+    const startTime = 0;
+    const endTime = Date.now();
+    const ev = '';
+
+    job.on('result', async (ev) => {
+        const status = await compute.status(startTime, endTime, keystore);
+    });
+
+    const rangeObject1 = new RangeObject(1, 1000, 2);
+    const rangeObject2 = new RangeObject(0, 1000, 2);
+    const multiRange = new MultiRangeObject(rangeObject1, rangeObject2);
+    const computeJob = await compute.for(multiRange, async (sliceIndex: number[], data: any) => {
+        await compute.progress();
+        return sliceIndex[0] ** 2 + sliceIndex[1] ** 2 + Math.sqrt(data);
+    }, [100]);
     //#endregion
 
     //#region Wallet API Tests

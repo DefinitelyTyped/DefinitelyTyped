@@ -1,1 +1,7 @@
-{ "extends": "@definitelytyped/dtslint/dt.json" }
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "array-type": false
+    }
+}
