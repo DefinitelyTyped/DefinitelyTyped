@@ -3,15 +3,17 @@
 // Definitions by: Alex Kovacs <https://github.com/alexthemaster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface LrcData {
+interface LrcData {
     [key: string]: string | ScriptItem[] | undefined;
     scripts?: ScriptItem[];
 }
 
-export interface ScriptItem {
+interface ScriptItem {
     start: number;
     text: string;
     end: number;
 }
 
-export default function lrcParser(data: string): LrcData;
+declare function lrcParser(data: string): LrcData;
+
+export = lrcParser;
