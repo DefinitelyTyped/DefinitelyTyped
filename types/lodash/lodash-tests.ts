@@ -4156,12 +4156,6 @@ fp.now(); // $ExpectType number
         array.push({ value: false });
     }
 
-    const obj: { value?: boolean } = {};
-    if (_.isEmpty(obj)) {
-        const result: { value?: undefined } = obj;
-    } else {
-        obj; // $ExpectType { value?: boolean | undefined; }
-    }
     let obj2: { value: boolean } | null | undefined = { value: true };
     if (Math.random()) {
         obj2 = null;
@@ -4172,6 +4166,19 @@ fp.now(); // $ExpectType number
         const result: null | undefined = obj2;
     } else {
         obj2; // $ExpectType { value: boolean; }
+    }
+    type Errors = Record<string, string>;
+    const errors: Errors = {};
+
+    if (_.isEmpty(errors)) {
+        errors.test = "123";
+    }
+    const bag = {};
+    // bag["foo"] = 1;
+    let bag2;
+
+    if (!_.isEmpty(bag)) {
+        bag2 = { ...bag };
     }
 }
 
