@@ -50,7 +50,7 @@ declare module 'node:test' {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
 
-    /*
+    /**
      * @since v18.6.0
      * @param name The name of the suite, which is displayed when reporting suite results.
      *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
@@ -62,7 +62,7 @@ declare module 'node:test' {
     function describe(options?: TestOptions, fn?: SuiteFn): void;
     function describe(fn?: SuiteFn): void;
 
-    /*
+    /**
      * @since v18.6.0
      * @param name The name of the test, which is displayed when reporting test results.
      *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
