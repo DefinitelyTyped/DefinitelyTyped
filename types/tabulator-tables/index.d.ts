@@ -1428,7 +1428,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
     clickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
 
-    /** Popups work in a similar way to menus, but instead of only displaying lists of menu items then allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
+    /** Popups work in a similar way to menus, but instead of only displaying lists of menu items they allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
     cellPopup?:
         | string
         | ((e: MouseEvent, component: RowComponent | CellComponent | ColumnComponent, onRendered: () => any) => any);
