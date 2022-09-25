@@ -1794,7 +1794,7 @@ export interface LabelValue {
 }
 
 export interface ListEditorParams extends SharedEditorParams, SharedSelectAutoCompleteEditorParams {
-    values: true | string[] | JSONRecord | string | any[] | LabelValue[];
+    values?: true | string[] | JSONRecord | string | any[] | LabelValue[];
     valuesURL?: string;
     valuesLookup?: RowRangeLookup;
     valuesLookupField?: string;
