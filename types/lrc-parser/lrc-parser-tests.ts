@@ -1,8 +1,7 @@
-
-import lrcParser from "lrc-parser";
+import lrcParser from 'lrc-parser';
 
 // $ExpectType LrcData
-const result = lrcParser("");
+const result = lrcParser('');
 
 // @ts-expect-error
 const wrongResult = lrcParser(0);

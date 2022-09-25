@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface LrcData {
-    [key: string]: string | ScriptItem[] | undefined
-    scripts?: ScriptItem[]
+    [key: string]: string | ScriptItem[] | undefined;
+    scripts?: ScriptItem[];
 }
 
-export type ScriptItem = {
-    start: number,
-    text: string,
-    end: number
+export interface ScriptItem {
+    start: number;
+    text: string;
+    end: number;
 }
 
 export default function lrcParser(data: string): LrcData;
