@@ -5,19 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.9
 
-interface MediaRecorderErrorEventInit extends EventInit {
-    error: DOMException;
-}
-
-interface MediaRecorderErrorEvent extends Event {
-    readonly error: DOMException;
-}
-
-declare var MediaRecorderErrorEvent: {
-    prototype: MediaRecorderErrorEvent;
-    new(type: string, eventInitDict: MediaRecorderErrorEventInit): MediaRecorderErrorEvent;
-};
-
 interface BlobEventInit extends EventInit {
     data: Blob;
     timecode?: number | undefined;
@@ -88,5 +75,4 @@ declare var MediaRecorder: {
 interface Window {
     MediaRecorder: typeof MediaRecorder;
     BlobEvent: typeof BlobEvent;
-    MediaRecorderErrorEvent: typeof MediaRecorderErrorEvent;
 }
