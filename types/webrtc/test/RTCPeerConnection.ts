@@ -14,7 +14,7 @@ let pc: RTCPeerConnection = new RTCPeerConnection({});
 let pc2: RTCPeerConnection = new RTCPeerConnection({
     iceServers: [ice1, ice2],
 });
-window.RTCPeerConnection.generateCertificate('sha-256').then((cert: RTCCertificate) => {
+window.RTCPeerConnection.generateCertificate("sha-256").then((cert: RTCCertificate) => {
     new RTCPeerConnection({
         iceServers: [ice1],
         iceTransportPolicy: 'relay',
@@ -34,7 +34,8 @@ pc.setConfiguration(conf);
 pc2.close();
 
 // Offer/answer flow
-pc.createOffer({ iceRestart: true }).then((offer: RTCSessionDescriptionInit) => {
+pc.createOffer({iceRestart: true})
+    .then((offer: RTCSessionDescriptionInit) => {
     pc.setLocalDescription(offer);
     pc2.setRemoteDescription(offer);
     pc2.createAnswer().then((answer: RTCSessionDescriptionInit) => {
@@ -64,31 +65,31 @@ console.log(pc.connectionState);
 pc.createOffer(
     (sdp: RTCSessionDescription) => console.log(sdp.sdp),
     (error: DOMException) => console.log(error.message),
-    { iceRestart: true },
+    {iceRestart: true}
 ).then(() => console.log('createOffer complete'));
 pc.setLocalDescription(
-    { type: 'offer', sdp: 'foobar' },
+    {type: 'offer', sdp: 'foobar'},
     () => console.log('local description set'),
-    (error: DOMException) => console.log(error.message),
+    (error: DOMException) => console.log(error.message)
 ).then(() => console.log('setLocalDescription complete'));
 pc.createAnswer(
     (sdp: RTCSessionDescription) => console.log(sdp.sdp),
-    (error: DOMException) => console.log(error.message),
+    (error: DOMException) => console.log(error.message)
 ).then(() => console.log('createAnswer complete'));
 pc.setRemoteDescription(
-    { type: 'answer', sdp: 'foobar' },
+    {type: 'answer', sdp: 'foobar'},
     () => console.log('remote description set'),
-    (error: DOMException) => console.log(error.message),
+    (error: DOMException) => console.log(error.message)
 ).then(() => console.log('setRemoteDescription complete'));
 pc.addIceCandidate(
-    { candidate: 'candidate', sdpMid: 'foo', sdpMLineIndex: 1 },
+    {candidate: 'candidate', sdpMid: 'foo', sdpMLineIndex: 1},
     () => console.log('candidate added'),
-    (error: DOMException) => console.log(error.message),
+    (error: DOMException) => console.log(error.message)
 ).then(() => console.log('addIceCandidate complete'));
 pc.getStats(
     null,
     (report: RTCStatsReport) => console.log('got report'),
-    (error: DOMException) => console.log(error.message),
+    (error: DOMException) => console.log(error.message)
 ).then(() => console.log('getStats complete'));
 
 // RTCError
