@@ -1,4 +1,4 @@
-// Type definitions for locomotive-scroll 1.0
+// Type definitions for locomotive-scroll 4.1
 // Project: https://github.com/locomotivemtl/locomotive-scroll
 // Definitions by: Colin Lienard <https://github.com/ColinLienard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
