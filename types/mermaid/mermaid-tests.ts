@@ -1,4 +1,4 @@
-import mermaid from 'mermaid';
+import mermaid = require('mermaid');
 
 const config = {
     startOnLoad: true,
