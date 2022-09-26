@@ -1,0 +1,33 @@
+{
+  "name": "@types/cjdnsadmin",
+  "version": "1.0.0",
+  "description": "Types for https://github.com/cjdelisle/cjdnsadmin",
+  "typings": "index.d.ts",
+  "scripts": {
+    "lint": "tslint index.d.ts",
+    "bundle": "typings bundle -o bundle.d.ts",
+    "exec": "ts-node test.ts",
+    "test": "npm run lint && npm run bundle && npm run exec",
+    "prepublish": "typings install",
+    "postpublish": "greenkeeper-postpublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/types/cjdnsadmin.git"
+  },
+  "author": "backupbrain@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/types/cjdnsadmin/issues"
+  },
+  "homepage": "https://github.com/types/cjdnsadmin#readme",
+  "dependencies": {
+    "cjdnsadmin": "^1.0.3",
+    "greenkeeper-postpublish": "^2.0.0",
+    "ts-node": "^10.9.1",
+    "tslint": "^6.1.3",
+    "tslint-config-typings": "^0.3.1",
+    "typescript": "^4.8.3",
+    "typings": "^2.1.1"
+  }
+}

@@ -1,0 +1,22 @@
+sudo: false
+language: node_js
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+script:
+  - npm run lint
+  - npm run bundle
+  - npm rm tslint
+  - npm install $TYPESCRIPT --force
+  - npm run exec
+
+env:
+  - TYPESCRIPT=typescript@1.8
+  - TYPESCRIPT=typescript@latest
+  - TYPESCRIPT=typescript@next
+
+node_js:
+  - "stable"
