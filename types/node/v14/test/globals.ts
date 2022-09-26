@@ -13,3 +13,15 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
 const abortController = new global.AbortController();
 abortController.signal; // $ExpectType AbortSignal
+
+// AbortController & AbortSignal
+{
+    const controller = new AbortController();
+    let bool: boolean;
+    bool = controller.signal.aborted;
+    const listener = (event: Event) => {};
+    controller.signal.addEventListener("abort", listener);
+    controller.signal.removeEventListener("abort", listener);
+    controller.signal.onabort = listener;
+    controller.abort();
+}
