@@ -48,16 +48,6 @@ if ('mediaSession' in navigator && navigator.mediaSession) {
         updatePositionState();
     });
 
-    navigator.mediaSession.setActionHandler('hangup', event => {
-        if (navigator.mediaSession) {
-            navigator.mediaSession.playbackState = 'none';
-        }
-    });
-
-    navigator.mediaSession.setActionHandler('togglemicrophone', event => {});
-
-    navigator.mediaSession.setActionHandler('togglecamera', event => {});
-
     navigator.mediaSession.setCameraActive(true);
 
     navigator.mediaSession.setMicrophoneActive(true);
