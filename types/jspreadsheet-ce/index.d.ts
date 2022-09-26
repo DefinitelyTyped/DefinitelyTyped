@@ -408,6 +408,7 @@ declare namespace jspreadsheet {
                   columnIndex: number,
                   rowIndex: number,
                   value: CellValue,
+                  newValue: CellValue
               ) => CellValue | void)
             | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */
@@ -437,6 +438,7 @@ declare namespace jspreadsheet {
                   /** (e.g.) "0", "1" ... */
                   rowIndex: string,
                   value: CellValue,
+                  oldValue: CellValue
               ) => void)
             | undefined;
         /** On header change */
