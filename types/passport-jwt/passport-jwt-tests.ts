@@ -14,8 +14,8 @@ let opts: StrategyOptions = {
 
 passport.use(
     JwtStrategy.name,
-    new JwtStrategy(opts, function(jwt_payload, done) {
-        findUser({ id: jwt_payload.sub }, function(err, user) {
+    new JwtStrategy(opts, function (jwt_payload, done) {
+        findUser({ id: jwt_payload.sub }, function (err, user) {
             if (err) {
                 return done(err, false);
             }
@@ -45,4 +45,12 @@ opts.jwtFromRequest = (req: Request) => {
 opts.secretOrKey = new Buffer('secret');
 opts.secretOrKeyProvider = (request, rawJwtToken, done) => done(null, new Buffer('secret'));
 
-declare function findUser(condition: { id: string }, callback: (error: any, user: any) => void): void;
+class UserModel {}
+
+declare global {
+    namespace Express {
+        // tslint:disable-next-line:no-empty-interface
+        interface User extends UserModel {}
+    }
+}
+declare function findUser(condition: { id: string }, callback: (error: any, user: UserModel) => void): void;
