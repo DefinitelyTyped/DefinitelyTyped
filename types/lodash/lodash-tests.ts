@@ -4173,12 +4173,15 @@ fp.now(); // $ExpectType number
     if (_.isEmpty(errors)) {
         errors.test = "123";
     }
-    const bag = {};
-    // bag["foo"] = 1;
-    let bag2;
-
-    if (!_.isEmpty(bag)) {
-        bag2 = { ...bag };
+    interface Foo {
+        bar?: string;
+    }
+    const foo: Foo = {};
+    if (Math.random()) {
+        foo.bar = "bar";
+    }
+    if (_.isEmpty(foo)) {
+        foo.bar = "baz"; // This should be allowed
     }
 }
 
