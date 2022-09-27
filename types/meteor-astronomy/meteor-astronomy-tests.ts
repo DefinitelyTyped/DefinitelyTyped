@@ -1,4 +1,3 @@
-/// <reference types="meteor" />
 import { Class, Enum } from 'meteor/jagi:astronomy';
 
 interface PostInterface {
