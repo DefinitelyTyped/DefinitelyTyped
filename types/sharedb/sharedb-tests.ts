@@ -230,6 +230,9 @@ connection.on('connected', (reason) => {
     if (reason === 'foo') console.log(reason);
 });
 
+connection.on('pong', () => {});
+connection.ping();
+
 const doc = connection.get('examples', 'counter');
 
 doc.fetch((err) => {
