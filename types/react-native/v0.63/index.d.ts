@@ -952,7 +952,7 @@ export interface TextPropsAndroid {
     /**
      * Specifies the disabled state of the text view for testing purposes.
      */
-    disabled?: boolean | undefined
+    disabled?: boolean | undefined;
 
     /**
      * Lets the user select text, to use the native copy and paste functionality.
