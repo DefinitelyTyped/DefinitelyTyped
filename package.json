@@ -48,8 +48,7 @@
         "source-map-support": "^0.5.21",
         "typescript": "next",
         "w3c-xmlserializer": "^2.0.0",
-        "yargs": "^17.1.1",
-        "csstype": "^3.0.2"
+        "yargs": "^17.1.1"
     },
     "type": "module",
     "husky": {
