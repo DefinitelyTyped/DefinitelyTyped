@@ -4167,6 +4167,18 @@ fp.now(); // $ExpectType number
     } else {
         obj2; // $ExpectType { value: boolean; }
     }
+    let obj3: { value?: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj3 = null;
+    } else if (Math.random()) {
+        obj3 = undefined;
+    }
+    if (_.isEmpty(obj3)) {
+        const result: { value?: never; } | null | undefined = obj3;
+        obj3 = { value: false };
+    } else {
+        obj3; // $ExpectType { value?: boolean | undefined; }
+    }
     type Errors = Record<string, string>;
     const errors: Errors = {};
 
