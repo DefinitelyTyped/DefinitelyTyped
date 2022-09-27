@@ -1,6 +1,6 @@
 // Type definitions for filestack-react 4.0
 // Project: https://github.com/filestack/filestack-react
-// Definitions by: Phil Ting <https://github.com/philting>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
