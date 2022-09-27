@@ -138,6 +138,23 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     flush(): void;
 }
 
+export type ConnectionState = 'connecting' | 'connected' | 'disconnected' | 'stopped' | 'closed';
+export type ConnectionStateEventMap = {
+    [state in ConnectionState]: (reason: string) => void;
+};
+export interface ConnectionReceiveRequest {
+    data: any;
+}
+export type ConnectionEventMap = ConnectionStateEventMap & {
+    'connection error': (error: Error) => void;
+    'doc': (doc: Doc) => void;
+    'error': (error: Error) => void;
+    'pong': () => void;
+    'receive': (request: ConnectionReceiveRequest) => void;
+    'send': (message: any) => void;
+    'state': (newState: ConnectionState, reason: string) => void;
+};
+
 export interface DocEventMap<T> {
     'load': () => void;
     'no write pending': () => void;

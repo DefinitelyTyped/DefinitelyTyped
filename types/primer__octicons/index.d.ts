@@ -1,4 +1,4 @@
-// Type definitions for @primer/octicons 17.3
+// Type definitions for @primer/octicons 17.5
 // Project: https://github.com/primer/octicons
 // Definitions by: Oscar Lee-Vermeren <https://github.com/xiBread>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -91,6 +91,7 @@ declare namespace octicons {
 
     type IconName =
         | 'accessibility'
+        | 'accessibility-inset'
         | 'alert'
         | 'alert-fill'
         | 'apps'
@@ -118,10 +119,12 @@ declare namespace octicons {
         | 'broadcast'
         | 'browser'
         | 'bug'
+        | 'cache'
         | 'calendar'
         | 'check'
         | 'check-circle'
         | 'check-circle-fill'
+        | 'checkbox'
         | 'checklist'
         | 'chevron-down'
         | 'chevron-left'
@@ -140,6 +143,7 @@ declare namespace octicons {
         | 'codescan-checkmark'
         | 'codespaces'
         | 'columns'
+        | 'command-palette'
         | 'comment'
         | 'comment-discussion'
         | 'commit'
@@ -209,6 +213,7 @@ declare namespace octicons {
         | 'git-commit'
         | 'git-compare'
         | 'git-merge'
+        | 'git-merge-queue'
         | 'git-pull-request'
         | 'git-pull-request-closed'
         | 'git-pull-request-draft'
@@ -271,6 +276,7 @@ declare namespace octicons {
         | 'package-dependents'
         | 'paintbrush'
         | 'paper-airplane'
+        | 'paperclip'
         | 'paste'
         | 'pencil'
         | 'people'
@@ -309,6 +315,7 @@ declare namespace octicons {
         | 'shield'
         | 'shield-check'
         | 'shield-lock'
+        | 'shield-slash'
         | 'shield-x'
         | 'sidebar-collapse'
         | 'sidebar-expand'

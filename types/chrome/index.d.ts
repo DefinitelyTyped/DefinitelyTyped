@@ -5,7 +5,6 @@
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
-//                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>

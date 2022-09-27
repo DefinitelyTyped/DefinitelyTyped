@@ -1,6 +1,8 @@
 declare namespace jsrsasign {
     interface RevokedCertificate {
-        sn: string;
+        sn: {
+            hex: string;
+        };
         date: string;
         ext: ExtParam[];
     }
@@ -97,7 +99,7 @@ declare namespace jsrsasign {
          * { array: [[{type:'C',value:'JP',ds:'prn'}],...],
          *   str: "/C=JP/..." }
          */
-        getIssuer(): IdentityResponse;
+        getIssuer(): X500Name;
 
         /**
          * get hexadecimal string of issuer field TLV of certificate.<br/>
@@ -231,7 +233,7 @@ declare namespace jsrsasign {
          *
          * crl.findRevCert(CERT-HEX) &rarr; null or {sn:...}
          */
-        findRevCert(sCert: string): RevokedCertificate;
+        findRevCert(sCert: string): RevokedCertificate | null;
 
         /**
          * get revokedCertificate associative array for serial number<br/>
@@ -262,7 +264,7 @@ declare namespace jsrsasign {
          *
          * crl.findRevCertBySN("0000") &rarr; null // not revoked
          */
-        findRevCertBySN(hSN: string): RevokedCertificate;
+        findRevCertBySN(hSN: string): RevokedCertificate | null;
 
         /**
          * get signature value as hexadecimal string<br/>
@@ -347,6 +349,16 @@ declare namespace jsrsasign {
          * crl.getParam({tbshex: true}) &rarr; { ... , tbshex: "30..." }
          * crl.getParam({nodnarray: true}) &rarr; {issuer: {str: "/C=JP"}, ...}
          */
-        getParam(): any;
+        getParam(): {
+            version?: number;
+            sigalg: string;
+            issuer: X500Name | Omit<X500Name, 'array'>;
+            thisupdate: string;
+            nextupdate?: string;
+            revcert?: RevokedCertificate[];
+            ext?: ExtParam[];
+            sighex: string;
+            tbshex?: string;
+        };
     }
 }

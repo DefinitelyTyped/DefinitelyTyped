@@ -57,6 +57,21 @@ const customMode: CustomMode = {
     onClick(state, e) {
         // $ExpectType LngLat
         e.lngLat;
+        // $ExpectType DrawFeature
+        e.featureTarget;
+
+        this.setSelectedCoordinates([{
+            coord_path: '0',
+            feature_id: '1',
+        }]);
+
+        this.setSelected();
+        this.setSelected('1');
+        this.setSelected(['1', '2']);
+
+        // $ExpectType DrawFeature
+        const feat = this.getFeature('1');
+        feat.setCoordinates(feat.coordinates);
 
         // $ExpectType number
         this.customMethod();

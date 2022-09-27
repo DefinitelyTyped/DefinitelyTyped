@@ -532,6 +532,10 @@
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
         },
+        "chartist": {
+            "libraryName": "chartist",
+            "asOfVersion": "1.0.0"
+        },
         "cheap-ruler": {
             "libraryName": "cheap-ruler",
             "asOfVersion": "2.5.0"
@@ -1393,6 +1397,10 @@
             "libraryName": "fastify-static",
             "asOfVersion": "2.2.1"
         },
+        "favicons": {
+            "libraryName": "favicons",
+            "asOfVersion": "7.0.0"
+        },
         "favicons-webpack-plugin": {
             "libraryName": "favicons-webpack-plugin",
             "asOfVersion": "2.1.0"
@@ -2241,6 +2249,10 @@
             "libraryName": "jest-each",
             "asOfVersion": "24.3.0"
         },
+        "jest-expect-message": {
+            "libraryName": "jest-expect-message",
+            "asOfVersion": "1.1.0"
+        },
         "jest-get-type": {
             "libraryName": "jest-get-type",
             "asOfVersion": "24.2.0"
@@ -2332,6 +2344,10 @@
         "json-stream-stringify": {
             "libraryName": "json-stream-stringify",
             "asOfVersion": "2.0.3"
+        },
+        "json-to-csv-export": {
+            "libraryName": "json-to-csv-export",
+            "asOfVersion": "2.0.0"
         },
         "json5": {
             "libraryName": "json5",
@@ -3638,6 +3654,10 @@
         "png-async": {
             "libraryName": "png-async",
             "asOfVersion": "0.9.4"
+        },
+        "png-img": {
+            "libraryName": "png-img",
+            "asOfVersion": "4.0.4"
         },
         "poly2tri": {
             "libraryName": "poly2tri",

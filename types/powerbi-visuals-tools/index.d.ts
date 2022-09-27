@@ -1341,5 +1341,5 @@ declare namespace powerbi.extensibility.visual {
         host: IVisualHost;
     }
 }
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = powerbi;

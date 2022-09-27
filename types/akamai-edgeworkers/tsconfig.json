@@ -24,6 +24,7 @@
         "test/create-response-tests.ts",
         "test/http-request-tests.ts",
         "test/log-tests.ts",
+        "test/req_body.ts",
         "test/set_variable.ts", 
         "test/scenario-stream.ts",
         "test/stream.ts",

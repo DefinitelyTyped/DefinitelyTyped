@@ -1,4 +1,4 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.106.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -622,7 +622,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Key of the currently selected variant. In case the model is not yet set `null` will be returned.
      */
-    getCurrentVariantKey(): string;
+    getCurrentVariantKey(): string | null;
     /**
      * Gets current value of property {@link #getDisplayTextForExecuteOnSelectionForStandardVariant displayTextForExecuteOnSelectionForStandardVariant}.
      *
@@ -773,7 +773,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * The for to be removed or its index or ID
        */
       vFor: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets the new selected variant.
      */
