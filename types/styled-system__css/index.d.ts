@@ -132,7 +132,7 @@ export interface AliasesCSSProperties {
      */
     ml?: StandardCSSProperties['marginLeft'] | undefined;
     /**
-     * The **`mx`** is shorthand for using both **`margin-left`** and **`margin-right`** CSS properties. They set the margin area on the left and right side of an element. A positive value placesit
+     * The **`mx`** is shorthand for using both **`margin-left`** and **`margin-right`** CSS properties. They set the margin area on the left and right side of an element. A positive value places it
      * farther from its neighbors, while a negative value places it closer.
      *
      * **Initial value**: `0`
@@ -305,6 +305,19 @@ export interface AliasesCSSProperties {
      * @see https://developer.mozilla.org/docs/Web/CSS/padding-bottom
      */
     paddingY?: StandardCSSProperties['paddingTop'] | undefined;
+    /**
+     * The **`size`** is shorthand for using both **`width`** and **`height`** CSS properties. They set the width and height of an element.
+     *
+     * **Initial value**: `0`
+     *
+     * | Chrome | Firefox | Safari |  Edge  |  IE   |
+     * | :----: | :-----: | :----: | :----: | :---: |
+     * | **1**  |  **1**  | **1**  | **12** | **3** |
+     *
+     * @see https://developer.mozilla.org/docs/Web/CSS/width
+     * @see https://developer.mozilla.org/docs/Web/CSS/height
+     */
+    size?: StandardCSSProperties['width'] | undefined;
 }
 
 export interface OverwriteCSSProperties {

@@ -27,7 +27,7 @@ postcssMixins({
             };
         },
 
-        // $ExpectError
+        // @ts-expect-error
         invalidFn() {
             return 1234;
         },

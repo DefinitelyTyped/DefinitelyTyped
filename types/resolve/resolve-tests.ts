@@ -113,7 +113,7 @@ function test_options_sync() {
         },
     });
     // specifying both `readFile` and `readPackage` is forbidden
-    // $ExpectError
+    // @ts-expect-error
     resolved = resolve.sync('typescript', {
         readFileSync(file) {
             return fs.readFileSync(file);

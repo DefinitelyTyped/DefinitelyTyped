@@ -49,4 +49,5 @@ new daum.Postcode({
     width: 500,
 });
 
-new daum.Postcode(); // $ExpectError
+// @ts-expect-error
+new daum.Postcode();

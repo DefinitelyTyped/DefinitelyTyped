@@ -5,10 +5,10 @@ const nms = new NodeMediaServer({});
 // $ExpectType void
 nms.run();
 
-// $ExpectError
+// @ts-expect-error
 nms.on();
 
-// $ExpectError
+// @ts-expect-error
 nms.on('test');
 
 // $ExpectType void

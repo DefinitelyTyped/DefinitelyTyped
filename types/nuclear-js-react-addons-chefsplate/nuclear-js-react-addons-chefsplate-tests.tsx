@@ -9,13 +9,13 @@ import { connect, Provider, nuclearMixin, provideReactor, nuclearComponent } fro
 // Make sure that connect passes through basic props requirement.
 const FC = (props: {}) => <p />;
 const ConnectedFC = connect(() => ({}))(FC);
-// $ExpectError
+// @ts-expect-error
 <ConnectedFC extra="" />;
 
 const FCWithProp = (props: { extra: string }) => <p />;
 const ConnectedFCWithProps = connect(() => ({}))(FCWithProp);
 <ConnectedFCWithProps extra="" />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedFCWithProps extra={5} />;
 
 // Make sure it works with untyped function components.
@@ -25,7 +25,7 @@ const ConnectedUntypedFC = connect(() => ({ extra: null, superExtra: null }))(Un
 
 // Make sure that injected props are NOT available in connected component.
 const ConnectedFCWithoutProps = connect(() => ({ extra: null }))(FCWithProp);
-// $ExpectError
+// @ts-expect-error
 <ConnectedFCWithoutProps extra="" />;
 
 // Check optional props.
@@ -33,16 +33,16 @@ const FCWithOptionalProp = (props: { optional?: string | undefined }) => <p />;
 const ConnectedFCWithOptionalProp = connect(() => ({}))(FCWithOptionalProp);
 <ConnectedFCWithOptionalProp />;
 <ConnectedFCWithOptionalProp optional="" />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedFCWithOptionalProp optional={5} />;
 
 // Any props injeted in mapStateToProps should NOT be available on the connected
 // component.
 const ConnectedFCWithoutOptionalProp = connect(() => ({ optional: null }))(FCWithOptionalProp);
 <ConnectedFCWithoutOptionalProp />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedFCWithoutOptionalProp optional="" />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedFCWithoutOptionalProp optional={5} />;
 
 // Check that it's an error to even call connect() with mismatched mapStateToProps
@@ -50,7 +50,7 @@ const ConnectedFCWithoutOptionalProp = connect(() => ({ optional: null }))(FCWit
 const FCWithAProp = (props: { a: string }) => <p />;
 const badMapStateToProps = () => ({ b: null });
 const okayMapStateToProps = () => ({ a: 15 });
-// $ExpectError
+// @ts-expect-error
 connect(badMapStateToProps)(FCWithAProp);
 // Doesn't actually check types, just prop names.
 connect(okayMapStateToProps)(FCWithAProp);
@@ -60,13 +60,13 @@ connect(okayMapStateToProps)(FCWithAProp);
 // Make sure that connect passes through basic props requirement.
 class CC extends React.Component {}
 const ConnectedCC = connect(() => ({}))(CC);
-// $ExpectError
+// @ts-expect-error
 <ConnectedCC extra="" />;
 
 class CCWithProp extends React.Component<{ extra: string }> {}
 const ConnectedCCWithProps = connect(() => ({}))(CCWithProp);
 <ConnectedCCWithProps extra="" />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedCCWithProps extra={5} />;
 
 // Make sure it works with untyped class components.
@@ -76,7 +76,7 @@ const ConnectedUntypedCC = connect(() => ({ extra: null, superExtra: null }))(Un
 
 // Make sure that injected props are NOT available in connected component.
 const ConnectedCCWithoutProps = connect(() => ({ extra: null }))(CCWithProp);
-// $ExpectError
+// @ts-expect-error
 <ConnectedCCWithoutProps extra="" />;
 
 // Check optional props.
@@ -84,22 +84,22 @@ class CCWithOptionalProp extends React.Component<{ optional?: string | undefined
 const ConnectedCCWithOptionalProp = connect(() => ({}))(CCWithOptionalProp);
 <ConnectedCCWithOptionalProp />;
 <ConnectedCCWithOptionalProp optional="" />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedCCWithOptionalProp optional={5} />;
 
 // Any props injeted in mapStateToProps should NOT be available on the connected
 // component.
 const ConnectedCCWithoutOptionalProp = connect(() => ({ optional: null }))(CCWithOptionalProp);
 <ConnectedCCWithoutOptionalProp />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedCCWithoutOptionalProp optional="" />;
-// $ExpectError
+// @ts-expect-error
 <ConnectedCCWithoutOptionalProp optional={5} />;
 
 // Check that it's an error to even call connect() with mismatched mapStateToProps
 // and component.
 class CCWithAProp extends React.Component<{ a: string }> {}
-// $ExpectError
+// @ts-expect-error
 connect(badMapStateToProps)(CCWithAProp);
 // Doesn't actually check types, just prop names.
 connect(okayMapStateToProps)(CCWithAProp);

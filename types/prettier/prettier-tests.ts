@@ -48,7 +48,7 @@ prettier.getFileInfo('./tsconfig.json').then(result => {
     }
 });
 
-// $ExpectError
+// @ts-expect-error
 prettier.resolveConfig();
 
 const options = prettier.resolveConfig.sync('path/to/somewhere');
@@ -72,16 +72,17 @@ const configFilePathInSpecificPath = prettier.resolveConfigFile.sync('/path');
 
 prettier.clearConfigCache();
 
-const currentSupportInfo = prettier.getSupportInfo();
+prettier.getSupportInfo(); // $ExpectType SupportInfo
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
-// $ExpectError
+// @ts-expect-error
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeStart: 2 });
-// $ExpectError
+// @ts-expect-error
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', rangeEnd: 2 });
 
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
+prettierStandalone.getSupportInfo(); // $ExpectType SupportInfo
 
 angularParser.parsers.__ng_action.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
@@ -117,6 +118,13 @@ interface PluginAST {
 }
 
 const plugin: prettier.Plugin<PluginAST> = {
+    languages: [
+        {
+            name: 'Shell',
+            parsers: ['sh'],
+            interpreters: ['bash', 'zsh']
+        }
+    ],
     parsers: {
         lines: {
             parse(text, parsers, options) {
@@ -253,7 +261,7 @@ prettier.format('pluginSearchDir is false', {
 });
 
 prettier.format('pluginSearchDir can not be true', {
-    // $ExpectError
+    // @ts-expect-error
     pluginSearchDirs: true,
 });
 
@@ -266,6 +274,7 @@ interface Nested1 {
     kind: '1';
     item2: Nested2;
     list2: Nested2[];
+    list4?: Nested2[];
 }
 interface Nested2 {
     kind: '2';
@@ -345,6 +354,10 @@ function print(
         child; // $ExpectType AstPath<Nested2>
     }, 'list2');
 
+    path.each(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'list4');
+
     path.each(
         child => {
             child; // $ExpectType AstPath<Nested3>
@@ -369,6 +382,10 @@ function print(
         child; // $ExpectType AstPath<Nested2>
     }, 'list2');
 
+    path.map(child => {
+        child; // $ExpectType AstPath<Nested2>
+    }, 'list4');
+
     path.map(
         child => {
             child; // $ExpectType AstPath<Nested3>
@@ -389,14 +406,22 @@ function print(
         'list1',
     );
 
-    path.call(print, 'list2'); // $ExpectError
-    path.call(print, 'item2', 'list3'); // $ExpectError
+    // @ts-expect-error
+    path.call(print, 'list2');
+    // @ts-expect-error
+    path.call(print, 'list4');
+    // @ts-expect-error
+    path.call(print, 'item2', 'list3');
 
-    path.each(print, 'item2'); // $ExpectError
-    path.each(print, 'item2', 'item3'); // $ExpectError
+    // @ts-expect-error
+    path.each(print, 'item2');
+    // @ts-expect-error
+    path.each(print, 'item2', 'item3');
 
-    path.map(print, 'item2'); // $ExpectError
-    path.map(print, 'item2', 'item3'); // $ExpectError
+    // @ts-expect-error
+    path.map(print, 'item2');
+    // @ts-expect-error
+    path.map(print, 'item2', 'item3');
 
     return '';
 }

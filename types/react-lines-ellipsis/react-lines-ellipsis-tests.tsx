@@ -50,7 +50,7 @@ responsiveHOC();
  * => ComponentType<P & { innerRef?: LegacyRef<HTMLDivElement> | undefined; }>
  */
 responsiveHOC(10, { leading: true, maxWait: 10, trailing: true });
-// $ExpectError
+// @ts-expect-error
 responsiveHOC('10', {});
-// $ExpectError
+// @ts-expect-error
 responsiveHOC(10, { leading: 1, maxWait: '10', trailing: 1 });

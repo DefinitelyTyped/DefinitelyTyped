@@ -250,6 +250,13 @@ stratificatorizer = stratificatorizer.parentId((d, i, data) => {
 
 idStringAccessor = stratificatorizer.parentId();
 
+// path(...)
+
+stratificatorizer = stratificatorizer.path((d, i, data) => d.name);
+
+let pathStringAccessor: ((d: TabularHierarchyDatum, i: number, data: TabularHierarchyDatum[]) => string) | null | undefined;
+pathStringAccessor = stratificatorizer.path();
+
 // Use Stratify Operator  ------------------------------------------------
 
 const stratifiedRootNode: d3Hierarchy.HierarchyNode<TabularHierarchyDatum> = stratificatorizer(tabularData);
@@ -875,8 +882,8 @@ const circle = d3Hierarchy.packEnclose(moreCircles);
 num = circle.r;
 num = circle.x;
 num = circle.y;
-// $ExpectError
+// @ts-expect-error
 str = circle.v; // fails, property 'v' does not exist
 
-// $ExpectError
+// @ts-expect-error
 d3Hierarchy.packEnclose(radius);

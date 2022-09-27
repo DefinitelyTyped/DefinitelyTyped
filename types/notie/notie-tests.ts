@@ -1,12 +1,12 @@
 import { alert, force, confirm, input, select, date, setOptions, hideAlerts } from 'notie';
 
-// $ExpectError
+// @ts-expect-error
 alert({});
 alert({ text: 'Hello, World!', position: 'bottom' });
 alert({ text: 'Hello, World!', type: 4 });
 alert({ text: 'Hello, World!', type: 'info' });
 
-// $ExpectError
+// @ts-expect-error
 force({});
 force({
     text: 'Alert',
@@ -16,7 +16,7 @@ force({
 });
 force({ text: 'Alert' }, () => alert({ text: 'callback' }));
 
-// $ExpectError
+// @ts-expect-error
 confirm({});
 confirm({ text: 'Are you sure?' });
 confirm({
@@ -35,7 +35,7 @@ confirm(
     () => alert({ text: 'Cancelled' }),
 );
 
-// $ExpectError
+// @ts-expect-error
 input({});
 input({
     text: 'Input',
@@ -53,9 +53,9 @@ input(
     () => alert({ text: 'Cancelled' }),
 );
 
-// $ExpectError
+// @ts-expect-error
 select({});
-// $ExpectError
+// @ts-expect-error
 select({ text: 'Select' });
 select({
     text: 'Select',
@@ -86,7 +86,7 @@ select(
     () => alert({ text: 'Cancelled' }),
 );
 
-// $ExpectError
+// @ts-expect-error
 date({});
 date({ value: new Date() });
 date({

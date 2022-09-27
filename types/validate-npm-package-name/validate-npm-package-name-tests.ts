@@ -7,8 +7,6 @@ validate('123numeric'); // $ExpectType ValidNames | InvalidNames | LegacyNames
 validate('@npm/thingy'); // $ExpectType ValidNames | InvalidNames | LegacyNames
 validate('@jane/foo.js'); // $ExpectType ValidNames | InvalidNames | LegacyNames
 
-validate.scopedPackagePattern; // $ExpectType RegExp
-
 const results = validate('@jane/foo.js');
 
 // backward compatibility check

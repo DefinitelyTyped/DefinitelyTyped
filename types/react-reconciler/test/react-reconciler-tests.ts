@@ -21,7 +21,7 @@ ReactReconciler<
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
-  return target === value;
+    return target === value;
 }
 
 // $ExpectType boolean
@@ -39,5 +39,5 @@ isEqual(Constants.IDLE_EVENT_PRIORITY, ReactReconcilerConstants.IdleEventPriorit
 // $ExpectType boolean
 isEqual(Constants.LEGACY_ROOT, ReactReconcilerConstants.LegacyRoot);
 
-// $ExpectError boolean
+// $ExpectType boolean
 isEqual(Constants.CONCURRENT_ROOT, ReactReconcilerConstants.ConcurrentRoot);

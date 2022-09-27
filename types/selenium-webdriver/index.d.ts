@@ -10,6 +10,7 @@
 //   Aleksey Chemakin <https://github.com/Dzenly>
 //   David Burns <https://github.com/AutomatedTester>
 //   Pirasis Leelatanon <https://github.com/1pete>
+//   Harmandeep Singh <https://github.com/SinghHrmn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -17,7 +18,7 @@ import * as chrome from './chrome';
 import * as edge from './edge';
 import * as firefox from './firefox';
 import * as ie from './ie';
-import { By, ByHash } from './lib/by';
+import { By, ByHash, RelativeBy } from './lib/by';
 import { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 import * as command from './lib/command';
 import * as http from './http';
@@ -28,9 +29,9 @@ import * as until from './lib/until';
 import * as safari from './safari';
 import { ShadowRootPromise } from './lib/webdriver';
 import { WebSocket } from 'ws';
-import { HttpResponse } from './networkinterceptor'
+import { HttpResponse } from './devtools/networkinterceptor'
 
-export { By, ByHash } from './lib/by';
+export * from './lib/by';
 export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
 export { Actions, Button, Key, Origin } from './lib/input';
 export { promise } from './lib/promise';
@@ -903,7 +904,7 @@ export class Builder {
   // endregion
 }
 
-export type Locator = By | Function | ByHash;
+export type Locator = By | Function | ByHash | RelativeBy;
 
 /**
  * Describes an event listener registered on an {@linkplain EventEmitter}.
@@ -1300,7 +1301,7 @@ export class Window {
    *     has completed.
    * @see <https://fullscreen.spec.whatwg.org/#fullscreen-an-element>
    */
-  fullsceen(): Promise<void>;
+  fullscreen(): Promise<void>;
 
   // endregion
 }

@@ -23,6 +23,7 @@ const ImgixTest = () => (
             minWidth: 100,
             maxWidth: 2000,
             widthTolerance: 0.2,
+            devicePixelRatios: [1, 1.5, 2],
         }}
         className="lazyload"
         htmlAttributes={{
@@ -73,5 +74,7 @@ buildURL('http://yourdomain.imgix.net/image.png', { w: 450, h: 100 });
 
 PublicConfigAPI.disableWarning('fallbackImage');
 PublicConfigAPI.enableWarning('sizesAttribute');
-PublicConfigAPI.disableWarning('unknown'); // $ExpectError
-PublicConfigAPI.enableWarning('unknown'); // $ExpectError
+// @ts-expect-error
+PublicConfigAPI.disableWarning('unknown');
+// @ts-expect-error
+PublicConfigAPI.enableWarning('unknown');

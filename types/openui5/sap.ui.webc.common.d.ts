@@ -1,4 +1,4 @@
-// For Library Version: 1.100.0
+// For Library Version: 1.102.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -23,9 +23,6 @@ declare module "sap/ui/webc/common/WebComponent" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     *
-     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.core.Control#constructor
-     * sap.ui.core.Control} can be used.
      */
     constructor();
 
@@ -34,6 +31,8 @@ declare module "sap/ui/webc/common/WebComponent" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -52,6 +51,8 @@ declare module "sap/ui/webc/common/WebComponent" {
     ): Function;
     /**
      * Returns a metadata object for class sap.ui.webc.common.WebComponent.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
   }

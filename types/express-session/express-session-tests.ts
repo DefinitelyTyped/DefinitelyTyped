@@ -127,3 +127,15 @@ app.use(
         store: new MyStore(),
     }),
 );
+
+app.use((req, res, next) => {
+    let sess = req.session;
+    const store = req.sessionStore;
+    store.get(sess.id, (err, session) => { });
+    store.set(sess.id, { views: 0, cookie: sess.cookie }, (err) => { });
+    sess = store.createSession(req, { views: 0, cookie: sess.cookie });
+    store.destroy(sess.id, (err) => { });
+    store.generate(req);
+    store.regenerate(req, (err) => { });
+    res.end();
+});

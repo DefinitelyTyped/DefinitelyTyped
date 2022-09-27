@@ -1,7 +1,6 @@
-// @ts-check
 import { flatMap, mapDefined } from "@definitelytyped/utils";
-import * as os from "node:os";
-import { writeFileSync, readFileSync, readdirSync, existsSync } from "fs-extra";
+import fsExtra from "fs-extra";
+const { writeFileSync, readFileSync, readdirSync, existsSync } = fsExtra;
 import hp from "@definitelytyped/header-parser";
 import { Octokit } from "@octokit/core";
 
@@ -70,7 +69,7 @@ function getAllHeaders() {
                 parsed = hp.parseHeaderOrFail(indexContent);
             } catch (e) {}
             if (parsed) {
-                headers[index] = { ...parsed, raw: indexContent };
+                headers[index.pathname] = { ...parsed, raw: indexContent };
             }
         }
     });
@@ -86,6 +85,7 @@ async function fetchGhosts(users) {
     const maxPageSize = 2000;
     const pages = Math.ceil(users.size / maxPageSize);
     const userArray = Array.from(users);
+    /** @type string[] */
     const ghosts = [];
     for (let page = 0; page < pages; page++) {
         const startIndex = page * maxPageSize;
@@ -123,7 +123,8 @@ async function tryGQL(fn) {
         const result = await fn();
         if (result.data) return result.data;
         return result;
-    } catch (resultWithErrors) {
+        // @ts-expect-error
+    } catch (/** @type {{}} */ resultWithErrors) {
         if (resultWithErrors.data) {
             return resultWithErrors.data;
         }

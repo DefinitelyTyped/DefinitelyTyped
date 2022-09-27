@@ -1,14 +1,15 @@
-// Type definitions for mssql 8.0.0
+// Type definitions for mssql 8.1
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Jørgen Elgaard Larsen <https://github.com/elhaard>
+// Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
 //                 Rifa Achrinza <https://github.com/achrinza>
 //                 Daniel Hensby <https://github.com/dhensby>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+// TypeScript Version: 4.0
+
+// @credit COLSA Corporation <http://www.colsa.com/>
 
 /// <reference types="node" />
 
@@ -134,8 +135,8 @@ export interface IColumnMetadata {
     }
 }
 export interface IResult<T> {
-    recordsets: IRecordSet<T>[];
-    recordset: IRecordSet<T>;
+    recordsets: T extends Array<any> ? { [P in keyof T]: IRecordSet<T[P]> } : IRecordSet<T>[];
+    recordset: IRecordSet<T extends Array<any> ? T[0] : T>;
     rowsAffected: number[],
     output: { [key: string]: any };
 }
@@ -162,13 +163,10 @@ export declare var ISOLATION_LEVEL: {
     SNAPSHOT: IIsolationLevel
 }
 
-export interface IOptions extends tds.ConnectionOptions {
+export interface IOptions extends Omit<tds.ConnectionOptions, 'useColumnNames'> {
     beforeConnect?: void | undefined;
     connectionString?: string | undefined;
-    enableArithAbort?: boolean | undefined;
-    instanceName?: string | undefined;
     trustedConnection?: boolean | undefined;
-    useUTC?: boolean | undefined;
 }
 
 export declare var pool: ConnectionPool;
@@ -195,6 +193,7 @@ export interface config {
     options?: IOptions | undefined;
     pool?: PoolOpts<Connection> | undefined;
     arrayRowMode?: boolean | undefined;
+    authentication?: tds.ConnectionAuthentication | undefined;
     /**
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.

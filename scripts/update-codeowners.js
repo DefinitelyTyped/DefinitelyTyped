@@ -2,7 +2,8 @@ import * as cp from 'node:child_process';
 import * as os from 'node:os';
 import { AllPackages, getDefinitelyTyped, parseDefinitions, clean } from '@definitelytyped/definitions-parser';
 import { loggerWithErrors } from '@definitelytyped/utils';
-import { writeFile } from 'fs-extra';
+import fsExtra from 'fs-extra';
+const { writeFile } = fsExtra;
 
 async function main() {
     const options = { definitelyTypedPath: '.', progress: false, parseInParallel: true };
@@ -66,7 +67,7 @@ function getEntry(pkg, maxPathLen) {
         return undefined;
     }
 
-    const path = `${pkg.subDirectoryPath}/`.padEnd(maxPathLen);
+    const path = `${pkg.subDirectoryPath}/`.padEnd(maxPathLen + 1);
     return `/types/${path} ${users.map(u => `@${u}`).join(' ')}`;
 }
 

@@ -49,3 +49,16 @@ const options: Options = {
 };
 
 Toastify(options);
+
+// #60413
+const toast = Toastify({
+    text: 'Update is pending',
+    duration: 3000,
+    close: false,
+    stopOnFocus: true,
+    onClick: () => {
+        toast.hideToast(); // see this line
+    },
+});
+toast.options; // $ExpectType Options
+toast.toastElement; // $ExpectType Element | null

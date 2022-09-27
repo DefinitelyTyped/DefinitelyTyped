@@ -2,7 +2,8 @@ import firstCommit = require('gfc');
 
 firstCommit({ cwd: 'foo/bar' }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>
 firstCommit({ exec: { encoding: 'buffer' } }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>
-firstCommit({ exec: { input: 'foo' } }); // $ExpectError
+// @ts-expect-error
+firstCommit({ exec: { input: 'foo' } });
 firstCommit({ message: 'foo' }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>
 firstCommit({ file: false }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>
 firstCommit({ file: { path: 'foo' } }); // $ExpectType Promise<{ stdout: string | Buffer; stderr: string | Buffer; }>

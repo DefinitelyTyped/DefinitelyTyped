@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.6
+// Type definitions for prettier 2.7
 // Project: https://prettier.io
 //          https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
@@ -33,7 +33,7 @@ export type Doc = doc.builders.Doc;
 type ArrayElement<T> = T extends Array<infer E> ? E : never;
 
 // A union of the properties of the given object that are arrays.
-type ArrayProperties<T> = { [K in keyof T]: T[K] extends any[] ? K : never }[keyof T];
+type ArrayProperties<T> = { [K in keyof T]: NonNullable<T[K]> extends any[] ? K : never }[keyof T];
 
 // A union of the properties of the given array T that can be used to index it.
 // If the array is a tuple, then that's going to be the explicit indices of the
@@ -374,7 +374,7 @@ export interface Parser<T = any> {
 }
 
 export interface Printer<T = any> {
-    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
+    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc, args?: unknown): Doc;
     embed?:
         | ((
               path: AstPath<T>,
@@ -536,6 +536,7 @@ export interface SupportLanguage {
     filenames?: string[] | undefined;
     linguistLanguageId?: number | undefined;
     vscodeLanguageIds?: string[] | undefined;
+    interpreters?: string[] | undefined;
 }
 
 export interface SupportOptionRange {

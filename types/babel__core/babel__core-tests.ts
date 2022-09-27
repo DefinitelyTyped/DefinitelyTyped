@@ -65,24 +65,24 @@ function checkConfigFunction(_config: babel.ConfigFunction) {}
 
 checkOptions({ envName: 'banana' });
 // babel uses object destructuring default to provide the envName fallback so null is not allowed
-// $ExpectError
+// @ts-expect-error
 checkOptions({ envName: null });
 checkOptions({ caller: { name: '@babel/register' } });
 checkOptions({ caller: { name: 'babel-jest', supportsStaticESM: false, supportsTopLevelAwait: true } });
 // don't add an index signature; users should augment the interface instead if they need to
-// $ExpectError
+// @ts-expect-error
 checkOptions({ caller: { name: '', tomato: true } });
 checkOptions({ rootMode: 'upward-optional' });
-// $ExpectError
+// @ts-expect-error
 checkOptions({ rootMode: 'potato' });
 checkOptions({ exclude: '../node_modules' });
-// $ExpectError
+// @ts-expect-error
 checkOptions({ exclude: 256 });
 checkOptions({ include: [/node_modules/, new RegExp('bower_components')] });
-// $ExpectError
+// @ts-expect-error
 checkOptions({ include: [null] });
 checkOptions({ test: fileName => (fileName ? fileName.endsWith('mjs') : false) });
-// $ExpectError
+// @ts-expect-error
 checkOptions({ test: fileName => fileName && fileName.endsWith('mjs') });
 checkOptions({
     overrides: [
@@ -94,13 +94,13 @@ checkOptions({
 });
 checkOptions({
     overrides: {
-        // $ExpectError
+        // @ts-expect-error
         test: /^.*\.m?js$/,
         compact: true,
     },
 });
 
-// $ExpectError
+// @ts-expect-error
 checkConfigFunction(() => {});
 // you technically can do that though you probably shouldn't
 checkConfigFunction(() => ({}));
@@ -115,7 +115,7 @@ checkConfigFunction(api => {
     api.cache.using(() => '1');
     api.cache.using(() => null);
     api.cache.using(() => undefined);
-    // $ExpectError
+    // @ts-expect-error
     api.cache.using(() => ({}));
     api.cache.invalidate(() => 2);
 

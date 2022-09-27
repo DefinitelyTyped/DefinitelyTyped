@@ -1,6 +1,5 @@
-import RouteInfo from '@ember/routing/-private/route-info';
-import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
-import Transition from '@ember/routing/-private/transition';
+import RouteInfo, { RouteInfoWithAttributes } from '@ember/routing/route-info';
+import Transition from '@ember/routing/transition';
 import Service from '@ember/service';
 
 // tslint:disable-next-line:strict-export-declare-modifiers
@@ -230,7 +229,7 @@ export default class RouterService extends Service {
     ): Transition;
     transitionTo(options: { queryParams: object }): Transition;
 
-    // https://emberjs.com/api/ember/4.0/classes/RouterService/methods/isActive?anchor=urlFor
+    // https://emberjs.com/api/ember/4.3.0/classes/RouterService/methods/isActive?anchor=urlFor
     /**
      * Generate a URL based on the supplied route name.
      *
@@ -241,33 +240,7 @@ export default class RouterService extends Service {
      *                  a mapping of query parameters
      * @returns         the string representing the generated URL
      */
-    urlFor(routeName: string, options?: { queryParams: object }): string;
-    urlFor(
-        routeName: string,
-        models: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        modelsC: RouteModel,
-        options?: { queryParams: object }
-    ): string;
-    urlFor(
-        routeName: string,
-        modelsA: RouteModel,
-        modelsB: RouteModel,
-        modelsC: RouteModel,
-        modelsD: RouteModel,
-        options?: { queryParams: object }
-    ): string;
+    urlFor(routeName: string, ...args: RouteModel[] | [...RouteModel[], { queryParams: object }]): string;
 
     // https://api.emberjs.com/ember/3.6/classes/RouterService/events/routeDidChange?anchor=routeDidChange
     /**

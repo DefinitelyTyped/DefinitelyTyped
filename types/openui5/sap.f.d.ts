@@ -1,4 +1,4 @@
-// For Library Version: 1.101.0
+// For Library Version: 1.106.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -135,6 +135,8 @@ declare module "sap/f/library" {
      *
      * The function is used to allow for a common content renderer between different implementations of the
      * {@link sap.f.ICard} interface.
+     *
+     * @returns The content of the card
      */
     getCardContent(): Control;
     /**
@@ -142,12 +144,16 @@ declare module "sap/f/library" {
      *
      * The function is used to allow for a common header renderer between different implementations of the {@link
      * sap.f.ICard} interface.
+     *
+     * @returns The header of the card
      */
     getCardHeader(): cards.IHeader;
     /**
      * @SINCE 1.65
      *
      * Allows for a common header renderer between different implementations of the {@link sap.f.ICard} interface.
+     *
+     * @returns The position of the header of the card
      */
     getCardHeaderPosition():
       | cards.HeaderPosition
@@ -469,6 +475,8 @@ declare module "sap/f/Avatar" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Avatar.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -487,6 +495,8 @@ declare module "sap/f/Avatar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.Avatar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -500,6 +510,8 @@ declare module "sap/f/AvatarGroup" {
   import AvatarGroupItem from "sap/f/AvatarGroupItem";
 
   import Event from "sap/ui/base/Event";
+
+  import { AbsoluteCSSSize } from "sap/ui/core/library";
 
   import AvatarSize from "sap/m/AvatarSize";
 
@@ -583,6 +595,8 @@ declare module "sap/f/AvatarGroup" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -601,10 +615,14 @@ declare module "sap/f/AvatarGroup" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.AvatarGroup.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -619,6 +637,8 @@ declare module "sap/f/AvatarGroup" {
      * otherwise it will be bound to this `sap.f.AvatarGroup` itself.
      *
      * Fired when the user clicks or taps on the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -642,6 +662,8 @@ declare module "sap/f/AvatarGroup" {
      * otherwise it will be bound to this `sap.f.AvatarGroup` itself.
      *
      * Fired when the user clicks or taps on the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -655,12 +677,16 @@ declare module "sap/f/AvatarGroup" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.AvatarGroup`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
@@ -674,6 +700,8 @@ declare module "sap/f/AvatarGroup" {
     ): this;
     /**
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePress(
       /**
@@ -695,11 +723,43 @@ declare module "sap/f/AvatarGroup" {
       }
     ): this;
     /**
+     * @SINCE 1.103
+     *
+     * Gets current value of property {@link #getAvatarCustomDisplaySize avatarCustomDisplaySize}.
+     *
+     * Specifies a custom display size for each avatar.
+     *
+     * **Notes:**
+     * 	 - Supports only `px` and code>rem values.
+     * 	 - It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * Default value is `"3rem"`.
+     *
+     * @returns Value of property `avatarCustomDisplaySize`
+     */
+    getAvatarCustomDisplaySize(): AbsoluteCSSSize;
+    /**
+     * @SINCE 1.103
+     *
+     * Gets current value of property {@link #getAvatarCustomFontSize avatarCustomFontSize}.
+     *
+     * Specifies a custom font size for each avatar.
+     *
+     * **Note:** It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * Default value is `"1.125rem"`.
+     *
+     * @returns Value of property `avatarCustomFontSize`
+     */
+    getAvatarCustomFontSize(): AbsoluteCSSSize;
+    /**
      * Gets current value of property {@link #getAvatarDisplaySize avatarDisplaySize}.
      *
      * Defines the display size of each avatar.
      *
      * Default value is `S`.
+     *
+     * @returns Value of property `avatarDisplaySize`
      */
     getAvatarDisplaySize(): AvatarSize | keyof typeof AvatarSize;
     /**
@@ -708,6 +768,8 @@ declare module "sap/f/AvatarGroup" {
      * Defines the mode of the `AvatarGroup`.
      *
      * Default value is `Group`.
+     *
+     * @returns Value of property `groupType`
      */
     getGroupType(): AvatarGroupType | keyof typeof AvatarGroupType;
     /**
@@ -719,6 +781,8 @@ declare module "sap/f/AvatarGroup" {
     /**
      * Checks for the provided `sap.f.AvatarGroupItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -728,6 +792,8 @@ declare module "sap/f/AvatarGroup" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -745,17 +811,65 @@ declare module "sap/f/AvatarGroup" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): AvatarGroupItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | AvatarGroupItem
-    ): AvatarGroupItem;
+    ): AvatarGroupItem | null;
+    /**
+     * @SINCE 1.103
+     *
+     * Sets a new value for property {@link #getAvatarCustomDisplaySize avatarCustomDisplaySize}.
+     *
+     * Specifies a custom display size for each avatar.
+     *
+     * **Notes:**
+     * 	 - Supports only `px` and code>rem values.
+     * 	 - It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"3rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAvatarCustomDisplaySize(
+      /**
+       * New value for property `avatarCustomDisplaySize`
+       */
+      sAvatarCustomDisplaySize?: AbsoluteCSSSize
+    ): this;
+    /**
+     * @SINCE 1.103
+     *
+     * Sets a new value for property {@link #getAvatarCustomFontSize avatarCustomFontSize}.
+     *
+     * Specifies a custom font size for each avatar.
+     *
+     * **Note:** It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"1.125rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAvatarCustomFontSize(
+      /**
+       * New value for property `avatarCustomFontSize`
+       */
+      sAvatarCustomFontSize?: AbsoluteCSSSize
+    ): this;
     /**
      * Sets a new value for property {@link #getAvatarDisplaySize avatarDisplaySize}.
      *
@@ -764,6 +878,8 @@ declare module "sap/f/AvatarGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `S`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAvatarDisplaySize(
       /**
@@ -779,6 +895,8 @@ declare module "sap/f/AvatarGroup" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Group`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGroupType(
       /**
@@ -794,19 +912,51 @@ declare module "sap/f/AvatarGroup" {
      */
     groupType?:
       | (AvatarGroupType | keyof typeof AvatarGroupType)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the display size of each avatar.
      */
     avatarDisplaySize?:
       | (AvatarSize | keyof typeof AvatarSize)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.103
+     *
+     * Specifies a custom display size for each avatar.
+     *
+     * **Notes:**
+     * 	 - Supports only `px` and code>rem values.
+     * 	 - It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     */
+    avatarCustomDisplaySize?:
+      | AbsoluteCSSSize
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.103
+     *
+     * Specifies a custom font size for each avatar.
+     *
+     * **Note:** It takes effect only if the `avatarDisplaySize` property is set to `Custom`.
+     */
+    avatarCustomFontSize?:
+      | AbsoluteCSSSize
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The `AvatarGroupItems` contained by the control.
      */
-    items?: AvatarGroupItem[] | AvatarGroupItem | AggregationBindingInfo;
+    items?:
+      | AvatarGroupItem[]
+      | AvatarGroupItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the user clicks or taps on the control.
@@ -870,6 +1020,8 @@ declare module "sap/f/AvatarGroupItem" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -888,10 +1040,14 @@ declare module "sap/f/AvatarGroupItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.AvatarGroupItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Returns the color of the avatar.
+     *
+     * @returns The color of the avatar
      */
     getAvatarColor(): string;
     /**
@@ -902,18 +1058,24 @@ declare module "sap/f/AvatarGroupItem" {
      * **Notes:**
      * 	 - If not set, a default fallback icon is displayed.
      * 	 - Accepted values are only icons from the SAP icon font.
+     *
+     * @returns Value of property `fallbackIcon`
      */
     getFallbackIcon(): string;
     /**
      * Gets current value of property {@link #getInitials initials}.
      *
      * Defines the displayed initials.
+     *
+     * @returns Value of property `initials`
      */
     getInitials(): string;
     /**
      * Gets current value of property {@link #getSrc src}.
      *
      * Determines the path to the desired image or icon.
+     *
+     * @returns Value of property `src`
      */
     getSrc(): URI;
     /**
@@ -926,6 +1088,8 @@ declare module "sap/f/AvatarGroupItem" {
      * 	 - Accepted values are only icons from the SAP icon font.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFallbackIcon(
       /**
@@ -939,6 +1103,8 @@ declare module "sap/f/AvatarGroupItem" {
      * Defines the displayed initials.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitials(
       /**
@@ -952,6 +1118,8 @@ declare module "sap/f/AvatarGroupItem" {
      * Determines the path to the desired image or icon.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSrc(
       /**
@@ -965,7 +1133,7 @@ declare module "sap/f/AvatarGroupItem" {
     /**
      * Determines the path to the desired image or icon.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the displayed initials.
@@ -1063,6 +1231,8 @@ declare module "sap/f/Card" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.CardBase.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1081,28 +1251,40 @@ declare module "sap/f/Card" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.Card.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Destroys the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Implements sap.f.ICard interface.
+     *
+     * @returns The content of the card.
      */
     getCardContent(): Control;
     /**
      * Implements sap.f.ICard interface.
+     *
+     * @returns The header of the card.
      */
     getCardHeader(): cards.IHeader;
     /**
      * @SINCE 1.65
      *
      * Implements sap.f.ICard interface.
+     *
+     * @returns The position of the header of the card.
      */
     getCardHeaderPosition():
       | cards.HeaderPosition
@@ -1127,12 +1309,16 @@ declare module "sap/f/Card" {
      * Defines the position of the Card Header.
      *
      * Default value is `Top`.
+     *
+     * @returns Value of property `headerPosition`
      */
     getHeaderPosition():
       | cards.HeaderPosition
       | keyof typeof cards.HeaderPosition;
     /**
      * Sets the aggregated {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContent(
       /**
@@ -1142,6 +1328,8 @@ declare module "sap/f/Card" {
     ): this;
     /**
      * Sets the aggregated {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeader(
       /**
@@ -1159,6 +1347,8 @@ declare module "sap/f/Card" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Top`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderPosition(
       /**
@@ -1176,7 +1366,8 @@ declare module "sap/f/Card" {
      */
     headerPosition?:
       | (cards.HeaderPosition | keyof typeof cards.HeaderPosition)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the header of the card.
@@ -1245,6 +1436,8 @@ declare module "sap/f/CardBase" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1263,26 +1456,36 @@ declare module "sap/f/CardBase" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.CardBase.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Implements sap.f.ICard interface.
+     *
+     * @returns The content of the card.
      */
     getCardContent(): Control;
     /**
      * Implements sap.f.ICard interface.
+     *
+     * @returns The header of the card.
      */
     getCardHeader(): cards.IHeader;
     /**
      * @SINCE 1.65
      *
      * Implements sap.f.ICard interface.
+     *
+     * @returns The position of the header of the card.
      */
     getCardHeaderPosition():
       | cards.HeaderPosition
       | keyof typeof cards.HeaderPosition;
     /**
      * Returns the DOM Element that should get the focus.
+     *
+     * @returns Returns the DOM Element that should get the focus
      */
     getFocusDomRef(): Element;
     /**
@@ -1291,6 +1494,8 @@ declare module "sap/f/CardBase" {
      * Defines the height of the card.
      *
      * Default value is `"auto"`.
+     *
+     * @returns Value of property `height`
      */
     getHeight(): CSSSize;
     /**
@@ -1299,6 +1504,8 @@ declare module "sap/f/CardBase" {
      * Defines the width of the card.
      *
      * Default value is `"100%"`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
@@ -1309,6 +1516,8 @@ declare module "sap/f/CardBase" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"auto"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeight(
       /**
@@ -1324,6 +1533,8 @@ declare module "sap/f/CardBase" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"100%"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -1337,12 +1548,12 @@ declare module "sap/f/CardBase" {
     /**
      * Defines the width of the card.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the height of the card.
      */
-    height?: CSSSize | PropertyBindingInfo;
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -1395,6 +1606,8 @@ declare module "sap/f/cards/BaseHeader" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1413,6 +1626,8 @@ declare module "sap/f/cards/BaseHeader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.cards.BaseHeader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -1420,6 +1635,8 @@ declare module "sap/f/cards/BaseHeader" {
      * @EXPERIMENTAL (since 1.86)
      *
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolbar(): this;
     /**
@@ -1435,6 +1652,8 @@ declare module "sap/f/cards/BaseHeader" {
      * Will be shown as a relative time like "5 minutes ago".
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `dataTimestamp`
      */
     getDataTimestamp(): string;
     /**
@@ -1451,6 +1670,8 @@ declare module "sap/f/cards/BaseHeader" {
      * @EXPERIMENTAL (since 1.86)
      *
      * Sets the aggregated {@link #getToolbar toolbar}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setToolbar(
       /**
@@ -1492,6 +1713,8 @@ declare module "sap/f/cards/Header" {
   import { cards } from "sap/f/library";
 
   import Event from "sap/ui/base/Event";
+
+  import Control from "sap/ui/core/Control";
 
   import AvatarColor from "sap/m/AvatarColor";
 
@@ -1552,6 +1775,8 @@ declare module "sap/f/cards/Header" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -1570,6 +1795,8 @@ declare module "sap/f/cards/Header" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.cards.Header.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -1579,6 +1806,8 @@ declare module "sap/f/cards/Header" {
      * otherwise it will be bound to this `sap.f.cards.Header` itself.
      *
      * Fires when the user presses the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -1602,6 +1831,8 @@ declare module "sap/f/cards/Header" {
      * otherwise it will be bound to this `sap.f.cards.Header` itself.
      *
      * Fires when the user presses the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -1617,6 +1848,8 @@ declare module "sap/f/cards/Header" {
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.Header`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
@@ -1629,7 +1862,23 @@ declare module "sap/f/cards/Header" {
       oListener?: object
     ): this;
     /**
+     * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
+     * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
+     */
+    enhanceAccessibilityState(
+      /**
+       * The Control that gets rendered by the RenderManager
+       */
+      oElement: Control,
+      /**
+       * The mapping of "aria-" prefixed attributes
+       */
+      mAriaProps: object
+    ): void;
+    /**
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePress(
       /**
@@ -1645,6 +1894,8 @@ declare module "sap/f/cards/Header" {
      * Defines an alt text for the avatar or icon.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `iconAlt`
      */
     getIconAlt(): string;
     /**
@@ -1655,6 +1906,8 @@ declare module "sap/f/cards/Header" {
      * Defines a background color for the avatar or icon.
      *
      * Default value is `Transparent`.
+     *
+     * @returns Value of property `iconBackgroundColor`
      */
     getIconBackgroundColor(): AvatarColor | keyof typeof AvatarColor;
     /**
@@ -1663,6 +1916,8 @@ declare module "sap/f/cards/Header" {
      * Defines the shape of the icon.
      *
      * Default value is `Circle`.
+     *
+     * @returns Value of property `iconDisplayShape`
      */
     getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
     /**
@@ -1671,6 +1926,8 @@ declare module "sap/f/cards/Header" {
      * Defines the initials of the icon.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `iconInitials`
      */
     getIconInitials(): string;
     /**
@@ -1679,6 +1936,8 @@ declare module "sap/f/cards/Header" {
      * Defines the icon source.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `iconSrc`
      */
     getIconSrc(): URI;
     /**
@@ -1687,6 +1946,8 @@ declare module "sap/f/cards/Header" {
      * Defines the status text.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `statusText`
      */
     getStatusText(): string;
     /**
@@ -1695,6 +1956,8 @@ declare module "sap/f/cards/Header" {
      * Defines the subtitle.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `subtitle`
      */
     getSubtitle(): string;
     /**
@@ -1705,6 +1968,8 @@ declare module "sap/f/cards/Header" {
      * Limits the number of lines for the subtitle.
      *
      * Default value is `2`.
+     *
+     * @returns Value of property `subtitleMaxLines`
      */
     getSubtitleMaxLines(): int;
     /**
@@ -1713,6 +1978,8 @@ declare module "sap/f/cards/Header" {
      * Defines the title.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
@@ -1723,6 +1990,8 @@ declare module "sap/f/cards/Header" {
      * Limits the number of lines for the title.
      *
      * Default value is `3`.
+     *
+     * @returns Value of property `titleMaxLines`
      */
     getTitleMaxLines(): int;
     /**
@@ -1735,6 +2004,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconAlt(
       /**
@@ -1752,6 +2023,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Transparent`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconBackgroundColor(
       /**
@@ -1767,6 +2040,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Circle`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconDisplayShape(
       /**
@@ -1782,6 +2057,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconInitials(
       /**
@@ -1797,6 +2074,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setIconSrc(
       /**
@@ -1812,6 +2091,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStatusText(
       /**
@@ -1827,6 +2108,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitle(
       /**
@@ -1844,6 +2127,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `2`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitleMaxLines(
       /**
@@ -1859,6 +2144,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -1876,6 +2163,8 @@ declare module "sap/f/cards/Header" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `3`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleMaxLines(
       /**
@@ -1896,7 +2185,7 @@ declare module "sap/f/cards/Header" {
      *
      * Limits the number of lines for the title.
      */
-    titleMaxLines?: int | PropertyBindingInfo;
+    titleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the subtitle.
@@ -1908,7 +2197,7 @@ declare module "sap/f/cards/Header" {
      *
      * Limits the number of lines for the subtitle.
      */
-    subtitleMaxLines?: int | PropertyBindingInfo;
+    subtitleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the status text.
@@ -1920,12 +2209,13 @@ declare module "sap/f/cards/Header" {
      */
     iconDisplayShape?:
       | (AvatarShape | keyof typeof AvatarShape)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Defines the icon source.
      */
-    iconSrc?: URI | PropertyBindingInfo;
+    iconSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the initials of the icon.
@@ -1946,7 +2236,8 @@ declare module "sap/f/cards/Header" {
      */
     iconBackgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Fires when the user presses the control.
@@ -1966,6 +2257,8 @@ declare module "sap/f/cards/NumericHeader" {
   import NumericSideIndicator from "sap/f/cards/NumericSideIndicator";
 
   import Event from "sap/ui/base/Event";
+
+  import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2030,6 +2323,8 @@ declare module "sap/f/cards/NumericHeader" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.cards.BaseHeader.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2048,10 +2343,14 @@ declare module "sap/f/cards/NumericHeader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.cards.NumericHeader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some sideIndicator to the aggregation {@link #getSideIndicators sideIndicators}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSideIndicator(
       /**
@@ -2066,6 +2365,8 @@ declare module "sap/f/cards/NumericHeader" {
      * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
      *
      * Fires when the user presses the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -2089,6 +2390,8 @@ declare module "sap/f/cards/NumericHeader" {
      * otherwise it will be bound to this `sap.f.cards.NumericHeader` itself.
      *
      * Fires when the user presses the control.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPress(
       /**
@@ -2102,12 +2405,16 @@ declare module "sap/f/cards/NumericHeader" {
     ): this;
     /**
      * Destroys all the sideIndicators in the aggregation {@link #getSideIndicators sideIndicators}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySideIndicators(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:press press} event of this `sap.f.cards.NumericHeader`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPress(
       /**
@@ -2120,7 +2427,23 @@ declare module "sap/f/cards/NumericHeader" {
       oListener?: object
     ): this;
     /**
+     * This method is a hook for the RenderManager that gets called during the rendering of child Controls.
+     * It allows to add, remove and update existing accessibility attributes (ARIA) of those controls.
+     */
+    enhanceAccessibilityState(
+      /**
+       * The Control that gets rendered by the RenderManager
+       */
+      oElement: Control,
+      /**
+       * The mapping of "aria-" prefixed attributes
+       */
+      mAriaProps: object
+    ): void;
+    /**
      * Fires event {@link #event:press press} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePress(
       /**
@@ -2132,6 +2455,8 @@ declare module "sap/f/cards/NumericHeader" {
      * Gets current value of property {@link #getDetails details}.
      *
      * Additional text which adds more details to what is shown in the numeric header.
+     *
+     * @returns Value of property `details`
      */
     getDetails(): string;
     /**
@@ -2142,6 +2467,8 @@ declare module "sap/f/cards/NumericHeader" {
      * Limits the number of lines for the details.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `detailsMaxLines`
      */
     getDetailsMaxLines(): int;
     /**
@@ -2149,6 +2476,8 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * The numeric value of the main number indicator. If the value contains more than five characters, only
      * the first five are displayed. Without rounding the number.
+     *
+     * @returns Value of property `number`
      */
     getNumber(): string;
     /**
@@ -2157,6 +2486,8 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
      * used for currencies and counters. The International System of Units (SI) prefixes can be used. If the
      * unit contains more than three characters, only the first three characters are displayed.
+     *
+     * @returns Value of property `scale`
      */
     getScale(): string;
     /**
@@ -2172,6 +2503,8 @@ declare module "sap/f/cards/NumericHeader" {
      * The alignment of the side indicators.
      *
      * Default value is `"Begin"`.
+     *
+     * @returns Value of property `sideIndicatorsAlignment`
      */
     getSideIndicatorsAlignment():
       | cards.NumericHeaderSideIndicatorsAlignment
@@ -2184,6 +2517,8 @@ declare module "sap/f/cards/NumericHeader" {
      * The semantic color which represents the state of the main number indicator.
      *
      * Default value is `"Neutral"`.
+     *
+     * @returns Value of property `state`
      */
     getState(): ValueColor | keyof typeof ValueColor;
     /**
@@ -2192,12 +2527,16 @@ declare module "sap/f/cards/NumericHeader" {
      * Defines the status text.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `statusText`
      */
     getStatusText(): string;
     /**
      * Gets current value of property {@link #getSubtitle subtitle}.
      *
      * The subtitle of the card
+     *
+     * @returns Value of property `subtitle`
      */
     getSubtitle(): string;
     /**
@@ -2208,12 +2547,16 @@ declare module "sap/f/cards/NumericHeader" {
      * Limits the number of lines for the subtitle.
      *
      * Default value is `2`.
+     *
+     * @returns Value of property `subtitleMaxLines`
      */
     getSubtitleMaxLines(): int;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * The title of the card
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
@@ -2224,6 +2567,8 @@ declare module "sap/f/cards/NumericHeader" {
      * Limits the number of lines for the title.
      *
      * Default value is `3`.
+     *
+     * @returns Value of property `titleMaxLines`
      */
     getTitleMaxLines(): int;
     /**
@@ -2232,17 +2577,23 @@ declare module "sap/f/cards/NumericHeader" {
      * The direction of the trend arrow. Shows deviation for the value of the main number indicator.
      *
      * Default value is `"None"`.
+     *
+     * @returns Value of property `trend`
      */
     getTrend(): DeviationIndicator | keyof typeof DeviationIndicator;
     /**
      * Gets current value of property {@link #getUnitOfMeasurement unitOfMeasurement}.
      *
      * General unit of measurement for the header. Displayed as side information to the subtitle.
+     *
+     * @returns Value of property `unitOfMeasurement`
      */
     getUnitOfMeasurement(): string;
     /**
      * Checks for the provided `sap.f.cards.NumericSideIndicator` in the aggregation {@link #getSideIndicators
      * sideIndicators}. and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSideIndicator(
       /**
@@ -2252,6 +2603,8 @@ declare module "sap/f/cards/NumericHeader" {
     ): int;
     /**
      * Inserts a sideIndicator into the aggregation {@link #getSideIndicators sideIndicators}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSideIndicator(
       /**
@@ -2269,23 +2622,29 @@ declare module "sap/f/cards/NumericHeader" {
      * Removes all the controls from the aggregation {@link #getSideIndicators sideIndicators}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSideIndicators(): NumericSideIndicator[];
     /**
      * Removes a sideIndicator from the aggregation {@link #getSideIndicators sideIndicators}.
+     *
+     * @returns The removed sideIndicator or `null`
      */
     removeSideIndicator(
       /**
        * The sideIndicator to remove or its index or id
        */
       vSideIndicator: int | string | NumericSideIndicator
-    ): NumericSideIndicator;
+    ): NumericSideIndicator | null;
     /**
      * Sets a new value for property {@link #getDetails details}.
      *
      * Additional text which adds more details to what is shown in the numeric header.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDetails(
       /**
@@ -2303,6 +2662,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDetailsMaxLines(
       /**
@@ -2317,6 +2678,8 @@ declare module "sap/f/cards/NumericHeader" {
      * the first five are displayed. Without rounding the number.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNumber(
       /**
@@ -2332,6 +2695,8 @@ declare module "sap/f/cards/NumericHeader" {
      * unit contains more than three characters, only the first three characters are displayed.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setScale(
       /**
@@ -2347,6 +2712,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"Begin"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSideIndicatorsAlignment(
       /**
@@ -2366,6 +2733,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"Neutral"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setState(
       /**
@@ -2381,6 +2750,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStatusText(
       /**
@@ -2394,6 +2765,8 @@ declare module "sap/f/cards/NumericHeader" {
      * The subtitle of the card
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitle(
       /**
@@ -2411,6 +2784,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `2`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubtitleMaxLines(
       /**
@@ -2424,6 +2799,8 @@ declare module "sap/f/cards/NumericHeader" {
      * The title of the card
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -2441,6 +2818,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `3`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleMaxLines(
       /**
@@ -2456,6 +2835,8 @@ declare module "sap/f/cards/NumericHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTrend(
       /**
@@ -2469,6 +2850,8 @@ declare module "sap/f/cards/NumericHeader" {
      * General unit of measurement for the header. Displayed as side information to the subtitle.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setUnitOfMeasurement(
       /**
@@ -2489,7 +2872,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Limits the number of lines for the title.
      */
-    titleMaxLines?: int | PropertyBindingInfo;
+    titleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The subtitle of the card
@@ -2501,7 +2884,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Limits the number of lines for the subtitle.
      */
-    subtitleMaxLines?: int | PropertyBindingInfo;
+    subtitleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the status text.
@@ -2531,14 +2914,18 @@ declare module "sap/f/cards/NumericHeader" {
      */
     trend?:
       | (DeviationIndicator | keyof typeof DeviationIndicator)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @EXPERIMENTAL (since 1.64)
      *
      * The semantic color which represents the state of the main number indicator.
      */
-    state?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+    state?:
+      | (ValueColor | keyof typeof ValueColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Additional text which adds more details to what is shown in the numeric header.
@@ -2550,7 +2937,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Limits the number of lines for the details.
      */
-    detailsMaxLines?: int | PropertyBindingInfo;
+    detailsMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The alignment of the side indicators.
@@ -2560,7 +2947,8 @@ declare module "sap/f/cards/NumericHeader" {
           | cards.NumericHeaderSideIndicatorsAlignment
           | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
         )
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Additional side number indicators. For example "Deviation" and "Target". Not more than two side indicators
@@ -2569,7 +2957,8 @@ declare module "sap/f/cards/NumericHeader" {
     sideIndicators?:
       | NumericSideIndicator[]
       | NumericSideIndicator
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fires when the user presses the control.
@@ -2629,6 +3018,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2647,12 +3038,16 @@ declare module "sap/f/cards/NumericSideIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.cards.NumericSideIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
      * The numeric value
+     *
+     * @returns Value of property `number`
      */
     getNumber(): string;
     /**
@@ -2663,22 +3058,30 @@ declare module "sap/f/cards/NumericSideIndicator" {
      * The semantic color which represents the state of the side indicator.
      *
      * Default value is `"None"`.
+     *
+     * @returns Value of property `state`
      */
     getState(): ValueColor | keyof typeof ValueColor;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * The title of the indicator
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * Gets current value of property {@link #getUnit unit}.
      *
      * Defines the unit of measurement (scaling prefix) for the numeric value
+     *
+     * @returns Value of property `unit`
      */
     getUnit(): string;
     /**
      * Sets the numeric value.
+     *
+     * @returns this pointer for chaining
      */
     setNumber(
       /**
@@ -2696,6 +3099,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setState(
       /**
@@ -2705,6 +3110,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
     ): this;
     /**
      * Sets the title.
+     *
+     * @returns this pointer for chaining
      */
     setTitle(
       /**
@@ -2714,6 +3121,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
     ): this;
     /**
      * Sets the unit of measurement.
+     *
+     * @returns this pointer for chaining
      */
     setUnit(
       /**
@@ -2744,7 +3153,10 @@ declare module "sap/f/cards/NumericSideIndicator" {
      *
      * The semantic color which represents the state of the side indicator.
      */
-    state?: (ValueColor | keyof typeof ValueColor) | PropertyBindingInfo;
+    state?:
+      | (ValueColor | keyof typeof ValueColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -2815,6 +3227,8 @@ declare module "sap/f/dnd/GridDropInfo" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.dnd.DropInfo.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -2833,6 +3247,8 @@ declare module "sap/f/dnd/GridDropInfo" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.dnd.GridDropInfo.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -2850,6 +3266,8 @@ declare module "sap/f/dnd/GridDropInfo" {
      *
      * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
      * columns: }` or `null`.
+     *
+     * @returns Value of property `dropIndicatorSize`
      */
     getDropIndicatorSize(): Function;
     /**
@@ -2869,6 +3287,8 @@ declare module "sap/f/dnd/GridDropInfo" {
      * columns: }` or `null`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDropIndicatorSize(
       /**
@@ -2893,7 +3313,7 @@ declare module "sap/f/dnd/GridDropInfo" {
      * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
      * columns: }` or `null`.
      */
-    dropIndicatorSize?: Function | PropertyBindingInfo;
+    dropIndicatorSize?: Function | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -3012,6 +3432,8 @@ declare module "sap/f/DynamicPage" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -3030,6 +3452,8 @@ declare module "sap/f/DynamicPage" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.DynamicPage.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -3042,6 +3466,8 @@ declare module "sap/f/DynamicPage" {
      * otherwise it will be bound to this `sap.f.DynamicPage` itself.
      *
      * The event is fired when the `headerPinned` property is changed via user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPinnedStateChange(
       /**
@@ -3068,6 +3494,8 @@ declare module "sap/f/DynamicPage" {
      * otherwise it will be bound to this `sap.f.DynamicPage` itself.
      *
      * The event is fired when the `headerPinned` property is changed via user interaction.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachPinnedStateChange(
       /**
@@ -3081,24 +3509,34 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * Destroys the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys the footer in the aggregation {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooter(): this;
     /**
      * Destroys the header in the aggregation {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * @SINCE 1.61
      *
      * Destroys the landmarkInfo in the aggregation {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLandmarkInfo(): this;
     /**
      * Destroys the title in the aggregation {@link #getTitle title}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitle(): this;
     /**
@@ -3108,6 +3546,8 @@ declare module "sap/f/DynamicPage" {
      * of this `sap.f.DynamicPage`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachPinnedStateChange(
       /**
@@ -3123,6 +3563,8 @@ declare module "sap/f/DynamicPage" {
      * @SINCE 1.93
      *
      * Fires event {@link #event:pinnedStateChange pinnedStateChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     firePinnedStateChange(
       /**
@@ -3143,6 +3585,8 @@ declare module "sap/f/DynamicPage" {
      * Determines the background color of `DynamicPage`.
      *
      * Default value is `Standard`.
+     *
+     * @returns Value of property `backgroundDesign`
      */
     getBackgroundDesign():
       | PageBackgroundDesign
@@ -3196,6 +3640,8 @@ declare module "sap/f/DynamicPage" {
      * 			properly when this property is disabled).
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `fitContent`
      */
     getFitContent(): boolean;
     /**
@@ -3222,6 +3668,8 @@ declare module "sap/f/DynamicPage" {
      * property to `false`.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `headerExpanded`
      */
     getHeaderExpanded(): boolean;
     /**
@@ -3243,6 +3691,8 @@ declare module "sap/f/DynamicPage" {
      * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `headerPinned`
      */
     getHeaderPinned(): boolean;
     /**
@@ -3265,10 +3715,14 @@ declare module "sap/f/DynamicPage" {
      * when the control`s title and header are with height larger than the given threshold.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `preserveHeaderStateOnScroll`
      */
     getPreserveHeaderStateOnScroll(): boolean;
     /**
      * Returns the `sap.ui.core.ScrollEnablement` delegate which is used with this control.
+     *
+     * @returns The scroll delegate instance
      */
     getScrollDelegate(): ScrollEnablement;
     /**
@@ -3277,6 +3731,8 @@ declare module "sap/f/DynamicPage" {
      * Determines whether the footer is visible.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showFooter`
      */
     getShowFooter(): boolean;
     /**
@@ -3304,6 +3760,8 @@ declare module "sap/f/DynamicPage" {
      * **Note: ** This property is taken into account only if a non-empty `header` aggregation is provided.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `toggleHeaderOnTitleClick`
      */
     getToggleHeaderOnTitleClick(): boolean;
     /**
@@ -3316,6 +3774,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBackgroundDesign(
       /**
@@ -3327,6 +3787,8 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContent(
       /**
@@ -3351,6 +3813,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFitContent(
       /**
@@ -3360,6 +3824,8 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getFooter footer}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFooter(
       /**
@@ -3369,6 +3835,8 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getHeader header}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeader(
       /**
@@ -3390,6 +3858,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderExpanded(
       /**
@@ -3418,6 +3888,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderPinned(
       /**
@@ -3429,6 +3901,8 @@ declare module "sap/f/DynamicPage" {
      * @SINCE 1.61
      *
      * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLandmarkInfo(
       /**
@@ -3448,6 +3922,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPreserveHeaderStateOnScroll(
       /**
@@ -3463,6 +3939,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowFooter(
       /**
@@ -3474,6 +3952,8 @@ declare module "sap/f/DynamicPage" {
      * @SINCE 1.65
      *
      * Sets the associated {@link #getStickySubheaderProvider stickySubheaderProvider}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setStickySubheaderProvider(
       /**
@@ -3484,6 +3964,8 @@ declare module "sap/f/DynamicPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getTitle title}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -3505,6 +3987,8 @@ declare module "sap/f/DynamicPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setToggleHeaderOnTitleClick(
       /**
@@ -3522,7 +4006,7 @@ declare module "sap/f/DynamicPage" {
      * **Note:** Based on internal rules, the value of the property is not always taken into account - for example,
      * when the control`s title and header are with height larger than the given threshold.
      */
-    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo;
+    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the header is expanded.
@@ -3533,7 +4017,7 @@ declare module "sap/f/DynamicPage" {
      * **Note:** As of version 1.48, you can initialize the control in collapsed header state by setting this
      * property to `false`.
      */
-    headerExpanded?: boolean | PropertyBindingInfo;
+    headerExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.93
@@ -3551,7 +4035,7 @@ declare module "sap/f/DynamicPage" {
      * 	 - `DynamicPageHeader` is expanded
      * 	 - `DynamicPage` `preserveHeaderStateOnScroll` property is effectively disabled
      */
-    headerPinned?: boolean | PropertyBindingInfo;
+    headerPinned?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the user can switch between the expanded/collapsed states of the `DynamicPageHeader`
@@ -3562,12 +4046,12 @@ declare module "sap/f/DynamicPage" {
      *
      * **Note: ** This property is taken into account only if a non-empty `header` aggregation is provided.
      */
-    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo;
+    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the footer is visible.
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.68
@@ -3576,7 +4060,8 @@ declare module "sap/f/DynamicPage" {
      */
     backgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Forces the content container of the `DynamicPage` to make room for stretchable controls in the `content`
@@ -3590,7 +4075,7 @@ declare module "sap/f/DynamicPage" {
      * 	 - It is not recommended to enable this property for controls that do not stretch in height (and appear
      * 			properly when this property is disabled).
      */
-    fitContent?: boolean | PropertyBindingInfo;
+    fitContent?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * `DynamicPage` title.
@@ -3721,6 +4206,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -3739,6 +4226,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.DynamicPageAccessibleLandmarkInfo.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -3748,6 +4237,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
+     *
+     * @returns Value of property `contentLabel`
      */
     getContentLabel(): string;
     /**
@@ -3758,6 +4249,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If set to `sap.ui.core.AccessibleLandmarkRole.None`, no landmark will be added to the container.
      *
      * Default value is `"None"`.
+     *
+     * @returns Value of property `contentRole`
      */
     getContentRole():
       | AccessibleLandmarkRole
@@ -3769,6 +4262,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
+     *
+     * @returns Value of property `footerLabel`
      */
     getFooterLabel(): string;
     /**
@@ -3779,6 +4274,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If set to `sap.ui.core.AccessibleLandmarkRole.None`, no landmark will be added to the container.
      *
      * Default value is `"None"`.
+     *
+     * @returns Value of property `footerRole`
      */
     getFooterRole():
       | AccessibleLandmarkRole
@@ -3790,6 +4287,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
+     *
+     * @returns Value of property `headerLabel`
      */
     getHeaderLabel(): string;
     /**
@@ -3800,6 +4299,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If set to `sap.ui.core.AccessibleLandmarkRole.None`, no landmark will be added to the container.
      *
      * Default value is `"None"`.
+     *
+     * @returns Value of property `headerRole`
      */
     getHeaderRole():
       | AccessibleLandmarkRole
@@ -3811,6 +4312,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      *
      * If not set (and a landmark different than `sap.ui.core.AccessibleLandmarkRole.None` is defined), no label
      * is set.
+     *
+     * @returns Value of property `rootLabel`
      */
     getRootLabel(): string;
     /**
@@ -3821,6 +4324,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * If set to `sap.ui.core.AccessibleLandmarkRole.None`, no landmark will be added to the container.
      *
      * Default value is `"None"`.
+     *
+     * @returns Value of property `rootRole`
      */
     getRootRole(): AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole;
     /**
@@ -3832,6 +4337,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContentLabel(
       /**
@@ -3849,6 +4356,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContentRole(
       /**
@@ -3867,6 +4376,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFooterLabel(
       /**
@@ -3884,6 +4395,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFooterRole(
       /**
@@ -3900,6 +4413,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderLabel(
       /**
@@ -3917,6 +4432,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderRole(
       /**
@@ -3933,6 +4450,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * is set.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRootLabel(
       /**
@@ -3950,6 +4469,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"None"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRootRole(
       /**
@@ -3968,7 +4489,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     rootRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Texts which describe the landmark of the root container of the corresponding `sap.f.DynamicPage` control.
@@ -3985,7 +4507,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     contentRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Texts which describe the landmark of the content container of the corresponding `sap.f.DynamicPage` control.
@@ -4002,7 +4525,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     headerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Texts which describe the landmark of the header container of the corresponding `sap.f.DynamicPage` control.
@@ -4019,7 +4543,8 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
      */
     footerRole?:
       | (AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Texts which describe the landmark of the header container of the corresponding `sap.f.DynamicPage` control.
@@ -4104,6 +4629,8 @@ declare module "sap/f/DynamicPageHeader" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4122,10 +4649,14 @@ declare module "sap/f/DynamicPageHeader" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.DynamicPageHeader.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -4135,6 +4666,8 @@ declare module "sap/f/DynamicPageHeader" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -4146,6 +4679,8 @@ declare module "sap/f/DynamicPageHeader" {
      *
      * **Note:** The default value of `backgroundDesign` property is null. If the property is not set, the color
      * of the background is `@sapUiObjectHeaderBackground`, which depends on the specific theme.
+     *
+     * @returns Value of property `backgroundDesign`
      */
     getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
     /**
@@ -4160,11 +4695,15 @@ declare module "sap/f/DynamicPageHeader" {
      * Determines whether the header is pinnable.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `pinnable`
      */
     getPinnable(): boolean;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -4174,6 +4713,8 @@ declare module "sap/f/DynamicPageHeader" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -4191,17 +4732,21 @@ declare module "sap/f/DynamicPageHeader" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.58
      *
@@ -4213,6 +4758,8 @@ declare module "sap/f/DynamicPageHeader" {
      * of the background is `@sapUiObjectHeaderBackground`, which depends on the specific theme.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBackgroundDesign(
       /**
@@ -4228,6 +4775,8 @@ declare module "sap/f/DynamicPageHeader" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPinnable(
       /**
@@ -4241,7 +4790,7 @@ declare module "sap/f/DynamicPageHeader" {
     /**
      * Determines whether the header is pinnable.
      */
-    pinnable?: boolean | PropertyBindingInfo;
+    pinnable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.58
@@ -4253,12 +4802,13 @@ declare module "sap/f/DynamicPageHeader" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The content of the header.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -4354,6 +4904,8 @@ declare module "sap/f/DynamicPageTitle" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -4372,10 +4924,14 @@ declare module "sap/f/DynamicPageTitle" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.DynamicPageTitle.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some action to the aggregation {@link #getActions actions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAction(
       /**
@@ -4387,6 +4943,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.78
      *
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAriaDescribedBy(
       /**
@@ -4398,6 +4956,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.50
      *
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -4407,6 +4967,8 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Adds some expandedContent to the aggregation {@link #getExpandedContent expandedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addExpandedContent(
       /**
@@ -4418,6 +4980,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.52
      *
      * Adds some navigationAction to the aggregation {@link #getNavigationActions navigationActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addNavigationAction(
       /**
@@ -4427,6 +4991,8 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Adds some snappedContent to the aggregation {@link #getSnappedContent snappedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSnappedContent(
       /**
@@ -4447,6 +5013,8 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * Also fired when the developer toggles the title state by programmatically changing the scroll position
      * of the scrollbar of `DynamicPage`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStateChange(
       /**
@@ -4476,6 +5044,8 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * Also fired when the developer toggles the title state by programmatically changing the scroll position
      * of the scrollbar of `DynamicPage`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStateChange(
       /**
@@ -4489,54 +5059,74 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Destroys all the actions in the aggregation {@link #getActions actions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyActions(): this;
     /**
      * @SINCE 1.52
      *
      * Destroys the breadcrumbs in the aggregation {@link #getBreadcrumbs breadcrumbs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyBreadcrumbs(): this;
     /**
      * @SINCE 1.50
      *
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys all the expandedContent in the aggregation {@link #getExpandedContent expandedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyExpandedContent(): this;
     /**
      * @SINCE 1.52
      *
      * Destroys the expandedHeading in the aggregation {@link #getExpandedHeading expandedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyExpandedHeading(): this;
     /**
      * Destroys the heading in the aggregation {@link #getHeading heading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeading(): this;
     /**
      * @SINCE 1.52
      *
      * Destroys all the navigationActions in the aggregation {@link #getNavigationActions navigationActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyNavigationActions(): this;
     /**
      * Destroys all the snappedContent in the aggregation {@link #getSnappedContent snappedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySnappedContent(): this;
     /**
      * @SINCE 1.52
      *
      * Destroys the snappedHeading in the aggregation {@link #getSnappedHeading snappedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySnappedHeading(): this;
     /**
      * @SINCE 1.63
      *
      * Destroys the snappedTitleOnMobile in the aggregation {@link #getSnappedTitleOnMobile snappedTitleOnMobile}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySnappedTitleOnMobile(): this;
     /**
@@ -4545,6 +5135,8 @@ declare module "sap/f/DynamicPageTitle" {
      * Detaches event handler `fnFunction` from the {@link #event:stateChange stateChange} event of this `sap.f.DynamicPageTitle`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachStateChange(
       /**
@@ -4560,6 +5152,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.54
      *
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireStateChange(
       /**
@@ -4605,6 +5199,8 @@ declare module "sap/f/DynamicPageTitle" {
      *  When this property is set the `primaryArea` property has no effect.
      *
      * Default value is `"1:1.6:1.6"`.
+     *
+     * @returns Value of property `areaShrinkRatio`
      */
     getAreaShrinkRatio(): DynamicPageTitleShrinkRatio;
     /**
@@ -4623,6 +5219,8 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * **Note:** The default value of `backgroundDesign` property is null. If the property is not set, the color
      * of the background is `@sapUiObjectHeaderBackground`, which depends on the specific theme.
+     *
+     * @returns Value of property `backgroundDesign`
      */
     getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
     /**
@@ -4718,6 +5316,8 @@ declare module "sap/f/DynamicPageTitle" {
      * **Note:** The primary area is shrinking at lower rate, remaining visible as much as it can.
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `primaryArea`
      */
     getPrimaryArea(): DynamicPageTitleArea | keyof typeof DynamicPageTitleArea;
     /**
@@ -4765,6 +5365,8 @@ declare module "sap/f/DynamicPageTitle" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getActions actions}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfAction(
       /**
@@ -4777,6 +5379,8 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -4787,6 +5391,8 @@ declare module "sap/f/DynamicPageTitle" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getExpandedContent expandedContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfExpandedContent(
       /**
@@ -4799,6 +5405,8 @@ declare module "sap/f/DynamicPageTitle" {
      *
      * Checks for the provided `sap.m.Button` in the aggregation {@link #getNavigationActions navigationActions}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfNavigationAction(
       /**
@@ -4809,6 +5417,8 @@ declare module "sap/f/DynamicPageTitle" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getSnappedContent snappedContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSnappedContent(
       /**
@@ -4818,6 +5428,8 @@ declare module "sap/f/DynamicPageTitle" {
     ): int;
     /**
      * Inserts a action into the aggregation {@link #getActions actions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertAction(
       /**
@@ -4835,6 +5447,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.50
      *
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -4850,6 +5464,8 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Inserts a expandedContent into the aggregation {@link #getExpandedContent expandedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertExpandedContent(
       /**
@@ -4867,6 +5483,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.52
      *
      * Inserts a navigationAction into the aggregation {@link #getNavigationActions navigationActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertNavigationAction(
       /**
@@ -4882,6 +5500,8 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Inserts a snappedContent into the aggregation {@link #getSnappedContent snappedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSnappedContent(
       /**
@@ -4897,23 +5517,29 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Removes a action from the aggregation {@link #getActions actions}.
+     *
+     * @returns The removed action or `null`
      */
     removeAction(
       /**
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllActions(): Control[];
     /**
      * @SINCE 1.78
      *
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
@@ -4922,12 +5548,16 @@ declare module "sap/f/DynamicPageTitle" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getExpandedContent expandedContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllExpandedContent(): Control[];
     /**
@@ -4936,69 +5566,85 @@ declare module "sap/f/DynamicPageTitle" {
      * Removes all the controls from the aggregation {@link #getNavigationActions navigationActions}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllNavigationActions(): Button[];
     /**
      * Removes all the controls from the aggregation {@link #getSnappedContent snappedContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSnappedContent(): Control[];
     /**
      * @SINCE 1.78
      *
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
      */
     removeAriaDescribedBy(
       /**
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.50
      *
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a expandedContent from the aggregation {@link #getExpandedContent expandedContent}.
+     *
+     * @returns The removed expandedContent or `null`
      */
     removeExpandedContent(
       /**
        * The expandedContent to remove or its index or id
        */
       vExpandedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.52
      *
      * Removes a navigationAction from the aggregation {@link #getNavigationActions navigationActions}.
+     *
+     * @returns The removed navigationAction or `null`
      */
     removeNavigationAction(
       /**
        * The navigationAction to remove or its index or id
        */
       vNavigationAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a snappedContent from the aggregation {@link #getSnappedContent snappedContent}.
+     *
+     * @returns The removed snappedContent or `null`
      */
     removeSnappedContent(
       /**
        * The snappedContent to remove or its index or id
        */
       vSnappedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.54
      *
      * Sets the value of the `areaShrinkRatio` property.
+     *
+     * @returns `this` to allow method chaining
      */
     setAreaShrinkRatio(
       /**
@@ -5017,6 +5663,8 @@ declare module "sap/f/DynamicPageTitle" {
      * of the background is `@sapUiObjectHeaderBackground`, which depends on the specific theme.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBackgroundDesign(
       /**
@@ -5028,6 +5676,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.52
      *
      * Sets the aggregated {@link #getBreadcrumbs breadcrumbs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBreadcrumbs(
       /**
@@ -5039,6 +5689,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.52
      *
      * Sets the aggregated {@link #getExpandedHeading expandedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExpandedHeading(
       /**
@@ -5048,6 +5700,8 @@ declare module "sap/f/DynamicPageTitle" {
     ): this;
     /**
      * Sets the aggregated {@link #getHeading heading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeading(
       /**
@@ -5077,6 +5731,8 @@ declare module "sap/f/DynamicPageTitle" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPrimaryArea(
       /**
@@ -5088,6 +5744,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.52
      *
      * Sets the aggregated {@link #getSnappedHeading snappedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSnappedHeading(
       /**
@@ -5099,6 +5757,8 @@ declare module "sap/f/DynamicPageTitle" {
      * @SINCE 1.63
      *
      * Sets the aggregated {@link #getSnappedTitleOnMobile snappedTitleOnMobile}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSnappedTitleOnMobile(
       /**
@@ -5128,7 +5788,8 @@ declare module "sap/f/DynamicPageTitle" {
      */
     primaryArea?:
       | (DynamicPageTitleArea | keyof typeof DynamicPageTitleArea)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.54
@@ -5148,7 +5809,10 @@ declare module "sap/f/DynamicPageTitle" {
      *
      *  When this property is set the `primaryArea` property has no effect.
      */
-    areaShrinkRatio?: DynamicPageTitleShrinkRatio | PropertyBindingInfo;
+    areaShrinkRatio?:
+      | DynamicPageTitleShrinkRatio
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.58
@@ -5160,7 +5824,8 @@ declare module "sap/f/DynamicPageTitle" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The `heading` is positioned in the `DynamicPageTitle` left area and is displayed in both expanded and
@@ -5214,7 +5879,7 @@ declare module "sap/f/DynamicPageTitle" {
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * state.
      */
-    actions?: Control[] | Control | AggregationBindingInfo;
+    actions?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.52
@@ -5230,7 +5895,11 @@ declare module "sap/f/DynamicPageTitle" {
      * 			control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * 			state.
      */
-    navigationActions?: Button[] | Button | AggregationBindingInfo;
+    navigationActions?:
+      | Button[]
+      | Button
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.50
@@ -5242,7 +5911,7 @@ declare module "sap/f/DynamicPageTitle" {
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * state.
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * The content that is displayed in the `DynamicPageTitle` in collapsed (snapped) state.
@@ -5251,12 +5920,20 @@ declare module "sap/f/DynamicPageTitle" {
      * the control is viewed on a phone mobile device and the `DynamicPageHeader` is in its collapsed (snapped)
      * state.
      */
-    snappedContent?: Control[] | Control | AggregationBindingInfo;
+    snappedContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The content that is displayed in the `DynamicPageTitle` in expanded state.
      */
-    expandedContent?: Control[] | Control | AggregationBindingInfo;
+    expandedContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.63
@@ -5408,6 +6085,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -5426,10 +6105,14 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.FlexibleColumnLayout.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some beginColumnPage to the aggregation {@link #getBeginColumnPages beginColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addBeginColumnPage(
       /**
@@ -5439,6 +6122,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Adds some endColumnPage to the aggregation {@link #getEndColumnPages endColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addEndColumnPage(
       /**
@@ -5448,6 +6133,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Adds some midColumnPage to the aggregation {@link #getMidColumnPages midColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addMidColumnPage(
       /**
@@ -5465,6 +6152,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Begin` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterBeginColumnNavigate(
       /**
@@ -5491,6 +6180,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Begin` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterBeginColumnNavigate(
       /**
@@ -5512,6 +6203,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `End` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterEndColumnNavigate(
       /**
@@ -5538,6 +6231,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `End` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterEndColumnNavigate(
       /**
@@ -5559,6 +6254,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Mid` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterMidColumnNavigate(
       /**
@@ -5585,6 +6282,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Mid` column has completed.
      *
      * NOTE: In case of animated transitions this event is fired with some delay after the navigate event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAfterMidColumnNavigate(
       /**
@@ -5606,6 +6305,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
      * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeginColumnNavigate(
       /**
@@ -5632,6 +6333,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Begin` column has been triggered. The transition (if
      * any) to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBeginColumnNavigate(
       /**
@@ -5652,6 +6355,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
      *
      * Fired when resize of each column has completed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachColumnResize(
       /**
@@ -5677,6 +6382,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * otherwise it will be bound to this `sap.f.FlexibleColumnLayout` itself.
      *
      * Fired when resize of each column has completed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachColumnResize(
       /**
@@ -5698,6 +6405,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachEndColumnNavigate(
       /**
@@ -5724,6 +6433,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `End` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachEndColumnNavigate(
       /**
@@ -5745,6 +6456,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachMidColumnNavigate(
       /**
@@ -5771,6 +6484,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Fires when navigation between two pages in the `Mid` column has been triggered. The transition (if any)
      * to the new page has not started yet. This event can be aborted by the application with preventDefault(),
      * which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachMidColumnNavigate(
       /**
@@ -5798,6 +6513,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
      * it gets a non-zero width
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStateChange(
       /**
@@ -5830,6 +6547,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      *  **Note: **The event is suppressed while the control has zero width and will be fired the first time
      * it gets a non-zero width
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachStateChange(
       /**
@@ -5851,6 +6570,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * on the target page and AfterHide - on the page, which has been left. The given backData object is available
      * in the BeforeFirstShow, BeforeShow, and AfterShow event objects as data property. The original "data"
      * object from the "to" navigation is also available in these event objects.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     backToPage(
       /**
@@ -5888,6 +6609,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Navigates back to the initial/top level of Begin column (this is the element aggregated as "initialPage",
      * or the first added element). NOTE: If already on the initial page, nothing happens. The transition effect
      * which had been used to get to the current page is inverted and used for this navigation.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     backToTopBeginColumn(
       /**
@@ -5921,6 +6644,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Navigates back to the initial/top level of End column (this is the element aggregated as "initialPage",
      * or the first added element). NOTE: If already on the initial page, nothing happens. The transition effect
      * which had been used to get to the current page is inverted and used for this navigation.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     backToTopEndColumn(
       /**
@@ -5954,6 +6679,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Navigates back to the initial/top level of Mid column (this is the element aggregated as "initialPage",
      * or the first added element). NOTE: If already on the initial page, nothing happens. The transition effect
      * which had been used to get to the current page is inverted and used for this navigation.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     backToTopMidColumn(
       /**
@@ -5985,20 +6712,28 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Destroys all the beginColumnPages in the aggregation {@link #getBeginColumnPages beginColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyBeginColumnPages(): this;
     /**
      * Destroys all the endColumnPages in the aggregation {@link #getEndColumnPages endColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyEndColumnPages(): this;
     /**
      * @SINCE 1.95
      *
      * Destroys the landmarkInfo in the aggregation {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLandmarkInfo(): this;
     /**
      * Destroys all the midColumnPages in the aggregation {@link #getMidColumnPages midColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyMidColumnPages(): this;
     /**
@@ -6006,6 +6741,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * event of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterBeginColumnNavigate(
       /**
@@ -6022,6 +6759,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * event of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterEndColumnNavigate(
       /**
@@ -6038,6 +6777,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * event of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAfterMidColumnNavigate(
       /**
@@ -6054,6 +6795,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBeginColumnNavigate(
       /**
@@ -6071,6 +6814,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Detaches event handler `fnFunction` from the {@link #event:columnResize columnResize} event of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachColumnResize(
       /**
@@ -6087,6 +6832,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachEndColumnNavigate(
       /**
@@ -6103,6 +6850,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachMidColumnNavigate(
       /**
@@ -6118,6 +6867,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Detaches event handler `fnFunction` from the {@link #event:stateChange stateChange} event of this `sap.f.FlexibleColumnLayout`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachStateChange(
       /**
@@ -6131,6 +6882,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Fires event {@link #event:afterBeginColumnNavigate afterBeginColumnNavigate} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterBeginColumnNavigate(
       /**
@@ -6182,6 +6935,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Fires event {@link #event:afterEndColumnNavigate afterEndColumnNavigate} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterEndColumnNavigate(
       /**
@@ -6233,6 +6988,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Fires event {@link #event:afterMidColumnNavigate afterMidColumnNavigate} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAfterMidColumnNavigate(
       /**
@@ -6287,6 +7044,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireBeginColumnNavigate(
       /**
@@ -6340,6 +7099,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * @SINCE 1.76
      *
      * Fires event {@link #event:columnResize columnResize} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireColumnResize(
       /**
@@ -6365,6 +7126,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireEndColumnNavigate(
       /**
@@ -6419,6 +7182,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
      * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
      */
     fireMidColumnNavigate(
       /**
@@ -6470,6 +7235,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): boolean;
     /**
      * Fires event {@link #event:stateChange stateChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireStateChange(
       /**
@@ -6511,6 +7278,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * For more information, see {@link sap.m.NavContainer#autoFocus}.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `autoFocus`
      */
     getAutoFocus(): boolean;
     /**
@@ -6522,6 +7291,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * the used theme.
      *
      * Default value is `Transparent`.
+     *
+     * @returns Value of property `backgroundDesign`
      */
     getBackgroundDesign(): BackgroundDesign | keyof typeof BackgroundDesign;
     /**
@@ -6536,14 +7307,20 @@ declare module "sap/f/FlexibleColumnLayout" {
     getBeginColumnPages(): Control[];
     /**
      * Returns the currently displayed Begin column page.
+     *
+     * @returns The UI5 control in the Begin column
      */
     getCurrentBeginColumnPage(): Control;
     /**
      * Returns the currently displayed End column page.
+     *
+     * @returns The UI5 control in the End column
      */
     getCurrentEndColumnPage(): Control;
     /**
      * Returns the currently displayed Mid column page.
+     *
+     * @returns The UI5 control in the Mid column
      */
     getCurrentMidColumnPage(): Control;
     /**
@@ -6554,6 +7331,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * and the names of any registered custom transitions.
      *
      * Default value is `"slide"`.
+     *
+     * @returns Value of property `defaultTransitionNameBeginColumn`
      */
     getDefaultTransitionNameBeginColumn(): string;
     /**
@@ -6564,6 +7343,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * the names of any registered custom transitions.
      *
      * Default value is `"slide"`.
+     *
+     * @returns Value of property `defaultTransitionNameEndColumn`
      */
     getDefaultTransitionNameEndColumn(): string;
     /**
@@ -6574,6 +7355,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * the names of any registered custom transitions.
      *
      * Default value is `"slide"`.
+     *
+     * @returns Value of property `defaultTransitionNameMidColumn`
      */
     getDefaultTransitionNameMidColumn(): string;
     /**
@@ -6619,10 +7402,14 @@ declare module "sap/f/FlexibleColumnLayout" {
      * For more details, see {@link topic:3b9f760da5b64adf8db7f95247879086 Types of Layout} in the documentation.
      *
      * Default value is `OneColumn`.
+     *
+     * @returns Value of property `layout`
      */
     getLayout(): LayoutType | keyof typeof LayoutType;
     /**
      * Returns the maximum number of columns that can be displayed at once based on the control width
+     *
+     * @returns The maximum number of columns
      */
     getMaxColumnsCount(): number;
     /**
@@ -6644,11 +7431,15 @@ declare module "sap/f/FlexibleColumnLayout" {
      * column, for example, upon closing of the end column and being transfered back to the mid column.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `restoreFocusOnBackNavigation`
      */
     getRestoreFocusOnBackNavigation(): boolean;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getBeginColumnPages beginColumnPages}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfBeginColumnPage(
       /**
@@ -6659,6 +7450,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getEndColumnPages endColumnPages}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfEndColumnPage(
       /**
@@ -6669,6 +7462,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMidColumnPages midColumnPages}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfMidColumnPage(
       /**
@@ -6678,6 +7473,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): int;
     /**
      * Inserts a beginColumnPage into the aggregation {@link #getBeginColumnPages beginColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertBeginColumnPage(
       /**
@@ -6693,6 +7490,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Inserts a endColumnPage into the aggregation {@link #getEndColumnPages endColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertEndColumnPage(
       /**
@@ -6708,6 +7507,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Inserts a midColumnPage into the aggregation {@link #getMidColumnPages midColumnPages}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertMidColumnPage(
       /**
@@ -6725,47 +7526,59 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Removes all the controls from the aggregation {@link #getBeginColumnPages beginColumnPages}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllBeginColumnPages(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getEndColumnPages endColumnPages}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllEndColumnPages(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getMidColumnPages midColumnPages}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllMidColumnPages(): Control[];
     /**
      * Removes a beginColumnPage from the aggregation {@link #getBeginColumnPages beginColumnPages}.
+     *
+     * @returns The removed beginColumnPage or `null`
      */
     removeBeginColumnPage(
       /**
        * The beginColumnPage to remove or its index or id
        */
       vBeginColumnPage: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a endColumnPage from the aggregation {@link #getEndColumnPages endColumnPages}.
+     *
+     * @returns The removed endColumnPage or `null`
      */
     removeEndColumnPage(
       /**
        * The endColumnPage to remove or its index or id
        */
       vEndColumnPage: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a midColumnPage from the aggregation {@link #getMidColumnPages midColumnPages}.
+     *
+     * @returns The removed midColumnPage or `null`
      */
     removeMidColumnPage(
       /**
        * The midColumnPage to remove or its index or id
        */
       vMidColumnPage: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.76
      *
@@ -6779,6 +7592,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAutoFocus(
       /**
@@ -6797,6 +7612,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Transparent`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setBackgroundDesign(
       /**
@@ -6814,6 +7631,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"slide"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultTransitionNameBeginColumn(
       /**
@@ -6831,6 +7650,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"slide"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultTransitionNameEndColumn(
       /**
@@ -6848,6 +7669,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"slide"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDefaultTransitionNameMidColumn(
       /**
@@ -6857,6 +7680,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Sets the associated {@link #getInitialBeginColumnPage initialBeginColumnPage}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialBeginColumnPage(
       /**
@@ -6867,6 +7692,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Sets the associated {@link #getInitialEndColumnPage initialEndColumnPage}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialEndColumnPage(
       /**
@@ -6877,6 +7704,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Sets the associated {@link #getInitialMidColumnPage initialMidColumnPage}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInitialMidColumnPage(
       /**
@@ -6889,6 +7718,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * @SINCE 1.95
      *
      * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLandmarkInfo(
       /**
@@ -6906,6 +7737,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `OneColumn`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayout(
       /**
@@ -6924,6 +7757,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRestoreFocusOnBackNavigation(
       /**
@@ -6934,6 +7769,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     /**
      * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
      * following order: `Begin`, `Mid`, `End`.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     to(
       /**
@@ -6975,6 +7812,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     /**
      * Navigates to the given page inside the FlexibleColumnLayout. Columns are scanned for the page in the
      * following order: `Begin`, `Mid`, `End`.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     to(
       /**
@@ -7008,6 +7847,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Navigates to a given Begin column page.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     toBeginColumnPage(
       /**
@@ -7048,6 +7889,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Navigates to a given Begin column page.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     toBeginColumnPage(
       /**
@@ -7081,6 +7924,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Navigates to a given End column page.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     toEndColumnPage(
       /**
@@ -7121,6 +7966,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Navigates to a given End column page.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     toEndColumnPage(
       /**
@@ -7154,6 +8001,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Navigates to a given Mid column page.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     toMidColumnPage(
       /**
@@ -7194,6 +8043,8 @@ declare module "sap/f/FlexibleColumnLayout" {
     ): this;
     /**
      * Navigates to a given Mid column page.
+     *
+     * @returns The `sap.f.FlexibleColumnLayout` instance
      */
     toMidColumnPage(
       /**
@@ -7236,14 +8087,17 @@ declare module "sap/f/FlexibleColumnLayout" {
      *
      * For more information, see {@link sap.m.NavContainer#autoFocus}.
      */
-    autoFocus?: boolean | PropertyBindingInfo;
+    autoFocus?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the layout of the control - number of visible columns and their relative sizes.
      *
      * For more details, see {@link topic:3b9f760da5b64adf8db7f95247879086 Types of Layout} in the documentation.
      */
-    layout?: (LayoutType | keyof typeof LayoutType) | PropertyBindingInfo;
+    layout?:
+      | (LayoutType | keyof typeof LayoutType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Determines the type of the transition/animation to apply for the `Begin` column when `to()` is called
@@ -7274,7 +8128,8 @@ declare module "sap/f/FlexibleColumnLayout" {
      */
     backgroundDesign?:
       | (BackgroundDesign | keyof typeof BackgroundDesign)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.77
@@ -7282,7 +8137,10 @@ declare module "sap/f/FlexibleColumnLayout" {
      * Determines whether the focus is restored to the last known when navigating back to a prevously opened
      * column, for example, upon closing of the end column and being transfered back to the mid column.
      */
-    restoreFocusOnBackNavigation?: boolean | PropertyBindingInfo;
+    restoreFocusOnBackNavigation?:
+      | boolean
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The content entities between which the `FlexibleColumnLayout` navigates in the `Begin` column.
@@ -7291,7 +8149,11 @@ declare module "sap/f/FlexibleColumnLayout" {
      * like {@link sap.m.NavContainerChild#event:BeforeShow BeforeShow}, they are documented in the pseudo interface
      * {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    beginColumnPages?: Control[] | Control | AggregationBindingInfo;
+    beginColumnPages?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The content entities between which the `FlexibleColumnLayout` navigates in the `Mid` column.
@@ -7300,7 +8162,11 @@ declare module "sap/f/FlexibleColumnLayout" {
      * like {@link sap.m.NavContainerChild#event:BeforeShow BeforeShow}, they are documented in the pseudo interface
      * {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    midColumnPages?: Control[] | Control | AggregationBindingInfo;
+    midColumnPages?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The content entities between which the `FlexibleColumnLayout` navigates in the `End` column.
@@ -7309,7 +8175,11 @@ declare module "sap/f/FlexibleColumnLayout" {
      * like {@link sap.m.NavContainerChild#event:BeforeShow BeforeShow}, they are documented in the pseudo interface
      * {@link sap.m.NavContainerChild sap.m.NavContainerChild}.
      */
-    endColumnPages?: Control[] | Control | AggregationBindingInfo;
+    endColumnPages?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.95
@@ -7451,6 +8321,8 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * and enriches it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -7469,8 +8341,21 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.FlexibleColumnLayoutAccessibleLandmarkInfo.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getFirstColumnBackArrowLabel firstColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of the back arrow of the first column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `firstColumnBackArrowLabel`
+     */
+    getFirstColumnBackArrowLabel(): string;
     /**
      * Gets current value of property {@link #getFirstColumnLabel firstColumnLabel}.
      *
@@ -7478,8 +8363,21 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * control.
      *
      * If not set, a predefined text is used.
+     *
+     * @returns Value of property `firstColumnLabel`
      */
     getFirstColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getLastColumnForwardArrowLabel lastColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the last column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `lastColumnForwardArrowLabel`
+     */
+    getLastColumnForwardArrowLabel(): string;
     /**
      * Gets current value of property {@link #getLastColumnLabel lastColumnLabel}.
      *
@@ -7487,8 +8385,32 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * control.
      *
      * If not set, a predefined text is used.
+     *
+     * @returns Value of property `lastColumnLabel`
      */
     getLastColumnLabel(): string;
+    /**
+     * Gets current value of property {@link #getMiddleColumnBackArrowLabel middleColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of back arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `middleColumnBackArrowLabel`
+     */
+    getMiddleColumnBackArrowLabel(): string;
+    /**
+     * Gets current value of property {@link #getMiddleColumnForwardArrowLabel middleColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * @returns Value of property `middleColumnForwardArrowLabel`
+     */
+    getMiddleColumnForwardArrowLabel(): string;
     /**
      * Gets current value of property {@link #getMiddleColumnLabel middleColumnLabel}.
      *
@@ -7496,8 +8418,28 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * control.
      *
      * If not set, a predefined text is used.
+     *
+     * @returns Value of property `middleColumnLabel`
      */
     getMiddleColumnLabel(): string;
+    /**
+     * Sets a new value for property {@link #getFirstColumnBackArrowLabel firstColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of the back arrow of the first column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFirstColumnBackArrowLabel(
+      /**
+       * New value for property `firstColumnBackArrowLabel`
+       */
+      sFirstColumnBackArrowLabel?: string
+    ): this;
     /**
      * Sets a new value for property {@link #getFirstColumnLabel firstColumnLabel}.
      *
@@ -7507,12 +8449,32 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * If not set, a predefined text is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFirstColumnLabel(
       /**
        * New value for property `firstColumnLabel`
        */
       sFirstColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getLastColumnForwardArrowLabel lastColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the last column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setLastColumnForwardArrowLabel(
+      /**
+       * New value for property `lastColumnForwardArrowLabel`
+       */
+      sLastColumnForwardArrowLabel?: string
     ): this;
     /**
      * Sets a new value for property {@link #getLastColumnLabel lastColumnLabel}.
@@ -7523,12 +8485,50 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * If not set, a predefined text is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLastColumnLabel(
       /**
        * New value for property `lastColumnLabel`
        */
       sLastColumnLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMiddleColumnBackArrowLabel middleColumnBackArrowLabel}.
+     *
+     * Text that describes the landmark of back arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMiddleColumnBackArrowLabel(
+      /**
+       * New value for property `middleColumnBackArrowLabel`
+       */
+      sMiddleColumnBackArrowLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMiddleColumnForwardArrowLabel middleColumnForwardArrowLabel}.
+     *
+     * Text that describes the landmark of forward arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMiddleColumnForwardArrowLabel(
+      /**
+       * New value for property `middleColumnForwardArrowLabel`
+       */
+      sMiddleColumnForwardArrowLabel?: string
     ): this;
     /**
      * Sets a new value for property {@link #getMiddleColumnLabel middleColumnLabel}.
@@ -7539,6 +8539,8 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * If not set, a predefined text is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMiddleColumnLabel(
       /**
@@ -7573,6 +8575,38 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
      * If not set, a predefined text is used.
      */
     lastColumnLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of the back arrow of the first column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    firstColumnBackArrowLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of forward arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    middleColumnForwardArrowLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of back arrow of the middle column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    middleColumnBackArrowLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Text that describes the landmark of forward arrow of the last column in the corresponding `sap.f.FlexibleColumnLayout`
+     * control.
+     *
+     * If not set, a predefined text is used.
+     */
+    lastColumnForwardArrowLabel?: string | PropertyBindingInfo;
   }
 }
 
@@ -7687,6 +8721,8 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     /**
      * Returns an instance of the `sap.f.FlexibleColumnLayoutSemanticHelper` class for a given `sap.f.FlexibleColumnLayout`
      * object.
+     *
+     * @returns The `sap.f.FlexibleColumnLayoutSemanticHelper` instance
      */
     static getInstanceFor(
       /**
@@ -7706,6 +8742,8 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      * **Note:** This method relies on the internal `FlexibleColumnLayout` reference to be rendered in the DOM
      * tree. For convenience, use methods {@link sap.f.FlexibleColumnLayoutSemanticHelper#isDOMReady} and {@link
      * sap.f.FlexibleColumnLayoutSemanticHelper#whenDOMReady}.
+     *
+     * @returns The object describing the current UI state
      */
     getCurrentUIState(): UIState;
     /**
@@ -7718,11 +8756,15 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      * 			be shown side by side
      * 	 - defaultThreeColumnLayoutType - the layout that will be suggested by default when 3 columns have to
      * 			be shown side by side
+     *
+     * @returns The object describing the default layout types for the different numbers of columns
      */
     getDefaultLayouts(): object;
     /**
      * Returns an object, describing the state that the control will have after navigating to a different view
      * level.
+     *
+     * @returns The object describing the next UI state
      */
     getNextUIState(
       /**
@@ -7735,6 +8777,8 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      * @SINCE 1.72
      *
      * Returns `true` if internal `FlexibleColumnLayout` reference is rendered in the DOM tree.
+     *
+     * @returns true if the associated `FlexibleColumnLayout` is rendered
      */
     isDOMReady(): boolean;
     /**
@@ -7742,6 +8786,8 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      *
      * Abstract wrapper for {@link sap.f.FlexibleColumnLayoutSemanticHelper#isDOMReady}. Returns `true` if criteria
      * are met for the APIs in this helper to be used.
+     *
+     * @returns true if this helper's API reliability criteria are met
      */
     isReady(): boolean;
     /**
@@ -7749,6 +8795,8 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      *
      * Returns promise which can be used to find out when the internal `FlexibleColumnLayout` is rendered. This
      * is needed because methods in `FlexibleColumnLayout` rely on the control being rendered.
+     *
+     * @returns A promise that resolves after `FlexibleColumnLayout` is rendered
      */
     whenDOMReady(): Promise<any>;
     /**
@@ -7756,6 +8804,8 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      *
      * Returns promise which can be used to find out when internal criteria for this helper's API reliability
      * are met.
+     *
+     * @returns A promise that resolves after internal criteria are met
      */
     whenReady(): Promise<any>;
   }
@@ -7915,13 +8965,13 @@ declare module "sap/f/GridContainer" {
 
   import { dnd, NavigationDirection } from "sap/f/library";
 
+  import { ID, CSSSize } from "sap/ui/core/library";
+
   import Event from "sap/ui/base/Event";
 
   import GridContainerSettings from "sap/f/GridContainerSettings";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { CSSSize } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
 
@@ -7997,6 +9047,9 @@ declare module "sap/f/GridContainer" {
    * drag and drop. The difference is that the `{@link sap.f.dnd.GridDropInfo}` will provide a drop indicator,
    * which mimics the size of the dragged item and shows the potential drop position inside the grid.
    *
+   * Drag and drop is enabled via keyboard using `Ctrl` + arrow keys (Windows) and `Control` + arrow keys
+   * (Mac OS).
+   *
    * Keyboard Navigation:: `GridContainer` provides support for two-dimensional keyboard navigation through
    * its contained controls. Navigating up/down or left/right using the arrow keys follows the configurable
    * two-dimensional grid mesh. This provides stable navigation paths in the cases when there are items of
@@ -8055,6 +9108,8 @@ declare module "sap/f/GridContainer" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8073,10 +9128,36 @@ declare module "sap/f/GridContainer" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.GridContainer.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -8091,6 +9172,8 @@ declare module "sap/f/GridContainer" {
      * otherwise it will be bound to this `sap.f.GridContainer` itself.
      *
      * Fires if the border of the visualizations is reached so that an application can react on this.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBorderReached(
       /**
@@ -8114,6 +9197,8 @@ declare module "sap/f/GridContainer" {
      * otherwise it will be bound to this `sap.f.GridContainer` itself.
      *
      * Fires if the border of the visualizations is reached so that an application can react on this.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBorderReached(
       /**
@@ -8132,6 +9217,8 @@ declare module "sap/f/GridContainer" {
      * otherwise it will be bound to this `sap.f.GridContainer` itself.
      *
      * Fired when the grid columns count is changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachColumnsChange(
       /**
@@ -8155,6 +9242,8 @@ declare module "sap/f/GridContainer" {
      * otherwise it will be bound to this `sap.f.GridContainer` itself.
      *
      * Fired when the grid columns count is changed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachColumnsChange(
       /**
@@ -8173,6 +9262,8 @@ declare module "sap/f/GridContainer" {
      * otherwise it will be bound to this `sap.f.GridContainer` itself.
      *
      * Fired when the currently active GridSettings change.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLayoutChange(
       /**
@@ -8196,6 +9287,8 @@ declare module "sap/f/GridContainer" {
      * otherwise it will be bound to this `sap.f.GridContainer` itself.
      *
      * Fired when the currently active GridSettings change.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLayoutChange(
       /**
@@ -8209,32 +9302,46 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Destroys the layout in the aggregation {@link #getLayout layout}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLayout(): this;
     /**
      * Destroys the layoutL in the aggregation {@link #getLayoutL layoutL}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLayoutL(): this;
     /**
      * Destroys the layoutM in the aggregation {@link #getLayoutM layoutM}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLayoutM(): this;
     /**
      * Destroys the layoutS in the aggregation {@link #getLayoutS layoutS}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLayoutS(): this;
     /**
      * Destroys the layoutXL in the aggregation {@link #getLayoutXL layoutXL}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLayoutXL(): this;
     /**
      * @EXPERIMENTAL (since 1.71)
      *
      * Destroys the layoutXS in the aggregation {@link #getLayoutXS layoutXS}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLayoutXS(): this;
     /**
@@ -8242,6 +9349,8 @@ declare module "sap/f/GridContainer" {
      * `sap.f.GridContainer`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBorderReached(
       /**
@@ -8258,6 +9367,8 @@ declare module "sap/f/GridContainer" {
      * `sap.f.GridContainer`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachColumnsChange(
       /**
@@ -8273,6 +9384,8 @@ declare module "sap/f/GridContainer" {
      * Detaches event handler `fnFunction` from the {@link #event:layoutChange layoutChange} event of this `sap.f.GridContainer`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLayoutChange(
       /**
@@ -8286,6 +9399,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireBorderReached(
       /**
@@ -8312,6 +9427,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Fires event {@link #event:columnsChange columnsChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireColumnsChange(
       /**
@@ -8326,6 +9443,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Fires event {@link #event:layoutChange layoutChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLayoutChange(
       /**
@@ -8381,6 +9500,8 @@ declare module "sap/f/GridContainer" {
     ): void;
     /**
      * Gets the `GridContainerSettings` for the current layout breakpoint.
+     *
+     * @returns The settings for the current layout
      */
     getActiveLayoutSettings(): GridContainerSettings;
     /**
@@ -8394,8 +9515,20 @@ declare module "sap/f/GridContainer" {
      * **Note:** The order of the items is ignored. An item which is normally at the bottom, can appear on top.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `allowDenseFill`
      */
     getAllowDenseFill(): boolean;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
+     * ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
     /**
      * Gets current value of property {@link #getContainerQuery containerQuery}.
      *
@@ -8403,6 +9536,8 @@ declare module "sap/f/GridContainer" {
      * the `GridContainer`, instead of the device screen size (media Query).
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `containerQuery`
      */
     getContainerQuery(): boolean;
     /**
@@ -8417,6 +9552,8 @@ declare module "sap/f/GridContainer" {
      * will be ignored.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `inlineBlockLayout`
      */
     getInlineBlockLayout(): boolean;
     /**
@@ -8479,6 +9616,8 @@ declare module "sap/f/GridContainer" {
      * Allows an empty grid to be available as a drop target.
      *
      * Default value is `"2rem"`.
+     *
+     * @returns Value of property `minHeight`
      */
     getMinHeight(): CSSSize;
     /**
@@ -8489,6 +9628,8 @@ declare module "sap/f/GridContainer" {
      * If set to `true` the items will stretch.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `snapToRow`
      */
     getSnapToRow(): boolean;
     /**
@@ -8497,11 +9638,15 @@ declare module "sap/f/GridContainer" {
      * Defines the width of the control.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -8511,6 +9656,8 @@ declare module "sap/f/GridContainer" {
     ): int;
     /**
      * Inserts an item into the aggregation named `items`.
+     *
+     * @returns `this` to allow method chaining.
      */
     insertItem(
       /**
@@ -8525,20 +9672,58 @@ declare module "sap/f/GridContainer" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): Control[];
     /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
      * Removes an item from the aggregation named `items`.
+     *
+     * @returns The removed item or `null`.
      */
     removeItem(
       /**
        * The item to remove or its index or ID.
        */
       vItem: int | string | Item
-    ): Control;
+    ): Control | null;
     /**
      * @EXPERIMENTAL (since 1.66)
      *
@@ -8552,6 +9737,8 @@ declare module "sap/f/GridContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAllowDenseFill(
       /**
@@ -8568,6 +9755,8 @@ declare module "sap/f/GridContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContainerQuery(
       /**
@@ -8589,6 +9778,8 @@ declare module "sap/f/GridContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setInlineBlockLayout(
       /**
@@ -8598,6 +9789,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getLayout layout}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayout(
       /**
@@ -8607,6 +9800,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getLayoutL layoutL}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayoutL(
       /**
@@ -8616,6 +9811,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getLayoutM layoutM}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayoutM(
       /**
@@ -8625,6 +9822,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getLayoutS layoutS}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayoutS(
       /**
@@ -8634,6 +9833,8 @@ declare module "sap/f/GridContainer" {
     ): this;
     /**
      * Sets the aggregated {@link #getLayoutXL layoutXL}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayoutXL(
       /**
@@ -8645,6 +9846,8 @@ declare module "sap/f/GridContainer" {
      * @EXPERIMENTAL (since 1.71)
      *
      * Sets the aggregated {@link #getLayoutXS layoutXS}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLayoutXS(
       /**
@@ -8664,6 +9867,8 @@ declare module "sap/f/GridContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"2rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinHeight(
       /**
@@ -8681,6 +9886,8 @@ declare module "sap/f/GridContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSnapToRow(
       /**
@@ -8696,6 +9903,8 @@ declare module "sap/f/GridContainer" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
       /**
@@ -8709,7 +9918,7 @@ declare module "sap/f/GridContainer" {
     /**
      * Defines the width of the control.
      */
-    width?: CSSSize | PropertyBindingInfo;
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @EXPERIMENTAL (since 1.81)
@@ -8718,20 +9927,20 @@ declare module "sap/f/GridContainer" {
      *
      * Allows an empty grid to be available as a drop target.
      */
-    minHeight?: CSSSize | PropertyBindingInfo;
+    minHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set to `true` the current range (large, medium or small) is defined by the size of the container surrounding
      * the `GridContainer`, instead of the device screen size (media Query).
      */
-    containerQuery?: boolean | PropertyBindingInfo;
+    containerQuery?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Should the items stretch to fill the rows that they occupy, or not.
      *
      * If set to `true` the items will stretch.
      */
-    snapToRow?: boolean | PropertyBindingInfo;
+    snapToRow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @EXPERIMENTAL (since 1.66)
@@ -8741,7 +9950,7 @@ declare module "sap/f/GridContainer" {
      *
      * **Note:** The order of the items is ignored. An item which is normally at the bottom, can appear on top.
      */
-    allowDenseFill?: boolean | PropertyBindingInfo;
+    allowDenseFill?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @EXPERIMENTAL (since 1.66)
@@ -8752,12 +9961,12 @@ declare module "sap/f/GridContainer" {
      * **Note:** If set to `true` the properties `rowSize` for grid layout, and `minRows` and `rows` per item
      * will be ignored.
      */
-    inlineBlockLayout?: boolean | PropertyBindingInfo;
+    inlineBlockLayout?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The items contained by the control.
      */
-    items?: Control[] | Control | AggregationBindingInfo;
+    items?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * The sap.f.GridContainerSettings applied if no settings are provided for a specific size.
@@ -8796,6 +10005,16 @@ declare module "sap/f/GridContainer" {
      * The sap.f.GridContainerSettings applied for size "XL". Range: from 1440px.
      */
     layoutXL?: GridContainerSettings;
+
+    /**
+     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired when the currently active GridSettings change.
@@ -8871,6 +10090,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.LayoutData.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -8889,6 +10110,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.GridContainerItemLayoutData.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -8902,12 +10125,16 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * grid columns. This is done to prevent broken layout (grid blowout) that affects all items.
      *
      * Default value is `1`.
+     *
+     * @returns Value of property `columns`
      */
     getColumns(): int;
     /**
      * Gets current value of property {@link #getMinRows minRows}.
      *
      * Specifies the minimum number of rows, which the item should take.
+     *
+     * @returns Value of property `minRows`
      */
     getMinRows(): int;
     /**
@@ -8916,6 +10143,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * Gets current value of property {@link #getRows rows}.
      *
      * Specifies the number of rows, which the item should take.
+     *
+     * @returns Value of property `rows`
      */
     getRows(): int;
     /**
@@ -8931,6 +10160,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `1`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColumns(
       /**
@@ -8944,6 +10175,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * Specifies the minimum number of rows, which the item should take.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinRows(
       /**
@@ -8959,6 +10192,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * Specifies the number of rows, which the item should take.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRows(
       /**
@@ -8978,19 +10213,19 @@ declare module "sap/f/GridContainerItemLayoutData" {
      * for the grid. If item has more columns at some point, they will be automatically reduced to the total
      * grid columns. This is done to prevent broken layout (grid blowout) that affects all items.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies the minimum number of rows, which the item should take.
      */
-    minRows?: int | PropertyBindingInfo;
+    minRows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @EXPERIMENTAL (since 1.65)
      *
      * Specifies the number of rows, which the item should take.
      */
-    rows?: int | PropertyBindingInfo;
+    rows?: int | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -9055,6 +10290,8 @@ declare module "sap/f/GridContainerSettings" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.ManagedObject.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9073,6 +10310,8 @@ declare module "sap/f/GridContainerSettings" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.GridContainerSettings.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ManagedObjectMetadata;
     /**
@@ -9081,6 +10320,8 @@ declare module "sap/f/GridContainerSettings" {
      * How many columns to have on a row.
      *
      * If not defined, `sap.f.GridContainer` will position as many columns as they can fit in the container.
+     *
+     * @returns Value of property `columns`
      */
     getColumns(): int;
     /**
@@ -9089,6 +10330,8 @@ declare module "sap/f/GridContainerSettings" {
      * The width of the columns. **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      *
      * Default value is `"80px"`.
+     *
+     * @returns Value of property `columnSize`
      */
     getColumnSize(): CSSSize;
     /**
@@ -9099,6 +10342,8 @@ declare module "sap/f/GridContainerSettings" {
      * **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      *
      * Default value is `"16px"`.
+     *
+     * @returns Value of property `gap`
      */
     getGap(): CSSSize;
     /**
@@ -9108,6 +10353,8 @@ declare module "sap/f/GridContainerSettings" {
      * to breath between those two values.
      *
      * **Note:** Will not work in combination with `columnSize`.
+     *
+     * @returns Value of property `maxColumnSize`
      */
     getMaxColumnSize(): CSSSize;
     /**
@@ -9117,6 +10364,8 @@ declare module "sap/f/GridContainerSettings" {
      * to breath between those two values.
      *
      * **Note:** Will not work in combination with `columnSize`.
+     *
+     * @returns Value of property `minColumnSize`
      */
     getMinColumnSize(): CSSSize;
     /**
@@ -9127,6 +10376,8 @@ declare module "sap/f/GridContainerSettings" {
      * **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      *
      * Default value is `"80px"`.
+     *
+     * @returns Value of property `rowSize`
      */
     getRowSize(): CSSSize;
     /**
@@ -9137,6 +10388,8 @@ declare module "sap/f/GridContainerSettings" {
      * If not defined, `sap.f.GridContainer` will position as many columns as they can fit in the container.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColumns(
       /**
@@ -9152,6 +10405,8 @@ declare module "sap/f/GridContainerSettings" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"80px"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setColumnSize(
       /**
@@ -9169,6 +10424,8 @@ declare module "sap/f/GridContainerSettings" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"16px"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setGap(
       /**
@@ -9185,6 +10442,8 @@ declare module "sap/f/GridContainerSettings" {
      * **Note:** Will not work in combination with `columnSize`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxColumnSize(
       /**
@@ -9201,6 +10460,8 @@ declare module "sap/f/GridContainerSettings" {
      * **Note:** Will not work in combination with `columnSize`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMinColumnSize(
       /**
@@ -9218,6 +10479,8 @@ declare module "sap/f/GridContainerSettings" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"80px"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setRowSize(
       /**
@@ -9234,12 +10497,12 @@ declare module "sap/f/GridContainerSettings" {
      *
      * If not defined, `sap.f.GridContainer` will position as many columns as they can fit in the container.
      */
-    columns?: int | PropertyBindingInfo;
+    columns?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The width of the columns. **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      */
-    columnSize?: CSSSize | PropertyBindingInfo;
+    columnSize?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the minimum width of the columns. Setting this together with `maxColumnSize` will allow the columns
@@ -9247,7 +10510,7 @@ declare module "sap/f/GridContainerSettings" {
      *
      * **Note:** Will not work in combination with `columnSize`.
      */
-    minColumnSize?: CSSSize | PropertyBindingInfo;
+    minColumnSize?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Sets the maximum width of the columns. Setting this together with `minColumnSize` will allow the columns
@@ -9255,21 +10518,21 @@ declare module "sap/f/GridContainerSettings" {
      *
      * **Note:** Will not work in combination with `columnSize`.
      */
-    maxColumnSize?: CSSSize | PropertyBindingInfo;
+    maxColumnSize?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The height of the rows.
      *
      * **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      */
-    rowSize?: CSSSize | PropertyBindingInfo;
+    rowSize?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The size of the gap between columns and rows.
      *
      * **Note:** Use only 'px' or 'rem'. Some features may not work as expected otherwise.
      */
-    gap?: CSSSize | PropertyBindingInfo;
+    gap?: CSSSize | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -9392,6 +10655,8 @@ declare module "sap/f/GridList" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListBase.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9410,6 +10675,8 @@ declare module "sap/f/GridList" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.GridList.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -9419,6 +10686,8 @@ declare module "sap/f/GridList" {
      * otherwise it will be bound to this `sap.f.GridList` itself.
      *
      * Fires if the border of the visualizations is reached so that an application can react on this.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBorderReached(
       /**
@@ -9442,6 +10711,8 @@ declare module "sap/f/GridList" {
      * otherwise it will be bound to this `sap.f.GridList` itself.
      *
      * Fires if the border of the visualizations is reached so that an application can react on this.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachBorderReached(
       /**
@@ -9455,6 +10726,8 @@ declare module "sap/f/GridList" {
     ): this;
     /**
      * Destroys the customLayout in the aggregation {@link #getCustomLayout customLayout}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCustomLayout(): this;
     /**
@@ -9462,6 +10735,8 @@ declare module "sap/f/GridList" {
      * `sap.f.GridList`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachBorderReached(
       /**
@@ -9475,6 +10750,8 @@ declare module "sap/f/GridList" {
     ): this;
     /**
      * Fires event {@link #event:borderReached borderReached} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireBorderReached(
       /**
@@ -9535,14 +10812,20 @@ declare module "sap/f/GridList" {
     getCustomLayout(): GridLayoutBase;
     /**
      * Implements IGridConfigurable interface.
+     *
+     * @returns An array with the DOM elements
      */
     getGridDomRefs(): HTMLElement[];
     /**
      * Implements IGridConfigurable interface.
+     *
+     * @returns The grid layout
      */
     getGridLayoutConfiguration(): GridLayoutBase;
     /**
      * Sets the aggregated {@link #getCustomLayout customLayout}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCustomLayout(
       /**
@@ -9622,6 +10905,8 @@ declare module "sap/f/GridListItem" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.ListItemBase.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9640,10 +10925,14 @@ declare module "sap/f/GridListItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.GridListItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addContent(
       /**
@@ -9656,6 +10945,8 @@ declare module "sap/f/GridListItem" {
      *
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindContent(
       /**
@@ -9665,6 +10956,8 @@ declare module "sap/f/GridListItem" {
     ): this;
     /**
      * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
@@ -9676,6 +10969,8 @@ declare module "sap/f/GridListItem" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfContent(
       /**
@@ -9685,6 +10980,8 @@ declare module "sap/f/GridListItem" {
     ): int;
     /**
      * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertContent(
       /**
@@ -9702,19 +10999,25 @@ declare module "sap/f/GridListItem" {
      * Removes all the controls from the aggregation {@link #getContent content}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllContent(): Control[];
     /**
      * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
      */
     removeContent(
       /**
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Unbinds aggregation {@link #getContent content} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindContent(): this;
   }
@@ -9723,7 +11026,7 @@ declare module "sap/f/GridListItem" {
     /**
      * The content of this list item
      */
-    content?: Control[] | Control | AggregationBindingInfo;
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -9809,6 +11112,8 @@ declare module "sap/f/IllustratedMessage" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.IllustratedMessage.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9827,6 +11132,8 @@ declare module "sap/f/IllustratedMessage" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.IllustratedMessage.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -9895,6 +11202,8 @@ declare module "sap/f/Illustration" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.Illustration.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -9913,6 +11222,8 @@ declare module "sap/f/Illustration" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.Illustration.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -10002,6 +11313,8 @@ declare module "sap/f/ProductSwitch" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10020,10 +11333,14 @@ declare module "sap/f/ProductSwitch" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.ProductSwitch.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
@@ -10038,6 +11355,8 @@ declare module "sap/f/ProductSwitch" {
      * otherwise it will be bound to this `sap.f.ProductSwitch` itself.
      *
      * Fires when an unselected item is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -10061,6 +11380,8 @@ declare module "sap/f/ProductSwitch" {
      * otherwise it will be bound to this `sap.f.ProductSwitch` itself.
      *
      * Fires when an unselected item is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachChange(
       /**
@@ -10074,12 +11395,16 @@ declare module "sap/f/ProductSwitch" {
     ): this;
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.f.ProductSwitch`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachChange(
       /**
@@ -10093,6 +11418,8 @@ declare module "sap/f/ProductSwitch" {
     ): this;
     /**
      * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireChange(
       /**
@@ -10119,6 +11446,8 @@ declare module "sap/f/ProductSwitch" {
     /**
      * Checks for the provided `sap.f.ProductSwitchItem` in the aggregation {@link #getItems items}. and returns
      * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfItem(
       /**
@@ -10128,6 +11457,8 @@ declare module "sap/f/ProductSwitch" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertItem(
       /**
@@ -10145,19 +11476,25 @@ declare module "sap/f/ProductSwitch" {
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): ProductSwitchItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
       vItem: int | string | ProductSwitchItem
-    ): ProductSwitchItem;
+    ): ProductSwitchItem | null;
     /**
      * Sets the `selectedItem` association.
+     *
+     * @returns `this` to allow method chaining
      */
     setSelectedItem(
       /**
@@ -10173,7 +11510,11 @@ declare module "sap/f/ProductSwitch" {
     /**
      * `ProductSwitch` content.
      */
-    items?: ProductSwitchItem[] | ProductSwitchItem | AggregationBindingInfo;
+    items?:
+      | ProductSwitchItem[]
+      | ProductSwitchItem
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Sets or retrieves the selected item from the `items` aggregation.
@@ -10241,6 +11582,8 @@ declare module "sap/f/ProductSwitchItem" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10259,6 +11602,8 @@ declare module "sap/f/ProductSwitchItem" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.ProductSwitchItem.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -10266,12 +11611,16 @@ declare module "sap/f/ProductSwitchItem" {
      *
      * Defines the icon to be displayed as graphical element within the `ProductSwitchItem`. It can be an icon
      * from the SAP icon font.
+     *
+     * @returns Value of property `src`
      */
     getSrc(): URI;
     /**
      * Gets current value of property {@link #getSubTitle subTitle}.
      *
      * Determines the subtitle of the `ProductSwitchItem`.
+     *
+     * @returns Value of property `subTitle`
      */
     getSubTitle(): string;
     /**
@@ -10281,18 +11630,27 @@ declare module "sap/f/ProductSwitchItem" {
      *
      * Options are the standard values for window.open() supported by browsers: `_self`, `_top`, `_blank`, `_parent`,
      * `_search`. Alternatively, a frame name can be entered.
+     *
+     * @returns Value of property `target`
      */
     getTarget(): string;
     /**
      * Gets current value of property {@link #getTargetSrc targetSrc}.
      *
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
+     *
+     * **Note:** Redirection is handled via application logic, by subscribing to the {@link sap.f.ProductSwitch#event:change
+     * change} event of `sap.f.ProductSwitch`.
+     *
+     * @returns Value of property `targetSrc`
      */
     getTargetSrc(): URI;
     /**
      * Gets current value of property {@link #getTitle title}.
      *
      * Determines the title of the `ProductSwitchItem`.
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
@@ -10302,6 +11660,8 @@ declare module "sap/f/ProductSwitchItem" {
      * from the SAP icon font.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSrc(
       /**
@@ -10315,6 +11675,8 @@ declare module "sap/f/ProductSwitchItem" {
      * Determines the subtitle of the `ProductSwitchItem`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSubTitle(
       /**
@@ -10331,6 +11693,8 @@ declare module "sap/f/ProductSwitchItem" {
      * `_search`. Alternatively, a frame name can be entered.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTarget(
       /**
@@ -10343,7 +11707,12 @@ declare module "sap/f/ProductSwitchItem" {
      *
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
      *
+     * **Note:** Redirection is handled via application logic, by subscribing to the {@link sap.f.ProductSwitch#event:change
+     * change} event of `sap.f.ProductSwitch`.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTargetSrc(
       /**
@@ -10357,6 +11726,8 @@ declare module "sap/f/ProductSwitchItem" {
      * Determines the title of the `ProductSwitchItem`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -10371,7 +11742,7 @@ declare module "sap/f/ProductSwitchItem" {
      * Defines the icon to be displayed as graphical element within the `ProductSwitchItem`. It can be an icon
      * from the SAP icon font.
      */
-    src?: URI | PropertyBindingInfo;
+    src?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines the title of the `ProductSwitchItem`.
@@ -10385,8 +11756,11 @@ declare module "sap/f/ProductSwitchItem" {
 
     /**
      * Defines the `ProductSwitchItem` target URI. Supports standard hyperlink behavior.
+     *
+     * **Note:** Redirection is handled via application logic, by subscribing to the {@link sap.f.ProductSwitch#event:change
+     * change} event of `sap.f.ProductSwitch`.
      */
-    targetSrc?: URI | PropertyBindingInfo;
+    targetSrc?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies a target where the `targetSrc` content must be open.
@@ -10449,6 +11823,8 @@ declare module "sap/f/routing/Router" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.routing.Router.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10467,10 +11843,14 @@ declare module "sap/f/routing/Router" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.routing.Router.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
     /**
      * Returns the `TargetHandler` instance.
+     *
+     * @returns The `TargetHandler` instance
      */
     getTargetHandler(): TargetHandler;
   }
@@ -10510,6 +11890,8 @@ declare module "sap/f/routing/TargetHandler" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.base.Object.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10528,10 +11910,14 @@ declare module "sap/f/routing/TargetHandler" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.routing.TargetHandler.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
     /**
      * Gets if a navigation should close dialogs.
+     *
+     * @returns A flag indication if dialogs will be closed
      */
     getCloseDialogs(): boolean;
     /**
@@ -10539,6 +11925,8 @@ declare module "sap/f/routing/TargetHandler" {
      *
      * **Note:** The dialogs are closed when a different target is displayed than the previous one, otherwise
      * the dialogs are kept open even when `bCloseDialogs` is `true`.
+     *
+     * @returns For chaining
      */
     setCloseDialogs(
       /**
@@ -10958,6 +12346,8 @@ declare module "sap/f/routing/Targets" {
      * information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.routing.Targets.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -10976,10 +12366,14 @@ declare module "sap/f/routing/Targets" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.routing.Targets.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): Metadata;
     /**
      * Returns the `TargetHandler` instance.
+     *
+     * @returns The `TargetHandler` instance
      */
     getTargetHandler(): TargetHandler;
   }
@@ -11041,6 +12435,8 @@ declare module "sap/f/SearchManager" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11059,10 +12455,14 @@ declare module "sap/f/SearchManager" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.SearchManager.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some suggestionItem to the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addSuggestionItem(
       /**
@@ -11079,6 +12479,8 @@ declare module "sap/f/SearchManager" {
      * Fired when the value of the search field is changed by the user, for example at each key press.
      *
      * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
@@ -11104,6 +12506,8 @@ declare module "sap/f/SearchManager" {
      * Fired when the value of the search field is changed by the user, for example at each key press.
      *
      * **Note:** Do not invalidate or re-render a focused search field, especially during the `liveChange` event.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachLiveChange(
       /**
@@ -11122,6 +12526,8 @@ declare module "sap/f/SearchManager" {
      * otherwise it will be bound to this `sap.f.SearchManager` itself.
      *
      * Fired when the user triggers a search.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
@@ -11145,6 +12551,8 @@ declare module "sap/f/SearchManager" {
      * otherwise it will be bound to this `sap.f.SearchManager` itself.
      *
      * Fired when the user triggers a search.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearch(
       /**
@@ -11165,6 +12573,8 @@ declare module "sap/f/SearchManager" {
      * Fired when the search field is initially focused or its value is changed by the user. This event means
      * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
      * new suggestions for it.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggest(
       /**
@@ -11190,6 +12600,8 @@ declare module "sap/f/SearchManager" {
      * Fired when the search field is initially focused or its value is changed by the user. This event means
      * that suggestion data should be updated, in case if suggestions are used. Use the value parameter to create
      * new suggestions for it.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSuggest(
       /**
@@ -11206,6 +12618,8 @@ declare module "sap/f/SearchManager" {
      *
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
      * of the possible properties of `oBindingInfo`
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     bindValue(
       /**
@@ -11215,12 +12629,16 @@ declare module "sap/f/SearchManager" {
     ): this;
     /**
      * Destroys all the suggestionItems in the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySuggestionItems(): this;
     /**
      * Detaches event handler `fnFunction` from the {@link #event:liveChange liveChange} event of this `sap.f.SearchManager`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachLiveChange(
       /**
@@ -11236,6 +12654,8 @@ declare module "sap/f/SearchManager" {
      * Detaches event handler `fnFunction` from the {@link #event:search search} event of this `sap.f.SearchManager`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSearch(
       /**
@@ -11251,6 +12671,8 @@ declare module "sap/f/SearchManager" {
      * Detaches event handler `fnFunction` from the {@link #event:suggest suggest} event of this `sap.f.SearchManager`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSuggest(
       /**
@@ -11264,6 +12686,8 @@ declare module "sap/f/SearchManager" {
     ): this;
     /**
      * Fires event {@link #event:liveChange liveChange} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireLiveChange(
       /**
@@ -11278,6 +12702,8 @@ declare module "sap/f/SearchManager" {
     ): this;
     /**
      * Fires event {@link #event:search search} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSearch(
       /**
@@ -11296,6 +12722,8 @@ declare module "sap/f/SearchManager" {
     ): this;
     /**
      * Fires event {@link #event:suggest suggest} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSuggest(
       /**
@@ -11314,6 +12742,8 @@ declare module "sap/f/SearchManager" {
      * Determines whether the control is enabled.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `enabled`
      */
     getEnabled(): boolean;
     /**
@@ -11323,6 +12753,8 @@ declare module "sap/f/SearchManager" {
      * phone device, a full screen dialog with suggestions is always shown even if the suggestions list is empty.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `enableSuggestions`
      */
     getEnableSuggestions(): boolean;
     /**
@@ -11331,6 +12763,8 @@ declare module "sap/f/SearchManager" {
      * Determines the maximum number of characters. Value '0' means the feature is switched off.
      *
      * Default value is `0`.
+     *
+     * @returns Value of property `maxLength`
      */
     getMaxLength(): int;
     /**
@@ -11338,6 +12772,8 @@ declare module "sap/f/SearchManager" {
      *
      * Defines the text that is displayed when no value is available. The default placeholder text is the word
      * "Search" in the current local language (if supported) or in English.
+     *
+     * @returns Value of property `placeholder`
      */
     getPlaceholder(): string;
     /**
@@ -11355,11 +12791,15 @@ declare module "sap/f/SearchManager" {
      * Gets current value of property {@link #getValue value}.
      *
      * Defines the input value.
+     *
+     * @returns Value of property `value`
      */
     getValue(): string;
     /**
      * Checks for the provided `sap.m.SuggestionItem` in the aggregation {@link #getSuggestionItems suggestionItems}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfSuggestionItem(
       /**
@@ -11369,6 +12809,8 @@ declare module "sap/f/SearchManager" {
     ): int;
     /**
      * Inserts a suggestionItem into the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertSuggestionItem(
       /**
@@ -11386,17 +12828,21 @@ declare module "sap/f/SearchManager" {
      * Removes all the controls from the aggregation {@link #getSuggestionItems suggestionItems}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllSuggestionItems(): SuggestionItem[];
     /**
      * Removes a suggestionItem from the aggregation {@link #getSuggestionItems suggestionItems}.
+     *
+     * @returns The removed suggestionItem or `null`
      */
     removeSuggestionItem(
       /**
        * The suggestionItem to remove or its index or id
        */
       vSuggestionItem: int | string | SuggestionItem
-    ): SuggestionItem;
+    ): SuggestionItem | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -11405,6 +12851,8 @@ declare module "sap/f/SearchManager" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnabled(
       /**
@@ -11421,6 +12869,8 @@ declare module "sap/f/SearchManager" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEnableSuggestions(
       /**
@@ -11436,6 +12886,8 @@ declare module "sap/f/SearchManager" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `0`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMaxLength(
       /**
@@ -11450,6 +12902,8 @@ declare module "sap/f/SearchManager" {
      * "Search" in the current local language (if supported) or in English.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPlaceholder(
       /**
@@ -11463,6 +12917,8 @@ declare module "sap/f/SearchManager" {
      * Defines the input value.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setValue(
       /**
@@ -11472,6 +12928,8 @@ declare module "sap/f/SearchManager" {
     ): this;
     /**
      * Unbinds property {@link #getValue value} from model data.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     unbindValue(): this;
   }
@@ -11491,18 +12949,18 @@ declare module "sap/f/SearchManager" {
     /**
      * Determines the maximum number of characters. Value '0' means the feature is switched off.
      */
-    maxLength?: int | PropertyBindingInfo;
+    maxLength?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the control is enabled.
      */
-    enabled?: boolean | PropertyBindingInfo;
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If true, a `suggest` event is fired when user types in the input and when the input is focused. On a
      * phone device, a full screen dialog with suggestions is always shown even if the suggestions list is empty.
      */
-    enableSuggestions?: boolean | PropertyBindingInfo;
+    enableSuggestions?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * `SuggestionItems` are the items which are displayed in the suggestions list. The following properties
@@ -11515,7 +12973,8 @@ declare module "sap/f/SearchManager" {
     suggestionItems?:
       | SuggestionItem[]
       | SuggestionItem
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the user triggers a search.
@@ -11597,6 +13056,8 @@ declare module "sap/f/semantic/AddAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11615,6 +13076,8 @@ declare module "sap/f/semantic/AddAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.AddAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -11681,6 +13144,8 @@ declare module "sap/f/semantic/CloseAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11699,6 +13164,8 @@ declare module "sap/f/semantic/CloseAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.CloseAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -11765,6 +13232,8 @@ declare module "sap/f/semantic/CopyAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11783,6 +13252,8 @@ declare module "sap/f/semantic/CopyAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.CopyAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -11849,6 +13320,8 @@ declare module "sap/f/semantic/DeleteAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11867,6 +13340,8 @@ declare module "sap/f/semantic/DeleteAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.DeleteAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -11933,6 +13408,8 @@ declare module "sap/f/semantic/DiscussInJamAction" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -11951,6 +13428,8 @@ declare module "sap/f/semantic/DiscussInJamAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.DiscussInJamAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12018,6 +13497,8 @@ declare module "sap/f/semantic/EditAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12036,6 +13517,8 @@ declare module "sap/f/semantic/EditAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.EditAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12102,6 +13585,8 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12120,6 +13605,8 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.ExitFullScreenAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12187,6 +13674,8 @@ declare module "sap/f/semantic/FavoriteAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticToggleButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12205,6 +13694,8 @@ declare module "sap/f/semantic/FavoriteAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.FavoriteAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12272,6 +13763,8 @@ declare module "sap/f/semantic/FlagAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticToggleButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12290,6 +13783,8 @@ declare module "sap/f/semantic/FlagAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.FlagAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12356,6 +13851,8 @@ declare module "sap/f/semantic/FooterMainAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.MainAction.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12374,6 +13871,8 @@ declare module "sap/f/semantic/FooterMainAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.FooterMainAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12440,6 +13939,8 @@ declare module "sap/f/semantic/FullScreenAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12458,6 +13959,8 @@ declare module "sap/f/semantic/FullScreenAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.FullScreenAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12520,6 +14023,8 @@ declare module "sap/f/semantic/MainAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12538,12 +14043,16 @@ declare module "sap/f/semantic/MainAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.MainAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Defines `MainAction` text
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -12552,6 +14061,8 @@ declare module "sap/f/semantic/MainAction" {
      * Defines `MainAction` text
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -12628,6 +14139,8 @@ declare module "sap/f/semantic/MessagesIndicator" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12646,6 +14159,8 @@ declare module "sap/f/semantic/MessagesIndicator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.MessagesIndicator.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -12708,6 +14223,8 @@ declare module "sap/f/semantic/NegativeAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12726,12 +14243,16 @@ declare module "sap/f/semantic/NegativeAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.NegativeAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Defines `NegativeAction` text. **Note:** the default text is "Reject"
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -12740,6 +14261,8 @@ declare module "sap/f/semantic/NegativeAction" {
      * Defines `NegativeAction` text. **Note:** the default text is "Reject"
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -12812,6 +14335,8 @@ declare module "sap/f/semantic/PositiveAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12830,12 +14355,16 @@ declare module "sap/f/semantic/PositiveAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.PositiveAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Gets current value of property {@link #getText text}.
      *
      * Defines `PositiveAction` text. **Note:** the default text is "Accept"
+     *
+     * @returns Value of property `text`
      */
     getText(): string;
     /**
@@ -12844,6 +14373,8 @@ declare module "sap/f/semantic/PositiveAction" {
      * Defines `PositiveAction` text. **Note:** the default text is "Accept"
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setText(
       /**
@@ -12920,6 +14451,8 @@ declare module "sap/f/semantic/PrintAction" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -12938,6 +14471,8 @@ declare module "sap/f/semantic/PrintAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.PrintAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -13002,6 +14537,8 @@ declare module "sap/f/semantic/SemanticButton" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13020,6 +14557,8 @@ declare module "sap/f/semantic/SemanticButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.SemanticButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -13076,6 +14615,8 @@ declare module "sap/f/semantic/SemanticControl" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13094,6 +14635,8 @@ declare module "sap/f/semantic/SemanticControl" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.SemanticControl.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
@@ -13102,6 +14645,8 @@ declare module "sap/f/semantic/SemanticControl" {
      * Determines whether the `SemanticControl` is visible.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `visible`
      */
     getVisible(): boolean;
     /**
@@ -13112,6 +14657,8 @@ declare module "sap/f/semantic/SemanticControl" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setVisible(
       /**
@@ -13125,7 +14672,7 @@ declare module "sap/f/semantic/SemanticControl" {
     /**
      * Determines whether the `SemanticControl` is visible.
      */
-    visible?: boolean | PropertyBindingInfo;
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -13294,6 +14841,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -13312,10 +14861,14 @@ declare module "sap/f/semantic/SemanticPage" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.SemanticPage.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some customShareAction to the aggregation {@link #getCustomShareActions customShareActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addCustomShareAction(
       /**
@@ -13325,6 +14878,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Adds some footerCustomAction to the aggregation {@link #getFooterCustomActions footerCustomActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addFooterCustomAction(
       /**
@@ -13334,6 +14889,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Adds some headerContent to the aggregation {@link #getHeaderContent headerContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addHeaderContent(
       /**
@@ -13345,6 +14902,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.52
      *
      * Adds some titleContent to the aggregation {@link #getTitleContent titleContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addTitleContent(
       /**
@@ -13354,6 +14913,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Adds some titleCustomIconAction to the aggregation {@link #getTitleCustomIconActions titleCustomIconActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addTitleCustomIconAction(
       /**
@@ -13363,6 +14924,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Adds some titleCustomTextAction to the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addTitleCustomTextAction(
       /**
@@ -13372,6 +14935,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Adds some titleExpandedContent to the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addTitleExpandedContent(
       /**
@@ -13381,6 +14946,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Adds some titleSnappedContent to the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addTitleSnappedContent(
       /**
@@ -13390,160 +14957,232 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Destroys the addAction in the aggregation {@link #getAddAction addAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyAddAction(): this;
     /**
      * Destroys the closeAction in the aggregation {@link #getCloseAction closeAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCloseAction(): this;
     /**
      * Destroys the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
     /**
      * Destroys the copyAction in the aggregation {@link #getCopyAction copyAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCopyAction(): this;
     /**
      * Destroys all the customShareActions in the aggregation {@link #getCustomShareActions customShareActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyCustomShareActions(): this;
     /**
      * Destroys the deleteAction in the aggregation {@link #getDeleteAction deleteAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyDeleteAction(): this;
     /**
      * Destroys the discussInJamAction in the aggregation {@link #getDiscussInJamAction discussInJamAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyDiscussInJamAction(): this;
     /**
      * Destroys the draftIndicator in the aggregation {@link #getDraftIndicator draftIndicator}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyDraftIndicator(): this;
     /**
      * @SINCE 1.50
      *
      * Destroys the editAction in the aggregation {@link #getEditAction editAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyEditAction(): this;
     /**
      * Destroys the exitFullScreenAction in the aggregation {@link #getExitFullScreenAction exitFullScreenAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyExitFullScreenAction(): this;
     /**
      * Destroys the favoriteAction in the aggregation {@link #getFavoriteAction favoriteAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFavoriteAction(): this;
     /**
      * Destroys the flagAction in the aggregation {@link #getFlagAction flagAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFlagAction(): this;
     /**
      * Destroys all the footerCustomActions in the aggregation {@link #getFooterCustomActions footerCustomActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooterCustomActions(): this;
     /**
      * Destroys the footerMainAction in the aggregation {@link #getFooterMainAction footerMainAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooterMainAction(): this;
     /**
      * Destroys the fullScreenAction in the aggregation {@link #getFullScreenAction fullScreenAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyFullScreenAction(): this;
     /**
      * Destroys all the headerContent in the aggregation {@link #getHeaderContent headerContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeaderContent(): this;
     /**
      * @SINCE 1.61
      *
      * Destroys the landmarkInfo in the aggregation {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyLandmarkInfo(): this;
     /**
      * Destroys the messagesIndicator in the aggregation {@link #getMessagesIndicator messagesIndicator}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyMessagesIndicator(): this;
     /**
      * Destroys the negativeAction in the aggregation {@link #getNegativeAction negativeAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyNegativeAction(): this;
     /**
      * Destroys the positiveAction in the aggregation {@link #getPositiveAction positiveAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyPositiveAction(): this;
     /**
      * Destroys the printAction in the aggregation {@link #getPrintAction printAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyPrintAction(): this;
     /**
      * Destroys the saveAsTileAction in the aggregation {@link #getSaveAsTileAction saveAsTileAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySaveAsTileAction(): this;
     /**
      * Destroys the sendEmailAction in the aggregation {@link #getSendEmailAction sendEmailAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySendEmailAction(): this;
     /**
      * Destroys the sendMessageAction in the aggregation {@link #getSendMessageAction sendMessageAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySendMessageAction(): this;
     /**
      * Destroys the shareInJamAction in the aggregation {@link #getShareInJamAction shareInJamAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyShareInJamAction(): this;
     /**
      * @SINCE 1.52
      *
      * Destroys the titleBreadcrumbs in the aggregation {@link #getTitleBreadcrumbs titleBreadcrumbs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleBreadcrumbs(): this;
     /**
      * @SINCE 1.52
      *
      * Destroys all the titleContent in the aggregation {@link #getTitleContent titleContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleContent(): this;
     /**
      * Destroys all the titleCustomIconActions in the aggregation {@link #getTitleCustomIconActions titleCustomIconActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleCustomIconActions(): this;
     /**
      * Destroys all the titleCustomTextActions in the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleCustomTextActions(): this;
     /**
      * Destroys all the titleExpandedContent in the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleExpandedContent(): this;
     /**
      * @SINCE 1.58
      *
      * Destroys the titleExpandedHeading in the aggregation {@link #getTitleExpandedHeading titleExpandedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleExpandedHeading(): this;
     /**
      * Destroys the titleHeading in the aggregation {@link #getTitleHeading titleHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleHeading(): this;
     /**
      * Destroys the titleMainAction in the aggregation {@link #getTitleMainAction titleMainAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleMainAction(): this;
     /**
      * Destroys all the titleSnappedContent in the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleSnappedContent(): this;
     /**
      * @SINCE 1.58
      *
      * Destroys the titleSnappedHeading in the aggregation {@link #getTitleSnappedHeading titleSnappedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleSnappedHeading(): this;
     /**
      * @SINCE 1.63
      *
      * Destroys the titleSnappedOnMobile in the aggregation {@link #getTitleSnappedOnMobile titleSnappedOnMobile}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyTitleSnappedOnMobile(): this;
     /**
@@ -13685,6 +15324,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * depending on their settings.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `fitContent`
      */
     getFitContent(): boolean;
     /**
@@ -13742,6 +15383,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * should not be set to `false` when initializing the control.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `headerExpanded`
      */
     getHeaderExpanded(): boolean;
     /**
@@ -13750,6 +15393,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * Determines whether the header is pinnable.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `headerPinnable`
      */
     getHeaderPinnable(): boolean;
     /**
@@ -13796,6 +15441,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * than a given threshold.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `preserveHeaderStateOnScroll`
      */
     getPreserveHeaderStateOnScroll(): boolean;
     /**
@@ -13854,6 +15501,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * Determines whether the footer is visible.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showFooter`
      */
     getShowFooter(): boolean;
     /**
@@ -13877,6 +15526,8 @@ declare module "sap/f/semantic/SemanticPage" {
      *  When this property is set the `titlePrimaryArea` property has no effect.
      *
      * Default value is `"1:1.6:1.6"`.
+     *
+     * @returns Value of property `titleAreaShrinkRatio`
      */
     getTitleAreaShrinkRatio(): DynamicPageTitleShrinkRatio;
     /**
@@ -14005,6 +15656,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * **Note:** The primary area is shrinking at a lower rate, remaining visible as long as it can.
      *
      * Default value is `Begin`.
+     *
+     * @returns Value of property `titlePrimaryArea`
      */
     getTitlePrimaryArea():
       | DynamicPageTitleArea
@@ -14064,11 +15717,15 @@ declare module "sap/f/semantic/SemanticPage" {
      * the header, if necessary.
      *
      * Default value is `true`.
+     *
+     * @returns Value of property `toggleHeaderOnTitleClick`
      */
     getToggleHeaderOnTitleClick(): boolean;
     /**
      * Checks for the provided `sap.m.Button` in the aggregation {@link #getCustomShareActions customShareActions}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfCustomShareAction(
       /**
@@ -14079,6 +15736,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Checks for the provided `sap.m.Button` in the aggregation {@link #getFooterCustomActions footerCustomActions}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfFooterCustomAction(
       /**
@@ -14089,6 +15748,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getHeaderContent headerContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfHeaderContent(
       /**
@@ -14101,6 +15762,8 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getTitleContent titleContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfTitleContent(
       /**
@@ -14111,6 +15774,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Checks for the provided `sap.m.OverflowToolbarButton` in the aggregation {@link #getTitleCustomIconActions
      * titleCustomIconActions}. and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfTitleCustomIconAction(
       /**
@@ -14121,6 +15786,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Checks for the provided `sap.m.Button` in the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfTitleCustomTextAction(
       /**
@@ -14131,6 +15798,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfTitleExpandedContent(
       /**
@@ -14141,6 +15810,8 @@ declare module "sap/f/semantic/SemanticPage" {
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfTitleSnappedContent(
       /**
@@ -14150,6 +15821,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): int;
     /**
      * Inserts a customShareAction into the aggregation {@link #getCustomShareActions customShareActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertCustomShareAction(
       /**
@@ -14165,6 +15838,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Inserts a footerCustomAction into the aggregation {@link #getFooterCustomActions footerCustomActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertFooterCustomAction(
       /**
@@ -14180,6 +15855,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Inserts a headerContent into the aggregation {@link #getHeaderContent headerContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertHeaderContent(
       /**
@@ -14197,6 +15874,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.52
      *
      * Inserts a titleContent into the aggregation {@link #getTitleContent titleContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertTitleContent(
       /**
@@ -14212,6 +15891,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Inserts a titleCustomIconAction into the aggregation {@link #getTitleCustomIconActions titleCustomIconActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertTitleCustomIconAction(
       /**
@@ -14227,6 +15908,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Inserts a titleCustomTextAction into the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertTitleCustomTextAction(
       /**
@@ -14242,6 +15925,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Inserts a titleExpandedContent into the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertTitleExpandedContent(
       /**
@@ -14257,6 +15942,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Inserts a titleSnappedContent into the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertTitleSnappedContent(
       /**
@@ -14274,18 +15961,24 @@ declare module "sap/f/semantic/SemanticPage" {
      * Removes all the controls from the aggregation {@link #getCustomShareActions customShareActions}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllCustomShareActions(): Button[];
     /**
      * Removes all the controls from the aggregation {@link #getFooterCustomActions footerCustomActions}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllFooterCustomActions(): Button[];
     /**
      * Removes all the controls from the aggregation {@link #getHeaderContent headerContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllHeaderContent(): Control[];
     /**
@@ -14294,108 +15987,136 @@ declare module "sap/f/semantic/SemanticPage" {
      * Removes all the controls from the aggregation {@link #getTitleContent titleContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTitleContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getTitleCustomIconActions titleCustomIconActions}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTitleCustomIconActions(): OverflowToolbarButton[];
     /**
      * Removes all the controls from the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTitleCustomTextActions(): Button[];
     /**
      * Removes all the controls from the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTitleExpandedContent(): Control[];
     /**
      * Removes all the controls from the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllTitleSnappedContent(): Control[];
     /**
      * Removes a customShareAction from the aggregation {@link #getCustomShareActions customShareActions}.
+     *
+     * @returns The removed customShareAction or `null`
      */
     removeCustomShareAction(
       /**
        * The customShareAction to remove or its index or id
        */
       vCustomShareAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a footerCustomAction from the aggregation {@link #getFooterCustomActions footerCustomActions}.
+     *
+     * @returns The removed footerCustomAction or `null`
      */
     removeFooterCustomAction(
       /**
        * The footerCustomAction to remove or its index or id
        */
       vFooterCustomAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a headerContent from the aggregation {@link #getHeaderContent headerContent}.
+     *
+     * @returns The removed headerContent or `null`
      */
     removeHeaderContent(
       /**
        * The headerContent to remove or its index or id
        */
       vHeaderContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.52
      *
      * Removes a titleContent from the aggregation {@link #getTitleContent titleContent}.
+     *
+     * @returns The removed titleContent or `null`
      */
     removeTitleContent(
       /**
        * The titleContent to remove or its index or id
        */
       vTitleContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a titleCustomIconAction from the aggregation {@link #getTitleCustomIconActions titleCustomIconActions}.
+     *
+     * @returns The removed titleCustomIconAction or `null`
      */
     removeTitleCustomIconAction(
       /**
        * The titleCustomIconAction to remove or its index or id
        */
       vTitleCustomIconAction: int | string | OverflowToolbarButton
-    ): OverflowToolbarButton;
+    ): OverflowToolbarButton | null;
     /**
      * Removes a titleCustomTextAction from the aggregation {@link #getTitleCustomTextActions titleCustomTextActions}.
+     *
+     * @returns The removed titleCustomTextAction or `null`
      */
     removeTitleCustomTextAction(
       /**
        * The titleCustomTextAction to remove or its index or id
        */
       vTitleCustomTextAction: int | string | Button
-    ): Button;
+    ): Button | null;
     /**
      * Removes a titleExpandedContent from the aggregation {@link #getTitleExpandedContent titleExpandedContent}.
+     *
+     * @returns The removed titleExpandedContent or `null`
      */
     removeTitleExpandedContent(
       /**
        * The titleExpandedContent to remove or its index or id
        */
       vTitleExpandedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a titleSnappedContent from the aggregation {@link #getTitleSnappedContent titleSnappedContent}.
+     *
+     * @returns The removed titleSnappedContent or `null`
      */
     removeTitleSnappedContent(
       /**
        * The titleSnappedContent to remove or its index or id
        */
       vTitleSnappedContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getAddAction addAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setAddAction(
       /**
@@ -14405,6 +16126,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getCloseAction closeAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCloseAction(
       /**
@@ -14414,6 +16137,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setContent(
       /**
@@ -14423,6 +16148,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getCopyAction copyAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setCopyAction(
       /**
@@ -14432,6 +16159,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getDeleteAction deleteAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDeleteAction(
       /**
@@ -14441,6 +16170,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getDiscussInJamAction discussInJamAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDiscussInJamAction(
       /**
@@ -14450,6 +16181,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getDraftIndicator draftIndicator}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setDraftIndicator(
       /**
@@ -14461,6 +16194,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.50
      *
      * Sets the aggregated {@link #getEditAction editAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setEditAction(
       /**
@@ -14470,6 +16205,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getExitFullScreenAction exitFullScreenAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setExitFullScreenAction(
       /**
@@ -14479,6 +16216,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getFavoriteAction favoriteAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFavoriteAction(
       /**
@@ -14500,6 +16239,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFitContent(
       /**
@@ -14509,6 +16250,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getFlagAction flagAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFlagAction(
       /**
@@ -14518,6 +16261,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getFooterMainAction footerMainAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFooterMainAction(
       /**
@@ -14527,6 +16272,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getFullScreenAction fullScreenAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setFullScreenAction(
       /**
@@ -14548,6 +16295,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderExpanded(
       /**
@@ -14563,6 +16312,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHeaderPinnable(
       /**
@@ -14574,6 +16325,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.61
      *
      * Sets the aggregated {@link #getLandmarkInfo landmarkInfo}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setLandmarkInfo(
       /**
@@ -14583,6 +16336,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getMessagesIndicator messagesIndicator}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMessagesIndicator(
       /**
@@ -14592,6 +16347,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getNegativeAction negativeAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setNegativeAction(
       /**
@@ -14601,6 +16358,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getPositiveAction positiveAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPositiveAction(
       /**
@@ -14623,6 +16382,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPreserveHeaderStateOnScroll(
       /**
@@ -14632,6 +16393,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getPrintAction printAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setPrintAction(
       /**
@@ -14641,6 +16404,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getSaveAsTileAction saveAsTileAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSaveAsTileAction(
       /**
@@ -14650,6 +16415,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getSendEmailAction sendEmailAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSendEmailAction(
       /**
@@ -14659,6 +16426,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getSendMessageAction sendMessageAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSendMessageAction(
       /**
@@ -14668,6 +16437,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getShareInJamAction shareInJamAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShareInJamAction(
       /**
@@ -14683,6 +16454,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowFooter(
       /**
@@ -14713,6 +16486,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `"1:1.6:1.6"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleAreaShrinkRatio(
       /**
@@ -14724,6 +16499,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.52
      *
      * Sets the aggregated {@link #getTitleBreadcrumbs titleBreadcrumbs}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleBreadcrumbs(
       /**
@@ -14735,6 +16512,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.58
      *
      * Sets the aggregated {@link #getTitleExpandedHeading titleExpandedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleExpandedHeading(
       /**
@@ -14744,6 +16523,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getTitleHeading titleHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleHeading(
       /**
@@ -14753,6 +16534,8 @@ declare module "sap/f/semantic/SemanticPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getTitleMainAction titleMainAction}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleMainAction(
       /**
@@ -14782,6 +16565,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Begin`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitlePrimaryArea(
       /**
@@ -14795,6 +16580,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.58
      *
      * Sets the aggregated {@link #getTitleSnappedHeading titleSnappedHeading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleSnappedHeading(
       /**
@@ -14806,6 +16593,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * @SINCE 1.63
      *
      * Sets the aggregated {@link #getTitleSnappedOnMobile titleSnappedOnMobile}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitleSnappedOnMobile(
       /**
@@ -14825,6 +16614,8 @@ declare module "sap/f/semantic/SemanticPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setToggleHeaderOnTitleClick(
       /**
@@ -14844,12 +16635,12 @@ declare module "sap/f/semantic/SemanticPage" {
      * **Note:** Please be aware, that initially collapsed header state is not supported, so `headerExpanded`
      * should not be set to `false` when initializing the control.
      */
-    headerExpanded?: boolean | PropertyBindingInfo;
+    headerExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the header is pinnable.
      */
-    headerPinnable?: boolean | PropertyBindingInfo;
+    headerPinnable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Preserves the current header state when scrolling.
@@ -14861,7 +16652,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * when the control is rendered on tablet or mobile and the title and the header are with height larger
      * than a given threshold.
      */
-    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo;
+    preserveHeaderStateOnScroll?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the user can switch between the expanded/collapsed states of the header by clicking
@@ -14870,12 +16661,12 @@ declare module "sap/f/semantic/SemanticPage" {
      * If set to `false`, the title is not clickable and the application must provide other means for expanding/collapsing
      * the header, if necessary.
      */
-    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo;
+    toggleHeaderOnTitleClick?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the footer is visible.
      */
-    showFooter?: boolean | PropertyBindingInfo;
+    showFooter?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.52
@@ -14896,7 +16687,8 @@ declare module "sap/f/semantic/SemanticPage" {
      */
     titlePrimaryArea?:
       | (DynamicPageTitleArea | keyof typeof DynamicPageTitleArea)
-      | PropertyBindingInfo;
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.58
@@ -14916,7 +16708,10 @@ declare module "sap/f/semantic/SemanticPage" {
      *
      *  When this property is set the `titlePrimaryArea` property has no effect.
      */
-    titleAreaShrinkRatio?: DynamicPageTitleShrinkRatio | PropertyBindingInfo;
+    titleAreaShrinkRatio?:
+      | DynamicPageTitleShrinkRatio
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.73
@@ -14927,7 +16722,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * to fill the available space. Such controls may be {@link sap.ui.table.Table} and {@link sap.ui.table.AnalyticalTable}
      * depending on their settings.
      */
-    fitContent?: boolean | PropertyBindingInfo;
+    fitContent?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The `SemanticPage` heading.
@@ -15015,14 +16810,22 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleSnappedContent?: Control[] | Control | AggregationBindingInfo;
+    titleSnappedContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The content,displayed in the title, when the header is in expanded state.
      *
      * **Note:** The controls will be placed in the title`s left area, under the `titleHeading` aggregation.
      */
-    titleExpandedContent?: Control[] | Control | AggregationBindingInfo;
+    titleExpandedContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.52
@@ -15035,7 +16838,7 @@ declare module "sap/f/semantic/SemanticPage" {
      * 			control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * 			state.
      */
-    titleContent?: Control[] | Control | AggregationBindingInfo;
+    titleContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
      * A semantic-specific button which is placed in the `SemanticPage` title as first action.
@@ -15140,7 +16943,11 @@ declare module "sap/f/semantic/SemanticPage" {
      * 	 - Buttons that are part of this aggregation will always have their `type` property set to `Transparent`
      * 			by design.
      */
-    titleCustomTextActions?: Button[] | Button | AggregationBindingInfo;
+    titleCustomTextActions?:
+      | Button[]
+      | Button
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The `titleCustomIconActions` are placed in the `IconActions` area of the `SemanticPage` title, right
@@ -15153,12 +16960,17 @@ declare module "sap/f/semantic/SemanticPage" {
     titleCustomIconActions?:
       | OverflowToolbarButton[]
       | OverflowToolbarButton
-      | AggregationBindingInfo;
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The header content.
      */
-    headerContent?: Control[] | Control | AggregationBindingInfo;
+    headerContent?:
+      | Control[]
+      | Control
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * The `SemanticPage` content.
@@ -15221,7 +17033,11 @@ declare module "sap/f/semantic/SemanticPage" {
      * **Note:** Buttons that are part of this aggregation will always have their `type` property set to `Transparent`
      * by design.
      */
-    footerCustomActions?: Button[] | Button | AggregationBindingInfo;
+    footerCustomActions?:
+      | Button[]
+      | Button
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * A semantic-specific button which is placed in the `ShareMenu` area of the `SemanticPage` title.
@@ -15287,7 +17103,11 @@ declare module "sap/f/semantic/SemanticPage" {
      * the control is viewed on a phone mobile device and the `SemanticPage` header is in its collapsed (snapped)
      * state.
      */
-    customShareActions?: Button[] | Button | AggregationBindingInfo;
+    customShareActions?:
+      | Button[]
+      | Button
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * @SINCE 1.61
@@ -15356,6 +17176,8 @@ declare module "sap/f/semantic/SemanticToggleButton" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.semantic.SemanticToggleButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15374,6 +17196,8 @@ declare module "sap/f/semantic/SemanticToggleButton" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.SemanticToggleButton.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -15441,6 +17265,8 @@ declare module "sap/f/semantic/SendEmailAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15459,6 +17285,8 @@ declare module "sap/f/semantic/SendEmailAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.SendEmailAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -15525,6 +17353,8 @@ declare module "sap/f/semantic/SendMessageAction" {
      * it with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15543,6 +17373,8 @@ declare module "sap/f/semantic/SendMessageAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.SendMessageAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -15609,6 +17441,8 @@ declare module "sap/f/semantic/ShareInJamAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.SemanticButton.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15627,6 +17461,8 @@ declare module "sap/f/semantic/ShareInJamAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.ShareInJamAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -15693,6 +17529,8 @@ declare module "sap/f/semantic/TitleMainAction" {
      * with the information contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.f.semantic.MainAction.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15711,6 +17549,8 @@ declare module "sap/f/semantic/TitleMainAction" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.semantic.TitleMainAction.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
   }
@@ -15805,6 +17645,8 @@ declare module "sap/f/ShellBar" {
      * contained in `oClassInfo`.
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
       /**
@@ -15823,22 +17665,30 @@ declare module "sap/f/ShellBar" {
     ): Function;
     /**
      * Returns a metadata object for class sap.f.ShellBar.
+     *
+     * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.65
      *
      * Sets classes according to the context of the page. Possible contexts are header, footer, and subheader.
+     *
+     * @returns `this` for chaining
      */
     _applyContextClassFor(): IBar;
     /**
      * @SINCE 1.65
      *
      * Sets the HTML tag according to the context of the page. Possible contexts are header, footer, and subheader.
+     *
+     * @returns `this` for chaining
      */
     _applyTag(): IBar;
     /**
      * Adds some additionalContent to the aggregation {@link #getAdditionalContent additionalContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     addAdditionalContent(
       /**
@@ -15851,6 +17701,8 @@ declare module "sap/f/ShellBar" {
      *
      * Sets classes and HTML tag according to the context of the page. Possible contexts are header, footer,
      * and subheader
+     *
+     * @returns `this` for chaining
      */
     applyTagAndContextClassFor(): IBar;
     /**
@@ -15860,6 +17712,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the profile avatar is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAvatarPressed(
       /**
@@ -15883,6 +17737,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the profile avatar is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachAvatarPressed(
       /**
@@ -15902,6 +17758,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the SAP CoPilot icon is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachCopilotPressed(
       /**
@@ -15926,6 +17784,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the SAP CoPilot icon is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachCopilotPressed(
       /**
@@ -15945,6 +17805,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the `homeIcon` is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachHomeIconPressed(
       /**
@@ -15969,6 +17831,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the `homeIcon` is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachHomeIconPressed(
       /**
@@ -15988,6 +17852,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the alternative menu button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachMenuButtonPressed(
       /**
@@ -16012,6 +17878,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the alternative menu button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachMenuButtonPressed(
       /**
@@ -16031,6 +17899,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the navigation/back button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNavButtonPressed(
       /**
@@ -16055,6 +17925,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the navigation/back button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNavButtonPressed(
       /**
@@ -16074,6 +17946,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the notifications button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNotificationsPressed(
       /**
@@ -16098,6 +17972,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the notifications button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachNotificationsPressed(
       /**
@@ -16117,6 +17993,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the product switcher button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachProductSwitcherPressed(
       /**
@@ -16141,6 +18019,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the product switcher button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachProductSwitcherPressed(
       /**
@@ -16160,6 +18040,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the search button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearchButtonPressed(
       /**
@@ -16184,6 +18066,8 @@ declare module "sap/f/ShellBar" {
      * otherwise it will be bound to this `sap.f.ShellBar` itself.
      *
      * Fired when the search button is pressed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     attachSearchButtonPressed(
       /**
@@ -16197,20 +18081,28 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Destroys all the additionalContent in the aggregation {@link #getAdditionalContent additionalContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyAdditionalContent(): this;
     /**
      * Destroys the menu in the aggregation {@link #getMenu menu}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyMenu(): this;
     /**
      * Destroys the profile in the aggregation {@link #getProfile profile}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroyProfile(): this;
     /**
      * @SINCE 1.67
      *
      * Destroys the searchManager in the aggregation {@link #getSearchManager searchManager}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     destroySearchManager(): this;
     /**
@@ -16218,6 +18110,8 @@ declare module "sap/f/ShellBar" {
      * `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachAvatarPressed(
       /**
@@ -16234,6 +18128,8 @@ declare module "sap/f/ShellBar" {
      * `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachCopilotPressed(
       /**
@@ -16250,6 +18146,8 @@ declare module "sap/f/ShellBar" {
      * this `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachHomeIconPressed(
       /**
@@ -16266,6 +18164,8 @@ declare module "sap/f/ShellBar" {
      * of this `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachMenuButtonPressed(
       /**
@@ -16282,6 +18182,8 @@ declare module "sap/f/ShellBar" {
      * this `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachNavButtonPressed(
       /**
@@ -16298,6 +18200,8 @@ declare module "sap/f/ShellBar" {
      * event of this `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachNotificationsPressed(
       /**
@@ -16314,6 +18218,8 @@ declare module "sap/f/ShellBar" {
      * event of this `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachProductSwitcherPressed(
       /**
@@ -16330,6 +18236,8 @@ declare module "sap/f/ShellBar" {
      * of this `sap.f.ShellBar`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     detachSearchButtonPressed(
       /**
@@ -16343,6 +18251,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:avatarPressed avatarPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireAvatarPressed(
       /**
@@ -16357,6 +18267,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:copilotPressed copilotPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireCopilotPressed(
       /**
@@ -16371,6 +18283,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:homeIconPressed homeIconPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireHomeIconPressed(
       /**
@@ -16385,6 +18299,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:menuButtonPressed menuButtonPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireMenuButtonPressed(
       /**
@@ -16399,6 +18315,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:navButtonPressed navButtonPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireNavButtonPressed(
       /**
@@ -16413,6 +18331,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:notificationsPressed notificationsPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireNotificationsPressed(
       /**
@@ -16427,6 +18347,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:productSwitcherPressed productSwitcherPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireProductSwitcherPressed(
       /**
@@ -16441,6 +18363,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Fires event {@link #event:searchButtonPressed searchButtonPressed} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     fireSearchButtonPressed(
       /**
@@ -16465,6 +18389,8 @@ declare module "sap/f/ShellBar" {
      * @SINCE 1.65
      *
      * Gets the available Bar contexts.
+     *
+     * @returns with all available contexts
      */
     getContext(): Object;
     /**
@@ -16473,6 +18399,8 @@ declare module "sap/f/ShellBar" {
      * Defines the URI to the home icon, such as company or product logo.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `homeIcon`
      */
     getHomeIcon(): URI;
     /**
@@ -16483,12 +18411,16 @@ declare module "sap/f/ShellBar" {
      * Defines a custom tooltip for the home icon. If not set, a default tooltip is used.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `homeIconTooltip`
      */
     getHomeIconTooltip(): string;
     /**
      * @SINCE 1.65
      *
      * Gets the HTML tag of the root DOM Reference.
+     *
+     * @returns the HTML-tag
      */
     getHTMLTag(): string;
     /**
@@ -16505,6 +18437,8 @@ declare module "sap/f/ShellBar" {
      * Defines the displayed number of upcoming notifications.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `notificationsNumber`
      */
     getNotificationsNumber(): string;
     /**
@@ -16529,6 +18463,8 @@ declare module "sap/f/ShellBar" {
      * Defines the secondary title of the control.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `secondTitle`
      */
     getSecondTitle(): string;
     /**
@@ -16537,6 +18473,8 @@ declare module "sap/f/ShellBar" {
      * Determines whether the SAP CoPilot icon is displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showCopilot`
      */
     getShowCopilot(): boolean;
     /**
@@ -16546,6 +18484,8 @@ declare module "sap/f/ShellBar" {
      * is not used).
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showMenuButton`
      */
     getShowMenuButton(): boolean;
     /**
@@ -16554,6 +18494,8 @@ declare module "sap/f/ShellBar" {
      * Determines whether a back navigation button is displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showNavButton`
      */
     getShowNavButton(): boolean;
     /**
@@ -16562,6 +18504,8 @@ declare module "sap/f/ShellBar" {
      * Determines whether the notifications button is displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showNotifications`
      */
     getShowNotifications(): boolean;
     /**
@@ -16570,6 +18514,8 @@ declare module "sap/f/ShellBar" {
      * Determines whether the product switcher button is displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showProductSwitcher`
      */
     getShowProductSwitcher(): boolean;
     /**
@@ -16578,6 +18524,8 @@ declare module "sap/f/ShellBar" {
      * Determines whether the search button is displayed.
      *
      * Default value is `false`.
+     *
+     * @returns Value of property `showSearch`
      */
     getShowSearch(): boolean;
     /**
@@ -16586,11 +18534,15 @@ declare module "sap/f/ShellBar" {
      * Defines the main title of the control.
      *
      * Default value is `empty string`.
+     *
+     * @returns Value of property `title`
      */
     getTitle(): string;
     /**
      * Checks for the provided `sap.f.IShellBar` in the aggregation {@link #getAdditionalContent additionalContent}.
      * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
     indexOfAdditionalContent(
       /**
@@ -16600,6 +18552,8 @@ declare module "sap/f/ShellBar" {
     ): int;
     /**
      * Inserts a additionalContent into the aggregation {@link #getAdditionalContent additionalContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     insertAdditionalContent(
       /**
@@ -16617,21 +18571,27 @@ declare module "sap/f/ShellBar" {
      * @SINCE 1.65
      *
      * Returns if the bar is sensitive to the container context. Implementation of the IBar interface
+     *
+     * @returns isContextSensitive
      */
     isContextSensitive(): boolean;
     /**
      * Removes a additionalContent from the aggregation {@link #getAdditionalContent additionalContent}.
+     *
+     * @returns The removed additionalContent or `null`
      */
     removeAdditionalContent(
       /**
        * The additionalContent to remove or its index or id
        */
       vAdditionalContent: int | string | IShellBar
-    ): IShellBar;
+    ): IShellBar | null;
     /**
      * Removes all the controls from the aggregation {@link #getAdditionalContent additionalContent}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
      */
     removeAllAdditionalContent(): IShellBar[];
     /**
@@ -16642,6 +18602,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHomeIcon(
       /**
@@ -16659,6 +18621,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setHomeIconTooltip(
       /**
@@ -16670,10 +18634,14 @@ declare module "sap/f/ShellBar" {
      * @SINCE 1.65
      *
      * Sets the HTML tag of the root DOM Reference.
+     *
+     * @returns this for chaining
      */
     setHTMLTag(sTag: string): IBar;
     /**
      * Sets the aggregated {@link #getMenu menu}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setMenu(
       /**
@@ -16683,6 +18651,8 @@ declare module "sap/f/ShellBar" {
     ): this;
     /**
      * Sets the aggregated {@link #getProfile profile}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setProfile(
       /**
@@ -16694,6 +18664,8 @@ declare module "sap/f/ShellBar" {
      * @SINCE 1.67
      *
      * Sets the aggregated {@link #getSearchManager searchManager}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSearchManager(
       /**
@@ -16709,6 +18681,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setSecondTitle(
       /**
@@ -16724,6 +18698,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowCopilot(
       /**
@@ -16740,6 +18716,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowMenuButton(
       /**
@@ -16755,6 +18733,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowNavButton(
       /**
@@ -16770,6 +18750,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowNotifications(
       /**
@@ -16785,6 +18767,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowProductSwitcher(
       /**
@@ -16800,6 +18784,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setShowSearch(
       /**
@@ -16815,6 +18801,8 @@ declare module "sap/f/ShellBar" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
      */
     setTitle(
       /**
@@ -16838,7 +18826,7 @@ declare module "sap/f/ShellBar" {
     /**
      * Defines the URI to the home icon, such as company or product logo.
      */
-    homeIcon?: URI | PropertyBindingInfo;
+    homeIcon?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.67
@@ -16851,32 +18839,32 @@ declare module "sap/f/ShellBar" {
      * Determines whether a hamburger menu button is displayed (as an alternative if the `menu` aggregation
      * is not used).
      */
-    showMenuButton?: boolean | PropertyBindingInfo;
+    showMenuButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether a back navigation button is displayed.
      */
-    showNavButton?: boolean | PropertyBindingInfo;
+    showNavButton?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the SAP CoPilot icon is displayed.
      */
-    showCopilot?: boolean | PropertyBindingInfo;
+    showCopilot?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the search button is displayed.
      */
-    showSearch?: boolean | PropertyBindingInfo;
+    showSearch?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the notifications button is displayed.
      */
-    showNotifications?: boolean | PropertyBindingInfo;
+    showNotifications?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether the product switcher button is displayed.
      */
-    showProductSwitcher?: boolean | PropertyBindingInfo;
+    showProductSwitcher?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.64
@@ -16909,7 +18897,11 @@ declare module "sap/f/ShellBar" {
      *
      * **Note:** Only controls implementing the `{@link sap.f.IShellBar}` interface are allowed.
      */
-    additionalContent?: IShellBar[] | IShellBar | AggregationBindingInfo;
+    additionalContent?:
+      | IShellBar[]
+      | IShellBar
+      | AggregationBindingInfo
+      | `{${string}}`;
 
     /**
      * Fired when the `homeIcon` is pressed.

@@ -1,4 +1,4 @@
-// Type definitions for gestalt 55.2
+// Type definitions for gestalt 71.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -166,27 +166,11 @@ export interface BoxProps extends BoxPassthroughProps {
     bottom?: boolean | undefined;
     children?: React.ReactNode | undefined;
     color?:
-        | 'blue'
-        | 'darkGray'
         | 'darkWash'
-        | 'eggplant'
-        | 'gray'
-        | 'green'
-        | 'lightGray'
         | 'lightWash'
-        | 'maroon'
-        | 'midnight'
-        | 'navy'
-        | 'olive'
-        | 'orange'
-        | 'orchid'
-        | 'pine'
-        | 'purple'
-        | 'red'
         | 'transparent'
         | 'transparentDarkGray'
-        | 'watermelon'
-        | 'white'
+        | 'default'
         | 'infoBase'
         | 'infoWeak'
         | 'errorBase'
@@ -195,6 +179,8 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'warningWeak'
         | 'successBase'
         | 'successWeak'
+        | 'recommendationBase'
+        | 'recommendationWeak'
         | 'shopping'
         | 'primary'
         | 'secondary'
@@ -204,6 +190,10 @@ export interface BoxProps extends BoxPassthroughProps {
         | 'brand'
         | 'education'
         | 'elevationAccent'
+        | 'elevationFloating'
+        | 'elevationRaised'
+        | 'dark'
+        | 'light'
         | undefined;
     column?: UnsignedUpTo12 | undefined;
     smColumn?: UnsignedUpTo12 | undefined;
@@ -353,7 +343,7 @@ export interface ActionData {
 export interface CalloutProps {
     iconAccessibilityLabel: string;
     message: string;
-    type: 'error' | 'info' | 'warning';
+    type: 'error' | 'info' | 'recommendation' | 'success' | 'warning';
     dismissButton?:
         | {
               accessibilityLabel: string;
@@ -495,7 +485,7 @@ export interface DatapointProps {
     value: string;
     size?: 'md' | 'lg' | undefined;
     tooltipText?: string | undefined;
-    trend?: { accesibilityLabel: string; value: number } | undefined;
+    trend?: { accessibilityLabel: string; value: number } | undefined;
     trendSentiment?: 'good' | 'bad' | 'neutral' | 'auto' | undefined;
     badge?: BadgeObject | undefined;
     tooltipZIndex?: Indexable | undefined;
@@ -638,7 +628,7 @@ export interface FlexProps {
     children?: React.ReactNode | undefined;
     direction?: 'row' | 'column' | undefined;
     flex?: 'grow' | 'shrink' | 'none' | undefined;
-    gap?: UnsignedUpTo12 | undefined;
+    gap?: UnsignedUpTo12 | { row: UnsignedUpTo12; column: UnsignedUpTo12 } | undefined;
     height?: number | string | undefined;
     justifyContent?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly' | undefined;
     maxHeight?: number | string | undefined;
@@ -663,7 +653,7 @@ export interface FlexItemProps {
  */
 export interface HeaderProps {
     accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6 | 'none' | undefined;
-    align?: 'start' | 'end' | 'center' | 'justify' | 'forceLeft' | 'forceRight' | undefined;
+    align?: 'start' | 'end' | 'center' | 'forceLeft' | 'forceRight' | undefined;
     children?: React.ReactNode | undefined;
     color?:
         | 'default'
@@ -678,7 +668,7 @@ export interface HeaderProps {
         | undefined;
     id?: string | undefined;
     overflow?: 'normal' | 'breakWord' | undefined;
-    size?: '100' | '200' | '300' | '400' | '500' | '600' | 'sm' | 'md' | 'lg' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | undefined;
     truncate?: boolean | undefined;
     lineClamp?: number | undefined;
 }
@@ -792,6 +782,8 @@ export type Icons =
     | 'megaphone'
     | 'menu'
     | 'minimize'
+    | 'music-on'
+    | 'music-off'
     | 'move'
     | 'mute'
     | 'overlay-text'
@@ -1022,13 +1014,13 @@ export interface MaskProps {
  * https://gestalt.netlify.app/Masonry
  */
 export interface MasonryProps<T = any> {
-    comp: React.ComponentType<{ data: T; itemIdx?: number | undefined; isMeasuring?: boolean | undefined }>;
-    items: T[];
+    Item: React.ComponentType<{ data: T; itemIdx: number; isMeasuring: boolean }>;
+    items: ReadonlyArray<T>;
     columnWidth?: number | undefined;
     flexible?: boolean | undefined;
     gutterWidth?: number | undefined;
-    layout?: 'MasonryDefaultLayout' | 'MasonryUniformRowLayout' | undefined;
-    loadItems?: (() => void) | undefined;
+    layout?: 'basic' | 'basicCentered' | 'flexible' | 'serverRenderedFlexible' | 'uniformRow' | undefined;
+    loadItems?: false | ((_arg?: { from: number }) => undefined | boolean | {}) | undefined;
     measurementStore?: any;
     minCols?: number | undefined;
     scrollContainer?: (() => HTMLElement) | undefined;
@@ -1130,6 +1122,10 @@ export interface NumberFieldProps {
      */
     disabled?: boolean | undefined;
     /**
+     *  Optionally specify the action label to present for the enter key on virtual keyboards.
+     */
+    enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
+    /**
      * For most cases, pass a string with a helpful error message (be sure to localize!).
      * In certain instances it can be useful to make some text clickable; to suppor this you may instead pass a React.Node to wrap text in Link or TapArea.
      */
@@ -1196,16 +1192,58 @@ export interface OnLinkNavigationProviderProps {
     onNavigation?: OnNavigationType | undefined;
 }
 
+export interface PageHeaderBadge {
+    text: string;
+    tooltipText?: string | undefined;
+}
+
+export interface PageHeaderHelperIconButton {
+    accessibilityLabel?: string | undefined;
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    onClick: (args: {
+        event:
+            | React.MouseEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLAnchorElement>
+            | React.KeyboardEvent<HTMLButtonElement>
+            | React.MouseEvent<HTMLButtonElement>;
+        dangerouslyDisableOnNavigation: () => void;
+    }) => void;
+}
+export interface PageHeaderAction {
+    component?:
+        | React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip | typeof Text>
+        | undefined;
+    dropdownItems?:
+        | ReadonlyArray<React.ReactElement<DropdownItemProps | DropdownLinkProps, typeof Dropdown>>
+        | undefined;
+}
+
 /**
  * PageHeader Props Interface
  * https://gestalt.netlify.app/PageHeader
  */
 export interface PageHeaderProps {
     title: string;
+    badge?: PageHeaderBadge | undefined;
+    borderStyle?: 'sm' | 'none' | undefined;
+    helperIconButton?: PageHeaderHelperIconButton | undefined;
+    helperLink?: {
+        accessibilityLabel: string;
+        text: string;
+        href: string;
+        onClick?: (args: {
+            event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
+            dangerouslyDisableOnNavigation: () => void;
+        }) => void | undefined;
+    };
+    items?: ReadonlyArray<React.ReactNode> | undefined;
+    dropdownAccessibilityLabel?: string | undefined;
     maxWidth?: number | string | undefined;
-    primaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip> | undefined;
-    secondaryAction?: React.ReactElement<typeof Button | typeof IconButton | typeof Link | typeof Tooltip> | undefined;
+    primaryAction?: PageHeaderAction | undefined;
+    secondaryAction?: PageHeaderAction | undefined;
     subtext?: string | undefined;
+    thumbnail?: React.ReactElement<typeof Image>;
 }
 
 /**
@@ -1260,6 +1298,7 @@ export interface PulsarProps {
 export interface RadioButtonProps {
     id: string;
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
+    value: string;
     checked?: boolean | undefined;
     disabled?: boolean | undefined;
     image?: React.ReactNode | undefined;
@@ -1267,7 +1306,19 @@ export interface RadioButtonProps {
     name?: string | undefined;
     size?: 'sm' | 'md' | undefined;
     subtext?: string | undefined;
-    value?: string | undefined;
+}
+
+/**
+ * RadioGroup Props Interface
+ * https://gestalt.netlify.app/RadioGroup
+ */
+export interface RadioGroupProps {
+    id: string;
+    children: React.ReactNode;
+    legend: string;
+    direction?: 'column' | 'row' | undefined;
+    errorMessage?: string | undefined;
+    legendDisplay?: 'visible' | 'hidden' | undefined;
 }
 
 /**
@@ -1328,9 +1379,9 @@ export interface SegmentedControlProps {
  * https://gestalt.netlify.app/SelectList
  */
 export interface SelectListProps {
+    children: React.ReactNode;
     id: string;
     onChange: (args: { event: React.SyntheticEvent<HTMLElement>; value: string }) => void;
-    options: ReadonlyArray<{ label: string; value: string }>;
     disabled?: boolean | undefined;
     errorMessage?: string | undefined;
     helperText?: string | undefined;
@@ -1340,6 +1391,197 @@ export interface SelectListProps {
     placeholder?: string | undefined;
     size?: 'md' | 'lg' | undefined;
     value?: string | undefined;
+}
+
+/**
+ * SelectList Options Props Interface
+ * https://gestalt.pinterest.systems/web/selectlist#SelectList.OptionProps
+ */
+export interface SelectListOptionProps {
+    label: string;
+    value: string;
+    disabled?: boolean | undefined;
+}
+
+/**
+ * SelectList Group Props Interface
+ * https://gestalt.pinterest.systems/web/selectlist#SelectList.GroupProps
+ */
+export interface SelectListGroupProps {
+    children: React.ReactNode;
+    label: string;
+    disabled?: boolean | undefined;
+}
+
+/**
+ * SideNavigation Props Interface
+ * https://gestalt.netlify.app/SideNavigation
+ */
+export interface SideNaviationProps {
+    /**
+     * String that clients such as VoiceOver will read to describe the element.
+     */
+    accessibilityLabel: string;
+    /**
+     * The content shown in SideNavigation.
+     * See [subcomponents](https://gestalt.pinterest.systems/sidenavigation#Subcomponents).
+     */
+    children: React.ReactNode;
+    /**
+     * Content to display at the bottom of SideNavigation.
+     * Open slot available to display other functionality required in the page.
+     * See the [Footer variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
+     */
+    footer?: React.ReactNode;
+    /**
+     * Content to display at the top of SideNavigation.
+     * Open slot used for controlling the display of navigation items.
+     * See the [Header variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
+     */
+    header?: React.ReactNode;
+    /**
+     * Displays a border in SideNavigation.
+     * See the [Border](https://gestalt.pinterest.systems/sidenavigation#Border) variant for more info.
+     */
+    showBorder?: boolean;
+}
+
+export interface SideNavigationSectionProps {
+    /**
+     * Any [SideNavigation.TopItem](https://gestalt.pinterest.systems/sidenavigation#SideNavigation.TopItem) to be rendered
+     */
+    children: React.ReactNode;
+    /**
+     * Label for the section. See the [Sections](https://gestalt.pinterest.systems/sidenavigation#Sections) variant for more info.
+     */
+    label: string;
+}
+
+export interface SideNavigationTopItemProps {
+    /**
+     * When set to 'page' or 'section', it displays the item in "active" state.
+     * See the [Accessibility](https://gestalt.pinterest.systems/SideNavigation#Accessibility) guidelines to learn more.
+     */
+    active?: 'page' | 'section' | undefined;
+    /**
+     * When supplied, will display a
+     * [Badge](https://gestalt.pinterest.systems/badge) next to the item's label.
+     * See the [Badges](https://gestalt.pinterest.systems/SideNavigation#Badge) variant to learn more.
+     */
+    badge?:
+        | {
+              text: string;
+              type?: 'info' | 'error' | 'warning' | 'success' | 'neutral' | undefined;
+          }
+        | undefined;
+    /**
+     * When supplied, will display a counter. See the [Counter](https://gestalt.pinterest.systems/SideNavigation#Counter) variant to learn more.
+     */
+    counter?: { number: string; accessibilityLabel: string } | undefined;
+    /**
+     * Directs users to the url when item is selected.
+     */
+    href: string;
+    /**
+     * When supplied, will display Icon. See the [Icon](https://gestalt.pinterest.systems/SideNavigation#Icon) variant to learn more.
+     */
+    icon?: Icons | { __path: string };
+    /**
+     *  When supplied, will display a notification dot. See the [Notification](https://gestalt.pinterest.systems/SideNavigation#Notification) variant to learn more.
+     */
+    notificationAccessibilityLabel?: string;
+    /**
+     * Callback when the user selects an item using the mouse or keyboard.
+     */
+    onClick?:
+        | AbstractEventHandler<
+              | React.MouseEvent<HTMLButtonElement>
+              | React.MouseEvent<HTMLAnchorElement>
+              | React.KeyboardEvent<HTMLAnchorElement>
+              | React.KeyboardEvent<HTMLButtonElement>,
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+          >
+        | undefined;
+
+    /**
+     * Label for the item.
+     */
+    label: string;
+}
+
+export interface SideNavigationNestedItemProps {
+    /**
+     * When set to 'page' or 'section', it displays the item in "active" state. See the [Accessibility](https://gestalt.pinterest.systems/SideNavigation#Accessibility) guidelines to learn more.
+     */
+    active?: 'page' | 'section' | undefined;
+    /**
+     * Directs users to the url when item is selected.
+     */
+    href: string;
+    /**
+     * Label for the item.
+     */
+    label: string;
+    /**
+     * Callback when the user selects an item using the mouse or keyboard.
+     */
+    onClick?:
+        | AbstractEventHandler<
+              | React.MouseEvent<HTMLButtonElement>
+              | React.MouseEvent<HTMLAnchorElement>
+              | React.KeyboardEvent<HTMLAnchorElement>
+              | React.KeyboardEvent<HTMLButtonElement>,
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+          >
+        | undefined;
+}
+
+export interface SideNavigationNestedGroupProps {
+    /**
+     * When supplied, will display a
+     * [Badge](https://gestalt.pinterest.systems/badge) next to the item's label.
+     * See the [Badges](https://gestalt.pinterest.systems/SideNavigation#Badge) variant to learn more.
+     */
+    badge?: typeof Badge | undefined;
+    /**
+     * Content of the group. See [nested directory](#Nested-directory) variant for more information.
+     */
+    children: React.ReactNode;
+    /**
+     * When supplied, will display a counter. See the [Counter](https://gestalt.pinterest.systems/SideNavigation#Counter) variant to learn more.
+     */
+    counter?: { number: string; accessibilityLabel: string } | undefined;
+    /**
+     * Nested directories can be static or expandable. See [nested directory](#Nested-directory) variant for more information.
+     */
+    display?: 'expandable' | 'static' | undefined;
+    /**
+     * When supplied, will display Icon. See the [Icon](https://gestalt.pinterest.systems/SideNavigation#Icon) variant to learn more.
+     */
+    icon?: Icons;
+    /**
+     *  When supplied, will display a notification dot. See the [Notification](https://gestalt.pinterest.systems/SideNavigation#Notification) variant to learn more.
+     */
+    notificationAccessibilityLabel?: string | undefined;
+    /**
+     * Label for the group. See [nested directory](#Nested-directory) variant for more information.
+     */
+    label: string;
+}
+
+export interface SideNavigationNestedGroup {
+    /**
+     * Content of the group. See [nested directory](#Nested-directory) variant for more information.
+     */
+    children: React.ReactNode;
+    /**
+     * Nested directories can be static or expandable. See [nested directory](#Nested-directory) variant for more information.
+     */
+    display?: 'expandable' | 'static' | undefined;
+    /**
+     * Label for the group. See [nested directory](#Nested-directory) variant for more information.
+     */
+    label: string;
 }
 
 /**
@@ -1403,6 +1645,7 @@ export interface SlimBannerProps {
         | 'infoBare'
         | 'warningBare'
         | 'successBare'
+        | 'recommendation'
         | undefined;
 }
 
@@ -1485,6 +1728,7 @@ export interface TableProps {
     borderStyle?: 'sm' | 'none' | undefined;
     children?: React.ReactNode | undefined;
     maxHeight?: number | string | undefined;
+    stickyColumns?: number | undefined;
 }
 
 export interface TableBodyProps {
@@ -1503,6 +1747,7 @@ export interface TableFooterProps {
 
 export interface TableHeaderProps {
     children?: React.ReactNode | undefined;
+    display?: 'tableHeaderGroup' | 'visuallyHidden';
     sticky?: boolean | undefined;
 }
 
@@ -1655,7 +1900,7 @@ export interface TextProps {
     inline?: boolean | undefined;
     italic?: boolean | undefined;
     overflow?: 'normal' | 'breakWord' | 'noWrap' | undefined;
-    size?: 'sm' | 'md' | 'lg' | '100' | '200' | '300' | '400' | '500' | '600' | undefined;
+    size?: '100' | '200' | '300' | '400' | '500' | '600' | undefined;
     lineClamp?: number;
     underline?: boolean | undefined;
     weight?: 'bold' | 'normal' | undefined;
@@ -1704,6 +1949,10 @@ export interface TextFieldProps {
      * @default false
      */
     disabled?: boolean | undefined;
+    /**
+     *  Optionally specify the action label to present for the enter key on virtual keyboards.
+     */
+    enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
     errorMessage?: React.ReactNode | undefined;
     /**
      * More information about how to complete the form field
@@ -1850,6 +2099,7 @@ export interface VideoProps {
     onWaiting?: AbstractEventHandler<React.SyntheticEvent<HTMLVideoElement>> | undefined;
     playsInline?: boolean | undefined;
     poster?: string | undefined;
+    startTime?: number | undefined;
 }
 
 /**
@@ -1890,7 +2140,7 @@ export const Card: React.FunctionComponent<CardProps>;
 export const ComboBox: React.FunctionComponent<ComboBoxProps>;
 export const Checkbox: ReactForwardRef<HTMLInputElement, CheckboxProps>;
 export const Collage: React.FunctionComponent<CollageProps>;
-export const ColorSchemeProvider: React.FunctionComponent<ColorSchemeProviderProps>;
+export const ColorSchemeProvider: React.FunctionComponent<React.PropsWithChildren<ColorSchemeProviderProps>>;
 export const Column: React.FunctionComponent<ColumnProps>;
 export const Container: React.FunctionComponent<ContainerProps>;
 export const Datapoint: React.FunctionComponent<DatapointProps>;
@@ -1924,7 +2174,7 @@ export const Modal: ReactForwardRef<HTMLDivElement, ModalProps>;
 export interface ModuleSubComponents {
     Expandable: React.FC<ModuleExpandableProps>;
 }
-export const Module: React.FunctionComponent<ModuleProps> & ModuleSubComponents;
+export const Module: React.FunctionComponent<React.PropsWithChildren<ModuleProps>> & ModuleSubComponents;
 export const NumberField: ReactForwardRef<HTMLInputElement, NumberFieldProps>;
 export const OnLinkNavigationProvider: React.FunctionComponent<OnLinkNavigationProviderProps>;
 export const PageHeader: React.FunctionComponent<PageHeaderProps>;
@@ -1932,10 +2182,30 @@ export const Pog: React.FunctionComponent<PogProps>;
 export const Popover: React.FunctionComponent<PopoverProps>;
 export const Pulsar: React.FunctionComponent<PulsarProps>;
 export const RadioButton: ReactForwardRef<HTMLInputElement, RadioButtonProps>;
+export interface RadioGroupSubCompnents {
+    RadioButton: typeof RadioButton;
+}
+
+export const RadioGroup: React.FunctionComponent<RadioGroupProps> & RadioGroupSubCompnents;
 export const Row: React.FunctionComponent<RowProps>;
 export const SearchField: ReactForwardRef<HTMLInputElement, SearchFieldProps>;
 export const SegmentedControl: React.FunctionComponent<SegmentedControlProps>;
-export const SelectList: React.FunctionComponent<SelectListProps>;
+
+export interface SelectListSubComponents {
+    Option: React.FC<SelectListOptionProps>;
+    Group: React.FC<SelectListGroupProps>;
+}
+export const SelectList: React.FunctionComponent<SelectListProps> & SelectListSubComponents;
+
+export interface SideNavigationSubcomponents {
+    Section: React.FC<SideNavigationSectionProps>;
+    TopItem: React.FC<SideNavigationTopItemProps>;
+    NestedItem: React.FC<SideNavigationNestedItemProps>;
+    Group: React.FC<SideNavigationNestedGroupProps>;
+    NestedGroup: React.FC<SideNavigationNestedGroupProps>;
+}
+export const SideNavigation: React.FunctionComponent<SideNaviationProps> & SideNavigationSubcomponents;
+
 export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
 export const SlimBanner: React.FunctionComponent<SlimBannerProps>;
 export const Spinner: React.FunctionComponent<SpinnerProps>;
@@ -1943,7 +2213,6 @@ export const Stack: React.FunctionComponent<StackProps>;
 export const Status: React.FunctionComponent<StatusProps>;
 export const Sticky: React.FunctionComponent<StickyProps>;
 export const Switch: React.FunctionComponent<SwitchProps>;
-
 export interface TableSubCompnents {
     Body: React.FC<TableBodyProps>;
     Cell: React.FC<TableCellProps>;
@@ -1968,6 +2237,5 @@ export interface UpsellSubCompnents {
 }
 export const Upsell: React.FunctionComponent<UpsellProps> & UpsellSubCompnents;
 export const Video: React.FunctionComponent<VideoProps>;
-
 export function useReducedMotion(): boolean;
 export function useFocusVisible(): { isFocusVisible: boolean };

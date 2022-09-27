@@ -4,9 +4,8 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Toastify {
+declare namespace StartToastifyInstance {
     function reposition(): void;
-
     interface Offset {
         x: number | string;
         y: number | string;
@@ -55,12 +54,27 @@ declare namespace Toastify {
         oldestFirst?: boolean | undefined;
     }
 }
-declare function Toastify(
-    options?: Toastify.Options,
-): {
+
+declare class Toastify {
+    /**
+     * The configuration object to configure Toastify
+     */
+    readonly options: StartToastifyInstance.Options;
+    /**
+     * The element that is the Toast
+     */
+    readonly toastElement: Element | null;
+    /**
+     * Display the toast
+     */
     showToast(): void;
-};
+    /**
+     * Hide the toast
+     */
+    hideToast(): void;
+}
+declare function StartToastifyInstance(options?: Toastify.Options): Toastify;
 
 export as namespace Toastify;
 
-export = Toastify;
+export = StartToastifyInstance;

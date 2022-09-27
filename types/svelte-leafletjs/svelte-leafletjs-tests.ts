@@ -71,7 +71,7 @@ import { LeafletMap, TileLayer, LeafletContext, Circle } from 'svelte-leafletjs'
     const f = () => {
         const mapEl = new LeafletMap({
             target: document.body,
-            props: { options: { center: [-36.84111, 174.7682] }, getMap },
+            props: { options: { center: [-36.84111, 174.7682] }, getMap, events: ['moveend', 'zoom', 'resize'] },
         });
     };
 }

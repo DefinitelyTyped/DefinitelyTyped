@@ -27,7 +27,7 @@ editor.commands.get('paragraph')?.execute();
 editor.commands.get('paragraph')?.execute({ selection: new Selection(new Element('div')) });
 // $ExpectType boolean
 editor.commands.get('paragraph')!.value;
-// $ExpectError
+// @ts-expect-error
 editor.commands.get('paragraph')!.value = true;
 
 // $ExpectType Paragraph

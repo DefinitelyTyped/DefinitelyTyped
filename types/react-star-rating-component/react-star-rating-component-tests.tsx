@@ -7,10 +7,10 @@ const interactionCallback = (next: number, prev: number, name: string) => ({
   name
 });
 
-// $ExpectError
+// @ts-expect-error
 const missingRequired = <StarRatingComponent />;
 
-// $ExpectError
+// @ts-expect-error
 const valueIsNumber = <StarRatingComponent name="" value={"5"} />;
 
 const validExample = <StarRatingComponent name="test" value={3} />;

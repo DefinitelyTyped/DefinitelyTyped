@@ -2,24 +2,24 @@ const counterID = 123456;
 
 ym; // $ExpectType Event
 
-// $ExpectError
+// @ts-expect-error
 ym('badID', 'init');
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'noSuchMethod');
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'init');
 
 // $ExpectType void
 ym(counterID, 'init', {});
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'init', {
     unknownProp: 'test',
 });
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'init', {
     ut: 'bad ut',
 });
@@ -32,7 +32,7 @@ ym(counterID, 'init', {
 // $ExpectType void
 ym(counterID, 'hit', '/page', 'Page title');
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'addFileExtenstion');
 
 // $ExpectType void
@@ -49,7 +49,7 @@ ym(counterID, 'file', '/download/nothing.7z', {
     params: { order_price: 200, currency: 'UAH' },
 });
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'extLink', 'https://some.site', {
     callback: null,
     ctx: { a: 'b' },
@@ -60,7 +60,7 @@ ym(counterID, 'extLink', 'https://some.site', {
 // $ExpectType void
 ym(counterID, 'setUserID', '123456');
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'setUserID', 123456);
 
 // $ExpectType void
@@ -69,13 +69,13 @@ ym(counterID, 'notBounce');
 // $ExpectType void
 ym(counterID, 'reachGoal', 'target');
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'reachGoal', 111);
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'reachGoal', null);
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'reachGoal', 'someGoal', null);
 
 // $ExpectType void
@@ -91,7 +91,7 @@ ym(
     111,
 );
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'params');
 
 // $ExpectType void
@@ -101,7 +101,7 @@ ym(counterID, 'params', {
     customKey: 'some data',
 });
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'userParams');
 
 // $ExpectType void
@@ -116,5 +116,5 @@ ym(counterID, 'userParams', {
 // $ExpectType void
 ym(counterID, 'replacePhones');
 
-// $ExpectError
+// @ts-expect-error
 ym(counterID, 'replacePhones', 'anotherParam');

@@ -75,13 +75,13 @@ client.brpoplpush("some", "value", 1000);
 
 // overloaded method
 
-// $ExpectError
+// @ts-expect-error
 client.set();
 
-// $ExpectError
+// @ts-expect-error
 client.set("arg1");
 
-// $ExpectError
+// @ts-expect-error
 client.set("arg1", false);
 
 // $ExpectType Promise<"OK">
@@ -105,10 +105,10 @@ client.set("key", "value", "mode", 1000, "flag");
 // $ExpectType Promise<"OK" | undefined>
 client.set("key", "value", "mode", 1000, "flag");
 
-// $ExpectError
+// @ts-expect-error
 client.set("key", "value", "mode", 1000, "flag", 100);
 
-// $ExpectError
+// @ts-expect-error
 client.set("key", "value", "mode", 1000, (err, reply) => {}, "flag");
 
 // $ExpectType Promise<number>

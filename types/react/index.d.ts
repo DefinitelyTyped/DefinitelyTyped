@@ -58,7 +58,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = React;
 export as namespace React;
 
@@ -97,7 +97,7 @@ declare namespace React {
      * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
      *   to component.
      *
-     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     * `C` must be the type _of_ a React component so you need to use typeof as in `React.ElementRef<typeof MyComponent>`.
      *
      * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
      *       `React.forwardRef()` returns.
@@ -796,7 +796,7 @@ declare namespace React {
                 : P
             : P;
 
-    type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
+    type PropsWithChildren<P = unknown> = P & { children?: ReactNode | undefined };
 
     /**
      * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
@@ -1117,7 +1117,7 @@ declare namespace React {
     }
 
     /**
-     * Returns a deferred version of the value that may “lag behind” it for at most `timeoutMs`.
+     * Returns a deferred version of the value that may “lag behind” it.
      *
      * This is commonly used to keep the interface responsive when you have something that renders immediately
      * based on user input and something that needs to wait for a data fetch.
@@ -1141,9 +1141,7 @@ declare namespace React {
      * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
-     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
-     *
-     * @param config An optional object with `timeoutMs`
+     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**`
      *
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#usetransition
      */
@@ -2144,6 +2142,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2428,8 +2427,13 @@ declare namespace React {
     }
 
     interface TableHTMLAttributes<T> extends HTMLAttributes<T> {
+        align?: "left" | "center" | "right" | undefined;
+        bgcolor?: string | undefined;
+        border?: number | undefined;
         cellPadding?: number | string | undefined;
         cellSpacing?: number | string | undefined;
+        frame?: boolean | undefined;
+        rules?: "none" | "groups" | "rows" | "columns" | "all" | undefined;
         summary?: string | undefined;
         width?: number | string | undefined;
     }

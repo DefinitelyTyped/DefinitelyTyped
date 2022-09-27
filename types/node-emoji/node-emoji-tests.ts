@@ -18,7 +18,7 @@ const emojis_from_search: string[] = emoji_search.map(emoji => emoji.emoji);
 const unemojified_string: string = emoji.unemojify('I ❤️ 🍕');
 
 const found_emoji = emoji.find('🍕');
-const found_emoji_string: string = found_emoji.emoji;
+const found_emoji_string: string | undefined = found_emoji?.emoji;
 
 const hasEmoji: boolean = emoji.hasEmoji('🍕');
 

@@ -2,13 +2,13 @@ import OpenSeadragon, { Viewport, Drawer, MouseTracker, IIIFTileSource, Button, 
 
 const viewer = OpenSeadragon({ id: 'viewerid' });
 
-// $ExpectError
+// @ts-expect-error
 viewer.addHandler('canvas-click', ({ fullScreen }) => {
     console.log(fullScreen);
 });
 
 const preProcessHandler: PreprocessEventHandler = ({ eventType }) => {
-    // $ExpectError
+    // @ts-expect-error
     console.log(eventType === 'open');
 };
 

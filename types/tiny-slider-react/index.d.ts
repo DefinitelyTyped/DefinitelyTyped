@@ -3,7 +3,7 @@
 // Definitions by: Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
-import * as React from "react";
+import * as React from 'react';
 
 export interface CommonOptions {
     /**
@@ -25,7 +25,7 @@ export interface CommonOptions {
      * Number of slides going on one "click".
      * @defaultValue 1
      */
-    slideBy?: number | "page" | undefined;
+    slideBy?: number | 'page' | undefined;
     /**
      * Speed of the slide animation (in "ms").
      * @defaultValue 300
@@ -118,12 +118,12 @@ export interface TinySliderSettings extends CommonOptions {
      * With carousel everything slides to the side, while gallery uses fade animations and changes all slides at once.
      * @defaultValue "carousel"
      */
-    mode?: "carousel" | "gallery" | undefined;
+    mode?: 'carousel' | 'gallery' | undefined;
     /**
      * The axis of the slider.
      * @defaultValue "horizontal"
      */
-    axis?: "horizontal" | "vertical" | undefined;
+    axis?: 'horizontal' | 'vertical' | undefined;
     /**
      * The container element/selector around the prev/next buttons.
      * controlsContainer must have at least 2 child elements.
@@ -145,7 +145,7 @@ export interface TinySliderSettings extends CommonOptions {
      * Direction of slide movement (ascending/descending the slide index).
      * @defaultValue "forward"
      */
-    autoplayDirection?: "forward" | "backward" | undefined;
+    autoplayDirection?: 'forward' | 'backward' | undefined;
     /**
      * The customized autoplay start/stop button or selector.
      * @defaultValue false
@@ -207,7 +207,7 @@ export interface TinySliderSettings extends CommonOptions {
      * Make sure you run the inner slider first, otherwise the height of the inner slider container will be wrong.
      * @defaultValue false
      */
-    nested?: "inner" | "outer" | false | undefined;
+    nested?: 'inner' | 'outer' | false | undefined;
     /**
      * Indicate whether the slider will be frozen (controls, nav, autoplay and other functions will stop work) when all slides can be displayed in one page.
      * @defaultValue true
@@ -242,7 +242,7 @@ export interface TinySliderInfo {
     visibleNavIndexesCached?: number | undefined;
 }
 
-export interface TinySliderProps {
+export type TinySliderProps = React.PropsWithChildren<{
     settings?: TinySliderSettings | undefined;
     onClick?: ((slideClicked: number, info: string, event: Event) => void) | undefined;
     startIndex?: number | undefined;
@@ -252,7 +252,7 @@ export interface TinySliderProps {
     onTouchStart?: ((info: TinySliderInfo) => void) | undefined;
     onTouchMove?: ((info: TinySliderInfo) => void) | undefined;
     onTouchEnd?: ((info: TinySliderInfo) => void) | undefined;
-}
+}>;
 
 declare class TinySlider extends React.Component<TinySliderProps> {}
 

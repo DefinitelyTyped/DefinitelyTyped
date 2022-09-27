@@ -18,8 +18,8 @@ sign(data, secret, { typ: 'JWT' });
 // $ExpectType string
 sign(data, secret, { typ: 'JWT', info: 'test' });
 
-// $ExpectError
+// @ts-expect-error
 sign(data);
 
-// $ExpectError
+// @ts-expect-error
 sign(data, { typ: 'testy' });

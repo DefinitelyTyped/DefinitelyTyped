@@ -571,7 +571,7 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
+    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW' | 'zh-CN';
 
     /**
      * Check if the string is a valid identity card code.
@@ -950,6 +950,7 @@ declare namespace validator {
          * @default false
          */
         no_symbols?: boolean | undefined;
+        locale?: AlphaLocale | undefined;
     }
 
     /**
@@ -985,6 +986,7 @@ declare namespace validator {
         | 'BR'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'
@@ -1048,7 +1050,7 @@ declare namespace validator {
      * Check if string is considered a strong password. Allows options to be added
      */
 
-    interface strongPasswordOptions {
+    interface StrongPasswordOptions {
         minLength?: number | undefined;
         minLowercase?: number | undefined;
         minUppercase?: number | undefined;
@@ -1062,7 +1064,13 @@ declare namespace validator {
         pointsForContainingNumber?: number | undefined;
         pointsForContainingSymbol?: number | undefined;
     }
-    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
+
+    function isStrongPassword(
+        str: string,
+        options?: StrongPasswordOptions & { returnScore?: false | undefined },
+    ): boolean;
+    function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
+
     /**
      * Check if the string contains any surrogate pairs chars.
      */

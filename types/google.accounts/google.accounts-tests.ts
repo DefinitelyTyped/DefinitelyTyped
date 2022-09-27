@@ -100,6 +100,8 @@ google.accounts.id.initialize({
     itp_support: true,
 });
 
+google.accounts.id.prompt();
+
 google.accounts.id.prompt(notification => {
     // $ExpectType boolean
     notification.isNotDisplayed();

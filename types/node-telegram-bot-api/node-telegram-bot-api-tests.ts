@@ -43,7 +43,8 @@ MyTelegramBot.sendPhoto(
     { caption: 'Foo', parse_mode: 'HTML' },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendPhoto(1234, 'photo/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendPhoto(1234, 'photo/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendAudio(1234, 'audio/path');
 MyTelegramBot.sendAudio(1234, 'audio/path', { caption: 'Foo' });
 MyTelegramBot.sendAudio(
@@ -52,7 +53,8 @@ MyTelegramBot.sendAudio(
     { caption: 'Foo', parse_mode: 'Markdown' },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendAudio(1234, 'audio/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendAudio(1234, 'audio/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendDocument(1234, 'doc/path');
 MyTelegramBot.sendDocument(1234, 'doc/path', { caption: 'Foo' });
 MyTelegramBot.sendDocument(
@@ -61,7 +63,8 @@ MyTelegramBot.sendDocument(
     { caption: 'Foo', parse_mode: 'HTML' },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendDocument(1234, 'doc/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendDocument(1234, 'doc/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendPoll(1234, 'question', ['answer1', 'answer2'], { type: 'regular' });
 MyTelegramBot.sendSticker(1234, 'sticker/path');
 MyTelegramBot.sendSticker(1234, 'sticker/path', { reply_to_message_id: 5678 });
@@ -71,7 +74,8 @@ MyTelegramBot.sendSticker(
     { reply_to_message_id: 5678 },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendSticker(1234, 'sticker/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendSticker(1234, 'sticker/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendVideo(1234, 'video/path');
 MyTelegramBot.sendVideo(1234, 'video/path', { caption: 'Foo' });
 MyTelegramBot.sendVideo(
@@ -80,7 +84,8 @@ MyTelegramBot.sendVideo(
     { caption: 'Foo', parse_mode: 'MarkdownV2' },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendVideo(1234, 'video/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendVideo(1234, 'video/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendVideoNote(1234, 'video/path');
 MyTelegramBot.sendVideoNote(1234, 'video/path', { disable_notification: true });
 MyTelegramBot.sendVideoNote(
@@ -89,7 +94,8 @@ MyTelegramBot.sendVideoNote(
     { disable_notification: true },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendVideoNote(1234, 'video/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendVideoNote(1234, 'video/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendVoice(1234, 'voice/path');
 MyTelegramBot.sendVoice(1234, 'voice/path', { caption: 'Foo' });
 MyTelegramBot.sendVoice(
@@ -98,7 +104,8 @@ MyTelegramBot.sendVoice(
     { caption: 'Foo', parse_mode: 'HTML' },
     { filename: 'filename', contentType: 'application/octet-stream' },
 );
-MyTelegramBot.sendVoice(1234, 'voice/path', { filename: 'filename', contentType: 'application/octet-stream' }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.sendVoice(1234, 'voice/path', { filename: 'filename', contentType: 'application/octet-stream' });
 MyTelegramBot.sendAnimation(1234, 'animation/path', { caption: 'Foo', duration: 100, width: 200, height: 300 });
 MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
@@ -302,7 +309,8 @@ MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }]
 });
 MyTelegramBot.setMyCommands([{ command: 'command', description: 'description' }], {
     language_code: 'ru',
-    scope: { type: 'default', chat_id: 1234 }, // $ExpectError
+    // @ts-expect-error
+    scope: { type: 'default', chat_id: 1234 },
 });
 MyTelegramBot.banChatSenderChat(1234, 1234);
 MyTelegramBot.unbanChatSenderChat(1234, 1234);
@@ -319,7 +327,8 @@ MyTelegramBot.setChatMenuButton({
     menu_button: { type: 'commands' },
 });
 MyTelegramBot.setChatMenuButton({});
-MyTelegramBot.setChatMenuButton({ menu_button: { type: 'mainer' } }); // $ExpectError
+// @ts-expect-error
+MyTelegramBot.setChatMenuButton({ menu_button: { type: 'mainer' } });
 
 MyTelegramBot.getChatMenuButton({ chat_id: 1234 });
 MyTelegramBot.getChatMenuButton({});

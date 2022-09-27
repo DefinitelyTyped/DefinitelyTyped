@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const PixelShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        resolution: Uniform;
-        pixelSize: Uniform;
+        tDiffuse: IUniform;
+        resolution: IUniform;
+        pixelSize: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

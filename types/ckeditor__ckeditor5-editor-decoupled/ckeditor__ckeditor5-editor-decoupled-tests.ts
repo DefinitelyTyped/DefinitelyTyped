@@ -26,7 +26,7 @@ DecoupledEditor.create('', { placeholder: 'foo' }).then(editor => {
 });
 
 const htmlElement = document.createElement('div');
-// $ExpectError
+// @ts-expect-error
 new DecoupledEditor();
 
 class MyPlugin extends Plugin {}
@@ -35,11 +35,11 @@ class MyPlugin extends Plugin {}
     let editor = await DecoupledEditor.create('foo');
     editor = await DecoupledEditor.create(htmlElement);
     editor = await DecoupledEditor.create(htmlElement, { plugins: [MyPlugin] });
-    // $ExpectError
+    // @ts-expect-error
     editor.create();
     const str: string = editor.getData();
     editor.setData(str);
-    // $ExpectError
+    // @ts-expect-error
     editor.setData();
     // $ExpectType HtmlDataProcessor
     editor.data.processor;

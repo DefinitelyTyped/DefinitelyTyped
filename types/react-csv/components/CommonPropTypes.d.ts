@@ -11,7 +11,7 @@ export type SyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>) => 
 export type AsyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => void;
 
 export interface CommonPropTypes {
-    data: string | Data;
+    data: string | Data | (() => string | Data);
     headers?: Headers | undefined;
     enclosingCharacter?: string | undefined;
     separator?: string | undefined;

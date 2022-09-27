@@ -1889,7 +1889,23 @@ declare global {
 
         type GetSessionCallback = (session: Session) => void;
 
-        type Timeout = number & { __ioBrokerBrand: 'Timeout' };
-        type Interval = number & { __ioBrokerBrand: 'Interval' };
+        /**
+         * A timeout identifier that can be used to clear the timeout.
+         * @remarks Note that this is actually a `number` type, but it
+         * is not compatible with `globalThis.clearTimeout`. Provide
+         * this to iobroker's `adatper.clearTimeout` instead.
+         */
+        interface Timeout {
+            __ioBrokerBrand: 'Timeout';
+        }
+        /**
+         * An interval identifier that can be used to clear the interval.
+         * @remarks Note that this is actually a `number` type, but it
+         * is not compatible with `globalThis.clearInterval`. Provide
+         * this to iobroker's `adapter.clearInterval` instead.
+         */
+        interface Interval {
+            __ioBrokerBrand: 'Interval';
+        }
     } // end namespace ioBroker
 } // end declare global

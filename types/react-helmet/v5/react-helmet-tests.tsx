@@ -124,12 +124,12 @@ function HTML() {
 <Helmet htmlAttributes={{ 'data-foo': 'bar' }} />;
 <Helmet bodyAttributes={{ 'data-foo': 'bar' }} />;
 
-// $ExpectError
+// @ts-expect-error
 <Helmet htmlAttributes={{ hidden: 42 }} />;
-// $ExpectError
+// @ts-expect-error
 <Helmet bodyAttributes={{ hidden: 42 }} />;
 
-// $ExpectError
-<Helmet link={[ invalidProp: 'foo' ]} />;
-// $ExpectError
-<Helmet meta={[ invalidProp: 'foo' ]} />;
+// @ts-expect-error
+<Helmet link={{ invalidProp: 'foo' }} />;
+// @ts-expect-error
+<Helmet meta={{ invalidProp: 'foo' }} />;

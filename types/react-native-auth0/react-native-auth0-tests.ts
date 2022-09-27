@@ -107,7 +107,8 @@ auth0.webAuth.authorize(
         prompt: 'login',
     },
     {
-        incorrectValue: true, // $ExpectError
+        // @ts-expect-error
+        incorrectValue: true,
     },
 );
 
@@ -129,7 +130,8 @@ auth0.webAuth
         language: 'en',
         prompt: 'login',
     })
-    .then(credentials => credentials.doesNotExist); // $ExpectError
+    // @ts-expect-error
+    .then(credentials => credentials.doesNotExist);
 
 auth0.webAuth
 .authorize({

@@ -9,7 +9,8 @@ const imageKit = new ImageKit({
 
 imageKit.url({ path: '/some/path', transformationPosition: 'path' }); // $ExpectType string
 imageKit.url({ src: '/some/src', transformationPosition: 'path' }); // $ExpectType string
-imageKit.url({ path: '/some/path', src: '/some/src', transformationPosition: 'path' }); // $ExpectError
+// @ts-expect-error
+imageKit.url({ path: '/some/path', src: '/some/src', transformationPosition: 'path' });
 
 imageKit.listFiles({}, (error, listFileResponse) => {}); // $ExpectType void
 imageKit.listFiles({}); // $ExpectType Promise<ListFileResponse>

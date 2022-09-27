@@ -24,7 +24,7 @@ tpu.check({
     isUsed;
 });
 
-// $ExpectError
+// @ts-expect-error
 tpu.check();
 
 // $Expected promise void
@@ -39,7 +39,7 @@ tpu.waitForStatus({
     timeOutMs: 2000
 }).then(() => { });
 
-// $ExpectError
+// @ts-expect-error
 tpu.waitForStatus();
 
 // $Expected promise void
@@ -54,7 +54,7 @@ tpu.waitUntilFree({
     timeOutMs: 2000
 }).then(() => { });
 
-// $ExpectError
+// @ts-expect-error
 tpu.waitUntilFree();
 
 // $Expected promise void
@@ -69,7 +69,7 @@ tpu.waitUntilFreeOnHost({
     timeOutMs: 2000
 }).then(() => { });
 
-// $ExpectError
+// @ts-expect-error
 tpu.waitUntilFreeOnHost();
 
 // $Expected promise void
@@ -84,7 +84,7 @@ tpu.waitUntilUsed({
     timeOutMs: 2000
 }).then(() => { });
 
-// $ExpectError
+// @ts-expect-error
 tpu.waitUntilUsed();
 
 // $Expected promise void
@@ -99,5 +99,5 @@ tpu.waitUntilUsedOnHost({
     timeOutMs: 2000
 }).then(() => { });
 
-// $ExpectError
+// @ts-expect-error
 tpu.waitUntilUsedOnHost();

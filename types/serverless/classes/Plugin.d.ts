@@ -48,15 +48,28 @@ declare namespace Plugin {
 
     interface Logging {
         log: {
-            error: (text: string) => void;
-            warning: (text: string) => void;
-            notice: (text: string) => void;
-            info: (text: string) => void;
-            debug: (text: string) => void;
-            verbose: (text: string) => void;
-            success: (text: string) => void;
+            error: (...args: any[]) => void;
+            warning: (...args: any[]) => void;
+            notice: (...args: any[]) => void;
+            info: (...args: any[]) => void;
+            debug: (...args: any[]) => void;
+            verbose: (...args: any[]) => void;
+            success: (...args: any[]) => void;
         };
         writeText: (text: string | string[]) => void;
+        progress: {
+            get: (name: string) => Progress;
+            create: (args: { message?: string, name?: string }) => Progress;
+        };
+    }
+
+    interface Progress {
+        namespace: string;
+        name: string;
+        update: (message: string) => void;
+        info: (message: string) => void;
+        notice: (message: string) => void;
+        remove: () => void;
     }
 
     interface PluginStatic {

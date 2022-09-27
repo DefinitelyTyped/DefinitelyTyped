@@ -3,9 +3,9 @@ import jackrabbit = require('@pager/jackrabbit');
 
 const RABBIT_URL = 'amqp://localhost';
 
-// $ExpectError
+// @ts-expect-error
 jackrabbit();
-// $ExpectError
+// @ts-expect-error
 jackrabbit(1);
 
 const rabbit = jackrabbit(RABBIT_URL);

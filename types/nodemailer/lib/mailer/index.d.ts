@@ -104,8 +104,8 @@ declare namespace Mail {
         cc?: string | Address | Array<string | Address> | undefined;
         /** Comma separated list or an array of recipients e-mail addresses that will appear on the Bcc: field */
         bcc?: string | Address | Array<string | Address> | undefined;
-        /** An e-mail address that will appear on the Reply-To: field */
-        replyTo?: string | Address | undefined;
+        /** Comma separated list or an array of e-mail addresses that will appear on the Reply-To: field */
+        replyTo?: string | Address | Array<string | Address> | undefined;
         /** The message-id this message is replying */
         inReplyTo?: string | Address | undefined;
         /** Message-id list (an array or space separated string) */

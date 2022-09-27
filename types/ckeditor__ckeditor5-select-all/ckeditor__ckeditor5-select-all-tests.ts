@@ -13,7 +13,7 @@ new SelectAll.SelectAllUI(editor).init();
 new SelectAll.SelectAllEditing(editor).init();
 
 new SelectAllCommand(editor).execute();
-// $ExpectError
+// @ts-expect-error
 new SelectAllCommand(editor).execute(true);
 
 // $ExpectType false

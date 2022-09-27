@@ -32,7 +32,7 @@ import * as R from 'ramda';
         return n % 2 === 0;
     }
 
-    // $ExpectError
+    // @ts-expect-error
     R.reject(isEven, ['foo']);
 };
 
@@ -43,9 +43,9 @@ import * as R from 'ramda';
     let numberArray: number[];
     let stringArray: string[];
 
-    // $ExpectError
+    // @ts-expect-error
     numberArray = R.reject(R.is(Number), unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     numberArray = rejectNumbers(unknownArray);
     stringArray = R.reject(R.is(Number), unknownArray);
     stringArray = rejectNumbers(unknownArray);
@@ -54,9 +54,9 @@ import * as R from 'ramda';
     let numberDictionary: R.Dictionary<number>;
     let stringDictionary: R.Dictionary<string>;
 
-    // $ExpectError
+    // @ts-expect-error
     numberDictionary = R.reject(R.is(Number), unknownDictionary);
-    // $ExpectError
+    // @ts-expect-error
     numberDictionary = rejectNumbers(unknownDictionary);
     stringDictionary = R.reject(R.is(Number), unknownDictionary);
     stringDictionary = rejectNumbers(unknownDictionary);

@@ -15,7 +15,7 @@ const formData = new FormData();
 formData.append('_method', 'delete');
 formData.append(Rails.csrfParam()!, Rails.csrfToken()!);
 
-// $ExpectError
+// @ts-expect-error
 formData.append(Rails.csrfParam(), Rails.csrfToken());
 
 Rails.delegate(document, '#batch_checkbox_all', 'change', ({ target }) => {

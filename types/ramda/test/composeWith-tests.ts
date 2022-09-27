@@ -43,6 +43,6 @@ import * as R from 'ramda';
     incAgeIfNotNil({ age: 1 }); // => 2
 
     // Should pipe at least on function.
-    // $ExpectError
+    // @ts-expect-error
     composeWhileNotNil([]);
 };

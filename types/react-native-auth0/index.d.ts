@@ -221,7 +221,7 @@ export interface AuthorizeOptions {
 }
 
 export interface ClearSessionParams {
-    federated: boolean;
+    federated?: boolean;
     customScheme?: string;
 }
 

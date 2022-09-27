@@ -23,5 +23,5 @@ doNotZip.toBlob(data);
 // $ExpectType Buffer
 doNotZip.toBuffer(data);
 
-// $ExpectError
+// @ts-expect-error
 doNotZip.toBuffer(5);

@@ -20,21 +20,21 @@ throttle(8, proc, { debounceMode: false });
 throttle(9, proc, { noTrailing: false, noLeading: false, debounceMode: false });
 
 // Examples of invalid options.
-// $ExpectError
+// @ts-expect-error
 throttle();
-// $ExpectError
+// @ts-expect-error
 throttle(func);
-// $ExpectError
+// @ts-expect-error
 throttle('', func);
-// $ExpectError
+// @ts-expect-error
 throttle(0);
-// $ExpectError
+// @ts-expect-error
 throttle(0, 0);
-// $ExpectError
+// @ts-expect-error
 throttle(0, func, { noTrailing: 0 });
-// $ExpectError
+// @ts-expect-error
 throttle(0, func, { noLeading: 0 });
-// $ExpectError
+// @ts-expect-error
 throttle(0, func, { debounceMode: 0 });
 
 // Throttled functions should be subtype of `typeof callback` if `callback` will not return value.
@@ -50,7 +50,7 @@ proc3();
 proc3.cancel();
 
 // Throttled functions should not be subtype of `typeof callback` if `callback` will return value.
-// $ExpectError
+// @ts-expect-error
 const func2: Func = throttle(1, func);
 
 const func3 = throttle(1, func);
@@ -60,9 +60,9 @@ func3;
 // $ExpectType void
 func3(100);
 // Throttled function should reject arguments if `callback` reject them.
-// $ExpectError
+// @ts-expect-error
 func3('abc');
-// $ExpectError
+// @ts-expect-error
 func3();
 // Throttled function should have `cancel`.
 // $ExpectType void
@@ -77,19 +77,19 @@ debounce(42, proc, { atBegin: true });
 debounce(42, proc, { atBegin: false });
 
 // Examples of invalid options.
-// $ExpectError
+// @ts-expect-error
 debounce();
-// $ExpectError
+// @ts-expect-error
 debounce(func);
-// $ExpectError
+// @ts-expect-error
 debounce('', func);
-// $ExpectError
+// @ts-expect-error
 debounce(10);
-// $ExpectError
+// @ts-expect-error
 debounce(10, 0);
-// $ExpectError
+// @ts-expect-error
 debounce(10, func, { atBegin: 0 });
-// $ExpectError
+// @ts-expect-error
 debounce(10, true, func);
 
 // Debounced functions should be subtype of `typeof callback` if `callback` will not return value.
@@ -103,7 +103,7 @@ proc5();
 proc5.cancel();
 
 // Debounced functions should not be subtype of `typeof callback` if `callback` will return value.
-// $ExpectError
+// @ts-expect-error
 const func4: Func = debounce(1, func);
 
 const func5 = debounce(1, func);
@@ -111,9 +111,9 @@ const func5 = debounce(1, func);
 // $ExpectType void
 func5(100);
 // Debounced function should reject arguments if `callback` reject them.
-// $ExpectError
+// @ts-expect-error
 func5('abc');
-// $ExpectError
+// @ts-expect-error
 func5();
 // Debounced function should have `cancel`.
 // $ExpectType void
@@ -121,9 +121,9 @@ func5.cancel();
 // `cancel` should accept options with optional `upcomingOnly` boolean flag
 // $ExpectType void
 func5.cancel({ upcomingOnly: true });
-// $ExpectError
+// @ts-expect-error
 func5.cancel({ upcomingOnly: 'true' });
-// $ExpectError
+// @ts-expect-error
 func5.cancel({ upcomingOnly: 0 });
-// $ExpectError
+// @ts-expect-error
 func5.cancel(true);

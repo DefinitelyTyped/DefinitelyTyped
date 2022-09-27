@@ -14,7 +14,6 @@
 //                  Robert Helms <https://github.com/rdhelms>
 //                  Julien Quere <https://github.com/jlnquere>
 //                  Thibault MOCELLIN <https://github.com/tybi>
-//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Jerome De Leon <https://github.com/JeromeDeLeon>
@@ -785,7 +784,7 @@ declare global {
             skip(n: number): Query<T>;
             sortByTextScore(): this;
             startsWith<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, prefix: string): this;
-            subscribe(): Promise<LiveQuerySubscription>;
+            subscribe(sessionToken?: string): Promise<LiveQuerySubscription>;
             toJSON(): any;
             withJSON(json: any): this;
             withCount(includeCount?: boolean): this;
@@ -1057,6 +1056,7 @@ declare global {
             extend(protoProps?: any, classProps?: any): any;
             hydrate<T extends User>(userJSON: any): Promise<T>;
             enableUnsafeCurrentUser(): void;
+            disableUnsafeCurrentUser(): void;
             logInWith<T extends User>(
                 provider: string | AuthProvider,
                 options: { authData?: AuthData | undefined },
@@ -1266,7 +1266,7 @@ declare global {
             }
 
             interface Index {
-                [fieldName: string]: TYPE;
+                [fieldName: string]: number | string;
             }
 
             /**
