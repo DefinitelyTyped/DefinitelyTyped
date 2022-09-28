@@ -3434,7 +3434,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      * @see https://nightwatchjs.org/api/axeInject.html
      */
-    axeInject(): NightwatchAPI;
+    axeInject(): Awaitable<this, null>;
 
     /**
      * Analyzes the current page against applied axe rules.
@@ -3467,13 +3467,14 @@ export interface ClientCommands extends ChromiumClientCommands {
      * };
      *
      * @param selector - CSS selector to scope rule analysis against, will cascade to child elements
-     * @param options - Optional settings to specify specify rules to runOnly or disable specific rules, to ignore.
+     * @param options - Allows configuration of what rules will be run (accessibility standard or rules to enable/disable)
+     * @see {@link https://www.deque.com/axe/core-documentation/api-documentation/#options-parameter}
      *
-     * @see https://nightwatchjs.org/api/axeRun.html
+     * @see {@link https://nightwatchjs.org/api/axeRun.html}
      */
     axeRun(
         selector?: string,
-        options?: {},
+        options?: { [key: string]: any },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
 }
