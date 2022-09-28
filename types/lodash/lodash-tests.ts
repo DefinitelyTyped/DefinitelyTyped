@@ -4179,11 +4179,9 @@ fp.now(); // $ExpectType number
     } else {
         obj3; // $ExpectType { value?: boolean | undefined; }
     }
-    type Errors = Record<string, string>;
-    const errors: Errors = {};
-
-    if (_.isEmpty(errors)) {
-        errors.test = "123";
+    const record: Record<string, string> = {};
+    if (_.isEmpty(record)) {
+        record.test = "123";
     }
     interface Foo {
         bar?: string;
@@ -4193,7 +4191,7 @@ fp.now(); // $ExpectType number
         foo.bar = "bar";
     }
     if (_.isEmpty(foo)) {
-        foo.bar = "baz"; // This should be allowed
+        foo.bar = "baz";
     }
 }
 
