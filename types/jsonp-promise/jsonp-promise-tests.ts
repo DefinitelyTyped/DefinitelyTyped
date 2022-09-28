@@ -17,3 +17,8 @@ const { promise, cancel } = jsonp('https://jsonplaceholder.typicode.com/posts/1'
 wait(promise);
 // $ExpectType void
 cancel();
+
+/**
+ * Tests optional `options` parameter
+ */
+jsonp('https://jsonplaceholder.typicode.com/posts/1');
