@@ -1,4 +1,4 @@
-import VirtualScroll, { VirtualScrollEvent } from 'virtual-scroll';
+import VirtualScroll = require('virtual-scroll');
 
 const scroll = new VirtualScroll({
     el: document.body,
@@ -13,7 +13,7 @@ const scroll = new VirtualScroll({
     useTouch: false,
 });
 
-const callback = (event: VirtualScrollEvent) => {
+const callback: Parameters<VirtualScroll['on']>[0] = event => {
     const { deltaX, deltaY, originalEvent, x, y } = event;
     scroll.off(callback);
     scroll.destroy();

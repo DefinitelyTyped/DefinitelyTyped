@@ -3,16 +3,16 @@
 // Definitions by: Leon Baudouin <https://github.com/LeonBaudouin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface VirtualScrollEvent {
+declare interface VirtualScrollEvent {
     x: number; // total distance scrolled on the x axis
     y: number; // total distance scrolled on the y axis
     deltaX: number; // distance scrolled since the last event on the x axis
     deltaY: number; // distance scrolled since the last event on the y axis
     originalEvent: Event; // the native event triggered by the pointer device or keyboard
 }
-export type VirtualScrollCallback = (e: VirtualScrollEvent) => void;
+declare type VirtualScrollCallback = (e: VirtualScrollEvent) => void;
 
-export interface Options {
+interface Options {
     el: HTMLElement; // the target element for mobile touch events. Defaults to window.
     mouseMultiplier: number; // General multiplier for all mousewheel (including Firefox). Default to 1.
     touchMultiplier: number; // Mutiply the touch action by this modifier to make scroll faster than finger movement. Defaults to 2.
@@ -25,9 +25,11 @@ export interface Options {
     useTouch: boolean; // if true, uses touch events to simulate scrolling. Defaults to true
 }
 
-export default class VirtualScroll {
+declare class VirtualScroll {
     constructor(options?: Partial<Options>);
     destroy(): void;
     on(cb: VirtualScrollCallback): void;
     off(cb: VirtualScrollCallback): void;
 }
+
+export = VirtualScroll;
