@@ -108,3 +108,5 @@ export default class LocomotiveScroll {
     stop(): () => void;
     scrollTo(target: ScrollToTarget, options?: ScrollToOptions): () => void;
 }
+
+export as namespace LocomotiveScroll;
