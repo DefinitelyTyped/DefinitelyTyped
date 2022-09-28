@@ -1,9 +1,10 @@
-// Type definitions for pouchdb-find 6.3
+// Type definitions for pouchdb-find 7.3
 // Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 //                 Sebastian Ramirez <https://github.com/tiangolo>
+//                 Samuel Kerr <https://github.com/kuzmatech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.8
 
 /// <reference types="pouchdb-core" />
 
