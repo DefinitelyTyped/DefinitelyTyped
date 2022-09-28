@@ -4317,8 +4317,10 @@ export function promap<A, B>(
  */
 export function prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
 export function prop<P extends keyof T, T>(p: P, obj: T): T[P];
-export function prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
-export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
+export function prop<P extends string>(p: P): <R, T extends Record<P, R>>(obj: T) => T[P];
+export function prop<P extends string>(p: P): <R>(obj: Record<P, R>) => R;
+export function prop<P extends string, R, T extends Record<P, R>>(p: P): (obj: T) => T[P];
+export function prop<P extends string, R>(p: P): (obj: Record<P, R>) => R;
 
 // NOTE: `hair` property was added to `alois` to make example work.
 // A union of two types is a valid usecase but doesn't work with current types
