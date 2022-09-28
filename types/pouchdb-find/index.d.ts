@@ -118,6 +118,9 @@ declare namespace PouchDB {
 
                 /** Only supports 'json', and it's also the default */
                 type?: string | undefined;
+
+                //** The same syntax as the selector you’d pass to find(), and only documents matching the selector will be included in the index. */
+                partial_filter_selector?: Selector | undefined
             };
         }
 
