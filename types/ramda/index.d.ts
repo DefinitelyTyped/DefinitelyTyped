@@ -3854,14 +3854,14 @@ declare function path<
     K0 extends keyof S = keyof S,
     K1 extends keyof S[K0] = keyof S[K0],
     K2 extends keyof S[K0][K1] = keyof S[K0][K1]
->(path: [K0, K1, K2]): S[K0][K1][K2];
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
 declare function path<
     S,
     K0 extends keyof S = keyof S,
     K1 extends keyof S[K0] = keyof S[K0],
     K2 extends keyof S[K0][K1] = keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
->(path: [K0, K1, K2, K3]): S[K0][K1][K2][K3];
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
 declare function path<
     S,
     K0 extends keyof S = keyof S,
@@ -3869,7 +3869,7 @@ declare function path<
     K2 extends keyof S[K0][K1] = keyof S[K0][K1],
     K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
->(path: [K0, K1, K2, K3, K4]): S[K0][K1][K2][K3][K4];
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
 declare function path<
     S,
     K0 extends keyof S = keyof S,
@@ -3878,7 +3878,7 @@ declare function path<
     K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
     K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
     K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
->(path: [K0, K1, K2, K3, K4, K5]): S[K0][K1][K2][K3][K4][K5];
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 declare function path<T>(path: Path, obj: any): T | undefined;
 declare function path<T>(path: Path): (obj: any) => T | undefined;
 
