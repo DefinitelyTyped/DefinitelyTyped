@@ -3847,8 +3847,40 @@ export function partition(fn: (a: string) => boolean): (list: readonly string[])
  * R.path(['a', 'b', -2], {a: {b: [1, 2, 3]}}); //=> 2
  * ```
  */
-export function path<T>(path: Path, obj: any): T | undefined;
-export function path<T>(path: Path): (obj: any) => T | undefined;
+declare function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+declare function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+declare function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2]): S[K0][K1][K2];
+declare function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3]): S[K0][K1][K2][K3];
+declare function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4]): S[K0][K1][K2][K3][K4];
+declare function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5]): S[K0][K1][K2][K3][K4][K5];
+declare function path<T>(path: Path, obj: any): T | undefined;
+declare function path<T>(path: Path): (obj: any) => T | undefined;
 
 /**
  * Determines whether a nested path on an object has a specific value,
