@@ -3977,6 +3977,7 @@ export function pick<K extends string | number | symbol>(
  * R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  * ```
  */
+export function pickAll<T, K extends keyof T>(names: readonly K[], obj: T): { [Key in K]: T[K]};
 export function pickAll<T, U>(names: readonly string[], obj: T): U;
 export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 
