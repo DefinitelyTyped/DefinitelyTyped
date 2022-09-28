@@ -6,7 +6,7 @@
 export = jsonp;
 
 // tslint:disable-next-line no-unnecessary-generics
-declare function jsonp<R = any>(url: string, options?: JsonpOptions): JsonpResult<R>;
+declare function jsonp<R = unknown>(url: string, options?: JsonpOptions): JsonpResult<R>;
 
 interface JsonpResult<R> {
     promise: Promise<R>;
