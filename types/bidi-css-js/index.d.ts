@@ -47,6 +47,6 @@ declare function bidiCssJs(
         | Record<Property, string | number | symbol> // autocomplete for most common properties
         | { [key: string]: string | number | symbol }, // but accept any string
     direction: 'ltr' | 'rtl',
-): Record<string, string | number | symbol>;
+): Record<string, string | number>;
 
 export = bidiCssJs;
