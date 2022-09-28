@@ -45,4 +45,4 @@ declare class ThumbnailSupplier {
 
 declare const thumbsupply: ThumbSupply;
 
-export default thumbsupply;
+export = thumbsupply;
