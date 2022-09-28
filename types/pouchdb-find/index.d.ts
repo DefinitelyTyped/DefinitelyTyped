@@ -4,7 +4,7 @@
 //                 Sebastian Ramirez <https://github.com/tiangolo>
 //                 Samuel Kerr <https://github.com/kuzmatech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.8
+// TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
 
