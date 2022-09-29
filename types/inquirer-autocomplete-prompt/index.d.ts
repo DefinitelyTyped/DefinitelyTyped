@@ -1,13 +1,13 @@
-// Type definitions for inquirer-autocomplete-prompt 1.3
+// Type definitions for inquirer-autocomplete-prompt 3.0.0
 // Project: https://www.npmjs.com/package/inquirer-autocomplete-prompt
 // Definitions by: Jason Catel <https://github.com/jayeeson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+// TypeScript Version: 4.4
 
 import { Answers, KeyUnion, Question, QuestionCollection } from "inquirer";
-import Choices = require("inquirer/lib/objects/choices");
-import Base = require("inquirer/lib/prompts/base");
-import Paginator = require("inquirer/lib/utils/paginator");
+import Choices from "inquirer/lib/objects/choices";
+import Base from "inquirer/lib/prompts/base";
+import Paginator from "inquirer/lib/utils/paginator";
 import { Interface as ReadlineInterface } from "readline";
 
 export = AutocompletePrompt;
