@@ -3,28 +3,22 @@
 // Definitions by: Dillon Sellars <https://github.com/dsellarsnr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace Cache;
-
-export = Cache;
-
-declare namespace TimedCache {
-    interface CacheOptions {
-        defaultTtl: number;
-    }
-
-    interface PutOptions {
-        ttl: number;
-    }
+export interface CacheOptions {
+    defaultTtl: number;
 }
 
-declare class Cache<T> {
-    constructor(options?: TimedCache.CacheOptions);
+export interface PutOptions {
+    ttl: number;
+}
+
+export default class Cache<T> {
+    constructor(options?: CacheOptions);
 
     clear(): void;
 
     get(key: string | object): T | undefined;
 
-    put(key: string, value: T, options?: TimedCache.PutOptions): void;
+    put(key: string, value: T, options?: PutOptions): void;
 
     remove(key: string): void;
 

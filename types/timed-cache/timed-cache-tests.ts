@@ -1,6 +1,6 @@
-import Cache = require('timed-cache');
+import Cache, { CacheOptions } from 'timed-cache';
 
-const option = {defaultTtl: 5000};
+const option: CacheOptions = {defaultTtl: 5000};
 const cache = new Cache<string>(option); // $ExpectType Cache<string>
 cache.put('key', 'value', {ttl: 1000}); // $ExpectType void
 cache.get('key'); // $ExpectType string | undefined
