@@ -389,6 +389,11 @@ jest.runOnlyPendingTimers();
 jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ timerLimit: 50 });
+
+jest.useFakeTimers({ legacyFakeTimers: true });
+// @ts-expect-error
+jest.useFakeTimers({ legacyFakeTimers: true, timerLimit: 50 });
+
 // @ts-expect-error
 jest.useFakeTimers('legacy');
 // @ts-expect-error
