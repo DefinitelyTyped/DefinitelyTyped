@@ -17,6 +17,11 @@ export default class EmberModalService extends Service {
     open(name: string, options: Record<string, unknown>): Promise<unknown>;
 
     /**
+     * Remove from DOM
+     */
+    _closeByModel(model: ModalModel): void;
+
+    /**
      * Close all open modals by rejecting each promise.
      */
     close(key: string, value: string): void;

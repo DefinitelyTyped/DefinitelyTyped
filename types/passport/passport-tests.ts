@@ -24,6 +24,10 @@ class TestStrategy extends passport.Strategy {
         const user: Express.User = { username: 'abc' };
         if (Math.random() > 0.5) {
             this.fail();
+            this.fail(403);
+            this.fail('challenge string', 403);
+            this.fail({message: 'hello'}, 403);
+            this.fail({message: 'hello', other: 123}, 123);
         } else {
             this.success(user);
         }

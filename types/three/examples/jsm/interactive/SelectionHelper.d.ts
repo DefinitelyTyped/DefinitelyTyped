@@ -1,9 +1,7 @@
 import { WebGLRenderer, Vector2 } from '../../../src/Three';
 
-import { SelectionBox } from './SelectionBox';
-
 export class SelectionHelper {
-    constructor(selectionBox: SelectionBox, renderer: WebGLRenderer, cssClassName: string);
+    constructor(renderer: WebGLRenderer, cssClassName: string);
     element: HTMLElement;
     isDown: boolean;
     pointBottomRight: Vector2;

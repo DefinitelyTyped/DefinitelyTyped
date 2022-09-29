@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "member-access": false,

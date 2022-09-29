@@ -13,7 +13,7 @@
 저장소 및 퍼블리싱 과정의 상태를 표시합니다.
 기여자분들이 작성한 PR 또는 패키지에 문제가 발생했을 경우 이 표시를 보면 도움이 될 수 있습니다.
 
-* 최신 빌드가 [타입 체크/린트](https://github.com/Microsoft/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* 최신 빌드가 [타입 체크/린트](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) 과정을 깔끔하게 통과했습니다: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 모든 패키지가 typescript@next상에서 타입 체크/린트 과정을 깔끔하게 통과합니다: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * 모든 패키지가 1시간 내에 [npm에 배포](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher)되었습니다: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot)이 Definitely Typed에서 잘 돌고 있습니다 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -51,11 +51,11 @@ npm 의 "foo" 패키지에 대응되는 자료형 패키지는 "@types/foo" 입�
 이 경우 주로 `package.json` 파일의 `"types"` 나 `"typings"` 필드(Field)를 통해 제공되지만,
 `/// <reference path="" />` 같은 주석을 사용하여 패키지 안의 ".d.ts" 파일들을 직접 가져와야 할 수도 있습니다.
 
-#### 이전 버전 TypeScript (3.9 또는 그 이전)
+#### 이전 버전 TypeScript (4.0 또는 그 이전)
 
 Definitely Typed는 2년이 지나지 않은 TypeScript 버전만을 대상으로 패키지를 테스트합니다.
-현재 버전 4.0 및 그 이상만을 테스트하고 있습니다.
-TypeScript 2.0에서 3.9 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
+현재 버전 4.1 및 그 이상만을 테스트하고 있습니다.
+TypeScript 2.0에서 4.0 버전을 사용하는 경우, 그래도 `@types` 패키지를 한번 설치해 보셔도 무방합니다. 최신 TypeScript 기능을 사용하는 패키지는 그리 많지 않으니까요.
 그러나 작동 여부를 보장하지는 못합니다.
 지원 기간은 다음과 같습니다:
 
@@ -186,7 +186,7 @@ Definitely Typed 에 한 번도 올라온 적 없는 패키지가 형(Type)을 �
 
 `npm test <package to test>` 명령을 통해 변경점을 테스트할 수 있습니다. 이 때, `<package to test>`은 테스트하고 싶은 패키지의 이름입니다.
 
-작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/Microsoft/dtslint)를 사용합니다.
+작성한 dts 파일을 타입스크립트 컴파일러로 돌려보기 위해 테스트 스크립트 내부적으로 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint)를 사용합니다.
 
 #### Naming
 
@@ -243,7 +243,7 @@ f(1);
 f("one");
 ```
 
-[dtslint](https://github.com/Microsoft/dtslint#write-tests) 저장소의 README 파일에서 더 자세한 내용을 확인하실 수 있습니다.
+[dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) 저장소의 README 파일에서 더 자세한 내용을 확인하실 수 있습니다.
 
 #### Linter: `tslint.json`
 

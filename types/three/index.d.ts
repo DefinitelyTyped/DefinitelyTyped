@@ -1,9 +1,9 @@
-// Type definitions for three 0.143
+// Type definitions for three 0.144
 // Project: https://threejs.org/
 // Definitions by: Josh Ellis <https://github.com/joshuaellis>
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
+// Minimum TypeScript Version: 4.0
 
 // To update three.js type definition, please make changes to the repository at:
 // https://github.com/three-types/three-ts-types.

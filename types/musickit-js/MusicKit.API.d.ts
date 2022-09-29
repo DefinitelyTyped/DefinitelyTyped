@@ -6,6 +6,12 @@ declare namespace MusicKit {
     type MusicItemID = string;
 
     /**
+     * A protocol for music items that your app can fetch by using a catalog charts request.
+     * https://developer.apple.com/documentation/musickit/musiccatalogchartrequestable
+     */
+    type MusicCatalogChartRequestable = 'albums' | 'music-videos' | 'playlists' | 'songs';
+
+    /**
      * The rating of the content that potentially plays while playing a resource.
      * A nil value means no rating is available for this resource.
      * https://developer.apple.com/documentation/musickit/contentrating
@@ -589,15 +595,22 @@ declare namespace MusicKit {
          * https://developer.apple.com/documentation/applemusicapi/chartresponse
          */
         charts(
-            types: string[],
+            types: MusicCatalogChartRequestable[],
             parameters?: QueryParameters,
         ): Promise<{
-            results: {
-                albums: Array<SearchChartResult<Albums>>;
-                'music-videos': Array<SearchChartResult<MusicVideos>>;
-                playlists: Array<SearchChartResult<Playlists>>;
-                songs: Array<SearchChartResult<Songs>>;
-            };
+            [key in MusicCatalogChartRequestable]: Array<
+                SearchChartResult<
+                    key extends 'albums'
+                        ? Albums
+                        : key extends 'music-videos'
+                        ? MusicVideos
+                        : key extends 'playlists'
+                        ? Playlists
+                        : key extends 'songs'
+                        ? Songs
+                        : never
+                >
+            >;
         }>;
         /**
          * Fetch a curator using its identifier.
@@ -710,31 +723,29 @@ declare namespace MusicKit {
             term: string,
             parameters?: QueryParameters,
         ): Promise<{
-            results: {
-                activities?: SearchResult<Activities>;
-                albums?: SearchResult<Albums>;
-                'apple-curators'?: SearchResult<AppleCurators>;
-                artists?: SearchResult<Artists>;
-                curators?: SearchResult<Curators>;
-                'music-videos'?: SearchResult<MusicVideos>;
-                playlists?: SearchResult<Playlists>;
-                'record-labels'?: SearchResult<RecordLabels>;
-                stations?: SearchResult<Stations>;
-                songs?: SearchResult<Songs>;
-                top?: {
-                    data: Array<
-                        | Activities
-                        | Albums
-                        | AppleCurators
-                        | Artists
-                        | Curators
-                        | MusicVideos
-                        | Playlists
-                        | RecordLabels
-                        | Songs
-                        | Stations
-                    >;
-                };
+            activities?: SearchResult<Activities>;
+            albums?: SearchResult<Albums>;
+            'apple-curators'?: SearchResult<AppleCurators>;
+            artists?: SearchResult<Artists>;
+            curators?: SearchResult<Curators>;
+            'music-videos'?: SearchResult<MusicVideos>;
+            playlists?: SearchResult<Playlists>;
+            'record-labels'?: SearchResult<RecordLabels>;
+            stations?: SearchResult<Stations>;
+            songs?: SearchResult<Songs>;
+            top?: {
+                data: Array<
+                    | Activities
+                    | Albums
+                    | AppleCurators
+                    | Artists
+                    | Curators
+                    | MusicVideos
+                    | Playlists
+                    | RecordLabels
+                    | Songs
+                    | Stations
+                >;
             };
         }>;
         /**
@@ -749,9 +760,7 @@ declare namespace MusicKit {
             term: string,
             parameters?: QueryParameters,
         ): Promise<{
-            results: {
-                terms: string[];
-            };
+            terms: string[];
         }>;
         /**
          * Fetch a song using its identifier.

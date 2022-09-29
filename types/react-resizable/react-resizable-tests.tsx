@@ -48,6 +48,16 @@ class TestResizableBoxComponent extends React.Component<{ children?: React.React
     }
 }
 
+class TestStyledResizableBoxComponent extends React.Component<{ children?: React.ReactNode }> {
+    render() {
+        return (
+            <ResizableBox width={10} height={20} style={{ color: 'pink' }}>
+                <div>{this.props.children}</div>
+            </ResizableBox>
+        );
+    }
+}
+
 class TestXResizableComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return (

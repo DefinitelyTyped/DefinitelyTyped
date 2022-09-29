@@ -39,11 +39,6 @@ export const FrontSide: Side;
 export const BackSide: Side;
 export const DoubleSide: Side;
 
-// shading
-export enum Shading {}
-export const FlatShading: Shading;
-export const SmoothShading: Shading;
-
 // blending modes
 export enum Blending {}
 export const NoBlending: Blending;

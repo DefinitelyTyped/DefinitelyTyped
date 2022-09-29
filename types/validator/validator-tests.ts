@@ -847,8 +847,6 @@ const any: any = null;
 
     result = validator.isSemVer('sample');
 
-    result = validator.isStrongPassword('sample');
-
     result = validator.isSurrogatePair('sample');
 
     const isURLOptions: validator.IsURLOptions = {
@@ -924,6 +922,26 @@ const any: any = null;
 
     result = validator.toInt(any);
     result = validator.toInt(any, 10);
+}
+
+{
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test');
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', {
+        minLength: 10,
+    });
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', { returnScore: false });
+    // $ExpectType boolean
+    validator.isStrongPassword('abc', {
+        minLength: 10,
+        returnScore: false,
+    });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { returnScore: true });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { minLength: 10, returnScore: true });
 }
 
 {

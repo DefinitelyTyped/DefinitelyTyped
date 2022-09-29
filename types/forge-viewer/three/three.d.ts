@@ -438,6 +438,8 @@ declare namespace THREE {
         setHSL(h: number, s: number, l: number): Color;
         setRGB(r: number, g: number, b: number): Color;
         setStyle(style: string): Color;
+        getHexString(): string;
+        equals(color: Color): boolean;
     }
 
     class CylinderBufferGeometry extends BufferGeometry {
@@ -888,7 +890,7 @@ declare namespace THREE {
     }
 
     interface LineBasicMaterialParameters extends MaterialParameters {
-        color?: number|string | undefined;
+        color?: number | string | Color | undefined;
         linecap?: string | undefined;
         linejoin?: string | undefined;
         linewidth?: number | undefined;
@@ -909,7 +911,7 @@ declare namespace THREE {
     }
 
     interface LineDashedMaterialParameters extends MaterialParameters {
-        color?: number|string | undefined;
+        color?: number | string | Color | undefined;
         dashSize?: number | undefined;
         gapSize?: number | undefined;
         linewidth?: number | undefined;
@@ -1168,7 +1170,7 @@ declare namespace THREE {
     }
 
     interface MeshBasicMaterialParameters extends MaterialParameters {
-        color?: number|string | undefined;
+        color?: number | string | Color | undefined;
         opacity?: number | undefined;
         map?: Texture | undefined;
         aoMap?: Texture | undefined;
@@ -1237,7 +1239,7 @@ declare namespace THREE {
     }
 
     interface MeshLambertMaterialParameters extends MaterialParameters {
-        color?: number|string | undefined;
+        color?: number | string | Color | undefined;
         emissive?: number|string | undefined;
         emissiveIntensity?: number | undefined;
         emissiveMap?: Texture | undefined;
@@ -1328,7 +1330,7 @@ declare namespace THREE {
 
     interface MeshPhongMaterialParameters extends MaterialParameters {
         /** geometry color in hexadecimal. Default is 0xffffff. */
-        color?: number|string | undefined;
+        color?: number | string | Color | undefined;
         specular?: number | undefined;
         shininess?: number | undefined;
         opacity?: number | undefined;
@@ -1417,7 +1419,7 @@ declare namespace THREE {
     }
 
     interface MeshStandardMaterialParameters extends MaterialParameters {
-        color?: number|string | undefined;
+        color?: number | string | Color | undefined;
         roughness?: number | undefined;
         metalness?: number | undefined;
         map?: Texture | undefined;

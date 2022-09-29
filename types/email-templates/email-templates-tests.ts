@@ -134,3 +134,21 @@ const emailNoTemplate = new Email({
 
 emailNoTemplate.send();
 emailNoTemplate.send({});
+
+const emailPreviewOptions = new Email({
+    preview: {
+        openSimulator: false,
+        urlTransform(path: string) {
+            return `file://${path}`;
+        }
+    }
+});
+
+emailPreviewOptions.send({
+    template: 'some-template',
+    message: {
+        from: 'definitelytyped@example.org',
+        to: 'recipient@example.com',
+        subject: 'Test message'
+    }
+});

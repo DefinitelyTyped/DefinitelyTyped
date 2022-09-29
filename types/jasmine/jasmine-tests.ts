@@ -2435,6 +2435,21 @@ describe("setDefaultSpyStrategy", () => {
     });
 });
 
+describe("spyOnGlobalErrorsAsync", () => {
+    it('demonstrates global error spies', async function() {
+        await jasmine.spyOnGlobalErrorsAsync(async function(globalErrorSpy) {
+            setTimeout(function() {
+                throw new Error('the expected error');
+            });
+            await new Promise(function(resolve) {
+                setTimeout(resolve);
+            });
+            const expected = new Error('the expected error');
+            expect(globalErrorSpy).toHaveBeenCalledWith(expected);
+        });
+    });
+});
+
 describe("version", () => {
     it("get version", () => {
         console.log(jasmine.version);

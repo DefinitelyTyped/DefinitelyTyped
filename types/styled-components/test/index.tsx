@@ -550,6 +550,13 @@ const appStream = ReactDOMServer.renderToNodeStream(<Title>Hello world</Title>);
 const wrappedCssStream: NodeJS.ReadableStream = sheet3.interleaveWithNodeStream(appStream);
 
 /**
+ * StyleSheetManager
+ */
+
+declare const shadowRoot: ShadowRoot;
+<StyleSheetManager target={shadowRoot} />;
+
+/**
  * StyledComponent.withComponent
  */
 

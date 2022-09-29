@@ -14,7 +14,6 @@
 //                  Robert Helms <https://github.com/rdhelms>
 //                  Julien Quere <https://github.com/jlnquere>
 //                  Thibault MOCELLIN <https://github.com/tybi>
-//                  Raschid JF Rafaelly <https://github.com/RaschidJFR>
 //                  Jeff Gu Kang <https://github.com/jeffgukang>
 //                  Bui Tan Loc <https://github.com/buitanloc>
 //                  Jerome De Leon <https://github.com/JeromeDeLeon>
@@ -1267,7 +1266,7 @@ declare global {
             }
 
             interface Index {
-                [fieldName: string]: TYPE;
+                [fieldName: string]: number | string;
             }
 
             /**

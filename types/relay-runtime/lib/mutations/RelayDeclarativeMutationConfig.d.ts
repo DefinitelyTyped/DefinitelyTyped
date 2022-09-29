@@ -15,11 +15,13 @@ export interface RangeAddConfig {
     type: 'RANGE_ADD';
     parentName?: string | undefined;
     parentID?: string | undefined;
-    connectionInfo?: ReadonlyArray<{
-        key: string;
-        filters?: Variables | undefined;
-        rangeBehavior: string;
-    }> | undefined;
+    connectionInfo?:
+        | ReadonlyArray<{
+              key: string;
+              filters?: Variables | undefined;
+              rangeBehavior: string;
+          }>
+        | undefined;
     connectionName?: string | undefined;
     edgeName: string;
     rangeBehaviors?: RangeBehaviors | undefined;
@@ -29,10 +31,12 @@ export interface RangeDeleteConfig {
     type: 'RANGE_DELETE';
     parentName?: string | undefined;
     parentID?: string | undefined;
-    connectionKeys?: ReadonlyArray<{
-        key: string;
-        filters?: Variables | undefined;
-    }> | undefined;
+    connectionKeys?:
+        | ReadonlyArray<{
+              key: string;
+              filters?: Variables | undefined;
+          }>
+        | undefined;
     connectionName?: string | undefined;
     deletedIDFieldName: string | ReadonlyArray<string>;
     pathToConnection: ReadonlyArray<string>;

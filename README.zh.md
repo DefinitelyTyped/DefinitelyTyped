@@ -11,7 +11,7 @@
 这个部分会跟踪仓库和发布过程的运行状况。
 这可能会对在 PRs 和包中遇到任何问题的贡献者有所帮助。
 
-* 最近的构建都具有完善的 [类型标注](https://github.com/Microsoft/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* 最近的构建都具有完善的 [类型标注](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint)：[![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * 所有的包基于 typescript@next 版本都有完善的类型标注：[![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * 所有的包都会在1小时30分钟内 [发布到 npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher):  [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) 在 Definitely Typed 一直处于活跃状态 [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -48,9 +48,9 @@ npm install --save-dev @types/node
 这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
 或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
-#### 旧版本的 TypeScript（3.9 和更早版本）
+#### 旧版本的 TypeScript（4.0 和更早版本）
 
-Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 4.0 及更高版本。如果您使用的是 TypeScript 2.0 到 3.9，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 4.1 及更高版本。如果您使用的是 TypeScript 2.0 到 4.0，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
@@ -209,7 +209,7 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
 
-这个脚本使用了 [dtslint](https://github.com/Microsoft/dtslint) 来对你的 dts 文件进行 TypeScript 编译测试.
+这个脚本使用了 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) 来对你的 dts 文件进行 TypeScript 编译测试.
 
 #### Naming
 
@@ -267,7 +267,7 @@ f(1);
 f("one");
 ```
 
-你可以查阅 [dtslint](https://github.com/Microsoft/dtslint#write-tests) 的 readme 去看更多详细信息。
+你可以查阅 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) 的 readme 去看更多详细信息。
 
 #### Linter: `tslint.json`
 

@@ -1,12 +1,11 @@
-// Type definitions for whatwg-url 8.2
+// Type definitions for whatwg-url 11.0
 // Project: https://github.com/jsdom/whatwg-url#readme
 // Definitions by: Alexander Marks <https://github.com/aomarks>
 //                 ExE Boss <https://github.com/ExE-Boss>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
 
-/// <reference types="node"/>
-
+/// <reference lib="es2020"/>
 /** https://url.spec.whatwg.org/#url-representation */
 export interface URLRecord {
     scheme: string;
@@ -14,10 +13,9 @@ export interface URLRecord {
     password: string;
     host: string | number | IPv6Address | null;
     port: number | null;
-    path: string[];
+    path: string | string[];
     query: string | null;
     fragment: string | null;
-    cannotBeABaseURL?: boolean | undefined;
 }
 
 /** https://url.spec.whatwg.org/#concept-ipv6 */
@@ -63,7 +61,7 @@ export class URL {
 
     toJSON(): string;
 
-    readonly [Symbol.toStringTag]: "URL";
+    readonly [Symbol.toStringTag]: 'URL';
 }
 
 /** https://url.spec.whatwg.org/#interface-urlsearchparams */
@@ -92,22 +90,18 @@ export class URLSearchParams {
         thisArg?: THIS_ARG,
     ): void;
 
-    readonly [Symbol.toStringTag]: "URLSearchParams";
+    readonly [Symbol.toStringTag]: 'URLSearchParams';
     [Symbol.iterator](): IterableIterator<[name: string, value: string]>;
 }
 
 /** https://url.spec.whatwg.org/#concept-url-parser */
-export function parseURL(
-    input: string,
-    options?: { readonly baseURL?: string | undefined; readonly encodingOverride?: string | undefined },
-): URLRecord | null;
+export function parseURL(input: string, options?: { readonly baseURL?: string | undefined }): URLRecord | null;
 
 /** https://url.spec.whatwg.org/#concept-basic-url-parser */
 export function basicURLParse(
     input: string,
     options?: {
         baseURL?: string | undefined;
-        encodingOverride?: string | undefined;
         url?: URLRecord | undefined;
         stateOverride?: StateOverride | undefined;
     },
@@ -115,33 +109,36 @@ export function basicURLParse(
 
 /** https://url.spec.whatwg.org/#scheme-start-state */
 export type StateOverride =
-    | "scheme start"
-    | "scheme"
-    | "no scheme"
-    | "special relative or authority"
-    | "path or authority"
-    | "relative"
-    | "relative slash"
-    | "special authority slashes"
-    | "special authority ignore slashes"
-    | "authority"
-    | "host"
-    | "hostname"
-    | "port"
-    | "file"
-    | "file slash"
-    | "file host"
-    | "path start"
-    | "path"
-    | "cannot-be-a-base-URL path"
-    | "query"
-    | "fragment";
+    | 'scheme start'
+    | 'scheme'
+    | 'no scheme'
+    | 'special relative or authority'
+    | 'path or authority'
+    | 'relative'
+    | 'relative slash'
+    | 'special authority slashes'
+    | 'special authority ignore slashes'
+    | 'authority'
+    | 'host'
+    | 'hostname'
+    | 'port'
+    | 'file'
+    | 'file slash'
+    | 'file host'
+    | 'path start'
+    | 'path'
+    | 'opaque path'
+    | 'query'
+    | 'fragment';
 
 /** https://url.spec.whatwg.org/#concept-url-serializer */
 export function serializeURL(urlRecord: URLRecord, excludeFragment?: boolean): string;
 
 /** https://url.spec.whatwg.org/#concept-host-serializer */
 export function serializeHost(host: string | number | IPv6Address): string;
+
+/** https://url.spec.whatwg.org/#url-path-serializer */
+export function serializePath(urlRecord: URLRecord): string;
 
 /** https://url.spec.whatwg.org/#serialize-an-integer */
 export function serializeInteger(number: number): string;
@@ -155,8 +152,25 @@ export function setTheUsername(urlRecord: URLRecord, username: string): void;
 /** https://url.spec.whatwg.org/#set-the-password */
 export function setThePassword(urlRecord: URLRecord, password: string): void;
 
+/** https://url.spec.whatwg.org/#url-opaque-path */
+export function hasAnOpaquePath(urlRecord: URLRecord): boolean;
+
 /** https://url.spec.whatwg.org/#cannot-have-a-username-password-port */
 export function cannotHaveAUsernamePasswordPort(urlRecord: URLRecord): boolean;
 
 /** https://url.spec.whatwg.org/#percent-decode */
-export function percentDecode(buffer: Extract<NodeJS.TypedArray, ArrayLike<number>>): Buffer;
+export function percentDecodeBytes(buffer: TypedArray): Uint8Array;
+
+/** https://url.spec.whatwg.org/#percent-decode-string */
+export function percentDecodeString(string: string): Uint8Array;
+
+export type TypedArray =
+    | Uint8Array
+    | Uint8ClampedArray
+    | Uint16Array
+    | Uint32Array
+    | Int8Array
+    | Int16Array
+    | Int32Array
+    | Float32Array
+    | Float64Array;

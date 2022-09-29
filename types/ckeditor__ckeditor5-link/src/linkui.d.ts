@@ -9,7 +9,7 @@ export default class LinkUI extends Plugin {
     init(): void;
     destroy(): void;
     readonly actionsView: LinkActionsView;
-    readonly formview: LinkFormView;
+    readonly formView: LinkFormView;
 }
 
 declare module '@ckeditor/ckeditor5-core/src/plugincollection' {

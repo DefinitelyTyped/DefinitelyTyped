@@ -1,4 +1,4 @@
-import fontkit from 'fontkit';
+import * as fontkit from 'fontkit';
 
 const f = fontkit.openSync('fonts/a-font.ttf');
 const { glyphs, positions } = f.layout('Hello World!');

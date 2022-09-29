@@ -269,6 +269,21 @@ process.onRequest('getCount', request => {
     });
 });
 
+// $ExpectType WritableStream<any> | null
+process.stdin;
+// $ExpectType WritableStreamDefaultWriter<any> | undefined
+process.stdin?.getWriter();
+
+// $ExpectType ReadableStream<any> | null
+process.stdout;
+// $ExpectType ReadableStreamDefaultReader<any> | undefined
+process.stdout?.getReader();
+
+// $ExpectType ReadableStream<any> | null
+process.stderr;
+// $ExpectType ReadableStreamDefaultReader<any> | undefined
+process.stderr?.getReader();
+
 /// https://novadocs.panic.com/api-reference/scanner/
 
 const scanner = new Scanner('Foobar abc 12.0');

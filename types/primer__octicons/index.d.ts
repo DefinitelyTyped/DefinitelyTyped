@@ -1,4 +1,4 @@
-// Type definitions for @primer/octicons 17.0
+// Type definitions for @primer/octicons 17.5
 // Project: https://github.com/primer/octicons
 // Definitions by: Oscar Lee-Vermeren <https://github.com/xiBread>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,7 +30,7 @@ declare namespace octicons {
         toSVG(options?: SVGOptions): string;
     }
 
-    type IconSize = 12 | 16 | 24;
+    type IconSize = 12 | 16 | 24 | 48 | 96;
 
     type IconHeights = { readonly [K in IconSize]?: IconHeight<K> };
 
@@ -91,6 +91,7 @@ declare namespace octicons {
 
     type IconName =
         | 'accessibility'
+        | 'accessibility-inset'
         | 'alert'
         | 'alert-fill'
         | 'apps'
@@ -118,10 +119,12 @@ declare namespace octicons {
         | 'broadcast'
         | 'browser'
         | 'bug'
+        | 'cache'
         | 'calendar'
         | 'check'
         | 'check-circle'
         | 'check-circle-fill'
+        | 'checkbox'
         | 'checklist'
         | 'chevron-down'
         | 'chevron-left'
@@ -140,10 +143,14 @@ declare namespace octicons {
         | 'codescan-checkmark'
         | 'codespaces'
         | 'columns'
+        | 'command-palette'
         | 'comment'
         | 'comment-discussion'
         | 'commit'
         | 'container'
+        | 'copilot'
+        | 'copilot-error'
+        | 'copilot-warning'
         | 'copy'
         | 'cpu'
         | 'credit-card'
@@ -181,6 +188,7 @@ declare namespace octicons {
         | 'feed-tag'
         | 'feed-trophy'
         | 'file'
+        | 'file-added'
         | 'file-badge'
         | 'file-binary'
         | 'file-code'
@@ -189,6 +197,8 @@ declare namespace octicons {
         | 'file-directory-fill'
         | 'file-directory-open-fill'
         | 'file-media'
+        | 'file-moved'
+        | 'file-removed'
         | 'file-submodule'
         | 'file-symlink-file'
         | 'file-zip'
@@ -203,6 +213,7 @@ declare namespace octicons {
         | 'git-commit'
         | 'git-compare'
         | 'git-merge'
+        | 'git-merge-queue'
         | 'git-pull-request'
         | 'git-pull-request-closed'
         | 'git-pull-request-draft'
@@ -265,6 +276,7 @@ declare namespace octicons {
         | 'package-dependents'
         | 'paintbrush'
         | 'paper-airplane'
+        | 'paperclip'
         | 'paste'
         | 'pencil'
         | 'people'
@@ -303,6 +315,7 @@ declare namespace octicons {
         | 'shield'
         | 'shield-check'
         | 'shield-lock'
+        | 'shield-slash'
         | 'shield-x'
         | 'sidebar-collapse'
         | 'sidebar-expand'
@@ -310,6 +323,7 @@ declare namespace octicons {
         | 'sign-out'
         | 'single-select'
         | 'skip'
+        | 'sliders'
         | 'smiley'
         | 'sort-asc'
         | 'sort-desc'
