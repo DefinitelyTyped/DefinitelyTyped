@@ -112,8 +112,8 @@ interface FakeTimersConfig {
      *
      * @defaultValue
      * The default is `[]`, meaning all APIs are faked.
-     * */
-    doNotFake?: Array<FakeableAPI>;
+     */
+    doNotFake?: FakeableAPI[];
     /**
      * Sets current system time to be used by fake timers.
      *
