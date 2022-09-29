@@ -28,26 +28,26 @@ interface DatePicker {
      *
      * @param el An element within the date picker component
      */
-    disable(el: HTMLInputElement): void;
+    disable(el: HTMLElement): void;
     /**
      * Enable the date picker component
      *
      * @param el An element within the date picker component
      */
-    enable(el: HTMLInputElement): void;
+    enable(el: HTMLElement): void;
     /**
      * Validate the value in the input as a valid date of format M/D/YYYY
      *
      * @param el An element within the date picker component
      */
-    isDateInputInvalid(el: HTMLInputElement): boolean;
+    isDateInputInvalid(el: HTMLElement): boolean;
     /**
      * Select the value of the date picker inputs.
      *
      * @param el An element within the date picker component
      * @param dateString The date string to update in YYYY-MM-DD format
      */
-    setCalendarValue(el: HTMLButtonElement, dateString: string): void;
+    setCalendarValue(el: HTMLElement, dateString: string): void;
     /**
      * Validate the value in the input as a valid date of format M/D/YYYY
      *

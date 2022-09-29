@@ -42,25 +42,25 @@ interface ComboBox {
      *
      * @param el An element within the combo box component
      */
-    disable(el: HTMLInputElement): void;
+    disable(el: HTMLElement): void;
     /**
      * Enable the combo-box component
      *
      * @param el An element within the combo box component
      */
-    enable(el: HTMLInputElement): void;
+    enable(el: HTMLElement): void;
     /**
      * Display the option list of a combo box component.
      *
      * @param el An element within the combo box component
      */
-    displayList(el: HTMLInputElement): void;
+    displayList(el: HTMLElement): void;
     /**
      * Hide the option list of a combo box component.
      *
      * @param el An element within the combo box component
      */
-    hideList(el: HTMLInputElement): void;
+    hideList(el: HTMLElement): void;
 }
 
 declare const comboBox: ComboBox;

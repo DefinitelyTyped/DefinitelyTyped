@@ -18,13 +18,13 @@ interface FileInput {
      *
      * @param el An element within the file input component
      */
-    disable(el: HTMLInputElement): void;
+    disable(el: HTMLElement): void;
     /**
      * Enable the file input component
      *
      * @param el An element within the file input component
      */
-    enable(el: HTMLInputElement): void;
+    enable(el: HTMLElement): void;
 }
 
 declare const fileInput: FileInput;
