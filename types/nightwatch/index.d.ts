@@ -3419,6 +3419,64 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @see https://nightwatchjs.org/api/useXpath.html
      */
     useXpath(callback?: (this: NightwatchAPI) => void): Awaitable<this, undefined>;
+
+    /**
+     * Injects the axe-core js library into the current page (using the .executeScript() command) to be paired
+     * with axeRun to evaluate the axe-core accessibility rules.
+     *
+     * @example
+     * this.demoTest = function () {
+     *   browser
+     *     .url('https://nightwatchjs.org')
+     *     .axeInject()
+     *     .axeRun();
+     * };
+     *
+     * @see https://nightwatchjs.org/api/axeInject.html
+     */
+    axeInject(): Awaitable<this, null>;
+
+    /**
+     * Analyzes the current page against applied axe rules.
+     *
+     * @example
+     * this.demoTest = function () {
+     *   browser
+     *     .url('https://nightwatchjs.org')
+     *     .axeInject()
+     *     .axeRun(
+     *        'body',
+     *        { runOnly: ['color-contrast', 'image-alt'] }
+     *     );
+     * };
+     *
+     * @example
+     * this.demoTest = function () {
+     *   browser
+     *     .url('https://nightwatchjs.org')
+     *     .axeInject()
+     *     .axeRun(
+     *        'body',
+     *        {
+     *          'color-contrast': {
+     *             enabled: false
+     *            }
+     *          },
+     *        }
+     *     );
+     * };
+     *
+     * @param selector - CSS selector to scope rule analysis against, will cascade to child elements
+     * @param options - Allows configuration of what rules will be run (accessibility standard or rules to enable/disable)
+     * @see {@link https://www.deque.com/axe/core-documentation/api-documentation/#options-parameter}
+     *
+     * @see {@link https://nightwatchjs.org/api/axeRun.html}
+     */
+    axeRun(
+        selector?: string,
+        options?: { [key: string]: any },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 }
 
 export interface ElementCommands {
