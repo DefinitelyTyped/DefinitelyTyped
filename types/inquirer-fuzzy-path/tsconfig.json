@@ -20,10 +20,10 @@
                 "inquirer/v8/*"
             ],
             "inquirer-autocomplete-prompt": [
-                "inquirer-autocomplete-prompt"
+                "inquirer-autocomplete-prompt/v2"
             ],
             "inquirer-autocomplete-prompt/*": [
-                "inquirer-autocomplete-prompt/*"
+                "inquirer-autocomplete-prompt/v2/*"
             ]
         },
         "types": [],
