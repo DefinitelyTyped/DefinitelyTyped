@@ -39,7 +39,7 @@ const testCases = [
     <input accept="image/*" capture />,
     <input accept="video/*" capture="user" />,
     <input accept="video/*" capture="environment" />,
-    // $ExpectError
+    // @ts-expect-error
     <input accept="video/*" capture="haha" />,
     <input accept="video/*" capture />,
     <input accept="audio/*" capture />,
@@ -51,13 +51,23 @@ const testCases = [
     <a target="some-frame"></a>,
     <input type="button" />,
     <input type="some-type" />,
-    // $ExpectError
+    // @ts-expect-error
     <input enterKeyHint="don" />,
     <video disableRemotePlayback />,
     <picture>
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
     </picture>,
+    <dialog
+        onCancel={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+        onClose={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+    ></dialog>,
 ];
 
 // Needed to check these HTML elements in event callbacks.

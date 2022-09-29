@@ -8,7 +8,7 @@ import semver = require('../index');
 declare function ltr(
     version: string | SemVer,
     range: string | Range,
-    optionsOrLoose?: boolean | semver.Options,
+    optionsOrLoose?: boolean | semver.RangeOptions,
 ): boolean;
 
 export = ltr;

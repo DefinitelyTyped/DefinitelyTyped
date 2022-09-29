@@ -9,10 +9,13 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
     const doc = new GoogleSpreadsheet('<the sheet ID from the url>');
 
     // use service account creds
-    await doc.useServiceAccountAuth({
-        client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: GOOGLE_PRIVATE_KEY,
-    });
+    await doc.useServiceAccountAuth(
+        {
+            client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+            private_key: GOOGLE_PRIVATE_KEY,
+        },
+        'user@example.com',
+    );
     // OR use API key -- only for read-only access to public sheets
     doc.useApiKey('YOUR-API-KEY');
 
@@ -78,8 +81,29 @@ const [GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY] = ['email', 'key'];
     // header row methods with headerRowIndex
     await sheet.setHeaderRow(['foo', 'bar'], 3);
     await sheet.loadHeaderRow(3);
+    await sheet.delete();
+
+    // test clear() and clearRows()
+    sheet = await doc.addSheet({ headerValues: ['date', 'co2'] });
+    await sheet.addRows([
+        { date: '1980-01-01', co2: 337.85 },
+        { date: '1990-01-01', co2: 353.65 },
+        { date: '2000-01-01', co2: 368.99 },
+        { date: '2010-01-01', co2: 390.74 },
+        { date: '2020-01-01', co2: 412.86 },
+    ]);
+    await sheet.clearRows({
+        start: 6,
+        end: 6,
+    });
+    await sheet.clear('B4:B5');
+    await sheet.clearRows();
+    await sheet.delete();
 
     // create empty document
     const emptyDoc = new GoogleSpreadsheet();
     await emptyDoc.createNewSpreadsheetDocument({ title: 'This is a new Spread Sheet' });
+
+    // duplicate document
+    await emptyDoc.duplicate({ title: 'Duplicate Document' });
 })();

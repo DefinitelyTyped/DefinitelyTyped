@@ -73,6 +73,7 @@ declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
     // TODO: Add abort() static
+    timeout(milliseconds: number): AbortSignal;
 };
 //#endregion borrowed
 
@@ -87,6 +88,7 @@ interface RelativeIndexable<T> {
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
+interface ReadonlyArray<T> extends RelativeIndexable<T> {}
 interface Int8Array extends RelativeIndexable<number> {}
 interface Uint8Array extends RelativeIndexable<number> {}
 interface Uint8ClampedArray extends RelativeIndexable<number> {}
@@ -262,11 +264,11 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        /** @deprecated since 14.6.0 Please use `require.main` and `module.children` instead. */
+        /** @deprecated since v14.6.0 Please use `require.main` and `module.children` instead. */
         parent: Module | null | undefined;
         children: Module[];
         /**
-         * @since 11.14.0
+         * @since v11.14.0
          *
          * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
          */

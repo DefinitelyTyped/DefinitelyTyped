@@ -16,6 +16,6 @@ async function test() {
     emitter.emit('end');
     await prom;
 
-    // $ExpectError
+    // @ts-expect-error
     arrayifyStream();
 }

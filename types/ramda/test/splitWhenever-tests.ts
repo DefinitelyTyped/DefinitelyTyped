@@ -19,8 +19,8 @@ import * as R from 'ramda';
         6,
         '7',
     ]); // => [['1'], [3], ['4', '5'], [6, '7']]
-    // $ExpectError
+    // @ts-expect-error
     R.splitWhenever(R.equals(2), ['1', '2']);
-    // $ExpectError
+    // @ts-expect-error
     R.splitWhenever(R.equals(2), [1, '2']);
 };

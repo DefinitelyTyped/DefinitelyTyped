@@ -16,4 +16,5 @@ callBound('%PromiseProto_then%');
 callBound('%Object.prototype.hasOwnProperty%');
 
 // These are invalid because of `package.json#exports`:
-import callBoundIllegal1 = require('call-bind/callBound.js'); // $ExpectError
+// @ts-expect-error
+import callBoundIllegal1 = require('call-bind/callBound.js');

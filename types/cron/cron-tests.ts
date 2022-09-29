@@ -1,9 +1,11 @@
-
 import cron = require('cron');
-import moment = require('moment');
+import luxon = require('luxon');
+
 
 var CronJob = cron.CronJob;
 var CronTime = cron.CronTime;
+
+var DateTime = luxon.DateTime;
 
 var timeZone = 'America/Los_Angeles';
 
@@ -49,9 +51,9 @@ var job = new CronJob(new Date(), () => {
   timeZone /* Time zone of this job. */
 );
 
-// Another example with Moment
-var job = new CronJob(moment(), () => {
-  /* runs once at the specified moment. */
+// Another example with luxon
+var job = new CronJob(DateTime.local(), () => {
+  /* runs once at the specified DateTime. */
   }, () => {
     /* This function is executed when the job stops */
   },
@@ -80,10 +82,10 @@ var job = cron.job({
 });
 const ld = job.lastDate(); // $ExpectType Date
 console.log(ld);
-const nd = job.nextDates(); // $ExpectType Moment
+const nd = job.nextDates(); // $ExpectType DateTime
 console.log(nd);
-const nds = job.nextDates(1); // $ExpectType Moment | Moment[]
-console.log(nds);// Should be a Moment array
+const nds = job.nextDates(1); // $ExpectType DateTime | DateTime[]
+console.log(nds);// Should be a DateTime array
 const ru = job.running // $ExpectType boolean
 console.log(ru);
 job.setTime(new CronTime('00 30 11 * * 1-2'));
@@ -100,7 +102,7 @@ try {
 }
 
 
-// Check cronTime fomat
+// Check cronTime format
 new CronTime('* * * * * *');
 new CronTime(new Date());
-new CronTime(moment());
+new CronTime(DateTime.local());

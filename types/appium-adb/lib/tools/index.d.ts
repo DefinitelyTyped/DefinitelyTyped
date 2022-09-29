@@ -1,7 +1,9 @@
 import methods, { LogcatOpts, SetPropOptions, ScreenrecordOptions } from './adb-commands';
 import manifestMethods, { APKInfo } from './android-manifest';
 import systemCallMethods, {
+    ConnectedDevicesOptions,
     Device,
+    VerboseDevice,
     AdbExecOptions,
     ExecResult,
     ShellExecOptions,
@@ -25,11 +27,8 @@ import apkUtilsMethods, {
     AppInfo,
 } from './apk-utils';
 import apksUtilsMethods, { InstallApksOptions } from './apks-utils';
-import emuMethods, {
-    EmuInfo,
-    ExecTelnetOptions,
-    EmuVersionInfo,
-} from './adb-emu-commands';
+import aabUtilsMethods, { ApkCreationOptions } from './aab-utils';
+import emuMethods, { EmuInfo, ExecTelnetOptions, EmuVersionInfo } from './adb-emu-commands';
 import settingsClientCommands, {
     SettingsAppStartupOptions,
     Location,
@@ -46,6 +45,7 @@ export type AdbMethods = typeof methods &
     typeof apkSigningMethods &
     typeof apkUtilsMethods &
     typeof apksUtilsMethods &
+    typeof aabUtilsMethods &
     typeof emuMethods &
     typeof settingsClientCommands &
     typeof lockManagementCommands &
@@ -63,7 +63,9 @@ export {
     APKInfo,
     CertCheckOptions,
     KeystoreHash,
+    ConnectedDevicesOptions,
     Device,
+    VerboseDevice,
     AdbExecOptions,
     ExecResult,
     ShellExecOptions,
@@ -83,6 +85,7 @@ export {
     InstallOrUpgradeResult,
     AppInfo,
     InstallApksOptions,
+    ApkCreationOptions,
     EmuInfo,
     ExecTelnetOptions,
     EmuVersionInfo,

@@ -1,6 +1,6 @@
 import * as wellknown from 'wellknown';
 
-wellknown.parse("POINT(1 2)"); // $ExpectType GeoJSONGeometry
+wellknown.parse("POINT(1 2)"); // $ExpectType GeoJSONGeometryOrNull
 
 const geoJson: wellknown.GeoJSONGeometry = {
     coordinates: [1, 2],
@@ -9,7 +9,7 @@ const geoJson: wellknown.GeoJSONGeometry = {
 
 wellknown.stringify(geoJson); // $ExpectType string
 
-wellknown.parse("GEOMETRYCOLLECTION (POINT (1 2))"); // $ExpectType GeoJSONGeometry
+wellknown.parse("GEOMETRYCOLLECTION (POINT (1 2))"); // $ExpectType GeoJSONGeometryOrNull
 
 const geometryCollection: wellknown.GeoJSONGeometry = {
     type: "GeometryCollection",

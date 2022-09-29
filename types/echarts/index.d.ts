@@ -148,6 +148,30 @@ declare namespace echarts {
         LinearGradient: zrender.LinearGradient;
 
         /**
+         * Create a new shape class.
+         *
+         * @param {number[][]} opt
+         * @return {zrender.graphic.Path}
+        */
+        extendShape(opt: zrender.graphic.Path): zrender.graphic.Path
+
+        /**
+         * Register a user defined shape.
+         *
+         * @param {string} name
+         * @param {zrender.graphic.Path} ShapeClass
+         */
+        registerShape(name: string, ShapeClass: zrender.graphic.Path): void
+
+        /**
+         * Get the registered shape class.
+         *
+         * @param {string} name
+         * @return {zrender.graphic.Path}
+         */
+        getShapeClass(name: string): zrender.graphic.Path
+
+        /**
          * Clip the given points by the given rectangular.
          *
          * @param {number[][]} points The points to be clipped,

@@ -164,9 +164,8 @@ server.on('after', restify.plugins.auditLogger({ event: 'after', log: logger }))
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
     route.spec.method === 'GET';
     route.spec.name === 'routeName';
-    route.spec.path === '/some/path';
-    route.spec.path === /\/some\/path\/.*/;
-    route.spec.versions === ['v1'];
+    route.spec.path; // $ExpectType string | RegExp
+    route.spec.versions; // $ExpectType string[]
     restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 

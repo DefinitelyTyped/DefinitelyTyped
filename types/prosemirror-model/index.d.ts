@@ -1221,15 +1221,26 @@ export interface NodeSpec {
      * and/or styling.
      */
     whitespace?: 'pre' | 'normal';
+
     /**
      * Determines whether this node is considered an important parent
      * node during replace operations (such as paste). Non-defining (the
      * default) nodes get dropped when their entire content is replaced,
      * whereas defining nodes persist and wrap the inserted content.
-     * Likewise, in _inserted_ content the defining parents of the
-     * content are preserved when possible. Typically,
-     * non-default-paragraph textblock types, and possibly list items,
-     * are marked as defining.
+     */
+    definingAsContext?: boolean | null | undefined;
+
+    /**
+     * In inserted content the defining parents of the content are
+     * preserved when possible. Typically, non-default-paragraph
+     * textblock types, and possibly list items, are marked as defining.
+     */
+    definingForContent?: boolean | null | undefined;
+
+    /**
+     * When enabled, enables both
+     * [`definingAsContext`](#model.NodeSpec.definingAsContext) and
+     * [`definingForContent`](#model.NodeSpec.definingForContent).
      */
     defining?: boolean | null | undefined;
     /**

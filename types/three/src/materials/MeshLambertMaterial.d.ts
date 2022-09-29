@@ -1,17 +1,26 @@
 import { Color } from './../math/Color';
 import { Texture } from './../textures/Texture';
 import { MaterialParameters, Material } from './Material';
-import { Combine } from '../constants';
+import { Combine, NormalMapTypes } from '../constants';
 import { ColorRepresentation } from '../utils';
+import { Vector2 } from '../Three';
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
+    bumpMap?: Texture | undefined;
+    bumpScale?: number | undefined;
     color?: ColorRepresentation | undefined;
+    displacementMap?: Texture | undefined;
+    displacementScale?: number | undefined;
+    displacementBias?: number | undefined;
     emissive?: ColorRepresentation | undefined;
     emissiveIntensity?: number | undefined;
     emissiveMap?: Texture | null | undefined;
+    flatShading?: boolean | undefined;
     map?: Texture | null | undefined;
     lightMap?: Texture | null | undefined;
     lightMapIntensity?: number | undefined;
+    normalMap?: Texture | undefined;
+    normalScale?: Vector2 | undefined;
     aoMap?: Texture | null | undefined;
     aoMapIntensity?: number | undefined;
     specularMap?: Texture | null | undefined;
@@ -24,6 +33,7 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     wireframeLinewidth?: number | undefined;
     wireframeLinecap?: string | undefined;
     wireframeLinejoin?: string | undefined;
+    fog?: boolean | undefined;
 }
 
 export class MeshLambertMaterial extends Material {
@@ -38,6 +48,31 @@ export class MeshLambertMaterial extends Material {
      * @default new THREE.Color( 0xffffff )
      */
     color: Color;
+
+    /**
+     * @default null
+     */
+    bumpMap: Texture | null;
+
+    /**
+     * @default 1
+     */
+    bumpScale: number;
+
+    /**
+     * @default null
+     */
+    displacementMap: Texture | null;
+
+    /**
+     * @default 1
+     */
+    dispalcementScale: number;
+
+    /**
+     * @default 0
+     */
+    displacementBias: number;
 
     /**
      * @default new THREE.Color( 0x000000 )
@@ -55,6 +90,11 @@ export class MeshLambertMaterial extends Material {
     emissiveMap: Texture | null;
 
     /**
+     * @default false
+     */
+    flatShading: boolean;
+
+    /**
      * @default null
      */
     map: Texture | null;
@@ -68,6 +108,18 @@ export class MeshLambertMaterial extends Material {
      * @default 1
      */
     lightMapIntensity: number;
+
+    /**
+     * @default null
+     */
+    normalMap: Texture | null;
+
+    normalMapType: NormalMapTypes;
+
+    /**
+     * @default new THREE.Vector2( 1, 1 )
+     */
+    normalScale: Vector2;
 
     /**
      * @default null
@@ -128,6 +180,12 @@ export class MeshLambertMaterial extends Material {
      * @default 'round'
      */
     wireframeLinejoin: string;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     setValues(parameters: MeshLambertMaterialParameters): void;
 }

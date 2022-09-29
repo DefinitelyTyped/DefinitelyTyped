@@ -50,7 +50,7 @@ const myBaseQuad = factory.quad<RDF.BaseQuad>(
 
 const myBaseQuadBad = factory.quad(
   factory.namedNode('http://example.org/subject'),
-  // $ExpectError
+  // @ts-expect-error
   factory.blankNode('34'),
   factory.namedNode('http://example.org/object'),
 );
@@ -58,7 +58,7 @@ const myBaseQuadBad = factory.quad(
 const fromQuadValue = factory.fromQuad(myQuad);
 const fromBaseQuadValue = factory.fromQuad(myBaseQuad);
 
-// $ExpectError
+// @ts-expect-error
 factory.fromQuad(factory.variable('?o'));
 
 const fromTermValue = factory.fromTerm(factory.variable('?o'));

@@ -7,11 +7,6 @@
 
 import { Transform } from 'stream';
 
-export interface Line {
-    data: string;
-    type: string;
-}
-
 export interface Options {
     emitInvalidLines?: boolean | undefined;
 }
@@ -23,7 +18,7 @@ export class Parser extends Transform {
     // added 'invalid-line'
     on(event: 'error' | 'invalid-line', listener: (err: Error) => void): this;
     // changed
-    on(event: 'data', listener: (line: Line) => void): this;
+    on(event: 'data', listener: (data: any) => void): this;
     // inherited
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
@@ -34,7 +29,7 @@ export class Stringifier extends Transform {
     on(event: 'close' | 'end' | 'pause' | 'readable' | 'resume', listener: () => void): this;
     on(event: 'error', listener: (err: Error) => void): this;
     // changed
-    on(event: 'data', listener: (line: Line) => void): this;
+    on(event: 'data', listener: (data: any) => void): this;
     // inherited
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }

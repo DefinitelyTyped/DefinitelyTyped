@@ -22,7 +22,7 @@ export interface RootOptions {
 }
 
 export interface Root {
-    render(children: React.ReactChild | Iterable<React.ReactNode>): void;
+    render(children: React.ReactNode): void;
     unmount(): void;
 }
 
@@ -33,8 +33,21 @@ export interface Root {
  */
 export function createRoot(container: Element | DocumentFragment, options?: RootOptions): Root;
 
+/**
+ * Same as `createRoot()`, but is used to hydrate a container whose HTML contents were rendered by ReactDOMServer.
+ *
+ * React will attempt to attach event listeners to the existing markup.
+ *
+ * **Example Usage**
+ *
+ * ```jsx
+ * hydrateRoot(document.querySelector('#root'), <App />)
+ * ```
+ *
+ * @see https://reactjs.org/docs/react-dom-client.html#hydrateroot
+ */
 export function hydrateRoot(
     container: Element | Document,
-    initialChildren: React.ReactChild | Iterable<React.ReactNode>,
+    initialChildren: React.ReactNode,
     options?: HydrationOptions,
 ): Root;

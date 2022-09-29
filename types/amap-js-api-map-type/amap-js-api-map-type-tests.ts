@@ -11,7 +11,7 @@ const mapType = new AMap.MapType({
     showRoad: true
 });
 
-// $ExpectError
+// @ts-expect-error
 new AMap.MapType({ defaultType: 2 });
 
 // $ExpectType void

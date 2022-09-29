@@ -187,6 +187,7 @@ const MuiCustomTable: React.FC<Props> = props => {
                 deleteAria: 'Delete Selected Rows',
             },
         },
+        storageKey: 'SavedToLocalStorage'
     };
 
     return (

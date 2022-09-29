@@ -144,6 +144,20 @@ management
             });
     });
 
+// Fetch a user's organizations
+management.users.getUserOrganizations({ id: 'my_id' }).then((organizations: auth0.Organization[]) => {
+    console.log(organizations);
+});
+
+// Fetch a user's organizations using cb style
+management.users.getUserOrganizations({ id: 'my_id' }, (err, orgs) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(orgs);
+});
+
 auth.requestChangePasswordEmail({
     client_id: 'client_id',
     connection: 'My-Connection',
@@ -191,26 +205,60 @@ auth.tokens
     });
 
 // Password Grant
-auth.passwordGrant({username: 'username', password: 'password'}).then((response: auth0.TokenResponse) => { console.log(response); });
-auth.passwordGrant({username: 'username', password: 'password'}, (err, response: auth0.TokenResponse) => { console.log(response); });
-auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }).then((response: auth0.TokenResponse) => { console.log(response); });
-auth.passwordGrant({username: 'username', password: 'password'}, { forwardedFor: '12.34.56.78' }, (err, response: auth0.TokenResponse) => { console.log(response); });
+auth.passwordGrant({ username: 'username', password: 'password' }).then((response: auth0.TokenResponse) => {
+    console.log(response);
+});
+auth.passwordGrant({ username: 'username', password: 'password' }, (err, response: auth0.TokenResponse) => {
+    console.log(response);
+});
+auth.passwordGrant({ username: 'username', password: 'password' }, { forwardedFor: '12.34.56.78' }).then(
+    (response: auth0.TokenResponse) => {
+        console.log(response);
+    },
+);
+auth.passwordGrant(
+    { username: 'username', password: 'password' },
+    { forwardedFor: '12.34.56.78' },
+    (err, response: auth0.TokenResponse) => {
+        console.log(response);
+    },
+);
 
 // SMS/Email OTP Login
-auth.requestEmailCode({email: 'hi@me.co', authParams: {}}).then((response: any) => { console.log(response); });
-auth.requestEmailCode({email: 'hi@me.co', authParams: {}}, (response: any) => { console.log(response); });
+auth.requestEmailCode({ email: 'hi@me.co', authParams: {} }).then((response: any) => {
+    console.log(response);
+});
+auth.requestEmailCode({ email: 'hi@me.co', authParams: {} }, (response: any) => {
+    console.log(response);
+});
 
-auth.requestSMSCode({ phone_number: '+1234567890'}, (response: any) => { console.log(response); });
-auth.requestSMSCode({ phone_number: '+1234567890'}).then((response: any) => { console.log(response); });
+auth.requestSMSCode({ phone_number: '+1234567890' }, (response: any) => {
+    console.log(response);
+});
+auth.requestSMSCode({ phone_number: '+1234567890' }).then((response: any) => {
+    console.log(response);
+});
 
-auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}).then((response: any) => { console.log(response); });
-auth.verifyEmailCode({email: 'hi@me.co', otp: 'password'}, (response: any) => { console.log(response); });
+auth.verifyEmailCode({ email: 'hi@me.co', otp: 'password' }).then((response: any) => {
+    console.log(response);
+});
+auth.verifyEmailCode({ email: 'hi@me.co', otp: 'password' }, (response: any) => {
+    console.log(response);
+});
 
-auth.verifySMSCode({username: '+1234567890', password: 'password'}).then((response: any) => { console.log(response); });
-auth.verifySMSCode({username: '+1234567890', password: 'password'}, (response: any) => { console.log(response); });
+auth.verifySMSCode({ username: '+1234567890', password: 'password' }).then((response: any) => {
+    console.log(response);
+});
+auth.verifySMSCode({ username: '+1234567890', password: 'password' }, (response: any) => {
+    console.log(response);
+});
 
-auth.verifySMSCode({username: '+1234567890', otp: 'password'}).then((response: any) => { console.log(response); });
-auth.verifySMSCode({username: '+1234567890', otp: 'password'}, (response: any) => { console.log(response); });
+auth.verifySMSCode({ username: '+1234567890', otp: 'password' }).then((response: any) => {
+    console.log(response);
+});
+auth.verifySMSCode({ username: '+1234567890', otp: 'password' }, (response: any) => {
+    console.log(response);
+});
 
 // Get management client access token
 management
@@ -559,7 +607,24 @@ management
     })
     .then(results => console.log(results));
 
+management
+    .importUsersJob({
+        users: 'some file data',
+        connection_id: 'con_id',
+        upsert: true,
+    })
+    .then(results => console.log(results));
+
 management.importUsers(
+    {
+        users: 'some file data',
+        connection_id: 'con_id',
+        upsert: true,
+    },
+    (err, data) => console.log(data),
+);
+
+management.importUsersJob(
     {
         users: 'some file data',
         connection_id: 'con_id',
@@ -854,11 +919,19 @@ management.deleteCustomDomain({ id: 'cd_0000000000000001' }).then(() => console.
 management.deleteCustomDomain({ id: 'cd_0000000000000001' }, err => console.log('deleted'));
 
 // User enrollment
+management.getGuardianEnrollment({ id: 'cd_0000000000000001' }).then(enrollment => console.log(enrollment));
+management.getGuardianEnrollment({ id: 'cd_0000000000000001' }, (err, enrollment) => console.log(enrollment));
+
 management.getGuardianEnrollments({ id: 'cd_0000000000000001' }).then(enrollments => console.log(enrollments));
 management.getGuardianEnrollments({ id: 'cd_0000000000000001' }, (err, enrollments) => console.log(enrollments));
 
 management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }).then(() => console.log('deleted'));
 management.deleteGuardianEnrollment({ id: 'cd_0000000000000001' }, err => console.log('deleted error'));
+
+management
+    .createGuardianEnrollmentTicket({ user_id: 'user_id', send_mail: true })
+    .then(results => console.log(results));
+management.createGuardianEnrollmentTicket({ user_id: 'user_id', send_mail: true }, (err, data) => console.log(data));
 
 // MFA invalidate remember browser
 management.invalidateRememberBrowser({ id: 'cd_0000000000000001' }).then(() => console.log('mfa resetter'));
@@ -884,33 +957,37 @@ management.getGrants(
 );
 
 // Logs
-management.getLog({ id: 'cd_0000000000000001'}).then(log => console.log(log));
-management.getLog({ id: 'cd_0000000000000001'}, (log) => console.log(log));
+management.getLog({ id: 'cd_0000000000000001' }).then(log => console.log(log));
+management.getLog({ id: 'cd_0000000000000001' }, log => console.log(log));
 management.getLogs().then(logs => console.log(logs));
-management.getLogs({
-    fields: 'audience',
-    from: 'cd_0000000000000001',
-    include_fields: true,
-    include_totals: false,
-    page: 0,
-    per_page: 12,
-    q: '?!?',
-    sort: 'audience',
-    take: 42
-}).then(logs => console.log(logs));
-management.getLogs((logs) => console.log(logs));
-management.getLogs({
-    fields: 'audience',
-    from: 'cd_0000000000000001',
-    include_fields: true,
-    include_totals: false,
-    page: 0,
-    per_page: 12,
-    q: '?!?',
-    sort: 'audience',
-    take: 42
-},
-logs => console.log(logs));
+management
+    .getLogs({
+        fields: 'audience',
+        from: 'cd_0000000000000001',
+        include_fields: true,
+        include_totals: false,
+        page: 0,
+        per_page: 12,
+        q: '?!?',
+        sort: 'audience',
+        take: 42,
+    })
+    .then(logs => console.log(logs));
+management.getLogs(logs => console.log(logs));
+management.getLogs(
+    {
+        fields: 'audience',
+        from: 'cd_0000000000000001',
+        include_fields: true,
+        include_totals: false,
+        page: 0,
+        per_page: 12,
+        q: '?!?',
+        sort: 'audience',
+        take: 42,
+    },
+    logs => console.log(logs),
+);
 
 const authentication = new auth0.AuthenticationClient({
     domain: 'auth0.com',
@@ -969,6 +1046,8 @@ async () => {
     };
     signInUserData.realm = 'email';
     signInUserData.realm = 'sms';
+
+    signInUserData.scope = 'openid profile email';
     const emailUserData: auth0.RequestEmailCodeOrLinkOptions = {
         email: '{YOUR_EMAIL}',
         send: 'code',
@@ -1123,7 +1202,7 @@ management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }, 
 /**
  * Get All Organizations with pagination and totals returning a Promise
  */
-management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }).then((pagedOrganizations) => {
+management.organizations.getAll({ page: 0, per_page: 5, include_totals: true }).then(pagedOrganizations => {
     // $ExpectType OrganizationsPaged
     pagedOrganizations;
 });
@@ -1353,7 +1432,7 @@ management.organizations.getMembers({ id: 'organization_id' }).then((members: au
 /**
  * Get a paged result of an Organization's members returning a promise.
  */
-management.organizations.getMembers({id: 'organization_id', include_totals: true }).then((pagedMembers) => {
+management.organizations.getMembers({ id: 'organization_id', include_totals: true }).then(pagedMembers => {
     // $ExpectType OrganizationMembersPaged
     pagedMembers;
 });
@@ -1561,16 +1640,21 @@ management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_
 /**
  * Get a paged result of an Organization Member Roles using a callback
  */
-management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }, (err, pagedRoles: Omit<auth0.RolePage, 'length'>) => {
-    console.log(pagedRoles);
-});
+management.organizations.getMemberRoles(
+    { id: 'organization_id', user_id: 'user_id', include_totals: true },
+    (err, pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+        console.log(pagedRoles);
+    },
+);
 
 /**
  * Get a paged result of an Organization Member Roles returning a Promise
  */
-management.organizations.getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true }).then((pagedRoles: Omit<auth0.RolePage, 'length'>) => {
-    console.log(pagedRoles);
-});
+management.organizations
+    .getMemberRoles({ id: 'organization_id', user_id: 'user_id', include_totals: true })
+    .then((pagedRoles: Omit<auth0.RolePage, 'length'>) => {
+        console.log(pagedRoles);
+    });
 
 /**
  * Get a paged result of an Organization Member Roles with pagination using a callback

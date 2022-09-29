@@ -32,7 +32,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     envMapIntensity?: number | undefined;
     wireframe?: boolean | undefined;
     wireframeLinewidth?: number | undefined;
-
+    fog?: boolean | undefined;
     flatShading?: boolean | undefined;
 }
 
@@ -194,6 +194,12 @@ export class MeshStandardMaterial extends Material {
      * @default false
      */
     flatShading: boolean;
+
+    /**
+     * Whether the material is affected by fog. Default is true.
+     * @default fog
+     */
+    fog: boolean;
 
     isMeshStandardMaterial: boolean;
 

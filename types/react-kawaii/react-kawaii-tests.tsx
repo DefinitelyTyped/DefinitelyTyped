@@ -13,12 +13,12 @@ const CatExample = () => <Cat />;
 const ChocolateExample = () => <Chocolate />;
 const FolderExample = () => <Folder />;
 
-// $ExpectError
+// @ts-expect-error
 const invalidMoodNumber: KawaiiMood = 5;
 
-// $ExpectError
+// @ts-expect-error
 const invalidMoodString: KawaiiMood = '';
 
 // This is defined on one line to avoid the position of the error moving between TS2/3
-// $ExpectError
+// @ts-expect-error
 const invalidProps: KawaiiProps = { size: '200px' };

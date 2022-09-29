@@ -190,7 +190,7 @@ declare namespace powerbi {
     /**
      * Represents an operation, to be completed (resolve/rejected) in the future.
      */
-    interface IPromise<T> extends IPromise2<T, T> {// eslint-disable-line interface-name
+    interface IPromise<T> extends IPromise2<T, T> {
     }
 
     /**
@@ -1341,5 +1341,5 @@ declare namespace powerbi.extensibility.visual {
         host: IVisualHost;
     }
 }
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = powerbi;

@@ -14,13 +14,14 @@ import {
     useEntryPointLoader,
     useFragment,
     useLazyLoadQuery,
+    useClientQuery,
     useMutation,
     usePaginationFragment,
     usePreloadedQuery,
     useQueryLoader,
     useRefetchableFragment,
     useRelayEnvironment,
-    useSubscription
+    useSubscription,
 } from 'react-relay/hooks';
 
 import {
@@ -167,6 +168,27 @@ function LazyLoadQuery() {
             `,
             { id: '4' },
             { fetchPolicy: 'store-and-network', networkCacheConfig: { force: true } },
+        );
+
+        return <h1>{data.user!.name}</h1>;
+    };
+}
+
+/**
+ * Tests for useClientQuery
+ * see https://relay.dev/docs/en/experimental/api-reference#useClientQuery
+ */
+function ClientQuery() {
+    return function App() {
+        const data = useClientQuery<AppQuery>(
+            graphql`
+                query AppQuery($id: ID!) {
+                    user(id: $id) {
+                        name
+                    }
+                }
+            `,
+            { id: '4' },
         );
 
         return <h1>{data.user!.name}</h1>;
@@ -746,7 +768,7 @@ function QueryLoader() {
 
     function QueryFetcherExample(): React.ReactElement {
         React.useEffect(() => {
-            loadQuery({ id: 'EXAMPLE' });
+            loadQuery({ id: 'EXAMPLE' }, { fetchPolicy: 'store-only' });
             return disposeQuery;
         });
 

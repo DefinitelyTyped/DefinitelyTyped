@@ -39,9 +39,16 @@ async function testTasks(onfleet: Onfleet) {
     task.estimatedCompletionTime;
     task.eta;
     task.trackingViewed;
-
-    await onfleet.tasks.get({ from: 1455072025000 });
-    await onfleet.tasks.get({ from: 145507202500, lastId: 'fake_task_id' });
+    task.completionDetails.notes;
+    task.completionDetails.success;
+    const result = await onfleet.tasks.get({ from: 1455072025000 });
+    for (const resultTask of result.tasks) {
+        resultTask.pickupTask;
+        resultTask.eta;
+    }
+    if (result.lastId) {
+        await onfleet.tasks.get({ from: 1455072025000, lastId: result.lastId });
+    }
     await onfleet.tasks.get('fake_task_id', 'shortId');
 
     // test tasks.create
@@ -109,7 +116,9 @@ async function testTasks(onfleet: Onfleet) {
     await onfleet.tasks.deleteOne(clonedDummyTask.id);
 
     // test tasks.forceComplete
-    await onfleet.tasks.forceComplete(dummyTask.id);
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: false } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true, notes: 'test note' } });
 
     // test tasks.matchMetadata
     await onfleet.tasks.matchMetadata([

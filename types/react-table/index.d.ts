@@ -319,7 +319,9 @@ export type HeaderProps<D extends object> = TableInstance<D> & {
     column: ColumnInstance<D>;
 };
 
-export type FooterProps<D extends object> = TableInstance<D> & {};
+export type FooterProps<D extends object> = TableInstance<D> & {
+    column: ColumnInstance<D>;
+};
 
 export type CellProps<D extends object, V = any> = TableInstance<D> & {
     column: ColumnInstance<D>;

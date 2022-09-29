@@ -1,26 +1,41 @@
 import timeSafeCompare = require('tsscmp');
 
-timeSafeCompare(); // $ExpectError
-timeSafeCompare(''); // $ExpectError
-timeSafeCompare(1); // $ExpectError
+// @ts-expect-error
+timeSafeCompare();
+// @ts-expect-error
+timeSafeCompare('');
+// @ts-expect-error
+timeSafeCompare(1);
 
 timeSafeCompare('', ''); // $ExpectType boolean
 timeSafeCompare(1, 1); // $ExpectType boolean
 
-timeSafeCompare('', 1); // $ExpectError
-timeSafeCompare(1, ''); // $ExpectError
+// @ts-expect-error
+timeSafeCompare('', 1);
+// @ts-expect-error
+timeSafeCompare(1, '');
 
-timeSafeCompare({}, {}); // $ExpectError
-timeSafeCompare([], []); // $ExpectError
+// @ts-expect-error
+timeSafeCompare({}, {});
+// @ts-expect-error
+timeSafeCompare([], []);
 
-timeSafeCompare({}, ''); // $ExpectError
-timeSafeCompare([], ''); // $ExpectError
+// @ts-expect-error
+timeSafeCompare({}, '');
+// @ts-expect-error
+timeSafeCompare([], '');
 
-timeSafeCompare([], 1); // $ExpectError
-timeSafeCompare({}, 1); // $ExpectError
+// @ts-expect-error
+timeSafeCompare([], 1);
+// @ts-expect-error
+timeSafeCompare({}, 1);
 
-timeSafeCompare('', {}); // $ExpectError
-timeSafeCompare('', []); // $ExpectError
+// @ts-expect-error
+timeSafeCompare('', {});
+// @ts-expect-error
+timeSafeCompare('', []);
 
-timeSafeCompare(1, []); // $ExpectError
-timeSafeCompare(1, {}); // $ExpectError
+// @ts-expect-error
+timeSafeCompare(1, []);
+// @ts-expect-error
+timeSafeCompare(1, {});

@@ -304,7 +304,7 @@ declare namespace google.accounts {
          * Displays the One Tap prompt or the browser native credential manager
          * after the initialize() method is invoked.
          */
-        function prompt(momentListener: (promptMomentNotification: PromptMomentNotification) => void): void;
+        function prompt(momentListener?: (promptMomentNotification: PromptMomentNotification) => void): void;
 
         /**
          * Renders a Sign In With Google button in your web pages.
@@ -441,6 +441,12 @@ declare namespace google.accounts {
              * manually close One Tap.
              */
             intermediate_iframe_close_callback?: () => void;
+
+            /**
+             * This field determines if the upgraded One Tap UX should be enabled
+             * on browsers that support Intelligent Tracking Prevention (ITP).
+             */
+            itp_support?: boolean;
         }
 
         interface PromptMomentNotification {

@@ -21,6 +21,7 @@ export interface TextLayerItemInternal {
     str: string;
     transform: number[];
     width: number;
+    height: number;
 }
 
 export interface TextItem {

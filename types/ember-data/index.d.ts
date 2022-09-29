@@ -1,4 +1,4 @@
-// Type definitions for ember-data 4.0
+// Type definitions for ember-data 4.4
 // Project: https://github.com/emberjs/data
 // Definitions by: Derek Wickern <https://github.com/dwickern>
 //                 Mike North <https://github.com/mike-north>
@@ -17,6 +17,7 @@ import TransformRegistry from 'ember-data/types/registries/transform';
 import ModelRegistry from 'ember-data/types/registries/model';
 import SerializerRegistry from 'ember-data/types/registries/serializer';
 import AdapterRegistry from 'ember-data/types/registries/adapter';
+import EmberError from '@ember/error';
 
 /**
   The keys from the actual Model class, removing all the keys which come from
@@ -174,6 +175,12 @@ export namespace DS {
             query?: {}
         ): string;
         /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
+        /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
         urlForFindRecord<K extends keyof ModelRegistry>(
@@ -265,7 +272,9 @@ export namespace DS {
      * subclasses are used to indicate specific error states. The following
      * subclasses are provided:
      */
-    class AdapterError extends Ember.Object {}
+    class AdapterError extends EmberError {
+        static extend(options?: { message?: string }): typeof AdapterError;
+    }
     /**
      * A `DS.InvalidError` is used by an adapter to signal the external API
      * was unable to process a request because the content was not
@@ -886,11 +895,9 @@ export namespace DS {
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
      * relationship.
      */
-    interface ManyArray<T> extends Ember.MutableArray<T> {}
-    class ManyArray<T> extends Ember.Object.extend(
-        Ember.MutableArray as {},
-        Ember.Evented
-    ) {
+    // tslint:disable-next-line:no-empty-interface -- used for declaration merge
+    interface ManyArray<T> extends Ember.MutableArray<T>, Evented {}
+    class ManyArray<T> extends Ember.Object {
         /**
          * The loading state of this array
          */
@@ -993,7 +1000,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */
@@ -1132,8 +1139,7 @@ export namespace DS {
             modelName: K,
             query: object,
             options?: { adapterOptions?: object | undefined }
-        ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
-            PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
+        ): PromiseArray<ModelRegistry[K], AdapterPopulatedRecordArray<ModelRegistry[K]>>;
         /**
          * This method makes a request for one record, where the `id` is not known
          * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)
@@ -1388,6 +1394,12 @@ export namespace DS {
             requestType?: string,
             query?: {}
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
@@ -2205,21 +2217,6 @@ export namespace DS {
 
 export default DS;
 
-declare module '@ember/routing/route' {
-    export default interface Route {
-        store: DS.Store;
-    }
-}
-declare module '@ember/controller' {
-    export default interface Controller {
-        store: DS.Store;
-    }
-}
-declare module '@ember/debug/data-adapter' {
-    export default interface DataAdapter {
-        store: DS.Store;
-    }
-}
 declare module '@ember/service' {
     interface Registry {
         store: DS.Store;

@@ -130,6 +130,14 @@ jexl.eval('"Guest" _= "gUeSt"');
     }
 })().then(() => console.log('Testing done'));
 
+// $ExpectType Grammar
+jexl._grammar;
+
 // Compile expressions
+const expression = jexl.compile('1 + 2');
+
 // $ExpectType Expression
-jexl.compile('1 + 2');
+expression;
+
+// $ExpectType Ast
+expression._getAst();

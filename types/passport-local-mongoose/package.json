@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "mongoose": "5.*"
+        "mongoose": "^6.3.0"
     }
 }

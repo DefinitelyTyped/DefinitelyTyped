@@ -145,9 +145,7 @@ declare namespace nodemon {
         /**
          * Use specified kill signal instead of default (ex. SIGTERM)
          */
-        signal?: {
-            [k: string]: any;
-        } | undefined;
+        signal?: string | undefined;
         /**
          * Force nodemon to use spawn (over fork) [node only]
          */

@@ -31,5 +31,7 @@ declare namespace ConnectMongoDBSession {
         databaseName?: string | undefined;
         connectionOptions?: MongoClientOptions | undefined;
         idField?: string | undefined;
+        expiresKey?: string | undefined;
+        expiresAfterSeconds?: number | undefined;
     }
 }

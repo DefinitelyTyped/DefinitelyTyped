@@ -17,6 +17,7 @@ declare namespace memoizee {
     primitive?: boolean | undefined;
     normalizer?(args: Parameters<F>): string;
     resolvers?: Array<(arg: any) => any> | undefined;
+    profileName?: string;
   }
 
   interface Memoized<F> {

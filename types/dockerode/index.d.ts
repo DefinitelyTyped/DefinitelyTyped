@@ -636,26 +636,33 @@ declare namespace Dockerode {
             tx_dropped: number;
             tx_errors: number;
             tx_packets: number;
+            endpoint_id?: string;   // not used on linux
+            instance_id?: string;   // not used on linux
         };
+    }
+
+    interface CPUUsage {
+        percpu_usage: number[];
+        usage_in_usermode: number;
+        total_usage: number;
+        usage_in_kernelmode: number;
+    }
+
+    interface ThrottlingData {
+        periods: number;
+        throttled_periods: number;
+        throttled_time: number;
     }
 
     interface CPUStats {
-        cpu_usage: {
-            percpu_usage: number[];
-            usage_in_usermode: number;
-            total_usage: number;
-            usage_in_kernelmode: number;
-        };
+        cpu_usage: CPUUsage;
         system_cpu_usage: number;
         online_cpus: number;
-        throttling_data: {
-            periods: number;
-            throttled_periods: number;
-            throttled_time: number;
-        };
+        throttling_data: ThrottlingData;
     }
 
     interface MemoryStats {
+        // Linux Memory Stats
         stats: {
             total_pgmajfault: number;
             cache: number;
@@ -691,16 +698,52 @@ declare namespace Dockerode {
         usage: number;
         failcnt: number;
         limit: number;
+
+        // Windows Memory Stats
+        commitbytes?: number;
+        commitpeakbytes?: number;
+        privateworkingset?: number;
+    }
+
+    interface BlkioStatEntry {
+        major: number;
+        minor: number;
+        op: string;
+        value: number;
+    }
+
+    interface BlkioStats {
+        io_service_bytes_recursive: BlkioStatEntry[];
+        io_serviced_recursive: BlkioStatEntry[];
+        io_queue_recursive: BlkioStatEntry[];
+        io_service_time_recursive: BlkioStatEntry[];
+        io_wait_time_recursive: BlkioStatEntry[];
+        io_merged_recursive: BlkioStatEntry[];
+        io_time_recursive: BlkioStatEntry[];
+        sectors_recursive: BlkioStatEntry[];
+    }
+
+    interface StorageStats {
+        read_count_normalized?: number;
+        read_size_bytes?: number;
+        write_count_normalized?: number;
+        write_size_bytes?: number;
+    }
+
+    interface PidsStats {
+        current?: number;
+        limit?: number;
     }
 
     interface ContainerStats {
         read: string;
-        pid_stats: {
-            current: number;
-        };
+        preread: string;
+        pid_stats?: PidsStats;
+        blkio_stats?: BlkioStats;
+        num_procs: number;
+        storage_stats?: StorageStats;
         networks: NetworkStats;
         memory_stats: MemoryStats;
-        blkio_stats: {};
         cpu_stats: CPUStats;
         precpu_stats: CPUStats;
     }

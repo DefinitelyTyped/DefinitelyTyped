@@ -2,7 +2,11 @@
 
 import ejs = require('ejs');
 import { readFileSync as read } from 'fs';
-import LRU = require('lru-cache');
+class LRU extends Map<string, ejs.TemplateFunction> {
+    reset(): void {
+        this.clear();
+    }
+}
 
 const fileName = 'test.ejs';
 const people = ['geddy', 'neil', 'alex'];
@@ -70,7 +74,7 @@ ejs.fileLoader = (path: string) => '';
 
 /** @see https://github.com/mde/ejs/tree/v2.5.7#caching */
 ejs.clearCache();
-ejs.cache = LRU(100);
+ejs.cache = new LRU();
 
 /** @see https://github.com/mde/ejs/tree/v2.5.7#custom-delimiters */
 ejs.delimiter; // $ExpectType string | undefined

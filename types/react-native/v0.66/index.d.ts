@@ -25,7 +25,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -34,7 +33,6 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
@@ -959,6 +957,11 @@ export interface TextPropsIOS {
 }
 
 export interface TextPropsAndroid {
+    /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
@@ -3843,6 +3846,7 @@ export class Image extends ImageBase {
 }
 
 export interface ImageBackgroundProps extends ImagePropsBase {
+    children?: React.ReactNode;
     imageStyle?: StyleProp<ImageStyle> | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     imageRef?(image: Image): void;
@@ -4951,7 +4955,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -4981,7 +4985,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.

@@ -1,9 +1,10 @@
-// Type definitions for prosemirror-transform 1.1
+// Type definitions for prosemirror-transform 1.4
 // Project: https://github.com/ProseMirror/prosemirror-transform
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 //                 Tim Baumann <https://github.com/timjb>
 //                 Patrick Simmelbauer <https://github.com/patsimm>
+//                 Ocavue <https://github.com/ocavue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -237,7 +238,7 @@ export class Transform<S extends Schema = any> {
      * remove all marks of that type. When it is null, remove all marks of
      * any type.
      */
-    removeMark(from: number, to: number, mark?: Mark<S> | MarkType<S>): this;
+    removeMark(from: number, to: number, mark?: Mark<S> | MarkType<S> | null): this;
     /**
      * Removes all marks and nodes from the content of the node at `pos`
      * that don't match the given new parent node type. Accepts an
@@ -264,15 +265,16 @@ export class Transform<S extends Schema = any> {
      */
     insert(pos: number, content: Fragment<S> | ProsemirrorNode<S> | Array<ProsemirrorNode<S>>): this;
     /**
+     * :: (number, number, Slice) → this
      * Replace a range of the document with a given slice, using `from`,
      * `to`, and the slice's [`openStart`](#model.Slice.openStart) property
      * as hints, rather than fixed start and end points. This method may
      * grow the replaced area or close open nodes in the slice in order to
      * get a fit that is more in line with WYSIWYG expectations, by
      * dropping fully covered parent nodes of the replaced region when
-     * they are marked [non-defining](#model.NodeSpec.defining), or
+     * they are marked [non-defining as context](#model.NodeSpec.definingAsContext), or
      * including an open parent node from the slice that _is_ marked as
-     * [defining](#model.NodeSpec.defining).
+     * [defining its content](#model.NodeSpec.definingForContent).
      *
      * This is the method, for example, to handle paste. The similar
      * [`replace`](#transform.Transform.replace) method is a more
@@ -333,7 +335,7 @@ export class Transform<S extends Schema = any> {
     split(
         pos: number,
         depth?: number,
-        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined }>,
+        typesAfter?: Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null | undefined } | null | undefined>,
     ): this;
     /**
      * Join the blocks around the given position. If depth is 2, their

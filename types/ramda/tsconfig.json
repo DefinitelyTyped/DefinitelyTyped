@@ -150,6 +150,7 @@
         "test/mergeWithKey-tests.ts",
         "test/min-tests.ts",
         "test/minBy-tests.ts",
+        "test/modify-tests.ts",
         "test/modulo-tests.ts",
         "test/move-tests.ts",
         "test/multiply-tests.ts",

@@ -39,7 +39,7 @@ walker.on('file', (
     // $ExpectType WalkNext
     next
 ) => {
-    // $ExpectError
+    // @ts-expect-error
     if (stats.type === 'foo') {
         //
     }
@@ -56,7 +56,7 @@ walker.on('file', (
             break;
     }
 });
-// $ExpectError
+// @ts-expect-error
 walker.on('foo', () => { });
 walker.pause();
 walker.resume();

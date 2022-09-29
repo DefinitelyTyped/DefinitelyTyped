@@ -31,6 +31,15 @@ stringHeap.heapify();
 numberHeap.updateItem(2);
 stringHeap.updateItem("bar");
 
+var containsItem: boolean = numberHeap.contains(3);
+containsItem = numberHeap.has(2);
+
+containsItem = stringHeap.contains("bar");
+containsItem = stringHeap.has("foo");
+
+numberHeap.clear();
+stringHeap.clear();
+
 var booleanIdentifier: boolean = numberHeap.empty();
 booleanIdentifier = stringHeap.empty();
 

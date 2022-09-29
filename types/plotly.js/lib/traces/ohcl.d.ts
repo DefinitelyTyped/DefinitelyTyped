@@ -74,28 +74,34 @@ export interface OhclData {
     };
     selectedpoints: any; // TODO: further refine
     increasing: {
-        line?: {
-            color?: string | undefined;
-            width?: number | undefined;
-            dash?: Dash | undefined;
-        } | undefined;
+        line?:
+            | {
+                  color?: string | undefined;
+                  width?: number | undefined;
+                  dash?: Dash | undefined;
+              }
+            | undefined;
     };
     decreasing: {
-        line?: {
-            color?: string | undefined;
-            width?: number | undefined;
-            dash?: Dash | undefined;
-        } | undefined;
+        line?:
+            | {
+                  color?: string | undefined;
+                  width?: number | undefined;
+                  dash?: Dash | undefined;
+              }
+            | undefined;
     };
 
     hoverlabel: {
         bgcolor?: string | string[] | undefined;
         bordercolor?: string | string[] | undefined;
-        font?: {
-            family?: string | string[] | undefined;
-            size?: number | undefined;
-            color?: string | string[] | undefined;
-        } | undefined;
+        font?:
+            | {
+                  family?: string | string[] | undefined;
+                  size?: number | undefined;
+                  color?: string | string[] | undefined;
+              }
+            | undefined;
         align?: 'left' | 'right' | 'auto' | undefined;
         namelength?: number | number[] | undefined;
         split?: boolean | undefined;

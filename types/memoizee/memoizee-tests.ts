@@ -77,3 +77,5 @@ memoize((foo: string, bar: number) => 42, {
     return foo + bar.toFixed();
   }
 });
+
+memoized = memoize(fn, { profileName: 'foo' });

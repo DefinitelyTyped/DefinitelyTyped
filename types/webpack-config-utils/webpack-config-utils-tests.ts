@@ -53,7 +53,7 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
         ifNotDev('value', 'alternate'); // 'value'
     }
     {
-        // $ExpectError
+        // @ts-expect-error
         getIfUtils(false); // webpack-config-utils:getIfUtils.*?string\/Object/);
     }
     {
@@ -92,7 +92,7 @@ import { getIfUtils, removeEmpty, propIf, propIfNot } from 'webpack-config-utils
     } = emptiedObject;
 
     {
-        // $ExpectError
+        // @ts-expect-error
         const {a, b, c, d} = emptiedObject;
     }
 

@@ -88,6 +88,11 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
         return;
     }
 
+    if (response.getHeader("should-respondWith")) {
+        request.respondWith(444, {}, "wanted a respond with");
+        return;
+    }
+
     // Req - getHeader
     let h = request.getHeader("onClientResponse-req-getHeader") || [];
     response.setHeader("header-from-req", h);
@@ -125,4 +130,13 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
     // get a specific header and do string operations
     const acceptHeader = headers["accept-encoding"];
     acceptHeader.forEach(val => val.toUpperCase());
+
+    // EW.ResponseProviderRequest.text()
+    const stringBody = request.text();
+
+    // EW.ResponseProviderRequest.json()
+    const jsonBody = request.json();
+
+    // getVariable
+    const v = request.getVariable("var") || [];
 }

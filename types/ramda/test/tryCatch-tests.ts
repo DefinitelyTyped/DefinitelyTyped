@@ -20,19 +20,22 @@ import * as R from 'ramda';
     R.tryCatch(
         (x: number) => x + 1,
         err => err,
-    )('string'); // $ExpectError
+    // @ts-expect-error
+    )('string');
 
     // one argument is a string
     R.tryCatch(
         (x: number, y: number) => x + y,
         (err, x, y) => x * y,
-    )(5, '6'); // $ExpectError
+    // @ts-expect-error
+    )(5, '6');
 
     // no arguments allowed if argument type is never
     R.tryCatch(
         () => 1,
         () => 2,
-    )(12); // $ExpectError
+    // @ts-expect-error
+    )(12);
 
     // With currying
 
@@ -71,7 +74,8 @@ import * as R from 'ramda';
 
     R.tryCatch(<T extends string | number>(x: T) => x, R.F)(123); // $ExpectType false | 123
     R.tryCatch(<T extends string | number>(x: T) => x, R.F)('asdf'); // $ExpectType false | "asdf"
-    R.tryCatch(<T extends string | number>(x: T) => x, R.F)(null); // $ExpectError
+    // @ts-expect-error
+    R.tryCatch(<T extends string | number>(x: T) => x, R.F)(null);
 
     R.tryCatch(R.and, R.F)(true, true); // $ExpectType boolean
     R.tryCatch(R.and)(R.F)(true, true); // $ExpectType boolean
@@ -86,8 +90,10 @@ import * as R from 'ramda';
     R.tryCatch(R.prop<'x', true>('x'), R.F)({ x: true }); // $ExpectType boolean
     R.tryCatch(R.prop('x'), R.F)({ x: 13 }); // $ExpectType number | false
     R.tryCatch(R.prop('x'))(R.F)({ x: 13 }); // $ExpectType number | false
-    R.tryCatch(R.prop('x'), R.F)(null); // $ExpectError
-    R.tryCatch(R.prop('x'), R.F)(null); // $ExpectError
+    // @ts-expect-error
+    R.tryCatch(R.prop('x'), R.F)(null);
+    // @ts-expect-error
+    R.tryCatch(R.prop('x'), R.F)(null);
 
     // Curried generic tryer
 

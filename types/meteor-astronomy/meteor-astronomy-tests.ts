@@ -1,6 +1,4 @@
 import { Class, Enum } from 'meteor/jagi:astronomy';
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 
 interface PostInterface {
     title: string;

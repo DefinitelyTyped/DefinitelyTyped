@@ -155,7 +155,7 @@ declare namespace Carousel {
 
     type jQueryInterface = (
         config?: Partial<Options> | number | 'cycle' | 'pause' | 'prev' | 'next' | 'nextWhenVisible' | 'to' | 'dispose',
-    ) => void;
+    ) => JQuery;
 }
 
 export default Carousel;

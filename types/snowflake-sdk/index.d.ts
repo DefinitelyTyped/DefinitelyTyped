@@ -2,9 +2,14 @@
 // Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
 // Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
 //                 Mauricio Rojas <https://github.com/orellabac>
+//                 Ron Jones <https://github.com/boatilus>
+//                 Brian Gottfried <https://github.com/briangottfried>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { Pool, Options as PoolOptions } from 'generic-pool';
+import { Readable } from 'stream';
 
 /**
  * ### Related Docs
@@ -210,6 +215,11 @@ export interface ConnectionOptions {
     role?: string | undefined;
 
     /**
+     * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
+     */
+    timeout?: number | undefined;
+
+    /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
      *
      * If the parameter clientSessionKeepAlive is set to true, the client’s connection to the server will be kept alive
@@ -309,9 +319,74 @@ export interface Column {
     getScale(): number;
 
     /**
-     * Retuns the type associated with this column.
+     * Returns the type associated with this column.
      */
     getType(): string;
+
+    /**
+     * Returns true if this column is type STRING.
+     */
+    isString(): boolean;
+
+    /**
+     * Returns true if this column is type BINARY.
+     */
+    isBinary(): boolean;
+
+    /**
+     * Returns true if this column is type NUMBER.
+     */
+    isNumber(): boolean;
+
+    /**
+     * Returns true if this column is type BOOLEAN.
+     */
+    isBoolean(): boolean;
+
+    /**
+     * Returns true if this column is type DATE.
+     */
+    isDate(): boolean;
+
+    /**
+     * Returns true if this column is type TIME.
+     */
+    isTime(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP.
+     */
+    isTimestamp(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_LTZ.
+     */
+    isTimestampLtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_NTZ.
+     */
+    isTimestampNtz(): boolean;
+
+    /**
+     * Returns true if this column is type TIMESTAMP_TZ.
+     */
+    isTimestampTz(): boolean;
+
+    /**
+     * Returns true if this column is type VARIANT.
+     */
+    isVariant(): boolean;
+
+    /**
+     * Returns true if this column is type OBJECT.
+     */
+    isObject(): boolean;
+
+    /**
+     * Returns true if this column is type ARRAY.
+     */
+    isArray(): boolean;
 }
 
 export enum StatementStatus {
@@ -378,7 +453,7 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): NodeJS.ReadableStream;
+    streamRows(): Readable;
 }
 
 export type Bind = string | number;
@@ -459,7 +534,7 @@ export type Connection = NodeJS.EventEmitter & {
      * `https://<okta_account_name>.okta.com` (in order to use native SSO through Okta), call the {@link connect}
      * method.
      */
-    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): void;
+    connectAsync(fn: (err: SnowflakeError | undefined, conn: Connection) => void): Promise<void>;
 
     /**
      * ### Related Docs
@@ -479,8 +554,8 @@ export type Connection = NodeJS.EventEmitter & {
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
         fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
-        complete: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
-    }): void;
+        complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+    }): Statement;
 
     /**
      * Fetches the result of a previously issued statement.
@@ -544,3 +619,8 @@ export function serializeConnection(connection: Connection): string;
  * Configures this instance of the Snowflake core module.
  */
 export function configure(options?: ConfigureOptions): void;
+
+/**
+ * Creates a connection pool for Snowflake connections.
+ */
+export function createPool(options: ConnectionOptions, poolOptions?: PoolOptions): Pool<Connection>;

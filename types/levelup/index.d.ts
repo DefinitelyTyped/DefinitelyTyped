@@ -108,7 +108,7 @@ declare namespace levelup {
         isOpen(): boolean;
         isClosed(): boolean;
 
-        readonly status: "new" | "opening" | "open" | "closing" | "closed";
+        readonly status: "closed" | "open" | "opening" | "new" | "closing";
         isOperational(): boolean;
 
         createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;

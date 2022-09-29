@@ -6,5 +6,5 @@ minimatchAll('/dir', ['**', '!/dir']);
 // $ExpectType boolean
 minimatchAll('/dir', ['**', '!/dir'], { nonegate: true });
 
-// $ExpectError
+// @ts-expect-error
 minimatchAll('/dir', 'glob pattern');

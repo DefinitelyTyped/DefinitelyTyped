@@ -219,12 +219,10 @@ const model: Waterline.CollectionDefinition = {
     attributes: {
         email: {
             type: 'email',
-            special: true, // ignored by validation
         },
         cousins: {
             collection: 'related',
             via: 'property',
-            async: true, // ignored by validation
         },
     },
 };

@@ -7,7 +7,7 @@ import * as R from 'ramda';
     R.append('tests')(['write', 'more']); // => ['write', 'more', 'tests']
     // $ExpectType "tests"[]
     R.append('tests', []); // => ['tests']
-    // $ExpectError
+    // @ts-expect-error
     R.append('tests')([1, 2]); // => ['write', 'more', 'tests']
     // $ExpectType (list: readonly string[]) => string[]
     R.append('tests');

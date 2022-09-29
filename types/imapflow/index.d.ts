@@ -312,7 +312,7 @@ export interface IdInfoObject {
 export interface ListResponse {
     path: string;
     name: string;
-    delimter: string;
+    delimiter: string;
     flags: Set<string>;
     specialUse: string;
     listed: boolean;

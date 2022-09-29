@@ -126,8 +126,10 @@ function test_progress() {
     });
     $(selector).progress(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).progress('foo'); // $ExpectError
-    $(selector).progress({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).progress('foo');
+    // @ts-expect-error
+    $(selector).progress({ foo: 'bar' });
 }
 
 import progress = require('semantic-ui-progress');

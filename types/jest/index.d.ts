@@ -1,4 +1,4 @@
-// Type definitions for Jest 27.4
+// Type definitions for Jest 29.1
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -23,13 +23,12 @@
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
-//                 Devansh Jethmalani <https://github.com/devanshj>
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
 //                 Adam Jones <https://github.com/domdomegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -47,30 +46,78 @@ declare var xtest: jest.It;
 declare const expect: jest.Expect;
 
 type ExtractEachCallbackArgs<T extends ReadonlyArray<any>> = {
-    1: [T[0]],
-    2: [T[0], T[1]],
-    3: [T[0], T[1], T[2]],
-    4: [T[0], T[1], T[2], T[3]],
-    5: [T[0], T[1], T[2], T[3], T[4]],
-    6: [T[0], T[1], T[2], T[3], T[4], T[5]],
-    7: [T[0], T[1], T[2], T[3], T[4], T[5], T[6]],
-    8: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7]],
-    9: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8]],
-    10: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9]],
-    'fallback': Array<(T extends ReadonlyArray<infer U>? U: any)>
-}[
-    T extends Readonly<[any]> ? 1
-        : T extends Readonly<[any, any]> ? 2
-        : T extends Readonly<[any, any, any]> ? 3
-        : T extends Readonly<[any, any, any, any]> ? 4
-        : T extends Readonly<[any, any, any, any, any]> ? 5
-        : T extends Readonly<[any, any, any, any, any, any]> ? 6
-        : T extends Readonly<[any, any, any, any, any, any, any]> ? 7
-        : T extends Readonly<[any, any, any, any, any, any, any, any]> ? 8
-        : T extends Readonly<[any, any, any, any, any, any, any, any, any]> ? 9
-        : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]> ? 10
-        : 'fallback'
-];
+    1: [T[0]];
+    2: [T[0], T[1]];
+    3: [T[0], T[1], T[2]];
+    4: [T[0], T[1], T[2], T[3]];
+    5: [T[0], T[1], T[2], T[3], T[4]];
+    6: [T[0], T[1], T[2], T[3], T[4], T[5]];
+    7: [T[0], T[1], T[2], T[3], T[4], T[5], T[6]];
+    8: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7]];
+    9: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8]];
+    10: [T[0], T[1], T[2], T[3], T[4], T[5], T[6], T[7], T[8], T[9]];
+    fallback: Array<T extends ReadonlyArray<infer U> ? U : any>;
+}[T extends Readonly<[any]>
+    ? 1
+    : T extends Readonly<[any, any]>
+    ? 2
+    : T extends Readonly<[any, any, any]>
+    ? 3
+    : T extends Readonly<[any, any, any, any]>
+    ? 4
+    : T extends Readonly<[any, any, any, any, any]>
+    ? 5
+    : T extends Readonly<[any, any, any, any, any, any]>
+    ? 6
+    : T extends Readonly<[any, any, any, any, any, any, any]>
+    ? 7
+    : T extends Readonly<[any, any, any, any, any, any, any, any]>
+    ? 8
+    : T extends Readonly<[any, any, any, any, any, any, any, any, any]>
+    ? 9
+    : T extends Readonly<[any, any, any, any, any, any, any, any, any, any]>
+    ? 10
+    : 'fallback'];
+
+type FakeableAPI =
+    | 'Date'
+    | 'hrtime'
+    | 'nextTick'
+    | 'performance'
+    | 'queueMicrotask'
+    | 'requestAnimationFrame'
+    | 'cancelAnimationFrame'
+    | 'requestIdleCallback'
+    | 'cancelIdleCallback'
+    | 'setImmediate'
+    | 'clearImmediate'
+    | 'setInterval'
+    | 'clearInterval'
+    | 'setTimeout'
+    | 'clearTimeout';
+
+interface FakeTimersConfig {
+    /**
+     * If set to `true` all timers will be advanced automatically by 20 milliseconds
+     * every 20 milliseconds. A custom time delta may be provided by passing a number.
+     * The default is `false`.
+     */
+    advanceTimers?: boolean | number;
+    /**
+     * List of names of APIs that should not be faked. The default is `[]`, meaning
+     * all APIs are faked.
+     */
+    doNotFake?: FakeableAPI[];
+    /**
+     * Use the old fake timers implementation instead of one backed by `@sinonjs/fake-timers`.
+     * The default is `false`.
+     */
+    legacyFakeTimers?: boolean;
+    /** Sets current system time to be used by fake timers. The default is `Date.now()`. */
+    now?: number | Date;
+    /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
+    timerLimit?: number;
+}
 
 declare namespace jest {
     /**
@@ -109,7 +156,7 @@ declare namespace jest {
      * been scheduled, they will be cleared and will never have the opportunity
      * to execute in the future.
      */
-    function clearAllTimers(): typeof jest;
+    function clearAllTimers(): void;
     /**
      * Returns the number of fake timers still left to run.
      */
@@ -135,8 +182,12 @@ declare namespace jest {
      */
     function getRealSystemTime(): number;
     /**
+     * Returns the current time in ms of the fake timer clock.
+     */
+    function now(): number;
+    /**
      * Indicates that the module system should never return a mocked version
-     * of the specified module, including all of the specificied module's dependencies.
+     * of the specified module, including all of the specified module's dependencies.
      */
     function deepUnmock(moduleName: string): typeof jest;
     /**
@@ -146,7 +197,8 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    // tslint:disable-next-line no-unnecessary-generics
+    function doMock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
@@ -177,26 +229,19 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function mock(moduleName: string, factory?: () => unknown, options?: MockOptions): typeof jest;
+    // tslint:disable-next-line no-unnecessary-generics
+    function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
 
     /**
-     * The mocked test helper provides typings on your mocked modules and even
-     * their deep methods, based on the typing of its source. It makes use of
-     * the latest TypeScript feature, so you even have argument types
-     * completion in the IDE (as opposed to jest.MockInstance).
-     *
-     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     * Wraps types of the `source` object and its deep members with type definitions
+     * of Jest mock function. Pass `{shallow: true}` option to disable the deeply
+     * mocked behavior.
      */
-     function mocked<T>(item: T, deep?: false): MaybeMocked<T>;
+    function mocked<T>(source: T, options?: { shallow: false }): MaybeMockedDeep<T>;
     /**
-     * The mocked test helper provides typings on your mocked modules and even
-     * their deep methods, based on the typing of its source. It makes use of
-     * the latest TypeScript feature, so you even have argument types
-     * completion in the IDE (as opposed to jest.MockInstance).
-     *
-     * Note: while it needs to be a function so that input type is changed, the helper itself does nothing else than returning the given input value.
+     * Wraps types of the `source` object with type definitions of Jest mock function.
      */
-     function mocked<T>(item: T, deep: true): MaybeMockedDeep<T>;
+    function mocked<T>(source: T, options: { shallow: true }): MaybeMocked<T>;
     /**
      * Returns the actual module instead of a mock, bypassing all checks on
      * whether the module should receive a mock implementation or not.
@@ -223,36 +268,36 @@ declare namespace jest {
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
      */
-    function retryTimes(numRetries: number): typeof jest;
+    function retryTimes(numRetries: number, options?: { logErrorsBeforeRetry?: boolean }): typeof jest;
     /**
      * Exhausts tasks queued by setImmediate().
      * > Note: This function is only available when using modern fake timers
      * > implementation
      */
-    function runAllImmediates(): typeof jest;
+    function runAllImmediates(): void;
     /**
      * Exhausts the micro-task queue (usually interfaced in node via process.nextTick).
      */
-    function runAllTicks(): typeof jest;
+    function runAllTicks(): void;
     /**
      * Exhausts both the macro-task queue (i.e., all tasks queued by setTimeout(),
      * setInterval(), and setImmediate()) and the micro-task queue (usually interfaced
      * in node via process.nextTick).
      */
-    function runAllTimers(): typeof jest;
+    function runAllTimers(): void;
     /**
      * Executes only the macro-tasks that are currently pending (i.e., only the
      * tasks that have been queued by setTimeout() or setInterval() up to this point).
      * If any of the currently pending macro-tasks schedule new macro-tasks,
      * those new tasks will not be executed by this call.
      */
-    function runOnlyPendingTimers(): typeof jest;
+    function runOnlyPendingTimers(): void;
     /**
      * Advances all timers by msToRun milliseconds. All pending "macro-tasks" that have been
      * queued via setTimeout() or setInterval(), and would be executed within this timeframe
      * will be executed.
      */
-    function advanceTimersByTime(msToRun: number): typeof jest;
+    function advanceTimersByTime(msToRun: number): void;
     /**
      * Advances all timers by the needed milliseconds so that only the next
      * timeouts/intervals will run. Optionally, you can provide steps, so it
@@ -291,25 +336,33 @@ declare namespace jest {
      *   spy.mockRestore();
      * });
      */
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
+    function spyOn<
+        T extends {},
+        Key extends keyof T,
+        A extends PropertyAccessors<Key, T> = PropertyAccessors<Key, T>,
+        Value extends Required<T>[Key] = Required<T>[Key],
+    >(
         object: T,
-        method: M,
-        accessType: 'get'
-    ): SpyInstance<Required<T>[M], []>;
-    function spyOn<T extends {}, M extends NonFunctionPropertyNames<Required<T>>>(
-        object: T,
-        method: M,
-        accessType: 'set'
-    ): SpyInstance<void, [Required<T>[M]]>;
+        method: Key,
+        accessType: A,
+    ): A extends SetAccessor
+        ? SpyInstance<void, [Value]>
+        : A extends GetAccessor
+        ? SpyInstance<Value, []>
+        : Value extends Constructor
+        ? SpyInstance<InstanceType<Value>, ConstructorArgsType<Value>>
+        : Value extends Func
+        ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
+        : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
-        method: M
-    ): Required<T>[M] extends (...args: any[]) => any
-        ? SpyInstance<ReturnType<Required<T>[M]>, ArgsType<Required<T>[M]>>
+        method: M,
+    ): FunctionProperties<Required<T>>[M] extends Func
+        ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
         : never;
     function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
         object: T,
-        method: M
+        method: M,
     ): Required<T>[M] extends new (...args: any[]) => any
         ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
         : never;
@@ -321,7 +374,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(implementation?: 'modern' | 'legacy'): typeof jest;
+    function useFakeTimers(config?: FakeTimersConfig): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
@@ -361,16 +414,21 @@ declare namespace jest {
     type MaybeMocked<T> = T extends MockableFunction ? MockedFn<T> : T extends object ? MockedObject<T> : T;
     type EmptyFunction = () => void;
     type ArgsType<T> = T extends (...args: infer A) => any ? A : never;
+    type Constructor = new (...args: any[]) => any;
+    type Func = (...args: any[]) => any;
     type ConstructorArgsType<T> = T extends new (...args: infer A) => any ? A : never;
     type RejectedValue<T> = T extends PromiseLike<any> ? any : never;
     type ResolvedValue<T> = T extends PromiseLike<infer U> ? U | T : never;
     // see https://github.com/Microsoft/TypeScript/issues/25215
-    type NonFunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? never : K }[keyof T] &
-        string;
-    type FunctionPropertyNames<T> = { [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never }[keyof T] &
-        string;
-    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends new (...args: any[]) => any ? K : never }[keyof T] &
-        string;
+    type NonFunctionPropertyNames<T> = keyof { [K in keyof T as T[K] extends Func ? never : K]: T[K] };
+    type GetAccessor = 'get';
+    type SetAccessor = 'set';
+    type PropertyAccessors<M extends keyof T, T extends {}> = M extends NonFunctionPropertyNames<Required<T>>
+        ? GetAccessor | SetAccessor
+        : never;
+    type FunctionProperties<T> = { [K in keyof T as T[K] extends (...args: any[]) => any ? K : never]: T[K] };
+    type FunctionPropertyNames<T> = keyof FunctionProperties<T>;
+    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends Constructor ? K : never }[keyof T] & string;
 
     interface DoneCallback {
         (...args: any[]): any;
@@ -388,19 +446,27 @@ declare namespace jest {
 
     interface Each {
         // Exclusively arrays.
-        <T extends any[] | [any]>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T) => any, timeout?: number) => void;
-        <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (name: string, fn: (...args: ExtractEachCallbackArgs<T>) => any, timeout?: number) => void;
+        <T extends any[] | [any]>(cases: ReadonlyArray<T>): (
+            name: string,
+            fn: (...args: T) => any,
+            timeout?: number,
+        ) => void;
+        <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (
+            name: string,
+            fn: (...args: ExtractEachCallbackArgs<T>) => any,
+            timeout?: number,
+        ) => void;
         // Not arrays.
         <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;
         (cases: ReadonlyArray<ReadonlyArray<any>>): (
             name: string,
             fn: (...args: any[]) => any,
-            timeout?: number
+            timeout?: number,
         ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
             fn: (arg: any) => any,
-            timeout?: number
+            timeout?: number,
         ) => void;
     }
 
@@ -420,6 +486,12 @@ declare namespace jest {
          * Only runs this test in the current file.
          */
         only: It;
+        /**
+         * Mark this test as expecting to fail.
+         *
+         * Only available in the default `jest-circus` runner.
+         */
+        failing: It;
         /**
          * Skips running this test in the current file.
          */
@@ -487,27 +559,7 @@ declare namespace jest {
 
     type EqualityTester = (a: any, b: any) => boolean | undefined;
 
-    interface MatcherUtils {
-        readonly isNot: boolean;
-        readonly dontThrow: () => void;
-        readonly promise: string;
-        readonly assertionCalls: number;
-        readonly expectedAssertionsNumber: number | null;
-        readonly isExpectingAssertions: boolean;
-        readonly suppressedErrors: any[];
-        readonly expand: boolean;
-        readonly testPath: string;
-        readonly currentTestName: string;
-        utils: typeof import('jest-matcher-utils') & {
-            iterableEquality: EqualityTester;
-            subsetEquality: EqualityTester;
-        };
-        /**
-         *  This is a deep-equality function that will return true if two objects have the same values (recursively).
-         */
-        equals(a: any, b: any, customTesters?: EqualityTester[], strictCheck?: boolean): boolean;
-        [other: string]: any;
-    }
+    type MatcherUtils = import('expect').MatcherUtils & { [other: string]: any };
 
     interface ExpectExtendMap {
         [key: string]: CustomMatcher;
@@ -563,15 +615,7 @@ declare namespace jest {
          */
         stringContaining(str: string): any;
     }
-    interface MatcherState {
-        assertionCalls: number;
-        currentTestName: string;
-        expand: boolean;
-        expectedAssertionsNumber: number;
-        isExpectingAssertions?: boolean | undefined;
-        suppressedErrors: Error[];
-        testPath: string;
-    }
+    type MatcherState = import('expect').MatcherState;
     /**
      * The `expect` function is used every time you want to test a value.
      * You will rarely call `expect` by itself.
@@ -631,6 +675,14 @@ declare namespace jest {
          */
         assertions(num: number): void;
         /**
+         * Useful when comparing floating point numbers in object properties or array item.
+         * If you need to compare a number, use `.toBeCloseTo` instead.
+         *
+         * The optional `numDigits` argument limits the number of digits to check after the decimal point.
+         * For the default value 2, the test criterion is `Math.abs(expected - received) < 0.005` (that is, `10 ** -2 / 2`).
+         */
+        closeTo(num: number, numDigits?: number): any;
+        /**
          * Verifies that at least one assertion is called during a test.
          * This is often useful when testing asynchronous code, in order to
          * make sure that assertions in a callback actually got called.
@@ -675,15 +727,15 @@ declare namespace jest {
          * Use resolves to unwrap the value of a fulfilled promise so any other
          * matcher can be chained. If the promise is rejected the assertion fails.
          */
-        resolves: AndNot<TPromise>,
+        resolves: AndNot<TPromise>;
         /**
          * Unwraps the reason of a rejected promise so any other matcher can be chained.
          * If the promise is fulfilled the assertion fails.
          */
-        rejects: AndNot<TPromise>
+        rejects: AndNot<TPromise>;
     } & AndNot<TNonPromise>;
     type AndNot<T> = T & {
-        not: T
+        not: T;
     };
 
     // should be R extends void|Promise<void> but getting dtslint error
@@ -1016,38 +1068,53 @@ declare namespace jest {
         toThrowErrorMatchingInlineSnapshot(snapshot?: string): R;
     }
 
-    type RemoveFirstFromTuple<T extends any[]> =
-    T['length'] extends 0 ? [] :
-        (((...b: T) => void) extends (a: any, ...b: infer I) => void ? I : []);
+    type RemoveFirstFromTuple<T extends any[]> = T['length'] extends 0
+        ? []
+        : ((...b: T) => void) extends (a: any, ...b: infer I) => void
+        ? I
+        : [];
 
     interface AsymmetricMatcher {
         asymmetricMatch(other: unknown): boolean;
     }
     type NonAsyncMatchers<TMatchers extends ExpectExtendMap> = {
-        [K in keyof TMatchers]: ReturnType<TMatchers[K]> extends Promise<CustomMatcherResult>? never: K
+        [K in keyof TMatchers]: ReturnType<TMatchers[K]> extends Promise<CustomMatcherResult> ? never : K;
     }[keyof TMatchers];
-    type CustomAsyncMatchers<TMatchers extends ExpectExtendMap> = {[K in NonAsyncMatchers<TMatchers>]: CustomAsymmetricMatcher<TMatchers[K]>};
-    type CustomAsymmetricMatcher<TMatcher extends (...args: any[]) => any> = (...args: RemoveFirstFromTuple<Parameters<TMatcher>>) => AsymmetricMatcher;
+    type CustomAsyncMatchers<TMatchers extends ExpectExtendMap> = {
+        [K in NonAsyncMatchers<TMatchers>]: CustomAsymmetricMatcher<TMatchers[K]>;
+    };
+    type CustomAsymmetricMatcher<TMatcher extends (...args: any[]) => any> = (
+        ...args: RemoveFirstFromTuple<Parameters<TMatcher>>
+    ) => AsymmetricMatcher;
 
     // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
-    type CustomJestMatcher<TMatcher extends (...args: any[]) => any, TMatcherReturn> = (...args: RemoveFirstFromTuple<Parameters<TMatcher>>) => TMatcherReturn;
+    type CustomJestMatcher<TMatcher extends (...args: any[]) => any, TMatcherReturn> = (
+        ...args: RemoveFirstFromTuple<Parameters<TMatcher>>
+    ) => TMatcherReturn;
 
-    type ExpectProperties= {
-        [K in keyof Expect]: Expect[K]
+    type ExpectProperties = {
+        [K in keyof Expect]: Expect[K];
     };
     // should be TMatcherReturn extends void|Promise<void> but getting dtslint error
     // Use the `void` type for return types only. Otherwise, use `undefined`. See: https://github.com/Microsoft/dtslint/blob/master/docs/void-return.md
     // have added issue https://github.com/microsoft/dtslint/issues/256 - Cannot have type union containing void ( to be used as return type only
-    type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<TMatcherReturn, TActual> & {[K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn>};
-    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<ExtendedMatchers<TMatchers, void, TActual>, ExtendedMatchers<TMatchers, Promise<void>, TActual>>;
+    type ExtendedMatchers<TMatchers extends ExpectExtendMap, TMatcherReturn, TActual> = Matchers<
+        TMatcherReturn,
+        TActual
+    > & { [K in keyof TMatchers]: CustomJestMatcher<TMatchers[K], TMatcherReturn> };
+    type JestExtendedMatchers<TMatchers extends ExpectExtendMap, TActual> = JestMatchersShape<
+        ExtendedMatchers<TMatchers, void, TActual>,
+        ExtendedMatchers<TMatchers, Promise<void>, TActual>
+    >;
 
     // when have called expect.extend
-    type ExtendedExpectFunction<TMatchers extends ExpectExtendMap> = <TActual>(actual: TActual) => JestExtendedMatchers<TMatchers, TActual>;
+    type ExtendedExpectFunction<TMatchers extends ExpectExtendMap> = <TActual>(
+        actual: TActual,
+    ) => JestExtendedMatchers<TMatchers, TActual>;
 
-    type ExtendedExpect<TMatchers extends ExpectExtendMap>=
-    ExpectProperties &
-    AndNot<CustomAsyncMatchers<TMatchers>> &
-    ExtendedExpectFunction<TMatchers>;
+    type ExtendedExpect<TMatchers extends ExpectExtendMap> = ExpectProperties &
+        AndNot<CustomAsyncMatchers<TMatchers>> &
+        ExtendedExpectFunction<TMatchers>;
 
     type NonPromiseMatchers<T extends JestMatchersShape<any>> = Omit<T, 'resolves' | 'rejects' | 'not'>;
     type PromiseMatchers<T extends JestMatchersShape> = Omit<T['resolves'], 'not'>;
@@ -1118,9 +1185,8 @@ declare namespace jest {
             ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>
             : T[P] extends Constructable
             ? MockedClass<T[P]>
-            : T[P]
-    } &
-        T;
+            : T[P];
+    } & T;
 
     interface MockInstance<T, Y extends any[]> {
         /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
@@ -1187,7 +1253,21 @@ declare namespace jest {
          * myMockFn((err, val) => console.log(val)); // false
          */
         mockImplementationOnce(fn: (...args: Y) => T): this;
-        /** Sets the name of the mock`. */
+        /**
+         * Temporarily overrides the default mock implementation within the callback,
+         * then restores its previous implementation.
+         *
+         * @remarks
+         * If the callback is async or returns a `thenable`, `withImplementation` will return a promise.
+         * Awaiting the promise will await the callback and reset the implementation.
+         */
+        withImplementation(fn: (...args: Y) => T, callback: () => Promise<unknown>): Promise<void>;
+        /**
+         * Temporarily overrides the default mock implementation within the callback,
+         * then restores its previous implementation.
+         */
+        withImplementation(fn: (...args: Y) => T, callback: () => void): void;
+        /** Sets the name of the mock. */
         mockName(name: string): this;
         /**
          * Just a simple sugar function for:
@@ -1309,11 +1389,26 @@ declare namespace jest {
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
     interface MockContext<T, Y extends any[]> {
+        /**
+         * List of the call arguments of all calls that have been made to the mock.
+         */
         calls: Y[];
+        /**
+         * List of all the object instances that have been instantiated from the mock.
+         */
         instances: T[];
+        /**
+         * List of the call order indexes of the mock. Jest is indexing the order of
+         * invocations of all mocks in a test file. The index is starting with `1`.
+         */
         invocationCallOrder: number[];
         /**
-         * List of results of calls to the mock function.
+         * List of the call arguments of the last call that was made to the mock.
+         * If the function was not called, it will return `undefined`.
+         */
+        lastCall?: Y;
+        /**
+         * List of the results of all calls that have been made to the mock.
          */
         results: Array<MockResult<T>>;
     }
@@ -1507,4 +1602,8 @@ declare namespace jasmine {
         length: number;
         [n: number]: T;
     }
+}
+
+interface ImportMeta {
+    jest: typeof jest;
 }

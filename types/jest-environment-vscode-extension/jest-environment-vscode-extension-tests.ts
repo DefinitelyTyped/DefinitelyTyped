@@ -26,7 +26,7 @@ using(
         },
     },
     async mapFileToUri => {
-        // $ExpectError
+        // @ts-expect-error
         mapFileToUri['unknown-file.js'];
     },
 );
@@ -69,5 +69,5 @@ take.hovers(uri, position);
 // $ExpectType string
 dedent('');
 
-// $ExpectError
+// @ts-expect-error
 dedent(1);

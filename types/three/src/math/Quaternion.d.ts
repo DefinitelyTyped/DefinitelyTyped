@@ -168,10 +168,7 @@ export class Quaternion {
      */
     multiplyVector3(v: any): any;
 
-    /**
-     * @deprecated Use {@link Quaternion#invert .invert()} instead.
-     */
-    inverse(): Quaternion;
-
     random(): Quaternion;
+
+    [Symbol.iterator](): Generator<number, void>;
 }

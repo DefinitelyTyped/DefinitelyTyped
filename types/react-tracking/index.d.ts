@@ -98,7 +98,7 @@ export const ReactTrackingContext: TrackingContext;
  * @param trackingData represents the data to be tracked (or a function returning that data)
  * @param options Additional options
  */
-export function useTracking<P = {}>(trackingData?: Partial<P>, options?: Partial<Options<P>>): TrackingHook<P>;
+export function useTracking<P = {}>(trackingData?: Partial<P> | (() => Partial<P>), options?: Partial<Options<P>>): TrackingHook<P>;
 
 /**
  * This is the type of the `track` function. It’s declared as an interface so that consumers can extend the typing and

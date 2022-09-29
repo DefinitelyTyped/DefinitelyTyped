@@ -1,9 +1,10 @@
-// Type definitions for mParticle/web-sdk SDK 2.15
+// Type definitions for mParticle/web-sdk SDK 2.16
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
+import { Batch } from '@mparticle/event-models';
 
 export as namespace mParticle;
 export {};
@@ -14,10 +15,12 @@ export interface MPConfiguration {
     dataPlan?: DataPlanConfig | undefined;
     appVersion?: string | undefined;
     appName?: string | undefined;
+    package?: string | undefined;
     logLevel?: 'verbose' | 'warning' | 'none' | undefined;
     logger?: Logger | undefined;
     sessionTimeout?: number | undefined;
     deviceId?: string | undefined;
+    onCreateBatch?: onCreateBatch | undefined;
     useCookieStorage?: boolean | undefined;
     maxCookieSize?: number | undefined;
     cookieDomain?: string | undefined;
@@ -625,6 +628,10 @@ export interface errorObject {
     name: string;
     message: string;
     stack: string;
+}
+
+export interface onCreateBatch {
+    (batch: Batch): Batch;
 }
 
 export interface IdentityCallback {

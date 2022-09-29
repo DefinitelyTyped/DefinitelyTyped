@@ -4,7 +4,7 @@ import fetch, {
     Request,
     RequestInit,
     Response,
-    FetchError
+    FetchError,
 } from "node-fetch";
 import { URL } from "url";
 import { Agent } from "http";
@@ -214,4 +214,65 @@ function test_ResponseInit() {
 
 async function test_BlobText() {
     const someString = await new Blob(["Hello world"]).text(); // $ExpectType string
+}
+
+function test_AbortSignal() {
+    let abortSignal: AbortSignal;
+    const requestOptions: RequestInit = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    };
+
+    requestOptions.signal = {
+        aborted: false,
+        addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+            capture?: boolean | undefined,
+            once?: boolean | undefined,
+            passive?: boolean | undefined
+        }) => undefined,
+
+        removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+            capture?: boolean | undefined
+        }) => undefined,
+
+        dispatchEvent: (event: any) => false,
+        onabort: (event: any) => "something",
+    };
+    abortSignal = requestOptions.signal;
+
+    requestOptions.signal = {
+        aborted: false,
+        addEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+            capture?: boolean | undefined,
+            once?: boolean | undefined,
+            passive?: boolean | undefined
+        }) => { },
+
+        removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+            capture?: boolean | undefined
+        }) => { },
+
+        dispatchEvent: (event: any) => true,
+        onabort: (event: any) => false,
+    };
+    abortSignal = requestOptions.signal;
+
+    requestOptions.signal = {
+        aborted: true,
+        addEventListener: (type: "abort", listener: ((event: string) => string), options?: boolean | {
+            capture?: boolean | undefined,
+            once?: boolean | undefined,
+            passive?: boolean | undefined
+        }) => undefined,
+
+        removeEventListener: (type: "abort", listener: ((event: any) => any), options?: boolean | {
+            capture?: boolean | undefined
+        }) => undefined,
+
+        dispatchEvent: (event: any) => false,
+        onabort: null,
+    };
+    abortSignal = requestOptions.signal;
 }

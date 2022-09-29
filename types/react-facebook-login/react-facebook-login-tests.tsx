@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo, ReactFacebookLoginProps } from 'react-facebook-login';
+import FacebookLoginRender, { RenderProps } from 'react-facebook-login/dist/facebook-login-render-props';
 
 const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response);
@@ -25,6 +26,29 @@ ReactDOM.render(
         fields="name,email,picture"
         onClick={componentClicked}
         callback={responseFacebook} />,
+    document.getElementById('demo')
+);
+
+ReactDOM.render(
+    <FacebookLoginRender
+        appId="1088597931155576"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={componentClicked}
+        callback={responseFacebook} />,
+    document.getElementById('demo')
+);
+
+ReactDOM.render(
+    <FacebookLoginRender
+        appId="1088597931155576"
+        autoLoad={true}
+        fields="name,email,picture"
+        onClick={componentClicked}
+        callback={responseFacebook}
+        render={(props: RenderProps) => (
+            <button onClick={props.onClick}>Facebook</button>
+        )} />,
     document.getElementById('demo')
 );
 

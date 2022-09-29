@@ -63,9 +63,14 @@ declare namespace ScrollSpy {
          * Specifies element to apply Scrollspy plugin.
          */
         target: string | Element | JQuery;
+
+        /**
+         * `IntersectionObserver` [threshold](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#threshold) valid input, when calculating scroll position.
+         */
+        threshold?: number[] | string;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => void;
+    type jQueryInterface = (config?: Partial<Options> | 'refresh' | 'dispose') => JQuery;
 }
 
 export default ScrollSpy;

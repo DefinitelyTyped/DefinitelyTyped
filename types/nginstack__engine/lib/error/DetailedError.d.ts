@@ -3,14 +3,15 @@ declare function DetailedError(
     error: string,
     solution?: string,
     details?: string,
-    errorCode?: number
+    code?: string | number
 ): void;
 declare class DetailedError {
-    constructor(error: string, solution?: string, details?: string, errorCode?: number);
+    constructor(error: string, solution?: string, details?: string, code?: string | number);
     error: string;
     solution: string;
     details: string;
     sourceLocation: string;
-    errorCode: number;
+    code: string | number;
+    errorCode: string | number;
     message: string;
 }

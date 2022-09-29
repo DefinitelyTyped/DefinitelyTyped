@@ -17,6 +17,7 @@ declare namespace m {
         appPath?: string | undefined;
         imageMagick?: boolean | undefined;
         nativeAutoOrient?: boolean | undefined;
+        timeout?: string | number;
     }
 
     interface ChannelInfo<T> {

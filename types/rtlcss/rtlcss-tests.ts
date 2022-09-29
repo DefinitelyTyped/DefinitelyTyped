@@ -35,6 +35,7 @@ const options = {
         },
     ],
     useCalc: false,
+    processEnv: true
 };
 
 const config = {

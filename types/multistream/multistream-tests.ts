@@ -29,7 +29,7 @@ const factory: MultiStream.FactoryStream = cb => {
     cb(null, null);
     cb(new Error('some error'), null);
 
-    // $ExpectError
+    // @ts-expect-error
     cb(new Error('some error'), fs.createReadStream('.filepath'));
 };
 
@@ -41,5 +41,5 @@ new MultiStream(factory);
 MultiStream.obj(streams);
 MultiStream.obj(factory);
 
-// $ExpectError
+// @ts-expect-error
 new MultiStream([writable]);

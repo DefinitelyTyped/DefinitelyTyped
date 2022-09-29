@@ -175,6 +175,8 @@ export class Color {
 
     fromBufferAttribute(attribute: BufferAttribute, index: number): this;
 
+    [Symbol.iterator](): Generator<number, void>;
+
     /**
      * List of X11 color names.
      */

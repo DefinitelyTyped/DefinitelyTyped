@@ -31,6 +31,8 @@ declare namespace gapi.client {
             revisionId?: string | undefined;
             supportsTeamDrives?: boolean | undefined;
             updateViewedDate?: boolean | undefined;
+            supportsAllDrives?: boolean | undefined;
+            fields?: string | undefined;
         }
 
         interface PatchParameters {

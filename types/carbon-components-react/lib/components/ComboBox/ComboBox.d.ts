@@ -11,7 +11,7 @@ import { ListBoxMenuIconTranslationKey } from '../ListBox/ListBoxMenuIcon';
 import { ListBoxSelectionTranslationKey } from '../ListBox/ListBoxSelection';
 import { ListBoxSize } from '../ListBox/ListBoxPropTypes';
 
-type ExcludedAttributes = 'id' | 'onChange' | 'placeholder' | 'ref' | 'size';
+type ExcludedAttributes = 'id' | 'onChange' | 'ref' | 'size';
 
 export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<ItemType, object>>
     extends Omit<ReactInputAttr, ExcludedAttributes>,

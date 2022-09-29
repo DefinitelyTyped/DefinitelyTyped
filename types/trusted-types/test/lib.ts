@@ -13,11 +13,11 @@ trustedHTML = libTrustedHTML;
 libTrustedHTML = trustedHTML;
 
 // Ensure that different types are not compatible
-// $ExpectError
+// @ts-expect-error
 trustedHTML = trustedScript;
-// $ExpectError
+// @ts-expect-error
 trustedHTML = libTrustedScript;
-// $ExpectError
+// @ts-expect-error
 libTrustedHTML = trustedScript;
-// $ExpectError
+// @ts-expect-error
 libTrustedHTML = libTrustedScript;

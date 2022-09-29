@@ -39,11 +39,6 @@ export const FrontSide: Side;
 export const BackSide: Side;
 export const DoubleSide: Side;
 
-// shading
-export enum Shading {}
-export const FlatShading: Shading;
-export const SmoothShading: Shading;
-
 // blending modes
 export enum Blending {}
 export const NoBlending: Blending;
@@ -301,7 +296,6 @@ export const TriangleFanDrawMode: TrianglesDrawModes;
 export enum TextureEncoding {}
 export const LinearEncoding: TextureEncoding;
 export const sRGBEncoding: TextureEncoding;
-export const LogLuvEncoding: TextureEncoding;
 
 // Depth packing strategies
 export enum DepthPackingStrategies {}

@@ -2,7 +2,7 @@
 // Project: https://github.com/edwardhotchkiss/mongoose-paginate
 // Definitions by: Linus Brolin <https://github.com/linusbrolin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.1
 
 /// <reference types="mongoose" />
 

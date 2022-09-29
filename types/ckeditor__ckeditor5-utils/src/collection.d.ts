@@ -1,11 +1,12 @@
-import EventInfo from './eventinfo';
-import { PriorityString } from './priorities';
-import { Emitter, EmitterMixinDelegateChain } from './emittermixin';
+import { Emitter } from './emittermixin';
 
 export interface CollectionBindTo<T> {
     as: (Class: { new (item: T): any }) => void;
     using: (callbackOrProperty: keyof T | ((item: T) => any)) => void;
 }
+
+// tslint:disable-next-line:no-empty-interface
+export default interface Collection extends Emitter {}
 
 /**
  * Collections are ordered sets of objects. Items in the collection can be retrieved by their indexes
@@ -236,30 +237,4 @@ export default class Collection<T extends Record<string, any> = Record<string, a
      *
      */
     [Symbol.iterator](): Iterator<T & { [x in I]: string }>;
-
-    on<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    once<K extends string>(
-        event: K,
-        callback: (this: this, info: EventInfo<this, K>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    off<K extends string>(event: K, callback?: (this: this, info: EventInfo<this, K>, ...args: any[]) => void): void;
-    listenTo<P extends string, E extends Emitter>(
-        emitter: E,
-        event: P,
-        callback: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-        options?: { priority?: number | PriorityString | undefined },
-    ): void;
-    stopListening<E extends Emitter, P extends string>(
-        emitter?: E,
-        event?: P,
-        callback?: (this: this, info: EventInfo<E, P>, ...args: any[]) => void,
-    ): void;
-    fire(eventOrInfo: string | EventInfo, ...args: any[]): unknown;
-    delegate(...events: string[]): EmitterMixinDelegateChain;
-    stopDelegating(event?: string, emitter?: Emitter): void;
 }
