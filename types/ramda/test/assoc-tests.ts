@@ -21,17 +21,19 @@ import * as R from 'ramda';
         c: number;
     }
 
+    const obj: ABC = { a: 1, b: 2, c: 3 };
+
     // $ExpectType ABC
-    R.assoc('c', R.__, { a: 1, b: 2, c: 3 } as ABC)(4); // => {a: 1, b: 2, c: 4}
+    R.assoc('c', R.__, obj)(4); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<ABC, "c">
-    R.assoc('c', R.__, { a: 1, b: 2, c: 3 } as ABC)('test'); // => {a: 1, b: 2, c: "test"}
+    R.assoc('c', R.__, obj)('test'); // => {a: 1, b: 2, c: "test"}
     // $ExpectType Record<"d", string> & Omit<ABC, "d">
-    R.assoc('d', R.__, { a: 1, b: 2, c: 3 } as ABC)('test'); // => {a: 1, b: 2, c: 3, d: "test"}
+    R.assoc('d', R.__, obj)('test'); // => {a: 1, b: 2, c: 3, d: "test"}
     // $ExpectType { a: number; b: number; c: number; }
     R.assoc('c', R.__, { a: 1, b: 2, c: 3 })(4); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<{ a: number; b: number; c: number; }, "c">
     R.assoc('c', R.__, { a: 1, b: 2, c: 3 })('test'); // => {a: 1, b: 2, c: "test"}
-}
+};
 
 () => {
     interface ABC {
@@ -40,17 +42,19 @@ import * as R from 'ramda';
         c: number;
     }
 
+    const obj: ABC = { a: 1, b: 2, c: 3 };
+
     // $ExpectType ABC
-    R.assoc(R.__, 4, { a: 1, b: 2, c: 3 } as ABC)('c'); // => {a: 1, b: 2, c: 4}
+    R.assoc(R.__, 4, obj)('c'); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<ABC, "c">
-    R.assoc(R.__, 'test', { a: 1, b: 2, c: 3 } as ABC)('c'); // => {a: 1, b: 2, c: "test"}
+    R.assoc(R.__, 'test', obj)('c'); // => {a: 1, b: 2, c: "test"}
     // $ExpectType Record<"d", string> & Omit<ABC, "d">
-    R.assoc(R.__, 'test', { a: 1, b: 2, c: 3 } as ABC)('d'); // => {a: 1, b: 2, c: 3, d: "test"}
+    R.assoc(R.__, 'test', obj)('d'); // => {a: 1, b: 2, c: 3, d: "test"}
     // $ExpectType { a: number; b: number; c: number; }
     R.assoc(R.__, 4, { a: 1, b: 2, c: 3 })('c'); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<{ a: number; b: number; c: number; }, "c">
     R.assoc(R.__, 'test', { a: 1, b: 2, c: 3 })('c'); // => {a: 1, b: 2, c: "test"}
-}
+};
 
 () => {
     interface ABC {
@@ -59,10 +63,12 @@ import * as R from 'ramda';
         c: number;
     }
 
+    const obj: ABC = { a: 1, b: 2, c: 3 };
+
     // $ExpectType ABC
-    R.assoc('c', 4, { a: 1, b: 2, c: 3 } as ABC); // => {a: 1, b: 2, c: 4}
+    R.assoc('c', 4, obj); // => {a: 1, b: 2, c: 4}
     // $ExpectType Record<"c", string> & Omit<ABC, "c">
-    R.assoc('c', 'test', { a: 1, b: 2, c: 3 } as ABC); // => {a: 1, b: 2, c: "test"}
+    R.assoc('c', 'test', obj); // => {a: 1, b: 2, c: "test"}
     // $ExpectType Record<"c", string> & Omit<{ a: number; b: number; c: number; }, "c">
     R.assoc('c', 'test', { a: 1, b: 2, c: 3 }); // => {a: 1, b: 2, c: "test"}
     // $ExpectType Record<"c", string> & Omit<{ a: number; b: number; c: number; }, "c">
