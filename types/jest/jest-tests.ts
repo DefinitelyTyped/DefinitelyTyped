@@ -408,6 +408,11 @@ const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
 
+// $ExpectType number
+jest.now();
+// @ts-expect-error
+jest.now('1995-12-17T03:24:00');
+
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
 jest.requireActual('./thisReturnsTheActualModule');
@@ -572,6 +577,18 @@ const spy3Mock = spy3
     .mockReturnThis()
     .mockReturnValue('value')
     .mockReturnValueOnce('value');
+
+// $ExpectType void
+spy3.withImplementation(
+    () => 'mocked value',
+    () => {},
+);
+
+// $ExpectType Promise<void>
+spy3.withImplementation(
+    () => 'mocked value',
+    async () => {},
+);
 
 const spiedPromiseTarget = {
     resolvesString() {
