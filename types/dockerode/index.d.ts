@@ -443,7 +443,7 @@ declare namespace Dockerode {
     }
 
     interface NetworkConnectOptions {
-        Container: string;
+        Container?: string;
         EndpointConfig?: EndpointSettings | undefined;
     }
 
