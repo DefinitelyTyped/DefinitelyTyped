@@ -1,15 +1,4 @@
-import {
-    AuthKeystoreOptions,
-    init,
-    LoadOptions,
-    PaymentParams,
-    Sandbox,
-    Keystore,
-    RangeObject,
-    ResultHandle,
-    MultiRangeObject,
-    SuperRangeObject
-} from 'dcp-client';
+import { init, AuthKeystoreOptions, PaymentParams, Sandbox, Keystore, LoadOptions, RangeObject, MultiRangeObject, SuperRangeObject, ResultHandle } from 'dcp-client';
 
 //#region Models
 export const authKeystoreOptions: AuthKeystoreOptions = {
@@ -94,15 +83,15 @@ export const loadOptions: LoadOptions = {
     const endTime = Date.now();
     const ev = '';
 
-    job.on('result', async (ev) => {
-        const status = await compute.status(startTime, endTime, keystore);
+    job.on('result', async (ev: any) => {
+        const status = compute.status(startTime, endTime, keystore);
     });
 
     const rangeObject1 = new RangeObject(1, 1000, 2);
     const rangeObject2 = new RangeObject(0, 1000, 2);
     const multiRange = new MultiRangeObject(rangeObject1, rangeObject2);
-    const computeJob = await compute.for(multiRange, async (sliceIndex: number[], data: any) => {
-        compute.progress();
+    const computeJob = compute.for(multiRange, async (sliceIndex: number[], data: any) => {
+        progress();
         return sliceIndex[0] ** 2 + sliceIndex[1] ** 2 + Math.sqrt(data);
     }, [100]);
     //#endregion

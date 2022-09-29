@@ -3,6 +3,7 @@
     "rules": {
         "ban-types": false,
         "array-type": false,
-        "redundant-undefined": false
+        "redundant-undefined": false,
+        "strict-export-declare-modifiers": false
     }
 }
