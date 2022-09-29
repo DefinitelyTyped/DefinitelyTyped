@@ -18,12 +18,6 @@
             ],
             "inquirer/*": [
                 "inquirer/v8/*"
-            ],
-            "inquirer-autocomplete-prompt": [
-                "inquirer-autocomplete-prompt"
-            ],
-            "inquirer-autocomplete-prompt/*": [
-                "inquirer-autocomplete-prompt/*"
             ]
         },
         "types": [],
@@ -32,6 +26,6 @@
     },
     "files": [
         "index.d.ts",
-        "inquirer-fuzzy-path-tests.ts"
+        "inquirer-autocomplete-prompt-tests.ts"
     ]
 }

@@ -1,5 +1,5 @@
-import AutocompletePrompt from "inquirer-autocomplete-prompt";
-import inquirer from "inquirer";
+import AutocompletePrompt = require("inquirer-autocomplete-prompt");
+import inquirer = require("inquirer");
 
 inquirer.registerPrompt("autocomplete", AutocompletePrompt);
 
