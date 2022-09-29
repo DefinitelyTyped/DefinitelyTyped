@@ -742,7 +742,7 @@ declare namespace FBInstant {
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
          */
-        createAsync(string | string[])?: Promise<void>;
+        createAsync(suggestedPlayerIDs?: string | string[]): Promise<void>;
 
         /**
          * Gets an array of ContextPlayer objects containing information about active players — people who actively played the game in the current context in the last 90 days.
