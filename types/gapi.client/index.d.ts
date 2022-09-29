@@ -110,8 +110,8 @@ declare namespace gapi {
                 /**
                  * Identifies the response for this request in the map of batch responses. If one is not provided, the system generates a random ID.
                  */
-                id: string;
-                callback(
+                id?: string;
+                callback?(
                     /**
                      * is the response for this request only. Its format is defined by the API method being called.
                      */
