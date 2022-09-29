@@ -31,8 +31,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
+        (args?: string | ReadonlyArray<string>, cwd?: string): Argv<T>;
 
         /**
          * Set key names as equivalent such that updates to a key will propagate to aliases and vice-versa.
@@ -326,7 +325,8 @@ declare namespace yargs {
          * @param args An array of the words in the command line to complete.
          * @param done The callback to be called with the resulting completions.
          */
-        getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done: (err: Error|null, completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done?: never): Promise<ReadonlyArray<string>>;
 
         /**
          * Returns a promise which resolves to a string containing the help text.

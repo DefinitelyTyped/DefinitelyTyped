@@ -1,7 +1,7 @@
 import { Interface as ReadlineInterface } from 'readline';
-import inquirer, { Answers, RawListQuestionOptions } from '../..';
-import Paginator from '../utils/paginator';
-import Prompt from './base';
+import inquirer, { Answers, RawListQuestionOptions } from '../../index.js';
+import Paginator from '../utils/paginator.js';
+import Prompt from './base.js';
 
 /**
  * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.

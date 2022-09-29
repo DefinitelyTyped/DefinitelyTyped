@@ -111,6 +111,15 @@ export default class Component<S = unknown> extends CoreView {
  */
 export function setComponentManager<T>(managerFactory: (owner: unknown) => ComponentManager<unknown>, object: T): T;
 
+/**
+ * Takes a component class and returns the template associated with the given component class,
+ * if any, or one of its superclasses, if any, or undefined if no template association was found.
+ *
+ * @param object the component object
+ * @return the template factory of the given component
+ */
+ export function getComponentTemplate(obj: object): TemplateFactory | undefined;
+
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces
 // like this, however, gives tools like Glint (that DO have a richer

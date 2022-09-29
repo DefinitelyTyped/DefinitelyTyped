@@ -310,6 +310,7 @@ export interface FormatOptions {
      */
     noAnchorUrl?: boolean | undefined;
     /**
+     * @deprecated. Use linkBrackets instead.
      * (Only for: `anchor` formatter.) Don't print brackets around links.
      */
     noLinkBrackets?: boolean | undefined;
@@ -356,6 +357,10 @@ export interface FormatOptions {
      * (Only for: `table`, `dataTable` formatter.) Number of empty lines between data table rows.
      */
     rowSpacing?: number | undefined;
+    /**
+     * User defined values are supported.
+     */
+    [key: string]: any;
 }
 
 /**

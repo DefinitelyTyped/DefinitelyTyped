@@ -169,7 +169,7 @@ function registryTests() {
             RED.httpNode;
             // $ExpectType Express
             RED.httpAdmin;
-            // $ExpectType Server
+            // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse>
             RED.server;
 
             // $ExpectType string

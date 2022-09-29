@@ -8,7 +8,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import EventEmitter = require('events');
 
-export function schedule(cronExpression: string, func: (now: Date) => void, options?: ScheduleOptions): ScheduledTask;
+export function schedule(cronExpression: string, func: ((now: Date) => void) | string, options?: ScheduleOptions): ScheduledTask;
 
 export function validate(cronExpression: string): boolean;
 
@@ -36,4 +36,8 @@ export interface ScheduleOptions {
      * Defaults to `false`
      */
     recoverMissedExecutions?: boolean;
+    /**
+     * The schedule name
+     */
+    name?: string;
 }

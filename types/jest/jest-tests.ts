@@ -50,47 +50,74 @@ afterEach((done: jest.DoneCallback) => Promise.resolve());
 
 describe(0, () => {});
 describe('name', () => {});
-describe(() => {}, () => {});
+describe(
+    () => {},
+    () => {},
+);
 describe({ name: 'name' }, () => {});
 
 describe.only(0, () => {});
 describe.only('name', () => {});
-describe.only(() => {}, () => {});
+describe.only(
+    () => {},
+    () => {},
+);
 describe.only({ name: 'name' }, () => {});
 
 describe.skip(0, () => {});
 describe.skip('name', () => {});
-describe.skip(() => {}, () => {});
+describe.skip(
+    () => {},
+    () => {},
+);
 describe.skip({ name: 'name' }, () => {});
 
 fdescribe(0, () => {});
 fdescribe('name', () => {});
-fdescribe(() => {}, () => {});
+fdescribe(
+    () => {},
+    () => {},
+);
 fdescribe({ name: 'name' }, () => {});
 
 fdescribe.only(0, () => {});
 fdescribe.only('name', () => {});
-fdescribe.only(() => {}, () => {});
+fdescribe.only(
+    () => {},
+    () => {},
+);
 fdescribe.only({ name: 'name' }, () => {});
 
 fdescribe.skip(0, () => {});
 fdescribe.skip('name', () => {});
-fdescribe.skip(() => {}, () => {});
+fdescribe.skip(
+    () => {},
+    () => {},
+);
 fdescribe.skip({ name: 'name' }, () => {});
 
 xdescribe(0, () => {});
 xdescribe('name', () => {});
-xdescribe(() => {}, () => {});
+xdescribe(
+    () => {},
+    () => {},
+);
 xdescribe({ name: 'name' }, () => {});
 
 xdescribe.only(0, () => {});
 xdescribe.only('name', () => {});
-xdescribe.only(() => {}, () => {});
+xdescribe.only(
+    () => {},
+    () => {},
+);
 xdescribe.only({ name: 'name' }, () => {});
 
 xdescribe.skip(0, () => {});
 xdescribe.skip('name', () => {});
-xdescribe.skip(() => {}, () => {});
+xdescribe.skip(
+    () => {},
+    () => {},
+);
 xdescribe.skip({ name: 'name' }, () => {});
 
 /* it */
@@ -305,36 +332,29 @@ const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
-    .clearAllTimers()
     .resetAllMocks()
     .restoreAllMocks()
-    .clearAllTimers()
     .deepUnmock('moduleName')
     .disableAutomock()
     .doMock('moduleName')
     .doMock('moduleName', jest.fn())
     .doMock('moduleName', jest.fn(), {})
     .doMock('moduleName', jest.fn(), { virtual: true })
-    .doMock<{animal: string}>('moduleName', () => ({animal: 'cat'}))
+    .doMock<{ animal: string }>('moduleName', () => ({ animal: 'cat' }))
     // @ts-expect-error
-    .doMock<{animal: string}>('moduleName', () => ({name: 'tom'}))
+    .doMock<{ animal: string }>('moduleName', () => ({ name: 'tom' }))
     .dontMock('moduleName')
     .enableAutomock()
     .mock('moduleName')
     .mock('moduleName', jest.fn())
     .mock('moduleName', jest.fn(), {})
     .mock('moduleName', jest.fn(), { virtual: true })
-    .mock<{animal: string}>('moduleName', () => ({animal: 'cat'}))
+    .mock<{ animal: string }>('moduleName', () => ({ animal: 'cat' }))
     // @ts-expect-error
-    .mock<{animal: string}>('moduleName', () => ({name: 'tom'}))
+    .mock<{ animal: string }>('moduleName', () => ({ name: 'tom' }))
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3, { logErrorsBeforeRetry: true })
-    .runAllImmediates()
-    .runAllTicks()
-    .runAllTimers()
-    .runOnlyPendingTimers()
-    .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
     .setMock<{ a: 'b' }>('moduleName', { a: 'b' })
@@ -343,8 +363,27 @@ jest.autoMockOff()
     .useFakeTimers()
     .useRealTimers();
 
+// $ExpectType void
+jest.advanceTimersByTime(9001);
+
+// $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType void
+jest.clearAllTimers();
+
+// $ExpectType void
+jest.runAllImmediates();
+
+// $ExpectType void
+jest.runAllTicks();
+
+// $ExpectType void
+jest.runAllTimers();
+
+// $ExpectType void
+jest.runOnlyPendingTimers();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
@@ -369,6 +408,11 @@ const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
 
+// $ExpectType number
+jest.now();
+// @ts-expect-error
+jest.now('1995-12-17T03:24:00');
+
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
 jest.requireActual('./thisReturnsTheActualModule');
@@ -383,7 +427,7 @@ jest.requireActual('./thisReturnsTheActualModule').default;
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
-const spreadRequireActual = {...jest.requireActual('./thisReturnsTheActualModule')};
+const spreadRequireActual = { ...jest.requireActual('./thisReturnsTheActualModule') };
 
 // https://jestjs.io/docs/en/jest-object#jestrequiremockmodulename
 // $ExpectType any
@@ -399,7 +443,7 @@ jest.requireMock('./thisAlwaysReturnsTheMock').default;
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
-const spreadRequireMock = {...jest.requireMock('./thisAlwaysReturnsTheMock')};
+const spreadRequireMock = { ...jest.requireMock('./thisAlwaysReturnsTheMock') };
 
 /* Mocks and spies */
 
@@ -421,7 +465,7 @@ const mock7 = jest.fn((arg: number) => arg);
 const mock8: jest.Mock = jest.fn((arg: number) => arg);
 // $ExpectType Mock<Promise<boolean>, [number, string, {}, [], boolean]> || Mock<Promise<boolean>, [a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean]>
 const mock9 = jest.fn((a: number, _b: string, _c: {}, _iReallyDontCare: [], _makeItStop: boolean) =>
-    Promise.resolve(_makeItStop)
+    Promise.resolve(_makeItStop),
 );
 // $ExpectType Mock<never, []>
 const mock10 = jest.fn(() => {
@@ -534,10 +578,22 @@ const spy3Mock = spy3
     .mockReturnValue('value')
     .mockReturnValueOnce('value');
 
+// $ExpectType void
+spy3.withImplementation(
+    () => 'mocked value',
+    () => {},
+);
+
+// $ExpectType Promise<void>
+spy3.withImplementation(
+    () => 'mocked value',
+    async () => {},
+);
+
 const spiedPromiseTarget = {
     resolvesString() {
         return Promise.resolve('string');
-    }
+    },
 };
 jest.spyOn(spiedPromiseTarget, 'resolvesString')
     .mockResolvedValue('value')
@@ -567,7 +623,7 @@ spy6.mockReturnValue('5');
 // $ExpectType SpyInstance<void, [number]>
 jest.spyOn(spiedTarget2, 'value', 'set');
 
-let spyInterfaceImpl: SpyInterface = {};
+const spyInterfaceImpl: SpyInterface = {};
 // @ts-expect-error
 jest.spyOn(spyInterfaceImpl, 'method', 'get');
 // @ts-expect-error
@@ -582,7 +638,7 @@ class SpyableClass {
     foo() {}
 }
 // $ExpectType SpyInstance<SpyableClass, [number, string]> || SpyInstance<SpyableClass, [a: number, b: string]>
-jest.spyOn({ SpyableClass }, "SpyableClass");
+jest.spyOn({ SpyableClass }, 'SpyableClass');
 
 interface SpyableWithIndexSignature {
     [index: string]: {
@@ -592,24 +648,28 @@ interface SpyableWithIndexSignature {
     methodOne: () => void;
     methodTwo: (s: string, b: boolean) => { b: boolean; n: number };
 }
-let spyWithIndexSignatureImpl: SpyableWithIndexSignature = {
+const spyWithIndexSignatureImpl: SpyableWithIndexSignature = {
     methodOne: () => {},
     methodTwo: (s, b) => ({ b, n: Number(s) }),
     prop: { some: 'thing' },
 };
 // $ExpectType SpyInstance<void, []>
-jest.spyOn(spyWithIndexSignatureImpl, "methodOne");
+jest.spyOn(spyWithIndexSignatureImpl, 'methodOne');
 // $ExpectType SpyInstance<{ b: boolean; n: number; }, [s: string, b: boolean]>
-jest.spyOn(spyWithIndexSignatureImpl, "methodTwo");
+jest.spyOn(spyWithIndexSignatureImpl, 'methodTwo');
 // @ts-expect-error
-jest.spyOn(spyWithIndexSignatureImpl, "nonExistentMethod");
+jest.spyOn(spyWithIndexSignatureImpl, 'nonExistentMethod');
 // @ts-expect-error
-jest.spyOn(spyWithIndexSignatureImpl, "prop");
+jest.spyOn(spyWithIndexSignatureImpl, 'prop');
 // $ExpectType SpyInstance<{ some: string; }, []>
 jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
-// $ExpectType MockedObject<{}>
+// $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
+// $ExpectType MockedObjectDeep<{}>
+jest.mocked({}, { shallow: false });
+// $ExpectType MockedObject<{}>
+jest.mocked({}, { shallow: true });
 // @ts-expect-error
 jest.mocked();
 
@@ -714,21 +774,27 @@ const module = {
 const mockedModule = module as jest.Mocked<typeof module>;
 mockedModule.testFunction.mock.calls[0][0]; // $ExpectType number
 mockedModule.testFunction.mock.calls[0][1]; // $ExpectType string
-mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
-mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedModule.testFunction.mock.lastCall) {
+    mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
+    mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+}
 const testFunction_0_ret = mockedModule.testFunction.mock.results[0];
 if (testFunction_0_ret.type === 'return') {
     testFunction_0_ret.value; // $ExpectType boolean
 }
 
 mockedModule.TestClass.mock.calls[0][0]; // $ExpectType string
-mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+if (mockedModule.TestClass.mock.lastCall) {
+    mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+}
 mockedModule.TestClass.mock.instances[0]; // $ExpectType TestClass
 
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+if (mockedModule.TestClass.prototype.testClassMethod.mock.lastCall) {
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const TestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (TestClass_testClassMethod_0_ret.type === 'return') {
     TestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -737,8 +803,10 @@ if (TestClass_testClassMethod_0_ret.type === 'return') {
 const mockedTestFunction = module.testFunction as jest.MockedFunction<typeof module.testFunction>;
 mockedTestFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedTestFunction.mock.lastCall) {
+    mockedTestFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestFunction_0_ret = mockedTestFunction.mock.results[0];
 if (mockedTestFunction_0_ret.type === 'return') {
     mockedTestFunction_0_ret.value; // $ExpectType boolean
@@ -747,8 +815,10 @@ if (mockedTestFunction_0_ret.type === 'return') {
 const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFunction<typeof module.testLambdaFunction>;
 mockedTestLambdaFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestLambdaFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedTestLambdaFunction.mock.lastCall) {
+    mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestLambdaFunction_0_ret = mockedTestLambdaFunction.mock.results[0];
 if (mockedTestLambdaFunction_0_ret.type === 'return') {
     mockedTestLambdaFunction_0_ret.value; // $ExpectType boolean
@@ -757,8 +827,10 @@ if (mockedTestLambdaFunction_0_ret.type === 'return') {
 const MockedTestClass = module.TestClass as jest.MockedClass<typeof module.TestClass>;
 MockedTestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 MockedTestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+if (MockedTestClass.prototype.testClassMethod.mock.lastCall) {
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const MockedTestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (MockedTestClass_testClassMethod_0_ret.type === 'return') {
     MockedTestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -780,19 +852,19 @@ switch (mockResult.type) {
 /* getState and setState */
 // @ts-expect-error
 expect.setState(true);
-expect.setState({for: 'state'});
+expect.setState({ for: 'state' });
 const expectState = expect.getState();
-// $ExpectType string
+// $ExpectType string | undefined
 expectState.currentTestName;
-// $ExpectType string
+// $ExpectType string | undefined
 expectState.testPath;
-// $ExpectType boolean
+// $ExpectType boolean | undefined
 expectState.expand;
 // $ExpectType number
 expectState.assertionCalls;
-// $ExpectType number
+// $ExpectType number | null
 expectState.expectedAssertionsNumber;
-// $ExpectType boolean | undefined
+// $ExpectType boolean
 expectState.isExpectingAssertions;
 // $ExpectType Error[]
 expectState.suppressedErrors;
@@ -909,8 +981,8 @@ expect.extend({
 
 expect.extend({
     foo(this: jest.MatcherContext) {
-        const isNot: boolean = this.isNot;
-        const expand: boolean = this.expand;
+        const isNot: boolean | undefined = this.isNot;
+        const expand: boolean | undefined = this.expand;
 
         const expectedColor = this.utils.EXPECTED_COLOR('blue');
         const receivedColor = this.utils.EXPECTED_COLOR('red');
@@ -946,7 +1018,7 @@ expect.extend({
 
         const receivedPrinted: string = this.utils.printReceived({});
 
-        const printedWithType: string = this.utils.printWithType('name', {}, (value) => '');
+        const printedWithType: string = this.utils.printWithType('name', {}, value => '');
 
         const stringified: string = this.utils.stringify({});
         const stringifiedWithMaxDepth: string = this.utils.stringify({}, 3);
@@ -955,8 +1027,8 @@ expect.extend({
 
         this.dontThrow();
         this.fromState;
-        const currentTestName: string = this.currentTestName;
-        const testPath: string = this.testPath;
+        const currentTestName: string | undefined = this.currentTestName;
+        const testPath: string | undefined = this.testPath;
 
         return {
             message: () => `Can use ${this.promise} for failure message`,
@@ -1007,7 +1079,7 @@ describe('', () => {
         // @ts-expect-error
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
         // @ts-expect-error
-        expect({}).toEqual<{ p1: string, p2: number }>({ p1: 'hello' });
+        expect({}).toEqual<{ p1: string; p2: number }>({ p1: 'hello' });
 
         expect(0).toBeCloseTo(1);
         expect(0).toBeCloseTo(1, 2);
@@ -1192,11 +1264,19 @@ describe('', () => {
 
         /* Promise matchers */
 
-        expect(Promise.reject('jest')).rejects.toEqual('jest').then(() => {});
-        expect(Promise.reject('jest')).rejects.not.toEqual('other').then(() => {});
+        expect(Promise.reject('jest'))
+            .rejects.toEqual('jest')
+            .then(() => {});
+        expect(Promise.reject('jest'))
+            .rejects.not.toEqual('other')
+            .then(() => {});
 
-        expect(Promise.resolve('jest')).resolves.toEqual('jest').then(() => {});
-        expect(Promise.resolve('jest')).resolves.not.toEqual('other').then(() => {});
+        expect(Promise.resolve('jest'))
+            .resolves.toEqual('jest')
+            .then(() => {});
+        expect(Promise.resolve('jest'))
+            .resolves.not.toEqual('other')
+            .then(() => {});
         /* type matchers */
 
         expect({}).toBe(expect.anything());
@@ -1220,7 +1300,7 @@ describe('', () => {
                     foo: 'bar',
                 }),
                 ghi: expect.stringMatching('foo'),
-            })
+            }),
         );
 
         /* Inverse type matchers */
@@ -1241,73 +1321,89 @@ describe('', () => {
 /* Custom matchers and CustomExpect */
 describe('', () => {
     it('', () => {
-        const customMatcher = (expected: any, actual: {prop: string}, option1: boolean) => {
-            return {pass: true, message: () => ''};
+        const customMatcher = (expected: any, actual: { prop: string }, option1: boolean) => {
+            return { pass: true, message: () => '' };
         };
         const asyncMatcher = () => {
-            return Promise.resolve({pass: true, message: () => ''});
+            return Promise.resolve({ pass: true, message: () => '' });
         };
 
-        const customMatchers = {customMatcher, asyncMatcher};
+        const customMatchers = { customMatcher, asyncMatcher };
         expect.extend(customMatchers);
         const extendedExpect: jest.ExtendedExpect<typeof customMatchers> = expect as any;
 
         // extracting matcher types
-        const matchers = extendedExpect({thing: true});
+        const matchers = extendedExpect({ thing: true });
         let nonPromiseMatchers: jest.NonPromiseMatchers<typeof matchers> = matchers;
         const isNot = true;
         if (isNot) {
             nonPromiseMatchers = matchers.not;
         }
         // retains U from <U>(actual: U) => JestExtendedMatchers<T, U>; - BUT CANNOT DO THAT WITH CUSTOM...
-        nonPromiseMatchers.toMatchInlineSnapshot({thing: extendedExpect.any(Boolean)});
+        nonPromiseMatchers.toMatchInlineSnapshot({ thing: extendedExpect.any(Boolean) });
         // @ts-expect-error
-        nonPromiseMatchers.toMatchInlineSnapshot({notthing: extendedExpect.any(Boolean)});
+        nonPromiseMatchers.toMatchInlineSnapshot({ notthing: extendedExpect.any(Boolean) });
 
         let promiseMatchers: jest.PromiseMatchers<typeof matchers> = matchers.rejects;
         if (isNot) {
             promiseMatchers = matchers.rejects.not;
         }
         // $ExpectType Promise<void>
-        promiseMatchers.customMatcher({prop: ''}, true);
+        promiseMatchers.customMatcher({ prop: '' }, true);
 
         // retains built in asymmetric matcher
         extendedExpect.not.arrayContaining;
 
-        extendedExpect.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
+        extendedExpect.customMatcher({ prop: 'good' }, false).asymmetricMatch({}).valueOf();
         // @ts-expect-error
-        extendedExpect.customMatcher({prop: {not: 'good'}}, false);
+        extendedExpect.customMatcher({ prop: { not: 'good' } }, false);
 
-        extendedExpect.not.customMatcher({prop: 'good'}, false).asymmetricMatch({}).valueOf();
+        extendedExpect.not.customMatcher({ prop: 'good' }, false).asymmetricMatch({}).valueOf();
         // @ts-expect-error
-        extendedExpect.not.customMatcher({prop: 'good'}, 'bad').asymmetricMatch({}).valueOf();
+        extendedExpect.not.customMatcher({ prop: 'good' }, 'bad').asymmetricMatch({}).valueOf();
 
         // @ts-expect-error
         const asynMatcherExcluded = extendedExpect.asyncMatcher;
 
-        extendedExpect('').customMatcher({prop: 'good'}, true);
+        extendedExpect('').customMatcher({ prop: 'good' }, true);
         // @ts-expect-error
-        extendedExpect('').customMatcher({prop: 'good'}, 'bad');
+        extendedExpect('').customMatcher({ prop: 'good' }, 'bad');
 
-        extendedExpect('').not.customMatcher({prop: 'good'}, true);
+        extendedExpect('').not.customMatcher({ prop: 'good' }, true);
         // @ts-expect-error
-        extendedExpect('').not.customMatcher({prop: 'good'}, 'bad');
+        extendedExpect('').not.customMatcher({ prop: 'good' }, 'bad');
 
-        extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, true).then(() => {});
-        // @ts-expect-error
-        extendedExpect(Promise.resolve('')).resolves.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.resolve(''))
+            .resolves.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
+        extendedExpect(Promise.resolve(''))
+            // @ts-expect-error
+            .resolves.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
 
-        extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, true).then(() => {});
-        // @ts-expect-error
-        extendedExpect(Promise.resolve('')).resolves.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.resolve(''))
+            .resolves.not.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
+        extendedExpect(Promise.resolve(''))
+            // @ts-expect-error
+            .resolves.not.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
 
-        extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, true).then(() => {});
-        // @ts-expect-error
-        extendedExpect(Promise.reject('')).rejects.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.reject(''))
+            .rejects.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
+        extendedExpect(Promise.reject(''))
+            // @ts-expect-error
+            .rejects.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
 
-        extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, true).then(() => {});
-        // @ts-expect-error
-        extendedExpect(Promise.reject('')).rejects.not.customMatcher({prop: 'good'}, 'bad').then(() => {});
+        extendedExpect(Promise.reject(''))
+            .rejects.not.customMatcher({ prop: 'good' }, true)
+            .then(() => {});
+        extendedExpect(Promise.reject(''))
+            // @ts-expect-error
+            .rejects.not.customMatcher({ prop: 'good' }, 'bad')
+            .then(() => {});
     });
 });
 
@@ -1319,8 +1415,17 @@ describe('', () => {
         pending('reason');
 
         fail();
+    });
+
+    it('', () => {
         fail('error');
+    });
+
+    it('', () => {
         fail(new Error('reason'));
+    });
+
+    it('', () => {
         fail({});
     });
 });
@@ -1374,7 +1479,7 @@ expect({ abc: 'def' }).toBe(
             foo: 'bar',
         }),
         ghi: jasmine.stringMatching('foo'),
-    })
+    }),
 );
 
 /* Jasmine spies */
@@ -1478,7 +1583,7 @@ const matchersUtil1 = {
     equals: (a: {}, b: {}) => false,
 };
 
-let matchersUtil2: jasmine.MatchersUtil = {
+const matchersUtil2: jasmine.MatchersUtil = {
     buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string {
         return `${matcherName}${isNot ? '1' : '0'}${actual}${expected.join('')}`;
     },
@@ -1490,7 +1595,11 @@ let matchersUtil2: jasmine.MatchersUtil = {
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26368
 
-describe.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a: number, b: number, expected: number) => {
+describe.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a: number, b: number, expected: number) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
     });
@@ -1513,7 +1622,11 @@ describe.each`
     });
 });
 
-describe.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+describe.only.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
     });
@@ -1530,7 +1643,11 @@ describe.only.each`
     });
 });
 
-describe.skip.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+describe.skip.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
     });
@@ -1547,16 +1664,24 @@ describe.skip.each`
     });
 });
 
-test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+test.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     expect(a + b).toBe(expected);
 });
 
-test.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])(
+test.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])(
     '.add(%i, %i)',
     (a, b, expected) => {
         expect(a + b).toBe(expected);
     },
-    5000
+    5000,
 );
 
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
@@ -1568,7 +1693,7 @@ test.each(constCases)('%s + %s', (...args) => {
 
 declare const constCasesWithMoreThanTen: [
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911]
+    [91, 92, 93, 94, 95, 96, 97, 98, 99, 910, 911],
 ];
 
 test.each(constCasesWithMoreThanTen)('should fall back with more than 10 args', (...args) => {
@@ -1596,18 +1721,22 @@ test.each`
     ({ a, b, expected }: Case) => {
         expect(a + b).toBe(expected);
     },
-    5000
+    5000,
 );
 
 test.each([
-    [1, "1"],
-    [2, "2"]
-])("", (a, b) => {
+    [1, '1'],
+    [2, '2'],
+])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
 });
 
-test.only.each([[1, 1, 2], [1, 2, 3], [2, 1, 3]])('.add(%i, %i)', (a, b, expected) => {
+test.only.each([
+    [1, 1, 2],
+    [1, 2, 3],
+    [2, 1, 3],
+])('.add(%i, %i)', (a, b, expected) => {
     expect(a + b).toBe(expected);
 });
 
@@ -1639,7 +1768,7 @@ test(`returns a Promise<any>`, () => {
 
 /* Test function can take and call the done callback function */
 
-test(`uses done`, (done) => {
+test(`uses done`, done => {
     done();
 });
 
@@ -1664,28 +1793,38 @@ test(`returns a number`, () => {
 // @ts-expect-error
 test(`returns an object`, () => {
     return {
-        isAnObject: true
+        isAnObject: true,
     };
 });
 
 /* Test function should not return promise and takes done callback function */
 
 // @ts-expect-error
-test(`returns a Promise<boolean> and takes done`, (done) => {
+test(`returns a Promise<boolean> and takes done`, done => {
     return Promise.resolve(true);
 });
 
 // @ts-expect-error
-test(`returns a Promise<{ isAnObject: boolean }> and takes done`, (done) => {
+test(`returns a Promise<{ isAnObject: boolean }> and takes done`, done => {
     return Promise.resolve({ isAnObject: true });
 });
 
 // @ts-expect-error
-test(`returns a Promise<any> and takes done`, (done) => {
+test(`returns a Promise<any> and takes done`, done => {
     return Promise.resolve('any' as any);
 });
 
 // @ts-expect-error
-test(`async function takes done`, async (done) => {
+test(`async function takes done`, async done => {
     done();
+});
+
+test('import.meta.jest replaces the global jest in ESM', () => {
+    // @ts-expect-error
+    // ts(1343): The 'import.meta' meta-property is only allowed when the '--module' option is 'es2020', 'es2022', 'esnext', 'system', 'node16', or 'nodenext'.
+
+    // tslint:disable-next-line: whitespace
+    const importMetaJest = import.meta.jest;
+
+    importMetaJest.fn();
 });

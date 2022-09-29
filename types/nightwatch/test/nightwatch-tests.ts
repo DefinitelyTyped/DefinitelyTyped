@@ -4,10 +4,18 @@ import {
     EnhancedSectionInstance,
     NightwatchAPI,
     NightwatchAssertion,
+    NightwatchAssertionsResult,
+    NightwatchEnsureResult,
+    NightwatchNodeAssertionsResult,
     NightwatchTests,
     PageObjectModel,
     ELEMENT_KEY,
+    JSON_WEB_OBJECT,
 } from 'nightwatch';
+
+function isNightwatchAPI(v: NightwatchAPI) {}
+function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
+function isType<T>(v: T): T { return v; }
 
 //
 // ./tests/general.ts
@@ -56,8 +64,34 @@ const testGeneral: NightwatchTests = {
         browser.isChrome();
         browser.isAndroid();
         browser.isMobile();
+        const element_id = browser.WEBDRIVER_ELEMENT_ID;
+        console.log(element_id);
         const browserName = browser.browserName;
         console.log(browserName);
+        // @ts-expect-errors
+        browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
+        // @ts-expect-errors
+        browser.browserName = 'firefox';
+    },
+
+    'Can run accessibility tests': () => {
+        browser
+            .url('https://www.google.com')
+            .axeInject()
+            .axeRun(
+                'body',
+                {
+                    rules: {
+                        'color-contrast': {
+                            enabled: false,
+                        },
+                        region: {
+                            enabled: false,
+                        },
+                    },
+                },
+                results => {},
+            );
     },
 
     'step one: navigate to google': () => {
@@ -128,81 +162,70 @@ const testGeneral: NightwatchTests = {
             .captureBrowserConsoleLogs(event => {
                 console.log(event.type, event.timestamp, event.args[0].value);
             })
-            .navigateTo('https://www.google.com')
+            .navigateTo(browser.baseUrl)
             .executeScript(() => {
                 console.error('here');
             }, []);
     },
+    'test assert with async/await': async () => {
+        const attributeResult = browser.assert.attributeContains('input[name=q]', 'placeholder', 'Search');
+        isNightwatchAPI(attributeResult);
+        isNightwatchAssertionsResult<string>(await attributeResult);
+
+        const cssPropertyResult = browser.assert.cssProperty('input[name=q]', 'classList', 'searchbox');
+        isNightwatchAPI(cssPropertyResult);
+        isNightwatchAssertionsResult<string | number>(await cssPropertyResult);
+
+        const domPropertyResult = browser.assert.domPropertyContains('input[name=q]', 'classList', 'searchbox');
+        isNightwatchAPI(domPropertyResult);
+        isNightwatchAssertionsResult<any>(await domPropertyResult);
+
+        const elementsCountResult = browser.assert.elementsCount('input', 8);
+        isNightwatchAPI(elementsCountResult);
+        const elementsCountAwaitedResult = await elementsCountResult;
+        isType<JSON_WEB_OBJECT[]>(elementsCountAwaitedResult.value);
+        isType<string>(elementsCountAwaitedResult.WebdriverElementId);
+
+        const elementPresentResult = browser.assert.elementPresent('input');
+        isNightwatchAPI(elementPresentResult);
+        isNightwatchAssertionsResult<Array<{[ELEMENT_KEY]: string}>>(await elementPresentResult);
+
+        const hasAttributeResult = browser.assert.hasAttribute('input[name=q]', 'placeholder');
+        isNightwatchAPI(hasAttributeResult);
+        isNightwatchAssertionsResult<string[]>(await hasAttributeResult);
+
+        const selectedResult = browser.assert.selected('input[name=q]');
+        isNightwatchAPI(selectedResult);
+        isNightwatchAssertionsResult<boolean>(await selectedResult);
+
+        const textResult = browser.assert.textMatches('input[name=q]', /^Search/);
+        isNightwatchAPI(textResult);
+        isNightwatchAssertionsResult<string>(await textResult);
+
+        const urlResult = browser.assert.urlMatches('https://nightwatch.org');
+        isNightwatchAPI(urlResult);
+        isNightwatchAssertionsResult<string>(await urlResult);
+    },
+    'test node assertions with async/await': async () => {
+        const result = browser.assert.strictEqual('nightwatch', 'nightwatch');
+        isNightwatchAPI(result);
+        isType<NightwatchNodeAssertionsResult | Error>(await result);
+    }
 };
 
-// TODO: uncomment after fixing async/await issue
-// describe('capture browser exceptions', function () {
-//     it('does', async function () {
-//         await browser.captureBrowserExceptions(event => {
-//             console.log('>>> Exception:', event);
-//         });
-
-//         await browser.navigateTo('https://duckduckgo.com/');
-//         const aboutLink = await browser.findElement('#logo_homepage_link');
-
-//         await browser.executeScript(
-//             function (aboutLink) {
-//                 aboutLink.setAttribute('onclick', 'throw new Error("Hello world!")');
-//             },
-//             [aboutLink],
-//         );
-
-//         await browser.click(aboutLink);
-//     });
-// });
-
-describe('Ecosia', () => {
-    before(browser => browser.url('https://www.ecosia.org/'));
-
-    it('Demo test ecosia.org', () => {
-        // Setting network conditions before the actual test
-        browser.setNetworkConditions({
-            offline: false,
-            latency: 5, // Additional latency (ms).
-            download_throughput: 500 * 1024, // Maximal aggregated download throughput.
-            upload_throughput: 500 * 1024, // Maximal aggregated upload throughput.
-        });
-
-        browser
-            .waitForElementVisible('body')
-            .assert.titleContains('Ecosia')
-            .assert.titleContains('Ecosia')
-            .assert.visible('input[type=search]')
-            .setValue('input[type=search]', 'nightwatch')
-            .assert.visible('button[type=submit]')
-            .click('button[type=submit]');
+//
+// ./tests/duckDuckGo.ts
+//
+describe('duckduckgo example', function() {
+    it('Search Nightwatch.js and check results', function(browser) {
+      browser
+        .navigateTo('https://duckduckgo.com')
+        .waitForElementVisible('input[name=q]')
+        .sendKeys('input[name=q]', ['Nightwatch.js'])
+        .click('*[type="submit"]')
+        .assert.visible('.results--main')
+        .assert.textContains('.results--main', 'Nightwatch.js');
     });
-
-    xit('this test will be skipped', (browser) => {
-        browser.waitForElementVisible('body');
-    });
-
-    after(browser => browser.end());
-});
-
-xdescribe('whole describle block will be skipped', () => {
-    test('ecosia', () => {
-        browser.url('https://ecosia.org').end();
-    });
-});
-
-describe('Async Ecosia', () => {
-    before(function(browser, done) {
-        browser.url('https://www.ecosia.org/');
-        this.bodySelector = 'body';
-        done();
-    });
-
-    it('Demo test ecosia.org', async function(browser) {
-        browser.waitForElementVisible(this.bodySelector);
-    });
-
-    after(browser => browser.end());
 });
 
 //
@@ -348,9 +371,16 @@ const testPage = {
             .assert.title('Google') // deprecated
             .assert.titleEquals('Google') // new in 2.0
             .assert.visible('@searchBar')
+            .assert.strictEqual('Google', 'Google') // node assertion returning NightwatchAPI
+            .assert.not.titleContains('DuckDuckGo')
             .moveToElement('@searchBar', 1, 1)
             .setValue('@searchBar', 'nightwatch')
             .click('@submit');
+
+        // @ts-expect-error
+        google.assert.not.not.elementPresent('@searchbar');
+        // @ts-expect-error
+        google.assert.not.strictEqual('nightwatch', 'nightwatch');
 
         browser.end();
     },
@@ -360,7 +390,7 @@ const testPage = {
         iFrame.navigate();
         const frame = await browser.findElement(iFrame.elements.iframe);
         console.log(frame.getId());
-        browser.frame(frame);
+        browser.frame(frame.getId());
         iFrame.expect.element('@textbox').text.to.equal('Your content goes here.');
 
         browser.end();
@@ -556,6 +586,20 @@ it('Ensure demo test', () => {
         .url('https://nightwatchjs.org')
         .ensure.titleMatches(/Nightwatch.js/)
         .ensure.elementIsVisible('#index-container');
+});
+
+it('Ensure async/await demo test', async () => {
+    const result = await browser
+        .url('https://nightwatchjs.org')
+        .ensure.urlContains('nightwatch')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+
+        function isNightwatchEnsureResult(v: NightwatchEnsureResult) {}
+        function isNull(v: null) {}
+
+        isNightwatchEnsureResult(result);
+        isNull(result.value);
 });
 
 // chai expect test

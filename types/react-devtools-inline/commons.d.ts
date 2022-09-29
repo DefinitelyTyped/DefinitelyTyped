@@ -1245,6 +1245,8 @@ export interface FiberNode {
     sibling: FiberNode | null;
     /** Parent */
     return: FiberNode | null;
+    /** Alternate */
+    alternate: FiberNode | null;
     /**
      * For custom components: the component class or function.
      * For built-in DOM components: tag name in lower case.

@@ -33,6 +33,8 @@ function redTests(RED: editorClient.RED) {
     const myNodeDef: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
         category: 'category',
         defaults: {
+            name: { value: '' },
+            inputs: { value: 1 },
             key: {
                 value: '',
                 required: true,

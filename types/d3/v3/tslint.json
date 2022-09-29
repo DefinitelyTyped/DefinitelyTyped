@@ -5,7 +5,6 @@
         "arrow-return-shorthand": false,
         "ban-types": false,
         "comment-format": false,
-        "export-just-namespace": false,
         "max-line-length": false,
         "no-any-union": false,
         "no-consecutive-blank-lines": false,

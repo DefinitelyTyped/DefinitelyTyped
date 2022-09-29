@@ -51,5 +51,5 @@ declare namespace UnicodeBidi {
     function isDirectionRTL(str: string, strongFallback: BidiDirection | null): boolean;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = UnicodeBidi;

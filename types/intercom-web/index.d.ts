@@ -63,6 +63,7 @@ declare namespace Intercom_ {
         getVisitorId: () => string;
         startTour: (tourId: number) => void;
         showArticle: (articleId: number) => void;
+        startSurvey: (surveyId: number) => void;
     }
 
     type IntercomCommand = keyof IntercomCommandSignature;

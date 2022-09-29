@@ -39,13 +39,19 @@ declare global {
 
     interface Element {
         addEventListener(
-            type: Carousel.Events,
+            type: Carousel.Events | 'slide.bs.carousel' | 'slid.bs.carousel',
             listener: (this: Element, ev: Carousel.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
 
         addEventListener(
-            type: Modal.Events,
+            type:
+                | Modal.Events
+                | 'show.bs.modal'
+                | 'shown.bs.modal'
+                | 'hide.bs.modal'
+                | 'hidden.bs.modal'
+                | 'hidePrevented.bs.modal',
             listener: (this: Element, ev: Modal.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;

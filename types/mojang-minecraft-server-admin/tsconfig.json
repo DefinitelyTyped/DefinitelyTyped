@@ -4,6 +4,7 @@
     "lib": [
       "es6"
     ],
+    "target": "es6",
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "noImplicitAny": true,
