@@ -1,4 +1,4 @@
-// Type definitions for inquirer-autocomplete-prompt 3.0.0
+// Type definitions for inquirer-autocomplete-prompt 3.0
 // Project: https://www.npmjs.com/package/inquirer-autocomplete-prompt
 // Definitions by: Jason Catel <https://github.com/jayeeson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
