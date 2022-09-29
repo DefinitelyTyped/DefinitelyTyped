@@ -1165,10 +1165,10 @@ export namespace dom {
 
         prev(): html.Node;
     }
-}
 
-export class TreeWalker implements TreeWalker {
-    constructor(startNode: html.Node, rootNode: html.Node);
+    class TreeWalker implements TreeWalker {
+        constructor(startNode: html.Node, rootNode: html.Node);
+    }
 }
 
 export namespace geom {
@@ -1339,10 +1339,10 @@ export namespace html {
 
         text(text: string, raw: boolean): void;
     }
-}
 
-export class Writer implements Writer {
-    constructor(settings: {});
+    class Writer implements Writer {
+        constructor(settings: {});
+    }
 }
 
 export namespace util {

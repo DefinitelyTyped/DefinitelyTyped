@@ -2,7 +2,6 @@
 // Project: https://github.com/GusCaplan/snekfetch, https://snekfetch.js.org
 // Definitions by: Iker Pérez Brunelli <https://github.com/ANekoIsFineToo>
 //                 Shayne Hartford <https://github.com/ShayBox>
-//                 Yukine <https://github.com/Dev-Yukine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 

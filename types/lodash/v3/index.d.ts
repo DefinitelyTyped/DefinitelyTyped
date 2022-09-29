@@ -11127,6 +11127,8 @@ declare namespace _ {
     }
 
     //_.isEmpty
+    type EmptyObject<T> = { [K in keyof T]?: never };
+    type EmptyObjectOf<T> = EmptyObject<T> extends T ? EmptyObject<T> : never;
     interface LoDashStatic {
         /**
          * Checks if value is empty. A value is considered empty unless it’s an arguments object, array, string, or
@@ -11135,6 +11137,10 @@ declare namespace _ {
          * @param value The value to inspect.
          * @return Returns true if value is empty, else false.
          */
+        isEmpty<T extends { __trapAny: any }>(value?: T): boolean;
+        isEmpty(value: string): value is '';
+        isEmpty(value: Map<any, any> | Set<any> | List<any> | null | undefined): boolean;
+        isEmpty<T extends object>(value: T | null | undefined): value is EmptyObjectOf<T> | null | undefined;
         isEmpty(value?: any): boolean;
     }
 

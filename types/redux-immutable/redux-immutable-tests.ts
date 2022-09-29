@@ -1,6 +1,6 @@
 
 import { combineReducers } from 'redux-immutable';
-import { Map, List } from 'immutable';
+import { Map, List, Record } from 'immutable';
 import { AnyAction } from 'redux';
 
 // Dummy State interface
@@ -31,11 +31,15 @@ combineReducers<State, { type: string; payload: number | string}>({
 });
 
 /**
- * Combine reducers should accepts a function (getDefaultState()) as a second parameter, that returns an immutable Collection.Keyed collection.
+ * Combine reducers should accept a function (getDefaultState()) as a second parameter, that returns an immutable Collection.Keyed collection.
  */
 combineReducers<State, AnyAction, string>({}, () => { return Map<string, State>(); });
 combineReducers<State, AnyAction, number>({}, () => { return Map<number, State>(); });
 /**
- * Combine reducers should accepts a function (getDefaultState()) as a second parameter, that returns an immutable Collection.Indexed collection.
+ * Combine reducers should accept a function (getDefaultState()) as a second parameter, that returns an immutable Collection.Indexed collection.
  */
 combineReducers<State>({}, () => { return List<State>(); });
+/**
+ * Combine reducers should accept an immutable Record factory as a second parameter.
+ */
+combineReducers<State, object>({}, Record({}));

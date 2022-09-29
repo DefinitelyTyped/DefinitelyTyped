@@ -11,6 +11,12 @@ export class Cherrypick {
     /**
      * Cherrypicks the given commit against "our" commit, producing an index that reflects the result of the cherrypick. The index is not backed by a repo.
      */
-    static commit(repo: Repository, cherrypickCommit: Commit, ourCommit: Commit, mainline: number, mergeOptions?: MergeOptions): Promise<number>;
+    static commit(
+        repo: Repository,
+        cherrypickCommit: Commit,
+        ourCommit: Commit,
+        mainline: number,
+        mergeOptions?: MergeOptions,
+    ): Promise<number>;
     static initOptions(opts: CherrypickOptions, version: number): number;
 }

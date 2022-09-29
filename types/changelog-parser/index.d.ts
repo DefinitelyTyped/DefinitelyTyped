@@ -1,7 +1,6 @@
 // Type definitions for changelog-parser 2.8
 // Project: https://github.com/hypermodules/changelog-parser
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
-//                 Oliver Steele <https://github.com/osteele>
+// Definitions by: Oliver Steele <https://github.com/osteele>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.4
 

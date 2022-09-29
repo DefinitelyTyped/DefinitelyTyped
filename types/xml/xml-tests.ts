@@ -162,3 +162,25 @@ test('xml declaration options', t => {
     t.is(xml([{a: 'test'}], {declaration: true, indent: '\n'}), '<?xml version="1.0" encoding="UTF-8"?>\n<a>test</a>');
     t.is(xml([{a: 'test'}], {}), '<a>test</a>');
 });
+
+const xmlElement = xml.element({_attr: {xmlns: 'http://www.w3.org/1999/xhtml'}});
+
+// $ExpectType ReadableStream
+xml(
+    { 'd:foo': xmlElement },
+    {
+        stream: true,
+        indent: '\t',
+        declaration: true,
+    },
+);
+
+// $ExpectType string
+const xmlStream = xml(
+    { 'd:foo': xmlElement },
+    {
+        stream: false,
+        indent: '\t',
+        declaration: true,
+    },
+);

@@ -63,7 +63,7 @@ let previewSize: YaDisk.PreviewSize;
 
 previewSize = 'S';
 
-// $ExpectError
+// @ts-expect-error
 previewSize = 'K';
 
 previewSize = 400;
@@ -72,7 +72,7 @@ previewSize = '1280x720';
 previewSize = '1280x';
 previewSize = 'x720';
 
-// $ExpectError
+// @ts-expect-error
 previewSize = 'axa';
-// $ExpectError
+// @ts-expect-error
 previewSize = '1ax1a';

@@ -5,7 +5,7 @@ class MyComponent extends Ember.Component {
     foo = 'bar';
 
     init() {
-        this._super.apply(this, arguments);
+        this._super();
         this.addObserver('foo', this, 'fooDidChange');
         this.addObserver('foo', this, this.fooDidChange);
         Ember.addObserver(this, 'foo', this, 'fooDidChange');
@@ -66,16 +66,6 @@ function testGetProperties() {
     assertType<{ name: string; age: number }>(Ember.getProperties(pojo, 'name', 'age'));
 }
 
-function testGetWithDefault() {
-    assertType<string>(Ember.getWithDefault(person, 'name', 'Joe'));
-    assertType<number>(Ember.getWithDefault(person, 'age', 20));
-    assertType<string>(Ember.getWithDefault(person, 'capitalized', 'JOE'));
-    assertType<string>(person.getWithDefault('name', 'Joe'));
-    assertType<number>(person.getWithDefault('age', 20));
-    assertType<string>(person.getWithDefault('capitalized', 'JOE'));
-    assertType<string>(Ember.getWithDefault(pojo, 'name', 'JOE'));
-}
-
 function testSet() {
     assertType<string>(Ember.set(person, 'name', 'Joe'));
     assertType<number>(Ember.set(person, 'age', 35));
@@ -97,19 +87,17 @@ function testSetProperties() {
 }
 
 function testDynamic() {
-    const obj: any = {};
+    const obj: Record<string, string> = {};
     const dynamicKey: string = 'dummy'; // tslint:disable-line:no-inferrable-types
 
-    assertType<any>(Ember.get(obj, 'dummy'));
-    assertType<any>(Ember.get(obj, dynamicKey));
-    assertType<string>(Ember.getWithDefault(obj, 'dummy', 'default'));
-    assertType<string>(Ember.getWithDefault(obj, dynamicKey, 'default'));
-    assertType<{ dummy: any }>(Ember.getProperties(obj, 'dummy'));
-    assertType<{ dummy: any }>(Ember.getProperties(obj, ['dummy']));
-    assertType<object>(Ember.getProperties(obj, dynamicKey));
-    assertType<object>(Ember.getProperties(obj, [dynamicKey]));
-    assertType<string>(Ember.set(obj, 'dummy', 'value'));
-    assertType<string>(Ember.set(obj, dynamicKey, 'value'));
-    assertType<{ dummy: string }>(Ember.setProperties(obj, { dummy: 'value ' }));
-    assertType<object>(Ember.setProperties(obj, { [dynamicKey]: 'value' }));
+    assertType<string | undefined>(Ember.get(obj, 'dummy'));
+    assertType<string | undefined>(Ember.get(obj, dynamicKey));
+    assertType<{ dummy: string | undefined }>(Ember.getProperties(obj, 'dummy'));
+    assertType<{ dummy: string | undefined }>(Ember.getProperties(obj, ['dummy']));
+    assertType<Record<string, string>>(Ember.getProperties(obj, dynamicKey));
+    assertType<Record<string, string>>(Ember.getProperties(obj, [dynamicKey]));
+    assertType<string | undefined>(Ember.set(obj, 'dummy', 'value'));
+    assertType<string | undefined>(Ember.set(obj, dynamicKey, 'value'));
+    assertType<{ dummy: string | undefined }>(Ember.setProperties(obj, { dummy: 'value ' }));
+    assertType<Record<string, string>>(Ember.setProperties(obj, { [dynamicKey]: 'value' }));
 }

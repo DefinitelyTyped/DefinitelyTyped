@@ -1,19 +1,14 @@
-import { NodeFrame } from '../core/NodeFrame';
-import { FloatNode } from '../inputs/FloatNode';
+import UniformNode from '../core/UniformNode';
 
-export class TimerNode extends FloatNode {
-    constructor(scale?: number, scope?: string, timeScale?: boolean);
+export type TimerNodeScope = typeof TimerNode.LOCAL | typeof TimerNode.GLOBAL | typeof TimerNode.DELTA;
 
+export default class TimerNode extends UniformNode {
+    static LOCAL: 'local';
+    static GLOBAL: 'global';
+    static DELTA: 'delta';
+
+    scope: TimerNodeScope;
     scale: number;
-    scope: string;
-    timeScale: boolean;
-    nodeType: string;
 
-    getUnique(): boolean;
-    updateFrame(frame: NodeFrame): void;
-    copy(source: TimerNode): this;
-
-    static GLOBAL: string;
-    static LOCAL: string;
-    static DELTA: string;
+    constructor(scope?: TimerNodeScope, scale?: number, value?: number);
 }

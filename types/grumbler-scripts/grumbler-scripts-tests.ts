@@ -2,10 +2,10 @@ import { WebpackConfigOptions, WebpackConfig } from 'grumbler-scripts/config/typ
 import { getCurrentVersion, getNextVersion, getWebpackConfig } from 'grumbler-scripts/config/webpack.config';
 import karma, { getKarmaConfig } from 'grumbler-scripts/config/karma.conf';
 
-// $ExpectError
+// @ts-expect-error
 getCurrentVersion();
 getCurrentVersion({ version: 'foo' });
-// $ExpectError
+// @ts-expect-error
 getNextVersion({ version: 'foo' }, 2);
 getNextVersion({ version: 'foo' }, 'bar');
 

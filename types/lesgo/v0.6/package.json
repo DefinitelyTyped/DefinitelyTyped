@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "dependencies": {
+        "middy": "^0.29.0",
+        "@elastic/elasticsearch": "~7.4.0",
+        "aws-sdk": "^2.814.0",
+        "firebase-admin": "^9.3.0",
+        "mysql2": "^2.2.5"
+    }
+}

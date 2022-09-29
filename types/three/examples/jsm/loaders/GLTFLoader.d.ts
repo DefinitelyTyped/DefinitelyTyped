@@ -65,7 +65,7 @@ export class GLTFLoader extends Loader {
         onError?: (event: ErrorEvent) => void,
     ): void;
 
-    parseAsync(data: ArrayBuffer | string, path: string): Promise<void>;
+    parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
 export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
@@ -91,9 +91,14 @@ export class GLTFParser {
 
     fileLoader: FileLoader;
     textureLoader: TextureLoader | ImageBitmapLoader;
-    plugins: GLTFLoaderPlugin;
+    plugins: { [name: string]: GLTFLoaderPlugin };
     extensions: { [name: string]: any };
     associations: Map<Object3D | Material | Texture, GLTFReference>;
+
+    setExtensions(extensions: { [name: string]: any }): void;
+    setPlugins(plugins: { [name: string]: GLTFLoaderPlugin }): void;
+
+    parse(onLoad: (gltf: GLTF) => void, onError?: (event: ErrorEvent) => void): void;
 
     getDependency: (type: string, index: number) => Promise<any>;
     getDependencies: (type: string) => Promise<any[]>;
@@ -101,15 +106,8 @@ export class GLTFParser {
     loadBufferView: (bufferViewIndex: number) => Promise<ArrayBuffer>;
     loadAccessor: (accessorIndex: number) => Promise<BufferAttribute | InterleavedBufferAttribute>;
     loadTexture: (textureIndex: number) => Promise<Texture>;
-    loadTextureImage: (
-        textureIndex: number,
-        /**
-         * GLTF.Image
-         * See: https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/schema/image.schema.json
-         */
-        source: { [key: string]: any },
-        loader: Loader,
-    ) => Promise<Texture>;
+    loadTextureImage: (textureIndex: number, sourceIndex: number, loader: Loader) => Promise<Texture>;
+    loadImageSource: (sourceIndex: number, loader: Loader) => Promise<Texture>;
     assignTexture: (
         materialParams: { [key: string]: any },
         mapName: string,

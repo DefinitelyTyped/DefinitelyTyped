@@ -35,3 +35,30 @@ MeteorPromise.await(bar());
 
 // $ExpectType number[]
 MeteorPromise.awaitAll([bar()]);
+
+/**
+ * From Webapp
+ */
+// Listen to incoming HTTP requests (can only be used on the server).
+WebApp.connectHandlers.use('/hello', (req, res, next) => {
+    res.writeHead(200);
+    res.end(`Hello world from: ${Meteor.release}`);
+});
+
+WebApp.addRuntimeConfigHook(({arch, request, encodedCurrentConfig, updated}) => {
+    // check the request to see if this is a request that requires
+    // modifying the runtime configuration
+    if (request.headers.domain === 'calling.domain') {
+        // make changes to the config for this domain
+        // decode the current runtime config string into an object
+        const config = WebApp.decodeRuntimeConfig(encodedCurrentConfig) as { newVar?: string, oldVar?: string };
+        // make your changes
+        config.newVar = 'some value';
+        config.oldVar = 'new value';
+        // encode the modified object to the runtime config string
+        // and return it
+        return WebApp.encodeRuntimeConfig(config);
+    }
+    // Not modifying other domains so return undefined
+    return undefined;
+});

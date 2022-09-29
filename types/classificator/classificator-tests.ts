@@ -7,7 +7,7 @@ classificator({ alpha: 1 });
 // $ExpectType NaiveBayes
 classificator({ tokenizer: (text: string) => text.split(' ') });
 
-// $ExpectError
+// @ts-expect-error
 classificator.fromJson(100);
 
 // $ExpectType NaiveBayes

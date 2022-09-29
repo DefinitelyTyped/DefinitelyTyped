@@ -209,13 +209,17 @@ domEl.nodeType; // $ExpectType 1
 domEl.nodeName; // $ExpectType string
 
 domEl.localName; // $ExpectType string
-domEl.localName = 'foo'; // $ExpectError
+// @ts-expect-error
+domEl.localName = 'foo';
 domEl.namespaceURI; // ExpectType string | undefined
-domEl.namespaceURI = 'foo'; // $ExpectError
+// @ts-expect-error
+domEl.namespaceURI = 'foo';
 domEl.parentNode; // $ExpectType Element | null
-domEl.parentNode = null; // $ExpectError
+// @ts-expect-error
+domEl.parentNode = null;
 domEl.childNodes; // $ExpectType Node[]
-domEl.childNodes = []; // $ExpectError
+// @ts-expect-error
+domEl.childNodes = [];
 domEl.textContent; // $ExpectType string
 domEl.textContent = 'foo';
 domEl.getElementsByTagName('el'); // $ExpectType Element[]

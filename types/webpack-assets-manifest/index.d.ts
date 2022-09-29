@@ -1,10 +1,10 @@
-// Type definitions for webpack-assets-manifest 5.0
+// Type definitions for webpack-assets-manifest 5.1
 // Project: https://github.com/webdeveric/webpack-assets-manifest
 // Definitions by: Franklin Tse <https://github.com/FranklinWhale>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 
 /// <reference types="node" />
+
 import { Asset, Compilation, Compiler, LoaderContext, Module, Stats, WebpackPluginInstance } from 'webpack';
 import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
 
@@ -235,6 +235,11 @@ declare namespace WebpackAssetsManifest {
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
         integrityPropertyName?: string | undefined;
+        /**
+         * A place to put your arbitrary data
+         * @default {}
+         */
+        extra?: Record<string, unknown> | undefined;
     }
 
     interface Entry {
@@ -242,9 +247,7 @@ declare namespace WebpackAssetsManifest {
         value: string;
     }
 
-    interface Assets {
-        [key: string]: unknown;
-    }
+    interface Assets extends Record<string, unknown> {}
 }
 
 export = WebpackAssetsManifest;

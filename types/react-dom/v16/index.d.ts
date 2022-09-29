@@ -25,7 +25,7 @@ import {
 export function findDOMNode(instance: ReactInstance | null | undefined): Element | null | Text;
 export function unmountComponentAtNode(container: Element | DocumentFragment): boolean;
 
-export function createPortal(children: ReactNode, container: Element, key?: null | string): ReactPortal;
+export function createPortal(children: ReactNode, container: Element | DocumentFragment, key?: null | string): ReactPortal;
 
 export const version: string;
 export const render: Renderer;

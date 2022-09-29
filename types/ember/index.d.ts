@@ -1,47 +1,10 @@
-// Type definitions for Ember.js 3.16
+// Type definitions for Ember.js 4.0
 // Project: https://emberjs.com/, https://github.com/emberjs/ember
-// Definitions by: Jed Mao <https://github.com/jedmao>
-//                 bttf <https://github.com/bttf>
-//                 Derek Wickern <https://github.com/dwickern>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Theron Cross <https://github.com/theroncross>
-//                 Martin Feckie <https://github.com/mfeckie>
-//                 Alex LaFroscia <https://github.com/alexlafroscia>
-//                 Mike North <https://github.com/mike-north>
-//                 Bryan Crotaz <https://github.com/BryanCrotaz>
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-/// <reference types="jquery" />
-/// <reference types="ember__string" />
-/// <reference types="ember__polyfills" />
-/// <reference types="ember__object" />
-/// <reference types="ember__utils" />
-/// <reference types="ember__array" />
-/// <reference types="ember__engine" />
-/// <reference types="ember__debug" />
-/// <reference types="ember__runloop" />
-/// <reference types="ember__error" />
-/// <reference types="ember__controller" />
-/// <reference types="ember__component" />
-/// <reference types="ember__routing" />
-/// <reference types="ember__application" />
-/// <reference types="ember__test" />
-/// <reference types="ember__service" />
-/// <reference types="ember__template" />
-/// <reference types="ember__destroyable" />
-
-import {
-    Objectify, Fix, UnwrapComputedPropertySetters,
-    UnwrapComputedPropertySetter,
-    UnwrapComputedPropertyGetters,
-    UnwrapComputedPropertyGetter,
-    EmberClassArguments, EmberClassConstructor, EmberInstanceArguments,
-    ComputedPropertyCallback,
-    ObserverMethod
-} from '@ember/object/-private/types';
+// Minimum TypeScript Version: 4.4
 
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
@@ -95,33 +58,25 @@ import EmberArrayProxy from '@ember/array/proxy';
 import EmberEnumerable from '@ember/array/-private/enumerable';
 import EmberMutableEnumerable from '@ember/array/-private/mutable-enumerable';
 import EmberArrayProtoExtensions from '@ember/array/types/prototype-extensions';
-// @ember/run
-import { RunMethod } from '@ember/runloop/-private/types';
 // @ember/error
 import EmberError from '@ember/error';
 
 type EmberArray<T> = EmberArrayNs.default<T>;
 import EmberActionHandler from '@ember/object/-private/action-handler';
 import EmberComponent from '@ember/component';
-import EmberTextArea from '@ember/component/text-area';
-import EmberTextField from '@ember/component/text-field';
-import EmberCheckbox from '@ember/component/checkbox';
 import EmberHelper from '@ember/component/helper';
 // @ember/routing
 import EmberRoutingRouter from '@ember/routing/router';
 import EmberRoutingRoute from '@ember/routing/route';
-import EmberRoutingTransition from '@ember/routing/-private/transition';
+import EmberRoutingTransition from '@ember/routing/transition';
 import EmberRoutingRouterService from '@ember/routing/router-service';
 import EmberRoutingHashLocation from '@ember/routing/hash-location';
 import EmberRoutingAutoLocation from '@ember/routing/auto-location';
 import EmberRoutingHistoryLocation from '@ember/routing/history-location';
 import EmberRoutingNoneLocation from '@ember/routing/none-location';
-import EmberRoutingLinkComponent from '@ember/routing/link-component';
 // @ember/application
-import EmberDefaultResolver from '@ember/application/-private/default-resolver';
 import EmberEventDispatcher from '@ember/application/-private/event-dispatcher';
 import EmberRegistry from '@ember/application/-private/registry';
-import EmberResolver from '@ember/application/resolver';
 // @ember/test
 import EmberTestAdapter from '@ember/test/adapter';
 
@@ -144,63 +99,25 @@ export namespace Ember {
     const ActionHandler: typeof EmberActionHandler;
     class Controller extends EmberControllerNs.default {}
     class Component extends EmberComponent {}
-    class TextArea extends EmberTextArea {}
-    class TextField extends EmberTextField {}
-    class Checkbox extends EmberCheckbox {}
     class Helper extends EmberHelper {}
 
     class HashLocation extends EmberRoutingHashLocation {}
     class NoneLocation extends EmberRoutingNoneLocation {}
     class HistoryLocation extends EmberRoutingHistoryLocation {}
-    class LinkComponent extends EmberRoutingLinkComponent {}
     const deprecateFunc: typeof EmberApplicationDeprecateNs.deprecateFunc;
     const deprecate: typeof EmberApplicationDeprecateNs.deprecate;
     const getOwner: typeof EmberApplicationNs.getOwner;
     const setOwner: typeof EmberApplicationNs.setOwner;
-    class DefaultResolver extends EmberDefaultResolver {}
-    class Resolver extends EmberResolver {}
     class EventDispatcher extends EmberEventDispatcher {}
     class Registry extends EmberRegistry {}
-    interface FunctionPrototypeExtensions {
-        /**
-         * The `property` extension of Javascript's Function prototype is available
-         * when `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is
-         * `true`, which is the default.
-         */
-        property(...args: string[]): ComputedProperty<any>;
-        /**
-         * The `observes` extension of Javascript's Function prototype is available
-         * when `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is
-         * true, which is the default.
-         */
-        observes(...args: string[]): this;
-        /**
-         * The `on` extension of Javascript's Function prototype is available
-         * when `EmberENV.EXTEND_PROTOTYPES` or `EmberENV.EXTEND_PROTOTYPES.Function` is
-         * true, which is the default.
-         */
-        on(...args: string[]): this;
-    }
-
     interface ArrayPrototypeExtensions<T> extends EmberArrayProtoExtensions<T> {}
-
-    interface StringPrototypeExtensions {
-        camelize(): string;
-        decamelize(): string;
-        classify(): string;
-        capitalize(): string;
-        loc(values?: string[]): string;
-        dasherize(): string;
-        underscore(): string;
-        w(): string[];
-    }
 
     /**
      * Implements some standard methods for comparing objects. Add this mixin to
      * any class you create that can compare its instances.
      */
     interface Comparable {
-        compare(a: any, b: any): number;
+        compare(a: unknown, b: unknown): number;
     }
     const Comparable: EmberMixin<Comparable>;
     class ComputedProperty<Get, Set = Get> extends EmberObjectComputedNs.default<Get, Set> {}
@@ -214,7 +131,7 @@ export namespace Ember {
          * way for the container to ensure instances are destroyed when it itself is
          * destroyed.
          */
-        factoryFor(fullName: string, options?: {}): any;
+        factoryFor(fullName: string, options?: {}): unknown;
     }
     class ContainerDebugAdapter extends _ContainerDebugAdapter {}
 
@@ -239,58 +156,6 @@ export namespace Ember {
 
     const Evented: typeof EmberObjectEventedNs.default;
 
-    /**
-     * Inside Ember-Metal, simply uses the methods from `imports.console`.
-     * Override this to provide more robust logging functionality.
-     */
-    const Logger: {
-        /**
-         * If the value passed into `Ember.Logger.assert` is not truthy it will throw an error with a stack trace.
-         */
-        assert(test: boolean, message?: string): void;
-        /**
-         * Logs the arguments to the console in blue text.
-         */
-        debug(...args: any[]): void;
-        /**
-         * Prints the arguments to the console with an error icon, red text and a stack trace.
-         */
-        error(...args: any[]): void;
-        /**
-         * Logs the arguments to the console.
-         */
-        info(...args: any[]): void;
-        /**
-         * Logs the arguments to the console.
-         */
-        log(...args: any[]): void;
-        /**
-         * Prints the arguments to the console with a warning icon.
-         */
-        warn(...args: any[]): void;
-    };
-    /**
-     * A Map stores values indexed by keys. Unlike JavaScript's
-     * default Objects, the keys of a Map can be any JavaScript
-     * object.
-     * @deprecated
-     */
-    class Map {
-        copy(): Map;
-        static create(): Map;
-        forEach(callback: (...args: any[]) => any, self: any): void;
-        get(key: any): any;
-        has(key: any): boolean;
-        set(key: any, value: any): void;
-        length: number;
-    }
-    /**
-     * @deprecated
-     */
-    class MapWithDefault extends Map {
-        copy(): MapWithDefault;
-        static create(): MapWithDefault;
-    }
     class Mixin<T, Base = EmberObjectNs.default> extends EmberMixin<T, Base> {}
 
     /**
@@ -300,28 +165,11 @@ export namespace Ember {
      */
     class Namespace extends Object {}
 
-    /**
-     * This class is used internally by Ember and Ember Data.
-     * Please do not use it at this time. We plan to clean it up
-     * and add many tests soon.
-     * @deprecated
-     */
-    class OrderedSet {
-        add(obj: any): void;
-        clear(): void;
-        copy(): OrderedSet;
-        static create(): OrderedSet;
-        forEach(fn: (...args: any[]) => any, self: any): void;
-        has(obj: any): boolean;
-        isEmpty(): boolean;
-        toArray(): any[];
-    }
-
     class Service extends Object {}
 
     interface ViewTargetActionSupport {
-        target: any;
-        actionContext: any;
+        target: unknown;
+        actionContext: unknown;
     }
     const ViewTargetActionSupport: Mixin<ViewTargetActionSupport>;
     const ViewUtils: {
@@ -358,7 +206,7 @@ export namespace Ember {
         function promise<T>(
             resolver: (
                 resolve: (value?: T | PromiseLike<T>) => void,
-                reject: (reason?: any) => void
+                reject: (reason?: unknown) => void
             ) => void,
             label?: string
         ): Promise<T>;
@@ -390,7 +238,7 @@ export namespace Ember {
             constructor(
                 executor: (
                     resolve: (value?: T | PromiseLike<T>) => void,
-                    reject: (reason?: any) => void
+                    reject: (reason?: unknown) => void
                 ) => void
             );
         }
@@ -428,13 +276,11 @@ export namespace Ember {
         class Compiler {}
         class JavaScriptCompiler {}
         function registerPartial(name: string, str: any): void;
-        function K(): any;
         function createFrame(objec: any): any;
         function Exception(message: string): void;
         class SafeString extends EmberTemplateHandlebarsNs.SafeString {}
         function parse(string: string): any;
         function print(ast: any): void;
-        const logger: typeof Logger;
         function log(level: string, str: string): void;
         function registerHelper(name: string, helper: any): void;
     }
@@ -447,7 +293,6 @@ export namespace Ember {
         function fmt(...args: string[]): string;
         const htmlSafe: typeof EmberTemplateNs.htmlSafe;
         const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
-        const loc: typeof EmberStringNs.loc;
         const underscore: typeof EmberStringNs.underscore;
         const w: typeof EmberStringNs.w;
     }
@@ -455,8 +300,21 @@ export namespace Ember {
         const htmlSafe: typeof EmberTemplateNs.htmlSafe;
         const isHTMLSafe: typeof EmberTemplateNs.isHTMLSafe;
     }
-    const computed: typeof EmberObjectNs.computed;
-    const run: typeof EmberRunloopNs.run;
+    const computed: typeof EmberObjectNs.computed & typeof EmberObjectComputedNs;
+
+    // Shenanigans to make `run` both callable and a namespace safely, while not
+    // making the `run.bind` call resolve to `Function.prototype.bind`. (Yes,
+    // insert :upside-down-smiley: here.)
+    // 1. Get the type side of the namespace.
+    type EmberRunloop = typeof EmberRunloopNs;
+    // 2. Use it to get an interface representing the callable side of `run`.
+    type RunFn = EmberRunloop['run'];
+    // type RunFn = Pick<EmberRunloop, 'run'>['run'];
+    // 3. Merge the two together so that the public-facing type of `run` is both
+    //    the plucked-off run type *and* the namespace.
+    interface Run extends RunFn, EmberRunloop {}
+    const run: Run;
+
     const platform: {
         defineProperty: boolean;
         hasPropertyAccessors: boolean;
@@ -486,15 +344,12 @@ export namespace Ember {
     const isEmpty: typeof EmberUtilsNs.isEmpty;
     const isNone: typeof EmberUtilsNs.isNone;
     const isPresent: typeof EmberUtilsNs.isPresent;
-    const merge: typeof EmberPolyfillsNs.merge;
 
-    const aliasMethod: typeof EmberObjectNs.aliasMethod;
     const observer: typeof EmberObjectNs.observer;
     const addObserver: typeof EmberObjectObserversNs.addObserver;
     const removeObserver: typeof EmberObjectObserversNs.removeObserver;
     const get: typeof EmberObjectNs.get;
     const notifyPropertyChange: typeof EmberObjectNs.notifyPropertyChange;
-    const getWithDefault: typeof EmberObjectNs.getWithDefault;
     const getProperties: typeof EmberObjectNs.getProperties;
     const setProperties: typeof EmberObjectNs.setProperties;
     const set: typeof EmberObjectNs.set;
@@ -504,22 +359,16 @@ export namespace Ember {
      * Creates a shallow copy of the passed object. A deep copy of the object is
      * returned if the optional `deep` argument is `true`.
      */
-    const copy: typeof EmberObjectInternalsNs.copy;
     const isEqual: typeof EmberUtilsNs.isEqual;
     const typeOf: typeof EmberUtilsNs.typeOf;
     // TODO: replace with an es6 reexport when declare module 'ember' is removed
     /**
      * Copy properties from a source object to a target object.
+     * @deprecated until v5.0. You should replace any calls to `Ember.assign`
+     *   with `Object.assign` or use the object spread operator.
      */
     const assign: typeof EmberPolyfillsNs.assign;
-    /**
-     * Polyfill for Object.keys
-     * @deprecated Use Object.keys
-     */
-    function keys(o: any): string[];
     const guidFor: typeof EmberObjectInternalsNs.guidFor;
-    const inspect: typeof EmberDebugNs.inspect;
-    const tryInvoke: typeof EmberUtilsNs.tryInvoke;
 
     /**
      * A function may be assigned to `Ember.onerror` to be called when Ember
@@ -532,10 +381,6 @@ export namespace Ember {
      * The semantic version
      */
     const VERSION: string;
-    /**
-     * Alias for jQuery
-     */
-    const $: JQueryStatic;
     /**
      * This property indicates whether or not this application is currently in
      * testing mode. This is set when `setupForTesting` is called on the current

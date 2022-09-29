@@ -249,9 +249,9 @@ declare namespace request {
 
         write(buffer: Buffer | string, cb?: (err?: Error) => void): boolean;
         write(str: string, encoding?: string, cb?: (err?: Error) => void): boolean;
-        end(cb?: () => void): void;
-        end(chunk: string | Buffer, cb?: () => void): void;
-        end(str: string, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): any;
+        end(chunk: string | Buffer, cb?: () => void): any;
+        end(str: string, encoding?: string, cb?: () => void): any;
 
         pause(): void;
         resume(): void;

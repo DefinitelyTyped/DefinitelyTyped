@@ -4,7 +4,7 @@ export default function threeDSecure() {
     actionTokenId: 'token'
   });
 
-  // $ExpectError
+  // @ts-expect-error
   threeDSecure.on('fake-event', () => {});
   threeDSecure.on('token', () => {});
   threeDSecure.on('error', () => {});
@@ -14,9 +14,9 @@ export default function threeDSecure() {
     threeDSecure.attach(el);
   }
 
-  // $ExpectError
+  // @ts-expect-error
   threeDSecure.attach();
 
-  // $ExpectError
+  // @ts-expect-error
   threeDSecure.attach('el');
 }

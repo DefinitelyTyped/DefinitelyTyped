@@ -1,6 +1,6 @@
 // Type definitions for textr 0.3
 // Project: https://github.com/shuvalov-anton/textr
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type TextrArgs = string | object;

@@ -22,14 +22,18 @@ export default class Table extends Plugin {
 
 export interface TableConfig {
     contentToolbar?: string[] | undefined;
-    tableCellProperties?: {
-        borderColors?: TableColorConfig[] | undefined;
-        backgroundColors: TableColorConfig[];
-    } | undefined;
-    tableProperties?: {
-        borderColors?: TableColorConfig[] | undefined;
-        backgroundColors: TableColorConfig[];
-    } | undefined;
+    tableCellProperties?:
+        | {
+              borderColors?: TableColorConfig[] | undefined;
+              backgroundColors: TableColorConfig[];
+          }
+        | undefined;
+    tableProperties?:
+        | {
+              borderColors?: TableColorConfig[] | undefined;
+              backgroundColors: TableColorConfig[];
+          }
+        | undefined;
     tableToolbar?: string[] | undefined;
 }
 

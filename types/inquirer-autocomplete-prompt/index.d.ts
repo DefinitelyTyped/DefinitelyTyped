@@ -15,7 +15,7 @@ export = AutocompletePrompt;
 /**
  * Provides the functionality to create a new Inquirer plugin
  */
-declare class AutocompletePrompt<T> extends Base {
+declare class AutocompletePrompt<T extends Answers> extends Base {
     /**
      * The choices currently available on the prompt
      */

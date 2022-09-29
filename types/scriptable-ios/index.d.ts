@@ -657,7 +657,7 @@ declare class Color {
      * @param alpha - Alpha value.
      * @see https://docs.scriptable.app/color/#-new-color
      */
-    constructor(hex: string, alpha: number);
+    constructor(hex: string, alpha?: number);
 
     /**
      * _Constructs a black color._

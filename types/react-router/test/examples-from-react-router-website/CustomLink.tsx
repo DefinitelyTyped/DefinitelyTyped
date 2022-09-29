@@ -24,7 +24,7 @@ interface OldSchoolMenuLinkProps extends LinkProps {
 }
 
 const OldSchoolMenuLink: React.FC<OldSchoolMenuLinkProps> = ({ label, to, activeOnlyWhenExact }) => (
-  <Route path={to as string} exact={activeOnlyWhenExact} children={(params: { match: boolean }) => (
+  <Route path={to as string} exact={activeOnlyWhenExact} children={(params) => (
     <div className={params.match ? 'active' : ''}>
       {params.match ? '> ' : ''}<Link to={to}>{label}</Link>
     </div>

@@ -31,7 +31,8 @@ export class DataTexture extends Texture {
         encoding?: TextureEncoding,
     );
 
-    image: ImageData;
+    get image(): ImageData;
+    set image(value: ImageData);
 
     /**
      * @default false

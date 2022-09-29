@@ -1,6 +1,6 @@
 // Type definitions for contained-periodic-values 1.0
 // Project: https://github.com/jmeas/contained-periodic-values.js
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

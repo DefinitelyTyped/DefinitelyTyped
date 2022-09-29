@@ -160,7 +160,7 @@ ref._writeObject(buffer, number, jsObject);
 
 // $ExpectType Type
 ref.types.void;
-// $ExpectError
+// @ts-expect-error
 ref.types.pointer; // `pointer` doesn't exist on `types`, though it exists on `sizeof`/`alignof`
 // $ExpectType Type
 ref.types.int64;
@@ -213,7 +213,7 @@ ref.types.uint32;
 // $ExpectType Type
 ref.types.short;
 
-// $ExpectError
+// @ts-expect-error
 ref.alignof.void; // `void` doesn't have an alignment
 // $ExpectType number
 ref.alignof.pointer;
@@ -243,7 +243,7 @@ ref.alignof.Object;
 ref.alignof.uint8;
 // $ExpectType number
 ref.alignof.longlong;
-// $ExpectError
+// @ts-expect-error
 ref.alignof.CString; // `CString` doesn't have an alignment
 // $ExpectType number
 ref.alignof.int16;
@@ -268,7 +268,7 @@ ref.alignof.uint32;
 // $ExpectType number
 ref.alignof.short;
 
-// $ExpectError
+// @ts-expect-error
 ref.sizeof.void; // `void` doesn't have an size
 // $ExpectType number
 ref.sizeof.pointer;
@@ -298,7 +298,7 @@ ref.sizeof.Object;
 ref.sizeof.uint8;
 // $ExpectType number
 ref.sizeof.longlong;
-// $ExpectError
+// @ts-expect-error
 ref.sizeof.CString; // `CString` doesn't have an size
 // $ExpectType number
 ref.sizeof.int16;

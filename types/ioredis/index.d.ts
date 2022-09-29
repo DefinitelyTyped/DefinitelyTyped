@@ -18,6 +18,9 @@
 //                 Michael Salaverry <https://github.com/barakplasma>
 //                 Hannes Van De Vreken <https://github.com/hannesvdvreken>
 //                 T.J. Tarazevits <https://github.com/venku122>
+//                 Michiel De Mey <https://github.com/michieldemey>
+//                 Dae Heon Han <https://github.com/honeyirene>
+//                 Yongkyun Choi <https://github.com/DracoVirus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -108,7 +111,7 @@ declare namespace IORedis {
         (arg1: T, arg2: T, cb: Callback<U>): void;
         (arg1: T | T[], cb: Callback<U>): void;
         (...args: T[]): Promise<U>;
-        (arg1: T[]): Promise<U>;
+        (arg1: T | T[]): Promise<U>;
     }
 
     interface OverloadedBlockingListCommand<T, U> {
@@ -218,6 +221,10 @@ declare namespace IORedis {
         getBuffer(key: KeyType, callback: Callback<Buffer>): void;
         getBuffer(key: KeyType): Promise<Buffer>;
 
+        getex(key: KeyType, expiryMode?: string, time?: number | string): Promise<string | null>;
+        getex(key: KeyType, callback: Callback<string | null>): void;
+        getex(key: KeyType, expiryMode: string, time: number | string, callback: Callback<string | null>): void;
+
         set(
             key: KeyType,
             value: ValueType,
@@ -305,6 +312,7 @@ declare namespace IORedis {
         decr(key: KeyType): Promise<number>;
 
         mget: OverloadedListCommand<KeyType, Array<string | null>>;
+        mgetBuffer: OverloadedListCommand<KeyType, Array<Buffer | null>>;
 
         rpush: OverloadedKeyCommand<ValueType, number>;
         rpushBuffer: OverloadedKeyCommand<Buffer, number>;
@@ -746,20 +754,20 @@ declare namespace IORedis {
             callback: Callback<Buffer[]>,
         ): void;
 
-        zrevrangebylex(key: KeyType, min: string, max: string): Promise<string[]>;
+        zrevrangebylex(key: KeyType, max: string, min: string): Promise<string[]>;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
         ): Promise<string[]>;
-        zrevrangebylex(key: KeyType, min: string, max: string, callback: Callback<string[]>): void;
+        zrevrangebylex(key: KeyType, max: string, min: string, callback: Callback<string[]>): void;
         zrevrangebylex(
             key: KeyType,
-            min: string,
             max: string,
+            min: string,
             limit: 'LIMIT',
             offset: number,
             count: number,
@@ -794,6 +802,8 @@ declare namespace IORedis {
 
         zscore(key: KeyType, member: string, callback: Callback<string | null>): void;
         zscore(key: KeyType, member: string): Promise<string | null>;
+
+        zmscore: OverloadedKeyCommand<KeyType, Array<string | null>>;
 
         zrank(key: KeyType, member: string, callback: Callback<number | null>): void;
         zrank(key: KeyType, member: string): Promise<number | null>;
@@ -1049,6 +1059,7 @@ declare namespace IORedis {
         getset(key: KeyType, value: ValueType): Promise<string | null>;
 
         mset: OverloadedHashCommand<ValueType, Ok>;
+        msetBuffer: OverloadedHashCommand<ValueType, Ok>;
         msetnx: OverloadedHashCommand<ValueType, BooleanResponse>;
 
         memory(argument: 'USAGE', key: KeyType, callback?: Callback<number>): Promise<number>;
@@ -1130,7 +1141,7 @@ declare namespace IORedis {
         sync(): Promise<any>;
 
         flushdb(callback: Callback<Ok>): void;
-        flushdb(): Promise<Ok>;
+        flushdb(option?: 'async' | 'sync'): Promise<Ok>;
 
         flushall(callback: Callback<Ok>): void;
         flushall(): Promise<Ok>;
@@ -1329,6 +1340,7 @@ declare namespace IORedis {
 
         get(key: KeyType, callback?: Callback<string>): Pipeline;
         getBuffer(key: KeyType, callback?: Callback<Buffer>): Pipeline;
+        getex(key: KeyType, expiryMode: string, time: number, callback?: Callback<string>): Pipeline;
 
         set(key: KeyType, value: ValueType, callback?: Callback<string>): Pipeline;
         set(key: KeyType, value: ValueType, setMode: string, callback?: Callback<string>): Pipeline;
@@ -1393,6 +1405,8 @@ declare namespace IORedis {
         decr(key: KeyType, callback?: Callback<number>): Pipeline;
 
         mget(...keys: KeyType[]): Pipeline;
+
+        mgetBuffer(...keys: KeyType[]): Pipeline;
 
         rpush(key: KeyType, ...values: ValueType[]): Pipeline;
 
@@ -1549,6 +1563,8 @@ declare namespace IORedis {
         zcard(key: KeyType, callback?: Callback<number>): Pipeline;
 
         zscore(key: KeyType, member: string, callback?: Callback<number>): Pipeline;
+
+        zmscore(key: KeyType, ...members: string[]): Pipeline;
 
         zrank(key: KeyType, member: string, callback?: Callback<number>): Pipeline;
 
@@ -1770,6 +1786,7 @@ declare namespace IORedis {
 
         mset(...args: ValueType[]): Pipeline;
         mset(data: object | Map<string, any>, callback?: Callback<string>): Pipeline;
+        msetBuffer(...args: ValueType[]): Pipeline;
 
         msetnx(...args: ValueType[]): Pipeline;
         msetnx(data: object | Map<string, any>, callback?: Callback<BooleanResponse>): Pipeline;
@@ -1918,7 +1935,7 @@ declare namespace IORedis {
 
         xack(key: KeyType, group: string, ...ids: string[]): Pipeline;
 
-        xadd(key: KeyType, id: string, ...args: string[]): Pipeline;
+        xadd(key: KeyType, id: string, ...args: ValueType[]): Pipeline;
 
         xclaim(
             key: KeyType,

@@ -7,7 +7,7 @@
 //                 Rafa Horo <https://github.com/rafahoro>
 //                 Stepan Yurtsiv <https://github.com/yurtsiv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 import { check } from 'meteor/check';
 
@@ -99,6 +99,7 @@ export interface SchemaDefinition {
     type: any;
     label?: string | (() => string) | undefined;
     optional?: boolean | (() => boolean) | undefined;
+    required?: boolean | (() => boolean) | undefined;
     min?: number | boolean | Date | (() => number | boolean | Date) | undefined;
     max?: number | boolean | Date | (() => number | boolean | Date) | undefined;
     minCount?: number | (() => number) | undefined;
@@ -186,8 +187,7 @@ export class SimpleSchema {
   omit(...fields: string[]): SimpleSchema;
   static oneOf(...types: Array<(RegExp | SchemaDefinition | BooleanConstructor | StringConstructor | NumberConstructor | DateConstructor | ArrayConstructor | IntegerSchema)>): SimpleSchema;
   clean(doc: any, options?: CleanOption): any;
-  schema(key: string): SchemaDefinition;
-  schema(): SchemaDefinition[];
+  schema(key?: string): SchemaDefinition;
   getDefinition(key: string, propList?: any, functionContext?: any): any;
   get(key: string, prop: string): any;
   keyIsInBlackBox(key: string): boolean;
@@ -237,6 +237,7 @@ export class SimpleSchema {
       KEY_NOT_IN_SCHEMA: string;
   };
   static setDefaultMessages(messages: {messages: SimpleSchemaMessagesDict}): void;
+  getObjectSchema(key: string): typeof SimpleSchema | undefined;
 }
 
 interface ValidationOption {

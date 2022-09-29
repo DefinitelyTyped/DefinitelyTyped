@@ -1,6 +1,6 @@
 import { EJSONable } from 'meteor/ejson';
 declare module 'meteor/session' {
-    module Session {
+    namespace Session {
         /**
          * Test if a session variable is equal to a value. If inside a
          * reactive computation, invalidate the computation the next

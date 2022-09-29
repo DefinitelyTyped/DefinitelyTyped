@@ -1,6 +1,6 @@
 // Type definitions for generate-json-webpack-plugin 0.3
 // Project: https://github.com/elliottsj/generate-json-webpack-plugin
-// Definitions by: Ryan Clark <https://github.com/rynclark>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 

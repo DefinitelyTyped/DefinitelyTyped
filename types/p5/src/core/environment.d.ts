@@ -5,119 +5,6 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         * Creates a screen reader accessible description for the canvas.
-         * The first parameter should be a string with a description of the canvas.
-         * The second parameter is optional. If specified, it determines how the
-         * description is displayed.
-         *
-         * <code class="language-javascript">describe(text, LABEL)</code> displays
-         * the description to all users as a <a
-         * href="https://en.wikipedia.org/wiki/Museum_label" target="_blank">
-         * tombstone or exhibit label/caption</a> in a
-         * <code class="language-javascript">&lt;div class="p5Label"&gt;&lt;/div&gt;</code>
-         * adjacent to the canvas. You can style it as you wish in your CSS.
-         *
-         * <code class="language-javascript">describe(text, FALLBACK)</code> makes the
-         * description accessible to screen-reader users only, in
-         * <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
-         * a sub DOM inside the canvas element</a>. If a second parameter is not
-         * specified, by default, the description will only be available to
-         * screen-reader users.
-         *
-         * @param [text]      description of the canvas
-         * @param [display] either LABEL or FALLBACK (Optional)
-         *
-         */
-        describe(text: string, display?: DESCRIBE_DISPLAY): void;
-
-        /**
-         * <code class="language-javascript">textOutput()</code> creates a screenreader
-         * accessible output that describes the shapes present on the canvas.
-         * The general description of the canvas includes canvas size,
-         * canvas color, and number of elements in the canvas
-         * (example: 'Your output is a, 400 by 400 pixels, lavender blue
-         * canvas containing the following 4 shapes:'). This description
-         * is followed by a list of shapes where the color, position, and area
-         * of each shape are described (example: "orange ellipse at top left
-         * covering 1% of the canvas"). Each element can be selected to get
-         * more details. A table of elements is also provided. In this table,
-         * shape, color, location, coordinates and area are described
-         * (example: "orange ellipse location=top left area=2").
-         *
-         * <code class="language-javascript">textOutput()</code> and <code class="language-javascript">texOutput(FALLBACK)</code>
-         * make the output available in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
-         * a sub DOM inside the canvas element</a> which is accessible to screen readers.
-         * <code class="language-javascript">textOutput(LABEL)</code> creates an
-         * additional div with the output adjacent to the canvas, this is useful
-         * for non-screen reader users that might want to display the output outside
-         * of the canvas' sub DOM as they code. However, using LABEL will create
-         * unnecessary redundancy for screen reader users. We recommend using LABEL
-         * only as part of the development process of a sketch and removing it before
-         * publishing or sharing with screen reader users.
-         *
-         * @param [display] either FALLBACK or LABEL (Optional)
-         */
-        textOutput(display?: DESCRIBE_DISPLAY): void;
-
-        /**
-         * <code class="language-javascript">gridOutput()</code> lays out the
-         * content of the canvas in the form of a grid (html table) based
-         * on the spatial location of each shape. A brief
-         * description of the canvas is available before the table output.
-         * This description includes: color of the background, size of the canvas,
-         * number of objects, and object types (example: "lavender blue canvas is
-         * 200 by 200 and contains 4 objects - 3 ellipses 1 rectangle"). The grid
-         * describes the content spatially, each element is placed on a cell of the
-         * table depending on its position. Within each cell an element the color
-         * and type of shape of that element are available (example: "orange ellipse").
-         * These descriptions can be selected individually to get more details.
-         * A list of elements where shape, color, location, and area are described
-         * (example: "orange ellipse location=top left area=1%") is also available.
-         *
-         * <code class="language-javascript">gridOutput()</code> and <code class="language-javascript">gridOutput(FALLBACK)</code>
-         * make the output available in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
-         * a sub DOM inside the canvas element</a> which is accessible to screen readers.
-         * <code class="language-javascript">gridOutput(LABEL)</code> creates an
-         * additional div with the output adjacent to the canvas, this is useful
-         * for non-screen reader users that might want to display the output outside
-         * of the canvas' sub DOM as they code. However, using LABEL will create
-         * unnecessary redundancy for screen reader users. We recommend using LABEL
-         * only as part of the development process of a sketch and removing it before
-         * publishing or sharing with screen reader users.
-         *
-         * @param [display] either FALLBACK or LABEL (Optional)
-         */
-        gridOutput(display?: DESCRIBE_DISPLAY): void;
-
-        /**
-         * This function creates a screen-reader accessible
-         * description for elements —shapes or groups of shapes that create
-         * meaning together— in the canvas. The first paramater should
-         * be the name of the element. The second parameter should be a string
-         * with a description of the element. The third parameter is optional.
-         * If specified, it determines how the element description is displayed.
-         *
-         * <code class="language-javascript">describeElement(name, text, LABEL)</code>
-         * displays the element description to all users as a
-         * <a href="https://en.wikipedia.org/wiki/Museum_label" target="_blank">
-         * tombstone or exhibit label/caption</a> in a
-         * <code class="language-javascript">&lt;div class="p5Label"&gt;&lt;/div&gt;</code>
-         * adjacent to the canvas. You can style it as you wish in your CSS.
-         *
-         * <code class="language-javascript">describeElement(name, text, FALLBACK)</code>
-         * makes the element description accessible to screen-reader users
-         * only, in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility" target="_blank">
-         * a sub DOM inside the canvas element</a>. If a second parameter is not
-         * specified, by default, the element description will only be available
-         * to screen-reader users.
-         *
-         * @param [name]      name of the element
-         * @param [text]      description of the element
-         * @param [display]   either LABEL or FALLBACK (Optional)
-         */
-        describeElement(name: string, text: string, display?: DESCRIBE_DISPLAY): void;
-
-        /**
          *   The print() function writes to the console area of
          *   your browser. This function is often helpful for
          *   looking at the data a program is producing. This
@@ -138,7 +25,7 @@ declare module '../../index' {
          *   Sets the cursor to a predefined symbol or an
          *   image, or makes it visible if already hidden. If
          *   you are trying to set an image as the cursor, the
-         *   recommended size is 16x16 or 32x32 pixels. The
+         *   recommended size is 16×16 or 32×32 pixels. The
          *   values for parameters x and y must be less than
          *   the dimensions of the image.
          *   @param type Built-In: either ARROW, CROSS, HAND,
@@ -167,13 +54,12 @@ declare module '../../index' {
          *   called "refresh rate"), which is set to 60 frames
          *   per second on most computers. A frame rate of 24
          *   frames per second (usual for movies) or above will
-         *   be enough for smooth animations This is the same
-         *   as setFrameRate(val).  Calling frameRate() with no
+         *   be enough for smooth animations. This is the same
+         *   as setFrameRate(val). Calling frameRate() with no
          *   arguments returns the current framerate. The draw
          *   function must run at least once before it will
          *   return a value. This is the same as
          *   getFrameRate().
-         *
          *
          *   Calling frameRate() with arguments that are not of
          *   the type numbers or are non positive also returns
@@ -196,13 +82,12 @@ declare module '../../index' {
          *   called "refresh rate"), which is set to 60 frames
          *   per second on most computers. A frame rate of 24
          *   frames per second (usual for movies) or above will
-         *   be enough for smooth animations This is the same
-         *   as setFrameRate(val).  Calling frameRate() with no
+         *   be enough for smooth animations. This is the same
+         *   as setFrameRate(val). Calling frameRate() with no
          *   arguments returns the current framerate. The draw
          *   function must run at least once before it will
          *   return a value. This is the same as
          *   getFrameRate().
-         *
          *
          *   Calling frameRate() with arguments that are not of
          *   the type numbers or are non positive also returns
@@ -221,8 +106,9 @@ declare module '../../index' {
          *   time the browser window is resized. This is a good
          *   place to resize the canvas or do any other
          *   adjustments to accommodate the new window size.
+         *   @param [event] optional Event callback argument.
          */
-        windowResized(): void;
+        windowResized(event?: object): void;
 
         /**
          *   If argument is given, sets the sketch to
@@ -268,19 +154,31 @@ declare module '../../index' {
         displayDensity(): number;
 
         /**
-         *   Gets the current URL.
+         *   Gets the current URL. Note: when using the p5
+         *   Editor, this will return an empty object because
+         *   the sketch is embedded in an iframe. It will work
+         *   correctly if you view the sketch using the
+         *   editor's present or share URLs.
          *   @return url
          */
         getURL(): string;
 
         /**
-         *   Gets the current URL path as an array.
+         *   Gets the current URL path as an array. Note: when
+         *   using the p5 Editor, this will return an empty
+         *   object because the sketch is embedded in an
+         *   iframe. It will work correctly if you view the
+         *   sketch using the editor's present or share URLs.
          *   @return path components
          */
         getURLPath(): string[];
 
         /**
-         *   Gets the current URL params as an Object.
+         *   Gets the current URL params as an Object. Note:
+         *   when using the p5 Editor, this will return an
+         *   empty object because the sketch is embedded in an
+         *   iframe. It will work correctly if you view the
+         *   sketch using the editor's present or share URLs.
          *   @return URL params
          */
         getURLParams(): object;
@@ -297,10 +195,10 @@ declare module '../../index' {
          *   The system variable deltaTime contains the time
          *   difference between the beginning of the previous
          *   frame and the beginning of the current frame in
-         *   milliseconds.  This variable is useful for
-         *   creating time sensitive animation or physics
-         *   calculation that should stay constant regardless
-         *   of frame rate.
+         *   milliseconds. This variable is useful for creating
+         *   time sensitive animation or physics calculation
+         *   that should stay constant regardless of frame
+         *   rate.
          */
         deltaTime: number;
 

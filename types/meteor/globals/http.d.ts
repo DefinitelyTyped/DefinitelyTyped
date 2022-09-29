@@ -1,4 +1,4 @@
-declare module HTTP {
+declare namespace HTTP {
     interface HTTPRequest {
         content?: string | undefined;
         data?: any;

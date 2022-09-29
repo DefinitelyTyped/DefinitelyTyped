@@ -1,4 +1,4 @@
-// Type definitions for Meteor 1.4
+// Type definitions for Meteor 2.7
 // Project: http://www.meteor.com/
 // Definitions by: Alex Borodach <https://github.com/barbatus>
 //                 Dave Allen <https://github.com/fullflavedave>
@@ -17,8 +17,9 @@
 //                 Wojciech Adamek <https://github.com/wadamek65>
 //                 Maciej Stasieluk <https://github.com/MacRusher>
 //                 Markus Peloso <https://github.com/ToastHawaii>
+//                 Erik Demaine <https://github.com/edemaine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.1
 
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />
@@ -39,6 +40,7 @@
 /// <reference path="./globals/email.d.ts" />
 /// <reference path="./http.d.ts" />
 /// <reference path="./globals/http.d.ts" />
+/// <reference path="./hot-module-replacement.d.ts" />
 /// <reference path="./meteor.d.ts" />
 /// <reference path="./globals/meteor.d.ts" />
 /// <reference path="./modern-browsers.d.ts" />
@@ -49,6 +51,7 @@
 /// <reference path="./random.d.ts" />
 /// <reference path="./globals/random.d.ts" />
 /// <reference path="./react-meteor-data.d.ts" />
+/// <reference path="./react-meteor-accounts.d.ts" />
 /// <reference path="./reactive-dict.d.ts" />
 /// <reference path="./globals/reactive-dict.d.ts" />
 /// <reference path="./reactive-var.d.ts" />

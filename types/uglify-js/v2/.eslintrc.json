@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "dt-header": "off",
+        "export-just-namespace": "off"
+    }
+}

@@ -107,12 +107,15 @@ ES2015.GetMethod(anyIterator, 'throw'); // $ExpectType ((e?: any) => IteratorRes
 ES2015.GetMethod(anyIterator, 'return'); // $ExpectType ((value?: unknown) => IteratorResult<unknown, unknown>) | undefined
 
 ES2015.Get(Object, 'prototype'); // $ExpectType Object
-ES2015.Get(123, 'valueOf'); // $ExpectError
-ES2015.Get(null, 'toString'); // $ExpectError
+// @ts-expect-error
+ES2015.Get(123, 'valueOf');
+// @ts-expect-error
+ES2015.Get(null, 'toString');
 
 ES2015.GetV(Object, 'prototype'); // $ExpectType Object
 ES2015.GetV(123, 'valueOf'); // $ExpectType () => number
-ES2015.GetV(null, 'toString'); // $ExpectError
+// @ts-expect-error
+ES2015.GetV(null, 'toString');
 
 expectType<ES2015.PropertyDescriptor<typeof Reflect.getPrototypeOf> | undefined>(
     ES2015.OrdinaryGetOwnProperty(Reflect, 'getPrototypeOf'),
@@ -192,4 +195,5 @@ ES2015.GetPrototypeFromConstructor(Baz, 'unknown'); // $ExpectType object
 ES2015.GetPrototypeFromConstructor(Biz, 'unknown'); // $ExpectType object
 
 // Removed in ES2015:
-ES2015.CheckObjectCoercible; // $ExpectError
+// @ts-expect-error
+ES2015.CheckObjectCoercible;

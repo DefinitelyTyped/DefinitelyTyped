@@ -9,6 +9,6 @@ namespace Module {
     // $ExpectType Promise<void>
     standardVersion(options);
 
-    // $ExpectError
+    // @ts-expect-error
     standardVersion();
 }

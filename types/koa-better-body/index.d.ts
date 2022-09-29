@@ -3,7 +3,7 @@
 // Definitions by: David Tanner <https://github.com/DavidTanner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Context } from 'koa';
+import { Next, ParameterizedContext, DefaultState, DefaultContext } from 'koa';
 
 declare function KoaBetterBody(
   options?: KoaBetterBody.Options,
@@ -12,45 +12,75 @@ declare function KoaBetterBody(
 declare namespace KoaBetterBody {
   interface Options {
     /**
+     * {
+     * <br />&nbsp;&nbsp;multipart: ['multipart/form-data'],
+     * <br />&nbsp;&nbsp;text: ['text/*'],
+     * <br />&nbsp;&nbsp;form: ['application/x-www-form-urlencoded'],
+     * <br />&nbsp;&nbsp;json: [
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/json',
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/json-patch+json',
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/vnd.api+json',
+     * <br />&nbsp;&nbsp;&nbsp;&nbsp;'application/csp-report'
+     * <br />&nbsp;&nbsp;],
+     * <br />&nbsp;&nbsp;buffer: ['text/*']
+     * }
+     */
+    extendTypes?: Record<string, string | string[]> & {
+      custom?: string | string[];
+    };
+
+    /**
      * @default false
      */
     fields?: boolean | string;
+
     /**
      * @default false
      */
     files?: boolean | string;
+
     /**
      * @default true
      */
     multipart?: boolean;
+
     /**
      * @default false
      */
     textLimit?: string;
+
     /**
      * @default false
      */
     formLimit?: string;
+
     /**
      * @default false
      */
     jsonLimit?: string;
+
     /**
      * @default true
      */
     jsonStrict?: boolean;
+
     /**
      * @default () => false
      */
-    detectJSON?: (ctx: Context) => boolean;
+    detectJSON?: <StateT = DefaultState, ContextT = DefaultContext>(
+      ctx: ParameterizedContext<StateT, ContextT>,
+    ) => boolean;
+
     /**
      * @default false
      */
     bufferLimit?: string;
+
     /**
      * @default false
      */
     buffer?: boolean;
+
     /**
      * @default true
      */
@@ -59,11 +89,13 @@ declare namespace KoaBetterBody {
     /**
      * @default '&'
      */
-    delimiter?: string; // default: '&'
+    delimiter?: string;
+
     /**
      * @default require('querystring').unescape
      */
-    decodeURIComponent?: (query: string) => string; // default: require('querystring').unescape
+    decodeURIComponent?: (query: string) => string;
+
     /**
      * @default 1000
      */
@@ -84,14 +116,22 @@ declare namespace KoaBetterBody {
     /**
      * @default undefined
      */
-    onError?: (err: any, ctx: Context) => void;
+    onError?: <StateT = DefaultState, ContextT = DefaultContext>(
+      err: any,
+      ctx: ParameterizedContext<StateT, ContextT>,
+    ) => void;
+
     /**
      * @default undefined
      */
-    handler?: (ctx: Context, options: Options, next: () => any) => void;
+    handler?: <StateT = DefaultState, ContextT = DefaultContext>(
+      ctx: ParameterizedContext<StateT, ContextT>,
+      options: Options,
+      next: Next,
+    ) => void;
   }
 
-  type Body = (next: any) => Generator;
+  type Body = (next: Next) => Generator;
 }
 
 export = KoaBetterBody;

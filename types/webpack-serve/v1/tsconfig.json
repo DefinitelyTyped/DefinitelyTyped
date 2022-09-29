@@ -14,9 +14,6 @@
         ],
         "paths": {
             "webpack-serve": ["webpack-serve/v1"],
-            "webpack-dev-middleware": [
-                "webpack-dev-middleware/v3"
-            ],
             "webpack": [
                 "webpack/v4"
             ],

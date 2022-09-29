@@ -359,7 +359,7 @@ const targetEl = document.getElementById('root');
 
 ReactDOM.render((
     <Provider store={store}>
-        {() => <App />}
+        <App />
     </Provider>
 ), targetEl);
 
@@ -392,7 +392,7 @@ declare var counterActionCreators: { [type: string]: (...args: any[]) => any; };
 
 ReactDOM.render(
     <Provider store={store}>
-        {() => <MyRootComponent />}
+        <MyRootComponent />
     </Provider>,
     document.body
 );

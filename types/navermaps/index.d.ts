@@ -1,7 +1,10 @@
 // Type definitions for non-npm package Naver Maps JavaScript API 3.0
-// Project: https://navermaps.github.io/maps.js
+// Project: https://navermaps.github.io/maps.js.ncp/
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
+//                 Minchul Joh <https://github.com/fclemonschool>
+//                 Suhwan Cha <https://github.com/suhwancha>
+//                 Yellowinq <https://github.com/hig4342>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /**
@@ -131,11 +134,11 @@ declare namespace naver.maps {
         zoomOrigin?: any;
     }
     interface MarkerOptions {
-        animation?: any;
-        map?: Map | undefined;
-        position?: any;
-        icon?: any;
-        shape?: any;
+        animation?: Animation;
+        map: Map;
+        position: Coord | CoordLiteral;
+        icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+        shape?: MarkerShape;
         title?: string | undefined;
         cursor?: string | undefined;
         clickable?: boolean | undefined;
@@ -433,21 +436,22 @@ declare namespace naver.maps {
         zIndex?: number | undefined;
     }
     interface PanoramaOptions {
-        size: Size | SizeLiteral;
-        panoId: string;
-        position: LatLng | LatLngLiteral;
-        pov: PanoramaPov;
-        visible: boolean;
-        minScale: number;
-        maxScale: number;
-        minZoom: number;
-        maxZoom: number;
-        logoControl: boolean;
-        logoControlOptions: LogoControlOptions;
-        zoomControl: boolean;
-        zoomControlOptions: ZoomControlOptions;
-        aroundControl: boolean;
-        aroundControlOptions: AroundControlOptions;
+        size?: Size | SizeLiteral;
+        panoId?: string;
+        position?: LatLng | LatLngLiteral;
+        pov?: PanoramaPov;
+        visible?: boolean;
+        minScale?: number;
+        maxScale?: number;
+        minZoom?: number;
+        maxZoom?: number;
+        flightSpot?: boolean;
+        logoControl?: boolean;
+        logoControlOptions?: LogoControlOptions;
+        zoomControl?: boolean;
+        zoomControlOptions?: ZoomControlOptions;
+        aroundControl?: boolean;
+        aroundControlOptions?: AroundControlOptions;
     }
     interface PanoramaPov {
         pan: number;
@@ -1076,6 +1080,8 @@ declare namespace naver.maps {
     }
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
+        aroundControl: AroundControl | null;
+        controls: KVOArray[];
         getLocation(): PanoramaLocation;
         getMaxScale(): number;
         getMaxZoom(): number;
@@ -1229,12 +1235,12 @@ declare namespace naver.maps {
         class HeatMap {
             constructor(heatMapOptions?: HeatMapOptions);
             getColorMap(): SpectrumStyle;
-            getData(): LatLng[] | PointArrayLiteral[];
+            getData(): LatLng[] | PointArrayLiteral[] | WeightedLocation[];
             getMap(): Map | null;
             getOptions(key?: string): HeatMapOptions;
             redraw(): void;
             setColorMap(colormap: SpectrumStyle, inReverse: boolean): void;
-            setData(data: LatLng[] | PointArrayLiteral[]): void;
+            setData(data: LatLng[] | PointArrayLiteral[] | WeightedLocation[]): void;
             setMap(map: Map | null): void;
             setOptions(key: string, value: any): void;
             setOptions(options: HeatMapOptions): void;
@@ -1254,14 +1260,19 @@ declare namespace naver.maps {
     function Service(): void;
     namespace Service {
         interface ServiceOptions {
-            encoding?: any;
-            coordType?: any;
+            sourcecrs?: CoordinatesType;
+            targetcrs?: CoordinatesType;
+            orders?: OrderType | string;
         }
         interface GeocodeServiceOptions extends ServiceOptions {
-            address?: string | undefined;
+            query: string;
+            coordinate?: string;
+            filter?: string;
+            page?: number;
+            count?: number;
         }
         interface ReverseServiceOptions extends ServiceOptions {
-            location?: Coord | CoordLiteral | undefined;
+            coords: string | Coord | CoordLiteral;
         }
         interface AddressItem {
             address: string;
@@ -1272,6 +1283,37 @@ declare namespace naver.maps {
                 dongmyun: string;
                 rest: string;
             };
+            point: {
+                x: string;
+                y: string;
+            };
+        }
+        interface AddressItemV2 {
+            roadAddress: string;
+            jibunAddress: string;
+            englishAddress: string;
+            addressElements: Array<{
+                code: string;
+                longName: string;
+                shortName: string;
+                types:
+                | 'SIDO'
+                | 'SIGUGUN'
+                | 'RI'
+                | 'ROAD_NAME'
+                | 'BUILDING_NUMBER'
+                | 'BUILDING_NAME'
+                | 'LAND_NUMBER'
+                | 'POSTAL_CODE';
+            }>;
+            x: string;
+            y: string;
+            distance: string;
+        }
+        interface Meta {
+            totalCount: number;
+            page: number;
+            count: number;
         }
         interface GeocodeResponse {
             result: {
@@ -1279,6 +1321,65 @@ declare namespace naver.maps {
                 total: number;
                 items: AddressItem[];
             };
+            v2: {
+                status: GeocodeStatus;
+                meta: Meta;
+                addresses: AddressItemV2[];
+                errorMessage: string;
+            };
+        }
+        interface ReverseGeocodeStatus {
+            code: ReverseGeocodeStatusCode;
+            name: ReverseGeocodeStatusName;
+            message: string;
+        }
+        interface ReverseGeocodeAddress {
+            roadAddress: string;
+            jibunAddress: string;
+        }
+        interface Coords {
+            center: {
+                crs: string;
+                x: string;
+                y: string;
+            };
+        }
+        interface Land {
+            type: string;
+            name: string;
+            number1: string;
+            number2: string;
+            coords: Coords;
+        }
+        interface Area {
+            name: string;
+            coords: Coords;
+        }
+        interface Addition {
+            type: string;
+            value: string;
+        }
+        interface Region {
+            area0: Area;
+            area1: Area;
+            area2: Area;
+            area3: Area;
+            area4: Area;
+            land: Land;
+            addition0: Addition;
+            addition1: Addition;
+            addition2: Addition;
+            addition3: Addition;
+            addition4: Addition;
+        }
+        interface ResultItem {
+            name: string;
+            code: {
+                id: string;
+                type: 'L' | 'A' | 'S' | string;
+                mappingId: string;
+            };
+            region: Region;
         }
         interface ReverseGeocodeResponse {
             result: {
@@ -1286,14 +1387,40 @@ declare namespace naver.maps {
                 total: number;
                 items: AddressItem[];
             };
+            v2: {
+                status: ReverseGeocodeStatus;
+                results: ResultItem[];
+                address: ReverseGeocodeAddress;
+            };
         }
-        enum CoordType {
+        enum CoordinatesType {
             LATLNG,
+            UTMK,
             TM128,
+            EPSG3857,
         }
-        enum Encoding {
-            UTF_8,
-            EUC_KR,
+        enum OrderType {
+            LEGAL_CODE,
+            ADDR,
+            ROAD_ADDR,
+            ADM_CODE,
+        }
+        enum ReverseGeocodeStatusName {
+            OK,
+            NO_RESULTS,
+            INVALID_REQUEST,
+            UNKNOWN_ERROR_IO_ERROR,
+        }
+        enum ReverseGeocodeStatusCode {
+            CODE_0,
+            CODE_3,
+            CODE_100,
+            CODE_900,
+        }
+        enum GeocodeStatus {
+            OK,
+            INVALID_REQUEST,
+            SYSTEM_ERROR,
         }
         enum Status {
             OK,

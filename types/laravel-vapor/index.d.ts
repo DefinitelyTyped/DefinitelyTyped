@@ -17,6 +17,7 @@ interface VaporStoreOptions {
 
 declare class Vapor {
     store(file: File, options?: VaporStoreOptions): Promise<any>;
+    asset(path: string): string;
 }
 
 declare const VaporInstance: Vapor;

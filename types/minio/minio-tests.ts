@@ -240,6 +240,44 @@ minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', s
 minio.setObjectLegalHold('testBucket', 'hello.jpg');
 minio.setObjectLegalHold('testBucket', 'hello.jpg', {versionId: 'someVersion', status: 'OFF'});
 
+const destObjConfig = new Minio.CopyDestinationOptions({ Bucket: 'testBucket', Object: '100MB.zip' });
+const sourceObjList = [
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partA' }),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partB' }),
+  new Minio.CopySourceOptions({ Bucket: 'testBucket', Object: 'partC' }),
+];
+
+minio.composeObject(destObjConfig, sourceObjList, (error: Error | null, result: Minio.SourceObjectStats) => { console.log(error, result); });
+minio.composeObject(destObjConfig, sourceObjList);
+minio.composeObject(destObjConfig, sourceObjList)
+  .then((result) => {
+    console.log(result);
+  });
+
+minio.selectObjectContent(
+  'testBucket',
+  'hello.jpg',
+  {
+    expression: "SELECT * FROM s3object s",
+    expressionType: 'SQL',
+    inputSerialization: { CSV: { FileHeaderInfo: 'USE' }, CompressionType: 'NONE' },
+    outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
+    requestProgress: { Enabled: true },
+  },
+  (error: Error | null) => { console.log(error); }
+);
+minio.selectObjectContent(
+  'testBucket',
+  'hello.jpg',
+  {
+    expression: "SELECT * FROM s3object s",
+    expressionType: 'SQL',
+    inputSerialization: { CSV: { FileHeaderInfo: 'USE' }, CompressionType: 'NONE' },
+    outputSerialization: { CSV: { RecordDelimiter: '\n', FieldDelimiter: ',' }},
+    requestProgress: { Enabled: true },
+  },
+);
+
 // Presigned operations
 minio.presignedUrl('GET', 'testBucket', 'hello.jpg', (error: Error|null, url: string) => { console.log(error, url); });
 minio.presignedUrl('GET', 'testBucket', 'hello.jpg', 84600, (error: Error|null, url: string) => { console.log(error, url); });
@@ -306,7 +344,9 @@ minio.setBucketNotification('testBucket', notificationConfig);
 minio.removeAllBucketNotification('testBucket', (error: Error|null) => { console.log(error); });
 minio.removeAllBucketNotification('testBucket');
 
-minio.listenBucketNotification('testBucket', 'pref_', '_suf', [ Minio.ObjectCreatedAll ]);
+const poller = minio.listenBucketNotification('testBucket', 'pref_', '_suf', [Minio.ObjectCreatedAll]);
+poller.start();
+poller.stop();
 
 minio.getBucketPolicy('testBucket', (error: Error|null, policy: string) => { console.log(error, policy); });
 minio.getBucketPolicy('testBucket');

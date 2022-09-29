@@ -120,7 +120,7 @@ declare namespace nodeRed {
     interface NodeInitializer<TSets extends NodeAPISettingsWithData = NodeAPISettingsWithData>
         extends registry.NodeInitializer<TSets> {}
 
-    interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds>
+    interface NodeConstructor<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds extends {}>
         extends registry.NodeConstructor<TNode, TNodeDef, TCreds> {}
 
     interface NodeAPISettingsWithData extends registry.NodeAPISettingsWithData {}

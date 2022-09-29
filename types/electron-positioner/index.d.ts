@@ -30,10 +30,13 @@ declare class ElectronPositioner {
     constructor(browserWindow: BrowserWindow);
 
     move(position: ElectronPositioner.Position, trayBounds?: Rectangle): void;
-    move(position: ElectronPositioner.TrayPosition, trayBounds: Rectangle): void;
+    move(position: ElectronPositioner.Position | ElectronPositioner.TrayPosition, trayBounds: Rectangle): void;
 
     calculate(position: ElectronPositioner.Position, trayBounds?: Rectangle): { x: number; y: number };
-    calculate(position: ElectronPositioner.TrayPosition, trayBounds: Rectangle): { x: number; y: number };
+    calculate(
+        position: ElectronPositioner.Position | ElectronPositioner.TrayPosition,
+        trayBounds: Rectangle,
+    ): { x: number; y: number };
 }
 
 export = ElectronPositioner;

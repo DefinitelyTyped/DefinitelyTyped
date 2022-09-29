@@ -13,7 +13,6 @@ import * as threeDeprecated from 'three/examples/jsm/deprecated/Geometry';
 
 // Global
 const threeCamera = new AFRAME.THREE.Camera();
-AFRAME.TWEEN.Easing;
 
 // Entity
 const entity = document.createElement('a-entity');

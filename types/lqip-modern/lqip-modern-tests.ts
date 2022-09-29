@@ -12,10 +12,13 @@ lqip('tst', { outputFormat: 'webp' });
 lqip('tst', { outputOptions: { lossless: true } });
 
 // it should validate `outputOptions` depending on `outputFormat`
-lqip('tst', { outputFormat: 'jpg', outputOptions: { lossless: true } }); // $ExpectError
-lqip('tst', { outputFormat: 'jpeg', outputOptions: { lossless: true } }); // $ExpectError
+// @ts-expect-error
+lqip('tst', { outputFormat: 'jpg', outputOptions: { lossless: true } });
+// @ts-expect-error
+lqip('tst', { outputFormat: 'jpeg', outputOptions: { lossless: true } });
 lqip('tst', { outputFormat: 'webp', outputOptions: { lossless: true } });
 
 lqip('tst', { outputFormat: 'jpg', outputOptions: { progressive: true } });
 lqip('tst', { outputFormat: 'jpeg', outputOptions: { progressive: true } });
-lqip('tst', { outputFormat: 'webp', outputOptions: { progressive: true } }); // $ExpectError
+// @ts-expect-error
+lqip('tst', { outputFormat: 'webp', outputOptions: { progressive: true } });

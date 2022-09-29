@@ -131,7 +131,7 @@ const objectWithComputedProperties = Ember.Object.extend({
     intersect: Ember.computed.intersect('foo', 'bar', 'baz', 'qux'),
     lt: Ember.computed.lt('foo', 3),
     lte: Ember.computed.lte('foo', 3),
-    map: Ember.computed.map('foo', (item, index) => item.bar),
+    map: Ember.computed.map('foo', (item, index) => item),
     mapBy: Ember.computed.mapBy('foo', 'bar'),
     match: Ember.computed.match('foo', /^tom.ter$/),
     max: Ember.computed.max('foo'),
@@ -146,22 +146,47 @@ const objectWithComputedProperties = Ember.Object.extend({
     setDiff: Ember.computed.setDiff('foo', 'bar'),
     sort1: Ember.computed.sort('foo', 'bar'),
     sort2: Ember.computed.sort('foo', (itemA, itemB) => {
-        if (itemA < itemB) {
-            return -1;
-        } else if (itemA > itemB) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return `${itemA}`.length - `${itemB}`.length;
     }),
     sum: Ember.computed.sum('foo'),
     union: Ember.computed.union('foo', 'bar', 'baz', 'qux'),
     uniq: Ember.computed.uniq('foo'),
     uniqBy: Ember.computed.uniqBy('foo', 'bar'),
-});
-
-const component2 = Component.extend({
-    isAnimal: or('isDog', 'isCat'),
 }).create();
 
-assertType<boolean>(component2.get('isAnimal'));
+assertType<unknown>(objectWithComputedProperties.get('alias'));
+assertType<unknown>(objectWithComputedProperties.get('and'));
+assertType<boolean>(objectWithComputedProperties.get('bool'));
+assertType<unknown[]>(objectWithComputedProperties.get('collect'));
+assertType<unknown>(objectWithComputedProperties.get('deprecatingAlias'));
+assertType<boolean>(objectWithComputedProperties.get('empty'));
+assertType<boolean>(objectWithComputedProperties.get('equalNumber'));
+assertType<boolean>(objectWithComputedProperties.get('equalString'));
+assertType<boolean>(objectWithComputedProperties.get('equalObject'));
+assertType<unknown[]>(objectWithComputedProperties.get('filter'));
+assertType<unknown[]>(objectWithComputedProperties.get('filterBy1'));
+assertType<unknown[]>(objectWithComputedProperties.get('filterBy2'));
+assertType<boolean>(objectWithComputedProperties.get('gt'));
+assertType<boolean>(objectWithComputedProperties.get('gte'));
+assertType<unknown[]>(objectWithComputedProperties.get('intersect'));
+assertType<boolean>(objectWithComputedProperties.get('lt'));
+assertType<boolean>(objectWithComputedProperties.get('lte'));
+assertType<unknown[]>(objectWithComputedProperties.get('map'));
+assertType<unknown[]>(objectWithComputedProperties.get('mapBy'));
+assertType<boolean>(objectWithComputedProperties.get('match'));
+assertType<number>(objectWithComputedProperties.get('max'));
+assertType<number>(objectWithComputedProperties.get('min'));
+assertType<boolean>(objectWithComputedProperties.get('none'));
+assertType<boolean>(objectWithComputedProperties.get('not'));
+assertType<boolean>(objectWithComputedProperties.get('notEmpty'));
+assertType<unknown>(objectWithComputedProperties.get('oneWay'));
+assertType<unknown>(objectWithComputedProperties.get('or'));
+assertType<unknown>(objectWithComputedProperties.get('readOnly'));
+assertType<unknown>(objectWithComputedProperties.get('reads'));
+assertType<unknown[]>(objectWithComputedProperties.get('setDiff'));
+assertType<unknown[]>(objectWithComputedProperties.get('sort1'));
+assertType<unknown[]>(objectWithComputedProperties.get('sort2'));
+assertType<number>(objectWithComputedProperties.get('sum'));
+assertType<unknown[]>(objectWithComputedProperties.get('union'));
+assertType<unknown[]>(objectWithComputedProperties.get('uniq'));
+assertType<unknown[]>(objectWithComputedProperties.get('uniqBy'));

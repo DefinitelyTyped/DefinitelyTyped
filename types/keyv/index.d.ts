@@ -8,18 +8,31 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
 
-declare class Keyv<TValue = any> extends EventEmitter {
+type WithRequiredProperties<T, K extends keyof T> = T & Required<Pick<T, K>>;
+
+declare class Keyv<TValue = any, TOpts extends { [key: string]: any } = {}> extends EventEmitter {
+    /**
+     * `this.opts` is an object containing at least the properties listed
+     * below. However, `Keyv.Options` allows arbitrary properties as well.
+     * These properties can be specified as the second type parameter to `Keyv`.
+     */
+    opts: WithRequiredProperties<
+        Keyv.Options<TValue>,
+        'deserialize' | 'namespace' | 'serialize' | 'store' | 'uri'
+    > &
+        TOpts;
+
     /**
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */
-    constructor(opts?: Keyv.Options<TValue>);
+    constructor(opts?: Keyv.Options<TValue> & TOpts);
     /**
      * @param uri The connection string URI.
      *
      * Merged into the options object as options.uri.
      * @param opts The options object is also passed through to the storage adapter. Check your storage adapter docs for any extra options.
      */
-    constructor(uri?: string, opts?: Keyv.Options<TValue>);
+    constructor(uri?: string, opts?: Keyv.Options<TValue> & TOpts);
 
     /** Returns the value. */
     get<TRaw extends boolean = false>(key: string, options?: { raw?: TRaw }):

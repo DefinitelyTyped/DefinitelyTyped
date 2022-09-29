@@ -58,6 +58,7 @@ const compiled = twig.compile(str, compOpts);
 const renderOpts: twig.RenderOptions = {
     allowAsync: true,
     settings: value,
+    sampleValue: value,
 };
 
 twig.renderFile(str, renderOpts, (err, result) => {});

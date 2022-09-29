@@ -19,6 +19,15 @@ const AllOptions: JSX.Element = (
         saveData="saveData"
         immediateLoading
         hideInterface
+        gridSizeX={25}
+        gridSizeY={25}
+        gridLineWidth={0.5}
+        hideGridX={false}
+        hideGridY={false}
+        enablePanAndZoom={true}
+        mouseZoomFactor={0.01}
+        zoomExtents={{ min: 0.33, max: 3}}
+        clampLinesToDocument={true}
         className="className"
         style={{ border: '1px solid #000' }}
     />

@@ -27,6 +27,7 @@ const speechGrammarList2: SpeechGrammarList = {
     addFromURI: (src: string, weight?: number) => undefined,
     item: (index: number) => speechGrammar2,
 };
+const speechGrammarList3 = new webkitSpeechGrammarList();
 
 const speechRecognition = new SpeechRecognition();
 const speechRecognition2: SpeechRecognition = {
@@ -61,6 +62,7 @@ const speechRecognition2: SpeechRecognition = {
         options?: boolean | EventListenerOptions,
     ) => undefined,
 };
+const speechRecognition3 = new webkitSpeechRecognition();
 
 const speechRecognitionResultList = new SpeechRecognitionResultList();
 
@@ -70,6 +72,7 @@ const speechRecognitionEventInit: SpeechRecognitionEventInit = {
 };
 
 const speechRecognitionEvent = new SpeechRecognitionEvent('type', speechRecognitionEventInit);
+const speechRecognitionEvent2 = new webkitSpeechRecognitionEvent('type', speechRecognitionEventInit);
 
 const speechRecognitionErrorEventInit: SpeechRecognitionErrorEventInit = {
     error: 'aborted',

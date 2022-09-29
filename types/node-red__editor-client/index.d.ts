@@ -38,7 +38,9 @@ declare namespace editorClient {
      * Read more: https://nodered.org/docs/creating-nodes/properties
      */
     type NodePropertiesDef<TProps extends NodeProperties, TInstProps extends TProps = TProps> = {
-        [K in keyof TProps]: NodePropertyDef<TProps[K], TInstProps>;
+        [K in keyof TProps]: K extends NodeReservedProperties
+            ? never
+            : NodePropertyDef<TProps[K], TInstProps>;
     };
 
     /**
@@ -47,94 +49,65 @@ declare namespace editorClient {
      */
     interface NodeProperties {
         name?: string | undefined;
-        /** If a node wants to allow the number of outputs it provides to be configurable then outputs may be included. */
-        outputs?: number | undefined;
-
-        /** Reserved name for properties that MUST NOT BE USED. */
-        changed?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        dirty?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        icon?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        id?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        info?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        inputLabels?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        inputs?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        outputLabels?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        ports?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        selected?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        type?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        valid?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        validationErrors?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        wires?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        a?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        b?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        c?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        d?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        e?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        f?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        g?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        h?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        i?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        j?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        k?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        l?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        m?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        n?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        o?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        p?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        q?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        r?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        s?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        t?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        u?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        v?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        w?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        x?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        y?: never | undefined;
-        /** Reserved name for properties that MUST NOT BE USED. */
-        z?: never | undefined;
+        inputs?: 0 | 1 | undefined;
     }
 
-    type NodeInstance<TProps extends NodeProperties = NodeProperties> = TProps & {
-        _: I18nTFunction;
-    };
+    /** Reserved name for properties that MUST NOT BE USED. */
+    type NodeReservedProperties =
+        | 'changed'
+        | 'dirty'
+        | 'icon'
+        | 'id'
+        | 'info'
+        | 'inputLabels'
+        | 'outputLabels'
+        | 'ports'
+        | 'selected'
+        | 'type'
+        | 'valid'
+        | 'validationErrors'
+        | 'wires'
+        | 'a'
+        | 'b'
+        | 'c'
+        | 'd'
+        | 'e'
+        | 'f'
+        | 'g'
+        | 'h'
+        | 'i'
+        | 'j'
+        | 'k'
+        | 'l'
+        | 'm'
+        | 'n'
+        | 'o'
+        | 'p'
+        | 'q'
+        | 'r'
+        | 's'
+        | 't'
+        | 'u'
+        | 'v'
+        | 'w'
+        | 'x'
+        | 'y'
+        | 'z';
+
+    type NodeInstance<TProps extends NodeProperties = NodeProperties> =
+        Omit<TProps, NodeReservedProperties> &
+        Readonly<{
+            _: I18nTFunction;
+            id: string;
+            type: string;
+            inputs: 0 | 1;
+            outputs: number;
+            h: number;
+            w: number;
+            x: number;
+            y: number;
+            z: string;
+        }>;
 
     type NodeCredentials<T> = {
         [K in keyof T]: NodeCredential;

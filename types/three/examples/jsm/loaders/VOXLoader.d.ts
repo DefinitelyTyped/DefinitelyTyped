@@ -1,4 +1,4 @@
-import { DataTexture3D, Mesh, Loader, LoadingManager } from '../../../src/Three';
+import { Data3DTexture, Mesh, Loader, LoadingManager } from '../../../src/Three';
 
 export interface Chunk {
     palette: number[];
@@ -23,6 +23,6 @@ export class VOXMesh extends Mesh {
     constructor(chunk: Chunk);
 }
 
-export class VOXDataTexture3D extends DataTexture3D {
+export class VOXData3DTexture extends Data3DTexture {
     constructor(chunk: Chunk);
 }

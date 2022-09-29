@@ -118,4 +118,9 @@ const fragmentTests = () => {
 
     // $ExpectType string
     const textBetweenSeparatorAndNullLeafArgs = prosemirrorFragment.textBetween(1, 2, 'separator', null);
+
+    // $ExpectType string
+    const textBetweenLeafNodeCallbackArgs = prosemirrorFragment.textBetween(1, 2, null, leafNode => {
+        return leafNode.type.name === 'tag' ? leafNode.attrs.tagName : '';
+    });
 };

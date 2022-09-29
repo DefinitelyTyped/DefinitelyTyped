@@ -69,8 +69,10 @@ function test_sticky() {
     });
     $(selector).sticky(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).sticky('foo'); // $ExpectError
-    $(selector).sticky({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).sticky('foo');
+    // @ts-expect-error
+    $(selector).sticky({ foo: 'bar' });
 }
 
 import sticky = require('semantic-ui-sticky');

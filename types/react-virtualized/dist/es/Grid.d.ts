@@ -1,7 +1,7 @@
 import { Validator, Requireable, PureComponent, Component } from 'react';
 import { List } from './List';
 import { Table } from './Table';
-import { CellMeasurerCache, MeasuredCellParent } from './CellMeasurer';
+import { CellMeasurerCache, CellMeasurerCacheInterface, MeasuredCellParent } from './CellMeasurer';
 import { Index, Map, Alignment, OverscanIndexRange } from '../../index';
 
 export type RenderedSection = {
@@ -197,7 +197,7 @@ export type GridCoreProps = {
      * If CellMeasurer is used to measure this Grid's children, this should be a pointer to its CellMeasurerCache.
      * A shared CellMeasurerCache reference enables Grid and CellMeasurer to share measurement data.
      */
-    deferredMeasurementCache?: CellMeasurerCache | undefined;
+    deferredMeasurementCache?: CellMeasurerCacheInterface | undefined;
     /**
      * Used to estimate the total width of a Grid before all of its columns have actually been measured.
      * The estimated total width is adjusted as columns are rendered.

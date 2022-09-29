@@ -1,12 +1,12 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const SMAAEdgesShader: {
     defines: {
         SMAA_THRESHOLD: string;
     };
     uniforms: {
-        tDiffuse: Uniform;
-        resolution: Uniform;
+        tDiffuse: IUniform;
+        resolution: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -20,10 +20,10 @@ export const SMAAWeightsShader: {
         SMAA_AREATEX_SUBTEX_SIZE: string;
     };
     uniforms: {
-        tDiffuse: Uniform;
-        tArea: Uniform;
-        tSearch: Uniform;
-        resolution: Uniform;
+        tDiffuse: IUniform;
+        tArea: IUniform;
+        tSearch: IUniform;
+        resolution: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;
@@ -31,9 +31,9 @@ export const SMAAWeightsShader: {
 
 export const SMAABlendShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        tColor: Uniform;
-        resolution: Uniform;
+        tDiffuse: IUniform;
+        tColor: IUniform;
+        resolution: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

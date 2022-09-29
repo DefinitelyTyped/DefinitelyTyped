@@ -298,8 +298,10 @@ function test_dropdown() {
     });
     $(selector).dropdown(); // $ExpectType JQuery<HTMLElement>
 
-    $(selector).dropdown('foo'); // $ExpectError
-    $(selector).dropdown({ foo: 'bar' }); // $ExpectError
+    // @ts-expect-error
+    $(selector).dropdown('foo');
+    // @ts-expect-error
+    $(selector).dropdown({ foo: 'bar' });
 }
 
 import dropdown = require('semantic-ui-dropdown');

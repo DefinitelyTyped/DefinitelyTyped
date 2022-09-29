@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactDivAttr, CarbonSize } from "../../../typings/shared";
+import { ReactDivAttr } from "../../../typings/shared";
 import { ButtonProps } from "../Button";
 
 type ExcludedAttributes = "role" | "onBlur" | "onClick" | "onKeyDown" | "onTransitionEnd" | "ref";
@@ -11,6 +11,7 @@ export interface ModalSecondaryButtonConfig {
 
 export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     alert?: boolean | undefined,
+    closeButtonLabel?: string | undefined,
     danger?: boolean | undefined,
     /**
      * @deprecated
@@ -21,6 +22,9 @@ export interface ModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
      */
     hasForm?: boolean | undefined,
     hasScrollingContent?: boolean | undefined,
+    /**
+     * @deprecated
+     */
     iconDescription?: string | undefined,
     modalAriaLabel?: string | undefined,
     modalHeading?: React.ReactNode | undefined,

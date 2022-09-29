@@ -37,8 +37,8 @@ export type SQSMessageAttributeDataType = 'String' | 'Number' | 'Binary' | strin
 export interface SQSMessageAttribute {
     stringValue?: string | undefined;
     binaryValue?: string | undefined;
-    stringListValues: never[]; // Not implemented. Reserved for future use.
-    binaryListValues: never[]; // Not implemented. Reserved for future use.
+    stringListValues?: string[] | undefined; // Not implemented. Reserved for future use.
+    binaryListValues?: string[] | undefined; // Not implemented. Reserved for future use.
     dataType: SQSMessageAttributeDataType;
 }
 

@@ -68,6 +68,16 @@ declare namespace GoogleAppsScript {
       setStateChanged(stateChanged: boolean): ActionResponseBuilder;
     }
     /**
+     * Represents an attachment created by an add-on. This can be used within the context of different
+     * Google extensibility products to generate new attachments, such as for Calendar events.
+     */
+    interface Attachment {
+      setIconUrl(iconUrl: string): Attachment;
+      setMimeType(mimeType: string): Attachment;
+      setResourceUrl(resourceUrl: string): Attachment;
+      setTitle(title: string): Attachment;
+    }
+    /**
      * An authorization action that will send the user to the AuthorizationUrl when clicked.
      *
      *     CardService.newAuthorizationAction()
@@ -251,6 +261,7 @@ declare namespace GoogleAppsScript {
       BorderType: typeof BorderType;
       ComposedEmailType: typeof ComposedEmailType;
       ContentType: typeof ContentType;
+      DisplayStyle: typeof DisplayStyle;
       GridItemLayout: typeof GridItemLayout;
       HorizontalAlignment: typeof HorizontalAlignment;
       Icon: typeof Icon;
@@ -265,6 +276,7 @@ declare namespace GoogleAppsScript {
       UpdateDraftBodyType: typeof UpdateDraftBodyType;
       newAction(): Action;
       newActionResponseBuilder(): ActionResponseBuilder;
+      newAttachment(): Attachment;
       newAuthorizationAction(): AuthorizationAction;
       newAuthorizationException(): AuthorizationException;
       /**
@@ -281,7 +293,12 @@ declare namespace GoogleAppsScript {
       newDatePicker(): DatePicker;
       newDateTimePicker(): DateTimePicker;
       newDecoratedText(): DecoratedText;
+      newDivider(): Divider;
       newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+      /**
+       * Creates a new EditorFileScopeActionResponseBuilder.
+       */
+      newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
       newFixedFooter(): FixedFooter;
       newIconImage(): IconImage;
       /**
@@ -313,6 +330,7 @@ declare namespace GoogleAppsScript {
       newTextButton(): TextButton;
       newTextInput(): TextInput;
       newTextParagraph(): TextParagraph;
+      newTimePicker(): TimePicker;
       newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
       newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
       newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
@@ -689,6 +707,25 @@ declare namespace GoogleAppsScript {
       printJson(): string;
     }
     /**
+     * An input field that allows users to input a time.
+     *
+     *     // A time picker with default value of 3:30 PM.
+     *     var dateTimePicker = CardService.newTimePicker()
+     *         .setTitle("Enter the time.")
+     *         .setFieldName("time_field")
+     *         .setHours(15)
+     *         .setMinutes(30)
+     *         .setOnChangeAction(CardService.newAction()
+     *             .setFunctionName("handleTimeChange"));
+     */
+    interface TimePicker {
+      setFieldName(fieldName: string): TimePicker;
+      setHours(hours: number): TimePicker;
+      setMinutes(hours: number): TimePicker;
+      setOnChangeAction(action: Action): TimePicker;
+      setTitle(title: string): TimePicker;
+    }
+    /**
      * A builder for the UniversalActionResponse objects.
      */
     interface UniversalActionResponseBuilder {
@@ -800,6 +837,7 @@ declare namespace GoogleAppsScript {
      * A builder for CalendarEventActionResponse objects.
      */
     interface CalendarEventActionResponseBuilder {
+      addAttachments(attachments: Attachment[]): CalendarEventActionResponseBuilder;
       addAttendees(emails: string[]): CalendarEventActionResponseBuilder;
       build(): CalendarEventActionResponse;
       setConferenceData(conferenceData: Conference_Data.ConferenceData): CalendarEventActionResponseBuilder;
@@ -851,6 +889,13 @@ declare namespace GoogleAppsScript {
       setText(text: string): DecoratedText;
       setTopLabel(text: string): DecoratedText;
       setWrapText(wrapText: boolean): DecoratedText;
+    }
+
+    /**
+     * A horizontal divider.
+     */
+    // tslint:disable-next-line:no-empty-interface
+    interface Divider {
     }
 
     /**
@@ -1040,6 +1085,29 @@ declare namespace GoogleAppsScript {
      */
     interface DriveItemsSelectedActionResponse {
       printJson(): string;
+    }
+
+    /**
+     * Makes changes to an Editor, such as Google Docs, Sheets, or Slides in reaction to an action taken in the UI.
+     */
+    interface EditorFileScopeActionResponse {
+        /**
+         * Prints the JSON representation of this object.
+         */
+        printJson(): string;
+    }
+    /**
+     * A builder for EditorFileScopeActionResponse objects.
+     */
+    interface EditorFileScopeActionResponseBuilder {
+        /**
+         * Builds the current Editor action response.
+         */
+        build(): EditorFileScopeActionResponse;
+        /**
+         * Requests the drive.file scope for the current active Editor document.
+         */
+        requestFileScopeForActiveDocument(): EditorFileScopeActionResponseBuilder;
     }
 
     /**

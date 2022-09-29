@@ -8,7 +8,6 @@ let ice1: RTCIceServer = {
     urls: 'stun:stun.l.google.com:19302',
     username: 'john',
     credential: '1234',
-    credentialType: 'password',
 };
 let ice2: RTCIceServer = { urls: ['stun:stunserver.org', 'stun:stun.example.com'] };
 let pc: RTCPeerConnection = new RTCPeerConnection({});
@@ -105,9 +104,9 @@ const error = new RTCError({
 
 // RPCDtlsTransport
 const dtlsTransport = pc.sctp!.transport;
-dtlsTransport.onerror = ev => console.log(ev.error.errorDetail);
+dtlsTransport.onerror = (ev: RTCErrorEvent) => console.log(ev.error.errorDetail);
 dtlsTransport.onstatechange = ev => console.log(ev.type);
-dtlsTransport.addEventListener('error', ev => console.log(ev.error.errorDetail));
+dtlsTransport.addEventListener('error', (ev: RTCErrorEvent) => console.log(ev.error.errorDetail));
 dtlsTransport.addEventListener('statechange', ev => console.log(ev.type));
 console.log(dtlsTransport.state);
 

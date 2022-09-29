@@ -1,6 +1,6 @@
 // Type definitions for notp 2.0
 // Project: https://github.com/guyht/notp
-// Definitions by: Wilfred Tan <https://github.com/wilfredtan>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

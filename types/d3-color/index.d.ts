@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-color module 3.0
+// Type definitions for D3JS d3-color module 3.1
 // Project: https://github.com/d3/d3-color/, https://d3js.org/d3-color
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>
 //                 Alex Ford <https://github.com/gustavderdrache>
@@ -6,9 +6,10 @@
 //                 denisname <https://github.com/denisname>
 //                 Hugues Stefanski <https://github.com/ledragon>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Fil <https://github.com/Fil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 3.0.1
+// Last module patch version validated against: 3.1.0
 
 // ---------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -85,6 +86,12 @@ export interface Color {
      * For example, RGB channel values greater than 255 are clamped to 255.
      */
     formatHex(): string;
+    /**
+     * Returns a hexadecimal string representing this color in RGBA space, such as #f7eaba90.
+     * If this color is not displayable, a suitable displayable color is returned instead.
+     * For example, RGB channel values greater than 255 are clamped to 255.
+     */
+    formatHex8(): string;
     /**
      * Returns a string representing this color according to the CSS Color Module Level 3 specification, such as hsl(257, 50%, 80%) or hsla(257, 50%, 80%, 0.2).
      * If this color is not displayable, a suitable displayable color is returned instead by clamping S and L channel values to the interval [0, 100].
@@ -168,6 +175,11 @@ export interface RGBColor extends Color {
      * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
      */
     copy(values?: { r?: number | undefined; g?: number | undefined; b?: number | undefined; opacity?: number | undefined }): this;
+    /**
+     * Returns a new RGB color where the r, g, and b channels are clamped to the range [0, 255] and rounded to the nearest integer value,
+     * and the opacity is clamped to the range [0, 1].
+     */
+    clamp(): this;
 }
 
 /**
@@ -249,6 +261,10 @@ export interface HSLColor extends Color {
      * @param values If values is specified, any enumerable own properties of values are assigned to the new returned color.
      */
     copy(values?: { h?: number | undefined; s?: number | undefined; l?: number | undefined; opacity?: number | undefined }): this;
+    /**
+     * Returns a new HSL color where the h channel is clamped to the range [0, 360), and the s, l, and opacity channels are clamped to the range [0, 1].
+     */
+     clamp(): this;
 }
 
 /**

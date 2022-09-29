@@ -1,10 +1,20 @@
+import { ColorSpace } from '../constants';
 import { ColorRepresentation } from '../utils';
+
 import { BufferAttribute } from './../core/BufferAttribute';
+
+export { SRGBToLinear } from './ColorManagement';
 
 export interface HSL {
     h: number;
     s: number;
     l: number;
+}
+
+export interface RGB {
+    r: number;
+    g: number;
+    b: number;
 }
 
 /**
@@ -41,7 +51,7 @@ export class Color {
 
     set(color: ColorRepresentation): Color;
     setScalar(scalar: number): Color;
-    setHex(hex: number): Color;
+    setHex(hex: number, colorSpace?: ColorSpace): Color;
 
     /**
      * Sets this color from RGB values.
@@ -49,7 +59,7 @@ export class Color {
      * @param g Green channel value between 0 and 1.
      * @param b Blue channel value between 0 and 1.
      */
-    setRGB(r: number, g: number, b: number): Color;
+    setRGB(r: number, g: number, b: number, colorSpace?: ColorSpace): Color;
 
     /**
      * Sets this color from HSL values.
@@ -59,20 +69,20 @@ export class Color {
      * @param s Saturation value channel between 0 and 1.
      * @param l Value channel value between 0 and 1.
      */
-    setHSL(h: number, s: number, l: number): Color;
+    setHSL(h: number, s: number, l: number, colorSpace?: ColorSpace): Color;
 
     /**
      * Sets this color from a CSS context style string.
      * @param contextStyle Color in CSS context style format.
      */
-    setStyle(style: string): Color;
+    setStyle(style: string, colorSpace?: ColorSpace): Color;
 
     /**
      * Sets this color from a color name.
      * Faster than {@link Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.
      * @param style Color name in X11 format.
      */
-    setColorName(style: string): Color;
+    setColorName(style: string, colorSpace?: ColorSpace): Color;
 
     /**
      * Clones this color.
@@ -84,28 +94,6 @@ export class Color {
      * @param color Color to copy.
      */
     copy(color: Color): this;
-
-    /**
-     * Copies given color making conversion from gamma to linear space.
-     * @param color Color to copy.
-     */
-    copyGammaToLinear(color: Color, gammaFactor?: number): Color;
-
-    /**
-     * Copies given color making conversion from linear to gamma space.
-     * @param color Color to copy.
-     */
-    copyLinearToGamma(color: Color, gammaFactor?: number): Color;
-
-    /**
-     * Converts this color from gamma to linear space.
-     */
-    convertGammaToLinear(gammaFactor?: number): Color;
-
-    /**
-     * Converts this color from linear to gamma space.
-     */
-    convertLinearToGamma(gammaFactor?: number): Color;
 
     /**
      * Copies given color making conversion from sRGB to linear space.
@@ -132,20 +120,22 @@ export class Color {
     /**
      * Returns the hexadecimal value of this color.
      */
-    getHex(): number;
+    getHex(colorSpace?: ColorSpace): number;
 
     /**
      * Returns the string formated hexadecimal value of this color.
      */
-    getHexString(): string;
+    getHexString(colorSpace?: ColorSpace): string;
 
-    getHSL(target: HSL): HSL;
+    getHSL(target: HSL, colorSpace?: ColorSpace): HSL;
+
+    getRGB(target: RGB, colorSpace?: ColorSpace): RGB;
 
     /**
      * Returns the value of this color in CSS context style.
      * Example: rgb(r, g, b)
      */
-    getStyle(): string;
+    getStyle(colorSpace?: ColorSpace): string;
 
     offsetHSL(h: number, s: number, l: number): this;
 
@@ -184,6 +174,8 @@ export class Color {
     toArray(xyz: ArrayLike<number>, offset?: number): ArrayLike<number>;
 
     fromBufferAttribute(attribute: BufferAttribute, index: number): this;
+
+    [Symbol.iterator](): Generator<number, void>;
 
     /**
      * List of X11 color names.

@@ -5,7 +5,7 @@ declare module './index' {
 
     type ARC_MODE = CHORD | PIE | OPEN;
 
-    type BEGIN_KIND = POINTS | LINES | TRIANGLES | TRIANGLE_FAN | TRIANGLE_STRIP | QUADS | QUAD_STRIP;
+    type BEGIN_KIND = POINTS | LINES | TRIANGLES | TRIANGLE_FAN | TRIANGLE_STRIP | QUADS | QUAD_STRIP | TESS;
 
     type BLEND_MODE =
         | BLEND
@@ -30,13 +30,17 @@ declare module './index' {
 
     type DEBUG_MODE = GRID | AXES;
 
+    type DESCRIBE_DISPLAY = LABEL | FALLBACK;
+
     type ELLIPSE_MODE = CENTER | RADIUS | CORNER | CORNERS;
 
     type END_MODE = CLOSE;
 
-    type FILTER_TYPE = THRESHOLD | GRAY | OPAQUE | INVERT | POSTERIZE | BLUR | ERODE | DILATE | BLUR;
+    type FILTER_TYPE = THRESHOLD | GRAY | OPAQUE | INVERT | POSTERIZE | ERODE | DILATE | BLUR;
 
     type GRAPHICS_RENDERER = P2D | WEBGL;
+
+    type GRID_DISPLAY = FALLBACK | LABEL;
 
     type HORIZ_ALIGN = LEFT | CENTER | RIGHT;
 
@@ -50,9 +54,11 @@ declare module './index' {
 
     type SIZE_W = AUTO;
 
-    type STROKE_CAP = SQUARE | PROJECT | ROUND;
+    type STROKE_CAP = ROUND | SQUARE | PROJECT;
 
     type STROKE_JOIN = MITER | BEVEL | ROUND;
+
+    type TEXT_DISPLAY = FALLBACK | LABEL;
 
     type TEXTURE_MODE = IMAGE | NORMAL;
 
@@ -62,9 +68,9 @@ declare module './index' {
 
     type VERT_ALIGN = TOP | BOTTOM | CENTER | BASELINE;
 
+    type WRAP_STYLE = WORD | CHAR;
+
     type WRAP_X = CLAMP | REPEAT | MIRROR;
 
     type WRAP_Y = CLAMP | REPEAT | MIRROR;
-
-    type DESCRIBE_DISPLAY = LABEL | FALLBACK;
 }

@@ -133,6 +133,75 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     escrowStatus === Transaction.EscrowStatus.Released;
     escrowStatus === Transaction.EscrowStatus.Refunded;
 
+    // Assert overlap between source and static field
+    'Api' === Transaction.Source.Api;
+    'Recurring' === Transaction.Source.Recurring;
+    'ControlPanel' === Transaction.Source.ControlPanel;
+
+    // Assert overlap between created using and static field
+    'token' === Transaction.CreatedUsing.Token;
+    'full_information' === Transaction.CreatedUsing.FullInformation;
+
+    gateway.transaction.search(search => {
+        search.id().is('foo');
+        search.type().in([Transaction.Type.Sale, Transaction.Type.Credit]);
+        search.type().in(Transaction.Type.All());
+        search.createdUsing().is(Transaction.CreatedUsing.Token);
+        search.createdUsing().in([Transaction.CreatedUsing.Token, Transaction.CreatedUsing.FullInformation]);
+        search.source().is(Transaction.Source.Api);
+        search.source().in([
+            Transaction.Source.Api,
+            Transaction.Source.ControlPanel
+        ]);
+
+        // Credit card
+        search.creditCardCardholderName().is("Patrick Smith");
+        search.creditCardExpirationDate().is("05/2012");
+        search.creditCardNumber().endsWith("1111");
+
+        // customer details
+        search.customerCompany().is("Braintree");
+        search.customerEmail().is("jen@example.com");
+        search.customerEmail().endsWith("example.com");
+        search.customerPhone().is("312.555.1234");
+        search.customerFax().is("614.555.5678");
+        search.customerWebsite().is("www.example.com");
+
+        // billing address
+        search.billingFirstName().is("Paul");
+        search.billingLastName().is("Smith");
+        search.billingCompany().is("Braintree");
+        search.billingStreetAddress().is("123 Main St");
+        search.billingExtendedAddress().is("Suite 123");
+        search.billingLocality().is("Chicago");
+        search.billingRegion().is("Illinois");
+        search.billingPostalCode().is("12345");
+        search.billingCountryName().is("United States of America");
+
+        search.orderId().is("myorder");
+        search.processorAuthorizationCode().is("123456");
+        search.paymentMethodToken().is("theToken");
+
+        search.creditCardCustomerLocation().is('US');
+        search.creditCardCustomerLocation().in(['US', 'International']);
+
+        search.creditcardCardType().in(CreditCard.CardType.All());
+        search.creditcardCardType().is(CreditCard.CardType.AmEx);
+
+        search.status().is(Transaction.Status.Authorized);
+        search.status().in([Transaction.Status.Authorized, Transaction.Status.Settled]);
+        search.status().in(Transaction.Status.All());
+
+        search.createdAt().min(new Date());
+        search.processorDeclinedAt().between(new Date(), new Date());
+        search.disputeDate().min(new Date());
+        search.voidedAt().max(new Date());
+        search.amount().between('100.00', '200.00');
+
+        search.refund().is(false);
+        search.refund().is(true);
+    });
+
     // Cannot assign to var
     await gateway.transaction
         .cloneTransaction(id, { amount: '100.00', options: { submitForSettlement: true } })
@@ -225,7 +294,7 @@ braintree.Subscription.Status.All;
 /**
  * Gateway function helper
  */
-const gateway2: BraintreeGateway = braintree.connect({
+const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
     merchantId: 'abc123',
     publicKey: 'def456',

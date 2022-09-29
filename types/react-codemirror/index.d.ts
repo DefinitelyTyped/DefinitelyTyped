@@ -11,7 +11,6 @@
 declare namespace ReactCodeMirror {
     interface ReactCodeMirrorProps {
         children?: React.ReactNode;
-        ref?: React.LegacyRef<ReactCodeMirror> | undefined;
         /** Automatically focuses the editor when it is mounted (default false) */
         autoFocus?: boolean | undefined;
         /** Automatically persist changes to underlying textarea (default false) */
@@ -41,19 +40,15 @@ declare namespace ReactCodeMirror {
         /** The editor value */
         value?: string | undefined;
     }
+}
 
-    interface ReactCodeMirror extends React.Component<ReactCodeMirrorProps> {
+declare module "react-codemirror" {
+    class RCM extends React.Component<ReactCodeMirror.ReactCodeMirrorProps> {
         /** Focuses the CodeMirror instance. */
         focus(): void;
 
         /** Returns the CodeMirror instance, if available. */
         getCodeMirror(): CodeMirror.Editor;
     }
-
-    interface ReactCodeMirrorClass extends React.ComponentClass<ReactCodeMirrorProps> { }
-}
-
-declare module "react-codemirror" {
-    const RCM: ReactCodeMirror.ReactCodeMirrorClass;
     export = RCM;
 }

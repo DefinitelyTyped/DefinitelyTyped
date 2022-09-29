@@ -1,54 +1,50 @@
 import * as React from 'react';
+
 import {
-    AlertComponentPropsWithStyle,
-    AlertManager,
+    AlertOptions,
     Provider as AlertProvider,
-    AlertProviderProps,
+    AlertTemplateProps,
+    InjectedAlertProps,
+    positions,
+    transitions,
     useAlert,
     withAlert,
 } from 'react-alert';
 
-class AppWithoutAlert extends React.Component<{ alert: AlertManager }> {
-    render() {
-        return (
-            <button
-                onClick={() => {
-                    this.props.alert.show(
-                        'Oh look, an alert!',
-                        {
-                            type: 'info',
-                            timeout: 1000,
-                            onOpen(): void {
-                            },
-                            onClose(): void {
-                            }
-                        });
-                }}
-            >
-                Show Alert
-            </button>
-        );
-    }
-}
+// the style contains only the margin given as offset
+// options contains all alert given options
+// message is the alert message
+// close is a function that closes the alert
+const AlertTemplate: React.FC<AlertTemplateProps> = ({ style, options, message, close }) => (
+    <div style={style}>
+        {options.type === 'info' && '!'}
+        {options.type === 'success' && ':)'}
+        {options.type === 'error' && ':('}
+        {message}
+        <button onClick={close}>X</button>
+    </div>
+);
 
-const customContext = React.createContext<AlertManager | undefined>(undefined);
+// optional cofiguration
+const options: AlertOptions = {
+    // you can also just use 'bottom center'
+    position: positions.BOTTOM_CENTER,
+    timeout: 5000,
+    offset: '30px',
+    // you can also just use 'scale'
+    transition: transitions.SCALE,
+};
 
-const App = withAlert(customContext)(AppWithoutAlert);
+// @ts-expect-error
+options.position = 'top';
 
-const AlertHook = (): JSX.Element => {
+const App = () => {
     const alert = useAlert();
+
     return (
         <button
             onClick={() => {
-                alert.info(
-                    <div style={{ color: 'blue' }}>Some Message</div>,
-                    {
-                        timeout: 1000,
-                        onOpen(): void {
-                        },
-                        onClose(): void {
-                        }
-                    });
+                alert.show('Oh look, an alert!');
             }}
         >
             Show Alert
@@ -56,46 +52,20 @@ const AlertHook = (): JSX.Element => {
     );
 };
 
-class AlertTemplate extends React.Component<AlertComponentPropsWithStyle> {
-    render() {
-        // the style contains only the margin given as offset
-        // options contains all alert given options
-        // message is the alert message...
-        // close is a function that closes the alert
-        const { style, options, message, close } = this.props;
+const Root = () => (
+    <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+    </AlertProvider>
+);
 
-        return (
-            <div style={style}>
-                {options.type === 'info' && '!'}
-                {options.type === 'success' && ':)'}
-                {options.type === 'error' && ':('}
-                {message}
-                <button onClick={close}>X</button>
-            </div>
-        );
-    }
-}
+const AppWithInjectedAlert: React.FC<{} & InjectedAlertProps> = ({ alert }) => (
+    <button
+        onClick={() => {
+            alert.show('Oh look, an alert!');
+        }}
+    >
+        Show Alert
+    </button>
+);
 
-const options: AlertProviderProps = {
-    position: 'bottom center',
-    timeout: 5000,
-    offset: '30px',
-    transition: 'scale',
-    context: customContext,
-    className: 'cssClass',
-    template: AlertTemplate,
-    containerStyle: {
-        margin: 5,
-    },
-};
-
-class Root extends React.Component {
-    render() {
-        return (
-            <AlertProvider {...options}>
-                <App />
-                <AlertHook />
-            </AlertProvider>
-        );
-    }
-}
+const AppWithAlert = withAlert()(AppWithInjectedAlert);

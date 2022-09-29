@@ -9,7 +9,7 @@ export class CubeTexture extends Texture {
      * @param [wrapT=THREE.ClampToEdgeWrapping]
      * @param [magFilter=THREE.LinearFilter]
      * @param [minFilter=THREE.LinearMipmapLinearFilter]
-     * @param [format=THREE.RGBFormat]
+     * @param [format=THREE.RGBAFormat]
      * @param [type=THREE.UnsignedByteType]
      * @param [anisotropy=1]
      * @param [encoding=THREE.LinearEncoding]

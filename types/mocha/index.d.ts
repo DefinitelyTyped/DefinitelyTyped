@@ -1,4 +1,4 @@
-// Type definitions for mocha 9.0
+// Type definitions for mocha 10.0
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -6,6 +6,7 @@
 //                 Andrew Bradley <https://github.com/cspotcode>
 //                 Dmitrii Sorin <https://github.com/1999>
 //                 Noah Hummel <https://github.com/strangedev>
+//                 nicojs <https://github.com/nicojs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -38,6 +39,15 @@ declare class Mocha {
      * @see https://mochajs.org/api/mocha#bail
      */
     bail(bail?: boolean): this;
+
+    /**
+     * Enables or disables whether or not to dispose after each test run.
+     * Disable this to ensure you can run the test suite multiple times.
+     * If disabled, be sure to dispose mocha when you're done to prevent memory leaks.
+     *
+     * @see https://mochajs.org/api/mocha#cleanReferencesAfterRun
+     */
+    cleanReferencesAfterRun(clean?: boolean): this;
 
     /**
      * Manually dispose this mocha instance. Mark this instance as `disposed` and unable to run more tests.
@@ -648,6 +658,13 @@ declare namespace Mocha {
     let describe: SuiteFunction;
 
     /**
+     * Describe a pending suite.
+     *
+     * - _Only available when invoked via the mocha CLI._
+     */
+    let xdescribe: PendingSuiteFunction;
+
+    /**
      * Describes a test case.
      *
      * - _Only available when invoked via the mocha CLI._
@@ -791,30 +808,30 @@ declare namespace Mocha {
                 // added by Base
                 pass: number;
                 fail: number;
-                "bright pass": number;
-                "bright fail": number;
-                "bright yellow": number;
+                'bright pass': number;
+                'bright fail': number;
+                'bright yellow': number;
                 pending: number;
                 suite: number;
-                "error title": number;
-                "error message": number;
-                "error stack": number;
+                'error title': number;
+                'error message': number;
+                'error stack': number;
                 checkmark: number;
                 fast: number;
                 medium: number;
                 slow: number;
                 green: number;
                 light: number;
-                "diff gutter": number;
-                "diff added": number;
-                "diff removed": number;
+                'diff gutter': number;
+                'diff added': number;
+                'diff removed': number;
 
                 // added by Progress
                 progress: number;
 
                 // added by Landing
                 plane: number;
-                "plane crash": number;
+                'plane crash': number;
                 runway: number;
 
                 [key: string]: number;
@@ -909,32 +926,28 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.Dot.html
          */
-        class Dot extends Base {
-        }
+        class Dot extends Base {}
 
         /**
          * Initialize a new `Doc` reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.Doc.html
          */
-        class Doc extends Base {
-        }
+        class Doc extends Base {}
 
         /**
          * Initialize a new `TAP` test reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.TAP.html
          */
-        class TAP extends Base {
-        }
+        class TAP extends Base {}
 
         /**
          * Initialize a new `JSON` reporter
          *
          * @see https://mochajs.org/api/Mocha.reporters.JSON.html
          */
-        class JSON extends Base {
-        }
+        class JSON extends Base {}
 
         /**
          * Initialize a new `HTML` reporter.
@@ -971,24 +984,21 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.List.html
          */
-        class List extends Base {
-        }
+        class List extends Base {}
 
         /**
          * Initialize a new `Min` minimal test reporter (best used with --watch).
          *
          * @see https://mochajs.org/api/Mocha.reporters.Min.html
          */
-        class Min extends Base {
-        }
+        class Min extends Base {}
 
         /**
          * Initialize a new `Spec` test reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.Spec.html
          */
-        class Spec extends Base {
-        }
+        class Spec extends Base {}
 
         /**
          * Initialize a new `NyanCat` test reporter.
@@ -1061,8 +1071,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.Markdown.html
          */
-        class Markdown extends Base {
-        }
+        class Markdown extends Base {}
 
         /**
          * Initialize a new `Progress` bar test reporter.
@@ -1092,16 +1101,14 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.reporters.Landing.html
          */
-        class Landing extends Base {
-        }
+        class Landing extends Base {}
 
         /**
          * Initialize a new `JSONStream` test reporter.
          *
          * @see https://mochajs.org/api/Mocha.reporters.JSONStream.html
          */
-        class JSONStream extends Base {
-        }
+        class JSONStream extends Base {}
 
         // value-only aliases
         const base: typeof Base;
@@ -1144,7 +1151,7 @@ declare namespace Mocha {
         pending: boolean;
         duration?: number | undefined;
         parent?: Suite | undefined;
-        state?: "failed" | "passed" | undefined;
+        state?: 'failed' | 'passed' | 'pending' | undefined;
         timer?: any;
         ctx?: Context | undefined;
         callback?: Done | undefined;
@@ -1284,13 +1291,13 @@ declare namespace Mocha {
 
     // #region Runnable "error" event
     interface Runnable extends NodeJS.EventEmitter {
-        on(event: "error", listener: (error: any) => void): this;
-        once(event: "error", listener: (error: any) => void): this;
-        addListener(event: "error", listener: (error: any) => void): this;
-        removeListener(event: "error", listener: (error: any) => void): this;
-        prependListener(event: "error", listener: (error: any) => void): this;
-        prependOnceListener(event: "error", listener: (error: any) => void): this;
-        emit(name: "error", error: any): boolean;
+        on(event: 'error', listener: (error: any) => void): this;
+        once(event: 'error', listener: (error: any) => void): this;
+        addListener(event: 'error', listener: (error: any) => void): this;
+        removeListener(event: 'error', listener: (error: any) => void): this;
+        prependListener(event: 'error', listener: (error: any) => void): this;
+        prependOnceListener(event: 'error', listener: (error: any) => void): this;
+        emit(name: 'error', error: any): boolean;
     }
     // #endregion Runnable "error" event
     // #region Runnable untyped events
@@ -1599,134 +1606,134 @@ declare namespace Mocha {
 
     // #region Runner "waiting" event
     interface Runner {
-        on(event: "waiting", listener: (rootSuite: Suite) => void): this;
-        once(event: "waiting", listener: (rootSuite: Suite) => void): this;
-        addListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
-        removeListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
-        prependListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
-        prependOnceListener(event: "waiting", listener: (rootSuite: Suite) => void): this;
-        emit(name: "waiting", rootSuite: Suite): boolean;
+        on(event: 'waiting', listener: (rootSuite: Suite) => void): this;
+        once(event: 'waiting', listener: (rootSuite: Suite) => void): this;
+        addListener(event: 'waiting', listener: (rootSuite: Suite) => void): this;
+        removeListener(event: 'waiting', listener: (rootSuite: Suite) => void): this;
+        prependListener(event: 'waiting', listener: (rootSuite: Suite) => void): this;
+        prependOnceListener(event: 'waiting', listener: (rootSuite: Suite) => void): this;
+        emit(name: 'waiting', rootSuite: Suite): boolean;
     }
     // #endregion Runner "waiting" event
     // #region Runner "start" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "start", listener: () => void): this;
-        once(event: "start", listener: () => void): this;
-        addListener(event: "start", listener: () => void): this;
-        removeListener(event: "start", listener: () => void): this;
-        prependListener(event: "start", listener: () => void): this;
-        prependOnceListener(event: "start", listener: () => void): this;
-        emit(name: "start"): boolean;
+        on(event: 'start', listener: () => void): this;
+        once(event: 'start', listener: () => void): this;
+        addListener(event: 'start', listener: () => void): this;
+        removeListener(event: 'start', listener: () => void): this;
+        prependListener(event: 'start', listener: () => void): this;
+        prependOnceListener(event: 'start', listener: () => void): this;
+        emit(name: 'start'): boolean;
     }
     // #endregion Runner "start" event
     // #region Runner "end" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "end", listener: () => void): this;
-        once(event: "end", listener: () => void): this;
-        addListener(event: "end", listener: () => void): this;
-        removeListener(event: "end", listener: () => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        emit(name: "end"): boolean;
+        on(event: 'end', listener: () => void): this;
+        once(event: 'end', listener: () => void): this;
+        addListener(event: 'end', listener: () => void): this;
+        removeListener(event: 'end', listener: () => void): this;
+        prependListener(event: 'end', listener: () => void): this;
+        prependOnceListener(event: 'end', listener: () => void): this;
+        emit(name: 'end'): boolean;
     }
     // #endregion Runner "end" event
     // #region Runner "suite" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "suite", listener: (suite: Suite) => void): this;
-        once(event: "suite", listener: (suite: Suite) => void): this;
-        addListener(event: "suite", listener: (suite: Suite) => void): this;
-        removeListener(event: "suite", listener: (suite: Suite) => void): this;
-        prependListener(event: "suite", listener: (suite: Suite) => void): this;
-        prependOnceListener(event: "suite", listener: (suite: Suite) => void): this;
-        emit(name: "suite", suite: Suite): boolean;
+        on(event: 'suite', listener: (suite: Suite) => void): this;
+        once(event: 'suite', listener: (suite: Suite) => void): this;
+        addListener(event: 'suite', listener: (suite: Suite) => void): this;
+        removeListener(event: 'suite', listener: (suite: Suite) => void): this;
+        prependListener(event: 'suite', listener: (suite: Suite) => void): this;
+        prependOnceListener(event: 'suite', listener: (suite: Suite) => void): this;
+        emit(name: 'suite', suite: Suite): boolean;
     }
     // #endregion Runner "suite" event
     // #region Runner "suite end" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "suite end", listener: (suite: Suite) => void): this;
-        once(event: "suite end", listener: (suite: Suite) => void): this;
-        addListener(event: "suite end", listener: (suite: Suite) => void): this;
-        removeListener(event: "suite end", listener: (suite: Suite) => void): this;
-        prependListener(event: "suite end", listener: (suite: Suite) => void): this;
-        prependOnceListener(event: "suite end", listener: (suite: Suite) => void): this;
-        emit(name: "suite end", suite: Suite): boolean;
+        on(event: 'suite end', listener: (suite: Suite) => void): this;
+        once(event: 'suite end', listener: (suite: Suite) => void): this;
+        addListener(event: 'suite end', listener: (suite: Suite) => void): this;
+        removeListener(event: 'suite end', listener: (suite: Suite) => void): this;
+        prependListener(event: 'suite end', listener: (suite: Suite) => void): this;
+        prependOnceListener(event: 'suite end', listener: (suite: Suite) => void): this;
+        emit(name: 'suite end', suite: Suite): boolean;
     }
     // #endregion Runner "suite end" event
     // #region Runner "test" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "test", listener: (test: Test) => void): this;
-        once(event: "test", listener: (test: Test) => void): this;
-        addListener(event: "test", listener: (test: Test) => void): this;
-        removeListener(event: "test", listener: (test: Test) => void): this;
-        prependListener(event: "test", listener: (test: Test) => void): this;
-        prependOnceListener(event: "test", listener: (test: Test) => void): this;
-        emit(name: "test", test: Test): boolean;
+        on(event: 'test', listener: (test: Test) => void): this;
+        once(event: 'test', listener: (test: Test) => void): this;
+        addListener(event: 'test', listener: (test: Test) => void): this;
+        removeListener(event: 'test', listener: (test: Test) => void): this;
+        prependListener(event: 'test', listener: (test: Test) => void): this;
+        prependOnceListener(event: 'test', listener: (test: Test) => void): this;
+        emit(name: 'test', test: Test): boolean;
     }
     // #endregion Runner "test" event
     // #region Runner "test end" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "test end", listener: (test: Test) => void): this;
-        once(event: "test end", listener: (test: Test) => void): this;
-        addListener(event: "test end", listener: (test: Test) => void): this;
-        removeListener(event: "test end", listener: (test: Test) => void): this;
-        prependListener(event: "test end", listener: (test: Test) => void): this;
-        prependOnceListener(event: "test end", listener: (test: Test) => void): this;
-        emit(name: "test end", test: Test): boolean;
+        on(event: 'test end', listener: (test: Test) => void): this;
+        once(event: 'test end', listener: (test: Test) => void): this;
+        addListener(event: 'test end', listener: (test: Test) => void): this;
+        removeListener(event: 'test end', listener: (test: Test) => void): this;
+        prependListener(event: 'test end', listener: (test: Test) => void): this;
+        prependOnceListener(event: 'test end', listener: (test: Test) => void): this;
+        emit(name: 'test end', test: Test): boolean;
     }
     // #endregion Runner "test end" event
     // #region Runner "hook" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "hook", listener: (hook: Hook) => void): this;
-        once(event: "hook", listener: (hook: Hook) => void): this;
-        addListener(event: "hook", listener: (hook: Hook) => void): this;
-        removeListener(event: "hook", listener: (hook: Hook) => void): this;
-        prependListener(event: "hook", listener: (hook: Hook) => void): this;
-        prependOnceListener(event: "hook", listener: (hook: Hook) => void): this;
-        emit(name: "hook", hook: Hook): boolean;
+        on(event: 'hook', listener: (hook: Hook) => void): this;
+        once(event: 'hook', listener: (hook: Hook) => void): this;
+        addListener(event: 'hook', listener: (hook: Hook) => void): this;
+        removeListener(event: 'hook', listener: (hook: Hook) => void): this;
+        prependListener(event: 'hook', listener: (hook: Hook) => void): this;
+        prependOnceListener(event: 'hook', listener: (hook: Hook) => void): this;
+        emit(name: 'hook', hook: Hook): boolean;
     }
     // #endregion Runner "hook" event
     // #region Runner "hook end" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "hook end", listener: (hook: Hook) => void): this;
-        once(event: "hook end", listener: (hook: Hook) => void): this;
-        addListener(event: "hook end", listener: (hook: Hook) => void): this;
-        removeListener(event: "hook end", listener: (hook: Hook) => void): this;
-        prependListener(event: "hook end", listener: (hook: Hook) => void): this;
-        prependOnceListener(event: "hook end", listener: (hook: Hook) => void): this;
-        emit(name: "hook end", hook: Hook): boolean;
+        on(event: 'hook end', listener: (hook: Hook) => void): this;
+        once(event: 'hook end', listener: (hook: Hook) => void): this;
+        addListener(event: 'hook end', listener: (hook: Hook) => void): this;
+        removeListener(event: 'hook end', listener: (hook: Hook) => void): this;
+        prependListener(event: 'hook end', listener: (hook: Hook) => void): this;
+        prependOnceListener(event: 'hook end', listener: (hook: Hook) => void): this;
+        emit(name: 'hook end', hook: Hook): boolean;
     }
     // #endregion Runner "hook end" event
     // #region Runner "pass" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "pass", listener: (test: Test) => void): this;
-        once(event: "pass", listener: (test: Test) => void): this;
-        addListener(event: "pass", listener: (test: Test) => void): this;
-        removeListener(event: "pass", listener: (test: Test) => void): this;
-        prependListener(event: "pass", listener: (test: Test) => void): this;
-        prependOnceListener(event: "pass", listener: (test: Test) => void): this;
-        emit(name: "pass", test: Test): boolean;
+        on(event: 'pass', listener: (test: Test) => void): this;
+        once(event: 'pass', listener: (test: Test) => void): this;
+        addListener(event: 'pass', listener: (test: Test) => void): this;
+        removeListener(event: 'pass', listener: (test: Test) => void): this;
+        prependListener(event: 'pass', listener: (test: Test) => void): this;
+        prependOnceListener(event: 'pass', listener: (test: Test) => void): this;
+        emit(name: 'pass', test: Test): boolean;
     }
     // #endregion Runner "pass" event
     // #region Runner "fail" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "fail", listener: (test: Test, err: any) => void): this;
-        once(event: "fail", listener: (test: Test, err: any) => void): this;
-        addListener(event: "fail", listener: (test: Test, err: any) => void): this;
-        removeListener(event: "fail", listener: (test: Test, err: any) => void): this;
-        prependListener(event: "fail", listener: (test: Test, err: any) => void): this;
-        prependOnceListener(event: "fail", listener: (test: Test, err: any) => void): this;
-        emit(name: "fail", test: Test, err: any): boolean;
+        on(event: 'fail', listener: (test: Test, err: any) => void): this;
+        once(event: 'fail', listener: (test: Test, err: any) => void): this;
+        addListener(event: 'fail', listener: (test: Test, err: any) => void): this;
+        removeListener(event: 'fail', listener: (test: Test, err: any) => void): this;
+        prependListener(event: 'fail', listener: (test: Test, err: any) => void): this;
+        prependOnceListener(event: 'fail', listener: (test: Test, err: any) => void): this;
+        emit(name: 'fail', test: Test, err: any): boolean;
     }
     // #endregion Runner "fail" event
     // #region Runner "pending" event
     interface Runner extends NodeJS.EventEmitter {
-        on(event: "pending", listener: (test: Test) => void): this;
-        once(event: "pending", listener: (test: Test) => void): this;
-        addListener(event: "pending", listener: (test: Test) => void): this;
-        removeListener(event: "pending", listener: (test: Test) => void): this;
-        prependListener(event: "pending", listener: (test: Test) => void): this;
-        prependOnceListener(event: "pending", listener: (test: Test) => void): this;
-        emit(name: "pending", test: Test): boolean;
+        on(event: 'pending', listener: (test: Test) => void): this;
+        once(event: 'pending', listener: (test: Test) => void): this;
+        addListener(event: 'pending', listener: (test: Test) => void): this;
+        removeListener(event: 'pending', listener: (test: Test) => void): this;
+        prependListener(event: 'pending', listener: (test: Test) => void): this;
+        prependOnceListener(event: 'pending', listener: (test: Test) => void): this;
+        emit(name: 'pending', test: Test): boolean;
     }
     // #endregion Runner "pending" event
     // #region Runner untyped events
@@ -2049,112 +2056,130 @@ declare namespace Mocha {
 
     // #region Suite "beforeAll" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "beforeAll", listener: (hook: Hook) => void): this;
-        once(event: "beforeAll", listener: (hook: Hook) => void): this;
-        addListener(event: "beforeAll", listener: (hook: Hook) => void): this;
-        removeListener(event: "beforeAll", listener: (hook: Hook) => void): this;
-        prependListener(event: "beforeAll", listener: (hook: Hook) => void): this;
-        prependOnceListener(event: "beforeAll", listener: (hook: Hook) => void): this;
-        emit(name: "beforeAll", hook: Hook): boolean;
+        on(event: 'beforeAll', listener: (hook: Hook) => void): this;
+        once(event: 'beforeAll', listener: (hook: Hook) => void): this;
+        addListener(event: 'beforeAll', listener: (hook: Hook) => void): this;
+        removeListener(event: 'beforeAll', listener: (hook: Hook) => void): this;
+        prependListener(event: 'beforeAll', listener: (hook: Hook) => void): this;
+        prependOnceListener(event: 'beforeAll', listener: (hook: Hook) => void): this;
+        emit(name: 'beforeAll', hook: Hook): boolean;
     }
     // #endregion Suite "beforeAll" event
     // #region Suite "afterAll" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "afterAll", listener: (hook: Hook) => void): this;
-        once(event: "afterAll", listener: (hook: Hook) => void): this;
-        addListener(event: "afterAll", listener: (hook: Hook) => void): this;
-        removeListener(event: "afterAll", listener: (hook: Hook) => void): this;
-        prependListener(event: "afterAll", listener: (hook: Hook) => void): this;
-        prependOnceListener(event: "afterAll", listener: (hook: Hook) => void): this;
-        emit(name: "afterAll", hook: Hook): boolean;
+        on(event: 'afterAll', listener: (hook: Hook) => void): this;
+        once(event: 'afterAll', listener: (hook: Hook) => void): this;
+        addListener(event: 'afterAll', listener: (hook: Hook) => void): this;
+        removeListener(event: 'afterAll', listener: (hook: Hook) => void): this;
+        prependListener(event: 'afterAll', listener: (hook: Hook) => void): this;
+        prependOnceListener(event: 'afterAll', listener: (hook: Hook) => void): this;
+        emit(name: 'afterAll', hook: Hook): boolean;
     }
     // #endregion Suite "afterAll" event
     // #region Suite "beforeEach" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "beforeEach", listener: (hook: Hook) => void): this;
-        once(event: "beforeEach", listener: (hook: Hook) => void): this;
-        addListener(event: "beforeEach", listener: (hook: Hook) => void): this;
-        removeListener(event: "beforeEach", listener: (hook: Hook) => void): this;
-        prependListener(event: "beforeEach", listener: (hook: Hook) => void): this;
-        prependOnceListener(event: "beforeEach", listener: (hook: Hook) => void): this;
-        emit(name: "beforeEach", hook: Hook): boolean;
+        on(event: 'beforeEach', listener: (hook: Hook) => void): this;
+        once(event: 'beforeEach', listener: (hook: Hook) => void): this;
+        addListener(event: 'beforeEach', listener: (hook: Hook) => void): this;
+        removeListener(event: 'beforeEach', listener: (hook: Hook) => void): this;
+        prependListener(event: 'beforeEach', listener: (hook: Hook) => void): this;
+        prependOnceListener(event: 'beforeEach', listener: (hook: Hook) => void): this;
+        emit(name: 'beforeEach', hook: Hook): boolean;
     }
     // #endregion Suite "beforeEach" event
     // #region Suite "afterEach" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "afterEach", listener: (hook: Hook) => void): this;
-        once(event: "afterEach", listener: (hook: Hook) => void): this;
-        addListener(event: "afterEach", listener: (hook: Hook) => void): this;
-        removeListener(event: "afterEach", listener: (hook: Hook) => void): this;
-        prependListener(event: "afterEach", listener: (hook: Hook) => void): this;
-        prependOnceListener(event: "afterEach", listener: (hook: Hook) => void): this;
-        emit(name: "afterEach", hook: Hook): boolean;
+        on(event: 'afterEach', listener: (hook: Hook) => void): this;
+        once(event: 'afterEach', listener: (hook: Hook) => void): this;
+        addListener(event: 'afterEach', listener: (hook: Hook) => void): this;
+        removeListener(event: 'afterEach', listener: (hook: Hook) => void): this;
+        prependListener(event: 'afterEach', listener: (hook: Hook) => void): this;
+        prependOnceListener(event: 'afterEach', listener: (hook: Hook) => void): this;
+        emit(name: 'afterEach', hook: Hook): boolean;
     }
     // #endregion Suite "afterEach" event
     // #region Suite "suite" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "suite", listener: (suite: Suite) => void): this;
-        once(event: "suite", listener: (suite: Suite) => void): this;
-        addListener(event: "suite", listener: (suite: Suite) => void): this;
-        removeListener(event: "suite", listener: (suite: Suite) => void): this;
-        prependListener(event: "suite", listener: (suite: Suite) => void): this;
-        prependOnceListener(event: "suite", listener: (suite: Suite) => void): this;
-        emit(name: "suite", suite: Suite): boolean;
+        on(event: 'suite', listener: (suite: Suite) => void): this;
+        once(event: 'suite', listener: (suite: Suite) => void): this;
+        addListener(event: 'suite', listener: (suite: Suite) => void): this;
+        removeListener(event: 'suite', listener: (suite: Suite) => void): this;
+        prependListener(event: 'suite', listener: (suite: Suite) => void): this;
+        prependOnceListener(event: 'suite', listener: (suite: Suite) => void): this;
+        emit(name: 'suite', suite: Suite): boolean;
     }
     // #endregion Suite "suite" event
     // #region Suite "test" event
     interface Suite {
-        on(event: "test", listener: (test: Test) => void): this;
-        once(event: "test", listener: (test: Test) => void): this;
-        addListener(event: "test", listener: (test: Test) => void): this;
-        removeListener(event: "test", listener: (test: Test) => void): this;
-        prependListener(event: "test", listener: (test: Test) => void): this;
-        prependOnceListener(event: "test", listener: (test: Test) => void): this;
-        emit(name: "test", test: Test): boolean;
+        on(event: 'test', listener: (test: Test) => void): this;
+        once(event: 'test', listener: (test: Test) => void): this;
+        addListener(event: 'test', listener: (test: Test) => void): this;
+        removeListener(event: 'test', listener: (test: Test) => void): this;
+        prependListener(event: 'test', listener: (test: Test) => void): this;
+        prependOnceListener(event: 'test', listener: (test: Test) => void): this;
+        emit(name: 'test', test: Test): boolean;
     }
     // #endregion Suite "test" event
     // #region Suite "run" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "run", listener: () => void): this;
-        once(event: "run", listener: () => void): this;
-        addListener(event: "run", listener: () => void): this;
-        removeListener(event: "run", listener: () => void): this;
-        prependListener(event: "run", listener: () => void): this;
-        prependOnceListener(event: "run", listener: () => void): this;
-        emit(name: "run"): boolean;
+        on(event: 'run', listener: () => void): this;
+        once(event: 'run', listener: () => void): this;
+        addListener(event: 'run', listener: () => void): this;
+        removeListener(event: 'run', listener: () => void): this;
+        prependListener(event: 'run', listener: () => void): this;
+        prependOnceListener(event: 'run', listener: () => void): this;
+        emit(name: 'run'): boolean;
     }
     // #endregion Suite "run" event
     // #region Suite "pre-require" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        once(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        addListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        removeListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependOnceListener(event: "pre-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        emit(name: "pre-require", context: MochaGlobals, file: string, mocha: Mocha): boolean;
+        on(event: 'pre-require', listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        once(event: 'pre-require', listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        addListener(event: 'pre-require', listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        removeListener(
+            event: 'pre-require',
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependListener(
+            event: 'pre-require',
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependOnceListener(
+            event: 'pre-require',
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        emit(name: 'pre-require', context: MochaGlobals, file: string, mocha: Mocha): boolean;
     }
     // #endregion Suite "pre-require" event
     // #region Suite "require" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "require", listener: (module: any, file: string, mocha: Mocha) => void): this;
-        once(event: "require", listener: (module: any, file: string, mocha: Mocha) => void): this;
-        addListener(event: "require", listener: (module: any, file: string, mocha: Mocha) => void): this;
-        removeListener(event: "require", listener: (module: any, file: string, mocha: Mocha) => void): this;
-        prependListener(event: "require", listener: (module: any, file: string, mocha: Mocha) => void): this;
-        prependOnceListener(event: "require", listener: (module: any, file: string, mocha: Mocha) => void): this;
-        emit(name: "require", module: any, file: string, mocha: Mocha): boolean;
+        on(event: 'require', listener: (module: any, file: string, mocha: Mocha) => void): this;
+        once(event: 'require', listener: (module: any, file: string, mocha: Mocha) => void): this;
+        addListener(event: 'require', listener: (module: any, file: string, mocha: Mocha) => void): this;
+        removeListener(event: 'require', listener: (module: any, file: string, mocha: Mocha) => void): this;
+        prependListener(event: 'require', listener: (module: any, file: string, mocha: Mocha) => void): this;
+        prependOnceListener(event: 'require', listener: (module: any, file: string, mocha: Mocha) => void): this;
+        emit(name: 'require', module: any, file: string, mocha: Mocha): boolean;
     }
     // #endregion Suite "require" event
     // #region Suite "post-require" event
     interface Suite extends NodeJS.EventEmitter {
-        on(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        once(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        addListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        removeListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        prependOnceListener(event: "post-require", listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
-        emit(name: "post-require", context: MochaGlobals, file: string, mocha: Mocha): boolean;
+        on(event: 'post-require', listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        once(event: 'post-require', listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        addListener(event: 'post-require', listener: (context: MochaGlobals, file: string, mocha: Mocha) => void): this;
+        removeListener(
+            event: 'post-require',
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependListener(
+            event: 'post-require',
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        prependOnceListener(
+            event: 'post-require',
+            listener: (context: MochaGlobals, file: string, mocha: Mocha) => void,
+        ): this;
+        emit(name: 'post-require', context: MochaGlobals, file: string, mocha: Mocha): boolean;
     }
     // #endregion Suite "post-require" event
     // #region Suite untyped events
@@ -2177,7 +2202,7 @@ declare namespace Mocha {
     class Hook extends Runnable {
         private _error;
 
-        type: "hook";
+        type: 'hook';
         originalTitle?: string | undefined; // added by Runner
 
         /**
@@ -2206,24 +2231,24 @@ declare namespace Mocha {
      * @see https://mochajs.org/#root-hook-plugins
      */
     interface RootHookObject {
-      /**
-       * In serial mode, run after all tests end, once only.
-       * In parallel mode, run after all tests end, for each file.
-       */
-      afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
-      /**
-       * In serial mode (Mocha's default), before all tests begin, once only.
-       * In parallel mode, run before all tests begin, for each file.
-       */
-      beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
-      /**
-       * In both modes, run after every test.
-       */
-      afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
-      /**
-       * In both modes, run before each test.
-       */
-      beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In serial mode, run after all tests end, once only.
+         * In parallel mode, run after all tests end, for each file.
+         */
+        afterAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In serial mode (Mocha's default), before all tests begin, once only.
+         * In parallel mode, run before all tests begin, for each file.
+         */
+        beforeAll?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In both modes, run after every test.
+         */
+        afterEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
+        /**
+         * In both modes, run before each test.
+         */
+        beforeEach?: Func | AsyncFunc | Func[] | AsyncFunc[] | undefined;
     }
 
     /**
@@ -2232,8 +2257,8 @@ declare namespace Mocha {
      * @see https://mochajs.org/api/Test.html
      */
     class Test extends Runnable {
-        type: "test";
-        speed?: "slow" | "medium" | "fast" | undefined; // added by reporters
+        type: 'test';
+        speed?: 'slow' | 'medium' | 'fast' | undefined; // added by reporters
         err?: Error | undefined; // added by reporters
         clone(): Test;
     }
@@ -2547,7 +2572,7 @@ declare namespace Mocha {
         Landing: never;
         landing: never;
         JSONStream: never;
-        "json-stream": never;
+        'json-stream': never;
     }
 
     type Reporter = keyof ReporterContributions;
@@ -2728,22 +2753,22 @@ declare var xspecify: Mocha.PendingTestFunction;
 // Required by Mocha.reporters.HTML.
 // NOTE: Mocha *must not* have a direct dependency on DOM types.
 // tslint:disable-next-line no-empty-interface
-interface HTMLLIElement { }
+interface HTMLLIElement {}
 
 // Augments the DOM `Window` object when lib.dom.d.ts is loaded.
 // tslint:disable-next-line no-empty-interface
-interface Window extends Mocha.MochaGlobals { }
+interface Window extends Mocha.MochaGlobals {}
 
 declare namespace NodeJS {
     // Forward declaration for `NodeJS.EventEmitter` from node.d.ts.
     // Required by Mocha.Runnable, Mocha.Runner, and Mocha.Suite.
     // NOTE: Mocha *must not* have a direct dependency on @types/node.
     // tslint:disable-next-line no-empty-interface
-    interface EventEmitter { }
+    interface EventEmitter {}
 
     // Augments NodeJS's `global` object when node.d.ts is loaded
     // tslint:disable-next-line no-empty-interface
-    interface Global extends Mocha.MochaGlobals { }
+    interface Global extends Mocha.MochaGlobals {}
 }
 
 // #endregion Reporter augmentations
@@ -2777,20 +2802,20 @@ interface BrowserMocha extends Mocha {
 
 // #endregion Browser augmentations
 
-declare module "mocha" {
+declare module 'mocha' {
     export = Mocha;
 }
 
-declare module "mocha/lib/stats-collector" {
+declare module 'mocha/lib/stats-collector' {
     export = createStatsCollector;
 
     /**
      * Provides stats such as test duration, number of tests passed / failed etc., by listening for events emitted by `runner`.
      */
     function createStatsCollector(runner: Mocha.Runner): void;
-  }
+}
 
-declare module "mocha/lib/interfaces/common" {
+declare module 'mocha/lib/interfaces/common' {
     export = common;
 
     function common(suites: Mocha.Suite[], context: Mocha.MochaGlobals, mocha: Mocha): common.CommonFunctions;

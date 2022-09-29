@@ -1,1 +1,1 @@
-export const toBeMocked = (hello = "world") => hello;
+export const toBeMocked = (hello = 'world') => hello;

@@ -1,4 +1,4 @@
-// Type definitions for encoding-japanese 1.0
+// Type definitions for encoding-japanese 2.0
 // Project: https://github.com/polygonplanet/encoding.js
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -40,6 +40,7 @@ export interface ConvertStringOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: 'string';
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
@@ -47,6 +48,7 @@ export interface ConvertArrayBufferOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: 'arraybuffer';
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
@@ -54,12 +56,14 @@ export interface ConvertArrayOptions {
     to: Encoding;
     from?: Encoding | undefined;
     type: 'array';
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
 export interface ConvertUnknownOptions {
     to: Encoding;
     from?: Encoding | undefined;
+    fallback?: 'html-entity' | 'html-entity-hex';
     bom?: boolean | string | undefined;
 }
 
@@ -94,6 +98,7 @@ export function toHankakuSpace(data: string): string;
 export function toZenkakuSpace(data: ReadonlyArray<number>): number[];
 export function toZenkakuSpace(data: string): string;
 
+export const version: string;
 export const orders: string[];
 
 export {};

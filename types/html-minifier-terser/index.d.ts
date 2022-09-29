@@ -1,4 +1,4 @@
-// Type definitions for html-minifier-terser 6.1
+// Type definitions for html-minifier-terser 7.0
 // Project: https://github.com/terser/html-minifier-terser#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -209,3 +209,9 @@ export interface Options {
      */
     useShortDoctype?: boolean | undefined;
 }
+
+declare const htmlminifier: {
+    minify: typeof minify;
+};
+
+export default htmlminifier;

@@ -10,7 +10,6 @@
 //                 Aankhen <https://github.com/Aankhen>
 //                 Ben Coe <https://github.com/bcoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
@@ -45,8 +44,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
+        (args?: ReadonlyArray<string> | string, cwd?: string): Argv<T>;
 
         /**
          * Set key names as equivalent such that updates to a key will propagate to aliases and vice-versa.
@@ -71,7 +69,7 @@ declare namespace yargs {
          * it will ignore the first parameter since it expects it to be the script name. In order to override
          * this behavior, use `.parse(process.argv.slice(1))` instead of .argv and the first parameter won't be ignored.
          */
-        argv: { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        argv: { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
 
         /**
          * Tell the parser to interpret `key` as an array.
@@ -149,7 +147,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: BuilderCallback<T, U>,
-            handler?: (args: Arguments<U>) => void | Promise<void>,
+            handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<U>;
@@ -157,7 +155,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+            handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<T>;
@@ -166,7 +164,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
-            handler?: (args: Arguments<U>) => void | Promise<void>,
+            handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
             middlewares?: MiddlewareFunction[],
             deprecated?: boolean | string,
         ): Argv<T>;
@@ -174,7 +172,7 @@ declare namespace yargs {
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+            handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
         command<U>(module: CommandModule<T, U>): Argv<U>;
@@ -340,7 +338,8 @@ declare namespace yargs {
          * @param args An array of the words in the command line to complete.
          * @param done The callback to be called with the resulting completions.
          */
-        getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done: (err: Error|null, completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done?: never): Promise<ReadonlyArray<string>>;
 
         /**
          * Returns a promise which resolves to a string containing the help text.
@@ -459,16 +458,16 @@ declare namespace yargs {
          * Note: Providing a callback to parse() disables the `exitProcess` setting until after the callback is invoked.
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
-        parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        parse(): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
         parse(
             arg: string | ReadonlyArray<string>,
             context?: object,
             parseCallback?: ParseCallback<T>,
-        ): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        parseSync(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parseSync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parseAsync(): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        parseAsync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
+        ): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
+        parseSync(): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] };
+        parseSync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] };
+        parseAsync(): Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
+        parseAsync(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
 
         /**
          * If the arguments have not been parsed, this property is `false`.
@@ -624,19 +623,19 @@ declare namespace yargs {
          * and allows you to provide configuration for the positional arguments accepted by your program:
          */
         usage(message: string): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void | Promise<void>): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void | Promise<void>): Argv<T>;
+        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>): Argv<T>;
+        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>): Argv<T>;
         usage<O extends { [key: string]: Options }>(
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+            handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         usage<O extends { [key: string]: Options }>(
             command: string | ReadonlyArray<string>,
             showInHelp: boolean,
             builder?: O,
-            handler?: (args: Arguments<InferredOptionTypes<O>>) => void | Promise<void>,
+            handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
 
         /**
@@ -663,6 +662,16 @@ declare namespace yargs {
     }
 
     type Arguments<T = {}> = T & {
+        /** Non-option arguments */
+        _: Array<string | number>;
+        /** The script name or node command */
+        $0: string;
+        /** All remaining options */
+        [argName: string]: unknown;
+    };
+
+    /** Arguments type, with camelcased keys */
+    type ArgumentsCamelCase<T = {}> = { [key in keyof T as key | CamelCaseKey<key>]: T[key] } & {
         /** Non-option arguments */
         _: Array<string | number>;
         /** The script name or node command */
@@ -789,6 +798,26 @@ declare namespace yargs {
         type?: PositionalOptionsType | undefined;
     }
 
+    // not implemented: yargs camelizes '_', but only if there's a '-' in the arg name
+    // not implemented: yargs decamelizes (converts fooBar to foo-bar)
+
+    /** Convert literal string types like 'foo-bar' to 'FooBar' */
+    type PascalCase<S extends string> = string extends S
+        ? string
+        : S extends `${infer T}-${infer U}`
+        ? `${Capitalize<T>}${PascalCase<U>}`
+        : Capitalize<S>;
+
+    /** Convert literal string types like 'foo-bar' to 'fooBar' */
+    type CamelCase<S extends string> = string extends S
+        ? string
+        : S extends `${infer T}-${infer U}`
+        ? `${T}${PascalCase<U>}`
+        : S;
+
+    /** Convert literal string types like 'foo-bar' to 'fooBar', allowing all `PropertyKey` types */
+    type CamelCaseKey<K extends PropertyKey> = K extends string ? Exclude<CamelCase<K>, ''> : K;
+
     /** Remove keys K in T */
     type Omit<T, K> = { [key in Exclude<keyof T, K>]: T[key] };
 
@@ -860,15 +889,15 @@ declare namespace yargs {
         /** string used as the description for the command in help text, use `false` for a hidden command */
         describe?: string | false | undefined;
         /** a function which will be passed the parsed argv. */
-        handler: (args: Arguments<U>) => void | Promise<void>;
+        handler: (args: ArgumentsCamelCase<U>) => void | Promise<void>;
     }
 
-    type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T> | Promise<Arguments<T>>, output: string) => void;
+    type ParseCallback<T = {}> = (err: Error | undefined, argv: ArgumentsCamelCase<T>, output: string) => void | Promise<void>;
     type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
-    type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
+    type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void | Promise<void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = 'boolean' | 'number' | 'string';
 }

@@ -1,5 +1,5 @@
-import namespace = require('@rdfjs/namespace');
-import { NamespaceBuilder } from '@rdfjs/namespace';
+import namespace, { NamespaceBuilder } from '@rdfjs/namespace';
+import Factory from '@rdfjs/namespace/Factory';
 import { DataFactory, NamedNode } from 'rdf-js';
 
 const factory: DataFactory = {} as any;
@@ -23,7 +23,10 @@ const assignTypedToPlain: NamespaceBuilder = restrictedBuilder;
 
 const foo = restrictedBuilder.foo;
 const bar = restrictedBuilder('bar');
-// $ExpectError
+// @ts-expect-error
 const bazProp = restrictedBuilder.baz;
-// $ExpectError
+// @ts-expect-error
 const bazArg = restrictedBuilder('baz');
+
+const exports: ['namespace'] = Factory.exports;
+const builderFromFactory: NamespaceBuilder = new Factory().namespace('http://example.com/');

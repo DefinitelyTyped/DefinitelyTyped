@@ -86,7 +86,8 @@ imageQueue.process((job, done) => {
 
     // update job data
     job.update({ image: 'image2.jpg' });
-    job.update({ url: 'image2.jpg' }); // $ExpectError
+    // @ts-expect-error
+    job.update({ url: 'image2.jpg' });
 
     // call done when finished
     done();
@@ -109,14 +110,16 @@ videoQueue.addBulk([
     { data: { audio: 'http://example.com/video1.mov' } },
     {
       opts: {
-        repeat: { cron: "00 06 * * 1", tz: "America/New_York" } // $ExpectError
+        // @ts-expect-error
+        repeat: { cron: "00 06 * * 1", tz: "America/New_York" }
       }
     }
 ]);
+imageQueue.add({ image: 'http://example.com/image1.tiff' }, { removeOnComplete: { age: 60 * 60 * 24 }, removeOnFail: { age: 60 * 60 * 24, count: 10 } });
 
 //////////////////////////////////////////////////////////////////////////////////
 //
-// Test Redis Cluster connexion
+// Test Redis Cluster connection
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -311,7 +314,7 @@ new Queue('profile');
 new Queue('profile', 'url');
 new Queue('profile', { prefix: 'test' });
 new Queue('profile', 'url', { prefix: 'test' });
-// $ExpectError
+// @ts-expect-error
 new Queue('profile', { redis: 'url' });
 
 // Use low-level API

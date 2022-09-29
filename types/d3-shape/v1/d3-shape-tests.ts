@@ -162,7 +162,7 @@ accessorArcDatumNumberOrNull = svgArc.padRadius();
 // centroid(...) ---------------------------------------------------------------------
 
 let centroid: [number, number] = svgArc.centroid(arcDatum);
-// $ExpectError
+// @ts-expect-error
 centroid = svgArc.centroid(arcDefaultDatum); // fails, wrong datum type
 
 // generate arc ----------------------------------------------------------------------
@@ -177,12 +177,12 @@ const wrongArc1: Selection<SVGTextElement, ArcDatum, any, any> = select<SVGTextE
 const wrongArc2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.arc-paths'); // mock
 
 pArc.attr('d', svgArc);
-// $ExpectError
+// @ts-expect-error
 wrongArc1.attr('d', svgArc); // fails, incompatible this contexts
-// $ExpectError
+// @ts-expect-error
 wrongArc2.attr('d', svgArc); // fails, incompatible datum types
 
-// $ExpectError
+// @ts-expect-error
 pathStringMaybe = svgArc(arcDatum); // fails, wrong this type for invocation
 
 // Use with custom object
@@ -666,7 +666,7 @@ areaDefAccessorFn = area.defined();
 defaultArea = defaultArea.curve(d3Shape.curveLinear);
 
 area = area.curve(d3Shape.curveCardinal.tension(0.5));
-// $ExpectError
+// @ts-expect-error
 area = area.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
 
 currentCurveFactory = area.curve();
@@ -805,7 +805,7 @@ areaRadialDefAccessorFn = areaRadial.defined();
 defaultAreaRadial = defaultAreaRadial.curve(d3Shape.curveLinear);
 
 areaRadial = areaRadial.curve(d3Shape.curveCardinal.tension(0.5));
-// $ExpectError
+// @ts-expect-error
 areaRadial = areaRadial.curve(d3Shape.curveBundle.beta(0.5)); // fails, as curveBundle-based line generator does not support area-related methods
 
 currentCurveFactory = areaRadial.curve();
@@ -874,7 +874,7 @@ curveBundleFactory = d3Shape.curveBundle.beta(0.5);
 
 lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(context!);  // force context to be non-null with post-fix for mock
 lineOnlyGenerator = d3Shape.curveBundle.beta(0.5)(path());
-// $ExpectError
+// @ts-expect-error
 curveGenerator = d3Shape.curveBundle.beta(0.5)(context); // fails, no area related methods
 
 let curveCardinalFactory: d3Shape.CurveCardinalFactory;
@@ -1160,27 +1160,27 @@ defaultLinkRadial(defaultLinkDatum);
 // vertical/horizontal
 
 pLink.attr('d', svgLink);
-// $ExpectError
+// @ts-expect-error
 wrongLink1.attr('d', svgLink); // fails, incompatible this contexts
-// $ExpectError
+// @ts-expect-error
 wrongLink2.attr('d', svgLink); // fails, incompatible datum types
 
 pathStringMaybe = link(linkDatum);
 
-// $ExpectError
+// @ts-expect-error
 pathStringMaybe = svgLink(linkDatum); // fails, wrong this type for invocation
 
 // radial
 
 pLink.attr('d', svgLinkRadial);
-// $ExpectError
+// @ts-expect-error
 wrongLink1.attr('d', svgLinkRadial); // fails, incompatible this contexts
-// $ExpectError
+// @ts-expect-error
 wrongLink2.attr('d', svgLinkRadial); // fails, incompatible datum types
 
 pathStringMaybe = radialLink(linkDatum);
 
-// $ExpectError
+// @ts-expect-error
 pathStringMaybe = svgLinkRadial(linkDatum); // fails, wrong this type for invocation
 
 // -----------------------------------------------------------------------------------
@@ -1272,12 +1272,12 @@ const wrongSymbol1: Selection<SVGTextElement, SymbolDatum, any, any> = select<SV
 const wrongSymbol2: Selection<SVGPathElement, { test: string }, any, any> = select<SVGPathElement, { test: string }>('.symbol-path'); // mock
 
 pSymbol.attr('d', svgSymbol);
-// $ExpectError
+// @ts-expect-error
 wrongSymbol1.attr('d', svgSymbol); // fails, incompatible this contexts
-// $ExpectError
+// @ts-expect-error
 wrongSymbol2.attr('d', svgSymbol); // fails, incompatible datum types
 
-// $ExpectError
+// @ts-expect-error
 pathStringMaybe = svgSymbol(symbolDatum); // fails, wrong this type for invocation
 
 // Use with custom object

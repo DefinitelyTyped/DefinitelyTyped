@@ -24,6 +24,10 @@ class TestStrategy extends passport.Strategy {
         const user: Express.User = { username: 'abc' };
         if (Math.random() > 0.5) {
             this.fail();
+            this.fail(403);
+            this.fail('challenge string', 403);
+            this.fail({message: 'hello'}, 403);
+            this.fail({message: 'hello', other: 123}, 123);
         } else {
             this.success(user);
         }
@@ -120,9 +124,22 @@ app.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
+app.post('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        return res.redirect('/');
+    });
+});
+
+app.post('/logout', (req, res, next) => {
+    req.logout({ keepSessionInfo: false }, (err) => {
+        if (err) {
+            return next(err);
+        }
+        return res.redirect('/');
+    });
 });
 
 app.post('/auth/token', passport.authenticate(['basic', 'oauth2-client-password'], { session: false }));

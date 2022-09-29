@@ -8,8 +8,8 @@
 declare namespace node_geocoder {
     type Providers =
         'freegeoip' | 'datasciencetoolkit' |
-        'locationiq' | 'mapquest' | 'openmapquest' |
-        'tomtom' | 'nominatimmapquest' |
+        'locationiq' | 'mapquest' | 'mapbox' |
+        'openmapquest' | 'tomtom' | 'nominatimmapquest' |
         'opencage' | 'geocodio' |
         'yandex' | 'teleport' | 'pickpoint';
 
@@ -25,7 +25,7 @@ declare namespace node_geocoder {
         provider: 'here';
         appId: string;
         apiKey: string;
-        appCode: string;
+        appCode?: string;
         language?: string | undefined;
         politicalView?: string | undefined;
         country?: string | undefined;

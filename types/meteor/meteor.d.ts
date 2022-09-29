@@ -4,7 +4,7 @@ import { Blaze } from 'meteor/blaze';
 import { DDP } from 'meteor/ddp';
 declare module 'meteor/meteor' {
     type global_Error = Error;
-    module Meteor {
+    namespace Meteor {
         /** Global props **/
         /** True if running in client environment. */
         var isClient: boolean;
@@ -41,12 +41,19 @@ declare module 'meteor/meteor' {
             address: string;
             verified: boolean;
         }
+        /**
+         * UserProfile is left intentionally underspecified here, to allow you
+         * to override it in your application (but keep in mind that the default
+         * Meteor configuration allows users to write directly to their user
+         * record's profile field)
+         */
+        interface UserProfile {}
         interface User {
             _id: string;
             username?: string | undefined;
             emails?: UserEmail[] | undefined;
             createdAt?: Date | undefined;
-            profile?: any;
+            profile?: UserProfile;
             services?: any;
         }
 
@@ -258,7 +265,7 @@ declare module 'meteor/meteor' {
         /** Pub/Sub **/
     }
 
-    module Meteor {
+    namespace Meteor {
         /** Login **/
         interface LoginWithExternalServiceOptions {
             requestPermissions?: ReadonlyArray<string> | undefined;
@@ -305,8 +312,6 @@ declare module 'meteor/meteor' {
             callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
 
-        function loggingIn(): boolean;
-
         function loginWith<ExternalService>(
             options?: {
                 requestPermissions?: ReadonlyArray<string> | undefined;
@@ -329,6 +334,8 @@ declare module 'meteor/meteor' {
             token: string,
             callback?: (error?: global_Error | Meteor.Error | Meteor.TypedError) => void,
         ): void;
+
+        function loggingIn(): boolean;
 
         function loggingOut(): boolean;
 
@@ -385,7 +392,7 @@ declare module 'meteor/meteor' {
         /** Pub/Sub **/
     }
 
-    module Meteor {
+    namespace Meteor {
         /** Connection **/
         interface Connection {
             id: string;
@@ -457,11 +464,16 @@ declare module 'meteor/meteor' {
          * Access inside the publish function. The incoming connection for this subscription.
          */
         stop(): void;
+        /**
+         * Call inside the publish function. Allows subsequent methods or subscriptions for the client of this subscription
+         * to begin running without waiting for the publishing to become ready.
+         */
+        unblock(): void;
         /** Access inside the publish function. The id of the logged-in user, or `null` if no user is logged in. */
         userId: string | null;
     }
 
-    module Meteor {
+    namespace Meteor {
         /** Global props **/
         /** True if running in development environment. */
         var isDevelopment: boolean;

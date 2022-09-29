@@ -1,6 +1,7 @@
-// Type definitions for clownface 1.2
+// Type definitions for clownface 1.5
 // Project: https://github.com/rdf-ext/clownface
 // Definitions by: tpluscode <https://github.com/tpluscode>
+//                 BenjaminHofstetter <https://github.com/BenjaminHofstetter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
@@ -43,6 +44,11 @@ declare namespace clownface {
       ? Iteratee<T[0], D>
       : Iteratee<T, D>;
 
+  type ExtractContext<T extends AnyContext> = T extends undefined ? never : T extends any[] ? T[0] : T;
+
+  type FilterCallback<T extends AnyContext = AnyContext, D extends DatasetCore = DatasetCore, S extends T = T>
+      = (ptr: Iteratee<T, D>, index: number, pointers: Array<GraphPointer<ExtractContext<T>>>) => ptr is Predicate<S, any>;
+
   interface OutOptions {
     language?: string | string[] | undefined;
   }
@@ -56,10 +62,11 @@ declare namespace clownface {
     readonly datasets: D[];
     readonly _context: Array<Context<D, Term>>;
     any(): AnyPointer<AnyContext, D>;
-    list(): Iterable<Iteratee<T, D>> | null;
-    toArray(): Array<AnyPointer<T extends undefined ? never : T extends any[] ? T[0] : T, D>>;
-    filter<S extends T>(cb: (ptr: Iteratee<T, D>) => ptr is Predicate<S, any>): AnyPointer<S, D>;
-    filter(cb: (ptr: Iteratee<T, D>) => boolean): AnyPointer<T, D>;
+    list(): Iterable<Iteratee<Term, D>> | null;
+    isList(): this is T extends BlankNode | NamedNode ? ListPointer<T, D> : never;
+    toArray(): Array<AnyPointer<ExtractContext<T>, D>>;
+    filter<S extends T>(cb: FilterCallback<T, D, S>): AnyPointer<S, D>;
+    filter(cb: (ptr: Iteratee<T, D>, index: number, pointers: Array<GraphPointer<ExtractContext<T>>>) => boolean): AnyPointer<T, D>;
     forEach(cb: (quad: Iteratee<T, D>) => void): this;
     map<X>(cb: (quad: Iteratee<T, D>, index: number) => X): X[];
 
@@ -107,6 +114,10 @@ declare namespace clownface {
     deleteIn(predicates?: SingleOrArrayOfTerms<Term>, subjects?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
     deleteOut(predicates?: SingleOrArrayOfTerms<Term>, objects?: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
     deleteList(predicates: SingleOrArrayOfTerms<Term>): AnyPointer<T, D>;
+  }
+
+  interface ListPointer<T extends Term = Term, D extends DatasetCore = DatasetCore> extends GraphPointer<T, D> {
+    list(): Iterable<Iteratee<Term, D>>;
   }
 
   type MultiPointer<T extends Term = Term, D extends DatasetCore = DatasetCore> = AnyPointer<T | T[], D>;

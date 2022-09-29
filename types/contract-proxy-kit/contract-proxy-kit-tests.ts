@@ -16,29 +16,29 @@ const networkConfigEntry: CPK.NetworkConfigEntry = {
     fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
 };
 
-// $ExpectError
+// @ts-expect-error
 const badEntry: CPK.NetworkConfigEntry = {
     masterCopyAddress: '0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4',
     multiSendAddress: '0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F',
     fallbackHandlerAddress: '0xAa588d3737B611baFD7bD713445b314BD453a5C8',
 };
 
-// $ExpectError
+// @ts-expect-error
 CPK.create();
-// $ExpectError
+// @ts-expect-error
 CPK.create({});
 // $ExpectType Promise<CPK>
 CPK.create({ web3 });
 // $ExpectType Promise<CPK>
 CPK.create({ web3, ownerAccount: '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1' });
-// $ExpectError
+// @ts-expect-error
 CPK.create({
     ownerAccount: '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1',
     networks: { 4447: networkConfigEntry },
 });
-// $ExpectError
+// @ts-expect-error
 CPK.create({ ethers });
-// $ExpectError
+// @ts-expect-error
 CPK.create({ signer });
 // $ExpectType Promise<CPK>
 CPK.create({ ethers, signer: ethers.Wallet.createRandom() });

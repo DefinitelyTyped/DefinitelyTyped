@@ -101,6 +101,8 @@ declare namespace dymo.label.framework {
         isFrameworkInstalled: boolean;
         /** An empty string if no error is detected; an error message if an error is detected. */
         errorDetails: string;
+        /** Indicates whether the web service is running or not. */
+        isWebServicePresent: boolean;
     };
 
     /**

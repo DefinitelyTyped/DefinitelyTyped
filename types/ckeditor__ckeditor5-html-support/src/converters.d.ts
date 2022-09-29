@@ -1,5 +1,5 @@
 import { Editor } from '@ckeditor/ckeditor5-core';
-import { DowncastWriter } from '@ckeditor/ckeditor5-engine';
+import { DowncastWriter, Element } from '@ckeditor/ckeditor5-engine';
 import DowncastDispatcher, {
     DowncastConversionApi,
 } from '@ckeditor/ckeditor5-engine/src/conversion/downcastdispatcher';
@@ -21,7 +21,7 @@ import {
  */
 export function viewToModelObjectConverter(
     definition: DataSchemaDefinition,
-): (viewElement: ViewElement, conversionApi: UpcastConversionApi) => void;
+): (viewElement: ViewElement, conversionApi: UpcastConversionApi) => Element;
 
 /**
  * Conversion helper converting object element to HTML object widget.

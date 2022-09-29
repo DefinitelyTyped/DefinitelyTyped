@@ -1,7 +1,9 @@
 import change = require('gulp-change');
 
-change();                       // $ExpectError
-change(1);                      // $ExpectError
+// @ts-expect-error
+change();
+// @ts-expect-error
+change(1);
 
 function performChange(content: string): string {
     return content.replace(/foo/g, 'FOO');

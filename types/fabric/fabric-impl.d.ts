@@ -174,6 +174,7 @@ interface IEvent<E extends Event = Event> {
     e: E;
     target?: Object | undefined;
     subTargets?: Object[] | undefined;
+    selected?: Object[] | undefined;
     button?: number | undefined;
     isClick?: boolean | undefined;
     pointer?: Point | undefined;
@@ -698,7 +699,12 @@ export class Gradient {
      */
     static fromElement(el: SVGGradientElement, instance: Object): Gradient;
 }
+
 export class Intersection {
+    status?: string | undefined;
+
+    points?: Point[] | undefined;
+
     constructor(status?: string);
     /**
      * Appends a point to intersection
@@ -1947,6 +1953,13 @@ export class Canvas {
      * @param [options] Options object
      */
     constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
+    /**
+     * Constructor
+     * @param {HTMLCanvasElement | String} element <canvas> element to initialize instance on
+     * @param {Object} [options] Options object
+     * @return {Object} thisArg
+     */
+    initialize(element: HTMLCanvasElement | string | null, options?: ICanvasOptions): Canvas;
 
     /**
      * When true, target detection is skipped when hovering over canvas. This can be used to improve performance.
@@ -2528,10 +2541,10 @@ interface Image extends Object, IImageOptions {}
 export class Image {
     /**
      * Constructor
-     * @param element Image or Video element
+     * @param element Image element
      * @param [options] Options object
      */
-    constructor(element?: string | HTMLImageElement | HTMLVideoElement, options?: IImageOptions);
+    constructor(element: string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, options?: IImageOptions);
     /**
      * Returns image or video element which this instance is based on
      * @return Image or Video element
@@ -3686,7 +3699,7 @@ export class Object {
      * @return {fabric.Object} thisArg
      * @chainable
      */
-    setCoords(skipCorners?: boolean): Object;
+    setCoords(skipCorners?: boolean): this;
     /**
      * Returns coordinates of object's bounding rectangle (left, top, width, height)
      * the box is intented as aligned to axis of canvas.
@@ -3731,12 +3744,12 @@ export class Object {
      * Scales an object to a given height, with respect to bounding box (scaling by x/y equally)
      * @param value New height value
      */
-    scaleToHeight(value: number, absolute?: boolean): Object;
+    scaleToHeight(value: number, absolute?: boolean): this;
     /**
      * Scales an object to a given width, with respect to bounding box (scaling by x/y equally)
      * @param value New width value
      */
-    scaleToWidth(value: number, absolute?: boolean): Object;
+    scaleToWidth(value: number, absolute?: boolean): this;
     /**
      * Checks if object intersects with another object
      * @param {Object} other Object to test
@@ -5792,6 +5805,10 @@ export class BaseBrush {
      */
     width: number;
 
+    /**
+     * Discard points that are less than `decimate` pixel distant from each other
+     */
+    decimate: number;
     /**
      * Shadow object representing shadow of this shape.
      * <b>Backwards incompatibility note:</b> This property replaces "shadowColor" (String), "shadowOffsetX" (Number),

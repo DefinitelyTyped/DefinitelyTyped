@@ -1,7 +1,6 @@
 // Type definitions for siema 1.4
 // Project: https://github.com/pawelgrzybek/siema
-// Definitions by: Irmantas Zenkus <https://github.com/Irmiz>
-//                 Pavel Puchkov <https://github.com/0x6368656174>
+// Definitions by: Pavel Puchkov <https://github.com/0x6368656174>
 //                 Sam Nau <https://github.com/samnau>
 //                 Jonathan Loss <https://github.com/barroudjo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

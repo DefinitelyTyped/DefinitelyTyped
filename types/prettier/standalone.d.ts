@@ -1,4 +1,4 @@
-import { CursorOptions, CursorResult, Options, Plugin } from './';
+import { CursorOptions, CursorResult, Options, SupportInfo } from './';
 
 /**
  * formatWithCursor both formats the code, and translates a cursor position from unformatted code to formatted code.
@@ -23,5 +23,10 @@ export function format(source: string, options?: Options): string;
  * This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
  */
 export function check(source: string, options?: Options): boolean;
+
+/**
+ * Returns an object representing the parsers, languages and file types Prettier supports for the current version.
+ */
+export function getSupportInfo(): SupportInfo;
 
 export as namespace prettier;

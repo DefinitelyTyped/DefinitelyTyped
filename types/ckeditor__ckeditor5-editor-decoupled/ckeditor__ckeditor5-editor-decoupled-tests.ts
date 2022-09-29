@@ -2,9 +2,8 @@ import { Editor, Plugin } from '@ckeditor/ckeditor5-core';
 import { DecoupledEditor } from '@ckeditor/ckeditor5-editor-decoupled';
 import DecoupledEditorUI from '@ckeditor/ckeditor5-editor-decoupled/src/decouplededitorui';
 import DecoupledEditorUIView from '@ckeditor/ckeditor5-editor-decoupled/src/decouplededitoruiview';
-import { HtmlDataProcessor, StylesProcessor } from '@ckeditor/ckeditor5-engine';
+import { StylesProcessor } from '@ckeditor/ckeditor5-engine';
 import View from '@ckeditor/ckeditor5-engine/src/view/view';
-import { ToolbarView } from '@ckeditor/ckeditor5-ui';
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
 DecoupledEditor.create('', { placeholder: 'foo' }).then(editor => {
@@ -26,8 +25,8 @@ DecoupledEditor.create('', { placeholder: 'foo' }).then(editor => {
     });
 });
 
-let htmlElement: HTMLElement = document.createElement('div');
-// $ExpectError
+const htmlElement = document.createElement('div');
+// @ts-expect-error
 new DecoupledEditor();
 
 class MyPlugin extends Plugin {}
@@ -36,35 +35,48 @@ class MyPlugin extends Plugin {}
     let editor = await DecoupledEditor.create('foo');
     editor = await DecoupledEditor.create(htmlElement);
     editor = await DecoupledEditor.create(htmlElement, { plugins: [MyPlugin] });
-    // $ExpectError
+    // @ts-expect-error
     editor.create();
     const str: string = editor.getData();
     editor.setData(str);
-    // $ExpectError
+    // @ts-expect-error
     editor.setData();
-    const processor: HtmlDataProcessor = editor.data.processor;
-    const ui: DecoupledEditorUI = editor.ui;
-    const uiView: DecoupledEditorUIView = editor.ui.view;
+    // $ExpectType HtmlDataProcessor
+    editor.data.processor;
+    // $ExpectType DecoupledEditorUI
+    editor.ui;
+    // $ExpectType DecoupledEditorUIView
+    editor.ui.view;
 
     editor = await DecoupledEditor.create(htmlElement, {
         toolbar: {
             items: [],
             removeItems: [],
-            viewportTopOffset: 0,
             shouldNotGroupWhenFull: true,
+        },
+        ui: {
+            viewportTopOffset: {
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+            },
         },
     });
 
     editor.destroy().then(() => {});
 
-    ui.init();
-    let bool: boolean = ui.focusTracker.isFocused;
+    editor.ui.init();
+    // $ExpectType boolean
+    editor.ui.focusTracker.isFocused;
+    // $ExpectType boolean
+    editor.ui.view.isRendered;
+    // $ExpectType HTMLElement | undefined
+    editor.ui.getEditableElement();
 
-    bool = uiView.isRendered;
-
-    htmlElement = ui.getEditableElement()!;
-
-    uiView.render();
-    const toolbarView: ToolbarView = uiView.toolbar;
-    const locale: Locale = uiView.toolbar.locale!;
+    editor.ui.view.render();
+    // $ExpectType ToolbarView
+    editor.ui.view.toolbar;
+    // $ExpectType Locale
+    editor.ui.view.toolbar.locale!;
 })();

@@ -1,8 +1,8 @@
 // Type definitions for react-date-range 1.4
 // Project: https://github.com/hypeserver/react-date-range
 // Definitions by: Junbong Lee <https://github.com/Junbong>
-//                 John Demetriou <https://github.com/DevsAnon>
 //                 Minseok Choi <https://github.com/Curzy>
+//                 John Demetriou <https://github.com/DemetriouJohn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -223,7 +223,7 @@ export interface CalendarProps {
     /** default: `['#3d91ff', '#3ecf8e', '#fed14c']` */
     rangeColors?: string[] | undefined;
     /** default: [] */
-    ranges?: Range[] | undefined;
+    ranges?: Range[];
     /**
      * Custom scroll options for various parts of the display
      *

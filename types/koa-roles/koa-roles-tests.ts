@@ -36,19 +36,19 @@ roles2.can('something');
 
 // $ExpectType void
 roles1.use(handler1);
-// $ExpectError
+// @ts-expect-error
 roles1.use(handler2);
 // $ExpectType void
 roles1.use(action1or2, handler1);
 // $ExpectType void
 roles2.use(handler1or2);
-// $ExpectError
+// @ts-expect-error
 roles2.use(handler3);
 // $ExpectType void
 roles2.use(action1or2, handler1or2);
 // $ExpectType void
 roles2.use(action1, handler3);
-// $ExpectError
+// @ts-expect-error
 roles2.use(action2, handler3);
 
 // $ExpectType Middleware<DefaultState, DefaultContext, unknown>
@@ -73,7 +73,7 @@ function testOptions() {
 
     const options1: Roles.Options = {};
     const options2: Roles.Options = {
-        // $ExpectError
+        // @ts-expect-error
         failureHandler: false,
     };
     const options3: Roles.Options = {
@@ -86,14 +86,14 @@ function testOptions() {
         failureHandler: failureHandler3,
     };
     const options6: Roles.Options = {
-        // $ExpectError
+        // @ts-expect-error
         failureHandler: failureHandler4,
     };
     const options7: Roles.Options = {
         userProperty: 'user',
     };
     const options8: Roles.Options = {
-        // $ExpectError
+        // @ts-expect-error
         userProperty: false,
     };
 }

@@ -90,4 +90,5 @@ const UltimatePagination = createUltimatePagination({ itemTypeToComponent, Wrapp
 />;
 
 // With unspported prop
-<UltimatePagination color="red"/>; // $ExpectError
+// @ts-expect-error
+<UltimatePagination color="red"/>;

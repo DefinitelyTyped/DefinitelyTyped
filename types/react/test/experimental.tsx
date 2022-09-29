@@ -2,18 +2,22 @@
 
 import React = require('react');
 
-function useExperimentalHooks() {
-    const [toggle, setToggle] = React.useState(false);
+function suspenseTest() {
+    function DisplayData() {
+        return null;
+    }
 
-    React.unstable_useInsertionEffect(() => {});
-    React.unstable_useInsertionEffect(() => {}, []);
-    React.unstable_useInsertionEffect(() => {
-        return () => {};
-    }, [toggle]);
+    function FlameChart() {
+        return (
+            <React.Suspense fallback="computing..." unstable_expectedLoadTime={2000}>
+                <DisplayData />
+            </React.Suspense>
+        );
+    }
 }
 
 // Unsupported `revealOrder` triggers a runtime warning
-// $ExpectError
+// @ts-expect-error
 <React.SuspenseList revealOrder="something">
     <React.Suspense fallback="Loading">Content</React.Suspense>
 </React.SuspenseList>;
@@ -32,3 +36,19 @@ function useExperimentalHooks() {
     <React.Suspense fallback="Loading">A</React.Suspense>
     <React.Suspense fallback="Loading">B</React.Suspense>
 </React.SuspenseList>;
+
+const contextUsers = React.createContext(['HAL']);
+const promisedUsers = Promise.resolve(['Dave']);
+
+function useUse() {
+    // @ts-expect-error Missing value
+    React.experimental_use();
+
+    // $ExpectType string[]
+    const users = React.experimental_use(promisedUsers);
+    // @ts-expect-error incompatible type. Mainly to potentially inspect TypeScript error message
+    React.experimental_use({});
+
+    // $ExpectType string[]
+    const contextValue = React.experimental_use(contextUsers);
+}

@@ -1,11 +1,13 @@
 import { Risk } from './3d-secure';
 import { Adyen } from './adyen';
+import { BankRedirect } from './bank-redirect';
 import { ApplePay } from './apple-pay';
 import { BankAccount } from './bank-account';
 import { Configure } from './configure';
 import { Elements } from './elements';
 import { Emitter } from './emitter';
 import { GiftCard } from './gift-card';
+import { GooglePay } from './google-pay';
 import { PayPal } from './paypal';
 import { Pricing } from './pricing';
 import { Token } from './token';
@@ -15,6 +17,13 @@ export type RecurlyEvent = 'change' | 'field:submit' | 'error';
 
 export interface Recurly extends Emitter<RecurlyEvent> {
   Adyen: Adyen;
+
+  /**
+   * Use Recurly.js to process Adyen Redirect Payments.
+   *
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#adyen-token|BankRedirect}
+   */
+  BankRedirect: BankRedirect;
 
   /**
    * Use Recurly.js to process Apple Pay transactions.
@@ -48,6 +57,13 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    */
   Elements: Elements;
   giftCard: GiftCard;
+
+  /**
+   * Use Recurly.js to process Google Pay transactions.
+   *
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#google-pay|GooglePay}
+   */
+   GooglePay: GooglePay;
 
   /**
    * Use Recurly to process PayPal transactions using PayPal Business or Braintree.

@@ -9,6 +9,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-lines-ellipsis-tests.ts"
+        "react-lines-ellipsis-tests.tsx"
     ]
 }

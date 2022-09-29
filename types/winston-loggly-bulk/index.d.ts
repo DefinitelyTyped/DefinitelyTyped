@@ -1,6 +1,6 @@
 // Type definitions for winston-loggly-bulk 3.0
 // Project: https://github.com/loggly/winston-loggly-bulk
-// Definitions by: Simcha Wood <https://github.com/SimchaWood>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

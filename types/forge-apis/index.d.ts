@@ -190,6 +190,33 @@ export interface JobPayload {
     misc?: JobPayloadMisc | undefined;
 }
 
+export interface JobSvf2OutputPayload {
+    type: string;
+    views?: string[] | undefined;
+    advanced?: JobSvf2OutputPayloadAdvanced | undefined;
+}
+
+export type JobSvf2OutputPayloadAdvanced = JobSvfOutputPayloadAdvanced;
+
+export interface JobSvfOutputPayload {
+    type: string;
+    views?: string[] | undefined;
+    advanced?: JobSvfOutputPayloadAdvanced | undefined;
+}
+
+export interface JobSvfOutputPayloadAdvanced {
+    conversionMethod?: string | undefined;
+    buildingStoreys: string;
+    spaces: string;
+    openingElements: string;
+    generateMasterViews: boolean;
+    materialMode: string;
+    hiddenObjects: boolean;
+    basicMaterialProperties: boolean;
+    autodeskMaterialProperties: boolean;
+    timelinerProperties: boolean;
+}
+
 export class CommandsApi {
     constructor(apiClient?: any);
     /**

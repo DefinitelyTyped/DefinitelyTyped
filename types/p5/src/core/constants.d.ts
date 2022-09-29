@@ -5,6 +5,11 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
+         *   Version of this p5.js.
+         */
+        readonly VERSION: VERSION;
+
+        /**
          *   The default, two-dimensional renderer.
          */
         readonly P2D: P2D;
@@ -70,15 +75,15 @@ declare module '../../index' {
 
         /**
          *   Constant to be used with angleMode() function, to
-         *   set the mode which p5.js interprates and
-         *   calculates angles (either DEGREES or RADIANS).
+         *   set the mode which p5.js interprets and calculates
+         *   angles (either DEGREES or RADIANS).
          */
         readonly DEGREES: DEGREES;
 
         /**
          *   Constant to be used with angleMode() function, to
-         *   set the mode which p5.js interprates and
-         *   calculates angles (either RADIANS or DEGREES).
+         *   set the mode which p5.js interprets and calculates
+         *   angles (either RADIANS or DEGREES).
          */
         readonly RADIANS: RADIANS;
         readonly CORNER: CORNER;
@@ -99,6 +104,7 @@ declare module '../../index' {
         readonly TRIANGLE_STRIP: TRIANGLE_STRIP;
         readonly QUADS: QUADS;
         readonly QUAD_STRIP: QUAD_STRIP;
+        readonly TESS: TESS;
         readonly CLOSE: CLOSE;
         readonly OPEN: OPEN;
         readonly CHORD: CHORD;
@@ -109,6 +115,11 @@ declare module '../../index' {
         readonly BEVEL: BEVEL;
         readonly MITER: MITER;
         readonly RGB: RGB;
+
+        /**
+         *   HSB (hue, saturation, brightness) is a type of
+         *   color model. You can learn more about it at HSB.
+         */
         readonly HSB: HSB;
         readonly HSL: HSL;
 
@@ -135,6 +146,7 @@ declare module '../../index' {
         readonly TAB: number;
         readonly UP_ARROW: number;
         readonly BLEND: BLEND;
+        readonly REMOVE: REMOVE;
         readonly ADD: ADD;
         readonly DARKEST: DARKEST;
         readonly LIGHTEST: LIGHTEST;
@@ -161,6 +173,8 @@ declare module '../../index' {
         readonly ITALIC: ITALIC;
         readonly BOLD: BOLD;
         readonly BOLDITALIC: BOLDITALIC;
+        readonly CHAR: CHAR;
+        readonly WORD: WORD;
         readonly LINEAR: LINEAR;
         readonly QUADRATIC: QUADRATIC;
         readonly BEZIER: BEZIER;
@@ -178,12 +192,7 @@ declare module '../../index' {
         readonly PORTRAIT: PORTRAIT;
         readonly GRID: GRID;
         readonly AXES: AXES;
-
-        /**
-         *   Constants to be used with describe() function, to
-         *   set the display parameter.
-         */
         readonly LABEL: LABEL;
-        readonly FALLBACK: LABEL;
+        readonly FALLBACK: FALLBACK;
     }
 }

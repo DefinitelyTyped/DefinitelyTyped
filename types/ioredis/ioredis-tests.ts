@@ -19,13 +19,21 @@ redis.get('foo', cb);
 redis.getdel('foo', cb);
 
 redis.set('foo', 'bar');
-redis.getrangeBuffer("foo", 0, 1, cb);
-redis.getrangeBuffer("foo", 0, 1).then(b => cb(null, b));
+redis.getex('foo', cb);
+redis.getex('key', 'PX', 10);
+redis.getex('key', (err, data) => {});
+redis.getex('key', 'PX', 10, (err, data) => {});
+redis.getdel('foo', cb);
+
+redis.set('foo', 'bar');
+redis.getrangeBuffer('foo', 0, 1, cb);
+redis.getrangeBuffer('foo', 0, 1).then(b => cb(null, b));
 
 // Static check that returned value is always a number
 redis.del('foo', 'bar').then(result => result * 1);
 
 // Test OverloadedListCommand
+redis.del('foo').then(result => result * 1);
 redis.del(['foo', 'bar']).then(result => result * 1);
 redis.del('foo', 'bar', cbNumber);
 redis.del(['foo', 'bar'], cbNumber);
@@ -69,6 +77,7 @@ redis.mget('key').then(console.log);
 redis.mget('key', cbNumber);
 redis.mget('key', 'foo', 'bar').then(console.log);
 redis.mget('key', 'foo', 'bar', cbNumber);
+redis.mgetBuffer('key', 'foo', 'bar');
 redis.pfcount('key').then(console.log);
 redis.pfcount('key', cbNumber);
 redis.pfcount('key', 'foo', 'bar').then(console.log);
@@ -141,6 +150,10 @@ redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member').then(console.log);
 redis.zadd('myset', 'NX', 'CH', 'INCR', 1, 'member', cb);
 redis.zscore('myset', 'member').then(console.log);
 redis.zscore('myset', 'member', cb);
+redis.zmscore('myset', 'member').then(console.log);
+redis.zmscore('myset', 'member', cb);
+redis.zmscore('myset', 'member', 'member2').then(console.log);
+redis.zmscore('myset', 'member', 'member2', cb);
 redis.zrem('myset', 'member').then(console.log);
 redis.zrem('myset', 'member', cbNumber);
 redis.zrem('myset', 'member', 'member2').then(console.log);
@@ -217,6 +230,7 @@ redis.mset('1', '2', '3', 4, '5', new Buffer([])).then(console.log);
 redis.mset('1', '2', '3', 4, '5', new Buffer([]), cb);
 redis.mset('1', '2', '3', 4).then(console.log);
 redis.mset('1', '2', '3', 4);
+redis.msetBuffer('1', ('Buffer.from2'), '3', Buffer.from('4'));
 redis.mset('1', '2').then(console.log);
 redis.mset('1', ['1', 2]);
 redis.mset({ a: 'b', c: 4 }).then(console.log);
@@ -279,6 +293,13 @@ redis.sadd('set', [1, 3, 5, 7]);
 redis.sadd('set', 'val1', 'val2');
 redis.sismember('set', 'val1').then(console.log);
 redis.smismember('set', ...['val1', 'val2', 'val3']).then(console.log);
+
+// Test for flushdb
+redis.set('test', 'random');
+redis.flushdb('async');
+redis.get('test').then(result => {
+    console.log('result should be null', result);
+});
 
 // All arguments are passed directly to the redis server:
 redis.set('key', '100');
@@ -835,6 +856,11 @@ redis.pipeline()
     .lpush('lpushxlist', 'foo')
     .lpushx('lpushxlist', 'bar', 1)
     .rpushx('rpushxlist', 'hoge', 2);
+
+// Test mgetBuffer and msetBuffer
+redis.pipeline()
+    .msetBuffer('msetbuffer1', Buffer.from('msetBuffer'), 'msetbuffer2', Buffer.from('msetBuffer'))
+    .mgetBuffer('msetbuffer1', 'msetbuffer2');
 
 redis.options.host;
 redis.status;

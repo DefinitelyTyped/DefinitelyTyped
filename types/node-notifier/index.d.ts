@@ -1,7 +1,6 @@
 // Type definitions for node-notifier 8.0
 // Project: https://github.com/mikaelbr/node-notifier
 // Definitions by: Qubo <https://github.com/tkQubo>
-//                 Lorenzo Rapetti <https://github.com/loryman>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

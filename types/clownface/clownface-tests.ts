@@ -2,6 +2,7 @@ import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, 
 import Clownface = require('clownface/lib/Clownface');
 import clownface = require('clownface');
 import Context = require('clownface/lib/Context');
+import filters = require('clownface/filter');
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};
@@ -237,6 +238,10 @@ function testFilter() {
     }
 
     const multipleTypeGuarded: clownface.AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(onlyNamedOrBlank);
+
+    const fullSignature = mutliple.filter((ptr: clownface.GraphPointer<NamedNode>, index: number, pointers: Array<clownface.GraphPointer<NamedNode>>) => {
+        return true;
+    });
 }
 
 function testForEach() {
@@ -281,7 +286,17 @@ function testIn() {
 
 function testList() {
     const cf: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
-    const listNodes: Iterable<clownface.AnyPointer<NamedNode, Dataset>> | null = cf.list();
+    const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> | null = cf.list();
+}
+
+function testIsList() {
+    const anyPtr: clownface.AnyPointer<NamedNode, Dataset> = <any> {};
+    const isList: boolean = anyPtr.isList();
+
+    if (anyPtr.isList()) {
+        const graphPtr: clownface.GraphPointer<NamedNode, Dataset> = anyPtr;
+        const listNodes: Iterable<clownface.AnyPointer<Term, Dataset>> = anyPtr.list();
+    }
 }
 
 function testLiteral() {
@@ -448,4 +463,13 @@ function testAny() {
     anyPointer = anyPointer.any();
     anyPointer = multiPtr.any();
     anyPointer = graphPtr.any();
+}
+
+function testFilterModule() {
+    const { taggedLiteral } = filters;
+
+    const pointer: clownface.MultiPointer<Term, Dataset> = <any> {};
+
+    let literals: clownface.MultiPointer<Literal, Dataset> = pointer.filter(taggedLiteral('de'));
+    literals = pointer.filter(taggedLiteral(['en-US', 'en']));
 }

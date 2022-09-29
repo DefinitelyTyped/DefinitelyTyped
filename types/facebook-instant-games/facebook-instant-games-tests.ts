@@ -77,7 +77,7 @@ FBInstant.getLeaderboardAsync("name").then((leaderboard: FBInstant.Leaderboard) 
     leaderboard.getPlayerEntryAsync().then(playerEntry => {});
     leaderboard.setScoreAsync(10).then(leaderboardEntry => {});
 });
-FBInstant.postSessionScore(10);
+FBInstant.postSessionScoreAsync(10);
 
 FBInstant.player.canSubscribeBotAsync().then((canSubscribeBot: boolean) => {});
 FBInstant.player.flushDataAsync().then(() => {});
@@ -139,3 +139,58 @@ FBInstant.payments.getCatalogAsync().then((products: FBInstant.Product[]) => {
     const productID: string = product.productID;
     const title: string = product.title;
 });
+
+/// Version 7.0
+
+FBInstant.performHapticFeedbackAsync();
+
+FBInstant.getTournamentAsync()
+  .then((tournament) => {
+    const contextId: string = tournament.getContextID();
+    const endTime: number = tournament.getEndTime();
+    const title: string = tournament.getTitle()!;
+    const payload: any = tournament.getPayload();
+    const id: string = tournament.getID();
+  });
+
+const createTournamentConfig: FBInstant.CreateTournamentConfig = {
+};
+
+const createTournamentPayload: FBInstant.CreateTournamentPayload = {
+    initialScore: 42,
+    config: createTournamentConfig,
+    data: { name: "Eleonora"}
+};
+
+FBInstant.tournament.createAsync(createTournamentPayload)
+    .then(tournament => {
+        const contextId: string = tournament.getContextID();
+        const endTime: number = tournament.getEndTime();
+        const title: string = tournament.getTitle()!;
+        const payload: any = tournament.getPayload();
+        const id: string = tournament.getID();
+    });
+
+FBInstant.tournament.postScoreAsync(43);
+
+const shareTournamentPayload: FBInstant.ShareTournamentPayload = {
+    score: 42,
+    data: { name: "Ksu"}
+};
+
+FBInstant.tournament.shareAsync(shareTournamentPayload);
+
+FBInstant.tournament.getTournamentsAsync()
+    .then(tournaments => {
+        tournaments.forEach(tournament => {
+            const contextId: string = tournament.getContextID();
+            const endTime: number = tournament.getEndTime();
+            const title: string = tournament.getTitle()!;
+            const payload: any = tournament.getPayload();
+            const id: string = tournament.getID();
+        });
+    });
+
+FBInstant.tournament.joinAsync('1122334455')
+    .then(() => {
+    });

@@ -1,6 +1,6 @@
 // Type definitions for onscan.js 1.5
 // Project: https://github.com/axenox/onscan.js/
-// Definitions by: Tommy Josépovic <https://github.com/tommy-josepovic>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface ScanOptions {
     /**

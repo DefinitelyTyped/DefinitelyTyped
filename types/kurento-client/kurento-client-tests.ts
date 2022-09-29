@@ -1,4 +1,4 @@
-import kurento, { WebRtcEndpoint } from 'kurento-client';
+import kurento, { WebRtcEndpoint, RtpEndpoint, SDES, RtpEndpointOptions } from 'kurento-client';
 
 async () => {
     const sdpOffer = 'sdpOffer';
@@ -48,7 +48,7 @@ async () => {
     const candidate = new RTCIceCandidate();
 
     const client = await kurento.getSingleton('//server', {});
-    const endpoint = ((await client.getMediaobjectById(endpointId)) as any) as WebRtcEndpoint;
+    const endpoint = (await client.getMediaobjectById(endpointId)) as any as WebRtcEndpoint;
     const server = await client.getServerManager();
 
     endpoint.addIceCandidate(candidate);
@@ -156,4 +156,29 @@ async () => {
         .on('Paused', () => {})
         .on('Stopped', () => {});
     playerEp.on('EndOfStream', () => {});
+};
+
+async () => {
+    // Test SdpEndpoint
+    const kurentoClient = await kurento('//server');
+    const pipeline = await kurentoClient.create('MediaPipeline'); // $ExpectType MediaPipeline
+    const rtpEndpoint = await pipeline.create('RtpEndpoint'); // $ExpectType RtpEndpoint
+    await pipeline.create('RtpEndpoint', { useIpv6: true }); // $ExpectType RtpEndpoint
+    const options: RtpEndpointOptions = {
+        useIpv6: true,
+        crypto: {
+            key: 'cypher',
+            keyBase64: 'Y3lwaGVyCg==',
+            crypto: 'AES_256_CM_HMAC_SHA1_32',
+        },
+    };
+    await pipeline.create('RtpEndpoint', options); // $ExpectType RtpEndpoint
+};
+
+async () => {
+    // Test Composite
+    const kurentoClient = await kurento('//server');
+    const pipeline = await kurentoClient.create('MediaPipeline'); // $ExpectType MediaPipeline
+    const composite = await pipeline.create('Composite'); // $ExpectType Composite
+    await composite.createHubPort(); // $ExpectType HubPort
 };

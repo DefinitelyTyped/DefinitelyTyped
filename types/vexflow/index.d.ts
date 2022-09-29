@@ -1,4 +1,4 @@
-// Type definitions for VexFlow v3.0.9
+// Type definitions for VexFlow v3.0.9, compatible with v1.2.93
 // Project: http://vexflow.com
 // Definitions by: Roman Quiring <https://github.com/rquiring>
 //                 Sebastian Haas <https://github.com/sebastianhaas>
@@ -30,6 +30,10 @@ declare namespace Vex {
 
     class RERR {
         constructor(code: string, message: string);
+    }
+
+    interface GroupAttributes {
+        pointerBBox: boolean;
     }
 
     /**
@@ -71,7 +75,7 @@ declare namespace Vex {
         fillText(text: string, x: number, y: number): IRenderContext;
         save(): IRenderContext;
         restore(): IRenderContext;
-        openGroup(): Node | undefined;
+        openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node | undefined;
         closeGroup(): void;
 
         /**
@@ -479,7 +483,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): void;
             save(): void;
             restore(): void;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -625,6 +629,8 @@ declare namespace Vex {
             static GCD(a: number, b: number): number;
             static LCM(a: number, b: number): number;
             static LCMM(a: number, b: number): number;
+            denominator: number;
+            numerator: number;
             set(numerator: number, denominator: number): Fraction;
             value(): number;
             simplify(): Fraction;
@@ -810,6 +816,14 @@ declare namespace Vex {
             setXShift(x: number): void; //inconsistent type: void -> Modifier
             draw(): void;
             alignSubNotesWithNote(subNotes: Note[], note: Note): void;
+            // (Modifier extends Element in vexflow, but not in these definitions, probably because of some typing problem)
+            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
+            setStyle(style: {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            }): Modifier;
         }
 
         namespace Modifier {
@@ -1069,7 +1083,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): RaphaelContext;
             save(): RaphaelContext;
             restore(): RaphaelContext;
-            openGroup(): undefined;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): undefined;
             closeGroup(): void;
         }
 
@@ -1181,12 +1195,14 @@ declare namespace Vex {
                 num_lines?: number | undefined;
                 fill_style?: string | undefined;
                 left_bar?: boolean | undefined;
+                line_config?: {visible: boolean}[];
                 right_bar?: boolean | undefined;
                 spacing_between_lines_px?: number | undefined;
                 space_above_staff_ln?: number | undefined;
                 space_below_staff_ln?: number | undefined;
                 top_text_position?: number | undefined;
             };
+            endClef: Clef;
             resetLines(): void;
             setNoteStartX(x: number): Stave;
             getNoteStartX(): number;
@@ -1197,6 +1213,7 @@ declare namespace Vex {
             getContext(): IRenderContext;
             getX(): number;
             getNumLines(): number;
+            setNumLines(lines: number): void;
             setX(x: number): Stave;
             setY(y: number): Stave;
             setWidth(width: number): Stave;
@@ -1371,6 +1388,15 @@ declare namespace Vex {
             getPosition(): number;
             getWidth(): number;
             getPadding(index: number): number;
+
+            // (StaveModifier extends Element in vexflow, but not in these definitions, probably because of a typing problem)
+            setStyle(style: {
+                shadowColor?: string | undefined;
+                shadowBlur?: string | undefined;
+                fillStyle?: string | undefined;
+                strokeStyle?: string | undefined;
+            }): StaveModifier;
+            getStyle(): { shadowColor?: string | undefined; shadowBlur?: string | undefined; fillStyle?: string | undefined; strokeStyle?: string | undefined };
         }
 
         namespace StaveModifier {
@@ -1676,6 +1702,7 @@ declare namespace Vex {
                 state: { left_shift: number; right_shift: number; text_line: number },
             ): boolean;
             string_number: number | string;
+            radius: number;
             getNote(): Note;
             setNote(note: StemmableNote): StringNumber;
             getIndex(): number;
@@ -1765,7 +1792,7 @@ declare namespace Vex {
             fillText(text: string, x: number, y: number): SVGContext;
             save(): SVGContext;
             restore(): SVGContext;
-            openGroup(): Node;
+            openGroup(cls?: string, id?: string, attrs?: GroupAttributes): Node;
             closeGroup(): void;
         }
 

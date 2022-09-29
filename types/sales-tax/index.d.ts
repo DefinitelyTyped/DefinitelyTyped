@@ -1,6 +1,6 @@
 // Type definitions for sales-tax 2.3
 // Project: https://github.com/valeriansaliou/node-sales-tax
-// Definitions by: Ben Salili-James <https://github.com/benhjames>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace SalesTax {

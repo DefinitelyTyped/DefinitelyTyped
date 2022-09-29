@@ -1,10 +1,8 @@
-import { TempNode } from '../core/TempNode';
+import AttributeNode from '../core/AttributeNode';
 
-export class UVNode extends TempNode {
-    constructor(index?: number);
-
+export default class UVNode extends AttributeNode {
+    isUVNode: true;
     index: number;
-    nodeType: string;
 
-    copy(source: UVNode): this;
+    constructor(index?: number);
 }

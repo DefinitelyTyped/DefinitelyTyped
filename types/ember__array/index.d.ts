@@ -1,11 +1,10 @@
-// Type definitions for non-npm package @ember/array 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Farray
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
+// Type definitions for non-npm package @ember/array 4.0
+// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Farray
+// Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 import ComputedProperty from "@ember/object/computed";
 import Mixin from "@ember/object/mixin";
@@ -30,7 +29,7 @@ interface Array<T> extends Enumerable<T> {
      * This returns the objects at the specified indexes, using `objectAt`.
      */
     // tslint:disable-next-line:array-type
-    objectsAt(indexes: number[]): Array<T>;
+    objectsAt(indexes: number[]): Array<T | undefined>;
     /**
      * Returns a new array that is a slice of the receiver. This implementation
      * uses the observable array methods to retrieve the objects for the new
@@ -52,36 +51,6 @@ interface Array<T> extends Enumerable<T> {
      */
     lastIndexOf(searchElement: T, fromIndex?: number): number;
     /**
-     * Adds an array observer to the receiving array. The array observer object
-     * normally must implement two methods:
-     */
-    addArrayObserver(target: {}, opts: {}): this;
-    /**
-     * Removes an array observer from the object if the observer is current
-     * registered. Calling this method multiple times with the same object will
-     * have no effect.
-     */
-    removeArrayObserver(target: {}, opts: {}): this;
-    /**
-     * Becomes true whenever the array currently has observers watching changes
-     * on the array.
-     */
-    hasArrayObservers: ComputedProperty<boolean>;
-    /**
-     * If you are implementing an object that supports `Ember.Array`, call this
-     * method just before the array content changes to notify any observers and
-     * invalidate any related properties. Pass the starting index of the change
-     * as well as a delta of the amounts to change.
-     */
-    arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): this;
-    /**
-     * If you are implementing an object that supports `Ember.Array`, call this
-     * method just after the array content changes to notify any observers and
-     * invalidate any related properties. Pass the starting index of the change
-     * as well as a delta of the amounts to change.
-     */
-    arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): this;
-    /**
      * Returns a special object that can be used to observe individual properties
      * on the array. Just get an equivalent property on this object and it will
      * return an enumerable that maps automatically to the named key on the
@@ -91,7 +60,7 @@ interface Array<T> extends Enumerable<T> {
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type
-declare const Array: Mixin<Array<any>>;
+declare const Array: Mixin<Array<unknown>>;
 export default Array;
 
 /**
@@ -107,4 +76,4 @@ export function A<T>(arr?: T[]): NativeArray<T>;
 /**
  * Returns true if the passed object is an array or Array-like.
  */
-export function isArray(obj: any): obj is ArrayLike<any>;
+export function isArray(obj: unknown): obj is ArrayLike<unknown>;

@@ -12,7 +12,7 @@ export type NdType<T> = DataType | Data<T>;
 export interface NdArray<T = number> extends BaseNdArray<Data<T>> {
     ndim: number;
     T: NdArray<T>;
-    slice(...args: Array<number | number[]>): NdArray<T>;
+    slice(...args: Array<number | Array<number | null> | null>): NdArray<T>;
 
     /**
      * Return a copy of the array collapsed into one dimension using row-major order (C-style)

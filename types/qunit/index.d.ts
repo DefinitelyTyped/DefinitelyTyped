@@ -1,11 +1,12 @@
-// Type definitions for QUnit v2.11.3
-// Project: http://qunitjs.com/
+// Type definitions for QUnit v2.19.0
+// Project: https://qunitjs.com/
 // Definitions by: James Bracy <https://github.com/waratuman>
 //                 Mike North <https://github.com/mike-north>
 //                 Stefan Sechelmann <https://github.com/sechel>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Timo Tijhof <https://github.com/Krinkle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare global {
@@ -13,138 +14,149 @@ declare global {
         /**
          * Instruct QUnit to wait for an asynchronous operation.
          *
-         * The callback returned from `assert.async()` will throw an Error if it is
-         * invoked more than once (or more often than the accepted call count, if
-         * provided).
+         * `assert.async()` returns a callback function and pauses test processing until the
+         * callback function is called. The callback will throw an `Error` if it is invoked more
+         * often than the required call count.
          *
-         * This replaces functionality previously provided by `QUnit.stop()` and
-         * `QUnit.start()`.
-         *
-         * @param {number} [acceptCallCount=1] Number of expected callbacks before the test is done.
+         * @param {number} [count=1] Number of expected calls
          */
-        async(acceptCallCount?: number): () => void;
+        async(count?: number): () => void;
 
         /**
-         * A deep recursive comparison, working on primitive types, arrays, objects,
-         * regular expressions, dates and functions.
+         * A recursive and strict comparison, considering all own and inherited properties.
          *
-         * The `deepEqual()` assertion can be used just like `equal()` when comparing
-         * the value of objects, such that `{ key: value }` is equal to
-         * `{ key: value }`. For non-scalar values, identity will be disregarded by
-         * deepEqual.
+         * For primitive values, a strict comparison is used. For objects, the object identity is
+         * disregarded and instead a recursive comparison of all own and inherited properties is
+         * performed. This means arrays, plain objects, and arbitrary class instance objects can
+         * all be compared in this way.
          *
-         * `notDeepEqual()` can be used to explicitly test deep, strict inequality.
+         * The deep comparison includes built-in support for Date objects, regular expressions,
+         * NaN, as well as ES6 features such as Symbol, Set, and Map objects.
          *
-         * @param actual Object or Expression being tested
+         * To assert strict equality on own properties only, refer to `assert.propEqual()`.
+         *
+         * @param actual Expression being tested
          * @param expected Known comparision value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description of the actual expression
          */
         deepEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * A non-strict comparison, roughly equivalent to JUnit's assertEquals.
+         * A non-strict comparison of two values.
          *
-         * The `equal` assertion uses the simple comparison operator (`==`) to
-         * compare the actual and expected arguments. When they are equal, the
-         * assertion passes; otherwise, it fails. When it fails, both actual and
-         * expected values are displayed in the test result, in addition to a given
-         * message.
+         * The `equal` assertion uses the simple comparison operator (`==`) to compare the actual
+         * and expected arguments. When they are equal, the assertion passes; otherwise, it fails.
          *
-         *  `notEqual()` can be used to explicitly test inequality.
+         * When it fails, both actual and expected values are displayed in the test result, in
+         * addition to a given message.
          *
-         * `strictEqual()` can be used to test strict equality.
+         * To test for strict equality, use `assert.strictEqual()`.
          *
          * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description of the actual expression
          */
         equal(actual: any, expected: any, message?: string): void;
 
         /**
-         * Specify how many assertions are expected to run within a test.
+         * Specify how many assertions are expected in a test.
          *
-         * To ensure that an explicit number of assertions are run within any test,
-         * use `assert.expect( number )` to register an expected count. If the
-         * number of assertions run does not match the expected count, the test will
-         * fail.
+         * This is most commonly used as `assert.expect(0)`, which indicates that a test may pass
+         * without making any assertions. This means the test is only used to verify that the code
+         * runs to completion, without any uncaught errors. This is is essentially the inverse of
+         * `assert.throws()`.
          *
-         * @param {number} amount Number of assertions in this test.
+         * This can also be used to explicitly require a certain number of assertions to be
+         * recorded in a given test. If afterwards the number of assertions does not match the
+         * expected count, the test will fail.
+         *
+         * It is recommended to test asynchronous code with `assert.step()` or `assert.async()`
+         * instead.
+         *
+         * @param {number} amount Number of expected assertions in this test
          */
         expect(amount: number): void;
 
         /**
          * A strict comparison that passes if the first argument is boolean `false`.
          *
-         * `false()` requires just one argument.
-         * If the first argument evaluates to false, the assertion passes; otherwise, it fails.
-         * If a second message argument is provided, it will be displayed in place of the result.
+         * If the argument evaluates to false, the assertion passes; otherwise, it fails.
          *
          * @param state Expression being tested
-         * @param {string} message A short description of the assertion
+         * @param {string} [message] Short description
          */
         false(state: any, message?: string): void;
 
         /**
-         * An inverted deep recursive comparison, working on primitive types,
-         * arrays, objects, regular expressions, dates and functions.
+         * An inverted deep equal comparison.
          *
-         * @param actual Object or Expression being tested
+         * This assertion fails if the actual and expected values are recursively equal by strict
+         * comparison, considering both own and inherited properties.
+         *
+         * The assertion passes if there are structural differences, type differences, or even a
+         * subtle difference in a particular property value.
+         *
+         * This is the inverse of `assert.deepEqual()`.
+         *
+         * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description
          */
         notDeepEqual(actual: any, expected: any, message?: string): void;
 
         /**
-         * A non-strict comparison, checking for inequality.
+         * A loose inequality comparison, checking for non-strict differences between two values.
          *
-         * The `notEqual` assertion uses the simple inverted comparison operator
-         * (`!=`) to compare the actual and expected arguments. When they aren't
-         * equal, the assertion passes; otherwise, it fails. When it fails, both
-         * actual and expected values are displayed in the test result, in addition
-         * to a given message.
+         * The `notEqual` assertion uses the simple inverted comparison operator (`!=`) to compare
+         * the actual and expected values. When they aren't equal, the assertion passes;
+         * otherwise, it fails. When it fails, both actual and expected values are displayed in
+         * the test result, in addition to a given message.
          *
-         * `equal()` can be used to test equality.
-         *
-         * `notStrictEqual()` can be used to test strict inequality.
-         *
-         * @param actual Object or Expression being tested
+         * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description
          */
         notEqual(actual: any, expected: any, message?: string): void;
 
         /**
-         * A boolean check, inverse of `ok()` and CommonJS's `assert.ok()`, and
-         * equivalent to JUnit's `assertFalse()`. Passes if the first argument is
-         * falsy.
+         * A boolean check that passes when the first argument is falsy.
          *
-         * `notOk()` requires just one argument. If the argument evaluates to false,
-         * the assertion passes; otherwise, it fails. If a second message argument
-         * is provided, it will be displayed in place of the result.
+         * If the argument evaluates to false, the assertion passes; otherwise, it fails.
+         *
+         * To strictly compare against boolean false, use `assert.false()`.
          *
          * @param state Expression being tested
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description
          */
         notOk(state: any, message?: string): void;
 
         /**
-         * A strict comparison of an object's own properties, checking for inequality.
+         * Check that an object does not contain certain properties.
          *
-         * The `notPropEqual` assertion uses the strict inverted comparison operator
-         * (`!==`) to compare the actual and expected arguments as Objects regarding
-         * only their properties but not their constructors.
+         * The `notPropContains` assertion compares the subset of properties
+         * in the expected object, and tests that these keys are either absent
+         * or hold a value that is different according to a strict equality comparison.
          *
-         * When they aren't equal, the assertion passes; otherwise, it fails. When
-         * it fails, both actual and expected values are displayed in the test
-         * result, in addition to a given message.
+         * This method is recursive and allows partial comparison of nested objects as well.
          *
-         * `equal()` can be used to test equality.
-         *
-         * `propEqual()` can be used to test strict equality of an Object properties.
-         *
-         * @param actual Object or Expression being tested
+         * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description
+         */
+        notPropContains(actual: any, expected: any, message?: string): void;
+
+        /**
+         * Compare an object's own properties using a strict inequality comparison.
+         *
+         * The `notPropEqual` assertion compares only an object's own properties,
+         * using the strict inquality operator (`!==`).
+         *
+         * The test passes if there are properties with different values, or extra properties
+         * or missing properties.
+         *
+         * @param actual Expression being tested
+         * @param expected Known comparison value
+         * @param {string} [message] Short description
          */
         notPropEqual(actual: any, expected: any, message?: string): void;
 
@@ -157,64 +169,139 @@ declare global {
          * both actual and expected values are displayed in the test result, in
          * addition to a given message.
          *
-         * `equal()` can be used to test equality.
+         * `assert.equal()` can be used to test equality.
          *
-         * `strictEqual()` can be used to test strict equality.
+         * `assert.strictEqual()` can be used to test strict equality.
          *
-         * @param actual Object or Expression being tested
+         * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description
          */
         notStrictEqual(actual: any, expected: any, message?: string): void;
 
         /**
-         * A boolean check, equivalent to CommonJS's assert.ok() and JUnit's
-         * assertTrue(). Passes if the first argument is truthy.
+         * A boolean check that passes when the first argument is truthy.
          *
-         * The most basic assertion in QUnit, ok() requires just one argument. If
-         * the argument evaluates to true, the assertion passes; otherwise, it
-         * fails. If a second message argument is provided, it will be displayed in
-         * place of the result.
+         * If the argument evaluates to true, the assertion passes; otherwise, it fails.
+         *
+         * To strictly compare against boolean true, use `assert.true()`.
          *
          * @param state Expression being tested
-         * @param {string} message A short description of the assertion
+         * @param {string} [message] Short description
          */
         ok(state: any, message?: string): void;
 
         /**
-         * A strict type and value comparison of an object's own properties.
+         * Check that an object contains certain properties.
          *
-         * The `propEqual()` assertion provides strictly (`===`) comparison of
-         * Object properties. Unlike `deepEqual()`, this assertion can be used to
-         * compare two objects made with different constructors and prototype.
+         * The `propContains` assertion compares only the subset of properties
+         * in the expected object, and tests that these keys exist as own properties
+         * with strictly equal values.
          *
-         * `strictEqual()` can be used to test strict equality.
+         * This method is recursive and allows partial comparison of nested objects as well.
          *
-         * `notPropEqual()` can be used to explicitly test strict inequality of
-         * Object properties.
+         * Use `assert.propEqual()` to compare all properties.
+         * Use `assert.notPropContains()` to test for the absence or inequality of properties.
          *
-         * @param actual Object or Expression being tested
+         * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description of the actual expression
+         */
+        propContains(actual: any, expected: any, message?: string): void;
+
+        /**
+         * Compare an object's own properties using a strict comparison.
+         *
+         * The `propEqual` assertion only compares an object's own properties. This means the
+         * expected value does not need to be an instance of the same class or otherwise inherit
+         * the same prototype. This is in contrast with `assert.deepEqual()`.
+         *
+         * This assertion fails if the values differ, or if there are extra properties, or if
+         * some properties are missing.
+         *
+         * This method is recursive and can compare any nested or complex object via a plain object.
+         *
+         * Use `assert.propContains()` to only check a subset of properties.
+         *
+         * @param actual Expression being tested
+         * @param expected Known comparison value
+         * @param {string} [message] Short description of the actual expression
          */
         propEqual(actual: any, expected: any, message?: string): void;
 
         /**
-         * Report the result of a custom assertion
+         * Report the result of a custom assertion.
          *
-         * Some test suites may need to express an expectation that is not defined
-         * by any of QUnit's built-in assertions. This need may be met by
-         * encapsulating the expectation in a JavaScript function which returns a
-         * `Boolean` value representing the result; this value can then be passed
-         * into QUnit's `ok` assertion.
+         * If you need to express an expectation that is not abstracted by a built-in assertion,
+         * you can perform your own logic ad-hoc in an expression, and then pass two directly
+         * comparable values top `assert.strictEqual()` or `assert.true()`.
          *
-         * A more readable solution would involve defining a custom assertion. If
-         * the expectation function invokes `pushResult`, QUnit will be notified of
-         * the result and report it accordingly.
+         * If you opt to create your own assertion method instead, use `pushResult` to
+         * save the result.
+         *
+         * Example:
+         *
+         * ```
+         * QUnit.assert.between = function (actual, from, to, message) {
+         *   const isBetween = (actual >= from && actual <= to);
+         *
+         *   this.pushResult({
+         *     result: isBetween,
+         *     actual: actual,
+         *     expected: `between ${from} and ${to} inclusive`,
+         *     message: message
+         *   });
+         * };
+         * ```
          *
          * @param assertionResult The assertion result
          */
-        pushResult(assertResult: { result: boolean; actual: any; expected: any; message: string }): void;
+        pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string }): void;
+
+        /**
+         * Test if the provided promise rejects, and optionally compare the rejection value.
+         *
+         * When testing code that is expected to return a rejected promise based on a
+         * specific set of circumstances, use `assert.rejects()` for testing and comparison.
+         *
+         * The expectedMatcher argument can be:
+         *      A function that returns true when the assertion should be considered passing.
+         *      An Error object.
+         *      A base constructor to use ala rejectionValue instanceof expectedMatcher.
+         *      A RegExp that matches (or partially matches) rejectionValue.toString().
+         *
+         * Note: in order to avoid confusion between the message and the expectedMatcher,
+         * the expectedMatcher can not be a string.
+         *
+         * @param promise Promise to test for rejection
+         * @param expectedMatcher Rejection value matcher
+         * @param message Short description of the assertion
+         */
+        rejects(promise: Promise<any>, message?: string): Promise<void>;
+        rejects(promise: Promise<any>, expectedMatcher?: any, message?: string): Promise<void>;
+
+        /**
+         * Set how long to wait for async operations to finish.
+         *
+         * This assertion defines how long to wait (at most) in the current test. It overrides QUnit.config.testTimeout on a per-test basis.
+         *
+         * The timeout length only applies when a test actually involves asynchronous functions or promises. If 0 is passed, then awaiting or returning any Promise may fail the test.
+         *
+         * If assert.timeout() is called after a different timeout is already set, the old timeout will be cleared and the new duration will be used to start a new timer.
+         *
+         * @param duration The length of time to wait, in milleseconds.
+         */
+        timeout(duration: number): void;
+
+        /**
+         * Record a step for later verification.
+         *
+         * This assertion registers a passing assertion with the provided string. This and any
+         * other steps should be verified later in the test via `assert.verifySteps()`.
+         *
+         * @param value Relevant string value, or short description, to mark this step.
+         */
+        step(value: string): void;
 
         /**
          * A strict type and value comparison.
@@ -222,91 +309,57 @@ declare global {
          * The `strictEqual()` assertion provides the most rigid comparison of type
          * and value with the strict equality operator (`===`).
          *
-         * `equal()` can be used to test non-strict equality.
+         * `assert.equal()` can be used to test non-strict equality.
          *
-         * `notStrictEqual()` can be used to explicitly test strict inequality.
-         *
-         * @param actual Object or Expression being tested
+         * @param actual Expression being tested
          * @param expected Known comparison value
-         * @param {string} [message] A short description of the assertion
+         * @param {string} [message] Short description of the assertion
          */
         strictEqual<T>(actual: T, expected: T, message?: string): void;
 
         /**
-         * A strict comparison that passes if the first argument is boolean `true`.
-         *
-         * `true()` requires just one argument.
-         * If the first argument evaluates to true, the assertion passes; otherwise, it fails.
-         * If a second message argument is provided, it will be displayed in place of the result.
-         *
-         * @param state Expression being tested
-         * @param {string} message A short description of the assertion
-         */
-        true(state: any, message?: string): void;
-
-        /**
-         * Test if a callback throws an exception, and optionally compare the thrown
-         * error.
+         * Test if a callback throws an exception, and optionally compare the thrown error.
          *
          * When testing code that is expected to throw an exception based on a
-         * specific set of circumstances, use assert.throws() to catch the error
+         * specific set of circumstances, use `assert.throws()` to catch the error
          * object for testing and comparison.
          *
-         * In very few environments, like Closure Compiler, throws is considered a
-         * reserved word and will cause an error. For that case, an alias is bundled
-         * called `raises`. It has the same signature and behaviour, just a
-         * different name.
+         * The expectedMatcher argument can be:
+         *      An Error object.
+         *      An Error constructor to use ala `errorValue instanceof expectedMatcher`.
+         *      A RegExp that matches (or partially matches) the string representation.
+         *      A callback Function that must return `true` to pass the assertion check.
          */
         throws(block: () => void, expected?: any, message?: any): void;
         raises(block: () => void, expected?: any, message?: any): void;
 
         /**
-         * Test if the provided promise rejects, and optionally compare the
-         * rejection value.
+         * A strict comparison that passes if the first argument is boolean `true`.
          *
-         * When testing code that is expected to return a rejected promise based on
-         * a specific set of circumstances, use assert.rejects() for testing and
-         * comparison.
+         * If the argument evaluates to true, the assertion passes; otherwise, it fails.
          *
-         * The expectedMatcher argument can be:
-         *      A function that returns true when the assertion should be considered passing.
-         *      An Error object
-         *      A base constructor to use ala rejectionValue instanceof expectedMatcher
-         *      A RegExp that matches (or partially matches) rejectionValue.toString()
-         *
-         * Note: in order to avoid confusion between the message and the expectedMatcher,
-         * the expectedMatcher can not be a string.
-         *
-         * @param promise promise to test for rejection
-         * @param expectedMatcher Rejection value matcher
-         * @param message A short description of the assertion
+         * @param state Expression being tested
+         * @param {string} [message] Short description of the actual expression
          */
-        rejects(promise: Promise<any>, message?: string): Promise<void>;
-        rejects(promise: Promise<any>, expectedMatcher?: any, message?: string): Promise<void>;
+        true(state: any, message?: string): void;
 
         /**
-         * A marker for progress in a given test.
+         * Verify the presence and exact order of previously marked steps in a test.
          *
-         * The `step()` assertion registers a passing assertion with a provided message. This makes
-         * it easy to check that specific portions of code are being executed, especially in
-         * asynchronous test cases and when used with `verifySteps()`.
+         * The Step API provides an easy way to verify execution logic to a high degree of
+         * accuracy and precision, whether for asynchronous code, event-driven code, or
+         * callback-driven code.
          *
-         * Together with the `verifySteps()` method, `step()` assertions give you an easy way
-         * to verify both the count and order of code execution.
+         * For example, you can mark steps to observe and validate whether parts of your code are
+         * reached correctly, or to check the frequency (how often) an asynchronous code path is
+         * executed. You can also capture any unexpected steps, which are automatically detected
+         * and shown as part of the test failure.
          *
-         * @param message Message to display for the step
-         */
-        step(message: string): void;
-
-        /**
-         * A helper assertion to verify the order and number of steps in a test.
+         * This assertion compares a given array of string values to a list of previously recorded
+         * steps, as marked via previous calls to `assert.step()`.
          *
-         * The assert.verifySteps() assertion compares a given array of string values (representing steps)
-         * with the order and values of previous step() calls. This assertion is helpful for verifying
-         * the order and count of portions of code paths, especially asynchronous ones.
-         *
-         * @param steps Array of strings representing steps to verify
-         * @param message A short description of the assertion
+         * @param steps List of strings
+         * @param message Short description of the assertion
          */
         verifySteps(steps: string[], message?: string): void;
     }
@@ -316,26 +369,39 @@ declare global {
         autostart: boolean;
         collapse: boolean;
         current: any;
+        failOnZeroTests: boolean;
         filter: string | RegExp;
         fixture: string;
         hidepassed: boolean;
         maxDepth: number;
         module: string;
         moduleId: string[];
-        notrycatch: boolean;
         noglobals: boolean;
-        seed: string;
+        notrycatch: boolean;
         reorder: boolean;
         requireExpects: boolean;
+        scrolltop: boolean;
+        seed: string;
         testId: string[];
         testTimeout: number;
-        scrolltop: boolean;
         urlConfig: {
             id?: string | undefined;
             label?: string | undefined;
             tooltip?: string | undefined;
             value?: string | string[] | { [key: string]: string } | undefined;
         }[];
+    }
+
+    interface GlobalHooks {
+        /**
+         * Runs after each test.
+         */
+         afterEach(fn: (assert: Assert) => void | Promise<void>): void;
+
+         /**
+         * Runs before each test.
+         */
+        beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
     }
 
     interface Hooks {
@@ -392,7 +458,10 @@ declare global {
 
     namespace QUnit {
         interface BeginDetails {
+            /** Number of registered tests */
             totalTests: number;
+            /** List of registered modules, */
+            modules: Array<{ name: string, moduleId: string }>
         }
         interface DoneDetails {
             failed: number;
@@ -504,6 +573,21 @@ declare global {
         extend(target: any, mixin: any): void;
 
         /**
+         * Register a global callback to run before or after each test.
+         *
+         * This is the equivalent of applying a QUnit.module() hook to all modules
+         * and all tests, including global tests that are not associated with any module.
+         *
+         * Similar to module hooks, global hooks support async functions or
+         * returning a Promise, which will be waited for before QUnit continues executing tests.
+         * Each global hook also has access to the same assert object and
+         * test context as the QUnit.test that the hook is running for.
+         *
+         * For more details about hooks, refer to QUnit.module § Hooks.
+         */
+        hooks: GlobalHooks
+
+        /**
          * Register a callback to fire whenever an assertion completes.
          *
          * This is one of several callbacks QUnit provides. Its intended for
@@ -585,6 +669,14 @@ declare global {
          * @param callback Function to close over assertions
          */
         only(name: string, callback: (assert: Assert) => void | Promise<void>): void;
+
+        /**
+         * Handle a global error that should result in a failed test run.
+         *
+         * @since 2.17.0
+         * @param {Error|any} error
+         */
+        onUncaughtException: (error: unknown) => void;
 
         /**
          * DEPRECATED: Report the result of a custom assertion.

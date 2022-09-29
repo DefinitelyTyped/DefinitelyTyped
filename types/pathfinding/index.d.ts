@@ -1,7 +1,6 @@
 // Type definitions for pathfinding
 // Project: https://github.com/qiao/PathFinding.js
-// Definitions by: BNedry <https://github.com/BNedry>
-//                 Hartley Robertson <https://github.com/hartleyrobertson>
+// Definitions by: Hartley Robertson <https://github.com/hartleyrobertson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "pathfinding" {

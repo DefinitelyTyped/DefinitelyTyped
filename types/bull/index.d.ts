@@ -111,7 +111,7 @@ declare namespace Bull {
      * Define a custom backoff strategy
      */
     backoffStrategies?: {
-      [key: string]: (attemptsMade: number, err: Error) => number;
+      [key: string]: (attemptsMade: number, err: Error, strategyOptions?: any) => number;
     } | undefined;
 
     /**
@@ -331,6 +331,11 @@ declare namespace Bull {
      * Backoff delay, in milliseconds
      */
     delay?: number | undefined;
+
+    /**
+     * Options for custom strategies
+     */
+    strategyOptions?: any;
   }
 
   interface RepeatOptions {
@@ -421,15 +426,17 @@ declare namespace Bull {
      * A boolean which, if true, removes the job when it successfully completes.
      * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the completed set.
+     * See KeepJobsOptions if using that interface instead.
      */
-    removeOnComplete?: boolean | number | undefined;
+    removeOnComplete?: boolean | number | KeepJobsOptions |undefined;
 
     /**
      * A boolean which, if true, removes the job when it fails after all attempts.
      * When a number, it specifies the amount of jobs to keep.
      * Default behavior is to keep the job in the failed set.
+     * See KeepJobsOptions if using that interface instead.
      */
-    removeOnFail?: boolean | number | undefined;
+    removeOnFail?: boolean | number | KeepJobsOptions | undefined;
 
     /**
      * Limits the amount of stack trace lines that will be recorded in the stacktrace.
@@ -440,6 +447,22 @@ declare namespace Bull {
      * Prevents JSON data from being parsed.
      */
     preventParsingData?: boolean | undefined;
+  }
+
+  /**
+   * Specify which jobs to keep after finishing processing this job.
+   * If both age and count are specified, then the jobs kept will be the ones that satisfies both properties.
+   */
+  interface KeepJobsOptions {
+    /**
+     * Maximum age in *seconds* for job to be kept.
+     */
+    age?: number | undefined;
+
+    /**
+     * Maximum count of jobs to be kept.
+     */
+    count?: number | undefined;
   }
 
   interface JobCounts {

@@ -330,7 +330,12 @@ export class StylesProcessor {
      *      }
      *    } );
      */
-    setExtractor(name: string, callbackOrPath: string | ((styles: Record<string, any>) => Record<string, any>)): void;
+    setExtractor(
+        name: string,
+        callbackOrPath:
+            | string
+            | ((styles: Record<string, string | Record<string, string>>) => Record<string, any> | void),
+    ): void;
     /**
      * Adds a normalizer method for a style property.
      *
@@ -379,7 +384,13 @@ export class StylesProcessor {
      *      }
      *    } );
      */
-    setNormalizer(name: string, callback: (notation: string) => { path: string; value: string }): void;
+    setNormalizer(
+        name: string,
+        callback: (notation: string) => {
+            path: string;
+            value: string | Record<string, string> | Record<string, Record<string, string>> | BoxSides;
+        },
+    ): void;
     /**
      * Adds a reducer callback for a style property.
      *
@@ -410,7 +421,14 @@ export class StylesProcessor {
      *      ]
      *    } );
      */
-    setReducer(name: string, callback: (notation: any) => [property: string, value: string]): void;
+    setReducer(
+        name: 'padding' | 'margin',
+        callback: (notation: NonNullable<BoxSides>) => Array<[property: string, value: string]>,
+    ): void;
+    setReducer(
+        name: string,
+        callback: (notation: Record<string, string | undefined>) => Array<[property: string, value: string]>,
+    ): void;
     /**
      * Defines a style shorthand relation to other style notations.
      *
@@ -494,10 +512,10 @@ export class StylesProcessor {
 }
 
 export interface BoxSides {
-    bottom: string;
-    left: string;
-    right: string;
-    top: string;
+    bottom: string | undefined;
+    left: string | undefined;
+    right: string | undefined;
+    top: string | undefined;
 }
 
 export type PropertyDescriptor = [property: string, value: string];

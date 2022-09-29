@@ -192,6 +192,13 @@ i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr" }, 3); // 3 chat
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 1 }); // 1 chat
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 3 }); // 3 chat
 
+// mustache plurals
+i18n.__n('example', 1, {me: 'marcus'}); // and a catchall rule for marcus
+i18n.__n('example', 2, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 5, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 3, {me: 'marcus'}); // two to five (included) for marcus
+i18n.__n('example', 6, {me: 'marcus'}); // and a catchall rule for marcus
+
 /**
  * __mf()
  * https://github.com/mashpie/i18n-node#i18n__mf
@@ -275,6 +282,11 @@ req.getCatalog('de'); // returns just 'de'
 const i18nInstance = new I18n(); // creates new instance of i18n
 
 i18nInstance.configure({
+    locales: ['en', 'de'],
+    directory: __dirname + '/locales'
+});
+
+const i18nInstanceWithConstructorOptions = new I18n({
     locales: ['en', 'de'],
     directory: __dirname + '/locales'
 });

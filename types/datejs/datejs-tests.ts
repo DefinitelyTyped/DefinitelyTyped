@@ -21,7 +21,7 @@ function tests() {
     n.months().fromNow();
 
     // Set to 8:30 AM on the 15th day of the month
-    Date.today().set(<any>{ day: 15, hour: 8, minute: 30 });
+    Date.today().set({ day: 15, hour: 8, minute: 30 });
 
     Date.today().is().january();
     Date.today().is().november();

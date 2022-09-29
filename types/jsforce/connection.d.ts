@@ -1,24 +1,24 @@
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 import {
     BatchDescribeSObjectOptions,
     DescribeSObjectOptions,
     DescribeSObjectResult,
     DescribeGlobalResult,
-} from "./describe-result";
-import { Query, QueryResult, ExecuteOptions } from "./query";
-import { Record } from "./record";
-import { RecordResult } from "./record-result";
-import { SObject } from "./salesforce-object";
-import { Analytics } from "./api/analytics";
-import { Chatter } from "./api/chatter";
-import { Metadata } from "./api/metadata";
-import { SoapApi } from "./api/soap";
-import { Apex } from "./api/apex";
-import { Bulk } from "./bulk";
-import { Cache } from "./cache";
-import { OAuth2, Streaming } from ".";
-import { HttpApiOptions } from "./http-api";
-import { LimitsInfo } from "./limits-info";
+} from './describe-result';
+import { Query, QueryResult, ExecuteOptions } from './query';
+import { Record } from './record';
+import { RecordResult } from './record-result';
+import { SObject } from './salesforce-object';
+import { Analytics } from './api/analytics';
+import { Chatter } from './api/chatter';
+import { Metadata } from './api/metadata';
+import { SoapApi } from './api/soap';
+import { Apex } from './api/apex';
+import { Bulk } from './bulk';
+import { Cache } from './cache';
+import { OAuth2, Streaming } from '.';
+import { HttpApiOptions } from './http-api';
+import { LimitInfo, LimitsInfo } from './limits-info';
 
 export type Callback<T> = (err: Error | null, result: T) => void;
 // The type for these options was determined by looking at the usage
@@ -26,7 +26,7 @@ export type Callback<T> = (err: Error | null, result: T) => void;
 // go to http://jsforce.github.io/jsforce/doc/connection.js.html#line568
 // and search for options
 export interface RestApiOptions {
-    headers?: { [x: string]: string } | undefined
+    headers?: { [x: string]: string } | undefined;
     allowRecursive?: boolean | undefined;
     allOrNone?: boolean | undefined;
 }
@@ -61,7 +61,9 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     httpProxy?: string | undefined;
     redirectUri?: string | undefined;
     refreshToken?: string | undefined;
-    refreshFn?: ((conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>) | undefined;
+    refreshFn?:
+        | ((conn: Connection, callback: (err: Error | null, accessToken: string, res?: unknown) => void) => unknown)
+        | undefined;
     serverUrl?: string | undefined;
     sessionId?: string | undefined;
     signedRequest?: string | Object | undefined;
@@ -157,7 +159,7 @@ export interface ExecuteAnonymousResult {
     exceptionStackTrace: string;
 }
 
-export type ConnectionEvent = "refresh";
+export type ConnectionEvent = 'refresh';
 
 export interface SearchResult<T> {
     searchRecords: Record<T>[];
@@ -311,6 +313,7 @@ export class Connection extends BaseConnection {
     oauth2: OAuth2;
     streaming: Streaming;
     cache: Cache;
+    limitInfo?: LimitInfo;
 
     // Specific to Connection
     instanceUrl: string;
@@ -319,7 +322,11 @@ export class Connection extends BaseConnection {
     refreshToken?: string | undefined;
     userInfo?: UserInfo | undefined;
     initialize(options?: ConnectionOptions): void;
-    queryAll<T>(soql: string, options?: object, callback?: (err: Error, result: QueryResult<T>) => void): Query<QueryResult<T>>;
+    queryAll<T>(
+        soql: string,
+        options?: object,
+        callback?: (err: Error, result: QueryResult<T>) => void,
+    ): Query<QueryResult<T>>;
     authorize(code: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     login(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginByOAuth2(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
@@ -332,6 +339,17 @@ export class Connection extends BaseConnection {
     logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
     limits(callback?: (err: Error, res: undefined) => void): Promise<LimitsInfo>;
     identity(callback?: (err: Error, res: IdentityInfo) => void): Promise<IdentityInfo>;
+    requestPost<T = object>(
+        url: string,
+        body: object,
+        options_callback?: HttpApiOptions | ((err: Error, Object: T) => void),
+    ): Promise<T>;
+    requestPost<T = object>(
+        url: string,
+        body: object,
+        options?: HttpApiOptions,
+        callback?: (err: Error, Object: T) => void,
+    ): Promise<T>;
 }
 
 export class Tooling extends BaseConnection {

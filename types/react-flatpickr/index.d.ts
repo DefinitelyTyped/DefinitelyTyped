@@ -1,7 +1,6 @@
 // Type definitions for react-flatpickr 3.8
 // Project: https://github.com/coderhaoxin/react-flatpickr
 // Definitions by: snaveevans <https://github.com/snaveevans>
-//                 rigothedev <https://github.com/rigothedev>
 //                 doniyor2109 <https://github.com/doniyor2109>
 //                 jleider <https://github.com/jleider>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +11,7 @@ import flatpickr from "flatpickr";
 
 export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
-export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'value'> {
+export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'children' | 'value'> {
     defaultValue?: string | undefined;
     options?: flatpickr.Options.Options | undefined;
     onChange?: flatpickr.Options.Hook | undefined;
@@ -25,7 +24,8 @@ export interface DateTimePickerProps extends Omit<Partial<HTMLInputElement>, 'va
     onDayCreate?: flatpickr.Options.Hook | undefined;
     value?: string | Date | number | ReadonlyArray<string | Date | number> | undefined;
     className?: string | undefined;
-    render?: ((props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement) => void) => ReactElement) | undefined;
+    children?: React.ReactNode | undefined;
+    render?: ((props: Omit<DateTimePickerProps, 'options' | 'render'>, ref: (node: HTMLInputElement | null) => void) => ReactElement) | undefined;
 }
 
 export default class DatePicker extends Component<DateTimePickerProps> {

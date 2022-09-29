@@ -112,6 +112,7 @@ Twitch.ext.bits.useBits('MY-PRODUCT');
 // Twitch Viewer
 Twitch.ext.viewer.onChanged(() => {
     console.log('Viewer id: ' + Twitch.ext.viewer.id);
+    console.log('helixToken: ' + Twitch.ext.viewer.helixToken);
 });
 
 // Developer Rig

@@ -55,6 +55,10 @@ function testFilter() {
     const filtered: stream.Transform = filter<Foo>(function filterFunc(chunk) {
         return chunk.bar === this.variables.get('baz');
     });
+
+    const filteredAsync: stream.Transform = filter<Foo>(async function filterFunc(chunk) {
+        return chunk.bar === this.variables.get('baz');
+    });
 }
 
 function testFlatten() {

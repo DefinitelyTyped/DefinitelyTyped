@@ -2,7 +2,7 @@
 // Project: https://github.com/negativetwelve/jest-plugins/tree/master/packages/jest-plugin-context, https://github.com/negativetwelve/jest-plugins
 // Definitions by: Jonas Heinrich <https://github.com/jonasheinrich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 

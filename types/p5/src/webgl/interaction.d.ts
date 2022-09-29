@@ -23,9 +23,11 @@ declare module '../../index' {
          *   movement along X axis
          *   @param [sensitivityY] sensitivity to mouse
          *   movement along Y axis
+         *   @param [sensitivityZ] sensitivity to scroll
+         *   movement along Z axis
          *   @chainable
          */
-        orbitControl(sensitivityX?: number, sensitivityY?: number): p5;
+        orbitControl(sensitivityX?: number, sensitivityY?: number, sensitivityZ?: number): p5;
 
         /**
          *   debugMode() helps visualize 3D space by adding a

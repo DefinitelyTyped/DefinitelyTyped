@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 
-import { WEBGL } from 'three/examples/jsm/WebGL';
+import WEBGL from 'three/examples/jsm/capabilities/WebGL';
 
 if (!WEBGL.isWebGL2Available()) {
     document.body.appendChild(WEBGL.getWebGL2ErrorMessage());
@@ -15,7 +15,7 @@ let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
 let mesh: THREE.Mesh;
 let prevTime = performance.now();
-let cloudTexture: THREE.DataTexture3D | null = null;
+let cloudTexture: THREE.Data3DTexture | null = null;
 
 init();
 animate();
@@ -44,7 +44,7 @@ function generateCloudTexture(size: number, scaleFactor = 1.0) {
         }
     }
 
-    return new THREE.DataTexture3D(data, size, size, size);
+    return new THREE.Data3DTexture(data, size, size, size);
 }
 
 function init() {
@@ -82,7 +82,7 @@ function init() {
 
     // Texture
 
-    const texture = new THREE.DataTexture3D(
+    const texture = new THREE.Data3DTexture(
         new Uint8Array(INITIAL_CLOUD_SIZE * INITIAL_CLOUD_SIZE * INITIAL_CLOUD_SIZE).fill(0),
         INITIAL_CLOUD_SIZE,
         INITIAL_CLOUD_SIZE,
@@ -290,7 +290,7 @@ function animate() {
         const scaleFactor = (Math.random() + 0.5) * 0.5;
         const source = generateCloudTexture(perElementPaddedSize, scaleFactor);
 
-        renderer.copyTextureToTexture3D(box, position, source, cloudTexture as THREE.DataTexture3D);
+        renderer.copyTextureToTexture3D(box, position, source, cloudTexture as THREE.Data3DTexture);
 
         prevTime = time;
 

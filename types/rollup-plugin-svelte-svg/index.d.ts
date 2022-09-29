@@ -10,8 +10,8 @@ import type { Plugin } from 'rollup';
 import type { OptimizeOptions } from 'svgo';
 
 export interface Options {
-    enforce?: boolean;
-    svgo?: OptimizeOptions;
+    enforce?: 'pre' | 'post' | undefined;
+    svgo?: OptimizeOptions | undefined;
 }
 
 export function svelteSVG(options?: Options): Plugin;

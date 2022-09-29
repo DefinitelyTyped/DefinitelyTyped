@@ -1,6 +1,6 @@
 // Type definitions for ffprobe-static 2.0
 // Project: https://github.com/joshwnj/ffprobe-static
-// Definitions by: Steve Tran <https://github.com/iamstevetran>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*~ You can declare properties of the module using const, let, or var */

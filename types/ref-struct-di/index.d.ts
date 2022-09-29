@@ -162,12 +162,16 @@ declare namespace struct {
      */
     interface StructType<TDefinition extends StructTypeDefinitionBase = any> extends ref.Type<StructObject<StructObjectProperties<TDefinition>>> {
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        new (arg: Buffer, data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
-        new (data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
+        new (
+            arg?: Buffer | Partial<StructObjectProperties<TDefinition>>,
+            data?: Partial<StructObjectProperties<TDefinition>>
+        ): StructObject<StructObjectProperties<TDefinition>>;
 
         /** Pass it an existing Buffer instance to use that as the backing buffer. */
-        (arg: Buffer, data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
-        (data?: Partial<StructObjectProperties<TDefinition>>): StructObject<StructObjectProperties<TDefinition>>;
+        (
+            arg?: Buffer | Partial<StructObjectProperties<TDefinition>>,
+            data?: Partial<StructObjectProperties<TDefinition>>
+        ): StructObject<StructObjectProperties<TDefinition>>;
 
         fields: StructFields<TDefinition>;
 

@@ -12,7 +12,9 @@ declare namespace SemanticRelease {
      * A semver release type.
      * See https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-types.js
      */
-    type ReleaseType = "prerelease" | "prepatch" | "patch" | "preminor" | "minor" | "premajor" | "major";
+    type ReleaseType = 'prerelease' | 'prepatch' | 'patch' | 'preminor' | 'minor' | 'premajor' | 'major';
+
+    type LoggerFunction = (...message: any[]) => void;
 
     /**
      * semantic-release options.
@@ -209,14 +211,7 @@ declare namespace SemanticRelease {
         plugins: ReadonlyArray<PluginSpec>;
     }
 
-    /**
-     * Specifies a git branch holding commits to analyze and code to release.
-     *
-     * Each branch may be defined either by a string or an object. Specifying
-     * a string is a shortcut for specifying that string as the `name` field,
-     * for example `"master"` expands to `{name: "master"}`.
-     */
-    type BranchSpec = string | {
+    interface BranchObject {
         /**
          * The name of git branch.
          *
@@ -292,8 +287,16 @@ declare namespace SemanticRelease {
          * Required for pre-release branches.
          */
         prerelease?: string | boolean | undefined;
-    };
+    }
 
+    /**
+     * Specifies a git branch holding commits to analyze and code to release.
+     *
+     * Each branch may be defined either by a string or an object. Specifying
+     * a string is a shortcut for specifying that string as the `name` field,
+     * for example `"master"` expands to `{name: "master"}`.
+     */
+    type BranchSpec = string | BranchObject;
     /**
      * Specifies a plugin to use.
      *
@@ -422,8 +425,23 @@ declare namespace SemanticRelease {
          * The shared logger instance of semantic release.
          */
         logger: {
-            log: (message: string, ...vars: any[]) => void,
-            error: (message: string, ...vars: any[]) => void,
+            await: LoggerFunction;
+            complete: LoggerFunction;
+            debug: LoggerFunction;
+            error: LoggerFunction;
+            fatal: LoggerFunction;
+            fav: LoggerFunction;
+            info: LoggerFunction;
+            log: LoggerFunction;
+            note: LoggerFunction;
+            pause: LoggerFunction;
+            pending: LoggerFunction;
+            star: LoggerFunction;
+            start: LoggerFunction;
+            success: LoggerFunction;
+            wait: LoggerFunction;
+            warn: LoggerFunction;
+            watch: LoggerFunction;
         };
 
         /**
@@ -437,6 +455,11 @@ declare namespace SemanticRelease {
          * Commits to analyze.
          */
         commits?: Commit[];
+
+        /**
+         * Current branch being published.
+         */
+        branch: BranchObject;
     }
 
     interface Commit {
@@ -585,27 +608,29 @@ declare namespace SemanticRelease {
      * An object with details of the release if a release was published, or
      * false if no release was published.
      */
-    type Result = false | {
-        /**
-         * Information related to the last release found.
-         */
-        lastRelease: LastRelease;
+    type Result =
+        | false
+        | {
+              /**
+               * Information related to the last release found.
+               */
+              lastRelease: LastRelease;
 
-        /**
-         * The list of commits included in the new release.
-         */
-        commits: Commit[];
+              /**
+               * The list of commits included in the new release.
+               */
+              commits: Commit[];
 
-        /**
-         * Information related to the newly published release.
-         */
-        nextRelease: NextRelease;
+              /**
+               * Information related to the newly published release.
+               */
+              nextRelease: NextRelease;
 
-        /**
-         * The list of releases published, one release per publish plugin.
-         */
-        releases: Release[];
-    };
+              /**
+               * The list of releases published, one release per publish plugin.
+               */
+              releases: Release[];
+          };
 }
 
 /**
@@ -613,7 +638,9 @@ declare namespace SemanticRelease {
  * object.
  * @async
  */
-declare function SemanticRelease(options: SemanticRelease.Options,
-    environment?: SemanticRelease.Config): Promise<SemanticRelease.Result>;
+declare function SemanticRelease(
+    options: SemanticRelease.Options,
+    environment?: SemanticRelease.Config,
+): Promise<SemanticRelease.Result>;
 
 export = SemanticRelease;

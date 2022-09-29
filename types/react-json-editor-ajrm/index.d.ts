@@ -132,7 +132,7 @@ interface JSONInputProperties {
     confirmGood?: boolean | undefined;
     height?: string | undefined;
     width?: string | undefined;
-    onKeyPressUpdate?: string | undefined;
+    onKeyPressUpdate?: boolean | undefined;
     waitAfterKeyPress?: number | undefined;
     modifyErrorText?: ((errorReason: string) => string) | undefined;
     error?: error | undefined;

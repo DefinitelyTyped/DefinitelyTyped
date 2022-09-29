@@ -48,7 +48,7 @@ interface _IReadable extends _IEventEmitter {
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
     _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-    destroy(error?: Error): void;
+    destroy(error?: Error): this;
 }
 
 declare class _Readable implements _IReadable {
@@ -56,6 +56,8 @@ declare class _Readable implements _IReadable {
     readonly readableFlowing: boolean | null;
     readonly readableHighWaterMark: number;
     readonly readableLength: number;
+    readonly closed: boolean;
+    readonly errored: Error | null;
     _read(size: number): void;
     read(size?: number): any;
     setEncoding(encoding: string): this;
@@ -67,7 +69,7 @@ declare class _Readable implements _IReadable {
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
     _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
-    destroy(error?: Error): void;
+    destroy(error?: Error): this;
 
     /**
      * Event emitter
@@ -397,15 +399,18 @@ declare namespace _Readable {
         writable: boolean;
         write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
         write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(data: string | Uint8Array, cb?: () => void): this;
+        end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
     class _Writable extends Stream implements _IWritable {
         writable: boolean;
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
+        readonly closed: boolean;
+        readonly errored: Error | null;
+        readonly writableNeedDrain: boolean;
         constructor(opts?: WritableOptions);
         _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
         _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;
@@ -414,12 +419,12 @@ declare namespace _Readable {
         write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean;
         write(chunk: any, encoding?: string, cb?: (error: Error | null | undefined) => void): boolean;
         setDefaultEncoding(encoding: string): this;
-        end(cb?: () => void): void;
-        end(chunk: any, cb?: () => void): void;
-        end(chunk: any, encoding?: string, cb?: () => void): void;
+        end(cb?: () => void): this;
+        end(chunk: any, cb?: () => void): this;
+        end(chunk: any, encoding?: string, cb?: () => void): this;
         cork(): void;
         uncork(): void;
-        destroy(error?: Error): void;
+        destroy(error?: Error): this;
 
         /**
          * Event emitter

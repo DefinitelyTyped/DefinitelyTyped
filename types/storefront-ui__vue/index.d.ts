@@ -1,15 +1,15 @@
 // Type definitions for @storefront-ui 0.7
 // Project: https://github.com/vuestorefront/storefront-ui
 // Definitions by:  Luïs De Zutter <https://github.com/ImLuze>
-//                  Wojciech Sikora <https://github.com/SikoraWojciech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.5
 
 import { VueConstructor } from 'vue';
 import { Location } from 'vue-router';
 import Glide = require('@glidejs/glide');
 
-export type Icon = 'add_to_cart'
+export type Icon =
+    | 'add_to_cart'
     | 'added_to_cart'
     | 'empty_cart'
     | 'clock'
@@ -50,7 +50,8 @@ export type Icon = 'add_to_cart'
     | 'account';
 export type IconSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xl3' | 'xl4';
 export type TypographySize = 'extra-small' | 'small' | 'regular' | 'big';
-export type IconColor = 'greenPrimary'
+export type IconColor =
+    | 'greenPrimary'
     | 'greenSecondary'
     | 'black'
     | 'darkSecondary'
@@ -908,7 +909,7 @@ export namespace SfSteps {
 
     interface Methods {
         updateSteps: (step: any) => void;
-        stepClick: (props: { index: number, disabled: boolean }) => void;
+        stepClick: (props: { index: number; disabled: boolean }) => void;
     }
 
     interface Constructor extends VueConstructor {
@@ -1271,7 +1272,9 @@ export namespace SfProductCard {
         currentWishlistIcon: Icon;
         showAddedToCartBadge: boolean;
         ariaLabel: 'Remove from wishlist' | 'Add to wishlist';
-        wishlistIconClasses: 'sf-button--pure sf-product-card__wishlist-icon' | 'sf-button--pure sf-product-card__wishlist-icon sf-product-card--on-wishlist';
+        wishlistIconClasses:
+            | 'sf-button--pure sf-product-card__wishlist-icon'
+            | 'sf-button--pure sf-product-card__wishlist-icon sf-product-card--on-wishlist';
         linkComponentTag: string;
     }
 
@@ -1313,7 +1316,9 @@ export namespace SfProductCardHorizontal {
     interface Computed {
         currentWishlistIcon: Icon;
         ariaLabel: 'Remove from wishlist' | 'Add to wishlist';
-        wishlistIconClasses: 'sf-product-card-horizontal__wishlist-icon' | 'sf-product-card-horizontal__wishlist-icon sf-product-card-horizontal--on-wishlist';
+        wishlistIconClasses:
+            | 'sf-product-card-horizontal__wishlist-icon'
+            | 'sf-product-card-horizontal__wishlist-icon sf-product-card-horizontal--on-wishlist';
         linkComponentTag: string;
     }
 

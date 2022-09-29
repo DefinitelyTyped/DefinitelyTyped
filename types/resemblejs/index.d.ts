@@ -1,7 +1,9 @@
-// Type definitions for Resemble.js v3.2.5
+// Type definitions for Resemble.js v4.1.0
 // Project: https://github.com/rsmbl/Resemble.js
-// Definitions by: Tim Perry <https://github.com/pimterry>
+// Definitions by: GreenYun <https://github.com/Greenyun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="compareImages.d.ts" />
 
 declare global {
     // workaround for the Buffer type as referencing all node types breaks dependent projects
@@ -13,72 +15,116 @@ export as namespace resemble;
 
 /**
  * Retrieve basic analysis for a single image (add compareTo to compare with another).
+ *
+ * @param image - The image to analyze. Accepts a URL to an image, a Data URI, a ImageData object, or a Buffer.
  */
-declare function Resemble(image: string | ImageData | Buffer): Resemble.ResembleAnalysis;
+declare function Resemble(image: string | ImageData | Buffer): Resemble.Analysis;
 
 declare namespace Resemble {
-    /**
-     * Set the resemblance image output style
-     */
-    function outputSettings(settings: OutputSettings): typeof Resemble;
-
-    interface OutputSettings {
-        errorColor?: {
-            red: number;
-            green: number;
-            blue: number;
-        } | undefined;
-        errorType?: 'flat' | 'movement' | 'flatDifferenceIntensity' | 'movementDifferenceIntensity' | 'diffOnly' | undefined;
-        errorPixel?: ((px: number[], offset: number, d1: ResembleColor, d2: ResembleColor) => void) | undefined;
-        transparency?: number | undefined;
-        largeImageThreshold?: number | undefined;
-        useCrossOrigin?: boolean | undefined;
-        boundingBox?: ResembleBox | undefined;
-        ignoredBox?: ResembleBox | undefined;
-        boundingBoxes?: ResembleBox[] | undefined;
-        ignoredBoxes?: ResembleBox[] | undefined;
-        ignoreAreasColoredWith?: ResembleColor | undefined;
-    }
-
-    interface ResembleAnalysis {
+    interface Analysis {
         /**
          * Run the analysis on this image and get the result
          */
-        onComplete(callback: (result: ResembleAnalysisResult) => void): void;
+        onComplete(callback: (result: AnalysisResult) => void): void;
 
         /**
          * Compare this image to another image, to get resemblance data
          */
-        compareTo(fileData: string | ImageData | Buffer): ResembleComparison;
+        compareTo(fileData: string | ImageData | Buffer): Comparison;
+
+        /**
+         * Set the resemblance image output style
+         */
+        outputSettings(settings: OutputSettings): Analysis;
     }
 
-    interface ResembleAnalysisResult {
+    interface AnalysisResult {
         red: number;
         green: number;
         blue: number;
         brightness: number;
+        white: number;
+        black: number;
     }
 
-    interface ResembleComparison {
+    interface Comparison {
         /**
          * Run the analysis and get the comparison result
          */
-        onComplete(callback: (result: ResembleComparisonResult) => void): void;
+        onComplete(callback: (data: ComparisonResult) => void): Comparison;
 
-        ignoreNothing(): ResembleComparison;
-        ignoreAntialiasing(): ResembleComparison;
-        ignoreColors(): ResembleComparison;
-        ignoreAlpha(): ResembleComparison;
-        ignoreLess(): ResembleComparison;
-        repaint(): ResembleComparison;
+        /**
+         * Set the resemblance image output style
+         */
+        outputSettings(settings: OutputSettings): Comparison;
 
-        useOriginalSize(): ResembleComparison;
-        scaleToSameSize(): ResembleComparison;
+        /**
+         * Ignore nothing when comparing images
+         *
+         * This will disable ignoreAntialiasing and ignoreColors.
+         */
+        ignoreNothing(): Comparison;
 
-        setReturnEarlyThreshold(threshold: number): ResembleComparison;
+        /**
+         * Ignore as less as possible when comparing images
+         *
+         * This will disable ignoreAntialiasing and ignoreColors.
+         */
+        ignoreLess(): Comparison;
+
+        /**
+         * Ignore alpha channel when comparing images
+         *
+         * This will disable ignoreAntialiasing and ignoreColors.
+         */
+        ignoreAlpha(): Comparison;
+
+        /**
+         * Ignore antialiasing when comparing images
+         *
+         * This will disable ignoreColors.
+         */
+        ignoreAntialiasing(): Comparison;
+
+        /**
+         * Ignore colors when comparing images
+         *
+         * This will diable ignoreAntialiasing.
+         */
+        ignoreColors(): Comparison;
+
+        /**
+         * Redo the comparison (with the new settings)
+         */
+        repaint(): Comparison;
+
+        /**
+         * Use images' original size
+         */
+        useOriginalSize(): Comparison;
+
+        /**
+         * Scale second image to dimensions of the first one
+         */
+        scaleToSameSize(): Comparison;
+
+        setCustomTolerance(customSettings: Tolerance): void;
+        setReturnEarlyThreshold(threshold: number): Comparison;
     }
 
-    interface ResembleComparisonResult {
+    interface ComparisonResult {
+        /**
+         * Error information if error encountered
+         *
+         * Note: If error encountered, other properties will be undefined
+         */
+        error?: unknown | undefined;
+
+        /**
+         * Time consumed by the comparison (in milliseconds)
+         */
+        analysisTime: number;
+
         /**
          * Do the two images have the same dimensions?
          */
@@ -93,60 +139,94 @@ declare namespace Resemble {
         };
 
         /**
+         * The percentage of pixels which do not match between the images
+         */
+        rawMisMatchPercentage: number;
+
+        /**
+         * Same as `rawMisMatchPercentage` but fixed to 2-digit after the decimal point
+         */
+        misMatchPercentage: number;
+
+        diffBounds: Box;
+
+        /**
          * Get a data URL for the comparison image
          */
         getImageDataUrl(): string;
 
         /**
-         * The percentage of pixels which do not match between the images
+         * Get data buffer
          */
-        misMatchPercentage: string;
-
-        diffBounds: {
-            top: number;
-            left: number;
-            bottom: number;
-            right: number;
-        };
-
-        analysisTime: number;
+        getBuffer?: (includeOriginal: boolean) => Buffer;
     }
 
-    interface ResembleBox {
+    interface OutputSettings {
+        errorColor?:
+            | {
+                  red: number;
+                  green: number;
+                  blue: number;
+              }
+            | undefined;
+        errorType?: OutputErrorType | undefined;
+        errorPixel?: ((px: number[], offset: number, d1: Color, d2: Color) => void) | undefined;
+        transparency?: number | undefined;
+        largeImageThreshold?: number | undefined;
+        useCrossOrigin?: boolean | undefined;
+        boundingBox?: Box | undefined;
+        ignoredBox?: Box | undefined;
+        boundingBoxes?: Box[] | undefined;
+        ignoredBoxes?: Box[] | undefined;
+        ignoreAreasColoredWith?: Color | undefined;
+    }
+
+    interface Box {
         left: number;
         top: number;
         right: number;
         bottom: number;
     }
 
-    interface ResembleColor {
+    interface Color {
         r: number;
         g: number;
         b: number;
         a: number;
     }
 
-    function compare(
-        image1: string | Buffer,
-        image2: string | Buffer,
-        options: ResembleSingleCallbackComparisonOptions,
-        callback: (err: unknown, data: ResembleSingleCallbackComparisonResult) => void,
-    ): void;
+    interface Tolerance {
+        red?: number;
+        green?: number;
+        blue?: number;
+        alpha?: number;
+        minBrightness?: number;
+        maxBrightness?: number;
+    }
 
-    function compareImages(
-        image1: string | Buffer,
-        image2: string | Buffer,
-        options: ResembleSingleCallbackComparisonOptions,
-    ): Promise<ResembleSingleCallbackComparisonResult>;
-
-    interface ResembleSingleCallbackComparisonOptions {
+    interface ComparisonOptions {
         output?: OutputSettings | undefined;
         returnEarlyThreshold?: number | undefined;
         scaleToSameSize?: boolean | undefined;
-        ignore?: 'nothing' | 'less' | 'antialiasing' | 'colors' | 'alpha' | undefined;
+        ignore?: ComparisonIgnoreOption | ComparisonIgnoreOption[] | undefined;
+        tolerance?: Tolerance | undefined;
     }
 
-    interface ResembleSingleCallbackComparisonResult extends ResembleComparisonResult {
-        getBuffer: () => Buffer;
-    }
+    type OutputErrorType = 'flat' | 'movement' | 'flatDifferenceIntensity' | 'movementDifferenceIntensity' | 'diffOnly';
+
+    type ComparisonCallback = (err: unknown, data: ComparisonResult) => void;
+
+    type ComparisonIgnoreOption = 'nothing' | 'less' | 'antialiasing' | 'colors' | 'alpha';
+
+    function compare(
+        image1: string | ImageData | Buffer,
+        image2: string | ImageData | Buffer,
+        options: ComparisonOptions | ComparisonCallback,
+        callback: ComparisonCallback,
+    ): void;
+
+    /**
+     * Set the resemblance image output style
+     */
+    function outputSettings(settings: OutputSettings): typeof Resemble;
 }

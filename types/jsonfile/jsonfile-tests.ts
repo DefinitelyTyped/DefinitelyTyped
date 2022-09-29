@@ -70,4 +70,4 @@ jsonfile.writeFileSync(file, obj, { flag: 'a' });
 // $ExpectType string
 stripBom('content');
 // $ExpectType string
-stringify(obj, { flag: 'a' });
+stringify(obj, { finalEOL: true, EOL: '\r\n', spaces: 2, replacer: (key, value) => value });

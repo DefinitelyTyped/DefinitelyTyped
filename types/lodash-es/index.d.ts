@@ -21,6 +21,7 @@ export { default as camelCase } from "./camelCase";
 export { default as capitalize } from "./capitalize";
 export { default as castArray } from "./castArray";
 export { default as ceil } from "./ceil";
+export { default as chain } from "./chain";
 export { default as chunk } from "./chunk";
 export { default as clamp } from "./clamp";
 export { default as clone } from "./clone";

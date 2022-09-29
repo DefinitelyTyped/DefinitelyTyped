@@ -8,4 +8,4 @@ const server = new Hapi.Server({
     }
 });
 
-server.settings.app === { key: 'value' };
+server.settings.app.key === 'value';

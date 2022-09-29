@@ -6005,6 +6005,16 @@ declare namespace browser.bookmarks {
      */
     function update(id: string, changes: _UpdateChanges): Promise<BookmarkTreeNode>;
 
+    /**
+     * Removes a bookmark or an empty bookmark folder, given the node's ID.
+     */
+    function remove(id: string): Promise<BookmarkTreeNode>;
+
+    /**
+     * Recursively removes a bookmark folder; that is, given the ID of a folder node, removes that node and all its descendants.
+     */
+    function removeTree(id: string): Promise<BookmarkTreeNode>;
+
     /* bookmarks events */
     /** Fired when a bookmark or folder is created. */
     const onCreated: WebExtEvent<(id: string, bookmark: BookmarkTreeNode) => void>;

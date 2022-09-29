@@ -15,14 +15,16 @@ export interface StandardOpts {
         | {
               port?: number | undefined;
               host?: string | undefined;
-          } | undefined;
+          }
+        | undefined;
     private?:
         | number
         | null
         | {
               port?: number | undefined;
               host?: string | undefined;
-          } | undefined;
+          }
+        | undefined;
     protocol?: string | undefined;
 }
 
@@ -75,7 +77,7 @@ export interface RawDevice {
 export interface Device {
     /**
      * Get the available services on the network device
-     * @param types List of service types to lookf or
+     * @param types List of service types to look for
      * @param callback
      */
     getService(
@@ -92,19 +94,17 @@ export interface Device {
      * @param info
      * @returns the available devices and services in array form
      */
-    parseDescription(info: {
-        device?: RawDevice | undefined;
-    }): {
+    parseDescription(info: { device?: RawDevice | undefined }): {
         services: RawService[];
         devices: RawDevice[];
     };
     /**
      * Perform a SSDP/UPNP request
      * @param action the action to perform
-     * @param args arguments of said action
+     * @param args key-value pair arguments of said action
      * @param callback Callback to be run when completed, or on error
      */
-    run(action: string, args: string[], callback: CB<RawResponse>): void;
+    run(action: string, args: Array<[string, string | number]>, callback: CB<RawResponse>): void;
 }
 
 // Note for the SSDP class/interface

@@ -17,6 +17,13 @@ export interface DailyApiRequests extends Limit {
     'SalesforceA': Limit;
 }
 
+export interface LimitInfo {
+    apiUsage: {
+        used: number;
+        limit: number;
+    }
+}
+
 export interface LimitsInfo {
     ConcurrentAsyncGetReportInstances: Limit;
     ConcurrentSyncReportRuns: Limit;

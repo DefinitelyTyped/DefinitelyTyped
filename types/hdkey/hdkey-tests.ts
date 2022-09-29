@@ -12,3 +12,5 @@ hdKey.wipePrivateData();
 hdKey.chainCode;
 hdKey.toJSON();
 HDKey.fromJSON({ xpriv: '', xpub: '' });
+HDKey.fromMasterSeed(Buffer.from('hello world'));
+HDKey.fromMasterSeed(Buffer.from('hello world'), { private: 0x043587cf, public: 0x04358394 });

@@ -4,8 +4,10 @@ const playlist = HLS.parse('');
 
 if (playlist.isMasterPlaylist) {
     // Master playlist
+    playlist.variants;
 } else {
     // Media playlist
+    playlist.targetDuration;
 }
 
 const { MediaPlaylist, MasterPlaylist, Segment, PrefetchSegment, PartialSegment, RenditionReport } = HLS.types;

@@ -34,6 +34,10 @@ export interface Options {
      * Keep the msg attribute in the log record. Used to allow a Datadog facet on the message.
      */
     keepMsg?: boolean;
+    /**
+     * Use Datadog EU site
+     */
+    eu?: boolean;
 }
 
 /**

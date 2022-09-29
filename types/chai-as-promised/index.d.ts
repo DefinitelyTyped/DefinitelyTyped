@@ -261,147 +261,147 @@ declare namespace Chai {
     }
 
     export interface PromisedAssert {
-        fail(actual?: any, expected?: any, msg?: string, operator?: string): PromiseLike<void>;
+        fail(actual?: PromiseLike<any>, expected?: any, msg?: string, operator?: string): PromiseLike<void>;
 
-        isOk(val: any, msg?: string): PromiseLike<void>;
-        ok(val: any, msg?: string): PromiseLike<void>;
-        isNotOk(val: any, msg?: string): PromiseLike<void>;
-        notOk(val: any, msg?: string): PromiseLike<void>;
+        isOk(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        ok(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotOk(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        notOk(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        equal(act: any, exp: any, msg?: string): PromiseLike<void>;
-        notEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
+        equal(act: PromiseLike<any>, exp: any, msg?: string): PromiseLike<void>;
+        notEqual(act: PromiseLike<any>, exp: any, msg?: string): PromiseLike<void>;
 
-        strictEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
-        notStrictEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
+        strictEqual(act: PromiseLike<any>, exp: any, msg?: string): PromiseLike<void>;
+        notStrictEqual(act: PromiseLike<any>, exp: any, msg?: string): PromiseLike<void>;
 
-        deepEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
-        notDeepEqual(act: any, exp: any, msg?: string): PromiseLike<void>;
+        deepEqual(act: PromiseLike<any>, exp: any, msg?: string): PromiseLike<void>;
+        notDeepEqual(act: PromiseLike<any>, exp: any, msg?: string): PromiseLike<void>;
 
-        isAbove(val: number, above: number, msg?: string): PromiseLike<void>;
-        isAtLeast(val: number, atLeast: number, msg?: string): PromiseLike<void>;
-        isAtBelow(val: number, below: number, msg?: string): PromiseLike<void>;
-        isAtMost(val: number, atMost: number, msg?: string): PromiseLike<void>;
+        isAbove(val: PromiseLike<number>, above: number, msg?: string): PromiseLike<void>;
+        isAtLeast(val: PromiseLike<number>, atLeast: number, msg?: string): PromiseLike<void>;
+        isAtBelow(val: PromiseLike<number>, below: number, msg?: string): PromiseLike<void>;
+        isAtMost(val: PromiseLike<number>, atMost: number, msg?: string): PromiseLike<void>;
 
-        isTrue(val: any, msg?: string): PromiseLike<void>;
-        isFalse(val: any, msg?: string): PromiseLike<void>;
+        isTrue(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isFalse(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isNotTrue(val: any, msg?: string): PromiseLike<void>;
-        isNotFalse(val: any, msg?: string): PromiseLike<void>;
+        isNotTrue(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotFalse(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isNull(val: any, msg?: string): PromiseLike<void>;
-        isNotNull(val: any, msg?: string): PromiseLike<void>;
+        isNull(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotNull(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isNaN(val: any, msg?: string): PromiseLike<void>;
-        isNotNaN(val: any, msg?: string): PromiseLike<void>;
+        isNaN(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotNaN(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        exists(val: any, msg?: string): PromiseLike<void>;
-        notExists(val: any, msg?: string): PromiseLike<void>;
+        exists(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        notExists(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isUndefined(val: any, msg?: string): PromiseLike<void>;
-        isDefined(val: any, msg?: string): PromiseLike<void>;
+        isUndefined(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isDefined(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isFunction(val: any, msg?: string): PromiseLike<void>;
-        isNotFunction(val: any, msg?: string): PromiseLike<void>;
+        isFunction(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotFunction(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isObject(val: any, msg?: string): PromiseLike<void>;
-        isNotObject(val: any, msg?: string): PromiseLike<void>;
+        isObject(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotObject(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isArray(val: any, msg?: string): PromiseLike<void>;
-        isNotArray(val: any, msg?: string): PromiseLike<void>;
+        isArray(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotArray(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isString(val: any, msg?: string): PromiseLike<void>;
-        isNotString(val: any, msg?: string): PromiseLike<void>;
+        isString(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotString(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isNumber(val: any, msg?: string): PromiseLike<void>;
-        isNotNumber(val: any, msg?: string): PromiseLike<void>;
-        isFinite(val: number, msg?: string): PromiseLike<void>;
+        isNumber(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotNumber(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isFinite(val: PromiseLike<number>, msg?: string): PromiseLike<void>;
 
-        isBoolean(val: any, msg?: string): PromiseLike<void>;
-        isNotBoolean(val: any, msg?: string): PromiseLike<void>;
+        isBoolean(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotBoolean(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        typeOf(val: any, type: string, msg?: string): PromiseLike<void>;
-        notTypeOf(val: any, type: string, msg?: string): PromiseLike<void>;
+        typeOf(val: PromiseLike<any>, type: string, msg?: string): PromiseLike<void>;
+        notTypeOf(val: PromiseLike<any>, type: string, msg?: string): PromiseLike<void>;
 
-        instanceOf(val: any, type: Function, msg?: string): PromiseLike<void>;
-        notInstanceOf(val: any, type: Function, msg?: string): PromiseLike<void>;
+        instanceOf(val: PromiseLike<any>, type: Function, msg?: string): PromiseLike<void>;
+        notInstanceOf(val: PromiseLike<any>, type: Function, msg?: string): PromiseLike<void>;
 
-        include(exp: string, inc: any, msg?: string): PromiseLike<void>;
-        include(exp: any[], inc: any, msg?: string): PromiseLike<void>;
+        include(exp: PromiseLike<string>, inc: any, msg?: string): PromiseLike<void>;
+        include(exp: PromiseLike<any[]>, inc: any, msg?: string): PromiseLike<void>;
 
-        notInclude(exp: string, inc: any, msg?: string): PromiseLike<void>;
-        notInclude(exp: any[], inc: any, msg?: string): PromiseLike<void>;
+        notInclude(exp: PromiseLike<string>, inc: any, msg?: string): PromiseLike<void>;
+        notInclude(exp: PromiseLike<any[]>, inc: any, msg?: string): PromiseLike<void>;
 
-        deepInclude(exp: string, inc: any, msg?: string): PromiseLike<void>;
-        deepInclude(exp: any[], inc: any, msg?: string): PromiseLike<void>;
+        deepInclude(exp: PromiseLike<string>, inc: any, msg?: string): PromiseLike<void>;
+        deepInclude(exp: PromiseLike<any[]>, inc: any, msg?: string): PromiseLike<void>;
 
-        notDeepInclude(exp: string, inc: any, msg?: string): PromiseLike<void>;
-        notDeepInclude(exp: any[], inc: any, msg?: string): PromiseLike<void>;
+        notDeepInclude(exp: PromiseLike<string>, inc: any, msg?: string): PromiseLike<void>;
+        notDeepInclude(exp: PromiseLike<any[]>, inc: any, msg?: string): PromiseLike<void>;
 
-        nestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
-        notNestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        nestedInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
+        notNestedInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
 
-        deepNestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
-        notDeepNestedInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        deepNestedInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
+        notDeepNestedInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
 
-        ownInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
-        notOwnInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        ownInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
+        notOwnInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
 
-        deepOwnInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
-        notDeepOwnInclude(exp: Object, inc: Object, msg?: string): PromiseLike<void>;
+        deepOwnInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
+        notDeepOwnInclude(exp: PromiseLike<Object>, inc: Object, msg?: string): PromiseLike<void>;
 
-        match(exp: any, re: RegExp, msg?: string): PromiseLike<void>;
-        notMatch(exp: any, re: RegExp, msg?: string): PromiseLike<void>;
+        match(exp: PromiseLike<any>, re: RegExp, msg?: string): PromiseLike<void>;
+        notMatch(exp: PromiseLike<any>, re: RegExp, msg?: string): PromiseLike<void>;
 
-        property(obj: Object, prop: string, msg?: string): PromiseLike<void>;
-        notProperty(obj: Object, prop: string, msg?: string): PromiseLike<void>;
-        deepProperty(obj: Object, prop: string, msg?: string): PromiseLike<void>;
-        notDeepProperty(obj: Object, prop: string, msg?: string): PromiseLike<void>;
+        property(obj: PromiseLike<Object>, prop: string, msg?: string): PromiseLike<void>;
+        notProperty(obj: PromiseLike<Object>, prop: string, msg?: string): PromiseLike<void>;
+        deepProperty(obj: PromiseLike<Object>, prop: string, msg?: string): PromiseLike<void>;
+        notDeepProperty(obj: PromiseLike<Object>, prop: string, msg?: string): PromiseLike<void>;
 
-        propertyVal(obj: Object, prop: string, val: any, msg?: string): PromiseLike<void>;
-        propertyNotVal(obj: Object, prop: string, val: any, msg?: string): PromiseLike<void>;
+        propertyVal(obj: PromiseLike<Object>, prop: string, val: any, msg?: string): PromiseLike<void>;
+        propertyNotVal(obj: PromiseLike<Object>, prop: string, val: any, msg?: string): PromiseLike<void>;
 
-        deepPropertyVal(obj: Object, prop: string, val: any, msg?: string): PromiseLike<void>;
-        deepPropertyNotVal(obj: Object, prop: string, val: any, msg?: string): PromiseLike<void>;
+        deepPropertyVal(obj: PromiseLike<Object>, prop: string, val: any, msg?: string): PromiseLike<void>;
+        deepPropertyNotVal(obj: PromiseLike<Object>, prop: string, val: any, msg?: string): PromiseLike<void>;
 
-        nestedProperty(obj: object, prop: string, msg?: string): PromiseLike<void>;
-        notNestedProperty(obj: object, prop: string, msg?: string): PromiseLike<void>;
-        nestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
-        notNestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
+        nestedProperty(obj: PromiseLike<object>, prop: string, msg?: string): PromiseLike<void>;
+        notNestedProperty(obj: PromiseLike<object>, prop: string, msg?: string): PromiseLike<void>;
+        nestedPropertyVal(obj: PromiseLike<object>, prop: string, val: any, msg?: string): PromiseLike<void>;
+        notNestedPropertyVal(obj: PromiseLike<object>, prop: string, val: any, msg?: string): PromiseLike<void>;
 
-        deepNestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
-        notDeepNestedPropertyVal(obj: object, prop: string, val: any, msg?: string): PromiseLike<void>;
+        deepNestedPropertyVal(obj: PromiseLike<object>, prop: string, val: any, msg?: string): PromiseLike<void>;
+        notDeepNestedPropertyVal(obj: PromiseLike<object>, prop: string, val: any, msg?: string): PromiseLike<void>;
 
-        lengthOf(exp: any, len: number, msg?: string): PromiseLike<void>;
+        lengthOf(exp: PromiseLike<any>, len: number, msg?: string): PromiseLike<void>;
 
-        hasAnyKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        hasAnyKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        hasAnyKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        hasAnyKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        hasAllKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        hasAllKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        hasAllKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        hasAllKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        containsAllKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        containsAllKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        containsAllKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        containsAllKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        doesNotHaveAnyKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        doesNotHaveAnyKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        doesNotHaveAnyKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAnyKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        doesNotHaveAllKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        doesNotHaveAllKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        doesNotHaveAllKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAllKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        hasAnyDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        hasAnyDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        hasAnyDeepKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        hasAnyDeepKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        hasAllDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        hasAllDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        hasAllDeepKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        hasAllDeepKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        containsAllDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        containsAllDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        containsAllDeepKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        containsAllDeepKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        doesNotHaveAnyDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        doesNotHaveAnyDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        doesNotHaveAnyDeepKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAnyDeepKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
-        doesNotHaveAllDeepKeys(obj: any, keys: any[], msg?: string): PromiseLike<void>;
-        doesNotHaveAllDeepKeys(obj: any, keys: object, msg?: string): PromiseLike<void>;
+        doesNotHaveAllDeepKeys(obj: PromiseLike<any>, keys: any[], msg?: string): PromiseLike<void>;
+        doesNotHaveAllDeepKeys(obj: PromiseLike<any>, keys: object, msg?: string): PromiseLike<void>;
 
         //alias frenzy
         throw(fn: Function, msg?: string): PromiseLike<void>;
@@ -424,24 +424,24 @@ declare namespace Chai {
         doesNotThrow(fn: Function, errType: Function, msg?: string): PromiseLike<void>;
         doesNotThrow(fn: Function, errType: Function, regExp: RegExp): PromiseLike<void>;
 
-        operator(val: any, operator: string, val2: any, msg?: string): PromiseLike<void>;
-        closeTo(act: number, exp: number, delta: number, msg?: string): PromiseLike<void>;
-        approximately(act: number, exp: number, delta: number, msg?: string): PromiseLike<void>;
+        operator(val: PromiseLike<any>, operator: string, val2: any, msg?: string): PromiseLike<void>;
+        closeTo(act: PromiseLike<number>, exp: number, delta: number, msg?: string): PromiseLike<void>;
+        approximately(act: PromiseLike<number>, exp: number, delta: number, msg?: string): PromiseLike<void>;
 
-        sameMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        sameDeepMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        sameOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        notSameOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        sameDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        notSameDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        includeOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        notIncludeOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        includeDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        notIncludeDeepOrderedMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        includeMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
-        includeDeepMembers(set1: any[], set2: any[], msg?: string): PromiseLike<void>;
+        sameMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        sameDeepMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        sameOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        notSameOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        sameDeepOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        notSameDeepOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        includeOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        notIncludeOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        includeDeepOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        notIncludeDeepOrderedMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        includeMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
+        includeDeepMembers(set1: PromiseLike<any[]>, set2: any[], msg?: string): PromiseLike<void>;
 
-        oneOf(val: any, list: any[], msg?: string): PromiseLike<void>;
+        oneOf(val: PromiseLike<any>, list: any[], msg?: string): PromiseLike<void>;
 
         changes(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
         changesBy(modifier: Function, obj: object, property: string, change: number, msg?: string): PromiseLike<void>;
@@ -456,22 +456,22 @@ declare namespace Chai {
         doesNotDecrease(modifier: Function, obj: Object, property: string, msg?: string): PromiseLike<void>;
         decreasesButNotBy(modifier: Function, obj: Object, property: string, change: number, msg?: string): PromiseLike<void>;
 
-        ifError(val: any, msg?: string): PromiseLike<void>;
+        ifError(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
 
-        isExtensible(obj: Object, msg?: string): PromiseLike<void>;
-        isNotExtensible(obj: Object, msg?: string): PromiseLike<void>;
+        isExtensible(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        isNotExtensible(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
 
-        isSealed(obj: Object, msg?: string): PromiseLike<void>;
-        sealed(obj: Object, msg?: string): PromiseLike<void>;
-        isNotSealed(obj: Object, msg?: string): PromiseLike<void>;
-        notSealed(obj: Object, msg?: string): PromiseLike<void>;
+        isSealed(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        sealed(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        isNotSealed(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        notSealed(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
 
-        isFrozen(obj: Object, msg?: string): PromiseLike<void>;
-        frozen(obj: Object, msg?: string): PromiseLike<void>;
-        isNotFrozen(obj: Object, msg?: string): PromiseLike<void>;
-        notFrozen(obj: Object, msg?: string): PromiseLike<void>;
+        isFrozen(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        frozen(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        isNotFrozen(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
+        notFrozen(obj: PromiseLike<Object>, msg?: string): PromiseLike<void>;
 
-        isEmpty(val: any, msg?: string): PromiseLike<void>;
-        isNotEmpty(val: any, msg?: string): PromiseLike<void>;
+        isEmpty(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
+        isNotEmpty(val: PromiseLike<any>, msg?: string): PromiseLike<void>;
     }
 }

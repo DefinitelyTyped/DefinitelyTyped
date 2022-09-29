@@ -5,7 +5,7 @@ import { Revwalk } from './rev-walk';
 export namespace Packbuilder {
     const enum STAGE {
         ADDING_OBJECTS = 0,
-        DELTAFICATION = 1
+        DELTAFICATION = 1,
     }
 }
 

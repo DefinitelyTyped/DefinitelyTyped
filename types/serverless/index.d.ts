@@ -1,4 +1,4 @@
-// Type definitions for serverless 1.78
+// Type definitions for serverless 3.12
 // Project: https://github.com/serverless/serverless#readme
 // Definitions by: Hassan Khan <https://github.com/hassankhan>
 //                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
@@ -8,20 +8,21 @@
 //                 Thomas Aribart <https://github.com/thomasaribart>
 //                 Gareth Jones <https://github.com/G-Rath>
 //                 Abdullah Ali <https://github.com/AbdullahAli>
+//                 François Farge <https://github.com/fargito>
+//                 Bruno Bodian <https://github.com/bacarybruno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import Service = require('./classes/Service');
-import Plugin = require('./classes/Plugin');
 import PluginManager = require('./classes/PluginManager');
 import Utils = require('./classes/Utils');
 import YamlParser = require('./classes/YamlParser');
 import AwsProvider = require('./plugins/aws/provider/awsProvider');
-import ApiGatewayValidate = require('./plugins/aws/package/compile/events/apiGateway/lib/validate');
 
 declare namespace Serverless {
     interface Options {
         function?: string | undefined;
         watch?: boolean | undefined;
+        verbose?: boolean | undefined;
         extraServicePath?: string | undefined;
         stage: string | null;
         region: string | null;
@@ -40,7 +41,7 @@ declare namespace Serverless {
         timeout?: number | undefined;
         memorySize?: number | undefined;
         environment?: { [name: string]: string } | undefined;
-        events: Event[];
+        events: AwsProvider.Event[];
         tags?: { [key: string]: string } | undefined;
     }
 
@@ -59,9 +60,6 @@ declare namespace Serverless {
         image: string;
     }
 
-    // Other events than ApiGatewayEvent are available
-    type Event = ApiGatewayValidate.ApiGatewayEvent | object;
-
     interface Package {
         /** @deprecated use `patterns` instead */
         include?: string[] | undefined;
@@ -71,6 +69,8 @@ declare namespace Serverless {
         artifact?: string | undefined;
         individually?: boolean | undefined;
     }
+
+    type Event = AwsProvider.Event | object;
 }
 
 declare class Serverless {
@@ -85,6 +85,9 @@ declare class Serverless {
     getVersion(): string;
 
     cli: {
+        /**
+         * @deprecated starting from Serverless V3, this method is deprecated, see https://www.serverless.com/framework/docs/guides/plugins/cli-output
+         */
         log(message: string, entity?: string, options?: Serverless.LogOptions): null;
     };
 

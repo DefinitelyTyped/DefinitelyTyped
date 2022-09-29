@@ -1,7 +1,6 @@
-// Type definitions for SAML2-js 2.0.6
+// Type definitions for SAML2-js 3.0.2
 // Project: https://github.com/Clever/saml2
 // Definitions by: horiuchi <https://github.com/horiuchi>
-//                mathieudutour <https://github.com/mathiedutour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -131,7 +130,7 @@ declare module 'saml2-js' {
          * Defaults to 1.
          * Set it to 0 for optimum security but no tolerance for clock skew.
          */
-        notbefore_skew?: boolean | undefined;
+        notbefore_skew?: number | undefined;
     }
     export interface CreateLogoutRequestUrlOptions {
         /** Format for Name ID. This can also be configured on a per-method basis. */
@@ -155,10 +154,31 @@ declare module 'saml2-js' {
     }
 
     export interface SAMLAssertResponse {
-        response_header: { id: 'string'; destination: string; in_response_to: string };
+        response_header: {
+            id: string;
+            destination: string;
+            in_response_to: string;
+        };
         type: string;
         user: {
             name_id: string;
+            email?: string;
+            given_name?: string;
+            name?: string;
+            upn?: string;
+            common_name?: string;
+            group?: string;
+            role?: string;
+            surname?: string;
+            ppid?: string;
+            authentication_method?: string;
+            deny_only_group_sid?: string;
+            deny_only_primary_sid?: string;
+            deny_only_primary_group_sid?: string;
+            group_sid?: string;
+            primary_group_sid?: string;
+            primary_sid?: string;
+            windows_account_name?: string;
             session_index?: string | undefined;
             session_not_on_or_after?: string | undefined;
             attributes?: { [attr: string]: string | string[] } | undefined;

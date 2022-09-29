@@ -1,7 +1,6 @@
 // Type definitions for @xmpp/jid 1.3
 // Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/jid
-// Definitions by: PJakcson <https://github.com/PJakcson>
-//                 BendingBender <https://github.com/BendingBender>
+// Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = jid;

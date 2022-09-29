@@ -8,4 +8,5 @@ export default class TextAlternativeFormView extends View {
     readonly labeledInput: LabeledFieldView;
     readonly saveButtonView: ButtonView;
     readonly cancelButtonView: ButtonView;
+    destroy(): void;
 }

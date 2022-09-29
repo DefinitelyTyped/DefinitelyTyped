@@ -26,18 +26,15 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
 //                 Mohamed Shaban <https://github.com/drmas>
-//                 André Krüger <https://github.com/akrger>
 //                 Jérémy Barbet <https://github.com/jeremybarbet>
 //                 Christian Ost <https://github.com/ca057>
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
@@ -479,7 +476,7 @@ export interface PressableAndroidRippleConfig {
     radius?: null | number;
 }
 
-export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'style' | 'hitSlop'> {
+export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
      * Called when a single tap gesture is detected.
      */
@@ -952,6 +949,11 @@ export interface TextPropsIOS {
 }
 
 export interface TextPropsAndroid {
+    /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
@@ -1427,6 +1429,8 @@ export interface TextInputSelectionChangeEventData extends TargetedEvent {
  */
 export interface TextInputKeyPressEventData {
     key: string;
+    eventCount?: number | null | undefined;
+    target?: number | null | undefined;
 }
 
 /**
@@ -5006,7 +5010,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null;
+    touchSoundDisabled?: boolean;
 }
 
 /**
@@ -5036,7 +5040,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null;
+    disabled?: boolean;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -6901,7 +6905,7 @@ export interface ActionSheetIOSOptions {
     title?: string;
     options: string[];
     cancelButtonIndex?: number;
-    destructiveButtonIndex?: number;
+    destructiveButtonIndex?: number | number[] | undefined | null;
     message?: string;
     anchor?: number;
     tintColor?: ColorValue | ProcessedColorValue;

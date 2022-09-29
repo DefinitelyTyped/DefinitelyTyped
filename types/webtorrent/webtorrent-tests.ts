@@ -84,6 +84,12 @@ client.add(magnetURI, torrentOpts, torrent => {
     });
 });
 
+client.add(magnetURI, { announceList: [['wss://tracker.btorrent.xyz'], ['wss://tracker.openwebtorrent.com']] }, torrent => {
+  torrent['announce-list'].forEach(
+    (tracker, trackerIndex) => tracker.forEach(url => console.log(`tracker #${trackerIndex}: ${url}`))
+  );
+});
+
 client.seed('./file.txt', {}, torrent => {
     console.log('Client is seeding:', torrent.infoHash);
 });

@@ -39,6 +39,15 @@ import React = require('./next');
 export {};
 
 declare module '.' {
+    export interface SuspenseProps {
+        /**
+         * The presence of this prop indicates that the content is computationally expensive to render.
+         * In other words, the tree is CPU bound and not I/O bound (e.g. due to fetching data).
+         * @see {@link https://github.com/facebook/react/pull/19936}
+         */
+        unstable_expectedLoadTime?: number | undefined;
+    }
+
     export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
     export type SuspenseListTailMode = 'collapsed' | 'hidden';
 
@@ -94,11 +103,33 @@ declare module '.' {
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    /**
-     * @param effect Imperative function that can return a cleanup function
-     * @param deps If present, effect will only activate if the values in the list change.
-     *
-     * @see https://github.com/facebook/react/pull/21913
-     */
-     export function unstable_useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
+    interface ThenableImpl<T> {
+        then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
+    }
+    interface UntrackedThenable<T> extends ThenableImpl<T> {
+        status?: void;
+    }
+
+    export interface PendingThenable<T> extends ThenableImpl<T> {
+        status: 'pending';
+    }
+
+    export interface FulfilledThenable<T> extends ThenableImpl<T> {
+        status: 'fulfilled';
+        value: T;
+    }
+
+    export interface RejectedThenable<T> extends ThenableImpl<T> {
+        status: 'rejected';
+        reason: unknown;
+    }
+
+    export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>;
+
+    export type Usable<T> = Thenable<T> | Context<T>;
+
+    export function experimental_use<T>(usable: Usable<T>): T;
+
+    // tslint:disable-next-line ban-types
+    export function experimental_useEvent<T extends Function>(event: T): T;
 }

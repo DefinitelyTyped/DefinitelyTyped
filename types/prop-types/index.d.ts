@@ -17,10 +17,9 @@ export interface ReactElementLike {
     key: string | number | null;
 }
 
-export interface ReactNodeArray extends Array<ReactNodeLike> {}
+export interface ReactNodeArray extends Iterable<ReactNodeLike> {}
 
 export type ReactNodeLike =
-    | {}
     | ReactElementLike
     | ReactNodeArray
     | string

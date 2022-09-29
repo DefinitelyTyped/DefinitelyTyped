@@ -1,6 +1,6 @@
-import { PluginDefinition, PluginParams, WaveSurferPlugin } from "../../types/plugin";
-import Observer from "../util/observer";
-import WaveSurfer from "../wavesurfer";
+import { PluginDefinition, PluginParams, WaveSurferPlugin } from '../../types/plugin';
+import Observer from '../util/observer';
+import WaveSurfer from '../wavesurfer';
 
 export default class PlayheadPlugin extends Observer implements WaveSurferPlugin {
     constructor(params: PlayheadPluginParams, ws: WaveSurfer);
@@ -17,9 +17,9 @@ export default class PlayheadPlugin extends Observer implements WaveSurferPlugin
     readonly options: Record<string, unknown>;
     readonly params: PlayheadPluginParams;
     readonly playheadTime: number;
-    readonly style: WaveSurfer["util"]["style"];
+    readonly style: WaveSurfer['util']['style'];
     readonly unFuns: Array<(this: WaveSurfer) => void>;
-    readonly util: WaveSurfer["util"];
+    readonly util: WaveSurfer['util'];
     readonly wavesurfer: WaveSurfer;
     readonly wrapper: HTMLElement;
 }

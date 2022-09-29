@@ -1,5 +1,5 @@
 // Type definitions for pg 8.6
-// Project: http://github.com/brianc/node-postgres
+// Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -31,6 +31,7 @@ export interface ClientConfig {
     application_name?: string | undefined;
     connectionTimeoutMillis?: number | undefined;
     types?: CustomTypesConfig | undefined;
+    options?: string | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -50,6 +51,8 @@ export interface PoolConfig extends ClientConfig {
     idleTimeoutMillis?: number | undefined;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
+    allowExitOnIdle?: boolean | undefined;
+    maxUses?: number | undefined;
 }
 
 export interface QueryConfig<I extends any[] = any[]> {

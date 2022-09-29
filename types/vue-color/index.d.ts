@@ -12,7 +12,8 @@ export class Material extends Vue {}
 export class Slider extends Vue {}
 export class Swatches extends Vue {}
 export class Photoshop extends Vue {}
-export class Sketch  extends Vue {}
+export class Sketch extends Vue {}
+export class Twitter extends Vue {}
 export class Chrome extends Vue {}
 
 // those exports aren't specified in the documentation but still exported.

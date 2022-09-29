@@ -1,6 +1,6 @@
 // Type definitions for ranjs 1.22
 // Project: https://synesenom.github.io/ran/
-// Definitions by: problem233 <https://github.com/problem233>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 

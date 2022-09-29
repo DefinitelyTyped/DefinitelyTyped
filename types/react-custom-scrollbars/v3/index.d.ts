@@ -1,6 +1,6 @@
 // Type definitions for react-custom-scrollbars 3.0
 // Project: https://github.com/malte-wessel/react-custom-scrollbars
-// Definitions by: David-LeBlanc-git <https://github.com/David-LeBlanc-git>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

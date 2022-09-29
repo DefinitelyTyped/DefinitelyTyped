@@ -7,7 +7,7 @@ export namespace Worktree {
     const enum PRUNE {
         VALID = 1,
         LOCKED = 2,
-        WORKING_TREE = 4
+        WORKING_TREE = 4,
     }
 }
 

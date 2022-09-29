@@ -86,19 +86,24 @@ glider.setOption(options, true);
 // $ExpectType void
 glider.updateControls();
 
+// $ExpectType void
+glider.init();
+
 // $ExpectType HTMLDivElement
 glider.ele;
 
 // $ExpectType Options
 glider.opt;
 
-// $ExpectType Arrow
+// $ExpectType Arrow | undefined
 glider.arrows.next;
 
-// $ExpectType Arrow
+// $ExpectType Arrow | undefined
 glider.arrows.prev;
 
-glider.arrows.prev._func;
+if (glider.arrows.prev) {
+    glider.arrows.prev._func;
+}
 
 const element = document.querySelector<HTMLDivElement>('.glider');
 

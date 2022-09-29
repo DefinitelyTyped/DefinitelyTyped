@@ -11,21 +11,25 @@ new UI({
 
 const ui = new UI();
 
-ui.write(); // $ExpectError
+// @ts-expect-error
+ui.write();
 ui.write('hello');
 ui.write('hello', 'DEBUG');
 ui.write('hello', 'INFO');
 ui.write('hello', 'WARNING');
 ui.write('hello', 'ERROR');
-ui.write('hello', 'NONEXISTENT'); // $ExpectError
+// @ts-expect-error
+ui.write('hello', 'NONEXISTENT');
 
-ui.writeLine(); // $ExpectError
+// @ts-expect-error
+ui.writeLine();
 ui.writeLine('hello');
 ui.writeLine('hello', 'DEBUG');
 ui.writeLine('hello', 'INFO');
 ui.writeLine('hello', 'WARNING');
 ui.writeLine('hello', 'ERROR');
-ui.writeLine('hello', 'NONEXISTENT'); // $ExpectError
+// @ts-expect-error
+ui.writeLine('hello', 'NONEXISTENT');
 
 ui.writeDebugLine('hello');
 
@@ -38,17 +42,20 @@ ui.writeDeprecateLine('hello', true);
 ui.writeDeprecateLine('hello', false, true);
 
 ui.writeError(new Error('boom!'));
-ui.writeError('boom!'); // $ExpectError
+// @ts-expect-error
+ui.writeError('boom!');
 
 ui.setWriteLevel('DEBUG');
 ui.setWriteLevel('INFO');
 ui.setWriteLevel('WARNING');
 ui.setWriteLevel('ERROR');
-ui.setWriteLevel('NONEXISTENT'); // $ExpectError
+// @ts-expect-error
+ui.setWriteLevel('NONEXISTENT');
 
 ui.startProgress('hello');
 ui.stopProgress();
-ui.stopProgress('hello'); // $ExpectError
+// @ts-expect-error
+ui.stopProgress('hello');
 
 const question: DistinctQuestion<{ answer: boolean }> = {
     message: 'Yes / No?',

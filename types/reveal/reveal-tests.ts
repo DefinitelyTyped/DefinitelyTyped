@@ -3,7 +3,7 @@ Reveal.initialize({
     progress: true,
     history: true,
     center: true,
-    transition: "linear",
+    transition: "fade",
     slideNumber: "c/t",
     width: "100%",
     height: "80%",
@@ -37,6 +37,9 @@ Reveal.initialize({
     height: 20,
     plugins: [RevealHighlight, RevealMarkdown, RevealSearch, RevealNotes, RevealMath, RevealZoom],
 }).then(() => {});
+
+// Config can be empty (example in https://revealjs.com/markup/)
+Reveal.initialize();
 
 // Taken from https://github.com/hakimel/reveal.js/#api
 

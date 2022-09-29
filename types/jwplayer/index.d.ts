@@ -4,7 +4,6 @@
 //                 Tomer Kruvi <https://github.com/kutomer>
 //                 Philipp Gürtler <https://github.com/philippguertler>
 //                 Daniel McGraw <https://github.com/danielmcgraw>
-//                 Benjamin Dobson <https://github.com/bpdsw>
 //                 Be Birchall <https://github.com/bebebebebe>
 //                 Daniel Cassidy <https://github.com/djcsdy>
 //                 Drew Wyatt <https://github.com/drewwyatt>
@@ -303,6 +302,7 @@ declare namespace jwplayer {
         adTime: AdTimeParam;
         cast: CastParam;
         meta: MetadataParam;
+        metadataCueParsed: MetadataParam;
         audioTracks: AudioTracksParam;
         audioTrackChanged: AudioTrackChangedParam;
         firstFrame: FirstFrameParam;
@@ -344,6 +344,7 @@ declare namespace jwplayer {
 
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
+        addCues(cues: Array<{ begin: number; cueType: string; text: string }>): JWPlayer;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];

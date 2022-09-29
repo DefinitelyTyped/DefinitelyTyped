@@ -1,4 +1,4 @@
-// Type definitions for supercluster 5.0
+// Type definitions for supercluster 7.1
 // Project: https://github.com/mapbox/supercluster
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 //                 Nick Zahn <https://github.com/Manc>
@@ -24,6 +24,13 @@ declare namespace Supercluster {
          * @default 16
          */
         maxZoom?: number | undefined;
+
+        /**
+         * Minimum number of points to form a cluster.
+         *
+         * @default 2
+         */
+        minPoints?: number | undefined;
 
         /**
          * Cluster radius, in pixels.
@@ -52,6 +59,13 @@ declare namespace Supercluster {
          * @default false
          */
         log?: boolean | undefined;
+
+        /**
+         * Whether to generate ids for input features in vector tiles.
+         *
+         * @default false
+         */
+        generateId?: boolean | undefined;
 
         /**
          * A function that returns cluster properties corresponding to a single point.
@@ -120,7 +134,10 @@ declare namespace Supercluster {
 /**
  * A very fast geospatial point clustering library for browsers and Node.
  */
-declare class Supercluster<P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps, C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps> {
+declare class Supercluster<
+    P extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps,
+    C extends GeoJSON.GeoJsonProperties = Supercluster.AnyProps,
+> {
     constructor(options?: Supercluster.Options<P, C>);
 
     /**

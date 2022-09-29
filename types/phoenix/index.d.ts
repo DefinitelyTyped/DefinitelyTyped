@@ -17,8 +17,12 @@ export class Push {
   receive(status: PushStatus, callback: (response?: any) => any): this;
 }
 
+export type ChannelState = 'closed' | 'errored' | 'joined' | 'joining' | 'leaving';
+
 export class Channel {
   constructor(topic: string, params?: object | (() => object), socket?: Socket);
+
+  state: ChannelState;
 
   join(timeout?: number): Push;
   leave(timeout?: number): Push;

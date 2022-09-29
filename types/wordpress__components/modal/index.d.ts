@@ -1,4 +1,11 @@
-import { ComponentType, HTMLProps, ReactNode } from 'react';
+import {
+    ComponentType,
+    HTMLProps,
+    ReactNode,
+    KeyboardEventHandler,
+    MouseEventHandler,
+    FocusEventHandler
+} from 'react';
 
 declare namespace Modal {
     interface Props extends HTMLProps<HTMLDivElement> {
@@ -75,8 +82,11 @@ declare namespace Modal {
         shouldCloseOnEsc?: boolean | undefined;
         /**
          * This function is called to indicate that the modal should be closed.
+         *
+         * The originating event might be different depending on how the modal
+         * is closed.
          */
-        onRequestClose(): void;
+        onRequestClose: KeyboardEventHandler | MouseEventHandler | FocusEventHandler;
     }
 }
 declare const Modal: ComponentType<Modal.Props>;

@@ -7217,7 +7217,7 @@ declare namespace EngineAPI {
          * The apps are located in C:\Users\<user name>\Documents\Qlik\Sense\Apps.
          * @returns A Promise Array of DocListEntry
          */
-        getDocList(): Promise<IDocListEntry>;
+        getDocList(): Promise<IDocListEntry[]>;
 
         /**
          * Returns the files and folders located at a specified path.
@@ -7888,7 +7888,7 @@ declare namespace EngineAPI {
          * >>This parameter is optional.
          * Default is to sort by alphabetical order, ascending.
          */
-        qSortCriterias?: ISortCriteria | undefined;
+        qSortCriterias?: ISortCriteria[] | undefined;
 
         /**
          * Defines the format of the value.

@@ -24,5 +24,5 @@ interface MutableEnumerable<T> extends Enumerable<T> {
      */
     removeObjects(objects: Enumerable<T>): this;
 }
-declare const MutableEnumerable: Mixin<MutableEnumerable<any>>;
+declare const MutableEnumerable: Mixin<MutableEnumerable<unknown>>;
 export default MutableEnumerable;

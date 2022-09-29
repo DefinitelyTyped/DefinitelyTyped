@@ -11,8 +11,17 @@ export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<st
     TResult[]
 >;
 
-// See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
-export type AppSyncAuthorizerHander<TResolverContext = undefined> = Handler<
+/**
+ * @deprecated Use {@link AppSyncAuthorizerHandler}
+ */
+export type AppSyncAuthorizerHander<TResolverContext = undefined> = AppSyncAuthorizerHandler<TResolverContext>;
+
+/**
+ * See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
+ *
+ * @param TResolverContext type of the resolverContext object that you can return from the handler
+ */
+export type AppSyncAuthorizerHandler<TResolverContext = undefined> = Handler<
     AppSyncAuthorizerEvent,
     AppSyncAuthorizerResult<TResolverContext>
 >;

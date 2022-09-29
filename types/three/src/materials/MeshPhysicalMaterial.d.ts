@@ -156,4 +156,29 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
      * @default null
      */
     specularColorMap: Texture | null;
+
+    /**
+     * @default null
+     */
+    iridescenceMap: Texture | null;
+
+    /**
+     * @default 1.3
+     */
+    iridescenceIOR: number;
+
+    /**
+     * @default 0
+     */
+    iridescence: number;
+
+    /**
+     * @default [100, 400]
+     */
+    iridescenceThicknessRange: number[];
+
+    /**
+     * @default null
+     */
+    iridescenceThicknessMap: Texture | null;
 }

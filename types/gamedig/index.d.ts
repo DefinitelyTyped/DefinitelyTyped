@@ -284,6 +284,7 @@ export interface Player {
     score?: number | undefined;
     team?: string | undefined;
     address?: string | undefined;
+    raw?: object | undefined;
 }
 
 export interface QueryOptions {

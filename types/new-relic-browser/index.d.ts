@@ -2,7 +2,6 @@
 // Project: https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
 // Definitions by: Rene Hamburger <https://github.com/renehamburger>
 //                 Piotr Kubisa <https://github.com/piotrkubisa>
-//                 Piotr Błażejewicz <https://github.com/piotrblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

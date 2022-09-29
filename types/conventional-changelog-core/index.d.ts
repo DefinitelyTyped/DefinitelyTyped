@@ -17,7 +17,7 @@ import {
     Options as BaseParserOptions,
 } from "conventional-commits-parser";
 import { Options as RecommendedBumpOptions } from "conventional-recommended-bump";
-import { GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
+import { ExecOptions as GitRawExecOptions, GitOptions as BaseGitRawCommitsOptions } from "git-raw-commits";
 
 import { Package } from "normalize-package-data";
 
@@ -31,7 +31,7 @@ import { Package } from "normalize-package-data";
  * @param writerOpts
  */
 // tslint:disable-next-line max-line-length
-declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>): Stream.Readable;
+declare function conventionalChangelogCore<TCommit extends Commit = Commit, TContext extends BaseContext = Context>(options?: Options<TCommit, TContext>, context?: Partial<TContext>, gitRawCommitsOpts?: GitRawCommitsOptions, parserOpts?: ParserOptions, writerOpts?: WriterOptions<TCommit, TContext>, execOpts?: GitRawExecOptions): Stream.Readable;
 
 declare namespace conventionalChangelogCore {
     interface Context extends BaseContext {

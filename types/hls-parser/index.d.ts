@@ -47,6 +47,8 @@ export namespace types {
     }
 
     class MasterPlaylist extends Playlist {
+        isMasterPlaylist: true;
+
         variants: readonly Variant[];
 
         currentVariant?: number | undefined;
@@ -74,6 +76,8 @@ export namespace types {
     }
 
     class MediaPlaylist extends Playlist {
+        isMasterPlaylist: false;
+
         targetDuration: number;
 
         mediaSequenceBase?: number | undefined;
@@ -142,7 +146,12 @@ export namespace types {
 
         closedCaptions: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>>;
 
-        currentRenditions: { audio?: number | undefined; video?: number | undefined; subtitles?: number | undefined; closedCaptions?: number | undefined };
+        currentRenditions: {
+            audio?: number | undefined;
+            video?: number | undefined;
+            subtitles?: number | undefined;
+            closedCaptions?: number | undefined;
+        };
 
         constructor(properties: {
             uri: string;
@@ -157,7 +166,14 @@ export namespace types {
             video?: ReadonlyArray<Rendition<'VIDEO'>> | undefined;
             subtitles?: ReadonlyArray<Rendition<'SUBTITLES'>> | undefined;
             closedCaptions?: ReadonlyArray<Rendition<'CLOSED-CAPTIONS'>> | undefined;
-            currentRenditions?: { audio?: number | undefined; video?: number | undefined; subtitles?: number | undefined; closedCaptions?: number | undefined } | undefined;
+            currentRenditions?:
+                | {
+                      audio?: number | undefined;
+                      video?: number | undefined;
+                      subtitles?: number | undefined;
+                      closedCaptions?: number | undefined;
+                  }
+                | undefined;
         });
     }
 
@@ -211,7 +227,12 @@ export namespace types {
 
         language?: string | undefined;
 
-        constructor(properties: { id: string; value?: string | undefined; uri?: string | undefined; language?: string | undefined });
+        constructor(properties: {
+            id: string;
+            value?: string | undefined;
+            uri?: string | undefined;
+            language?: string | undefined;
+        });
     }
 
     class Segment extends Data {
@@ -314,7 +335,13 @@ export namespace types {
 
         formatVersion?: string | undefined;
 
-        constructor(properties: { method: string; uri?: string | undefined; iv?: Buffer | undefined; format?: string | undefined; formatVersion?: string | undefined });
+        constructor(properties: {
+            method: string;
+            uri?: string | undefined;
+            iv?: Buffer | undefined;
+            format?: string | undefined;
+            formatVersion?: string | undefined;
+        });
     }
 
     class MediaInitializationSection {

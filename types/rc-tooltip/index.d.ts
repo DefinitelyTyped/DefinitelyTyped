@@ -1,5 +1,5 @@
 // Type definitions for rc-tooltip 3.7
-// Project: http://github.com/react-component/tooltip
+// Project: https://github.com/react-component/tooltip
 // Definitions by: rhysd <https://github.com/rhysd>
 //                 ahstro <https://github.com/ahstro>
 //                 vsaarinen <https://github.com/vsaarinen>
@@ -13,9 +13,8 @@ export as namespace RCTooltip;
 
 declare namespace RCTooltip {
     export type Trigger = "hover" | "click" | "focus";
-    export type Placement =
-        "left" | "right" | "top" | "bottom" |
-        "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+    export type Placement = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' |
+     'bottomLeft' | 'bottomRight' | 'rightTop' | 'rightBottom' | 'leftTop'| 'leftBottom';
 
     export interface Props {
         children?: React.ReactNode;

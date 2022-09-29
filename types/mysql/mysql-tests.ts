@@ -405,6 +405,8 @@ connection.query('SELECT 1', err => {
 });
 
 connection.query('USE name_of_db_that_does_not_exist', (err: mysql.MysqlError, rows: any) => {
+    // $ExpectType string
+    err.stack;
     console.log(err.code); // 'ER_BAD_DB_ERROR'
 });
 

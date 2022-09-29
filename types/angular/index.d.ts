@@ -2,7 +2,6 @@
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <https://github.com/diegovilar>
 //                 Georgii Dolzhykov <https://github.com/thorn0>
-//                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 //                 Steffen Kowalski <https://github.com/scipper>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>

@@ -1,3 +1,5 @@
+import { AnyFn } from "ember/-private/type-utils";
+
 // tslint:disable-next-line:strict-export-declare-modifiers
 interface DeprecationOptions {
   id: string;
@@ -13,12 +15,12 @@ export function deprecate(
     message: string,
     test: boolean,
     options: DeprecationOptions
-): any;
+): void;
 
 /**
  * Alias an old, deprecated method with its new counterpart.
  */
-export function deprecateFunc<Func extends ((...args: any[]) => any)>(
+export function deprecateFunc<Func extends AnyFn>(
     message: string,
     options: DeprecationOptions,
     func: Func

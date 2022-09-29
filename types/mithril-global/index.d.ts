@@ -1,6 +1,7 @@
 // Type definitions for non-npm package Mithril 2.0
 // Project: https://mithril.js.org/
-// Definitions by: Mike Linkovich <https://github.com/spacejack>, Isiah Meadows <https://github.com/isiahmeadows>
+// Definitions by: Mike Linkovich <https://github.com/spacejack>
+//                 Claudia Meadows <https://github.com/dead-claudia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 

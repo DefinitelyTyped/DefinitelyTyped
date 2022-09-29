@@ -14,13 +14,14 @@ import {
     useEntryPointLoader,
     useFragment,
     useLazyLoadQuery,
+    useClientQuery,
     useMutation,
     usePaginationFragment,
     usePreloadedQuery,
     useQueryLoader,
     useRefetchableFragment,
     useRelayEnvironment,
-    useSubscription
+    useSubscription,
 } from 'react-relay/hooks';
 
 import {
@@ -174,6 +175,27 @@ function LazyLoadQuery() {
 }
 
 /**
+ * Tests for useClientQuery
+ * see https://relay.dev/docs/en/experimental/api-reference#useClientQuery
+ */
+function ClientQuery() {
+    return function App() {
+        const data = useClientQuery<AppQuery>(
+            graphql`
+                query AppQuery($id: ID!) {
+                    user(id: $id) {
+                        name
+                    }
+                }
+            `,
+            { id: '4' },
+        );
+
+        return <h1>{data.user!.name}</h1>;
+    };
+}
+
+/**
  * Tests for useFragment
  * see https://relay.dev/docs/en/experimental/api-reference#usefragment
  */
@@ -185,14 +207,14 @@ interface UserComponent_user {
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $refType': 'UserComponent_user';
+    readonly ' $fragmentType': 'UserComponent_user';
 }
 
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
     readonly ' $data'?: UserComponent_user$data | undefined;
-    readonly ' $fragmentRefs': FragmentRefs<'UserComponent_user'>;
+    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
 }
 
 function NonNullableFragment() {
@@ -246,12 +268,12 @@ type UserComponent_users = ReadonlyArray<{
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $refType': 'UserComponent_users';
+    readonly ' $fragmentType': 'UserComponent_users';
 }>;
 type UserComponent_users$data = UserComponent_users;
 type UserComponent_users$key = ReadonlyArray<{
     readonly ' $data'?: UserComponent_users$data | undefined;
-    readonly ' $fragmentRefs': FragmentRefs<'UserComponent_users'>;
+    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
 }>;
 
 function NonNullableArrayFragment() {
@@ -353,7 +375,7 @@ function RefetchableFragment() {
 
     interface CommentBodyRefetchQueryResponse {
         readonly node: {
-            readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
+            readonly ' $fragmentSpreads': FragmentRefs<'CommentBody_comment'>;
         } | null;
     }
 
@@ -367,14 +389,14 @@ function RefetchableFragment() {
             readonly text: string;
         } | null;
         readonly id: string | null;
-        readonly ' $refType': 'CommentBody_comment';
+        readonly ' $fragmentType': 'CommentBody_comment';
     }
 
     type CommentBody_comment$data = CommentBody_comment;
 
     interface CommentBody_comment$key {
         readonly ' $data'?: CommentBody_comment$data | undefined;
-        readonly ' $fragmentRefs': FragmentRefs<'CommentBody_comment'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'CommentBody_comment'>;
     }
 
     interface Props {
@@ -429,7 +451,7 @@ function PaginationFragment() {
 
     interface FriendsListPaginationQueryResponse {
         readonly node: {
-            readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+            readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
 
@@ -449,14 +471,14 @@ function PaginationFragment() {
             }>;
         };
         readonly id: string;
-        readonly ' $refType': 'FriendsListComponent_user';
+        readonly ' $fragmentType': 'FriendsListComponent_user';
     }
 
     type FriendsListComponent_user$data = FriendsListComponent_user;
 
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data | undefined;
-        readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
     }
 
     interface Props {
@@ -515,7 +537,7 @@ function PaginationFragment_WithNonNullUserProp() {
 
     interface FriendsListPaginationQueryResponse {
         readonly node: {
-            readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+            readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
         };
     }
 
@@ -535,14 +557,14 @@ function PaginationFragment_WithNonNullUserProp() {
             }>;
         };
         readonly id: string;
-        readonly ' $refType': 'FriendsListComponent_user';
+        readonly ' $fragmentType': 'FriendsListComponent_user';
     }
 
     type FriendsListComponent_user$data = FriendsListComponent_user;
 
     interface FriendsListComponent_user$key {
         readonly ' $data'?: FriendsListComponent_user$data | undefined;
-        readonly ' $fragmentRefs': FragmentRefs<'FriendsListComponent_user'>;
+        readonly ' $fragmentSpreads': FragmentRefs<'FriendsListComponent_user'>;
     }
 
     interface Props {
@@ -746,7 +768,7 @@ function QueryLoader() {
 
     function QueryFetcherExample(): React.ReactElement {
         React.useEffect(() => {
-            loadQuery({ id: 'EXAMPLE' });
+            loadQuery({ id: 'EXAMPLE' }, { fetchPolicy: 'store-only' });
             return disposeQuery;
         });
 

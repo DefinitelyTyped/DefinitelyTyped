@@ -4,7 +4,13 @@ import { MatcherPattern } from '../view/matcher';
 import ConversionHelpers from './conversionhelpers';
 import { UpcastConversionApi, UpcastDispatcherCallback } from './upcastdispatcher';
 import { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
+import Model from '../model/model';
+import Mapper from './mapper';
+import ViewDocument from '../view/document';
 
+/**
+ * Upcast conversion helper functions.
+ */
 export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
     /**
      * View element to model element conversion helper.
@@ -54,6 +60,7 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
         model: string | ModelElement | ((el: ViewElement, api: UpcastConversionApi) => ModelElement | null);
         converterPriority?: PriorityString | number | undefined;
     }): this;
+
     /**
      * View element to model attribute conversion helper.
      *
@@ -126,7 +133,6 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
      *
      * See {@link module:engine/conversion/conversion~Conversion#for `conversion.for()`} to learn how to add a converter
      * to the conversion process.
-     *
      */
     elementToAttribute(config?: {
         view: MatcherPattern;
@@ -135,6 +141,7 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
             | { key: string; value: string | ((viewElement: ViewElement, api: UpcastConversionApi) => string | null) };
         converterPriority?: PriorityString | number | undefined;
     }): this;
+
     /**
      * View attribute to model attribute conversion helper.
      *
@@ -275,6 +282,7 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
 
         converterPriority?: PriorityString | number | undefined;
     }): this;
+
     /**
      * View element to model marker conversion helper.
      *
@@ -319,6 +327,7 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
      * to the conversion process.
      */
     elementToMarker(config: { view: MatcherPattern; model: string | ((el: ViewElement) => string) }): this;
+
     /**
      * View-to-model marker conversion helper.
      *
@@ -385,8 +394,37 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastHelpers> {
     }): this;
 }
 
+/**
+ * Function factory, creates a converter that converts {@link module:engine/view/documentfragment~DocumentFragment view document fragment}
+ * or all children of {@link module:engine/view/element~Element} into
+ * {@link module:engine/model/documentfragment~DocumentFragment model document fragment}.
+ * This is the "entry-point" converter for upcast (view to model conversion). This converter starts the conversion of all children
+ * of passed view document fragment. Those children {@link module:engine/view/node~Node view nodes} are then handled by other converters.
+ *
+ * This also a "default", last resort converter for all view elements that has not been converted by other converters.
+ * When a view element is being converted to the model but it does not have converter specified, that view element
+ * will be converted to {@link module:engine/model/documentfragment~DocumentFragment model document fragment} and returned.
+ */
 export function convertToModelFragment(): UpcastDispatcherCallback<
     'element' | `element:${string}` | 'documentFragment'
 >;
 
+/**
+ * Function factory, creates a converter that converts {@link module:engine/view/text~Text} to {@link module:engine/model/text~Text}.
+ */
 export function convertText(): UpcastDispatcherCallback<'text'>;
+
+/**
+ * Function factory, creates a callback function which converts a {@link module:engine/view/selection~Selection
+ * view selection} taken from the {@link module:engine/view/document~Document#event:selectionChange} event
+ * and sets in on the {@link module:engine/model/document~Document#selection model}.
+ *
+ * **Note**: because there is no view selection change dispatcher nor any other advanced view selection to model
+ * conversion mechanism, the callback should be set directly on view document.
+ *
+ *    view.document.on( 'selectionChange', convertSelectionChange( modelDocument, mapper ) );
+ */
+export function convertSelectionChange(
+    model: Model,
+    mapper: Mapper,
+): UpcastDispatcherCallback<'selectionChange', ViewDocument>;

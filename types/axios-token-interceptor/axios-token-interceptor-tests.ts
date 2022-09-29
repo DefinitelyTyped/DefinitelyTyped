@@ -9,7 +9,8 @@ tokenProvider.tokenCache(getToken, {
     getMaxAge: token => token.expires_in,
 });
 
-tokenProvider(); // $ExpectError
+// @ts-expect-error
+tokenProvider();
 
 const validOptions1 = {
     getToken: () => 'qwerty',
@@ -21,7 +22,8 @@ const validOptions2 = {
 };
 tokenProvider(validOptions2); // $ExpectType TokenProvider
 
-tokenProvider.tokenCache(); // $ExpectError
+// @ts-expect-error
+tokenProvider.tokenCache();
 
 const validCacheGetter = () => Promise.resolve('qwerty');
 const validCacheOptions = {

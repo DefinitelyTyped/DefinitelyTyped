@@ -1,8 +1,8 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import ImageUtils from '../imageutils';
+import ImageCaptionUtils from './imagecaptionutils';
 
 export default class ImageCaptionUI extends Plugin {
-    static readonly requires: [typeof ImageUtils];
+    static readonly requires: [typeof ImageCaptionUtils];
     static readonly pluginName: 'ImageCaptionUI';
     init(): void;
 }

@@ -99,7 +99,7 @@ import * as wslib from "ws";
     wss.addListener("connection", (client, request) => {
         request.socket.remoteAddress;
 
-        // $ExpectError
+        // @ts-expect-error
         request.aborted === 10;
 
         client.terminate();
@@ -186,7 +186,7 @@ import * as wslib from "ws";
 
 {
     const ws = new WebSocket("ws://www.host.com/path");
-    // $ExpectError
+    // @ts-expect-error
     ws.addEventListener("other", () => {});
 }
 
@@ -214,17 +214,17 @@ import * as wslib from "ws";
 function f() {
     const ws = new WebSocket("ws://www.host.com/path");
 
-    // $ExpectError
+    // @ts-expect-error
     const a: 5 = ws.readyState;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.readyState = ws.OPEN;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.readyState = !ws.OPEN;
 
     if (ws.readyState === ws.OPEN) {
-        // $ExpectError
+        // @ts-expect-error
         const a: 2 = ws.readyState;
         const x: 1 = ws.readyState;
         return;
@@ -249,16 +249,16 @@ function f() {
 {
     const ws = new WebSocket("ws://www.host.com/path");
 
-    // $ExpectError
+    // @ts-expect-error
     ws.CONNECTING = 123;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.OPEN = 123;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.CLOSING = 123;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.CLOSED = 123;
 }
 
@@ -269,11 +269,11 @@ function f() {
     ws.binaryType = "fragments";
     ws.binaryType = "nodebuffer";
 
-    // $ExpectError
+    // @ts-expect-error
     ws.binaryType = "";
-    // $ExpectError
+    // @ts-expect-error
     ws.binaryType = true;
-    // $ExpectError
+    // @ts-expect-error
     ws.binaryType = "invalid-value";
 }
 
@@ -287,19 +287,19 @@ function f() {
     // $ExpectType string
     ws.protocol;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.bufferedAmount = 1;
-    // $ExpectError
+    // @ts-expect-error
     ws.bufferedAmount = true;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.extensions = "a-value";
-    // $ExpectError
+    // @ts-expect-error
     ws.extensions = true;
 
-    // $ExpectError
+    // @ts-expect-error
     ws.protocol = "a-value";
-    // $ExpectError
+    // @ts-expect-error
     ws.protocol = true;
 }
 
@@ -313,4 +313,82 @@ function f() {
             });
         }
     });
+}
+
+declare module 'ws' {
+    interface WebSocket {
+        id?: string;
+    }
+
+    interface Server {
+        getWebSocketId(): string;
+    }
+}
+
+{
+    const server = new wslib.WebSocketServer();
+
+    server.on('connection', (ws) => {
+        // $ExpectType string | undefined
+        ws.id;
+
+        ws.id = server.getWebSocketId();
+    });
+}
+
+{
+    const ws = new WebSocket("ws://www.host.com/path", {
+        generateMask: (mask) => {},
+        skipUTF8Validation: true,
+    });
+}
+
+{
+    class CustomWebSocket extends WebSocket.WebSocket {
+        foo(): 'foo' {
+            return 'foo';
+        }
+    }
+    const server = new http.Server();
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
+    webSocketServer.on('connection', (ws) => {
+        // $ExpectType CustomWebSocket
+        ws;
+        // $ExpectType "foo"
+        ws.foo();
+    });
+    Array.from(webSocketServer.clients).forEach((ws) => {
+        // $ExpectType CustomWebSocket
+        ws;
+        // $ExpectType "foo"
+        ws.foo();
+    });
+    server.on('upgrade', (request, socket, head) => {
+        if (request.url === '/path') {
+            webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+                // $ExpectType CustomWebSocket
+                ws;
+                // $ExpectType "foo"
+                ws.foo();
+            });
+        }
+    });
+}
+
+{
+    const ws = new WebSocket('ws://www.host.com/path');
+
+    if (ws.isPaused) {
+        ws.resume();
+    } else {
+        ws.pause();
+    }
+
+    // @ts-expect-error
+    ws.isPaused = true;
+
+    ws.onopen = null;
+    ws.onerror = null;
+    ws.onclose = null;
+    ws.onmessage = null;
 }

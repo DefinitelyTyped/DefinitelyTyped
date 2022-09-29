@@ -58,4 +58,4 @@ export class CSM {
     dispose(): void;
 }
 
-import CSMFrustrum from './CSMFrustum.js';
+import CSMFrustrum from './CSMFrustum';

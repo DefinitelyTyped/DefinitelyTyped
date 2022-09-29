@@ -30,6 +30,7 @@ interface SslConfig {
 }
 
 interface HttpConfig {
+    mediaroot: string;
     port?: number;
     allow_origin?: string;
 }

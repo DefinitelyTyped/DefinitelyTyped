@@ -1,9 +1,9 @@
 // Type definitions for ndarray-ops 1.2
 // Project: https://github.com/mikolalysenko/ndarray-ops
-// Definitions by: Adam Zerella <https://github.com/adamzerella>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { NdArray } from "ndarray";
+import { Data, NdArray } from 'ndarray';
 
 ////////////////
 /// Assignment operations
@@ -201,18 +201,18 @@ export function powopseq(array: NdArray, scalar: number): boolean;
 
 export function any(array: NdArray): boolean;
 export function all(array: NdArray): boolean;
-export function sum(array: NdArray): boolean;
-export function prod(array: NdArray): boolean;
-export function norm2squared(array: NdArray): boolean;
-export function norm2(array: NdArray): boolean;
-export function norminf(array: NdArray): boolean;
-export function norm1(array: NdArray): boolean;
-export function sup(array: NdArray): boolean;
-export function inf(array: NdArray): boolean;
-export function argmin(index: number, array: NdArray, shape: NdArray): boolean;
-export function argmax(index: number, array: NdArray, shape: NdArray): boolean;
+export function sum(array: NdArray): number;
+export function prod(array: NdArray): number;
+export function norm2squared(array: NdArray): number;
+export function norm2(array: NdArray): number;
+export function norminf(array: NdArray): number;
+export function norm1(array: NdArray): number;
+export function sup(array: NdArray): number;
+export function inf(array: NdArray): number;
+export function argmin(index: number, array: NdArray, shape: NdArray): number;
+export function argmax(index: number, array: NdArray, shape: NdArray): number;
 export function random(array: NdArray): NdArray;
-export function assign(array: NdArray, array2: NdArray): NdArray;
+export function assign<D extends Data = Data<number>>(array: NdArray<D>, array2: NdArray<D>): NdArray<D>;
 export function assigns(array: NdArray, scalar: number): NdArray;
 export function equals(array1: NdArray, array2: NdArray): boolean;
 
