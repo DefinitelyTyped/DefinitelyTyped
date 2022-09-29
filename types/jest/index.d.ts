@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.0
+// Type definitions for Jest 29.1
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -182,8 +182,12 @@ declare namespace jest {
      */
     function getRealSystemTime(): number;
     /**
+     * Returns the current time in ms of the fake timer clock.
+     */
+    function now(): number;
+    /**
      * Indicates that the module system should never return a mocked version
-     * of the specified module, including all of the specificied module's dependencies.
+     * of the specified module, including all of the specified module's dependencies.
      */
     function deepUnmock(moduleName: string): typeof jest;
     /**
@@ -1249,7 +1253,21 @@ declare namespace jest {
          * myMockFn((err, val) => console.log(val)); // false
          */
         mockImplementationOnce(fn: (...args: Y) => T): this;
-        /** Sets the name of the mock`. */
+        /**
+         * Temporarily overrides the default mock implementation within the callback,
+         * then restores its previous implementation.
+         *
+         * @remarks
+         * If the callback is async or returns a `thenable`, `withImplementation` will return a promise.
+         * Awaiting the promise will await the callback and reset the implementation.
+         */
+        withImplementation(fn: (...args: Y) => T, callback: () => Promise<unknown>): Promise<void>;
+        /**
+         * Temporarily overrides the default mock implementation within the callback,
+         * then restores its previous implementation.
+         */
+        withImplementation(fn: (...args: Y) => T, callback: () => void): void;
+        /** Sets the name of the mock. */
         mockName(name: string): this;
         /**
          * Just a simple sugar function for:
