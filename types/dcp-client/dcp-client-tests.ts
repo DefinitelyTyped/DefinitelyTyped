@@ -57,7 +57,7 @@ export const loadOptions: LoadOptions = {
     const iterable = [1, 2, 3, 4, 5];
     const MY_RESEARCH_URL = 'https://localhost:8080/someURL';
 
-    const job = await compute.for(iterable, 'work', [100]);
+    const job = compute.for(iterable, 'work', [100]);
 
     job.public.name = `DCP for Physics!`;
     job.public.description = `Using DCP for electromagnetic force calculations`;
