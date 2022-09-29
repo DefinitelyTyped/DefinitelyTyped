@@ -18,6 +18,12 @@
             ],
             "inquirer/*": [
                 "inquirer/v8/*"
+            ],
+            "inquirer-autocomplete-prompt": [
+                "inquirer-autocomplete-prompt"
+            ],
+            "inquirer-autocomplete-prompt/*": [
+                "inquirer-autocomplete-prompt/*"
             ]
         },
         "types": [],
