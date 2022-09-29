@@ -1,4 +1,4 @@
-import thumbsupply from 'thumbsupply';
+import thumbsupply = require('thumbsupply');
 
 thumbsupply
     .generateThumbnail('some-video.mp4', {
