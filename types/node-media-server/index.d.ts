@@ -60,7 +60,7 @@ interface TransTaskConfig {
     app: string;
     hls?: boolean;
     hlsFlags?: string;
-    dash?: true;
+    dash?: boolean;
     dashFlags?: string;
     vc?: string;
     vcParam?: [string];
