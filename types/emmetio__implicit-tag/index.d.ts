@@ -4,4 +4,3 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function emmetio__implicit_tag(parentName: string): string;
-
