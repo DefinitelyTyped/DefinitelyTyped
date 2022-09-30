@@ -5,7 +5,5 @@
 
 /**
  * Returns best child node name for given parent node name
- * @param  {String} parentName Name of parent node
- * @return {String}
  */
 export function resolveImplicitName(parentName: string): string;
