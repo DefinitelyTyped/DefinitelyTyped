@@ -138,14 +138,14 @@ interface WebApp {
         eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
         eventHandler: () => void,
     ): void;
-    onEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id?: string }) => void): void;
+    onEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
     onEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     /** A method that deletes a previously set event handler. */
     offEvent(
         eventType: 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked' | 'settingsButtonClicked',
         eventHandler: () => void,
     ): void;
-    offEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id?: string }) => void): void;
+    offEvent(eventType: 'popupClosed', eventHandler: (eventData: { button_id: string | null }) => void): void;
     offEvent(eventType: 'viewportChanged', eventHandler: (eventData: { isStateStable: boolean }) => void): void;
     /**
      * A method used to send data to the bot. When this method is called, a
