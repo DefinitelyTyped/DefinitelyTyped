@@ -3,7 +3,5 @@
 // Definitions by: Robbert Verbruggen <https://github.com/rfverbruggen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Returns best child node name for given parent node name
- */
-export function resolveImplicitName(parentName: string): string;
+export function emmetio__implicit_tag(parentName: string): string;
+
