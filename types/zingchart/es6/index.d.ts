@@ -8,8 +8,8 @@ declare namespace zingchart {
   let LICENSE: string[];
   let LICENSEKEY: string[];
   let ASYNC: boolean;
-  let FONTFAMILY: string[];
-  let FONTSIZE: string[];
+  let FONTFAMILY: string;
+  let FONTSIZE: number;
   let MODULESDIR: string[];
   let ZCOUTPUT: boolean;
   let SYNTAX: string;
