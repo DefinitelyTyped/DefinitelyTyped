@@ -56,12 +56,12 @@ export namespace LineUtil {
         useLastCode?: boolean,
         round?: boolean,
     ): [Point, Point] | false;
-    function polylineCenter(latlngs: LatLngExpression[], crs: CRS, zoom: number): LatLng;
+    function polylineCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace PolyUtil {
     function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
-    function polygonCenter(latlngs: LatLngExpression[], crs: CRS, zoom: number): LatLng;
+    function polygonCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace DomUtil {
