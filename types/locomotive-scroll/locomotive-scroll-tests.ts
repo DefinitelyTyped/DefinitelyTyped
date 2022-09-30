@@ -1,4 +1,4 @@
-import LocomotiveScroll from 'locomotive-scroll';
+import LocomotiveScroll = require('locomotive-scroll');
 
 const scroll = new LocomotiveScroll({
     el: document.querySelector('[data-scroll-container]') as HTMLElement,
