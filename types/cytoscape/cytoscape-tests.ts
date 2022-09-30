@@ -2,7 +2,18 @@
 
 // TODO: document all aliases as aliases, not as duplicates!
 
-import { EdgeSingular, NodeSingular } from 'cytoscape';
+import {
+    EdgeSingular,
+    NodeSingular,
+    BreadthFirstLayoutOptions,
+    CircleLayoutOptions,
+    GridLayoutOptions,
+    ConcentricLayoutOptions,
+    CoseLayoutOptions,
+    NullLayoutOptions,
+    RandomLayoutOptions,
+    PresetLayoutOptions,
+} from 'cytoscape';
 
 const assert = (tag: boolean) => {};
 const aliases = (...obj: Array<{}>) => {};
@@ -58,7 +69,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             'background-clip': 'none',
             'background-width-relative-to': 'inner',
             'background-height-relative-to': 'inner',
-            'bounds-expansion': [1, '5em']
+            'bounds-expansion': [1, '5em'],
         },
     },
     {
@@ -75,7 +86,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             'target-endpoint': 'outside-to-node',
             'line-opacity': 0.5,
             'taxi-turn': '20deg',
-            'taxi-turn-min-distance': '7px'
+            'taxi-turn-min-distance': '7px',
         },
     },
     {
@@ -169,7 +180,7 @@ const cy = cytoscape({
         },
         transform: (node, position) => {
             return position;
-        }
+        },
     },
 
     // additional custom graph data:
@@ -261,7 +272,7 @@ const positions = oneOf(
 );
 
 // #core/viewport
-cy.viewport({ zoom: 1.2, pan: { x: 0, y: 1}});
+cy.viewport({ zoom: 1.2, pan: { x: 0, y: 1 } });
 
 // TODO: uncomment after we have the way to add layout options properties from extensions
 // const layouts = [
@@ -820,17 +831,199 @@ cy.elements().bfs({
 // Check extension registration: https://js.cytoscape.org/#extensions/registration
 
 // $ExpectType void
-cytoscape("core", "prop", () => {});
+cytoscape('core', 'prop', () => {});
 // $ExpectType unknown
-cytoscape("core", "name");
+cytoscape('core', 'name');
 
-const myExt: cytoscape.Ext = (cy) => {
+const myExt: cytoscape.Ext = cy => {
     // $ExpectType void
-    cy("core", "prop", () => {});
+    cy('core', 'prop', () => {});
     // $ExpectType unknown
-    cy("core", "prop");
+    cy('core', 'prop');
 };
 
 // Test CollectionEvents
-collSel.emit('myEvt', ['string', 1, {a: 1, b: true}]);
-collSel.trigger('myEvt', ['string', 1, {a: 1, b: true}]);
+collSel.emit('myEvt', ['string', 1, { a: 1, b: true }]);
+collSel.trigger('myEvt', ['string', 1, { a: 1, b: true }]);
+
+// None of the LayoutOptions should require anything besides the name property.
+
+const nullNoOptions: NullLayoutOptions = {
+    name: 'null',
+};
+cy.layout(nullNoOptions);
+
+const randomNoOptions: RandomLayoutOptions = {
+    name: 'random',
+};
+cy.layout(randomNoOptions);
+
+const presetNoOptions: PresetLayoutOptions = {
+    name: 'preset',
+};
+cy.layout(presetNoOptions);
+
+const gridNoOptions: GridLayoutOptions = {
+    name: 'grid',
+};
+cy.layout(gridNoOptions);
+
+const circleNoOptions: CircleLayoutOptions = {
+    name: 'circle',
+};
+cy.layout(circleNoOptions);
+
+const concentricNoOptions: ConcentricLayoutOptions = {
+    name: 'concentric',
+};
+cy.layout(concentricNoOptions);
+
+const bfNoOptions: BreadthFirstLayoutOptions = {
+    name: 'breadthfirst',
+};
+cy.layout(bfNoOptions);
+
+const coseNoOptions: CoseLayoutOptions = {
+    name: 'cose',
+};
+cy.layout(coseNoOptions);
+
+// Tests for particular options that had problems.
+const bfAllOptions: BreadthFirstLayoutOptions = {
+    name: 'breadthfirst',
+    fit: false,
+    directed: true,
+    padding: 60,
+    circle: true,
+    grid: true,
+    spacingFactor: 1.0,
+    boundingBox: { x1: 12, y1: 12, w: 200, h: 300 },
+    avoidOverlap: false,
+    nodeDimensionsIncludeLabels: true,
+    roots: [],
+    maximal: true,
+    depthSort: (a, b) => {
+        return 0;
+    },
+    animate: true,
+    animationDuration: 1000,
+    animationEasing: 'ease',
+    animateFilter: (node, i) => {
+        return false;
+    },
+    ready: () => {},
+    stop: () => {},
+    transform: (node, position) => {
+        return position;
+    },
+};
+cy.layout(bfAllOptions);
+
+const circleAllOptions: CircleLayoutOptions = {
+    name: 'circle',
+    fit: false,
+    padding: 45,
+    boundingBox: { x1: -5, y1: -40, x2: 25, y2: 67 },
+    avoidOverlap: false,
+    nodeDimensionsIncludeLabels: true,
+    spacingFactor: 12,
+    radius: 57,
+    startAngle: 0,
+    sweep: Math.PI,
+    clockwise: false,
+    sort: (x, y) => 0,
+    animate: true,
+    animationDuration: 750,
+    animationEasing: 'ease',
+    animateFilter: (n, i) => false,
+    ready: () => {},
+    stop: () => {},
+};
+cy.layout(circleAllOptions);
+
+const gridAllOptions: GridLayoutOptions = {
+    name: 'grid',
+    fit: false,
+    padding: 0,
+    boundingBox: { x1: 12, y1: 120, w: 240, h: 680 },
+    avoidOverlap: false,
+    avoidOverlapPadding: 5,
+    nodeDimensionsIncludeLabels: true,
+    spacingFactor: 2,
+    condense: true,
+    rows: 12,
+    cols: 6,
+    position: node => {
+        return { row: 3, col: 2 };
+    },
+    sort: (a, b) => 1,
+    animate: true,
+    animationDuration: 150,
+    animationEasing: 'ease-in-sine',
+    animateFilter: (node, i) => false,
+    ready: () => {},
+    stop: () => {},
+    transform: (node, position) => {
+        return { y: position.x, x: position.y };
+    },
+};
+cy.layout(gridAllOptions);
+
+const concentricAllOptions: ConcentricLayoutOptions = {
+    name: 'concentric',
+
+    fit: false,
+    padding: 300,
+    startAngle: (1 / 2) * Math.PI,
+    sweep: Math.PI,
+    clockwise: false,
+    equidistant: true,
+    minNodeSpacing: 5,
+    boundingBox: { x1: 0, y1: 1, x2: 2, y2: 3 },
+    avoidOverlap: false,
+    nodeDimensionsIncludeLabels: true,
+    height: 5,
+    width: 3,
+    spacingFactor: 7,
+    concentric: _node => 6,
+    levelWidth: _nodes => 5,
+    animate: true,
+    animationDuration: 50,
+    animationEasing: 'ease-out',
+    animateFilter: (node, i) => false,
+    ready: () => {},
+    stop: () => {},
+    transform: (node, position) => {
+        return position;
+    },
+};
+cy.layout(concentricAllOptions);
+
+const coseAllOptions: CoseLayoutOptions = {
+    name: 'cose',
+    ready: () => {},
+    stop: () => {},
+    animate: false,
+    animationEasing: 'ease-out',
+    animationDuration: undefined,
+    animateFilter: (node, i) => false,
+    animationThreshold: 125,
+    refresh: 30,
+    fit: false,
+    padding: 12,
+    boundingBox: { x1: 9, y1: 23, w: 42, h: 3000 },
+    nodeDimensionsIncludeLabels: true,
+    randomize: true,
+    componentSpacing: 57,
+    nodeRepulsion: node => 32,
+    nodeOverlap: 4,
+    idealEdgeLength: edge => 75,
+    edgeElasticity: edge => 111,
+    nestingFactor: 3.8,
+    gravity: 9.8,
+    numIter: 12000,
+    initialTemp: 5000,
+    coolingFactor: 0.98,
+    minTemp: 10.0,
+};
+cy.layout(coseAllOptions);

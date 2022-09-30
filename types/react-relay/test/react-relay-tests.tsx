@@ -26,6 +26,7 @@ import {
     RelayProp,
     RelayRefetchProp,
     requestSubscription,
+    ProfilerContext,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -757,5 +758,19 @@ const MyRelayContextConsumer: React.FunctionComponent = () => {
                 return <div>Loading</div>;
             }}
         />
+    );
+};
+
+const MyRelayProfilerContextProvider: React.FunctionComponent = () => {
+    const context = React.useMemo(
+        () => ({
+            wrapPrepareQueryResource<T>(cb: () => T): T {
+                return cb();
+            },
+        }),
+        [],
+    );
+    return (
+        <ProfilerContext.Provider value={context}><div /></ProfilerContext.Provider>
     );
 };

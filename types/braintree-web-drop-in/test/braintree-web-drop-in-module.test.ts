@@ -55,7 +55,7 @@ dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
         },
         googlePay: {
             merchantId: '',
-            googlePayVersion: '',
+            googlePayVersion: 1,
             transactionInfo: {
                 currencyCode: 'USD',
                 totalPriceStatus: 'FINAL',
@@ -90,8 +90,26 @@ dropin.create({ authorization: '', container: 'my-div' }, (error, myDropin) => {
         const myPaymentOption: 'card' | 'paypal' | 'paypalCredit' = paymentOption;
     }
     function onChangeActiveView({ previousViewId, newViewId }: dropin.ChangeActiveViewPayload) {
-        const myPreviousView: 'card' | 'paypal' | 'paypalCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation' = previousViewId;
-        const myNewView: 'card' | 'paypal' | 'paypalCredit' | 'venmo' | 'googlePay' | 'applePay' | 'methods' | 'options' | 'delete-confirmation' = newViewId;
+        const myPreviousView:
+            | 'card'
+            | 'paypal'
+            | 'paypalCredit'
+            | 'venmo'
+            | 'googlePay'
+            | 'applePay'
+            | 'methods'
+            | 'options'
+            | 'delete-confirmation' = previousViewId;
+        const myNewView:
+            | 'card'
+            | 'paypal'
+            | 'paypalCredit'
+            | 'venmo'
+            | 'googlePay'
+            | 'applePay'
+            | 'methods'
+            | 'options'
+            | 'delete-confirmation' = newViewId;
     }
 
     myDropin.on('noPaymentMethodRequestable', onNoPaymentMethodRequestable);

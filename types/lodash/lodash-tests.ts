@@ -4156,12 +4156,6 @@ fp.now(); // $ExpectType number
         array.push({ value: false });
     }
 
-    const obj: { value?: boolean } = {};
-    if (_.isEmpty(obj)) {
-        const result: { value?: undefined } = obj;
-    } else {
-        obj; // $ExpectType { value?: boolean | undefined; }
-    }
     let obj2: { value: boolean } | null | undefined = { value: true };
     if (Math.random()) {
         obj2 = null;
@@ -4172,6 +4166,32 @@ fp.now(); // $ExpectType number
         const result: null | undefined = obj2;
     } else {
         obj2; // $ExpectType { value: boolean; }
+    }
+    let obj3: { value?: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj3 = null;
+    } else if (Math.random()) {
+        obj3 = undefined;
+    }
+    if (_.isEmpty(obj3)) {
+        const result: { value?: never; } | null | undefined = obj3;
+        obj3 = { value: false };
+    } else {
+        obj3; // $ExpectType { value?: boolean | undefined; }
+    }
+    const record: Record<string, string> = {};
+    if (_.isEmpty(record)) {
+        record.test = "123";
+    }
+    interface Foo {
+        bar?: string;
+    }
+    const foo: Foo = {};
+    if (Math.random()) {
+        foo.bar = "bar";
+    }
+    if (_.isEmpty(foo)) {
+        foo.bar = "baz";
     }
 }
 
