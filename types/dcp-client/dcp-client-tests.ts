@@ -59,6 +59,8 @@ export const loadOptions: LoadOptions = {
 
     const job = compute.for(iterable, 'work', [100]);
 
+    job.id = 'job-1';
+    job.address = 'job-1';
     job.public.name = `DCP for Physics!`;
     job.public.description = `Using DCP for electromagnetic force calculations`;
     job.public.link = MY_RESEARCH_URL;

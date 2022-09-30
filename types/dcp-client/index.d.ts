@@ -631,6 +631,17 @@ export interface PublicProperties {
  */
 export class Job {
     /**
+     * Job id
+     * Note: The job id is a getter for job address.
+     */
+    id: string;
+
+    /**
+     * Job address
+     */
+    address: string;
+
+    /**
      * An object to store public-facing attributes of a job. Anything stored in this object will be available for use inside the work function.
      * Properties of this object can be seen by the worker in order to display what job it is currently working on.
      */
