@@ -2309,6 +2309,8 @@ export namespace DomEvent {
     function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
     function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+
+    function getPropagationPath(ev: Event): HTMLElement[];
 }
 
 export interface DefaultMapPanes {
