@@ -13,6 +13,7 @@ interface NaturalDragAnimationType {
     style: DraggingStyle | NotDraggingStyle | undefined;
     animationRotationFade?: number;
     rotationMultiplier?: number;
+    sigmoidFunction?: (x: number) => number;
     children: (style: React.CSSProperties) => React.ReactNode;
 }
 
