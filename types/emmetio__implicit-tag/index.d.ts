@@ -3,4 +3,4 @@
 // Definitions by: Robbert Verbruggen <https://github.com/rfverbruggen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function emmetio__implicit_tag(parentName: string): string;
+export function resolveImplicitName(parentName: string): string;
