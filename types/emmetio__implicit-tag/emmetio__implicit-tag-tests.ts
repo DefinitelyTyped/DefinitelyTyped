@@ -1,4 +1,4 @@
 import resolveImplicitName from '@emmetio/implicit-tag';
 
-// $Expect "tr"
+// $ExpectType string
 const result = resolveImplicitName("table");

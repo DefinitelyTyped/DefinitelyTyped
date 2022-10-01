@@ -3,4 +3,6 @@
 // Definitions by: Robbert Verbruggen <https://github.com/rfverbruggen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function resolveImplicitName(parentName: string): string;
+declare module '@emmetio/implicit-tag' {
+    export default function resolveImplicitName(parentName: string): string;
+}
