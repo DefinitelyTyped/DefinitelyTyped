@@ -1,4 +1,4 @@
-// Type definitions for random-web-token 2.0.0
+// Type definitions for random-web-token 2.0
 // Project: https://github.com/schrudolf/random-web-token#readme
 // Definitions by: Rudolf <https://github.com/schrudolf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
