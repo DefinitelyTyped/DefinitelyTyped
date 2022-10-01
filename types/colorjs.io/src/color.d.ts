@@ -24,7 +24,6 @@ export type Coords = [number, number, number];
 export interface ColorObject {
     space: ColorSpace;
     coords: Coords;
-    /** @todo check type for alpha here */
     alpha: number;
 }
 
@@ -49,7 +48,7 @@ export type ToColorPrototype<T extends (...args: any[]) => any> = T extends (col
 
 declare namespace Color {
     export { util, hooks, WHITES, ColorSpace as Space, parse, defaults };
-    export const spaces: ColorSpace['registry'];
+    export const spaces: typeof ColorSpace['registry'];
 }
 
 declare class Color {

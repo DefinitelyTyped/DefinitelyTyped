@@ -1,5 +1,4 @@
 import Color, { ColorObject } from './color';
-import ColorSpace from './space';
+import { Ref } from './space';
 
-/** @todo fix type for prop */
-export default function get(color: Color | ColorObject, prop: any): number;
+export default function get(color: Color | ColorObject, prop: Ref): number;

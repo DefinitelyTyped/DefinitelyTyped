@@ -1,4 +1,4 @@
 import Color, { ColorTypes } from './color';
+import { Ref } from './space';
 
-/** @todo fix type for prop */
-export default function set(color: ColorTypes, prop: any, value: number | ((coord: number) => number)): Color;
+export default function set(color: ColorTypes, prop: Ref, value: number | ((coord: number) => number)): Color;

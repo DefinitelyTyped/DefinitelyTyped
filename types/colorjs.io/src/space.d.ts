@@ -22,6 +22,8 @@ export interface Options {
     formats?: Record<string, Format>;
 }
 
+export type Ref = string | [string, string] | { space: string; coordId: string };
+
 export default class ColorSpace {
     constructor(options: Options);
 
@@ -36,7 +38,7 @@ export default class ColorSpace {
      * @throws {TypeError} If no space or an unknown space is provided
      */
     static resolveCoord(
-        ref: string | [string, string] | { space: string; coordId: string },
+        ref: Ref,
         workingSpace?: string | ColorSpace,
     ): {
         name: string;
