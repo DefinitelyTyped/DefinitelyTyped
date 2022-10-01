@@ -12,7 +12,7 @@ export interface Format {
 export interface Options {
     id: string;
     name: string;
-    base?: string | null | undefined;
+    base?: string | ColorSpace | null | undefined;
     fromBase?: ((coords: Coords) => number[]) | undefined;
     toBase?: ((coords: Coords) => number[]) | undefined;
     coords?: Coords | undefined;
