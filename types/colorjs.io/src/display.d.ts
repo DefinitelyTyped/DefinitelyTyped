@@ -9,4 +9,3 @@ export default function display(
         space?: string | ColorSpace | undefined;
     } & Record<string, any>,
 ): string;
-// Note: The capitalized string here is deliberate
