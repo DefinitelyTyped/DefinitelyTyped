@@ -14,10 +14,10 @@ declare global {
      * This value must be between 6 significant digits and must always be increasing as more work is continuously being done.
      * @returns void | EnoProgressError
      */
-    function progress(n?: string | number | undefined): void | EnoProgressError;
+    function progress(n?: string | number): void | EnoProgressError;
 }
 
-declare namespace compute {
+export namespace compute {
     interface Compute {
         /**
          * This function allows the client to cancel a running job. This function takes as its sole argument
@@ -46,6 +46,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
+        // tslint:disable-next-line:ban-types
         do(n: number, work: Function | string | URL | DcpURL, arguments?: object): Promise<JobHandle>;
 
         /**
@@ -70,6 +71,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
+        // tslint:disable-next-line:ban-types
         for(rangeObject: object | Ranges, work: Function | string | URL | DcpURL, arguments?: object): Job;
 
         /**
@@ -82,6 +84,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
+        // tslint:disable-next-line:ban-types
         for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments?: object): Job;
 
         /**
@@ -93,6 +96,7 @@ declare namespace compute {
          * @param work
          * @param arguments
          */
+        // tslint:disable-next-line:ban-types
         for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments?: object): Job;
 
         /**
@@ -104,6 +108,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
+        // tslint:disable-next-line:ban-types
         for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments: object): Job;
 
         /**
@@ -168,8 +173,8 @@ declare namespace compute {
     }
 }
 
-declare namespace wallet {
-    export interface Wallet {
+export namespace wallet {
+    interface Wallet {
         /**
          * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
          * Gets a keystore from the wallet
@@ -212,8 +217,8 @@ declare namespace wallet {
     }
 }
 
-declare namespace worker {
-    export class Worker {
+export namespace worker {
+    class Worker {
         /**
          * @start - Emitted when the worker is started.
          * @stop - Emitted when the worker is stopped.
