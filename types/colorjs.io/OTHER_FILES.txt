@@ -1,1 +1,2 @@
+src/angles.d.ts
 src/CATs.d.ts
