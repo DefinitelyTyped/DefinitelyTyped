@@ -3,12 +3,12 @@
 // Definitions by: Rudolf <https://github.com/schrudolf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Types = "normal" | "normal+" | "medium" | "medium+" | "extra" | "onlyNumbers";
+type Types = 'normal' | 'normal+' | 'medium' | 'medium+' | 'extra' | 'onlyNumbers';
 export { genSync, genAsync, withMyOwnCharacters, syncValidator, asyncValidator };
 /*
  * @description sync token generator
-*
-* @param {string} type "normal", "normal+", "medium", "medium+", "extra" or "onlyNumbers"
+ *
+ * @param {string} type "normal", "normal+", "medium", "medium+", "extra" or "onlyNumbers"
  *
  * - "normal" = (a-z)
  * - "normal+" = (A-Z)
@@ -43,9 +43,9 @@ declare function genAsync(type: Types, length: number): Promise<string>;
  * @description Create a Token with your own characters
  *
  * @param {string} characters string Sample: "abc123" generate a token with a,b,c,1,2,3 characters
-* @param {number} length length of the token
-* @example withMyOwnCharacters("abc123", 100)
-* @returns {Promise<string>}
+ * @param {number} length length of the token
+ * @example withMyOwnCharacters("abc123", 100)
+ * @returns {Promise<string>}
  */
 declare function withMyOwnCharacters(type: string, length: number): Promise<string>;
 /*
@@ -62,7 +62,7 @@ declare function withMyOwnCharacters(type: string, length: number): Promise<stri
  * @example syncValidator("extra", 50, token, "")
  * @returns {boolean}
  */
-declare function syncValidator(type: Types, length: number, token: string, extraCharacters?: string): boolean;
+declare function syncValidator(type: Types, length: number, token: string, allowedPlusCharacters?: string): boolean;
 /*
  * @description async validator for genSync() and genAsync() or other Token
  *
@@ -77,4 +77,4 @@ declare function syncValidator(type: Types, length: number, token: string, extra
  * @example asyncValidator("extra", 50, token, "")
  * @returns {Promise<boolean>}
  */
-declare function asyncValidator(type: Types, length: number, token: string, extraCharacters?: string): Promise<boolean>;
+declare function asyncValidator(type: Types, length: number, token: string, allowedPlusCharacters?: string): Promise<boolean>;
