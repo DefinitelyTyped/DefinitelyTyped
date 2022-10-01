@@ -14,10 +14,10 @@ declare global {
      * This value must be between 6 significant digits and must always be increasing as more work is continuously being done.
      * @returns void | EnoProgressError
      */
-    function progress(n?: string | number | undefined): void | EnoProgressError;
+    function progress(n?: string | number): void | EnoProgressError;
 }
 
-declare namespace compute {
+export namespace compute {
     interface Compute {
         /**
          * This function allows the client to cancel a running job. This function takes as its sole argument
@@ -46,7 +46,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
-        do(n: number, work: Function | string | URL | DcpURL, arguments?: object): Promise<JobHandle>;
+        do(n: number, work: object | string | URL | DcpURL, arguments?: object): Promise<JobHandle>;
 
         /**
          * Form 1: for (rangeObject, work, arguments)
@@ -70,7 +70,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
-        for(rangeObject: object | Ranges, work: Function | string | URL | DcpURL, arguments?: object): Job;
+        for(rangeObject: object | Ranges, work: object | string | URL | DcpURL, arguments?: object): Job;
 
         /**
          * form 2a: for (start, end, step, work, arguments) - start, end, and step are numbers used to create a range object.
@@ -82,7 +82,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
-        for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments?: object): Job;
+        for(start: number, end: number, step: number, work: object | string | URL | DcpURL, arguments?: object): Job;
 
         /**
          * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
@@ -93,7 +93,7 @@ declare namespace compute {
          * @param work
          * @param arguments
          */
-        for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments?: object): Job;
+        for(start: number, end: number, step: number, work: object | string | URL | DcpURL, arguments?: object): Job;
 
         /**
          * form 2b: for (start, end, work, arguments) - exactly the same as form 2a, except step is always 1.
@@ -104,7 +104,7 @@ declare namespace compute {
          * @param work: Function | string | URL | DcpURL
          * @param arguments
          */
-        for(start: number, end: number, step: number, work: Function | string | URL | DcpURL, arguments: object): Job;
+        for(start: number, end: number, step: number, work: object | string | URL | DcpURL, arguments: object): Job;
 
         /**
          * Form 1: compute.status(job): returns a status object describing a given job.
@@ -168,8 +168,8 @@ declare namespace compute {
     }
 }
 
-declare namespace wallet {
-    export interface Wallet {
+export namespace wallet {
+     interface Wallet {
         /**
          * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
          * Gets a keystore from the wallet
@@ -212,8 +212,8 @@ declare namespace wallet {
     }
 }
 
-declare namespace worker {
-    export class Worker {
+export namespace worker {
+     class Worker {
         /**
          * @start - Emitted when the worker is started.
          * @stop - Emitted when the worker is stopped.
