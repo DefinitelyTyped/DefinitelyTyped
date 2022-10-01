@@ -55,6 +55,6 @@ export function OxrError(
   description: string,
 ): OxrErrorOutput;
 
-export function Cache(cacheOptions: object, service: FactoryOutput['latest'] | FactoryOutput['historical']): Promise<FetchRatesResultOutput>;
+export function cache(cacheOptions: object, service: FactoryOutput['latest'] | FactoryOutput['historical']): Promise<FetchRatesResultOutput>;
 
 export function factory({ appId }: { appId: string }): FactoryOutput;
