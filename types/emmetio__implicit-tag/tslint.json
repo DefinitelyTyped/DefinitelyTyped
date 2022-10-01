@@ -1,7 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        // not sure how to sort these ones out
-        "no-single-declare-module": false
+        "no-single-declare-module": false,
+        "NoDefaultExport": false
     }
 }
