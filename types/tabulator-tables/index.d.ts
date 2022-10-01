@@ -1421,6 +1421,9 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
     headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
 
+    /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This funtion is passed the column component as its first argument. */
+    headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
+
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
     headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
 

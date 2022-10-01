@@ -706,7 +706,9 @@ export type SavingsKYCStatus =
     /** KYC process passed successfully. */
     | 'Verified'
     /** KYC docs are invalid or anything could be wrong. Expecting reason from our partner to handover to the user. */
-    | 'Failed';
+    | 'Failed'
+    /** KYC status check ended up in error state. */
+    | 'Error';
 
 export type SavingsAMLStatus =
     /** AML process didn't start yet. */

@@ -1,4 +1,4 @@
-import { BuyTrade, ExchangeTrade, P2pQuote, SellFiatTrade } from 'invity-api';
+import { BuyTrade, ExchangeTrade, P2pQuote, SavingsTradeKYCStatusSuccessfulResponse, SellFiatTrade } from 'invity-api';
 
 const bt: BuyTrade = {};
 const et: ExchangeTrade = {};
@@ -16,3 +16,4 @@ const p2p: P2pQuote = {
     confirmations: 0,
     trader: { name: '', numberOfTrades: 0, onlineStatus: 'OFFLINE', rating: '' },
 };
+const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: 'InProgress' };
