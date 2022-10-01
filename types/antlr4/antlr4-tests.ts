@@ -1,16 +1,17 @@
-import { Interval, InputStream, CommonTokenStream, Lexer, Parser, ParserRuleContext } from 'antlr4';
+import * as antlr4 from 'antlr4';
+
 import { TerminalNode } from 'antlr4/tree/Tree';
 
-export declare class CLexer extends Lexer {
+export declare class CLexer extends antlr4.Lexer {
     readonly channelNames: string[];
     readonly modeNames: string[];
     readonly symbolicNames: string[];
     readonly grammarFileName: string;
 
-    constructor(input: InputStream);
+    constructor(input: antlr4.InputStream);
 }
 
-export interface PrimaryExpressionContext extends ParserRuleContext {
+export interface PrimaryExpressionContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     Constant(): TerminalNode;
@@ -42,7 +43,7 @@ export interface PrimaryExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-interface GenericSelectionContext extends ParserRuleContext {
+interface GenericSelectionContext extends antlr4.ParserRuleContext {
     assignmentExpression(): AssignmentExpressionContext;
 
     genericAssocList(): GenericAssocListContext;
@@ -64,7 +65,7 @@ interface GenericSelectionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface GenericAssocListContext extends ParserRuleContext {
+export interface GenericAssocListContext extends antlr4.ParserRuleContext {
     genericAssociation(): GenericAssociationContext;
 
     genericAssocList(): GenericAssocListContext;
@@ -86,7 +87,7 @@ export interface GenericAssocListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface GenericAssociationContext extends ParserRuleContext {
+export interface GenericAssociationContext extends antlr4.ParserRuleContext {
     typeName(): TypeNameContext;
 
     assignmentExpression(): AssignmentExpressionContext;
@@ -108,7 +109,7 @@ export interface GenericAssociationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface PostfixExpressionContext extends ParserRuleContext {
+export interface PostfixExpressionContext extends antlr4.ParserRuleContext {
     primaryExpression(): PrimaryExpressionContext;
 
     typeName(): TypeNameContext;
@@ -140,7 +141,7 @@ export interface PostfixExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ArgumentExpressionListContext extends ParserRuleContext {
+export interface ArgumentExpressionListContext extends antlr4.ParserRuleContext {
     assignmentExpression(): AssignmentExpressionContext;
 
     argumentExpressionList(): ArgumentExpressionListContext;
@@ -162,7 +163,7 @@ export interface ArgumentExpressionListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface UnaryExpressionContext extends ParserRuleContext {
+export interface UnaryExpressionContext extends antlr4.ParserRuleContext {
     postfixExpression(): PostfixExpressionContext;
 
     unaryExpression(): UnaryExpressionContext;
@@ -192,7 +193,7 @@ export interface UnaryExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface UnaryOperatorContext extends ParserRuleContext {
+export interface UnaryOperatorContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -210,7 +211,7 @@ export interface UnaryOperatorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface CastExpressionContext extends ParserRuleContext {
+export interface CastExpressionContext extends antlr4.ParserRuleContext {
     typeName(): TypeNameContext;
 
     castExpression(): CastExpressionContext;
@@ -236,7 +237,7 @@ export interface CastExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface MultiplicativeExpressionContext extends ParserRuleContext {
+export interface MultiplicativeExpressionContext extends antlr4.ParserRuleContext {
     castExpression(): CastExpressionContext;
 
     multiplicativeExpression(): MultiplicativeExpressionContext;
@@ -258,7 +259,7 @@ export interface MultiplicativeExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AdditiveExpressionContext extends ParserRuleContext {
+export interface AdditiveExpressionContext extends antlr4.ParserRuleContext {
     multiplicativeExpression(): MultiplicativeExpressionContext;
 
     additiveExpression(): AdditiveExpressionContext;
@@ -280,7 +281,7 @@ export interface AdditiveExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ShiftExpressionContext extends ParserRuleContext {
+export interface ShiftExpressionContext extends antlr4.ParserRuleContext {
     additiveExpression(): AdditiveExpressionContext;
 
     shiftExpression(): ShiftExpressionContext;
@@ -302,7 +303,7 @@ export interface ShiftExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface RelationalExpressionContext extends ParserRuleContext {
+export interface RelationalExpressionContext extends antlr4.ParserRuleContext {
     shiftExpression(): ShiftExpressionContext;
 
     relationalExpression(): RelationalExpressionContext;
@@ -324,7 +325,7 @@ export interface RelationalExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface EqualityExpressionContext extends ParserRuleContext {
+export interface EqualityExpressionContext extends antlr4.ParserRuleContext {
     relationalExpression(): RelationalExpressionContext;
 
     equalityExpression(): EqualityExpressionContext;
@@ -346,7 +347,7 @@ export interface EqualityExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AndExpressionContext extends ParserRuleContext {
+export interface AndExpressionContext extends antlr4.ParserRuleContext {
     equalityExpression(): EqualityExpressionContext;
 
     andExpression(): AndExpressionContext;
@@ -368,7 +369,7 @@ export interface AndExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ExclusiveOrExpressionContext extends ParserRuleContext {
+export interface ExclusiveOrExpressionContext extends antlr4.ParserRuleContext {
     andExpression(): AndExpressionContext;
 
     exclusiveOrExpression(): ExclusiveOrExpressionContext;
@@ -390,7 +391,7 @@ export interface ExclusiveOrExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface InclusiveOrExpressionContext extends ParserRuleContext {
+export interface InclusiveOrExpressionContext extends antlr4.ParserRuleContext {
     exclusiveOrExpression(): ExclusiveOrExpressionContext;
 
     inclusiveOrExpression(): InclusiveOrExpressionContext;
@@ -412,7 +413,7 @@ export interface InclusiveOrExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface LogicalAndExpressionContext extends ParserRuleContext {
+export interface LogicalAndExpressionContext extends antlr4.ParserRuleContext {
     inclusiveOrExpression(): InclusiveOrExpressionContext;
 
     logicalAndExpression(): LogicalAndExpressionContext;
@@ -434,7 +435,7 @@ export interface LogicalAndExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface LogicalOrExpressionContext extends ParserRuleContext {
+export interface LogicalOrExpressionContext extends antlr4.ParserRuleContext {
     logicalAndExpression(): LogicalAndExpressionContext;
 
     logicalOrExpression(): LogicalOrExpressionContext;
@@ -456,7 +457,7 @@ export interface LogicalOrExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ConditionalExpressionContext extends ParserRuleContext {
+export interface ConditionalExpressionContext extends antlr4.ParserRuleContext {
     logicalOrExpression(): LogicalOrExpressionContext;
 
     expression(): ExpressionContext;
@@ -480,7 +481,7 @@ export interface ConditionalExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AssignmentExpressionContext extends ParserRuleContext {
+export interface AssignmentExpressionContext extends antlr4.ParserRuleContext {
     conditionalExpression(): ConditionalExpressionContext;
 
     unaryExpression(): UnaryExpressionContext;
@@ -508,7 +509,7 @@ export interface AssignmentExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AssignmentOperatorContext extends ParserRuleContext {
+export interface AssignmentOperatorContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -526,7 +527,7 @@ export interface AssignmentOperatorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ExpressionContext extends ParserRuleContext {
+export interface ExpressionContext extends antlr4.ParserRuleContext {
     assignmentExpression(): AssignmentExpressionContext;
 
     expression(): ExpressionContext;
@@ -548,7 +549,7 @@ export interface ExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ConstantExpressionContext extends ParserRuleContext {
+export interface ConstantExpressionContext extends antlr4.ParserRuleContext {
     conditionalExpression(): ConditionalExpressionContext;
 
     removeLastChild(): any;
@@ -568,7 +569,7 @@ export interface ConstantExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DeclarationContext extends ParserRuleContext {
+export interface DeclarationContext extends antlr4.ParserRuleContext {
     declarationSpecifiers(): DeclarationSpecifiersContext;
 
     initDeclaratorList(): InitDeclaratorListContext;
@@ -592,7 +593,7 @@ export interface DeclarationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DeclarationSpecifiersContext extends ParserRuleContext {
+export interface DeclarationSpecifiersContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -610,7 +611,7 @@ export interface DeclarationSpecifiersContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DeclarationSpecifiers2Context extends ParserRuleContext {
+export interface DeclarationSpecifiers2Context extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -628,7 +629,7 @@ export interface DeclarationSpecifiers2Context extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DeclarationSpecifierContext extends ParserRuleContext {
+export interface DeclarationSpecifierContext extends antlr4.ParserRuleContext {
     storageClassSpecifier(): StorageClassSpecifierContext;
 
     typeSpecifier(): TypeSpecifierContext;
@@ -656,7 +657,7 @@ export interface DeclarationSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface InitDeclaratorListContext extends ParserRuleContext {
+export interface InitDeclaratorListContext extends antlr4.ParserRuleContext {
     initDeclarator(): InitDeclaratorContext;
 
     initDeclaratorList(): InitDeclaratorListContext;
@@ -678,7 +679,7 @@ export interface InitDeclaratorListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface InitDeclaratorContext extends ParserRuleContext {
+export interface InitDeclaratorContext extends antlr4.ParserRuleContext {
     declarator(): DeclaratorContext;
 
     initializer(): InitializerContext;
@@ -700,7 +701,7 @@ export interface InitDeclaratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StorageClassSpecifierContext extends ParserRuleContext {
+export interface StorageClassSpecifierContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -718,7 +719,7 @@ export interface StorageClassSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface TypeSpecifierContext extends ParserRuleContext {
+export interface TypeSpecifierContext extends antlr4.ParserRuleContext {
     atomicTypeSpecifier(): AtomicTypeSpecifierContext;
 
     structOrUnionSpecifier(): StructOrUnionSpecifierContext;
@@ -750,7 +751,7 @@ export interface TypeSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StructOrUnionSpecifierContext extends ParserRuleContext {
+export interface StructOrUnionSpecifierContext extends antlr4.ParserRuleContext {
     structOrUnion(): StructOrUnionContext;
 
     structDeclarationList(): StructDeclarationListContext;
@@ -774,7 +775,7 @@ export interface StructOrUnionSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StructOrUnionContext extends ParserRuleContext {
+export interface StructOrUnionContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -792,7 +793,7 @@ export interface StructOrUnionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StructDeclarationListContext extends ParserRuleContext {
+export interface StructDeclarationListContext extends antlr4.ParserRuleContext {
     structDeclaration(): StructDeclarationContext;
 
     structDeclarationList(): StructDeclarationListContext;
@@ -814,7 +815,7 @@ export interface StructDeclarationListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StructDeclarationContext extends ParserRuleContext {
+export interface StructDeclarationContext extends antlr4.ParserRuleContext {
     specifierQualifierList(): SpecifierQualifierListContext;
 
     structDeclaratorList(): StructDeclaratorListContext;
@@ -838,7 +839,7 @@ export interface StructDeclarationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface SpecifierQualifierListContext extends ParserRuleContext {
+export interface SpecifierQualifierListContext extends antlr4.ParserRuleContext {
     typeSpecifier(): TypeSpecifierContext;
 
     specifierQualifierList(): SpecifierQualifierListContext;
@@ -862,7 +863,7 @@ export interface SpecifierQualifierListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StructDeclaratorListContext extends ParserRuleContext {
+export interface StructDeclaratorListContext extends antlr4.ParserRuleContext {
     structDeclarator(): StructDeclaratorContext;
 
     structDeclaratorList(): StructDeclaratorListContext;
@@ -884,7 +885,7 @@ export interface StructDeclaratorListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StructDeclaratorContext extends ParserRuleContext {
+export interface StructDeclaratorContext extends antlr4.ParserRuleContext {
     declarator(): DeclaratorContext;
 
     constantExpression(): ConstantExpressionContext;
@@ -906,7 +907,7 @@ export interface StructDeclaratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface EnumSpecifierContext extends ParserRuleContext {
+export interface EnumSpecifierContext extends antlr4.ParserRuleContext {
     enumeratorList(): EnumeratorListContext;
 
     Identifier(): TerminalNode;
@@ -928,7 +929,7 @@ export interface EnumSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface EnumeratorListContext extends ParserRuleContext {
+export interface EnumeratorListContext extends antlr4.ParserRuleContext {
     enumerator(): EnumeratorContext;
 
     enumeratorList(): EnumeratorListContext;
@@ -950,7 +951,7 @@ export interface EnumeratorListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface EnumeratorContext extends ParserRuleContext {
+export interface EnumeratorContext extends antlr4.ParserRuleContext {
     enumerationConstant(): EnumerationConstantContext;
 
     constantExpression(): ConstantExpressionContext;
@@ -972,7 +973,7 @@ export interface EnumeratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface EnumerationConstantContext extends ParserRuleContext {
+export interface EnumerationConstantContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     removeLastChild(): any;
@@ -992,7 +993,7 @@ export interface EnumerationConstantContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AtomicTypeSpecifierContext extends ParserRuleContext {
+export interface AtomicTypeSpecifierContext extends antlr4.ParserRuleContext {
     typeName(): TypeNameContext;
 
     removeLastChild(): any;
@@ -1012,7 +1013,7 @@ export interface AtomicTypeSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface TypeQualifierContext extends ParserRuleContext {
+export interface TypeQualifierContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -1030,7 +1031,7 @@ export interface TypeQualifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface FunctionSpecifierContext extends ParserRuleContext {
+export interface FunctionSpecifierContext extends antlr4.ParserRuleContext {
     gccAttributeSpecifier(): GccAttributeSpecifierContext;
 
     Identifier(): TerminalNode;
@@ -1052,7 +1053,7 @@ export interface FunctionSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AlignmentSpecifierContext extends ParserRuleContext {
+export interface AlignmentSpecifierContext extends antlr4.ParserRuleContext {
     typeName(): TypeNameContext;
 
     constantExpression(): ConstantExpressionContext;
@@ -1074,7 +1075,7 @@ export interface AlignmentSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DeclaratorContext extends ParserRuleContext {
+export interface DeclaratorContext extends antlr4.ParserRuleContext {
     directDeclarator(): DirectDeclaratorContext;
 
     pointer(): PointerContext;
@@ -1096,7 +1097,7 @@ export interface DeclaratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DirectDeclaratorContext extends ParserRuleContext {
+export interface DirectDeclaratorContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     declarator(): DeclaratorContext;
@@ -1134,7 +1135,7 @@ export interface DirectDeclaratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface GccDeclaratorExtensionContext extends ParserRuleContext {
+export interface GccDeclaratorExtensionContext extends antlr4.ParserRuleContext {
     gccAttributeSpecifier(): GccAttributeSpecifierContext;
 
     removeLastChild(): any;
@@ -1154,7 +1155,7 @@ export interface GccDeclaratorExtensionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface GccAttributeSpecifierContext extends ParserRuleContext {
+export interface GccAttributeSpecifierContext extends antlr4.ParserRuleContext {
     gccAttributeList(): GccAttributeListContext;
 
     removeLastChild(): any;
@@ -1174,7 +1175,7 @@ export interface GccAttributeSpecifierContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface GccAttributeListContext extends ParserRuleContext {
+export interface GccAttributeListContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -1192,7 +1193,7 @@ export interface GccAttributeListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface GccAttributeContext extends ParserRuleContext {
+export interface GccAttributeContext extends antlr4.ParserRuleContext {
     argumentExpressionList(): ArgumentExpressionListContext;
 
     removeLastChild(): any;
@@ -1212,7 +1213,7 @@ export interface GccAttributeContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface NestedParenthesesBlockContext extends ParserRuleContext {
+export interface NestedParenthesesBlockContext extends antlr4.ParserRuleContext {
     removeLastChild(): any;
 
     getChildCount(): any;
@@ -1230,7 +1231,7 @@ export interface NestedParenthesesBlockContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface PointerContext extends ParserRuleContext {
+export interface PointerContext extends antlr4.ParserRuleContext {
     typeQualifierList(): TypeQualifierListContext;
 
     pointer(): PointerContext;
@@ -1252,7 +1253,7 @@ export interface PointerContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface TypeQualifierListContext extends ParserRuleContext {
+export interface TypeQualifierListContext extends antlr4.ParserRuleContext {
     typeQualifier(): TypeQualifierContext;
 
     typeQualifierList(): TypeQualifierListContext;
@@ -1274,7 +1275,7 @@ export interface TypeQualifierListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ParameterTypeListContext extends ParserRuleContext {
+export interface ParameterTypeListContext extends antlr4.ParserRuleContext {
     parameterList(): ParameterListContext;
 
     removeLastChild(): any;
@@ -1294,7 +1295,7 @@ export interface ParameterTypeListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ParameterListContext extends ParserRuleContext {
+export interface ParameterListContext extends antlr4.ParserRuleContext {
     parameterDeclaration(): ParameterDeclarationContext;
 
     parameterList(): ParameterListContext;
@@ -1316,7 +1317,7 @@ export interface ParameterListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ParameterDeclarationContext extends ParserRuleContext {
+export interface ParameterDeclarationContext extends antlr4.ParserRuleContext {
     declarationSpecifiers(): DeclarationSpecifiersContext;
 
     declarator(): DeclaratorContext;
@@ -1342,7 +1343,7 @@ export interface ParameterDeclarationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface IdentifierListContext extends ParserRuleContext {
+export interface IdentifierListContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     identifierList(): IdentifierListContext;
@@ -1364,7 +1365,7 @@ export interface IdentifierListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface TypeNameContext extends ParserRuleContext {
+export interface TypeNameContext extends antlr4.ParserRuleContext {
     specifierQualifierList(): SpecifierQualifierListContext;
 
     abstractDeclarator(): AbstractDeclaratorContext;
@@ -1386,7 +1387,7 @@ export interface TypeNameContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface AbstractDeclaratorContext extends ParserRuleContext {
+export interface AbstractDeclaratorContext extends antlr4.ParserRuleContext {
     pointer(): PointerContext;
 
     directAbstractDeclarator(): DirectAbstractDeclaratorContext;
@@ -1408,7 +1409,7 @@ export interface AbstractDeclaratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DirectAbstractDeclaratorContext extends ParserRuleContext {
+export interface DirectAbstractDeclaratorContext extends antlr4.ParserRuleContext {
     abstractDeclarator(): AbstractDeclaratorContext;
 
     typeQualifierList(): TypeQualifierListContext;
@@ -1436,7 +1437,7 @@ export interface DirectAbstractDeclaratorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface TypedefNameContext extends ParserRuleContext {
+export interface TypedefNameContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     removeLastChild(): any;
@@ -1456,7 +1457,7 @@ export interface TypedefNameContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface InitializerContext extends ParserRuleContext {
+export interface InitializerContext extends antlr4.ParserRuleContext {
     assignmentExpression(): AssignmentExpressionContext;
 
     initializerList(): InitializerListContext;
@@ -1478,7 +1479,7 @@ export interface InitializerContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface InitializerListContext extends ParserRuleContext {
+export interface InitializerListContext extends antlr4.ParserRuleContext {
     initializer(): InitializerContext;
 
     designation(): DesignationContext;
@@ -1502,7 +1503,7 @@ export interface InitializerListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DesignationContext extends ParserRuleContext {
+export interface DesignationContext extends antlr4.ParserRuleContext {
     designatorList(): DesignatorListContext;
 
     removeLastChild(): any;
@@ -1522,7 +1523,7 @@ export interface DesignationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DesignatorListContext extends ParserRuleContext {
+export interface DesignatorListContext extends antlr4.ParserRuleContext {
     designator(): DesignatorContext;
 
     designatorList(): DesignatorListContext;
@@ -1544,7 +1545,7 @@ export interface DesignatorListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DesignatorContext extends ParserRuleContext {
+export interface DesignatorContext extends antlr4.ParserRuleContext {
     constantExpression(): ConstantExpressionContext;
 
     Identifier(): TerminalNode;
@@ -1566,7 +1567,7 @@ export interface DesignatorContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StaticAssertDeclarationContext extends ParserRuleContext {
+export interface StaticAssertDeclarationContext extends antlr4.ParserRuleContext {
     constantExpression(): ConstantExpressionContext;
 
     removeLastChild(): any;
@@ -1586,7 +1587,7 @@ export interface StaticAssertDeclarationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface StatementContext extends ParserRuleContext {
+export interface StatementContext extends antlr4.ParserRuleContext {
     labeledStatement(): LabeledStatementContext;
 
     compoundStatement(): CompoundStatementContext;
@@ -1616,7 +1617,7 @@ export interface StatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface LabeledStatementContext extends ParserRuleContext {
+export interface LabeledStatementContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     statement(): StatementContext;
@@ -1640,7 +1641,7 @@ export interface LabeledStatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface CompoundStatementContext extends ParserRuleContext {
+export interface CompoundStatementContext extends antlr4.ParserRuleContext {
     blockItemList(): BlockItemListContext;
 
     removeLastChild(): any;
@@ -1660,7 +1661,7 @@ export interface CompoundStatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface BlockItemListContext extends ParserRuleContext {
+export interface BlockItemListContext extends antlr4.ParserRuleContext {
     blockItem(): BlockItemContext;
 
     blockItemList(): BlockItemListContext;
@@ -1682,7 +1683,7 @@ export interface BlockItemListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface BlockItemContext extends ParserRuleContext {
+export interface BlockItemContext extends antlr4.ParserRuleContext {
     statement(): StatementContext;
 
     declaration(): DeclarationContext;
@@ -1704,7 +1705,7 @@ export interface BlockItemContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ExpressionStatementContext extends ParserRuleContext {
+export interface ExpressionStatementContext extends antlr4.ParserRuleContext {
     expression(): ExpressionContext;
 
     removeLastChild(): any;
@@ -1724,7 +1725,7 @@ export interface ExpressionStatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface SelectionStatementContext extends ParserRuleContext {
+export interface SelectionStatementContext extends antlr4.ParserRuleContext {
     expression(): ExpressionContext;
 
     removeLastChild(): any;
@@ -1744,7 +1745,7 @@ export interface SelectionStatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface IterationStatementContext extends ParserRuleContext {
+export interface IterationStatementContext extends antlr4.ParserRuleContext {
     While(): TerminalNode;
 
     expression(): ExpressionContext;
@@ -1774,7 +1775,7 @@ export interface IterationStatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ForConditionContext extends ParserRuleContext {
+export interface ForConditionContext extends antlr4.ParserRuleContext {
     forDeclaration(): ForDeclarationContext;
 
     expression(): ExpressionContext;
@@ -1796,7 +1797,7 @@ export interface ForConditionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ForDeclarationContext extends ParserRuleContext {
+export interface ForDeclarationContext extends antlr4.ParserRuleContext {
     declarationSpecifiers(): DeclarationSpecifiersContext;
 
     initDeclaratorList(): InitDeclaratorListContext;
@@ -1818,7 +1819,7 @@ export interface ForDeclarationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ForExpressionContext extends ParserRuleContext {
+export interface ForExpressionContext extends antlr4.ParserRuleContext {
     assignmentExpression(): AssignmentExpressionContext;
 
     forExpression(): ForExpressionContext;
@@ -1840,7 +1841,7 @@ export interface ForExpressionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface JumpStatementContext extends ParserRuleContext {
+export interface JumpStatementContext extends antlr4.ParserRuleContext {
     Identifier(): TerminalNode;
 
     expression(): ExpressionContext;
@@ -1864,7 +1865,7 @@ export interface JumpStatementContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface CompilationUnitContext extends ParserRuleContext {
+export interface CompilationUnitContext extends antlr4.ParserRuleContext {
     EOF(): any;
 
     translationUnit(): TranslationUnitContext;
@@ -1886,7 +1887,7 @@ export interface CompilationUnitContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface TranslationUnitContext extends ParserRuleContext {
+export interface TranslationUnitContext extends antlr4.ParserRuleContext {
     externalDeclaration(): ExternalDeclarationContext;
 
     translationUnit(): TranslationUnitContext;
@@ -1908,7 +1909,7 @@ export interface TranslationUnitContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface ExternalDeclarationContext extends ParserRuleContext {
+export interface ExternalDeclarationContext extends antlr4.ParserRuleContext {
     functionDefinition(): FunctionDefinitionContext;
 
     declaration(): DeclarationContext;
@@ -1930,7 +1931,7 @@ export interface ExternalDeclarationContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface FunctionDefinitionContext extends ParserRuleContext {
+export interface FunctionDefinitionContext extends antlr4.ParserRuleContext {
     declarator(): DeclaratorContext;
 
     compoundStatement(): CompoundStatementContext;
@@ -1956,7 +1957,7 @@ export interface FunctionDefinitionContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export interface DeclarationListContext extends ParserRuleContext {
+export interface DeclarationListContext extends antlr4.ParserRuleContext {
     declaration(): DeclarationContext;
 
     declarationList(): DeclarationListContext;
@@ -1978,12 +1979,12 @@ export interface DeclarationListContext extends ParserRuleContext {
     getAltNumber(): any;
 }
 
-export declare class CParser extends Parser {
+export declare class CParser extends antlr4.Parser {
     readonly ruleNames: string[];
     readonly literalNames: string[];
     readonly symbolicNames: string[];
 
-    constructor(input: CommonTokenStream);
+    constructor(input: antlr4.CommonTokenStream);
 
     primaryExpression(): PrimaryExpressionContext;
 
@@ -2148,9 +2149,9 @@ export declare class CParser extends Parser {
     getErrorListenerDispatch(): any;
 }
 
-const inputStream = new InputStream('int x = 10;');
+const inputStream = new antlr4.InputStream('int x = 10;');
 const lexer = new CLexer(inputStream);
-const tokenStream = new CommonTokenStream(lexer);
+const tokenStream = new antlr4.CommonTokenStream(lexer);
 const parser = new CParser(tokenStream);
 
 // execute the parse, and generate the parse tree
@@ -2158,7 +2159,7 @@ const tree = parser.compilationUnit();
 console.log(tree);
 
 // fix Token.d.ts:
-function getOriginalText(ctx: ParserRuleContext): string {
+function getOriginalText(ctx: antlr4.ParserRuleContext): string {
     const a: number = ctx.start.start;
     const b: number = ctx.stop.stop;
     // WRONG: const wrong = ctx.start.getInputStream().getText(new Interval(a, b));
@@ -2168,8 +2169,10 @@ function getOriginalText(ctx: ParserRuleContext): string {
 
 // fix InputStream.d.ts
 function LA(code: string, offset: number): number {
-    return new InputStream(code).LA(offset);
+    return new antlr4.InputStream(code).LA(offset);
 }
 function LT(code: string, offset: number): number {
-    return new InputStream(code).LT(offset);
+    return new antlr4.InputStream(code).LT(offset);
 }
+
+export default class ExcelVisitor extends antlr4.tree.ParseTreeVisitor {}

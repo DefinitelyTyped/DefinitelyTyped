@@ -925,12 +925,23 @@ const any: any = null;
 }
 
 {
-    let result: boolean;
-    result = validator.isStrongPassword('sample23#@test');
-    result = validator.isStrongPassword('sample23#@test', { returnScore: false });
-
-    let score: number;
-    score = validator.isStrongPassword('sample23#@test', { returnScore: true });
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test');
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', {
+        minLength: 10,
+    });
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', { returnScore: false });
+    // $ExpectType boolean
+    validator.isStrongPassword('abc', {
+        minLength: 10,
+        returnScore: false,
+    });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { returnScore: true });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { minLength: 10, returnScore: true });
 }
 
 {

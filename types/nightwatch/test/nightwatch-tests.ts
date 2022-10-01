@@ -74,6 +74,26 @@ const testGeneral: NightwatchTests = {
         browser.browserName = 'firefox';
     },
 
+    'Can run accessibility tests': () => {
+        browser
+            .url('https://www.google.com')
+            .axeInject()
+            .axeRun(
+                'body',
+                {
+                    rules: {
+                        'color-contrast': {
+                            enabled: false,
+                        },
+                        region: {
+                            enabled: false,
+                        },
+                    },
+                },
+                results => {},
+            );
+    },
+
     'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')
@@ -192,6 +212,21 @@ const testGeneral: NightwatchTests = {
         isType<NightwatchNodeAssertionsResult | Error>(await result);
     }
 };
+
+//
+// ./tests/duckDuckGo.ts
+//
+describe('duckduckgo example', function() {
+    it('Search Nightwatch.js and check results', function(browser) {
+      browser
+        .navigateTo('https://duckduckgo.com')
+        .waitForElementVisible('input[name=q]')
+        .sendKeys('input[name=q]', ['Nightwatch.js'])
+        .click('*[type="submit"]')
+        .assert.visible('.results--main')
+        .assert.textContains('.results--main', 'Nightwatch.js');
+    });
+});
 
 //
 // ./pages/google.ts

@@ -35,6 +35,7 @@ export interface CalendarProps {
     formatMonthYear?: FormatterCallback | undefined;
     formatShortWeekday?: FormatterCallback | undefined;
     formatYear?: FormatterCallback | undefined;
+    goToRangeStartOnSelect?: boolean | undefined;
     inputRef?:
         | ((ref: HTMLInputElement | null) => void)
         | RefObject<HTMLInputElement>

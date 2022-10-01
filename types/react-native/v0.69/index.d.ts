@@ -25,7 +25,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -42,6 +41,7 @@
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
 //                 Lorenzo Sciandra <https://github.com/kelset>
 //                 Mateusz Wit <https://github.com/MateWW>
+//                 Saad Najmi <https://github.com/saadnajmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -428,7 +428,17 @@ export interface NativeTouchEvent {
     force?: number | undefined;
 }
 
+export interface NativeMouseEvent {
+    clientX: number,
+    clientY: number,
+    pageX: number,
+    pageY: number,
+    timestamp: number,
+}
+
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
+
+export interface MouseEvent extends NativeSyntheticEvent<NativeMouseEvent> {}
 
 // See https://reactnative.dev/docs/scrollview#contentoffset
 export interface PointProp {
@@ -456,6 +466,16 @@ export interface PressableAndroidRippleConfig {
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
+     * Called when the hover is activated to provide visual feedback.
+     */
+    onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
+    onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
      * Called when a single tap gesture is detected.
      */
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -477,13 +497,13 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
 
     /**
      * Called after the element loses focus.
-     * @platform windows
+     * @platform macos windows
      */
     onBlur?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
     /**
      * Called after the element is focused.
-     * @platform windows
+     * @platform macos windows
      */
     onFocus?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
@@ -498,6 +518,16 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * scroll event. Defaults to true.
      */
     cancelable?: null | boolean | undefined;
+
+   /**
+    * Duration to wait after hover in before calling `onHoverIn`.
+    */
+    delayHoverIn?: number | null | undefined;
+
+    /**
+     * Duration to wait after hover out before calling `onHoverOut`.
+     */
+    delayHoverOut?: number | null | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -965,6 +995,11 @@ export interface TextPropsIOS {
 }
 
 export interface TextPropsAndroid {
+    /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
@@ -4879,7 +4914,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -4909,7 +4944,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.

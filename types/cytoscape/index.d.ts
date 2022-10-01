@@ -9,6 +9,7 @@
 //                  Xavier Ho <https://github.com/spaxe>
 //                  Fredrik Sandström <https://github.com/Veckodag>
 //                  Johan Svensson <https://github.com/jsve>
+//                  Roger Dubbs <https://github.com/rogerdubbs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
@@ -922,7 +923,7 @@ declare namespace cytoscape {
          * @param options.zoom The zoom level to set.
          * @param options.pan The pan to set (a rendered position).
          */
-        viewport(options: {zoom: number, pan: Position}): this;
+        viewport(options: { zoom: number; pan: Position }): this;
 
         /**
          * Get whether box selection is enabled.
@@ -4278,7 +4279,9 @@ declare namespace cytoscape {
              *  * `rightward`: Bundle outgoers righwards.
              *  * `leftward`: Bundle outgoers leftwards.
              */
-            'taxi-direction': PropertyValueEdge<'auto' | 'vertical' | 'downward' | 'upward' | 'horizontal' | 'rightward' | 'leftward'>;
+            'taxi-direction': PropertyValueEdge<
+                'auto' | 'vertical' | 'downward' | 'upward' | 'horizontal' | 'rightward' | 'leftward'
+            >;
             /**
              * The distance along the primary axis where the first turn is applied.
              *  * This value may be an absolute distance (e.g. `'20px'`) or it may be a relative distance
@@ -4521,7 +4524,7 @@ declare namespace cytoscape {
              * and no whitespace exists. Using anywhere with text in the Latin alphabet,
              * for example, will split words at arbitrary locations.
              */
-            'text-overflow-wrap': PropertyValue<SingularType, "whitespace" | "anywhere">;
+            'text-overflow-wrap': PropertyValue<SingularType, 'whitespace' | 'anywhere'>;
             /**
              * The justification of multiline (wrapped) labels; may be
              * `left`, `center`, `right`, or `auto` (default). The auto value makes it so that a
@@ -5147,11 +5150,11 @@ declare namespace cytoscape {
     interface RandomLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         name: 'random';
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // fit padding
         padding?: number | undefined;
         // constrain layout bounds
-        boundingBox: undefined | BoundingBox12 | BoundingBoxWH;
+        boundingBox?: undefined | BoundingBox12 | BoundingBoxWH;
     }
 
     /**
@@ -5184,7 +5187,7 @@ declare namespace cytoscape {
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
-        fit: boolean;
+        fit?: boolean;
         // padding used on fit
         padding?: number | undefined;
         // constrain layout bounds
@@ -5194,7 +5197,7 @@ declare namespace cytoscape {
         avoidOverlap?: boolean | undefined;
 
         // Excludes the label when calculating node bounding boxes for the layout algorithm
-        nodeDimensionsIncludeLabels: boolean;
+        nodeDimensionsIncludeLabels?: boolean;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor?: number | undefined;
 
@@ -5211,13 +5214,13 @@ declare namespace cytoscape {
         avoidOverlapPadding?: number | undefined;
 
         // uses all available space on false, uses minimal space on true
-        condense: boolean;
+        condense?: boolean;
         // force num of rows in the grid
         rows?: number | undefined;
         // force num of columns in the grid
         cols?: number | undefined;
         // returns { row, col } for element
-        position(node: NodeSingular): { row: number; col: number };
+        position?(node: NodeSingular): { row: number; col: number };
     }
 
     /**
@@ -5230,7 +5233,7 @@ declare namespace cytoscape {
         radius?: number | undefined;
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
-        startAngle: number;
+        startAngle?: number;
         // how many radians should be between the first and last node (defaults to full circle)
         sweep?: number | undefined;
         // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
@@ -5243,25 +5246,25 @@ declare namespace cytoscape {
         name: 'concentric';
 
         // where nodes start in radians, e.g. 3 / 2 * Math.PI,
-        startAngle: number;
+        startAngle?: number;
         // how many radians should be between the first and last node (defaults to full circle)
         sweep?: number | undefined;
         // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
         clockwise?: boolean | undefined;
 
         // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-        equidistant: boolean;
-        minNodeSpacing: number; // min spacing between outside of nodes (used for radius adjustment)
+        equidistant?: boolean;
+        minNodeSpacing?: number; // min spacing between outside of nodes (used for radius adjustment)
         // height of layout area (overrides container height)
-        height: undefined;
+        height?: number;
         // width of layout area (overrides container width)
-        width: undefined;
+        width?: number;
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
-        spacingFactor: undefined;
+        spacingFactor?: number;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric(node: { degree(): number }): number;
+        concentric?(node: { degree(): number }): number;
         // the variation of concentric values in each level
-        levelWidth(node: { maxDegree(): number }): number;
+        levelWidth?(node: { maxDegree(): number }): number;
     }
 
     /**
@@ -5271,13 +5274,19 @@ declare namespace cytoscape {
         name: 'breadthfirst';
 
         // whether the tree is directed downwards (or edges can point in any direction if false)
-        directed: boolean;
+        directed?: boolean;
         // put depths in concentric circles if true, put depths top down if false
-        circle: boolean;
+        circle?: boolean;
         // the roots of the trees
         roots?: string[] | undefined;
-        // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
-        maximalAdjustments: number;
+        // Deprecated: how many times to try to position the nodes in a maximal way (i.e. no backtracking)
+        maximalAdjustments?: number;
+        // whether to shift nodes down their natural BFS depths in order to avoid upwards edges (DAGS only)
+        maximal?: boolean;
+        // whether to create an even grid into which the DAG is placed (circle:false only)
+        grid?: boolean;
+        // a sorting function to order nodes at equal depth. e.g. function(a, b){ return a.data('weight') - b.data('weight') }
+        depthSort?: (a: NodeSingular, b: NodeSingular) => number;
     }
 
     /**
@@ -5288,35 +5297,39 @@ declare namespace cytoscape {
 
         // Number of iterations between consecutive screen positions update
         // (0 -> only updated on the end)
-        refresh: number;
+        refresh?: number;
         // Randomize the initial positions of the nodes (true) or use existing positions (false)
-        randomize: boolean;
+        randomize?: boolean;
         // Extra spacing between components in non-compound graphs
-        componentSpacing: number;
+        componentSpacing?: number;
         // Node repulsion (non overlapping) multiplier
-        nodeRepulsion(node: any): number;
+        nodeRepulsion?(node: any): number;
 
         // Node repulsion (overlapping) multiplier
-        nodeOverlap: number;
+        nodeOverlap?: number;
         // Ideal edge (non nested) length
-        idealEdgeLength(edge: any): number;
+        idealEdgeLength?(edge: any): number;
         // Divisor to compute edge forces
-        edgeElasticity(edge: any): number;
+        edgeElasticity?(edge: any): number;
 
         // Nesting factor (multiplier) to compute ideal edge length for nested edges
-        nestingFactor: number;
+        nestingFactor?: number;
         // Gravity force (constant)
-        gravity: number;
+        gravity?: number;
         // Maximum number of iterations to perform
-        numIter: number;
+        numIter?: number;
         // Initial temperature (maximum node displacement)
-        initialTemp: number;
+        initialTemp?: number;
         // Cooling factor (how the temperature is reduced between consecutive iterations
-        coolingFactor: number;
+        coolingFactor?: number;
         // Lower temperature threshold (below this point the layout will end)
-        minTemp: number;
-        // Pass a reference to weaver to use threads for calculations
-        weaver: boolean;
+        minTemp?: number;
+        // Deprecated: Pass a reference to weaver to use threads for calculations
+        weaver?: boolean;
+
+        // The layout animates only after this many milliseconds for animate:true
+        // (prevents flashing on fast runs)
+        animationThreshold?: number;
     }
 
     /**
