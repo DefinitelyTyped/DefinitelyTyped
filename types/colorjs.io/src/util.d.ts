@@ -41,7 +41,7 @@ export function parseFunction(str: string): {
  * Get the last element of an array
  * @param arr The array
  */
-export function last<T>(arr: [...any[], T]): T;
+export function last<T extends readonly any[]>(arr: T): T[number];
 
 export function interpolate(start: number, end: number, p: number): number;
 

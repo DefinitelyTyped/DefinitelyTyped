@@ -39,7 +39,7 @@ export interface DefineFunctionOptions {
 export type DefineFuncionHybrid = DefineFuncionCode & DefineFunctionOptions;
 
 /** Remove the first element of an array type */
-type RemoveFirstElement<T extends any[]> = T extends [infer _, ...infer R] ? R : T[number][];
+type RemoveFirstElement<T extends any[]> = T extends [any, ...infer R] ? R : Array<T[number]>;
 
 /** Convert a function to a prototype for Color */
 export type ToColorPrototype<T extends (...args: any[]) => any> = T extends (color: Color, ...args: infer A) => infer R

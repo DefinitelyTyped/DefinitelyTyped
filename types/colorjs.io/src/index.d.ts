@@ -1,9 +1,9 @@
 import { uv, xy } from '../src/chromaticity';
 import ColorImport, { ToColorPrototype } from '../src/color';
 import contrast from '../src/contrast';
-import { contrastWCAG21, contrastAPCA, contrastMichelson, contrastWeber, contrastLstar } from '../src/contrast/';
+import { contrastWCAG21, contrastAPCA, contrastMichelson, contrastWeber, contrastLstar } from '../src/contrast/index';
 import deltaE from '../src/deltaE';
-import { deltaE76, deltaECMC, deltaE2000, deltaEJz, deltaEITP, deltaEOK } from '../src/deltaE/';
+import { deltaE76, deltaECMC, deltaE2000, deltaEJz, deltaEITP, deltaEOK } from '../src/deltaE/index';
 import { mix, range, steps } from '../src/interpolation';
 import { getLuminance } from '../src/luminance';
 import { lighten, darken } from '../src/variations';
@@ -52,7 +52,8 @@ declare class Color extends ColorImport {
 
     // luminance
     get luminance(): ReturnType<typeof getLuminance>;
-    set luminance(_: any);
+    // the definition for this set in the orignial code like it doesn't actually use the parameter?
+    set luminance(_: number);
 
     // variations
     lighten: ToColorPrototype<typeof lighten>;

@@ -1,6 +1,6 @@
 import ColorSpace, { Options } from './space';
 
-interface RGBOptions extends Options {
+export interface RGBOptions extends Options {
     toXYZ_M?: number[][] | undefined;
     fromXYZ_M?: number[][] | undefined;
 }
