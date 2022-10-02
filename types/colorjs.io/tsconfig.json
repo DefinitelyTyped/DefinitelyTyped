@@ -17,6 +17,8 @@
         "test/adapt.ts",
         "test/angles.ts",
         "test/CATs.ts",
+        "test/chromaticity.ts",
+        "test/clone.ts",
         "test/contrast.ts",
         "test/deltaE.ts",
         "test/display.ts",
