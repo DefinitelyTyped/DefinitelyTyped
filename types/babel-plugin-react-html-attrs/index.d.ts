@@ -26,7 +26,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
-type Booleanish = boolean | 'true' | 'false';
+type Booleanish = boolean | `${boolean}`;
 
 /**
  * defined in scheduler/tracing

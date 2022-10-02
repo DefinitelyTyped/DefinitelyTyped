@@ -25,16 +25,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
-type Booleanish = boolean | 'true' | 'false';
-
-/**
- * defined in scheduler/tracing
- */
-interface SchedulerInteraction {
-  id: number;
-  name: string;
-  timestamp: number;
-}
+type Booleanish = boolean | `${boolean}`;
 
 // eslint-disable-next-line export-just-namespace
 export = Rax;
