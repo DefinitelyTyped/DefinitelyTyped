@@ -140,11 +140,13 @@ export interface ParseTweetOptions {
     scale?: number | undefined;
     defaultWeight?: number | undefined;
     transformedURLLength?: number | undefined;
-    ranges?: Array<{
-        start: number;
-        end: number;
-        weight: number;
-    }> | undefined;
+    ranges?:
+        | Array<{
+              start: number;
+              end: number;
+              weight: number;
+          }>
+        | undefined;
     emojiParsingEnabled?: boolean | undefined;
 }
 
