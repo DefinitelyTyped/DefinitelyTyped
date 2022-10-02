@@ -3001,14 +3001,18 @@ declare namespace React {
     }
 
     interface Touch {
-        identifier: number;
-        target: EventTarget;
-        screenX: number;
-        screenY: number;
         clientX: number;
         clientY: number;
+        force: number;
+        identifier: number;
         pageX: number;
         pageY: number;
+        radiusX: number;
+        radiusY: number;
+        rotationAngle: number;
+        screenX: number;
+        screenY: number;
+        target: EventTarget;
     }
 
     interface TouchList {
