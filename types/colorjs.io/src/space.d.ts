@@ -22,7 +22,7 @@ export interface Options {
     formats?: Record<string, Format>;
 }
 
-export type Ref = string | [string, string] | { space: string; coordId: string };
+export type Ref = string | [string | ColorSpace, string] | { space: string | ColorSpace; coordId: string };
 
 export default class ColorSpace {
     constructor(options: Options);

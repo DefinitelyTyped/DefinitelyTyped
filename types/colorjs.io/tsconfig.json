@@ -19,6 +19,7 @@
         "test/CATs.ts",
         "test/chromaticity.ts",
         "test/clone.ts",
+        "test/color.ts",
         "test/contrast.ts",
         "test/deltaE.ts",
         "test/display.ts",
@@ -29,8 +30,20 @@
         "test/getColor.ts",
         "test/hooks.ts",
         "test/inGamut.ts",
+        "test/interpolation.ts",
         "test/keywords.ts",
+        "test/luminance.ts",
+        "test/multiply-matrices.ts",
+        "test/parse.ts",
+        "test/rgbspace.ts",
+        "test/serialize.ts",
+        "test/set.ts",
+        "test/setAll.ts",
         "test/space-accessors.ts",
+        "test/to.ts",
+        "test/toGamut.ts",
+        "test/util.ts",
+        "test/variations.ts",
         "test/spaces.ts"
     ]
 }

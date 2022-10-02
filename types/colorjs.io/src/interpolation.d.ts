@@ -14,7 +14,7 @@ export interface RangeOptions {
     premultiplied?: boolean | undefined;
 }
 
-export function range(range: unknown, options?: RangeOptions): Range;
+export function range(range: Range, options?: RangeOptions): Range;
 export function range(color1: ColorTypes, color2: ColorTypes, options?: RangeOptions & Record<string, any>): Range;
 
 export interface MixOptions {
@@ -23,7 +23,7 @@ export interface MixOptions {
 }
 
 export function mix(color1: ColorTypes, color2: ColorTypes, options?: MixOptions): number;
-export function mix(color1: ColorTypes, color2: ColorTypes, p?: number, options?: MixOptions): number;
+export function mix(color1: ColorTypes, color2: ColorTypes, p: number, options?: MixOptions): number;
 
 export function steps(color1: ColorTypes | Range, color2: ColorTypes): Color[];
 
