@@ -47,6 +47,7 @@ export type ToColorPrototype<T extends (...args: any[]) => any> = T extends (col
     : never;
 
 declare namespace Color {
+    export { getAll, set, setAll, to, equals, inGamut, toGamut, distance, serialize as toString };
     export { util, hooks, WHITES, ColorSpace as Space, parse, defaults };
     export const spaces: typeof ColorSpace['registry'];
 }
