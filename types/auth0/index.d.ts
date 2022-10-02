@@ -1904,7 +1904,7 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     // User Logs
     getUserLogs(params: UsersLogsQuery): Promise<Array<LogEvent>>;
-    getUserLogs(params: UsersLogsQuery, cb?: (err: Error, data: Array<LogEvent>) => void): void;
+    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: Array<LogEvent>) => void): void;
 
     // User roles
     getUserRoles(params: ObjectWithId): Promise<Role[]>;
