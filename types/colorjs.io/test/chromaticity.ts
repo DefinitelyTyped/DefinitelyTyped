@@ -6,7 +6,7 @@ uv();
 // @ts-expect-error
 uv('red');
 
-uv(new Color('red')); // $ExpectType number
+uv(new Color('red')); // $ExpectType [number, number]
 
 // @ts-expect-error
 xy();
