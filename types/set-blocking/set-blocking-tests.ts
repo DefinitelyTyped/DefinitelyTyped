@@ -1,5 +1,5 @@
-import setBlocking = require("set-blocking");
+import setBlocking = require('set-blocking');
 
-function test(){
+function test() {
     setBlocking(true); // => Blocks the the process to printing data to console
 }
