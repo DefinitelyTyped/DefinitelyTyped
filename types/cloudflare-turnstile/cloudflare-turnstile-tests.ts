@@ -20,11 +20,15 @@ const themeDark: Turnstile.Theme = 'dark';
 // $ExpectType string | undefined
 turnstile.render('foo', renderParams);
 // $ExpectType string | undefined
-turnstile.render(document.getElementById('foo'), renderParams);
+turnstile.render('foo', minimalRenderParams);
+// $ExpectType string | undefined
+turnstile.render(document.getElementById('foo') as HTMLElement, renderParams);
 // @ts-expect-error
 turnstile.render();
 // @ts-expect-error
 turnstile.render('foo');
+// @ts-expect-error
+turnstile.render('foo', {});
 
 // getResponse takes a widget ID string and returns a string
 // $ExpectType string
