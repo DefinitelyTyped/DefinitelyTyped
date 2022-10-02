@@ -1,5 +1,1 @@
-src/angles.d.ts
-src/CATs.d.ts
-src/keywords.d.ts
-src/space-accessors.d.ts
 src/spaces/index.d.ts

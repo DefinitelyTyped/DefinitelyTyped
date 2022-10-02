@@ -27,6 +27,8 @@
         "test/getColor.ts",
         "test/hooks.ts",
         "test/inGamut.ts",
+        "test/keywords.ts",
+        "test/space-accessors.ts",
         "test/spaces.ts"
     ]
 }
