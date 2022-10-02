@@ -12,5 +12,21 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "colorjs.io-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "test/adapt.ts",
+        "test/angles.ts",
+        "test/CATs.ts",
+        "test/contrast.ts",
+        "test/deltaE.ts",
+        "test/display.ts",
+        "test/distance.ts",
+        "test/equals.ts",
+        "test/get.ts",
+        "test/getAll.ts",
+        "test/getColor.ts",
+        "test/hooks.ts",
+        "test/inGamut.ts",
+        "test/spaces.ts"
+    ]
 }
