@@ -11,6 +11,7 @@
 //                 Dan Ursin <https://github.com/danursin>
 //                 Nathan Hardy <https://github.com/nhardy>
 //                 Nicholas Molen <https://github.com/robotastronaut>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -1523,6 +1524,14 @@ export interface LogsQuery {
     take?: number;
 }
 
+export interface UsersLogsQuery {
+    id: string;
+    per_page?: number;
+    page?: number;
+    sort?: string;
+    include_totals?: boolean;
+}
+
 export interface GetDeviceCredentialsParams {
     user_id: string;
     page?: number;
@@ -1891,6 +1900,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
     linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
+
+    // User Logs
+    getUserLogs(params: UsersLogsQuery): Promise<Array<LogEvent>>;
+    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: Array<LogEvent>) => void): void;
 
     // User roles
     getUserRoles(params: ObjectWithId): Promise<Role[]>;
