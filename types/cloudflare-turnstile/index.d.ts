@@ -1,4 +1,4 @@
-// Type definitions for Cloudflare Turnstile 0.1
+// Type definitions for non-npm package Cloudflare Turnstile 0.1
 // Project: https://www.cloudflare.com/products/turnstile
 // Definitions by: Jason Gerbes <https://github.com/jasongerbes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
