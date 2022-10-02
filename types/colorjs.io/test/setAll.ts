@@ -13,7 +13,7 @@ setAll(new Color('red'), sRGB);
 
 setAll(new Color('red'), 'srgb', [1, 2, 3]); // $ExpectType Color
 setAll(new Color('red'), sRGB, [1, 2, 3]); // $ExpectType Color
-// $ExpectType Color
+// $ExpectType { coords: [number, number, number]; space: RGBColorSpace; alpha: number; }
 setAll(
     {
         coords: [1, 2, 3],
