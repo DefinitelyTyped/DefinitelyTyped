@@ -3,6 +3,6 @@ import ColorSpace from './space';
 
 export default function inGamut(
     color: ColorTypes,
-    space?: ColorSpace,
+    space?: string | ColorSpace,
     options?: { epsilon?: number | undefined },
 ): boolean;
