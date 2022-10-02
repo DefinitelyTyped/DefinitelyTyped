@@ -1177,8 +1177,6 @@ declare namespace React {
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
 
-    
-
     //
     // Event System
     // ----------------------------------------------------------------------
