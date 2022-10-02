@@ -1177,6 +1177,8 @@ declare namespace React {
         getServerSnapshot?: () => Snapshot,
     ): Snapshot;
 
+    
+
     //
     // Event System
     // ----------------------------------------------------------------------
@@ -1294,6 +1296,8 @@ declare namespace React {
         screenX: number;
         screenY: number;
         shiftKey: boolean;
+        x: number;
+        y: number;
     }
 
     interface TouchEvent<T = Element> extends UIEvent<T, NativeTouchEvent> {

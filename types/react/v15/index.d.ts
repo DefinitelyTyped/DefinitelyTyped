@@ -495,6 +495,8 @@ declare namespace React {
         screenX: number;
         screenY: number;
         shiftKey: boolean;
+        x: number;
+        y: number;
     }
 
     interface TouchEvent<T> extends SyntheticEvent<T> {
