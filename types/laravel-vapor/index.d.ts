@@ -7,12 +7,14 @@
 
 interface VaporStoreOptions {
     bucket?: string | undefined;
+    cancelToken?: string | undefined;
     contentType?: string | undefined;
     expires?: string | undefined;
     visibility?: string | undefined;
     baseURL?: string | undefined;
     headers?: any;
     options?: any;
+    progress: (value: number) => void | undefined;
 }
 
 declare class Vapor {
