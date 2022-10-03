@@ -6,9 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-export { default as Route } from '@ember/routing/route';
-export { default as Router } from '@ember/routing/router';
-
 import { Opaque } from 'ember/-private/type-utils';
 
 // In normal TypeScript, this component is essentially an opaque token

@@ -57,8 +57,15 @@ export function extractCashtags(text: string): string[];
 export function extractCashtagsWithIndices(text: string): CashtagWithIndices[];
 export function extractEntitiesWithIndices(text: string): EntityWithIndices[];
 
-export function modifyIndicesFromUnicodeToUTF16<I>(i: I): I;
-export function modifyIndicesFromUTF16ToUnicode<I>(i: I): I;
+/**
+ * Modifies (in-place) entity indices meant for Unicode text for use with UTF-16 text.
+ */
+export function modifyIndicesFromUnicodeToUTF16(text: string, entities: EntityWithIndices[]): void;
+
+/**
+ * Modifies (in-place) entity indices meant for UTF-16 text for use with Unicode text.
+ */
+export function modifyIndicesFromUTF16ToUnicode(text: string, entities: EntityWithIndices[]): void;
 
 export interface UrlEntity {
     url: string;
@@ -133,11 +140,13 @@ export interface ParseTweetOptions {
     scale?: number | undefined;
     defaultWeight?: number | undefined;
     transformedURLLength?: number | undefined;
-    ranges?: Array<{
-        start: number;
-        end: number;
-        weight: number;
-    }> | undefined;
+    ranges?:
+        | Array<{
+              start: number;
+              end: number;
+              weight: number;
+          }>
+        | undefined;
     emojiParsingEnabled?: boolean | undefined;
 }
 

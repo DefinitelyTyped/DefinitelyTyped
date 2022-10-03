@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.0
+// Type definitions for Jest 29.1
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -24,7 +24,6 @@
 //                 Tony Hallett <https://github.com/tonyhallett>
 //                 Jason Yu <https://github.com/ycmjason>
 //                 Pawel Fajfer <https://github.com/pawfa>
-//                 Regev Brody <https://github.com/regevbr>
 //                 Alexandre Germain <https://github.com/gerkindev>
 //                 Adam Jones <https://github.com/domdomegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -98,25 +97,56 @@ type FakeableAPI =
 
 interface FakeTimersConfig {
     /**
-     * If set to `true` all timers will be advanced automatically by 20 milliseconds
-     * every 20 milliseconds. A custom time delta may be provided by passing a number.
+     * If set to `true` all timers will be advanced automatically
+     * by 20 milliseconds every 20 milliseconds. A custom time delta
+     * may be provided by passing a number.
+     *
+     * @defaultValue
      * The default is `false`.
      */
     advanceTimers?: boolean | number;
     /**
-     * List of names of APIs that should not be faked. The default is `[]`, meaning
-     * all APIs are faked.
+     * List of names of APIs (e.g. `Date`, `nextTick()`, `setImmediate()`,
+     * `setTimeout()`) that should not be faked.
+     *
+     * @defaultValue
+     * The default is `[]`, meaning all APIs are faked.
      */
     doNotFake?: FakeableAPI[];
     /**
-     * Use the old fake timers implementation instead of one backed by `@sinonjs/fake-timers`.
+     * Sets current system time to be used by fake timers.
+     *
+     * @defaultValue
+     * The default is `Date.now()`.
+     */
+    now?: number | Date;
+    /**
+     * The maximum number of recursive timers that will be run when calling
+     * `jest.runAllTimers()`.
+     *
+     * @defaultValue
+     * The default is `100_000` timers.
+     */
+    timerLimit?: number;
+    /**
+     * Use the old fake timers implementation instead of one backed by
+     * [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+     *
+     * @defaultValue
      * The default is `false`.
      */
-    legacyFakeTimers?: boolean;
-    /** Sets current system time to be used by fake timers. The default is `Date.now()`. */
-    now?: number | Date;
-    /** Maximum number of recursive timers that will be run. The default is `100_000` timers. */
-    timerLimit?: number;
+    legacyFakeTimers?: false;
+}
+
+interface LegacyFakeTimersConfig {
+    /**
+     * Use the old fake timers implementation instead of one backed by
+     * [`@sinonjs/fake-timers`](https://github.com/sinonjs/fake-timers).
+     *
+     * @defaultValue
+     * The default is `false`.
+     */
+    legacyFakeTimers?: true;
 }
 
 declare namespace jest {
@@ -182,8 +212,12 @@ declare namespace jest {
      */
     function getRealSystemTime(): number;
     /**
+     * Returns the current time in ms of the fake timer clock.
+     */
+    function now(): number;
+    /**
      * Indicates that the module system should never return a mocked version
-     * of the specified module, including all of the specificied module's dependencies.
+     * of the specified module, including all of the specified module's dependencies.
      */
     function deepUnmock(moduleName: string): typeof jest;
     /**
@@ -370,7 +404,7 @@ declare namespace jest {
     /**
      * Instructs Jest to use fake versions of the standard timer functions.
      */
-    function useFakeTimers(config?: FakeTimersConfig): typeof jest;
+    function useFakeTimers(config?: FakeTimersConfig | LegacyFakeTimersConfig): typeof jest;
     /**
      * Instructs Jest to use the real versions of the standard timer functions.
      */
@@ -1249,7 +1283,21 @@ declare namespace jest {
          * myMockFn((err, val) => console.log(val)); // false
          */
         mockImplementationOnce(fn: (...args: Y) => T): this;
-        /** Sets the name of the mock`. */
+        /**
+         * Temporarily overrides the default mock implementation within the callback,
+         * then restores its previous implementation.
+         *
+         * @remarks
+         * If the callback is async or returns a `thenable`, `withImplementation` will return a promise.
+         * Awaiting the promise will await the callback and reset the implementation.
+         */
+        withImplementation(fn: (...args: Y) => T, callback: () => Promise<unknown>): Promise<void>;
+        /**
+         * Temporarily overrides the default mock implementation within the callback,
+         * then restores its previous implementation.
+         */
+        withImplementation(fn: (...args: Y) => T, callback: () => void): void;
+        /** Sets the name of the mock. */
         mockName(name: string): this;
         /**
          * Just a simple sugar function for:

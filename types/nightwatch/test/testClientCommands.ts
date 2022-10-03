@@ -482,3 +482,14 @@ describe('waitUntil command demo', function() {
     });
     after(browser => browser.end());
 });
+
+//
+// .axeInject
+//
+describe('axeInject test', function() {
+    test('async demo test', async function(browser) {
+        const result = await browser.axeInject();
+        isType<null>(result);
+    });
+    after(browser => browser.end());
+});
