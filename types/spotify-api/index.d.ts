@@ -1382,7 +1382,7 @@ declare namespace SpotifyApi {
      * Uses the same object structure as Full Track Object, but with `album.album_type` in caps.
      */
     interface RecommendationTrackObject extends Omit<TrackObjectFull, "album"> {
-	    album: RecommendationAlbumObject;
+        album: RecommendationAlbumObject;
     }
 
     /**
