@@ -954,8 +954,7 @@ declare namespace SpotifyApi {
         /**
          * The type of the album: one of “album”, “single”, or “compilation”.
          */
-        album_type: 'album' | 'single' | 'compilation' |
-                    'ALBUM' | 'SINGLE' | 'COMPILATION';
+        album_type: 'album' | 'single' | 'compilation';
         /**
          * The artists of the album.
          * Each artist object includes a link in href to more detailed information about the artist.
