@@ -1196,7 +1196,7 @@ declare namespace React {
         target: EventTarget & T;
     }
 
-    type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+    export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
 
     interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;

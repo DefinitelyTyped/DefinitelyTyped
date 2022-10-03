@@ -24,7 +24,7 @@ export interface OptionalEventProperties {
     type?: string | undefined;
 }
 
-type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
 
 export interface SyntheticEventData extends OptionalEventProperties {
     altKey?: boolean | undefined;
