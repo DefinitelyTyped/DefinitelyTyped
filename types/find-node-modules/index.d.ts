@@ -10,19 +10,19 @@ declare namespace findNodeModules {
          *
          * @default process.cwd()
          */
-        cwd?: string;
+        cwd?: string | undefined;
         /**
          * What directory to search for
          *
          * @default 'node_modules'
          */
-        searchFor?: string;
+        searchFor?: string | undefined;
         /**
          * If false, returns absolute paths
          *
          * @default true
          */
-        relative?: boolean;
+        relative?: boolean | undefined;
     }
 }
 
