@@ -1,4 +1,4 @@
-// Type definitions for laravel-vapor 0.4
+// Type definitions for laravel-vapor 0.6.0
 // Project: https://github.com/laravel/vapor-js
 // Definitions by: saibotk <https://github.com/saibotk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
