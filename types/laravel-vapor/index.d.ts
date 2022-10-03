@@ -14,7 +14,7 @@ interface VaporStoreOptions {
     baseURL?: string | undefined;
     headers?: any;
     options?: any;
-    progress: (value: number) => void | undefined;
+    progress?: (value: number) => void | undefined;
 }
 
 declare class Vapor {
