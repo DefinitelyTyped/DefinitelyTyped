@@ -9,6 +9,7 @@ interface VaporStoreOptions {
     bucket?: string | undefined;
     cancelToken?: string | undefined;
     contentType?: string | undefined;
+    data?: any;
     expires?: string | undefined;
     visibility?: string | undefined;
     baseURL?: string | undefined;
