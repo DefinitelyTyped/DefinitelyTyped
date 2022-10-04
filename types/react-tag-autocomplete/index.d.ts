@@ -1,4 +1,4 @@
-// Type definitions for react-tag-autocomplete 6.3.0
+// Type definitions for react-tag-autocomplete 6.3
 // Project: https://github.com/i-like-robots/react-tags#readme
 // Definitions by: James Lismore <https://github.com/jlismore>
 //                 Rahul Sagore <https://github.com/Rahul-Sagore>
