@@ -2182,7 +2182,7 @@ export interface ChromeArgOptions {
      * Whether to run browser in headless mode.
      * @default true unless the devtools option is true.
      */
-    headless?: boolean | undefined;
+    headless?: boolean | 'chrome' | undefined;
     /**
      * Additional arguments to pass to the browser instance.
      * The list of Chromium flags can be found here: https://peter.sh/experiments/chromium-command-line-switches
