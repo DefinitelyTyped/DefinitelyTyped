@@ -62,6 +62,8 @@ export { requestSubscription } from 'relay-runtime';
 export { RelayEnvironmentProvider } from './relay-hooks/RelayEnvironmentProvider.react';
 export { EntryPointContainer } from './relay-hooks/EntryPointContainer.react';
 
+export { ProfilerContext } from './relay-hooks/ProfilerContext';
+
 export { fetchQuery } from 'relay-runtime';
 
 export { loadQuery } from './relay-hooks/loadQuery';

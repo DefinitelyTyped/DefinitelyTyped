@@ -1,4 +1,4 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -1204,7 +1204,7 @@ declare module "sap/ui/unified/Calendar" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.38.0
      *
@@ -3692,7 +3692,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.38.0
      *
@@ -4509,7 +4509,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.74
      *
@@ -5234,7 +5234,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -5955,7 +5955,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -8593,7 +8593,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -9782,7 +9782,7 @@ declare module "sap/ui/unified/CalendarRow" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a intervalHeader from the aggregation {@link #getIntervalHeaders intervalHeaders}.
      *
@@ -11050,7 +11050,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -15146,7 +15146,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -15157,7 +15157,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a headerParameter from the aggregation {@link #getHeaderParameters headerParameters}.
      *
@@ -16722,7 +16722,7 @@ declare module "sap/ui/unified/Menu" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -17009,7 +17009,7 @@ declare module "sap/ui/unified/MenuItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -18572,7 +18572,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -18982,7 +18982,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getImage image}.
      *
@@ -19702,7 +19702,7 @@ declare module "sap/ui/unified/ShellOverlay" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *

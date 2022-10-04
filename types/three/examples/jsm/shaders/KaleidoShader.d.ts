@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const KaleidoShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        sides: Uniform;
-        angle: Uniform;
+        tDiffuse: IUniform;
+        sides: IUniform;
+        angle: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "comment-format": false,
-        "export-just-namespace": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-conditional-assignment": false,

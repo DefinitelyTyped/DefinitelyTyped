@@ -1,4 +1,4 @@
-import events = require('node:events');
+import * as events from 'node:events';
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -124,4 +124,14 @@ async function test() {
 
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
+}
+
+{
+    // Some event properties differ from DOM types
+    const evt = new Event("fake");
+    evt.cancelBubble();
+    // @ts-expect-error
+    evt.composedPath[2];
+    // $ExpectType 0 | 2
+    evt.eventPhase;
 }

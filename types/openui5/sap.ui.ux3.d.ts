@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -1260,14 +1260,14 @@ declare module "sap/ui/ux3/Collection" {
     ): Item | null;
     /**
      *
-     * @returns the id of the removed selectedItem or null
+     * @returns the ID of the removed selected item or `null`
      */
     removeSelectedItem(
       /**
-       * the selectedItem to remove or its index or id
+       * the selected item to remove or its index or ID
        */
       vSelectedItem: int | string | Item
-    ): string;
+    ): string | null | undefined;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -1826,25 +1826,25 @@ declare module "sap/ui/ux3/CollectionInspector" {
     /**
      * Removes a collection from the aggregation named `collections`.
      *
-     * @returns the removed collection or null
+     * @returns the removed collection or `null`
      */
     removeCollection(
       /**
-       * the collection to remove or its index or id
+       * the collection to remove or its index or ID
        */
       vCollection: int | string | Collection
-    ): Collection;
+    ): Collection | null;
     /**
      * Removes a content from the aggregation named `content`.
      *
-     * @returns the removed content or null
+     * @returns the removed content or `null`
      */
     removeContent(
       /**
-       * the content to remove or its index or id
+       * the content to remove or its index or ID
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getFitParent fitParent}.
      *
@@ -9578,7 +9578,7 @@ declare module "sap/ui/ux3/NavigationBar" {
        * The associatedItem to be removed or its index or ID
        */
       vAssociatedItem: int | ID | NavigationItem
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *

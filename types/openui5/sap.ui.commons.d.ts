@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -2593,7 +2593,7 @@ declare module "sap/ui/commons/Button" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -2604,7 +2604,7 @@ declare module "sap/ui/commons/Button" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -4330,7 +4330,7 @@ declare module "sap/ui/commons/CheckBox" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -4341,7 +4341,7 @@ declare module "sap/ui/commons/CheckBox" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getChecked checked}.
      *
@@ -6494,12 +6494,12 @@ declare module "sap/ui/commons/DropdownBox" {
      */
     getSearchHelpText(): string;
     /**
-     * Extends the method inherited from sap.ui.core.Element by providing information on Search Help access
-     * (if needed)
+     * Overrides the method inherited from {@link sap.ui.core.Element} by providing information on Search Help
+     * access (if needed)
      *
-     * @returns string tooltip or undefined
+     * @returns string tooltip or `undefined`
      */
-    getTooltip_AsString(): string;
+    getTooltip_AsString(): string | undefined;
     /**
      * Ensure that handed in ListBoxes are taken from the visible UI immediately.
      */
@@ -13049,7 +13049,7 @@ declare module "sap/ui/commons/Link" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -13060,7 +13060,7 @@ declare module "sap/ui/commons/Link" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
      *
@@ -13703,7 +13703,7 @@ declare module "sap/ui/commons/ListBox" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -13714,7 +13714,7 @@ declare module "sap/ui/commons/ListBox" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -17662,7 +17662,7 @@ declare module "sap/ui/commons/RadioButton" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -17673,7 +17673,7 @@ declare module "sap/ui/commons/RadioButton" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -18274,7 +18274,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -18285,7 +18285,7 @@ declare module "sap/ui/commons/RadioButtonGroup" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -18926,7 +18926,7 @@ declare module "sap/ui/commons/RatingIndicator" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -18937,7 +18937,7 @@ declare module "sap/ui/commons/RatingIndicator" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAverageValue averageValue}.
      *
@@ -22473,7 +22473,7 @@ declare module "sap/ui/commons/SearchField" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -22484,7 +22484,7 @@ declare module "sap/ui/commons/SearchField" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -23778,7 +23778,7 @@ declare module "sap/ui/commons/Slider" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -23789,7 +23789,7 @@ declare module "sap/ui/commons/Slider" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getEditable editable}.
      *
@@ -26002,9 +26002,9 @@ declare module "sap/ui/commons/TextField" {
     /**
      * Method for accessing the DOM Ref of the input element.
      *
-     * @returns DOM reference or null
+     * @returns DOM reference or `null`
      */
-    getInputDomRef(): object;
+    getInputDomRef(): HTMLElement | null;
     /**
      * Returns the current value of the `TextField`. In case of editing the `TextField` you can access the current
      * value via this method. The validated value is accessible via the property value.
@@ -26171,7 +26171,7 @@ declare module "sap/ui/commons/TextField" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -26182,7 +26182,7 @@ declare module "sap/ui/commons/TextField" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
      *
@@ -26834,7 +26834,7 @@ declare module "sap/ui/commons/TextView" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -26845,7 +26845,7 @@ declare module "sap/ui/commons/TextView" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
      *
@@ -28908,7 +28908,7 @@ declare module "sap/ui/commons/TreeNode" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -28919,7 +28919,7 @@ declare module "sap/ui/commons/TreeNode" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a node from the aggregation {@link #getNodes nodes}.
      *

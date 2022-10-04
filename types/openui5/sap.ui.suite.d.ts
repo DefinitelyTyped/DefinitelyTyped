@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -275,7 +275,7 @@ declare module "sap/ui/suite/TaskCircle" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -286,7 +286,7 @@ declare module "sap/ui/suite/TaskCircle" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -620,7 +620,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -631,7 +631,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Property setter for the Percentage, which determines the height of the vertical bar. Values higher than
      * 100 will be displayed as 100%, values lower than zero will be displayed as 0%. A new rendering is not

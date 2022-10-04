@@ -12,6 +12,8 @@ export * from './IntervalSet';
 export * from './CommonTokenStream';
 export * from './InputStream';
 export * from './Token';
+import * as tree from './tree/Tree';
 import { ParserRuleContext } from './ParserRuleContext';
 
 export type AntlrRule = ParserRuleContext;
+export { tree };

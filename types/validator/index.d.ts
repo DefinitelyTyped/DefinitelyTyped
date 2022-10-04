@@ -1050,7 +1050,7 @@ declare namespace validator {
      * Check if string is considered a strong password. Allows options to be added
      */
 
-    interface strongPasswordOptions {
+    interface StrongPasswordOptions {
         minLength?: number | undefined;
         minLowercase?: number | undefined;
         minUppercase?: number | undefined;
@@ -1064,11 +1064,12 @@ declare namespace validator {
         pointsForContainingNumber?: number | undefined;
         pointsForContainingSymbol?: number | undefined;
     }
+
     function isStrongPassword(
         str: string,
-        options?: strongPasswordOptions & { returnScore: false | undefined },
+        options?: StrongPasswordOptions & { returnScore?: false | undefined },
     ): boolean;
-    function isStrongPassword(str: string, options?: strongPasswordOptions & { returnScore: true }): number;
+    function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
 
     /**
      * Check if the string contains any surrogate pairs chars.

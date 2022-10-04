@@ -1,9 +1,4 @@
 examples/jsm/animation/AnimationClipCreator.d.ts
-examples/jsm/controls/DragControls.d.ts
-examples/jsm/controls/FirstPersonControls.d.ts
-examples/jsm/controls/FlyControls.d.ts
-examples/jsm/controls/PointerLockControls.d.ts
-examples/jsm/csm/CSMFrustum.d.ts
 examples/jsm/csm/CSMShader.d.ts
 examples/jsm/curves/NURBSCurve.d.ts
 examples/jsm/curves/NURBSSurface.d.ts
@@ -37,8 +32,6 @@ examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
 examples/jsm/interactive/HTMLMesh.d.ts
 examples/jsm/interactive/InteractiveGroup.d.ts
-examples/jsm/interactive/SelectionBox.d.ts
-examples/jsm/interactive/SelectionHelper.d.ts
 examples/jsm/libs/stats.module.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
 examples/jsm/lines/Wireframe.d.ts
@@ -69,8 +62,8 @@ examples/jsm/loaders/PRWMLoader.d.ts
 examples/jsm/loaders/PVRLoader.d.ts
 examples/jsm/loaders/STLLoader.d.ts
 examples/jsm/loaders/TDSLoader.d.ts
+examples/jsm/loaders/TIFFLoader.d.ts
 examples/jsm/loaders/TiltLoader.d.ts
-examples/jsm/loaders/TTFLoader.d.ts
 examples/jsm/loaders/VRMLLoader.d.ts
 examples/jsm/loaders/VTKLoader.d.ts
 examples/jsm/loaders/XYZLoader.d.ts
@@ -94,7 +87,6 @@ examples/jsm/misc/VolumeSlice.d.ts
 examples/jsm/modifiers/CurveModifier.d.ts
 examples/jsm/modifiers/EdgeSplitModifier.d.ts
 examples/jsm/modifiers/SimplifyModifier.d.ts
-examples/jsm/objects/Lensflare.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/LightningStorm.d.ts
 examples/jsm/objects/Refractor.d.ts
@@ -180,7 +172,6 @@ examples/jsm/utils/BufferGeometryUtils.d.ts
 examples/jsm/utils/GeometryCompressionUtils.d.ts
 examples/jsm/utils/PackedPhongMaterial.d.ts
 examples/jsm/utils/SceneUtils.d.ts
-examples/jsm/utils/ShadowMapViewer.d.ts
 examples/jsm/utils/SkeletonUtils.d.ts
 examples/jsm/utils/UVsDebug.d.ts
 examples/jsm/webxr/OculusHandModel.d.ts

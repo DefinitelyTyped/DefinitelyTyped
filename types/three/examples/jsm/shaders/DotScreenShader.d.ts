@@ -1,12 +1,12 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const DotScreenShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        tSize: Uniform;
-        center: Uniform;
-        angle: Uniform;
-        scale: Uniform;
+        tDiffuse: IUniform;
+        tSize: IUniform;
+        center: IUniform;
+        angle: IUniform;
+        scale: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

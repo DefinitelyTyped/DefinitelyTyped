@@ -18,3 +18,5 @@ diffString({}, { Hello: 'World' }, { keysOnly: true });
 diffString({}, { Hello: 'World' }, { full: true });
 diffString({}, { Hello: 'World' }, { sort: true });
 diffString({}, { Hello: 'World' }, { outputKeys: ["Hello"] });
+diffString({}, { Hello: 'World' }, { keepUnchangedValues: true });
+diffString({}, { Hello: 'World' }, { outputNewOnly: true });

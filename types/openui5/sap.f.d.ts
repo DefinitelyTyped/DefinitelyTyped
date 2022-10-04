@@ -1,4 +1,4 @@
-// For Library Version: 1.104.0
+// For Library Version: 1.107.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -16,8 +16,6 @@ declare module "sap/f/library" {
   import AvatarSize1 from "sap/m/AvatarSize";
 
   import AvatarType1 from "sap/m/AvatarType";
-
-  import Control from "sap/ui/core/Control";
 
   import IllustratedMessageSize1 from "sap/m/IllustratedMessageSize";
 
@@ -129,35 +127,6 @@ declare module "sap/f/library" {
    */
   export interface ICard {
     __implements__sap_f_ICard: boolean;
-
-    /**
-     * @SINCE 1.62
-     *
-     * The function is used to allow for a common content renderer between different implementations of the
-     * {@link sap.f.ICard} interface.
-     *
-     * @returns The content of the card
-     */
-    getCardContent(): Control;
-    /**
-     * @SINCE 1.62
-     *
-     * The function is used to allow for a common header renderer between different implementations of the {@link
-     * sap.f.ICard} interface.
-     *
-     * @returns The header of the card
-     */
-    getCardHeader(): cards.IHeader;
-    /**
-     * @SINCE 1.65
-     *
-     * Allows for a common header renderer between different implementations of the {@link sap.f.ICard} interface.
-     *
-     * @returns The position of the header of the card
-     */
-    getCardHeaderPosition():
-      | cards.HeaderPosition
-      | keyof typeof cards.HeaderPosition;
   }
 
   /**
@@ -1268,28 +1237,6 @@ declare module "sap/f/Card" {
      */
     destroyHeader(): this;
     /**
-     * Implements sap.f.ICard interface.
-     *
-     * @returns The content of the card.
-     */
-    getCardContent(): Control;
-    /**
-     * Implements sap.f.ICard interface.
-     *
-     * @returns The header of the card.
-     */
-    getCardHeader(): cards.IHeader;
-    /**
-     * @SINCE 1.65
-     *
-     * Implements sap.f.ICard interface.
-     *
-     * @returns The position of the header of the card.
-     */
-    getCardHeaderPosition():
-      | cards.HeaderPosition
-      | keyof typeof cards.HeaderPosition;
-    /**
      * Gets content of aggregation {@link #getContent content}.
      *
      * Defines the content of the card.
@@ -1384,7 +1331,7 @@ declare module "sap/f/Card" {
 declare module "sap/f/CardBase" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { ICard, cards } from "sap/f/library";
+  import { ICard } from "sap/f/library";
 
   import { IBadge } from "sap/m/library";
 
@@ -1460,28 +1407,6 @@ declare module "sap/f/CardBase" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
-    /**
-     * Implements sap.f.ICard interface.
-     *
-     * @returns The content of the card.
-     */
-    getCardContent(): Control;
-    /**
-     * Implements sap.f.ICard interface.
-     *
-     * @returns The header of the card.
-     */
-    getCardHeader(): cards.IHeader;
-    /**
-     * @SINCE 1.65
-     *
-     * Implements sap.f.ICard interface.
-     *
-     * @returns The position of the header of the card.
-     */
-    getCardHeaderPosition():
-      | cards.HeaderPosition
-      | keyof typeof cards.HeaderPosition;
     /**
      * Returns the DOM Element that should get the focus.
      *
@@ -5590,7 +5515,7 @@ declare module "sap/f/DynamicPageTitle" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.50
      *
@@ -8965,13 +8890,13 @@ declare module "sap/f/GridContainer" {
 
   import { dnd, NavigationDirection } from "sap/f/library";
 
+  import { ID, CSSSize } from "sap/ui/core/library";
+
   import Event from "sap/ui/base/Event";
 
   import GridContainerSettings from "sap/f/GridContainerSettings";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { CSSSize } from "sap/ui/core/library";
 
   import Item from "sap/ui/core/Item";
 
@@ -9132,6 +9057,28 @@ declare module "sap/f/GridContainer" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      *
@@ -9498,6 +9445,16 @@ declare module "sap/f/GridContainer" {
      */
     getAllowDenseFill(): boolean;
     /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
+     * ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
+     * ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
      * Gets current value of property {@link #getContainerQuery containerQuery}.
      *
      * If set to `true` the current range (large, medium or small) is defined by the size of the container surrounding
@@ -9640,6 +9597,18 @@ declare module "sap/f/GridContainer" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
      * Removes all the controls from the aggregation {@link #getItems items}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -9648,16 +9617,38 @@ declare module "sap/f/GridContainer" {
      */
     removeAllItems(): Control[];
     /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
      * Removes an item from the aggregation named `items`.
      *
-     * @returns The removed item or null.
+     * @returns The removed item or `null`.
      */
     removeItem(
       /**
        * The item to remove or its index or ID.
        */
       vItem: int | string | Item
-    ): Control;
+    ): Control | null;
     /**
      * @EXPERIMENTAL (since 1.66)
      *
@@ -9939,6 +9930,16 @@ declare module "sap/f/GridContainer" {
      * The sap.f.GridContainerSettings applied for size "XL". Range: from 1440px.
      */
     layoutXL?: GridContainerSettings;
+
+    /**
+     * Association to controls / IDs which describe this control (see WAI-ARIA attribute aria-describedby).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Association to controls / IDs which label this control (see WAI-ARIA attribute aria-labelledby).
+     */
+    ariaLabelledBy?: Array<Control | string>;
 
     /**
      * Fired when the currently active GridSettings change.
@@ -18869,6 +18870,733 @@ declare module "sap/f/ShellBar" {
   }
 }
 
+declare module "sap/f/SidePanel" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import SidePanelItem from "sap/f/SidePanelItem";
+
+  import Event from "sap/ui/base/Event";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { ID, CSSSize } from "sap/ui/core/library";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.107
+   * @EXPERIMENTAL (since 1.107)
+   *
+   * Overview:
+   *
+   * `SidePanel` is a layout control that allows primary and additional content to be displayed by clicking/tapping
+   * the action items from its action bar.
+   *
+   * Usage:
+   *
+   * Action bar with action items have two states - collapsed and expanded. In collapsed state only icons
+   * are displayed, and in expanded state both icons and titles are displayed.
+   *
+   * Each action item can have a content and click/tap on action item toggles the display of its content.
+   * The content can be added to the action item's `content` aggregation, or can be added or changed later.
+   *
+   * Each click/tap fires an event, and in the event handler specific content can be added/changed to the
+   * `content` aggregation of the clicked/tapped action item or data can be retreived from the same aggregation
+   * depending on the state of the action item.
+   *
+   * If the side content is displayed, there is automatically generated header of the side content which contains
+   * the icon and title of the selected action item and a close button that closes the area where side content
+   * is displayed.
+   *
+   * Responsive Behavior:
+   *
+   * **On desktop/tablet device**
+   *
+   * The side panel contains action bar that have action items placed vertically, and when expanded, the side
+   * content is displayed next to the action bar. If there is not enough space for all available action items,
+   * an overflow icon is displayed, and it toggles ON/OFF an overflow menu with the rest of the action items
+   * that are not visible at the moment.
+   *
+   * Screen width > 1440 px
+   *
+   *
+   * 	 - When expanded, the side content shrinks the main content.
+   *
+   * Screen width <= 1440 px
+   *
+   *
+   * 	 - When expanded, the side content is placed over the main content.
+   *
+   * **On mobile device**
+   *
+   * The side panel contains action bar that have action items placed horizontally at the bottom of the display,
+   * and when expanded, the side content is displayed above the action bar. If there is not enough room for
+   * all action items, the action bar can be swiped to access the rest of the action items.
+   *
+   * Keyboard shortcuts:
+   *
+   *
+   * 	 - [Shift] + [Command] + [p] (Mac) / [Shift] + [Control] + [p] (Windows) - Expand/Collapse side panel
+   *
+   * 	 - [Arrow Up], [Arrow Down] - Move to the next or previous action item
+   * 	 - [Enter], [Space] - Choose the selected action item
+   * 	 - [Command] + [Arrow Left] (Mac) / [Control] + [Arrow Left] (Windows) / [Tab]- Move from action items
+   * 			to the opened side content panel
+   * 	 - [Command] + [Arrow Right] (Mac) / [Control] + [Arrow Right] (Windows) / [Shift] + [Tab]- Move from
+   * 			opened side content panel to the action items
+   * 	 - [F6] / [Shift] + [F6] - Navigate back and forth between main content, side panel and side content
+   * 			groups [Esc] - Close the opened side content panel and set focus back to main content
+   */
+  export default class SidePanel extends Control {
+    /**
+     * Constructor for a new `SidePanel`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SidePanelSettings
+    );
+    /**
+     * Constructor for a new `SidePanel`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SidePanelSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.SidePanel with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SidePanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.SidePanel.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: SidePanelItem
+    ): this;
+    /**
+     * Adds some mainContent to the aggregation {@link #getMainContent mainContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addMainContent(
+      /**
+       * The mainContent to add; if empty, nothing is inserted
+       */
+      oMainContent: Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggle toggle} event of this `sap.f.SidePanel`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.SidePanel` itself.
+     *
+     * Fires on expand and collapse of the side content.
+     *
+     *
+     * 	 - If the event fired as a result of action item selection (`expanded` parameter contains `true`) is
+     * 			prevented, the display of the side content will be blocked.
+     * 	 - If the event fired as a result of action item deselection, selection of different action item, pressing
+     * 			the `Close` button, or pressing the `Escape` key (`expanded` parameter contains `false`) is prevented,
+     * 			this will block closing of the currently displayed side content, and if the event is fired by selection
+     * 			of a different action item, the selection will be cancelled, and the next event (for expansion of a new
+     * 			action item) will not be fired and the new side content will not be displayed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachToggle(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.SidePanel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:toggle toggle} event of this `sap.f.SidePanel`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.f.SidePanel` itself.
+     *
+     * Fires on expand and collapse of the side content.
+     *
+     *
+     * 	 - If the event fired as a result of action item selection (`expanded` parameter contains `true`) is
+     * 			prevented, the display of the side content will be blocked.
+     * 	 - If the event fired as a result of action item deselection, selection of different action item, pressing
+     * 			the `Close` button, or pressing the `Escape` key (`expanded` parameter contains `false`) is prevented,
+     * 			this will block closing of the currently displayed side content, and if the event is fired by selection
+     * 			of a different action item, the selection will be cancelled, and the next event (for expansion of a new
+     * 			action item) will not be fired and the new side content will not be displayed.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachToggle(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.f.SidePanel` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyItems(): this;
+    /**
+     * Destroys all the mainContent in the aggregation {@link #getMainContent mainContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyMainContent(): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:toggle toggle} event of this `sap.f.SidePanel`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachToggle(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:toggle toggle} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireToggle(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: {
+        /**
+         * The action item that triggers the event.
+         */
+        item?: SidePanelItem;
+        /**
+         * State of the action item.
+         */
+        expanded?: boolean;
+      }
+    ): boolean;
+    /**
+     * Gets current value of property {@link #getActionBarExpanded actionBarExpanded}.
+     *
+     * Determines whether the action bar is expanded or collapsed.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `actionBarExpanded`
+     */
+    getActionBarExpanded(): boolean;
+    /**
+     * Gets current value of property {@link #getAriaLabel ariaLabel}.
+     *
+     * Description for aria-label.
+     *
+     * Default value is `"Side Panel"`.
+     *
+     * @returns Value of property `ariaLabel`
+     */
+    getAriaLabel(): string;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * The list of action items. Each action items can have different side content added to its `content` aggregation.
+     */
+    getItems(): SidePanelItem[];
+    /**
+     * Gets content of aggregation {@link #getMainContent mainContent}.
+     *
+     * The list of controls for the main content.
+     */
+    getMainContent(): Control[];
+    /**
+     * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
+     * or `null`.
+     */
+    getSelectedItem(): ID;
+    /**
+     * Gets current value of property {@link #getSidePanelWidth sidePanelWidth}.
+     *
+     * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
+     * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
+     * it's calculated in absolute units.
+     *
+     * Default value is `"20rem"`.
+     *
+     * @returns Value of property `sidePanelWidth`
+     */
+    getSidePanelWidth(): CSSSize;
+    /**
+     * Checks for the provided `sap.f.SidePanelItem` in the aggregation {@link #getItems items}. and returns
+     * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: SidePanelItem
+    ): int;
+    /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMainContent mainContent}.
+     * and returns its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfMainContent(
+      /**
+       * The mainContent whose index is looked for
+       */
+      oMainContent: Control
+    ): int;
+    /**
+     * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertItem(
+      /**
+       * The item to insert; if empty, nothing is inserted
+       */
+      oItem: SidePanelItem,
+      /**
+       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Inserts a mainContent into the aggregation {@link #getMainContent mainContent}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertMainContent(
+      /**
+       * The mainContent to insert; if empty, nothing is inserted
+       */
+      oMainContent: Control,
+      /**
+       * The `0`-based index the mainContent should be inserted at; for a negative value of `iIndex`, the mainContent
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the mainContent
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getItems items}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllItems(): SidePanelItem[];
+    /**
+     * Removes all the controls from the aggregation {@link #getMainContent mainContent}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllMainContent(): Control[];
+    /**
+     * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @returns The removed item or `null`
+     */
+    removeItem(
+      /**
+       * The item to remove or its index or id
+       */
+      vItem: int | string | SidePanelItem
+    ): SidePanelItem | null;
+    /**
+     * Removes a mainContent from the aggregation {@link #getMainContent mainContent}.
+     *
+     * @returns The removed mainContent or `null`
+     */
+    removeMainContent(
+      /**
+       * The mainContent to remove or its index or id
+       */
+      vMainContent: int | string | Control
+    ): Control | null;
+    /**
+     * Sets a new value for property {@link #getActionBarExpanded actionBarExpanded}.
+     *
+     * Determines whether the action bar is expanded or collapsed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setActionBarExpanded(
+      /**
+       * New value for property `actionBarExpanded`
+       */
+      bActionBarExpanded?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getAriaLabel ariaLabel}.
+     *
+     * Description for aria-label.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Side Panel"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAriaLabel(
+      /**
+       * New value for property `ariaLabel`
+       */
+      sAriaLabel?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSidePanelWidth sidePanelWidth}.
+     *
+     * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
+     * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
+     * it's calculated in absolute units.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"20rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelWidth(
+      /**
+       * New value for property `sidePanelWidth`
+       */
+      sSidePanelWidth?: CSSSize
+    ): this;
+  }
+
+  export interface $SidePanelSettings extends $ControlSettings {
+    /**
+     * Determines whether the action bar is expanded or collapsed.
+     */
+    actionBarExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Description for aria-label.
+     */
+    ariaLabel?: string | PropertyBindingInfo;
+
+    /**
+     * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
+     * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
+     * it's calculated in absolute units.
+     */
+    sidePanelWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The list of controls for the main content.
+     */
+    mainContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * The list of action items. Each action items can have different side content added to its `content` aggregation.
+     */
+    items?:
+      | SidePanelItem[]
+      | SidePanelItem
+      | AggregationBindingInfo
+      | `{${string}}`;
+
+    /**
+     * The action item that is currently selected.
+     */
+    selectedItem?: SidePanelItem | string;
+
+    /**
+     * Fires on expand and collapse of the side content.
+     *
+     *
+     * 	 - If the event fired as a result of action item selection (`expanded` parameter contains `true`) is
+     * 			prevented, the display of the side content will be blocked.
+     * 	 - If the event fired as a result of action item deselection, selection of different action item, pressing
+     * 			the `Close` button, or pressing the `Escape` key (`expanded` parameter contains `false`) is prevented,
+     * 			this will block closing of the currently displayed side content, and if the event is fired by selection
+     * 			of a different action item, the selection will be cancelled, and the next event (for expansion of a new
+     * 			action item) will not be fired and the new side content will not be displayed.
+     */
+    toggle?: (oEvent: Event) => void;
+  }
+}
+
+declare module "sap/f/SidePanelItem" {
+  import { default as Item, $ItemSettings } from "sap/ui/core/Item";
+
+  import Control from "sap/ui/core/Control";
+
+  import { URI } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.107
+   * @EXPERIMENTAL (since 1.107)
+   *
+   * Overview:
+   *
+   * The SidePanel Action Item.
+   */
+  export default class SidePanelItem extends Item {
+    /**
+     * Constructor for a new `SidePanelItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SidePanelItemSettings
+    );
+    /**
+     * Constructor for a new `SidePanelItem`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SidePanelItemSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.SidePanelItem with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SidePanelItem>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.SidePanelItem.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some content to the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addContent(
+      /**
+       * The content to add; if empty, nothing is inserted
+       */
+      oContent: Control
+    ): this;
+    /**
+     * Destroys all the content in the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyContent(): this;
+    /**
+     * Gets content of aggregation {@link #getContent content}.
+     *
+     * The list of controls for side content of the action item.
+     */
+    getContent(): Control[];
+    /**
+     * Gets current value of property {@link #getIcon icon}.
+     *
+     * Specifies the icon for the item.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `icon`
+     */
+    getIcon(): URI;
+    /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getContent content}. and returns
+     * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfContent(
+      /**
+       * The content whose index is looked for
+       */
+      oContent: Control
+    ): int;
+    /**
+     * Inserts a content into the aggregation {@link #getContent content}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertContent(
+      /**
+       * The content to insert; if empty, nothing is inserted
+       */
+      oContent: Control,
+      /**
+       * The `0`-based index the content should be inserted at; for a negative value of `iIndex`, the content
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the content
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getContent content}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllContent(): Control[];
+    /**
+     * Removes a content from the aggregation {@link #getContent content}.
+     *
+     * @returns The removed content or `null`
+     */
+    removeContent(
+      /**
+       * The content to remove or its index or id
+       */
+      vContent: int | string | Control
+    ): Control | null;
+    /**
+     * Sets a new value for property {@link #getIcon icon}.
+     *
+     * Specifies the icon for the item.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIcon(
+      /**
+       * New value for property `icon`
+       */
+      sIcon?: URI
+    ): this;
+  }
+
+  export interface $SidePanelItemSettings extends $ItemSettings {
+    /**
+     * Specifies the icon for the item.
+     */
+    icon?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The list of controls for side content of the action item.
+     */
+    content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+  }
+}
+
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/f/Avatar": undefined;
@@ -18984,6 +19712,10 @@ declare namespace sap {
     "sap/f/semantic/TitleMainAction": undefined;
 
     "sap/f/ShellBar": undefined;
+
+    "sap/f/SidePanel": undefined;
+
+    "sap/f/SidePanelItem": undefined;
 
     "sap/tnt/library": undefined;
   }
