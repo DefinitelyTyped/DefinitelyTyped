@@ -99,7 +99,7 @@ export interface ReactTagsProps {
      * Enables users to show a prompt to add a new tag at the bottom of the suggestions list if allowNew is enabled.
      * Defaults to null.
      */
-    newTagPrefix?: string | undefined;
+    newTagText?: string | undefined;
     /**
      * Message shown if there are no matching suggestions. Default: null.
      */
