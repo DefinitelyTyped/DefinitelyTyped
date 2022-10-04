@@ -227,8 +227,7 @@ declare namespace OfficeRuntime {
     interface AuthOptions {
       /**
        * Allows Office to get an access token silently or through interactive consent, if one is required. Default value is `false`.
-       * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.
-       * If set to `true`, Office will show an interactive consent UI after it fails to silently get an access token.
+       * If set to `false`, Office will silently try to get an access token. If it fails to do so, Office will return a descriptive error.       * If set to `true`, Office will show an interactive consent UI after it fails to silently get an access token.
        * The prompt will only allow consent to the AAD profile scope, not to any Microsoft Graph scopes.
        */
       allowConsentPrompt?: boolean;
@@ -297,7 +296,7 @@ declare namespace OfficeRuntime {
      *
      * @remarks
      *
-     * **Hosts**: Excel, Outlook, PowerPoint, Word
+     * **Applications**: Excel, Outlook, PowerPoint, Word
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * @returns Promise to the access token.
@@ -313,7 +312,7 @@ declare namespace OfficeRuntime {
    */
   interface ApiInformation {
     /**
-     * Check if the specified requirement set is supported by the host Office application.
+     * Check if the specified requirement set is supported by the Office application.
      * @param name - Set name; e.g., "MatrixBindings".
      * @param minVersion - The minimum required version; e.g., "1.4".
      */
