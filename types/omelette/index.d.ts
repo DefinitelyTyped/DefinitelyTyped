@@ -1,4 +1,4 @@
-// Type definitions for omelette 0.5
+// Type definitions for omelette 0.4
 // Project: https://github.com/f/omelette
 // Definitions by: Kamontat Chantrachirathumrong <https://github.com/kamontat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
