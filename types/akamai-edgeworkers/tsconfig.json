@@ -22,6 +22,7 @@
         "test/akamai-edgeworkers-global.test.ts",
         "test/cookies-tests.ts",
         "test/create-response-tests.ts",
+        "test/encoding.ts",
         "test/http-request-tests.ts",
         "test/log-tests.ts",
         "test/req_body.ts",
