@@ -14,11 +14,16 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "@mozilla/*": [
+                "mozilla__*"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "mozilla-readability-tests.ts"
+        "mozilla__readability-tests.ts"
     ]
 }
