@@ -63,5 +63,7 @@ newman.run({
     sslClientCertList: 'certs.pem',
     sslExtraCaCerts: 'caCerts.pem',
     cookieJar: 'cookieJar.json'
-}, () => console.log('done'));
-newman.run(() => console.log('done'));
+}, () => console.log('done'))
+   .on('console', (e: newman.ConsoleEvent) => console.log(e.cursor.httpRequestId, ...e.messages));
+
+   newman.run(() => console.log('done'));

@@ -136,4 +136,7 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
 
     // EW.ResponseProviderRequest.json()
     const jsonBody = request.json();
+
+    // getVariable
+    const v = request.getVariable("var") || [];
 }

@@ -3503,6 +3503,11 @@ declare namespace google.maps {
      */
     union(other: google.maps.LatLngBounds|
           google.maps.LatLngBoundsLiteral): google.maps.LatLngBounds;
+    /**
+     * LatLngBounds for the max bounds of the Earth. These bounds will encompass
+     * the entire globe.
+     */
+    static readonly MAX_BOUNDS: google.maps.LatLngBounds;
   }
 }
 declare namespace google.maps {
@@ -4999,7 +5004,7 @@ declare namespace google.maps {
      * with {@link google.maps.MaxZoomService.getMaxZoomAtLatLng} (it is not
      * defined when using Promises).
      */
-    status: google.maps.MaxZoomStatus|null;
+    status: null|google.maps.MaxZoomStatus;
     /**
      * The maximum zoom level found at the given <code>LatLng</code>.
      */

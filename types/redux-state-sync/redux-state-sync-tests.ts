@@ -18,6 +18,7 @@ const middleware = createStateSyncMiddleware({
     whitelist: [],
     broadcastChannelOption: {},
     prepareState: (state) => state,
+    receiveState: (prevState, nextState) => nextState,
 });
 
 // @ts-expect-error
@@ -27,7 +28,11 @@ function rootReducer(state: TestState = initialState, action: Action): TestState
     return state;
 }
 
-const store = createStore(withReduxStateSync(rootReducer, (state) => state), initialState, applyMiddleware(middleware));
+const store = createStore(
+    withReduxStateSync(rootReducer, (prevState, nextState) => nextState),
+    initialState,
+    applyMiddleware(middleware)
+);
 initStateWithPrevTab(store);
 initMessageListener(store);
 store.getState().a; // $ExpectType number

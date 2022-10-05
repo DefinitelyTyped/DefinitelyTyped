@@ -1183,6 +1183,7 @@ class TextTest extends React.Component {
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
+                disabled
             >
                 Test text
             </Text>

@@ -1,4 +1,4 @@
-// Type definitions for prompts 2.0
+// Type definitions for prompts 2.4
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/unindented>

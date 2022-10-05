@@ -4,6 +4,7 @@ import { zingchart as zc } from 'zingchart/es6/index';
 
 zingchart.ASYNC = true;
 zingchart.DEV.CANVASVERSION = 2;
+zingchart.FONTSIZE = 14;
 ZC.VERSION = '2.9.4';
 
 const chartConfig: zc.graphset[] = [
@@ -96,6 +97,11 @@ const chartConfig: zc.graphset[] = [
           borderRadius: 2,
         }],
       },
+    },
+    scrollXScrollY: {
+      bar: {
+        alpha: 0.5,
+      }
     },
     values: [1, 2, 3],
     zoom: {

@@ -3,6 +3,31 @@ Frida.version; // $ExpectType string
 // @ts-expect-error
 SourceMap;
 
+// $ExpectType any
+Script.evaluate("/true.js", "true");
+
+const screenshot = Script.load("/plugins/screenshot.js", `
+import { registerPlugin } from "/agent.js";
+
+registerPlugin({
+    name: "screenshot",
+    dispose() {
+        // TODO
+    }
+});
+
+export function screenshot() {
+    // TODO
+}
+`) as Promise<ScreenshotPlugin>;
+
+interface ScreenshotPlugin {
+    screenshot(): void;
+}
+
+// $ExpectType void
+Script.registerSourceMap("/plugins/screenshot.js", "{}");
+
 // $ExpectType (target: any, callback: WeakRefCallback) => number
 Script.bindWeak;
 
