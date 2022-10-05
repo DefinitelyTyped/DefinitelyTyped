@@ -198,7 +198,5 @@ async function example_8() {
     const port = await navigator.serial.requestPort();
 
     // Then later... revoke permission to the serial port.
-    if (port.forget) {
-        await port.forget();
-    }
+    await port.forget();
 }
