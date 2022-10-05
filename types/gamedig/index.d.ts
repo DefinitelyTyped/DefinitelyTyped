@@ -1,7 +1,6 @@
 // Type definitions for Gamedig 4.0
 // Project: https://github.com/sonicsnes/node-gamedig
 // Definitions by: Ivan Sieder <https://github.com/ivansieder>
-//                 Marco Vockner <https://github.com/marcopixel>
 //                 Pascal Sthamer <https://github.com/p4sca1>
 //                 Joshua Schmeder <https://github.com/MaximumWoahverdrive>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
