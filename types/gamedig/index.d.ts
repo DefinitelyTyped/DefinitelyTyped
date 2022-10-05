@@ -1,8 +1,9 @@
-// Type definitions for Gamedig 3.0
+// Type definitions for Gamedig 4.0
 // Project: https://github.com/sonicsnes/node-gamedig
 // Definitions by: Ivan Sieder <https://github.com/ivansieder>
 //                 Marco Vockner <https://github.com/marcopixel>
 //                 Pascal Sthamer <https://github.com/p4sca1>
+//                 Joshua Schmeder <https://github.com/MaximumWoahverdrive>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare class Gamedig {
     constructor(runnerOpts?: { listenUdpPort?: number | undefined });
@@ -38,6 +39,7 @@ declare namespace Gamedig {
         | 'arma3'
         | 'armagetron'
         | 'baldursgate'
+        | 'barotrauma'
         | 'bat1944'
         | 'bf1942'
         | 'bfv'
@@ -91,6 +93,7 @@ declare namespace Gamedig {
         | 'devastation'
         | 'dinodday'
         | 'dirttrackracing2'
+        | 'discord'
         | 'dnl'
         | 'dod'
         | 'dods'
@@ -121,6 +124,7 @@ declare namespace Gamedig {
         | 'mutantfactions'
         | 'ges'
         | 'gore'
+        | 'groundbreach'
         | 'gunmanchronicles'
         | 'hldm'
         | 'hldms'
@@ -189,10 +193,12 @@ declare namespace Gamedig {
         | 'openttd'
         | 'painkiller'
         | 'pixark'
+        | 'ps'
         | 'postal2'
         | 'prey'
         | 'primalcarnage'
         | 'prbf2'
+        | 'przomboid'
         | 'quake1'
         | 'quake2'
         | 'quake3'
@@ -216,6 +222,7 @@ declare namespace Gamedig {
         | 'rune'
         | 'rust'
         | 'samp'
+        | 'savage2'
         | 'spaceengineers'
         | 'ss'
         | 'ss2'
@@ -275,6 +282,7 @@ declare namespace Gamedig {
         | 'ut3'
         | 'urbanterror'
         | 'v8supercar'
+        | 'valheim'
         | 'vcmp'
         | 'ventrilo'
         | 'vietcong'
