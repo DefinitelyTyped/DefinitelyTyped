@@ -1,4 +1,4 @@
-import Readability = require('mozilla-readability');
+import { Readability, Options } from '@mozilla/readability';
 
 declare class JSDOM {
     constructor(html?: string);
@@ -20,7 +20,7 @@ function test_basic_usage() {
 function test_readability_with_options() {
     const dom = new JSDOM(`<p>Hello</p><p><strong>Hi!</strong>`);
 
-    const options: Readability.Options = {
+    const options: Options = {
         debug: true,
         maxElemsToParse: 100,
     };

@@ -1,10 +1,7 @@
-// Type definitions for non-npm package mozilla-readability 0.2
+// Type definitions for @mozilla/readability 0.4
 // Project: https://github.com/mozilla/readability
 // Definitions by: Charles Vandevoorde <https://github.com/charlesvdv>, Alex Wendland <https://github.com/awendland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-export = Readability;
 
 /**
  * A standalone version of the readability library used for Firefox Reader View.
@@ -12,7 +9,7 @@ export = Readability;
  * Note that isProbablyReaderable() was moved into a separate file in https://github.com/mozilla/readability/commit/2620542dd1e8380220d82afa97a2c283ae636e40
  * and therefore is no longer part of the Readability class.
  */
-declare class Readability {
+export class Readability {
     /**
      * ## Usage on the web
      *
@@ -47,7 +44,7 @@ declare class Readability {
      * let article = reader.parse();
      * ```
      */
-    constructor(doc: Document, options?: Readability.Options);
+    constructor(doc: Document, options?: Options);
 
     /**
      * Runs readability.
@@ -73,73 +70,71 @@ declare class Readability {
      *
      * The response will be null if the processing failed (https://github.com/mozilla/readability/blob/52ab9b5c8916c306a47b2119270dcdabebf9d203/Readability.js#L2038)
      */
-    parse(): Readability.ParseResult | null;
+    parse(): ParseResult | null;
 }
 
-declare namespace Readability {
-    interface Options {
-        /**
-         * Control whether log messages are sent to the console
-         */
-        debug?: boolean | undefined;
+export interface Options {
+    /**
+     * Control whether log messages are sent to the console
+     */
+    debug?: boolean | undefined;
 
-        /**
-         * Set a maximum size on the documents that will be processed. This size is
-         * checked before any parsing operations occur. If the number of elements in
-         * the document exceeds this threshold then an Error will be thrown.
-         *
-         * See implementation details at https://github.com/mozilla/readability/blob/52ab9b5c8916c306a47b2119270dcdabebf9d203/Readability.js#L2019
-         */
-        maxElemsToParse?: number | undefined;
+    /**
+     * Set a maximum size on the documents that will be processed. This size is
+     * checked before any parsing operations occur. If the number of elements in
+     * the document exceeds this threshold then an Error will be thrown.
+     *
+     * See implementation details at https://github.com/mozilla/readability/blob/52ab9b5c8916c306a47b2119270dcdabebf9d203/Readability.js#L2019
+     */
+    maxElemsToParse?: number | undefined;
 
-        nbTopCandidates?: number | undefined;
+    nbTopCandidates?: number | undefined;
 
-        /**
-         * Minimum number of characters in the extracted textContent in order to
-         * consider the article correctly identified. If the threshold is not met then
-         * the extraction process will automatically run again with different flags.
-         *
-         * See implementation details at https://github.com/mozilla/readability/blob/52ab9b5c8916c306a47b2119270dcdabebf9d203/Readability.js#L1208
-         *
-         * Changed from wordThreshold in https://github.com/mozilla/readability/commit/3ff9a166fb27928f222c4c0722e730eda412658a
-         */
-        charThreshold?: number | undefined;
+    /**
+     * Minimum number of characters in the extracted textContent in order to
+     * consider the article correctly identified. If the threshold is not met then
+     * the extraction process will automatically run again with different flags.
+     *
+     * See implementation details at https://github.com/mozilla/readability/blob/52ab9b5c8916c306a47b2119270dcdabebf9d203/Readability.js#L1208
+     *
+     * Changed from wordThreshold in https://github.com/mozilla/readability/commit/3ff9a166fb27928f222c4c0722e730eda412658a
+     */
+    charThreshold?: number | undefined;
 
-        /**
-         * parse() removes the class="" attribute from every element in the given
-         * subtree, except those that match CLASSES_TO_PRESERVE and
-         * the classesToPreserve array from the options object.
-         */
-        classesToPreserve?: string[] | undefined;
+    /**
+     * parse() removes the class="" attribute from every element in the given
+     * subtree, except those that match CLASSES_TO_PRESERVE and
+     * the classesToPreserve array from the options object.
+     */
+    classesToPreserve?: string[] | undefined;
 
-        /**
-         * By default Readability will strip all classes from the HTML elements in the
-         * processed article. By setting this to `true` the classes will be retained.
-         *
-         * This is a blanket alternative to `classesToPreserve`.
-         *
-         * Added in https://github.com/mozilla/readability/commit/2982216913af2c66b0690e88606b03116553ad92
-         */
+    /**
+     * By default Readability will strip all classes from the HTML elements in the
+     * processed article. By setting this to `true` the classes will be retained.
+     *
+     * This is a blanket alternative to `classesToPreserve`.
+     *
+     * Added in https://github.com/mozilla/readability/commit/2982216913af2c66b0690e88606b03116553ad92
+     */
 
-        keepClasses?: boolean | undefined;
-    }
+    keepClasses?: boolean | undefined;
+}
 
-    interface ParseResult {
-        /** Article title */
-        title: string;
-        /** Author metadata */
-        byline: string;
-        /** Content direction */
-        dir: string;
-        /** HTML string of processed article content */
-        content: string;
-        /** non-HTML version of `content`  */
-        textContent: string;
-        /** Length of an article, in characters */
-        length: number;
-        /** Article description, or short excerpt from the content */
-        excerpt: string;
-        /** Article site name */
-        siteName: string;
-    }
+export interface ParseResult {
+    /** Article title */
+    title: string;
+    /** Author metadata */
+    byline: string;
+    /** Content direction */
+    dir: string;
+    /** HTML string of processed article content */
+    content: string;
+    /** non-HTML version of `content`  */
+    textContent: string;
+    /** Length of an article, in characters */
+    length: number;
+    /** Article description, or short excerpt from the content */
+    excerpt: string;
+    /** Article site name */
+    siteName: string;
 }
