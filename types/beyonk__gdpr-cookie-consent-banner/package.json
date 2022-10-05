@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "import": "./module/index.d.ts",
+            "default": "./index.d.ts"
+        }
+    }
+}
