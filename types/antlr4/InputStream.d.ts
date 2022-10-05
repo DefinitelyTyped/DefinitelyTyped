@@ -1,9 +1,14 @@
-export class InputStream {
+export default class InputStream {
     readonly index: number;
     readonly size: number;
 
     constructor(data: string, decodeToUnicodeCodePoints?: boolean);
 
+    /**
+     * Reset the stream so that it's in the same state it was
+     * when the object was created *except* the data array is not
+     * touched.
+     */
     reset(): void;
 
     consume(): void;
@@ -12,9 +17,15 @@ export class InputStream {
 
     LT(offset: number): number;
 
-    mark(): number;
+    /**
+     * noop: we have entire buffer
+     */
+    mark(): -1;
 
-    release(marker: any): number;
+    /**
+     * noop: we have entire buffer
+     */
+    release(marker: any): void;
 
     seek(index: number): void;
 
