@@ -1,6 +1,6 @@
-import * as antlr4 from 'antlr4';
+import antlr4 from 'antlr4';
 
-import { TerminalNode } from 'antlr4/tree/Tree';
+import TerminalNode from 'antlr4/tree/TerminalNode';
 
 export declare class CLexer extends antlr4.Lexer {
     readonly channelNames: string[];

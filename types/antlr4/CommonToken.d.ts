@@ -1,7 +1,7 @@
 import Token from './Token';
 
 export default class CommonToken extends Token {
-    constructor(source: any, type: any, channel: any, start: number, stop: number);
+    constructor(source?: Token['source'], type?: number, channel?: number, start?: number, stop?: number);
 
     /**
      * Constructs a new {@link CommonToken} as a copy of another {@link Token}.

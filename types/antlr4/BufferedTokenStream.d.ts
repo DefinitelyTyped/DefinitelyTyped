@@ -1,5 +1,5 @@
 import Token from './Token';
-import { Interval } from './IntervalSet';
+import Interval from './misc/IntervalSet';
 import TokenStream from './TokenStream';
 
 /**
@@ -7,12 +7,10 @@ import TokenStream from './TokenStream';
  * {@link TokenSource} on-demand, and places the tokens in a buffer to provide
  * access to any previous token by index.
  *
- * <p>
- * This token stream ignores the value of {@link Token//getChannel}. If your
+ * This token stream ignores the value of {@link Token.getChannel}. If your
  * parser requires the token stream filter tokens to only those on a particular
- * channel, such as {@link Token//DEFAULT_CHANNEL} or
- * {@link Token//HIDDEN_CHANNEL}, use a filtering token stream such a
- * {@link CommonTokenStream}.</p>
+ * channel, such as {@link Token.DEFAULT_CHANNEL} or {@link Token.HIDDEN_CHANNEL},
+ * use a filtering token stream such a {@link CommonTokenStream}.
  */
 export default class BufferedTokenStream extends TokenStream {
     tokenSource: Token;
@@ -118,7 +116,7 @@ export default class BufferedTokenStream extends TokenStream {
      * @return `i` if `tokens[i]` is on channel. `-1` if there are no tokens
      * on channel between `i` and `EOF`.
      */
-    nextTokenOnChannel(i: number, channel: any): number;
+    nextTokenOnChannel(i: number, channel?: number): number;
 
     /**
      * Given a starting index, return the index of the previous token on channel.
@@ -126,23 +124,23 @@ export default class BufferedTokenStream extends TokenStream {
      * @return `i` if `tokens[i]` is on channel. `-1` if there are no tokens
      * on channel between `i` and `0`.
      */
-    previousTokenOnChannel(i: number, channel: any): number;
+    previousTokenOnChannel(i: number, channel: number): number;
 
     /**
      * Collect all tokens on specified channel to the right of
      * the current token up until we see a token on `DEFAULT_TOKEN_CHANNEL` or
      * `EOF`. If channel is `-1`, find any non default channel token.
      */
-    getHiddenTokensToRight(tokenIndex: number, channel: any): Token[];
+    getHiddenTokensToRight(tokenIndex: number, channel: number): Token[];
 
     getSourceName(): any;
 
-    filterForChannel(left: number, right: number, channel: any): any[] | null;
+    filterForChannel(left: number, right: number, channel: number): any[] | null;
 
     /**
      * Get the text of all tokens in this buffer.
      */
-    getText(interval: Interval): any;
+    getText(interval: Interval): string;
 
     /**
      * Get all tokens from lexer until EOF.

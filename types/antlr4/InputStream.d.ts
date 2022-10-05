@@ -1,7 +1,11 @@
+/**
+ * If decodeToUnicodeCodePoints is true, the input is treated
+ * as a series of Unicode code points.
+ *
+ * Otherwise, the input is treated as a series of 16-bit UTF-16 code
+ * units.
+ */
 export default class InputStream {
-    readonly index: number;
-    readonly size: number;
-
     constructor(data: string, decodeToUnicodeCodePoints?: boolean);
 
     /**
@@ -27,9 +31,12 @@ export default class InputStream {
      */
     release(marker: any): void;
 
-    seek(index: number): void;
+    seek(_index: number): void;
 
     getText(start: number, stop: number): string;
 
     toString(): string;
+
+    get index(): number;
+    get size(): number;
 }
