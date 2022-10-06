@@ -55,7 +55,7 @@ declare namespace GM {
          * The URL to make the request to. Must be an absolute URL, beginning
          * with the scheme. May be relative to the current page.
          */
-        url: string;
+        url: string | URL;
         /** String type of HTTP request to make (E.G. "GET", "POST") */
         method?: RequestMethod;
         /** A set of headers to include in the request */
@@ -278,7 +278,7 @@ declare var GM: {
      * It will seem familiar to anyone who has used XMLHttpRequest, but it provides a more powerful and flexible feature set
      * @see {@link https://erosman.github.io/support/content/help.html#fetch}
      */
-    fetch(url: string, init?: GM.FetchRequest): Promise<GM.FetchResponse>;
+    fetch(url: string | URL, init?: GM.FetchRequest): Promise<GM.FetchResponse>;
 
     /**
      * Given a defined `@resource`, this method fetches and returns the content of the url
