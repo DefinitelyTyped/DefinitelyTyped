@@ -1,3 +1,5 @@
+/// <reference path="../dist/beyonk__gdpr-cookie-consent-banner.umd.d.ts" />
+
 GdprConsent.attachBanner(document.body, {
     acceptLabel: 'Accept',
     closeLabel: 'Close',

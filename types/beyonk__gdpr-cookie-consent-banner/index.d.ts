@@ -3,7 +3,6 @@
 // Definitions by: Ben Grynhaus <https://github.com/bengry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { Category, Choice, Options } from './types';
-import { attachBanner } from './types';
+import attachBanner from './dist/beyonk__gdpr-cookie-consent-banner.module';
 
 export default attachBanner;

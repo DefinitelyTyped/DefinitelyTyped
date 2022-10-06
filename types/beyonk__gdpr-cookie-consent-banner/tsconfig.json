@@ -20,8 +20,8 @@
             "@beyonk/gdpr-cookie-consent-banner": [
                 "beyonk__gdpr-cookie-consent-banner"
             ],
-            "@beyonk/gdpr-cookie-consent-banner/module": [
-                "beyonk__gdpr-cookie-consent-banner/module"
+            "@beyonk/gdpr-cookie-consent-banner/*": [
+                "beyonk__gdpr-cookie-consent-banner/*"
             ]
         }
     },
