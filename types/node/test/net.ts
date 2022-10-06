@@ -63,7 +63,7 @@ import { Socket } from 'node:dgram';
     _socket = _socket.setKeepAlive(true, 10);
     _socket = _socket.setEncoding('utf8');
     _socket = _socket.resume();
-    _socket = _socket.resume();
+    _socket = _socket.resetAndDestroy();
 
     _socket = _socket.end();
     _socket = _socket.destroy();
@@ -86,7 +86,8 @@ import { Socket } from 'node:dgram';
      *   5. end
      *   6. error
      *   7. lookup
-     *   8. timeout
+     *   8. ready
+     *   9. timeout
      */
     let _socket: net.Socket = new net.Socket(constructorOpts);
 
@@ -283,6 +284,7 @@ import { Socket } from 'node:dgram';
      *   2. connection
      *   3. error
      *   4. listening
+     *   5. drop
      */
     let _server = net.createServer();
 
@@ -299,12 +301,14 @@ import { Socket } from 'node:dgram';
         error = err;
     });
     _server = _server.addListener("listening", () => { });
+    _server = _server.addListener("drop", data => { });
 
     /// emit
     bool = _server.emit("close");
     bool = _server.emit("connection", _socket);
     bool = _server.emit("error", error);
     bool = _server.emit("listening");
+    bool = _server.emit("drop");
 
     /// once
     _server = _server.once("close", () => { });
@@ -315,6 +319,7 @@ import { Socket } from 'node:dgram';
         error = err;
     });
     _server = _server.once("listening", () => { });
+    _server = _server.once("drop", data => { });
 
     /// prependListener
     _server = _server.prependListener("close", () => { });
@@ -325,6 +330,7 @@ import { Socket } from 'node:dgram';
         error = err;
     });
     _server = _server.prependListener("listening", () => { });
+    _server = _server.prependListener("drop", data => { });
 
     /// prependOnceListener
     _server = _server.prependOnceListener("close", () => { });
@@ -335,6 +341,7 @@ import { Socket } from 'node:dgram';
         error = err;
     });
     _server = _server.prependOnceListener("listening", () => { });
+    _server = _server.prependOnceListener("drop", data => { });
 
     _socket.destroy();
     _server.close();

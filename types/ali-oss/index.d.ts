@@ -445,9 +445,15 @@ declare namespace OSS {
         method?: HTTPMethods | undefined;
         /** set the request content type */
         'Content-Type'?: string | undefined;
+        /**  image process params, will send with x-oss-process e.g.: {process: 'image/resize,w_200'} */
         process?: string | undefined;
+        /** traffic limit, range: 819200~838860800 */
+        trafficLimit?: number | undefined;
+        /** additional signature parameters in url */
+        subResource?: object | undefined;
         /** set the response headers for download */
         response?: ResponseHeaderType | undefined;
+        /** set the callback for the operation */
         callback?: ObjectCallback | undefined;
     }
 

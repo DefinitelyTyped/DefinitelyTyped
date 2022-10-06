@@ -1,4 +1,26 @@
-import { describe, it, test } from 'node:test';
+import { describe, it, run, test } from 'node:test';
+
+// run without options
+// $ExpectType TapStream
+run();
+
+// run with partial options and boolean concurrency
+// $ExpectType TapStream
+run({
+    concurrency: false,
+});
+
+// run with all options and number concurrency
+// $ExpectType TapStream
+run({
+    concurrency: 1,
+    files: ['test-file-name.js'],
+    signal: new AbortController().signal,
+    timeout: 100,
+});
+
+// TapStream should be a NodeJS.ReadableStream
+run().pipe(process.stdout);
 
 test('foo', t => {
     // $ExpectType TestContext

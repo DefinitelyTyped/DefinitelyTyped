@@ -1126,14 +1126,14 @@ table = new Tabulator('#test', {
 // 5.3 Testing ColumnDefinition.headerMenuIcon
 const headerMenuForIconTest: Array<MenuObject<ColumnComponent> | MenuSeparator> = [
     {
-        label:"Hide Column",
+        label: 'Hide Column',
         action(e, column) {
             column.hide();
-        }
+        },
     },
 ];
-let headerMenuIconElement = document.createElement("span");
-headerMenuIconElement.innerText = "Filter";
+let headerMenuIconElement = document.createElement('span');
+headerMenuIconElement.innerText = 'Filter';
 
 table = new Tabulator('#testHeaderMenuIcon', {
     columns: [
@@ -1141,13 +1141,13 @@ table = new Tabulator('#testHeaderMenuIcon', {
             field: 'test_inline',
             title: 'Test inline',
             headerMenuIcon: "<i class='fas fa-filter'></i>",
-            headerMenu: headerMenuForIconTest
+            headerMenu: headerMenuForIconTest,
         },
         {
             field: 'test_element',
             title: 'Test DOM Element',
             headerMenuIcon: headerMenuIconElement,
-            headerMenu: headerMenuForIconTest
+            headerMenu: headerMenuForIconTest,
         },
         {
             field: 'test_function',
@@ -1155,7 +1155,38 @@ table = new Tabulator('#testHeaderMenuIcon', {
             headerMenuIcon(component) {
                 return "<i class='fas fa-filter'></i>";
             },
-            headerMenu: headerMenuForIconTest
-        }
-    ]
+            headerMenu: headerMenuForIconTest,
+        },
+    ],
 });
+
+// 5.4
+
+table = new Tabulator('#test', {
+    headerSortClickElement: 'icon',
+    groupDblClickPopup: 'Im a Popup',
+    rowDblClickPopup: 'Im a Popup',
+    rowDblClickMenu: [
+        {
+            label: 'Delete Row',
+            action: (e, row) => {
+                row.delete();
+            },
+        },
+    ],
+    columns: [
+        {
+            field: 'test_editor',
+            title: 'Time Editor',
+            editor: 'time',
+            dblClickPopup: 'Im a Popup',
+            headerDblClickPopup: 'Im a Popup',
+            headerWordWrap: true,
+            headerMouseUp: (e, column) => {},
+        },
+    ],
+});
+
+table.on('cellMouseDown', (e, cell) => {});
+
+column.popup('test', 'bottom');
