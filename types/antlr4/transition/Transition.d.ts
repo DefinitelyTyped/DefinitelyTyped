@@ -5,57 +5,55 @@ import ATNState from '../state/ATNState';
  * An ATN transition between any two ATN states.  Subclasses define
  * atom, set, epsilon, action, predicate, rule transitions.
  *
- * <p>This is a one way link.  It emanates from a state (usually via a list of
- * transitions) and has a target state.</p>
+ * This is a one way link.  It emanates from a state (usually via a list of
+ * transitions) and has a target state.
  *
- * <p>Since we never have to change the ATN transitions once we construct it,
+ * Since we never have to change the ATN transitions once we construct it,
  * we can fix these transitions as specific classes. The DFA transitions
  * on the other hand need to update the labels as it adds transitions to
  * the states. We'll use the term Edge for the DFA to distinguish them from
- * ATN transitions.</p>
+ * ATN transitions.
  */
-declare class Transition {
+export default class Transition {
+    static readonly EPSILON: 1;
+    static readonly RANGE: 2;
+    static readonly RULE: 3;
+    static readonly PREDICATE: 4;
+    static readonly ATOM: 5;
+    static readonly ACTION: 6;
+    static readonly SET: 7;
+    static readonly NOT_SET: 8;
+    static readonly WILDCARD: 9;
+    static readonly PRECEDENCE: 10;
+    static readonly serializationNames: [
+        'INVALID',
+        'EPSILON',
+        'RANGE',
+        'RULE',
+        'PREDICATE',
+        'ATOM',
+        'ACTION',
+        'SET',
+        'NOT_SET',
+        'WILDCARD',
+        'PRECEDENCE',
+    ];
+    static readonly serializationTypes: {
+        EpsilonTransition: typeof Transition.EPSILON;
+        RangeTransition: typeof Transition.RANGE;
+        RuleTransition: typeof Transition.RULE;
+        PredicateTransition: typeof Transition.PREDICATE;
+        AtomTransition: typeof Transition.ATOM;
+        ActionTransition: typeof Transition.ACTION;
+        SetTransition: typeof Transition.SET;
+        NotSetTransition: typeof Transition.NOT_SET;
+        WildcardTransition: typeof Transition.WILDCARD;
+        PrecedencePredicateTransition: typeof Transition.PRECEDENCE;
+    };
+
     target: ATNState;
     isEpsilon: boolean;
     label: IntervalSet | null;
 
     constructor(target: ATNState);
 }
-
-declare namespace Transition {
-    const EPSILON: number;
-    const RANGE: number;
-    const RULE: number;
-    const PREDICATE: number;
-    const ATOM: number;
-    const ACTION: number;
-    const SET: number;
-    const NOT_SET: number;
-    const WILDCARD: number;
-    const PRECEDENCE: number;
-    const serializationNames: string[];
-    namespace serializationTypes {
-        import EpsilonTransition = Transition.EPSILON;
-        export { EpsilonTransition };
-        import RangeTransition = Transition.RANGE;
-        export { RangeTransition };
-        import RuleTransition = Transition.RULE;
-        export { RuleTransition };
-        import PredicateTransition = Transition.PREDICATE;
-        export { PredicateTransition };
-        import AtomTransition = Transition.ATOM;
-        export { AtomTransition };
-        import ActionTransition = Transition.ACTION;
-        export { ActionTransition };
-        import SetTransition = Transition.SET;
-        export { SetTransition };
-        import NotSetTransition = Transition.NOT_SET;
-        export { NotSetTransition };
-        import WildcardTransition = Transition.WILDCARD;
-        export { WildcardTransition };
-        import PrecedencePredicateTransition = Transition.PRECEDENCE;
-        export { PrecedencePredicateTransition };
-    }
-}
-
-export default Transition;

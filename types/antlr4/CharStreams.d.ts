@@ -28,7 +28,8 @@ declare namespace CharStreams {
      */
     function fromBuffer(buffer: any, encoding: string): InputStream;
 
-    /** Asynchronously creates an InputStream from a file on disk given
+    /**
+     * Asynchronously creates an InputStream from a file on disk given
      * the encoding of the bytes in that file (defaults to 'utf8' if
      * encoding is null).
      *

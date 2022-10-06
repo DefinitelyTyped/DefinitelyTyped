@@ -7,7 +7,7 @@ export default class HashSet {
 
     has(value: any): boolean;
 
-    get(value: any): any | null;
+    get(value: any): any;
 
     values(): any[];
 

@@ -4,7 +4,7 @@ import Recognizer from '../Recognizer';
 import Token from '../Token';
 import IntervalSet from '../misc/IntervalSet';
 
-interface RecognitionExceptionOpts {
+export interface RecognitionExceptionOpts {
     message: string;
     recognizer: Recognizer;
     input: InputStream;

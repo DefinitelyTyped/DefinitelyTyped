@@ -6,19 +6,18 @@ import PredPrediction from '../dfa/PredPrediction';
 import BitSet from '../misc/BitSet';
 import ATNConfig from './ATNConfig';
 import NoViableAltException from '../error/NoViableAltException';
-import Parser from 'antlr4/Parser';
+import Parser from '../Parser';
 import ATN from './ATN';
 import PredictionContextCache from './PredictionContextCache';
-import DFA from 'antlr4/dfa/DFA';
-import CommonTokenStream from 'antlr4/CommonTokenStream';
-import ParserRuleContext from 'antlr4/context/ParserRuleContext';
-import TokenStream from 'antlr4/TokenStream';
-import DecisionState from 'antlr4/state/DecisionState';
-import ATNState from 'antlr4/state/ATNState';
-import RuleContext from 'antlr4/context/RuleContext';
-import Transition from 'antlr4/transition/Transition';
+import DFA from '../dfa/DFA';
+import ParserRuleContext from '../context/ParserRuleContext';
+import TokenStream from '../TokenStream';
+import DecisionState from '../state/DecisionState';
+import ATNState from '../state/ATNState';
+import RuleContext from '../context/RuleContext';
+import Transition from '../transition/Transition';
 import SemanticContext from './SemanticContext';
-import HashSet from 'antlr4/misc/HashSet';
+import HashSet from '../misc/HashSet';
 
 export default class ParserATNSimulator extends ATNSimulator {
     parser: Parser;
@@ -259,7 +258,8 @@ export default class ParserATNSimulator extends ATNSimulator {
      * Create a new set so as not to alter the incoming parameter.
      *
      * Assumption: the input stream has been restored to the starting point
-     * prediction, which is where predicates need to evaluate.*/
+     * prediction, which is where predicates need to evaluate.
+     */
     splitAccordingToSemanticValidity(configs: ATNConfigSet, outerContext: ParserRuleContext): ATNConfigSet[];
 
     /**

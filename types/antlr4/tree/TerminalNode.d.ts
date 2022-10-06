@@ -21,7 +21,7 @@ export default class TerminalNode implements ParseTree {
 
     getChildCount(): number;
 
-    accept<T extends ParseTreeVisitor>(visitor: T): any; // TODO clarify
+    accept<T extends ParseTreeVisitor>(visitor: T): T;
 
     getText(): string;
 

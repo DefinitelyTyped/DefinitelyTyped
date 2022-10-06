@@ -9,8 +9,8 @@ import Transition from '../transition/Transition';
 
 export default class ATNDeserializer {
     deserializationOptions: ATNDeserializationOptions;
-    stateFactories: ((() => BasicState) | null)[] | null;
-    actionFactories: ((dataA: any, dataB: any) => LexerAction)[] | null;
+    stateFactories: Array<(() => BasicState) | null> | null;
+    actionFactories: Array<(dataA: any, dataB: any) => LexerAction> | null;
     data: number[];
     pos?: number;
 

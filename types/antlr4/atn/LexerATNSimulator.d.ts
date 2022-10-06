@@ -13,7 +13,7 @@ import DecisionState from '../state/DecisionState';
 import ATNConfig from './ATNConfig';
 import DFA from '../dfa/DFA';
 
-declare class SimState {
+export class SimState {
     reset(): void;
 }
 

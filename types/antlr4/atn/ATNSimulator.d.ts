@@ -14,18 +14,18 @@ export default class ATNSimulator {
      * fill this during closure() since there are lots of contexts that
      * pop up but are not used ever again. It also greatly slows down closure().
      *
-     * <p>This cache makes a huge difference in memory and a little bit in speed.
+     * This cache makes a huge difference in memory and a little bit in speed.
      * For the Java grammar on java.*, it dropped the memory requirements
      * at the end from 25M to 16M. We don't store any of the full context
      * graphs in the DFA because they are limited to local context only,
      * but apparently there's a lot of repetition there as well. We optimize
      * the config contexts before storing the config set in the DFA states
-     * by literally rebuilding them with cached subgraphs only.</p>
+     * by literally rebuilding them with cached subgraphs only.
      *
-     * <p>I tried a cache for use during closure operations, that was
+     * I tried a cache for use during closure operations, that was
      * whacked after each adaptivePredict(). It cost a little bit
      * more time I think and doesn't save on the overall footprint
-     * so it's not worth the complexity.</p>
+     * so it's not worth the complexity.
      */
     atn: ATN;
 

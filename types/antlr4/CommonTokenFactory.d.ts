@@ -1,7 +1,7 @@
 import CommonToken from './CommonToken';
 import Token from './Token';
 
-declare class TokenFactory {}
+export class TokenFactory {}
 
 /**
  * This default implementation of {@link TokenFactory}

@@ -25,7 +25,7 @@ import DefaultErrorStrategy from './DefaultErrorStrategy';
  * `myparser.setErrorHandler(new BailErrorStrategy());`
  *
  * @see Parser.setErrorHandler(ANTLRErrorStrategy)
- * */
+ */
 export default class BailErrorStrategy extends DefaultErrorStrategy {
     /**
      * Make sure we don't attempt to recover inline; if the parser

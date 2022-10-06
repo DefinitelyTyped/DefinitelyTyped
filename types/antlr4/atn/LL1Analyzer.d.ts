@@ -19,7 +19,7 @@ export default class LL1Analyzer {
      * @param s the ATN state
      * @return the expected symbols for each outgoing transition of `s`.
      */
-    getDecisionLookahead(s: ATNState): (IntervalSet | null)[] | null;
+    getDecisionLookahead(s: ATNState): Array<IntervalSet | null> | null;
 
     /**
      * Compute set of tokens that can follow `s` in the ATN in the
