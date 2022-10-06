@@ -2352,10 +2352,10 @@ declare namespace google.maps {
      */
     geocode(
         request: google.maps.GeocoderRequest,
-        callback?:
-            ((a: google.maps.GeocoderResult[]|null,
-              b: google.maps.GeocoderStatus) => void)|
-        null): Promise<google.maps.GeocoderResponse>;
+        callback?: null|
+        ((a: null|google.maps.GeocoderResult[],
+          b: google.maps.GeocoderStatus) => void)):
+        Promise<google.maps.GeocoderResponse>;
   }
 }
 declare namespace google.maps {
@@ -2913,7 +2913,8 @@ declare namespace google.maps {
     open(
         options?: google.maps.InfoWindowOpenOptions|null|google.maps.Map|
         google.maps.StreetViewPanorama,
-        anchor?: google.maps.MVCObject|null): void;
+        anchor?: google.maps.MVCObject|null|
+        google.maps.marker.AdvancedMarkerView): void;
     setContent(content?: string|Element|null|Text): void;
     setOptions(options?: google.maps.InfoWindowOptions|null): void;
     setPosition(position?: google.maps.LatLng|null|
@@ -2932,7 +2933,7 @@ declare namespace google.maps {
      * anchor. The InfoWindow will be rendered on the same map or panorama as
      * the anchor <strong>(when available)</strong>.
      */
-    anchor?: google.maps.MVCObject|null;
+    anchor?: google.maps.MVCObject|null|google.maps.marker.AdvancedMarkerView;
     /**
      * The map or panorama on which to render this InfoWindow.
      */
@@ -3979,6 +3980,10 @@ declare namespace google.maps {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      */
+    isAdvancedMarkersAvailable?: boolean;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     */
     isDataDrivenStylingAvailable?: boolean;
   }
 }
@@ -4003,7 +4008,7 @@ declare namespace google.maps {
     /**
      * The latitude/longitude that was below the cursor when the event occurred.
      */
-    latLng: google.maps.LatLng|null;
+    latLng: null|google.maps.LatLng;
     /**
      * Prevents this event from propagating further.
      */
@@ -5025,7 +5030,7 @@ declare namespace google.maps {
      * passed a <code>MaxZoomResult</code>.
      */
     getMaxZoomAtLatLng(
-        latlng: google.maps.LatLng|null|google.maps.LatLngLiteral,
+        latlng: google.maps.LatLng|google.maps.LatLngLiteral,
         callback?: (a: google.maps.MaxZoomResult) => void):
         Promise<google.maps.MaxZoomResult>;
   }
@@ -9011,9 +9016,9 @@ declare namespace google.maps.localContext {
     directionsOptions?: null|
         google.maps.localContext.MapDirectionsOptionsLiteral;
     /**
-     * The DOM Element backing the view.
+     * This Field is read-only. The DOM Element backing the view.
      */
-    element?: Element|null;
+    element?: null|Element;
     /**
      * Hides the place details.
      */
@@ -9101,9 +9106,9 @@ declare namespace google.maps.localContext {
     directionsOptions?: null|
         google.maps.localContext.MapDirectionsOptionsLiteral;
     /**
-     * The DOM Element backing the view.
+     * This Field is read-only. The DOM Element backing the view.
      */
-    element?: Element|null;
+    element?: null|Element;
     /**
      * A soft boundary or hint to use when searching for places.
      * @defaultValue <code>null</code>
@@ -9348,6 +9353,223 @@ declare namespace google.maps.localContext {
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    */
   type PlaceTypePreference = {type: string, weight?: number};
+}
+declare namespace google.maps.marker {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Creates an <code>AdvancedMarkerView</code> with the options specified. If a
+   * map is specified, the <code>AdvancedMarkerView</code> is added to the map
+   * upon construction. Note that the position must be set for the
+   * <code>AdvancedMarkerView</code> to display.
+   */
+  class AdvancedMarkerView implements
+      google.maps.marker.AdvancedMarkerViewOptions {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Creates an <code>AdvancedMarkerView</code> with the options specified. If
+     * a map is specified, the <code>AdvancedMarkerView</code> is added to the
+     * map upon construction. Note that the position must be set for the
+     * <code>AdvancedMarkerView</code> to display.
+     */
+    constructor(options?: google.maps.marker.AdvancedMarkerViewOptions);
+    /**
+     * Adds the given listener function to the given event name.
+     */
+    addListener(eventName: string, handler: Function):
+        google.maps.MapsEventListener;
+    /**
+     * See {@link
+     * google.maps.marker.AdvancedMarkerViewOptions.collisionBehavior}.
+     */
+    collisionBehavior?: google.maps.CollisionBehavior|null;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerViewOptions.content}.
+     */
+    content?: Element|null;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerViewOptions.draggable}.
+     */
+    draggable?: boolean|null;
+    /**
+     * This Field is read-only. The DOM Element backing the view.
+     */
+    element?: null|Element;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerViewOptions.map}.
+     */
+    map?: google.maps.Map|null;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerViewOptions.position}.
+     */
+    position?: google.maps.LatLng|null|google.maps.LatLngLiteral|
+        google.maps.LatLngAltitudeLiteral;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerViewOptions.title}.
+     */
+    title?: string|null;
+    /**
+     * See {@link google.maps.marker.AdvancedMarkerViewOptions.zIndex}.
+     */
+    zIndex?: number|null;
+  }
+}
+declare namespace google.maps.marker {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Options for constructing an {@link google.maps.marker.AdvancedMarkerView}.
+   */
+  interface AdvancedMarkerViewOptions {
+    /**
+     * An enumeration specifying how an <code>AdvancedMarkerView</code> should
+     * behave when it collides with another <code>AdvancedMarkerView</code> or
+     * with the basemap labels on a vector map. <p><strong>Note</strong>:
+     * <code>AdvancedMarkerView</code> to <code>AdvancedMarkerView</code>
+     * collision works on both raster and vector maps, however,
+     * <code>AdvancedMarkerView</code> to base map&#39;s label collision only
+     * works on vector maps.
+     */
+    collisionBehavior?: google.maps.CollisionBehavior|null;
+    /**
+     * The DOM Element backing the visual of an <code>AdvancedMarkerView</code>.
+     * <p><strong>Note</strong>: <code>AdvancedMarkerView</code> does not clone
+     * the passed-in DOM element. Once the DOM element is passed to an
+     * <code>AdvancedMarkerView</code>, passing the same DOM element to another
+     * <code>AdvancedMarkerView</code> will move the DOM element and cause the
+     * previous <code>AdvancedMarkerView</code> to look empty.
+     * @defaultValue {@link google.maps.marker.PinView.element}
+     */
+    content?: Element|null;
+    /**
+     * If <code>true</code>, the <code>AdvancedMarkerView</code> can be dragged.
+     * <p><strong>Note</strong>: <code>AdvancedMarkerView</code> with altitude
+     * is not draggable.
+     * @defaultValue <code>false</code>
+     */
+    draggable?: boolean|null;
+    /**
+     * This Field is read-only. The DOM Element backing the view.
+     */
+    element?: null|Element;
+    /**
+     * Map on which to display the <code>AdvancedMarkerView</code>. The map is
+     * required to display the <code>AdvancedMarkerView</code> and can be
+     * provided by setting {@link google.maps.marker.AdvancedMarkerView.map} if
+     * not provided at the construction.
+     */
+    map?: google.maps.Map|null;
+    /**
+     * Sets the <code>AdvancedMarkerView</code>&#39;s position. An
+     * <code>AdvancedMarkerView</code> may be constructed without a position,
+     * but will not be displayed until its position is provided - for example,
+     * by a user&#39;s actions or choices. An
+     * <code>AdvancedMarkerView</code>&#39;s position can be provided by
+     * setting {@link google.maps.marker.AdvancedMarkerView.position} if not
+     * provided at the construction. <p><strong>Note</strong>:
+     * <code>AdvancedMarkerView</code> with altitude is only supported on vector
+     * maps.
+     */
+    position?: google.maps.LatLng|null|google.maps.LatLngLiteral;
+    /**
+     * Rollover text. If provided, an accessibility text (e.g. for use with
+     * screen readers) will be added to the <code>AdvancedMarkerView</code> with
+     * the provided value.
+     */
+    title?: string|null;
+    /**
+     * All <code>AdvancedMarkerView</code>s are displayed on the map in order of
+     * their zIndex, with higher values displaying in front of
+     * <code>AdvancedMarkerView</code>s with lower values. By default,
+     * <code>AdvancedMarkerView</code>s are displayed according to their
+     * vertical position on screen, with lower <code>AdvancedMarkerView</code>s
+     * appearing in front of <code>AdvancedMarkerView</code>s farther up the
+     * screen. Note that <code>zIndex</code> is also used to help determine
+     * relative priority between {@link
+     * google.maps.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY} Advanced
+     * Markers. A higher <code>zIndex</code> value indicates higher priority.
+     */
+    zIndex?: number|null;
+  }
+}
+declare namespace google.maps.marker {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * A <code>PinView</code> represents a DOM element that consists of a shape
+   * and a glyph. The shape has the same balloon style as seen in the
+   * default {@link google.maps.marker.AdvancedMarkerView}. The glyph is an
+   * optional DOM element displayed in the balloon shape. A <code>PinView</code>
+   * may have a different aspect ratio depending on its {@link
+   * google.maps.marker.PinView.scale}.
+   */
+  class PinView implements google.maps.marker.PinViewOptions {
+    /**
+     * Adds the given listener function to the given event name.
+     */
+    addListener(eventName: string, handler: Function):
+        google.maps.MapsEventListener;
+    /**
+     * See {@link google.maps.marker.PinViewOptions.background}.
+     */
+    background?: string|null;
+    /**
+     * See {@link google.maps.marker.PinViewOptions.borderColor}.
+     */
+    borderColor?: string|null;
+    /**
+     * This Field is read-only. The DOM Element backing the view.
+     */
+    element?: null|Element;
+    /**
+     * See {@link google.maps.marker.PinViewOptions.glyph}.
+     */
+    glyph?: string|null|Element|URL;
+    /**
+     * See {@link google.maps.marker.PinViewOptions.glyphColor}.
+     */
+    glyphColor?: string|null;
+    /**
+     * See {@link google.maps.marker.PinViewOptions.scale}.
+     */
+    scale?: number|null;
+  }
+}
+declare namespace google.maps.marker {
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Options for creating a {@link google.maps.marker.PinView}.
+   */
+  interface PinViewOptions {
+    /**
+     * The background color of the pin shape. Supports any CSS <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
+     * value</a>.
+     */
+    background?: string|null;
+    /**
+     * The border color of the pin shape. Supports any CSS <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
+     * value</a>.
+     */
+    borderColor?: string|null;
+    /**
+     * This Field is read-only. The DOM Element backing the view.
+     */
+    element?: null|Element;
+    /**
+     * The DOM element displayed in the pin.
+     */
+    glyph?: string|null|Element|URL;
+    /**
+     * The color of the glyph. Supports any CSS <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">color
+     * value</a>.
+     */
+    glyphColor?: string|null;
+    /**
+     * The scale of the pin.
+     * @defaultValue <code>1</code>
+     */
+    scale?: number|null;
+  }
 }
 declare namespace google.maps.places {
   /**
