@@ -3,6 +3,8 @@
 // Definitions by: Ben Grynhaus <https://github.com/bengry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import attachBanner from './dist/beyonk__gdpr-cookie-consent-banner.module';
+/// <reference path="./dist/beyonk__gdpr-cookie-consent-banner.umd.d.ts" />
+
+import attachBanner from './dist/beyonk__gdpr-cookie-consent-banner.esm';
 
 export default attachBanner;

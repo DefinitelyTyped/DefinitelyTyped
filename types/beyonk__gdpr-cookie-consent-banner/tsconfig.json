@@ -27,7 +27,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/beyonk__gdpr-cookie-consent-banner-tests.ts",
+        "test/beyonk__gdpr-cookie-consent-banner-tests.esm.ts",
         "test/beyonk__gdpr-cookie-consent-banner-tests.umd.ts"
     ]
 }

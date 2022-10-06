@@ -2,7 +2,7 @@
     "private": true,
     "exports": {
         ".": {
-            "import": "./module/index.d.ts",
+            "import": "./esm/index.d.ts",
             "default": "./index.d.ts"
         }
     }
