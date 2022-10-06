@@ -92,7 +92,7 @@ declare namespace BetterSqlite3 {
     }
 }
 
-declare class SqliteError implements Error {
+declare class SqliteError extends Error {
     name: string;
     message: string;
     code: string;
