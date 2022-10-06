@@ -131,6 +131,10 @@ function handleIsFullScreen(isFullscreen: boolean): void {
 flikty2.on("fullscreenChange", handleIsFullScreen);
 flikty2.off("fullscreenChange", handleIsFullScreen);
 
+flikty2.on('destroy', () => {
+    // do something
+});
+
 // static get data methods
 
 let jQdata = jQuery.fn.data("flickity")();
