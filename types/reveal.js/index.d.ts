@@ -10,15 +10,6 @@ export as namespace Reveal;
 
 export = Reveal;
 
-// NOTE: this does not work when only `options` is passed
-// const Reveal: new (revealElement?: Element | null, options: Reveal.Options) => Reveal.Api;
-
-// possible solutions
-// 1. place optional parameters after the required parameter
-// 2. use object as parameter
-//
-// a possible workaround is not checking parameters
-
 /**
  * reveal.js - MIT licensed
  *
@@ -28,7 +19,8 @@ export = Reveal;
  * @see {@link https://github.com/hakimel/reveal.js/blob/master/js/reveal.js}
  */
 declare const Reveal: {
-    new (...args: any): Reveal.Api;
+    new (options?: Reveal.Options): Reveal.Api;
+    new (revealElement: Element, options: Reveal.Options): Reveal.Api;
     initialize(options?: Reveal.Options): Promise<Reveal.Api>;
 };
 
@@ -952,9 +944,9 @@ declare namespace Reveal {
 
         /**
          * Can be used to limit the contexts in which the slide number appears
-         * - "all":      Always show the slide number
-         * - "print":    Only when printing to PDF
-         * - "speaker":  Only in the speaker view
+         * - "all": Always show the slide number
+         * - "print": Only when printing to PDF
+         * - "speaker": Only in the speaker view
          *
          * @defaultValue `all`
          */
@@ -1068,9 +1060,9 @@ declare namespace Reveal {
          * index.
          *
          * Consider a deck with six slides ordered in two vertical stacks:
-         * 1.1    2.1
-         * 1.2    2.2
-         * 1.3    2.3
+         * 1.1 2.1
+         * 1.2 2.2
+         * 1.3 .3
          *
          * If you're on slide 1.3 and navigate right, you will normally move
          * from 1.3 -> 2.1. If "grid" is used, the same navigation takes you
@@ -1141,9 +1133,9 @@ declare namespace Reveal {
 
         /**
          * Global override for autoplaying embedded media (video/audio/iframe)
-         * - null:   Media will only autoplay if data-autoplay is present
-         * - true:   All media will autoplay, regardless of individual setting
-         * - false:  No media will autoplay, regardless of individual setting
+         * - null: Media will only autoplay if data-autoplay is present
+         * - true: All media will autoplay, regardless of individual setting
+         * - false: No media will autoplay, regardless of individual setting
          *
          * @defaultValue `null`
          */
@@ -1151,10 +1143,12 @@ declare namespace Reveal {
 
         /**
          * Global override for preloading lazy-loaded iframes
-         * - null:   Iframes with data-src AND data-preload will be loaded when within
-         *           the viewDistance, iframes with only data-src will be loaded when visible
-         * - true:   All iframes with data-src will be loaded when within the viewDistance
-         * - false:  All iframes with data-src will be loaded only when visible
+         * - null: Iframes with data-src AND data-preload will be loaded
+         *         when within the viewDistance, iframes with only data-src
+         *         will be loaded when visible
+         * - true: All iframes with data-src will be loaded when within
+         *         the viewDistance
+         * - false: All iframes with data-src will be loaded only when visible
          *
          * @defaultValue `null`
          */
@@ -1225,10 +1219,10 @@ declare namespace Reveal {
 
         /**
          * Controls automatic progression to the next slide
-         * - 0:      Auto-sliding only happens if the data-autoslide HTML attribute
-         *           is present on the current slide or fragment
-         * - 1+:     All slides will progress automatically at the given interval
-         * - false:  No auto-sliding, even if data-autoslide is present
+         * - 0: Auto-sliding only happens if the data-autoslide HTML attribute
+         *      is present on the current slide or fragment
+         * - 1+: All slides will progress automatically at the given interval
+         * - false: No auto-sliding, even if data-autoslide is present
          *
          * @defaultValue `0`
          */
@@ -1266,7 +1260,8 @@ declare namespace Reveal {
 
         /**
          * Opens links in an iframe preview overlay
-         * Add `data-preview-link` and `data-preview-link="false"` to customise each link
+         * Add `data-preview-link` and `data-preview-link="false"`
+         * to customise each link
          * individually
          *
          * @defaultValue `false`
@@ -1606,8 +1601,7 @@ declare namespace Reveal {
         presentaionHeight: number;
     }
 
-    // NOTE: it is possible to extend type definitions depend
-    // on the plugin
+    // NOTE: it is possible to extend type definitions depend on the plugin
     /**
      * Reveal Plugin
      */

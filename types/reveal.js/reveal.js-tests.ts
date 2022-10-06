@@ -2,7 +2,7 @@ import Reveal = require('reveal.js');
 import RevealHighlight = require('reveal.js/plugin/highlight/highlight');
 import RevealMarkdown = require('reveal.js/plugin/markdown/markdown');
 import RevealMath = require('reveal.js/plugin/math/math');
-import RevealNotes =  require('reveal.js/plugin/notes/notes');
+import RevealNotes = require('reveal.js/plugin/notes/notes');
 import RevealSearch = require('reveal.js/plugin/search/search');
 import RevealZoom = require('reveal.js/plugin/zoom/zoom');
 
@@ -24,6 +24,10 @@ new Reveal(el, {
 new Reveal({
     plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealSearch, RevealMath, RevealZoom],
 });
+
+// with options
+// $ExpectType Api
+new Reveal({ width: 960, height: 700 });
 
 // without argument
 // $ExpectType Api
