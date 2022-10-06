@@ -1062,12 +1062,14 @@ describe('', () => {
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn()).lastReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(0, 'jest');
-        expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn()).nthCalledWith(1, 'jest');
+        expect(jest.fn()).nthCalledWith(2, {});
 
-        expect(jest.fn()).nthReturnedWith(0, 'jest');
-        expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn()).nthReturnedWith(1, 'jest');
+        expect(jest.fn()).nthReturnedWith(2, {});
+        expect(jest.fn()).nthReturnedWith(3);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1152,12 +1154,14 @@ describe('', () => {
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+        expect(jest.fn()).toHaveLastReturnedWith();
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
-        expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
-        expect(jest.fn()).toHaveNthReturnedWith(1, {});
+        expect(jest.fn()).toHaveNthReturnedWith(1, 'jest');
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -1173,6 +1177,7 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
@@ -1230,6 +1235,7 @@ describe('', () => {
 
         expect(jest.fn()).toReturnWith('jest');
         expect(jest.fn()).toReturnWith({});
+        expect(jest.fn()).toReturnWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
