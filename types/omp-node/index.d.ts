@@ -1,4 +1,4 @@
-// Type definitions for samp-node 1.0
+// Type definitions for omp-node 1.0
 // Project: https://github.com/YuCarl77/types-samp-node
 // Definitions by: pkfln <https://github.com/pkfln>
 //                 YuCarl77 <https://github.com/YuCarl77>
