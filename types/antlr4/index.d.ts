@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { default as atn } from './atn/index';
-// import { default as dfa } from './dfa/index.js';
+// import { default as dfa } from './dfa/index';
 import { default as tree } from './tree/index';
 import { default as error } from './error/index';
 import { default as Token } from './Token';

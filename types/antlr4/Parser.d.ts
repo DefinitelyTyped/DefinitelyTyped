@@ -70,7 +70,7 @@ export default class Parser extends Recognizer {
      * In addition, calls to certain rule entry methods may be omitted.
      *
      * With the following specific exceptions, calls to listener events are
-     * <em>deterministic</em>, i.e. for identical input the calls to listener
+     * _deterministic_, i.e. for identical input the calls to listener
      * methods will be the same.
      *
      * - Alterations to the grammar used to generate code may change the
