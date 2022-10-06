@@ -1,3 +1,4 @@
+// TODO fix up
 export default class HashMap {
     readonly data: {};
     readonly hashFunction: any;

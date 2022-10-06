@@ -1,4 +1,4 @@
-import Parser from 'antlr4/Parser';
+import Parser from '../Parser';
 import RecognitionException from './RecognitionException';
 
 export default class ErrorStrategy {

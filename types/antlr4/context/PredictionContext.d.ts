@@ -1,10 +1,12 @@
+import HashCode from '../misc/HashCode';
+
 export default class PredictionContext {
     static readonly EMPTY: null;
     static readonly EMPTY_RETURN_STATE: 0x7fffffff;
     static readonly globalNodeCount: 1;
     static readonly id: number;
 
-    constructor(cachedHashCode: any);
+    constructor(cachedHashCode: number);
 
     /**
      * Stores the computed hash code of this {@link PredictionContext}.
@@ -13,7 +15,7 @@ export default class PredictionContext {
 
     hasEmptyPath(): boolean;
 
-    hashCode(): any;
+    hashCode(): number;
 
-    updateHashCode(hash: any): void;
+    updateHashCode(hash: HashCode): void;
 }

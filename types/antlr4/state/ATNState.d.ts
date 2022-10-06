@@ -1,4 +1,4 @@
-import Token from '../Token';
+import IntervalSet from '../misc/IntervalSet';
 import Transition from '../transition/Transition';
 
 export default class ATNState {
@@ -39,7 +39,7 @@ export default class ATNState {
     ruleIndex: number;
     epsilonOnlyTransitions: boolean;
     transitions: Transition[];
-    nextTokenWithinRule: Token;
+    nextTokenWithinRule: IntervalSet;
 
     toString(): number;
     equals(other: ATNState): boolean;

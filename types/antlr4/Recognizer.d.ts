@@ -1,3 +1,4 @@
+import ATNSimulator from './atn/ATNSimulator';
 import ConsoleErrorListener from './error/ConsoleErrorListener';
 import ErrorListener from './error/ErrorListener';
 import ProxyErrorListener from './error/ProxyErrorListener';
@@ -7,7 +8,7 @@ import RecognitionException from './error/RecognitionException';
 
 export default class Recognizer {
     _listeners: ConsoleErrorListener[];
-    _interp: any; // ATNSimulator
+    _interp: ATNSimulator;
     _stateNumber: number;
 
     set state(arg: number);

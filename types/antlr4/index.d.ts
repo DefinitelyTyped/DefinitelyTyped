@@ -6,6 +6,8 @@
 //                 Alex Miller <https://github.com/codex->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { default as atn } from './atn/index';
+// import { default as dfa } from './dfa/index.js';
 import { default as tree } from './tree/index';
 import { default as error } from './error/index';
 import { default as Token } from './Token';
@@ -24,7 +26,7 @@ import { default as LL1Analyzer } from './atn/LL1Analyzer';
 import { default as Utils } from './utils/index';
 
 declare namespace antlr4 {
-    export const atn: any;
+    export { atn };
     export const dfa: any;
     export { tree };
     export { error };

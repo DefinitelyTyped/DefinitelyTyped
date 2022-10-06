@@ -1,3 +1,4 @@
+import ATN from './atn/ATN';
 import CommonTokenFactory from './CommonTokenFactory';
 import CommonTokenStream from './CommonTokenStream';
 import Recognizer from './Recognizer';
@@ -116,10 +117,8 @@ export default class Parser extends Recognizer {
 
     /**
      * The ATN with bypass alternatives is expensive to create so we create it lazily.
-     *
-     * @return {ATN}
      */
-    getATNWithBypassAlts(): any; // ATN
+    getATNWithBypassAlts(): ATN;
 
     /**
      * Calls getTokenStream
