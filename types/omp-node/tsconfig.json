@@ -12,5 +12,5 @@
       "noEmit": true,
       "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "samp-node-test.ts"]
+    "files": ["index.d.ts", "omp-node-tests.ts"]
   }
