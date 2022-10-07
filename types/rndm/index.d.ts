@@ -5,7 +5,7 @@
 
 declare function rndm(length: number): string;
 
-declare module rndm {
+declare namespace rndm {
     function base62(length: number): string;
     function base36(length: number): string;
     function base10(length: number): string;
