@@ -5,9 +5,9 @@
 // TypeScript Version: 4.2
 
 import { Answers, KeyUnion, Question, QuestionCollection } from "inquirer";
-import Choices from "inquirer/lib/objects/choices";
-import Base from "inquirer/lib/prompts/base";
-import Paginator from "inquirer/lib/utils/paginator";
+import Choices from "inquirer/lib/objects/choices.js";
+import Base from "inquirer/lib/prompts/base.js";
+import Paginator from "inquirer/lib/utils/paginator.js";
 import { Interface as ReadlineInterface } from "readline";
 
 export default AutocompletePrompt;
