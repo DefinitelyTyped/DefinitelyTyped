@@ -1,6 +1,7 @@
 // Type definitions for react-image-gallery 1.0
 // Project: https://github.com/xiaolin/react-image-gallery
-// Definitions by: Adam Webb <https://github.com/adamwpc>
+// Definitions by: puolimatkankrouvi <https://github.com/puolimatkankrouvi>
+//                 Adam Webb <https://github.com/adamwpc>
 //                 William Tio <https://github.com/WToa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
@@ -24,6 +25,7 @@ export interface ReactImageGalleryItem {
         currentIndex: number;
     }): void;
     description?: string | undefined;
+    loading?: 'lazy' | 'eager' | undefined;
     original: string;
     originalHeight?: number | undefined;
     originalWidth?: number | undefined;
@@ -60,6 +62,7 @@ export interface ReactImageGalleryProps {
     disableThumbnailScroll?: boolean | undefined;
     disableKeyDown?: boolean | undefined;
     disableSwipe?: boolean | undefined;
+    disableThumbnailSwipe?: boolean | undefined;
     useBrowserFullscreen?: boolean | undefined;
     preventDefaultTouchmoveEvent?: boolean | undefined;
     onErrorImageURL?: string | undefined;
@@ -71,6 +74,7 @@ export interface ReactImageGalleryProps {
     slideOnThumbnailOver?: boolean | undefined;
     swipeThreshold?: number | undefined;
     swipingTransitionDuration?: number | undefined;
+    swipingThumbnailTransitionDuration?: number | undefined;
     onSlide?: ((currentIndex: number) => void) | undefined;
     onBeforeSlide?: ((currentIndex: number) => void) | undefined;
     onScreenChange?: ((fullScreen: boolean) => void) | undefined;
@@ -97,6 +101,7 @@ export interface ReactImageGalleryProps {
     additionalClass?: string | undefined;
     useTranslate3D?: boolean | undefined;
     isRTL?: boolean | undefined;
+    useWindowKeyDown?: boolean | undefined;
 }
 
 declare class ReactImageGallery extends React.Component<ReactImageGalleryProps> {

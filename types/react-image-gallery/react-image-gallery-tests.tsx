@@ -32,6 +32,7 @@ class ImageGallery extends React.Component {
             original: 'http://localhost/logo.jpg',
             originalTitle: 'My Logo',
             bulletClass: 'my-bullet-class-name',
+            loading: 'eager'
         };
 
         const props: ReactImageGalleryProps = {
@@ -41,6 +42,7 @@ class ImageGallery extends React.Component {
             renderThumbInner: this.renderThumbInner,
             disableKeyDown: false,
             onImageLoad: this.handleImageLoad,
+            disableThumbnailSwipe: true,
         };
 
         return <ReactImageGallery ref={r => (this.gallery = r)} {...props} />;
