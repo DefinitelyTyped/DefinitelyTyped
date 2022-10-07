@@ -1,4 +1,4 @@
-// Type definitions for react-image-gallery 1.0
+// Type definitions for react-image-gallery 1.2
 // Project: https://github.com/xiaolin/react-image-gallery
 // Definitions by: puolimatkankrouvi <https://github.com/puolimatkankrouvi>
 //                 Adam Webb <https://github.com/adamwpc>
