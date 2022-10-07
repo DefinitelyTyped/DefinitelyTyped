@@ -9402,7 +9402,7 @@ declare namespace google.maps.marker {
      * See {@link google.maps.marker.AdvancedMarkerViewOptions.position}.
      */
     position?: google.maps.LatLng|null|google.maps.LatLngLiteral|
-        google.maps.LatLngAltitudeLiteral;
+        google.maps.LatLngAltitude|google.maps.LatLngAltitudeLiteral;
     /**
      * See {@link google.maps.marker.AdvancedMarkerViewOptions.title}.
      */
@@ -9468,7 +9468,8 @@ declare namespace google.maps.marker {
      * <code>AdvancedMarkerView</code> with altitude is only supported on vector
      * maps.
      */
-    position?: google.maps.LatLng|null|google.maps.LatLngLiteral|google.maps.LatLngAltitude|google.maps.LatLngAltitudeLiteral;
+    position?: google.maps.LatLng|null|google.maps.LatLngLiteral|
+        google.maps.LatLngAltitude|google.maps.LatLngAltitudeLiteral;
     /**
      * Rollover text. If provided, an accessibility text (e.g. for use with
      * screen readers) will be added to the <code>AdvancedMarkerView</code> with
