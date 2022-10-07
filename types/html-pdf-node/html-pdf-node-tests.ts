@@ -1,4 +1,4 @@
-import {generatePdfs, generatePdf} from "./index";
+import { generatePdfs, generatePdf } from "html-pdf-node/index";
 
 // $ExpectType void
 generatePdf(
