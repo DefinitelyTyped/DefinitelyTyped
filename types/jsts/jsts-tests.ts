@@ -154,6 +154,7 @@ str = g.toString();
 bool = g.touches(g);
 g = g.union(g);
 bool = g.within(g);
+n = g.hashCode();
 
 c = ls.getCoordinateN(n);
 p = ls.getEndPoint();

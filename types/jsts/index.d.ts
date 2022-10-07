@@ -2419,6 +2419,15 @@ declare namespace jsts {
             equal(a: Coordinate, b: Coordinate, tolerance: number): boolean;
 
             /**
+             * Gets a hash code for the Geometry.
+             *
+             * @override hashCode in class Object
+             *
+             * @return {int} an integer value suitable for use as a hashcode
+             */
+            hashCode(): number;
+
+            /**
              * Returns a WKT representation of this geometry.
              */
             toString(): string;
