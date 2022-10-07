@@ -1,3 +1,4 @@
+import ATNConfigSet from '../atn/ATNConfigSet';
 import ParserRuleContext from '../context/ParserRuleContext';
 import Parser from '../Parser';
 import Token from '../Token';
@@ -11,15 +12,15 @@ import RecognitionException from './RecognitionException';
  * in the various paths when the error. Reported by `reportNoViableAlternative()`
  */
 export default class NoViableAltException extends RecognitionException {
-    readonly deadEndConfigs: any; // ATNConfigSet
+    readonly deadEndConfigs: ATNConfigSet;
     readonly startToken: Token;
 
     constructor(
         recognizer: Parser,
-        input: TokenStream,
-        startToken: Token,
-        offendingToken: Token,
-        deadEndConfigs: any, // ATNConfigSet
-        ctx: ParserRuleContext,
+        input: TokenStream | undefined,
+        startToken: Token | undefined,
+        offendingToken: Token | undefined,
+        deadEndConfigs: ATNConfigSet,
+        ctx?: ParserRuleContext,
     );
 }

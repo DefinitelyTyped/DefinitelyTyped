@@ -3,7 +3,7 @@ import HashCode from '../misc/HashCode';
 import ATNState from '../state/ATNState';
 import SemanticContext from './SemanticContext';
 
-export interface ATNConfigConfig extends ATNConfig {
+export interface ATNConfigConfig extends Pick<ATNConfig, 'state' | 'alt' | 'context' | 'semanticContext'> {
     reachesIntoOuterContext: number;
     precedenceFilterSuppressed: boolean;
 }
@@ -42,7 +42,7 @@ export default class ATNConfig {
      * the tree of semantic predicates encountered before reaching
      * an ATN state
      */
-    constructor(params: ATNConfig, config: ATNConfigConfig);
+    constructor(params?: ATNConfig, config?: ATNConfigConfig);
 
     checkContext(state: ATNState, config: ATNConfig): void;
 

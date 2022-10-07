@@ -8,7 +8,7 @@ export default class Predicate extends SemanticContext {
     readonly predIndex: number;
     readonly isCtxDependent: boolean;
 
-    constructor(ruleIndex: number, predIndex: number, isCtxDependent: boolean);
+    constructor(ruleIndex?: number, predIndex?: number, isCtxDependent?: boolean);
 
     evaluate(parser: Recognizer, outerContext: RuleContext): boolean;
 

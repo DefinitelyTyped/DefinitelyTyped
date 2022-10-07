@@ -1,3 +1,4 @@
+import './test/atn';
 import './test/dfa';
 import './test/utils';
 

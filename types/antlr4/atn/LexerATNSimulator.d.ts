@@ -12,6 +12,7 @@ import Transition from '../transition/Transition';
 import DecisionState from '../state/DecisionState';
 import ATNConfig from './ATNConfig';
 import DFA from '../dfa/DFA';
+import ATNState from '../state/ATNState';
 
 export class SimState {
     reset(): void;
@@ -23,8 +24,8 @@ export default class LexerATNSimulator extends ATNSimulator {
     static readonly MIN_DFA_EDGE: 0;
     static readonly MAX_DFA_EDGE: 127;
 
-    decisionToDFA: any;
-    recog: any;
+    decisionToDFA: DFA[];
+    recog: Lexer;
     /**
      * The current token's starting index into the character stream.
      * Shared across DFA to ATN simulation in case the ATN fails and the
@@ -117,7 +118,7 @@ export default class LexerATNSimulator extends ATNSimulator {
         charPos: number,
     ): void;
 
-    getReachableTarget(trans: Transition, t: number): any;
+    getReachableTarget(trans: Transition, t: number): ATNState;
 
     computeStartState(input: InputStream, p: DecisionState): OrderedATNConfigSet;
 

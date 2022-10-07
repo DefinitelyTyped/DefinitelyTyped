@@ -290,16 +290,6 @@ export default class ParserATNSimulator extends ATNSimulator {
         treatEofAsEpsilon: boolean,
     ): void;
 
-    closure_(
-        config: ATNConfig,
-        configs: ATNConfigSet,
-        closureBusy: HashSet,
-        collectPredicates: boolean,
-        fullCtx: boolean,
-        depth: number,
-        treatEofAsEpsilon: boolean,
-    ): void;
-
     canDropLoopEntryEdgeInLeftRecursiveRule(config: ATNConfig): boolean;
 
     getRuleName(index: number): string;

@@ -387,5 +387,5 @@ declare namespace PredictionMode {
 
     function hasStateAssociatedWithOneAlt(configs: ATNConfigSet): boolean;
 
-    function getSingleViableAlt(altsets: BitSet[]): any;
+    function getSingleViableAlt(altsets: BitSet[]): number;
 }

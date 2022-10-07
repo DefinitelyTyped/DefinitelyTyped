@@ -12,7 +12,7 @@ export default class ParserRuleContext extends RuleContext {
     readonly ruleIndex: number;
     readonly exception: RecognitionException;
 
-    constructor(parent: any, invokingState: number);
+    constructor(parent?: RuleContext, invokingState?: number);
 
     copyFrom(ctx: ParserRuleContext): void;
 
