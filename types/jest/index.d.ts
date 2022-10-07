@@ -785,7 +785,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        lastReturnedWith<E = any>(value: E): R;
+        lastReturnedWith<E = any>(expected?: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -801,7 +801,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        nthReturnedWith<E = any>(n: number, value: E): R;
+        nthReturnedWith<E = any>(n: number, expected?: E): R;
         /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -957,7 +957,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveLastReturnedWith<E = any>(expected: E): R;
+        toHaveLastReturnedWith<E = any>(expected?: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -972,7 +972,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
+        toHaveNthReturnedWith<E = any>(nthCall: number, expected?: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -1004,7 +1004,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveReturnedWith<E = any>(expected: E): R;
+        toHaveReturnedWith<E = any>(expected?: E): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -1070,7 +1070,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toReturnWith<E = any>(value: E): R;
+        toReturnWith<E = any>(value?: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
          *
