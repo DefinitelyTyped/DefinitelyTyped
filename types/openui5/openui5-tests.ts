@@ -168,6 +168,7 @@ const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
 odataV4Model.delete("something");
 let eTagMap: Record<string, string | null>;
 eTagMap = odataV4Model.getMetaModel().getETags();
+odataV4Model.getKeyPredicate("some/path", {});
 
 const showTimeZone = DateFormatTimezoneDisplay.Show;
 

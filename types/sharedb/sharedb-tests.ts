@@ -231,7 +231,7 @@ connection.on('connected', (reason) => {
 });
 
 connection.on('pong', () => {});
-connection.ping();
+if (connection.canSend) connection.ping();
 
 const doc = connection.get('examples', 'counter');
 

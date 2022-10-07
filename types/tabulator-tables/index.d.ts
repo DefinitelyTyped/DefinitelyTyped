@@ -1,4 +1,4 @@
-// Type definitions for tabulator-tables 5.32
+// Type definitions for tabulator-tables 5.4
 // Project: http://tabulator.info
 // Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -389,6 +389,7 @@ export interface OptionsSorting {
 
     /** reverse the order that multiple sorters are applied to the table. */
     sortOrderReverse?: boolean | undefined;
+    headerSortClickElement?: 'header' | 'icon';
 }
 
 export interface Sorter {
@@ -957,9 +958,13 @@ export type RenderMode = 'virtual' | 'basic' | Renderer;
 export interface OptionsMenu {
     rowContextMenu?: RowContextMenuSignature | undefined;
     rowClickMenu?: RowContextMenuSignature | undefined;
+    rowDblClickMenu?: RowContextMenuSignature | undefined;
     groupClickMenu?: GroupContextMenuSignature | undefined;
+    groupDblClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
     popupContainer?: boolean | string | HTMLElement;
+    rowDblClickPopup?: string;
+    groupDblClickPopup?: string;
 }
 
 export type RowContextMenuSignature =
@@ -1002,6 +1007,7 @@ export interface DownloadXLXS {
     /** The sheet name must be a valid Excel sheet name, and cannot include any of the following characters \, /, *, [, ], :, */
     sheetName?: string | undefined;
     documentProcessing?: ((input: any) => any) | undefined;
+    compress?: boolean;
 }
 
 export interface DownloadPDF {
@@ -1334,6 +1340,8 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
 
     /** Callback for when user double clicks on the header for this column. */
     headerDblClick?: ColumnEventCallback | undefined;
+    headerMouseDown?: ColumnEventCallback | undefined;
+    headerMouseUp?: ColumnEventCallback | undefined;
 
     /** Callback for when user right clicks on the header for this column. */
     headerContext?: ColumnEventCallback | undefined;
@@ -1426,10 +1434,14 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
 
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
     headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
+    headerDblClickPopup?: string;
+    dblClickPopup?: string;
 
     /** You can add a right click context menu to any columns cells by passing an array of menu items to the contextMenu option in that columns definition. */
     contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
     clickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
+    headerDblClickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
+    dblClickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
 
     /** Popups work in a similar way to menus, but instead of only displaying lists of menu items they allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
     cellPopup?:
@@ -1466,6 +1478,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     /** When printing you may want to apply a different column header title from the one usually used in the table. You can now do this using the titlePrint column definition option, which takes the same inputs as the standard title property. */
     titlePrint?: string | undefined;
     maxWidth?: number | false | undefined;
+    headerWordWrap?: boolean;
 }
 
 export interface CellCallbacks {
@@ -1512,6 +1525,9 @@ export interface CellCallbacks {
 
     /** callback for when an edit on a cell in this column is aborted by the user. */
     cellEditCancelled?: CellEditEventCallback | undefined;
+
+    cellMouseDown?: CellEventCallback | undefined;
+    cellMouseUp?: CellEventCallback | undefined;
 }
 
 export interface ColumnDefinitionSorterParams {
@@ -1637,6 +1653,7 @@ export type EditorParams =
     | ((cell: CellComponent) => {});
 
 export type ScrollToRowPosition = 'top' | 'center' | 'bottom' | 'nearest';
+export type PopupPosition = ColumnDefinitionAlign | 'top' | 'bottom';
 
 export type ScrollToColumnPosition = 'left' | 'center' | 'middle' | 'right';
 
@@ -2041,6 +2058,7 @@ export interface GroupComponent {
 
     /** The toggle function toggles the visibility of the group, switching between hidden and visible. */
     toggle: () => void;
+    popup: (contents: string, position: PopupPosition) => void;
 }
 
 export interface ColumnComponent {
@@ -2119,6 +2137,7 @@ export interface ColumnComponent {
      * This will return a value of true if every cell passes validation, if any cells fail, then it will return an array of Cell Components representing each cell in that column that has failed validation.
      */
     validate: () => true | CellComponent[];
+    popup: (contents: string, position: PopupPosition) => void;
 }
 
 export interface CellComponent {
@@ -2199,6 +2218,7 @@ export interface CellComponent {
 
     /** You can validate a cell by calling the validate method on any Cell Component. Returns true if the cell passes validation, or an array of failed validators if it fails validation. */
     validate: () => boolean | Validator[];
+    popup: (contents: string, position: PopupPosition) => void;
 }
 
 export interface EventCallBackMethods {
@@ -2223,6 +2243,8 @@ export interface EventCallBackMethods {
     rowMouseEnter: (event: UIEvent, row: RowComponent) => void;
     rowMouseLeave: (event: UIEvent, row: RowComponent) => void;
     rowMouseOver: (event: UIEvent, row: RowComponent) => void;
+    rowMouseDown: (event: UIEvent, row: RowComponent) => void;
+    rowMouseUp: (event: UIEvent, row: RowComponent) => void;
     rowMouseOut: (event: UIEvent, row: RowComponent) => void;
     rowMouseMove: (event: UIEvent, row: RowComponent) => void;
     htmlImporting: () => void;
@@ -2241,12 +2263,17 @@ export interface EventCallBackMethods {
     headerTap: (event: UIEvent, column: ColumnComponent) => void;
     headerDblTap: (event: UIEvent, column: ColumnComponent) => void;
     headerTapHold: (event: UIEvent, column: ColumnComponent) => void;
+    headerMouseUp: (event: UIEvent, column: ColumnComponent) => void;
+    headerMouseDown: (event: UIEvent, column: ColumnComponent) => void;
     groupClick: (event: UIEvent, group: GroupComponent) => void;
     groupDblClick: (event: UIEvent, group: GroupComponent) => void;
     groupContext: (event: UIEvent, group: GroupComponent) => void;
     groupTap: (event: UIEvent, group: GroupComponent) => void;
     groupDblTap: (event: UIEvent, group: GroupComponent) => void;
     groupTapHold: (event: UIEvent, group: GroupComponent) => void;
+    groupMouseDown: (event: UIEvent, group: GroupComponent) => void;
+    groupMouseUp: (event: UIEvent, group: GroupComponent) => void;
+
     tableBuilding: () => void;
     tableBuilt: () => void;
     tableDestroyed: () => void;
@@ -2284,6 +2311,8 @@ export interface EventCallBackMethods {
     cellClick: (event: UIEvent, cell: CellComponent) => void;
     cellDblClick: (event: UIEvent, cell: CellComponent) => void;
     cellContext: (event: UIEvent, cell: CellComponent) => void;
+    cellMouseDown: (event: UIEvent, cell: CellComponent) => void;
+    cellMouseUp: (event: UIEvent, cell: CellComponent) => void;
     cellTap: (event: UIEvent, cell: CellComponent) => void;
     cellDblTap: (event: UIEvent, cell: CellComponent) => void;
     cellTapHold: (event: UIEvent, cell: CellComponent) => void;

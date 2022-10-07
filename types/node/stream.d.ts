@@ -18,6 +18,7 @@
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
+    import { Blob } from "node:buffer";
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
     import * as streamWeb from 'node:stream/web';
