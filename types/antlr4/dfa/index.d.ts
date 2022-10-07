@@ -3,10 +3,10 @@ import DFASerializer from './DFASerializer';
 import LexerDFASerializer from './LexerDFASerializer';
 import PredPrediction from './PredPrediction';
 
-declare namespace _default {
+declare namespace dfa {
     export { DFA };
     export { DFASerializer };
     export { LexerDFASerializer };
     export { PredPrediction };
 }
-export default _default;
+export default dfa;

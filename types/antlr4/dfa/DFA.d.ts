@@ -10,12 +10,6 @@ export default class DFA {
 
     decision: number;
 
-    /**
-     * A set of all DFA states. Use {@link Map} so we can get old state back
-     * ({@link Set} only allows you to see if it's there).
-     */
-    _states: HashSet;
-
     s0: DFAState | null;
 
     /**
@@ -70,5 +64,9 @@ export default class DFA {
 
     toLexerString(): string | null;
 
+    /**
+     * A set of all DFA states. Use {@link Map} so we can get old state back
+     * ({@link Set} only allows you to see if it's there).
+     */
     get states(): HashSet;
 }

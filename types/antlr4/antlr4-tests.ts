@@ -1,3 +1,4 @@
+import './test/dfa';
 import './test/utils';
 
 import antlr4 from 'antlr4';
