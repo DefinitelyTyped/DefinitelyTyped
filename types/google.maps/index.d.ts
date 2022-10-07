@@ -9468,7 +9468,7 @@ declare namespace google.maps.marker {
      * <code>AdvancedMarkerView</code> with altitude is only supported on vector
      * maps.
      */
-    position?: google.maps.LatLng|null|google.maps.LatLngLiteral;
+    position?: google.maps.LatLng|null|google.maps.LatLngLiteral|google.maps.LatLngAltitude|google.maps.LatLngAltitudeLiteral;
     /**
      * Rollover text. If provided, an accessibility text (e.g. for use with
      * screen readers) will be added to the <code>AdvancedMarkerView</code> with
@@ -9501,6 +9501,16 @@ declare namespace google.maps.marker {
    * google.maps.marker.PinView.scale}.
    */
   class PinView implements google.maps.marker.PinViewOptions {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A <code>PinView</code> represents a DOM element that consists of a shape
+     * and a glyph. The shape has the same balloon style as seen in the
+     * default {@link google.maps.marker.AdvancedMarkerView}. The glyph is an
+     * optional DOM element displayed in the balloon shape. A
+     * <code>PinView</code> may have a different aspect ratio depending on
+     * its {@link google.maps.marker.PinView.scale}.
+     */
+     constructor(options?: google.maps.marker.PinViewOptions);
     /**
      * Adds the given listener function to the given event name.
      */
