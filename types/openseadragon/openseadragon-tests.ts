@@ -1,7 +1,7 @@
 import OpenSeadragon, { Viewport, Drawer, MouseTracker, IIIFTileSource, Button, ControlAnchor, PreprocessEventHandler } from 'openseadragon';
 
 // @ts-expect-error
-OpenSeadragon.setString("abc", 123);
+OpenSeadragon.setString('abc', 123);
 
 const viewer = OpenSeadragon({ id: 'viewerid' });
 
