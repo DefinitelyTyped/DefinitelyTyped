@@ -1,3 +1,5 @@
+import './test/utils';
+
 import antlr4 from 'antlr4';
 
 import TerminalNode from 'antlr4/tree/TerminalNode';
