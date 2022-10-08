@@ -39,6 +39,16 @@ declare module 'meteor/littledata:synced-cron' {
              * *required* the code to run
              */
             job: () => void;
+
+            /**
+             * Undocumented flag to enable synchronization and logging
+             * for this job
+             *
+             * Default `true`
+             *
+             * https://github.com/percolatestudio/meteor-synced-cron/blob/687e9ea308a287fe6347f94e0fb3eac5e2e21c12/synced-cron-server.js#L120-L124
+             */
+            persist?: boolean;
         }): void;
 
         /**
