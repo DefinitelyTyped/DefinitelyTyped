@@ -102,7 +102,8 @@ declare namespace TelegramBot {
         | 'pre'
         | 'text_link'
         | 'text_mention'
-        | 'spoiler';
+        | 'spoiler'
+        | 'custom_emoji';
 
     type ParseMode = 'Markdown' | 'MarkdownV2' | 'HTML';
 
@@ -536,6 +537,7 @@ declare namespace TelegramBot {
         url?: string | undefined;
         user?: User | undefined;
         language?: string | undefined;
+        custom_emoji_id?: string | undefined;
     }
 
     interface FileBase {
