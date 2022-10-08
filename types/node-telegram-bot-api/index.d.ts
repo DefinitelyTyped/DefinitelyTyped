@@ -289,7 +289,6 @@ declare namespace TelegramBot {
         caption?: string | undefined;
         parse_mode?: ParseMode | undefined;
         caption_entities?: MessageEntity[] | undefined;
-        allow_sending_without_reply?: boolean | undefined;
     }
 
     interface RestrictChatMemberOptions {

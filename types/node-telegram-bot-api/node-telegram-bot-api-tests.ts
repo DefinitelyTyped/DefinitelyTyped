@@ -23,7 +23,7 @@ MyTelegramBot.deleteWebHook();
 MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
 MyTelegramBot.processUpdate({ update_id: 1 });
-MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true });
+MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: '1',
     type: 'article',
