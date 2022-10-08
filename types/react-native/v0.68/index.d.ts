@@ -407,7 +407,7 @@ export interface NativeTouchEvent {
      * The node id of the element receiving the touch event
      */
     target: NodeHandle;
-    
+
     /**
      * A time identifier for the touch, useful for velocity calculation
      */
