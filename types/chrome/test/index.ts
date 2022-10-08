@@ -1064,6 +1064,8 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] }); // $ExpectType InjectionResult<unknown>[]
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
+
+    await chrome.scripting.removeCSS({ target: { tabId: 0 } });
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu
