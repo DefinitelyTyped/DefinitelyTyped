@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
-import { StyleProp, ViewStyle, TextStyle, Animated } from 'react-native';
+import { StyleProp, ViewStyle, TextStyle } from 'react-native';
 
 export type SlideFromTypes = 'top' | 'bottom' | 'left' | 'right';
 export type AlignTypes = 'flex-start' | 'flex-end' | 'center';
@@ -142,5 +142,6 @@ export class ModalPortal extends React.Component {
     static dismiss(key: any): void;
     static dismissAll(): void;
 }
+export class BottomModal extends React.Component<ModalProps> {}
 export class Modal extends React.Component<ModalProps> {}
 export default Modal;
