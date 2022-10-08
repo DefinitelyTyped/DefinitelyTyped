@@ -3272,6 +3272,25 @@ declare namespace Xrm {
             addNotification(notification: AddControlNotificationOptions): void;
 
             /**
+             * Adds an event handler to the OnOutputChange event.
+             * @param handler The function to add to the OnOutputChange event.
+             */
+            addOnOutputChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Removes an event handler from the OnOutputChange event.
+             * @param handler The function to remove from the OnOutputChange event.
+             */
+            removeOnOutputChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Returns a dictionary of the output properties of the control.
+             * @returns: A dictionary for the output parameters from the control. 
+             *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
+             */
+            getOutputs(): [string, string | number | null];
+
+            /**
              * Gets the control's bound attribute.
              * @template T An Attribute type.
              * @returns The attribute.
