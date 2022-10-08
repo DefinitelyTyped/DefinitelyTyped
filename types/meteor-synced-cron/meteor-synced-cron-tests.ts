@@ -40,7 +40,8 @@ SyncedCron.start();
 // @ts-expect-error
 SyncedCron.nextScheduledAtDate(); // Expected 1 arguments, but got 0. ts(2554)
 
-const d: Date = SyncedCron.nextScheduledAtDate('Job name');
+// $ExpectType Date
+SyncedCron.nextScheduledAtDate('Job name');
 
 ///////////////////////////////////////////////////////////////////////////////
 // SyncedCron.remove()
