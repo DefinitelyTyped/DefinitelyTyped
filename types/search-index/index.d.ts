@@ -1,4 +1,4 @@
-// Type definitions for search-index 3.0
+// Type definitions for search-index 3.2
 // Project: https://github.com/fergiemcdowall/search-index
 // Definitions by: Travis Harrison <https://github.com/TravisYeah>
 //                 Henry Tsai <https://github.com/thehenrytsai>
