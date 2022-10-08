@@ -161,6 +161,7 @@ declare namespace TelegramBot {
         reply_to_message_id?: number | undefined;
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply | undefined;
         protect_content?: boolean | undefined;
+        allow_sending_without_reply?: boolean | undefined;
     }
 
     interface SendMessageOptions extends SendBasicOptions {
@@ -288,7 +289,6 @@ declare namespace TelegramBot {
         caption?: string | undefined;
         parse_mode?: ParseMode | undefined;
         caption_entities?: MessageEntity[] | undefined;
-        allow_sending_without_reply?: boolean | undefined;
     }
 
     interface RestrictChatMemberOptions {
