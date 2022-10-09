@@ -1415,20 +1415,20 @@ declare class TelegramBot extends EventEmitter {
 
     getStickerSet(
         name: string,
-        options?: TelegramBot.GetStickerSetOptions
-    ): Promise<TelegramBot.StickerSet>
+        options?: TelegramBot.GetStickerSetOptions,
+    ): Promise<TelegramBot.StickerSet>;
 
     getCustomEmojiStickers(
         customEmojiIds: string[],
-        options?: TelegramBot.GetCustomEmojiStickersOptions
-    ): Promise<TelegramBot.Sticker[]>
+        options?: TelegramBot.GetCustomEmojiStickersOptions,
+    ): Promise<TelegramBot.Sticker[]>;
 
     uploadStickerFile(
         userId: string,
         pngSticker: string | Stream | Buffer,
         options?: TelegramBot.UploadStickerFileOptions,
-        fileOptions?: TelegramBot.FileOptions
-    ): Promise<TelegramBot.File>
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<TelegramBot.File>;
 
     createNewStickerSet(
         userId: string,
@@ -1437,8 +1437,8 @@ declare class TelegramBot extends EventEmitter {
         emojis: string,
         pngSticker?: string | Stream | Buffer,
         options?: TelegramBot.CreateStickerSetOptions,
-        fileOptions?: TelegramBot.FileOptions
-    ): Promise<boolean>
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
 
     addStickerToSet(
         userId: string,
@@ -1447,26 +1447,26 @@ declare class TelegramBot extends EventEmitter {
         emojis: string,
         stickerType: 'png_sticker' | 'tgs_sticker' | 'webm_sticker',
         options?: TelegramBot.AddStickerToSetOptions,
-        fileOptions?: TelegramBot.FileOptions
-    ): Promise<boolean>
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
 
     setStickerPositionInSet(
         sticker: string,
-        position: number
-    ): Promise<boolean>
+        position: number,
+    ): Promise<boolean>;
 
     deleteStickerFromSet(
         sticker: string,
-        options?: TelegramBot.DeleteStickerFromSetOptions
-    ): Promise<boolean>
+        options?: TelegramBot.DeleteStickerFromSetOptions,
+    ): Promise<boolean>;
 
     setStickerSetThumb(
         userId: string,
         name: string,
         pngThumb: string | Stream | Buffer,
         options?: TelegramBot.setStickerSetThumbOptions,
-        fileOptions?: TelegramBot.FileOptions
-    ): Promise<boolean>
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
 
     sendVideo(
         chatId: TelegramBot.ChatId,
