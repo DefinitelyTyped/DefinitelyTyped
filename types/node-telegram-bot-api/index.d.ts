@@ -807,8 +807,11 @@ declare namespace TelegramBot {
     interface StickerSet {
         name: string;
         title: string;
-        contains_masks: boolean;
+        sticker_type: StickerType;
+        is_animated: boolean;
+        is_video: boolean;
         stickers: Sticker[];
+        thumb?: PhotoSize | undefined;
     }
 
     interface MaskPosition {
