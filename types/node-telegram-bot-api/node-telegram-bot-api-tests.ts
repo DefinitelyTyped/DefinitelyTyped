@@ -131,7 +131,7 @@ MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
-MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245 });
+MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245, caption_entities: [{ type: 'custom_emoji', offset: 0, length: 2, custom_emoji_id: 'test_emoji' }] });
 MyTelegramBot.editMessageMedia(
     {
         media: 'photo/path',
