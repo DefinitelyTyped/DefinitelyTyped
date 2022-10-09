@@ -788,17 +788,20 @@ declare namespace TelegramBot {
         can_pin_messages?: boolean | undefined;
     }
 
-    interface Sticker {
-        file_id: string;
-        file_unique_id: string;
+    type StickerType = 'regular' | 'mask' | 'custom_emoji';
+
+    interface Sticker extends FileBase {
+        type: StickerType;
         is_animated: boolean;
+        is_video: boolean;
         width: number;
         height: number;
         thumb?: PhotoSize | undefined;
         emoji?: string | undefined;
         set_name?: string | undefined;
+        premium_animation?: File | undefined;
         mask_position?: MaskPosition | undefined;
-        file_size?: number | undefined;
+        custom_emoji_id?: string | undefined;
     }
 
     interface StickerSet {
