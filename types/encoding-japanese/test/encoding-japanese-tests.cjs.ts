@@ -142,3 +142,16 @@ const decoded2 = Encoding.base64Decode(encoded2); // $ExpectType number[]
 
 Encoding.version; // $ExpectType string
 Encoding.orders; // $ExpectType string[]
+
+Encoding.toZenkakuCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toZenkakuCase('abcdef'); // $ExpectType string
+Encoding.toHankakuCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toHankakuCase('ＡＢＣＤＥＦ'); // $ExpectType string
+Encoding.toZenkanaCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toZenkanaCase('ｱｲｳｴｵ'); // $ExpectType string
+Encoding.toHankanaCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toHankanaCase('アイウエオ'); // $ExpectType string
+Encoding.toZenkakuSpace([1, 2, 3]); // $ExpectType number[]
+Encoding.toZenkakuSpace('     '); // $ExpectType string
+Encoding.toHankakuSpace([1, 2, 3]); // $ExpectType number[]
+Encoding.toHankakuSpace('\u{3000}'); // $ExpectType string
