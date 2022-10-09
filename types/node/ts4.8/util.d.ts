@@ -1067,6 +1067,8 @@ declare module 'util' {
         written: number;
     }
     export { types };
+
+    //// TextEncoder/Decoder
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextEncoder` API. All
      * instances of `TextEncoder` only support UTF-8 encoding.
@@ -1106,6 +1108,34 @@ declare module 'util' {
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
 
+    import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from 'util';
+    global {
+        /**
+         * `TextDecoder` class is a global reference for `require('util').TextDecoder`
+         * https://nodejs.org/api/globals.html#textdecoder
+         * @since v11.0.0
+         */
+         var TextDecoder: typeof globalThis extends {
+            onmessage: any;
+            TextDecoder: infer TextDecoder;
+        }
+            ? TextDecoder
+            : typeof _TextDecoder;
+
+        /**
+         * `TextEncoder` class is a global reference for `require('util').TextEncoder`
+         * https://nodejs.org/api/globals.html#textencoder
+         * @since v11.0.0
+         */
+         var TextEncoder: typeof globalThis extends {
+            onmessage: any;
+            TextEncoder: infer TextEncoder;
+        }
+            ? TextEncoder
+            : typeof _TextEncoder;
+    }
+
+    //// parseArgs
     /**
      * Provides a high-level API for command-line argument parsing. Takes a
      * specification for the expected arguments and returns a structured object
