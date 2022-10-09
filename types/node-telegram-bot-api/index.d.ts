@@ -814,16 +814,6 @@ declare namespace TelegramBot {
         thumb?: PhotoSize | undefined;
     }
 
-    interface GetStickerSetOptions { }
-
-    interface GetCustomEmojiStickersOptions { }
-
-    interface UploadStickerFileOptions { }
-
-    interface DeleteStickerFromSetOptions { }
-
-    interface setStickerSetThumbOptions { }
-
     interface CreateStickerSetOptions {
         tgs_sticker?: string | Stream | Buffer;
         webm_sticker?: string | Stream | Buffer;
@@ -1415,18 +1405,18 @@ declare class TelegramBot extends EventEmitter {
 
     getStickerSet(
         name: string,
-        options?: TelegramBot.GetStickerSetOptions,
+        options?: {},
     ): Promise<TelegramBot.StickerSet>;
 
     getCustomEmojiStickers(
         customEmojiIds: string[],
-        options?: TelegramBot.GetCustomEmojiStickersOptions,
+        options?: {},
     ): Promise<TelegramBot.Sticker[]>;
 
     uploadStickerFile(
         userId: string,
         pngSticker: string | Stream | Buffer,
-        options?: TelegramBot.UploadStickerFileOptions,
+        options?: {},
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<TelegramBot.File>;
 
@@ -1457,14 +1447,14 @@ declare class TelegramBot extends EventEmitter {
 
     deleteStickerFromSet(
         sticker: string,
-        options?: TelegramBot.DeleteStickerFromSetOptions,
+        options?: {},
     ): Promise<boolean>;
 
     setStickerSetThumb(
         userId: string,
         name: string,
         pngThumb: string | Stream | Buffer,
-        options?: TelegramBot.setStickerSetThumbOptions,
+        options?: {},
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<boolean>;
 
