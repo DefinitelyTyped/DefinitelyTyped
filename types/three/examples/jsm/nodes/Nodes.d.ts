@@ -7,7 +7,7 @@ import ConstNode from './core/ConstNode';
 import ContextNode from './core/ContextNode';
 import ExpressionNode from './core/ExpressionNode';
 import FunctionCallNode from './core/FunctionCallNode';
-import FunctionNode from './core/FunctionNode';
+import FunctionNode, { FunctionNodeArguments } from './core/FunctionNode';
 import InstanceIndexNode from './core/InstanceIndexNode';
 import Node from './core/Node';
 import NodeAttribute from './core/NodeAttribute';
@@ -118,6 +118,7 @@ export {
     ExpressionNode,
     FunctionCallNode,
     FunctionNode,
+    FunctionNodeArguments,
     InstanceIndexNode,
     Node,
     NodeAttribute,

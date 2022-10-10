@@ -88,14 +88,14 @@ export function addCustomAttributes(atts: { [key: string]: string | number | boo
  *
  * Most recently set value wins.
  */
- export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
+export function addCustomSpanAttribute(key: string, value: string | number | boolean): void;
 
- /**
-  * Adds all custom attributes in an object to the the currently executing span.
-  *
-  * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
-  */
- export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
+/**
+ * Adds all custom attributes in an object to the the currently executing span.
+ *
+ * See documentation for `addCustomSpanAttribute` for more information on setting custom attributes.
+ */
+export function addCustomSpanAttributes(atts: { [key: string]: string | number | boolean }): void;
 
 /**
  * Send errors to New Relic that you've already handled yourself.
@@ -157,7 +157,7 @@ export function addIgnoringRule(pattern: RegExp | string): void;
  *
  * Do *not* reuse the headers between users, or even between requests.
  */
-export function getBrowserTimingHeader(): string;
+export function getBrowserTimingHeader(options?: { nonce?: string; hasToRemoveScriptWrapper?: boolean }): string;
 
 /**
  * Instrument a particular method to improve visibility into a transaction,
@@ -344,7 +344,11 @@ export const instrumentMessages: Instrument;
  */
 export function shutdown(cb?: (error?: Error) => void): void;
 export function shutdown(
-    options?: { collectPendingData?: boolean | undefined; timeout?: number | undefined; waitForIdle?: boolean | undefined },
+    options?: {
+        collectPendingData?: boolean | undefined;
+        timeout?: number | undefined;
+        waitForIdle?: boolean | undefined;
+    },
     cb?: (error?: Error) => void,
 ): void;
 

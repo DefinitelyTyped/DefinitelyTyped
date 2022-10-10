@@ -1,4 +1,4 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -875,8 +875,8 @@ declare module "sap/ui/webc/fiori/Bar" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.Bar` exposes the following CSS Shadow Parts:
    * 	 - bar - Used to style the wrapper of the content of the component
    *
@@ -1293,7 +1293,7 @@ declare module "sap/ui/webc/fiori/BarcodeScannerDialog" {
    *
    *  Internally, the component uses the zxing-js/library third party OSS.
    *
-   * For a list of supported barcode formats, see the zxing-js/library
+   * For a list of supported barcode formats, see the {@link https://github.com/zxing-js/library zxing-js/library}
    * documentation.
    */
   export default class BarcodeScannerDialog extends WebComponent {
@@ -4707,7 +4707,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -4774,7 +4774,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -4835,7 +4835,7 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -4887,8 +4887,8 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.NotificationListGroupItem` exposes the following CSS Shadow Parts:
    * 	 - title-text - Used to style the titleText of the notification list group item
    */
@@ -5616,8 +5616,8 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.NotificationListItem` exposes the following CSS Shadow Parts:
    * 	 - title-text - Used to style the titleText of the notification list item
    */
@@ -7087,7 +7087,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * ui5-product-switch-item icon="palette"```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -7152,7 +7152,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * ui5-product-switch-item icon="palette"```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -7253,7 +7253,7 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
      * ui5-product-switch-item icon="palette"```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -7339,8 +7339,8 @@ declare module "sap/ui/webc/fiori/ShellBar" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.fiori.ShellBar` exposes the following CSS Shadow Parts:
    * 	 - root - Used to style the outermost wrapper of the `sap.ui.webc.fiori.ShellBar`
    *
@@ -9383,7 +9383,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -9502,7 +9502,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9584,7 +9584,7 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -9710,7 +9710,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -9745,7 +9745,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -9803,7 +9803,7 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
      *
      *
      * The SAP-icons font provides numerous options.
-     *  See all the available icons in the Icon Explorer.
+     *  See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -10482,7 +10482,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -10585,7 +10585,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -10676,7 +10676,7 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -13426,7 +13426,8 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * The SAP-icons font provides numerous options. See all the available icons in the Icon Explorer.
+     * The SAP-icons font provides numerous options. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -13576,7 +13577,8 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * The SAP-icons font provides numerous options. See all the available icons in the Icon Explorer.
+     * The SAP-icons font provides numerous options. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -13683,7 +13685,8 @@ declare module "sap/ui/webc/fiori/WizardStep" {
      *
      *
      *
-     * The SAP-icons font provides numerous options. See all the available icons in the Icon Explorer.
+     * The SAP-icons font provides numerous options. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
@@ -56,6 +56,168 @@ declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   }
 }
 
+declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * P13n `FilterItem` object type.
+   */
+  export type FilterItem = {
+    /**
+     * The unique key of the item
+     */
+    name: string;
+    /**
+     * The label describing the personalization item
+     */
+    label: string;
+    /**
+     * Defines whether there is a visible grid shown in the panel for this key, also triggers the call of the
+     * `#itemFactory` function
+     */
+    active: boolean;
+  };
+
+  /**
+   * @SINCE 1.107
+   * @EXPERIMENTAL (since 1.107)
+   *
+   * This control can be used to customize personalization content for filtering for an associated control
+   * instance.
+   */
+  export default class FilterPanel
+    /* was: sap.m.p13n.QueryPanel */ extends Object {
+    /**
+     * Constructor for a new `FilterPanel`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $FilterPanelSettings
+    );
+    /**
+     * Constructor for a new `FilterPanel`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $FilterPanelSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.p13n.panels.FilterPanel with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.p13n.QueryPanel.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FilterPanel>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.p13n.panels.FilterPanel.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Sets the personalization state of the panel instance.
+     *
+     * @returns The SortPanel instance
+     */
+    static setP13nData(
+      /**
+       * An array containing the personalization state
+       */
+      aP13nData: FilterItem
+    ): FilterPanel;
+    /**
+     * Gets current value of property {@link #getItemFactory itemFactory}.
+     *
+     * A factory function that will be called whenever the user selects a new entry from the `ComboBox`. The
+     * factory must return a single control instance of an input based control to provide custom filter capabilities.
+     * This control is then going to be added in the grid layout provided by the `QueryPanel`. Whenever the
+     * `FilterPanel#setP13nData` method will be called, the `active` can be used to update the current set of
+     * active factory controls.
+     *
+     * **Note:**: The Panel will not handle the lifecylce of the provided factory control instance, in case
+     * the row is going to be removed, the according consumer needs to decide about destroying or keeping the
+     * control instance.
+     *
+     * @returns Value of property `itemFactory`
+     */
+    getItemFactory(): Function;
+    /**
+     * Sets a new value for property {@link #getItemFactory itemFactory}.
+     *
+     * A factory function that will be called whenever the user selects a new entry from the `ComboBox`. The
+     * factory must return a single control instance of an input based control to provide custom filter capabilities.
+     * This control is then going to be added in the grid layout provided by the `QueryPanel`. Whenever the
+     * `FilterPanel#setP13nData` method will be called, the `active` can be used to update the current set of
+     * active factory controls.
+     *
+     * **Note:**: The Panel will not handle the lifecylce of the provided factory control instance, in case
+     * the row is going to be removed, the according consumer needs to decide about destroying or keeping the
+     * control instance.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setItemFactory(
+      /**
+       * New value for property `itemFactory`
+       */
+      fnItemFactory: Function
+    ): this;
+  }
+
+  export interface $FilterPanelSettings
+    extends /* was: sap.m.p13n.$QueryPanelSettings */ Object {
+    /**
+     * A factory function that will be called whenever the user selects a new entry from the `ComboBox`. The
+     * factory must return a single control instance of an input based control to provide custom filter capabilities.
+     * This control is then going to be added in the grid layout provided by the `QueryPanel`. Whenever the
+     * `FilterPanel#setP13nData` method will be called, the `active` can be used to update the current set of
+     * active factory controls.
+     *
+     * **Note:**: The Panel will not handle the lifecylce of the provided factory control instance, in case
+     * the row is going to be removed, the according consumer needs to decide about destroying or keeping the
+     * control instance.
+     */
+    itemFactory?: Function | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/mdc/ActionToolbar": undefined;
@@ -109,6 +271,8 @@ declare namespace sap {
     "sap/ui/mdc/enum/OutParameterMode": undefined;
 
     "sap/ui/mdc/enum/PersistenceMode": undefined;
+
+    "sap/ui/mdc/enum/ProcessingStrategy": undefined;
 
     "sap/ui/mdc/enum/PropagationReason": undefined;
 
@@ -228,6 +392,8 @@ declare namespace sap {
 
     "sap/ui/mdc/p13n/modules/DefaultProviderRegistry": undefined;
 
+    "sap/ui/mdc/p13n/panels/FilterPanel": undefined;
+
     "sap/ui/mdc/p13n/StateUtil": undefined;
 
     "sap/ui/mdc/p13n/subcontroller/BaseController": undefined;
@@ -251,6 +417,8 @@ declare namespace sap {
     "sap/ui/mdc/table/RowSettings": undefined;
 
     "sap/ui/mdc/table/TableTypeBase": undefined;
+
+    "sap/ui/mdc/table/V4AnalyticsPropertyHelper": undefined;
 
     "sap/ui/mdc/TableDelegate": undefined;
 

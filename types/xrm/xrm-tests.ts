@@ -95,6 +95,14 @@ Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
 
     if (eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose)
         eventArgs.preventDefault();
+
+    // @ts-expect-error
+    eventArgs.disableAsyncTimeout();
+});
+
+Xrm.Page.data.entity.addOnSave(async (context: Xrm.Events.SaveEventContextAsync) => {
+    const eventArgs = context.getEventArgs();
+    eventArgs.disableAsyncTimeout?.();
 });
 
 /// Demonstrate ES6 String literal with templates
@@ -294,6 +302,30 @@ const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
     formContext.data.removeOnLoad(contextHandler);
 };
 
+function testOnLoadTypes(formContext: Xrm.FormContext) {
+    formContext.ui.addOnLoad(onLoad);
+    formContext.ui.removeOnLoad(onLoad);
+
+    function onLoad(eventContext: Xrm.Events.LoadEventContext) {
+        eventContext.getEventArgs().getDataLoadState() === 2;
+    }
+
+    formContext.ui.addOnLoad(asyncOnLoad);
+    formContext.ui.removeOnLoad(asyncOnLoad);
+
+    async function asyncOnLoad(eventContext: Xrm.Events.LoadEventContextAsync) {
+        const eventArgs = eventContext.getEventArgs();
+        eventArgs.disableAsyncTimeout();
+
+        eventArgs.getDataLoadState() === XrmEnum.FormDataLoadState.Refresh;
+
+        eventContext.getFormContext().data.addOnLoad(onDataLoad);
+        function onDataLoad(eventContext: Xrm.Events.DataLoadEventContext) {
+            const dataLoadState: XrmEnum.FormDataLoadState = eventContext.getEventArgs().getDataLoadState();
+        }
+    }
+}
+
 // Demonstrate Xrm.Utility.lookupObjects parameters
 Xrm.Utility.lookupObjects({
     entityTypes: ["contact"]
@@ -355,8 +387,8 @@ Xrm.App.addGlobalNotification({
     action: {
         actionLabel: "Learn more",
         eventHandler() {
-              Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
-              // perform other operations as required on clicking
+            Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
+            // perform other operations as required on clicking
         }
     }
 }).then(
@@ -460,4 +492,20 @@ function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
     headerSection.setBodyVisible(true);
     headerSection.setCommandBarVisible(true);
     headerSection.setTabNavigatorVisible(true);
+}
+
+function booleanAttributeControls(formContext: Xrm.FormContext) {
+    let booleanAttribute: Xrm.Attributes.BooleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>("prefx_myattribute");
+    const booleanValue: boolean | null = booleanAttribute.getValue();
+
+    // @ts-expect-error
+    const notString: string = booleanAttribute.getValue();
+
+    booleanAttribute = booleanAttribute.controls.get(0).getAttribute();
+
+    booleanAttribute.controls.forEach((c: Xrm.Controls.BooleanControl) => c.setDisabled(true));
+
+    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "boolean";
+    // @ts-expect-error
+    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
 }

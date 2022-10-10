@@ -14,5 +14,3 @@ export class IcosahedronGeometry extends PolyhedronGeometry {
 
     static fromJSON(data: any): IcosahedronGeometry;
 }
-
-export { IcosahedronGeometry as IcosahedronBufferGeometry };

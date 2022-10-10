@@ -250,6 +250,10 @@ docker.createService({
     }
 }, (err, response) => { /* NOOP */ });
 
+docker.listServices({ filters: { name: ['network-name'] } }).then(services => {
+    return services.map(service => docker.getService(service.ID));
+});
+
 const image = docker.getImage('imageName');
 image.remove({force: true, noprune: false}, (err, response) => {
     // NOOP;

@@ -4156,12 +4156,6 @@ fp.now(); // $ExpectType number
         array.push({ value: false });
     }
 
-    const obj: { value?: boolean } = {};
-    if (_.isEmpty(obj)) {
-        const result: { value?: undefined } = obj;
-    } else {
-        obj; // $ExpectType { value?: boolean | undefined; }
-    }
     let obj2: { value: boolean } | null | undefined = { value: true };
     if (Math.random()) {
         obj2 = null;
@@ -4172,6 +4166,32 @@ fp.now(); // $ExpectType number
         const result: null | undefined = obj2;
     } else {
         obj2; // $ExpectType { value: boolean; }
+    }
+    let obj3: { value?: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj3 = null;
+    } else if (Math.random()) {
+        obj3 = undefined;
+    }
+    if (_.isEmpty(obj3)) {
+        const result: { value?: never; } | null | undefined = obj3;
+        obj3 = { value: false };
+    } else {
+        obj3; // $ExpectType { value?: boolean | undefined; }
+    }
+    const record: Record<string, string> = {};
+    if (_.isEmpty(record)) {
+        record.test = "123";
+    }
+    interface Foo {
+        bar?: string;
+    }
+    const foo: Foo = {};
+    if (Math.random()) {
+        foo.bar = "bar";
+    }
+    if (_.isEmpty(foo)) {
+        foo.bar = "baz";
     }
 }
 
@@ -5744,6 +5764,11 @@ fp.now(); // $ExpectType number
     _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.pick(obj1, readonlyArray); // $ExpectType Partial<AbcObject>
     _.pick(obj2, "a", "b"); // $ExpectType Pick<AbcObject, "a" | "b">
+    _.pick(obj1, ["a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [0, "a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [["b", 1], 0, "a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [readonlyArray]); // $ExpectType Partial<AbcObject>
+    _.pick(obj2, ["a", "b"]); // $ExpectType Pick<AbcObject, "a" | "b">
     // We can't use ExpectType here because typescript keeps changing what order the types appear.
     let result1: Pick<AbcObject, "a" | "b">;
     result1 = _.pick(obj2, literalsArray);
@@ -5754,6 +5779,11 @@ fp.now(); // $ExpectType number
     _(obj1).pick(["b", 1], 0, "a"); // $ExpectType Object<Partial<AbcObject>>
     _(obj1).pick(readonlyArray); // $ExpectType Object<Partial<AbcObject>>
     _(obj2).pick("a", "b"); // $ExpectType Object<Pick<AbcObject, "a" | "b">>
+    _(obj1).pick(["a"]); // $ExpectType Object<Pick<AbcObject, "a">>
+    _(obj1).pick([0, "a"]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj1).pick([["b", 1], 0, "a"]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj1).pick([readonlyArray]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj2).pick(["a", "b"]); // $ExpectType Object<Pick<AbcObject, "a" | "b">>
     let result2: _.Object<Pick<AbcObject, "a" | "b">>;
     result2 = _(obj2).pick(literalsArray);
     result2 = _(obj2).pick(roLiteralsArray);
@@ -5763,6 +5793,11 @@ fp.now(); // $ExpectType number
     _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType ObjectChain<Partial<AbcObject>>
     _.chain(obj1).pick(readonlyArray); // $ExpectType ObjectChain<Partial<AbcObject>>
     _.chain(obj2).pick("a", "b"); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
+    _.chain(obj1).pick(["a"]); // $ExpectType ObjectChain<Pick<AbcObject, "a">>
+    _.chain(obj1).pick([0, "a"]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj1).pick([["b", 1], 0, "a"]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj1).pick([readonlyArray]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj2).pick(["a", "b"]); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
     let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
     result3 = _.chain(obj2).pick(roLiteralsArray);

@@ -8,6 +8,12 @@
 import { Store, Reducer, Middleware, AnyAction } from "redux";
 import BroadcastChannel, { BroadcastChannelOptions } from "broadcast-channel";
 
+export const GET_INIT_STATE = '&_GET_INIT_STATE';
+export const SEND_INIT_STATE = '&_SEND_INIT_STATE';
+export const RECEIVE_INIT_STATE = '&_RECEIVE_INIT_STATE';
+export const INIT_MESSAGE_LISTENER = '&_INIT_MESSAGE_LISTENER';
+export const WINDOW_STATE_SYNC_ID: string;
+
 export interface Stamp {
     $uuid: string;
     $wuid: string;
@@ -22,6 +28,7 @@ export interface Config {
     whitelist?: string[] | undefined;
     broadcastChannelOption?: BroadcastChannelOptions | undefined;
     prepareState?: ((state: any) => any) | undefined;
+    receiveState?: ((prevState: any, nextState: any) => any) | undefined;
 }
 
 export interface MessageListenerConfig {
@@ -36,8 +43,11 @@ export function createMessageListener(config: MessageListenerConfig): void;
 export function createStateSyncMiddleware(config?: Config): Middleware;
 export function withReduxStateSync<T extends Reducer>(
     appReducer: T,
-    prepareInitialStateForStore?: (state: any) => any,
+    prepareInitialStateForStore?: Config['receiveState'],
 ): T;
 export function initStateWithPrevTab(store: Store): Store;
 export function initMessageListener(store: Store): Store;
 export function isActionSynced(action: AnyAction): boolean;
+
+/** @deprecated Undocumented alias to withReduxStateSync */
+export const createReduxStateSync: typeof withReduxStateSync;

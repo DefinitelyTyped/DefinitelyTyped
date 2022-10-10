@@ -1301,7 +1301,7 @@ export class Window {
    *     has completed.
    * @see <https://fullscreen.spec.whatwg.org/#fullscreen-an-element>
    */
-  fullsceen(): Promise<void>;
+  fullscreen(): Promise<void>;
 
   // endregion
 }

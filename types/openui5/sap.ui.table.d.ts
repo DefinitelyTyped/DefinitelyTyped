@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -264,7 +264,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * @returns Value of property `groupHeaderFormatter`
      */
-    getGroupHeaderFormatter(): any;
+    getGroupHeaderFormatter(): Function;
     /**
      * Gets current value of property {@link #getInResult inResult}.
      *
@@ -319,7 +319,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
       /**
        * New value for property `groupHeaderFormatter`
        */
-      oGroupHeaderFormatter?: any
+      fnGroupHeaderFormatter?: Function
     ): this;
     /**
      * Sets a new value for property {@link #getInResult inResult}.
@@ -419,7 +419,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
     /**
      * If the column is grouped, this formatter is used to format the value in the group header
      */
-    groupHeaderFormatter?: any | PropertyBindingInfo | `{${string}}`;
+    groupHeaderFormatter?: Function | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -4802,7 +4802,10 @@ declare module "sap/ui/table/Table" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * fired when the table is filtered.
+     * This event is fired before a filter is applied to a column, if the table is filtered via {@link sap.ui.table.Table#filter}
+     * call or user interaction with the column header.
+     *
+     * Filters that are directly applied to the table binding will not fire this event.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4827,7 +4830,10 @@ declare module "sap/ui/table/Table" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * fired when the table is filtered.
+     * This event is fired before a filter is applied to a column, if the table is filtered via {@link sap.ui.table.Table#filter}
+     * call or user interaction with the column header.
+     *
+     * Filters that are directly applied to the table binding will not fire this event.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5104,7 +5110,10 @@ declare module "sap/ui/table/Table" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * fired when the table is sorted.
+     * This event is fired before a sort order is applied to a column, if the table is sorted via {@link sap.ui.table.Table#sort}
+     * call or user interaction with the column header.
+     *
+     * Sorters that are directly applied to the table binding will not fire this event.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5129,7 +5138,10 @@ declare module "sap/ui/table/Table" {
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
      * otherwise it will be bound to this `sap.ui.table.Table` itself.
      *
-     * fired when the table is sorted.
+     * This event is fired before a sort order is applied to a column, if the table is sorted via {@link sap.ui.table.Table#sort}
+     * call or user interaction with the column header.
+     *
+     * Sorters that are directly applied to the table binding will not fire this event.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6789,7 +6801,7 @@ declare module "sap/ui/table/Table" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a column from the aggregation {@link #getColumns columns}.
      *
@@ -8011,12 +8023,18 @@ declare module "sap/ui/table/Table" {
     columnMove?: (oEvent: Event) => void;
 
     /**
-     * fired when the table is sorted.
+     * This event is fired before a sort order is applied to a column, if the table is sorted via {@link sap.ui.table.Table#sort}
+     * call or user interaction with the column header.
+     *
+     * Sorters that are directly applied to the table binding will not fire this event.
      */
     sort?: (oEvent: Event) => void;
 
     /**
-     * fired when the table is filtered.
+     * This event is fired before a filter is applied to a column, if the table is filtered via {@link sap.ui.table.Table#filter}
+     * call or user interaction with the column header.
+     *
+     * Filters that are directly applied to the table binding will not fire this event.
      */
     filter?: (oEvent: Event) => void;
 
@@ -8671,7 +8689,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
-     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-descendant-count-for`.
+     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
      * In this case the value of the collapseRecursive property is ignored. For more information about the OData
      * hierarchy annotations, please see the **SAP Annotations for OData Version 2.0** specification.
      *
@@ -8833,7 +8851,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
-     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-descendant-count-for`.
+     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
      * In this case the value of the collapseRecursive property is ignored. For more information about the OData
      * hierarchy annotations, please see the **SAP Annotations for OData Version 2.0** specification.
      *
@@ -9086,7 +9104,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
-     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-descendant-count-for`.
+     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
      * In this case the value of the collapseRecursive property is ignored. For more information about the OData
      * hierarchy annotations, please see the **SAP Annotations for OData Version 2.0** specification.
      *

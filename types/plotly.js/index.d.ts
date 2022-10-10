@@ -21,7 +21,6 @@
 //                 Jeffrey van Gogh <https://github.com/jvgogh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as _d3 from 'd3';
 import { BoxPlotData, BoxPlotMarker } from './lib/traces/box';
 import { ViolinData } from './lib/traces/violin';
 import { OhclData } from './lib/traces/ohcl';
@@ -481,6 +480,7 @@ export interface Layout {
     datarevision: number | string;
     editrevision: number | string;
     selectionrevision: number | string;
+    modebar: Partial<ModeBar>;
 }
 
 export interface Legend extends Label {
@@ -854,6 +854,16 @@ export interface Margin {
     l: number;
     r: number;
     pad: number;
+}
+
+export interface ModeBar {
+    activecolor: Color;
+    add: ModeBarDefaultButtons | ModeBarDefaultButtons[];
+    bgcolor: Color;
+    color: Color;
+    orientation: 'v' | 'h';
+    remove: ModeBarDefaultButtons | ModeBarDefaultButtons[];
+    uirevision: number | string;
 }
 
 export type ModeBarDefaultButtons =
@@ -1598,7 +1608,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
+    modeBarButtons: Array<Array<ModeBarDefaultButtons | ModeBarButton>> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;

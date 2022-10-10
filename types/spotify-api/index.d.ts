@@ -263,10 +263,13 @@ declare namespace SpotifyApi {
     }
 
     /**
-     * Get audio analysis for a track
+     * Get Audio Analysis for a Track
      *
      * GET /v1/audio-analysis/{id}
-     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis
+     * https://developer.spotify.com/web-api/get-audio-analysis/
+     *
+     * At the time of typing, the Audio Analysis Object is absent from the Object Model, so it is typed as any.
+     * Object Model: https://developer.spotify.com/web-api/object-model/
      */
     interface AudioAnalysisResponse extends AudioAnalysisObject {}
 
@@ -345,6 +348,14 @@ declare namespace SpotifyApi {
      * @deprecated Use `CategoryPlaylistsResponse` instead
      */
     interface CategoryPlaylistsReponse extends CategoryPlaylistsResponse {}
+
+    /**
+     * Get Playlist Cover Image
+     *
+     * GET /v1/playlists/playlist_id/image
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist-cover
+     */
+    interface PlaylistCoverImageResponse extends Array<ImageObject> {}
 
     /**
      * Get Current User’s Profile
@@ -493,12 +504,60 @@ declare namespace SpotifyApi {
     type UsersSavedShowsResponse = PagingObject<SavedShowObject>;
 
     /**
+     * Save Shows for Current User
+     *
+     * PUT /v1/me/shows
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/save-shows-user
+     */
+    interface SaveShowsForUserResponse extends VoidResponse {}
+
+    /**
+     * Remove User's Saved Shows
+     *
+     * DELETE /v1/me/shows
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-shows-user
+     */
+    interface RemoveShowsForUserResponse extends VoidResponse {}
+
+    /**
+     * Check User's Saved Shows
+     *
+     * GET /v1/me/shows/contains
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-shows
+     */
+    interface CheckUserSavedShowsResponse extends Array<boolean> {}
+
+    /**
      * Get User's Saved Episodes
      *
      * GET /v1/me/episodes
-     * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-users-saved-episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-episodes
      */
     type UsersSavedEpisodesResponse = PagingObject<SavedEpisodeObject>;
+
+    /**
+     * Save Episodes for Current User
+     *
+     * PUT /v1/me/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/save-episodes-user
+     */
+    interface SaveEpisodesForUserResponse extends VoidResponse {}
+
+    /**
+     * Remove User's Saved Episodes
+     *
+     * DELETE /v1/me/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/remove-episodes-user
+     */
+    interface RemoveEpisodesForUserResponse extends VoidResponse {}
+
+    /**
+     * Check User's Saved Episodes
+     *
+     * GET /v1/me/shows/episodes
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-episodes
+     */
+    interface CheckUserSavedEpisodesResponse extends Array<boolean> {}
 
     /**
      * Get a User’s Top Artists and Tracks (Note: This is only Artists)
@@ -533,6 +592,17 @@ declare namespace SpotifyApi {
     interface AddToQueueResponse extends VoidResponse {}
 
     /**
+     * Get the list of objects that make up the user's queue.
+     *
+     * GET /v1/me/player/queue
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-queue
+     */
+    interface UsersQueueResponse {
+        currently_playing: TrackObjectFull | EpisodeObjectFull;
+        queue: Array<TrackObjectFull | EpisodeObjectFull>;
+    }
+
+    /**
      * Get recommendations based on seeds
      *
      * GET /v1/recommendations
@@ -548,6 +618,16 @@ declare namespace SpotifyApi {
      */
     interface AvailableGenreSeedsResponse {
         genres: string[];
+    }
+
+    /**
+     * Get Available Markets
+     *
+     * GET /v1/markets
+     * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-available-markets
+     */
+    interface AvailableMarketsResponse {
+        markets: string[];
     }
 
     /**
@@ -1293,7 +1373,27 @@ declare namespace SpotifyApi {
      */
     interface RecommendationsObject {
         seeds: RecommendationsSeedObject[];
-        tracks: TrackObjectSimplified[];
+        tracks: RecommendationTrackObject[];
+    }
+    
+    /**
+     * Recommendation Track Object
+     * Uses the same object structure as Full Track Object, but with `album.album_type` in caps.
+     */
+    interface RecommendationTrackObject extends Omit<TrackObjectFull, "album"> {
+        album: RecommendationAlbumObject;
+    }
+
+    /**
+     * Recommendation Album Object
+     * Uses the same object structure as Simple Album Object, but with `album_type` in caps.
+     */
+    interface RecommendationAlbumObject extends Omit<AlbumObjectSimplified, "album_type"> {
+        /**
+         * The type of the album: one of “ALBUM”, “SINGLE”, or “COMPILATION”.
+         * Note that this differs from the types returned by all other spotify APIs by being in all caps.
+         */
+        album_type: 'ALBUM' | 'SINGLE' | 'COMPILATION';
     }
 
     /**
@@ -1603,6 +1703,10 @@ declare namespace SpotifyApi {
          * A description of the show.
          */
         description: string;
+        /**
+         * A description of the show. This field may contain HTML tags.
+         */
+        html_description: string;
         /**
          * Whether or not the show has explicit content (true = yes it does; false = no it does not OR unknown).
          */

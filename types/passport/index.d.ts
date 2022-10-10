@@ -120,7 +120,7 @@ declare namespace passport {
          *
          * Strategies should call this function to fail an authentication attempt.
          */
-        fail(challenge?: string | number, status?: number): void;
+        fail(challenge?: {message?: string, [key: string]: any } | string | number, status?: number): void;
         /**
          * Redirect to `url` with optional `status`, defaulting to 302.
          *

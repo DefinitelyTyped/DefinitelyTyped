@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -1598,7 +1598,7 @@ declare module "sap/ui/layout/BlockLayoutRow" {
        * The accentCell to be removed or its index or ID
        */
       vAccentCell: int | ID | BlockLayoutCell
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.42
      *
@@ -6373,7 +6373,7 @@ declare module "sap/ui/layout/form/Form" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a formContainer from the aggregation {@link #getFormContainers formContainers}.
      *
@@ -6823,7 +6823,7 @@ declare module "sap/ui/layout/form/FormContainer" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a formElement from the aggregation {@link #getFormElements formElements}.
      *
@@ -9556,7 +9556,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -10735,7 +10735,7 @@ declare module "sap/ui/layout/Grid" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -12736,7 +12736,7 @@ declare module "sap/ui/layout/ResponsiveFlowLayout" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes content. This function needs to be overridden to prevent any rendering while some content is
      * still being added.

@@ -27,5 +27,3 @@ export class ConeGeometry extends CylinderGeometry {
 
     static fromJSON(data: any): ConeGeometry;
 }
-
-export { ConeGeometry as ConeBufferGeometry };

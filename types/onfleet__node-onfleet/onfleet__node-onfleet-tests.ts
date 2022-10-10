@@ -39,7 +39,8 @@ async function testTasks(onfleet: Onfleet) {
     task.estimatedCompletionTime;
     task.eta;
     task.trackingViewed;
-
+    task.completionDetails.notes;
+    task.completionDetails.success;
     const result = await onfleet.tasks.get({ from: 1455072025000 });
     for (const resultTask of result.tasks) {
         resultTask.pickupTask;
@@ -115,7 +116,9 @@ async function testTasks(onfleet: Onfleet) {
     await onfleet.tasks.deleteOne(clonedDummyTask.id);
 
     // test tasks.forceComplete
-    await onfleet.tasks.forceComplete(dummyTask.id);
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: false } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true, notes: 'test note' } });
 
     // test tasks.matchMetadata
     await onfleet.tasks.matchMetadata([

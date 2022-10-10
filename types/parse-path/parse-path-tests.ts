@@ -6,6 +6,7 @@ parsed.host; // $ExpectType string
 parsed.href; // $ExpectType string
 parsed.pathname; // $ExpectType string
 parsed.password; // $ExpectType string
+parsed.parse_failed; // $ExpectType boolean
 parsed.port; // $ExpectType string
 parsed.protocol; // $ExpectType Protocol
 parsed.protocols; // $ExpectType Protocol[]

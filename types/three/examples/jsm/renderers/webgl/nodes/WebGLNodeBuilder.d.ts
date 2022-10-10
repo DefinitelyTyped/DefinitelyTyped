@@ -1,8 +1,8 @@
-import NodeBuilder from '../../../nodes/core/NodeBuilder.js';
+import NodeBuilder from '../../../nodes/core/NodeBuilder';
 import { Texture, TextureEncoding, Renderer, Object3D } from '../../../../../src/Three';
-import Node from '../../../nodes/core/Node.js';
-import SlotNode from './SlotNode.js';
-import { NodeShaderStageOption } from '../../../nodes/core/constants.js';
+import Node from '../../../nodes/core/Node';
+import SlotNode from './SlotNode';
+import { NodeShaderStageOption } from '../../../nodes/core/constants';
 
 export class WebGLNodeBuilder extends NodeBuilder {
     constructor(
@@ -39,7 +39,7 @@ export class WebGLNodeBuilder extends NodeBuilder {
 
     getVarys(shaderStage: string): string;
 
-    addCodeAfterSnippet(shaderStage: string, snippet: string, code: string): string;
+    addCodeAfterCode(shaderStage: string, snippet: string, code: string): string;
     addCodeAfterInclude(shaderStage: string, snippet: string, code: string): string;
 
     replaceCode(shaderStage: string, source: string, target: string): void;

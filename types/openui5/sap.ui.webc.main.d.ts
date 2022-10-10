@@ -1,4 +1,4 @@
-// For Library Version: 1.105.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -1223,7 +1223,7 @@ declare module "sap/ui/webc/main/Avatar" {
      * <ui5-avatar icon="employee">```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -1353,7 +1353,7 @@ declare module "sap/ui/webc/main/Avatar" {
      * <ui5-avatar icon="employee">```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1499,7 +1499,7 @@ declare module "sap/ui/webc/main/Avatar" {
      * <ui5-avatar icon="employee">```
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -3362,8 +3362,8 @@ declare module "sap/ui/webc/main/Button" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Button` exposes the following CSS Shadow Parts:
    * 	 - button - Used to style the native button element
    */
@@ -3602,7 +3602,8 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -3672,7 +3673,7 @@ declare module "sap/ui/webc/main/Button" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibilityAttributes accessibilityAttributes}.
      *
@@ -3778,7 +3779,8 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3937,7 +3939,8 @@ declare module "sap/ui/webc/main/Button" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -4751,8 +4754,8 @@ declare module "sap/ui/webc/main/Card" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    */
   export default class Card extends WebComponent {
     /**
@@ -4996,7 +4999,7 @@ declare module "sap/ui/webc/main/Card" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -5137,8 +5140,8 @@ declare module "sap/ui/webc/main/CardHeader" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Card` exposes the following CSS Shadow Parts:
    * 	 - title - Used to style the title of the CardHeader
    * 	 - subtitle - Used to style the subtitle of the CardHeader
@@ -6492,7 +6495,7 @@ declare module "sap/ui/webc/main/CheckBox" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -8398,7 +8401,7 @@ declare module "sap/ui/webc/main/ComboBox" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -9411,8 +9414,8 @@ declare module "sap/ui/webc/main/DatePicker" {
    * If a date is entered by typing it into the input field, it must fit to the used date format.
    *
    *  Supported format options are pattern-based on Unicode LDML Date Format notation. For more information,
-   * see UTS
-   * #35: Unicode Locale Data Markup Language.
+   * see {@link http://unicode.org/reports/tr35/#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup
+   * Language}.
    *
    *  For example, if the `format-pattern` is "yyyy-MM-dd", a valid value string is "2015-07-30" and the same
    * is displayed in the input.
@@ -9943,7 +9946,7 @@ declare module "sap/ui/webc/main/DatePicker" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -10931,7 +10934,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -11427,7 +11430,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
    * The value entered by typing into the input field must fit to the used date/time format.
    *
    *  Supported format options are pattern-based on Unicode LDML Date Format notation. For more information,
-   * see UTS #35: Unicode Locale Data Markup Language.
+   * see {@link https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table UTS #35: Unicode
+   * Locale Data Markup Language}.
    *
    *  **Example:** the following format `dd/MM/yyyy, hh:mm:ss aa` corresponds the `13/04/2020, 03:16:16 AM`
    * value.
@@ -11952,7 +11956,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -12426,8 +12430,8 @@ declare module "sap/ui/webc/main/Dialog" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Dialog` exposes the following CSS Shadow Parts:
    * 	 - header - Used to style the header of the component
    * 	 - content - Used to style the content of the component
@@ -13138,7 +13142,7 @@ declare module "sap/ui/webc/main/Dialog" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -14344,12 +14348,15 @@ declare module "sap/ui/webc/main/Icon" {
    *
    *
    *
-   * 	 -  @ui5/webcomponents-icons
-   * 			represents the "SAP-icons" collection and includes the following icons.
-   * 	 -  @ui5/webcomponents-icons-tnt
-   * 			represents the "tnt" collection and includes the following icons.
-   * 	 -  @ui5/webcomponents-icons-icons-business-suite represents
-   * 			the "business-suite" collection and includes the following icons.
+   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons @ui5/webcomponents-icons} represents
+   * 			the "SAP-icons" collection and includes the following {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
+   * 			icons}.
+   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons-tnt @ui5/webcomponents-icons-tnt}
+   * 			represents the "tnt" collection and includes the following {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT
+   * 			icons}.
+   * 	 -  {@link https://www.npmjs.com/package/@ui5/webcomponents-icons-business-suite @ui5/webcomponents-icons-icons-business-suite}
+   * 			represents the "business-suite" collection and includes the following {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
+   * 			icons}.
    *
    * 2. **After exploring the icons collections, add one or more of the packages as dependencies to your project.**
    *
@@ -14578,7 +14585,10 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the SAP Icons, SAP Fiori Tools and SAP Business Suite collections.
+     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
+     * SAP Icons}, {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP TNT
+     * Icons} and {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
+     * SAP Business Suite Icons} collections.
      *
      *
      * Example:
@@ -14730,7 +14740,10 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the SAP Icons, SAP Fiori Tools and SAP Business Suite collections.
+     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
+     * SAP Icons}, {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP TNT
+     * Icons} and {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
+     * SAP Business Suite Icons} collections.
      *
      *
      * Example:
@@ -14838,7 +14851,10 @@ declare module "sap/ui/webc/main/Icon" {
      * Defines the unique identifier (icon name) of the component.
      *
      *
-     * To browse all available icons, see the SAP Icons, SAP Fiori Tools and SAP Business Suite collections.
+     * To browse all available icons, see the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons
+     * SAP Icons}, {@link demo:sap/m/demokit/iconExplorer/webapp/index.html#/overview/SAP-icons-TNT SAP TNT
+     * Icons} and {@link https://ui5.sap.com/test-resources/sap/m/demokit/iconExplorer/webapp/index.html#/overview/BusinessSuiteInAppSymbols
+     * SAP Business Suite Icons} collections.
      *
      *
      * Example:
@@ -15664,7 +15680,7 @@ declare module "sap/ui/webc/main/Input" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a icon from the aggregation {@link #getIcon icon}.
      *
@@ -16774,7 +16790,7 @@ declare module "sap/ui/webc/main/Link" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibilityAttributes accessibilityAttributes}.
      *
@@ -17973,7 +17989,7 @@ declare module "sap/ui/webc/main/List" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a header from the aggregation {@link #getHeader header}.
      *
@@ -18849,7 +18865,8 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
      * numerous options.
      *
-     *  *** Example:** See all the available icons in the Icon Explorer.
+     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -18954,7 +18971,8 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
      * numerous options.
      *
-     *  *** Example:** See all the available icons in the Icon Explorer.
+     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -19015,7 +19033,8 @@ declare module "sap/ui/webc/main/MenuItem" {
      * Defines the icon to be displayed as graphical element within the component. The SAP-icons font provides
      * numerous options.
      *
-     *  *** Example:** See all the available icons in the Icon Explorer.
+     *  *** Example:** See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -19260,7 +19279,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     getIcon(): IIcon;
     /**
@@ -19440,7 +19459,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
      *
      *
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: IIcon;
 
@@ -19507,8 +19526,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.MultiComboBox` exposes the following CSS Shadow Parts:
    * 	 - token-{index} - Used to style each token(where `token-0` corresponds to the first item)
    */
@@ -20117,7 +20136,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -21774,7 +21793,7 @@ declare module "sap/ui/webc/main/MultiInput" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a icon from the aggregation {@link #getIcon icon}.
      *
@@ -22396,7 +22415,7 @@ declare module "sap/ui/webc/main/Option" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * @returns Value of property `icon`
      */
@@ -22469,7 +22488,7 @@ declare module "sap/ui/webc/main/Option" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -22549,7 +22568,7 @@ declare module "sap/ui/webc/main/Option" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -22627,8 +22646,8 @@ declare module "sap/ui/webc/main/Panel" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Panel` exposes the following CSS Shadow Parts:
    * 	 - header - Used to style the wrapper of the header
    * 	 - content - Used to style the wrapper of the content
@@ -23289,8 +23308,8 @@ declare module "sap/ui/webc/main/Popover" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Popover` exposes the following CSS Shadow Parts:
    * 	 - header - Used to style the header of the component
    * 	 - content - Used to style the content of the component
@@ -24050,7 +24069,7 @@ declare module "sap/ui/webc/main/Popover" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -25164,7 +25183,7 @@ declare module "sap/ui/webc/main/RadioButton" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getChecked checked}.
      *
@@ -26534,8 +26553,8 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.ResponsivePopover` exposes the following CSS Shadow Parts:
    * 	 - header - Used to style the header of the component
    * 	 - content - Used to style the content of the component
@@ -27287,7 +27306,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -28306,7 +28325,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -28369,7 +28389,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibilityAttributes accessibilityAttributes}.
      *
@@ -28463,7 +28483,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -28596,7 +28617,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -29004,7 +29026,7 @@ declare module "sap/ui/webc/main/Select" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a option from the aggregation {@link #getOptions options}.
      *
@@ -29281,8 +29303,8 @@ declare module "sap/ui/webc/main/Slider" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Slider` exposes the following CSS Shadow Parts:
    * 	 - progress-container - Used to style the progress container(the horizontal bar which visually represents
    * 			the range between the minimum and maximum value) of the `sap.ui.webc.main.Slider`.
@@ -30190,7 +30212,7 @@ declare module "sap/ui/webc/main/SplitButton" {
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -30294,7 +30316,7 @@ declare module "sap/ui/webc/main/SplitButton" {
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -30370,7 +30392,7 @@ declare module "sap/ui/webc/main/SplitButton" {
      *
      *  Example:
      *
-     * See all the available icons in the Icon Explorer.
+     * See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -30417,8 +30439,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.StandardListItem` exposes the following CSS Shadow Parts:
    * 	 - title - Used to style the title of the list item
    * 	 - description - Used to style the description of the list item
@@ -30606,7 +30628,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * @returns Value of property `icon`
      */
@@ -30739,7 +30761,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -30874,7 +30896,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -31291,7 +31313,7 @@ declare module "sap/ui/webc/main/StepInput" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -31894,7 +31916,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * @returns Value of property `icon`
      */
@@ -32000,7 +32022,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -32113,7 +32135,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
      * Defines the `icon` source URI.
      *
      *  **Note:** SAP-icons font provides numerous built-in icons. To find all the available icons, see the
-     * Icon Explorer.
+     * {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -32183,8 +32205,8 @@ declare module "sap/ui/webc/main/Switch" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.Switch` exposes the following CSS Shadow Parts:
    * 	 - slider - Used to style the track, where the handle is being slid
    * 	 - text-on - Used to style the `textOn` property text
@@ -32442,7 +32464,7 @@ declare module "sap/ui/webc/main/Switch" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -32822,7 +32844,8 @@ declare module "sap/ui/webc/main/Tab" {
      * Gets current value of property {@link #getIcon icon}.
      *
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
-     * font provides numerous built-in icons. See all the available icons in the Icon Explorer.
+     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -33027,7 +33050,8 @@ declare module "sap/ui/webc/main/Tab" {
      * Sets a new value for property {@link #getIcon icon}.
      *
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
-     * font provides numerous built-in icons. See all the available icons in the Icon Explorer.
+     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -33112,7 +33136,8 @@ declare module "sap/ui/webc/main/Tab" {
 
     /**
      * Defines the icon source URI to be displayed as graphical element within the component. The SAP-icons
-     * font provides numerous built-in icons. See all the available icons in the Icon Explorer.
+     * font provides numerous built-in icons. See all the available icons in the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html
+     * Icon Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
@@ -33187,8 +33212,8 @@ declare module "sap/ui/webc/main/TabContainer" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.TabContainer` exposes the following CSS Shadow Parts:
    * 	 - content - Used to style the content of the component
    *
@@ -34558,7 +34583,7 @@ declare module "sap/ui/webc/main/Table" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a column from the aggregation {@link #getColumns columns}.
      *
@@ -35010,8 +35035,8 @@ declare module "sap/ui/webc/main/TableCell" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.TableCell` exposes the following CSS Shadow Parts:
    * 	 - cell - Used to style the native `td` element
    */
@@ -35186,8 +35211,8 @@ declare module "sap/ui/webc/main/TableColumn" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.TableColumn` exposes the following CSS Shadow Parts:
    * 	 - column - Used to style the native `th` element
    */
@@ -35475,8 +35500,8 @@ declare module "sap/ui/webc/main/TableGroupRow" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.TableGroupRow` exposes the following CSS Shadow Parts:
    * 	 - group-row - Used to style the native `tr` element.
    */
@@ -35608,8 +35633,8 @@ declare module "sap/ui/webc/main/TableRow" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.TableRow` exposes the following CSS Shadow Parts:
    * 	 - row - Used to style the native `tr` element
    * 	 - popin-row - Used to style the `tr` element when a row pops in
@@ -35967,8 +35992,8 @@ declare module "sap/ui/webc/main/TextArea" {
    *
    * CSS Shadow Parts:
    *
-   * CSS Shadow Parts
-   * allow developers to style elements inside the Shadow DOM.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/CSS/::part CSS Shadow Parts} allow developers to
+   * style elements inside the Shadow DOM.
    *  The `sap.ui.webc.main.TextArea` exposes the following CSS Shadow Parts:
    * 	 - textarea - Used to style the native textarea
    */
@@ -36398,7 +36423,7 @@ declare module "sap/ui/webc/main/TextArea" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibleName accessibleName}.
      *
@@ -36868,8 +36893,8 @@ declare module "sap/ui/webc/main/TimePicker" {
    * If a time is entered by typing it into the input field, it must fit to the used time format.
    *
    *  Supported format options are pattern-based on Unicode LDML Date Format notation. For more information,
-   * see UTS
-   * #35: Unicode Locale Data Markup Language.
+   * see {@link http://unicode.org/reports/tr35/#Date_Field_Symbol_Table UTS #35: Unicode Locale Data Markup
+   * Language}.
    *
    *  For example, if the `format-pattern` is "HH:mm:ss", a valid value string is "11:42:35" and the same
    * is displayed in the input.
@@ -38273,7 +38298,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      *
      * Default value is `empty string`.
      *
@@ -38342,7 +38368,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getAccessibilityAttributes accessibilityAttributes}.
      *
@@ -38448,7 +38474,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -38606,7 +38633,8 @@ declare module "sap/ui/webc/main/ToggleButton" {
      *
      *  Example:
      *
-     * See all the available icons within the Icon Explorer.
+     * See all the available icons within the {@link demo:sap/m/demokit/iconExplorer/webapp/index.html Icon
+     * Explorer}.
      */
     icon?: string | PropertyBindingInfo;
 
