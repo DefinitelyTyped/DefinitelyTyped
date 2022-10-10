@@ -8,9 +8,9 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
             "inquirer": [
@@ -32,6 +32,6 @@
     },
     "files": [
         "index.d.ts",
-        "inquirer-fuzzy-path-tests.ts"
+        "inquirer-autocomplete-prompt-tests.ts"
     ]
 }

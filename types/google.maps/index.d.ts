@@ -3379,6 +3379,31 @@ declare namespace google.maps {
   class LatLngAltitude implements google.maps.LatLngAltitudeLiteral,
                                   google.maps.LatLngLiteral {
     /**
+     * A <code>LatLngAltitude</code> is a 3D point in geographical coordinates:
+     * latitude, longitude, and altitude.<br> <ul> <li>Latitude ranges between
+     * -90 and 90 degrees, inclusive. Values above or below this range will be
+     * clamped to the range [-90, 90]. This means that if the value specified is
+     * less than -90, it will be set to -90. And if the value is greater than
+     * 90, it will be set to 90.</li> <li>Longitude ranges between -180 and 180
+     * degrees, inclusive. Values above or below this range will be wrapped so
+     * that they fall within the range. For example, a value of -190 will be
+     * converted to 170. A value of 190 will be converted to -170. This reflects
+     * the fact that longitudes wrap around the globe.</li> <li>Altitude is
+     * measured in meters. Positive values denote heights above ground level,
+     * and negative values denote heights underneath the ground surface.</li>
+     * </ul>
+     * @param value The initializing value.
+     * @param noClampNoWrap Whether to preserve the initialization values, even
+     *     if they may not necessarily be valid latitude values in the range of
+     *     [-90, 90] or valid longitude values in the range of [-180, 180]. The
+     *     default is <code>false</code> which enables latitude clamping and
+     *     longitude wrapping.
+     */
+    constructor(
+      value: google.maps.LatLngAltitudeLiteral|google.maps.LatLng|
+      google.maps.LatLngLiteral,
+      noClampNoWrap?: boolean);
+    /**
      * Returns the altitude.
      */
     altitude: number;
@@ -9402,7 +9427,7 @@ declare namespace google.maps.marker {
      * See {@link google.maps.marker.AdvancedMarkerViewOptions.position}.
      */
     position?: google.maps.LatLng|null|google.maps.LatLngLiteral|
-        google.maps.LatLngAltitudeLiteral;
+        google.maps.LatLngAltitude|google.maps.LatLngAltitudeLiteral;
     /**
      * See {@link google.maps.marker.AdvancedMarkerViewOptions.title}.
      */
@@ -9468,7 +9493,8 @@ declare namespace google.maps.marker {
      * <code>AdvancedMarkerView</code> with altitude is only supported on vector
      * maps.
      */
-    position?: google.maps.LatLng|null|google.maps.LatLngLiteral;
+    position?: google.maps.LatLng|null|google.maps.LatLngLiteral|
+        google.maps.LatLngAltitude|google.maps.LatLngAltitudeLiteral;
     /**
      * Rollover text. If provided, an accessibility text (e.g. for use with
      * screen readers) will be added to the <code>AdvancedMarkerView</code> with
@@ -9501,6 +9527,16 @@ declare namespace google.maps.marker {
    * google.maps.marker.PinView.scale}.
    */
   class PinView implements google.maps.marker.PinViewOptions {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A <code>PinView</code> represents a DOM element that consists of a shape
+     * and a glyph. The shape has the same balloon style as seen in the
+     * default {@link google.maps.marker.AdvancedMarkerView}. The glyph is an
+     * optional DOM element displayed in the balloon shape. A
+     * <code>PinView</code> may have a different aspect ratio depending on
+     * its {@link google.maps.marker.PinView.scale}.
+     */
+     constructor(options?: google.maps.marker.PinViewOptions);
     /**
      * Adds the given listener function to the given event name.
      */

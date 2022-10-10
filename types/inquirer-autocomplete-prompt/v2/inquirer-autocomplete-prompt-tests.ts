@@ -1,5 +1,5 @@
-import AutocompletePrompt from "inquirer-autocomplete-prompt";
-import inquirer, { Answers } from "inquirer";
+import AutocompletePrompt = require("inquirer-autocomplete-prompt");
+import inquirer = require("inquirer");
 
 inquirer.registerPrompt("autocomplete", AutocompletePrompt);
 
@@ -27,6 +27,6 @@ inquirer.prompt([
         type: "autocomplete",
         name: "test autocomplete",
         message: "Test question",
-        source: (answersSoFar: Answers, input: string | undefined) => search(input, choices),
+        source: (answersSoFar: inquirer.Answers, input: string | undefined) => search(input, choices),
     },
 ]);
