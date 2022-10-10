@@ -1,3 +1,5 @@
+import ATNConfigSet from '../atn/ATNConfigSet';
+import DFA from '../dfa/DFA';
 import BitSet from '../misc/BitSet';
 import Recognizer from '../Recognizer';
 import Token from '../Token';
@@ -20,29 +22,29 @@ export default class ErrorListener {
 
     reportAmbiguity(
         recognizer: Recognizer,
-        dfa: any, // DFA
+        dfa: DFA,
         startIndex: number,
         stopIndex: number,
         exact: boolean,
         ambigAlts: BitSet,
-        configs: any, // ATNConfigSet
+        configs: ATNConfigSet,
     ): void;
 
     reportAttemptingFullContext(
         recognizer: Recognizer,
-        dfa: any, // DFA
+        dfa: DFA,
         startIndex: number,
         stopIndex: number,
         conflictingAlts: BitSet,
-        configs: any, // ATNConfigSet
+        configs: ATNConfigSet,
     ): void;
 
     reportContextSensitivity(
         recognizer: Recognizer,
-        dfa: any, // DFA
+        dfa: DFA,
         startIndex: number,
         stopIndex: number,
         conflictingAlts: any,
-        configs: any, // ATNConfigSet
+        configs: ATNConfigSet,
     ): void;
 }

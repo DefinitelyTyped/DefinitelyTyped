@@ -2,6 +2,7 @@ import './test/action';
 import './test/atn';
 import './test/context';
 import './test/dfa';
+import './test/error';
 import './test/utils';
 
 import antlr4 from 'antlr4';

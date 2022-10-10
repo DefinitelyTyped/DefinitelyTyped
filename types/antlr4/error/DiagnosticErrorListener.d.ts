@@ -1,3 +1,5 @@
+import ATNConfigSet from '../atn/ATNConfigSet';
+import DFA from '../dfa/DFA';
 import BitSet from '../misc/BitSet';
 import Parser from '../Parser';
 import ErrorListener from './ErrorListener';
@@ -26,10 +28,7 @@ export default class DiagnosticErrorListener extends ErrorListener {
 
     constructor(exactOnly: boolean);
 
-    getDecisionDescription(
-        recognizer: Parser,
-        dfa: any, // DFA
-    ): string;
+    getDecisionDescription(recognizer: Parser, dfa: DFA): string;
 
     /**
      * Computes the set of conflicting or ambiguous alternatives from a
@@ -42,8 +41,5 @@ export default class DiagnosticErrorListener extends ErrorListener {
      * @return `reportedAlts` if it is not `null`, otherwise
      * returns the set of alternatives represented in `configs`.
      */
-    getConflictingAlts(
-        reportedAlts: BitSet,
-        configs: any, // ATNConfigSet
-    ): BitSet;
+    getConflictingAlts(reportedAlts: BitSet, configs: ATNConfigSet): BitSet;
 }
