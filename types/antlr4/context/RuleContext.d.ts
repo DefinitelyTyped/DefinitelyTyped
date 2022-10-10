@@ -79,7 +79,7 @@ export default class RuleContext extends RuleNode {
      */
     setAltNumber(altNumber: number): void;
 
-    getChild(i: number): any;
+    getChild(i: number): RuleContext | null;
 
     getChildCount(): number;
 

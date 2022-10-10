@@ -3,6 +3,7 @@ import Token from '../Token';
 import ErrorNode from '../tree/ErrorNode';
 import ParseTreeListener from '../tree/ParseTreeListener';
 import RecognitionException from '../error/RecognitionException';
+import TerminalNode from '../tree/TerminalNode';
 
 export default class ParserRuleContext extends RuleContext {
     static readonly EMPTY: ParserRuleContext;
@@ -20,7 +21,7 @@ export default class ParserRuleContext extends RuleContext {
 
     exitRule(listener: ParseTreeListener): void;
 
-    addChild(child: ParserRuleContext): any;
+    addChild(child: ParserRuleContext): TerminalNode;
 
     removeLastChild(): void;
 
