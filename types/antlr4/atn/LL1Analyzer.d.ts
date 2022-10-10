@@ -5,7 +5,7 @@ import BlockEndState from '../state/BlockEndState';
 import Token from '../Token';
 
 export default class LL1Analyzer {
-    static readonly HIT_PRED: number;
+    static readonly HIT_PRED: typeof Token.INVALID_TYPE;
 
     constructor(atn: ATNState);
 

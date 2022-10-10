@@ -1,9 +1,9 @@
 import HashCode from '../misc/HashCode';
 import LexerActionType from '../atn/LexerActionType';
 
-export default class LexerAction {
-    actionType: LexerActionType;
-    isPositionDependent: boolean;
+export default abstract class LexerAction {
+    readonly actionType: LexerActionType;
+    readonly isPositionDependent: boolean;
 
     constructor(action: LexerActionType);
 

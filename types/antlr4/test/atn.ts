@@ -42,6 +42,8 @@ import DoubleDict from 'antlr4/utils/DoubleDict';
 
 const { ATN, ATNDeserializer, LexerATNSimulator, ParserATNSimulator, PredictionMode } = atn;
 
+class NewLexerAction extends LexerAction {}
+
 const atnInstance = new ATN(0, 0);
 const atnConfigInstance = new ATNConfig();
 const atnConfigSetInstance = new ATNConfigSet(false);
@@ -56,7 +58,7 @@ const hashSetInstance = new HashSet();
 const inputStreamInstance = new InputStream('');
 const intervalSetInstance = new IntervalSet();
 const lexerActionExecutorInstance = new LexerActionExecutor(null);
-const lexerActionInstance = new LexerAction(LexerActionType.CHANNEL);
+const lexerActionInstance = new NewLexerAction(LexerActionType.CHANNEL);
 const lexerInstance = new Lexer(inputStreamInstance);
 const commonTokenStreamInstance = new CommonTokenStream(lexerInstance);
 const parserInstance = new Parser(commonTokenStreamInstance);
@@ -281,7 +283,7 @@ lexerAtnSimulatorInstance.consume(inputStreamInstance); // $ExpectType void
 lexerAtnSimulatorInstance.getTokenName(0); // $ExpectType string
 
 // LL1Analyzer
-LL1Analyzer.HIT_PRED; // $ExpectType number
+LL1Analyzer.HIT_PRED; // $ExpectType 0
 const ll1AnalyzerInstance = new LL1Analyzer(atnStateInstance);
 ll1AnalyzerInstance.getDecisionLookahead(atnStateInstance); // $ExpectType (IntervalSet | null)[] | null
 ll1AnalyzerInstance.LOOK(atnStateInstance, atnStateInstance, parserRuleContextInstance); // $ExpectType IntervalSet
