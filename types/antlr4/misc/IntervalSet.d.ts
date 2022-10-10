@@ -4,7 +4,7 @@ export default class IntervalSet {
     readonly intervals: Interval[] | null;
     readonly readOnly: false;
 
-    first(v: any): number;
+    first(): number;
 
     addOne(v: number): void;
 

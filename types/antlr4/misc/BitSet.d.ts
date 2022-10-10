@@ -1,7 +1,7 @@
 export default class BitSet {
     readonly data: boolean[];
 
-    add(value: boolean): void;
+    add(value: number): void;
 
     or(set: BitSet): void;
 

@@ -1,8 +1,7 @@
-// TODO fix up
 export default class HashMap {
-    readonly data: {};
-    readonly hashFunction: any;
-    readonly equalsFunction: any;
+    readonly data: Record<string, any>;
+    readonly hashFunction: (a: any) => number;
+    readonly equalsFunction: (a: any, b: any) => boolean;
 
     constructor(hashFunction?: (a: any) => number, equalsFunction?: (a: any, b: any) => boolean);
 
