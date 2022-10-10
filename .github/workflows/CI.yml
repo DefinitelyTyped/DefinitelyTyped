@@ -35,6 +35,4 @@ jobs:
 
         # Danger failing (for example through rate-limiting) shouldn't fail the build
         run: |
-          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
-          TOKEN+='On3bHOkcV2AmVY6'
-          DANGER_GITHUB_API_TOKEN=$TOKEN yarn danger ci || $( exit 0 )
+          DANGER_GITHUB_API_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn danger ci || $( exit 0 )
