@@ -1,3 +1,4 @@
+import ATN from '../atn/ATN';
 import IntervalSet from '../misc/IntervalSet';
 import Transition from '../transition/Transition';
 
@@ -33,13 +34,13 @@ export default class ATNState {
         'LOOP_END',
     ];
 
-    atn: any;
+    atn: ATN | null;
     stateNumber: number;
-    stateType: number;
+    stateType: number | null;
     ruleIndex: number;
     epsilonOnlyTransitions: boolean;
     transitions: Transition[];
-    nextTokenWithinRule: IntervalSet;
+    nextTokenWithinRule: IntervalSet | null;
 
     toString(): number;
     equals(other: ATNState): boolean;
