@@ -1973,3 +1973,27 @@ const ActionSheetIOSTest = () => {
         destructiveButtonIndex: [0, 1],
     }, () => undefined);
 }
+
+const EventTargetTest = () => {
+  /**
+   * Refs
+   */
+  const textRef: React.MutableRefObject<Text | null> = React.useRef(null);
+
+  /**
+   * Callbacks
+   */
+  const onTouchEndCallback = React.useCallback((event: GestureResponderEvent) => {
+    const targetRef: React.Component = event.target // should be a reference
+    const wasTextClicked = targetRef === textRef.current // so this check is legal
+
+    const nativeTargetRef = event.nativeEvent.target // should be a number
+  }, [])
+
+  /**
+   * Main part
+   */
+  return <View onTouchEnd={onTouchEndCallback}>
+    <Text ref={textRef}>Just some content</Text>
+  </View>
+}
