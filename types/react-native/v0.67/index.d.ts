@@ -8473,9 +8473,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean;
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**
