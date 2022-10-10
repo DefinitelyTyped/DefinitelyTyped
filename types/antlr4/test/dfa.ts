@@ -47,6 +47,21 @@ dfaSerializerInstance.toString(); // $ExpectType string | null
 dfaSerializerInstance.getEdgeLabel(0); // $ExpectType string
 dfaSerializerInstance.getStateString(dfaStateInstance); // $ExpectType string
 
+// DFAState
+dfaStateInstance; // $ExpectType DFAState
+dfaStateInstance.stateNumber; // $ExpectType number
+dfaStateInstance.configs; // $ExpectType ATNConfigSet
+dfaStateInstance.edges; // $ExpectType DFAState[]
+dfaStateInstance.isAcceptState; // $ExpectType boolean
+dfaStateInstance.prediction; // $ExpectType number
+dfaStateInstance.lexerActionExecutor; // $ExpectType LexerActionExecutor
+dfaStateInstance.requiresFullContext; // $ExpectType boolean
+dfaStateInstance.predicates; // $ExpectType PredPrediction
+dfaStateInstance.getAltSet(); // $ExpectType HashSet | null
+dfaStateInstance.equals(dfaStateInstance); // $ExpectType boolean
+dfaStateInstance.toString(); // $ExpectType string
+dfaStateInstance.hashCode(); // $ExpectType number
+
 // LexerDFASerializer
 new LexerDFASerializer(dfaInstance);
 
