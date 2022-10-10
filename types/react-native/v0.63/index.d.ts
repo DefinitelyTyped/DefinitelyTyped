@@ -8457,7 +8457,6 @@ export interface SwitchChangeEventData extends TargetedEvent {
 
 export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
-
 export interface SwitchProps extends SwitchPropsIOS {
     /**
      * Color of the foreground switch grip.
