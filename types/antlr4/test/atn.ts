@@ -7,12 +7,18 @@ import ATNDeserializationOptions from 'antlr4/atn/ATNDeserializationOptions';
 import ATNSimulator from 'antlr4/atn/ATNSimulator';
 import LexerActionExecutor from 'antlr4/atn/LexerActionExecutor';
 import LexerActionType from 'antlr4/atn/LexerActionType';
+import LexerATNConfig from 'antlr4/atn/LexerATNConfig';
 import { SimState } from 'antlr4/atn/LexerATNSimulator';
+import LL1Analyzer from 'antlr4/atn/LL1Analyzer';
+import OrderedATNConfigSet from 'antlr4/atn/OrderedATNConfigSet';
+import PrecedencePredicate from 'antlr4/atn/PrecedencePredicate';
 import Predicate from 'antlr4/atn/Predicate';
 import PredictionContextCache from 'antlr4/atn/PredictionContextCache';
+import SemanticContext from 'antlr4/atn/SemanticContext';
 import CommonTokenStream from 'antlr4/CommonTokenStream';
 import ParserRuleContext from 'antlr4/context/ParserRuleContext';
 import PredictionContext from 'antlr4/context/PredictionContext';
+import RuleContext from 'antlr4/context/RuleContext';
 import DFA from 'antlr4/dfa/DFA';
 import DFAState from 'antlr4/dfa/DFAState';
 import PredPrediction from 'antlr4/dfa/PredPrediction';
@@ -24,7 +30,9 @@ import HashCode from 'antlr4/misc/HashCode';
 import HashSet from 'antlr4/misc/HashSet';
 import IntervalSet from 'antlr4/misc/IntervalSet';
 import Parser from 'antlr4/Parser';
+import Recognizer from 'antlr4/Recognizer';
 import ATNState from 'antlr4/state/ATNState';
+import BlockEndState from 'antlr4/state/BlockEndState';
 import DecisionState from 'antlr4/state/DecisionState';
 import TokenStream from 'antlr4/TokenStream';
 import Transition from 'antlr4/transition/Transition';
@@ -40,6 +48,7 @@ const atnConfigSetInstance = new ATNConfigSet(false);
 const atnStateInstance = new ATNState();
 const bitsetInstance = new BitSet();
 const bitsetCollection = [bitsetInstance];
+const blockEndStateInstance = new BlockEndState();
 const decisionStateInstance = new DecisionState();
 const dfaStateInstance = new DFAState(0, atnConfigSetInstance);
 const hashCodeInstance = new HashCode();
@@ -117,12 +126,6 @@ atnConfigSetInstance.setReadonly(true); // $ExpectType void
 atnConfigSetInstance.toString(); // $ExpectType string
 atnConfigSetInstance.items; // $ExpectType ATNConfig[]
 atnConfigSetInstance.length; // $ExpectType number
-
-// Predicate
-new Predicate(0);
-new Predicate(undefined, 0);
-new Predicate(undefined, 0, true);
-new Predicate(0, 0, false);
 
 // ATN
 atnInstance; // $ExpectType ATN
@@ -218,6 +221,12 @@ LexerActionType.PUSH_MODE; // $ExpectType LexerActionType.PUSH_MODE
 LexerActionType.SKIP; // $ExpectType LexerActionType.SKIP
 LexerActionType.TYPE; // $ExpectType LexerActionType.TYPE
 
+// LexerATNConfig
+const lexerAtnConfigInstance = new LexerATNConfig(atnStateInstance, atnConfigInstance);
+lexerAtnConfigInstance.lexerActionExecutor; // $ExpectType LexerActionExecutor | null
+lexerAtnConfigInstance.passedThroughNonGreedyDecision; // $ExpectType boolean
+lexerAtnConfigInstance.checkNonGreedyDecision(atnConfigInstance, atnStateInstance); // $ExpectType
+
 // LexerATNSimulator
 const dfaInstance = new DFA(atnInstance, 0);
 LexerATNSimulator.debug; // $ExpectType false
@@ -270,6 +279,16 @@ lexerAtnSimulatorInstance.getDFA(0); // $ExpectType DFA | undefined
 lexerAtnSimulatorInstance.getText(inputStreamInstance); // $ExpectType string
 lexerAtnSimulatorInstance.consume(inputStreamInstance); // $ExpectType void
 lexerAtnSimulatorInstance.getTokenName(0); // $ExpectType string
+
+// LL1Analyzer
+LL1Analyzer.HIT_PRED; // $ExpectType number
+const ll1AnalyzerInstance = new LL1Analyzer(atnStateInstance);
+ll1AnalyzerInstance.getDecisionLookahead(atnStateInstance); // $ExpectType (IntervalSet | null)[] | null
+ll1AnalyzerInstance.LOOK(atnStateInstance, atnStateInstance, parserRuleContextInstance); // $ExpectType IntervalSet
+ll1AnalyzerInstance.LOOK(atnStateInstance, blockEndStateInstance, parserRuleContextInstance); // $ExpectType IntervalSet
+
+// OrderedATNConfigSet
+new OrderedATNConfigSet();
 
 // ParserATNSimulator
 const parserATNSimulatorInstance = new ParserATNSimulator(
@@ -362,6 +381,35 @@ parserATNSimulatorInstance.reportAmbiguity(
     atnConfigSetInstance,
 );
 
+// PrecedencePredicate
+const precedencePredicateInstance = new PrecedencePredicate(0);
+precedencePredicateInstance.precedence; // $ExpectType number
+precedencePredicateInstance.evaluate(parserInstance, parserRuleContextInstance); // $ExpectType boolean
+precedencePredicateInstance.evalPrecedence(parserInstance, parserRuleContextInstance); // $ExpectType PrecedencePredicate
+precedencePredicateInstance.compareTo(precedencePredicateInstance); // $ExpectType number
+precedencePredicateInstance.updateHashCode(hashCodeInstance); // $ExpectType void
+precedencePredicateInstance.equals(precedencePredicateInstance); // $ExpectType boolean
+
+// Predicate
+predicateInstance; // $ExpectType Predicate
+new Predicate(0);
+new Predicate(undefined, 0);
+new Predicate(undefined, 0, true);
+new Predicate(0, 0, false);
+predicateInstance.ruleIndex; // $ExpectType number
+predicateInstance.predIndex; // $ExpectType number
+predicateInstance.isCtxDependent; // $ExpectType boolean
+predicateInstance.evaluate(parserInstance, parserRuleContextInstance); // $ExpectType boolean
+predicateInstance.updateHashCode(hashCodeInstance); // $ExpectType void
+predicateInstance.equals(predicateInstance); // $ExpectType boolean
+
+// PredictionContextCache
+predictionContextCacheInstance; // $ExpectType PredictionContextCache
+predictionContextCacheInstance.cache; // $ExpectType HashMap
+predictionContextCacheInstance.add(predictionContextInstance); // $ExpectType PredictionContext
+predictionContextCacheInstance.get(predictionContextInstance); // $ExpectType PredictionContext | null
+predictionContextCacheInstance.length; // $ExpectType number
+
 // PredictionMode
 PredictionMode.SLL; // $ExpectType 0
 PredictionMode.LL; // $ExpectType 1
@@ -380,3 +428,20 @@ PredictionMode.getConflictingAltSubsets(atnConfigSetInstance); // $ExpectType
 PredictionMode.getStateToAltMap(atnConfigSetInstance); // $ExpectType AltDict
 PredictionMode.hasStateAssociatedWithOneAlt(atnConfigSetInstance); // $ExpectType boolean
 PredictionMode.getSingleViableAlt(bitsetCollection); // $ExpectType number
+
+// SemanticContext
+SemanticContext.NONE; // $ExpectType Predicate
+SemanticContext.andContext(predicateInstance, predicateInstance); // $ExpectType AND
+SemanticContext.orContext(predicateInstance, predicateInstance); // $ExpectType OR
+class NewSemanticContext extends SemanticContext {
+    evaluate(_parser: Recognizer, _outerContext: RuleContext): boolean {
+        throw new Error('Method not implemented.');
+    }
+    evalPrecedence(_parser: Recognizer, _outerContext: RuleContext): SemanticContext | null {
+        throw new Error('Method not implemented.');
+    }
+}
+const newSemanticContextInstance = new NewSemanticContext();
+newSemanticContextInstance.hashCode(); // $ExpectType number
+newSemanticContextInstance.evaluate(parserInstance, parserRuleContextInstance); // $ExpectType boolean
+newSemanticContextInstance.evalPrecedence(parserInstance, parserRuleContextInstance); // $ExpectType SemanticContext | null

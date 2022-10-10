@@ -4,9 +4,9 @@ import LexerActionExecutor from './LexerActionExecutor';
 
 export default class LexerATNConfig extends ATNConfig {
     readonly lexerActionExecutor: LexerActionExecutor | null;
-    passedThroughNonGreedyDecision: any;
+    readonly passedThroughNonGreedyDecision: boolean;
 
     constructor(params: ATNState, config: ATNConfig);
 
-    checkNonGreedyDecision(source: ATNConfig, target: ATNState): any;
+    checkNonGreedyDecision(source: ATNConfig, target: ATNState): boolean;
 }

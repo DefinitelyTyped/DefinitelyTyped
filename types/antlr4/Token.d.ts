@@ -2,12 +2,12 @@ import InputStream from './InputStream';
 import Lexer from './Lexer';
 
 export default class Token {
-    static readonly INVALID_TYPE: number;
-    static readonly EPSILON: number;
-    static readonly MIN_USER_TOKEN_TYPE: number;
-    static readonly EOF: number;
-    static readonly DEFAULT_CHANNEL: number;
-    static readonly HIDDEN_CHANNEL: number;
+    static readonly INVALID_TYPE: 0;
+    static readonly EPSILON: -2;
+    static readonly MIN_USER_TOKEN_TYPE: 1;
+    static readonly EOF: -1;
+    static readonly DEFAULT_CHANNEL: 0;
+    static readonly HIDDEN_CHANNEL: 1;
 
     source: [Lexer, InputStream] | [null, null];
     type: number;

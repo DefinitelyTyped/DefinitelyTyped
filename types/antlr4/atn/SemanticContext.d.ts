@@ -1,3 +1,4 @@
+import HashCode from '../misc/HashCode';
 import RuleContext from '../context/RuleContext';
 import Recognizer from '../Recognizer';
 import Predicate from './Predicate';
@@ -12,8 +13,8 @@ import Predicate from './Predicate';
  */
 export default abstract class SemanticContext {
     static NONE: Predicate;
-    static andContext(a: any, b: any): any;
-    static orContext(a: any, b: any): any;
+    static andContext(a: SemanticContext | null, b: SemanticContext | null): AND;
+    static orContext(a: SemanticContext | null, b: SemanticContext | null): OR;
 
     hashCode(): number;
 
@@ -49,5 +50,41 @@ export default abstract class SemanticContext {
      * - A non-`null` {@link SemanticContext}: the new simplified
      * semantic context after precedence predicates are evaluated.
      */
-    evalPrecedence(parser: Recognizer, outerContext: RuleContext): SemanticContext;
+    evalPrecedence(parser: Recognizer, outerContext: RuleContext): SemanticContext | null;
+}
+
+/**
+ * A semantic context which is true whenever none of the contained contexts
+ * is false
+ */
+export class AND extends SemanticContext {
+    constructor(a: SemanticContext, b: SemanticContext);
+
+    equals(other: SemanticContext): boolean;
+
+    updateHashCode(hash: HashCode): void;
+
+    evaluate(parser: any, outerContext: any): boolean;
+
+    evalPrecedence(parser: any, outerContext: any): SemanticContext | null;
+
+    toString(): string;
+}
+
+/**
+ * A semantic context which is true whenever at least one of the contained
+ * contexts is true
+ */
+export class OR extends SemanticContext {
+    constructor(a: SemanticContext, b: SemanticContext);
+
+    equals(other: SemanticContext): boolean;
+
+    updateHashCode(hash: HashCode): void;
+
+    evaluate(parser: Recognizer, outerContext: RuleContext): boolean;
+
+    evalPrecedence(parser: Recognizer, outerContext: RuleContext): SemanticContext | null;
+
+    toString(): string;
 }
