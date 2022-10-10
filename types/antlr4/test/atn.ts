@@ -1,8 +1,10 @@
 import LexerAction from 'antlr4/action/LexerAction';
 import atn from 'antlr4/atn';
+import AbstractPredicateTransition from 'antlr4/atn/AbstractPredicateTransition';
 import ATNConfig, { ATNConfigConfig } from 'antlr4/atn/ATNConfig';
 import ATNConfigSet from 'antlr4/atn/ATNConfigSet';
 import ATNDeserializationOptions from 'antlr4/atn/ATNDeserializationOptions';
+import ATNSimulator from 'antlr4/atn/ATNSimulator';
 import LexerActionExecutor from 'antlr4/atn/LexerActionExecutor';
 import LexerActionType from 'antlr4/atn/LexerActionType';
 import { SimState } from 'antlr4/atn/LexerATNSimulator';
@@ -18,15 +20,21 @@ import NoViableAltException from 'antlr4/error/NoViableAltException';
 import InputStream from 'antlr4/InputStream';
 import Lexer from 'antlr4/Lexer';
 import BitSet from 'antlr4/misc/BitSet';
+import HashCode from 'antlr4/misc/HashCode';
 import HashSet from 'antlr4/misc/HashSet';
+import IntervalSet from 'antlr4/misc/IntervalSet';
 import Parser from 'antlr4/Parser';
 import ATNState from 'antlr4/state/ATNState';
 import DecisionState from 'antlr4/state/DecisionState';
 import TokenStream from 'antlr4/TokenStream';
 import Transition from 'antlr4/transition/Transition';
+import DoubleDict from 'antlr4/utils/DoubleDict';
+
+// TODO go through all the ATN's and ensure they're all type tested.
 
 const { ATN, ATNDeserializer, LexerATNSimulator, ParserATNSimulator, PredictionMode } = atn;
 
+const atnInstance = new ATN(0, 0);
 const atnConfigInstance = new ATNConfig();
 const atnConfigSetInstance = new ATNConfigSet(false);
 const atnStateInstance = new ATNState();
@@ -34,9 +42,12 @@ const bitsetInstance = new BitSet();
 const bitsetCollection = [bitsetInstance];
 const decisionStateInstance = new DecisionState();
 const dfaStateInstance = new DFAState(0, atnConfigSetInstance);
+const hashCodeInstance = new HashCode();
 const hashSetInstance = new HashSet();
 const inputStreamInstance = new InputStream('');
-const lexerActionExecutorInstance = new LexerActionExecutor();
+const intervalSetInstance = new IntervalSet();
+const lexerActionExecutorInstance = new LexerActionExecutor(null);
+const lexerActionInstance = new LexerAction(LexerActionType.CHANNEL);
 const lexerInstance = new Lexer(inputStreamInstance);
 const commonTokenStreamInstance = new CommonTokenStream(lexerInstance);
 const parserInstance = new Parser(commonTokenStreamInstance);
@@ -50,6 +61,7 @@ const noViableAltExceptionInstance = new NoViableAltException(
 const parserRuleContextInstance = new ParserRuleContext();
 const predicateInstance = new Predicate();
 const predictionContextCacheInstance = new PredictionContextCache();
+const atnSimulatorInstance = new ATNSimulator(atnInstance, predictionContextCacheInstance);
 const predPredictionInstance = new PredPrediction(predicateInstance, 0);
 const simStateInstance = new SimState();
 const tokenStreamInstance = new TokenStream();
@@ -57,7 +69,12 @@ const transitionInstance = new Transition(atnStateInstance);
 
 const predictionContextInstance = new PredictionContext(0);
 
-new LexerActionExecutor([new LexerAction(LexerActionType.CHANNEL)]);
+// AbstractPredicateTransition
+class NewPredicateTransition implements AbstractPredicateTransition {
+    target: ATNState;
+    isEpsilon: boolean;
+    label: IntervalSet | null;
+}
 
 // ATNConfig
 const atnConfigConfig: ATNConfigConfig = {
@@ -72,6 +89,35 @@ new ATNConfig(atnConfigInstance);
 new ATNConfig(undefined, atnConfigInstance);
 new ATNConfig(atnConfigInstance, atnConfigConfig);
 
+// ATNConfigSet
+atnConfigSetInstance; // $ExpectType ATNConfigSet
+atnConfigSetInstance.configLookup; // $ExpectType HashSet
+atnConfigSetInstance.fullCtx; // $ExpectType boolean
+atnConfigSetInstance.readOnly; // $ExpectType boolean
+atnConfigSetInstance.configs; // $ExpectType ATNConfig[]
+atnConfigSetInstance.uniqueAlt; // $ExpectType number
+atnConfigSetInstance.conflictingAlts; // $ExpectType BitSet
+atnConfigSetInstance.hasSemanticContext; // $ExpectType boolean
+atnConfigSetInstance.dipsIntoOuterContext; // $ExpectType boolean
+atnConfigSetInstance.cachedHashCode; // $ExpectType number
+atnConfigSetInstance.add(atnConfigInstance); // $ExpectType boolean
+atnConfigSetInstance.add(atnConfigInstance, new DoubleDict({})); // $ExpectType boolean
+atnConfigSetInstance.getStates(); // $ExpectType HashSet
+atnConfigSetInstance.getPredicates(); // $ExpectType SemanticContext[]
+atnConfigSetInstance.optimizeConfigs(atnSimulatorInstance); // $ExpectType void
+atnConfigSetInstance.addAll([atnConfigInstance]); // $ExpectType boolean
+atnConfigSetInstance.equals(atnConfigSetInstance); // $ExpectType boolean
+atnConfigSetInstance.hashCode(); // $ExpectType number
+atnConfigSetInstance.updateHashCode(hashCodeInstance); // $ExpectType void
+atnConfigSetInstance.isEmpty(); // $ExpectType boolean
+atnConfigSetInstance.contains({}); // $ExpectType boolean
+atnConfigSetInstance.containsFast({}); // $ExpectType boolean
+atnConfigSetInstance.clear(); // $ExpectType void
+atnConfigSetInstance.setReadonly(true); // $ExpectType void
+atnConfigSetInstance.toString(); // $ExpectType string
+atnConfigSetInstance.items; // $ExpectType ATNConfig[]
+atnConfigSetInstance.length; // $ExpectType number
+
 // Predicate
 new Predicate(0);
 new Predicate(undefined, 0);
@@ -79,7 +125,7 @@ new Predicate(undefined, 0, true);
 new Predicate(0, 0, false);
 
 // ATN
-const atnInstance = new ATN(0, 0);
+atnInstance; // $ExpectType ATN
 atnInstance.grammarType; // $ExpectType number
 atnInstance.maxTokenType; // $ExpectType number
 atnInstance.states; // $ExpectType number[]
@@ -117,6 +163,60 @@ atnDeserializerInstance.stateFactories; // $ExpectType ((() => BasicState) | nul
 atnDeserializerInstance.actionFactories; // $ExpectType ((dataA: any, dataB: any) => LexerAction)[] | null
 atnDeserializerInstance.data; // $ExpectType number[]
 atnDeserializerInstance.pos; // $ExpectType number | undefined
+atnDeserializerInstance.deserialize([0]); // $ExpectType ATN
+atnDeserializerInstance.reset([0]); // $ExpectType boolean
+atnDeserializerInstance.reset(''); // $ExpectType boolean
+atnDeserializerInstance.skipUUID(); // $ExpectType void
+atnDeserializerInstance.checkVersion(false); // $ExpectType void
+atnDeserializerInstance.readATN(); // $ExpectType ATN
+atnDeserializerInstance.readStates(atnInstance, false); // $ExpectType void
+atnDeserializerInstance.readRules(atnInstance, false); // $ExpectType void
+atnDeserializerInstance.readModes(atnInstance); // $ExpectType void
+atnDeserializerInstance.readSets(atnInstance, [intervalSetInstance], () => 0); // $ExpectType void
+atnDeserializerInstance.readEdges(atnInstance, [intervalSetInstance]); // $ExpectType void
+atnDeserializerInstance.readDecisions(atnInstance); // $ExpectType void
+atnDeserializerInstance.readLexerActions(atnInstance, false); // $ExpectType void
+atnDeserializerInstance.generateRuleBypassTransitions(atnInstance); // $ExpectType void
+atnDeserializerInstance.generateRuleBypassTransition(atnInstance, 0); // $ExpectType void
+atnDeserializerInstance.stateIsEndStateFor(atnStateInstance, 0); // $ExpectType StarLoopEntryState | null
+atnDeserializerInstance.markPrecedenceDecisions(atnInstance); // $ExpectType void
+atnDeserializerInstance.verifyATN(atnInstance); // $ExpectType void
+atnDeserializerInstance.checkCondition(false); // $ExpectType void
+atnDeserializerInstance.checkCondition(true, ''); // $ExpectType void
+atnDeserializerInstance.readInt(); // $ExpectType number | undefined
+atnDeserializerInstance.readInt32(); // $ExpectType number
+atnDeserializerInstance.edgeFactory(atnInstance, 0, 0, 0, 0, 0, 0, [intervalSetInstance]); // $ExpectType Transition
+atnDeserializerInstance.stateFactory(0, 0); // $ExpectType BasicState | undefined
+atnDeserializerInstance.lexerActionFactory(0, 0, 0); // $ExpectType LexerAction
+
+// ATNSimulator
+ATNSimulator.ERROR; // $ExpectType DFAState
+atnSimulatorInstance; // $ExpectType ATNSimulator
+atnSimulatorInstance.atn; // $ExpectType ATN
+atnSimulatorInstance.sharedContextCache; // $ExpectType PredictionContextCache
+atnSimulatorInstance.getCachedContext(predictionContextInstance); // $ExpectType PredictionContext
+
+// LexerActionExecutor
+new LexerActionExecutor([lexerActionInstance]);
+LexerActionExecutor.append(lexerActionExecutorInstance, lexerActionInstance);
+lexerActionExecutorInstance; // $ExpectType LexerActionExecutor
+lexerActionExecutorInstance.lexerActions; // $ExpectType LexerAction[]
+lexerActionExecutorInstance.cachedHashCode; // $ExpectType number
+lexerActionExecutorInstance.fixOffsetBeforeMatch(0); // $ExpectType LexerActionExecutor
+lexerActionExecutorInstance.execute(lexerInstance, inputStreamInstance, 0); // $ExpectType void
+lexerActionExecutorInstance.hashCode(); // $ExpectType number
+lexerActionExecutorInstance.updateHashCode(hashCodeInstance); // $ExpectType void
+lexerActionExecutorInstance.equals(lexerActionExecutorInstance); // $ExpectType boolean
+
+// LexerActionType
+LexerActionType.CHANNEL; // $ExpectType LexerActionType.CHANNEL
+LexerActionType.CUSTOM; // $ExpectType LexerActionType.CUSTOM
+LexerActionType.MODE; // $ExpectType LexerActionType.MODE
+LexerActionType.MORE; // $ExpectType LexerActionType.MORE
+LexerActionType.POP_MODE; // $ExpectType LexerActionType.POP_MODE
+LexerActionType.PUSH_MODE; // $ExpectType LexerActionType.PUSH_MODE
+LexerActionType.SKIP; // $ExpectType LexerActionType.SKIP
+LexerActionType.TYPE; // $ExpectType LexerActionType.TYPE
 
 // LexerATNSimulator
 const dfaInstance = new DFA(atnInstance, 0);

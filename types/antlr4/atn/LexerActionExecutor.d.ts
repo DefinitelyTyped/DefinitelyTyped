@@ -1,3 +1,5 @@
+import InputStream from '../InputStream';
+import HashCode from '../misc/HashCode';
 import LexerAction from '../action/LexerAction';
 import Lexer from '../Lexer';
 
@@ -17,13 +19,13 @@ export default class LexerActionExecutor {
      */
     static append(lexerActionExecutor: LexerActionExecutor, lexerAction: LexerAction): LexerActionExecutor;
 
-    lexerActions: LexerAction[];
+    readonly lexerActions: LexerAction[];
 
     /**
      * Caches the result of {@link hashCode} since the hash code is an element
      * of the performance-critical {@link LexerATNConfig.hashCode} operation
      */
-    cachedHashCode: number;
+    readonly cachedHashCode: number;
 
     /**
      * Represents an executor for a sequence of lexer actions which traversed during
@@ -33,7 +35,7 @@ export default class LexerActionExecutor {
      * efficiently, ensuring that actions appearing only at the end of the rule do
      * not cause bloating of the {@link DFA} created for the lexer.
      */
-    constructor(lexerActions?: LexerAction[]);
+    constructor(lexerActions: LexerAction[] | null);
 
     /**
      * Creates a {@link LexerActionExecutor} which encodes the current offset
@@ -84,11 +86,11 @@ export default class LexerActionExecutor {
      * {@link IntStream.seek} to set the `input` position to the beginning
      * of the token.
      */
-    execute(lexer: Lexer, input: any, startIndex: number): void;
+    execute(lexer: Lexer, input: InputStream, startIndex: number): void;
 
     hashCode(): number;
 
-    updateHashCode(hash: any): void;
+    updateHashCode(hash: HashCode): void;
 
     equals(other: LexerActionExecutor): boolean;
 }

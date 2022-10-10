@@ -4,6 +4,7 @@ import HashSet from '../misc/HashSet';
 import ATNConfig from './ATNConfig';
 import ATNSimulator from './ATNSimulator';
 import SemanticContext from './SemanticContext';
+import DoubleDict from '../utils/DoubleDict';
 
 /**
  * Specialized `Set<{@link ATNConfig}>` that can track
@@ -27,7 +28,7 @@ export default class ATNConfigSet {
      * LL prediction. It will be used to determine how to merge $. With SLL
      * it's a wildcard whereas it is not for LL context merge
      */
-    fullCtx: boolean;
+    readonly fullCtx: boolean;
 
     /**
      * Indicates that the set of configurations is read-only. Do not
@@ -61,7 +62,7 @@ export default class ATNConfigSet {
      * This method updates {@link dipsIntoOuterContext} and
      * {@link hasSemanticContext} when necessary.
      */
-    add(config: ATNConfig, mergeCache?: any): boolean;
+    add(config: ATNConfig, mergeCache?: DoubleDict): boolean;
 
     getStates(): HashSet;
 

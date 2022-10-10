@@ -27,9 +27,9 @@ export default class ATNSimulator {
      * more time I think and doesn't save on the overall footprint
      * so it's not worth the complexity.
      */
-    atn: ATN;
+    readonly atn: ATN;
 
-    sharedContextCache: PredictionContextCache;
+    readonly sharedContextCache: PredictionContextCache;
 
     constructor(atn: ATN, sharedContextCache: PredictionContextCache);
 
