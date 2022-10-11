@@ -906,3 +906,25 @@ function rand() {
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });
 })();
+
+//////////////////////////////////////////////////////////////////////
+// Scatter texttemplate
+
+(async () => {
+    const scatter = await newPlot(graphDiv, [
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: 'x: %{x}<br>y: %{y}',
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: ['x: %{x}', 'y: %{y}'],
+        },
+    ]);
+})();
