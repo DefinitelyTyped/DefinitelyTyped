@@ -5,6 +5,7 @@
 //                 Minchul Joh <https://github.com/fclemonschool>
 //                 Suhwan Cha <https://github.com/suhwancha>
 //                 Yellowinq <https://github.com/hig4342>
+//                 Kkokko Jeong <https://github.com/kkokkojeong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /**
@@ -547,66 +548,75 @@ declare namespace naver.maps {
     }
 
     /**
-     * Classes
+     * KVO
      */
-    // KVO
     class KVO {
         constructor();
-        addListener(eventName: any, listener: () => any): MapEventListener;
-        addListenerOnce(eventName: any, listener: () => any): MapEventListener;
-        bindTo(key: string, target: KVO, targetKey?: string): void;
-        clearListeners(eventName: string): void;
-        get(key: string): any;
-        hasListener(eventName: string): boolean;
-        removeListener(listeners: MapEventListener | MapEventListener[]): void;
         set(key: string, value: any, silently?: boolean): void;
-        setValues(properties: any): void;
-        trigger(eventName: string, eventObject?: any): void;
+        get(key: string): any;
+        bindTo(key: string | string[], target: KVO, targetKey?: string): void;
         unbind(key: string): void;
         unbindAll(): void;
+        setValues(properties: { [key: string]: any }): void;
+        addListener(eventName: string, listener: () => any): MapEventListener;
+        addListenerOnce(eventName: string, listener: () => any): MapEventListener;
+        hasListener(eventName: string): boolean;
+        removeListener(listeners: MapEventListener | MapEventListener[]): void;
+        clearListeners(eventName: string): void;
+        trigger(eventName: string, eventObject?: any): void;
     }
-    class KVOArray extends KVO {
-        constructor(array: any[]);
+    
+    class KVOArray<T> extends KVO {
+        constructor(array: T[]);
         clear(): void;
-        forEach(callback: (element: any, index: number) => void): void;
-        getArray(): any[];
-        getAt(index: number): any;
-        getIndexOfElement(element: any): number;
+        forEach(callback: (element: T, index: number) => void): void;
+        getArray(): T[];
+        getAt(index: number): T;
+        getIndexOfElement(element: T): number;
         getLength(): number;
-        insertAt(index: number, element: any): void;
-        pop(): any;
-        push(element: any): number;
-        removeAt(index: number): any;
-        removeElement(element: any): void;
-        setAt(index: number, element: any): void;
-        splice(startIndex: number, deleteCount: number, element?: any): any[];
+        insertAt(index: number, element: T): void;
+        pop(): T;
+        push(element: T): number;
+        removeAt(index: number): T;
+        removeElement(element: T): void;
+        setAt(index: number, element: T): void;
+        splice(startIndex: number, deleteCount: number, ...newElement: T[]): T[];
     }
-    // Base
+    
+    /**
+     * Point
+     */
     class Point {
         x: number;
         y: number;
         constructor(x: number, y: number);
-        add(point: Coord | PointLiteral): Point;
+        constructor(literal: PointLiteral);
         add(x: number, y: number): Point;
+        add(point: Coord | PointLiteral): Point;
         ceil(): Point;
         clone(): Point;
         div(point: Coord | PointLiteral): void;
         div(x: number, y: number): Point;
-        equals(point: Point): boolean;
+        equals(point: Coord | PointLiteral): boolean;
         floor(): Point;
-        mul(point: Coord | PointLiteral): Point;
         mul(x: number, y: number): Point;
+        mul(point: Coord | PointLiteral): Point;
         round(): Point;
         sub(point: Coord | PointLiteral): Point;
         sub(x: number, y: number): Point;
         toString(): string;
     }
+
+    /**
+     * Size
+     */
     class Size {
         width: number;
         height: number;
         constructor(width: number, height: number);
-        add(size: Size | SizeLiteral): Size;
+        constructor(literal: SizeLiteral);
         add(width: number, height: number): Size;
+        add(size: Size | SizeLiteral): Size;
         ceil(): Size;
         clone(): Size;
         div(width: number, height: number): Size;
@@ -620,8 +630,13 @@ declare namespace naver.maps {
         sub(width: number, height: number): Size;
         toString(): string;
     }
+
+    /**
+     * PointBounds
+     */
     class PointBounds {
         constructor(minPoint: Point, maxPoint: Point);
+        constructor(literal: PointBoundsLiteral);
         static bounds(point: Coord | PointLiteral, pointN: Coord | PointLiteral): PointBounds;
         clone(): PointBounds;
         equals(bounds: Bounds | PointBoundsLiteral): boolean;
@@ -637,10 +652,16 @@ declare namespace naver.maps {
         minX(): number;
         minY(): number;
         toString(): string;
+        toArray(): PointBoundsArrayLiteral;
         union(bounds: Bounds | PointBoundsLiteral): PointBounds;
     }
+
+    /**
+     * LatLng
+     */
     class LatLng extends Point {
         constructor(lat: number, lng: number);
+        constructor(literal: LatLngLiteral);
         clone(): LatLng;
         destinationPoint(angle: number, meter: number): LatLng;
         equals(point: Coord | LatLngLiteral): boolean;
@@ -648,9 +669,15 @@ declare namespace naver.maps {
         lng(): number;
         toPoint(): Point;
         toString(): string;
+        isEmpty(): boolean;
     }
+
+    /**
+     * LatLngBounds
+     */
     class LatLngBounds extends PointBounds {
         constructor(sw: LatLng, ne: LatLng);
+        constructor(literal: LatLngBoundsLiteral);
         static bounds(latlng: Coord | LatLngLiteral, latlngN: Coord | LatLngLiteral): LatLngBounds;
         clone(): LatLngBounds;
         east(): number;
@@ -1081,7 +1108,7 @@ declare namespace naver.maps {
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
         aroundControl: AroundControl | null;
-        controls: KVOArray[];
+        controls: KVOArray<any>[];
         getLocation(): PanoramaLocation;
         getMaxScale(): number;
         getMaxZoom(): number;
