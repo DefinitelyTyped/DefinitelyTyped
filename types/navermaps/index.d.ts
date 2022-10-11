@@ -8,9 +8,14 @@
 //                 Kkokko Jeong <https://github.com/kkokkojeong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
-    /**
-     * Types
-     */
+    /***** static members *****/
+    let VERSION: string;
+    let jsContentLoaded: boolean;
+    function onJsContentLoaded(...args: any): void;
+
+    // --------------------------------------------------------------------------
+    //  Types
+    // --------------------------------------------------------------------------
     type PointArrayLiteral = [number, number];
     type PointLiteral = PointArrayLiteral | PointObjectLiteral;
     type SizeArrayLiteral = [number, number];
@@ -34,6 +39,7 @@ declare namespace naver.maps {
     type KML = any;
     type KVOArrayOfCoords = any;
     type ArrayOfCoordsLiteral = PointLiteral[] | LatLngLiteral[];
+    type padding = Margin;
     type strokeStyleType =
         | 'solid'
         | 'shortdash'
@@ -49,9 +55,10 @@ declare namespace naver.maps {
     type strokeLineCapType = 'butt' | 'round' | 'square';
     type strokeLineJoinType = 'miter' | 'round' | 'bevel';
 
-    /**
-     * Interfaces
-     */
+    
+    // --------------------------------------------------------------------------
+    //  Interfaces
+    // --------------------------------------------------------------------------
     interface MapEventListener {
         eventName: string;
         listener: (event: any) => any;
@@ -82,7 +89,12 @@ declare namespace naver.maps {
         south: number;
         west: number;
     }
+
+    /**
+     * MapSystemProjection
+     */
     interface MapSystemProjection extends KVO {
+        // See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Projection.html
         factor(zoom: number): number;
         fromCoordToOffset(coord: Coord): Point;
         fromCoordToPoint(coord: Coord): Point;
@@ -96,44 +108,51 @@ declare namespace naver.maps {
         scaleDown(operand: number | Point | Size, zoom: number): number | Point | Size;
         scaleUp(operand: number | Point | Size, zoom: number): number | Point | Size;
     }
+
+    /**
+     * MapOptions
+     */
     interface MapOptions {
-        background?: string | undefined;
-        baseTileOpacity?: number | undefined;
-        bounds?: any;
-        center?: any;
-        disableDoubleClickZoom?: boolean | undefined;
-        disableDoubleTapZoom?: boolean | undefined;
-        disableKineticPan?: boolean | undefined;
-        disableTwoFingerTapZoom?: boolean | undefined;
-        draggable?: boolean | undefined;
-        keyboardShortcuts?: boolean | undefined;
-        logoControl?: boolean | undefined;
-        logoControlOptions?: any;
-        mapDataControl?: boolean | undefined;
-        mapDataControlOptions?: any;
-        mapTypeControl?: boolean | undefined;
-        mapTypeControlOptions?: any;
-        mapTypeId?: string | undefined;
-        mapTypes?: any;
-        maxBounds?: any;
-        maxZoom?: number | undefined;
-        minZoom?: number | undefined;
-        padding?: any;
-        pinchZoom?: boolean | undefined;
-        resizeOrigin?: any;
-        scaleControl?: boolean | undefined;
-        scaleControlOptions?: any;
-        scrollWheel?: boolean | undefined;
-        size?: any;
-        overlayZoomEffect?: null | string | undefined;
-        tileSpare?: number | undefined;
-        tileTransition?: boolean | undefined;
-        useStyleMap?: boolean | undefined;
-        zoom?: number | undefined;
-        zoomControl?: boolean | undefined;
-        zoomControlOptions?: any;
-        zoomOrigin?: any;
+        // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.html#.MapOptions
+        background?: string;
+        baseTileOpacity?: number;
+        bounds?: Bounds | BoundsLiteral;
+        center?: Coord | CoordLiteral; // default naver.maps.LatLng(37.5666103, 126.9783882)
+        disableDoubleClickZoom?: boolean;
+        disableDoubleTapZoom?: boolean;
+        disableKineticPan?: boolean;
+        disableTwoFingerTapZoom?: boolean;
+        draggable?: boolean;
+        keyboardShortcuts?: boolean;
+        logoControl?: boolean;
+        logoControlOptions?: LogoControlOptions;
+        mapDataControl?: boolean;
+        mapDataControlOptions?: MapDataControlOptions;
+        mapTypeControl?: boolean;
+        mapTypeControlOptions?: MapTypeControlOptions;
+        mapTypeId?: string;
+        mapTypes?: MapTypeRegistry;
+        maxBounds?: Bounds | BoundsLiteral;
+        maxZoom?: number;
+        minZoom?: number;
+        padding?: padding;
+        pinchZoom?: boolean;
+        resizeOrigin?: Position;
+        scaleControl?: boolean;
+        scaleControlOptions?: ScaleControlOptions;
+        scrollWheel?: boolean;
+        size?: Size | SizeLiteral;
+        overlayZoomEffect?: null | string;
+        tileSpare?: number;
+        tileTransition?: boolean;
+        tileDuration?: number;
+        zoom?: number; // default 16
+        zoomControl?: boolean;
+        zoomControlOptions?: ZoomControlOptions;
+        zoomOrigin?: Coord | CoordLiteral;
+        blankTileImage?: null | string;
     }
+
     interface MarkerOptions {
         animation?: Animation;
         map: Map;
@@ -241,9 +260,14 @@ declare namespace naver.maps {
         visible?: boolean | undefined;
         zIndex?: number | undefined;
     }
+
+    /**
+     * ControlOptions
+     */
     interface ControlOptions {
         position: Position;
     }
+
     interface CircleOptions {
         map?: Map | undefined;
         center: Coord | CoordLiteral;
@@ -472,15 +496,19 @@ declare namespace naver.maps {
         target: HTMLElement;
     }
     interface Margin {
-        top?: number | undefined;
-        right?: number | undefined;
-        bottom?: number | undefined;
-        left?: number | undefined;
+        top?: number;
+        right?: number;
+        bottom?: number;
+        left?: number;
+    }
+
+    interface FitBoundsOptions extends Margin {
+        maxZoom?: number;
     }
 
     interface TransitionOptions {
-        duration?: number | undefined;
-        easing?: string | undefined;
+        duration?: number; // default 500
+        easing?: string; // default easeOutCubic
     }
 
     /**
@@ -502,7 +530,6 @@ declare namespace naver.maps {
         BOUNCE = 1,
         DROP,
     }
-    let jsContentLoaded: boolean;
     type MapTypeId = string;
     namespace MapTypeId {
         // TODO. 확실하지 않음
@@ -511,7 +538,7 @@ declare namespace naver.maps {
         let SATELLITE: string;
         let HYBRID: string;
     }
-    function onJSContentLoaded(...args: any[]): any;
+
     enum PointingIcon {
         OPEN_ARROW = 1,
         BLOCK_ARROW,
@@ -694,22 +721,29 @@ declare namespace naver.maps {
         union(bounds: Bounds | LatLngBoundsLiteral): LatLngBounds;
         west(): number;
     }
-    // Map
+
+    /**
+     * Map
+     */
     class Map extends KVO {
-        controls: any;
-        data: any;
-        layers: any;
-        mapTypes: any;
-        mapSystemProjection: any;
+        controls: KVOArray<Position>;
+        data: Data;
+        layers: LayerRegistry;
+        mapTypes: MapTypeRegistry;
+        mapSystemProjection: MapSystemProjection;
+
         constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
         addPane(name: string, elementOrIndex: HTMLElement | number): void;
+        autoResize(): void;
         destroy(): void;
-        fitBounds(bounds: any, margin?: any): void;
+        fitBounds(bounds: Bounds | BoundsLiteral | ArrayOfCoords | ArrayOfCoordsLiteral, fitBoundsOptions?: FitBoundsOptions): void;
         getBounds(): Bounds;
         getCenter(): Coord;
         getCenterPoint(): Coord;
         getElement(): HTMLElement;
         getMapTypeId(): string;
+        getMaxZoom(): number;
+        getMinZoom(): number;
         getOptions(key?: string): any;
         getPanes(): MapPanes;
         getPrimitiveProjection(): Projection;
@@ -718,20 +752,23 @@ declare namespace naver.maps {
         getZoom(): number;
         morph(coord: Coord | CoordLiteral, zoom?: number, transitionOptions?: TransitionOptions): void;
         panBy(offset: Point | PointLiteral): void;
-        panTo(coord: Coord | CoordLiteral, transitionOptions: TransitionOptions): void;
-        panToBounds(bounds: Bounds | BoundsLiteral, transitionOptions: TransitionOptions, margin?: Margin): void;
+        panTo(coord: Coord | CoordLiteral, transitionOptions?: TransitionOptions): void;
+        panToBounds(bounds: Bounds | BoundsLiteral, transitionOptions?: TransitionOptions, margin?: Margin): void;
         refresh(noEffect?: boolean): void;
         removePane(name: string): void;
         setCenter(center: Coord | CoordLiteral): void;
         setCenterPoint(point: Point | PointLiteral): void;
         setMapTypeId(mapTypeId: string): void;
-        setOptions(newOptionsOrKey: any, value?: any): void;
+        setOptions(newOptionsOrKey: { [key: string]: any } | string, value?: any): void;
         setSize(size: Size | SizeLiteral): void;
         setZoom(zoom: number, effect?: boolean): void;
         updateBy(coord: Coord | CoordLiteral, zoom: number): void;
         zoomBy(deltaZoom: number, zoomOrigin?: Coord | CoordLiteral, effect?: boolean): void;
     }
-    // Map.Tile
+
+    /**
+     * Tile
+     */
     class Tile extends KVO {
         constructor(element: HTMLElement, tileOptions?: TileOptions);
         appendTo(parentNode: HTMLElement): void;
@@ -797,8 +834,14 @@ declare namespace naver.maps {
         getTileUrls(x: number, y: number, z: number): string[];
         setMapTypeOptions(imageMapTypeOptions: ImageMapTypeOptions): void;
     }
+
+    /**
+     * MapTypeRegistry
+     */
     class MapTypeRegistry extends KVO {
-        constructor(mapTypeInfo?: any, defaultMapTypeId?: string);
+        uid?: string;
+        VENDOR?: string;
+        constructor(mapTypeInfo: { [mapTypeId: string]: MapType }, defaultMapTypeId?: string);
         getPreviousTypeId(): string;
         getSelectedType(): MapType;
         getSelectedTypeId(): string;
@@ -806,7 +849,14 @@ declare namespace naver.maps {
         set(mapTypeId: string, mapType: MapType): void;
         setSelectedTypeId(mapTypeId: string): void;
     }
-    // update NaverMapTypeOption -> NaverStyleMapTypeOptions
+
+    /**
+     * LayerRegistry
+     */
+    class LayerRegistry extends KVO {
+        getLayerNames(): string[];
+    }
+
     namespace NaverStyleMapTypeOptions {
         function getBicycleLayer(opts?: any): ImageMapType;
         function getBlankMap(opts?: any): ImageMapType;
@@ -843,7 +893,9 @@ declare namespace naver.maps {
         function getWorldMap(opts?: NaverImageMapTypeOptions): ImageMapType;
     }
 
-    // Control
+    /**
+     * CustomControl
+     */
     class CustomControl extends KVO {
         constructor(html: string, ControlOptions: ControlOptions);
         getElement(): HTMLElement;
@@ -1201,7 +1253,8 @@ declare namespace naver.maps {
         class DrawingManager extends KVO {
             constructor(options?: DrawingOptions);
             addDrawing(overlay: DrawingOverlay, drawingMode: DrawingMode, id?: string): void;
-            addListener(eventName: DrawingEvent, listener: (overlay: DrawingOverlay) => void): MapEventListener;
+            // // DrawingEvent
+            addListener(eventName: any, listener: (overlay: DrawingOverlay) => void): MapEventListener;
             destroy(): void;
             getDrawing(id: string): DrawingOverlay;
             getDrawings(): any;
@@ -1249,7 +1302,7 @@ declare namespace naver.maps {
             constructor(dotMapOptions?: DotMapOptions);
             addDrawing(overlay: drawing.DrawingOverlay, drawingMode: drawing.DrawingMode, id?: string): void;
             addListener(
-                eventName: drawing.DrawingEvent,
+                eventName: any, // drawing.DrawingEvent,
                 listener: (overlay: drawing.DrawingOverlay) => void,
             ): MapEventListener;
             destroy(): void;
