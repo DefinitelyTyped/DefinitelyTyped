@@ -474,6 +474,10 @@ async () => {
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
 
     handle.readableWebStream();
+
+    for await (const line of handle.readLines()) {
+        const _line: string = line;
+    }
 };
 
 {

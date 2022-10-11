@@ -570,11 +570,46 @@ declare module 'http' {
         assignSocket(socket: Socket): void;
         detachSocket(socket: Socket): void;
         /**
-         * Sends a HTTP/1.1 100 Continue message to the client, indicating that
+         * Sends an HTTP/1.1 100 Continue message to the client, indicating that
          * the request body should be sent. See the `'checkContinue'` event on`Server`.
          * @since v0.3.0
          */
         writeContinue(callback?: () => void): void;
+        /**
+         * Sends an HTTP/1.1 103 Early Hints message to the client with a Link header,
+         * indicating that the user agent can preload/preconnect the linked resources.
+         * The `hints` is an object containing the values of headers to be sent with
+         * early hints message. The optional `callback` argument will be called when
+         * the response message has been written.
+         *
+         * Example:
+         *
+         * ```js
+         * const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLink,
+         * });
+         *
+         * const earlyHintsLinks = [
+         *   '</styles.css>; rel=preload; as=style',
+         *   '</scripts.js>; rel=preload; as=script',
+         * ];
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks,
+         *   'x-trace-id': 'id for diagnostics'
+         * });
+         *
+         * const earlyHintsCallback = () => console.log('early hints message sent');
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks
+         * }, earlyHintsCallback);
+         * ```
+         *
+         * @since v18.11.0
+         * @param hints An object containing the values of headers
+         * @param callback Will be called when the response message has been written
+         */
+        writeEarlyHints(hints: Record<string, string | string[]>, callback?: () => void): void;
         /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.
@@ -639,7 +674,7 @@ declare module 'http' {
         ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
-         * Sends a HTTP/1.1 102 Processing message to the client, indicating that
+         * Sends an HTTP/1.1 102 Processing message to the client, indicating that
          * the request body should be sent.
          * @since v10.0.0
          */
