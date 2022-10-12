@@ -7616,6 +7616,25 @@ declare namespace chrome.scripting {
 
     type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
+    type RegisteredContentScript = {
+        allFrames?: boolean;
+        css?: string[];
+        excludeMatches?: string[];
+        id: string;
+        js?: string[];
+        matches?: string[];
+        persistAcrossSessions?: boolean;
+        runAt?: "document_start" | "document_end" | "document_idle";
+        world?: ExecutionWorld;
+    };
+
+    type ContentScriptFilter = {
+        ids?: string[];
+        css?: string;
+        files?: string[];
+        origin?: StyleOrigin;
+        target?: InjectionTarget;
+
     /**
      * Injects a script into a target context. The script will be run at document_end.
      * @param injection
@@ -7649,6 +7668,25 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the injection.
      */
     export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Unregisters one or more content scripts.
+     * @param filter
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
 }
 
 ////////////////////
@@ -10223,6 +10261,7 @@ declare namespace chrome.tts {
     export function stop(): void;
     /** Gets an array of all available voices. */
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
+    export function getVoices(): Promise<TtsVoice[]>;
     /**
      * Speaks text using a text-to-speech engine.
      * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
