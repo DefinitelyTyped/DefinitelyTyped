@@ -7616,7 +7616,7 @@ declare namespace chrome.scripting {
 
     type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
-    type RegisteredContentScript = {
+    interface RegisteredContentScript {
         allFrames?: boolean;
         css?: string[];
         excludeMatches?: string[];
@@ -7626,14 +7626,15 @@ declare namespace chrome.scripting {
         persistAcrossSessions?: boolean;
         runAt?: "document_start" | "document_end" | "document_idle";
         world?: ExecutionWorld;
-    };
+    }
 
-    type ContentScriptFilter = {
+    interface ContentScriptFilter {
         ids?: string[];
         css?: string;
         files?: string[];
         origin?: StyleOrigin;
         target?: InjectionTarget;
+    }
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
