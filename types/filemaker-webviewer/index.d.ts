@@ -7,17 +7,13 @@ export enum FMScriptOption {
     RESUME,
     PAUSE,
     SUSPEND_AND_RESUME,
-  }
+}
 
 declare global {
     interface Window {
-      FileMaker?: {
-        PerformScript: (name: string, parameter: string) => void;
-        PerformScriptWithOption: (
-          name: string,
-          parameter: string,
-          option: FMScriptOption
-        ) => void;
-      };
+        FileMaker?: {
+            PerformScript: (name: string, parameter: string) => void;
+            PerformScriptWithOption: (name: string, parameter: string, option: FMScriptOption) => void;
+        };
     }
-  }
+}
