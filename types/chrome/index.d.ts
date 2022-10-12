@@ -10209,11 +10209,12 @@ declare namespace chrome.tts {
         charIndex?: number | undefined;
         /** Optional. The error description, if the event type is 'error'. */
         errorMessage?: string | undefined;
-        /** The length of the next part of the utterance. 
+        /**
+         * The length of the next part of the utterance. 
          * For example, in a word event, this is the length of the word which will be spoken next. 
          * It will be set to -1 if not set by the speech engine.
          */
-        length?: number;
+        length?: number | undefined;
         /**
          * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
          * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
