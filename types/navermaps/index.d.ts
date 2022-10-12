@@ -266,6 +266,18 @@ declare namespace naver.maps {
     interface ControlOptions {
         position: Position;
     }
+    type LogoControlOptions = ControlOptions;
+    type MapDataControlOptions = ControlOptions;
+    type ScaleControlOptions = ControlOptions;
+
+    interface ZoomControlOptions extends ControlOptions {
+        style?: ZoomControlStyle;
+        legendDisabled?: boolean;
+    }
+    interface MapTypeControlOptions extends ControlOptions {
+        mapTypeIds: MapTypeId[] | null;
+        style: MapTypeControlStyle;
+    }
 
     interface CircleOptions {
         map?: Map | undefined;
@@ -346,13 +358,6 @@ declare namespace naver.maps {
         fromCoordToPoint(coord: Coord): Point;
         fromPointToCoord(point: Point): Coord;
     }
-    interface CadastralLayerOptions {
-        overlayMap: boolean | undefined;
-        zIndex: number | undefined;
-    }
-    interface AroundControlOptions {
-        position: Position;
-    }
     interface NaverImageMapTypeOptions {
         maxZoom?: number | undefined;
         minZoom?: number | undefined;
@@ -360,42 +365,31 @@ declare namespace naver.maps {
         tileSize?: Size | undefined;
         hd?: string | undefined;
     }
-    interface LogoControlOptions {
-        position: Position;
-    }
-    interface MapDataControlOptions {
-        position: Position;
-    }
-    interface MapTypeControlOptions {
-        mapTypeIds: MapTypeId[] | null;
-        position: Position;
-        style: MapTypeControlStyle;
-    }
-    interface ScaleControlOptions {
-        position: Position;
-    }
-    interface ZoomControlOptions {
-        position: Position;
-        style?: ZoomControlStyle;
-        legendDisabled?: boolean;
-    }
+
+    /**
+     * LayerOptions
+     */
     interface LayerOptions {
-        hd: boolean;
-        overlayMap: boolean | undefined;
-        zIndex: number | undefined;
+        hd?: boolean;
+        overlayMap?: boolean;
+        zIndex?: number;
     }
+    // Deprecated!!
+    // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.CadastralLayer.html#toc15__anchor
     interface CadastralLayerOptions {
         overlayMap: boolean | undefined;
         zIndex: number | undefined;
     }
+    // Deprecated!!
+    // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.StreetLayer.html#toc15__anchor
     interface StreetLayerOptions {
-        overlayMap: boolean | undefined;
-        zIndex: number | undefined;
+        overlayMap: boolean;
+        zIndex: number;
     }
     interface TrafficLayerOptions {
-        interval: number;
-        overlayMap: boolean | undefined;
-        zIndex: number | undefined;
+        interval?: number;
+        overlayMap?: boolean;
+        zIndex?: number;
     }
     interface HtmlIcon {
         content: string | HTMLElement;
@@ -939,7 +933,7 @@ declare namespace naver.maps {
         getElement(): HTMLElement;
         getMap(): Map | null;
         getOptions(key?: string): any;
-        html(html?: string): string | undefined;
+        html(html?: string): string;
         setMap(map?: Map | null): void;
         setOptions(newOptions: ControlOptions): void;
         setPosition(position: Position): void;
@@ -984,7 +978,8 @@ declare namespace naver.maps {
      * Layer
      */
     class Layer extends KVO {
-        constructor(name: string, MapTypeRegistry: MapTypeRegistry, options: LayerOptions);
+        name: string;
+        constructor(name: string, MapTypeRegistry: MapTypeRegistry, options?: LayerOptions);
         getLayerType(): MapType;
         getLayerTypeId(): string;
         getMap(): Map | null;
@@ -995,23 +990,38 @@ declare namespace naver.maps {
         setMap(map: Map | null): void;
         setOpacity(opacity: number): void;
     }
-    // Naver Layers
+
+    /**
+     * LabelLayer
+     */
     class LabelLayer extends Layer {
-        constructor(name: string, registry: ImageMapType, option: any);
+        constructor(name: string, registry: ImageMapType, option?: any);
     }
+
+    /**
+     * CadastralLayer
+     */
     class CadastralLayer extends LabelLayer {
-        name: string;
         constructor(option?: CadastralLayerOptions);
     }
+
+    /**
+     * StreetLayer
+     */
     class StreetLayer extends LabelLayer {
-        name: string;
         constructor(option?: StreetLayerOptions);
     }
+
+    /**
+     * TrafficLayer
+     */
     class TrafficLayer extends LabelLayer {
-        name: string;
         constructor(option?: TrafficLayerOptions);
         endAutoRefresh(): void;
+        getRTSVersion(): number;
         startAutoRefresh(): void;
+        refreshRTSVersion(): void;
+
     }
     // Data Layer
     class Data extends KVO {
@@ -1214,6 +1224,10 @@ declare namespace naver.maps {
     }
 
     // Sub module: panorama
+
+    interface AroundControlOptions {
+        position: Position;
+    }
     class PanoramaProjection extends KVO {
         fromCoordToPov(coord: LatLng): PanoramaPov;
     }
