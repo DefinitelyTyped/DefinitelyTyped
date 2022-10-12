@@ -1,4 +1,3 @@
-// Definitions by: Eric Luce <https://github.com/eluce2>
 /// <reference lib="dom" />
 
 import { FMScriptOption } from 'filemaker-webviewer';
