@@ -7617,10 +7617,10 @@ declare namespace chrome.scripting {
     type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
     interface RegisteredContentScript {
+        id: string;
         allFrames?: boolean;
         css?: string[];
         excludeMatches?: string[];
-        id: string;
         js?: string[];
         matches?: string[];
         persistAcrossSessions?: boolean;
