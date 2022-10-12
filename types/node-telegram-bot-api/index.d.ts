@@ -789,24 +789,41 @@ declare namespace TelegramBot {
         can_pin_messages?: boolean | undefined;
     }
 
-    interface Sticker {
-        file_id: string;
-        file_unique_id: string;
+    type StickerType = 'regular' | 'mask' | 'custom_emoji';
+
+    interface Sticker extends FileBase {
+        type: StickerType;
         is_animated: boolean;
+        is_video: boolean;
         width: number;
         height: number;
         thumb?: PhotoSize | undefined;
         emoji?: string | undefined;
         set_name?: string | undefined;
+        premium_animation?: File | undefined;
         mask_position?: MaskPosition | undefined;
-        file_size?: number | undefined;
+        custom_emoji_id?: string | undefined;
     }
 
     interface StickerSet {
         name: string;
         title: string;
-        contains_masks: boolean;
+        sticker_type: StickerType;
+        is_animated: boolean;
+        is_video: boolean;
         stickers: Sticker[];
+        thumb?: PhotoSize | undefined;
+    }
+
+    interface CreateStickerSetOptions {
+        tgs_sticker?: string | Stream | Buffer;
+        webm_sticker?: string | Stream | Buffer;
+        sticker_type?: 'regular' | 'mask';
+        mask_position?: MaskPosition;
+    }
+
+    interface AddStickerToSetOptions {
+        mask_position?: MaskPosition;
     }
 
     interface MaskPosition {
@@ -1386,6 +1403,61 @@ declare class TelegramBot extends EventEmitter {
         options?: TelegramBot.SendStickerOptions,
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<TelegramBot.Message>;
+
+    getStickerSet(
+        name: string,
+        options?: {},
+    ): Promise<TelegramBot.StickerSet>;
+
+    getCustomEmojiStickers(
+        customEmojiIds: string[],
+        options?: {},
+    ): Promise<TelegramBot.Sticker[]>;
+
+    uploadStickerFile(
+        userId: string,
+        pngSticker: string | Stream | Buffer,
+        options?: {},
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<TelegramBot.File>;
+
+    createNewStickerSet(
+        userId: string,
+        name: string,
+        title: string,
+        pngSticker: string | Stream | Buffer,
+        emojis: string,
+        options?: TelegramBot.CreateStickerSetOptions,
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
+
+    addStickerToSet(
+        userId: string,
+        name: string,
+        sticker: string | Stream | Buffer,
+        emojis: string,
+        stickerType: 'png_sticker' | 'tgs_sticker' | 'webm_sticker',
+        options?: TelegramBot.AddStickerToSetOptions,
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
+
+    setStickerPositionInSet(
+        sticker: string,
+        position: number,
+    ): Promise<boolean>;
+
+    deleteStickerFromSet(
+        sticker: string,
+        options?: {},
+    ): Promise<boolean>;
+
+    setStickerSetThumb(
+        userId: string,
+        name: string,
+        pngThumb: string | Stream | Buffer,
+        options?: {},
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
 
     sendVideo(
         chatId: TelegramBot.ChatId,

@@ -350,3 +350,11 @@ MyTelegramBot.setMyDefaultAdministratorRights({
 });
 MyTelegramBot.getMyDefaultAdministratorRights({});
 MyTelegramBot.answerWebAppQuery('query_id', res);
+MyTelegramBot.getStickerSet('custom-set-name');
+MyTelegramBot.getCustomEmojiStickers(['123', '986']);
+MyTelegramBot.uploadStickerFile('user_id', 'my_png_sticker_file');
+MyTelegramBot.createNewStickerSet('user_id', 'short_name', 'my sticker set name', 'my_png_sticker_file', 'hello');
+MyTelegramBot.addStickerToSet('user_id', 'custom_sticker', 'sticker_path', 'emoji', 'png_sticker');
+MyTelegramBot.setStickerPositionInSet('sticker_on_position_one', 2);
+MyTelegramBot.deleteStickerFromSet('sticker_on_position_one');
+MyTelegramBot.setStickerSetThumb('user_id', 'my_set_thumb', 'thumb_file');
