@@ -789,7 +789,7 @@ async function testTtsVoice() {
         console.log('\tremote: ' + voice.remote);
         console.log('\textensionId: ' + voice.extensionId);
         console.log('\teventTypes: ' + voice.eventTypes);
-    }),
+    });
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
