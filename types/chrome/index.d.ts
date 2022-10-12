@@ -10210,8 +10210,8 @@ declare namespace chrome.tts {
         /** Optional. The error description, if the event type is 'error'. */
         errorMessage?: string | undefined;
         /**
-         * The length of the next part of the utterance. 
-         * For example, in a word event, this is the length of the word which will be spoken next. 
+         * The length of the next part of the utterance.
+         * For example, in a word event, this is the length of the word which will be spoken next.
          * It will be set to -1 if not set by the speech engine.
          */
         length?: number | undefined;
