@@ -5,7 +5,7 @@
 //                 Minchul Joh <https://github.com/fclemonschool>
 //                 Suhwan Cha <https://github.com/suhwancha>
 //                 Yellowinq <https://github.com/hig4342>
-//                 Kkokko Jeong <https://github.com/kkokkojeong>
+//                 kkokko Jeong <https://github.com/kkokkojeong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace naver.maps {
     /***** static members *****/
@@ -55,7 +55,6 @@ declare namespace naver.maps {
     type strokeLineCapType = 'butt' | 'round' | 'square';
     type strokeLineJoinType = 'miter' | 'round' | 'bevel';
 
-    
     // --------------------------------------------------------------------------
     //  Interfaces
     // --------------------------------------------------------------------------
@@ -118,6 +117,7 @@ declare namespace naver.maps {
         baseTileOpacity?: number;
         bounds?: Bounds | BoundsLiteral;
         center?: Coord | CoordLiteral; // default naver.maps.LatLng(37.5666103, 126.9783882)
+        zoom?: number; // default 16
         disableDoubleClickZoom?: boolean;
         disableDoubleTapZoom?: boolean;
         disableKineticPan?: boolean;
@@ -146,7 +146,6 @@ declare namespace naver.maps {
         tileSpare?: number;
         tileTransition?: boolean;
         tileDuration?: number;
-        zoom?: number; // default 16
         zoomControl?: boolean;
         zoomControlOptions?: ZoomControlOptions;
         zoomOrigin?: Coord | CoordLiteral;
@@ -185,17 +184,6 @@ declare namespace naver.maps {
         anchorSkew?: boolean | undefined;
         anchorSize?: Size | SizeLiteral | undefined;
         anchorColor?: string | undefined;
-    }
-    interface ImageTileOptions {
-        urls: string[];
-        imgonload?: (() => any) | undefined;
-        imgonerror?: (() => any) | undefined;
-        opacity?: number | undefined;
-        transition?: boolean | undefined;
-        offset?: Point | undefined;
-        zIndex?: number | undefined;
-        size?: Size | undefined;
-        pane?: HTMLElement | undefined;
     }
     interface ImageMapTypeOptions {
         name: string;
@@ -284,39 +272,43 @@ declare namespace naver.maps {
         visible?: boolean | undefined;
         zIndex?: number | undefined;
     }
+
+    /**
+     * Tile Options
+     */
     interface TileOptions {
-        opacity?: number | undefined;
-        transition?: boolean | undefined;
-        offset?: Point | undefined;
-        zIndex?: number | undefined;
-        size?: Size | undefined;
-        pane?: HTMLElement | undefined;
+        opacity?: number;
+        duration?: number;
+        transition?: boolean;
+        offset?: Point;
+        zIndex?: number;
+        size?: Size;
+        pane?: HTMLElement;
+    }
+    interface CanvasTileOptions extends TileOptions {
+        imageData?: ImageData;
+    }
+    interface ImageTileOptions {
+        urls: string[];
+        imgonload?: (img: HTMLImageElement) => void;
+        imgonerror?: (img: HTMLImageElement) => void;
     }
     interface TileIndex {
         xIndex: number;
         yIndex: number;
-    }
-    interface CanvasTileOptions {
-        imageData?: ImageData | undefined;
-        opacity?: number | undefined;
-        transition?: boolean | undefined;
-        offset?: Point | undefined;
-        zIndex?: number | undefined;
-        size?: Size | undefined;
-        pane?: HTMLElement | undefined;
     }
     interface CanvasMapTypeOptions {
         name: string;
         maxZoom: number;
         minZoom: number;
         projection: Projection;
-        tileSize?: Size | SizeLiteral | undefined;
+        tileSize?: Size | SizeLiteral;
         repeatX?: boolean | undefined;
         vendor?: string | undefined;
-        provider?: MapDataProvider[] | undefined;
-        uid?: string | undefined;
-        darktheme?: boolean | undefined;
-        getTileData?: (() => any) | undefined;
+        provider?: MapDataProvider[];
+        uid?: string;
+        darktheme?: boolean ;
+        getTileData?: (() => any);
     }
     interface MapDataProvider {
         title: string;
@@ -329,7 +321,7 @@ declare namespace naver.maps {
         name: string;
         projection: Projection;
         tileSize: Size;
-        getTile(x: number, y: number, z: number): HTMLElement | Tile;
+        getTile(x: number, y: number, z: number): HTMLElement | CanvasTile | ImageTile | Tile;
     }
     interface Projection {
         fromCoordToPoint(coord: Coord): Point;
@@ -365,8 +357,8 @@ declare namespace naver.maps {
     }
     interface ZoomControlOptions {
         position: Position;
-        style: ZoomControlStyle;
-        legendDisabled: boolean;
+        style?: ZoomControlStyle;
+        legendDisabled?: boolean;
     }
     interface LayerOptions {
         hd: boolean;
@@ -592,7 +584,10 @@ declare namespace naver.maps {
         clearListeners(eventName: string): void;
         trigger(eventName: string, eventObject?: any): void;
     }
-    
+
+    /**
+     * KVOArray
+     */
     class KVOArray<T> extends KVO {
         constructor(array: T[]);
         clear(): void;
@@ -609,7 +604,7 @@ declare namespace naver.maps {
         setAt(index: number, element: T): void;
         splice(startIndex: number, deleteCount: number, ...newElement: T[]): T[];
     }
-    
+
     /**
      * Point
      */
@@ -774,7 +769,8 @@ declare namespace naver.maps {
         appendTo(parentNode: HTMLElement): void;
         cancelFadeIn(): void;
         destroy(): void;
-        fadeIn(callback: () => any, startOpacity?: number): void;
+        fadeIn(callback: () => void, startOpacity?: number): void;
+        getDuration(): number;
         getElement(): HTMLElement;
         getOffset(): Point;
         getOpacity(): number;
@@ -782,7 +778,7 @@ declare namespace naver.maps {
         getTileIndex(): TileIndex;
         getZIndex(): number;
         hide(): void;
-        load(tileOptions?: TileOptions): void;
+        load(tileOptions?: TileOptions, loaded?: () => void): void;
         remove(): void;
         reset(mapType: MapType, zoom: number, tileOptions?: TileOptions): void;
         setBlank(): void;
@@ -794,19 +790,31 @@ declare namespace naver.maps {
         setZIndex(zIndex: number): void;
         show(): void;
     }
+
+    /**
+     * CanvasTile
+     */
     class CanvasTile extends Tile {
         constructor(canvasTileOptions: CanvasTileOptions);
+        getElements(): [HTMLElement, HTMLCanvasElement];
     }
+
+    /**
+     * ImageTile
+     */
     class ImageTile extends Tile {
         constructor(imageTileOptions: ImageTileOptions);
         getImageElements(): HTMLElement[];
         getUrls(): string[];
         setUrls(urls: string[]): void;
     }
-    // Map.MapType
+
+    /**
+     * CanvasMapType
+     */
     class CanvasMapType implements MapType {
-        maxZoom: number;
         minZoom: number;
+        maxZoom: number;
         name: string;
         projection: Projection;
         tileSize: Size;
@@ -819,12 +827,18 @@ declare namespace naver.maps {
         getTileData(x: number, y: number, z: number): ImageData;
         setMapTypeOptions(canvasMapTypeOptions: CanvasMapTypeOptions): void;
     }
+
+    /**
+     * ImageMapType
+     */
     class ImageMapType implements MapType {
         maxZoom: number;
         minZoom: number;
         name: string;
         projection: Projection;
         tileSize: Size;
+        repeatX: boolean;
+        vendor: string;
         constructor(imageMapTypeOptions: ImageMapTypeOptions);
         getMapTypeOptions(): ImageMapTypeOptions;
         getMaxZoom(): number;
@@ -841,7 +855,7 @@ declare namespace naver.maps {
     class MapTypeRegistry extends KVO {
         uid?: string;
         VENDOR?: string;
-        constructor(mapTypeInfo: { [mapTypeId: string]: MapType }, defaultMapTypeId?: string);
+        constructor(mapTypeInfo?: { [mapTypeId: string]: MapType }, defaultMapTypeId?: string);
         getPreviousTypeId(): string;
         getSelectedType(): MapType;
         getSelectedTypeId(): string;
@@ -1160,7 +1174,7 @@ declare namespace naver.maps {
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
         aroundControl: AroundControl | null;
-        controls: KVOArray<any>[];
+        controls: any; // KVOArray<any>[];
         getLocation(): PanoramaLocation;
         getMaxScale(): number;
         getMaxZoom(): number;
