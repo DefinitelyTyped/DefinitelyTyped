@@ -1073,6 +1073,15 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] }); // $ExpectType InjectionResult<unknown>[]
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
+
+    await chrome.scripting.registerContentScripts([
+        { id: 'id1', js: ['script1.js'] },
+        { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
+        { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
+    ]);
+    await chrome.scripting.unregisterContentScripts({ ids: ['id1', 'id2'] });
+    await chrome.scripting.unregisterContentScripts({ files: ['script1.js', 'style1.css'] });
+    await chrome.scripting.getRegisteredContentScripts();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu
