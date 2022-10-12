@@ -7677,10 +7677,25 @@ declare namespace chrome.scripting {
     export function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
 
     /**
-     * Unregisters one or more content scripts.
+     * Registers one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[], callback?: () => void): void;
+
+    /**
+     * Unregister one or more content scripts.
      * @param filter
+     * @param callback
      */
     export function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter, callback?: () => void): void;
 
     /**
      * Returns all the content scripts registered with scripting.registerContentScripts()
@@ -7688,6 +7703,14 @@ declare namespace chrome.scripting {
      * @param filter
      */
     export function getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     * @param callback
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback?: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
