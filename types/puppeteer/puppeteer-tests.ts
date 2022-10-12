@@ -220,6 +220,25 @@ puppeteer.launch().then(async browser => {
   browser.close();
 })();
 
+// Example with launch headless options
+(async () => {
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
+    headless: 'chrome',
+    defaultViewport: { width: 800, height: 600 },
+    handleSIGINT: true,
+    handleSIGHUP: true,
+    handleSIGTERM: true,
+  });
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  await page.screenshot({ path: "example.png" });
+  browser.close();
+})();
+
 // `product` support
 (async () => {
     await puppeteer.launch({
