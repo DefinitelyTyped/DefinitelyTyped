@@ -10260,8 +10260,8 @@ declare namespace chrome.tts {
     /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
     export function stop(): void;
     /** Gets an array of all available voices. */
-    export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     export function getVoices(): Promise<TtsVoice[]>;
+    export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     /**
      * Speaks text using a text-to-speech engine.
      * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
