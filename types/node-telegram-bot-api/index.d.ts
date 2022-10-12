@@ -1424,8 +1424,8 @@ declare class TelegramBot extends EventEmitter {
         userId: string,
         name: string,
         title: string,
+        pngSticker: string | Stream | Buffer,
         emojis: string,
-        pngSticker?: string | Stream | Buffer,
         options?: TelegramBot.CreateStickerSetOptions,
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<boolean>;
