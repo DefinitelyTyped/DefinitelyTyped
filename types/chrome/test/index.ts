@@ -771,7 +771,7 @@ function testStorage() {
 }
 
 // https://developer.chrome.com/apps/tts#type-TtsVoice
-function testTtsVoice() {
+async function testTtsVoice() {
     chrome.tts.getVoices(voices =>
         voices.forEach(voice => {
             console.log(voice.voiceName);
@@ -781,6 +781,15 @@ function testTtsVoice() {
             console.log('\teventTypes: ' + voice.eventTypes);
         }),
     );
+
+    const voices = await chrome.tts.getVoices();
+    voices.forEach(voice => {
+        console.log(voice.voiceName);
+        console.log('\tlang: ' + voice.lang);
+        console.log('\tremote: ' + voice.remote);
+        console.log('\textensionId: ' + voice.extensionId);
+        console.log('\teventTypes: ' + voice.eventTypes);
+    }),
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
