@@ -185,19 +185,30 @@ declare namespace naver.maps {
         anchorSize?: Size | SizeLiteral | undefined;
         anchorColor?: string | undefined;
     }
+
+    /**
+     * ImageMapTypeOptions
+     */
     interface ImageMapTypeOptions {
-        name: string;
-        maxZoom: number;
-        minZoom: number;
-        projection: Projection;
-        tileSize?: Size | SizeLiteral | undefined;
-        repeatX?: boolean | undefined;
-        vendor?: string | undefined;
-        provider?: MapDataProvider[] | undefined;
-        uid?: string | undefined;
-        darktheme?: boolean | undefined;
-        getTileUrl?: (() => any) | undefined;
-        tileSet?: string | string[] | undefined;
+        name?: string;
+        maxZoom?: number;
+        minZoom?: number;
+        projection?: Projection;
+        tileSize?: Size | SizeLiteral;
+        repeatX?: boolean;
+        vendor?: string;
+        provider?: MapDataProvider[];
+        uid?: string;
+        darktheme?: boolean;
+        getTileUrl?: (x: number, y: number, z: number) => string[];
+        tileSet?: string | string[];
+    }
+
+    /**
+     * StyleMapTypeOptions
+     */
+    interface StyleMapTypeOptions extends ImageMapTypeOptions {
+        hd?: string;
     }
     interface GroundOverlayOptions {
         clickable?: boolean | undefined;
@@ -288,7 +299,7 @@ declare namespace naver.maps {
     interface CanvasTileOptions extends TileOptions {
         imageData?: ImageData;
     }
-    interface ImageTileOptions {
+    interface ImageTileOptions extends TileOptions {
         urls: string[];
         imgonload?: (img: HTMLImageElement) => void;
         imgonerror?: (img: HTMLImageElement) => void;
@@ -310,11 +321,19 @@ declare namespace naver.maps {
         darktheme?: boolean ;
         getTileData?: (() => any);
     }
+
+    /**
+     * MapDataProvider
+     */
     interface MapDataProvider {
         title: string;
         link?: string | undefined;
-        bounds?: Bounds | BoundsLiteral | ArrayOfBounds | ArrayOfBoundsLiteral | undefined;
+        bounds?: Bounds | BoundsLiteral | ArrayOfBounds | ArrayOfBoundsLiteral;
     }
+
+    /**
+     * MapType
+     */
     interface MapType {
         maxZoom: number;
         minZoom: number;
@@ -507,11 +526,11 @@ declare namespace naver.maps {
      * Enums
      */
     enum MapTypeControlStyle {
-        BUTTON,
+        BUTTON = 1,
         DROPDOWN,
     }
     enum ZoomControlStyle {
-        LARGE,
+        LARGE = 1,
         SMALL,
     }
 
@@ -868,44 +887,49 @@ declare namespace naver.maps {
      * LayerRegistry
      */
     class LayerRegistry extends KVO {
+        set(key: string, value: Layer): void;
         getLayerNames(): string[];
     }
 
-    namespace NaverStyleMapTypeOptions {
-        function getBicycleLayer(opts?: any): ImageMapType;
-        function getBlankMap(opts?: any): ImageMapType;
-        function getCadastralLayer(opts?: any): ImageMapType;
-        function getHybridMap(opts?: any): ImageMapType;
-        function getMapTypes(opts?: any): MapTypeRegistry;
-        function getNormalLabelLayer(opts?: any): ImageMapType;
-        function getNormalMap(opts?: any): ImageMapType;
-        function getSatelliteLabelLayer(opts?: any): ImageMapType;
-        function getSatelliteMap(opts?: any): ImageMapType;
-        function getStreetLayer(opts?: any): ImageMapType;
-        function getTerrainMap(opts?: any): ImageMapType;
-        function getTrafficLayer(opts?: any): ImageMapType;
-        function getVectorMap(opts?: any): ImageMapType;
-        function getWorldMap(opts?: any): ImageMapType;
+    /**
+     * NaverStyleMapTypeOptions
+     */
+    class NaverStyleMapTypeOptions {
+        constructor(options: StyleMapTypeOptions);
+        static getBicycleLayer(opts: ImageMapTypeOptions): ImageMapType;
+        static getBlankMap(opts: ImageMapTypeOptions): ImageMapType;
+        static getCadastralLayer(opts: ImageMapTypeOptions): ImageMapType;
+        static getHybridMap(opts: ImageMapTypeOptions): ImageMapType;
+        static getMapTypes(opts: ImageMapTypeOptions): ImageMapType;
+        static getNormalLabelLayer(opts: ImageMapTypeOptions): ImageMapType;
+        static getNormalMap(opts: ImageMapTypeOptions): ImageMapType;
+        static getSatelliteLabelLayer(opts: ImageMapTypeOptions): ImageMapType;
+        static getSatelliteMap(opts: ImageMapTypeOptions): ImageMapType;
+        static getStreetLayer(opts: ImageMapTypeOptions): ImageMapType;
+        static getTerrainMap(opts: ImageMapTypeOptions): ImageMapType;
+        static getTrafficLayer(opts: ImageMapTypeOptions): ImageMapType;
+        static getVectorMap(opts: ImageMapTypeOptions): ImageMapType;
+        static getWorldMap(opts: ImageMapTypeOptions): ImageMapType;
     }
 
-    // Map.MapType.Preset
-    function NaverMapTypeOption(options: NaverImageMapTypeOptions): void;
-    namespace NaverMapTypeOption {
-        function getBicycleLayer(opts: NaverImageMapTypeOptions): ImageMapType;
-        function getBlankMap(opts: NaverImageMapTypeOptions): ImageMapType;
-        function getCadastralLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getHybridMap(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getMapTypes(opts?: NaverImageMapTypeOptions): MapTypeRegistry;
-        function getNormalLabelLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getNormalMap(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getSatelliteLabelLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getSatelliteMap(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getStreetLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getTerrainMap(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getTrafficLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getVectorMap(opts?: NaverImageMapTypeOptions): ImageMapType;
-        function getWorldMap(opts?: NaverImageMapTypeOptions): ImageMapType;
-    }
+    // Deprecated!!
+    // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.NaverMapTypeOptions.html
+    // class NaverMapTypeOptions {
+    //     static getBicycleLayer(opts: NaverImageMapTypeOptions): ImageMapType;
+    //     static getBlankMap(opts: NaverImageMapTypeOptions): ImageMapType;
+    //     static getCadastralLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getHybridMap(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getMapTypes(opts?: NaverImageMapTypeOptions): MapTypeRegistry;
+    //     static getNormalLabelLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getNormalMap(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getSatelliteLabelLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getSatelliteMap(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getStreetLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getTerrainMap(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getTrafficLayer(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getVectorMap(opts?: NaverImageMapTypeOptions): ImageMapType;
+    //     static getWorldMap(opts?: NaverImageMapTypeOptions): ImageMapType;
+    // }
 
     /**
      * CustomControl
@@ -920,23 +944,45 @@ declare namespace naver.maps {
         setOptions(newOptions: ControlOptions): void;
         setPosition(position: Position): void;
     }
-    // Naver Controls
+
+    /**
+     * LogoControl
+     */
     class LogoControl extends CustomControl {
         constructor(LogoControlOptions: LogoControlOptions);
     }
+
+    /**
+     * MapDataControl
+     */
     class MapDataControl extends CustomControl {
         constructor(MapDataControlOptions: MapDataControlOptions);
     }
+
+    /**
+     * MapTypeControl
+     */
     class MapTypeControl extends CustomControl {
         constructor(MapTypeControlOptions: MapTypeControlOptions);
     }
+
+    /**
+     * ScaleControl
+     */
     class ScaleControl extends CustomControl {
         constructor(ScaleControlOptions: ScaleControlOptions);
     }
+
+    /**
+     * ZoomControl
+     */
     class ZoomControl extends CustomControl {
         constructor(ZoomControlOptions: ZoomControlOptions);
     }
-    // Layer
+
+    /**
+     * Layer
+     */
     class Layer extends KVO {
         constructor(name: string, MapTypeRegistry: MapTypeRegistry, options: LayerOptions);
         getLayerType(): MapType;
