@@ -12,7 +12,7 @@ nacl.instantiate((inst: nacl.Nacl) => {
     demo_random(inst);
 });
 
-demo_async_instantiate()
+demo_async_instantiate();
 
 function demo_hex(inst: nacl.Nacl): void {
     const hex = "1234567890ABCDEF";
