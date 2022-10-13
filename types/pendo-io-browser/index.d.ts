@@ -7,31 +7,41 @@
 declare namespace pendo {
     interface Identity {
         /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie */
-        visitor?: IdentityMetadata | undefined;
-        account?: IdentityMetadata | undefined;
-        parentAccount?: IdentityMetadata | undefined;
+        visitor?: IdentityVisitorMetadata;
+        account?: IdentityAccountMetadata;
+        parentAccount?: IdentityMetadata;
     }
 
     interface Metadata {
         [key: string]: string | number | boolean | string[];
     }
 
-    type IdentityMetadata = { id?: string | undefined; } & Metadata;
+    type IdentityAccountMetadata = {
+        id?: string;
+        name?: string
+    } & Metadata;
+
+    type IdentityVisitorMetadata = {
+        id?: string;
+        name?: string
+        email?: string
+        role?: string
+    } & Metadata;
 
     interface InitOptions extends Identity {
-        apiKey?: string | undefined;
-        excludeAllText?: boolean | undefined;
-        excludeTitle?: boolean | undefined;
-        disablePersistence?: boolean | undefined;
+        apiKey?: string;
+        excludeAllText?: boolean;
+        excludeTitle?: boolean;
+        disablePersistence?: boolean;
         guides?: {
-            delay?: boolean | undefined;
-            disable?: boolean | undefined;
-            timeout?: number | undefined;
+            delay?: boolean;
+            disable?: boolean;
+            timeout?: number;
             tooltip?: {
-                arrowSize?: number | undefined;
-            } | undefined
-        } | undefined;
-        events?: EventCallbacks | undefined;
+                arrowSize?: number;
+            }
+        };
+        events?: EventCallbacks;
     }
 
     interface EventCallbacks {
@@ -153,12 +163,12 @@ declare namespace pendo {
         type: string;
         elementPathRule: string;
         contentType: string;
-        contentUrl?: string | undefined;
-        contentUrlCss?: string | undefined;
-        contentUrlJs?: string | undefined;
+        contentUrl?: string;
+        contentUrlCss?: string;
+        contentUrlJs?: string;
         rank: number;
         advanceMethod: "button" | "programatic" /* sic */ | "element";
-        thumbnailUrls?: string | undefined;
+        thumbnailUrls?: string;
         attributes: {
             height: number;
             width: number;
