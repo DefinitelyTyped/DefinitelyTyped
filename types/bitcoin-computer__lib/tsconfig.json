@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "bitcoin-computer-tests.ts"
+        "bitcoin-computer__lib-tests.ts"
     ]
 }
