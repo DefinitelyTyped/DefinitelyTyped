@@ -1,4 +1,4 @@
-import inliner from '@geakstr/sass-inline-svg';
+import inliner = require('@geakstr/sass-inline-svg');
 
 inliner('my-path', {
     optimize: true,
