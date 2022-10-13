@@ -1,10 +1,10 @@
-// Type definitions for D3JS d3-sankey module 0.11
+// Type definitions for D3JS d3-sankey module 0.12
 // Project: https://github.com/d3/d3-sankey/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-// Last module patch version validated against: 0.11
+// Last module patch version validated against: 0.12
 
 import { Link } from 'd3-shape';
 
@@ -349,6 +349,18 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
      * @param compare Node comparison function.
      */
     nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number): this;
+
+    /**
+     * Returns the link comparison function which defaults to undefined.
+     */
+     linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined;
+
+     /**
+      * Set the link comparison function and return this Sankey layout generator.
+      *
+      * @param compare Link comparison function.
+      */
+      linkSort(compare: (a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number | undefined | null): this;
 }
 
 /**
