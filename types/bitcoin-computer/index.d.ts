@@ -2,7 +2,6 @@
 // Project: https://github.com/bitcoin-computer/monorepo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: jonty007 <https://github.com/jonty007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
 
 declare module '@bitcoin-computer/node';
 declare module '@bitcoin-computer/lib' {
