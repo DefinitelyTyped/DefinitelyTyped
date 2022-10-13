@@ -13,7 +13,9 @@ import { Link } from 'd3-shape';
  * nodes and links in the graph, which are not required or calculated by
  * the Sankey layout Generator
  */
-export interface SankeyExtraProperties { [key: string]: any; }
+export interface SankeyExtraProperties {
+    [key: string]: any;
+}
 
 /**
  * Helper interface to define the properties of Sankey Nodes. Calculated properties may only be defined,
@@ -353,14 +355,14 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
     /**
      * Returns the link comparison function which defaults to undefined.
      */
-     linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined;
+    linkSort(): ((a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number) | undefined;
 
-     /**
-      * Set the link comparison function and return this Sankey layout generator.
-      *
-      * @param compare Link comparison function.
-      */
-      linkSort(compare: (a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number | undefined | null): this;
+    /**
+     * Set the link comparison function and return this Sankey layout generator.
+     *
+     * @param compare Link comparison function.
+     */
+    linkSort(compare: (a: SankeyLink<N, L>, b: SankeyLink<N, L>) => number | undefined | null): this;
 }
 
 /**
@@ -385,7 +387,11 @@ export function sankey(): SankeyLayout<SankeyGraph<{}, {}>, {}, {}>;
  * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
  * SankeyLinkMinimal interface.
  */
-export function sankey<N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): SankeyLayout<SankeyGraph<N, L>, N, L>;
+export function sankey<N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): SankeyLayout<
+    SankeyGraph<N, L>,
+    N,
+    L
+>;
 /**
  * Get a Sankey layout generator.
  *
@@ -403,7 +409,11 @@ export function sankey<N extends SankeyExtraProperties, L extends SankeyExtraPro
  * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
  * SankeyLinkMinimal interface.
  */
-export function sankey<Data, N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): SankeyLayout<Data, N, L>;
+export function sankey<Data, N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): SankeyLayout<
+    Data,
+    N,
+    L
+>;
 
 /**
  * Compute the horizontal node position of a node in a Sankey layout with left alignment.
@@ -462,4 +472,8 @@ export function sankeyLinkHorizontal(): Link<any, SankeyLink<{}, {}>, [number, n
  * Sankey layout generator. These properties are IN EXCESS to the properties explicitly identified in the
  * SankeyLinkMinimal interface.
  */
-export function sankeyLinkHorizontal<N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): Link<any, SankeyLink<N, L>, [number, number]>;
+export function sankeyLinkHorizontal<N extends SankeyExtraProperties, L extends SankeyExtraProperties>(): Link<
+    any,
+    SankeyLink<N, L>,
+    [number, number]
+>;
