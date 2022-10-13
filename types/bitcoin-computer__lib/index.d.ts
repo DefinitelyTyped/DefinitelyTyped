@@ -5,7 +5,7 @@
 
 type Class = new (...args: any) => any;
 
-export class Computer {
+declare class Computer {
     db: any;
     constructor(params?: any);
     new<T extends Class>(
@@ -34,3 +34,5 @@ export class Computer {
     getLatestRev(id: string): Promise<string>;
     rpcCall(method: string, params: string): Promise<any>;
 }
+
+export { Computer };
