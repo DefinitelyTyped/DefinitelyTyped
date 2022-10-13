@@ -348,7 +348,7 @@ export interface SankeyLayout<Data, N extends SankeyExtraProperties, L extends S
      *
      * @param compare Node comparison function.
      */
-    nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number): this;
+    nodeSort(compare: (a: SankeyNode<N, L>, b: SankeyNode<N, L>) => number | undefined | null): this;
 
     /**
      * Returns the link comparison function which defaults to undefined.

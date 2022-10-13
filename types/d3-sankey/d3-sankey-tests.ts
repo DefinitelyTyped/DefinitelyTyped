@@ -238,6 +238,15 @@ slgDAG = slgDAG.iterations(40);
 num = slgDAG.iterations();
 
 // ---------------------------------------------------------------------------
+// nodeSort
+// ---------------------------------------------------------------------------
+
+// test multiple definitions
+slgDAG = slgDAG.nodeSort((node: SNode) => node.index === 0 ? 1 : -1);
+slgDAG = slgDAG.nodeSort(() => undefined);
+slgDAG = slgDAG.nodeSort((node: SNode) => node.name === 'test' ? null : undefined);
+
+// ---------------------------------------------------------------------------
 // LinkSort
 // ---------------------------------------------------------------------------
 
