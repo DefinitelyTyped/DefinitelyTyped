@@ -1,5 +1,5 @@
-// Type definitions for @bitcoin-computer/lib 0.9
-// Project: https://github.com/bitcoin-computer/monorepo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
+// Type definitions for @bitcoin-computer/lib 0.10
+// Project: https://github.com/bitcoin-computer/monorepo
 // Definitions by: jonty007 <https://github.com/jonty007>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
