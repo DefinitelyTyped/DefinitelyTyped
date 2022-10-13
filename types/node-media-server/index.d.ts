@@ -43,29 +43,29 @@ interface AuthConfig {
 
 interface TransConfig {
     ffmpeg: string;
-    tasks: [TransTaskConfig];
+    tasks: TransTaskConfig[];
 }
 
 interface RelayConfig {
-    tasks: [RelayTaskConfig];
+    tasks: RelayTaskConfig[];
     ffmpeg: string;
 }
 
 interface FissionConfig {
     ffmpeg: string;
-    tasks: [FissionTaskConfig];
+    tasks: FissionTaskConfig[];
 }
 
 interface TransTaskConfig {
     app: string;
     hls?: boolean;
     hlsFlags?: string;
-    dash?: true;
+    dash?: boolean;
     dashFlags?: string;
     vc?: string;
-    vcParam?: [string];
+    vcParam?: string[];
     ac?: string;
-    acParam?: [string];
+    acParam?: string[];
     rtmp?: boolean;
     rtmpApp?: string;
     mp4?: boolean;
@@ -82,7 +82,7 @@ interface RelayTaskConfig {
 
 interface FissionTaskConfig {
     rule: string;
-    model: [FissionTaskModel];
+    model: FissionTaskModel[];
 }
 
 interface FissionTaskModel {
