@@ -1,4 +1,4 @@
-import dasherize from 'dasherize';
+import dasherize = require('dasherize');
 
 {
     /*

@@ -4,9 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.5
 
-export default function dasherize<T>(data: T): DasherizeReturnType<T>;
-
-export {};
+declare function dasherize<T>(data: T): DasherizeReturnType<T>;
+export = dasherize;
 
 type DasherizeReturnType<T> = T extends string
     ? DashCase<T, string>
@@ -23,10 +22,10 @@ type ParseObjToDashCase<TObj extends Record<string, unknown>> = {
 type DashCase<
     TStringToParse extends string,
     TAlreadyParsedString extends string = '',
-> = TStringToParse extends `${infer F}${infer R}`
+    > = TStringToParse extends `${infer F}${infer R}`
     ? F extends Lowercase<F>
-        ? DashCase<R, `${TAlreadyParsedString}${F}`>
-        : DashCase<LowerCasedFirstWord<R>, `${AddHyphenSuffixIfNotTheEmptyString<TAlreadyParsedString>}${Lowercase<F>}`>
+    ? DashCase<R, `${TAlreadyParsedString}${F}`>
+    : DashCase<LowerCasedFirstWord<R>, `${AddHyphenSuffixIfNotTheEmptyString<TAlreadyParsedString>}${Lowercase<F>}`>
     : TAlreadyParsedString;
 
 type AddHyphenSuffixIfNotTheEmptyString<T extends string> = T extends '' ? '' : `${T}-`;
