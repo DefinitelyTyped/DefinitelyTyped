@@ -12,6 +12,7 @@ new StaticMaps({
     paddingY: 1,
     tileUrl: 'https://tile.server/{x}/{y}/{z}',
     tileSize: 50,
+    tileSubdomains: ['a', 'b', 'c'],
     tileRequestLimit: 2,
     tileRequestTimeout: 2000,
     tileRequestHeader: {

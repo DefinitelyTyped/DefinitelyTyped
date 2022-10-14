@@ -1,4 +1,4 @@
-// Type definitions for staticmaps 1.5
+// Type definitions for staticmaps 1.10
 // Project: https://github.com/StephanGeorg/staticmaps#readme
 // Definitions by: Olivier Kamers <https://github.com/olivierkamers>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
@@ -41,7 +41,7 @@ declare namespace StaticMaps {
          * Subdomains of tile server
          * @default []
          */
-        subdomains?: string[] | undefined;
+        tileSubdomains?: string[] | undefined;
         tileRequestTimeout?: number | undefined;
         tileRequestHeader?: object | undefined;
         /**
