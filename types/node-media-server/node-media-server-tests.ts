@@ -48,3 +48,28 @@ nms.getSession('1');
 
 // $ExpectType void
 nms.stop();
+
+const dashTrueNMS = new NodeMediaServer({
+    trans: {
+        ffmpeg: '',
+        tasks: [
+            {
+                app: 'test',
+                dash: true
+            }
+        ]
+    }
+});
+
+const dashStringNMS = new NodeMediaServer({
+    trans: {
+        ffmpeg: '',
+        tasks: [
+            {
+                app: 'test',
+                // @ts-expect-error
+                dash: 'somestring'
+            }
+        ]
+    }
+});
