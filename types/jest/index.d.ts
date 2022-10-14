@@ -212,6 +212,11 @@ declare namespace jest {
      */
     function getRealSystemTime(): number;
     /**
+     * Retrieves the seed value. It will be randomly generated for each test run
+     * or can be manually set via the `--seed` CLI argument.
+     */
+    function getSeed(): number;
+    /**
      * Returns the current time in ms of the fake timer clock.
      */
     function now(): number;
