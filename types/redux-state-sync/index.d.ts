@@ -43,7 +43,7 @@ export function createMessageListener(config: MessageListenerConfig): void;
 export function createStateSyncMiddleware(config?: Config): Middleware;
 export function withReduxStateSync<T extends Reducer>(
     appReducer: T,
-    prepareInitialStateForStore?: (state: any) => any,
+    prepareInitialStateForStore?: Config['receiveState'],
 ): T;
 export function initStateWithPrevTab(store: Store): Store;
 export function initMessageListener(store: Store): Store;

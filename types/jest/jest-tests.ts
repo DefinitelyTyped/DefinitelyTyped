@@ -389,6 +389,11 @@ jest.runOnlyPendingTimers();
 jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ timerLimit: 50 });
+
+jest.useFakeTimers({ legacyFakeTimers: true });
+// @ts-expect-error
+jest.useFakeTimers({ legacyFakeTimers: true, timerLimit: 50 });
+
 // @ts-expect-error
 jest.useFakeTimers('legacy');
 // @ts-expect-error
@@ -407,6 +412,11 @@ jest.setSystemTime('foo');
 const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
+
+// $ExpectType number
+jest.now();
+// @ts-expect-error
+jest.now('1995-12-17T03:24:00');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
@@ -572,6 +582,18 @@ const spy3Mock = spy3
     .mockReturnThis()
     .mockReturnValue('value')
     .mockReturnValueOnce('value');
+
+// $ExpectType void
+spy3.withImplementation(
+    () => 'mocked value',
+    () => {},
+);
+
+// $ExpectType Promise<void>
+spy3.withImplementation(
+    () => 'mocked value',
+    async () => {},
+);
 
 const spiedPromiseTarget = {
     resolvesString() {
@@ -1040,12 +1062,14 @@ describe('', () => {
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn()).lastReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(0, 'jest');
-        expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn()).nthCalledWith(1, 'jest');
+        expect(jest.fn()).nthCalledWith(2, {});
 
-        expect(jest.fn()).nthReturnedWith(0, 'jest');
-        expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn()).nthReturnedWith(1, 'jest');
+        expect(jest.fn()).nthReturnedWith(2, {});
+        expect(jest.fn()).nthReturnedWith(3);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1130,12 +1154,14 @@ describe('', () => {
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+        expect(jest.fn()).toHaveLastReturnedWith();
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
-        expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
-        expect(jest.fn()).toHaveNthReturnedWith(1, {});
+        expect(jest.fn()).toHaveNthReturnedWith(1, 'jest');
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -1151,6 +1177,7 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
@@ -1208,6 +1235,7 @@ describe('', () => {
 
         expect(jest.fn()).toReturnWith('jest');
         expect(jest.fn()).toReturnWith({});
+        expect(jest.fn()).toReturnWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});

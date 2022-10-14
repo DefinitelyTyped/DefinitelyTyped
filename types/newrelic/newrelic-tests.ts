@@ -38,6 +38,9 @@ newrelic.addIgnoringRule('^/items/[0-9]+$'); // $ExpectType void
 newrelic.addIgnoringRule(/^[0-9]+$/); // $ExpectType void
 
 newrelic.getBrowserTimingHeader(); // $ExpectType string
+newrelic.getBrowserTimingHeader({ nonce: 'foo' }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true, nonce: 'foo' }); // $ExpectType string
 
 newrelic.startSegment('foo', false, () => 'bar'); // $ExpectType string
 newrelic.startSegment('foo', false, () => 'bar', () => 'baz'); // $ExpectType string

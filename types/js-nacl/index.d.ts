@@ -5,7 +5,7 @@
 
 // instantiate is the main entry point to generate a Nacl instance,
 // which contains all functionality
-export function instantiate(cb: NaclCallback, opts?: NaclOpts): void;
+export function instantiate(cb: NaclCallback, opts?: NaclOpts): Promise<Nacl>;
 
 export type NaclCallback = (nacl: Nacl) => void;
 export interface NaclOpts {

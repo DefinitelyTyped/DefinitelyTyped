@@ -57,7 +57,7 @@ interface AbortController {
 }
 
 /** A signal object that allows you to communicate with a DOM request (such as a Fetch) and abort it if required via an AbortController object. */
-interface AbortSignal {
+interface AbortSignal extends EventTarget {
     /**
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
@@ -73,6 +73,7 @@ declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
     // TODO: Add abort() static
+    timeout(milliseconds: number): AbortSignal;
 };
 //#endregion borrowed
 
@@ -87,6 +88,7 @@ interface RelativeIndexable<T> {
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
+interface ReadonlyArray<T> extends RelativeIndexable<T> {}
 interface Int8Array extends RelativeIndexable<number> {}
 interface Uint8Array extends RelativeIndexable<number> {}
 interface Uint8ClampedArray extends RelativeIndexable<number> {}

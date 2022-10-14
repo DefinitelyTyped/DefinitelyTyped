@@ -10,7 +10,7 @@ import Engine from '@ember/engine';
 import ApplicationInstance from '@ember/application/instance';
 import EventDispatcher from '@ember/application/-private/event-dispatcher';
 import { EventDispatcherEvents } from '@ember/application/types';
-import { Router } from '@ember/routing';
+import Router from '@ember/routing/router';
 import Registry from '@ember/application/-private/registry';
 import Resolver from 'ember-resolver';
 import { AnyFn } from 'ember/-private/type-utils';
@@ -60,7 +60,11 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: unknown, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
+    register(
+        fullName: string,
+        factory: unknown,
+        options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined },
+    ): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.

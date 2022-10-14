@@ -12,6 +12,8 @@ nacl.instantiate((inst: nacl.Nacl) => {
     demo_random(inst);
 });
 
+demo_async_instantiate();
+
 function demo_hex(inst: nacl.Nacl): void {
     const hex = "1234567890ABCDEF";
     const bin = inst.from_hex(hex);
@@ -75,4 +77,8 @@ function demo_derived(inst: nacl.Nacl): void {
 
 function demo_random(inst: nacl.Nacl): void {
     inst.random_bytes(32); // $ExpectType Uint8Array
+}
+
+async function demo_async_instantiate() {
+  await nacl.instantiate(() => {}); // $ExpectType Nacl
 }

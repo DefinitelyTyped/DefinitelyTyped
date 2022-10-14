@@ -680,6 +680,22 @@ declare namespace Xrm {
             preventDefaultOnError(): void;
         }
 
+        interface SaveEventArgumentsAsync extends SaveEventArguments {
+            /**
+             * @summary Call to prevent default 10 second timeout in async OnSave event handlers.
+             * @description When using an async save the handler will wait for the promise to be fulfilled.
+             * To ensure that a save completes in a timely manner the handler throws a timeout exception after
+             * 10 seconds to let you know to tune the async OnSave event for better performance. When the
+             * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
+             * to wait for that handler's promise to be fulfilled.
+
+             * This should be used with caution as it might affect the performance of the form save.
+
+             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#async-onsave-timeouts Async onSave timeouts}
+             */
+            disableAsyncTimeout(): void;
+        }
+
         /**
          * Interface for process stage change event arguments.
          */
@@ -757,7 +773,7 @@ declare namespace Xrm {
 
         /**
          * Interface for the event context.
-         * In the API documentation, this is sometimes refferred to as the executionContext.
+         * In the API documentation, this is sometimes referred to as the executionContext.
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/clientapi-execution-context External Link: Client API execution context}
          * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
@@ -808,14 +824,111 @@ declare namespace Xrm {
         }
 
         /**
-         * Interface for a save event context
+        * Form Data OnLoad event context.
+        * In the API documentation, this is sometimes referred to as the executionContext.
+
+        * Subscribe to this event with {@link Data.addOnLoad()}
+        * Not to be confused with {@link LoadEventContext}, registered in the designer.
+
+        * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+        */
+        interface DataLoadEventContext extends EventContext {
+            /**
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+             */
+            getEventArgs(): DataLoadEventArguments;
+        }
+
+        /**
+         * Return value of {@link DataLoadEventContext.getEventArgs()}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+         */
+        interface DataLoadEventArguments {
+            getDataLoadState(): XrmEnum.FormDataLoadState;
+        }
+
+        /**
+         * Synchronous Form OnLoad event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+
+         * Asynchronous version see {@link LoadEventContextAsync}
+
+         * Not to be confused with {@link DataLoadEventContext}
+
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         */
+        interface LoadEventContext extends EventContext {
+            /**
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+             */
+            getEventArgs(): LoadEventArguments;
+        }
+
+        /**
+         * Return value of {@link LoadEventContext.getEventArgs()}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+         */
+        interface LoadEventArguments {
+            getDataLoadState(): XrmEnum.FormDataLoadState;
+        }
+
+        /**
+         * Asynchronous Form OnLoad event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+
+         * Synchronous version see {@link LoadEventContext}
+
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         */
+        interface LoadEventContextAsync extends LoadEventContext {
+            getEventArgs(): LoadEventArgumentsAsync;
+        }
+
+        interface LoadEventArgumentsAsync extends LoadEventArguments {
+            /**
+             * @summary Call to prevent default 10 second timeout in async OnLoad event handlers.
+             * @description When using an async load the handler will wait for the promise to be fulfilled.
+             * To ensure that a load completes in a timely manner the handler throws a timeout exception after
+             * 10 seconds to let you know to tune the async OnLoad event for better performance. When the
+             * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
+             * to wait for that handler's promise to be fulfilled.
+
+             * This should be used with caution as it might affect the performance of the form load.
+
+             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onload#async-onload-timeouts Async onLoad timeouts}
+             */
+            disableAsyncTimeout(): void;
+        }
+
+        /**
+         * Synchronous Form OnSave event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+
+         * Asynchronous version see {@link SaveEventContextAsync}
+
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave Form OnSave event}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
          */
         interface SaveEventContext extends EventContext {
             /**
              * Gets save-event arguments.
-             * @returns The event arguments.  Returns null for all but the "save" event.
              */
             getEventArgs(): SaveEventArguments;
+        }
+
+        /**
+         * Asynchronous Form OnSave event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+
+         * Synchronous version see {@link SaveEventContext}
+
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         */
+        interface SaveEventContextAsync extends SaveEventContext {
+            getEventArgs(): SaveEventArgumentsAsync;
         }
 
         /**
@@ -858,9 +971,40 @@ declare namespace Xrm {
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
 
+        type LoadEventHandler = (context: LoadEventContext) => void;
+        type LoadEventHandlerAsync = (context: LoadEventContextAsync) => void;
+
+        type DataLoadEventHandler = (context: DataLoadEventContext) => void;
+
+        type SaveEventHandler = (context: SaveEventContext) => void;
+        type SaveEventHandlerAsync = (context: SaveEventContextAsync) => PromiseLike<void>;
+
+        type PostSaveEventHandler = (context: EventContext) => void;
+
         type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
 
         type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
+
+        namespace Attribute {
+            type ChangeEventHandler = (context: ChangeEventContext) => void;
+            interface ChangeEventContext extends EventContext { }
+        }
+
+        namespace GridControl {
+            type LoadEventHandler = (context: LoadEventContext) => void;
+            interface LoadEventContext extends EventContext { }
+        }
+
+        namespace KbSearchControl {
+            type PostSearchEventHandler = (context: PostSearchEventContext) => void;
+            interface PostSearchEventContext extends EventContext { }
+
+            type ResultOpenedEventHandler = (context: ResultOpenedEventContext) => void;
+            interface ResultOpenedEventContext extends EventContext { }
+
+            type SelectionEventHandler = (context: SelectionEventContext) => void;
+            interface SelectionEventContext extends EventContext { }
+        }
     }
 
     /**
@@ -894,7 +1038,7 @@ declare namespace Xrm {
          * Adds a function to be called when form data is loaded.
          * @param handler The function to be executed when the form data loads. The function will be added to the bottom of the event handler pipeline.
          */
-        addOnLoad(handler: Events.ContextSensitiveHandler): void;
+        addOnLoad(handler: Events.DataLoadEventHandler): void;
 
         /**
          * Gets a boolean value indicating whether the form data has been modified.
@@ -1062,6 +1206,13 @@ declare namespace Xrm {
      */
     interface Ui {
         /**
+         * Adds a function to be called on the form OnLoad event.
+         * The function will be added to the bottom of the event handler pipeline.
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addonload ui.addOnLoad (Client API reference)}
+         */
+        addOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
+
+        /**
          * Displays a form level notification. Any number of notifications can be displayed and will remain until removed using clearFormNotification.
          * The height of the notification area is limited so each new message will be added to the top.
          * @param message The text of the notification message.
@@ -1131,6 +1282,12 @@ declare namespace Xrm {
          * @remarks This method does not work with Microsoft Dynamics CRM for tablets.
          */
         refreshRibbon(refreshAll?: boolean): void;
+
+        /**
+         * Removes a function from the form OnLoad event.
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeonload ui.removeOnLoad (Client API reference)}
+         */
+        removeOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
 
         /**
          * Sets the name of the table to be displayed on the form.
@@ -1924,7 +2081,8 @@ declare namespace Xrm {
         /**
          * Interface for a process stage select event context
          * @deprecated  Use {@link Xrm.Events.StageSelectedEventContext} instead.
-         */ interface StageSelectedEventContext extends Events.StageSelectedEventContext { }
+         */
+        interface StageSelectedEventContext extends Events.StageSelectedEventContext { }
 
         /**
          * Type for a context-sensitive handler.
@@ -2464,7 +2622,7 @@ declare namespace Xrm {
              * Adds a handler to be called when the attribute's value is changed.
              * @param handler The function reference.
              */
-            addOnChange(handler: Events.ContextSensitiveHandler): void;
+            addOnChange(handler: Events.Attribute.ChangeEventHandler): void;
 
             /**
              * Fire all "on change" event handlers.
@@ -2549,7 +2707,7 @@ declare namespace Xrm {
              * Removes the handler from the "on change" event.
              * @param handler The handler.
              */
-            removeOnChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnChange(handler: Events.Attribute.ChangeEventHandler): void;
 
             /**
              * Sets the required level.
@@ -2696,13 +2854,13 @@ declare namespace Xrm {
              * A collection of all the controls on the form that interface with this attribute.
              * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
              */
-             controls: Collection.ItemCollection<Controls.BooleanControl>;
+            controls: Collection.ItemCollection<Controls.BooleanControl>;
 
             /**
              * Gets the attribute format.
              * @returns the string "boolean"
              **/
-             getAttributeType(): "boolean";
+            getAttributeType(): "boolean";
         }
 
         /**
@@ -3162,9 +3320,9 @@ declare namespace Xrm {
         }
 
         /**
-         * Interface for a Boolean (yes/no) control.
-         * @see {@link StandardControl}
-         */
+        * Interface for a Boolean (yes/no) control.
+        * @see {@link StandardControl}
+        */
         interface BooleanControl extends StandardControl {
             /**
              * Gets the control's bound attribute.
@@ -3366,7 +3524,7 @@ declare namespace Xrm {
              *
              * @param handler The event handler.
              */
-            addOnLoad(handler: Events.ContextSensitiveHandler): void;
+            addOnLoad(handler: Events.GridControl.LoadEventHandler): void;
 
             /**
              * This method returns context information about the GridControl.
@@ -3572,15 +3730,15 @@ declare namespace Xrm {
               * Adds an event handler to the PostSearch event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonpostsave
               */
-            addOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+            addOnPostSearch(handler: Events.KbSearchControl.PostSearchEventHandler): void;
 
             /**
               * Adds an event handler to the OnResultOpened event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened
               */
-            addOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+            addOnResultOpened(handler: Events.KbSearchControl.ResultOpenedEventHandler): void;
 
-            addOnSelection(handler: Events.ContextSensitiveHandler): void;
+            addOnSelection(handler: Events.KbSearchControl.SelectionEventHandler): void;
 
             /**
               * Gets the text used as the search criteria for the knowledge base management control.
@@ -3615,21 +3773,21 @@ declare namespace Xrm {
               * @param handler The function to remove from the PostSearch event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch
               */
-            removeOnPostSearch(handler: Events.ContextSensitiveHandler): void;
+            removeOnPostSearch(handler: Events.KbSearchControl.PostSearchEventHandler): void;
 
             /**
               * Removes an event handler from the OnResultOpened event.
               * @param handler The function to remove from the OnResultOpened event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened
               */
-            removeOnResultOpened(handler: Events.ContextSensitiveHandler): void;
+            removeOnResultOpened(handler: Events.KbSearchControl.ResultOpenedEventHandler): void;
 
             /**
               * Removes an event handler from the OnResultSelection event.
               * @param handler The function to remove from the OnSelection event.
               * @see https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/controls/removeonselection
               */
-            removeOnSelection(handler: Events.ContextSensitiveHandler): void;
+            removeOnSelection(handler: Events.KbSearchControl.SelectionEventHandler): void;
 
             /**
               * Sets the text used as the search criteria for the knowledge base search control.
@@ -4151,13 +4309,13 @@ declare namespace Xrm {
          * @remarks Added in 9.2
          * @see {@link https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/events/postsave External Link: PostSave Event Documentation}
          */
-        addOnPostSave(handler: Events.ContextSensitiveHandler): void;
+        addOnPostSave(handler: Events.PostSaveEventHandler): void;
 
         /**
          * Adds a handler to be called when the record is saved.
          * @param handler The handler.
          */
-        addOnSave(handler: Events.ContextSensitiveHandler): void;
+        addOnSave(handler: Events.SaveEventHandler | Events.SaveEventHandlerAsync): void;
 
         /**
          * Gets an serialized-XML string representing data that will be passed to the server upon saving the record.
@@ -4208,10 +4366,15 @@ declare namespace Xrm {
         isValid(): boolean;
 
         /**
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsave removeOnPostSave (Client API reference)}
+         */
+        removeOnPostSave(handler: Events.PostSaveEventHandler): void;
+
+        /**
          * Removes the handler from the "on save" event.
          * @param handler The handler.
          */
-        removeOnSave(handler: Events.ContextSensitiveHandler): void;
+        removeOnSave(handler: Events.SaveEventHandler | Events.SaveEventHandlerAsync): void;
 
         /**
          * Saves the record synchronously with the options to close the form or open a new form after the save is completed.
@@ -5971,6 +6134,16 @@ declare namespace XrmEnum {
          * @deprecated ReadOptimized has been deprecated.
          */
         ReadOptimized = 11,
+    }
+
+    /**
+     * Possible state of form data load.
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+     */
+    const enum FormDataLoadState {
+        InitialLoad = 1,
+        Save = 2,
+        Refresh = 3,
     }
 
     /**

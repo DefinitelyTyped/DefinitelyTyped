@@ -20,6 +20,7 @@ declare namespace prompt {
         before?: BeforeFunction | undefined;
         name?: string | undefined;
         raw?: [string, string] | undefined;
+        hidden?: boolean;
     };
 
     interface Properties {
