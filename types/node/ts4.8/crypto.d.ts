@@ -3737,7 +3737,8 @@ declare module 'crypto' {
              * - `'PBKDF2'`
              * @since v15.0.0
              */
-            deriveBits(algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number | null): Promise<ArrayBuffer>;
+            deriveBits(algorithm: EcdhKeyDeriveParams, baseKey: CryptoKey, length: number | null): Promise<ArrayBuffer>;
+            deriveBits(algorithm: AlgorithmIdentifier | HkdfParams | Pbkdf2Params, baseKey: CryptoKey, length: number): Promise<ArrayBuffer>;
             /**
              * Using the method and parameters specified in `algorithm`, and the keying material provided by `baseKey`,
              * `subtle.deriveKey()` attempts to generate a new <CryptoKey>` based on the method and parameters in `derivedKeyAlgorithm`.
