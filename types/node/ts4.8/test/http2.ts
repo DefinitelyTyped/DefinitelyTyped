@@ -316,14 +316,14 @@ import { URL } from 'node:url';
         // writeEarlyHints
         const earlyHintsLink = '</styles.css>; rel=preload; as=style';
         response.writeEarlyHints({
-            'link': earlyHintsLink,
+            link: earlyHintsLink,
         });
         const earlyHintsLinks = [
             '</styles.css>; rel=preload; as=style',
             '</scripts.js>; rel=preload; as=script',
         ];
         response.writeEarlyHints({
-            'link': earlyHintsLinks,
+            link: earlyHintsLinks,
             'x-trace-id': 'id for diagnostics'
         });
 

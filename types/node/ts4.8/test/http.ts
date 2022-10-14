@@ -221,14 +221,14 @@ import * as dns from 'node:dns';
     // writeEarlyHints
     const earlyHintsLink = '</styles.css>; rel=preload; as=style';
     res.writeEarlyHints({
-        'link': earlyHintsLink,
+        link: earlyHintsLink,
     });
     const earlyHintsLinks = [
         '</styles.css>; rel=preload; as=style',
         '</scripts.js>; rel=preload; as=script',
     ];
     res.writeEarlyHints({
-        'link': earlyHintsLinks,
+        link: earlyHintsLinks,
         'x-trace-id': 'id for diagnostics'
     });
     const earlyHintsCallback = () => console.log('early hints message sent');

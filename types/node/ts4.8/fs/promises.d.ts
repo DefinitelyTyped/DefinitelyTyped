@@ -37,7 +37,7 @@ declare module 'fs/promises' {
         WriteStream,
         WriteVResult,
     } from 'node:fs';
-    import { Interface as ReadlineInterface } from 'node:readline'
+    import { Interface as ReadlineInterface } from 'node:readline';
 
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
