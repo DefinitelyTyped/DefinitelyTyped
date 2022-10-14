@@ -288,6 +288,8 @@ async () => {
         encoding: 'base64',
     });
 
+    typeof blob === 'object' && blob.type;
+
     blob.size; // $ExpectType number
     blob.type; // $ExpectType string
 

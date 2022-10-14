@@ -169,8 +169,8 @@ declare module 'buffer' {
     import { Blob as NodeBlob } from 'buffer';
     // This conditional type will be the existing global Blob in a browser, or
     // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any, Blob: infer T }
-        ? T : NodeBlob;
+    type __Blob = typeof globalThis extends { onmessage: any }
+        ? {} : NodeBlob;
     global {
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
