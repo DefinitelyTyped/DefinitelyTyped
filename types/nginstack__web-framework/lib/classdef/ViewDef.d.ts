@@ -22,7 +22,7 @@ declare class ViewDef {
     zoomImageOnHover: boolean;
     canNavigate: boolean;
     tooltip: string;
-    field(name: string, type?: string, size?: number, ...args: any[]): any;
+    field(name: string, type?: string, size?: number, ...args: any[]): Field;
     defineGrid(gridName: string, func: (arg0: any) => any): void;
     toString(): string;
     fileAttributes(vfsKey: number): {
@@ -33,4 +33,8 @@ declare class ViewDef {
         tooltip: string;
     };
 }
+declare namespace ViewDef {
+    export { Field };
+}
 import Logger = require('@nginstack/engine/lib/log/Logger.js');
+type Field = import('@nginstack/engine/lib/classdef/Field');
