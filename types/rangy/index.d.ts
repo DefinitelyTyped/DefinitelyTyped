@@ -33,6 +33,7 @@ interface RangyRange extends Range {
     refresh():any;
     select():any;
     toCharacterRange(containerNode:Node, opts?: any):{start:number, end:number};
+    nativeRange:Range;
 }
 
 interface RangySelection extends Selection {
