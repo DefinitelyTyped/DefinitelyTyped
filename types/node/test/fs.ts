@@ -475,9 +475,7 @@ async () => {
 
     handle.readableWebStream();
 
-    for await (const line of handle.readLines()) {
-        const _line: string = line;
-    }
+    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterableIterator<string>
 };
 
 {

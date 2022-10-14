@@ -233,7 +233,7 @@ import * as dns from 'node:dns';
     });
     const earlyHintsCallback = () => console.log('early hints message sent');
     res.writeEarlyHints({
-        'link': earlyHintsLinks
+        link: earlyHintsLinks
     }, earlyHintsCallback);
 
     // writeHead
