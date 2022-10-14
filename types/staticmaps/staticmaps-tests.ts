@@ -91,6 +91,19 @@ map.addText({
     offsetY: 100
 });
 
+// addCircle
+map.addCircle({
+    coord: [13.437524, 52.4945528],
+    radius: 50,
+});
+map.addCircle({
+    coord: [13.437524, 52.4945528],
+    radius: 100,
+    color: '#ffffff',
+    width: 5,
+    fill: '#000000'
+});
+
 // render
 map.render();
 map.render([13.437524, 52.4945528], 15);

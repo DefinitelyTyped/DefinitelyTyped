@@ -14,6 +14,7 @@ declare class StaticMaps {
     addMultiPolygon: (options: StaticMaps.AddMultiPolygonOptions) => void;
     addMarker: (options: StaticMaps.AddMarkerOptions) => void;
     addText: (options: StaticMaps.AddTextOptions) => void;
+    addCircle: (options: StaticMaps.AddCircleOptions) => void;
     render: (center?: ReadonlyArray<number>, zoom?: number) => Promise<void>;
     image: StaticMapsImage;
 }
@@ -107,6 +108,26 @@ declare namespace StaticMaps {
         | 'start'
         | 'middle'
         | 'end';
+
+    interface AddCircleOptions {
+        coord: [number, number];
+        radius: number;
+        /**
+         * Stroke color of the circle
+         * @default '#000000BB'
+         */
+        color?: string;
+        /**
+         * Stroke width of circle
+         * @default 3
+         */
+        width?: number | undefined;
+        /**
+         * Fill color of the circle
+         * @default '#AA0000BB'
+         */
+        fill?: string | undefined;
+    }
 }
 
 export = StaticMaps;
