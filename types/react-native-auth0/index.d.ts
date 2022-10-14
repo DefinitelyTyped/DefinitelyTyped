@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.13
+// Type definitions for react-native-auth0 2.14
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
@@ -7,6 +7,7 @@
 //                 Bogdan Vitoc <https://github.com/bogidon>
 //                 Yam Mesicka <https://github.com/yammesicka>
 //                 Mathias Djärv <https://github.com/mdjarv>
+//                 Greg Friedman <https://github.com/gfriedm4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -22,9 +23,14 @@ export interface AuthorizeUrlParams {
 
 export interface CreateUserParams<T> {
     email: string;
-    username?: string | undefined;
     password: string;
     connection: string;
+    username?: string | undefined;
+    given_name?: string | undefined;
+    family_name?: string | undefined;
+    name?: string | undefined;
+    nickname?: string | undefined;
+    picture?: string | undefined;
     metadata?: T | undefined;
 }
 
@@ -47,6 +53,23 @@ export interface ExchangeParams {
     code: string;
     redirectUri: string;
     verifier: string;
+}
+
+export interface ExchangeNativeSocialResponse {
+    accessToken: string;
+    expiresIn: number;
+    idToken: string;
+    refreshToken: string;
+    scope?: string | undefined;
+    tokenType: string;
+}
+
+export interface ExchangeNativeSocialParams {
+    subjectToken: string;
+    subjectTokenType: string;
+    audience?: string | undefined;
+    scope?: string | undefined;
+    userProfile?: any | undefined;
 }
 
 export interface LogoutParams {
@@ -129,6 +152,28 @@ export interface LoginWithSMSParams {
     scope?: string | undefined;
 }
 
+export interface LoginWithOTPParams {
+    mfaToken: string;
+    otp: string;
+}
+
+export interface LoginWithOOBParams {
+    mfaToken: string;
+    oobCode: string;
+    bindingCode?: string | undefined;
+}
+
+export interface LoginWithRecoveryCodeParams {
+    mfaToken: string;
+    recoveryCode: string;
+}
+
+export interface MultiFactorChallengeParams {
+    mfaToken: string;
+    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob' | undefined;
+    authenticatorId?: string | undefined;
+}
+
 export type UserInfo<CustomClaims = {}> = {
     email: string;
     emailVerified: boolean;
@@ -146,6 +191,7 @@ export class Auth {
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<ExchangeResponse>;
+    exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<ExchangeNativeSocialResponse>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
     refreshToken(params: RefreshTokenParams): Promise<RefreshTokenResponse>;
@@ -157,6 +203,10 @@ export class Auth {
     passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
     loginWithEmail(params: LoginWithEmailParams): Promise<any>;
     loginWithSMS(params: LoginWithSMSParams): Promise<any>;
+    loginWithOTP(params: LoginWithOTPParams): Promise<any>;
+    loginWithOOB(params: LoginWithOOBParams): Promise<any>;
+    loginWithRecoveryCode(params: LoginWithRecoveryCodeParams): Promise<any>;
+    multifactorChallenge(params: MultiFactorChallengeParams): Promise<any>;
 }
 
 /**

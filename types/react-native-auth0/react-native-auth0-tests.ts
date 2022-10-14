@@ -24,6 +24,24 @@ auth0.auth.exchange({
     verifier: 'verifier',
 });
 
+auth0.auth.exchangeNativeSocial({
+    subjectToken: 'a subject token',
+    subjectTokenType: 'a subject token type',
+});
+
+auth0.auth.exchangeNativeSocial({
+    subjectToken: 'a subject token',
+    subjectTokenType: 'a subject token type',
+    userProfile: {
+        name: {
+            firstName: 'John',
+            lastName: 'Smith',
+        },
+    },
+    audience: 'http://myapi.com',
+    scope: 'openid',
+});
+
 auth0.auth.logoutUrl({
     federated: true,
     clientId: 'client-id',
@@ -133,8 +151,7 @@ auth0.webAuth
     // @ts-expect-error
     .then(credentials => credentials.doesNotExist);
 
-auth0.webAuth
-.authorize({
+auth0.webAuth.authorize({
     state: 'state',
     nonce: 'nonce',
     scope: 'openid',
@@ -186,4 +203,35 @@ auth0.auth.loginWithEmail({
 auth0.auth.loginWithSMS({
     phoneNumber: 'info@auth0.com',
     code: '123456',
+});
+
+auth0.auth.loginWithOTP({
+    mfaToken: '1234',
+    otp: '1234',
+});
+
+auth0.auth.loginWithOOB({
+    mfaToken: '1234',
+    oobCode: '123',
+});
+
+auth0.auth.loginWithOOB({
+    mfaToken: '1234',
+    oobCode: '123',
+    bindingCode: '1234',
+});
+
+auth0.auth.loginWithRecoveryCode({
+    mfaToken: '123',
+    recoveryCode: '123',
+});
+
+auth0.auth.multifactorChallenge({
+    mfaToken: '123',
+});
+
+auth0.auth.multifactorChallenge({
+    mfaToken: '123',
+    authenticatorId: '12345',
+    challengeType: 'oob otp',
 });
