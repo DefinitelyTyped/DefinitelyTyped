@@ -422,7 +422,7 @@ export declare class LCD {
 }
 
 export interface LedOption {
-    pin: number;
+    pin: number | string;
     type?: string | undefined;
     controller?: string | undefined;
     address?: number | undefined;
@@ -430,7 +430,7 @@ export interface LedOption {
 }
 
 export declare class Led {
-    constructor(option: number | LedOption);
+    constructor(option: LedOption['pin'] | LedOption);
 
     id: string;
     pin: number;
