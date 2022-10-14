@@ -40,11 +40,13 @@ declare class Security {
     getMimeTypesWithPermissionControl(): number[];
     private userCanModifyKeyUnsafe_;
     userCanModifyKey(key: number, classKey: number, userKey?: number): boolean;
-    userCanModifyRecord(ds: any, userKey?: number): boolean;
+    userCanModifyRecord(ds: DataSet, userKey?: number): boolean;
     getUserScopes(userKey: DBKey | number): string[];
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Security {
-    function getInstance(): Security;
+    export { getInstance, DataSet };
 }
 import DBKey = require('../dbkey/DBKey.js');
+type DataSet = import('../dataset/DataSet');
+declare function getInstance(): Security;
