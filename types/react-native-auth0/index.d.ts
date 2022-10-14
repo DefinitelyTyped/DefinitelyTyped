@@ -300,12 +300,40 @@ export interface Options {
 }
 
 /**
+ * Credentials Manager
+ */
+
+export interface SaveCredentialsParams {
+    idToken: string;
+    accessToken: string;
+    tokenType: string;
+    expiresIn: number;
+    refreshToken?: string | undefined;
+    scope?: string | undefined;
+}
+
+export class CredentialsManager {
+    constructor(domain: string, clientId: string);
+    saveCredentials(params: SaveCredentialsParams): boolean;
+    getCredentials(scope?: string | undefined, minTtl?: number | undefined, parameters?: any): Credentials;
+    requireLocalAuthentication(
+        title?: string | undefined,
+        description?: string | undefined,
+        cancelTitle?: string | undefined,
+        fallbackTitle?: string | undefined,
+    ): void;
+    hasValidCredentials(minTtl?: number | undefined): boolean;
+    clearCredentials(): boolean;
+}
+
+/**
  * Auth0
  */
 
 export default class Auth0 {
     auth: Auth;
     webAuth: WebAuth;
+    credentialsManager: CredentialsManager;
     constructor(options: Options);
 
     users(token: string): Users;

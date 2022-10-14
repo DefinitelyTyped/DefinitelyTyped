@@ -235,3 +235,32 @@ auth0.auth.multifactorChallenge({
     authenticatorId: '12345',
     challengeType: 'oob otp',
 });
+
+auth0.credentialsManager.saveCredentials({
+    accessToken: 'an access token',
+    expiresIn: 123,
+    idToken: 'an id token',
+    tokenType: 'a token type',
+});
+
+auth0.credentialsManager.saveCredentials({
+    accessToken: 'an access token',
+    expiresIn: 123,
+    idToken: 'an id token',
+    tokenType: 'a token type',
+    refreshToken: 'a refresh token',
+    scope: 'a scope',
+});
+
+const cleared: boolean = auth0.credentialsManager.clearCredentials();
+
+const { accessToken } = auth0.credentialsManager.getCredentials();
+
+const { idToken } = auth0.credentialsManager.getCredentials('a scope', 0, {});
+
+auth0.credentialsManager.requireLocalAuthentication();
+
+auth0.credentialsManager.requireLocalAuthentication('a title', 'a description', 'a cancel title', 'a fallback title');
+
+let hasValidCreds: boolean = auth0.credentialsManager.hasValidCredentials();
+hasValidCreds = auth0.credentialsManager.hasValidCredentials(123);
