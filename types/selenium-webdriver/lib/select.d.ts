@@ -78,7 +78,7 @@ export class Select {
      * Returns first Selected Option
      * @returns {Promise<Element>}
      */
-    getFirstSelectedOption(): Promise<WebElement>;
+    getFirstSelectedOption(): Promise<WebElement | undefined>;
 
     /**
      * Deselects all selected options
