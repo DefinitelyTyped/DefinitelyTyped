@@ -109,6 +109,13 @@ export interface BoardOption {
     io?: any;
 }
 
+export interface BoardLogEvent {
+    type: 'info' | 'warn' | 'fail';
+    timestamp: number;
+    class: string;
+    message: string;
+}
+
 export declare class Board {
     constructor(option?: BoardOption);
 
@@ -119,9 +126,15 @@ export declare class Board {
     pins: Array<Pin>;
     port: string;
 
-    on(event: string, cb: () => void): this;
-    on(event: "ready", cb: () => void): this;
+    on(event: "close", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
+    on(event: "error", cb: (error: Error) => void): this;
+    on(event: "exit", cb: () => void): this;
+    on(event: "fail", cb: (event: BoardLogEvent) => void): this;
+    on(event: "info", cb: (event: BoardLogEvent) => void): this;
+    on(event: "message", cb: (event: BoardLogEvent) => void): this;
+    on(event: "ready", cb: () => void): this;
+    on(event: "warn", cb: (event: BoardLogEvent) => void): this;
     pinMode(pin: number | string, mode: number): void;
     analogWrite(pin: number | string, value: number): void;
     analogRead(pin: number | string, cb: (item: number) => void): void;
