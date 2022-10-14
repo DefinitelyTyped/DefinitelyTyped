@@ -214,6 +214,28 @@ import * as dns from 'node:dns';
     ] as ReadonlyArray<[string, string]>);
     res.addTrailers({ 'x-foo': 'bar' });
 
+    // writeContinue
+    res.writeContinue();
+    res.writeContinue(() => {});
+
+    // writeEarlyHints
+    const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+    res.writeEarlyHints({
+        link: earlyHintsLink,
+    });
+    const earlyHintsLinks = [
+        '</styles.css>; rel=preload; as=style',
+        '</scripts.js>; rel=preload; as=script',
+    ];
+    res.writeEarlyHints({
+        link: earlyHintsLinks,
+        'x-trace-id': 'id for diagnostics'
+    });
+    const earlyHintsCallback = () => console.log('early hints message sent');
+    res.writeEarlyHints({
+        link: earlyHintsLinks
+    }, earlyHintsCallback);
+
     // writeHead
     res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end().end();
     res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
