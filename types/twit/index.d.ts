@@ -264,6 +264,42 @@ declare module 'twit' {
         interface MediaParam {
             file_path: string;
         }
+
+        interface EventObject {
+            type: 'message_create';
+            message_create: {
+                target: {
+                    recipient_id: string;
+                },
+                message_data: {
+                    text: string;
+                    quick_reply?: {
+                        type: 'options',
+                        options: {
+                            label: string;
+                            description?: string;
+                            metadata?: string;
+                        }[];
+                    }
+                    attachment?: {
+                        type: 'location' | 'media',
+                        location?: {
+                            type: 'shared_coordinate',
+                            shared_coordinate: {
+                                coordinates: {
+                                    type: 'Point',
+                                    coordinates: number[]
+                                }
+                            }
+                        }
+                        media?: {
+                            id: string
+                        }
+                    }
+                }
+            };
+        }
+
         interface Params {
             // search/tweets
             q?: string | undefined;
@@ -324,6 +360,7 @@ declare module 'twit' {
             enable_dmcommands?: boolean | undefined;
             fail_dmcommands?: boolean | undefined;
             card_uri?: string | undefined;
+            event?: EventObject;
         }
         export interface PromiseResponse {
             data: Response;
