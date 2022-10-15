@@ -446,7 +446,7 @@ export declare class Led {
     fadeIn(ms: number): void;
     fadeOut(ms: number): void;
     pulse(ms: number): void;
-    stop(ms: number): void;
+    stop(): void;
 }
 
 export declare module Led {

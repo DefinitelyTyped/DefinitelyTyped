@@ -44,6 +44,8 @@ export type AppSyncIdentity =
  * @param TArguments type of the arguments
  * @param TSource type of the source
  */
+// Maintainer's note: Some of these properties are shared with the Amplify resolver.
+// It may be worth checking if changes here may be applicable there too.
 export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> | null> {
     arguments: TArguments;
     identity?: AppSyncIdentity;

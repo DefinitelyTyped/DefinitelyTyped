@@ -1,4 +1,4 @@
-// For Library Version: 1.106.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1424,6 +1424,8 @@ declare namespace sap {
     "sap/ui/fl/write/api/ChangesWriteAPI": undefined;
 
     "sap/ui/fl/write/api/connectors/ObjectStorageConnector": undefined;
+
+    "sap/ui/fl/write/api/ContextBasedAdaptationsAPI": undefined;
 
     "sap/ui/fl/write/api/ContextSharingAPI": undefined;
 

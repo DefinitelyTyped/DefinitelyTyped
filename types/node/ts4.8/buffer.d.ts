@@ -45,6 +45,7 @@
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
+    import { ReadableStream as WebReadableStream } from 'node:stream/web';
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -157,13 +158,20 @@ declare module 'buffer' {
          */
         text(): Promise<string>;
         /**
-         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
+         * Returns a new (WHATWG) `ReadableStream` that allows the content of the `Blob` to be read.
          * @since v16.7.0
          */
-        stream(): unknown; // pending web streams types
+        stream(): WebReadableStream;
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
+
+    import { Blob as NodeBlob } from 'buffer';
+    // This conditional type will be the existing global Blob in a browser, or
+    // the copy below in a Node environment.
+    type __Blob = typeof globalThis extends { onmessage: any, Blob: infer T }
+        ? T : NodeBlob;
+
     global {
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
@@ -2231,6 +2239,19 @@ declare module 'buffer' {
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;
+
+        interface Blob extends __Blob {}
+        /**
+         * `Blob` class is a global reference for `require('node:buffer').Blob`
+         * https://nodejs.org/api/buffer.html#class-blob
+         * @since v18.0.0
+         */
+        var Blob: typeof globalThis extends {
+            onmessage: any;
+            Blob: infer T;
+        }
+            ? T
+            : typeof NodeBlob;
     }
 }
 declare module 'node:buffer' {

@@ -23,7 +23,7 @@ MyTelegramBot.deleteWebHook();
 MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
 MyTelegramBot.processUpdate({ update_id: 1 });
-MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true });
+MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: '1',
     type: 'article',
@@ -131,7 +131,7 @@ MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
-MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245 });
+MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245, caption_entities: [{ type: 'custom_emoji', offset: 0, length: 2, custom_emoji_id: 'test_emoji' }] });
 MyTelegramBot.editMessageMedia(
     {
         media: 'photo/path',
@@ -350,3 +350,11 @@ MyTelegramBot.setMyDefaultAdministratorRights({
 });
 MyTelegramBot.getMyDefaultAdministratorRights({});
 MyTelegramBot.answerWebAppQuery('query_id', res);
+MyTelegramBot.getStickerSet('custom-set-name');
+MyTelegramBot.getCustomEmojiStickers(['123', '986']);
+MyTelegramBot.uploadStickerFile('user_id', 'my_png_sticker_file');
+MyTelegramBot.createNewStickerSet('user_id', 'short_name', 'my sticker set name', 'my_png_sticker_file', 'hello');
+MyTelegramBot.addStickerToSet('user_id', 'custom_sticker', 'sticker_path', 'emoji', 'png_sticker');
+MyTelegramBot.setStickerPositionInSet('sticker_on_position_one', 2);
+MyTelegramBot.deleteStickerFromSet('sticker_on_position_one');
+MyTelegramBot.setStickerSetThumb('user_id', 'my_set_thumb', 'thumb_file');

@@ -263,7 +263,17 @@ const graphDiv = '#test';
         },
         layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
     };
-    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template };
+
+    // Test the modebar with practical types.
+    // https://plotly.com/javascript/reference/layout/#layout-modebar
+    const modebar = {
+        color: '#ff0000',
+        bgcolor: 'rgba(0,0,0,0)',
+        activecolor: '#00ff00',
+        orientation: 'h' as 'h' | 'v',
+    };
+
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
@@ -282,6 +292,8 @@ const graphDiv = '#test';
                     },
                     click: (gd, ev) => console.log('Download data'),
                 },
+                'pan2d',
+                'zoom2d',
             ],
             ['toImage'],
         ],
@@ -893,4 +905,26 @@ function rand() {
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Scatter texttemplate
+
+(async () => {
+    const scatter = await newPlot(graphDiv, [
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: 'x: %{x}<br>y: %{y}',
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: ['x: %{x}', 'y: %{y}'],
+        },
+    ]);
 })();

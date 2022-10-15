@@ -95,6 +95,14 @@ Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
 
     if (eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose)
         eventArgs.preventDefault();
+
+    // @ts-expect-error
+    eventArgs.disableAsyncTimeout();
+});
+
+Xrm.Page.data.entity.addOnSave(async (context: Xrm.Events.SaveEventContextAsync) => {
+    const eventArgs = context.getEventArgs();
+    eventArgs.disableAsyncTimeout?.();
 });
 
 /// Demonstrate ES6 String literal with templates
@@ -293,6 +301,30 @@ const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
     formContext.data.addOnLoad(contextHandler);
     formContext.data.removeOnLoad(contextHandler);
 };
+
+function testOnLoadTypes(formContext: Xrm.FormContext) {
+    formContext.ui.addOnLoad(onLoad);
+    formContext.ui.removeOnLoad(onLoad);
+
+    function onLoad(eventContext: Xrm.Events.LoadEventContext) {
+        eventContext.getEventArgs().getDataLoadState() === 2;
+    }
+
+    formContext.ui.addOnLoad(asyncOnLoad);
+    formContext.ui.removeOnLoad(asyncOnLoad);
+
+    async function asyncOnLoad(eventContext: Xrm.Events.LoadEventContextAsync) {
+        const eventArgs = eventContext.getEventArgs();
+        eventArgs.disableAsyncTimeout();
+
+        eventArgs.getDataLoadState() === XrmEnum.FormDataLoadState.Refresh;
+
+        eventContext.getFormContext().data.addOnLoad(onDataLoad);
+        function onDataLoad(eventContext: Xrm.Events.DataLoadEventContext) {
+            const dataLoadState: XrmEnum.FormDataLoadState = eventContext.getEventArgs().getDataLoadState();
+        }
+    }
+}
 
 // Demonstrate Xrm.Utility.lookupObjects parameters
 Xrm.Utility.lookupObjects({

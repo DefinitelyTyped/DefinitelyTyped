@@ -1,5 +1,5 @@
 import {
-    performance,
+    performance as NodePerf,
     monitorEventLoopDelay,
     PerformanceObserverCallback,
     PerformanceObserver,
@@ -15,7 +15,8 @@ import {
     PerformanceMark,
 } from 'node:perf_hooks';
 
-const startMark: PerformanceMark = performance.mark('start');
+// Test module import once, the rest use global
+const startMark: PerformanceMark = NodePerf.mark('start');
 (() => {})();
 performance.mark('end');
 

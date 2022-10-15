@@ -1,11 +1,11 @@
 export = MultipartFormDataPart;
 declare function MultipartFormDataPart(
-    reader: any,
+    reader: MultipartFormDataReader,
     readFunc: (arg0: number) => string,
     headers: any
 ): void;
 declare class MultipartFormDataPart {
-    constructor(reader: any, readFunc: (arg0: number) => string, headers: any);
+    constructor(reader: MultipartFormDataReader, readFunc: (arg0: number) => string, headers: any);
     private reader_;
     private readFunc_;
     private headers_;
@@ -23,6 +23,7 @@ declare class MultipartFormDataPart {
     saveToFile(file: File, opt_maxFileSize?: number): void;
 }
 declare namespace MultipartFormDataPart {
-    export { File };
+    export { File, MultipartFormDataReader };
 }
+type MultipartFormDataReader = import('./MultipartFormDataReader');
 type File = import('../io/File');
