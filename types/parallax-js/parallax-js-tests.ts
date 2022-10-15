@@ -62,11 +62,18 @@ const parallax = new Parallax(scene, {
 });
 
 // --- test options that allow multiple types ---
-// inputElement allows null, HTMLElement and string
-const inputElementOpts: ParallaxOptions[] = [{ inputElement: null }, { inputElement: scene }, { inputElement: '.scene' }];
+// inputElement allows null, HTMLElement
+const inputElementOpts: ParallaxOptions[] = [{ inputElement: null }, { inputElement: scene }];
 parallax.setInputElement(null);
 parallax.setInputElement(scene);
-parallax.setInputElement('.scene');
+
+// Query selector strings are not accepted for programmatically setting the
+// input element. They are only allowed for setting the input element through
+// the `data-input-element` attribute.
+// @ts-expect-error
+parallax.setInputElement('#scene');
+// @ts-expect-error
+const invalidInputElementOpt: ParallaxOptions = { inputElement: '#scene' };
 
 // limitX allows false (but not true!) and integers
 const limitXOpts: ParallaxOptions[] = [{ limitX: false }, { limitX: 100 }];

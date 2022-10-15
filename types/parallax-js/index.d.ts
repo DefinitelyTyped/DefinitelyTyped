@@ -61,8 +61,6 @@ export interface ParallaxOptions {
 
     /**
      * Allows usage of a different element for cursor input.
-     * The configuration property expects an `HTMLElement`, the data value
-     * attribute a query selector string.
      *
      * Will only work in combination with `relativeInput`, setting `hoverOnly`
      * might make sense too.
@@ -70,11 +68,14 @@ export interface ParallaxOptions {
      *
      * Defaults to `null`.
      *
-     * Corresponding scene HTML attribute: `data-input-element`
+     * Corresponding scene HTML attribute: `data-input-element` (the attribute
+     * takes a
+     * [query selector string](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors)
+     * to identify the input element)
      *
      * This option can be updated at runtime though `Parallax.setInputElement`.
      */
-    inputElement?: HTMLElement | null; //TODO or query selector string, also fix in doccomment
+    inputElement?: HTMLElement | null;
 
     /**
      * Caches the initial X axis value on initialization and calculates motion
@@ -336,7 +337,7 @@ export default class Parallax {
     /**
      * @see {@link ParallaxOptions.inputElement}
      */
-    setInputElement(element: HTMLElement): void;
+    setInputElement(element: HTMLElement | null): void;
 
     /**
      * @see {@link ParallaxOptions.calibrateX}
