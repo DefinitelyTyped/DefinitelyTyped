@@ -272,12 +272,12 @@ declare module 'twit' {
         }
 
         interface QuickReply {
-            type: 'options',
+            type: 'options';
             options: QuickReplyOption[];
         }
 
         interface Attachement {
-            type: 'location' | 'media',
+            type: 'location' | 'media';
             location?: {
                 type: 'shared_coordinate',
                 shared_coordinate: {
@@ -286,10 +286,10 @@ declare module 'twit' {
                         coordinates: number[]
                     }
                 }
-            }
+            };
             media?: {
                 id: string
-            }
+            };
         }
 
         interface MessageCreateEvent {
