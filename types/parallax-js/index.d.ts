@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // type aliases that mention the range of allowed values
-type integer = number;
-type floatBetween0And1 = number;
+export type integer = number;
+export type floatBetween0And1 = number;
 
 /**
  * The parallax options object can be used to configure the parallax effect
