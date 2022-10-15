@@ -109,7 +109,7 @@ declare namespace run {
         ogDescription?: string | undefined;
         ogDeterminer?: string | undefined;
         ogImage?: string | undefined;
-        ogImageHeight?: string | undefined ;
+        ogImageHeight?: string | undefined;
         ogImageSecureURL?: string | undefined;
         ogImageType?: string | undefined;
         ogImageURL?: string | undefined;
