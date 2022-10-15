@@ -1,4 +1,5 @@
-import Parallax, { ParallaxOptions } from 'parallax-js';
+import Parallax = require('parallax-js');
+import { ParallaxOptions } from 'parallax-js';
 
 // --- test parallax constructor ---
 // @ts-expect-error
