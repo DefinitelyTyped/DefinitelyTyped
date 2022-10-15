@@ -9,10 +9,10 @@ import { PassThrough } from 'stream';
 
 declare namespace run {
     interface OpenGraphImage {
-        height: string | null;
+        height?: string;
         type: string;
         url: string;
-        width: string | null;
+        width?: string;
     }
 
     interface OpenGraphProperties {
