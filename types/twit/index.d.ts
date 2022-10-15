@@ -265,7 +265,34 @@ declare module 'twit' {
             file_path: string;
         }
 
-        interface EventObject {
+        interface QuickReplyOption {
+            label: string;
+            description?: string;
+            metadata?: string;
+        }
+
+        interface QuickReply {
+            type: 'options',
+            options: QuickReplyOption[];
+        }
+
+        interface Attachement {
+            type: 'location' | 'media',
+            location?: {
+                type: 'shared_coordinate',
+                shared_coordinate: {
+                    coordinates: {
+                        type: 'Point',
+                        coordinates: number[]
+                    }
+                }
+            }
+            media?: {
+                id: string
+            }
+        }
+
+        interface MessageCreateEvent {
             type: 'message_create';
             message_create: {
                 target: {
@@ -273,29 +300,8 @@ declare module 'twit' {
                 },
                 message_data: {
                     text: string;
-                    quick_reply?: {
-                        type: 'options',
-                        options: {
-                            label: string;
-                            description?: string;
-                            metadata?: string;
-                        }[];
-                    }
-                    attachment?: {
-                        type: 'location' | 'media',
-                        location?: {
-                            type: 'shared_coordinate',
-                            shared_coordinate: {
-                                coordinates: {
-                                    type: 'Point',
-                                    coordinates: number[]
-                                }
-                            }
-                        }
-                        media?: {
-                            id: string
-                        }
-                    }
+                    quick_reply?: QuickReply;
+                    attachment?: Attachement;
                 }
             };
         }
@@ -360,7 +366,7 @@ declare module 'twit' {
             enable_dmcommands?: boolean | undefined;
             fail_dmcommands?: boolean | undefined;
             card_uri?: string | undefined;
-            event?: EventObject;
+            event?: MessageCreateEvent;
         }
         export interface PromiseResponse {
             data: Response;
