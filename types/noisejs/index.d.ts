@@ -7,7 +7,7 @@ export = noisejs;
 export as namespace noisejs;
 
 declare namespace noisejs{
-	declare class Noise {
+	class Noise {
 		/**
 		 * Passing in seed will seed this Noise instance
 		 * @param  {number} seed
