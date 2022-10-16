@@ -1,5 +1,5 @@
-import Noise = require("noisejs");
-var noise = new Noise(Math.random());
+import noisejs = require("noisejs");
+var noise = new noisejs.Noise(Math.random());
 
 var simplex2_noise_val = noise.simplex2(0.1, 0.2);
 var simplex3_noise_val = noise.simplex3(0.1, 0.2, 0.3);
