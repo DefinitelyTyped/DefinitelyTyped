@@ -3166,7 +3166,7 @@ declare namespace Xrm {
         }
 
         interface FieldControlOutput {
-            /* Note: paramType and type properties are also on this object. 
+            /* Note: paramType and type properties are also on this object.
              * It's unclear if they're internal use only.
              *    paramType: undefined,
              *    type: number
@@ -3175,7 +3175,7 @@ declare namespace Xrm {
             /**
              * Output value from the control
              */
-            value: any
+            value: any;
         }
 
         /**
@@ -3298,7 +3298,7 @@ declare namespace Xrm {
 
             /**
              * Returns a dictionary of the output properties of the control.
-             * @returns: A dictionary for the output parameters from the control. 
+             * @returns: A dictionary for the output parameters from the control.
              *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
              */
             getOutputs(): { [index: string]: FieldControlOutput };
