@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "express-request-id-tests.ts"
+        "html-pdf-node-tests.ts"
     ]
 }

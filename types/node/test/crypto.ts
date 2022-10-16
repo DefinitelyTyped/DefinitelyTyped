@@ -1431,6 +1431,7 @@ import { promisify } from 'node:util';
     subtle.encrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new TextEncoder().encode('hello')); // $ExpectType Promise<ArrayBuffer>
     subtle.decrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-512', salt: new ArrayBuffer(8), iterations: 1000 }, key, length); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveBits({ name: 'ECDH', public: key }, key, null); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveKey({
         name: 'PBKDF2',
         hash: 'SHA-512',

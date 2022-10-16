@@ -30,7 +30,13 @@ const payerAdditionalInfoWithAddress: PayerAdditionalInfo = {
   last_name: "Doe",
   address: {
     street_name: "Street Name",
-    street_number: "Street Number",
+    street_number: 1234,
     zip_code: "00000",
   }
+};
+
+const payerAdditionalInfoWithEmptyAddress: PayerAdditionalInfo = {
+  first_name: "John",
+  last_name: "Doe",
+  address: {},
 };

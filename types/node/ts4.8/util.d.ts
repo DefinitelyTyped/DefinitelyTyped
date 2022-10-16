@@ -163,6 +163,27 @@ declare module 'util' {
      */
     export function toUSVString(string: string): string;
     /**
+     * Creates and returns an `AbortController` instance whose `AbortSignal` is marked
+     * as transferable and can be used with `structuredClone()` or `postMessage()`.
+     * @since v18.11.0
+     * @returns A transferable AbortController
+     */
+    export function transferableAbortController(): AbortController;
+    /**
+     * Marks the given {AbortSignal} as transferable so that it can be used with
+     * `structuredClone()` and `postMessage()`.
+     *
+     * ```js
+     * const signal = transferableAbortSignal(AbortSignal.timeout(100));
+     * const channel = new MessageChannel();
+     * channel.port2.postMessage(signal, [signal]);
+     * ```
+     * @since v18.11.0
+     * @param signal The AbortSignal
+     * @returns The same AbortSignal
+     */
+    export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
+    /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
@@ -1067,6 +1088,8 @@ declare module 'util' {
         written: number;
     }
     export { types };
+
+    //// TextEncoder/Decoder
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextEncoder` API. All
      * instances of `TextEncoder` only support UTF-8 encoding.
@@ -1106,6 +1129,34 @@ declare module 'util' {
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
 
+    import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from 'util';
+    global {
+        /**
+         * `TextDecoder` class is a global reference for `require('util').TextDecoder`
+         * https://nodejs.org/api/globals.html#textdecoder
+         * @since v11.0.0
+         */
+         var TextDecoder: typeof globalThis extends {
+            onmessage: any;
+            TextDecoder: infer TextDecoder;
+        }
+            ? TextDecoder
+            : typeof _TextDecoder;
+
+        /**
+         * `TextEncoder` class is a global reference for `require('util').TextEncoder`
+         * https://nodejs.org/api/globals.html#textencoder
+         * @since v11.0.0
+         */
+         var TextEncoder: typeof globalThis extends {
+            onmessage: any;
+            TextEncoder: infer TextEncoder;
+        }
+            ? TextEncoder
+            : typeof _TextEncoder;
+    }
+
+    //// parseArgs
     /**
      * Provides a high-level API for command-line argument parsing. Takes a
      * specification for the expected arguments and returns a structured object
@@ -1125,6 +1176,9 @@ declare module 'util' {
      *       times. If `true`, all values will be collected in an array. If
      *       `false`, values for the option are last-wins. **Default:** `false`.
      *     - `short` A single character alias for the option.
+     *     - `default` The default option value when it is not set by args. It
+     *       must be of the same type as the `type` property. When `multiple`
+     *       is `true`, it must be an array.
      *
      *   - `strict`: Whether an error should be thrown when unknown arguments
      *     are encountered, or when arguments are passed that do not match the
@@ -1150,6 +1204,10 @@ declare module 'util' {
         type: 'string' | 'boolean';
         short?: string;
         multiple?: boolean;
+        /**
+         * @since v18.11.0
+         */
+        default?: string | boolean | string[] | boolean[];
     }
 
     interface ParseArgsOptionsConfig {

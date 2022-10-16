@@ -36,6 +36,13 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
 
     // $ExpectType void
     instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
+    const StereoAudioRecorder = new RecordRTC.StereoAudioRecorder(stream, {desiredSampRate : 1000});
+    StereoAudioRecorder.record();
+    StereoAudioRecorder.stop((blob: Blob) => {});
+    StereoAudioRecorder.pause();
+    StereoAudioRecorder.resume();
+    StereoAudioRecorder.clearRecordedData();
+    StereoAudioRecorder.onAudioProcessStarted();
 });
 
 const canvas = document.querySelector('canvas')!;
