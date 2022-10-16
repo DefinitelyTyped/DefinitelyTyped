@@ -13,6 +13,4 @@ type FoldifyOptions = {
     encoding?: string
 }
 declare function fold<T = any>(path: string | string[], options?: FoldifyOptions): { [key: string]: T };
-declare module "foldify" {
-    export = fold;
-}
+export default fold;

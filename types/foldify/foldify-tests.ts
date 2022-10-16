@@ -1,6 +1,7 @@
-import fold from "foldify";
-import fs from "fs";
-import path from "path";
+/// <reference types="node" />
+const fold = require("foldify");
+const path = require("path");
+const fs = require("fs");
 const dir = path.join(process.cwd(), "scripts");
 
 if (fs.existsSync(dir)) {
