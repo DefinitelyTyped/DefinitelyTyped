@@ -3165,6 +3165,19 @@ declare namespace Xrm {
             commands?: AutoCompleteCommand | undefined;
         }
 
+        interface FieldControlOutput {
+            /* Note: paramType and type properties are also on this object. 
+             * It's unclear if they're internal use only.
+             *    paramType: undefined,
+             *    type: number
+             */
+
+            /**
+             * Output value from the control
+             */
+            value: any
+        }
+
         /**
          * Interface for controls.
          *
@@ -3288,7 +3301,7 @@ declare namespace Xrm {
              * @returns: A dictionary for the output parameters from the control. 
              *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
              */
-            getOutputs(): [string, string | number | null];
+            getOutputs(): { [index: string]: FieldControlOutput };
 
             /**
              * Gets the control's bound attribute.
