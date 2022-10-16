@@ -12,5 +12,5 @@
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true
     },
-    "files": ["index.d.ts", "./tests/feather-icons-tests.ts", "./tests/feather-icons-type-tests.ts"]
+    "files": ["index.d.ts", "tests/feather-icons-tests.ts", "tests/feather-icons-type-tests.ts"]
 }
