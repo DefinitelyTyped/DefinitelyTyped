@@ -1074,6 +1074,8 @@ async function testScriptingForPromise() {
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
 
+    await chrome.scripting.removeCSS({ target: { tabId: 0 } });
+
     await chrome.scripting.registerContentScripts([
         { id: 'id1', js: ['script1.js'] },
         { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },

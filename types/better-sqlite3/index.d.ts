@@ -148,7 +148,7 @@ declare namespace Database {
         ? BetterSqlite3.Statement<BindParameters>
         : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
-    type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
+    type Transaction<T extends VariableArgFunction = VariableArgFunction> = BetterSqlite3.Transaction<T>;
     type Database = BetterSqlite3.Database;
 }
 

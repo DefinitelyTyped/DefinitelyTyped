@@ -285,3 +285,8 @@ access('file/that/does/not/exist', (err) => {
     // $ExpectType { values: { [longOption: string]: string | boolean | (string | boolean)[] | undefined; }; positionals: string[]; tokens?: Token[] | undefined; }
     const result = util.parseArgs(config);
 }
+
+{
+    const controller: AbortController = util.transferableAbortController();
+    const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
+}

@@ -163,6 +163,27 @@ declare module 'util' {
      */
     export function toUSVString(string: string): string;
     /**
+     * Creates and returns an `AbortController` instance whose `AbortSignal` is marked
+     * as transferable and can be used with `structuredClone()` or `postMessage()`.
+     * @since v18.11.0
+     * @returns A transferable AbortController
+     */
+    export function transferableAbortController(): AbortController;
+    /**
+     * Marks the given {AbortSignal} as transferable so that it can be used with
+     * `structuredClone()` and `postMessage()`.
+     *
+     * ```js
+     * const signal = transferableAbortSignal(AbortSignal.timeout(100));
+     * const channel = new MessageChannel();
+     * channel.port2.postMessage(signal, [signal]);
+     * ```
+     * @since v18.11.0
+     * @param signal The AbortSignal
+     * @returns The same AbortSignal
+     */
+    export function transferableAbortSignal(signal: AbortSignal): AbortSignal;
+    /**
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
@@ -1155,6 +1176,9 @@ declare module 'util' {
      *       times. If `true`, all values will be collected in an array. If
      *       `false`, values for the option are last-wins. **Default:** `false`.
      *     - `short` A single character alias for the option.
+     *     - `default` The default option value when it is not set by args. It
+     *       must be of the same type as the `type` property. When `multiple`
+     *       is `true`, it must be an array.
      *
      *   - `strict`: Whether an error should be thrown when unknown arguments
      *     are encountered, or when arguments are passed that do not match the
@@ -1180,6 +1204,10 @@ declare module 'util' {
         type: 'string' | 'boolean';
         short?: string;
         multiple?: boolean;
+        /**
+         * @since v18.11.0
+         */
+        default?: string | boolean | string[] | boolean[];
     }
 
     interface ParseArgsOptionsConfig {

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
+// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
 //                 Will Bain <https://github.com/wabain>
@@ -346,7 +346,7 @@ declare namespace EW {
 
     const WritableStreamEW: {
         prototype: WritableStreamEW;
-        new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
+        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
     };
 
     interface ReadableStreamEW<R = any> {
@@ -362,7 +362,7 @@ declare namespace EW {
     const ReadableStreamEW: {
         prototype: ReadableStreamEW;
         new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStreamEW<Uint8Array>;
-        new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
+        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
     };
 
     interface ReadableStreamBYOBReader {
@@ -804,24 +804,24 @@ declare module "http-request" {
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
 declare module "streams" {
-    interface ReadableStream<R = any> extends  EW.ReadableStreamEW {
+    interface ReadableStream<R = any> extends EW.ReadableStreamEW {
     }
 
     const ReadableStream: {
         prototype: ReadableStream;
         new(underlyingSource: EW.UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
-        new<R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
+        new <R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
 
-    interface WritableStream<R = any> extends  EW.WritableStreamEW {
+    interface WritableStream<R = any> extends EW.WritableStreamEW {
     }
 
     const WritableStream: {
         prototype: WritableStream;
-        new<W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
+        new <W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
     };
 
-    interface ReadableStreamDefaultController<R = any> extends  EW.ReadableStreamDefaultControllerEW {
+    interface ReadableStreamDefaultController<R = any> extends EW.ReadableStreamDefaultControllerEW {
     }
 
     interface TransformStream<I = any, O = any> {
@@ -831,7 +831,7 @@ declare module "streams" {
 
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
+        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
     };
 
     interface Transformer<I = any, O = any> {
@@ -1051,4 +1051,138 @@ declare module "url-search-params" {
          */
         toString(): string;
     }
+}
+
+/**
+ * The crypto module is available to use in your EdgeWorkers code bundles to expose support for a Javascript crypto API based on the Web Crypto API.
+ * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
+ */
+declare module "crypto" {
+    interface Crypto {
+        readonly subtle: SubtleCrypto;
+        /**
+         * A function that allows you to get cryptographically strong random values
+         * @param array: An integer-based TypedArray
+         *
+         * @returns The same array passed as typedArray but with its contents replaced with the newly generated random numbers
+         */
+        getRandomValues(array: Exclude<TypedArray, Float32Array | Float64Array>): TypedArray;
+    }
+
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
+    type TypedArray =
+        | Int8Array
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int16Array
+        | Uint16Array
+        | Int32Array
+        | Uint32Array
+        | Float32Array
+        | Float64Array;
+
+    type Usages = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
+
+    type Format = "raw" | "pkcs8" | "spki" | "jwk";
+
+    interface CryptoKey {
+        readonly type: string;
+        readonly extractable: boolean;
+        readonly algorithm: object;
+        readonly usages: Usages[];
+    }
+
+    /**
+     * The subtleCrypto interface provides several cryptographic functions.
+     * SubtleCrypto features are obtained through the subtle property of the Crypto object you get from the Crypto property.
+     * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
+     */
+    interface SubtleCrypto {
+        /**
+         * Imports the key
+         * @param format string describing the data format of the key to import
+         * @param keyData An ArrayBuffer, a TypedArray, a DataView, or a JSONWebKey object containing the key
+         * @param algorithm A string or object defining the type of key to import
+         * @param extractable A boolean value indicating whether it will be possible to export the key
+         * @param keyUsages An array indicating the operations that can be done with the key
+         *
+         * @returns A promise that fulfills with the imported key as a CryptoKey object.
+         */
+        importKey(
+            format: Format,
+            keyData: BufferSource | TypedArray | object,
+            algorithm: string | object,
+            extractable: boolean,
+            keyUsages: Usages[],
+        ): Promise<CryptoKey>;
+
+        /**
+         * Encrypts data
+         * @param algorithm An object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key to be used for encryption
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be encrypted
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the ciphertext
+         */
+        encrypt(
+            algorithm: object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
+         * Decrypts the encrypted data
+         * @param algorithm An object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key to be used for decryption
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be decrypted
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the plaintext
+         */
+        decrypt(
+            algorithm: object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
+         * Verify a digital signature
+         * @param algorithm A string or object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key that will be used to verify the signature
+         * @param signature ArrayBuffer containing the signature to verify
+         * @param data ArrayBuffer containing the data whose signature is to be verified
+         *
+         * @returns A promise that fulfills with a boolean value: true if the signature is valid, false otherwise
+         */
+        verify(
+            algorithm: string | object,
+            key: CryptoKey,
+            signature: ArrayBuffer,
+            data: ArrayBuffer,
+        ): Promise<boolean>;
+
+        /**
+         * Generate a digest of the given data
+         * @param algorithm A string or an object that includes the name property, the string names the hash functions to use
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be digested
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the digest
+         */
+        digest(
+            algorithm: string | object,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+    }
+
+    /**
+     * Converts a PEM-encoded key string into an ArrayBuffer.
+     * @param pemEncodedKey
+     *
+     * @returns ArrayBuffer
+     */
+    export function pem2ab(pemEncodedKey: string): ArrayBuffer;
+
+    const crypto: Crypto;
+
+    export { crypto };
 }

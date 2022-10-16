@@ -21,7 +21,7 @@ declare class Grid {
     private arButtons;
     private _fieldToLinkId;
     classesToValidatePermissions: any[];
-    groups: any;
+    groups: FieldGroupSet;
     private reservedWords;
     private onGridDefinition;
     protected tableViewBuffer: TableViewBuffer;
@@ -446,6 +446,7 @@ declare namespace Grid {
     };
 }
 import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');
+import FieldGroupSet = require('../classdef/FieldGroupSet.js');
 import TableViewBuffer = require('./TableViewBuffer.js');
 import FieldList = require('@nginstack/engine/lib/classdef/FieldList.js');
 type Process = import('../process/Process');

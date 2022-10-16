@@ -29,3 +29,23 @@ t.post('lists/create', {
     description: 'foobar',
     mode: 'public',
 });
+
+t.post('direct_messages/events/new', {
+    event: {
+        type: 'message_create',
+        message_create: {
+            target: {
+                recipient_id: 'RECIPIENT_USER_ID'
+            },
+            message_data: {
+                text: 'Hello World!',
+                attachment: {
+                    type: 'media',
+                    media: {
+                        id: 'MEDIA_ID'
+                    }
+                }
+            }
+        }
+    }
+});

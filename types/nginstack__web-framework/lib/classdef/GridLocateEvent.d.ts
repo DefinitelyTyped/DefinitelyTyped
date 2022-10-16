@@ -6,6 +6,10 @@ declare class GridLocateEvent {
     value: string;
     options: number[];
     found: boolean;
-    locatedField: any;
+    locatedField: GridField;
     private locateResult_;
 }
+declare namespace GridLocateEvent {
+    export { GridField };
+}
+type GridField = import('../grid/GridField');

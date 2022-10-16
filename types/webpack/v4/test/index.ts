@@ -743,6 +743,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
     this.async();
 
     this.addDependency('');
+    this.getDependencies();
 
     this.loadModule('path', (err: Error | null, result: string, sourceMap: RawSourceMap, module: webpack.Module) => { });
     this.resolve('context', 'request', (err: Error, result: string) => { });
