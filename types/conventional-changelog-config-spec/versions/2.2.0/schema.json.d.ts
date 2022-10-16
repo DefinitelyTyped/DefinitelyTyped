@@ -1,4 +1,4 @@
-import { JSONSchema7 } from "json-schema";
+import { JSONSchema7 } from 'json-schema';
 
 declare const ConventionalChangelogConfigSpec: JSONSchema7;
 
@@ -116,7 +116,7 @@ declare namespace ConventionalChangelogConfigSpec {
                 /**
                  * A string used to match [optional scope] used in the Conventional Commits convention.
                  */
-                scope: string
+                scope?: string;
 
                 /**
                  * The section where the matched commit type will display in the CHANGELOG.
