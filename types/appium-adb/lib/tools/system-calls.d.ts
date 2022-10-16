@@ -390,7 +390,7 @@ interface SystemCalls {
      * @param timeoutMs [20000] - The maximum number of milliseconds to wait.
      * @throws If the emulator is not ready within the given timeout.
      */
-    waitForEmulatorReady(timeoutMs?: string): Promise<void>;
+    waitForEmulatorReady(timeoutMs?: number): Promise<void>;
 
     /**
      * Check if the current device is ready to accept further commands (booting completed).
