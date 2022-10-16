@@ -112,6 +112,8 @@ const graphDiv = '#test';
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
         width: [2],
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -119,6 +121,8 @@ const graphDiv = '#test';
         name: 'y density',
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
