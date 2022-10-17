@@ -3165,6 +3165,19 @@ declare namespace Xrm {
             commands?: AutoCompleteCommand | undefined;
         }
 
+        interface FieldControlOutput {
+            /* Note: paramType and type properties are also on this object.
+             * It's unclear if they're internal use only.
+             *    paramType: undefined,
+             *    type: number
+             */
+
+            /**
+             * Output value from the control
+             */
+            value: any;
+        }
+
         /**
          * Interface for controls.
          *
@@ -3270,6 +3283,25 @@ declare namespace Xrm {
              * Displays an error or recommendation notification for a control, and lets you specify actions to execute based on the notification.
              */
             addNotification(notification: AddControlNotificationOptions): void;
+
+            /**
+             * Adds an event handler to the OnOutputChange event.
+             * @param handler The function to add to the OnOutputChange event.
+             */
+            addOnOutputChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Removes an event handler from the OnOutputChange event.
+             * @param handler The function to remove from the OnOutputChange event.
+             */
+            removeOnOutputChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Returns a dictionary of the output properties of the control.
+             * @returns: A dictionary for the output parameters from the control.
+             *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
+             */
+            getOutputs(): { [index: string]: FieldControlOutput };
 
             /**
              * Gets the control's bound attribute.
