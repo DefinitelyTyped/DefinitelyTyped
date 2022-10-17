@@ -5,7 +5,7 @@ on:
     paths:
       - .github/workflows/support-window.yml
       - package.json
-      - scripts/support-window.ts
+      - scripts/support-window.js
       - scripts/jsconfig.json
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
