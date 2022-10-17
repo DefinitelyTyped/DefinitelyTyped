@@ -520,6 +520,35 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             // $ExpectType Record<string, any>
             this.$data;
 
+            // $ExpectType HTMLElement
+            this.$el;
+
+            // $ExpectType HTMLElement
+            this.$refs.fooElement;
+
+            // $ExpectType XData
+            this.$store;
+
+            // $ExpectType void
+            this.$dispatch('fooEvent');
+
+            // $ExpectType void
+            this.$dispatch('fooEvent', 'Hello World');
+
+            // $ExpectType string
+            this.$id('fooBar');
+
+            // $ExpectType string
+            this.$id('fooBar', 1);
+
+            // $ExpectType Promise<void>
+            this.$nextTick(() => {
+                // Do something after Alpine finishes updating the DOM.
+            });
+
+            // $ExpectType Promise<void>
+            this.$nextTick();
+
             // $ExpectType void
             this.$watch(
                 'user',
@@ -542,35 +571,6 @@ import { reactive, effect, stop, toRaw } from '@vue/reactivity';
             init() {
                 // $ExpectType { user: { id: number; name: string; }; }
                 this.$data;
-
-                // $ExpectType HTMLElement
-                this.$el;
-
-                // $ExpectType HTMLElement
-                this.$refs.fooElement;
-
-                // $ExpectType XData
-                this.$store;
-
-                // $ExpectType void
-                this.$dispatch('fooEvent');
-
-                // $ExpectType void
-                this.$dispatch('fooEvent', 'Hello World');
-
-                // $ExpectType string
-                this.$id('fooBar');
-
-                // $ExpectType string
-                this.$id('fooBar', 1);
-
-                // $ExpectType Promise<void>
-                this.$nextTick(() => {
-                    // Do something after Alpine finishes updating the DOM.
-                });
-
-                // $ExpectType Promise<void>
-                this.$nextTick();
 
                 // $ExpectType void
                 this.$watch(
