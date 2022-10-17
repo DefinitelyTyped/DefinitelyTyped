@@ -38,6 +38,7 @@ declare class Arborist extends EventEmitter {
 }
 
 declare namespace Arborist {
+    const Arborist: Arborist;
     interface Options extends PacoteOptions, Partial<Pick<import('cacache').get.Options, 'memoize'>> {
         path?: string;
         nodeVersion?: string;
