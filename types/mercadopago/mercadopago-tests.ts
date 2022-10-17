@@ -40,3 +40,6 @@ const payerAdditionalInfoWithEmptyAddress: PayerAdditionalInfo = {
   last_name: "Doe",
   address: {},
 };
+
+MP.card.delete('customer_id', 'card_id');
+MP.card.delete('customer_id', 123456789);

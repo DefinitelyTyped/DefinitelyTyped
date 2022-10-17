@@ -7649,6 +7649,29 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the injection.
      */
     export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection): Promise<void>;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @param callback
+     * Invoked upon completion of the removal.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection, callback?: () => void): void;
 }
 
 ////////////////////

@@ -20,7 +20,7 @@ si().then(db => {
     db.IMPORT(db.INDEX); // $ExpectType Promise<void>
     db.MIN(); // $ExpectType Promise<string>
     db.MAX(); // $ExpectType Promise<string>
-    db.PUT([{ id: '1' }]); // $ExpectType Promise<Operation[]>
+    db.PUT([{ id: '1' }], { tokenSplitRegex: /.+/ }); // $ExpectType Promise<Operation[]>
     db.PUT_RAW([{ id: '2' }]); // $ExpectType Promise<Operation[]>
     db.TOKENIZATION_PIPELINE_STAGES; // $ExpectType TokenizationPipelineStages
 });
