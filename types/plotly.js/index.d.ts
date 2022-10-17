@@ -1220,6 +1220,8 @@ export interface PlotData {
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    xhoverformat: string;
+    yhoverformat: string;
     texttemplate: string | string[];
     textinfo:
         | 'label'

@@ -17,6 +17,7 @@ import * as _isBoolean from './lib/isBoolean';
 import * as _isEmail from './lib/isEmail';
 import * as _isFQDN from './lib/isFQDN';
 import * as _isIBAN from './lib/isIBAN';
+import * as _isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import * as _isISO4217 from './lib/isISO4217';
 import * as _isURL from './lib/isURL';
 import * as _isTaxID from './lib/isTaxID';
@@ -651,10 +652,7 @@ declare namespace validator {
      */
     function isISIN(str: string): boolean;
 
-    /**
-     * Check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
-     */
-    function isISO31661Alpha2(str: string): boolean;
+    const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.

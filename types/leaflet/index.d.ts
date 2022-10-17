@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.8
+// Type definitions for Leaflet.js 1.9
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 //                 Arne Schubert <https://github.com/atd-schubert>
@@ -56,10 +56,12 @@ export namespace LineUtil {
         useLastCode?: boolean,
         round?: boolean,
     ): [Point, Point] | false;
+    function polylineCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace PolyUtil {
     function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
+    function polygonCenter(latlngs: LatLngExpression[], crs: CRS): LatLng;
 }
 
 export namespace DomUtil {
@@ -179,7 +181,7 @@ export class LatLngBounds {
     constructor(southWest: LatLngExpression, northEast: LatLngExpression);
     constructor(latlngs: LatLngBoundsLiteral);
     extend(latlngOrBounds: LatLngExpression | LatLngBoundsExpression): this;
-    pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
+    pad(bufferRatio: number): LatLngBounds; // Returns a new LatLngBounds
     getCenter(): LatLng;
     getSouthWest(): LatLng;
     getNorthEast(): LatLng;
@@ -243,7 +245,12 @@ export type BoundsLiteral = [PointTuple, PointTuple];
 export class Bounds {
     constructor(topLeft: PointExpression, bottomRight: PointExpression);
     constructor(points?: Point[] | BoundsLiteral);
+
+    // tslint:disable:unified-signatures
     extend(point: PointExpression): this;
+    extend(otherBounds: BoundsExpression): this;
+    // tslint:enable:unified-signatures
+
     getCenter(round?: boolean): Point;
     getBottomLeft(): Point;
     getBottomRight(): Point;
@@ -254,6 +261,8 @@ export class Bounds {
     intersects(otherBounds: BoundsExpression): boolean;
     overlaps(otherBounds: BoundsExpression): boolean;
     isValid(): boolean;
+    pad(bufferRatio: number): Bounds; // Returns a new Bounds
+    equals(otherBounds: BoundsExpression): boolean;
 
     min?: Point | undefined;
     max?: Point | undefined;
@@ -2054,9 +2063,11 @@ export interface DivOverlayOptions {
     className?: string | undefined;
     pane?: string | undefined;
     interactive?: boolean | undefined;
+    content?: string | HTMLElement | ((layer: Layer) => string) | ((layer: Layer) => HTMLElement);
 }
 
 export abstract class DivOverlay extends Layer {
+    constructor(latlng: LatLngExpression, options?: TooltipOptions);
     constructor(options?: DivOverlayOptions, source?: Layer);
     getLatLng(): LatLng | undefined;
     setLatLng(latlng: LatLngExpression): this;
@@ -2092,6 +2103,7 @@ export interface PopupOptions extends DivOverlayOptions {
 export type Content = string | HTMLElement;
 
 export class Popup extends DivOverlay {
+    constructor(latlng: LatLngExpression, options?: TooltipOptions);
     constructor(options?: PopupOptions, source?: Layer);
     openOn(map: Map): this;
 
@@ -2112,6 +2124,7 @@ export interface TooltipOptions extends DivOverlayOptions {
 }
 
 export class Tooltip extends DivOverlay {
+    constructor(latlng: LatLngExpression, options?: TooltipOptions);
     constructor(options?: TooltipOptions, source?: Layer);
     setOpacity(val: number): void;
 
@@ -2296,6 +2309,8 @@ export namespace DomEvent {
     function removeListener(el: HTMLElement, types: string, fn: EventHandlerFn, context?: any): typeof DomEvent;
 
     function removeListener(el: HTMLElement, eventMap: {[eventName: string]: EventHandlerFn}, context?: any): typeof DomEvent;
+
+    function getPropagationPath(ev: Event): HTMLElement[];
 }
 
 export interface DefaultMapPanes {
