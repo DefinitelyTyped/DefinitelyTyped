@@ -6,9 +6,13 @@ const optionsA: DebounceOptions = { leading: true };
 const f = async () => 2;
 const f2 = (a: string) => 2;
 debounce(f, 100);
+debounce(f, () => 100);
 debounce(f, 0, options);
+debounce(f, () => 0, options);
 debounce(f, 100, optionsA);
+debounce(f, () => 100, optionsA);
 debounce(f, 10, { accumulate: true });
+debounce(f, () => 10, { accumulate: true });
 const foo = debounce(async () => f2, 10, {
     leading: true,
     accumulate: true
