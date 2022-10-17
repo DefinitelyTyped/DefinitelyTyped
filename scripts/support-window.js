@@ -6,7 +6,7 @@ import { utcYear } from "d3-time";
 import { utcFormat } from "d3-time-format";
 import { JSDOM } from "jsdom";
 import serialize from "w3c-xmlserializer";
-import data from "../docs/support-window.json";
+import data from "../docs/support-window.json" assert { type: "json" };
 
 const width = 640;
 const height = 250;
