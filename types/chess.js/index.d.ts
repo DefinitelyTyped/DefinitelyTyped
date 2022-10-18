@@ -144,6 +144,11 @@ export interface Move extends ShortMove {
      * If an enemy piece was captured this is their type
      */
     captured?: Exclude<PieceType, 'k'> | undefined;
+
+    /**
+     * To what piece did pawn promote
+     */
+    promoted?: Exclude<PieceType, 'p'> | undefined;
 }
 
 export interface Piece {
@@ -315,6 +320,10 @@ export interface ChessInstance {
          * empty array is returned
          */
         square?: string | undefined;
+        /**
+         * Only return moves of given piece
+         */
+        piece?: PieceType;
     }): Move[];
 
     /**
@@ -339,6 +348,10 @@ export interface ChessInstance {
          * empty array is returned
          */
         square?: string | undefined;
+        /**
+         * Only return moves of given piece
+         */
+        piece?: PieceType;
     }): string[];
 
     /**
@@ -363,6 +376,10 @@ export interface ChessInstance {
          * empty array is returned
          */
         square?: string | undefined;
+        /**
+         * Only return moves of given piece
+         */
+        piece?: PieceType;
     }): string[] | Move[];
 
     /**
