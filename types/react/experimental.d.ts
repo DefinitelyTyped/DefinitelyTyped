@@ -144,7 +144,6 @@ declare module '.' {
     export interface ServerContext<T extends ServerContextJSONValue> {
         Provider: Provider<T>;
         Consumer: Consumer<T>;
-        displayName?: string | undefined;
     }
     export function createServerContext<T extends ServerContextJSONValue>(
         globalName: string,
