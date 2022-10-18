@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.1
+// Type definitions for Jest 29.2
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -211,6 +211,11 @@ declare namespace jest {
      * > implementation
      */
     function getRealSystemTime(): number;
+    /**
+     * Retrieves the seed value. It will be randomly generated for each test run
+     * or can be manually set via the `--seed` CLI argument.
+     */
+    function getSeed(): number;
     /**
      * Returns the current time in ms of the fake timer clock.
      */

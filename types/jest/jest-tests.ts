@@ -413,6 +413,11 @@ const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
 
+// https://jestjs.io/docs/en/jest-object#jestgetseed
+const seed1: number = jest.getSeed();
+// @ts-expect-error
+const seed2: number = jest.getSeed('foo');
+
 // $ExpectType number
 jest.now();
 // @ts-expect-error
