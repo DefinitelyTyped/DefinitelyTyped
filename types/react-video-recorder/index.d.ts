@@ -4,13 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { ReactElement } from 'react';
 
-export enum VideoRecorderMimeTypes {
-    WEBM_VP8_OPUS = 'video/webm;codecs="vp8,opus"',
-    WEBM_H264 = 'video/webm;codecs=h264',
-    WEBM_VP9 = 'video/webm;codecs=vp9',
-    WEBM = 'video/webm',
-    MP4 = 'video/mp4'
-}
+export type VideoRecorderMimeTypes =
+    | 'video/webm;codecs="vp8|opus"'
+    | 'video/webm;codecs=h264'
+    | 'video/webm;codecs=vp9'
+    | 'video/webm'
+    | 'video/mp4';
 
 export interface VideoActionsProps {
     isVideoInputSupported: boolean;
