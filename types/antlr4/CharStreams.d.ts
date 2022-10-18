@@ -15,10 +15,10 @@ declare namespace CharStreams {
      * failure.
      */
     function fromBlob(
-        blob: Blob,
+        blob: any,
         encoding: string,
         onLoad: (is: InputStream) => void,
-        onError: FileReader['onerror'],
+        onError: ((event: any) => any) | null,
     ): void;
 
     /**

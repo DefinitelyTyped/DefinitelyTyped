@@ -80,10 +80,10 @@ bufferedTokenStreamInstance.fill(); // $ExpectType void
 CharStreams.fromString(''); // $ExpectType InputStream
 // $ExpectType void
 CharStreams.fromBlob(
-    new Blob(),
+    {},
     '',
     (_is: InputStream) => undefined,
-    (_ev: ProgressEvent<FileReader>) => undefined,
+    (_ev: any) => undefined,
 );
 CharStreams.fromBuffer('', ''); // $ExpectType InputStream
 CharStreams.fromPath('', '', (_err: any, _is: InputStream) => undefined); // $ExpectType void
