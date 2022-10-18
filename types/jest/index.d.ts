@@ -26,6 +26,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Alexandre Germain <https://github.com/gerkindev>
 //                 Adam Jones <https://github.com/domdomegg>
+//                 Tom Mrazauskas <https://github.com/mrazauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
