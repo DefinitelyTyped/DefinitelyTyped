@@ -22,7 +22,7 @@ declare namespace omelette {
         next(fn: () => void): void;
 
         on(action: string, callback: Callback): void;
-        on(action: 'complete', callback: CallbackOnComplete): void;
+        on(action: "complete", callback: CallbackOnComplete): void;
 
         onAsync(actions: string, callback: CallbackAsync): void;
 
@@ -57,8 +57,10 @@ declare namespace omelette {
     type TemplatePrimativeValue = string | Choices;
 
     type TemplateValue = TemplatePrimativeValue | Callback;
+    
+    type TreeCallback<V> = () => V;
 
     interface TreeValue {
-        [key: string]: object;
+        [key: string]: TreeValue | Choices | TreeCallback<Choices>;
     }
 }
