@@ -674,6 +674,21 @@ jest.spyOn(spyWithIndexSignatureImpl, 'prop');
 // $ExpectType SpyInstance<{ some: string; }, []>
 jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
+let typedSpy: jest.Spied<typeof spiedTarget.returnsVoid>;
+typedSpy = jest.spyOn(spiedTarget, 'returnsVoid');
+
+let typedSpy1: jest.SpiedClass<typeof globalThis.Date>;
+typedSpy1 = jest.spyOn(globalThis, 'Date');
+
+let typedSpy2: jest.SpiedFunction<typeof spiedTarget.setValue>;
+typedSpy2 = jest.spyOn(spiedTarget, 'setValue');
+
+let typedSpy3: jest.SpiedGetter<typeof spiedTarget2.value>;
+typedSpy3 = jest.spyOn(spiedTarget2, 'value', 'get');
+
+let typedSpy4: jest.SpiedSetter<typeof spiedTarget2.value>;
+typedSpy4 = jest.spyOn(spiedTarget2, 'value', 'set');
+
 // $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
 // $ExpectType MockedObjectDeep<{}>
