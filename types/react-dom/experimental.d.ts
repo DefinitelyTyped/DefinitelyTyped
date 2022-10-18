@@ -32,4 +32,20 @@ import ReactDOM = require('./next');
 
 export {};
 
-declare module '.' {}
+declare module '.' {
+    type PreloadAs = 'style' | 'font' | 'script';
+    interface PreloadOptions {
+        as: PreloadAs;
+        crossOrigin?: string | undefined;
+        integrity?: string | undefined;
+    }
+    function preload(href: string, options?: PreloadOptions): void;
+
+    type PreinitAs = 'style';
+    interface PreinitOptions {
+        as: PreinitAs;
+        crossOrigin?: string | undefined;
+        precedence?: string | undefined;
+    }
+    function preinit(href: string, options?: PreinitOptions): void;
+}
