@@ -47,8 +47,13 @@
  * Create the following file named `my-component.mdx.d.ts` in the same directory:
  *
  * ```ts
+ * export { default } from '*.mdx';
+ *
  * export const message: string;
  * ```
+ *
+ * Note that this means you also need to define the default export. You can also define your own
+ * default export type to narrow the accepted prop types.
  *
  * It should now be possible to import both the MDX component and the exported constant `message`.
  */
