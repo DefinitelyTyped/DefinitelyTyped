@@ -18,7 +18,7 @@ export default class Lexer extends Recognizer {
     static readonly MIN_CHAR_VALUE: 0x0000;
     static readonly MAX_CHAR_VALUE: 0x10ffff;
 
-    constructor(input: InputStream);
+    constructor(input: InputStream | null);
 
     reset(): void;
 

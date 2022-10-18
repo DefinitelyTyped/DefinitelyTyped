@@ -142,6 +142,7 @@ Lexer.DEFAULT_TOKEN_CHANNEL; // $ExpectType 0
 Lexer.HIDDEN; // $ExpectType 1
 Lexer.MIN_CHAR_VALUE; // $ExpectType 0
 Lexer.MAX_CHAR_VALUE; // $ExpectType 1114111
+new Lexer(null);
 lexerInstance; // $ExpectType Lexer
 lexerInstance.reset(); // $ExpectType void
 lexerInstance.nextToken(); // $ExpectType Token
