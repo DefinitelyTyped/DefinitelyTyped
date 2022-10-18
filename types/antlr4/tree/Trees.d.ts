@@ -26,11 +26,11 @@ declare namespace Trees {
      */
     function getAncestors(t: Tree): Tree[];
 
-    function findAllTokenNodes(t: ParseTree, ttype: any): ParseTree[];
+    function findAllTokenNodes(t: ParseTree, ttype: number): ParseTree[];
 
-    function findAllRuleNodes(t: ParseTree, ruleIndex: any): ParseTree[];
+    function findAllRuleNodes(t: ParseTree, ruleIndex: number): ParseTree[];
 
-    function findAllNodes(t: ParseTree, index: any, findTokens: any): ParseTree[];
+    function findAllNodes(t: ParseTree, index: number, findTokens: boolean): ParseTree[];
 
     function descendants(t: ParseTree): ParseTree[];
 }

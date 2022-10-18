@@ -4,7 +4,7 @@ import Interval from '../misc/Interval';
 import Token from '../Token';
 
 export default class TerminalNode implements ParseTree {
-    parentCtx: any;
+    parentCtx: ParseTree;
     symbol: Token;
 
     constructor(symbol: Token);
