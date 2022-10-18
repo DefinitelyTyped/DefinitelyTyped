@@ -5,6 +5,7 @@ import './test/dfa';
 import './test/error';
 import './test/misc';
 import './test/state';
+import './test/transition';
 import './test/utils';
 
 import antlr4 from 'antlr4';

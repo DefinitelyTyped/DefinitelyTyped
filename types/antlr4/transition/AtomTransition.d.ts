@@ -3,7 +3,6 @@ import ATNState from '../state/ATNState';
 import Transition from './Transition';
 
 export default class AtomTransition extends Transition {
-    readonly label_: number;
     readonly label: IntervalSet;
     readonly serializationType: number;
 

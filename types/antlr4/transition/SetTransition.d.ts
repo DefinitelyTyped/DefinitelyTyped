@@ -3,7 +3,7 @@ import ATNState from '../state/ATNState';
 import Transition from './Transition';
 
 export default class SetTransition extends Transition {
-    serializationType: number;
+    readonly serializationType: number;
 
     constructor(target: ATNState, set: IntervalSet);
 

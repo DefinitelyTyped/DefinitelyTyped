@@ -51,9 +51,7 @@ export default class Transition {
         PrecedencePredicateTransition: typeof Transition.PRECEDENCE;
     };
 
-    target: ATNState;
-    isEpsilon: boolean;
-    label: IntervalSet | null;
+    readonly target: ATNState;
 
     constructor(target: ATNState);
 }
