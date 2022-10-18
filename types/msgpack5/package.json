@@ -1,4 +1,5 @@
 {
+    "private": true,
     "dependencies": {
         "bl": ">=5.1.0"
     }
