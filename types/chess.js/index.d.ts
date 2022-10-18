@@ -144,11 +144,6 @@ export interface Move extends ShortMove {
      * If an enemy piece was captured this is their type
      */
     captured?: Exclude<PieceType, 'k'> | undefined;
-
-    /**
-     * To what piece did pawn promote
-     */
-    promoted?: Exclude<PieceType, 'p'> | undefined;
 }
 
 export interface Piece {
