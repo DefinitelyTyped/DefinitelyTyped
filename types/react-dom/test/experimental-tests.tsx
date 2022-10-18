@@ -15,7 +15,6 @@ function preloadTest() {
             as: 'style',
             crossOrigin: 'anonymous',
             precedence: 'high',
-            // @ts-expect-error Only available in preload
             integrity: 'sad',
         });
         ReactDOM.preinit('bar', {
@@ -23,8 +22,11 @@ function preloadTest() {
             as: 'font',
         });
         ReactDOM.preinit('baz', {
-            // @ts-expect-error Only available in preload
             as: 'script',
+        });
+        ReactDOM.preinit('baz', {
+            // @ts-expect-error
+            as: 'title',
         });
     }
 }

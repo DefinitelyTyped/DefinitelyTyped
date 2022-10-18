@@ -33,7 +33,7 @@ import ReactDOM = require('./next');
 export {};
 
 declare module '.' {
-    type PreloadAs = 'style' | 'font' | 'script';
+    type PreloadAs = 'font' | 'script' | 'style';
     interface PreloadOptions {
         as: PreloadAs;
         crossOrigin?: string | undefined;
@@ -41,11 +41,12 @@ declare module '.' {
     }
     function preload(href: string, options?: PreloadOptions): void;
 
-    type PreinitAs = 'style';
+    type PreinitAs = 'script' | 'style';
     interface PreinitOptions {
         as: PreinitAs;
         crossOrigin?: string | undefined;
         precedence?: string | undefined;
+        integrity?: string | undefined;
     }
     function preinit(href: string, options?: PreinitOptions): void;
 }
