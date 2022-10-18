@@ -57,7 +57,7 @@ declare namespace omelette {
     type TemplatePrimativeValue = string | Choices;
 
     type TemplateValue = TemplatePrimativeValue | Callback;
-    
+
     type TreeCallback<V> = () => V;
 
     interface TreeValue {
