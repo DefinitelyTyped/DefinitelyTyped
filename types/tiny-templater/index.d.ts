@@ -5,6 +5,15 @@
 
 export = template;
 
-type Data = string | { [key: string]: Data };
+/** Data passed to a template function for interpolation. */
+interface Data {
+  [key: string]: string | Data;
+}
 
-declare function template(thing: string | { toString: () => string }): (obj: Data) => string;
+/** Returns a stored template string, interpolating the given data. */
+interface Template {
+  (obj: Data): string;
+}
+
+/** Creates a template function with the given template string. */
+declare function template(thing: string | { toString: () => string }): Template;
