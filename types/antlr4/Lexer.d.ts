@@ -30,9 +30,9 @@ export default class Lexer extends Recognizer {
 
     mode(m: number): void;
 
-    pushMode(mode: any): void;
+    pushMode(mode: number): void;
 
-    popMode(): any;
+    popMode(): number;
 
     emitToken(token: Token): void;
 

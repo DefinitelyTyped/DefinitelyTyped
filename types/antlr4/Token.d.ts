@@ -1,6 +1,8 @@
 import InputStream from './InputStream';
 import Lexer from './Lexer';
 
+export type TokenSourceTuple = [Lexer, InputStream] | [null, null];
+
 export default class Token {
     static readonly INVALID_TYPE: 0;
     static readonly EPSILON: -2;
@@ -9,7 +11,7 @@ export default class Token {
     static readonly DEFAULT_CHANNEL: 0;
     static readonly HIDDEN_CHANNEL: 1;
 
-    source: [Lexer, InputStream] | [null, null];
+    source: TokenSourceTuple;
     type: number;
 
     /**
@@ -42,7 +44,7 @@ export default class Token {
      */
     column: number;
 
-    getTokenSource(): Token['source'];
+    getTokenSource(): TokenSourceTuple;
 
     getInputStream(): InputStream;
 

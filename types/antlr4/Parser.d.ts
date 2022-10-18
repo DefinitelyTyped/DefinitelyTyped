@@ -3,7 +3,7 @@ import CommonTokenFactory from './CommonTokenFactory';
 import CommonTokenStream from './CommonTokenStream';
 import Recognizer from './Recognizer';
 import Token from './Token';
-import ParseTreeListener from './tree/Tree';
+import ParseTreeListener from './tree/ParseTreeListener';
 import ParserRuleContext from './context/ParserRuleContext';
 import ErrorStrategy from './error/ErrorStrategy';
 import RecognitionException from './error/RecognitionException';
@@ -190,11 +190,11 @@ export default class Parser extends Recognizer {
         precedence: number,
     ): void;
 
-    pushNewRecursionContext(localCtx: ParserRuleContext, state: number, ruleIndex: number | undefined): void;
+    pushNewRecursionContext(localCtx: ParserRuleContext, state: number, ruleIndex?: number): void;
 
     unrollRecursionContexts(parentCtx: ParserRuleContext): void;
 
-    getInvokingContext(ruleIndex: number): any;
+    getInvokingContext(ruleIndex: number): ParserRuleContext;
 
     inContext(context: ParserRuleContext): boolean;
 

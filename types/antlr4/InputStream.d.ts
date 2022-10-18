@@ -29,7 +29,7 @@ export default class InputStream {
     /**
      * noop: we have entire buffer
      */
-    release(marker: any): void;
+    release(marker: number): void;
 
     seek(_index: number): void;
 

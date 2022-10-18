@@ -34,7 +34,7 @@ export default class RuleContext extends RuleNode {
      */
     readonly invokingState: number;
 
-    constructor(parent: RuleContext, invokingState: number);
+    constructor(parent?: RuleContext, invokingState?: number);
 
     depth(): number;
 

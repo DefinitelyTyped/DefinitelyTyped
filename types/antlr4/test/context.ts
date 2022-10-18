@@ -50,6 +50,9 @@ predictionContextInstance.hashCode(); // $ExpectType number
 predictionContextInstance.updateHashCode(new HashCode()); // $ExpectType void
 
 // RuleContext
+new RuleContext();
+new RuleContext(parserRuleContextInstance);
+new RuleContext(undefined, 0);
 const ruleContextInstance = new RuleContext(parserRuleContextInstance, 0);
 ruleContextInstance.parentCtx; // $ExpectType RuleContext
 ruleContextInstance.invokingState; // $ExpectType number

@@ -1,5 +1,6 @@
 import Token from './Token';
 import Interval from './misc/IntervalSet';
+import TokenSource from './TokenSource';
 import TokenStream from './TokenStream';
 
 /**
@@ -13,41 +14,7 @@ import TokenStream from './TokenStream';
  * use a filtering token stream such a {@link CommonTokenStream}.
  */
 export default class BufferedTokenStream extends TokenStream {
-    tokenSource: Token;
-
-    /**
-     * A collection of all tokens fetched from the token source. The list is
-     * considered a complete view of the input once {@link fetchedEOF} is set
-     * to `true`.
-     */
-    tokens: Token[];
-
-    /**
-     * The index into {@link tokens} of the current token (next token to
-     * {@link consume}). {@link tokens}[ {@link p}] should be {@link LT(1)}.
-     *
-     * This field is set to -1 when the stream is first constructed or when
-     * {@link setTokenSource} is called, indicating that the first token has
-     * not yet been fetched from the token source. For additional information,
-     * see the documentation of {@link InputStream} for a description of
-     * Initializing Methods.
-     */
-    index: number;
-
-    /**
-     * Indicates whether the {@link Token.EOF} token has been fetched from
-     * {@link tokenSource} and added to {@link tokens}.
-     * This field improves performance for the following cases:
-     *
-     * - {@link consume}: The lookahead check in {@link consume} to prevent consuming
-     * the EOF symbol is optimized by checking the values of {@link fetchedEOF} instead
-     * of calling {@link LA}.
-     * - {@link fetch}: The check to prevent adding multiple EOF symbols into {@link tokens}
-     * is trivial with this field.
-     */
-    fetchedEOF: boolean;
-
-    constructor(tokenSource: any);
+    constructor(tokenSource: TokenSource);
 
     mark(): number;
 
@@ -108,7 +75,7 @@ export default class BufferedTokenStream extends TokenStream {
     /**
      * Reset this token stream by setting its token source.
      */
-    setTokenSource(tokenSource: any): void;
+    setTokenSource(tokenSource: TokenSource): void;
 
     /**
      * Given a starting index, return the index of the next token on channel.
@@ -133,9 +100,9 @@ export default class BufferedTokenStream extends TokenStream {
      */
     getHiddenTokensToRight(tokenIndex: number, channel: number): Token[];
 
-    getSourceName(): any;
+    getSourceName(): string;
 
-    filterForChannel(left: number, right: number, channel: number): any[] | null;
+    filterForChannel(left: number, right: number, channel: number): Token[] | null;
 
     /**
      * Get the text of all tokens in this buffer.

@@ -22,7 +22,7 @@ export default class CommonTokenFactory extends TokenFactory {
         source: Token['source'] | undefined,
         type: number | undefined,
         text: string | null,
-        channel: any,
+        channel: number,
         start: number,
         stop: number,
         line: number,

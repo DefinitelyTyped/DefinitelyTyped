@@ -7,13 +7,6 @@ import ParserRuleContext from './context/ParserRuleContext';
 import RecognitionException from './error/RecognitionException';
 
 export default class Recognizer {
-    _listeners: ConsoleErrorListener[];
-    _interp: ATNSimulator;
-    _stateNumber: number;
-
-    set state(arg: number);
-    get state(): number;
-
     checkVersion(toolVersion: number): void;
 
     addErrorListener(listener: ErrorListener): void;
@@ -34,7 +27,7 @@ export default class Recognizer {
      */
     getRuleIndexMap(): Record<string, number>;
 
-    getTokenType(tokenName: string): any;
+    getTokenType(tokenName: string): number;
 
     getErrorHeader(e: RecognitionException): string;
 
@@ -54,4 +47,7 @@ export default class Recognizer {
     sempred(localCtx: ParserRuleContext, ruleIndex: number, actionIndex: number): boolean;
 
     precpred(localCtx: ParserRuleContext, precedence: number): boolean;
+
+    set state(arg: number);
+    get state(): number;
 }
