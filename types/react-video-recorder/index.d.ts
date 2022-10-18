@@ -1,7 +1,6 @@
 // Type definitions for react-video-recorder 3.19
 // Project: https://github.com/fbaiodias/react-video-recorder#readme
 // Definitions by: Gabriel Cartier <https://github.com/GabrielCartier>
-//                 Antonio Herrera <https://github.com/aherrera9>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { ReactElement } from 'react';
 
