@@ -143,8 +143,8 @@ declare module '.' {
         | { [key: string]: ServerContextJSONValue};
     export interface ServerContext<T extends ServerContextJSONValue> {
         Provider: Provider<T>;
-        Consumer: Consumer<T>;
     }
+    function useContext<T extends ServerContextJSONValue>(context: ServerContext<T>): T;
     export function createServerContext<T extends ServerContextJSONValue>(
         globalName: string,
         defaultValue: T,

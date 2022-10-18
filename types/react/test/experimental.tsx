@@ -60,22 +60,13 @@ function serverContextTest() {
         const context = React.useContext(ServerContext);
         return <React.Fragment>{context}</React.Fragment>;
     }
-
-    function ServerContextConsumer() {
-        return (
-            <ServerContext.Consumer>
-                {context => {
-                    return context;
-                }}
-            </ServerContext.Consumer>
-        );
-    }
+    // @ts-expect-error Consumer pattern is not supported on server context
+    ServerContext.Consumer;
 
     function ServerContextProivder() {
         return (
             <ServerContext.Provider value="provided">
                 <ServerContextUser />
-                <ServerContextConsumer />
             </ServerContext.Provider>
         );
     }
