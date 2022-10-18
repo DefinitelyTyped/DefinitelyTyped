@@ -52,3 +52,38 @@ function useUse() {
     // $ExpectType string[]
     const contextValue = React.experimental_use(contextUsers);
 }
+
+function serverContextTest() {
+    const ServerContext = React.createServerContext<string>('ServerContext', 'default');
+
+    function ServerContextUser() {
+        const context = React.useContext(ServerContext);
+        return <React.Fragment>{context}</React.Fragment>;
+    }
+
+    function ServerContextConsumer() {
+        return (
+            <ServerContext.Consumer>
+                {context => {
+                    return context;
+                }}
+            </ServerContext.Consumer>
+        );
+    }
+
+    function ServerContextProivder() {
+        return (
+            <ServerContext.Provider value="provided">
+                <ServerContextUser />
+                <ServerContextConsumer />
+            </ServerContext.Provider>
+        );
+    }
+
+    // plain objects work
+    React.createServerContext('PlainObjectContext', { foo: 1 });
+    // @ts-expect-error Incompatible with JSON stringify+parse
+    React.createServerContext('DateContext', new Date());
+    // @ts-expect-error Incompatible with JSON stringify+parse
+    React.createServerContext('SetContext', new Set());
+}

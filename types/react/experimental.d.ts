@@ -132,4 +132,22 @@ declare module '.' {
 
     // tslint:disable-next-line ban-types
     export function experimental_useEvent<T extends Function>(event: T): T;
+
+    interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONArray> {}
+    export type ServerContextJSONValue =
+        | string
+        | boolean
+        | number
+        | null
+        | ServerContextJSONArray
+        | { [key: string]: ServerContextJSONValue};
+    export interface ServerContext<T extends ServerContextJSONValue> {
+        Provider: Provider<T>;
+        Consumer: Consumer<T>;
+        displayName?: string | undefined;
+    }
+    export function createServerContext<T extends ServerContextJSONValue>(
+        globalName: string,
+        defaultValue: T,
+    ): ServerContext<T>;
 }
