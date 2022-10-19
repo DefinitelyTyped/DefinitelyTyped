@@ -5,6 +5,16 @@
 
 export as namespace swell;
 
+export interface Query {
+    limit?: number;
+    page?: number;
+    expand?: string[];
+}
+
+export interface SearchQuery extends Query {
+    search: string;
+}
+
 export interface CartOption {
     name: string;
     value: string;
@@ -212,24 +222,43 @@ export interface InitOptions {
     api?: string;
     currency?: string;
     locale?: string;
-    previewContent?: boolean;
+    previewContent?: boolean | null;
     session?: string;
     timeout?: number;
-    url?: string;
-    useCamelCase?: boolean;
+    url?: string | null;
+    useCamelCase?: boolean | null;
     vaultUrl?: string;
 }
 
 export function init(storeId: string, publicKey: string, options?: InitOptions): void;
 
+export interface Address {
+    address1: string;
+    address2?: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+}
+
+export interface AddressWithContact extends Address {
+    name: string;
+    phone: string;
+}
+
+export function get(url: string, query: object): Promise<unknown>;
+export function put(url: string, query: object): Promise<unknown>;
+export function post(url: string, query: object): Promise<unknown>;
+
 export namespace account {
     function create(input: CreateAccountInput): Promise<unknown>;
-    function createAddress(input: object): Promise<unknown>;
+    function createAddress(input: AddressWithContact): Promise<AddressWithContact>;
     function createCard(input: object): Promise<unknown>;
     function deleteAddress(id: string): Promise<unknown>;
     function deleteCard(id: string): Promise<unknown>;
     function get(): Promise<unknown>;
-    function getOrder(id: string): Promise<unknown>;
+    function getAddresses({}): Promise<unknown>;
+    function getOrder(id?: string): Promise<unknown>;
     function listAddresses(): Promise<unknown>;
     function listCards(): Promise<unknown>;
     function listOrders(input: object): Promise<unknown>;
@@ -237,7 +266,8 @@ export namespace account {
     function logout(): Promise<unknown>;
     function recover(input: object): Promise<unknown>;
     function update(input: object): Promise<unknown>;
-    function updateAddress(input: object): Promise<unknown>;
+    function updateCard(input: object): Promise<unknown>;
+    function updateAddress(id: string, data: Address): Promise<AddressWithContact>;
 }
 
 export namespace attributes {
@@ -291,7 +321,7 @@ export namespace payment {
 
 export namespace products {
     function get(productId: string): Promise<Product>;
-    function list(input: object): Promise<Product>;
+    function list(input: Query | SearchQuery): Promise<Product>;
     function variation(productId: string, options: CartOption): Promise<Product>;
 }
 

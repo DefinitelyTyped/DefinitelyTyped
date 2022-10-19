@@ -4,11 +4,24 @@ swell.init('', '', {
     useCamelCase: true,
 });
 
+swell.get('', {}); // $ExpectType Promise<unknown>
+swell.put('', {}); // $ExpectType Promise<unknown>
+swell.post('', {}); // $ExpectType Promise<unknown>
+
 // $ExpectType Promise<unknown>
 swell.account.create({
     email: 'hello@world.com',
 });
-swell.account.createAddress({}); // $ExpectType Promise<unknown>
+// $ExpectType Promise<AddressWithContact>
+swell.account.createAddress({
+    address1: '',
+    city: '',
+    country: '',
+    name: '',
+    phone: '',
+    state: '',
+    zip: '',
+});
 swell.account.createCard({}); // $ExpectType Promise<unknown>
 swell.account.deleteAddress(''); // $ExpectType Promise<unknown>
 swell.account.deleteCard(''); // $ExpectType Promise<unknown>
@@ -20,7 +33,14 @@ swell.account.login('', ''); // $ExpectType Promise<unknown>
 swell.account.logout(); // $ExpectType Promise<unknown>
 swell.account.recover({}); // $ExpectType Promise<unknown>
 swell.account.update({}); // $ExpectType Promise<unknown>
-swell.account.updateAddress({}); // $ExpectType Promise<unknown>
+// $ExpectType Promise<AddressWithContact>
+swell.account.updateAddress('', {
+    address1: '',
+    city: '',
+    country: '',
+    state: '',
+    zip: '',
+});
 
 swell.attributes.get(''); // $ExpectType Promise<unknown>
 swell.attributes.list({}); // $ExpectType Promise<unknown>
