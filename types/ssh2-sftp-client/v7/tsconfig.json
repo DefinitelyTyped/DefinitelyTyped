@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "ssh2-sftp-client": [ "ssh2-sftp-client/v2" ]
+        }
     },
     "files": [
         "index.d.ts",
