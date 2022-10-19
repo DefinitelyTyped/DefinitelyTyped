@@ -16,7 +16,7 @@ declare module 'leaflet' {
 
         class BoundaryCanvas extends TileLayer {
             constructor(url: string, options?: BoundaryCanvasOptions);
-            static createFromLayer(tileLayer: TileLayer, options: BoundaryCanvasOptions): BoundaryCanvas;
+            static createFromLayer(tileLayer: TileLayer, options?: BoundaryCanvasOptions): BoundaryCanvas;
         }
 
         function boundaryCanvas(url: string, options?: BoundaryCanvasOptions): BoundaryCanvas;
