@@ -8,24 +8,17 @@ import type { FeatureCollection } from 'geojson';
 
 declare module 'leaflet' {
     namespace TileLayer {
-      interface BoundaryCanvasOptions extends TileLayerOptions {
-        boundary?: FeatureCollection
-        crossOrigin?: boolean
-        trackAttribution?: boolean
-      }
+        interface BoundaryCanvasOptions extends TileLayerOptions {
+            boundary?: FeatureCollection;
+            crossOrigin?: boolean;
+            trackAttribution?: boolean;
+        }
 
-      class BoundaryCanvas extends TileLayer {
-        constructor(url: string, options?: BoundaryCanvasOptions)
-        static createFromLayer(
-          tileLayer: TileLayer,
-          options: BoundaryCanvasOptions,
-        ): BoundaryCanvas
-      }
+        class BoundaryCanvas extends TileLayer {
+            constructor(url: string, options?: BoundaryCanvasOptions);
+            static createFromLayer(tileLayer: TileLayer, options: BoundaryCanvasOptions): BoundaryCanvas;
+        }
 
-      function boundaryCanvas(
-        url: string,
-        options?: BoundaryCanvasOptions,
-      ): BoundaryCanvas
+        function boundaryCanvas(url: string, options?: BoundaryCanvasOptions): BoundaryCanvas;
     }
-  }
-
+}
