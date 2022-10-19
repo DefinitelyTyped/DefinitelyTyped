@@ -47,10 +47,10 @@ interface DatePicker {
     /**
      * Select the value of the date picker inputs.
      *
-     * @param {HTMLButtonElement} el An element within the date picker component
+     * @param {HTMLElement} el An element within the date picker component
      * @param {string} dateString The date string to update in YYYY-MM-DD format
      */
-    setCalendarValue(el: HTMLButtonElement, dateString: string): void;
+    setCalendarValue(el: HTMLElement, dateString: string): void;
     /**
      * Validate the value in the input as a valid date of format M/D/YYYY
      *
