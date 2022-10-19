@@ -167,7 +167,7 @@ declare namespace sftp {
         isSocket: boolean;
     }
 
-    type ListFilterFunction = (fileInfo: sftp.FileInfo) => boolean;
+    type ListFilterFunction = (fileInfo: FileInfo) => boolean;
     type DirFilterFunction = (filePath: string, isDirectory: boolean) => boolean;
 
     interface DirOptions {

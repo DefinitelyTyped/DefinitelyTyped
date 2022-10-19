@@ -100,20 +100,20 @@ import * as fs from 'fs';
 
     client.uploadDir('/local/path', '/remote/path').then(() => null);
     client.uploadDir('/local/path', '/remote/path', {
-        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir === true
+        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir
     }).then(() => null);
     client.uploadDir('/local/path', '/remote/path', {
-        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir === true,
+        filter: (pathname, isdir) => /foo*/.test(pathname) && !isdir,
         useFastput: true,
     }).then(() => null);
 
     client.downloadDir('/remote/path', '/local/path').then(() => null);
 
     client.downloadDir('/remote/path', '/local/path', {
-        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir === true
+        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir
     }).then(() => null);
     client.downloadDir('/remote/path', '/local/path', {
-        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir === true,
+        filter: (pathname, isdir) => /foo*/.test(pathname) && !isdir,
         useFastget: true,
     }).then(() => null);
 
