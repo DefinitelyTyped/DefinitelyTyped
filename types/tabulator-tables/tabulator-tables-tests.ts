@@ -1189,4 +1189,10 @@ table = new Tabulator('#test', {
 
 table.on('cellMouseDown', (e, cell) => {});
 
+// Testing popup event and menu event
+table.on('popupClosed', function (component) {});
+table.on('popupOpen', function (component) {});
+table.on('menuOpened', function (component) {});
+table.on('menuClosed', function (component) {});
+
 column.popup('test', 'bottom');
