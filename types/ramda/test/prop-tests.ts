@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 
+// FIXME: TS 4.9 handles `const a = value as Value | undefined;` as `Value`
 function maybe<T>(value: T): T | undefined { return value; }
 
 () => { // get defined prop from obj
