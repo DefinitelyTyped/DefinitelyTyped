@@ -1565,6 +1565,10 @@
             "libraryName": "fromnow",
             "asOfVersion": "3.0.1"
         },
+        "fs-capacitor": {
+            "libraryName": "fs-capacitor",
+            "asOfVersion": "8.0.0"
+        },
         "fs-promise": {
             "libraryName": "fs-promise",
             "asOfVersion": "2.0.0"
