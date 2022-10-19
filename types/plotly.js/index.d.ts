@@ -1220,6 +1220,9 @@ export interface PlotData {
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    xhoverformat: string;
+    yhoverformat: string;
+    texttemplate: string | string[];
     textinfo:
         | 'label'
         | 'label+text'
@@ -1608,7 +1611,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
+    modeBarButtons: Array<Array<ModeBarDefaultButtons | ModeBarButton>> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;

@@ -1,9 +1,19 @@
-import { BuyTrade, ExchangeTrade, P2pQuote, SavingsTradeKYCStatusSuccessfulResponse, SellFiatTrade } from 'invity-api';
+import {
+    BuyTrade,
+    ExchangeTrade,
+    P2pQuote,
+    P2pTradeRequest,
+    SavingsTradeKYCStatusSuccessfulResponse,
+    SellFiatTrade,
+} from 'invity-api';
 
 const bt: BuyTrade = {};
+
 const et: ExchangeTrade = {};
+
 const sft: SellFiatTrade = {};
-const p2p: P2pQuote = {
+
+const p2pQuote: P2pQuote = {
     provider: '',
     id: '',
     assetCode: '',
@@ -16,4 +26,13 @@ const p2p: P2pQuote = {
     confirmations: 0,
     trader: { name: '', numberOfTrades: 0, onlineStatus: 'OFFLINE', rating: '' },
 };
+const p2pTrade: P2pTradeRequest = {
+    quotesRequest: {
+        amount: '',
+        currency: '',
+        assetCode: '',
+    },
+    selectedQuote: p2pQuote,
+};
+
 const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: 'InProgress' };

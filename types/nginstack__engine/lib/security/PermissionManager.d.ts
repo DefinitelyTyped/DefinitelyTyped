@@ -33,7 +33,7 @@ declare class PermissionManager {
             | Record<any, any>
             | {
                   resources: number[];
-                  transaction: any;
+                  transaction: Transaction;
               }
     ): number | null;
     copyPermissions(
@@ -48,7 +48,9 @@ declare class PermissionManager {
     getOrphans(): DataSet;
 }
 declare namespace PermissionManager {
-    function getInstance(): PermissionManager;
+    export { getInstance, Transaction };
 }
 import DataSet = require('../dataset/DataSet.js');
 import PermissionAssignment = require('./PermissionAssignment.js');
+type Transaction = import('../dataset/Transaction');
+declare function getInstance(): PermissionManager;

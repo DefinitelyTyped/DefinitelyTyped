@@ -504,8 +504,10 @@ export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
  * R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  * ```
  */
-export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & Omit<U, K>;
+export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => K extends keyof U ? T extends U[K] ? U : Record<K, T> & Omit<U, K> : Record<K, T> & Omit<U, K>;
+export function assoc<U, K extends keyof U>(prop: K, __: Placeholder, obj: U): <T>(val: T) => T extends U[K] ? U : Record<K, T> & Omit<U, K>;
 export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & Omit<U, K>;
+export function assoc<K extends keyof U, U>(prop: K, val: U[K], obj: U): U;
 export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
 export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
@@ -643,6 +645,9 @@ export function call<T extends AnyFunction>(fn: T, ...args: Parameters<T>): Retu
  */
 export function chain<A, B, T = never>(fn: (n: A) => readonly B[], list: readonly A[]): B[];
 export function chain<A, B, T = never>(fn: (n: A) => readonly B[]): (list: readonly A[]) => B[];
+
+export function chain<A, Ma extends { chain: (fn: (a: A) => Mb) => Mb }, Mb>(fn: (a: A) => Mb, monad: Ma): Mb;
+export function chain<A, Ma extends { chain: (fn: (a: A) => Mb) => Mb }, Mb>(fn: (a: A) => Mb): (monad: Ma) => Mb;
 
 export function chain<A, B, R>(aToMb: (a: A, r: R) => B, Ma: (r: R) => A): (r: R) => B;
 export function chain<A, B, R>(aToMb: (a: A, r: R) => B): (Ma: (r: R) => A) => (r: R) => B;
@@ -3847,6 +3852,38 @@ export function partition(fn: (a: string) => boolean): (list: readonly string[])
  * R.path(['a', 'b', -2], {a: {b: [1, 2, 3]}}); //=> 2
  * ```
  */
+export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 export function path<T>(path: Path, obj: any): T | undefined;
 export function path<T>(path: Path): (obj: any) => T | undefined;
 
@@ -3943,6 +3980,7 @@ export function pick<K extends string | number | symbol>(
  * R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  * ```
  */
+export function pickAll<T, K extends keyof T>(names: readonly K[], obj: T): Pick<T, K>;
 export function pickAll<T, U>(names: readonly string[], obj: T): U;
 export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 
@@ -5236,6 +5274,8 @@ export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[]
  * // logs 'x is 100'
  * ```
  */
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R, value: T): R;
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R): (value: T) => R;
 export function tap<T>(fn: (a: T) => void, value: T): T;
 export function tap<T>(fn: (a: T) => void): (value: T) => T;
 

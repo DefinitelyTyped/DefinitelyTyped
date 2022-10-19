@@ -11,11 +11,15 @@ export type ThemeColor = 'light' | 'dark';
 export type DockPosition = 'right' | 'left';
 export interface AppearanceConfig {
     readonly theme?: ThemeColor | undefined;
-    readonly panels?: {
-        readonly tools?: {
-            readonly dock: DockPosition;
-        } | undefined;
-    } | undefined;
+    readonly panels?:
+        | {
+              readonly tools?:
+                  | {
+                        readonly dock: DockPosition;
+                    }
+                  | undefined;
+          }
+        | undefined;
 }
 
 export interface User {
@@ -76,10 +80,14 @@ export interface DisplayCondition {
 
 export type EmptyDisplayCondition = object;
 
+export interface ToolPropertiesConfig {
+    readonly [key: string]: { value: string };
+}
+
 export interface ToolConfig {
     readonly enabled?: boolean | undefined;
     readonly position?: number | undefined;
-    readonly data?: StringList | undefined;
+    readonly properties?: ToolPropertiesConfig | StringList | undefined;
 }
 
 export interface ToolsConfig {
@@ -173,7 +181,10 @@ export type FileUploadCallback = (file: FileInfo, done: FileUploadDoneCallback) 
 export type FileUploadDoneCallback = (data: FileUploadDoneData) => void;
 
 export type DisplayConditionDoneCallback = (data: DisplayCondition | null) => void;
-export type DisplayConditionCallback = (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => void;
+export type DisplayConditionCallback = (
+    data: DisplayCondition | EmptyDisplayCondition,
+    done: DisplayConditionDoneCallback,
+) => void;
 
 export default class Component extends ReactComponent<EmailEditorProps> {
     private unlayerReady(): void;

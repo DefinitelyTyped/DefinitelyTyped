@@ -1020,8 +1020,8 @@ export interface P2pTrader {
 }
 
 export interface P2pTradeRequest {
-    provider: string;
-    id: Id;
+    quotesRequest: P2pQuotesRequest;
+    selectedQuote: P2pQuote;
 }
 
 export interface P2pTradeResponse {
