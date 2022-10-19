@@ -794,10 +794,34 @@ eslintConfig = {
         rules: {
             'max-len': 0,
         },
+    },
+    {
+        files: '*.ts',
+        rules: {
+            '@typescript-eslint/no-invalid-void-type': [2, {allowAsThisParameter: true}],
+        },
     }],
 };
 
+eslintConfig.rules; // $ExpectType Partial<ESLintRules> | undefined
 eslintConfig.overrides?.[0].rules; // $ExpectType Partial<ESLintRules> | undefined
+
+interface TSLinterRules {
+    '@typescript-eslint/no-invalid-void-type'?: Linter.RuleEntry<[Partial<{
+        allowInGenericTypeArguments: boolean | string[];
+        allowAsThisParameter: boolean;
+    }>]>;
+}
+
+const eslintConfig2: Linter.Config<ESLintRules, ESLintRules & TSLinterRules> = eslintConfig;
+
+eslintConfig2.rules; // $ExpectType Partial<ESLintRules> | undefined
+eslintConfig2.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
+
+const eslintConfig3: Linter.Config<ESLintRules & TSLinterRules> = eslintConfig2;
+
+eslintConfig3.rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
+eslintConfig3.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
 
 //#endregion
 
