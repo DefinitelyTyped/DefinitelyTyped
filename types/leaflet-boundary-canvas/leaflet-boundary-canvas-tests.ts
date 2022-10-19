@@ -66,6 +66,7 @@ const map = L.map('map', {
     zoom: 13,
 });
 
+// $ExpectType BoundaryCanvas
 const layer = L.TileLayer.boundaryCanvas(url, {
     boundary: geojson,
     attribution,
@@ -78,6 +79,7 @@ const map2 = L.map('map', {
     zoom: 13,
 });
 
+// $ExpectType BoundaryCanvas
 const layer2 = new L.TileLayer.BoundaryCanvas(url, {
     boundary: geojson,
     attribution,
@@ -94,6 +96,7 @@ const baseLayer = L.tileLayer(url, {
     attribution,
 }).addTo(map);
 
+// $ExpectType BoundaryCanvas
 const layer3 = L.TileLayer.BoundaryCanvas.createFromLayer(baseLayer, {
     boundary: geojson,
 });
