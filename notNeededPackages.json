@@ -436,6 +436,14 @@
             "libraryName": "builtin-modules",
             "asOfVersion": "3.1.0"
         },
+        "bull": {
+            "libraryName": "bull",
+            "asOfVersion": "4.10.0"
+        },
+        "bull-board": {
+            "libraryName": "bull-board",
+            "asOfVersion": "2.0.0"
+        },
         "bulma-calendar": {
             "libraryName": "bulma-calendar",
             "asOfVersion": "6.0.2"
