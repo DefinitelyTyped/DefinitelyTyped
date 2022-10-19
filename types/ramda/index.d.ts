@@ -5274,6 +5274,8 @@ export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[]
  * // logs 'x is 100'
  * ```
  */
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R, value: T): R;
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R): (value: T) => R;
 export function tap<T>(fn: (a: T) => void, value: T): T;
 export function tap<T>(fn: (a: T) => void): (value: T) => T;
 
