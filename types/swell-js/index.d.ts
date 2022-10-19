@@ -208,11 +208,19 @@ export interface CartInput {
     };
 }
 
-export function init(storeId: string, publicKey: string, options?: InitOptions): void;
-
 export interface InitOptions {
-    useCamelCase: boolean;
+    api?: string;
+    currency?: string;
+    locale?: string;
+    previewContent?: boolean;
+    session?: string;
+    timeout?: number;
+    url?: string;
+    useCamelCase?: boolean;
+    vaultUrl?: string;
 }
+
+export function init(storeId: string, publicKey: string, options?: InitOptions): void;
 
 export namespace account {
     function create(input: CreateAccountInput): Promise<unknown>;
