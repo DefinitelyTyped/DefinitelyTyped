@@ -13,8 +13,8 @@ import * as R from 'ramda';
     const a2 = R.indexBy(R.prop('id'))(list);
     const a3 = R.indexBy<{ id: string }>(R.prop('id'))(list);
     const a4 = R.indexBy(R.prop<'id', string>('id'))(list);
-    const a5 = R.indexBy(R.prop<'id', { id: string }>('id'))(list);
-    const a6 = R.indexBy<{ id: string }>(R.prop<'id', string>('id'))(list);
+    const a5 = R.indexBy<{ id: string }>(R.prop<'id', string>('id'))(list);
+    const a6 = R.indexBy(R.prop<'id', { id: string }>('id'))(list);
 };
 
 () => {
