@@ -2,6 +2,8 @@
 
 import React = require('react');
 
+const cache = React.experimental_cache;
+
 function suspenseTest() {
     function DisplayData() {
         return null;
@@ -77,4 +79,18 @@ function serverContextTest() {
     React.createServerContext('DateContext', new Date());
     // @ts-expect-error Incompatible with JSON stringify+parse
     React.createServerContext('SetContext', new Set());
+}
+
+function cacheTest() {
+    const getLength = cache((a: string) => a.length);
+    const fooLength: number = getLength('foo');
+    getLength(
+        // @ts-expect-error -- number not assignable to string
+        133,
+    );
+
+    cache(
+        // @ts-expect-error implicit any
+        a => a,
+    );
 }

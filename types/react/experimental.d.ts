@@ -140,7 +140,7 @@ declare module '.' {
         | number
         | null
         | ServerContextJSONArray
-        | { [key: string]: ServerContextJSONValue};
+        | { [key: string]: ServerContextJSONValue };
     export interface ServerContext<T extends ServerContextJSONValue> {
         Provider: Provider<T>;
     }
@@ -149,4 +149,7 @@ declare module '.' {
         globalName: string,
         defaultValue: T,
     ): ServerContext<T>;
+
+    // tslint:disable-next-line ban-types
+    export function experimental_cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 }
