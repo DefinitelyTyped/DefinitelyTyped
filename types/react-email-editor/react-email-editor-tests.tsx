@@ -1,24 +1,36 @@
 import * as React from 'react';
 import EmailEditor, {
-    Design,
-    FileInfo,
-    FileUploadDoneCallback,
-    HtmlExport,
-    SimpleMergeTag,
-    GroupedMergeTag,
-    ConditionalMergeTag, DisplayCondition, EmptyDisplayCondition, DisplayConditionDoneCallback,
-    SimpleSpecialLink,
-    GroupedSpecialLink
+  ConditionalMergeTag,
+  Design,
+  DisplayCondition,
+  DisplayConditionDoneCallback,
+  EmptyDisplayCondition,
+  FileInfo,
+  FileUploadDoneCallback,
+  GroupedMergeTag,
+  GroupedSpecialLink,
+  HtmlExport,
+  SimpleMergeTag,
+  SimpleSpecialLink
 } from 'react-email-editor';
 
 const TOOLS_CONFIG = {
   image: {
     enabled: true,
     position: 1,
-    data: {
-      alt: 'this is a test alt text',
-    },
+    properties: {
+      altText: {
+        value: "Image"
+      }
+    }
   },
+  heading: {
+    properties: {
+      text: {
+        value: 'This is a different heading'
+      }
+    }
+  }
 };
 
 const simpleMergeTag: SimpleMergeTag = { value: '{{simple_merge_tag}}', name: 'Simple Merge Tag' };
@@ -30,7 +42,7 @@ const groupedMergeTag: GroupedMergeTag = {
       name: 'Tag 2',
       mergeTags: [{ name: 'Tag 4', value: '{tag_4}' }]
     },
-    { name: 'Tag 3', value: '{tag_3}', sample: 'sample value'},
+    { name: 'Tag 3', value: '{tag_3}', sample: 'sample value' },
   ],
 };
 const conditionalMergeTag: ConditionalMergeTag = {
@@ -83,7 +95,7 @@ class App extends React.Component {
       );
       this.editorRef.current.registerCallback(
         'displayCondition',
-         (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
+        (data: DisplayCondition | EmptyDisplayCondition, done: DisplayConditionDoneCallback) => done(null),
       );
       this.editorRef.current.registerCallback(
         'displayCondition',
@@ -96,9 +108,9 @@ class App extends React.Component {
         }),
       );
       this.editorRef.current.setMergeTags([
-          simpleMergeTag,
-          groupedMergeTag,
-          conditionalMergeTag
+        simpleMergeTag,
+        groupedMergeTag,
+        conditionalMergeTag
       ]);
     }
   }
