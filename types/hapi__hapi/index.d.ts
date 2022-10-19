@@ -59,7 +59,7 @@ export type Dependencies = string | string[] | {
 /**
  * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverregistrations)
  */
-
+// tslint:disable-next-line no-empty-interface
 export interface PluginsListRegistered {
 }
 
@@ -88,9 +88,11 @@ export interface PluginRegistered {
     options: object;
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface PluginsStates {
 }
 
+// tslint:disable-next-line no-empty-interface
 export interface PluginSpecificConfiguration {
 }
 
@@ -425,6 +427,7 @@ export interface InternalRequestDefaults {
  * server route generic, or lifecycle methods will take precedence
  * over these.
  */
+// tslint:disable-next-line no-empty-interface
 export interface ReqRefDefaults extends InternalRequestDefaults {}
 
 /**
@@ -1228,6 +1231,7 @@ export interface ResponseToolkit<Refs extends ReqRef = ReqRefDefaults> {
  *      Scope: 'user' | 'admin' | 'manager-users'
  * }
  */
+// tslint:disable-next-line no-empty-interface
 export interface RouteOptionTypes {
 }
 
@@ -1851,6 +1855,7 @@ export type RouteCompressionEncoderSettings = object;
  * Empty interface to allow for user-defined augmentations.
  */
 
+// tslint:disable-next-line no-empty-interface
 export interface RouteOptionsApp {}
 
 export interface CommonRouteProperties<Refs extends ReqRef = ReqRefDefaults> {
@@ -2151,10 +2156,13 @@ export type ServerAuthSchemeOptions = object;
  * @param options - (optional) the scheme options argument passed to server.auth.strategy() when instantiation a strategy.
  */
 export type ServerAuthScheme<
+    // tslint:disable-next-line no-unnecessary-generics
     Options extends ServerAuthSchemeOptions = ServerAuthSchemeOptions,
+    // tslint:disable-next-line no-unnecessary-generics
     Refs extends ReqRef = ReqRefDefaults
 > = (server: Server, options?: Options) => ServerAuthSchemeObject<Refs>;
 
+// tslint:disable-next-line no-empty-interface
 export interface ServerAuthSchemeObjectApi {}
 
 /**
@@ -2231,6 +2239,7 @@ export interface ServerAuthSchemeObject<Refs extends ReqRef = ReqRefDefaults> {
  * For reference [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-serverauthdefaultoptions)
  */
 
+// tslint:disable-next-line no-empty-interface
 export interface ServerAuthConfig extends RouteOptionsAccess {
 }
 
@@ -2283,6 +2292,7 @@ export interface ServerAuth {
     scheme <
         Refs extends ReqRef = ReqRefDefaults,
         Options extends object = {}
+    // tslint:disable-next-line no-unnecessary-generics
     >(name: string, scheme: ServerAuthScheme<Options, Refs>): void;
 
     /**
@@ -2321,6 +2331,7 @@ export interface ServerAuth {
      * are still valid (e.g. have not been revoked or expired). It does not include verifying scope,
      * entity, or other route properties.
      */
+    // tslint:disable-next-line no-unnecessary-generics
     verify <Refs extends ReqRef = ReqRefDefaults>(request: Request<Refs>): Promise<void>;
 }
 
@@ -2997,6 +3008,7 @@ export interface ServerOptionsCompression {
  * Empty interface to allow for custom augmentation.
  */
 
+// tslint:disable-next-line no-empty-interface
 export interface ServerOptionsApp {
 }
 
@@ -3309,8 +3321,10 @@ export type ServerRegisterPluginObjectArray<T, U, V, W, X, Y, Z> = Array<
     ServerRegisterPluginObject<Z>
 >;
 
+// tslint:disable-next-line no-empty-interface
 export interface HandlerDecorations {}
 
+// tslint:disable-next-line no-empty-interface
 export interface RouteRules {}
 
 export interface RulesInfo {
@@ -3532,12 +3546,14 @@ export type DecorationMethod<T> = (this: T, ...args: any[]) => any;
  * An empty interface to allow typings of custom plugin properties.
  */
 
+// tslint:disable-next-line no-empty-interface
 export interface PluginProperties {
 }
 
 /**
  * An empty interface to allow typings of custom server.methods.
  */
+// tslint:disable-next-line no-empty-interface
 export interface ServerMethods extends Util.Dictionary<ServerMethod> {
 }
 
@@ -3926,6 +3942,7 @@ export class Server {
      * * request - the request object.
      * [See docs](https://github.com/hapijs/hapi/blob/master/API.md#-await-serverinjectoptions)
      */
+    // tslint:disable-next-line no-unnecessary-generics
     inject <Result = object>(options: string | ServerInjectOptions): Promise<ServerInjectResponse<Result>>;
 
     /**
@@ -4141,6 +4158,7 @@ export function server(opts?: ServerOptions): Server;
  *  User-extensible type for application specific state (`server.app`).
  */
 
+// tslint:disable-next-line no-empty-interface
 export interface ServerApplicationState {
 }
 
@@ -4148,14 +4166,16 @@ export interface ServerApplicationState {
  *  User-extensible type for application specific state on requests (`request.app`).
  */
 
- export interface RequestApplicationState {
+// tslint:disable-next-line no-empty-interface
+export interface RequestApplicationState {
 }
 
 /**
  *  User-extensible type for application specific state on responses (`response.app`).
  */
 
- export interface ResponseApplicationState {
+// tslint:disable-next-line no-empty-interface
+export interface ResponseApplicationState {
 }
 
 export type PeekListener = (chunk: string, encoding: string) => void;
