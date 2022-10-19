@@ -20,8 +20,6 @@
 
 /// <reference types='node' />
 
-/* tslint:disable:no-unnecessary-generics no-empty-interface */
-
 import { Boom } from '@hapi/boom';
 import * as http from 'http';
 import * as https from 'https';
