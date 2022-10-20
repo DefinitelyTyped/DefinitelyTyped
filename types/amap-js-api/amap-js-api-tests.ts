@@ -2275,11 +2275,9 @@ testCircle.on('change', (event: AMap.Circle.EventMap<typeof testCircle>['change'
     event.target;
 });
 
-
 /**
  * overlay/circleMarker.ts
  */
-
 interface CircleMarkerExtraData {
     test: number;
 }
