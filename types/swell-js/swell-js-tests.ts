@@ -67,7 +67,7 @@ swell.cart.setItems([
         product_id: '',
     },
 ]);
-swell.cart.submitOrder(); // $ExpectType Promise<unknown>
+swell.cart.submitOrder(); // $ExpectType Promise<Order>
 // $ExpectType Promise<Cart>
 swell.cart.update({
     product_id: '',
@@ -86,8 +86,7 @@ swell.locale.selected(); // $ExpectType Promise<string>
 swell.locale.select(''); // $ExpectType Promise<unknown>
 
 swell.payment.createElements({}); // $ExpectType Promise<unknown>
-swell.payment.tokenize({}); // $ExpectType Promise<unknown>
-
+swell.payment.tokenize({}); // $ExpectType void
 swell.products.get(''); // $ExpectType Promise<Product>
 swell.products.list({}); // $ExpectType Promise<Product>
 // $ExpectType Promise<Product>

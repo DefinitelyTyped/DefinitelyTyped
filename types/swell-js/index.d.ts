@@ -134,10 +134,52 @@ export interface CartItemSnakeCase {
 
 export type CartItem = CartItemCamelCase | CartItemSnakeCase;
 
+export interface Address {
+    address1: string;
+    address2?: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+}
+
+export interface AddressWithContact extends Address {
+    name: string;
+    phone: string;
+}
+
+export interface BillingCamelCase extends AddressWithContact {
+    accountCardId: string | null;
+    firstName: string;
+    lastName: string;
+}
+
+export interface BillingSnakeCase extends AddressWithContact {
+    account_card_id: string | null;
+    first_name: string;
+    last_name: string;
+}
+
+export type Billing = BillingCamelCase | BillingSnakeCase;
+
+export interface ShippingCamelCase extends AddressWithContact {
+    accountAddressId: string | null;
+    firstName: string;
+    lastName: string;
+}
+
+export interface ShippingSnakeCase extends AddressWithContact {
+    account_address_id: string | null;
+    first_name: string;
+    last_name: string;
+}
+
+export type Shipping = ShippingCamelCase | ShippingSnakeCase;
+
 export interface CartCamelCase {
     accountLoggedIn: unknown;
     authTotal: number;
-    billing: unknown;
+    billing: Billing;
     captureTotal: number;
     checkoutId: string;
     checkoutUrl: string;
@@ -208,6 +250,118 @@ export interface CartSnakeCase {
 
 export type Cart = CartCamelCase | CartSnakeCase;
 
+export interface OrderCamelCase {
+    account: unknown;
+    accountCreditAmount: unknown;
+    accountCreditApplied: unknown;
+    accountId: string;
+    accountInfoSaved: unknown;
+    accountLoggedIn: unknown;
+    billing: Billing;
+    comments: unknown;
+    coupon: unknown;
+    couponCode: unknown;
+    currency: string;
+    dateCreated: string;
+    delivered: boolean;
+    discounts: unknown;
+    discountTotal: number;
+    gift: unknown;
+    giftcards: unknown;
+    giftcardTotal: number;
+    giftMessage: unknown;
+    grandTotal: number;
+    guest: boolean;
+    id: string;
+    itemDiscount: number;
+    itemQuantity: number;
+    itemQuantityCancelable: number;
+    itemQuantityCanceled: number;
+    itemQuantityDeliverable: number;
+    itemQuantityDelivered: number;
+    itemQuantityReturnable: number;
+    itemQuantityReturned: number;
+    items: CartItem[];
+    itemShipmentWeight: number;
+    itemTax: number;
+    itemTaxIncluded: unknown;
+    metadata: unknown;
+    number: string;
+    paid: boolean;
+    promotionIds: unknown;
+    promotions: unknown;
+    shipmentDelivery: boolean;
+    shipmentDiscount: number;
+    shipmentPrice: number;
+    shipmentRating: unknown;
+    shipmentTax: unknown;
+    shipmentTaxIncluded: unknown;
+    shipmentTotal: number;
+    shipping: Shipping;
+    status: string;
+    subTotal: number;
+    taxes: unknown;
+    taxIncludedTotal: number;
+    taxTotal: number;
+}
+
+export interface OrderSnakeCase {
+    account: unknown;
+    account_credit_amount: unknown;
+    account_credit_applied: unknown;
+    account_id: string;
+    account_info_saved: unknown;
+    account_logged_in: unknown;
+    billing: Billing;
+    comments: unknown;
+    coupon: unknown;
+    coupon_code: unknown;
+    currency: string;
+    date_created: string;
+    delivered: boolean;
+    discounts: unknown;
+    discount_total: number;
+    gift: unknown;
+    giftcards: unknown;
+    giftcard_total: number;
+    gift_message: unknown;
+    grand_total: number;
+    guest: boolean;
+    id: string;
+    item_discount: number;
+    item_quantity: number;
+    item_quantity_cancelable: number;
+    item_quantity_canceled: number;
+    item_quantity_deliverable: number;
+    item_quantity_delivered: number;
+    item_quantity_returnable: number;
+    item_quantity_returned: number;
+    items: CartItem[];
+    item_shipment_weight: number;
+    item_tax: number;
+    item_tax_included: unknown;
+    metadata: unknown;
+    number: string;
+    paid: boolean;
+    promotion_ids: unknown;
+    promotions: unknown;
+    shipment_delivery: boolean;
+    shipment_discount: number;
+    shipment_price: number;
+    shipment_rating: unknown;
+    shipment_tax: unknown;
+    shipment_tax_included: unknown;
+    shipment_total: number;
+    shipping: Shipping;
+    status: string;
+    sub_total: number;
+    taxes: unknown;
+    tax_included_total: number;
+    tax_total: number;
+}
+
+export type Order = OrderCamelCase | OrderSnakeCase;
+
 export interface CartInput {
     product_id: string;
     quantity?: number;
@@ -231,20 +385,6 @@ export interface InitOptions {
 }
 
 export function init(storeId: string, publicKey: string, options?: InitOptions): void;
-
-export interface Address {
-    address1: string;
-    address2?: string;
-    city: string;
-    state: string;
-    zip: string;
-    country: string;
-}
-
-export interface AddressWithContact extends Address {
-    name: string;
-    phone: string;
-}
 
 export function get(url: string, query: object): Promise<unknown>;
 export function put(url: string, query: object): Promise<unknown>;
@@ -292,7 +432,7 @@ export namespace cart {
     function removeGiftcard(itemId: string): Promise<Cart>;
     function removeItem(itemId: string): Promise<Cart>;
     function setItems(input: CartInput[]): Promise<Cart>;
-    function submitOrder(): Promise<unknown>;
+    function submitOrder(): Promise<Order>;
     function update(input: any): Promise<Cart>;
     function updateItem(itemId: string, input: any): Promise<Cart>;
 }
@@ -316,7 +456,7 @@ export namespace locale {
 
 export namespace payment {
     function createElements(input: object): Promise<unknown>;
-    function tokenize(input: object): Promise<unknown>;
+    function tokenize(input: object): void;
 }
 
 export namespace products {
