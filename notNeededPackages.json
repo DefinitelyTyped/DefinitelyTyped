@@ -1257,6 +1257,10 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-visitor-keys": {
+            "libraryName": "eslint-visitor-keys",
+            "asOfVersion": "3.3.0"
+        },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
             "asOfVersion": "2.0.0"
