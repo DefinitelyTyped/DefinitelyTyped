@@ -1,7 +1,8 @@
-// Type definitions for react-email-editor 1.1
+// Type definitions for react-email-editor 1.5
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
 //                 Vladimir Penyazkov <https://github.com/mindtraveller>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -140,12 +141,14 @@ export interface UnlayerOptions {
 }
 
 export interface EmailEditorProps {
+    readonly editorId?: string | undefined;
     readonly style?: CSSProperties | undefined;
     readonly minHeight?: number | string | undefined;
     readonly options?: UnlayerOptions | undefined;
     readonly tools?: ToolsConfig | undefined;
     readonly appearance?: AppearanceConfig | undefined;
     readonly projectId?: number | undefined;
+    readonly scriptUrl?: string | undefined;
     /** @deprecated Use **onReady** instead */
     onLoad?(): void;
     onReady?(): void;
