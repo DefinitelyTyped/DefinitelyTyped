@@ -67,12 +67,6 @@ declare namespace dc {
         trigger(closure: () => void, delay?: number): void;
     }
 
-    export interface Errors {
-        Exception(msg: string): void;
-        InvalidStateException(): void;
-        BadArgumentException(): void;
-    }
-
     export interface Filter {
         isFiltered(value: any): boolean;
     }
@@ -528,7 +522,9 @@ declare namespace dc {
         round: Round;
         override(obj: any, functionName: string, newFunction: Function): void;
         instanceOfChart(object: any): boolean;
-        errors: Errors;
+        Exception(msg: string): void;
+        InvalidStateException(): void;
+        BadArgumentException(): void;
         dateFormat: d3.time.Format;
         printers: Printers;
         pluck(n: string, f?: Accessor<any, any>): Accessor<any, any>;
