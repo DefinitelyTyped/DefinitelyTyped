@@ -60,7 +60,7 @@ export interface StorageClient {
         storageSubId: string,
         recursive?: boolean,
         forceRecursive?: boolean
-    ): Promise<undefined>;
+    ): Promise<void>;
 
     // https://fusebit.io/docs/reference/fusebit-http-api/#operation/getStorageList
     list(

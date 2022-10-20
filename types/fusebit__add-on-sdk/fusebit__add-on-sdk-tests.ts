@@ -41,7 +41,7 @@ const storageResult2: Sdk.ListStorageResult = {
 const storageClient: Sdk.StorageClient = {
     get: (storageId: string) => Promise.resolve(dataObject),
     put: (data: any, storageSubId: string) => Promise.resolve(dataObject),
-    delete: (storageSubId: string, recursive?: boolean, forceRecursive?: boolean) => Promise.resolve(undefined),
+    delete: (storageSubId: string, recursive?: boolean, forceRecursive?: boolean) => Promise.resolve(),
     list: (storageSubId: string, options?: Sdk.ListStorageOptions) => Promise.resolve(storageResult1)
 };
 
