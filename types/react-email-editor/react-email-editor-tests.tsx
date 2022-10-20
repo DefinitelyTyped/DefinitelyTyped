@@ -203,6 +203,8 @@ class App extends React.Component {
             },
           }}
           projectId={1}
+          editorId="editor"
+          scriptUrl="https://example.com/embed.js"
           onReady={this.handleLoad}
         />
         <button onClick={this.handleClick}>save all</button>
