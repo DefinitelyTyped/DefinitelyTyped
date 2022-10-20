@@ -1205,6 +1205,10 @@
             "libraryName": "empty-trash",
             "asOfVersion": "3.0.0"
         },
+        "enhanced-resolve": {
+            "libraryName": "enhanced-resolve",
+            "asOfVersion": "5.0.0"
+        },
         "ensure-error": {
             "libraryName": "ensure-error",
             "asOfVersion": "2.0.0"
