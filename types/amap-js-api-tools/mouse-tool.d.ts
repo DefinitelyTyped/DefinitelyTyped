@@ -4,7 +4,7 @@ declare namespace AMap{
       /**
        * 绘制完成的覆盖物对象
        */
-      obj: string; // FIXME:确定不是object?
+      obj: object | AMap.Marker | AMap.Polyline | AMap.Polygon | AMap.Circle | AMap.Rectangle | AMap.Ellipse; // 官方文档中为string，但实际上是object
     }>
     type EventMap = {
       draw: DrawEvent;
