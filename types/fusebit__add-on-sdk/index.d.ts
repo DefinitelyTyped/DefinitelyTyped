@@ -8,13 +8,7 @@
 /**
  * Method of invocation for the call coming into Fusebit.
  */
-export enum Method {
-    Get = 'GET',
-    Post = 'POST',
-    Put = 'PUT',
-    Delete = 'DELETE',
-    Cron = 'CRON'
-}
+export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CRON';
 
 /**
  * Identifying information for an item in Fusebit storage.

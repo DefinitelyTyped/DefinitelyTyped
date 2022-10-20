@@ -1,10 +1,10 @@
 import Sdk = require('fusebit__add-on-sdk');
 
-let method: Sdk.Method = Sdk.Method.Get;
-method = Sdk.Method.Post;
-method = Sdk.Method.Put;
-method = Sdk.Method.Delete;
-method = Sdk.Method.Cron;
+let method: Sdk.Method = 'GET';
+method = 'POST';
+method = 'PUT';
+method = 'DELETE';
+method = 'CRON';
 
 const item: Sdk.StorageItem = {
     storageId: "storageId",
