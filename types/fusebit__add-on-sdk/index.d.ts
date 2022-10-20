@@ -1,6 +1,8 @@
 // Type definitions for @fusebit/add-on-sdk 3.1
 // Project: http://fusebit.io/
 // Definitions by: Andrew Miller <https://github.com/andrewrmiller>
+//                 Trent Hashimoto <https://github.com/hashiphoto>
+//                 Andy Dam <https://github.com/andydam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
