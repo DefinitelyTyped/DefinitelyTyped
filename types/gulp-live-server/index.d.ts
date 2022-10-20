@@ -1,6 +1,6 @@
-// Type definitions for gulp-live-server 0.0
+// Type definitions for gulp-live-server 0.0.31
 // Project: https://github.com/gimm/gulp-live-server
-// Definitions by: robertmaier <https://github.com/DefinitelyTyped>
+// Definitions by: robertmaier <https://github.com/robertmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import type { spawn } from 'child_process';
