@@ -4,6 +4,7 @@ import ErrorNode from '../tree/ErrorNode';
 import ParseTreeListener from '../tree/ParseTreeListener';
 import RecognitionException from '../error/RecognitionException';
 import TerminalNode from '../tree/TerminalNode';
+import ParseTree from '../tree/ParseTree';
 
 export default class ParserRuleContext extends RuleContext {
     static readonly EMPTY: ParserRuleContext;
@@ -29,7 +30,7 @@ export default class ParserRuleContext extends RuleContext {
 
     addErrorNode(badToken: Token): ErrorNode;
 
-    getChild<T extends ParserRuleContext>(i: number, type?: T): T | null;
+    getChild<T extends ParseTree>(i: number, type?: T): T | null;
 
     getToken(ttype: number, i: number): Token;
 

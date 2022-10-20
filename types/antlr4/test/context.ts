@@ -31,7 +31,7 @@ parserRuleContextInstance.addChild(parserRuleContextInstance); // $ExpectType Te
 parserRuleContextInstance.removeLastChild(); // $ExpectType void
 parserRuleContextInstance.addTokenNode(tokenInstance); // $ExpectType Token
 parserRuleContextInstance.addErrorNode(tokenInstance); // $ExpectType ErrorNode
-parserRuleContextInstance.getChild(0); // $ExpectType ParserRuleContext | null
+parserRuleContextInstance.getChild(0); // $ExpectType ParseTree | null
 parserRuleContextInstance.getChild(0, parserRuleContextInstance); // $ExpectType ParserRuleContext | null
 parserRuleContextInstance.getToken(0, 0); // $ExpectType Token
 parserRuleContextInstance.getTokens(0); // $ExpectType Token[]
