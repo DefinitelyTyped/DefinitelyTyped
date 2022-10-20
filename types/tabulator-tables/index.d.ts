@@ -2324,6 +2324,10 @@ export interface EventCallBackMethods {
     dataLoadError: (error: Error) => void;
     dataProcessing: () => void;
     dataProcessed: () => void;
+    popupOpen: (cell: CellComponent) => void;
+    popupClosed: (cell: CellComponent) => void;
+    menuClosed: (cell: CellComponent) => void;
+    menuOpened: (cell: CellComponent) => void;
 }
 
 declare class Tabulator {
