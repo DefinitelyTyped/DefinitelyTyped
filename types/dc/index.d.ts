@@ -172,6 +172,7 @@ declare namespace dc {
         addFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
         resetFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
         filter: IGetSet<any, T>;
+        replaceFilter: IGetSet<any, T>;
         filters(): Array<any>;
         onClick(datum: any): void;
         filterHandler: IGetSet<(dimension: any, filter: any) => any, T>;
