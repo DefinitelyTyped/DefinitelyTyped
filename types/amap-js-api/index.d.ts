@@ -1,6 +1,7 @@
 // Type definitions for non-npm package amap-js-api 1.4
 // Project: https://lbs.amap.com/api/javascript-api/summary
 // Definitions by: breeze9527 <https://github.com/breeze9527>
+//                 aak1247 <https://github.com/aak1247>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 

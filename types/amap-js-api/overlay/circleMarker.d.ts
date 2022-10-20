@@ -12,7 +12,7 @@ declare namespace AMap {
             fillColor?: string | undefined;
             fillOpacity?: number | undefined;
             draggable?: boolean | undefined;
-            extraData?: ExtraData;
+            extData?: ExtraData;
         }
     }
     /**

@@ -2275,6 +2275,98 @@ testCircle.on('change', (event: AMap.Circle.EventMap<typeof testCircle>['change'
     event.target;
 });
 
+
+/**
+ * overlay/circleMarker.ts
+ */
+
+interface CircleMarkerExtraData {
+    test: number;
+}
+
+// $ExpectType CircleMarker<any>
+new AMap.CircleMarker();
+new AMap.CircleMarker({});
+// $ExpectType CircleMarker<CircleMarkerExtraData>
+const testCircleMarker = new AMap.CircleMarker<CircleMarkerExtraData>({
+    zIndex: 10,
+    center: lnglat,
+    bubble: true,
+    cursor: 'pointer',
+    radius: 1000,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 3,
+    fillColor: '#00FF00',
+    fillOpacity: 0.5,
+    extData: { test: 1 },
+});
+
+// $ExpectType void
+testCircleMarker.setCenter(lnglat);
+// $ExpectType void
+testCircleMarker.setCenter(lnglatTuple);
+
+// $ExpectType LngLat | undefined
+testCircleMarker.getCenter();
+
+// $ExpectType Bounds | null
+testCircleMarker.getBounds();
+
+// $ExpectType void
+testCircleMarker.setRadius(100);
+
+// $ExpectType number
+testCircleMarker.getRadius();
+
+// $ExpectType void
+testCircleMarker.setOptions({});
+testCircleMarker.setOptions({
+    zIndex: 10,
+    center: lnglat,
+    bubble: true,
+    cursor: 'pointer',
+    radius: 1000,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 3,
+    fillColor: '#00FF00',
+    fillOpacity: 0.5,
+    extData: { test: 1 },
+});
+
+{
+    const options = testCircleMarker.getOptions();
+    // $ExpectType boolean | undefined
+    options.bubble;
+    // $ExpectType LngLat | undefined
+    options.center;
+    // $ExpectType boolean | undefined
+    options.clickable;
+    // $ExpectType {} | CircleMarkerExtraData | undefined
+    options.extData;
+    // $ExpectType string | undefined
+    options.fillColor;
+    // $ExpectType number | undefined
+    options.fillOpacity;
+    // $ExpectType "miter" | "round" | "bevel" | undefined || StrokeLineJoin | undefined
+    options.lineJoin;
+    // $ExpectType LngLat[] | undefined
+    options.path;
+    // $ExpectType number | undefined
+    options.radius;
+    // $ExpectType string | undefined
+    options.strokeColor;
+    // $ExpectType number | undefined
+    options.strokeOpacity;
+    // $ExpectType number | undefined
+    options.strokeWeight;
+    // $ExpectType string | undefined
+    options.texture;
+    // $ExpectType number | undefined
+    options.zIndex;
+}
+
 /**
  * overlay/contextMenu.ts
  */
