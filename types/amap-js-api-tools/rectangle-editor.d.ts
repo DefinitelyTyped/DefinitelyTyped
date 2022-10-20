@@ -1,8 +1,8 @@
 declare namespace AMap {
     namespace RectangleEditor {
         interface Options {
-            createOptions?: Object | undefined;
-            editOptions?: Object | undefined;
+            createOptions?: object | undefined;
+            editOptions?: object | undefined;
             southWestPoint?: Marker.Options | undefined;
             northEastPoint?: Marker.Options | undefined;
         }

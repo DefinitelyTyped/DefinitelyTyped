@@ -1,8 +1,8 @@
 declare namespace AMap {
     namespace CircleEditor {
         interface Options {
-            createOptions?: Object | undefined;
-            editOptions?: Object | undefined;
+            createOptions?: object | undefined;
+            editOptions?: object | undefined;
             moveOptions?: Marker.Options | undefined;
             resizeOptions?: Marker.Options | undefined;
         }
@@ -14,7 +14,6 @@ declare namespace AMap {
             end: Event<'end', {target: Circle}>;
         }
     }
-
     class CircleEditor extends EventEmitter {
         constructor(map: Map, Circle?: Circle, opts?: CircleEditor.Options);
         setTarget(overlay?: Circle): void;

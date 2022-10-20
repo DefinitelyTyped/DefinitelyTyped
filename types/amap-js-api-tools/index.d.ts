@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-
 /// <reference types="amap-js-api" />
 
 /// <reference path="ranging-tool.d.ts" />

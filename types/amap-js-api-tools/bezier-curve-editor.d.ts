@@ -1,12 +1,12 @@
 declare namespace AMap {
     namespace BezierCurveEditor {
         interface Options {
-            createOptions?: Object | undefined;
-            editOptions?: Object | undefined;
-            controlOptions?: AMap.Marker.Options | undefined;
-            midControlOptions?: AMap.Marker.Options | undefined;
-            bezierControlPoint?: AMap.Marker.Options | undefined;
-            bezierControlLine?: AMap.Polyline.Options | undefined;
+            createOptions?: object | undefined;
+            editOptions?: object | undefined;
+            controlOptions?: Marker.Options | undefined;
+            midControlOptions?: Marker.Options | undefined;
+            bezierControlPoint?: Marker.Options | undefined;
+            bezierControlLine?: Polyline.Options | undefined;
         }
         interface EventMap {
             addnode: Event<'addnode', {target: BezierCurve, lnglat: LngLat, pixel: Pixel}>;

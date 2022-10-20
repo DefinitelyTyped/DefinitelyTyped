@@ -24,7 +24,7 @@ rangingTool.turnOff(true);
 rangingTool.on('addnode', (event: AMap.RangingTool.AddNodeEvent) => {
     // $ExpectType "addnode"
     event.type;
-    // $ExpectType Marker
+    // $ExpectType Marker<any>
     event.marker;
     // $ExpectType LngLat
     event.position;
@@ -35,7 +35,7 @@ rangingTool.on('removenode', (event: AMap.RangingTool.RemoveNodeEvent) => {
     event.type;
     // $ExpectType object
     event.target;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.polyline;
     // $ExpectType LngLat[]
     event.points;
@@ -48,7 +48,7 @@ rangingTool.on('end', (event: AMap.RangingTool.EndEvent) => {
     event.type;
     // $ExpectType object
     event.target;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.polyline;
     // $ExpectType LngLat[]
     event.points;
@@ -75,13 +75,13 @@ polylineEditor.open();
 polylineEditor.close();
 // $ExpectType void
 polylineEditor.setTarget(polyline);
-// $ExpectType Polyline | undefined
+// $ExpectType Polyline<any> | undefined
 polylineEditor.getTarget();
 
 polylineEditor.on('addnode', (event: AMap.PolylineEditor.EventMap['addnode']) => {
     // $ExpectType "addnode"
     event.type;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.target;
     // $ExpectType LngLat
     event.lnglat;
@@ -92,7 +92,7 @@ polylineEditor.on('addnode', (event: AMap.PolylineEditor.EventMap['addnode']) =>
 polylineEditor.on('removenode', (event: AMap.PolylineEditor.EventMap['removenode']) => {
     // $ExpectType "removenode"
     event.type;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.target;
     // $ExpectType LngLat
     event.lnglat;
@@ -103,7 +103,7 @@ polylineEditor.on('removenode', (event: AMap.PolylineEditor.EventMap['removenode
 polylineEditor.on('adjust', (event: AMap.PolylineEditor.EventMap['adjust']) => {
     // $ExpectType "adjust"
     event.type;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.target;
     // $ExpectType LngLat
     event.lnglat;
@@ -114,13 +114,13 @@ polylineEditor.on('adjust', (event: AMap.PolylineEditor.EventMap['adjust']) => {
 polylineEditor.on('end', (event: AMap.PolylineEditor.EventMap['end']) => {
     // $ExpectType "end"
     event.type;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.target;
 });
 
 polylineEditor.on('add', (event: AMap.PolylineEditor.EventMap['add']) => {
     // $ExpectType "add"
     event.type;
-    // $ExpectType Polyline
+    // $ExpectType Polyline<any>
     event.target;
 });

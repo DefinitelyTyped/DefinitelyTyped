@@ -101,11 +101,11 @@ declare namespace AMap {
                 distance: number;
             }
         >;
-        type EventMap = {
+        interface EventMap {
             addnode: AddNodeEvent;
             removenode: RemoveNodeEvent;
             end: EndEvent;
-        };
+        }
     }
     class RangingTool extends EventEmitter {
         constructor(map: Map, opts?: RangingTool.Options);
@@ -116,6 +116,6 @@ declare namespace AMap {
         /**
          * 关闭测距工具
          */
-        turnOff(removeOverlays: Boolean): void;
+        turnOff(removeOverlays: boolean): void;
     }
 }

@@ -1,10 +1,10 @@
 declare namespace AMap {
     namespace PolygonEditor {
         interface Options {
-            createOptions?: Object | undefined;
-            editOptions?: Object | undefined;
-            controlOptions?: AMap.CircleMarker | undefined;
-            midControlOptions?: AMap.CircleMarker.CircleMarkerOptions | undefined;
+            createOptions?: object | undefined;
+            editOptions?: object | undefined;
+            controlOptions?: CircleMarker | undefined;
+            midControlOptions?: CircleMarker.CircleMarkerOptions | undefined;
         }
         interface EventMap {
             addnode: Event<'addnode', {target: Polygon, lnglat: LngLat, pixel: Pixel}>;

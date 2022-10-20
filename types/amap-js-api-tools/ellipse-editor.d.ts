@@ -1,8 +1,8 @@
 declare namespace AMap {
     namespace EllipseEditor {
         interface Options {
-            createOptions?: Object | undefined;
-            editOptions?: Object | undefined;
+            createOptions?: object | undefined;
+            editOptions?: object | undefined;
             movePointOptions?: Marker.Options | undefined;
             resizeXPoint?: Marker.Options | undefined;
             resizeYPoint?: Marker.Options | undefined;
