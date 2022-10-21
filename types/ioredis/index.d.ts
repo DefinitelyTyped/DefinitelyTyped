@@ -21,7 +21,6 @@
 //                 Michiel De Mey <https://github.com/michieldemey>
 //                 Dae Heon Han <https://github.com/honeyirene>
 //                 Yongkyun Choi <https://github.com/DracoVirus>
-//                 Chris Blair <https://github.com/ChrisBlair2019>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
