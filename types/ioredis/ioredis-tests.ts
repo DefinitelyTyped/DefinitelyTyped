@@ -317,6 +317,18 @@ redis.set('key', '100', 'EX', 10, 'NX', (err, data) => {});
 redis.set('key', '100', ['EX', 10, 'NX'], (err, data) => {});
 redis.setBuffer('key', '100', 'NX', 'EX', 10, (err, data) => {});
 
+// Tests for getBuffer
+redis.set('test', Buffer.from('random'));
+redis.getBuffer('test').then((value)=> console.log('should be Buffer', value))
+redis.flushdb('async');
+redis.getBuffer('test').then((value)=> console.log('should be null', value))
+redis.getBuffer('key',(err, result) => {
+    if (err) {
+        console.error(err);
+    }
+    console.log(result);
+});
+
 redis.exists('foo').then(result => result * 1);
 redis.exists('foo', (err, data) => data * 1);
 
