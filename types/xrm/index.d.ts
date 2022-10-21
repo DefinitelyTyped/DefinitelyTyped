@@ -982,6 +982,8 @@ declare namespace Xrm {
         type PostSaveEventHandler = (context: EventContext) => void;
 
         type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
+        type StageChangeEventHandler = (context: StageChangeEventContext) => void;
+        type StageSelectedEventHandler = (context: StageSelectedEventContext) => void;
 
         type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
 
@@ -4633,7 +4635,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnPreProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+            addOnPreProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnPreStageChange event so that it will be called before the
@@ -4645,7 +4647,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
+            addOnPreStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called when the
@@ -4657,7 +4659,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+            addOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
@@ -4669,7 +4671,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnStageChange(handler: Events.ContextSensitiveHandler): void;
+            addOnStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
@@ -4681,7 +4683,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnStageSelected(handler: Events.ContextSensitiveHandler): void;
+            addOnStageSelected(handler: Events.StageSelectedEventHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnPreProcessStatusChange event.
@@ -4695,28 +4697,28 @@ declare namespace Xrm {
              * @param handler If an anonymous function is set using the addOnPreStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnPreStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnProcessStatusChange event.
              * @param handler If an anonymous function is set using the addOnProcessStatusChange method it
              *                cannot be removed using this method.
              */
-            removeOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnStageChange event.
              * @param handler If an anonymous function is set using the addOnStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnStageChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnStageChange event.
              * @param handler If an anonymous function is set using the addOnStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnStageSelected(handler: Events.ContextSensitiveHandler): void;
+            removeOnStageSelected(handler: Events.StageSelectedEventHandler): void;
 
             /**
              * Progresses to the next stage.

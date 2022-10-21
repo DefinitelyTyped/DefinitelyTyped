@@ -509,3 +509,25 @@ function booleanAttributeControls(formContext: Xrm.FormContext) {
     // @ts-expect-error
     booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
 }
+
+// Demonstrate add and remove methods for formContext.data.process
+function onLoadCheckStageChange(eventContext: Xrm.Events.EventContext) {
+    const formContext = eventContext.getFormContext();
+
+    // Add a handler for the OnStageChange event
+    formContext.data.process.addOnStageChange(onStageChange);
+
+    // Remove the handler for the OnStageChange event
+    formContext.data.process.removeOnStageChange(onStageChange);
+}
+
+function onStageChange(context: Xrm.Events.StageChangeEventContext) {
+    const formContext = context.getFormContext();
+    const currentStage = context.getEventArgs().getStage();
+
+    // Get the name of the current stage
+    const currentStageName = currentStage.getName();
+
+    // Prevent defaults
+    context.getEventArgs().preventDefault();
+}
