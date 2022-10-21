@@ -5,47 +5,45 @@
 // TypeScript Version: 3.4
 
 export class SequenceMatcher<T> {
-    constructor(
-        isjunk: (() => boolean) | null,
-        left: T,
-        right: T,
-        autojunk?: boolean
-    );
-    getOpcodes(): Array<
-        [
-            "replace" | "delete" | "insert" | "equal",
-            number,
-            number,
-            number,
-            number
-        ]
-    >;
+    constructor(isjunk: (() => boolean) | null, left: T, right: T, autojunk?: boolean);
+    getOpcodes(): Array<['replace' | 'delete' | 'insert' | 'equal', number, number, number, number]>;
 }
 
 export class Differ {
-    constructor(
-        linejunk?: (s: string) => boolean, charjunk?: (s: string) => boolean
-    );
+    constructor(linejunk?: (s: string) => boolean, charjunk?: (s: string) => boolean);
     compare(a: string[], b: string[]): string[];
 }
 
-export function unifiedDiff(from: string[], to: string[], args: {
-    fromfile?: string
-    tofile?: string,
-    fromfiledate?: string,
-    tofiledate?: string
-    lineterm?: string,
-}): string[];
+export function unifiedDiff(
+    from: string[],
+    to: string[],
+    args: {
+        fromfile?: string;
+        tofile?: string;
+        fromfiledate?: string;
+        tofiledate?: string;
+        lineterm?: string;
+    },
+): string[];
 
-export function contextDiff(from: string[], to: string[], args: {
-    fromfile?: string
-    tofile?: string,
-    fromfiledate?: string,
-    tofiledate?: string
-    lineterm?: string,
-}): string[];
+export function contextDiff(
+    from: string[],
+    to: string[],
+    args: {
+        fromfile?: string;
+        tofile?: string;
+        fromfiledate?: string;
+        tofiledate?: string;
+        lineterm?: string;
+    },
+): string[];
 
-export function ndiff(from: string[], to: string[], linejunk?: (s: string) => boolean, charjunk?: (s: string) => boolean): string[];
+export function ndiff(
+    from: string[],
+    to: string[],
+    linejunk?: (s: string) => boolean,
+    charjunk?: (s: string) => boolean,
+): string[];
 
 export function restore(delta: string[], which: 1 | 2): string[];
 
