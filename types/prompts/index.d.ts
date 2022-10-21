@@ -83,6 +83,7 @@ declare namespace prompts {
         format?: PrevCaller<T, void> | undefined;
         validate?: PrevCaller<T, boolean | string | Promise<boolean | string>> | undefined;
         onState?: PrevCaller<T, void> | undefined;
+        onRender?: PrevCaller<T, void> | undefined;
         min?: number | PrevCaller<T, number | Falsy> | undefined;
         max?: number | PrevCaller<T, number | Falsy> | undefined;
         float?: boolean | PrevCaller<T, boolean | Falsy> | undefined;
