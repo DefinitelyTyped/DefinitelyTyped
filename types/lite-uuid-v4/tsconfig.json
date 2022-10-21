@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "lite-uuid-v4.ts"
+        "lite-uuid-v4-tests.ts"
     ]
 }
