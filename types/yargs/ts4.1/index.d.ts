@@ -787,24 +787,35 @@ declare namespace yargs {
     // prettier-ignore
     type InferredOptionType<O extends Options | PositionalOptions> =
         O extends (
+            | { coerce: (arg: any) => infer T }
+        ) ? IsRequiredOrHasDefault<O> extends true ? T : T | undefined :
+        O extends (
+            | { choices: ReadonlyArray<infer C> }
+        ) ? IsRequiredOrHasDefault<O> extends true ? C : C | undefined :
+        O extends (
+            | { type: "count"; default: infer D }
+            | { count: true; default: infer D }
+        ) ? number | Exclude<D, undefined> :
+        O extends (
+            | { type: "count" }
+            | { count: true }
+        ) ? number :
+        IsRequiredOrHasDefault<O> extends true
+            ? Exclude<InferredOptionTypeInner<O>, undefined>
+            : InferredOptionTypeInner<O> | undefined;
+
+    // prettier-ignore
+    type IsRequiredOrHasDefault<O extends Options | PositionalOptions> =
+        O extends (
             | { required: string | true }
             | { require: string | true }
             | { demand: string | true }
             | { demandOption: string | true }
-        ) ?
-        Exclude<InferredOptionTypeInner<O>, undefined> :
-        InferredOptionTypeInner<O>;
+            | { default: {} }
+        ) ? true : false;
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
-        O extends { default: any, coerce: (arg: any) => infer T } ? T :
-        O extends { default: infer D } ? D :
-        O extends { type: "count" } ? number :
-        O extends { count: true } ? number :
-        RequiredOptionType<O> | undefined;
-
-    // prettier-ignore
-    type RequiredOptionType<O extends Options | PositionalOptions> =
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
         O extends { type: "array", normalize: true } ? string[] :
@@ -822,8 +833,7 @@ declare namespace yargs {
         O extends { number: true } ? number :
         O extends { string: true } ? string :
         O extends { normalize: true } ? string :
-        O extends { choices: ReadonlyArray<infer C> } ? C :
-        O extends { coerce: (arg: any) => infer T } ? T :
+        O extends { default: infer D } ? D :
         unknown;
 
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };

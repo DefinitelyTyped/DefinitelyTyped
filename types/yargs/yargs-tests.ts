@@ -990,6 +990,14 @@ async function Argv$inferOptionTypes() {
         .option("normalize", { normalize: true })
         .parseSync();
 
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date; count: string | number; _: (string | number)[]; $0: string; }
+    yargs
+        .option("choices", { choices: colors, default: "red" })
+        .option("numberChoices", { choices: stages, default: 1 })
+        .option("coerce", { coerce: () => new Date(), default: "abc" })
+        .option("count", { type: "count", default: "no" })
+        .parseSync();
+
     // $ExpectType (string | number)[] | undefined
     (await yargs.array("x").argv).x;
 
