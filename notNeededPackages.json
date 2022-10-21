@@ -1325,6 +1325,10 @@
             "libraryName": "express-handlebars",
             "asOfVersion": "6.0.0"
         },
+        "express-jwt": {
+            "libraryName": "express-jwt",
+            "asOfVersion": "7.4.2"
+        },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
             "asOfVersion": "2.1.0"
