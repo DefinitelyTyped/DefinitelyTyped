@@ -962,3 +962,8 @@ const any: any = null;
     let ver: string;
     ver = validator.version;
 }
+
+{
+    let ver: boolean = false;
+    ver = validator.isISO8601('hello', { strict: true, strictSeparator: true });
+}
