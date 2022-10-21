@@ -581,8 +581,12 @@ export namespace Rule {
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+
         /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /** The name of the rule(s) this rule was replaced by, if it was deprecated. */
+        replacedBy?: readonly string[];
+
         /**
          * Indicates the type of rule:
          * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
