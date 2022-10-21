@@ -1,4 +1,4 @@
-// Type definitions for difflib 0.2.4
+// Type definitions for difflib 0.2
 // Project: https://github.com/qiao/difflib.js
 // Definitions by: majames <https://github.com/majames>, Hugues Le Gendre <https://github.com/hlegendre>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,7 +26,7 @@ export class Differ {
     constructor(
         linejunk?: (s: string) => boolean, charjunk?: (s: string) => boolean
     );
-    compare(a: string[], b: string[] ): string[];
+    compare(a: string[], b: string[]): string[];
 }
 
 export function unifiedDiff(from: string[], to: string[], args: {
