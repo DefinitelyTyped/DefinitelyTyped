@@ -670,6 +670,7 @@ declare namespace validator {
         /**
          * If `strictSeparator` is true, date strings with date and time separated
          * by anything other than a T will be invalid
+         *
          */
         strictSeparator?: boolean | undefined;
     }

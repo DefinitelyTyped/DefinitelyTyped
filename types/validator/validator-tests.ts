@@ -964,6 +964,5 @@ const any: any = null;
 }
 
 {
-    let ver: boolean = false;
-    ver = validator.isISO8601('hello', { strict: true, strictSeparator: true });
+    validator.isISO8601('sample', { strict: true, strictSeparator: true });
 }
