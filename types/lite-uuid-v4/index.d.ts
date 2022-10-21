@@ -8,4 +8,4 @@
  */
 declare function v4(): string;
 
-export default v4;
+export = v4;
