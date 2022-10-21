@@ -21,6 +21,7 @@
 //                 Michiel De Mey <https://github.com/michieldemey>
 //                 Dae Heon Han <https://github.com/honeyirene>
 //                 Yongkyun Choi <https://github.com/DracoVirus>
+//                 Chris Blair <https://github.com/ChrisBlair2019>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -218,8 +219,8 @@ declare namespace IORedis {
         getdel(key: KeyType, callback: Callback<string | null>): void;
         getdel(key: KeyType): Promise<string | null>;
 
-        getBuffer(key: KeyType, callback: Callback<Buffer>): void;
-        getBuffer(key: KeyType): Promise<Buffer>;
+        getBuffer(key: KeyType, callback: Callback<Buffer | null>): void;
+        getBuffer(key: KeyType): Promise<Buffer | null>;
 
         getex(key: KeyType, expiryMode?: string, time?: number | string): Promise<string | null>;
         getex(key: KeyType, callback: Callback<string | null>): void;
