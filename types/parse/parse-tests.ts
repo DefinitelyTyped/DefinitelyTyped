@@ -1529,6 +1529,12 @@ function testObject() {
 
         // $ExpectType Object<OptionalObjectAttributes>
         await objTypedOptional.save({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.saveEventually({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.destroyEventually({});
     }
 
     function testSet(
