@@ -17,7 +17,7 @@ declare namespace AMap {
     }
 
     class PolygonEditor extends EventEmitter {
-        constructor(map: Map, polygon: Polygon, opts?: PolygonEditor.Options);
+        constructor(map: Map, polygon?: Polygon, opts?: PolygonEditor.Options);
         open(): void;
         setTarget(tar: any, overlay: Polygon): void;
         getTarget(): Polygon | undefined;

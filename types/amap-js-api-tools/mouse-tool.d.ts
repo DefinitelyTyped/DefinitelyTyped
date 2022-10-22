@@ -42,7 +42,7 @@ declare namespace AMap {
         /**
          * 开启面积量测模式。鼠标在地图上单击绘制量测区域，鼠标左键双击或右键单击结束当前量测操作，并显示本次量测结果。量测面样式参考PolygonOptions设置
          */
-        mearureArea(options?: Polygon.Options): void;
+        measureArea(options?: Polygon.Options): void;
         /**
          * 开启距离量测模式。鼠标在地图上单击绘制量测节点，并计算显示两两节点之间的距离，鼠标左键双击或右键单击结束当前量测操作。量测线样式参考 PolylineOptions 设置 注：不能同时使用rule方法和RangTool插件进行距离量测
          */
