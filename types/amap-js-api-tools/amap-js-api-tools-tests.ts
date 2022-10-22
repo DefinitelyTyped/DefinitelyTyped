@@ -154,7 +154,7 @@ const polygonEditor = new AMap.PolygonEditor(map, new AMap.Polygon(), polygonOpt
 polygonEditor.open();
 // $ExpectType void
 polygonEditor.setTarget({}, new AMap.Polygon());
-// $ExpectType Polygon<any>
+// $ExpectType Polygon<any> | undefined
 polygonEditor.getTarget();
 // $ExpectType void
 polygonEditor.setAdsorbPolygons([]);
@@ -423,7 +423,6 @@ bezierCurveEditor.on('add', (event: AMap.BezierCurveEditor.EventMap['add']) => {
     // $ExpectType BezierCurve<any>
     event.target;
 });
-
 
 /**
  * ellipse-editor.ts
