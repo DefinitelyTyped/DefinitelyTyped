@@ -1,4 +1,4 @@
-// Type definitions for parse 2.18
+// Type definitions for parse 3.0
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
@@ -129,6 +129,12 @@ declare global {
             sessionToken?: string | undefined;
             installationId?: string | undefined;
             progress?: Function | undefined;
+            /**
+             * logIn will default to POST instead of GET method since
+             * version 3.0.0 for security reasons.
+             * If you need to use GET set this to `false`.
+             */
+            usePost?: boolean;
         }
 
         interface RequestOptions {
@@ -166,6 +172,14 @@ declare global {
             useMasterKey?: boolean | undefined;
         }
 
+        /**
+         * https://github.com/parse-community/Parse-SDK-JS/pull/1294/files
+         * feat: Add option to return raw json from queries
+         */
+        interface RawJSONOptions {
+            /** (3.0.0+) json: Return raw json without converting to Parse.Object */
+            json?: boolean;
+        }
         interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
 
         interface SilentOption {
@@ -311,7 +325,7 @@ declare global {
             name(): string;
             save(options?: FullOptions): Promise<File>;
             cancel(): void;
-            destroy(): Promise<File>;
+            destroy(options?: FullOptions): Promise<File>;
             toJSON(): { __type: string; name: string; url: string };
             equals(other: File): boolean;
             setMetadata(metadata: Record<string, any>): void;
@@ -428,6 +442,7 @@ declare global {
             clear(options: any): any;
             clone(): this;
             destroy(options?: Object.DestroyOptions): Promise<this>;
+            /** EventuallyQueue API; added in version 3.0.0 */
             destroyEventually(options?: Object.DestroyOptions): Promise<this>;
             dirty(attr?: Extract<keyof T, string>): boolean;
             dirtyKeys(): string[];
@@ -472,6 +487,7 @@ declare global {
                 value: T[K] extends undefined ? never : T[K],
                 options?: Object.SaveOptions,
             ): Promise<this>;
+            /** EventuallyQueue API; added in version 3.0.0 */
             saveEventually(options?: Object.SaveOptions): Promise<this>;
             set<K extends Extract<keyof T, string>>(attrs: Pick<T, K> | T, options?: Object.SetOptions): this | false;
             set<K extends Extract<keyof T, string>>(
@@ -818,9 +834,9 @@ declare global {
         namespace Query {
             interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
             interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
-            interface FindOptions extends SuccessFailureOptions, ScopeOptions {}
-            interface FirstOptions extends SuccessFailureOptions, ScopeOptions {}
-            interface GetOptions extends SuccessFailureOptions, ScopeOptions {}
+            interface FindOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
+            interface FirstOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
+            interface GetOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
 
             // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
             interface AggregationOptions {
@@ -1024,6 +1040,8 @@ declare global {
             logIn(options?: FullOptions): Promise<this>;
             authenticated(): boolean;
             isCurrent(): boolean;
+            /** Since version 3.0.0, Returns true if `current` would return this user */
+            isCurrentAsync(): Promise<boolean>;
 
             getEmail(): string | undefined;
             setEmail(email: string, options?: SuccessFailureOptions): boolean;
