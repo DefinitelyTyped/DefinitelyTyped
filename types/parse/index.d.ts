@@ -428,6 +428,7 @@ declare global {
             clear(options: any): any;
             clone(): this;
             destroy(options?: Object.DestroyOptions): Promise<this>;
+            destroyEventually(options?: Object.DestroyOptions): Promise<this>;
             dirty(attr?: Extract<keyof T, string>): boolean;
             dirtyKeys(): string[];
             equals<T extends Object>(other: T): boolean;
@@ -471,6 +472,7 @@ declare global {
                 value: T[K] extends undefined ? never : T[K],
                 options?: Object.SaveOptions,
             ): Promise<this>;
+            saveEventually(options?: Object.SaveOptions): Promise<this>;
             set<K extends Extract<keyof T, string>>(attrs: Pick<T, K> | T, options?: Object.SetOptions): this | false;
             set<K extends Extract<keyof T, string>>(
                 key: K,
