@@ -1742,6 +1742,73 @@ declare global {
             }
         }
 
+        namespace EventuallyQueue {
+            interface QueueObject {
+                queueId: string;
+                action: string;
+                object: Object;
+                serverOptions: Object.SaveOptions | RequestOptions;
+                id: string;
+                className: string;
+                hash: string;
+                createdAt: Date;
+            }
+            type Queue = QueueObject[];
+            /**
+             * Add object to queue with save operation.
+             *
+             * @param object Parse.Object to be saved eventually
+             * @param serverOptions See {@link https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Object.html#save Parse.Object.save} options.
+             * @returns A promise that is fulfilled if object is added to queue.
+             * @see Parse.Object#saveEventually
+             */
+            function save(object: Object, serverOptions?: Object.SaveOptions): Promise<void>;
+            /**
+             * Add object to queue with save operation.
+             *
+             * @param object Parse.Object to be destroyed eventually
+             * @param serverOptions See {@link https://parseplatform.org/Parse-SDK-JS/api/master/Parse.Object.html#destroy Parse.Object.destroy} options
+             * @returns A promise that is fulfilled if object is added to queue.
+             * @see Parse.Object#destroyEventually
+             */
+            function destroy(object: Object, serverOptions?: RequestOptions): Promise<void>;
+            // function store(data: any): Promise<void>;
+            // function load(): Promise<void>;
+            /**
+             * Sets the in-memory queue from local storage and returns.
+             */
+            function getQueue(): Promise<any[]>;
+            /**
+             * Removes all objects from queue.
+             * @returns A promise that is fulfilled when queue is cleared.
+             */
+            function clear(): Promise<void>;
+            /**
+             * Return the number of objects in the queue.
+             */
+            function length(): Promise<number>;
+            /**
+             * Sends the queue to the server.
+             * @returns Returns true if queue was sent successfully.
+             */
+            function sendQueue(): Promise<boolean>;
+            /**
+             * Start polling server for network connection.
+             * Will send queue if connection is established.
+             *
+             * @param [ms] Milliseconds to ping the server. Default 2000ms
+             */
+            function poll(ms?: number): void;
+            /**
+             * Turns off polling.
+             */
+            function stopPoll(): void;
+            /**
+             * Return true if pinging the server.
+             */
+            function isPolling(): boolean;
+        }
+
         class Error {
             static OTHER_CAUSE: ErrorCode.OTHER_CAUSE;
             static INTERNAL_SERVER_ERROR: ErrorCode.INTERNAL_SERVER_ERROR;

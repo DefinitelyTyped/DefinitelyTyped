@@ -2095,3 +2095,35 @@ function testEncryptingUser() {
         Parse.isEncryptedUserEnabled();
     }
 }
+
+function testEventuallyQueue() {
+    function test() {
+        const obj = new Parse.Object('TestObject');
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.clear();
+        // $ExpectType Promise<any[]>
+        Parse.EventuallyQueue.getQueue();
+        // $ExpectType boolean
+        Parse.EventuallyQueue.isPolling();
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.save(obj);
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.save(obj, {});
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.destroy(obj);
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.destroy(obj, {});
+        // $ExpectType Promise<number>
+        Parse.EventuallyQueue.length();
+        // $ExpectType Promise<boolean>
+        Parse.EventuallyQueue.sendQueue();
+        // $ExpectType void
+        Parse.EventuallyQueue.stopPoll();
+        // $ExpectType void
+        Parse.EventuallyQueue.poll();
+        // $ExpectType void
+        Parse.EventuallyQueue.poll(300);
+        // @ts-expect-error
+        Parse.EventuallyQueue.poll("300");
+    }
+}
