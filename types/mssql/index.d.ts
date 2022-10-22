@@ -182,7 +182,7 @@ export interface config {
     driver?: string | undefined;
     user?: string | undefined;
     password?: string | undefined;
-    server: string;
+    server: string | undefined;
     port?: number | undefined;
     domain?: string | undefined;
     database?: string | undefined;
