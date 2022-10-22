@@ -1,7 +1,8 @@
-// Type definitions for braintree-web-drop-in 1.28
+// Type definitions for braintree-web-drop-in 1.33
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 //                 Ricard Solé Casas <https://github.com/iamricard>
+//                 Mathias Mikosch <https://github.com/elmikosch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
@@ -89,7 +90,7 @@ export interface dataCollectorOptions {
 
 export interface googlePayCreateOptions {
     merchantId: string;
-    googlePayVersion?: string | undefined;
+    googlePayVersion?: number | undefined;
     transactionInfo: google.payments.api.TransactionInfo;
     button?: google.payments.api.ButtonOptions | undefined;
 }

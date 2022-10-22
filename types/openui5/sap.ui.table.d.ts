@@ -1,4 +1,4 @@
-// For Library Version: 1.106.0
+// For Library Version: 1.107.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -264,7 +264,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
      *
      * @returns Value of property `groupHeaderFormatter`
      */
-    getGroupHeaderFormatter(): any;
+    getGroupHeaderFormatter(): Function;
     /**
      * Gets current value of property {@link #getInResult inResult}.
      *
@@ -319,7 +319,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
       /**
        * New value for property `groupHeaderFormatter`
        */
-      oGroupHeaderFormatter?: any
+      fnGroupHeaderFormatter?: Function
     ): this;
     /**
      * Sets a new value for property {@link #getInResult inResult}.
@@ -419,7 +419,7 @@ declare module "sap/ui/table/AnalyticalColumn" {
     /**
      * If the column is grouped, this formatter is used to format the value in the group header
      */
-    groupHeaderFormatter?: any | PropertyBindingInfo | `{${string}}`;
+    groupHeaderFormatter?: Function | PropertyBindingInfo | `{${string}}`;
   }
 }
 
@@ -8689,7 +8689,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
-     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-descendant-count-for`.
+     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
      * In this case the value of the collapseRecursive property is ignored. For more information about the OData
      * hierarchy annotations, please see the **SAP Annotations for OData Version 2.0** specification.
      *
@@ -8851,7 +8851,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
-     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-descendant-count-for`.
+     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
      * In this case the value of the collapseRecursive property is ignored. For more information about the OData
      * hierarchy annotations, please see the **SAP Annotations for OData Version 2.0** specification.
      *
@@ -9104,7 +9104,7 @@ declare module "sap/ui/table/TreeTable" {
      *
      * Setting collapseRecursive to true means, that when collapsing a node all subsequent child nodes will
      * also be collapsed. This property is only supported with sap.ui.model.odata.v2.ODataModel. **Note:** collapseRecursive
-     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-descendant-count-for`.
+     * is currently **not** supported if your OData service exposes the hierarchy annotation `hierarchy-node-descendant-count-for`.
      * In this case the value of the collapseRecursive property is ignored. For more information about the OData
      * hierarchy annotations, please see the **SAP Annotations for OData Version 2.0** specification.
      *

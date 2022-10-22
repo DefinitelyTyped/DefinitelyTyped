@@ -21,8 +21,73 @@ declare namespace RecordRTC {
         // TODO: type
     }
     class StereoAudioRecorder {
-        constructor(mediaStream: MediaStream, config: any);
-        // TODO: type
+        constructor(mediaStream: MediaStream, config?: Options);
+        /**
+         * Buffer-size for how frequently the audioprocess event is dispatched.
+         * @example
+         * recorder = new StereoAudioRecorder(mediaStream, {
+         *     bufferSize: 4096
+         * });
+         */
+        bufferSize: number;
+        /**
+         * The sample rate (in sample-frames per second) at which the AudioContext handles audio
+         *
+         * @example
+         * recorder = new StereoAudioRecorder(mediaStream, {
+         *     sampleRate: 44100
+         * });
+         */
+        sampleRate: number;
+        /**
+         * The recorded blob object.
+         */
+        blob: Blob;
+        /**
+         * The recorded buffer object.
+         */
+        buffer: ArrayBuffer;
+        /**
+         * The recorded data-view object.
+         */
+        view: any;
+        /**
+         * Desired Bits per sample * 1000
+         * @example
+         * var recorder = StereoAudioRecorder(mediaStream, {
+         *        desiredSampRate: 16 * 1000 // bits-per-sample * 1000
+         *       });
+         */
+        desiredSampRate: number;
+        /**
+         * This method resets currently recorded data.
+         */
+        clearRecordedData(): void;
+        /**
+         * This method pauses the recording process.
+         */
+        pause(): void;
+        /**
+         * This method records MediaStream.
+         */
+        record(): void;
+        /**
+         * This method resumes the recording process.
+         */
+        resume(): void;
+        /**
+         * This method stops recording MediaStream.
+         * @param callback - Callback function, that is used to pass recorded blob back to the callee.
+         * @example
+         * recorder.stop(function(blob) {
+         *     video.src = URL.createObjectURL(blob);
+         * });
+         */
+        stop(callback: (blob: Blob) => void): void;
+        /**
+         * This method is called on "onaudioprocess" event's first invocation.
+         */
+        onAudioProcessStarted(): void;
     }
     class CanvasRecorder {
         constructor(htmlElement: MediaStream, config: any);

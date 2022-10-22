@@ -370,7 +370,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, React.ElementRef<HostComponent<unknown>>, React.ElementRef<HostComponent<unknown>>> {}
 
 export interface NativeTouchEvent {
     /**
@@ -406,7 +406,7 @@ export interface NativeTouchEvent {
     /**
      * The node id of the element receiving the touch event
      */
-    target: string;
+    target: NodeHandle;
 
     /**
      * A time identifier for the touch, useful for velocity calculation
@@ -914,7 +914,7 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle, target?: NodeHandle | null }>;
 
 interface TextLayoutLine {
     ascender: number;
@@ -993,6 +993,11 @@ export interface TextPropsIOS {
 }
 
 export interface TextPropsAndroid {
+    /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
@@ -4974,7 +4979,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -5004,7 +5009,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -8504,9 +8509,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean;
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**

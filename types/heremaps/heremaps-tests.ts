@@ -240,3 +240,11 @@ const reader = new H.data.geojson.Reader('data/berlin.json', {
         }
     }
 });
+
+// Test https://developer.here.com/documentation/maps/3.1.3.0/dev_guide/topics_api/h-map-spatialstyle-linecap.html
+new H.map.Circle(position, 35)
+    .setStyle({ lineCap: 'butt' })
+    .setStyle({ lineCap: 'round' })
+    .setStyle({ lineCap: 'square' })
+    .setStyle({ lineCap: 'arrow-head' })
+    .setStyle({ lineCap: 'arrow-tail' });

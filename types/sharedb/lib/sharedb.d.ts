@@ -149,6 +149,7 @@ export type ConnectionEventMap = ConnectionStateEventMap & {
     'connection error': (error: Error) => void;
     'doc': (doc: Doc) => void;
     'error': (error: Error) => void;
+    'pong': () => void;
     'receive': (request: ConnectionReceiveRequest) => void;
     'send': (message: any) => void;
     'state': (newState: ConnectionState, reason: string) => void;

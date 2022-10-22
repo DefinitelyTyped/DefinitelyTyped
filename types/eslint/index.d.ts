@@ -719,13 +719,13 @@ export namespace Linter {
         rules?: Partial<Rules> | undefined;
     }
 
-    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends HasRules<Rules> {
         $schema?: string | undefined;
         env?: { [name: string]: boolean } | undefined;
         extends?: string | string[] | undefined;
         globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" } | undefined;
         noInlineConfig?: boolean | undefined;
-        overrides?: ConfigOverride[] | undefined;
+        overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
         parser?: string | undefined;
         parserOptions?: ParserOptions | undefined;
         plugins?: string[] | undefined;
@@ -740,7 +740,7 @@ export namespace Linter {
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends BaseConfig<Rules, OverrideRules> {
         ignorePatterns?: string | string[] | undefined;
         root?: boolean | undefined;
     }

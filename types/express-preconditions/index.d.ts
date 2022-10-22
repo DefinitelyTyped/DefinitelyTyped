@@ -7,8 +7,8 @@ import type { RequestHandler, Request, Response } from 'express';
 
 declare namespace preconditions {
     interface ResourceState {
-        etag?: string | null;
-        lastModified?: string | null;
+        etag?: string;
+        lastModified?: string;
     }
 
     interface StateProvider {

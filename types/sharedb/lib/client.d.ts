@@ -19,6 +19,7 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
     nextSnapshotRequestId: number;
 
     state: string;
+    readonly canSend: boolean;
     debug: boolean;
 
     close(): void;
@@ -53,6 +54,8 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
      * etc., which will manage the necessary message exchanges.
      */
     send(message: Record<string, unknown>): void;
+
+    ping(): void;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
 export type Snapshot<T = any> = ShareDB.Snapshot<T>;

@@ -1373,7 +1373,27 @@ declare namespace SpotifyApi {
      */
     interface RecommendationsObject {
         seeds: RecommendationsSeedObject[];
-        tracks: TrackObjectSimplified[];
+        tracks: RecommendationTrackObject[];
+    }
+    
+    /**
+     * Recommendation Track Object
+     * Uses the same object structure as Full Track Object, but with `album.album_type` in caps.
+     */
+    interface RecommendationTrackObject extends Omit<TrackObjectFull, "album"> {
+        album: RecommendationAlbumObject;
+    }
+
+    /**
+     * Recommendation Album Object
+     * Uses the same object structure as Simple Album Object, but with `album_type` in caps.
+     */
+    interface RecommendationAlbumObject extends Omit<AlbumObjectSimplified, "album_type"> {
+        /**
+         * The type of the album: one of “ALBUM”, “SINGLE”, or “COMPILATION”.
+         * Note that this differs from the types returned by all other spotify APIs by being in all caps.
+         */
+        album_type: 'ALBUM' | 'SINGLE' | 'COMPILATION';
     }
 
     /**

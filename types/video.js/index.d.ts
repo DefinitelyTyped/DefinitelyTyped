@@ -10,6 +10,7 @@
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -6162,6 +6163,12 @@ declare namespace videojs {
         url: string;
         rawRequest: XMLHttpRequest;
     }
+
+    const Vhs: {
+        xhr: {
+            beforeRequest: (options: XhrOptions) => void;
+        };
+    };
 }
 
 /**
