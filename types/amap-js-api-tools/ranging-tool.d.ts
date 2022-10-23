@@ -18,7 +18,7 @@ declare namespace AMap {
              */
             lineOptions?: Polyline.Options | undefined;
             /**
-             * 	设置距离量测过程中临时量测线的属性对象，包括线样式、颜色，参考 PolylineOptions
+             * 设置距离量测过程中临时量测线的属性对象，包括线样式、颜色，参考 PolylineOptions
              */
             tmpLineOptions?: Polyline.Options | undefined;
             /**
