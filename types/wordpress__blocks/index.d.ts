@@ -188,7 +188,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#editor-style}
      */
-    readonly editorStyle?: string;
+    readonly editorStyle?: string | string[];
     /**
      * It provides structured example data for the block.
      *
@@ -238,7 +238,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#style}
      */
-    readonly style?: string;
+    readonly style?: string | string[];
     /**
      * Block styles.
      *
