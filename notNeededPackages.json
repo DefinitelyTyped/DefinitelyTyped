@@ -5175,6 +5175,10 @@
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
         },
+        "svgo": {
+            "libraryName": "svgo",
+            "asOfVersion": "3.0.0"
+        },
         "swagger-parser": {
             "libraryName": "swagger-parser",
             "asOfVersion": "7.0.0"
