@@ -34,7 +34,7 @@ export interface UserContext<TVendorUserProfile = object> {
 }
 
 /**
- * Parameters that are passed ot the authorize method.
+ * Parameters that are passed to the authorize method.
  */
 export interface AuthorizeParams {
     action: string;
