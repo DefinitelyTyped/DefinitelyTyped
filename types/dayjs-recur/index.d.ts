@@ -3,11 +3,14 @@
 // Definitions by: Shahin Sorkh <https://github.com/ShahinSorkh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module 'dayjs-recur';
+
 import { Dayjs, PluginFunc } from 'dayjs';
+const defaultExport: PluginFunc<unknown>;
+export = defaultExport;
 
 interface Recurrence {
-  every(unit: number | string, measurementType?: string): Recurrence;
-  every(units: number[] | string[], measurementType?: string): Recurrence;
+  every(unit: number | string | number[] | string[], measurementType?: string): Recurrence;
   day(unit?: string): Recurrence;
   days(unit?: string): Recurrence;
   week(unit?: string): Recurrence;
@@ -30,31 +33,28 @@ interface Recurrence {
   except(date: string): Recurrence;
   matches(date: string, outbound?: boolean): boolean;
   fromDate(date: string | Dayjs): Recurrence;
-  next(count?: number): Dayjs | Dayjs[];
-  previous(count?: number): Dayjs | Dayjs[];
+  next(): Dayjs;
+  next(count: number): Dayjs[];
+  previous(): Dayjs;
+  previous(count: number): Dayjs[];
   all(): Dayjs[];
 }
 
 declare module 'dayjs' {
-  export function recur(): Recurrence;
-  export function recur(
+  function recur(
     start?: string | Dayjs,
     end?: string | Dayjs,
   ): Recurrence;
-  export function recur(options: {
+  function recur(options: {
     start: string | Dayjs;
     end: string | Dayjs;
   }): Recurrence;
 
   interface Dayjs {
-    recur(): Recurrence;
     recur(start?: string | Dayjs, end?: string | Dayjs): Recurrence;
-    recur(options: {
-      start: string | Dayjs;
-      end: string | Dayjs;
+    recur(options?: {
+      start?: string | Dayjs;
+      end?: string | Dayjs;
     }): Recurrence;
   }
 }
-
-const defaultExport: PluginFunc<unknown>;
-export = defaultExport;
