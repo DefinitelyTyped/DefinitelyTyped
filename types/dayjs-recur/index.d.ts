@@ -3,7 +3,7 @@
 // Definitions by: Shahin Sorkh <https://github.com/ShahinSorkh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export {}
+export { };
 
 import { Dayjs, PluginFunc } from 'dayjs';
 const defaultExport: PluginFunc<unknown>;
@@ -45,9 +45,9 @@ declare module 'dayjs' {
     start?: string | Dayjs,
     end?: string | Dayjs,
   ): Recurrence;
-  export function recur(options: {
-    start: string | Dayjs;
-    end: string | Dayjs;
+  export function recur(options?: {
+    start?: string | Dayjs;
+    end?: string | Dayjs;
   }): Recurrence;
 
   interface Dayjs {
