@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@npm/types": "*"
+    "@npm/types": "*",
+    "@types/node-fetch": "^2.6.2"
   },
   "private": true
 }

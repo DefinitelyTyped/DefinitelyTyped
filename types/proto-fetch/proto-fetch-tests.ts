@@ -1,11 +1,11 @@
 import fileFetch = require('file-fetch');
-import httpFetch from 'node-fetch';
 import protoFetch = require('proto-fetch');
+
+declare const customFetch: (url: any, options?: any) => unknown;
 
 const fetch = protoFetch({
     file: fileFetch,
-    http: httpFetch,
-    https: httpFetch
+    http: customFetch
 });
 
 const response: Promise<Response> = fetch('http://example.com/');
