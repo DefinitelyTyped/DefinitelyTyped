@@ -11,5 +11,9 @@
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": []
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "fluent-reveal-effect-tests.ts"
+    ]
 }
