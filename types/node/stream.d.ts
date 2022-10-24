@@ -124,12 +124,12 @@ declare module 'stream' {
             readonly readableObjectMode: boolean;
             /**
              * Is `true` after `readable.destroy()` has been called.
-             * @since v18.0.0
+             * @since v8.0.0
              */
             destroyed: boolean;
             /**
              * Is true after 'close' has been emitted.
-             * @since v8.0.0
+             * @since v18.0.0
              */
             readonly closed: boolean;
             /**
@@ -579,7 +579,7 @@ declare module 'stream' {
             destroyed: boolean;
             /**
              * Is true after 'close' has been emitted.
-             * @since v8.0.0
+             * @since v18.0.0
              */
             readonly closed: boolean;
             /**
