@@ -20,8 +20,5 @@
   },
   "files": [
       "index.d.ts"
-  ],
-  "include": [
-    "./"
   ]
 }
