@@ -3,10 +3,10 @@
 // Definitions by: Shahin Sorkh <https://github.com/ShahinSorkh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { };
+export {};
 
 import { Dayjs, PluginFunc } from 'dayjs';
-const defaultExport: PluginFunc<unknown>;
+const defaultExport: PluginFunc;
 export = defaultExport;
 
 interface Recurrence {
@@ -41,11 +41,11 @@ interface Recurrence {
 }
 
 declare module 'dayjs' {
-  export function recur(
+  function recur(
     start?: string | Dayjs,
     end?: string | Dayjs,
   ): Recurrence;
-  export function recur(options?: {
+  function recur(options?: {
     start?: string | Dayjs;
     end?: string | Dayjs;
   }): Recurrence;
