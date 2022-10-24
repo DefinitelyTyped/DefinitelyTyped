@@ -1,4 +1,4 @@
-// Type definitions for DCJS
+// Type definitions for dc.js 4.2
 // Project: https://github.com/dc-js/dc.js
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 //                 matt traynham <https://github.com/mtraynham>
