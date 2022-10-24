@@ -41,7 +41,6 @@ declare namespace ROSLIB {
          *  * &#60;serviceID&#62; - A service response came from rosbridge with the given ID.
          *
          * @constructor
-         * @param options - possible keys include:
          * @param {Object} options
          * @param {string} [options.url] - The WebSocket URL for rosbridge or the node server URL to connect using socket.io (if socket.io exists in the page). Can be specified later with `connect`.
          * @param {boolean} [options.groovyCompatibility=true] - Don't use interfaces that changed after the last groovy release or rosbridge_suite and related tools.
@@ -187,6 +186,38 @@ declare namespace ROSLIB {
         ): void;
 
         /**
+         * Retrieve the details of a ROS service request.
+         *
+         * @param {string} type - The type of the service.
+         * @param {function} callback - Function with the following params:
+         * @param {Object} callback.result - The result object with the following params:
+         * @param {string[]} callback.result.typedefs - An array containing the details of the service request.
+         * @param {function} [failedCallback] - The callback function when the service call failed with params:
+         * @param {string} failedCallback.error - The error message reported by ROS.
+         */
+         getServiceRequestDetails(
+            type: string,
+            callback: (result: { typedefs: string[] }) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
+
+        /**
+         * Retrieve the details of a ROS service response.
+         *
+         * @param {string} type - The type of the service.
+         * @param {function} callback - Function with the following params:
+         * @param {Object} callback.result - The result object with the following params:
+         * @param {string[]} callback.result.typedefs - An array containing the details of the service response.
+         * @param {function} [failedCallback] - The callback function when the service call failed with params:
+         * @param {string} failedCallback.error - The error message reported by ROS.
+         */
+        getServiceResponseDetails(
+            type: string,
+            callback: (result: { typedefs: string[] }) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
+
+        /**
          * Retrieve a list of active node names in ROS.
          *
          * @param {function} callback - Function with the following params:
@@ -208,9 +239,14 @@ declare namespace ROSLIB {
          * @param {string[]} callback.services - Array of service names hosted.
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
-         *
-         * @also
-         *
+         */
+        getNodeDetails(
+            node: string,
+            callback: (subscriptions: string[], publications: string[], services: string[]) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
+
+        /**
          * Retrieve a list of subscribed topics, publishing topics and services of a specific node.
          * <br>
          * These are the parameters if failedCallback is <strong>undefined</strong>.
@@ -224,9 +260,9 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        getNodeDetails(
+         getNodeDetails(
             node: string,
-            callback: ((subscriptions: string[], publications: string[], services: string[]) => void) | ((result: { subscribing: string[], publishing: string[], services: string[] }) => void),
+            callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void,
             failedCallback?: (error: string) => void,
         ): void;
 
@@ -282,7 +318,7 @@ declare namespace ROSLIB {
          *
          * @param {any[]} defs - Array of type_def dictionary.
          */
-        decodeTypeDefs(defs: any[]): void;
+        decodeTypeDefs(defs: any[]): any;
 
         /**
          * Retrieve a list of topics and their associated type definitions.
@@ -297,38 +333,6 @@ declare namespace ROSLIB {
          */
         getTopicsAndRawTypes(
             callback: (result: {topics: string[], types: string[], typedefs_full_text: string[]}) => void,
-            failedCallback?: (error: string) => void,
-        ): void;
-
-        /**
-         * Retrieve the details of a ROS service request.
-         *
-         * @param {string} type - The type of the service.
-         * @param {function} callback - Function with the following params:
-         * @param {Object} callback.result - The result object with the following params:
-         * @param {string[]} callback.result.typedefs - An array containing the details of the service request.
-         * @param {function} [failedCallback] - The callback function when the service call failed with params:
-         * @param {string} failedCallback.error - The error message reported by ROS.
-         */
-        getServiceRequestDetails(
-            type: string,
-            callback: (result: { typedefs: string[] }) => void,
-            failedCallback?: (error: string) => void,
-        ): void;
-
-        /**
-         * Retrieve the details of a ROS service response.
-         *
-         * @param {string} type - The type of the service.
-         * @param {function} callback - Function with the following params:
-         * @param {Object} callback.result - The result object with the following params:
-         * @param {string[]} callback.result.typedefs - An array containing the details of the service response.
-         * @param {function} [failedCallback] - The callback function when the service call failed with params:
-         * @param {string} failedCallback.error - The error message reported by ROS.
-         */
-        getServiceResponseDetails(
-            type: string,
-            callback: (result: { typedefs: string[] }) => void,
             failedCallback?: (error: string) => void,
         ): void;
     }
@@ -858,7 +862,7 @@ declare namespace ROSLIB {
          * @param {string} eventName - Name of event ('timeout', 'status', 'feedback', 'result').
          * @param {function} callback - Callback function executed on connected event.
          */
-        on(eventName: string, callback: (event: any) => void): void;
+        on(eventName: 'timeout' | 'status' | 'feedback' | 'result', callback: (event: any) => void): void;
 
         /**
          * Send the goal to the action server.
