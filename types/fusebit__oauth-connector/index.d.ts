@@ -82,8 +82,9 @@ export class OAuthConnector {
      * point allows for creation of any artifacts required to serve this new user, for example creation of additional
      * Fusebit functions.
      *
-     * @param The Fusebit context of the request
-     * @param The user context representing the vendor's user. Contains vendorToken and vendorUserProfile, representing responses
+     * @async
+     * @param fusebitContext The Fusebit context of the request
+     * @param userContext The user context representing the vendor's user. Contains vendorToken and vendorUserProfile, representing responses
      * from getAccessToken and getUserProfile, respectively.
      */
     onNewUser(
@@ -94,6 +95,7 @@ export class OAuthConnector {
     /**
      * Gets the user context representing the user with vendorUserId id. Returned object contains vendorToken and vendorUserProfile properties.
      *
+     * @async
      * @param fusebitContext The Fusebit context
      * @param vendorUserId The vendor user id
      * @param foreignVendorId If specified, vendorUserId represents the identity of the user in another system.
@@ -110,6 +112,7 @@ export class OAuthConnector {
      * userContext.vendorUserProfile. Default implementation is opportunistically returning userContext.vendorUserProfile.id
      * if it exists.
      *
+     * @async
      * @param userContext The user context representing the vendor's user. Contains vendorToken and vendorUserProfile, representing responses
      * from getAccessToken and getUserProfile, respectively.
      */
@@ -118,6 +121,7 @@ export class OAuthConnector {
     /**
      * Saves user context in storage for future use.
      *
+     * @async
      * @param fusebitContext The Fusebit context of the request
      * @param userContext The user context representing the vendor's user. Contains vendorToken and vendorUserProfile, representing responses
      * from getAccessToken and getUserProfile, respectively.
@@ -130,6 +134,7 @@ export class OAuthConnector {
     /**
      * Deletes user context from storage.
      *
+     * @async
      * @param fusebitContext The Fusebit context
      * @param vendorUserId The vendor user id
      * @param vendorId If specified, vendorUserId represents the identity of the user in another system.
@@ -147,6 +152,7 @@ export class OAuthConnector {
      * For the vendor's system, if the currently stored access token is expired or nearing expiry, and a refresh token is available, a new access
      * token is obtained, stored for future use, and returned. If a current access token cannot be returned, an exception is thrown.
      *
+     * @async
      * @param fusebitContext The Fusebit context of the request
      * @param userContext The vendor user context
      * @param foreignVendorId If specified, gets a valid access token for the OAuth connector identified by the
@@ -159,4 +165,10 @@ export class OAuthConnector {
     ): Promise<OAuthTokenResponse>;
 }
 
+/**
+ * Creates and initializes new OAuth connector in a Fusebit integration.
+ *
+ * @async
+ * @param vendorConnector OAuth connector instance to initialize.
+ */
 export function createOAuthConnector(vendorConnector: OAuthConnector): Promise<any>;
