@@ -21,7 +21,7 @@ declare module '@wordpress/data' {
 }
 
 /**
- * This asset can be a local file path relative to the block.json file (must be prefixed with `file:`) or 
+ * This asset can be a local file path relative to the block.json file (must be prefixed with `file:`) or
  * it can be a style or script handle from a registered asset.
  *
  * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset}
