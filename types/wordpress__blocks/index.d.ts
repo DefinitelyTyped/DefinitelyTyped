@@ -21,12 +21,21 @@ declare module '@wordpress/data' {
 }
 
 /**
+ * The WPDefinedPath type is a subtype of string, where the value represents a path to a JavaScript,
+ * CSS or PHP file relative to where block.json file is located. The path provided must be prefixed
+ * with file:. This approach is based on how npm handles local paths for packages.
+ *
+ * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#wpdefinedpath}
+ */
+export type WPDefinedPath = `file:${string}`;
+
+/**
  * This asset can be a local file path relative to the block.json file (must be prefixed with `file:`) or
  * it can be a style or script handle from a registered asset.
  *
  * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset}
  */
-export type WPDefinedAsset = string;
+export type WPDefinedAsset = WPDefinedPath | string;
 
 export type AxialDirection = 'horizontal' | 'vertical';
 
