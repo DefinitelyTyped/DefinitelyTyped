@@ -20,6 +20,14 @@ declare module '@wordpress/data' {
     function select(key: 'core/blocks'): typeof import('./store/selectors');
 }
 
+/**
+ * This asset can be a local file path relative to the block.json file (must be prefixed with `file:`) or 
+ * it can be a style or script handle from a registered asset.
+ *
+ * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#wpdefinedasset}
+ */
+export type WPDefinedAsset = string;
+
 export type AxialDirection = 'horizontal' | 'vertical';
 
 export type CSSDirection = 'top' | 'right' | 'bottom' | 'left';
@@ -181,14 +189,14 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#editor-script}
      */
-    readonly editorScript?: string;
+    readonly editorScript?: WPDefinedAsset | WPDefinedAsset[];
     /**
      * Block type editor style definition.
      * It will only be enqueued in the context of the editor.
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#editor-style}
      */
-    readonly editorStyle?: string | string[];
+    readonly editorStyle?: WPDefinedAsset | WPDefinedAsset[];
     /**
      * It provides structured example data for the block.
      *
@@ -231,14 +239,14 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#script}
      */
-    readonly script?: string;
+    readonly script?: WPDefinedAsset | WPDefinedAsset[];
     /**
      * Block type editor style definition.
      * It will only be enqueued in the context of the editor.
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#style}
      */
-    readonly style?: string | string[];
+    readonly style?: WPDefinedAsset | WPDefinedAsset[];
     /**
      * Block styles.
      *
