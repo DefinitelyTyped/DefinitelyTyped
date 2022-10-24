@@ -19,6 +19,8 @@
       "allowSyntheticDefaultImports": true
   },
   "files": [
-      "index.d.ts"
+      "index.d.ts",
+      "noteflight-client-tests.ts",
+      "tslint.json"
   ]
 }
