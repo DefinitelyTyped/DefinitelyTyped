@@ -2728,7 +2728,7 @@ declare namespace CKEDITOR {
             element: string;
             attributes?: { [key: string]: any } | undefined;
             styles?: { [key: string]: any } | undefined;
-            overrides?: { [key: string]: any } | undefined;
+            overrides?: string | { [key: string]: any } | undefined;
         }
     }
 
