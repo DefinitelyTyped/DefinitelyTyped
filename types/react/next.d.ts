@@ -66,6 +66,13 @@ declare module '.' {
     export interface ServerContext<T extends ServerContextJSONValue> {
         Provider: Provider<T>;
     }
+    /**
+     * Accepts a context object (the value returned from `React.createContext` or `React.createServerContext`) and returns the current
+     * context value, as given by the nearest context provider for the given context.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usecontext
+     */
     function useContext<T extends ServerContextJSONValue>(context: ServerContext<T>): T;
     export function createServerContext<T extends ServerContextJSONValue>(
         globalName: string,
