@@ -24,14 +24,19 @@ declare namespace createHttpError {
 
     type UnknownError = Error | string | number | { [key: string]: any };
 
-    type HttpErrorConstructor<N extends number = number> = new (msg?: string) => HttpError<N>;
+    interface HttpErrorConstructor<N extends number = number> {
+        (msg?: string): HttpError<N>;
+        new (msg?: string): HttpError<N>;
+    }
 
-    type CreateHttpError = <N extends UnknownError>(arg: N, ...rest: UnknownError[]) => HttpError<N extends number ? N : number>;
+    interface CreateHttpError {
+        <N extends number = number>(arg?: N, ...rest: UnknownError[]): HttpError<N>;
+        (...rest: UnknownError[]): HttpError;
+    }
 
     type IsHttpError = (error: unknown) => error is HttpError;
 
     type NamedConstructors = {
-        [code: string]: HttpErrorConstructor;
         HttpError: HttpErrorConstructor;
     }
     & Record<'BadRequest' | '400', HttpErrorConstructor<400>>

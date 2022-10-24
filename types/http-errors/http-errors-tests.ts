@@ -89,8 +89,10 @@ new create.InternalServerError(); // $ExpectType HttpError<500>
 new create[404](); // $ExpectType HttpError<404>
 new create['404'](); // $ExpectType HttpError<404>
 
-// @ts-expect-error
-create['404']();
+create['404'](); // $ExpectType HttpError<404>
+create(404, 'Not Found'); // $ExpectType HttpError<404>
+create(); // $ExpectType HttpError<number>
+
 // @ts-expect-error
 new create();
 
