@@ -256,7 +256,12 @@ declare namespace TelegramBot {
         length?: number | undefined;
     }
 
-    type SendLocationOptions = SendBasicOptions;
+    interface SendLocationOptions extends SendBasicOptions{
+        live_period?: number | undefined;
+        horizontal_accuracy?: number | undefined;
+        heading?: number | undefined;
+        proximity_alert_radius?: number | undefined;
+    }
 
     type EditMessageLiveLocationOptions = EditMessageCaptionOptions;
 
