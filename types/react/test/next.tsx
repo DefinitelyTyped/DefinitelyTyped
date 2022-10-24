@@ -1,6 +1,5 @@
 /// <reference types="../next"/>
 
-
 const contextUsers = React.createContext(['HAL']);
 const promisedUsers = Promise.resolve(['Dave']);
 
@@ -55,4 +54,27 @@ function cacheTest() {
         // @ts-expect-error implicit any
         a => a,
     );
+}
+
+function useCacheTest() {
+    const useCacheRefresh = React.unstable_useCacheRefresh;
+
+    const refresh = useCacheRefresh();
+
+    function handleRefresh() {
+        refresh(() => 'refresh', 'initial');
+        refresh(() => 'refresh');
+        refresh();
+
+        refresh(
+            () => 'refresh',
+            // @ts-expect-error number not assignable to string
+            0,
+        );
+
+        refresh<number>(
+            // @ts-expect-error
+            () => 'refresh',
+        );
+    }
 }

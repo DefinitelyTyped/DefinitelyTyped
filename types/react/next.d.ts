@@ -74,4 +74,6 @@ declare module '.' {
 
     // tslint:disable-next-line ban-types
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
+
+    export function unstable_useCacheRefresh(): <T>(seedKey?: () => T, seedValue?: T) => void;
 }
