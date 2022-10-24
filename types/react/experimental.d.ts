@@ -59,7 +59,8 @@ declare module '.' {
          * It does, however, allow those children to be wrapped inside a single
          * level of `<React.Fragment>`.
          */
-        children: ReactElement | Iterable<ReactElement>;
+        // Another bad workaround. These really need to be React elements.
+        children: JSX.Element | Iterable<JSX.Element>;
     }
 
     interface DirectionalSuspenseListProps extends SuspenseListCommonProps {

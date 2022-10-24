@@ -558,10 +558,14 @@ function CustomSelectOption(props: {
 }
 function Example() {
     return (
-        <CustomSelect>
-        <CustomSelectOption value="one">One</CustomSelectOption>
-        <CustomSelectOption value="two">Two</CustomSelectOption>
-        </CustomSelect>
+        <CustomSelect
+            children={[
+                // @ts-expect-error Undesired behavior. JSX elements have no typed props.
+                <CustomSelectOption value="one">One</CustomSelectOption>,
+                // @ts-expect-error Undesired behavior. JSX elements have no typed props.
+                <CustomSelectOption value="two">Two</CustomSelectOption>,
+            ]}
+        />
     );
 }
 
@@ -659,32 +663,22 @@ function elementTypeTests() {
     // @ts-expect-error
     React.createElement(RenderVoid);
 
-    // Undesired behavior. Returning `undefined` should be accepted in all forms.
-    // @ts-expect-error
     <ReturnUndefined />;
-    // @ts-expect-error
     React.createElement(ReturnUndefined);
     <RenderUndefined />;
     React.createElement(RenderUndefined);
 
-    // Desired behavior.
     <ReturnNull />;
     React.createElement(ReturnNull);
     <RenderNull />;
     React.createElement(RenderNull);
 
-    // Undesired behavior. Returning `number` should be accepted in all forms.
-    // @ts-expect-error
     <ReturnNumber />;
-    // @ts-expect-error
     React.createElement(ReturnNumber);
     <RenderNumber />;
     React.createElement(RenderNumber);
 
-    // Undesired behavior. Returning `string` should be accepted in all forms.
-    // @ts-expect-error
     <ReturnString />;
-    // @ts-expect-error
     React.createElement(ReturnString);
     <RenderString />;
     React.createElement(RenderString);
@@ -699,24 +693,17 @@ function elementTypeTests() {
     // @ts-expect-error
     React.createElement(RenderSymbol);
 
-    // Undesired behavior. Returning `Array` should be accepted in all forms.
-    // @ts-expect-error
     <ReturnArray />;
-    // @ts-expect-error
     React.createElement(ReturnArray);
     <RenderArray />;
     React.createElement(RenderArray);
 
-    // Desired behavior.
     <ReturnElement />;
     React.createElement(ReturnElement);
     <RenderElement />;
     React.createElement(RenderElement);
 
-    // Undesired behavior. Returning `ReactNode` should be accepted in all forms.
-    // @ts-expect-error
     <ReturnReactNode />;
-    // @ts-expect-error
     React.createElement(ReturnReactNode);
     <RenderReactNode />;
     React.createElement(RenderReactNode);

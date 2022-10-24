@@ -45,6 +45,7 @@ const annotatedPropTypesAndDefaultPropsTests = [
         fnc={() => {}}
         node={<span />}
         num={0}
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
         reqNode={<span />}
         str='abc'
     />
@@ -69,6 +70,7 @@ const unannotatedPropTypesAndDefaultPropsTests = [
         fnc={() => {}}
         node={<span />}
         num={0}
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
         reqNode={<span />}
         str='abc'
     />
@@ -81,7 +83,13 @@ class AnnotatedPropTypes extends React.Component<Props> {
 const annotatedPropTypesTests = [
     // @ts-expect-error
     <AnnotatedPropTypes />, // str, extraStr, reqNode and fnc are required
-    <AnnotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} />,
+    <AnnotatedPropTypes
+        fnc={() => {}}
+        extraStr="abc"
+        str="abc"
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
+        reqNode={<span />}
+    />,
     // @ts-expect-error
     <AnnotatedPropTypes fnc={() => {}} extraStr='abc' str='abc' reqNode={<span />} extraBool={false} />, // extraBool doesn't exist
     // @ts-expect-error
@@ -93,6 +101,7 @@ const annotatedPropTypesTests = [
         fnc={() => {}}
         node={<React.Fragment />}
         num={0}
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
         reqNode={<React.Fragment />}
         str='abc'
     />
@@ -128,10 +137,14 @@ class AnnotatedDefaultProps extends React.Component<Props> {
 const annotatedDefaultPropsTests = [
     // @ts-expect-error
     <AnnotatedDefaultProps />, // str is required
-    <AnnotatedDefaultProps str='abc' />,
-    <AnnotatedDefaultProps str='abc' reqNode={<span />} />,
+    <AnnotatedDefaultProps str="abc" />,
+    <AnnotatedDefaultProps
+        str="abc"
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
+        reqNode={<span />}
+    />,
     // @ts-expect-error
-    <AnnotatedDefaultProps str={() => { }} />, // str type mismatch
+    <AnnotatedDefaultProps str={() => {}} />, // str type mismatch
     <AnnotatedDefaultProps
         bool={true}
         extraBool={false}
@@ -139,8 +152,8 @@ const annotatedDefaultPropsTests = [
         node={null}
         num={0}
         reqNode={undefined}
-        str='abc'
-    />
+        str="abc"
+    />,
 ];
 
 class UnannotatedDefaultProps extends React.Component {
@@ -152,6 +165,7 @@ const unannotatedDefaultPropsTests = [
     <UnannotatedDefaultProps
         extraBool={true}
         fnc={() => {}}
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
         reqNode={<span />}
     />
 ];
@@ -196,6 +210,7 @@ const forwardRefTests = [
     <ForwardRef />,
     <ForwardRef
         fnc={() => {}}
+        // @ts-expect-error Undesired behavior. JSX elements are now nullable.
         reqNode={<span />}
         str=''
     />,
