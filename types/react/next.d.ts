@@ -27,4 +27,51 @@ import React = require('.');
 
 export {};
 
-declare module '.' {}
+declare module '.' {
+    interface ThenableImpl<T> {
+        then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
+    }
+    interface UntrackedThenable<T> extends ThenableImpl<T> {
+        status?: void;
+    }
+
+    export interface PendingThenable<T> extends ThenableImpl<T> {
+        status: 'pending';
+    }
+
+    export interface FulfilledThenable<T> extends ThenableImpl<T> {
+        status: 'fulfilled';
+        value: T;
+    }
+
+    export interface RejectedThenable<T> extends ThenableImpl<T> {
+        status: 'rejected';
+        reason: unknown;
+    }
+
+    export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>;
+
+    export type Usable<T> = Thenable<T> | Context<T>;
+
+    export function use<T>(usable: Usable<T>): T;
+
+    interface ServerContextJSONArray extends ReadonlyArray<ServerContextJSONArray> {}
+    export type ServerContextJSONValue =
+        | string
+        | boolean
+        | number
+        | null
+        | ServerContextJSONArray
+        | { [key: string]: ServerContextJSONValue };
+    export interface ServerContext<T extends ServerContextJSONValue> {
+        Provider: Provider<T>;
+    }
+    function useContext<T extends ServerContextJSONValue>(context: ServerContext<T>): T;
+    export function createServerContext<T extends ServerContextJSONValue>(
+        globalName: string,
+        defaultValue: T,
+    ): ServerContext<T>;
+
+    // tslint:disable-next-line ban-types
+    export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
+}
