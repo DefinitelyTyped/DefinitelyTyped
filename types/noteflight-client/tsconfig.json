@@ -10,18 +10,18 @@
       "strictNullChecks": true,
       "strictFunctionTypes": true,
       "baseUrl": "../",
+      "types": [],
       "typeRoots": [
           "../"
       ],
-      "types": [],
       "noEmit": true,
       "forceConsistentCasingInFileNames": true,
       "allowSyntheticDefaultImports": true
   },
   "files": [
-      "index.d.ts",
+      "index.d.ts"
   ],
   "include": [
-    "./",
+    "./"
   ]
 }
