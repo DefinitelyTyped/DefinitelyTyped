@@ -120,7 +120,7 @@ const tfClient = new ROSLIB.TFClient({
     ros: ros,
     fixedFrame: '/world',
 });
-const stub_tfclient_callback = function (transform: ROSLIB.Transform) {}
+const stub_tfclient_callback = function (transform: ROSLIB.Transform) {};
 const tfclient_callback = function (transform: ROSLIB.Transform) {
     console.log('Received transform: ' + transform);
     tfClient.unsubscribe('/transform', stub_tfclient_callback);
