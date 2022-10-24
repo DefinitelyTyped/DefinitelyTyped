@@ -3,7 +3,7 @@
 // Definitions by: Tudor Gergely <https://github.com/tudorgergely>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Feature, GeoJSON, FeatureCollection, Geometry, Point, Position, BBox, GeoJsonProperties } from 'geojson';
+import { Feature, GeoJSON, FeatureCollection, Geometry, Point, BBox, GeoJsonProperties, GeometryCollection } from 'geojson';
 import {
     IControl, Map,
     MapMouseEvent as MapboxMapMouseEvent,
@@ -50,18 +50,19 @@ declare namespace MapboxDraw {
         combineFeatures: boolean;
         uncombineFeatures: boolean;
     }
-
-    interface DrawFeature {
-        properties: GeoJsonProperties;
-        coordinates: Position;
+    interface DrawFeature<G extends Exclude<Geometry, GeometryCollection> = Exclude<Geometry, GeometryCollection>, P = GeoJsonProperties> {
+        properties: P;
+        coordinates: G['coordinates'];
+        id?: string | number | undefined;
+        type: G['type'];
 
         changed(): void;
 
-        incomingCoords(coords: Position): void;
+        incomingCoords(coords: G['coordinates']): void;
 
-        setCoordinates(coords: Position): void;
+        setCoordinates(coords: G['coordinates']): void;
 
-        getCoordinates(): Position;
+        getCoordinates(): G['coordinates'];
 
         setProperty(property: string, value: any): void;
 
