@@ -1,12 +1,38 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
 import {
-    CartesianGrid, Line, LineChart, PieChart, Pie,
-    Sector, XAxis, YAxis, Tooltip, ReferenceLine,
-    ReferenceArea, ResponsiveContainer, Label, LabelList, Brush,
-    ScatterChart, ZAxis, Legend, Scatter, Bar, BarChart, Text, Area, AreaChart, Customized,
-    RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Sankey, Layer
+    Area,
+    AreaChart,
+    Bar,
+    BarChart,
+    Brush,
+    CartesianGrid,
+    Customized,
+    Label,
+    LabelList,
+    Layer,
+    Legend,
+    Line,
+    LineChart,
+    Pie,
+    PieChart,
+    PolarAngleAxis,
+    PolarGrid,
+    PolarRadiusAxis,
+    Radar,
+    RadarChart,
+    ReferenceArea,
+    ReferenceLine,
+    ResponsiveContainer,
+    Sankey,
+    Scatter,
+    ScatterChart,
+    Sector,
+    Text,
+    Tooltip,
+    XAxis,
+    YAxis,
+    ZAxis
 } from 'recharts';
 
 interface ComponentState {
@@ -161,7 +187,13 @@ class Component extends React.Component<{}, ComponentState> {
                         <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-                        <Tooltip />
+                        <Tooltip content={(toolTipProps) => (
+                            <div>
+                                Stroke: {toolTipProps.stroke}
+                                Stroke dash array: {toolTipProps.strokeDasharray}
+                                Stroke width: {toolTipProps.strokeWidth}
+                            </div>)
+                        }/>
                         <Brush dataKey="name" />
                         <ReferenceLine />
                         <ReferenceArea
