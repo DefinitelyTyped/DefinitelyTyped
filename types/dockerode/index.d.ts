@@ -1747,6 +1747,7 @@ declare namespace Dockerode {
         stderr?: boolean | undefined;
         follow?: boolean | undefined;
         since?: number | undefined;
+        until?: number | undefined;
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;

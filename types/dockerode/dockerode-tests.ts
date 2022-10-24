@@ -117,6 +117,9 @@ container.remove({v: true, force: false, link: true}, (err, data) => {
     // NOOP
 });
 
+// $ExpectType Promise<ReadableStream>
+container.logs({ since: 0, until: 10, stdout: true, stderr: true });
+
 const abortController = new AbortController();
 container.wait({
     condition: 'next-exit',
