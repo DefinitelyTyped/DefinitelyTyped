@@ -21,7 +21,7 @@ declare namespace scope {
             css: string
         ) => { key: string; value: string }) | undefined;
 
-        exportGlobals?: boolean;
+        exportGlobals?: boolean | undefined;
     }
 }
 
