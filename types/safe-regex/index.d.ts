@@ -1,6 +1,6 @@
 // Type definitions for safe-regex 1.1
 // Project: https://github.com/davisjam/safe-regex
-// Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
+// Definitions by: Rodry <https://github.com/ImRodry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
