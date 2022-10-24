@@ -1,4 +1,4 @@
-// Type definitions for http-errors 1.8
+// Type definitions for http-errors 2.0
 // Project: https://github.com/jshttp/http-errors
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 BendingBender <https://github.com/BendingBender>
