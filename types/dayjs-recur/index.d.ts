@@ -3,10 +3,11 @@
 // Definitions by: Shahin Sorkh <https://github.com/ShahinSorkh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare const ignored: any; // just to satisfy ci
 export {};
 
 import { Dayjs, PluginFunc } from 'dayjs';
-const defaultExport: PluginFunc;
+declare const defaultExport: PluginFunc;
 export = defaultExport;
 
 interface Recurrence {
