@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
 import { CurveFactory } from 'd3-shape';
+import * as React from 'react';
 
 export type Percentage = string;
 export type RechartsFunction = (...args: any[]) => void;
@@ -903,6 +903,9 @@ export interface TooltipPayload {
     dataKey?: DataKey;
     formatter?: TooltipFormatter;
     payload?: any;
+    stroke?: string | undefined;
+    strokeDasharray?: string | number | undefined;
+    strokeWidth?: number | string | undefined;
 }
 
 export interface TooltipProps extends Animatable {
