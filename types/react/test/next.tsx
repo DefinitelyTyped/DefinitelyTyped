@@ -62,19 +62,16 @@ function useCacheTest() {
     const refresh = useCacheRefresh();
 
     function handleRefresh() {
+        // @ts-expect-error -- experimental only
         refresh(() => 'refresh', 'initial');
+        // @ts-expect-error -- experimental only
         refresh(() => 'refresh');
         refresh();
 
-        refresh(
-            () => 'refresh',
-            // @ts-expect-error number not assignable to string
-            0,
-        );
+        // @ts-expect-error -- experimental only
+        refresh(() => 'refresh', 0);
 
-        refresh<number>(
-            // @ts-expect-error
-            () => 'refresh',
-        );
+        // @ts-expect-error -- experimental only
+        refresh(() => 'refresh');
     }
 }
