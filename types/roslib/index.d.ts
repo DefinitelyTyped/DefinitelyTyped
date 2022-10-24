@@ -84,7 +84,7 @@ declare namespace ROSLIB {
          * @param {string} client - IP of the client.
          * @param {string} dest - IP of the destination.
          * @param {string} rand - Random string given by the trusted source.
-         * @param {Object} t - Time of the authorization request.
+         * @param {any} t - Time of the authorization request.
          * @param {string} level - User level as a string given by the client.
          * @param {Object} end - End time of the client's session.
          */
@@ -93,29 +93,29 @@ declare namespace ROSLIB {
             client: string,
             dest: string,
             rand: string,
-            t: Object,
+            t: any,
             level: string,
-            end: Object,
+            end: any,
         ): void;
 
         /**
          * Send an encoded message over the WebSocket.
-         * 
-         * @param {Object} messageEncoded - The encoded message to be sent.
+         *
+         * @param {any} messageEncoded - The encoded message to be sent.
          */
-         sendEncodedMessage(messageEncoded: Object): void;
+         sendEncodedMessage(messageEncoded: any): void;
 
         /**
          * Send the message over the WebSocket, but queue the message up if not yet
          * connected.
-         * 
-         * @param {Object} message - The message to be sent.
+         *
+         * @param {any} message - The message to be sent.
          */
-        callOnConnection(message: Object): void;
+        callOnConnection(message: any): void;
 
         /**
          * Send a set_level request to the server.
-         * 
+         *
          * @param {string} level - Status level (none, error, warning, info).
          * @param {number} [id] - Operation ID to change status level on.
          */
@@ -208,14 +208,9 @@ declare namespace ROSLIB {
          * @param {string[]} callback.services - Array of service names hosted.
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
-         */
-        getNodeDetails(
-            node: string,
-            callback: (subscriptions: string[], publications: string[], services: string[]) => void,
-            failedCallback?: (error: string) => void,
-        ): void;
-
-        /**
+         *
+         * @also
+         *
          * Retrieve a list of subscribed topics, publishing topics and services of a specific node.
          * <br>
          * These are the parameters if failedCallback is <strong>undefined</strong>.
@@ -231,7 +226,7 @@ declare namespace ROSLIB {
          */
         getNodeDetails(
             node: string,
-            callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void,
+            callback: ((subscriptions: string[], publications: string[], services: string[]) => void) | ((result: { subscribing: string[], publishing: string[], services: string[] }) => void),
             failedCallback?: (error: string) => void,
         ): void;
 
@@ -285,9 +280,9 @@ declare namespace ROSLIB {
         /**
          * Decode a typedef array into a dictionary like `rosmsg show foo/bar`.
          *
-         * @param {Object[]} defs - Array of type_def dictionary.
+         * @param {any[]} defs - Array of type_def dictionary.
          */
-        decodeTypeDefs(defs: Object[]): void;
+        decodeTypeDefs(defs: any[]): void;
 
         /**
          * Retrieve a list of topics and their associated type definitions.
@@ -323,7 +318,7 @@ declare namespace ROSLIB {
 
         /**
          * Retrieve the details of a ROS service response.
-         * 
+         *
          * @param {string} type - The type of the service.
          * @param {function} callback - Function with the following params:
          * @param {Object} callback.result - The result object with the following params:
@@ -343,9 +338,9 @@ declare namespace ROSLIB {
          * Message objects are used for publishing and subscribing to and from topics.
          *
          * @constructor
-         * @param {Object} values - An object matching the fields defined in the .msg definition file.
+         * @param {any} values - An object matching the fields defined in the .msg definition file.
          */
-        constructor(values: Object);
+        constructor(values: any);
     }
 
     export class Param {
@@ -363,21 +358,21 @@ declare namespace ROSLIB {
          * Fetch the value of the param.
          *
          * @param {function} callback - Function with the following params:
-         * @param {Object} callback.value - The value of the param from ROS.
+         * @param {any} callback.value - The value of the param from ROS.
          */
-        get(callback: (value: Object) => void): void;
+        get(callback: (value: any) => void): void;
 
         /**
          * Set the value of the param in ROS.
          *
-         * @param {Object} value - The value to set param to.
+         * @param {any} value - The value to set param to.
          * @param {function} callback - The callback function.
          */
-        set(value: Object, callback: (response: any) => void): void;
+        set(value: any, callback: (response: any) => void): void;
 
         /**
          * Delete this parameter on the ROS server.
-         * 
+         *
          * @param {function} callback - The callback function.
          */
         delete(callback: (response: any) => void): void;
@@ -440,9 +435,9 @@ declare namespace ROSLIB {
          * A ServiceRequest is passed into the service call.
          *
          * @constructor
-         * @param {Object} values - Object matching the fields defined in the .srv definition file.
+         * @param {any} values - Object matching the fields defined in the .srv definition file.
          */
-        constructor(values: Object);
+        constructor(values: any);
     }
 
     export class ServiceResponse {
@@ -450,9 +445,9 @@ declare namespace ROSLIB {
          * A ServiceResponse is returned from the service call.
          *
          * @constructor
-         * @param {Object} values - Object matching the fields defined in the .srv definition file.
+         * @param {any} values - Object matching the fields defined in the .srv definition file.
          */
-        constructor(values: Object);
+        constructor(values: any);
     }
 
     export class Topic<TMessage = Message> extends EventEmitter2 {
@@ -661,7 +656,7 @@ declare namespace ROSLIB {
 
         /**
          * Clone a copy of this vector.
-         * 
+         *
          * @returns {Vector3} The cloned vector.
          */
         clone(): Vector3;
@@ -853,9 +848,9 @@ declare namespace ROSLIB {
          * @constructor
          * @param {Object} options
          * @param {ActionClient} options.actionClient - The ROSLIB.ActionClient to use with this goal.
-         * @param {Object} options.goalMessage - The JSON object containing the goal for the action server.
+         * @param {any} options.goalMessage - The JSON object containing the goal for the action server.
          */
-        constructor(options: { actionClient: ActionClient; goalMessage: Object });
+        constructor(options: { actionClient: ActionClient; goalMessage: any });
 
         /**
          * Connect callback functions to goal based events.
@@ -897,23 +892,23 @@ declare namespace ROSLIB {
         /**
          * Set action state to succeeded and return to client.
          *
-         * @param {Object} result - The result to return to the client.
+         * @param {any} result - The result to return to the client.
          */
-        setSucceeded(result: Object): void;
+        setSucceeded(result: any): void;
 
         /**
          * Set action state to aborted and return to client.
          *
-         * @param {Object} result - The result to return to the client.
+         * @param {any} result - The result to return to the client.
          */
-        setAborted(result: Object): void;
+        setAborted(result: any): void;
 
         /**
          * Send a feedback message.
          *
-         * @param {Object} feedback - The feedback to send to the client.
+         * @param {any} feedback - The feedback to send to the client.
          */
-        sendFeedback(feedback: Object): void;
+        sendFeedback(feedback: any): void;
 
         /**
          * Handle case where client requests preemption.
