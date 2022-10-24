@@ -34,6 +34,12 @@ function serverContextTest() {
         );
     }
 
+    const ClientContext = React.createContext<string>('default');
+    function ClientContextUser() {
+        const context = React.useContext(ClientContext);
+        return <React.Fragment>{context}</React.Fragment>;
+    }
+
     // plain objects work
     React.createServerContext('PlainObjectContext', { foo: 1 });
     // @ts-expect-error Incompatible with JSON stringify+parse
