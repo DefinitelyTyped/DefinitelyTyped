@@ -256,7 +256,7 @@ declare namespace TelegramBot {
         length?: number | undefined;
     }
 
-    interface SendLocationOptions extends SendBasicOptions{
+    interface SendLocationOptions extends SendBasicOptions {
         live_period?: number | undefined;
         horizontal_accuracy?: number | undefined;
         heading?: number | undefined;
@@ -1409,15 +1409,9 @@ declare class TelegramBot extends EventEmitter {
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<TelegramBot.Message>;
 
-    getStickerSet(
-        name: string,
-        options?: {},
-    ): Promise<TelegramBot.StickerSet>;
+    getStickerSet(name: string, options?: {}): Promise<TelegramBot.StickerSet>;
 
-    getCustomEmojiStickers(
-        customEmojiIds: string[],
-        options?: {},
-    ): Promise<TelegramBot.Sticker[]>;
+    getCustomEmojiStickers(customEmojiIds: string[], options?: {}): Promise<TelegramBot.Sticker[]>;
 
     uploadStickerFile(
         userId: string,
@@ -1446,15 +1440,9 @@ declare class TelegramBot extends EventEmitter {
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<boolean>;
 
-    setStickerPositionInSet(
-        sticker: string,
-        position: number,
-    ): Promise<boolean>;
+    setStickerPositionInSet(sticker: string, position: number): Promise<boolean>;
 
-    deleteStickerFromSet(
-        sticker: string,
-        options?: {},
-    ): Promise<boolean>;
+    deleteStickerFromSet(sticker: string, options?: {}): Promise<boolean>;
 
     setStickerSetThumb(
         userId: string,
@@ -1489,7 +1477,12 @@ declare class TelegramBot extends EventEmitter {
 
     kickChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<boolean>;
 
-    banChatMember(chatId: number | string, userId: string, untilDate?: number, revokeMessages?: boolean): Promise<boolean>;
+    banChatMember(
+        chatId: number | string,
+        userId: string,
+        untilDate?: number,
+        revokeMessages?: boolean,
+    ): Promise<boolean>;
 
     unbanChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<boolean>;
 
