@@ -536,41 +536,13 @@ declare namespace naver.maps {
         visible?: boolean;
         zIndex?: number;
     }
-    interface PanoramaOptions {
-        size?: Size | SizeLiteral;
-        panoId?: string;
-        position?: LatLng | LatLngLiteral;
-        pov?: PanoramaPov;
-        visible?: boolean;
-        minScale?: number;
-        maxScale?: number;
-        minZoom?: number;
-        maxZoom?: number;
-        flightSpot?: boolean;
-        logoControl?: boolean;
-        logoControlOptions?: LogoControlOptions;
-        zoomControl?: boolean;
-        zoomControlOptions?: ZoomControlOptions;
-        aroundControl?: boolean;
-        aroundControlOptions?: AroundControlOptions;
-    }
-    interface PanoramaPov {
-        pan: number;
-        tilt: number;
-        fov: number;
-    }
-    interface PanoramaLocation {
-        panoId: string;
-        title: string;
-        address: string;
-        coord: LatLng;
-        photodate: string;
-    }
+
     interface DOMEventListener {
         eventName: string;
         listener: () => any;
         target: HTMLElement;
     }
+
     interface Margin {
         top?: number;
         right?: number;
@@ -1339,23 +1311,66 @@ declare namespace naver.maps {
         setStyles(options: RectangleOptions): void;
     }
 
-    // Sub module: panorama
+    // --------------------------------------------------------------------------
+    //  submodules
+    //  https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-Submodules.html 
+    // --------------------------------------------------------------------------
 
-    interface AroundControlOptions {
-        position: Position;
+    /**
+     * Submodule - Panorama
+     * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Panorama.html
+     */
+    type AroundControlOptions = ControlOptions
+
+    interface PanoramaOptions {
+        size?: Size | SizeLiteral;
+        panoId?: string;
+        position?: LatLng | LatLngLiteral;
+        pov?: PanoramaPov;
+        visible?: boolean;
+        minScale?: number;
+        maxScale?: number;
+        minZoom?: number;
+        maxZoom?: number;
+        flightSpot?: boolean;
+        logoControl?: boolean;
+        logoControlOptions?: LogoControlOptions;
+        zoomControl?: boolean;
+        zoomControlOptions?: ZoomControlOptions;
+        aroundControl?: boolean;
+        aroundControlOptions?: AroundControlOptions;
     }
+
+    interface PanoramaPov {
+        pan?: number;
+        tilt?: number;
+        fov?: number;
+    }
+
+    interface PanoramaLocation {
+        panoId: string;
+        title: string;
+        address: string;
+        coord: LatLng;
+        photodate: string;
+    }
+
     class PanoramaProjection extends KVO {
         fromCoordToPov(coord: LatLng): PanoramaPov;
+        fromScrollToPov(dx: number, dy: number): PanoramaPov;
+        fromCoordToOffset(coord: LatLng): Point;
+        fromOffsetToCoord(offset: Point): LatLng;
     }
+
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
-        aroundControl: AroundControl | null;
-        controls: any; // KVOArray<any>[];
+        getElement(): HTMLElement;
         getLocation(): PanoramaLocation;
         getMaxScale(): number;
         getMaxZoom(): number;
         getMinScale(): number;
         getMinZoom(): number;
+        getOptions(key?: string): any;
         getPanoId(): string;
         getPosition(): LatLng;
         getPov(): PanoramaPov;
@@ -1377,13 +1392,16 @@ declare namespace naver.maps {
         zoomIn(): void;
         zoomOut(): void;
     }
+
     class FlightSpot extends KVO {
         constructor();
         getMap(): Map | null;
         setMap(map: Map | null): void;
     }
+
     class AroundControl extends CustomControl {
         constructor(aroundControlOptions: AroundControlOptions);
+
     }
 
     // Sub module: drawing
