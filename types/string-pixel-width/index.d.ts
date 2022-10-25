@@ -1,4 +1,4 @@
-// Type definitions for string-pixel-width 1.10.0
+// Type definitions for string-pixel-width 1.10
 // Project: https://github.com/adambisek/string-pixel-width#readme
 // Definitions by: Graham Dyson <https://github.com/grahamdyson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
