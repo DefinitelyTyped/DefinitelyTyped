@@ -1748,8 +1748,8 @@ declare namespace Dockerode {
         stdout?: boolean | undefined;
         stderr?: boolean | undefined;
         follow?: boolean | undefined;
-        since?: number | undefined;
-        until?: number | undefined;
+        since?: number | string | undefined;
+        until?: number | string | undefined;
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;

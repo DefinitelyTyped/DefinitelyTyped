@@ -136,8 +136,12 @@ container.logs({ follow: false }, (err, logs) => {
     // $ExpectType Buffer
     logs;
 });
+
 // $ExpectType Promise<Buffer>
 container.logs({ since: 0, until: 10, stdout: true, stderr: true });
+
+// $ExpectType Promise<Buffer>
+container.logs({ since: '12345.987654321', until: '54321.123456789', stdout: true, stderr: true });
 
 // $ExpectType Promise<ReadableStream>
 container.logs({ follow: true });
