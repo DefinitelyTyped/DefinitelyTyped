@@ -640,6 +640,49 @@ declare module 'worker_threads' {
      * for the `key` will be deleted.
      */
     function setEnvironmentData(key: Serializable, value: Serializable): void;
+
+    import {
+        BroadcastChannel as _BroadcastChannel,
+        MessageChannel as _MessageChannel,
+        MessagePort as _MessagePort,
+    } from 'worker_threads';
+    global {
+        /**
+         * `BroadcastChannel` class is a global reference for `require('worker_threads').BroadcastChannel`
+         * https://nodejs.org/api/globals.html#broadcastchannel
+         * @since v18.0.0
+         */
+        var BroadcastChannel: typeof globalThis extends {
+            onmessage: any;
+            BroadcastChannel: infer T;
+        }
+            ? T
+            : typeof _BroadcastChannel;
+
+        /**
+         * `MessageChannel` class is a global reference for `require('worker_threads').MessageChannel`
+         * https://nodejs.org/api/globals.html#messagechannel
+         * @since v15.0.0
+         */
+        var MessageChannel: typeof globalThis extends {
+            onmessage: any;
+            MessageChannel: infer T;
+        }
+            ? T
+            : typeof _MessageChannel;
+
+        /**
+         * `MessagePort` class is a global reference for `require('worker_threads').MessagePort`
+         * https://nodejs.org/api/globals.html#messageport
+         * @since v15.0.0
+         */
+         var MessagePort: typeof globalThis extends {
+            onmessage: any;
+            MessagePort: infer T;
+        }
+            ? T
+            : typeof _MessagePort;
+    }
 }
 declare module 'node:worker_threads' {
     export * from 'worker_threads';

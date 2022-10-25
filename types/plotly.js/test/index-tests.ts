@@ -112,6 +112,8 @@ const graphDiv = '#test';
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
         width: [2],
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -119,6 +121,8 @@ const graphDiv = '#test';
         name: 'y density',
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -905,4 +909,26 @@ function rand() {
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Scatter texttemplate
+
+(async () => {
+    const scatter = await newPlot(graphDiv, [
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: 'x: %{x}<br>y: %{y}',
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: ['x: %{x}', 'y: %{y}'],
+        },
+    ]);
 })();

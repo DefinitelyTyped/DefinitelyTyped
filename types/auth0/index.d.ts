@@ -463,6 +463,7 @@ export type Strategy =
     | 'oauth1'
     | 'oauth2'
     | 'office365'
+    | 'oidc'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'

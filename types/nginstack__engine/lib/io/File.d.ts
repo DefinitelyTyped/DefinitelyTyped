@@ -39,6 +39,7 @@ declare namespace File {
         listEntries,
         copyDirectory,
         openForRead,
+        SearchRecord,
         FileListEntry,
     };
 }
@@ -46,9 +47,9 @@ declare function fileExists(fileName: string): boolean;
 declare function directoryExists(dirName: string): boolean;
 declare function deleteFile(fileName: string): boolean;
 declare function deleteDirectory(dirName: string, recursive?: boolean): boolean;
-declare function findFirst(fileName: string, opt_attributes?: string): any;
-declare function findNext(searchRecord: any): boolean;
-declare function findClose(searchRecord: any): void;
+declare function findFirst(fileName: string, opt_attributes?: string): SearchRecord;
+declare function findNext(searchRecord: SearchRecord): boolean;
+declare function findClose(searchRecord: SearchRecord): void;
 declare function createDirectory(dirName: string): boolean;
 declare function moveFile(existingFileName: string, newFileName: string): boolean;
 declare function copyFile(existingFileName: string, newFileName: string): boolean;
@@ -72,6 +73,7 @@ declare function listEntries(
 ): FileListEntry[];
 declare function copyDirectory(sourceDir: string, targetDir: string, opt_replace?: boolean): void;
 declare function openForRead(path: string): File;
+type SearchRecord = import('./SearchRecord');
 interface FileListEntry {
     name: string;
     size: number;

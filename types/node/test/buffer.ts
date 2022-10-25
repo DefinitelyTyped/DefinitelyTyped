@@ -1,7 +1,6 @@
 // Specifically test buffer module regression.
 import {
     Blob as NodeBlob,
-    Blob,
     Buffer as ImportedBuffer,
     constants,
     kMaxLength,
@@ -309,6 +308,10 @@ async () => {
     blob2.stream().locked; // $ExpectType boolean
 };
 
+// Ensure type-side of global Blob exists
+declare const blob3: Blob;
+blob3.stream();
+
 {
     atob(btoa('test')); // $ExpectType string
 }
@@ -420,7 +423,7 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     // $ExpectType Blob | undefined
-    resolveObjectURL(URL.createObjectURL(new NodeBlob([''])));
+    resolveObjectURL(URL.createObjectURL(new Blob([''])));
 }
 
 {
