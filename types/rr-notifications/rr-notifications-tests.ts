@@ -10,4 +10,4 @@ const node = NotificationsProvider({
     },
 });
 
-node; // $ExpectType ReactElement<any, any> | null
+node; // $ExpectType ReactNode

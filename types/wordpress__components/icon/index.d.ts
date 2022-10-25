@@ -1,9 +1,10 @@
 import { ComponentType, SVGProps, ReactComponentElement, ReactDOM } from 'react';
+import React = require('react');
 
 import Dashicon from '../dashicon';
 
 declare namespace Icon {
-    type IconType<P> = Dashicon.Icon | ComponentType<P> | JSX.Element;
+    type IconType<P> = Dashicon.Icon | ComponentType<P> | React.ReactElement<any, any>;
     interface BaseProps<P> {
         /**
          * The icon to render. Supported values are: Dashicons (specified as

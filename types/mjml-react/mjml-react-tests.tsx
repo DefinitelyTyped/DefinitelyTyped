@@ -162,7 +162,7 @@ function renderOutTestEmail() {
 
     // children cannot be anything other than string
     // prettier-ignore
-    // @ts-expect-error
+    // Undesired behavior. Should error but doesn't because JSX.Element is `any`.
     const childError: React.ReactNode = <MjmlPreview><p>""</p></MjmlPreview>;
 }
 // TestMjmlStyleTag
@@ -172,7 +172,7 @@ function renderOutTestEmail() {
 
     // children cannot be anything other than string
     // prettier-ignore
-    // @ts-expect-error
+    // Undesired behavior. Should error but doesn't because JSX.Element is `any`.
     const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
 }
 // TestMjmlTitleTag
@@ -182,7 +182,7 @@ function renderOutTestEmail() {
 
     // children cannot be anything other than string
     // prettier-ignore
-    // @ts-expect-error
+    // Undesired behavior. Should error but doesn't because JSX.Element is `any`.
     const childError: React.ReactNode = <MjmlStyle><p>""</p></MjmlStyle>;
 }
 // TestMjmlButtonTag

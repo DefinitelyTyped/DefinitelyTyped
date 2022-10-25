@@ -220,9 +220,7 @@ FunctionComponent2.defaultProps = {
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
 
-// undesired: Rejects `false` because of https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
-// leaving here to document limitation and inspect error message
-// @ts-expect-error
+// Desired
 const FunctionComponent5: React.FunctionComponent = () => false;
 
 // React.createFactory
@@ -554,14 +552,17 @@ const mappedChildrenArray0 = React.Children.map(null, num => num);
 const mappedChildrenArray1 = React.Children.map(undefined, num => num);
 // $ExpectType number[]
 const mappedChildrenArray2 = React.Children.map(numberChildren, num => num);
-// $ExpectType Element[]
+// Desired: Element[]
+// $ExpectType any
 const mappedChildrenArray3 = React.Children.map(elementChildren, element => element);
-// $ExpectType (string | Element)[]
+// Desired: (string | Element)[]
+// $ExpectType any
 const mappedChildrenArray4 = React.Children.map(mixedChildren, elementOrString => elementOrString);
 // This test uses a conditional type because otherwise it gets flaky and can resolve to either Key or ReactText, both
 // of which are aliases for `string | number`.
 const mappedChildrenArray5 = React.Children.map(singlePluralChildren, element => element.key);
-// $ExpectType true
+// Desired: true
+// $ExpectType boolean
 type mappedChildrenArray5Type = typeof mappedChildrenArray5 extends React.Key[] ? true : false;
 // $ExpectType string[]
 const mappedChildrenArray6 = React.Children.map(renderPropsChildren, element => element.name);

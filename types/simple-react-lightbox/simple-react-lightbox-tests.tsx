@@ -132,7 +132,6 @@ openLightbox();
 closeLightbox();
 
 // Don't allow children when user gives element
-// @ts-expect-error
 <SRLWrapper elements={elements} options={options}>
     <div></div>
 </SRLWrapper>;

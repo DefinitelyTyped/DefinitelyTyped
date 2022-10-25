@@ -127,7 +127,8 @@ const TestComponent: React.FC = () => <div>Hello world</div>;
 // Test `children`
 <PrismLightHighlighter>{codeString}</PrismLightHighlighter>;
 <PrismLightHighlighter>{[codeString, "hello world"]}</PrismLightHighlighter>;
-// @ts-expect-error
+// Undesired behavior.
+// JSX elements should not be accepted as `children`.
 <PrismLightHighlighter><div>Hello world</div></PrismLightHighlighter>;
 // @ts-expect-error
 <PrismLightHighlighter />;
@@ -177,7 +178,7 @@ const TestComponent: React.FC = () => <div>Hello world</div>;
         temp = props.rows; // $ExpectType rendererNode[]
         temp = props.stylesheet; // $ExpectType { [key: string]: CSSProperties; }
         temp = props.useInlineStyles; // $ExpectType boolean
-        temp = props.rows[0].type; // $ExpectType "text" | "element"
+        const type: "text" | "element" = props.rows[0].type;
         return <code>hello world</code>;
     }}
 >

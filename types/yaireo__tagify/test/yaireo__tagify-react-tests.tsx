@@ -25,7 +25,8 @@ export function TestTagsChildren(): React.ReactElement {
         <Tags>a,b,c</Tags>
         <Tags>{["a", "b", "c"]}</Tags>
         {
-            // @ts-expect-error
+            // Undesired behavior.
+            // JSX elements should not be accepted as `children`.
             <Tags><span>a</span></Tags>
         }
         {
@@ -360,7 +361,8 @@ export function TestMixedTagsChildren(): React.ReactElement {
         <Tags>a,b,c</Tags>
         <Tags>{["a", "b", "c"]}</Tags>
         {
-            // @ts-expect-error
+            // Undesired behavior.
+            // JSX elements should not be accepted as `children`.
             <Tags><span>a</span></Tags>
         }
         {

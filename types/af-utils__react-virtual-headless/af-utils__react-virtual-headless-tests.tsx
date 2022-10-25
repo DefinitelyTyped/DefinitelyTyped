@@ -72,12 +72,12 @@ useComponentSubscription(useVirtual(), EVT_FROM);
 // @ts-expect-error
 useComponentSubscription(undefined, [EVT_FROM]);
 
-// $ExpectType Element
-useOnce(() => <>Abc</>);
+const returnABCFragment = () => <>Abc</>;
+const abcFragment: ReturnType<typeof returnABCFragment> = useOnce(returnABCFragment);
 
-// $ExpectType Element
+// $ExpectType ReactElement<any, any>
 useOnce(() => {
-    const testComponent = () => {
+    const testComponent = (): React.ReactElement<any, any> => {
         return <>Abc</>;
     };
     return testComponent();
@@ -89,17 +89,28 @@ useOnce(() => null);
 // @ts-expect-error
 useOnce(() => {});
 
-// $ExpectType ReactElement<any, any> | null
-Subscription({ model: useVirtual(), children: <>Abc</> });
+<Subscription model={useVirtual()}>
+    <>Abc</>
+</Subscription>;
 
-// $ExpectType ReactElement<any, any> | null
-Subscription({ model: useVirtual(), events: [EVT_FROM], children: <>Abc</> });
+<Subscription model={useVirtual()} events={[EVT_FROM]}>
+    <>Abc</>
+</Subscription>;
 
-// @ts-expect-error
-Subscription({ model: useVirtual(), events: EVT_FROM, children: <>Abc</> });
+<Subscription
+    model={useVirtual()}
+    // @ts-expect-error
+    events={EVT_FROM}
+>
+    <>Abc</>
+</Subscription>;
 
-// @ts-expect-error
-Subscription({ model: useVirtual(), children: { abc: 1 } });
+<Subscription model={useVirtual()}>
+    {
+        // @ts-expect-error
+        { abc: 1 }
+    }
+</Subscription>;
 
 // $ExpectType void
 mapVisibleRange(useVirtual(), (index: number) => {});
@@ -113,5 +124,5 @@ mapVisibleRange(useVirtual(), (index: number, offset?: number) => {}, 'abc');
 // @ts-expect-error
 mapVisibleRange(useVirtual(), (index: number, offset: number) => {});
 
-// @ts-expect-error
+// Undesired behavior. Should error but doesn't because JSX.Element is `any`.
 mapVisibleRange(<></>, (index: number, offset?: number) => {});

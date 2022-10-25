@@ -7,9 +7,9 @@ function TestComponent() {
 }
 
 ReactRailsUJS.getConstructor = (className: string) => TestComponent;
-// @ts-expect-error
+// Undesired behavior. Should error but doesn't because JSX.Element is `any`.
 ReactRailsUJS.getConstructor = (className: string) => <TestComponent />;
-// @ts-expect-error
+// Undesired behavior. Should error but doesn't because JSX.Element is `any`.
 ReactRailsUJS.getConstructor = (className: string) => <div />;
 
 // @ts-expect-error

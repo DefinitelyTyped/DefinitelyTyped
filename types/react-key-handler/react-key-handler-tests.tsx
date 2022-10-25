@@ -18,13 +18,16 @@ const missingRequired = <KeyHandler />;
 // @ts-expect-error
 const invalidExample = <KeyHandler onKeyHandle={true} />;
 
-// $ExpectType Element
+// Undesired behavior. Should be `Element`.
+// $ExpectType any
 const validExample = <KeyHandler onKeyHandle={onKeyHandleCallback} />;
 
-// $ExpectType (props: ReactKeyHandlerProps) => (Component: Element) => (...args: any[]) => Element
+// Undesired behavior. Should be `(props: ReactKeyHandlerProps) => (Component: Element) => (...args: any[]) => Element`.
+// $ExpectType (props: ReactKeyHandlerProps) => (Component: any) => (...args: any[]) => any
 keyHandleDecorator();
 
-// $ExpectType (props: ReactKeyHandlerProps) => (Component: Element) => (...args: any[]) => Element
+// Undesired behavior. Should be `(props: ReactKeyHandlerProps) => (Component: Element) => (...args: any[]) => Element`.
+// $ExpectType (props: ReactKeyHandlerProps) => (Component: any) => (...args: any[]) => any
 keyHandleDecorator(matcher);
 
 // $ExpectType "keydown"
@@ -42,7 +45,8 @@ keyHandler()();
 // @ts-expect-error
 keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
 
-// $ExpectType (...args: any[]) => Element
+// Undesired behavior. Should be `(...args: any[]) => Element`
+// $ExpectType (...args: any[]) => any
 keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);
 
 // @ts-expect-error
@@ -51,5 +55,6 @@ keyToggleHandler()();
 // @ts-expect-error
 keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
 
-// $ExpectType (...args: any[]) => Element
+// Undesired behavior. Should be `(...args: any[]) => Element`
+// $ExpectType (...args: any[]) => any
 keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);

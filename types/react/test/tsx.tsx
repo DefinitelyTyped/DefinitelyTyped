@@ -650,7 +650,6 @@ function elementTypeTests() {
     }
 
     // Desired behavior.
-    // @ts-expect-error
     <ReturnVoid />;
     // @ts-expect-error
     React.createElement(ReturnVoid);
@@ -659,10 +658,8 @@ function elementTypeTests() {
     // @ts-expect-error
     React.createElement(RenderVoid);
 
-    // Undesired behavior. Returning `undefined` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnUndefined />;
-    // @ts-expect-error
     React.createElement(ReturnUndefined);
     <RenderUndefined />;
     React.createElement(RenderUndefined);
@@ -673,24 +670,19 @@ function elementTypeTests() {
     <RenderNull />;
     React.createElement(RenderNull);
 
-    // Undesired behavior. Returning `number` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnNumber />;
-    // @ts-expect-error
     React.createElement(ReturnNumber);
     <RenderNumber />;
     React.createElement(RenderNumber);
 
-    // Undesired behavior. Returning `string` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnString />;
-    // @ts-expect-error
     React.createElement(ReturnString);
     <RenderString />;
     React.createElement(RenderString);
 
     // Desired behavior.
-    // @ts-expect-error
     <ReturnSymbol />;
     // @ts-expect-error
     React.createElement(ReturnSymbol);
@@ -699,10 +691,8 @@ function elementTypeTests() {
     // @ts-expect-error
     React.createElement(RenderSymbol);
 
-    // Undesired behavior. Returning `Array` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnArray />;
-    // @ts-expect-error
     React.createElement(ReturnArray);
     <RenderArray />;
     React.createElement(RenderArray);
@@ -713,11 +703,14 @@ function elementTypeTests() {
     <RenderElement />;
     React.createElement(RenderElement);
 
-    // Undesired behavior. Returning `ReactNode` should be accepted in all forms.
-    // @ts-expect-error
+    // Desired behavior.
     <ReturnReactNode />;
-    // @ts-expect-error
     React.createElement(ReturnReactNode);
     <RenderReactNode />;
     React.createElement(RenderReactNode);
+
+    function compute(): number {
+        // Undesired behavior. JSX elements are not assignable to number.
+        return <div />;
+    }
 }
