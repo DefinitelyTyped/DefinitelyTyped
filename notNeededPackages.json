@@ -3919,6 +3919,10 @@
             "libraryName": "raspi-soft-pwm",
             "asOfVersion": "5.1.0"
         },
+        "rate-limit-redis": {
+            "libraryName": "rate-limit-redis",
+            "asOfVersion": "3.0.0"
+        },
         "raven-js": {
             "libraryName": "raven-js",
             "asOfVersion": "3.10.0"
