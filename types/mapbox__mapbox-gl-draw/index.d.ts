@@ -131,7 +131,25 @@ declare namespace MapboxDraw {
         type: 'draw.actionable';
     }
 
+    interface MapboxDrawOptions {
+        displayControlsDefault?: boolean | undefined;
+        keybindings?: boolean | undefined;
+        touchEnabled?: boolean | undefined;
+        boxSelect?: boolean | undefined;
+        clickBuffer?: number | undefined;
+        touchBuffer?: number | undefined;
+        controls?: MapboxDrawControls | undefined;
+        styles?: object[] | undefined;
+        modes?: { [modeKey: string]: DrawCustomMode } | undefined;
+        defaultMode?: string | undefined;
+        userProperties?: boolean | undefined;
+    }
+
     interface DrawCustomModeThis {
+        map: Map;
+
+        drawConfig: MapboxDrawOptions | {};
+
         setSelected(features?: string | string[]): void;
 
         setSelectedCoordinates(coords: Array<{ coord_path: string; feature_id: string }>): void;
@@ -236,19 +254,7 @@ declare class MapboxDraw implements IControl {
 
     getDefaultPosition: () => string;
 
-    constructor(options?: {
-        displayControlsDefault?: boolean | undefined;
-        keybindings?: boolean | undefined;
-        touchEnabled?: boolean | undefined;
-        boxSelect?: boolean | undefined;
-        clickBuffer?: number | undefined;
-        touchBuffer?: number | undefined;
-        controls?: MapboxDraw.MapboxDrawControls | undefined;
-        styles?: object[] | undefined;
-        modes?: { [modeKey: string]: MapboxDraw.DrawCustomMode } | undefined;
-        defaultMode?: string | undefined;
-        userProperties?: boolean | undefined;
-    });
+    constructor(options?: MapboxDraw.MapboxDrawOptions);
 
     add(geojson: Feature | FeatureCollection | Geometry): string[];
 
