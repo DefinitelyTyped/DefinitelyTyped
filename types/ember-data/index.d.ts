@@ -126,6 +126,7 @@ export namespace DS {
     interface AttrOptions<T> {
         defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | undefined;
         allowNull?: boolean | undefined; // TODO: restrict to boolean transform (TS 2.8)
+        [key: string]: unknown;
     }
 
     // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.
