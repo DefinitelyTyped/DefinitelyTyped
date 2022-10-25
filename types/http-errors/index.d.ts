@@ -3,7 +3,6 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 export = createHttpError;
 
@@ -30,7 +29,7 @@ declare namespace createHttpError {
     }
 
     interface CreateHttpError {
-        <N extends number = number>(arg?: N, ...rest: UnknownError[]): HttpError<N>;
+        <N extends number = number>(arg: N, ...rest: UnknownError[]): HttpError<N>;
         (...rest: UnknownError[]): HttpError;
     }
 
