@@ -54,4 +54,5 @@ const testCases = [
             event;
         }}
     ></dialog>,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
 ];

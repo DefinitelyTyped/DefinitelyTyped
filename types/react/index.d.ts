@@ -1857,6 +1857,7 @@ declare namespace React {
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
+        nonce?: string | undefined;
         placeholder?: string | undefined;
         slot?: string | undefined;
         spellCheck?: Booleanish | undefined;
@@ -1977,7 +1978,6 @@ declare namespace React {
         multiple?: boolean | undefined;
         muted?: boolean | undefined;
         name?: string | undefined;
-        nonce?: string | undefined;
         noValidate?: boolean | undefined;
         open?: boolean | undefined;
         optimum?: number | undefined;
@@ -2390,7 +2390,6 @@ declare namespace React {
         defer?: boolean | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
-        nonce?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
         type?: string | undefined;
@@ -2421,7 +2420,6 @@ declare namespace React {
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         media?: string | undefined;
-        nonce?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
     }
