@@ -7,6 +7,9 @@
 //                 Yellowinq <https://github.com/hig4342>
 //                 kkokko Jeong <https://github.com/kkokkojeong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="geojson" />
+
 declare namespace naver.maps {
     /***** static members *****/
     let VERSION: string;
@@ -34,8 +37,10 @@ declare namespace naver.maps {
     type ArrayOfBounds = PointBounds[] | LatLngBounds[];
     type ArrayOfBoundsLiteral = PointBoundsLiteral[] | LatLngBoundsLiteral[];
     type forEachOverlayCallback = (overlay: Marker | Polyline | Polygon, index: number) => void;
-    type GeoJSON = any;
+    type GeoJSON = GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry>;
+    // See https://www.topografix.com/gpx.asp
     type GPX = any;
+    // See https://developers.google.com/kml/documentation/kml_tut?hl=ko
     type KML = any;
     type KVOArrayOfCoords = KVOArray<Point> | KVOArray<LatLng>;
     type ArrayOfCoordsLiteral = PointLiteral[] | LatLngLiteral[];
@@ -249,9 +254,17 @@ declare namespace naver.maps {
         visible?: boolean;
         zIndex?: number;
     }
+
+    /**
+     * FeatureEvent
+     */
     interface FeatureEvent {
         feature: Feature;
     }
+
+    /**
+     * PointerEvent
+     */
     interface PointerEvent {
         coord: Coord;
         point: Point;
@@ -259,24 +272,32 @@ declare namespace naver.maps {
         pointerEvent: DOMEvent;
         feature: Feature;
     }
+
+    /**
+     * PropertyEvent
+     */
     interface PropertyEvent {
         feature: Feature;
         name: string;
         oldValue: any;
         newValue: any;
     }
+
+    /**
+     * StyleOptions
+     */
     interface StyleOptions {
-        strokeColor?: string | undefined;
-        strokeOpacity?: number | undefined;
-        strokeWeight?: number | undefined;
-        fillColor?: string | undefined;
-        fillOpacity?: number | undefined;
-        clickable?: boolean | undefined;
-        icon?: string | ImageIcon | SymbolIcon | HtmlIcon | undefined;
-        shape?: MarkerShape | undefined;
-        title?: string | undefined;
-        visible?: boolean | undefined;
-        zIndex?: number | undefined;
+        strokeColor?: string;
+        strokeOpacity?: number;
+        strokeWeight?: number;
+        fillColor?: string;
+        fillOpacity?: number;
+        clickable?: boolean;
+        icon?: string | ImageIcon | SymbolIcon | HtmlIcon;
+        shape?: MarkerShape;
+        title?: string;
+        visible?: boolean;
+        zIndex?: number;
     }
 
     /**
@@ -1095,7 +1116,10 @@ declare namespace naver.maps {
         startAutoRefresh(): void;
         refreshRTSVersion(): void;
     }
-    // Data Layer
+
+    /**
+     * Data
+     */
     class Data extends KVO {
         constructor();
         addFeature(feature: Feature, autoStyle: boolean): void;
@@ -1115,8 +1139,12 @@ declare namespace naver.maps {
         setStyle(style: StyleOptions | StylingFunction): void;
         toGeoJson(): GeoJSON;
     }
+
+    /**
+     * Feature
+     */
     class Feature extends KVO {
-        constructor(rawFeature: any);
+        constructor(rawFeature: GeoJSON);
         forEachOverlay(callback: forEachOverlayCallback): void;
         getBounds(): Bounds;
         getGeometries(): Geometry[];
@@ -1125,10 +1153,14 @@ declare namespace naver.maps {
         getProperty(name: string): any;
         getRaw(): GeoJSON;
         setProperty(name: string, value: any): void;
-        setStyle(styleOptions: StyleOptions): void; // Data.StyleOptions
+        setStyle(styleOptions: StyleOptions): void;
     }
+
+    /**
+     * Geometry
+     */
     class Geometry extends KVO {
-        constructor(rawGeometry: any);
+        constructor(rawGeometry: GeoJSON.Geometry);
         getCoords(): ArrayOfCoords;
         getType(): string;
     }
