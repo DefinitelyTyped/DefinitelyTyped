@@ -380,6 +380,10 @@
             "libraryName": "bitwise",
             "asOfVersion": "2.0.0"
         },
+        "bl": {
+            "libraryName": "bl",
+            "asOfVersion": "5.1.0"
+        },
         "blob-util": {
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
