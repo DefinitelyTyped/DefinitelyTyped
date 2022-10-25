@@ -116,7 +116,7 @@ declare namespace StaticMaps {
          * Stroke color of the circle
          * @default '#000000BB'
          */
-        color?: string;
+        color?: string | undefined;
         /**
          * Stroke width of circle
          * @default 3
