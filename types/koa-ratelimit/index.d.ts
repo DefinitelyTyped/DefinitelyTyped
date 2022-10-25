@@ -3,7 +3,7 @@
 // Definitions by: Ben Watkins <https://github.com/OutdatedVersion>
 //                 Patrick Muff <https://github.com/dislick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.2
 
 import { Middleware, Context } from "koa";
 import { Redis } from "ioredis";
