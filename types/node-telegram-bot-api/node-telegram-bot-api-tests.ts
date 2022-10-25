@@ -131,7 +131,10 @@ MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
-MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245, caption_entities: [{ type: 'custom_emoji', offset: 0, length: 2, custom_emoji_id: 'test_emoji' }] });
+MyTelegramBot.editMessageCaption('My Witty Caption', {
+    message_id: 1245,
+    caption_entities: [{ type: 'custom_emoji', offset: 0, length: 2, custom_emoji_id: 'test_emoji' }],
+});
 MyTelegramBot.editMessageMedia(
     {
         media: 'photo/path',
@@ -157,7 +160,13 @@ MyTelegramBot.editMessageReplyMarkup(
     { message_id: 1244 },
 );
 MyTelegramBot.getUserProfilePhotos('myUserID', { limit: 10 });
-MyTelegramBot.sendLocation(1234, 100, 200, { reply_to_message_id: 1234 });
+MyTelegramBot.sendLocation(1234, 100, 200, {
+    reply_to_message_id: 1234,
+    live_period: 60,
+    horizontal_accuracy: 10,
+    heading: 10,
+    proximity_alert_radius: 10,
+});
 MyTelegramBot.editMessageLiveLocation(100, 200, { message_id: 1245 });
 MyTelegramBot.stopMessageLiveLocation({ message_id: 1245 });
 MyTelegramBot.sendVenue(1234, 100, 200, 'Venue Title', '123 Fake St.', { reply_to_message_id: 1234 });
