@@ -260,7 +260,7 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-         getNodeDetails(
+        getNodeDetails(
             node: string,
             callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void,
             failedCallback?: (error: string) => void,
