@@ -24,12 +24,12 @@ class EnumTransform extends DS.Transform {
         const { allowedValues } = options;
         const allowedValuesArr = Object.keys(allowedValues).map((key) => allowedValues[key]);
 
-		assert(
-			`Value "${serialized}" must be one of "${allowedValuesArr.join(', ')}"`,
-			allowedValuesArr.indexOf(serialized) >= 0,
-		);
+        assert(
+            `Value "${serialized}" must be one of "${allowedValuesArr.join(', ')}"`,
+            allowedValuesArr.indexOf(serialized) >= 0,
+        );
 
-		return serialized;
+        return serialized;
     }
 
     serialize<AllowedValue>(
@@ -39,12 +39,12 @@ class EnumTransform extends DS.Transform {
         const { allowedValues } = options;
         const allowedValuesArr = Object.keys(allowedValues).map((key) => allowedValues[key]);
 
-		assert(
-			`Value "${deserialized}" must be one of "${allowedValuesArr.join(', ')}"`,
-			allowedValuesArr.indexOf(deserialized) >= 0,
-		);
+        assert(
+            `Value "${deserialized}" must be one of "${allowedValuesArr.join(', ')}"`,
+            allowedValuesArr.indexOf(deserialized) >= 0,
+        );
 
-		return deserialized;
+        return deserialized;
     }
 }
 
