@@ -17349,6 +17349,7 @@ declare namespace zingchart {
       'z-index'?: number;
       zIndex?: number;
     };
+    stacked?: boolean;
     subtitle?: {
       /**
        * Sets the transparency of the object. Requires that background-color be set. 0.3 | 0.9 | ...
