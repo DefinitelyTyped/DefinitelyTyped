@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import SafeBuffer = require("safe-buffer");
+import * as SafeBuffer from "safe-buffer";
 
 declare class StringDecoder {
     constructor(encoding?: BufferEncoding | string);
