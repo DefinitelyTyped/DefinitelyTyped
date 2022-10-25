@@ -1053,6 +1053,51 @@ declare module "url-search-params" {
     }
 }
 
+declare module "encoding" {
+    /**
+     * The atob() function takes a string of base64 encoded data and returns a decoded ASCII binary string.
+     * @param encodedData Input data that needs to be decoded
+     */
+    export function atob(encodedData: string): string;
+
+    /**
+     * btoa() function takes a string, performs a base64 encoding on it and returns an ASCII string.
+     * @param stringToEncode Encoded data that needs to be encoded
+     */
+    export function btoa(stringToEncode: string): string;
+
+    type DecodedValue = string | Uint8Array;
+
+    interface Base64 {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base64: Base64;
+
+    interface Base64url {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base64url: Base64url;
+
+    interface Base16 {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base16: Base16;
+
+    export { base64, base64url, base16 };
+}
+
 /**
  * The crypto module is available to use in your EdgeWorkers code bundles to expose support for a Javascript crypto API based on the Web Crypto API.
  * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
