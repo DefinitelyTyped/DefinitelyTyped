@@ -347,7 +347,7 @@ declare class telebot {
 
     getChatAdministrators(chat_id: number | string): Promise<any[] | any>;
 
-    getChatMembersCount(chat_id: number | string): Promise<number>;
+    getChatMemberCount(chat_id: number | string): Promise<number>;
 
     getChatMember(chat_id: number | string, user_id: number): Promise<any>;
 
