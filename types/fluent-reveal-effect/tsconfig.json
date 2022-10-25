@@ -1,24 +1,19 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "lib": [
-            "es6"
-        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
+        "lib": ["es6"],
+        "module": "commonjs",
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": []
     },
     "files": [
         "index.d.ts",
-        "svgo-tests.ts"
+        "fluent-reveal-effect-tests.ts"
     ]
 }
