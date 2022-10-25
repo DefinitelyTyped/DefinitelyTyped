@@ -16,7 +16,6 @@
       ],
       "noEmit": true,
       "forceConsistentCasingInFileNames": true,
-      "allowSyntheticDefaultImports": true
   },
   "files": [
       "index.d.ts",
