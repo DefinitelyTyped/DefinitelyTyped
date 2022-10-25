@@ -357,7 +357,7 @@ rule = {
     create(context) {
         return {};
     },
-    meta: { deprecated: true },
+    meta: { deprecated: true, replacedBy: ['other-rule-name'] },
 };
 rule = {
     create(context) {
