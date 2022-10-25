@@ -104,7 +104,11 @@ declare module 'Synthetics' {
          * * Finally, returns what the functionToExecute returned or re-throws what functionToExecute threw.
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeStep<Return = void>(stepName: string, functionToExecute: () => Promise<Return>, stepConfig?: any): Promise<Return>;
+        executeStep<Return = void>(
+            stepName: string,
+            functionToExecute: () => Promise<Return>,
+            stepConfig?: any,
+        ): Promise<Return>;
         publishStepResult(
             result: any,
             startTime: Date,
