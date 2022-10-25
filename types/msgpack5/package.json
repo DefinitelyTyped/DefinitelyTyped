@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "bl": "^5.1.0",
-        "safe-buffer": "^2.1"
+        "bl": "^5.1.0"
     }
 }
