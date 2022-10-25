@@ -1313,14 +1313,14 @@ declare namespace naver.maps {
 
     // --------------------------------------------------------------------------
     //  submodules
-    //  https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-Submodules.html 
+    //  https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-Submodules.html
     // --------------------------------------------------------------------------
 
     /**
      * Submodule - Panorama
      * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Panorama.html
      */
-    type AroundControlOptions = ControlOptions
+    type AroundControlOptions = ControlOptions;
 
     interface PanoramaOptions {
         size?: Size | SizeLiteral;
@@ -1401,46 +1401,20 @@ declare namespace naver.maps {
 
     class AroundControl extends CustomControl {
         constructor(aroundControlOptions: AroundControlOptions);
-
     }
 
-    // Sub module: drawing
-    function drawing(): void;
+    /**
+     * Submodule - Drawing
+     * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Drawing.html
+     */
     namespace drawing {
-        interface DrawingOptions {
-            map?: Map | undefined;
-            drawingControl?: DrawingMode[] | undefined;
-            drawingControlOptions?: drawingControlOptions | undefined;
-            drawingMode?: DrawingMode | undefined;
-            controlPointOptions?: controlPointOptions | undefined;
-            rectangleOptions?: RectangleOptions | undefined;
-            ellipseOptions?: EllipseOptions | undefined;
-            polylineOptions?: PolylineOptions | undefined;
-            arrowlineOptions?: PolylineOptions | undefined;
-            polygonOptions?: PolygonOptions | undefined;
-            markerOptions?: MarkerOptions | undefined;
-        }
-        type drawingControlOptions = DrawingControlOptions;
-        interface DrawingControlOptions {
-            position?: Position | undefined;
-            style?: DrawingStyle | undefined;
-        }
-        type controlPointOptions = ControlPointOptions;
-        interface ControlPointOptions {
-            anchorPointOptions: CircleOptions;
-            midPointOptions: CircleOptions;
-        }
-        interface DrawingOverlay {
-            id: string;
-            name: string;
-            setEditable: (editable: boolean, controlPointOptions?: controlPointOptions) => void;
-        }
         enum DrawingStyle {
             HORIZONTAL = 0,
             VERTICAL,
             HORIZONTAL_2,
             VERTICAL_2,
         }
+
         enum DrawingMode {
             HAND = 0,
             RECTANGLE,
@@ -1450,33 +1424,76 @@ declare namespace naver.maps {
             POLYGON,
             MARKER,
         }
+
         enum DrawingEvent {
-            ADD,
-            REMOVE,
-            SELECT,
-            Added,
-            Removed,
-            Selected,
+            ADD = 'drawing_added',
+            REMOVE = 'drawing_removed',
+            SELECT = 'drawing_selected',
+            CANCLE = 'drawing_cancled',
+            START = 'drawing_start'
         }
+
+        interface DrawingOptions {
+            map?: Map;
+            drawingControl?: DrawingMode[];
+            drawingControlOptions?: DrawingControlOptions;
+            drawingMode?: DrawingMode;
+            controlPointOptions?: ControlPointOptions;
+            rectangleOptions?: RectangleOptions;
+            ellipseOptions?: EllipseOptions;
+            polylineOptions?: PolylineOptions;
+            arrowlineOptions?: PolylineOptions;
+            polygonOptions?: PolygonOptions;
+            markerOptions?: MarkerOptions;
+        }
+
+        interface DrawingControlOptions extends ControlOptions {
+            style?: DrawingStyle;
+        }
+        interface ControlPointOptions extends ControlOptions {
+            anchorPointOptions: CircleOptions;
+            midPointOptions: CircleOptions;
+        }
+        interface DrawingOverlay {
+            id: string;
+            name: string;
+            setEditable: (editable: boolean, controlPointOptions?: ControlPointOptions) => void;
+        }
+
         class DrawingManager extends KVO {
             constructor(options?: DrawingOptions);
             addDrawing(overlay: DrawingOverlay, drawingMode: DrawingMode, id?: string): void;
-            // // DrawingEvent
-            addListener(eventName: any, listener: (overlay: DrawingOverlay) => void): MapEventListener;
+            addListener(eventName: DrawingEvent, listener: (overlay: DrawingOverlay) => void): MapEventListener;
             destroy(): void;
             getDrawing(id: string): DrawingOverlay;
-            getDrawings(): any;
+            getDrawings(): { [key: string]: DrawingOverlay };
             getMap(): Map | null;
             setMap(map: Map | null): void;
-            toGeoJson(): any;
+            toGeoJson(): GeoJSON;
         }
     }
 
-    // Sub module: visualization
-    function visualization(): void;
+    /**
+     * Submodule - visualization
+     * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-visualization.html
+     */
     namespace visualization {
+        enum SpectrumStyle {
+            JET = 'jet',
+            HSV = 'hsv',
+            HOT = 'hot',
+            COOL = 'cool',
+            GREYS = 'greys',
+            YIGnBu = 'YIGnBu',
+            YIOrRd = 'YIOrRd',
+            RdBu = 'RdBu',
+            RAINBOW = 'rainbow',
+            PORTLAND = 'portland',
+            OXYGEN = 'oxygen',
+        }
+
         interface DotMapOptions {
-            map: Map;
+            map?: Map;
             data: LatLng[] | PointArrayLiteral[] | WeightedLocation[];
             opacity?: number;
             radius?: number;
@@ -1486,53 +1503,42 @@ declare namespace naver.maps {
             strokeLineJoin?: StrokeLineJoinType;
             fillColor?: string | undefined;
         }
+
         interface HeatMapOptions {
-            map: Map;
+            map?: Map;
             data: LatLng[] | PointArrayLiteral[] | WeightedLocation[];
-            opacity?: number | undefined;
-            radius?: number | undefined;
-            colorMap?: SpectrumStyle | undefined;
+            opacity?: number;
+            radius?: number;
+            colorMap?: SpectrumStyle;
         }
-        enum SpectrumStyle {
-            JET,
-            HSV,
-            HOT,
-            COOL,
-            GREYS,
-            YIGnBu,
-            YIOrRd,
-            RdBu,
-            RAINBOW,
-            PORTLAND,
-            OXYGEN,
-        }
+
         class DotMap extends KVO {
             constructor(dotMapOptions?: DotMapOptions);
-            addDrawing(overlay: drawing.DrawingOverlay, drawingMode: drawing.DrawingMode, id?: string): void;
-            addListener(
-                eventName: any, // drawing.DrawingEvent,
-                listener: (overlay: drawing.DrawingOverlay) => void,
-            ): MapEventListener;
-            destroy(): void;
-            getDrawing(id: string): drawing.DrawingOverlay;
-            getDrawings(): any;
+            getData(): LatLng[] | PointArrayLiteral[];
             getMap(): Map | null;
+            getOptions(key?: string): any; // if key is undefiend, return DotMapOptions
+            addDrawing(overlay: drawing.DrawingOverlay, drawingMode: drawing.DrawingMode, id?: string): void;
+            redraw(): void;
+            setData(data: LatLng[] | PointArrayLiteral[]): void;
             setMap(map: Map | null): void;
-            toGeoJson(): any;
+            setOptions(key: string, value: any): void;
+            setOptions(options: DotMapOptions): void;
         }
-        class HeatMap {
+
+        class HeatMap extends KVO {
             constructor(heatMapOptions?: HeatMapOptions);
             getColorMap(): SpectrumStyle;
-            getData(): LatLng[] | PointArrayLiteral[] | WeightedLocation[];
+            getData(): LatLng[] | PointArrayLiteral[];
             getMap(): Map | null;
-            getOptions(key?: string): HeatMapOptions;
+            getOptions(key?: string): any; // if key is undefiend, return HeatMapOptions
             redraw(): void;
             setColorMap(colormap: SpectrumStyle, inReverse: boolean): void;
-            setData(data: LatLng[] | PointArrayLiteral[] | WeightedLocation[]): void;
+            setData(data: LatLng[] | PointArrayLiteral[]): void;
             setMap(map: Map | null): void;
             setOptions(key: string, value: any): void;
             setOptions(options: HeatMapOptions): void;
         }
+
         class WeightedLocation {
             constructor(lat: number, lng: number, weight?: number);
             clone(): WeightedLocation;
@@ -1544,8 +1550,10 @@ declare namespace naver.maps {
         }
     }
 
-    // Sub module: geocoder
-    function Service(): void;
+    /**
+     * Submodule - geocoder
+     * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-geocoder.html
+     */
     namespace Service {
         interface ServiceOptions {
             sourcecrs?: CoordinatesType;
