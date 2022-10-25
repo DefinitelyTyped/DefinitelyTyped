@@ -17,10 +17,10 @@ class PointTransform extends DS.Transform {
 }
 
 class EnumTransform extends DS.Transform {
-    deserialize<AllowedValue>(
+    deserialize<T>(
         serialized: any,
-        options: { allowedValues: Record<string, AllowedValue> },
-    ): AllowedValue {
+        options: { allowedValues: Record<string, T> },
+    ): T {
         const { allowedValues } = options;
         const allowedValuesArr = Object.keys(allowedValues).map((key) => allowedValues[key]);
 
@@ -32,9 +32,9 @@ class EnumTransform extends DS.Transform {
         return serialized;
     }
 
-    serialize<AllowedValue>(
-        deserialized: AllowedValue,
-        options: { allowedValues: Record<string, AllowedValue> },
+    serialize<T>(
+        deserialized: T,
+        options: { allowedValues: Record<string, T> },
     ) {
         const { allowedValues } = options;
         const allowedValuesArr = Object.keys(allowedValues).map((key) => allowedValues[key]);
