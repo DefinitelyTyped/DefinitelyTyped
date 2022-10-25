@@ -15,11 +15,10 @@
           "../"
       ],
       "noEmit": true,
-      "forceConsistentCasingInFileNames": true,
+      "forceConsistentCasingInFileNames": true
   },
   "files": [
       "index.d.ts",
-      "noteflight-client-tests.ts",
-      "tslint.json"
-  ]
+      "noteflight-client-tests.ts"  
+    ]
 }
