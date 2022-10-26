@@ -484,13 +484,22 @@ export interface Layout {
 }
 
 export interface Legend extends Label {
-    traceorder: 'grouped' | 'normal' | 'reversed';
-    x: number;
-    y: number;
     borderwidth: number;
+    groupclick: 'toggleitem' | 'togglegroup';
+    grouptitlefont: Partial<Font>;
+    itemclick: 'toggle' | 'toggleothers' | false;
+    itemdoubleclick: 'toggle' | 'toggleothers' | false;
+    itemsizing: 'trace' | 'constant';
+    itemwidth: number;
     orientation: 'v' | 'h';
+    title: Partial<LegendTitle>;
     tracegroupgap: number;
+    traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
+    uirevision: number | string;
+    valign: 'top' | 'middle' | 'bottom';
+    x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
+    y: number;
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
@@ -1721,6 +1730,12 @@ export interface Label {
 
     /** Sets the default hover label font used by all traces on the graph. */
     font: Partial<Font>;
+}
+
+export interface LegendTitle {
+    font: Partial<Font>;
+    side: 'top' | 'left' | 'top left';
+    text: string;
 }
 
 export interface HoverLabel extends Label {
