@@ -240,13 +240,9 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        // Note: Use type overloading instead to provide better readability of the available function signature of getNodeDetails
+        // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
         // tslint:disable-next-line:unified-signatures
-        getNodeDetails(
-            node: string,
-            callback: (subscriptions: string[], publications: string[], services: string[]) => void,
-            failedCallback?: (error: string) => void,
-        ): void;
+        getNodeDetails(node: string, callback: (subscriptions: string[], publications: string[], services: string[]) => void, failedCallback?: (error: string) => void): void;
 
         /**
          * Retrieve a list of subscribed topics, publishing topics and services of a specific node.
@@ -262,13 +258,9 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        // Note: Use type overloading instead to provide better readability of the available function signature of getNodeDetails
+        // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
         // tslint:disable-next-line:unified-signatures
-        getNodeDetails(
-            node: string,
-            callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void,
-            failedCallback?: (error: string) => void,
-        ): void;
+        getNodeDetails(node: string, callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void, failedCallback?: (error: string) => void): void;
 
         /**
          * Retrieve a list of parameter names from the ROS Parameter Server.
