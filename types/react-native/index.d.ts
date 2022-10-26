@@ -850,6 +850,7 @@ export interface FlexStyle {
     borderTopWidth?: number | undefined;
     borderWidth?: number | undefined;
     bottom?: number | string | undefined;
+    columnGap?: number | undefined;
     display?: 'none' | 'flex' | undefined;
     end?: number | string | undefined;
     flex?: number | undefined;
@@ -858,6 +859,7 @@ export interface FlexStyle {
     flexGrow?: number | undefined;
     flexShrink?: number | undefined;
     flexWrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | undefined;
+    gap?: number | undefined;
     height?: number | string | undefined;
     justifyContent?:
         | 'flex-start'
@@ -893,6 +895,7 @@ export interface FlexStyle {
     paddingVertical?: number | string | undefined;
     position?: 'absolute' | 'relative' | undefined;
     right?: number | string | undefined;
+    rowGap?: number | undefined;
     start?: number | string | undefined;
     top?: number | string | undefined;
     width?: number | string | undefined;
