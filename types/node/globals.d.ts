@@ -76,7 +76,7 @@ declare var AbortSignal: typeof globalThis extends {onmessage: any; AbortSignal:
     : {
         prototype: AbortSignal;
         new(): AbortSignal;
-        // TODO: Add abort() static
+        abort(reason?: any): AbortSignal;
         timeout(milliseconds: number): AbortSignal;
     };
 //#endregion borrowed
