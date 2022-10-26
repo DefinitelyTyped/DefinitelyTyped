@@ -18,9 +18,7 @@ declare var NFClient: {
      * The init() function performs additional API initialization and then invokes an optional callback function that is passed to it.
      * The callback function, when called, is in turn passed an object that describes the API's properties and capabilities.
      */
-    init: (callback: (info: {
-        version: string;
-    }) => void) => void,
+    init: (callback: (info: { version: string }) => void) => void;
     /**
      * To replace an element with a Noteflight embedded document, use the API to create a new NFClient.ScoreView object,
      * passing the element ID of the score and a special options object that describes the score to be created.
@@ -28,7 +26,7 @@ declare var NFClient: {
      * @param noteflightID - the ID of the noteflight score. This ID is displayed at the end of a noteflight score URL.
      * @param options - An object specificing the options of the embedded score.
      */
-    ScoreView: new (elementID: string, noteflightID: string, options: Options) => ScoreView,
+    ScoreView: new (elementID: string, noteflightID: string, options: Options) => ScoreView;
 };
 
 interface Options {
@@ -106,19 +104,23 @@ interface Options {
     };
 }
 
-type EventType = 'any' | 'editorReady' | 'scoreDataLoaded' | 'selectionChange' | 'playbackRequest' | 'playbackStop' | 'noteSizeChange' | 'pageSizeChange' | 'partsTransposed';
+type EventType =
+    | 'any'
+    | 'editorReady'
+    | 'scoreDataLoaded'
+    | 'selectionChange'
+    | 'playbackRequest'
+    | 'playbackStop'
+    | 'noteSizeChange'
+    | 'pageSizeChange'
+    | 'partsTransposed';
 
-type NoteflightEvent<T> =
-NoteflightEventProps
-& EventFilter<T, 'scoreDataLoaded', ScoreDataLoadedProps>
-& EventFilter<T, 'selectionChange', SelectionChangeProps>
-& EventFilter<T, 'playbackRequest' | 'playbackStop', PlaybackProps>;
+type NoteflightEvent<T> = NoteflightEventProps &
+    EventFilter<T, 'scoreDataLoaded', ScoreDataLoadedProps> &
+    EventFilter<T, 'selectionChange', SelectionChangeProps> &
+    EventFilter<T, 'playbackRequest' | 'playbackStop', PlaybackProps>;
 
-type EventFilter<T, Event, Props> = T extends Event
-? Props
-: T extends 'any'
-? Partial<Props>
-: {};
+type EventFilter<T, Event, Props> = T extends Event ? Props : T extends 'any' ? Partial<Props> : {};
 
 interface NoteflightEventProps {
     /**
@@ -140,7 +142,7 @@ interface ScoreDataLoadedProps {
      * This event is dispatched whenever an embed instance finishes loading a score from the Noteflight server and is ready to accept user interaction.
      * Document methods should not be called until this event has been received.
      */
-     scoreId: string;
+    scoreId: string;
 }
 
 interface SelectionChangeProps {
@@ -151,45 +153,45 @@ interface SelectionChangeProps {
      * measure: one or more measures are selected,
      * range: a time range is selected in some set of staves.
      */
-     kind: 'object' | 'measure' | 'range' | undefined;
-     /**
-      * The zero-based index of the measure at the start of the selected range.
-      */
-     startIndex: number;
-     /**
-      * The offset in quarter notes from the beginning of the start measure at which the range begins. This value may range from zero to the number of quarter notes in the measure.
-      */
-     startOffset: number;
-     /**
-      * The zero-based index of the measure which includes the end of the selected range.
-      * When kind has the value "measure" this will be a exclusive end index analogous to the argument to selectMeasures().
-      */
-     endIndex: number;
-     /**
-      * The offset in quarter notes from the beginning of the end measure at which the range ends. This offset may range from zero to the number of quarter notes in the measure.
-      */
-     endOffset: number;
-     /**
-      * Optional property only present when kind has the value "object" or "range", providing an array of zero-based staff indices, counting down from the topmost staff in the score.
-      * If given, only the given staves are included in the selection.
-      */
-     staffIndices: number[];
-     /**
-      * A deep-linking fragment representing the selection which can be passed to the selectFragment() function if desired.
-      */
-     fragment: string;
+    kind: 'object' | 'measure' | 'range' | undefined;
+    /**
+     * The zero-based index of the measure at the start of the selected range.
+     */
+    startIndex: number;
+    /**
+     * The offset in quarter notes from the beginning of the start measure at which the range begins. This value may range from zero to the number of quarter notes in the measure.
+     */
+    startOffset: number;
+    /**
+     * The zero-based index of the measure which includes the end of the selected range.
+     * When kind has the value "measure" this will be a exclusive end index analogous to the argument to selectMeasures().
+     */
+    endIndex: number;
+    /**
+     * The offset in quarter notes from the beginning of the end measure at which the range ends. This offset may range from zero to the number of quarter notes in the measure.
+     */
+    endOffset: number;
+    /**
+     * Optional property only present when kind has the value "object" or "range", providing an array of zero-based staff indices, counting down from the topmost staff in the score.
+     * If given, only the given staves are included in the selection.
+     */
+    staffIndices: number[];
+    /**
+     * A deep-linking fragment representing the selection which can be passed to the selectFragment() function if desired.
+     */
+    fragment: string;
 }
 
 interface PlaybackProps {
     /**
      * The zero-based index of the measure at which playback should start.
      */
-     index: number;
-     /**
-      * The offset in quarter notes from the beginning of the start measure at which playback is to start.
-      * This value may range from zero to the number of quarter notes in the measure.
-      */
-     offset: number;
+    index: number;
+    /**
+     * The offset in quarter notes from the beginning of the start measure at which playback is to start.
+     * This value may range from zero to the number of quarter notes in the measure.
+     */
+    offset: number;
 }
 
 /**
@@ -200,7 +202,7 @@ interface DocumentMethodPromise<Result> {
      * To wait for a method to complete or to obtain its return value if it has one,
      * call done() on the Promise object returned by the method and pass a callback that will receive the return value of the method (if any).
      */
-    done: (callback: (result: Result) => void | Array<((result: Result) => void)>) => DocumentMethodPromise<Result>;
+    done: (callback: (result: Result) => void | Array<(result: Result) => void>) => DocumentMethodPromise<Result>;
     /**
      * Internal function that stores the callback functions as passed through the done() method.
      */
@@ -326,7 +328,17 @@ interface KeySignature {
     /**
      * 	the mode of the key signature: one of "major", "minor", "ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", or "locrian". Left undefined if the score's mode is unknown.
      */
-    mode: "major" | "minor" | "ionian" | "dorian" | "phrygian" | "lydian" | "mixolydian" | "aeolian" | "locrian" | undefined;
+    mode:
+        | 'major'
+        | 'minor'
+        | 'ionian'
+        | 'dorian'
+        | 'phrygian'
+        | 'lydian'
+        | 'mixolydian'
+        | 'aeolian'
+        | 'locrian'
+        | undefined;
     /**
      * the first note of the key signature's scale. Left undefined if the score's mode is unknown.
      */
@@ -418,7 +430,13 @@ interface ScoreView {
      * @param staffIndices Optional argument providing an array of zero-based staff indices, counting down from the topmost staff in the score.
      * If given, only the given staves are included in the selection.
      */
-    selectRange: (startIndex: number, startOffset: number, endIndex: number, endOffset: number, staffIndices?: number[]) => DocumentMethodPromise<undefined>;
+    selectRange: (
+        startIndex: number,
+        startOffset: number,
+        endIndex: number,
+        endOffset: number,
+        staffIndices?: number[],
+    ) => DocumentMethodPromise<undefined>;
     /**
      * Causes a set of objects in the document to be selected according to the URI fragment identifier given.
      * The meanings of these fragment IDs are not documented,
@@ -522,7 +540,12 @@ interface ScoreView {
      * @param measureIndex A zero-based index of the starting measure in which the notes are to be pasted.
      * @param offset An offset within the starting measure expressed in quarter notes.
      */
-    pasteNoteSets: (noteSets: NoteSet[], staffIndex: number, measureIndex: number, offset: number) => DocumentMethodPromise<undefined>;
+    pasteNoteSets: (
+        noteSets: NoteSet[],
+        staffIndex: number,
+        measureIndex: number,
+        offset: number,
+    ) => DocumentMethodPromise<undefined>;
     /**
      * Deletes any selected objects, staves or measures from the score.
      * Note that attempting to delete the entire score will retain a single empty measure at the start of the score.
@@ -561,14 +584,14 @@ interface ScoreView {
     /**
      *  Returns the key signature of the embed's score.
      */
-    getKeySignature: () =>  DocumentMethodPromise<KeySignature>;
+    getKeySignature: () => DocumentMethodPromise<KeySignature>;
     /**
      * Returns an array of key signatures for each half-step transposition from concert pitch.
      * @returns A JavaScript Array of objects with a key signature property structure.
      * Additionally an optional alternateKey property may be present,
      * pointing to an alternate, enharmonic key signature that may be obtained by setting the alternateKey option when calling setTransposeParts().
      */
-    getTranspositions: () => DocumentMethodPromise<Array<(KeySignature & {alternateKey?: KeySignature})>>;
+    getTranspositions: () => DocumentMethodPromise<Array<KeySignature & { alternateKey?: KeySignature }>>;
     /**
      * Gets the initial tempo of the piece.
      * @returns An integer indicating the initial tempo of the piece in beats per minute.
@@ -632,10 +655,10 @@ interface ScoreView {
      * "audioTrack" for a synchronized track, "silent" for no playback,
      * or "echo" for playing selection only.
      */
-    getPlaybackMode: () => DocumentMethodPromise<"normal" | "audioTrack" | "silent" | "echo">;
+    getPlaybackMode: () => DocumentMethodPromise<'normal' | 'audioTrack' | 'silent' | 'echo'>;
     /**
      * Prints the score displayed in the client.
      * @param option Print the score using a real printer or download a PDF. Available only in HTML5.
      */
-    printScore: (option?: {usePrinter?: boolean}) => DocumentMethodPromise<undefined>;
+    printScore: (option?: { usePrinter?: boolean }) => DocumentMethodPromise<undefined>;
 }
