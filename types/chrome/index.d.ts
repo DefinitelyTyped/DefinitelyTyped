@@ -7061,6 +7061,7 @@ declare namespace chrome.runtime {
         | 'geolocation'
         | 'history'
         | 'identity'
+        | 'identity.email'
         | 'idle'
         | 'loginState'
         | 'management'
