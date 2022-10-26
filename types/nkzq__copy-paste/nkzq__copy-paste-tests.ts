@@ -1,4 +1,4 @@
-import * as CopyPaste from 'copy-paste';
+import * as CopyPaste from '@nkzq/copy-paste';
 
 class TestClass {}
 
