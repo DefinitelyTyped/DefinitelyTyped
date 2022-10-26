@@ -2081,6 +2081,10 @@
             "libraryName": "ionic",
             "asOfVersion": "3.19.0"
         },
+        "ioredis": {
+            "libraryName": "ioredis",
+            "asOfVersion": "5.0.0"
+        },
         "ip-address": {
             "libraryName": "ip-address",
             "asOfVersion": "7.0.0"
