@@ -22,6 +22,12 @@ export interface Props {
     error?: string | React.ReactElement | RenderFunction | undefined;
 
     /**
+     * Link rel for links rendered in annotations.
+     * @default 'noopener noreferrer nofollow'
+     */
+    externalLinkRel?: string | undefined;
+
+    /**
      * Defines link target for external links rendered in annotations.
      * Defaults to unset, which means that default behavior will be used.
      */
