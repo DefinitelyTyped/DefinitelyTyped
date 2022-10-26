@@ -125,6 +125,9 @@ import { Socket } from 'node:dgram';
     // test the types of the address object fields
     const address: net.AddressInfo | {} = _socket.address();
 
+    const _socketLocalPort: number | undefined = _socket.localPort;
+    const _socketLocalFamily: string | undefined = _socket.localFamily;
+
     /// addListener
 
     _socket = _socket.addListener("close", had_error => {
