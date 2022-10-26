@@ -4,7 +4,7 @@ const options: tmi.Options = {
     channels: ['#channel1', '#channel2'],
     connection: {
         maxReconnectAttempts: 2,
-        maxReconnectInverval: 10,
+        maxReconnectInterval: 10,
         port: 100,
         reconnect: true,
         reconnectDecay: 20,

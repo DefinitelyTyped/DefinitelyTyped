@@ -1079,6 +1079,7 @@ class TextTest extends React.Component {
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
+                disabled
             >
                 Test text
             </Text>
@@ -1324,7 +1325,7 @@ const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
   const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+  return new Promise(() => e.nativeEvent.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;

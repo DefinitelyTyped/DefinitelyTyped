@@ -242,11 +242,12 @@ const customMessage: CustomMessageTriggerHandler = async (event, _, callback) =>
     obj = request.userAttributes;
     str = request.userAttributes.email;
     str = request.codeParameter;
-    str = request.usernameParameter;
+    str = request.linkParameter;
+    strOrNull = request.usernameParameter;
 
-    str = response.smsMessage;
-    str = response.emailMessage;
-    str = response.emailSubject;
+    strOrNull = response.smsMessage;
+    strOrNull = response.emailMessage;
+    strOrNull = response.emailSubject;
 
     triggerSource === 'CustomMessage_AdminCreateUser';
     triggerSource === 'CustomMessage_Authentication';

@@ -1009,7 +1009,7 @@ interface Workspace {
     readonly config: Configuration;
     readonly textDocuments: ReadonlyArray<TextDocument>;
     readonly textEditors: ReadonlyArray<TextEditor>;
-    readonly activeTextEditor: TextEditor;
+    readonly activeTextEditor: TextEditor | null | undefined;
 
     onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
     onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;

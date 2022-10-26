@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 
+// array
 () => {
     function duplicate(n: number) {
         return [n, n];
@@ -30,7 +31,52 @@ import * as R from 'ramda';
     R.chain(duplicateReadonly, [1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
     // $ExpectType number[]
     R.chain(duplicateReadonly)([1, 2, 3]); // => [1, 1, 2, 2, 3, 3]
+};
 
+// monad
+() => {
+    abstract class Maybe<A> {
+        constructor(public value: A) {}
+    }
+
+    class Just<A> extends Maybe<A> {
+        static of<T>(value: T) { return new Just<T>(value); }
+
+        chain<B>(fn: (a: A) => Maybe<B>) {
+            return fn(this.value);
+        }
+    }
+
+    class Nothing<A> extends Maybe<A> {
+        static of<T>() { return new Nothing<T>(); }
+
+        constructor() {
+            super(undefined as unknown as A);
+        }
+
+        chain<B>(fn: (a: A) => Maybe<B>) {
+            return this as unknown as Maybe<B>;
+        }
+    }
+
+    const findIndexMaybe = <A>(pred: (value: A) => boolean) => (arr: A[]): Maybe<number> => {
+        const index = arr.findIndex(pred);
+        return index === -1 ? Nothing.of<number>() : Just.of(index);
+    };
+
+    const sqrtMaybe = (value: number): Maybe<number> => {
+        const result = Math.sqrt(value);
+        return Number.isNaN(result) ? Nothing.of<number>() : Just.of(result);
+    };
+
+    // $ExpectType Maybe<number>
+    R.chain(findIndexMaybe<number>(x => x === 2), Just.of([1, 2, 3]));
+    // $ExpectType Maybe<number>
+    R.chain(sqrtMaybe, Just.of(4));
+};
+
+// transducer
+() => {
     interface Score {
         maths: number;
         physics: number;

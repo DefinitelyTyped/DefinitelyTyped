@@ -1,4 +1,4 @@
-// Type definitions for non-npm package vscode-notebook-renderer 1.60
+// Type definitions for non-npm package vscode-notebook-renderer 1.72
 // Project: https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md
 // Definitions by: Connor Peet <https://github.com/connor4312>, Matt Bierner <https://github.com/mjbvz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -115,13 +115,16 @@ export interface RendererApi {
     /**
      * Called by the editor to render an output item.
      *
-     * This is invoked by the editor when an output item is first renderered or when
+     * This is invoked by the editor when an output item is first rendered or when
      * the output item is updated.
      *
      * @param outputItem Output item to render.
      * @param element Html element to render into.
+     * @param signal Fired if rendering has been canceled.
+     *
+     * @return If rendering is asynchronous, a promise that resolves when rendering has finished.
      */
-    renderOutputItem(outputItem: OutputItem, element: HTMLElement): void;
+    renderOutputItem(outputItem: OutputItem, element: HTMLElement, signal: AbortSignal): void | Promise<void>;
 
     /**
      * Called by the editor when a previously-rendered output item is being disposed of.

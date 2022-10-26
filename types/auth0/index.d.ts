@@ -1,7 +1,6 @@
 // Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
-//                 Dan Rumney <https://github.com/dancrumb>
 //                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Meng Bernie Sung <https://github.com/MengRS>
@@ -12,6 +11,7 @@
 //                 Dan Ursin <https://github.com/danursin>
 //                 Nathan Hardy <https://github.com/nhardy>
 //                 Nicholas Molen <https://github.com/robotastronaut>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -463,6 +463,7 @@ export type Strategy =
     | 'oauth1'
     | 'oauth2'
     | 'office365'
+    | 'oidc'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'
@@ -1524,6 +1525,14 @@ export interface LogsQuery {
     take?: number;
 }
 
+export interface UsersLogsQuery {
+    id: string;
+    per_page?: number;
+    page?: number;
+    sort?: string;
+    include_totals?: boolean;
+}
+
 export interface GetDeviceCredentialsParams {
     user_id: string;
     page?: number;
@@ -1892,6 +1901,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
     linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
+
+    // User Logs
+    getUserLogs(params: UsersLogsQuery): Promise<Array<LogEvent>>;
+    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: Array<LogEvent>) => void): void;
 
     // User roles
     getUserRoles(params: ObjectWithId): Promise<Role[]>;

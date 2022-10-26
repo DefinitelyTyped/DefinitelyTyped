@@ -1,6 +1,29 @@
 import { callback } from './core';
 import { Client } from './client';
 
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitemtype
+export type ApplePayLineItemType = 'final' | 'pending';
+
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymenttiming
+export type ApplePayPaymentTiming = 'immediate' | 'recurring' | 'deferred' | 'automaticReload';
+
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepayrecurringpaymentdateunit
+export type ApplePayRecurringPaymentDateUnit = 'year' | 'month' | 'day' | 'hour' | 'minute';
+
+// See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaylineitem
+export interface ApplePayLineItem {
+    type?: ApplePayLineItemType;
+    label: string;
+    amount: string;
+    paymentTiming?: ApplePayPaymentTiming;
+    recurringPaymentStartDate?: Date;
+    recurringPaymentIntervalUnit?: ApplePayRecurringPaymentDateUnit;
+    recurringPaymentIntervalCount?: number;
+    recurringPaymentEndDate?: Date;
+    deferredPaymentDate?: Date;
+    automaticReloadPaymentThresholdAmount?: string;
+}
+
 // more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
 
 //  billingContact
@@ -38,6 +61,11 @@ export interface ApplePayPaymentRequest {
     merchantCapabilities: string[];
 
     billingContact?: any;
+    /**
+     * @description Optional array of items to display in the payment sheet per https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916120-lineitems
+     */
+    lineItems?: ApplePayLineItem[]; // See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916120-lineitems
+
     shippingContact?: any;
     shippingMethods?: any;
     shippingType?: any;
@@ -186,6 +214,11 @@ export interface ApplePay {
      * @description The current version of the SDK, i.e. `3.0.2`.
      */
     VERSION: string;
+
+    /**
+     * @description A special merchant ID which represents the merchant association with Braintree. Required when using ApplePaySession.canMakePaymentsWithActiveCard.
+     */
+    merchantIdentifier?: string; // per https://braintree.github.io/braintree-web/current/ApplePay.html#merchantIdentifier
 
     /**
      * Merges a payment request with Braintree defaults

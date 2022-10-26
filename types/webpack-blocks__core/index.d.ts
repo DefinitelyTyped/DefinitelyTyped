@@ -1,7 +1,6 @@
 // Type definitions for @webpack-blocks/core 2.0
 // Project: https://github.com/andywer/webpack-blocks/tree/master/packages/core
-// Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
-//                 Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
