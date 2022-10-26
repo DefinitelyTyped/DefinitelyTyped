@@ -14,7 +14,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+          "@nkzq/*": [
+              "nkzq__*"
+          ]
+      }
     },
     "files": [
         "index.d.ts",
