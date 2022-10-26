@@ -10,7 +10,6 @@
         "prefer-const": false,
         "prefer-template": false,
         "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false,
-        "unified-signatures": false
+        "strict-export-declare-modifiers": false
     }
 }
