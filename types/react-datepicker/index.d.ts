@@ -194,6 +194,7 @@ export interface ReactDatePickerProps<
     useShortMonthInDropdown?: boolean | undefined;
     useWeekdaysShort?: boolean | undefined;
     weekAriaLabelPrefix?: string | undefined;
+    monthAriaLabelPrefix?: string | undefined;
     value?: string | undefined;
     weekLabel?: string | undefined;
     withPortal?: boolean | undefined;
