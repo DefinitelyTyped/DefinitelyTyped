@@ -3719,6 +3719,54 @@
             "libraryName": "png-img",
             "asOfVersion": "4.0.4"
         },
+        "pollyjs__adapter": {
+            "libraryName": "@pollyjs/adapter",
+            "asOfVersion": "6.0.4"
+        },
+        "pollyjs__adapter-fetch": {
+            "libraryName": "@pollyjs/adapter-fetch",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-node-http": {
+            "libraryName": "@pollyjs/adapter-node-http",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-puppeteer": {
+            "libraryName": "@pollyjs/adapter-puppeteer",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-xhr": {
+            "libraryName": "@pollyjs/adapter-xhr",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__core": {
+            "libraryName": "@pollyjs/core",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__node-server": {
+            "libraryName": "@pollyjs/node-server",
+            "asOfVersion": "6.0.1"
+        },
+        "pollyjs__persister": {
+            "libraryName": "@pollyjs/persister",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-fs": {
+            "libraryName": "@pollyjs/persister-fs",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-local-storage": {
+            "libraryName": "@pollyjs/persister-local-storage",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-rest": {
+            "libraryName": "@pollyjs/persister-rest",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__utils": {
+            "libraryName": "@pollyjs/utils",
+            "asOfVersion": "6.0.1"
+        },
         "poly2tri": {
             "libraryName": "poly2tri",
             "asOfVersion": "1.4.0"
