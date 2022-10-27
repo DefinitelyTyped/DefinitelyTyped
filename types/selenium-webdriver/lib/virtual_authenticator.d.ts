@@ -1,8 +1,16 @@
+/**
+ * Protocol for virtual authenticators
+ * @enum {string}
+ */
 export interface IProtocol {
     CTAP2: string;
     U2F: string;
 }
 
+/**
+ * AuthenticatorTransport values
+ * @enum {string}
+ */
 export interface ITransport {
     BLE: string;
     USB: string;
@@ -13,6 +21,10 @@ export interface ITransport {
 export const Protocol: IProtocol;
 export const Transport: ITransport;
 
+/**
+ * Options for the creation of virtual authenticators.
+ * @see http://w3c.github.io/webauthn/#sctn-automation
+ */
 export class VirtualAuthenticatorOptions {
     constructor();
 
@@ -43,6 +55,10 @@ export class VirtualAuthenticatorOptions {
     toDict(): Object;
 }
 
+/**
+ * A credential stored in a virtual authenticator.
+ * @see https://w3c.github.io/webauthn/#credential-parameters
+ */
 export class Credential {
     constructor(
         credentialId: Uint8Array,
@@ -65,8 +81,25 @@ export class Credential {
 
     signCount(): number;
 
+    /**
+     * Creates a resident (i.e. stateless) credential.
+     * @param id Unique base64 encoded string.
+     * @param rpId Relying party identifier.
+     * @param userHandle userHandle associated to the credential. Must be Base64 encoded string.
+     * @param privateKey Base64 encoded PKCS
+     * @param signCount initial value for a signature counter.
+     * @returns A resident credential
+     */
     static createResidentCredential(id: Uint8Array, rpId: string, userHandle: Uint8Array, privateKey: string, signCount: number): Credential;
 
+    /**
+     * Creates a non-resident (i.e. stateless) credential.
+     * @param id Unique base64 encoded string.
+     * @param rpId Relying party identifier.
+     * @param privateKey Base64 encoded PKCS
+     * @param signCount initial value for a signature counter.
+     * @returns A non-resident credential
+     */
     static createNonResidentCredential(id: Uint8Array, rpId: string, privateKey: string, signCount: number): Credential;
 
     toDict(): Object;
