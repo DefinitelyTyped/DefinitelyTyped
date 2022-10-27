@@ -57,7 +57,7 @@ class Component extends React.Component<{}, ComponentState> {
                 pv of page
             </Text>
         );
-    };
+    }
 
     private renderCustomizedElement(props: any) {
         console.log('Customized props', props);
