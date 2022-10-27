@@ -3537,6 +3537,10 @@
             "libraryName": "p-whilst",
             "asOfVersion": "2.0.0"
         },
+        "package-info": {
+            "libraryName": "package-info",
+            "asOfVersion": "5.0.0"
+        },
         "package-json": {
             "libraryName": "package-json",
             "asOfVersion": "6.1.0"
