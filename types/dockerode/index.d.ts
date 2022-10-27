@@ -112,9 +112,11 @@ declare namespace Dockerode {
         ): void;
         putArchive(file: string | Buffer | NodeJS.ReadableStream, options: {}): Promise<NodeJS.ReadWriteStream>;
 
-        logs(options: ContainerLogsOptions, callback: Callback<NodeJS.ReadableStream>): void;
-        logs(callback: Callback<NodeJS.ReadableStream>): void;
-        logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
+        logs(options: ContainerLogsOptions & { follow?: false }, callback: Callback<Buffer>): void;
+        logs(options: ContainerLogsOptions & { follow: true }, callback: Callback<NodeJS.ReadableStream>): void;
+        logs(callback: Callback<Buffer>): void;
+        logs(options?: ContainerLogsOptions & { follow?: false }): Promise<Buffer>;
+        logs(options?: ContainerLogsOptions & { follow: true }): Promise<NodeJS.ReadableStream>;
 
         stats(options: {}, callback: Callback<ContainerStats>): void;
         stats(callback: Callback<ContainerStats>): void;
@@ -1746,7 +1748,8 @@ declare namespace Dockerode {
         stdout?: boolean | undefined;
         stderr?: boolean | undefined;
         follow?: boolean | undefined;
-        since?: number | undefined;
+        since?: number | string | undefined;
+        until?: number | string | undefined;
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;
