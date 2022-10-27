@@ -88,6 +88,8 @@ declare namespace dc {
     }
 
     export interface Config {
+        disableTransitions: boolean
+        dateFormat: (date: Date) => string;
         defaultColors(colors?: Array<string>): Array<string> | Config;
     }
 
@@ -514,7 +516,6 @@ declare namespace dc {
         refocusAll(group?: string): void;
         renderAll(group?: string): void;
         redrawAll(group?: string): void;
-        disableTransitions: boolean;
         transition(selections: d3.Selection<any>, duration?: number | Function, delay?: number | Function, name?: string): d3.Transition<any> | d3.Selection<any>;
         optionalTransition(enable: boolean, duration?: number | Function, delay?: number | Function, name?: string): (selection: d3.Selection<any>) => Base['transition'] | d3.Selection<any>;
         afterTransition(transition: d3.Transition<any>,  callback: (transition: d3.Transition<any>) => void): void;
@@ -526,7 +527,6 @@ declare namespace dc {
         Exception(msg: string): void;
         InvalidStateException(): void;
         BadArgumentException(): void;
-        dateFormat: d3.time.Format;
         printers: Printers;
         pluck(n: string, f?: Accessor<any, any>): Accessor<any, any>;
         utils: Utils;
