@@ -42,6 +42,21 @@ export interface ScreenrecordOptions {
     bitRate?: string | number | undefined;
 }
 
+export interface ResolveActivityOptions {
+    /**
+     * Whether to prefer `cmd` tool usage for
+     * launchable activity name detection. It might be useful to disable it if
+     * `cmd package resolve-activity` returns 'android/com.android.internal.app.ResolverActivity',
+     * which means the app has no default handler set in system settings.
+     * See https://github.com/appium/appium/issues/17128 for more details.
+     * This option has no effect if the target Android version is below 24 as there
+     * the corresponding `cmd` subcommand is not implemented and dumpsys usage is the only
+     * possible way to detect the launchable activity name.
+     * @default true
+     */
+    preferCmd?: boolean;
+}
+
 declare const methods: AdbCommands;
 export default methods;
 
@@ -138,6 +153,20 @@ interface AdbCommands {
      *                          or _null_ if no matches are found.
      */
     isValidClass(classString: string): RegExpExecArray | null;
+
+    /**
+     * Fetches the fully qualified name of the launchable activity for the
+     * given package. It is expected the package is already installed on
+     * the device under test.
+     *
+     * ! This method only works since Android 7 (API level 24)
+     *
+     * @param pkg - The target package identifier
+     * @param opts
+     * @return Fully qualified name of the launchable activity
+     * @throws {Error} If there was an error while resolving the activity name
+     */
+    resolveLaunchableActivity(pkg: string, opts?: ResolveActivityOptions): Promise<string>;
 
     /**
      * Force application to stop on the device under test.

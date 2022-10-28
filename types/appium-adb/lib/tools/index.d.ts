@@ -1,4 +1,4 @@
-import methods, { LogcatOpts, SetPropOptions, ScreenrecordOptions } from './adb-commands';
+import methods, { LogcatOpts, SetPropOptions, ScreenrecordOptions, ResolveActivityOptions } from './adb-commands';
 import manifestMethods, { APKInfo } from './android-manifest';
 import systemCallMethods, {
     ConnectedDevicesOptions,
@@ -60,6 +60,7 @@ export {
     LogcatOpts,
     SetPropOptions,
     ScreenrecordOptions,
+    ResolveActivityOptions,
     APKInfo,
     CertCheckOptions,
     KeystoreHash,
