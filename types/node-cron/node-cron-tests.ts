@@ -75,4 +75,4 @@ cron.schedule(
     () => {
         log('will execute immediately and every minute after');
     },
-).now()
+).now();
