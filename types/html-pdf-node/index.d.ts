@@ -38,10 +38,10 @@ export function generatePdf(
     file: File,
     options?: Options,
     callback?: (err: Error, buffer: Buffer) => void,
-): void;
+): Promise<Buffer>;
 
 export function generatePdfs(
     files: File[],
     options?: Options,
     callback?: (err: Error, buffer: Buffer) => void,
-): void;
+): Promise<Buffer[]>;
