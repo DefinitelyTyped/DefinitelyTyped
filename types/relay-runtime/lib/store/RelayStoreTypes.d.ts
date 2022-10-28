@@ -5,7 +5,7 @@ import {
     PayloadData,
     PayloadError,
     ReactFlightServerTree,
-    UploadableMap
+    UploadableMap,
 } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
 import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
@@ -14,7 +14,7 @@ import {
     NormalizationLinkedField,
     NormalizationScalarField,
     NormalizationSelectableNode,
-    NormalizationSplitOperation
+    NormalizationSplitOperation,
 } from '../util/NormalizationNode';
 import { ReaderFragment } from '../util/ReaderNode';
 import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
