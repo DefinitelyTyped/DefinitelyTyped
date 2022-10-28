@@ -1677,6 +1677,10 @@
             "libraryName": "github",
             "asOfVersion": "7.1.0"
         },
+        "github-slugger": {
+            "libraryName": "github-slugger",
+            "asOfVersion": "2.0.0"
+        },
         "github-username": {
             "libraryName": "github-username",
             "asOfVersion": "5.0.0"
