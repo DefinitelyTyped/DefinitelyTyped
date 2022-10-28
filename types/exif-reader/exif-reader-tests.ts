@@ -1,4 +1,4 @@
-import exifReader from "exif-reader";
+import exifReader = require("exif-reader");
 
 const buf = Buffer.from("some-exif-data");
 

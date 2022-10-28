@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 /** Decode raw EXIF data from a `Buffer` */
-export default function exifReader(buffer: Buffer): {
+declare function exifReader(buffer: Buffer): {
     /** Basic TIFF properties about the image */
     image?: Record<string, unknown>;
     /** Basic TIFF properties about the embedded thumbnail */
@@ -18,3 +18,5 @@ export default function exifReader(buffer: Buffer): {
     /** Interoperability information */
     interoperability?: Record<string, unknown>;
 };
+
+export = exifReader;
