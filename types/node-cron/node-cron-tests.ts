@@ -66,3 +66,11 @@ task5.on('task-done', () => {
     log('Task has been completed');
     task5.stop();
 });
+
+// manual execution
+cron.schedule(
+    '* * * * *',
+    () => {
+        log('will execute immediately and every minute after');
+    },
+).now()
