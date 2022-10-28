@@ -33,7 +33,7 @@ export interface ModalContentProps {
 export interface BackdropProps {
     visible: boolean;
     opacity: number;
-    onPress?: () => void | undefined;
+    onPress?: (() => void) | undefined;
     backgroundColor?: string | undefined;
     animationDuration?: number | undefined;
     pointerEvents?: string | undefined;
@@ -80,16 +80,16 @@ export interface ModalProps {
     modalStyle?: StyleProp<ViewStyle> | undefined;
     style?: StyleProp<ViewStyle> | undefined;
     animationDuration?: number | undefined;
-    onTouchOutside?: () => void | undefined;
-    onHardwareBackPress?: () => boolean | undefined;
-    onShow?: () => void | undefined;
-    onDismiss?: () => void | undefined;
+    onTouchOutside?: (() => void) | undefined;
+    onHardwareBackPress?: (() => boolean) | undefined;
+    onShow?: (() => void) | undefined;
+    onDismiss?: (() => void) | undefined;
     footer?: React.ReactNode | undefined;
-    onMove?: (event: DragEvent) => void | undefined;
-    onSwiping?: (event: DragEvent) => void | undefined;
-    onSwipeRelease?: (event: DragEvent) => void | undefined;
-    onSwipingOut?: (event: DragEvent) => void | undefined;
-    onSwipeOut?: (event: DragEvent) => void | undefined;
+    onMove?: ((event: DragEvent) => void) | undefined;
+    onSwiping?: ((event: DragEvent) => void) | undefined;
+    onSwipeRelease?: ((event: DragEvent) => void) | undefined;
+    onSwipingOut?: ((event: DragEvent) => void) | undefined;
+    onSwipeOut?: ((event: DragEvent) => void) | undefined;
     swipeDirection?: SwipeDirection | SwipeDirection[] | undefined;
     swipeThreshold?: number | undefined;
     useNativeDriver?: boolean | undefined;
@@ -97,11 +97,11 @@ export interface ModalProps {
 
 export interface DraggableViewProps {
     style?: StyleProp<ViewStyle> | undefined;
-    onMove?: (event: DragEvent) => void | undefined;
-    onSwiping?: (event: DragEvent) => void | undefined;
-    onRelease?: (event: DragEvent) => void | undefined;
-    onSwipingOut?: (event: DragEvent) => void | undefined;
-    onSwipeOut?: (event: DragEvent) => void | undefined;
+    onMove?: ((event: DragEvent) => void) | undefined;
+    onSwiping?: ((event: DragEvent) => void) | undefined;
+    onRelease?: ((event: DragEvent) => void) | undefined;
+    onSwipingOut?: ((event: DragEvent) => void) | undefined;
+    onSwipeOut?: ((event: DragEvent) => void) | undefined;
     swipeThreshold?: number | undefined;
     swipeDirection?: SwipeDirection | SwipeDirection[] | undefined;
 }
