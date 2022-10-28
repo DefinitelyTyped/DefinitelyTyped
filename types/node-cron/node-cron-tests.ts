@@ -6,10 +6,12 @@ const log = console.log;
 
 cron.schedule('* * * * *', now => {
     log('running a task every minute');
-    if (now.getTime() === Date.now()) {
-        log('task ran at the predicted time');
-    } else {
-        log('Task ran with a delay');
+    if (now instanceof Date) {
+        if (now.getTime() === Date.now()) {
+            log('task ran at the predicted time');
+        } else {
+            log('Task ran with a delay');
+        }
     }
 });
 
