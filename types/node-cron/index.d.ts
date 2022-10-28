@@ -15,8 +15,8 @@ export function validate(cronExpression: string): boolean;
 export function getTasks(): Map<string, ScheduledTask>;
 
 export interface ScheduledTask extends EventEmitter {
-    start: () => this;
-    stop: () => this;
+    start: () => void;
+    stop: () => void;
 }
 
 export interface ScheduleOptions {
