@@ -634,6 +634,11 @@ export interface PiezoOption {
     pin: number;
 }
 
+export interface PiezoTune {
+    tempo?: number;
+    song: [frequency: string | null, duration: number][];
+}
+
 export declare class Piezo {
     constructor(option: number | PiezoOption);
 
@@ -643,8 +648,8 @@ export declare class Piezo {
     readonly isPlaying: boolean;
 
     frequency(frequency: number, duration: number): void;
-    play(tune: any, cb?: () => void): void;
-    tone(frequency: number, duration: number): void;
+    play(tune: PiezoTune, cb?: () => void): void;
+    tone(tone: number, duration: number): void;
     noTone(): void;
     off(): void;
 }
