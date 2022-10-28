@@ -1,28 +1,12 @@
 import {
-    CacheConfig,
-    ConcreteRequest,
-    ConnectionHandler,
-    DataID,
-    Environment,
-    getDefaultMissingFieldHandlers,
-    Network,
-    QueryResponseCache,
-    ROOT_ID,
-    ROOT_TYPE,
-    RecordProxy,
+    CacheConfig, commitLocalUpdate, ConcreteRequest,
+    ConnectionHandler, createOperationDescriptor, DataID,
+    Environment, FragmentRefs, getDefaultMissingFieldHandlers, getRequest, graphql, isPromise, Network,
+    QueryResponseCache, ReaderFragment, readInlineData, RecordProxy,
     RecordSource,
-    RecordSourceSelectorProxy,
-    Store,
-    Variables,
-    commitLocalUpdate,
-    ReaderFragment,
-    isPromise,
-    __internal,
-    graphql,
-    getRequest,
-    createOperationDescriptor,
-    FragmentRefs,
-    readInlineData,
+    RecordSourceSelectorProxy, ROOT_ID,
+    ROOT_TYPE, Store,
+    Variables, __internal
 } from 'relay-runtime';
 
 import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
@@ -159,16 +143,16 @@ function handlerProvider(handle: any) {
 }
 
 // Updatable fragment.
-export type UserFragment_updatable$data = {
+interface UserFragment_updatable$data {
     name: string | null;
     readonly id: string;
     readonly " $fragmentType": "UserFragment_updatable";
-};
-export type UserFragment_updatable$key = {
+}
+interface UserFragment_updatable$key {
     readonly " $data"?: UserFragment_updatable$data;
     readonly $updatableFragmentSpreads: FragmentRefs<"UserFragment_updatable">;
-};
-  
+}
+
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
@@ -184,10 +168,10 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
             fragment UserComponent_user on User {
                 name
             }
-        `, 
+        `,
         dataRef
     );
-    updatableData.name = "NewName"
+    updatableData.name = "NewName";
 }
 
 interface MessageEdge {
