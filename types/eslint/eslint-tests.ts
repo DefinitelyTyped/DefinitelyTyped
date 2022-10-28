@@ -515,6 +515,7 @@ linter.verify(
 );
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'off' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'readonly' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'readable' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'writable' } }, 'test.js');
