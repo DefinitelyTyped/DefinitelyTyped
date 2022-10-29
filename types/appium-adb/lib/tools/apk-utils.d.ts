@@ -1,4 +1,4 @@
-import { ExecOptions } from 'teen_process';
+import { TeenProcessExecOptions } from 'teen_process';
 
 export type APP_INSTALL_STATE = typeof APP_INSTALL_STATE[keyof typeof APP_INSTALL_STATE];
 export const APP_INSTALL_STATE: {
@@ -295,7 +295,7 @@ interface ApkUtils {
      *                             for more details on this parameter.
      * @throws If there was a failure during application install.
      */
-    installFromDevicePath(apkPathOnDevice: string, opts?: ExecOptions): Promise<void>;
+    installFromDevicePath(apkPathOnDevice: string, opts?: TeenProcessExecOptions): Promise<void>;
 
     /**
      * Caches the given APK at a remote location to speed up further APK deployments.
