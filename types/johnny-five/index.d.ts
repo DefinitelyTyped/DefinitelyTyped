@@ -448,17 +448,17 @@ export declare class Led {
     id: string;
     pin: number;
 
-    blink(ms: number = 100, callback?: () => void): this;
+    blink(ms?: number, callback?: () => void): this;
     blink(callback?: () => void): this;
     brightness(val: number): this;
-    fade(brightness: number, ms?: number = 1000, callback?: () => void): this;
-    fadeIn(ms: number = 1000, callback?: () => void): this;
-    fadeOut(ms: number = 1000, callback?: () => void): this;
+    fade(brightness: number, ms?: number, callback?: () => void): this;
+    fadeIn(ms?: number, callback?: () => void): this;
+    fadeOut(ms?: number, callback?: () => void): this;
     off(): this;
     on(): this;
-    pulse(ms: number = 1000, callback?: () => void): this;
+    pulse(ms?: number, callback?: () => void): this;
     stop(): this;
-    strobe(ms: number = 100, callback?: () => void): this;
+    strobe(ms?: number, callback?: () => void): this;
     strobe(callback?: () => void): this;
     toggle(): this;
 }
