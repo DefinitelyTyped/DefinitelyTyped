@@ -1184,6 +1184,10 @@ declare module "../index" {
         /**
          * @see _.get
          */
+         get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue?: TDefault): GetFieldType<T, TPath> | TDefault;
+        /**
+         * @see _.get
+         */
         get(path: PropertyPath, defaultValue?: any): any;
     }
     interface Collection<T> {
@@ -1265,6 +1269,10 @@ declare module "../index" {
          * @see _.get
          */
         get<TKey1 extends keyof T, TKey2 extends keyof T[TKey1], TKey3 extends keyof T[TKey1][TKey2], TKey4 extends keyof T[TKey1][TKey2][TKey3], TDefault>(path: [TKey1, TKey2, TKey3, TKey4], defaultValue: TDefault): ExpChain<Exclude<T[TKey1][TKey2][TKey3][TKey4], undefined> | TDefault>;
+        /**
+         * @see _.get
+         */
+        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue?: TDefault): _.ExpChain<GetFieldType<T, TPath> | TDefault>;
         /**
          * @see _.get
          */
