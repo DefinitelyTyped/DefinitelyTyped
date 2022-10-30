@@ -1019,6 +1019,41 @@ declare module "../index" {
          */
         functionsIn(): CollectionChain<string>;
     }
+
+    type GetIndexedField<T, K> = K extends keyof T
+        ? T[K]
+        : K extends `${number}`
+            ? '0' extends keyof T
+            ? undefined
+            : number extends keyof T
+                ? T[number]
+                : undefined
+            : undefined;
+
+    type FieldWithPossiblyUndefined<T, Key> =
+    | GetFieldType<Exclude<T, undefined>, Key>
+    | Extract<T, undefined>;
+
+    type IndexedFieldWithPossiblyUndefined<T, Key> =
+    | GetIndexedField<Exclude<T, undefined>, Key>
+    | Extract<T, undefined>;
+
+    type GetFieldType<T, P> = P extends `${infer Left}.${infer Right}`
+    ? Left extends keyof T
+        ? FieldWithPossiblyUndefined<T[Left], Right>
+        : Left extends `${infer FieldKey}[${infer IndexKey}]`
+        ? FieldKey extends keyof T
+            ? FieldWithPossiblyUndefined<IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>, Right>
+            : undefined
+        : undefined
+    : P extends keyof T
+        ? T[P]
+        : P extends `${infer FieldKey}[${infer IndexKey}]`
+        ? FieldKey extends keyof T
+            ? IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>
+            : undefined
+        : undefined;
+
     interface LoDashStatic {
         /**
          * Gets the property value at path of object. If the resolved value is undefined the defaultValue is used
@@ -1097,7 +1132,7 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get(object: any, path: PropertyPath, defaultValue?: any): any;
+        get<TObject, TPath extends string, TDefault = GetFieldType<TObject, TPath>>(data: TObject, path: TPath, defaultValue?: TDefault): GetFieldType<TObject, TPath> | TDefault;
     }
     interface String {
         /**
