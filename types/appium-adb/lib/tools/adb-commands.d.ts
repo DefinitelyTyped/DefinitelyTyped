@@ -1,4 +1,4 @@
-import { SubProcess, ExecOptions } from 'teen_process';
+import { SubProcess, TeenProcessExecOptions } from 'teen_process';
 import { LogcatOpts, Log } from '../logcat';
 
 export { LogcatOpts };
@@ -488,7 +488,7 @@ interface AdbCommands {
      *                        _exec_ method options, for more information about available
      *                        options.
      */
-    push(localPath: string, remotePath: string, opts?: ExecOptions): Promise<void>;
+    push(localPath: string, remotePath: string, opts?: TeenProcessExecOptions): Promise<void>;
 
     /**
      * Receive a file from the device under test.
@@ -500,7 +500,7 @@ interface AdbCommands {
      *                        _exec_ method options, for more information about available
      *                        options.
      */
-    pull(remotePath: string, localPath: string, opts?: ExecOptions): Promise<void>;
+    pull(remotePath: string, localPath: string, opts?: TeenProcessExecOptions): Promise<void>;
 
     /**
      * Check whether the process with the particular name is running on the device
