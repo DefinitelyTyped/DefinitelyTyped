@@ -1,17 +1,17 @@
-import xhook, { Request, Response } from 'xhook';
+import xhook from 'xhook';
 
 xhook.disable();
 xhook.enable();
 
-xhook.before((request: Request) => {
+xhook.before(request => {
     console.log(request.url);
 });
 
-xhook.after((_: Request, response: Response) => {
+xhook.after((_, response) => {
     console.log(response.text);
 });
 
-xhook.before((request: Request, callback: (response: Response<Document>) => void) => {
+xhook.before((request, callback) => {
     console.log(request.url);
     callback({
         status: 200,
@@ -23,7 +23,7 @@ xhook.before((request: Request, callback: (response: Response<Document>) => void
     });
 });
 
-xhook.after((_: Request, response: Response<Document>, callback) => {
-    console.log(response.data.title);
+xhook.after((_, response, callback) => {
+    console.log(response.data);
     callback();
 });
