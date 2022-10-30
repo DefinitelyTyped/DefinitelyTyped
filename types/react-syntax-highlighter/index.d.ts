@@ -26,7 +26,7 @@ interface rendererProps {
 declare module 'react-syntax-highlighter' {
     export interface SyntaxHighlighterProps {
         language?: string | undefined;
-        style?: { [key: string]: React.CSSProperties } | undefined;
+        style?: { [key: string]: React.CSSProperties } | React.CSSProperties |  undefined;
         children: string | string[];
         customStyle?: React.CSSProperties | undefined;
         codeTagProps?: React.HTMLProps<HTMLElement> | undefined;
