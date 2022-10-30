@@ -12,6 +12,13 @@ let clientWithMultipleURLs = ldap.createClient({
     ]
 });
 
+// @ts-expect-error
+client.port === 1389;
+client.port === '1389';
+client.host === '127.0.0.1';
+// $ExpectType boolean
+clientWithMultipleURLs.secure;
+
 client.bind('cn=root', 'secret', (err: Error): void => {
     // nothing
 });

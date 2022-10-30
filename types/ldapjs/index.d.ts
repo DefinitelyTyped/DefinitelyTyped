@@ -104,6 +104,10 @@ export interface Client extends EventEmitter {
     connecting: boolean;
     connected: boolean;
 
+    host: string;  // URL["hostname"]
+    port: string;  // URL["port"]
+    secure: boolean;
+
     /**
      * Performs a simple authentication against the server.
      *
