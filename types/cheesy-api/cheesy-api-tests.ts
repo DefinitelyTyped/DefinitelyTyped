@@ -1,4 +1,4 @@
 const obj: Subject = {
-	name: 'Someone',
-	_id: 0,
+    name: 'Someone',
+    _id: 0,
 };

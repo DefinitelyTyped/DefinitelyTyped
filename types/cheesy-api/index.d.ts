@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.6
 
-type StatusCodes = 100 | 200 | 201| 400 | 401 | 403 | 404 | 429 | 500;
+type StatusCodes = 100 | 200 | 201 | 400 | 401 | 403 | 404 | 429 | 500;
 
 interface Pagination {
     total: number;
@@ -70,9 +70,9 @@ interface Delivery {
     name: string;
     logo: string;
     priceList: Array<{
-      description: string;
-      value: number;
-      subjects_ids: number[]
+        description: string;
+        value: number;
+        subjects_ids: number[];
     }>;
 }
 
@@ -96,11 +96,11 @@ interface Article {
     category_id: number; // RecipeCategory
     date: Date;
     productLists: Array<{
-      title: string;
-      products: Array<{
-        name: string;
-        category_id: number
-      }>
+        title: string;
+        products: Array<{
+            name: string;
+            category_id: number;
+        }>;
     }>;
     images: string[][];
     accordions: string[];
