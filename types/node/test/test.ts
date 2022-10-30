@@ -169,6 +169,12 @@ after(cb => {
     // $ExpectType void
     cb({ x: 'anything' });
 });
+afterEach(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
 beforeEach(cb => {
     // $ExpectType (result?: any) => void
     cb;
