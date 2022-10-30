@@ -1272,7 +1272,7 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue?: TDefault): _.ExpChain<GetFieldType<T, TPath> | TDefault>;
+        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue?: TDefault): ExpChain<GetFieldType<T, TPath> | TDefault>;
         /**
          * @see _.get
          */
