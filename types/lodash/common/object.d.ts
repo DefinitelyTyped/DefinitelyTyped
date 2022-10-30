@@ -1133,6 +1133,10 @@ declare module "../index" {
          * @see _.get
          */
         get<TObject, TPath extends string, TDefault = GetFieldType<TObject, TPath>>(data: TObject, path: TPath, defaultValue?: TDefault): GetFieldType<TObject, TPath> | TDefault;
+        /**
+         * @see _.get
+         */
+         get(object: any, path: PropertyPath, defaultValue?: any): any;
     }
     interface String {
         /**
