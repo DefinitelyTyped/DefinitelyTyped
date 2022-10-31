@@ -70,7 +70,7 @@ declare namespace createHttpError {
     & Record<'InternalServerError' | '500', HttpErrorConstructor<500>>
     & Record<'NotImplemented' | '501', HttpErrorConstructor<501>>
     & Record<'BadGateway' | '502', HttpErrorConstructor<502>>
-    & Record<'ServiceUnavailable' | '503', HttpErrorConstructor<500>>
+    & Record<'ServiceUnavailable' | '503', HttpErrorConstructor<503>>
     & Record<'GatewayTimeout' | '504', HttpErrorConstructor<504>>
     & Record<'HTTPVersionNotSupported' | '505', HttpErrorConstructor<505>>
     & Record<'VariantAlsoNegotiates' | '506', HttpErrorConstructor<506>>
