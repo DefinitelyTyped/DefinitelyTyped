@@ -5308,7 +5308,7 @@ declare namespace Xrm {
              * Sets the focus on the tab of the form.
              */
              tabName?: string | undefined;
-            }
+        }
 
         interface PageInputEntityList {
             pageType: "entitylist";
