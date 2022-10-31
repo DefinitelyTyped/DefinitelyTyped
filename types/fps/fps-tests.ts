@@ -11,7 +11,22 @@ const tickerWithInvalidOptions = fps({ dey: 1 });
 ticker.tick();
 
 // $ExpectType number
+ticker.last;
+
+// $ExpectType number
 ticker.rate;
+
+// $ExpectType number
+ticker.time;
+
+// $ExpectType number
+ticker.decay;
+
+// $ExpectType number
+ticker.every;
+
+// $ExpectType number
+ticker.ticks;
 
 // $ExpectType void
 tickerWithOptions.tick();

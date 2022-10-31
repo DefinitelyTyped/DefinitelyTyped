@@ -15,7 +15,12 @@ interface FPSOptions {
 interface FPSObject {
     tick: () => void;
     on: (event: "data", callback: (frames: number) => void) => void;
+    last: number;
     rate: number;
+    time: number;
+    decay: number;
+    every: number;
+    ticks: number;
 }
 
 declare function fps(options?: FPSOptions): FPSObject;
