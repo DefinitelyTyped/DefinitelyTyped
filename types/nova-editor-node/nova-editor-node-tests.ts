@@ -241,6 +241,10 @@ promise.then(
 nova.path.join('test');
 nova.path.join('test', 'a', 'b');
 
+// @ts-expect-error
+nova.path.relative('/path/to/folder/one');
+nova.path.relative('/path/to/folder/one', '/path/to/folder/two');
+
 /// https://novadocs.panic.com/api-reference/process/
 
 // Launches the Python executable to determine its current version
