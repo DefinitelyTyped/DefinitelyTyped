@@ -1,0 +1,37 @@
+import { AbstractCrudObject } from './../abstract-crud-object';
+import AbstractObject from './../abstract-object';
+import Cursor from './../cursor';
+import LiveVideoInputStream from './live-video-input-stream';
+import VideoPoll from './video-poll';
+export default class LiveVideo extends AbstractCrudObject {
+    static get Fields(): Record<string, any>;
+    static get Projection(): Record<string, any>;
+    static get SpatialAudioFormat(): Record<string, any>;
+    static get Status(): Record<string, any>;
+    static get StereoscopicMode(): Record<string, any>;
+    static get StreamType(): Record<string, any>;
+    static get BroadcastStatus(): Record<string, any>;
+    static get Source(): Record<string, any>;
+    static get LiveCommentModerationSetting(): Record<string, any>;
+    static get PersistentStreamKeyStatus(): Record<string, any>;
+    getBlockedUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCrosspostSharedPages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCrosspostedBroadcasts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getErrors(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createInputStream(
+        fields: Array<string>,
+        params?: Record<string, any>,
+        pathOverride?: string | null | undefined,
+    ): Promise<LiveVideoInputStream>;
+    getPolls(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createPoll(
+        fields: Array<string>,
+        params?: Record<string, any>,
+        pathOverride?: string | null | undefined,
+    ): Promise<VideoPoll>;
+    getReactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: Array<string>, params?: Record<string, any>): Promise<LiveVideo>;
+    update(fields: Array<string>, params?: Record<string, any>): Promise<LiveVideo>;
+}
