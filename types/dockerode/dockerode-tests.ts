@@ -317,7 +317,7 @@ docker.createService({
     }
 }, (err, response) => { /* NOOP */ });
 
-docker.listServices({ filters: { name: ['network-name'] } }).then(services => {
+docker.listServices({ filters: JSON.stringify({ name: ['network-name'] }), status: true }).then(services => {
     return services.map(service => docker.getService(service.ID));
 });
 
