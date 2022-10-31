@@ -767,7 +767,7 @@ declare namespace Dockerode {
         } | undefined;
         NetworkMode?: string | undefined;
         PortBindings?: any;
-        RestartPolicy?: RestartPolicy | undefined;
+        RestartPolicy?: HostRestartPolicy | undefined;
         VolumeDriver?: string | undefined;
         VolumesFrom?: any;
         Mounts?: MountConfig | undefined;
@@ -964,7 +964,7 @@ declare namespace Dockerode {
         [key: string]: PortBinding[];
     }
 
-    interface RestartPolicy {
+    interface HostRestartPolicy {
         Name: string;
         MaximumRetryCount?: number | undefined;
     }
@@ -1221,7 +1221,7 @@ declare namespace Dockerode {
 
     type GenericResource = NamedGenericResource | DiscreteGenericResource;
 
-    interface RestartPolicy {
+    interface TaskRestartPolicy {
         Condition?: string | undefined;
         Delay?: number | undefined;
         MaxAttempts?: number | undefined;
@@ -1344,7 +1344,7 @@ declare namespace Dockerode {
 
     interface TaskSpecBase {
         Resources?: ResourceRequirements | undefined;
-        RestartPolicy?: RestartPolicy | undefined;
+        RestartPolicy?: TaskRestartPolicy | undefined;
         Placement?: Placement | undefined;
         Networks?: NetworkAttachmentConfig[] | undefined;
         LogDriver?: {
