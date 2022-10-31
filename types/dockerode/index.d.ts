@@ -819,6 +819,7 @@ declare namespace Dockerode {
         MemoryReservation?: number | undefined;
         MemorySwap?: number | undefined;
         MemorySwappiness?: number | undefined;
+        NanoCpus?: number | undefined;
         OomKillDisable?: boolean | undefined;
         Init?: boolean | undefined;
         PidsLimit?: number | undefined;
