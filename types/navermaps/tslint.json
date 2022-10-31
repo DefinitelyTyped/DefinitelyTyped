@@ -2,6 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-unnecessary-generics": false,
-        "no-unnecessary-class": false
+        "no-unnecessary-class": false,
+        "only-arrow-functions": false,
+        "space-before-function-paren": false,
+        "object-literal-shorthand": false
     }
 }

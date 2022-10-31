@@ -38,9 +38,8 @@ map.panBy(new naver.maps.Point(10, 10));
  * Event Basic Example
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-event-simple.example.html
  */
-naver.maps.Event.addListener(map, 'click', function (e) {});
-naver.maps.Event.addListener(map, 'keydown', function (e) {});
-
+naver.maps.Event.addListener(map, 'click', function (e) { });
+naver.maps.Event.addListener(map, 'keydown', function (e) { });
 
 /**
  * Layer Example
@@ -73,7 +72,7 @@ const imageMarker = new naver.maps.Marker({
         origin: new naver.maps.Point(0, 0),
         anchor: new naver.maps.Point(25, 26)
     }
-})
+});
 
 /**
  * InfoWindow Example
@@ -116,7 +115,7 @@ const ellipse = new naver.maps.Ellipse({
     strokeWeight: 3,
     fillColor: 'yellowgreen',
     fillOpacity: 0.3
-}); 
+});
 
 /**
  * Panorama Basic Example
@@ -132,7 +131,6 @@ const pano = new naver.maps.Panorama('pano', {
     },
     flightSpot: true
 });
-
 
 /*
  * LatLng
