@@ -1,0 +1,12 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "array-type": false,
+        "no-self-import": false,
+        "redundant-undefined": false,
+        "no-unnecessary-class": false,
+        "no-declare-current-package": false,
+        "adjacent-overload-signatures": false
+    }
+}
