@@ -1219,7 +1219,7 @@ export interface CreateOrganization {
               colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
