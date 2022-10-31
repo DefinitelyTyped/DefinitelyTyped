@@ -118,9 +118,11 @@ declare namespace Dockerode {
         logs(options?: ContainerLogsOptions & { follow?: false }): Promise<Buffer>;
         logs(options?: ContainerLogsOptions & { follow: true }): Promise<NodeJS.ReadableStream>;
 
-        stats(options: {}, callback: Callback<ContainerStats>): void;
+        stats(options: { stream?: false, 'one-shot'?: boolean }, callback: Callback<ContainerStats>): void;
+        stats(options: { stream: true }, callback: Callback<NodeJS.ReadableStream>): void;
         stats(callback: Callback<ContainerStats>): void;
-        stats(options?: {}): Promise<ContainerStats>;
+        stats(options?: { stream?: false, 'one-shot'?: boolean }): Promise<ContainerStats>;
+        stats(options?: { stream: true }): Promise<NodeJS.ReadableStream>;
 
         attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
         attach(options: {}): Promise<NodeJS.ReadWriteStream>;

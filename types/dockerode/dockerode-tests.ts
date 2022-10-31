@@ -149,6 +149,41 @@ container.logs({ follow: true });
 // $ExpectType Promise<Buffer>
 container.logs({ follow: false });
 
+container.stats((err, logs) => {
+    // $ExpectType ContainerStats
+    logs;
+});
+
+container.stats({}, (err, logs) => {
+    // $ExpectType ContainerStats
+    logs;
+});
+
+container.stats({ stream: true }, (err, logs) => {
+    // $ExpectType ReadableStream
+    logs;
+});
+
+container.stats({ stream: false }, (err, logs) => {
+    // $ExpectType ContainerStats
+    logs;
+});
+
+// $ExpectType Promise<ContainerStats>
+container.stats();
+
+// $ExpectType Promise<ContainerStats>
+container.stats({});
+
+// $ExpectType Promise<ContainerStats>
+container.stats({ 'one-shot': true });
+
+// $ExpectType Promise<ReadableStream>
+container.stats({ stream: true });
+
+// $ExpectType Promise<ContainerStats>
+container.stats({ stream: false });
+
 const abortController = new AbortController();
 container.wait({
     condition: 'next-exit',
