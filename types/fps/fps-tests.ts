@@ -10,6 +10,9 @@ const tickerWithInvalidOptions = fps({ dey: 1 });
 // $ExpectType void
 ticker.tick();
 
+// $ExpectType number
+ticker.rate;
+
 // $ExpectType void
 tickerWithOptions.tick();
 
