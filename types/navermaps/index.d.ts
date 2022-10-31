@@ -1312,6 +1312,108 @@ declare namespace naver.maps {
     }
 
     // --------------------------------------------------------------------------
+    //  static objects
+    // --------------------------------------------------------------------------
+    namespace Event {
+        function addDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
+        function addListener(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
+        function clearInstanceListeners(target: any): void;
+        function clearListeners(target: any, fromEventName: string): void;
+        function forward(source: any, fromEventName: string, target: any, toEventName: string): MapEventListener;
+        function hasListener(target: any, eventName: string): boolean;
+        function once(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
+        function removeDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
+        function removeDOMListener(listeners: DOMEventListener | DOMEventListener[]): void;
+        function removeListener(listeners: MapEventListener | MapEventListener[]): void;
+        function resumeDispatch(target: any, eventName: string): void;
+        function stopDispatch(target: any, eventName: string): void;
+        function trigger(target: any, eventName: string, eventObject?: any): void;
+    }
+
+    namespace EPSG3857 {
+        function fromCoordToPoint(coord: Coord): Point;
+        function fromLatLngToPoint(latlng: LatLng): Point;
+        function fromPointToCoord(point: Point): LatLng;
+        function fromPointToLatLng(point: Point): LatLng;
+        function getDestinationCoord(fromLatLng: LatLng, angle: number, meter: number): LatLng;
+        function getDistance(latlng1: LatLng, latlng2: LatLng): number;
+    }
+
+    namespace UTMK {
+        const name: string;
+        const pointPerMeter: number;
+        function fromCoordToPoint(latlng: LatLng): Point;
+        function fromCoordToUTMK(latlng: LatLng): Point;
+        function fromLatLngToPoint(latlng: LatLng): Point;
+        function fromLatLngToUTMK(latlng: LatLng): Point;
+        function fromPointToCoord(point: Point): LatLng;
+        function fromPointToLatLng(point: Point): LatLng;
+        function fromPointToUTMK(point: Point): Point;
+        function fromUTMKToCoord(utmk: Point): LatLng;
+        function fromUTMKToLatLng(utmk: Point): LatLng;
+        function fromUTMKToPoint(utmk: Point): Point;
+        function getDestinationCoord(fromLatLng: LatLng, angle: number, meter: number): LatLng;
+        function getDistance(latlng1: LatLng, latlng2: LatLng): number;
+    }
+
+    namespace UTMK_NAVER {
+        const name: string;
+        const pointPerMeter: number;
+        function fromCoordToNaver(latlng: LatLng): Point;
+        function fromLatLngToNaver(latlng: LatLng): Point;
+        function fromNaverToCoord(naverPoint: Point): LatLng;
+        function fromNaverToLatLng(naverPoint: Point): LatLng;
+        function fromNaverToPoint(naverPoint: Point): Point;
+        function fromNaverToUTMK(naverPoint: Point): Point;
+        function fromPointToNaver(point: Point): Point;
+        function fromUTMKToNaver(utmk: Point): Point;
+    }
+
+    namespace EPSG3857Coord {
+        function fromCoordToLatLng(coord: Point): LatLng;
+        function fromCoordToPoint(coord: Point): Point;
+        function fromEPSG3857ToLatLng(coord: Point): LatLng;
+        function fromEPSG3857ToPoint(coord: Point): Point;
+        function fromLatLngToCoord(coord: Coord): Point;
+        function fromLatLngToEPSG3857(coord: Coord): Point;
+        function fromPointToCoord(point: Point): Point;
+        function fromPointToEPSG3857(point: Point): Point;
+    }
+
+    namespace TM128 {
+        function fromCoordToPoint(latlng: Coord): Point;
+        function fromPointToCoord(point: Point): LatLng;
+    }
+
+    namespace TM128Coord {
+        function fromCoordToLatLng(tm128: Point): LatLng;
+        function fromCoordToPoint(tm128: Point): Point;
+        function fromLatLngToCoord(latlng: Coord): Point;
+        function fromLatLngToTM128(latlng: Coord): Point;
+        function fromPointToCoord(point: Point): Point;
+        function fromPointToTM128(point: Point): Point;
+        function fromTM128ToLatLng(tm128: Point): LatLng;
+        function fromTM128ToPoint(tm128: Point): Point;
+        function fromTM128ToUTMK(tm128: Point): Point;
+        function fromUTMKToTM128(utmk: Point): Point;
+    }
+
+    namespace UTMK_NAVERCoord {
+        function fromCoordToLatLng(n: Point): LatLng;
+        function fromCoordToPoint(n: Point): Point;
+        function fromLatLngToCoord(latlng: Coord): Point;
+        function fromPointToCoord(point: Point): Point;
+    }
+
+    namespace UTMKCoord {
+        // extends UTMK
+        function fromCoordToLatLng(utmk: Point): LatLng;
+        function fromCoordToPoint(utmk: Point): Point;
+        function fromLatLngToCoord(latlng: Coord): Point;
+        function fromPointToCoord(point: Point): Point;
+    }
+
+    // --------------------------------------------------------------------------
     //  submodules
     //  https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-Submodules.html
     // --------------------------------------------------------------------------
@@ -1555,11 +1657,51 @@ declare namespace naver.maps {
      * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-geocoder.html
      */
     namespace Service {
+        enum CoordinatesType {
+            LATLNG = 'epsg:4326',
+            UTMK = 'nhn:2048',
+            TM128 = 'nhn:128',
+            EPSG3857 = 'epsg:3857',
+        }
+
+        enum OrderType {
+            LEGAL_CODE = 'legalcode',
+            ADDR = 'addr',
+            ROAD_ADDR = 'roadaddr',
+            ADM_CODE = 'admcode',
+        }
+
+        enum ReverseGeocodeStatusName {
+            OK = 'ok',
+            NO_RESULTS = 'no results',
+            INVALID_REQUEST = 'invalid request',
+            UNKNOWN_ERROR_IO_ERROR = 'unknown error / io error',
+        }
+
+        enum ReverseGeocodeStatusCode {
+            CODE_0 = '0',
+            CODE_3 = '3',
+            CODE_100 = '100',
+            CODE_900 = '900',
+        }
+
+        enum GeocodeStatus {
+            OK = 'OK',
+            INVALID_REQUEST = 'INVALID_REQUEST',
+            SYSTEM_ERROR = 'SYSTEM_ERROR',
+        }
+
+        enum Status {
+            OK = 200,
+            ERROR = 500,
+        }
+
         interface ServiceOptions {
             sourcecrs?: CoordinatesType;
             targetcrs?: CoordinatesType;
-            orders?: OrderType | string;
+            orders?: OrderType;
         }
+
         interface GeocodeServiceOptions extends ServiceOptions {
             query: string;
             coordinate?: string;
@@ -1567,9 +1709,11 @@ declare namespace naver.maps {
             page?: number;
             count?: number;
         }
+
         interface ReverseServiceOptions extends ServiceOptions {
             coords: string | Coord | CoordLiteral;
         }
+
         interface AddressItem {
             address: string;
             addrdetail: {
@@ -1579,10 +1723,8 @@ declare namespace naver.maps {
                 dongmyun: string;
                 rest: string;
             };
-            point: {
-                x: string;
-                y: string;
-            };
+            isRoadAddress: boolean;
+            point: PointObjectLiteral;
         }
         interface AddressItemV2 {
             roadAddress: string;
@@ -1606,12 +1748,14 @@ declare namespace naver.maps {
             y: string;
             distance: string;
         }
+
         interface Meta {
             totalCount: number;
             page: number;
             count: number;
         }
         interface GeocodeResponse {
+            // Deprecated!! https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Service.html#toc28__anchor
             result: {
                 userquery: any;
                 total: number;
@@ -1624,15 +1768,18 @@ declare namespace naver.maps {
                 errorMessage: string;
             };
         }
+
         interface ReverseGeocodeStatus {
             code: ReverseGeocodeStatusCode;
             name: ReverseGeocodeStatusName;
             message: string;
         }
+
         interface ReverseGeocodeAddress {
             roadAddress: string;
             jibunAddress: string;
         }
+
         interface Coords {
             center: {
                 crs: string;
@@ -1640,6 +1787,7 @@ declare namespace naver.maps {
                 y: string;
             };
         }
+
         interface Land {
             type: string;
             name: string;
@@ -1647,14 +1795,17 @@ declare namespace naver.maps {
             number2: string;
             coords: Coords;
         }
+
         interface Area {
             name: string;
             coords: Coords;
         }
+
         interface Addition {
             type: string;
             value: string;
         }
+
         interface Region {
             area0: Area;
             area1: Area;
@@ -1668,6 +1819,7 @@ declare namespace naver.maps {
             addition3: Addition;
             addition4: Addition;
         }
+
         interface ResultItem {
             name: string;
             code: {
@@ -1677,7 +1829,9 @@ declare namespace naver.maps {
             };
             region: Region;
         }
+
         interface ReverseGeocodeResponse {
+            // Deprecated!! https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Service.html#toc29__anchor
             result: {
                 userquery: string;
                 total: number;
@@ -1689,42 +1843,9 @@ declare namespace naver.maps {
                 address: ReverseGeocodeAddress;
             };
         }
-        enum CoordinatesType {
-            LATLNG,
-            UTMK,
-            TM128,
-            EPSG3857,
-        }
-        enum OrderType {
-            LEGAL_CODE,
-            ADDR,
-            ROAD_ADDR,
-            ADM_CODE,
-        }
-        enum ReverseGeocodeStatusName {
-            OK,
-            NO_RESULTS,
-            INVALID_REQUEST,
-            UNKNOWN_ERROR_IO_ERROR,
-        }
-        enum ReverseGeocodeStatusCode {
-            CODE_0,
-            CODE_3,
-            CODE_100,
-            CODE_900,
-        }
-        enum GeocodeStatus {
-            OK,
-            INVALID_REQUEST,
-            SYSTEM_ERROR,
-        }
-        enum Status {
-            OK,
-            ERROR,
-        }
 
-        function fromAddrToCoord(): void;
-        function fromCoordToAddr(): void;
+        function fromAddrToCoord(options: GeocodeServiceOptions, callback?: (status: Status, response: GeocodeResponse) => void): void;
+        function fromCoordToAddr(options: ReverseServiceOptions, callback?: (status: Status, response: ReverseGeocodeResponse) => void): void;
         function geocode(
             options: GeocodeServiceOptions,
             callback?: (status: Status, response: GeocodeResponse) => void,
@@ -1735,7 +1856,6 @@ declare namespace naver.maps {
         ): void;
     }
 
-    function TransCoord(): void;
     namespace TransCoord {
         function fromEPSG3857ToLatLng(coord: Point): LatLng;
         function fromEPSG3857ToNaver(coord: Point): Point;
@@ -1757,119 +1877,5 @@ declare namespace naver.maps {
         function fromUTMKToLatLng(utmk: Point): LatLng;
         function fromUTMKToNaver(utmk: Point): Point;
         function fromUTMKToTM128(utmk: Point): Point;
-    }
-
-    function Event(): void;
-    namespace Event {
-        function addDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
-        function addListener(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
-        function clearInstanceListeners(target: any): void;
-        function clearListeners(target: any, fromEventName: string): void;
-        function forward(source: any, fromEventName: string, target: any, toEventName: string): MapEventListener;
-        function hasListener(target: any, eventName: string): boolean;
-        function once(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
-        function removeDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
-        function removeDOMListener(listeners: DOMEventListener | DOMEventListener[]): void;
-        function removeListener(listeners: MapEventListener | MapEventListener[]): void;
-        function resumeDispatch(target: any, eventName: string): void;
-        function stopDispatch(target: any, eventName: string): void;
-        function trigger(target: any, eventName: string, eventObject?: any): void;
-    }
-
-    // Projection
-    function EPSG3857(): void;
-    namespace EPSG3857 {
-        // implements Projection
-        function fromCoordToPoint(coord: Coord): Point;
-        function fromLatLngToPoint(latlng: LatLng): Point;
-        function fromPointToCoord(point: Point): LatLng;
-        function fromPointToLatLng(point: Point): LatLng;
-        function getDestinationCoord(fromLatLng: LatLng, angle: number, meter: number): LatLng;
-        function getDistance(latlng1: LatLng, latlng2: LatLng): number;
-    }
-
-    function UTMK(): void;
-    namespace UTMK {
-        let name: string;
-        let pointPerMeter: number;
-        function fromCoordToPoint(latlng: LatLng): Point;
-        function fromCoordToUTMK(latlng: LatLng): Point;
-        function fromLatLngToPoint(latlng: LatLng): Point;
-        function fromLatLngToUTMK(latlng: LatLng): Point;
-        function fromPointToCoord(point: Point): LatLng;
-        function fromPointToLatLng(point: Point): LatLng;
-        function fromPointToUTMK(point: Point): Point;
-        function fromUTMKToCoord(utmk: Point): LatLng;
-        function fromUTMKToLatLng(utmk: Point): LatLng;
-        function fromUTMKToPoint(utmk: Point): Point;
-        function getDestinationCoord(fromLatLng: LatLng, angle: number, meter: number): LatLng;
-        function getDistance(latlng1: LatLng, latlng2: LatLng): number;
-    }
-
-    function UTMK_NAVER(): void;
-    namespace UTMK_NAVER {
-        // extends UTMK
-        let name: string;
-        let pointPerMeter: number;
-        function fromCoordToNaver(latlng: LatLng): Point;
-        function fromLatLngToNaver(latlng: LatLng): Point;
-        function fromNaverToCoord(naverPoint: Point): LatLng;
-        function fromNaverToLatLng(naverPoint: Point): LatLng;
-        function fromNaverToPoint(naverPoint: Point): Point;
-        function fromNaverToUTMK(naverPoint: Point): Point;
-        function fromPointToNaver(point: Point): Point;
-        function fromUTMKToNaver(utmk: Point): Point;
-    }
-
-    function EPSG3857Coord(): void;
-    namespace EPSG3857Coord {
-        function fromCoordToLatLng(coord: Point): LatLng;
-        function fromCoordToPoint(coord: Point): Point;
-        function fromEPSG3857ToLatLng(coord: Point): LatLng;
-        function fromEPSG3857ToPoint(coord: Point): Point;
-        function fromLatLngToCoord(coord: Coord): Point;
-        function fromLatLngToEPSG3857(coord: Coord): Point;
-        function fromPointToCoord(point: Point): Point;
-        function fromPointToEPSG3857(point: Point): Point;
-    }
-
-    function TM128(): void;
-    namespace TM128 {
-        // extends TM128Coord
-        function fromCoordToPoint(latlng: Coord): Point;
-        function fromPointToCoord(point: Point): LatLng;
-    }
-
-    function TM128Coord(): void;
-    namespace TM128Coord {
-        // extends UTMK
-        function fromCoordToLatLng(tm128: Point): LatLng;
-        function fromCoordToPoint(tm128: Point): Point;
-        function fromLatLngToCoord(latlng: Coord): Point;
-        function fromLatLngToTM128(latlng: Coord): Point;
-        function fromPointToCoord(point: Point): Point;
-        function fromPointToTM128(point: Point): Point;
-        function fromTM128ToLatLng(tm128: Point): LatLng;
-        function fromTM128ToPoint(tm128: Point): Point;
-        function fromTM128ToUTMK(tm128: Point): Point;
-        function fromUTMKToTM128(utmk: Point): Point;
-    }
-
-    function UTMK_NAVERCoord(): void;
-    namespace UTMK_NAVERCoord {
-        // extends UTMK_NAVER
-        function fromCoordToLatLng(n: Point): LatLng;
-        function fromCoordToPoint(n: Point): Point;
-        function fromLatLngToCoord(latlng: Coord): Point;
-        function fromPointToCoord(point: Point): Point;
-    }
-
-    function UTMKCoord(): void;
-    namespace UTMKCoord {
-        // extends UTMK
-        function fromCoordToLatLng(utmk: Point): LatLng;
-        function fromCoordToPoint(utmk: Point): Point;
-        function fromLatLngToCoord(latlng: Coord): Point;
-        function fromPointToCoord(point: Point): Point;
     }
 }

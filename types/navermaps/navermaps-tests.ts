@@ -34,6 +34,106 @@ map.panTo(jeju);
 map.panToBounds(seoul);
 map.panBy(new naver.maps.Point(10, 10));
 
+/**
+ * Event Basic Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-event-simple.example.html
+ */
+naver.maps.Event.addListener(map, 'click', function (e) {});
+naver.maps.Event.addListener(map, 'keydown', function (e) {});
+
+
+/**
+ * Layer Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-street.example.html
+ */
+const street = new naver.maps.StreetLayer();
+naver.maps.Event.once(map, 'init', function () {
+    street.setMap(map);
+});
+
+/**
+ * Marker Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-5-marker-html-icon.example.html
+ */
+const htmlMarker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3606904, 127.1061625),
+    map: map,
+    icon: {
+        content: `<div>Marker</div>`,
+        size: new naver.maps.Size(22, 35),
+        anchor: new naver.maps.Point(11, 35)
+    }
+});
+const imageMarker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3849483, 127.1229117),
+    map: map,
+    icon: {
+        url: 'https://navermaps.github.io/maps.js.ncp/docs/img/example/sally.png',
+        size: new naver.maps.Size(50, 52),
+        origin: new naver.maps.Point(0, 0),
+        anchor: new naver.maps.Point(25, 26)
+    }
+})
+
+/**
+ * InfoWindow Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-infowindow-simple.example.html
+ */
+const infowindow = new naver.maps.InfoWindow({
+    content: `<div>InfoWindow Title</div>`
+});
+infowindow.open(map, htmlMarker);
+infowindow.close();
+
+/**
+ * Overlay(Rectangle, Circle, Ellipse) Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-shape-simple.example.html
+ */
+ const rectangle = new naver.maps.Rectangle({
+    map: map,
+    bounds: new naver.maps.LatLngBounds(
+        new naver.maps.LatLng(37.1793196, 125.8795594),
+        new naver.maps.LatLng(37.5398662, 126.3312422)
+    )
+});
+
+const circle = new naver.maps.Circle({
+    map: map,
+    center: new naver.maps.LatLng(37.3595953, 127.1053971),
+    radius: 20000,
+    fillColor: 'crimson',
+    fillOpacity: 0.8
+});
+
+const ellipse = new naver.maps.Ellipse({
+    map: map,
+    bounds: new naver.maps.LatLngBounds(
+        new naver.maps.LatLng(37.1793196, 127.6795594),
+        new naver.maps.LatLng(37.5398662, 128.4312422)
+    ),
+    strokeColor: 'yellowgreen',
+    strokeOpacity: 1,
+    strokeWeight: 3,
+    fillColor: 'yellowgreen',
+    fillOpacity: 0.3
+}); 
+
+/**
+ * Panorama Basic Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-panorama-simple.example.html
+ */
+const pano = new naver.maps.Panorama('pano', {
+    // panoId: "OregDk87L7tsQ35dcpp+Mg==":
+    position: new naver.maps.LatLng(37.3599605, 127.1058814),
+    pov: {
+        pan: -135,
+        tilt: 29,
+        fov: 100
+    },
+    flightSpot: true
+});
+
+
 /*
  * LatLng
  */
