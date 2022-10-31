@@ -5304,6 +5304,10 @@ declare namespace Xrm {
              * ID of the selected stage in business process instance.
              */
             selectedStageId?: string | undefined;
+            /**
+             * Sets the focus on the tab of the form.
+             */
+            tabName?: string | undefined;
         }
 
         interface PageInputEntityList {
