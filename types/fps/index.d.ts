@@ -6,12 +6,10 @@
 export as namespace fps;
 
 interface FPSOptions {
-    last?: number;
-    rate?: number;
-    time?: number;
+    /** How many frames to tick before emitting. Defaults to 1. */
     decay?: number;
+    /** The rate of change between old and new results. 1 is instantaneous, 0 is never. */
     every?: number;
-    ticks?: number;
 }
 
 interface FPSObject {
