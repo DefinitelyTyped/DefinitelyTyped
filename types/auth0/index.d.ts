@@ -1197,10 +1197,10 @@ export interface Organization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1216,10 +1216,10 @@ export interface CreateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1231,7 +1231,7 @@ export interface UpdateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
               };

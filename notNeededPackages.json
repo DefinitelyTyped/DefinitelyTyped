@@ -3687,6 +3687,10 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-std-serializers": {
+            "libraryName": "pino-std-serializers",
+            "asOfVersion": "4.0.0"
+        },
         "pixi-spine": {
             "libraryName": "pixi-spine",
             "asOfVersion": "1.4.2"
