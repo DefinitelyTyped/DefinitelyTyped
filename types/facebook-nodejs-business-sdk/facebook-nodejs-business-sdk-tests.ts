@@ -1,4 +1,5 @@
 import { AdAccount, FacebookAdsApi } from 'facebook-nodejs-business-sdk';
+import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 
 async function testGetAds(): Promise<Record<string, string>[]> {
     const ads = [];
@@ -22,3 +23,5 @@ async function testGetAds(): Promise<Record<string, string>[]> {
 
     return ads;
 }
+
+throw new FacebookRequestError({}, 'GET', 'url', 'data');

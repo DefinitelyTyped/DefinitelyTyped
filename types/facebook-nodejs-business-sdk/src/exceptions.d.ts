@@ -1,8 +1,13 @@
-declare function FacebookError(error: any): void;
-declare namespace FacebookError {
-    var prototype: any;
+declare class FacebookError extends Error {
+    constructor(error: any);
 }
-export declare class FacebookRequestError extends FacebookError {
+
+export class FacebookRequestError extends FacebookError {
+    response: any;
+    method: any;
+    url: any;
+    data: any;
+
     constructor(response: any, method: any, url: any, data: any);
 }
 export {};
