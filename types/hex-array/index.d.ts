@@ -39,7 +39,7 @@ export function fromString(string: string): Uint8Array;
  * representation.
  *
  * @param array a Uint8Array buffer to convert
- * @param options an optional object
+ * @param [options] an optional object
  *
  * @returns a hexadecimal string representing the buffer.
  */
