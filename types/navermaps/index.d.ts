@@ -955,21 +955,21 @@ declare namespace naver.maps {
      * NaverStyleMapTypeOptions
      */
     class NaverStyleMapTypeOptions {
-        constructor(options: StyleMapTypeOptions);
-        static getBicycleLayer(opts: ImageMapTypeOptions): ImageMapType;
-        static getBlankMap(opts: ImageMapTypeOptions): ImageMapType;
-        static getCadastralLayer(opts: ImageMapTypeOptions): ImageMapType;
-        static getHybridMap(opts: ImageMapTypeOptions): ImageMapType;
-        static getMapTypes(opts: ImageMapTypeOptions): ImageMapType;
-        static getNormalLabelLayer(opts: ImageMapTypeOptions): ImageMapType;
-        static getNormalMap(opts: ImageMapTypeOptions): ImageMapType;
-        static getSatelliteLabelLayer(opts: ImageMapTypeOptions): ImageMapType;
-        static getSatelliteMap(opts: ImageMapTypeOptions): ImageMapType;
-        static getStreetLayer(opts: ImageMapTypeOptions): ImageMapType;
-        static getTerrainMap(opts: ImageMapTypeOptions): ImageMapType;
-        static getTrafficLayer(opts: ImageMapTypeOptions): ImageMapType;
-        static getVectorMap(opts: ImageMapTypeOptions): ImageMapType;
-        static getWorldMap(opts: ImageMapTypeOptions): ImageMapType;
+        constructor(options?: StyleMapTypeOptions);
+        static getBicycleLayer(opts?: ImageMapTypeOptions): ImageMapType;
+        static getBlankMap(opts?: ImageMapTypeOptions): ImageMapType;
+        static getCadastralLayer(opts?: ImageMapTypeOptions): ImageMapType;
+        static getHybridMap(opts?: ImageMapTypeOptions): ImageMapType;
+        static getMapTypes(opts?: ImageMapTypeOptions): ImageMapType;
+        static getNormalLabelLayer(opts?: ImageMapTypeOptions): ImageMapType;
+        static getNormalMap(opts?: ImageMapTypeOptions): ImageMapType;
+        static getSatelliteLabelLayer(opts?: ImageMapTypeOptions): ImageMapType;
+        static getSatelliteMap(opts?: ImageMapTypeOptions): ImageMapType;
+        static getStreetLayer(opts?: ImageMapTypeOptions): ImageMapType;
+        static getTerrainMap(opts?: ImageMapTypeOptions): ImageMapType;
+        static getTrafficLayer(opts?: ImageMapTypeOptions): ImageMapType;
+        static getVectorMap(opts?: ImageMapTypeOptions): ImageMapType;
+        static getWorldMap(opts?: ImageMapTypeOptions): ImageMapType;
     }
 
     // Deprecated!!
@@ -1699,7 +1699,7 @@ declare namespace naver.maps {
         interface ServiceOptions {
             sourcecrs?: CoordinatesType;
             targetcrs?: CoordinatesType;
-            orders?: OrderType;
+            orders?: string;
         }
 
         interface GeocodeServiceOptions extends ServiceOptions {
