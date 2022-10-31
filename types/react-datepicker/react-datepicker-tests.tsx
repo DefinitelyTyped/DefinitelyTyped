@@ -196,6 +196,7 @@ const topLogger: Modifier<'topLogger'> = {
     portalHost={document.body.shadowRoot!}
     wrapperClassName=""
     weekAriaLabelPrefix=""
+    monthAriaLabelPrefix=""
     excludeScrollbar={false}
     enableTabLoop={false}
     yearDropdownItemNumber={1}
