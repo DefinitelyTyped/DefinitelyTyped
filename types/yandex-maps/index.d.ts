@@ -627,6 +627,37 @@ declare namespace ymaps {
             state?: {} | undefined;
         }
 
+        class RoutePanel implements IControl, ICustomizable {
+            constructor(parameters?: IRoutePanelParameters);
+
+            events: IEventManager;
+            options: IOptionManager;
+            routePanel: IRoutePanel;
+
+            getParent(): null | IControlParent;
+
+            setParent(parent: IControlParent): this;
+        }
+
+        interface IRoutePanelParameters {
+            options?: {
+                autofocus?: boolean | undefined;
+                float?: "none" | "left" | "right" | undefined;
+                floatIndex?: number | undefined;
+                maxWidth?: string | undefined;
+                position?: {
+                    bottom?: number | string | undefined;
+                    left?: number | string | undefined;
+                    right?: number | string | undefined;
+                    top?: number | string | undefined;
+                } | undefined;
+                showHeader?: boolean | undefined;
+                title?: string | undefined;
+                visible?: boolean | undefined;
+            } | undefined;
+            state?: {} | undefined;
+        }
+        
         class RulerControl extends Button {
             constructor(parameters?: IRulerControlParameters);
         }
