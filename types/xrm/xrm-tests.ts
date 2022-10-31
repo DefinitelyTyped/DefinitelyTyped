@@ -586,3 +586,17 @@ function onStageChange(context: Xrm.Events.StageChangeEventContext) {
     // Prevent defaults
     context.getEventArgs().preventDefault();
 }
+
+// Demonstrate Navigating to a specific tab
+Xrm.Navigation.navigateTo({
+    pageType: "entityrecord",
+    entityName: "account",
+    tabName: "tab"
+}).then(
+    (success) => {
+        console.log("Entity opened");
+    },
+    (error) => {
+        console.log(error.message);
+    },
+);
