@@ -747,7 +747,7 @@ declare namespace Dockerode {
     interface ContainerStats {
         read: string;
         preread: string;
-        pid_stats?: PidsStats;
+        pids_stats?: PidsStats;
         blkio_stats?: BlkioStats;
         num_procs: number;
         storage_stats?: StorageStats;
