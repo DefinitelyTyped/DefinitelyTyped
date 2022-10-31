@@ -191,9 +191,15 @@ declare namespace i18n {
     interface Replacements {
         [key: string]: string;
     }
-
-    interface LocaleCatalog {
+    /**
+     * This interface represents a plural translation.
+     * e.g. { one: "you have 1 friend", other: "you have many friends" }
+     */
+    interface Plurals {
         [key: string]: string;
+    }
+    interface LocaleCatalog {
+        [key: string]: string | Plurals;
     }
     interface GlobalCatalog {
         [key: string]: LocaleCatalog;

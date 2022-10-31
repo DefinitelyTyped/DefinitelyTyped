@@ -21,8 +21,8 @@ import * as Koa from "koa";
 
 declare module "koa" {
     interface Request {
-        // any declaration breaks types intellisense and type safety, keep it at least Record<string, unknown>
-        body?: Record<string, unknown>;
+        // Fix #62921
+        body?: any;
         rawBody: string;
     }
 }

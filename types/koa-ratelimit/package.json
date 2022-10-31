@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/redis": "^2.8.0"
+        "ioredis": "^5.2.3"
     }
 }

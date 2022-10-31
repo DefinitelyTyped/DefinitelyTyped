@@ -8,8 +8,8 @@ export {}; // Don't export anything!
 
 // This conditional type will be the existing global Event in a browser, or
 // the copy below in a Node environment.
-type __Event = typeof globalThis extends { onmessage: any, Event: infer T }
-? T
+type __Event = typeof globalThis extends { onmessage: any, Event: any }
+? {}
 : {
     /** This is not used in Node.js and is provided purely for completeness. */
     readonly bubbles: boolean;
@@ -48,8 +48,8 @@ type __Event = typeof globalThis extends { onmessage: any, Event: infer T }
 };
 
 // See comment above explaining conditional type
-type __EventTarget = typeof globalThis extends { onmessage: any, EventTarget: infer T }
-? T
+type __EventTarget = typeof globalThis extends { onmessage: any, EventTarget: any }
+? {}
 : {
     /**
      * Adds a new handler for the `type` event. Any given `listener` is added only once per `type` and per `capture` option value.

@@ -12,7 +12,7 @@ declare namespace debounce {
 
 declare function debounce<T extends (...args: any[]) => any>(
     func: T,
-    wait?: number,
+    wait?: number | (() => number),
     options?: debounce.DebounceOptions
 ): (
     ...args: Parameters<T>
