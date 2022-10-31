@@ -1431,11 +1431,6 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    interface ServiceCreateResponse {
-        ID: string;
-        Warnings?: string[] | undefined;
-    }
-
     interface ServiceListOptions {
         filters: {
             id?: string[] | undefined;
@@ -1921,9 +1916,9 @@ declare class Dockerode {
     createVolume(callback: Callback<Dockerode.Volume>): void;
     createVolume(options?: Dockerode.VolumeCreateOptions): Promise<Dockerode.VolumeCreateResponse>;
 
-    createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.ServiceCreateResponse>): void;
-    createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.ServiceCreateResponse>;
-    createService(auth: Dockerode.AuthConfig, options: Dockerode.ServiceSpec): Promise<Dockerode.ServiceCreateResponse>;
+    createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.Service>): void;
+    createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.Service>;
+    createService(auth: Dockerode.AuthConfig, options: Dockerode.ServiceSpec): Promise<Dockerode.Service>;
 
     createNetwork(options: Dockerode.NetworkCreateOptions, callback: Callback<Dockerode.Network>): void;
     createNetwork(options: Dockerode.NetworkCreateOptions): Promise<Dockerode.Network>;
