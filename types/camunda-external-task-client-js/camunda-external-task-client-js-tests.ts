@@ -11,6 +11,7 @@ import {
 new Client({ baseUrl: '' }); // $ExpectType Client
 new Variables(); // $ExpectType Variables
 new Variables().set('a', 42).getAllTyped(); // $ExpectType TypedValueMap
+new Variables().setTransient('b', { status: '200' }); // $ExpectType Variables
 
 const authInput = {
     username: 'username',
