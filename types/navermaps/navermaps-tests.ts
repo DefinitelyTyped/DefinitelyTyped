@@ -142,14 +142,14 @@ expectType<naver.maps.LatLng>(new naver.maps.LatLng(37.3595704, 127.105399));
  */
 expectType<naver.maps.Point>(new naver.maps.Point(1, 1));
 
- /**
+/**
   * LatLngBounds
   */
 new naver.maps.LatLngBounds([-100, -90, 100, 90]);
 new naver.maps.LatLngBounds(new naver.maps.LatLng(37.5, 126.9), new naver.maps.LatLng(37.5, 126.9));
 expectType<naver.maps.LatLngBounds>(naver.maps.LatLngBounds.bounds(new naver.maps.LatLng(-180, -90), new naver.maps.LatLng(0, 0)));
 
- /**
+/**
   * PointBounds
   */
 new naver.maps.PointBounds([0, 0, 10, 10]);
