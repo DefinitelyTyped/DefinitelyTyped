@@ -100,6 +100,7 @@ export interface EditorConfig {
 }
 
 export interface Features {
+    readonly audit?: boolean | undefined;
     readonly preview?: boolean | undefined;
     readonly imageEditor?: boolean | undefined;
     readonly undoRedo?: boolean | undefined;
