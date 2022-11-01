@@ -2499,7 +2499,7 @@
         },
         "kakao-js-sdk": {
             "libraryName": "kakao-js-sdk",
-            "asOfVersion": "1.1.4"
+            "asOfVersion": "2.0.0"
         },
         "karma-viewport": {
             "libraryName": "karma-viewport",
