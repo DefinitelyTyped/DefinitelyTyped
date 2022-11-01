@@ -14,164 +14,152 @@ export default class Application extends AbstractCrudObject {
     static get LoggingSource(): Record<string, any>;
     static get LoggingTarget(): Record<string, any>;
     deleteAccounts(params?: Record<string, any>): Promise<any>;
-    getAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAccount(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createActivity(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getAdPlacementGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdNetworkPlacements(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdNetworkAnalytics(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdPlacementGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdNetworkPlacements(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdNetworkAnalytic(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAemConversionConfigs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAemConversionFilter(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAemConversionConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAemConversionFilter(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAemConversion(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createAemSkanReadiness(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAggregateRevenue(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getAndroidDialogConfigs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAppEventTypes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAndroidDialogConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAppEventTypes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAppIndexing(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
     createAppIndexingSession(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getAppInstalledGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAppInstalledGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAppPushDeviceToken(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getAppAssets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAsset(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Application>;
-    getAuthorizedAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAppAssets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAsset(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Application>;
+    getAuthorizedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteBanned(params?: Record<string, any>): Promise<any>;
     getButtonAutoDetectionDeviceSelection(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
-    getCloudbridgeSettings(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCloudbridgeSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCodelessEventMapping(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getDaChecks(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getEvents(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getInsightsPushSchedule(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDaChecks(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getInsightsPushSchedule(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createInsightsPushSchedule(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getIosDialogConfigs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getIosDialogConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createLeaderboardsCreate(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
     createLeaderboardsDeleteEntry(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
     createMmpAuditing(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getMobileSdkGk(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getMonetizedDigitalStoreObjects(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
+    getMobileSdkGk(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getMonetizedDigitalStoreObjects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createMonetizedDigitalStoreObject(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getObjectTypes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getObjectTypes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOccludesPopup(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createPageActivity(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
     createPaymentCurrency(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getPermissions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getProducts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPurchases(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getRoles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getSubscribedDomains(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPermissions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPurchases(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getRoles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getSubscribedDomains(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createSubscribedDomain(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getSubscribedDomainsPhishing(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getSubscribedDomainsPhishing(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createSubscribedDomainsPhishing(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
     deleteSubscriptions(params?: Record<string, any>): Promise<any>;
     createSubscription(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    createUpload(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
+    createUpload(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createUserProperty(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<Application>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<Application>;
+    get(fields: string[], params?: Record<string, any>): Promise<Application>;
+    update(fields: string[], params?: Record<string, any>): Promise<Application>;
 }

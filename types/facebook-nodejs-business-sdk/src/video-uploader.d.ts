@@ -6,7 +6,7 @@ declare class VideoUploader {
     upload(video: AdVideo, waitForEncoding: boolean): Record<string, any>;
 }
 interface SlideshowSpec {
-    images_urls: Array<string>;
+    images_urls: string[];
     duration_ms: number;
     transition_ms: number;
 }
@@ -85,7 +85,7 @@ declare class VideoUploadRequest {
     _files: Record<string, any>;
     _api: FacebookAdsApi;
     constructor(api: FacebookAdsApi);
-    send(path: string | Array<string>): Record<string, any>;
+    send(path: string | string[]): Record<string, any>;
     setParams(params: Record<string, any>, files?: Record<string, any>): void;
 }
 declare namespace VideoEncodingStatusChecker {

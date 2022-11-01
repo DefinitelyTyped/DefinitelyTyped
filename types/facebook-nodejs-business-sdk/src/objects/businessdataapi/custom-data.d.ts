@@ -3,7 +3,7 @@ import UserData from './user-data';
 export default class CustomData {
     _value: number;
     _currency: string;
-    _contents: Array<Content>;
+    _contents: Content[];
     _order_id: string;
     _status: string;
     _shipping_contact: UserData;
@@ -14,7 +14,7 @@ export default class CustomData {
     constructor(
         value: number,
         currency: string,
-        contents: Array<Content>,
+        contents: Content[],
         order_id: string,
         status: string,
         shipping_contact: UserData,
@@ -29,9 +29,9 @@ export default class CustomData {
     get currency(): string;
     set currency(currency: string);
     setCurrency(currency: string): CustomData;
-    get contents(): Array<Content>;
-    set contents(contents: Array<Content>);
-    setContents(contents: Array<Content>): CustomData;
+    get contents(): Content[];
+    set contents(contents: Content[]);
+    setContents(contents: Content[]): CustomData;
     get order_id(): string;
     set order_id(order_id: string);
     setOrderId(order_id: string): CustomData;

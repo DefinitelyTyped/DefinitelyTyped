@@ -26,186 +26,162 @@ export default class AdAccount extends AbstractCrudObject {
     static get ClaimObjective(): Record<string, any>;
     static get ContentType(): Record<string, any>;
     static get Subtype(): Record<string, any>;
-    getActivities(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdPlacePageSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getActivities(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdPlacePageSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdPlacePageSet(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdPlacePageSet>;
     createAdPlacePageSetsAsync(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdPlacePageSet>;
-    getAdSavedKeywords(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdCloudPlayables(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdCreatives(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdCreative(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdCreative>;
-    getAdCreativesByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdSavedKeywords(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdCloudPlayables(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdCreatives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdCreative(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdCreative>;
+    getAdCreativesByLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAdImages(params?: Record<string, any>): Promise<any>;
-    getAdImages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdImage(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdImage>;
-    getAdLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdLabel>;
-    getAdPlayables(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdImages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdImage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdImage>;
+    getAdLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdLabel>;
+    getAdPlayables(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdPlayable(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<PlayableContent>;
-    getAdRulesHistory(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdRulesLibrary(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdRulesLibrary(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdRule>;
-    getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAd(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
-    getAdsReportingMmmReports(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdsVolume(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdsByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdSet(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
-    getAdSetsByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdsPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdsPixel(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdsPixel>;
-    getAdvertisableApplications(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdRulesHistory(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdRulesLibrary(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdRulesLibrary(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdRule>;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAd(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
+    getAdsReportingMmmReports(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdsVolume(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdsByLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
+    getAdSetsByLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdsPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdsPixel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    getAdvertisableApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAdVideos(params?: Record<string, any>): Promise<any>;
-    getAdVideos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdVideo(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
-    getAffectedAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
+    getAffectedAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
-    getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getApplications(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAssignedUsers(params?: Record<string, any>): Promise<any>;
-    getAssignedUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAssignedUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAssignedUser(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdAccount>;
     createAsyncBatchRequest(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Campaign>;
-    getAsyncRequests(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAsyncAdRequestSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAsyncRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAsyncAdRequestSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAsyncAdRequestSet(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdAsyncRequestSet>;
     createBlockListDraft(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdAccount>;
-    getBroadTargetingCategories(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getBroadTargetingCategories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteCampaigns(params?: Record<string, any>): Promise<any>;
-    getCampaigns(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createCampaign(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Campaign>;
-    getCampaignsByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getConnectedInstagramAccounts(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
-    getCustomAudiences(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCampaigns(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createCampaign(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
+    getCampaignsByLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getConnectedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCustomAudiences(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomAudience(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomAudience>;
-    getCustomAudiencesTos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCustomAudiencesTos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomAudiencesTo(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdAccount>;
-    getCustomConversions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCustomConversions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomConversion(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomConversion>;
-    getDeliveryEstimate(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getDeprecatedTargetingAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getGeneratePreViews(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getImpactingAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDeliveryEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDeprecatedTargetingAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getGeneratePreViews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getImpactingAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsightsAsync(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdReportRun>;
-    getInstagramAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getIosFourteenCampaignLimits(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getIosFourteenCampaignLimits(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createManagedPartnerAd(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getMatchedSearchApplications(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getMaxBid(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getMinimumBudgets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getOfflineConversionDataSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getOnBehalfRequests(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getMatchedSearchApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getMaxBid(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getMinimumBudgets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOfflineConversionDataSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOnBehalfRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createProductAudience(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomAudience>;
-    getPromotePages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPublisherBlockLists(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPromotePages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPublisherBlockLists(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createPublisherBlockList(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<PublisherBlockList>;
-    getReachEstimate(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getReachFrequencyPredictions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getReachEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getReachFrequencyPredictions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createReachFrequencyPrediction(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ReachFrequencyPrediction>;
-    getSavedAudiences(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getSavedAudiences(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
-    getSubscribedApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getSubscribedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createSubscribedApp(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdAccountSubscribedApps>;
-    getTargetingBrowse(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getTargetingSearch(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getTargetingSentenceLines(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getTargetingSuggestions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getTargetingValidation(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getTracking(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createTracking(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdAccount>;
-    getUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getTargetingBrowse(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getTargetingSearch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getTargetingSentenceLines(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getTargetingSuggestions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getTargetingValidation(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getTracking(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createTracking(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
+    getUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteUsersOfAnyAudience(params?: Record<string, any>): Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<AdAccount>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<AdAccount>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdAccount>;
+    update(fields: string[], params?: Record<string, any>): Promise<AdAccount>;
 }

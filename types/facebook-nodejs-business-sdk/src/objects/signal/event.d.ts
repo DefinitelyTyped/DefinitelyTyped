@@ -14,7 +14,7 @@ export default class Event {
         event_id: string,
         opt_out: boolean,
         action_source: string,
-        data_processing_options: Array<string>,
+        data_processing_options: string[],
         data_processing_options_country: number,
         data_processing_options_state: number,
     );
@@ -42,9 +42,9 @@ export default class Event {
     get custom_data(): SignalCustomData;
     set custom_data(custom_data: SignalCustomData);
     setCustomData(custom_data: SignalCustomData): Event;
-    get data_processing_options(): Array<string>;
-    set data_processing_options(data_processing_options: Array<string>);
-    setDataProcessingOptions(data_processing_options: Array<string>): Event;
+    get data_processing_options(): string[];
+    set data_processing_options(data_processing_options: string[]);
+    setDataProcessingOptions(data_processing_options: string[]): Event;
     get data_processing_options_country(): number;
     set data_processing_options_country(data_processing_options_country: number);
     setDataProcessingOptionsCountry(data_processing_options_country: number): Event;

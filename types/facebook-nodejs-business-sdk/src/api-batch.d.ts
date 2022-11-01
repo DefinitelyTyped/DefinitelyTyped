@@ -4,21 +4,21 @@ declare class FacebookAdsApiBatch {
     _api: FacebookAdsApi;
     _files: Array<Record<string, any>>;
     _batch: Array<Record<string, any>>;
-    _successCallbacks: Array<(...args: Array<any>) => any>;
-    _failureCallbacks: Array<(...args: Array<any>) => any>;
-    _requests: Array<APIRequest>;
+    _successCallbacks: Array<(...args: any[]) => any>;
+    _failureCallbacks: Array<(...args: any[]) => any>;
+    _requests: APIRequest[];
     constructor(
         api: FacebookAdsApi,
-        successCallback?: (...args: Array<any>) => any,
-        failureCallback?: (...args: Array<any>) => any,
+        successCallback?: (...args: any[]) => any,
+        failureCallback?: (...args: any[]) => any,
     );
     add(
         method: string,
-        relativePath: Array<string> | string,
+        relativePath: string[] | string,
         params?: Record<string, any>,
         files?: Record<string, any>,
-        successCallback?: (...args: Array<any>) => any,
-        failureCallback?: (...args: Array<any>) => any,
+        successCallback?: (...args: any[]) => any,
+        failureCallback?: (...args: any[]) => any,
         request?: APIRequest,
     ): {
         attachedFiles: undefined | string;
@@ -29,8 +29,8 @@ declare class FacebookAdsApiBatch {
     };
     addRequest(
         request: APIRequest,
-        successCallback?: (...args: Array<any>) => any,
-        failureCallback?: (...args: Array<any>) => any,
+        successCallback?: (...args: any[]) => any,
+        failureCallback?: (...args: any[]) => any,
     ): {
         attachedFiles: undefined | string;
         body: undefined | string;

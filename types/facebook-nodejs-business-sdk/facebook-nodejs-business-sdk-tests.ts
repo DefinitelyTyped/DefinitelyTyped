@@ -1,7 +1,7 @@
 import { AdAccount, FacebookAdsApi } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 
-async function testGetAds(): Promise<Record<string, string>[]> {
+async function testGetAds(): Promise<Array<Record<string, string>>> {
     const ads = [];
 
     const fbAdsApi = new FacebookAdsApi('TOKEN');

@@ -17,7 +17,7 @@ export default class FacebookAdsApi {
     setShowHeader(flag: boolean): FacebookAdsApi;
     call(
         method: string,
-        path: string | Array<string>,
+        path: string | string[],
         params?: Record<string, any>,
         files?: Record<string, any>,
         useMultipartFormData?: boolean,

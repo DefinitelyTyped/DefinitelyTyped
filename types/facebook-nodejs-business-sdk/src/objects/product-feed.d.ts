@@ -12,39 +12,35 @@ export default class ProductFeed extends AbstractCrudObject {
     static get FeedType(): Record<string, any>;
     static get ItemSubType(): Record<string, any>;
     static get OverrideType(): Record<string, any>;
-    getAutomotiveModels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getDestinations(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getFlights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getHomeListings(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getHotels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getMediaTitles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getProducts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getRules(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createRule(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProductFeedRule>;
+    getAutomotiveModels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDestinations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getFlights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getHomeListings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getHotels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getMediaTitles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createRule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeedRule>;
     createSupplementaryFeedAssoc(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getUploadSchedules(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getUploadSchedules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createUploadSchedule(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductFeed>;
-    getUploads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getUploads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createUpload(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductFeedUpload>;
-    getVehicleOffers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getVehicles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<ProductFeed>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<ProductFeed>;
+    getVehicleOffers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getVehicles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductFeed>;
+    update(fields: string[], params?: Record<string, any>): Promise<ProductFeed>;
 }

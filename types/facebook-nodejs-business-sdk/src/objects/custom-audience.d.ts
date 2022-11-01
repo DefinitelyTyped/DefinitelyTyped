@@ -9,27 +9,23 @@ export default class CustomAudience extends AbstractCrudObject {
     static get Subtype(): Record<string, any>;
     static get ActionSource(): Record<string, any>;
     deleteAdAccounts(params?: Record<string, any>): Promise<any>;
-    getAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdAccount(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomAudience>;
-    getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getSessions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getSharedAccountInfo(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getSessions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getSharedAccountInfo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteUsers(params?: Record<string, any>): Promise<any>;
-    createUser(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<CustomAudience>;
+    createUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     createUsersReplace(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomAudience>;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<CustomAudience>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<CustomAudience>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<CustomAudience>;
+    update(fields: string[], params?: Record<string, any>): Promise<CustomAudience>;
 }

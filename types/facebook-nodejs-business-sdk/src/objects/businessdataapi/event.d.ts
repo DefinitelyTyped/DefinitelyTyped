@@ -6,7 +6,7 @@ export default class Event {
     _event_id: string;
     _user_data: UserData;
     _custom_data: CustomData;
-    _data_processing_options: Array<string>;
+    _data_processing_options: string[];
     _data_processing_options_state: number;
     _data_processing_options_country: number;
     constructor(
@@ -15,7 +15,7 @@ export default class Event {
         user_data: UserData,
         custom_data: CustomData,
         event_id: string,
-        data_processing_options: Array<string>,
+        data_processing_options: string[],
         data_processing_options_country: number,
         data_processing_options_state: number,
     );
@@ -29,8 +29,8 @@ export default class Event {
     set user_data(user_data: UserData);
     get custom_data(): CustomData;
     set custom_data(custom_data: CustomData);
-    get data_processing_options(): Array<string>;
-    set data_processing_options(data_processing_options: Array<string>);
+    get data_processing_options(): string[];
+    set data_processing_options(data_processing_options: string[]);
     get data_processing_options_country(): number;
     set data_processing_options_country(data_processing_options_country: number);
     get data_processing_options_state(): number;

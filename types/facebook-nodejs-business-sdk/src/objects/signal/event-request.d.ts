@@ -9,7 +9,7 @@ export default class EventRequest {
         access_token: string,
         pixel_id: string,
         page_id: string,
-        events?: Array<SignalEvent>,
+        events?: SignalEvent[],
         partner_agent?: string | null,
         test_event_code?: string | null,
         namespace_id?: string | null,
@@ -19,9 +19,9 @@ export default class EventRequest {
         debug_mode_flag?: boolean,
         http_service?: HttpServiceInterface | null,
     );
-    get events(): Array<SignalEvent>;
-    set events(events: Array<SignalEvent>);
-    setEvents(events: Array<SignalEvent>): EventRequest;
+    get events(): SignalEvent[];
+    set events(events: SignalEvent[]);
+    setEvents(events: SignalEvent[]): EventRequest;
     get partner_agent(): string;
     set partner_agent(partner_agent: string);
     setPartnerAgent(partner_agent: string): EventRequest;

@@ -21,27 +21,27 @@ export class AbstractCrudObject extends AbstractObject {
     getParentId(): string;
     getNodePath(): string;
     getApi(): FacebookAdsApi;
-    read(fields: Array<string>, params?: Record<string, any>): Promise<any>;
+    read(fields: string[], params?: Record<string, any>): Promise<any>;
     update(params?: Record<string, any>): Promise<any>;
     delete(params?: Record<string, any>): Promise<any>;
     getEdge(
         targetClass: Record<string, any>,
-        fields: Array<string>,
+        fields: string[],
         params: Record<string, any> | undefined,
         fetchFirstPage: boolean | undefined,
         endpoint: string | null | undefined,
     ): Cursor;
     createEdge(
         endpoint: string,
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
-        targetClassConstructor?: (...args: Array<any>) => any,
+        targetClassConstructor?: (...args: any[]) => any,
         pathOverride?: string | null,
     ): Promise<any>;
     deleteEdge(endpoint: string, params?: Record<string, any>): Promise<any>;
     static getByIds(
-        ids: Array<number>,
-        fields: Array<string>,
+        ids: number[],
+        fields: string[],
         params: Record<string, any> | undefined,
         api: FacebookAdsApi,
     ): Promise<any>;

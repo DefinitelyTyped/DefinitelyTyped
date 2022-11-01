@@ -4,8 +4,8 @@ export default class CustomData {
     _currency: string;
     _content_name: string;
     _content_category: string;
-    _content_ids: Array<string>;
-    _contents: Array<Content>;
+    _content_ids: string[];
+    _contents: Content[];
     _content_type: string;
     _order_id: string;
     _predicted_ltv: number;
@@ -20,8 +20,8 @@ export default class CustomData {
         currency: string,
         content_name: string,
         content_category: string,
-        content_ids: Array<string>,
-        contents: Array<Content>,
+        content_ids: string[],
+        contents: Content[],
         content_type: string,
         order_id: string,
         predicted_ltv: number,
@@ -44,12 +44,12 @@ export default class CustomData {
     get content_category(): string;
     set content_category(content_category: string);
     setContentCategory(content_category: string): CustomData;
-    get content_ids(): Array<string>;
-    set content_ids(content_ids: Array<string>);
-    setContentIds(content_ids: Array<string>): CustomData;
-    get contents(): Array<Content>;
-    set contents(contents: Array<Content>);
-    setContents(contents: Array<Content>): CustomData;
+    get content_ids(): string[];
+    set content_ids(content_ids: string[]);
+    setContentIds(content_ids: string[]): CustomData;
+    get contents(): Content[];
+    set contents(contents: Content[]);
+    setContents(contents: Content[]): CustomData;
     get content_type(): string;
     set content_type(content_type: string);
     setContentType(content_type: string): CustomData;

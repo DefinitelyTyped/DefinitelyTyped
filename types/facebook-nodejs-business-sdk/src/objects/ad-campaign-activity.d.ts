@@ -7,5 +7,5 @@ export default class AdCampaignActivity extends AbstractCrudObject {
     static get BillingEventOld(): Record<string, any>;
     static get OptimizationGoalNew(): Record<string, any>;
     static get OptimizationGoalOld(): Record<string, any>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<AdCampaignActivity>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdCampaignActivity>;
 }

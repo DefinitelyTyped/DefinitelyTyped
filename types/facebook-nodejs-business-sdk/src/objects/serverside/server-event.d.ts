@@ -9,7 +9,7 @@ export default class ServerEvent {
     _opt_out: boolean;
     _user_data: UserData;
     _custom_data: CustomData;
-    _data_processing_options: Array<string>;
+    _data_processing_options: string[];
     _data_processing_options_state: number;
     _data_processing_options_country: number;
     constructor(
@@ -21,7 +21,7 @@ export default class ServerEvent {
         event_id: string,
         opt_out: boolean,
         action_source: string,
-        data_processing_options: Array<string>,
+        data_processing_options: string[],
         data_processing_options_country: number,
         data_processing_options_state: number,
     );
@@ -49,9 +49,9 @@ export default class ServerEvent {
     get custom_data(): CustomData;
     set custom_data(custom_data: CustomData);
     setCustomData(custom_data: CustomData): ServerEvent;
-    get data_processing_options(): Array<string>;
-    set data_processing_options(data_processing_options: Array<string>);
-    setDataProcessingOptions(data_processing_options: Array<string>): ServerEvent;
+    get data_processing_options(): string[];
+    set data_processing_options(data_processing_options: string[]);
+    setDataProcessingOptions(data_processing_options: string[]): ServerEvent;
     get data_processing_options_country(): number;
     set data_processing_options_country(data_processing_options_country: number);
     setDataProcessingOptionsCountry(data_processing_options_country: number): ServerEvent;

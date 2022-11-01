@@ -8,8 +8,8 @@ export default class AdVideo extends AbstractCrudObject {
     get slideshow_spec(): SlideshowSpec | null | undefined;
     create(
         batch: FacebookAdsBatchApi,
-        failureHandler: (...args: Array<any>) => any,
-        successHandler: (...args: Array<any>) => any,
+        failureHandler: (...args: any[]) => any,
+        successHandler: (...args: any[]) => any,
     ): any;
     waitUntilEncodingReady(interval?: number, timeout?: number): void;
     getThumbnails(fields: Record<string, any>, params: Record<string, any>): Cursor;

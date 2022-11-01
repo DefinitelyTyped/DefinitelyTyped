@@ -17,9 +17,9 @@ export default class ProductItem extends AbstractCrudObject {
     static get MarkedForProductLaunch(): Record<string, any>;
     static get OriginCountry(): Record<string, any>;
     static get WaComplianceCategory(): Record<string, any>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getProductSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<ProductItem>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<ProductItem>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getProductSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductItem>;
+    update(fields: string[], params?: Record<string, any>): Promise<ProductItem>;
 }

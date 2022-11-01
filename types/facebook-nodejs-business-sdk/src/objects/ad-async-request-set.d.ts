@@ -4,8 +4,8 @@ import Cursor from './../cursor';
 export default class AdAsyncRequestSet extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get NotificationMode(): Record<string, any>;
-    getRequests(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<AdAsyncRequestSet>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<AdAsyncRequestSet>;
+    getRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdAsyncRequestSet>;
+    update(fields: string[], params?: Record<string, any>): Promise<AdAsyncRequestSet>;
 }

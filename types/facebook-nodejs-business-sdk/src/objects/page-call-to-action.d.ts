@@ -6,7 +6,7 @@ export default class PageCallToAction extends AbstractCrudObject {
     static get IphoneDestinationType(): Record<string, any>;
     static get Type(): Record<string, any>;
     static get WebDestinationType(): Record<string, any>;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<PageCallToAction>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<PageCallToAction>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<PageCallToAction>;
+    update(fields: string[], params?: Record<string, any>): Promise<PageCallToAction>;
 }

@@ -17,20 +17,20 @@ export default class Campaign extends AbstractCrudObject {
     static get Operator(): Record<string, any>;
     static get SpecialAdCategory(): Record<string, any>;
     static get StatusOption(): Record<string, any>;
-    getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
-    getAdRulesGoverned(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getCopies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createCopy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
-    getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
+    getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsightsAsync(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AdReportRun>;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<Campaign>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<Campaign>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<Campaign>;
+    update(fields: string[], params?: Record<string, any>): Promise<Campaign>;
 }

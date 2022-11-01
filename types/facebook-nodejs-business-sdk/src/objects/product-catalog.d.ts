@@ -19,130 +19,102 @@ export default class ProductCatalog extends AbstractCrudObject {
     static get Standard(): Record<string, any>;
     static get ItemSubType(): Record<string, any>;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
-    getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAgency(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProductCatalog>;
-    getArEffectsBatchStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAgency(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
+    getArEffectsBatchStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAssignedUsers(params?: Record<string, any>): Promise<any>;
-    getAssignedUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAssignedUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAssignedUser(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
-    getAutomotiveModels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createBatch(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProductCatalog>;
+    getAutomotiveModels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createBatch(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductCatalog>;
     createCatalogWebsiteSetting(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getCategories(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCategories(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCategory(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalogCategory>;
-    getCheckBatchRequestStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getCollaborativeAdsLsbImageBank(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
-    getCollaborativeAdsShareSettings(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
+    getCheckBatchRequestStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCollaborativeAdsLsbImageBank(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCollaborativeAdsShareSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCpasLsbImageBank(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getDataSources(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getDestinations(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getDiagnostics(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getEventStats(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDataSources(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDestinations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getDiagnostics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getEventStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteExternalEventSources(params?: Record<string, any>): Promise<any>;
-    getExternalEventSources(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getExternalEventSources(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createExternalEventSource(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
-    getFlights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getHomeListings(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getFlights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getHomeListings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createHomeListing(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<HomeListing>;
-    getHotelRoomsBatch(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getHotelRoomsBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createHotelRoomsBatch(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
-    getHotels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createHotel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Hotel>;
+    getHotels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createHotel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Hotel>;
     createItemsBatch(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
     createLocalizedItemsBatch(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
-    getMediaTitles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createMediaTitle(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<MediaTitle>;
-    getPricingVariablesBatch(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getMediaTitles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createMediaTitle(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<MediaTitle>;
+    getPricingVariablesBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createPricingVariablesBatch(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
-    getProductFeeds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getProductFeeds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createProductFeed(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductFeed>;
-    getProductGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getProductGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createProductGroup(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductGroup>;
-    getProductSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createProductSet(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProductSet>;
-    getProductSetsBatch(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getProducts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createProduct(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProductItem>;
-    getVehicleOffers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getVehicles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createVehicle(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Vehicle>;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<ProductCatalog>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<ProductCatalog>;
+    getProductSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createProductSet(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductSet>;
+    getProductSetsBatch(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createProduct(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductItem>;
+    getVehicleOffers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getVehicles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createVehicle(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Vehicle>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductCatalog>;
+    update(fields: string[], params?: Record<string, any>): Promise<ProductCatalog>;
 }

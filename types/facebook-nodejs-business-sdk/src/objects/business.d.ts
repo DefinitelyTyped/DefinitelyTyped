@@ -20,246 +20,202 @@ export default class Business extends AbstractCrudObject {
     static get PermittedTasks(): Record<string, any>;
     static get SurveyBusinessType(): Record<string, any>;
     static get PagePermittedTasks(): Record<string, any>;
-    createAccessToken(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
+    createAccessToken(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     deleteAdAccounts(params?: Record<string, any>): Promise<any>;
-    getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdStudy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
-    createAdAccount(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdAccount>;
+    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdStudy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
+    createAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
     createAdNetworkApplication(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Application>;
-    getAdNetworkAnalytics(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdNetworkAnalytic(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
-    getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdsReportingMmmReports(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdsPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdsPixel(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdsPixel>;
+    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdsReportingMmmReports(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdsPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createAdsPixel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
-    getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAnPlacements(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAnPlacements(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createBlockListDraft(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
-    getBusinessAssetGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getBusinessInvoices(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getBusinessUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getBusinessAssetGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getBusinessInvoices(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getBusinessUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createBusinessUser(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<BusinessUser>;
     createClaimCustomConversion(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomConversion>;
-    getClientAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getClientApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createClientApp(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
+    getClientAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getClientApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createClientApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     getClientOffsiteSignalContainerBusinessObjects(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
-    getClientPages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createClientPage(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getClientPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getClientProductCatalogs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getClientWhatsAppBusinessAccounts(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
+    getClientPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createClientPage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
+    getClientPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getClientProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getClientWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteClients(params?: Record<string, any>): Promise<any>;
-    getClients(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getClients(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCollaborativeAdsCollaborationRequests(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
     createCollaborativeAdsCollaborationRequest(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CPASCollaborationRequest>;
     getCollaborativeAdsSuggestedPartners(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
-    getCommerceMerchantSettings(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getCpasBusinessSetupConfig(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCommerceMerchantSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCpasBusinessSetupConfig(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCpasBusinessSetupConfig(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CPASBusinessSetupConfig>;
-    getCpasMerchantConfig(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getCreditCards(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCpasMerchantConfig(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCreditCards(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomConversion(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<CustomConversion>;
     createDraftNegativeKeywordList(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getEventSourceGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getEventSourceGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createEventSourceGroup(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<EventSourceGroup>;
-    getExtendedCreditApplications(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
-    getExtendedCredits(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getExtendedCreditApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getExtendedCredits(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInitiatedAudienceSharingRequests(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
     deleteInstagramAccounts(params?: Record<string, any>): Promise<any>;
-    getInstagramAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getInstagramBusinessAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getInstagramBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteManagedBusinesses(params?: Record<string, any>): Promise<any>;
     createManagedBusiness(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
     createManagedPartnerBusinessSetup(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
     deleteManagedPartnerBusinesses(params?: Record<string, any>): Promise<any>;
     createManagedPartnerBusiness(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createManagedPartnerChildBusinessAsset(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
-    getNegativeKeywordLists(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getOfflineConversionDataSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getNegativeKeywordLists(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOfflineConversionDataSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOfflineConversionDataSet(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
-    getOwnedAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOwnedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedAdAccount(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
-    getOwnedApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createOwnedApp(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
+    getOwnedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createOwnedApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
     deleteOwnedBusinesses(params?: Record<string, any>): Promise<any>;
-    getOwnedBusinesses(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOwnedBusinesses(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedBusiness(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<Business>;
-    getOwnedInstagramAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOwnedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getOwnedOffsiteSignalContainerBusinessObjects(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
-    getOwnedPages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createOwnedPage(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getOwnedPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getOwnedProductCatalogs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOwnedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createOwnedPage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
+    getOwnedPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getOwnedProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedProductCatalog(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<ProductCatalog>;
-    getOwnedWhatsAppBusinessAccounts(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
+    getOwnedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deletePages(params?: Record<string, any>): Promise<any>;
     createPartnerPremiumOption(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
-    getPendingClientAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPendingClientApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPendingClientPages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPendingOwnedAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPendingOwnedPages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPendingClientAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPendingClientApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPendingClientPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPendingOwnedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPendingOwnedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPendingSharedOffsiteSignalContainerBusinessObjects(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
-    getPendingUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getPicture(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPendingUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createPixelTo(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getReceivedAudienceSharingRequests(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         fetchFirstPage?: boolean,
     ): Cursor;
-    getSystemUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createSystemUser(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<SystemUser>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<Business>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<Business>;
+    getSystemUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createSystemUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<SystemUser>;
+    get(fields: string[], params?: Record<string, any>): Promise<Business>;
+    update(fields: string[], params?: Record<string, any>): Promise<Business>;
 }

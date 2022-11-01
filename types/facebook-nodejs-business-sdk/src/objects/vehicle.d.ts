@@ -11,13 +11,9 @@ export default class Vehicle extends AbstractCrudObject {
     static get StateOfVehicle(): Record<string, any>;
     static get Transmission(): Record<string, any>;
     static get VehicleType(): Record<string, any>;
-    getAugmentedRealitiesMetadata(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getVideosMetadata(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<Vehicle>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<Vehicle>;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    get(fields: string[], params?: Record<string, any>): Promise<Vehicle>;
+    update(fields: string[], params?: Record<string, any>): Promise<Vehicle>;
 }

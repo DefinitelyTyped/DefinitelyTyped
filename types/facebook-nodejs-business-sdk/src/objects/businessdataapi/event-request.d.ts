@@ -3,13 +3,13 @@ import EventResponse from './event-response';
 export default class EventRequest {
     _access_token: string;
     _page_id: string;
-    _events: Array<Event>;
+    _events: Event[];
     _partner_agent: string | null | undefined;
     _api: Record<string, any>;
-    constructor(access_token: string, page_id: string, events?: Array<Event>, partner_agent?: string | null);
-    get events(): Array<Event>;
-    set events(events: Array<Event>);
-    setEvents(events: Array<Event>): EventRequest;
+    constructor(access_token: string, page_id: string, events?: Event[], partner_agent?: string | null);
+    get events(): Event[];
+    set events(events: Event[]);
+    setEvents(events: Event[]): EventRequest;
     get partner_agent(): string | null | undefined;
     set partner_agent(partner_agent: string | null | undefined);
     setPartnerAgent(partner_agent: string): EventRequest;

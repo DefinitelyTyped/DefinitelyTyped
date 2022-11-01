@@ -10,8 +10,8 @@ export default class CustomData {
         currency: string,
         content_name: string,
         content_category: string,
-        content_ids: Array<string>,
-        contents: Array<SignalContent>,
+        content_ids: string[],
+        contents: SignalContent[],
         content_type: string,
         order_id: string,
         predicted_ltv: number,
@@ -33,9 +33,9 @@ export default class CustomData {
     get currency(): string;
     set currency(currency: string);
     setCurrency(currency: string): CustomData;
-    get contents(): Array<SignalContent>;
-    set contents(contents: Array<SignalContent>);
-    setContents(contents: Array<SignalContent>): CustomData;
+    get contents(): SignalContent[];
+    set contents(contents: SignalContent[]);
+    setContents(contents: SignalContent[]): CustomData;
     get order_id(): string;
     set order_id(order_id: string);
     setOrderId(order_id: string): CustomData;
@@ -48,9 +48,9 @@ export default class CustomData {
     get content_category(): string;
     set content_category(content_category: string);
     setContentCategory(content_category: string): CustomData;
-    get content_ids(): Array<string>;
-    set content_ids(content_ids: Array<string>);
-    setContentIds(content_ids: Array<string>): CustomData;
+    get content_ids(): string[];
+    set content_ids(content_ids: string[]);
+    setContentIds(content_ids: string[]): CustomData;
     get content_type(): string;
     set content_type(content_type: string);
     setContentType(content_type: string): CustomData;

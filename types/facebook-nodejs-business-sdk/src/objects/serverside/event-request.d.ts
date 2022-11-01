@@ -4,7 +4,7 @@ import ServerEvent from './server-event';
 export default class EventRequest {
     _access_token: string;
     _pixel_id: string;
-    _events: Array<ServerEvent>;
+    _events: ServerEvent[];
     _partner_agent: string | null | undefined;
     _test_event_code: string | null | undefined;
     _namespace_id: string | null | undefined;
@@ -17,7 +17,7 @@ export default class EventRequest {
     constructor(
         access_token: string,
         pixel_id: string,
-        events?: Array<ServerEvent>,
+        events?: ServerEvent[],
         partner_agent?: string | null,
         test_event_code?: string | null,
         namespace_id?: string | null,
@@ -27,9 +27,9 @@ export default class EventRequest {
         debug_mode_flag?: boolean,
         http_service?: HttpServiceInterface | null,
     );
-    get events(): Array<ServerEvent>;
-    set events(events: Array<ServerEvent>);
-    setEvents(events: Array<ServerEvent>): EventRequest;
+    get events(): ServerEvent[];
+    set events(events: ServerEvent[]);
+    setEvents(events: ServerEvent[]): EventRequest;
     get partner_agent(): string;
     set partner_agent(partner_agent: string);
     setPartnerAgent(partner_agent: string): EventRequest;

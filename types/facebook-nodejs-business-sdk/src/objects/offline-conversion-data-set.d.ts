@@ -6,38 +6,34 @@ export default class OfflineConversionDataSet extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get PermittedRoles(): Record<string, any>;
     static get RelationshipType(): Record<string, any>;
-    getAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdAccount(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
-    getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAgency(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
-    getAudiences(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getCustomConversions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createEvent(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getStats(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getUploads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAudiences(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getCustomConversions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    createEvent(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getUploads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createUpload(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<OfflineConversionDataSetUpload>;
     createValidate(
-        fields: Array<string>,
+        fields: string[],
         params?: Record<string, any>,
         pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
-    delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<OfflineConversionDataSet>;
-    update(fields: Array<string>, params?: Record<string, any>): Promise<OfflineConversionDataSet>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<OfflineConversionDataSet>;
+    update(fields: string[], params?: Record<string, any>): Promise<OfflineConversionDataSet>;
 }

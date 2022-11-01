@@ -1,5 +1,5 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
 export default class AsyncSession extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    get(fields: Array<string>, params?: Record<string, any>): Promise<AsyncSession>;
+    get(fields: string[], params?: Record<string, any>): Promise<AsyncSession>;
 }
