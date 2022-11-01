@@ -1225,12 +1225,16 @@ describe('', () => {
             three: 3,
             four: { four: 3 },
             date: new Date(),
+            dateTwo: Date,
+            list: [1, 2, 3],
         }).toMatchInlineSnapshot({
             one: expect.any(Number),
             // leave out two
             three: 3,
             four: { four: expect.any(Number) },
             date: expect.any(Date),
+            dateTwo: expect.any(Date),
+            list: expect.any(Array),
         });
 
         expect(jest.fn()).toReturn();
