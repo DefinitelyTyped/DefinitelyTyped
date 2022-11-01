@@ -34,13 +34,11 @@ declare namespace xhook {
     }
 }
 
-interface XHook {
+declare const xhook: {
     enable: () => void;
     disable: () => void;
     before: (handler: xhook.BeforeHandler, index?: number) => void;
     after: (handler: xhook.AfterHandler, index?: number) => void;
-}
-
-declare const xhook: XHook;
+};
 
 export = xhook;
