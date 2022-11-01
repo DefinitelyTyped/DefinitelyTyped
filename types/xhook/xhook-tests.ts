@@ -1,4 +1,4 @@
-import xhook from 'xhook';
+import xhook = require('xhook');
 
 xhook.disable();
 xhook.enable();
