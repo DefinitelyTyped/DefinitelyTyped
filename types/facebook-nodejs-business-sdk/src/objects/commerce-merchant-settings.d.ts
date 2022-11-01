@@ -6,7 +6,7 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     createAcknowledgeOrder(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceMerchantSettings>;
     getCommerceOrders(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCommercePayouts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -16,7 +16,7 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     createOrderManagementApp(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceMerchantSettings>;
     getProductCatalogs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getReturns(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -26,14 +26,14 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     createShippingProfile(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getShops(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getTaxSettings(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createWhatsappChannel(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<CommerceMerchantSettings>;
 }

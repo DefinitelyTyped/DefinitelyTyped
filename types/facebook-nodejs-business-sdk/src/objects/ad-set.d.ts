@@ -23,26 +23,18 @@ export default class AdSet extends AbstractCrudObject {
     getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdCreatives(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAdLabels(params?: Record<string, any>): Promise<any>;
-    createAdLabel(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdSet>;
+    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
     getAdRulesGoverned(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAsyncAdRequests(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCopies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createCopy(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdSet>;
+    createCopy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
     getDeliveryEstimate(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsightsAsync(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdReportRun>;
     getTargetingSentenceLines(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;

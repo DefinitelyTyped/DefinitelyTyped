@@ -11,7 +11,7 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
     createAssignedUser(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<WhatsAppBusinessAccount>;
     getAudiences(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getConversationAnalytics(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -20,27 +20,27 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
     createMessageTemplate(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<WhatsAppBusinessAccount>;
     getPhoneNumbers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createPhoneNumber(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     deleteProductCatalogs(params?: Record<string, any>): Promise<any>;
     getProductCatalogs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createProductCatalog(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ProductCatalog>;
     deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
     getSubscribedApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createSubscribedApp(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<WhatsAppBusinessAccount>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<WhatsAppBusinessAccount>;
 }

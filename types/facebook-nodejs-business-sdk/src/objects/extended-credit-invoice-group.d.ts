@@ -9,7 +9,7 @@ export default class ExtendedCreditInvoiceGroup extends AbstractCrudObject {
     createAdAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccount>;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<ExtendedCreditInvoiceGroup>;

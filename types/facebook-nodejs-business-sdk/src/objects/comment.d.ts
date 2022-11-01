@@ -8,18 +8,10 @@ export default class Comment extends AbstractCrudObject {
     static get LiveFilter(): Record<string, any>;
     static get Order(): Record<string, any>;
     getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createComment(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Comment>;
+    createComment(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     deleteLikes(params?: Record<string, any>): Promise<any>;
     getLikes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createLike(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Comment>;
+    createLike(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     getReactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<Comment>;

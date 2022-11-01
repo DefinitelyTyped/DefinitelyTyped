@@ -18,25 +18,17 @@ export default class Campaign extends AbstractCrudObject {
     static get SpecialAdCategory(): Record<string, any>;
     static get StatusOption(): Record<string, any>;
     getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdLabel(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Campaign>;
+    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
     getAdRulesGoverned(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCopies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createCopy(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Campaign>;
+    createCopy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
     getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsightsAsync(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdReportRun>;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<Campaign>;

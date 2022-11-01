@@ -9,13 +9,13 @@ export default class AdStudy extends AbstractCrudObject {
     createCheckPoint(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdStudy>;
     getInstances(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createInstance(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<PrivateLiftStudyInstance>;
     getObjectives(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;

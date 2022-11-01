@@ -6,7 +6,7 @@ export default class PublisherBlockList extends AbstractCrudObject {
     createAppEndPublisherUrl(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getPagedWebPublishers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;

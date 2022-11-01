@@ -10,32 +10,32 @@ export default class OfflineConversionDataSet extends AbstractCrudObject {
     createAdAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
     getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAgency(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
     getAudiences(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCustomConversions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createEvent(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getStats(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getUploads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createUpload(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<OfflineConversionDataSetUpload>;
     createValidate(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<OfflineConversionDataSet>;

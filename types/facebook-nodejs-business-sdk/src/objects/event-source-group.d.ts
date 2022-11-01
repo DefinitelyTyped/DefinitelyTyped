@@ -6,7 +6,7 @@ export default class EventSourceGroup extends AbstractCrudObject {
     createSharedAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<EventSourceGroup>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<EventSourceGroup>;
     update(fields: Array<string>, params?: Record<string, any>): Promise<EventSourceGroup>;

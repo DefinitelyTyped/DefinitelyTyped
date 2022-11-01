@@ -31,12 +31,12 @@ export default class AdAccount extends AbstractCrudObject {
     createAdPlacePageSet(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdPlacePageSet>;
     createAdPlacePageSetsAsync(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdPlacePageSet>;
     getAdSavedKeywords(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -45,65 +45,45 @@ export default class AdAccount extends AbstractCrudObject {
     createAdCreative(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdCreative>;
     getAdCreativesByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAdImages(params?: Record<string, any>): Promise<any>;
     getAdImages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdImage(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdImage>;
+    createAdImage(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdImage>;
     getAdLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdLabel(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdLabel>;
+    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdLabel>;
     getAdPlayables(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdPlayable(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<PlayableContent>;
     getAdRulesHistory(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdRulesLibrary(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdRulesLibrary(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdRule>;
     getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAd(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Ad>;
+    createAd(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
     getAdsReportingMmmReports(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdsVolume(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdsByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdSet(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdSet>;
+    createAdSet(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
     getAdSetsByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdsPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdsPixel(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdsPixel>;
     getAdvertisableApplications(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAdVideos(params?: Record<string, any>): Promise<any>;
     getAdVideos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdVideo(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdVideo>;
+    createAdVideo(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
     getAffectedAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
     getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -113,24 +93,24 @@ export default class AdAccount extends AbstractCrudObject {
     createAssignedUser(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccount>;
     createAsyncBatchRequest(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Campaign>;
     getAsyncRequests(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAsyncAdRequestSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAsyncAdRequestSet(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAsyncRequestSet>;
     createBlockListDraft(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccount>;
     getBroadTargetingCategories(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteCampaigns(params?: Record<string, any>): Promise<any>;
@@ -138,7 +118,7 @@ export default class AdAccount extends AbstractCrudObject {
     createCampaign(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Campaign>;
     getCampaignsByLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getConnectedInstagramAccounts(
@@ -150,19 +130,19 @@ export default class AdAccount extends AbstractCrudObject {
     createCustomAudience(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CustomAudience>;
     getCustomAudiencesTos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomAudiencesTo(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccount>;
     getCustomConversions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomConversion(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CustomConversion>;
     getDeliveryEstimate(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getDeprecatedTargetingAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -172,14 +152,14 @@ export default class AdAccount extends AbstractCrudObject {
     getInsightsAsync(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdReportRun>;
     getInstagramAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getIosFourteenCampaignLimits(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createManagedPartnerAd(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getMatchedSearchApplications(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getMaxBid(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -189,21 +169,21 @@ export default class AdAccount extends AbstractCrudObject {
     createProductAudience(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CustomAudience>;
     getPromotePages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPublisherBlockLists(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createPublisherBlockList(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<PublisherBlockList>;
     getReachEstimate(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getReachFrequencyPredictions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createReachFrequencyPrediction(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ReachFrequencyPrediction>;
     getSavedAudiences(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
@@ -211,7 +191,7 @@ export default class AdAccount extends AbstractCrudObject {
     createSubscribedApp(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccountSubscribedApps>;
     getTargetingBrowse(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getTargetingSearch(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -222,7 +202,7 @@ export default class AdAccount extends AbstractCrudObject {
     createTracking(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccount>;
     getUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteUsersOfAnyAudience(params?: Record<string, any>): Promise<any>;

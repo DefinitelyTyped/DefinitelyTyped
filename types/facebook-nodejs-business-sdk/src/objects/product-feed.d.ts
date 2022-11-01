@@ -23,24 +23,24 @@ export default class ProductFeed extends AbstractCrudObject {
     createRule(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ProductFeedRule>;
     createSupplementaryFeedAssoc(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getUploadSchedules(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createUploadSchedule(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ProductFeed>;
     getUploads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createUpload(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ProductFeedUpload>;
     getVehicleOffers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getVehicles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;

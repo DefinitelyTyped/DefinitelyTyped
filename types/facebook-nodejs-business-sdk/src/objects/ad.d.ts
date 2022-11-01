@@ -13,23 +13,15 @@ export default class Ad extends AbstractCrudObject {
     static get Operator(): Record<string, any>;
     static get StatusOption(): Record<string, any>;
     getAdCreatives(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdLabel(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Ad>;
+    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
     getAdRulesGoverned(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCopies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createCopy(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Ad>;
+    createCopy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
     getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsightsAsync(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdReportRun>;
     getLeads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPreViews(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;

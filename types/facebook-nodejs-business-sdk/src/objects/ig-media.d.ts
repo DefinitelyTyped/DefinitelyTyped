@@ -9,7 +9,7 @@ export default class IGMedia extends AbstractCrudObject {
     createComment(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<IGComment>;
     getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteProductTags(params?: Record<string, any>): Promise<any>;
@@ -17,7 +17,7 @@ export default class IGMedia extends AbstractCrudObject {
     createProductTag(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ShadowIGMediaProductTags>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<IGMedia>;
     update(fields: Array<string>, params?: Record<string, any>): Promise<IGMedia>;

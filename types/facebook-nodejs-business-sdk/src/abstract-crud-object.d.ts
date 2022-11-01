@@ -36,7 +36,7 @@ export class AbstractCrudObject extends AbstractObject {
         fields: Array<string>,
         params?: Record<string, any>,
         targetClassConstructor?: (...args: Array<any>) => any,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<any>;
     deleteEdge(endpoint: string, params?: Record<string, any>): Promise<any>;
     static getByIds(

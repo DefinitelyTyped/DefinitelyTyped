@@ -16,19 +16,11 @@ export default class Post extends AbstractCrudObject {
     static get TimelineVisibility(): Record<string, any>;
     getAttachments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createComment(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Comment>;
+    createComment(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     getDynamicPosts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteLikes(params?: Record<string, any>): Promise<any>;
-    createLike(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Post>;
+    createLike(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Post>;
     getReactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getSharedPosts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getSponsorTags(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;

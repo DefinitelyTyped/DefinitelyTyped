@@ -18,12 +18,12 @@ export default class Application extends AbstractCrudObject {
     createAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createActivity(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getAdPlacementGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdNetworkPlacements(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -31,7 +31,7 @@ export default class Application extends AbstractCrudObject {
     createAdNetworkAnalytic(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAemConversionConfigs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -39,42 +39,42 @@ export default class Application extends AbstractCrudObject {
     createAemConversion(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createAemSkanReadiness(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAggregateRevenue(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getAndroidDialogConfigs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAppEventTypes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAppIndexing(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     createAppIndexingSession(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getAppInstalledGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAppPushDeviceToken(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getAppAssets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAsset(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getAuthorizedAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deleteBanned(params?: Record<string, any>): Promise<any>;
@@ -87,7 +87,7 @@ export default class Application extends AbstractCrudObject {
     createCodelessEventMapping(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getDaChecks(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getEvents(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -95,23 +95,23 @@ export default class Application extends AbstractCrudObject {
     createInsightsPushSchedule(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getIosDialogConfigs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createLeaderboardsCreate(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     createLeaderboardsDeleteEntry(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     createMmpAuditing(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getMobileSdkGk(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getMonetizedDigitalStoreObjects(
@@ -122,23 +122,23 @@ export default class Application extends AbstractCrudObject {
     createMonetizedDigitalStoreObject(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getObjectTypes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOccludesPopup(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createPageActivity(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     createPaymentCurrency(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getPermissions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getProducts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -148,29 +148,29 @@ export default class Application extends AbstractCrudObject {
     createSubscribedDomain(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getSubscribedDomainsPhishing(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createSubscribedDomainsPhishing(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     deleteSubscriptions(params?: Record<string, any>): Promise<any>;
     createSubscription(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createUpload(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createUserProperty(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<Application>;
     update(fields: Array<string>, params?: Record<string, any>): Promise<Application>;

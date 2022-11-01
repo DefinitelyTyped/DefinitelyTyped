@@ -8,18 +8,18 @@ export default class CommerceOrder extends AbstractCrudObject {
     createAcknowledgeOrder(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     getCancellations(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCancellation(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     createFulfillOrder(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     getItems(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPayments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -29,24 +29,24 @@ export default class CommerceOrder extends AbstractCrudObject {
     createRefund(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     getReturns(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createReturn(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     getShipments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createShipment(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     createUpdateShipment(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CommerceOrder>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<CommerceOrder>;
 }

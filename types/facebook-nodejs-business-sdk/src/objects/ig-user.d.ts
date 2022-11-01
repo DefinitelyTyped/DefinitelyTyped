@@ -10,26 +10,22 @@ export default class IGUser extends AbstractCrudObject {
     getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getLiveMedia(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getMedia(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createMedia(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<IGMedia>;
+    createMedia(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<IGMedia>;
     createMediaPublish(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<IGMedia>;
     createMention(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getProductAppeal(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createProductAppeal(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getRecentlySearchedHashtags(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getStories(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;

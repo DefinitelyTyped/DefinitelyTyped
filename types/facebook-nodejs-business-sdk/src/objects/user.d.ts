@@ -17,30 +17,14 @@ export default class User extends AbstractCrudObject {
     static get Filtering(): Record<string, any>;
     static get Type(): Record<string, any>;
     deleteAccessTokens(params?: Record<string, any>): Promise<any>;
-    createAccessToken(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<User>;
+    createAccessToken(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAccount(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Page>;
+    createAccount(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
     getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdStudy(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdStudy>;
+    createAdStudy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
     getAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAlbums(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createApplication(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<User>;
+    createApplication(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getAppRequestFormerRecipients(
         fields: Array<string>,
         params?: Record<string, any>,
@@ -62,33 +46,29 @@ export default class User extends AbstractCrudObject {
     createBusiness(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getConversations(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCustomLabels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getEvents(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getFeed(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createFeed(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Post>;
+    createFeed(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Post>;
     getFriends(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getFundraisers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createFundraiser(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<FundraiserPersonToCharity>;
     createGameItem(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<GameItem>;
     createGameTime(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getIdsForApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -99,38 +79,30 @@ export default class User extends AbstractCrudObject {
     createLiveVideo(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<LiveVideo>;
     getMusic(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createNotification(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<User>;
     getPaymentTransactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     deletePermissions(params?: Record<string, any>): Promise<any>;
     getPermissions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPersonalAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPhotos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createPhoto(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Photo>;
+    createPhoto(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
     getPicture(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPosts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getRichMediaDocuments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createStagingResource(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<User>;
     getVideos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createVideo(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdVideo>;
+    createVideo(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<User>;
     update(fields: Array<string>, params?: Record<string, any>): Promise<User>;

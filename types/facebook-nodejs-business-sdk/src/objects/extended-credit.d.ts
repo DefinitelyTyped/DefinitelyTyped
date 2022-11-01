@@ -13,7 +13,7 @@ export default class ExtendedCredit extends AbstractCrudObject {
     createExtendedCreditInvoiceGroup(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ExtendedCreditInvoiceGroup>;
     getOwningCreditAllocationConfigs(
         fields: Array<string>,
@@ -23,12 +23,12 @@ export default class ExtendedCredit extends AbstractCrudObject {
     createOwningCreditAllocationConfig(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ExtendedCreditAllocationConfig>;
     createWhatsappCreditSharingAndAttach(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<ExtendedCredit>;
 }

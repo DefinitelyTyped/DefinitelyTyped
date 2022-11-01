@@ -23,30 +23,26 @@ export default class Business extends AbstractCrudObject {
     createAccessToken(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     deleteAdAccounts(params?: Record<string, any>): Promise<any>;
     getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAdStudy(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdStudy>;
+    createAdStudy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
     createAdAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdAccount>;
     createAdNetworkApplication(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Application>;
     getAdNetworkAnalytics(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAdNetworkAnalytic(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getAdsReportingMmmReports(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -54,7 +50,7 @@ export default class Business extends AbstractCrudObject {
     createAdsPixel(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AdsPixel>;
     deleteAgencies(params?: Record<string, any>): Promise<any>;
     getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -62,7 +58,7 @@ export default class Business extends AbstractCrudObject {
     createBlockListDraft(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getBusinessAssetGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getBusinessInvoices(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -70,19 +66,19 @@ export default class Business extends AbstractCrudObject {
     createBusinessUser(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<BusinessUser>;
     createClaimCustomConversion(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CustomConversion>;
     getClientAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getClientApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createClientApp(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getClientOffsiteSignalContainerBusinessObjects(
         fields: Array<string>,
@@ -93,7 +89,7 @@ export default class Business extends AbstractCrudObject {
     createClientPage(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getClientPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getClientProductCatalogs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -112,7 +108,7 @@ export default class Business extends AbstractCrudObject {
     createCollaborativeAdsCollaborationRequest(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CPASCollaborationRequest>;
     getCollaborativeAdsSuggestedPartners(
         fields: Array<string>,
@@ -124,25 +120,25 @@ export default class Business extends AbstractCrudObject {
     createCpasBusinessSetupConfig(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CPASBusinessSetupConfig>;
     getCpasMerchantConfig(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getCreditCards(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createCustomConversion(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<CustomConversion>;
     createDraftNegativeKeywordList(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getEventSourceGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createEventSourceGroup(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<EventSourceGroup>;
     getExtendedCreditApplications(
         fields: Array<string>,
@@ -162,49 +158,49 @@ export default class Business extends AbstractCrudObject {
     createManagedBusiness(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     createManagedPartnerBusinessSetup(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     deleteManagedPartnerBusinesses(params?: Record<string, any>): Promise<any>;
     createManagedPartnerBusiness(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     createManagedPartnerChildBusinessAsset(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getNegativeKeywordLists(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getOfflineConversionDataSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOfflineConversionDataSet(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<OfflineConversionDataSet>;
     getOwnedAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedAdAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getOwnedApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedApp(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     deleteOwnedBusinesses(params?: Record<string, any>): Promise<any>;
     getOwnedBusinesses(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedBusiness(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getOwnedInstagramAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getOwnedOffsiteSignalContainerBusinessObjects(
@@ -216,14 +212,14 @@ export default class Business extends AbstractCrudObject {
     createOwnedPage(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<Business>;
     getOwnedPixels(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getOwnedProductCatalogs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createOwnedProductCatalog(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<ProductCatalog>;
     getOwnedWhatsAppBusinessAccounts(
         fields: Array<string>,
@@ -234,7 +230,7 @@ export default class Business extends AbstractCrudObject {
     createPartnerPremiumOption(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getPendingClientAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getPendingClientApps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -251,7 +247,7 @@ export default class Business extends AbstractCrudObject {
     createPixelTo(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getReceivedAudienceSharingRequests(
         fields: Array<string>,
@@ -262,7 +258,7 @@ export default class Business extends AbstractCrudObject {
     createSystemUser(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<SystemUser>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<Business>;
     update(fields: Array<string>, params?: Record<string, any>): Promise<Business>;

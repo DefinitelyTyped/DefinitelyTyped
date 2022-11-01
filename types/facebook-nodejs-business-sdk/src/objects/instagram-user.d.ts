@@ -7,7 +7,7 @@ export default class InstagramUser extends AbstractCrudObject {
     createAuthorizedAdAccount(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<InstagramUser>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<InstagramUser>;
 }

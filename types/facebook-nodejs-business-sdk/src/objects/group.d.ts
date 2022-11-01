@@ -13,22 +13,14 @@ export default class Group extends AbstractCrudObject {
     static get Purpose(): Record<string, any>;
     static get GroupType(): Record<string, any>;
     deleteAdmins(params?: Record<string, any>): Promise<any>;
-    createAdmin(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Group>;
+    createAdmin(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
     getAlbums(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createAlbum(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Album>;
+    createAlbum(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Album>;
     getAttachmentSurfaces(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createAttachmentSurface(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getDocs(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getEvents(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
@@ -36,51 +28,31 @@ export default class Group extends AbstractCrudObject {
     createFeaturedCard(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getFeed(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createFeed(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Post>;
+    createFeed(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Post>;
     getFiles(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     getGroups(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createGroup(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Group>;
+    createGroup(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
     getLiveVideos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createLiveVideo(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<LiveVideo>;
     deleteMembers(params?: Record<string, any>): Promise<any>;
-    createMember(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Group>;
+    createMember(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
     getOptedInMembers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createPhoto(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<Photo>;
+    createPhoto(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
     getPicture(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     createShiftSetting(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<AbstractObject>;
     getVideos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createVideo(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<AdVideo>;
+    createVideo(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<Group>;
     update(fields: Array<string>, params?: Record<string, any>): Promise<Group>;
 }

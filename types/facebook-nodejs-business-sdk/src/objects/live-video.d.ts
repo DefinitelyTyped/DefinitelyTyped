@@ -22,14 +22,10 @@ export default class LiveVideo extends AbstractCrudObject {
     createInputStream(
         fields: Array<string>,
         params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
+        pathOverride?: string | null,
     ): Promise<LiveVideoInputStream>;
     getPolls(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    createPoll(
-        fields: Array<string>,
-        params?: Record<string, any>,
-        pathOverride?: string | null | undefined,
-    ): Promise<VideoPoll>;
+    createPoll(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null): Promise<VideoPoll>;
     getReactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
     delete(fields: Array<string>, params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: Array<string>, params?: Record<string, any>): Promise<LiveVideo>;

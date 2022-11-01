@@ -18,14 +18,14 @@ export default class EventRequest {
         access_token: string,
         pixel_id: string,
         events?: Array<ServerEvent>,
-        partner_agent?: string | null | undefined,
-        test_event_code?: string | null | undefined,
-        namespace_id?: string | null | undefined,
-        upload_id?: string | null | undefined,
-        upload_tag?: string | null | undefined,
-        upload_source?: string | null | undefined,
+        partner_agent?: string | null,
+        test_event_code?: string | null,
+        namespace_id?: string | null,
+        upload_id?: string | null,
+        upload_tag?: string | null,
+        upload_source?: string | null,
         debug_mode_flag?: boolean,
-        http_service?: HttpServiceInterface | null | undefined,
+        http_service?: HttpServiceInterface | null,
     );
     get events(): Array<ServerEvent>;
     set events(events: Array<ServerEvent>);

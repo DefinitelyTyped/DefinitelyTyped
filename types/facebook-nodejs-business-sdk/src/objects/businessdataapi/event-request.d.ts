@@ -6,12 +6,7 @@ export default class EventRequest {
     _events: Array<Event>;
     _partner_agent: string | null | undefined;
     _api: Record<string, any>;
-    constructor(
-        access_token: string,
-        page_id: string,
-        events?: Array<Event>,
-        partner_agent?: string | null | undefined,
-    );
+    constructor(access_token: string, page_id: string, events?: Array<Event>, partner_agent?: string | null);
     get events(): Array<Event>;
     set events(events: Array<Event>);
     setEvents(events: Array<Event>): EventRequest;
