@@ -8,12 +8,16 @@ let clientWithMultipleURLs = ldap.createClient({
     url: ['ldap://127.0.0.1:1389', 'ldap://127.0.0.2:1389'],
 });
 
-// @ts-expect-error
-client.port === 1389;
-client.port === '1389';
-client.host === '127.0.0.1';
-// $ExpectType boolean
-clientWithMultipleURLs.secure;
+client.on('connect', socket => {
+    // @ts-expect-error
+    client.port === 1389;
+    client.port === '1389';
+    client.host === '127.0.0.1';
+});
+clientWithMultipleURLs.on('connect', socket => {
+    // $ExpectType boolean
+    clientWithMultipleURLs.secure;
+});
 
 client.bind('cn=root', 'secret', (err: Error): void => {
     // nothing
