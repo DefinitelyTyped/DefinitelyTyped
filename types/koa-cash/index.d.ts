@@ -1,4 +1,4 @@
-// Type definitions for koa-cash 4.1.1
+// Type definitions for koa-cash 4.1
 // Project: https://github.com/koajs/cash
 // Definitions by: Jakob Goebel <https://github.com/jagoe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
