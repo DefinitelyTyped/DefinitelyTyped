@@ -1,6 +1,7 @@
 {
-  "extends": "./tsconfig.json",
-  "include": ["tmp/src/**/*.ts"],
+  "extends": "../tsconfig.json",
+  "include": ["facebook-nodejs-business-sdk/src/**/*.ts"],
+  "files": [],
   "compilerOptions": {
     "rootDir": ".",
     "noEmitOnError": false,
