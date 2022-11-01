@@ -88,9 +88,9 @@ declare class VideoUploadRequest {
     send(path: string | Array<string>): Record<string, any>;
     setParams(params: Record<string, any>, files?: Record<string, any>): void;
 }
-declare class VideoEncodingStatusChecker {
-    static waitUntilReady(api: FacebookAdsApi, videoId: number, interval: number, timeout: number): Promise<void>;
-    static getStatus(api: FacebookAdsApi, videoId: number): any;
+declare namespace VideoEncodingStatusChecker {
+    function waitUntilReady(api: FacebookAdsApi, videoId: number, interval: number, timeout: number): Promise<void>;
+    function getStatus(api: FacebookAdsApi, videoId: number): any;
 }
 export { VideoUploader, VideoUploadRequest, VideoEncodingStatusChecker };
 export type { SlideshowSpec };
