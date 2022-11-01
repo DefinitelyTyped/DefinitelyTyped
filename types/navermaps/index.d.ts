@@ -449,6 +449,7 @@ declare namespace naver.maps {
         strokeColor?: string;
         strokeWeight?: number;
         strokeOpacity?: number;
+        strokeStyle?: StrokeStyleType;
         anchor?: Point | PointLiteral | Position;
     }
 
