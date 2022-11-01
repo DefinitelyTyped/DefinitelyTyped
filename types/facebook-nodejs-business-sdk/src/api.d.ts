@@ -15,6 +15,13 @@ export default class FacebookAdsApi {
     getAppID(): Promise<any>;
     setDebug(flag: boolean): FacebookAdsApi;
     setShowHeader(flag: boolean): FacebookAdsApi;
-    call(method: string, path: string | Array<string> | String, params?: Record<string, any>, files?: Record<string, any>, useMultipartFormData?: boolean, urlOverride?: string): Promise<any>;
+    call(
+        method: string,
+        path: string | Array<string>,
+        params?: Record<string, any>,
+        files?: Record<string, any>,
+        useMultipartFormData?: boolean,
+        urlOverride?: string,
+    ): Promise<any>;
     static _encodeParams(params: Record<string, any>): string;
 }

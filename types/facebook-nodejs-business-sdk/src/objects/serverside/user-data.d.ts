@@ -153,6 +153,6 @@ export default class UserData {
     set doby(doby: string);
     setDoby(doby: string): UserData;
     normalize(): Record<string, any>;
-    normalizeAndHashMultiValues(arr: string[], fieldName: String): string[];
+    normalizeAndHashMultiValues(arr: string[], fieldName: string): string[];
     dedupArray(arr: string[]): string[];
 }
