@@ -46,8 +46,11 @@ naver.maps.Event.addListener(map, 'keydown', function (e) { });
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-4-street.example.html
  */
 const street = new naver.maps.StreetLayer();
+const cadastral = new naver.maps.CadastralLayer();
+
 naver.maps.Event.once(map, 'init', function () {
     street.setMap(map);
+    cadastral.setMap(map);
 });
 
 /**
@@ -71,6 +74,22 @@ const imageMarker = new naver.maps.Marker({
         size: new naver.maps.Size(50, 52),
         origin: new naver.maps.Point(0, 0),
         anchor: new naver.maps.Point(25, 26)
+    }
+});
+const symbolIconMarker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: map,
+    icon: {
+        path: [
+            new naver.maps.Point(0, 70), new naver.maps.Point(20, 100), new naver.maps.Point(40, 70),
+            new naver.maps.Point(30, 70), new naver.maps.Point(70, 0), new naver.maps.Point(10, 70)
+        ],
+        anchor: new naver.maps.Point(23, 103),
+        fillColor: '#ff0000',
+        fillOpacity: 1,
+        strokeColor: '#000000',
+        strokeStyle: 'solid',
+        strokeWeight: 3
     }
 });
 

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Naver Maps JavaScript API 3.0
+// Type definitions for non-npm package NAVER Maps JavaScript API 3.6
 // Project: https://navermaps.github.io/maps.js.ncp/
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
@@ -7,6 +7,8 @@
 //                 Yellowinq <https://github.com/hig4342>
 //                 kkokko Jeong <https://github.com/kkokkojeong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// NAVER Maps JavaScript API Version: 3.6
 
 /// <reference types="geojson" />
 
@@ -240,7 +242,7 @@ declare namespace naver.maps {
      * EllipseOptions
      */
     interface EllipseOptions {
-        map?: Map | undefined;
+        map?: Map;
         bounds: Bounds | BoundsLiteral;
         strokeWeight?: number;
         strokeOpacity?: number;
@@ -349,8 +351,8 @@ declare namespace naver.maps {
         minZoom: number;
         projection: Projection;
         tileSize?: Size | SizeLiteral;
-        repeatX?: boolean | undefined;
-        vendor?: string | undefined;
+        repeatX?: boolean;
+        vendor?: string;
         provider?: MapDataProvider[];
         uid?: string;
         darktheme?: boolean ;
@@ -362,7 +364,7 @@ declare namespace naver.maps {
      */
     interface MapDataProvider {
         title: string;
-        link?: string | undefined;
+        link?: string;
         bounds?: Bounds | BoundsLiteral | ArrayOfBounds | ArrayOfBoundsLiteral;
     }
 
@@ -382,11 +384,11 @@ declare namespace naver.maps {
         fromPointToCoord(point: Point): Coord;
     }
     interface NaverImageMapTypeOptions {
-        maxZoom?: number | undefined;
-        minZoom?: number | undefined;
-        projection?: Projection | undefined;
-        tileSize?: Size | undefined;
-        hd?: string | undefined;
+        maxZoom?: number;
+        minZoom?: number;
+        projection?: Projection;
+        tileSize?: Size;
+        hd?: string;
     }
 
     /**
@@ -401,7 +403,7 @@ declare namespace naver.maps {
     // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.CadastralLayer.html#toc15__anchor
     interface CadastralLayerOptions {
         overlayMap: boolean;
-        zIndex: number | undefined;
+        zIndex: number;
     }
     // Deprecated!!
     // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.StreetLayer.html#toc15__anchor
@@ -440,14 +442,15 @@ declare namespace naver.maps {
      */
     interface SymbolIcon {
         path: SymbolPath | Point[] | PointLiteral[];
-        style?: SymbolStyle | undefined;
-        radius?: number | undefined;
-        fillColor?: string | undefined;
-        fillOpacity?: number | undefined;
-        strokeColor?: string | undefined;
-        strokeWeight?: number | undefined;
-        strokeOpacity?: number | undefined;
-        anchor?: Point | PointLiteral | Position | undefined;
+        style?: SymbolStyle;
+        radius?: number;
+        fillColor?: string;
+        fillOpacity?: number;
+        strokeColor?: string;
+        strokeWeight?: number;
+        strokeOpacity?: number;
+        strokeStyle?: StrokeStyleType;
+        anchor?: Point | PointLiteral | Position;
     }
 
     /**
@@ -1603,7 +1606,7 @@ declare namespace naver.maps {
             strokeColor?: string;
             strokeLineCap?: StrokeLineCapType;
             strokeLineJoin?: StrokeLineJoinType;
-            fillColor?: string | undefined;
+            fillColor?: string;
         }
 
         interface HeatMapOptions {
