@@ -3,37 +3,46 @@
 // Definitions by: Loren 🤓 <https://github.com/lorensr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
- */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
+export type Binary = ArrayBuffer | Uint8Array | DataView;
+export interface DecodeOptions {
+    stream?: boolean;
 }
 
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder/encode
  */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
+export function encode(text: string): Uint8Array;
+
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/decode
+ */
+export function decode(binary?: Binary, options?: DecodeOptions): string;
+
+export class TextDecoder {
+    /**
+     * https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/decode
      */
-    function foo(): void;
+    decode(binary?: Binary, options?: DecodeOptions): string;
+}
+
+export interface EncodingProgress {
+    // The number of UTF-16 units of code from the source that has been converted over to UTF-8. This may be less than
+    // text.length if Uint8Array did not have enough space.
+    read: number;
+
+    // The number of bytes modified in the destination Uint8Array. The bytes written are guaranteed to form complete
+    // UTF-8 byte sequences.
+    written: number;
+}
+
+export class TextEncoder {
+    /**
+     * https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder/encode
+     */
+    encode(text: string): Uint8Array;
+
+    /**
+     * https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder/encodeInto
+     */
+    encodeInfo(text: string, array: Uint8Array): EncodingProgress;
 }
