@@ -5325,6 +5325,7 @@ fp.now(); // $ExpectType number
     _.get({ a: [{ b: { c: 3 } }] }, "a[0].b.c", 0);  // $ExpectType number
     _.get(objectWithOptionalField, "a", defaultValue);  // $ExpectType boolean
     _.get({}, "a", defaultValue);  // $ExpectType boolean
+    _.get({}, "a" as string, defaultValue);  // $ExpectType boolean
     _.get(objectWithOptionalField, "a", undefined);  // $ExpectType boolean | undefined
 
     _("abc").get(1); // $ExpectType string
@@ -5343,6 +5344,7 @@ fp.now(); // $ExpectType number
     _({ a: [{ b: { c: 3 } }] }).get("a[0].b.c", 0);  // $ExpectType number
     _(objectWithOptionalField).get("a", defaultValue);  // $ExpectType boolean
     _({}).get("a", defaultValue);  // $ExpectType boolean
+    _({}).get("a" as string, defaultValue);  // $ExpectType boolean
     _(objectWithOptionalField).get("a", undefined);  // $ExpectType boolean | undefined
 
     _.chain("abc").get(1); // $ExpectType StringChain
