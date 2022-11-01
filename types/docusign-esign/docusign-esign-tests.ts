@@ -104,7 +104,7 @@ const getDocument = async (envelopeId: string, documentId: string, options: docu
 };
 
 const callback = (error: any, data: any, response: any) => {
-    let docusignHeaderData: { docusign_esign_url?: string, hourly_rate_limit?: string, hourly_rate_limit_remaining?: string, date?: string, burst_limit?: string, burst_limit_remaining?: string}
+    let docusignHeaderData: { docusign_esign_url?: string, hourly_rate_limit?: string, hourly_rate_limit_remaining?: string, date?: string, burst_limit?: string, burst_limit_remaining?: string };
     if (error !== null) {
         docusignHeaderData = {
             hourly_rate_limit: error.response?.header["x-ratelimit-limit"],
@@ -127,7 +127,7 @@ const callback = (error: any, data: any, response: any) => {
         console.log(docusignHeaderData);
         resolve(data);
     }
-}
+};
 
 const getDocumentWithCallback = async (envelopeId: string, documentId: string, options: docusign.DocumentOptions) => {
     const params = await getDsRequestParams();
