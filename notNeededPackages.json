@@ -3955,6 +3955,14 @@
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
         },
+        "puppeteer": {
+            "libraryName": "puppeteer",
+            "asOfVersion": "7.0.4"
+        },
+        "puppeteer-core": {
+            "libraryName": "puppeteer-core",
+            "asOfVersion": "7.0.4"
+        },
         "pusher-js": {
             "libraryName": "pusher-js",
             "asOfVersion": "5.1.0"
