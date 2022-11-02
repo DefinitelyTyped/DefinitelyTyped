@@ -10,7 +10,7 @@
 
 // Last module patch version validated against: 4.0.2
 
-import { CountableTimeInterval, TimeInterval } from 'd3-time';
+import { TimeInterval } from 'd3-time';
 
 // -------------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -1195,7 +1195,7 @@ export interface ScaleTime<Range, Output, Unknown = never> {
      *
      * @param interval A time interval to specify the expected ticks.
      */
-    nice(interval: CountableTimeInterval): this;
+    nice(interval: TimeInterval): this;
 
     /**
      * Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.

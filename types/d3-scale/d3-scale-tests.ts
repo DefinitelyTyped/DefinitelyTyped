@@ -569,17 +569,18 @@ localTimeScaleNumString = localTimeScaleNumString.interpolate((a, b) => {
 
 // nice(...) -----------------------------------------------------------------------
 
+const timeInterval = timeHour.every(5);
+
 // chainable
 localTimeScaleNumber = localTimeScaleNumber.nice();
 localTimeScaleNumber = localTimeScaleNumber.nice(5);
 localTimeScaleNumber = localTimeScaleNumber.nice(timeHour);
 
-// @ts-expect-error
-localTimeScaleNumber = localTimeScaleNumber.nice(timeHour.every(5)); // fails, requires CountableTimeInterval
+if (timeInterval !== null) {
+  localTimeScaleNumber = localTimeScaleNumber.nice(timeInterval);
+}
 
 // ticks(...) -----------------------------------------------------------------
-
-const timeInterval = timeHour.every(5);
 
 ticksDates = localTimeScaleNumber.ticks();
 ticksDates = localTimeScaleNumber.ticks(50);
