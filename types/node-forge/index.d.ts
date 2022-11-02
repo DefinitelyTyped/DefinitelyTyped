@@ -19,6 +19,7 @@
 //                 Tino                <https://github.com/tino-247>
 //                 BendingBender       <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -341,6 +342,17 @@ declare module 'node-forge' {
 
             function setPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
 
+            function setPrivateKey(
+                n: jsbn.BigInteger,
+                e: jsbn.BigInteger,
+                d: jsbn.BigInteger,
+                p: jsbn.BigInteger,
+                q: jsbn.BigInteger,
+                dP: jsbn.BigInteger,
+                dQ: jsbn.BigInteger,
+                qInv: jsbn.BigInteger,
+            ): PrivateKey;
+
             function generateKeyPair(
                 bits?: number,
                 e?: number,
@@ -652,7 +664,9 @@ declare module 'node-forge' {
 
         function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
 
-        type setRsaPublicKey = typeof rsa.setPublicKey;
+        const setRsaPublicKey: typeof pki.rsa.setPublicKey;
+
+        const setRsaPrivateKey: typeof pki.rsa.setPrivateKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
 
