@@ -393,12 +393,26 @@ export class Duration {
     normalize(): Duration;
 
     /**
+     * Rescale units to its largest representation.
+     *
+     * @example
+     * Duration.fromObject({ milliseconds: 90000 }).rescale().toObject() //=> { minutes: 1, seconds: 30 }
+     */
+    rescale(): Duration;
+
+    /**
      * Convert this Duration into its representation in a different set of units.
      *
      * @example
      * Duration.fromObject({ hours: 1, seconds: 30 }).shiftTo('minutes', 'milliseconds').toObject() //=> { minutes: 60, milliseconds: 30000 }
      */
     shiftTo(...units: DurationUnit[]): Duration;
+
+    /**
+     * Shift this Duration to all available units.
+     * Same as shiftTo("years", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds")
+     */
+    shiftToAll(): Duration;
 
     /**
      * Return the negative of this Duration.
