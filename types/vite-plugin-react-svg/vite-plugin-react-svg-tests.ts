@@ -28,11 +28,11 @@ const testCases: Array<PluginOption | PluginOption[]> = [
         expandProps: false,
     }),
     reactSvgPlugin({
-        // $ExpectError
+        // @ts-expect-error
         expandProps: true,
     }),
     reactSvgPlugin({
-        // $ExpectError
+        // @ts-expect-error
         expandProps: 'en',
     }),
 ];

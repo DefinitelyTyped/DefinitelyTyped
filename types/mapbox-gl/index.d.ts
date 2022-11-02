@@ -8,6 +8,8 @@
 //                 André Fonseca <https://github.com/amxfonseca>
 //                 makspetrov <https://github.com/Nosfit>
 //                 Michael Bullington <https://github.com/mbullington>
+//                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Marko Schilde <https://github.com/mschilde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -361,15 +363,15 @@ declare namespace mapboxgl {
 
         getFilter(layer: string): any[];
 
-        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getPaintProperty(layer: string, name: string): any;
 
-        setLayoutProperty(layer: string, name: string, value: any): this;
+        setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
 
-        setLight(options: mapboxgl.Light, lightOptions?: any): this;
+        setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
 
@@ -565,7 +567,7 @@ declare namespace mapboxgl {
 
         once<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -574,7 +576,7 @@ declare namespace mapboxgl {
 
         off<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string,
+            layer: string | ReadonlyArray<string>,
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -776,10 +778,18 @@ declare namespace mapboxgl {
          *
          * @default 'mercator'
          */
-         projection?: {
-            name: 'albers' | 'equalEarth' | 'equirectangular' | 'lambertConformalConic' | 'mercator' | 'naturalEarth' | 'winkelTripel' | 'globe',
-            center?: [number, number],
-            parallels?: [number, number]
+        projection?: {
+            name:
+                | 'albers'
+                | 'equalEarth'
+                | 'equirectangular'
+                | 'lambertConformalConic'
+                | 'mercator'
+                | 'naturalEarth'
+                | 'winkelTripel'
+                | 'globe';
+            center?: [number, number];
+            parallels?: [number, number];
         };
 
         /**
@@ -1412,7 +1422,7 @@ declare namespace mapboxgl {
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
+        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | GeoJSON.Geometry | string | undefined;
 
         maxzoom?: number | undefined;
 
@@ -1609,10 +1619,10 @@ declare namespace mapboxgl {
         tileSize?: number;
         attribution?: string;
         bounds?: [number, number, number, number];
-        hasTile?: (tileID: { z: number, x: number, y: number }) => boolean;
-        loadTile: (tileID: { z: number, x: number, y: number }, options: { signal: AbortSignal }) => Promise<T>;
-        prepareTile?: (tileID: { z: number, x: number, y: number }) => T | undefined;
-        unloadTile?: (tileID: { z: number, x: number, y: number }) => void;
+        hasTile?: (tileID: { z: number; x: number; y: number }) => boolean;
+        loadTile: (tileID: { z: number; x: number; y: number }, options: { signal: AbortSignal }) => Promise<T>;
+        prepareTile?: (tileID: { z: number; x: number; y: number }) => T | undefined;
+        unloadTile?: (tileID: { z: number; x: number; y: number }) => void;
         onAdd?: (map: Map) => void;
         onRemove?: (map: Map) => void;
     }

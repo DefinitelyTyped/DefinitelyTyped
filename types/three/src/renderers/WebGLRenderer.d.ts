@@ -128,11 +128,6 @@ export class WebGLRenderer implements Renderer {
     domElement: HTMLCanvasElement;
 
     /**
-     * The HTML5 Canvas's 'webgl' context obtained from the canvas where the renderer will draw.
-     */
-    context: WebGLRenderingContext;
-
-    /**
      * Defines whether the renderer should automatically clear its output before rendering.
      * @default true
      */

@@ -34,7 +34,7 @@ plainTextToHTML(viewToPlainText(viewElement));
 
 new ClipboardObserver(view).onDomEvent(new ClipboardEvent(''));
 new ClipboardObserver(view).onDomEvent(new DragEvent(''));
-// $ExpectError
+// @ts-expect-error
 new ClipboardObserver(view).onDomEvent(new MouseEvent(''));
 
 // $ExpectType ClipboardObserver
@@ -54,7 +54,7 @@ editor.plugins.get('PastePlainText');
 
 // $ExpectType (File | null)[]
 new CKDataTransfer(new DataTransfer()).files;
-// $ExpectError
+// @ts-expect-error
 new CKDataTransfer(new DataTransfer()).effectAllowed = '';
 new CKDataTransfer(new DataTransfer()).effectAllowed = 'none';
 // $ExpectType readonly string[]

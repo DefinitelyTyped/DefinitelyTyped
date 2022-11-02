@@ -2,7 +2,7 @@
 // Project: https://github.com/djkf/jest-sinon/#readme
 // Definitions by: Martin Seidel <https://github.com/seidelmartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 /// <reference types="sinon" />

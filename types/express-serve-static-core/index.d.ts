@@ -914,7 +914,7 @@ export interface Response<
     headersSent: boolean;
 
     /** Get value for header `field`. */
-    get(field: string): string;
+    get(field: string): string|undefined;
 
     /** Clear cookie `name`. */
     clearCookie(name: string, options?: CookieOptions): this;
@@ -978,6 +978,7 @@ export interface Response<
      *
      * Examples:
      *
+     *    res.redirect('back');
      *    res.redirect('/foo/bar');
      *    res.redirect('http://example.com');
      *    res.redirect(301, 'http://example.com');
@@ -986,6 +987,7 @@ export interface Response<
      */
     redirect(url: string): void;
     redirect(status: number, url: string): void;
+    /** @deprecated use res.redirect(status, url) instead */
     redirect(url: string, status: number): void;
 
     /**

@@ -43,13 +43,13 @@ import * as R from 'ramda';
     // $ExpectType Curry<(a: number, b: number) => number>
     const fn = R.converge(multiply, [add, subtract]);
 
-    // $ExpectError
+    // @ts-expect-error
     const fnMismatchedTypes = R.converge(concat, [add, subtract]);
 
-    // $ExpectError
+    // @ts-expect-error
     R.converge(multiply, [add, subtract, add]);
 
-    // $ExpectError
+    // @ts-expect-error
     const fnWrongNumberOfBranchesV1 = R.converge(concat, []);
 
     // $Expect Curry<() => void>
@@ -58,10 +58,10 @@ import * as R from 'ramda';
     // $ExpectType number
     fn(1, 2);
 
-    // $ExpectError
+    // @ts-expect-error
     fn('1', 2);
 
-    // $ExpectError
+    // @ts-expect-error
     fn(1, 2, 3);
 
     function add10(
@@ -95,7 +95,7 @@ import * as R from 'ramda';
 
     const add3 = (a: number, b: number, c: number) => a + b + c;
 
-    // $ExpectError
+    // @ts-expect-error
     const fnWrongNumberOfBranches = R.converge(add3, [
         // Error because we have 4 branches, but expect 3 arguments (add3)
         multiply,
@@ -125,13 +125,13 @@ import * as R from 'ramda';
     // $ExpectType number
     const resultNumber = intersectionOfArguments(1, { q: 'text', w: 22 }, 11);
 
-    // $ExpectError
+    // @ts-expect-error
     const errorArguments = intersectionOfArguments(1, { q: 'text' }, 11);
 
     const argsIncompatible = (a1: string) => 1;
 
     // types: `string`, `number | symbol`, and `number | bigint` - do not have common type
-    // $ExpectError
+    // @ts-expect-error
     const intersectionOfArgumentsIncompatible = R.converge(add3, [argsIncompatible, args2, args3]);
 
     const addGeneric = <T>(a: T, b: T): T => b;

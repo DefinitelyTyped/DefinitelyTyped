@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@beyonk/gdpr-cookie-consent-banner": [
+                "beyonk__gdpr-cookie-consent-banner"
+            ],
+            "@beyonk/gdpr-cookie-consent-banner/*": [
+                "beyonk__gdpr-cookie-consent-banner/*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "test/beyonk__gdpr-cookie-consent-banner-tests.esm.ts",
+        "test/beyonk__gdpr-cookie-consent-banner-tests.umd.ts"
+    ]
+}

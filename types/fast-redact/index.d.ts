@@ -1,6 +1,6 @@
 // Type definitions for fast-redact 3.0
 // Project: https://github.com/davidmarkclements/fast-redact#readme
-// Definitions by: asciidisco <https://github.com/asciidisco>
+// Definitions by: asciidisco <https://github.com/asciidisco>, nazmariam <https://github.com/nazmariam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.0
 
@@ -16,11 +16,18 @@ export = F;
  * @param redactOptions.strict The strict option, when set to true, will cause the redactor function to throw if instead of an object it finds a primitive.
  * @returns Redacted value from input
  */
+declare function F(redactOptions: F.RedactOptionsNoSerialize): F.redactFnNoSerialize;
 declare function F(redactOptions?: F.RedactOptions): F.redactFn;
 
 declare namespace F {
     /** Redacts input */
     type redactFn = <T>(input: T) => string | T;
+
+    /** Redacts input without serialization */
+    type redactFnNoSerialize = redactFn & {
+        /** Method that allowing the redacted keys to be restored with the original data. Supplied only when serialize option set to false. */
+        restore<T>(input: T): T;
+    };
 
     interface RedactOptions {
         /** An array of strings describing the nested location of a key in an object. */
@@ -40,5 +47,10 @@ declare namespace F {
 
         /** The strict option, when set to true, will cause the redactor function to throw if instead of an object it finds a primitive. */
         strict?: boolean | undefined;
+    }
+
+    /** RedactOptions without serialization. Instead of the serialized object, the output of the redactor function will be the mutated object itself. */
+    interface RedactOptionsNoSerialize extends RedactOptions {
+        serialize: false;
     }
 }

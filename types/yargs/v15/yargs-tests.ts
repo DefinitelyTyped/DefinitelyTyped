@@ -1235,7 +1235,7 @@ function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectType unknown
     argv.c;
 
-    // $ExpectError
+    // @ts-expect-error
     const x: string = yargs.argv.x;
     return x;
 }

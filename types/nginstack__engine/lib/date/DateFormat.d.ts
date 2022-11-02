@@ -1,3 +1,4 @@
+export type DateFormatType = 'DDMMYYYY' | 'DDMM' | 'MMYYYY' | 'WWYYYY' | 'YYYYWW' | 'MMMYYYY';
 export type exports = number;
 declare const DDMMYYYY: number;
 declare const DDMM: number;

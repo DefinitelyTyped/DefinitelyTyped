@@ -23,7 +23,7 @@ appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`, {
     singleton: true,
     instantiate: true,
 });
-// $ExpectError
+// @ts-expect-error
 appInstance.register('templates:foo/bar', hbs`<h1>Hello World</h1>`, { singleton: 'true', instantiate: true });
 
 appInstance.register('some:injection', class Foo {}, {

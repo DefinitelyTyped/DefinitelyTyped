@@ -109,10 +109,10 @@ const testHookStore = new TestHookStore();
   <HookedSampleComponent foo="test" />
 </Tester>;
 // React.Children.only would throw
-// $ExpectError
+// @ts-expect-error
 <Tester specs={[sampleSpec]} store={testHookStore} />;
 // React.Children.only would throw
-// $ExpectError
+// @ts-expect-error
 <Tester specs={[sampleSpec]} store={testHookStore}>
   <HookedSampleComponent foo="test" />
   <SampleFunctionComponent />

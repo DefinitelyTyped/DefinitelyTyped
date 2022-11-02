@@ -7,15 +7,23 @@ import {
     TDocumentDefinitions,
     BufferOptions,
     CustomTableLayout,
+    CanvasPolyline,
+    Table,
 } from 'pdfmake/interfaces';
 
 const createContent: () => Content = () => 'allo';
 const content: Content = createContent();
 
-if (typeof content !== 'string' && 'stack' in content) {
+if (typeof content !== 'string' && 'stack' in content && content.stack) {
     // $ExpectType ContentStack
     content;
 }
+
+// @ts-expect-error
+const invalidContent: Content = {
+    ul: [],
+    ol: []
+};
 
 const staticBackground: TDocumentDefinitions = {
     content: 'Content',
@@ -37,7 +45,7 @@ const documentMetadata: TDocumentDefinitions = {
         producer: 'pdfmake',
         creationDate: new Date('1970-01-01'),
         modDate: new Date('2020-02-29'),
-        trapped: 'true',
+        trapped: 'True',
     },
     content: 'This is an sample PDF printed with pdfMake',
 };
@@ -202,6 +210,7 @@ let ol: ContentOrderedList = {
     ol: ['1', '2', '3'],
     markerColor: 'blue',
 };
+ol = { ol: ['1'], type: 'decimal' };
 ol = { ol: ['1'], type: 'lower-alpha' };
 ol = { ol: ['1'], type: 'upper-alpha' };
 ol = { ol: ['1'], type: 'lower-roman' };
@@ -213,6 +222,7 @@ let ul: ContentUnorderedList = {
     markerColor: 'blue',
 };
 
+ul = { ul: ['1'], type: 'disc' };
 ul = { ul: ['1'], type: 'square' };
 ul = { ul: ['1'], type: 'circle' };
 ul = { ul: ['1'], type: 'none' };
@@ -237,6 +247,18 @@ const image1: ContentImage = {
 const image2: ContentImage = {
     image: 'test',
     fit: [50, 50],
+};
+
+const imageWithHeaders: TDocumentDefinitions = {
+    content: [],
+    images: {
+        myImage: {
+            url: 'test',
+            headers: {
+                Accept: 'image/jpeg'
+            }
+        }
+    }
 };
 
 const bufferOptions: BufferOptions = {
@@ -267,3 +289,88 @@ const customTableLayouts: CustomTableLayout[] = [
     { fillOpacity: 50 },
     { defaultBorder: true }
 ];
+
+const tableHeights: Table = {
+    body: [],
+    heights: [100, 'auto']
+};
+
+// via https://pdfmake.github.io/docs/0.1/document-definition-object/patterns/
+const tilingPatterns: TDocumentDefinitions = {
+    content: [
+        {
+            text: 'Insert lorem. And ipsum',
+            background: ['stripe45d', 'gray']
+        },
+        {
+            canvas: [
+                {
+                    type: 'rect',
+                    x: 10,
+                    y: 250,
+                    w: 50,
+                    h: 30,
+                    color: ['stripe45d', 'blue'],
+                }
+            ]
+        },
+        {
+            table: {
+                body: [
+                    [
+                        {
+                            text: 'Sample value',
+                            fillOpacity: 0.85,
+                            fillColor: ['stripe45d', 'blue']
+                        },
+                        {
+                            text: 'Sample value',
+                            fillOpacity: 0.15,
+                            fillColor: 'blue',
+                            overlayPattern: ['stripe45d', 'gray'],
+                            overlayOpacity: 0.15
+                        }
+                    ]
+                ]
+            }
+        }
+    ],
+    patterns: {
+        stripe45d: {
+            boundingBox: [1, 1, 4, 4],
+            xStep: 3,
+            yStep: 3,
+            pattern: "1 w 0 1 m 4 5 l s 2 0 m 5 3 l s",
+        },
+    },
+};
+
+const polyLine: CanvasPolyline = {
+    type: 'polyline',
+    points: [
+        { x: 1, y: 1 },
+        { x: 2, y: 2 },
+    ],
+    lineCap: 'butt',
+    lineJoin: 'miter',
+    lineColor: 'red',
+    strokeOpacity: 0.5,
+};
+
+const styleInheritance: Content = {
+    text: 'foobar',
+    style: [
+        'stringReference',
+        { bold: true }
+    ]
+};
+
+const defaultPosition: Content = {
+    text: 'foobar',
+    absolutePosition: {} // defaults to 0-0
+};
+
+const unbreakableList: Content = {
+    unbreakable: true,
+    ul: ['One', 'Two', 'Three']
+};

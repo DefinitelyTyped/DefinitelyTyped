@@ -4,8 +4,10 @@ import { generateTestsFromFixtures, evaluateGraphQLResolver } from '@adeira/test
 
 generateTestsFromFixtures(`/__fixtures__`, input => input);
 generateTestsFromFixtures(`/__fixtures__`, input => input, 'snapshot name');
-generateTestsFromFixtures(`/__fixtures__`, 1); // $ExpectError
-generateTestsFromFixtures(1, input => input); // $ExpectError
+// @ts-expect-error
+generateTestsFromFixtures(`/__fixtures__`, 1);
+// @ts-expect-error
+generateTestsFromFixtures(1, input => input);
 
 // evaluateGraphQLResolver
 

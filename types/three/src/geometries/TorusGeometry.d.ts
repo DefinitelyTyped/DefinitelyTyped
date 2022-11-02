@@ -25,5 +25,3 @@ export class TorusGeometry extends BufferGeometry {
 
     static fromJSON(data: any): TorusGeometry;
 }
-
-export { TorusGeometry as TorusBufferGeometry };

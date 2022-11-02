@@ -1,4 +1,4 @@
-// Type definitions for @babel/traverse 7.17
+// Type definitions for @babel/traverse 7.18
 // Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
 // Definitions by: Troy Gerwien <https://github.com/yortus>
 //                 Marvin Hagemeister <https://github.com/marvinhagemeister>
@@ -106,7 +106,7 @@ export class Scope {
     /** Possibly generate a memoised identifier if it is not static and has consequences. */
     maybeGenerateMemoised(node: Node, dontPush?: boolean): t.Identifier;
 
-    checkBlockScopedCollisions(local: Node, kind: string, name: string, id: object): void;
+    checkBlockScopedCollisions(local: Binding, kind: BindingKind, name: string, id: object): void;
 
     rename(oldName: string, newName?: string, block?: Node): void;
 
@@ -180,23 +180,30 @@ export class Scope {
     removeBinding(name: string): void;
 }
 
+export type BindingKind = 'var' | 'let' | 'const' | 'module' | 'hoisted' | 'param' | 'local' | 'unknown';
+
 export class Binding {
-    constructor(opts: {
-        existing: Binding;
-        identifier: t.Identifier;
-        scope: Scope;
-        path: NodePath;
-        kind: 'var' | 'let' | 'const';
-    });
+    constructor(opts: { identifier: t.Identifier; scope: Scope; path: NodePath; kind: BindingKind });
     identifier: t.Identifier;
     scope: Scope;
     path: NodePath;
-    kind: 'var' | 'let' | 'const' | 'module';
+    kind: BindingKind;
     referenced: boolean;
     references: number;
     referencePaths: NodePath[];
     constant: boolean;
     constantViolations: NodePath[];
+    hasDeoptedValue?: boolean;
+    hasValue?: boolean;
+    value?: any;
+
+    deopValue(): void;
+    setValue(value: any): void;
+    clearValue(): void;
+
+    reassign(path: NodePath): void;
+    reference(path: NodePath): void;
+    dereference(): void;
 }
 
 export type Visitor<S = {}> = VisitNodeObject<S, Node> & {
@@ -495,7 +502,7 @@ export class NodePath<T = Node> {
 
     setScope(): void;
 
-    setContext(context: TraversalContext): NodePath<T>;
+    setContext(context?: TraversalContext): this;
 
     popContext(): void;
 
@@ -548,21 +555,30 @@ export class NodePath<T = Node> {
     getAllPrevSiblings(): NodePath[];
     getAllNextSiblings(): NodePath[];
 
-    get<K extends keyof T>(
-        key: K,
-        context?: boolean | TraversalContext,
-    ): T[K] extends Array<Node | null | undefined>
-        ? Array<NodePath<T[K][number]>>
-        : T[K] extends Array<Node | null | undefined> | null | undefined
-        ? Array<NodePath<NonNullable<T[K]>[number]>> | NodePath<null | undefined>
-        : T[K] extends Node | null | undefined
-        ? NodePath<T[K]>
-        : never;
+    get<K extends keyof T>(key: K, context?: boolean | TraversalContext): NodePathResult<T[K]>;
     get(key: string, context?: boolean | TraversalContext): NodePath | NodePath[];
 
-    getBindingIdentifiers(duplicates?: boolean): Node[];
+    getBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
+    getBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+    getBindingIdentifiers(duplicates?: boolean): Record<string, t.Identifier | t.Identifier[]>;
 
-    getOuterBindingIdentifiers(duplicates?: boolean): Node[];
+    getOuterBindingIdentifiers(duplicates: true): Record<string, t.Identifier[]>;
+    getOuterBindingIdentifiers(duplicates?: false): Record<string, t.Identifier>;
+    getOuterBindingIdentifiers(duplicates?: boolean): Record<string, t.Identifier | t.Identifier[]>;
+
+    getBindingIdentifierPaths(duplicates: true, outerOnly?: boolean): Record<string, Array<NodePath<t.Identifier>>>;
+    getBindingIdentifierPaths(duplicates?: false, outerOnly?: boolean): Record<string, NodePath<t.Identifier>>;
+    getBindingIdentifierPaths(
+        duplicates?: boolean,
+        outerOnly?: boolean,
+    ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
+
+    getOuterBindingIdentifierPaths(duplicates: true): Record<string, Array<NodePath<t.Identifier>>>;
+    getOuterBindingIdentifierPaths(duplicates?: false): Record<string, NodePath<t.Identifier>>;
+    getOuterBindingIdentifierPaths(
+        duplicates?: boolean,
+        outerOnly?: boolean,
+    ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
     //#endregion
 
     //#region ------------------------- comments -------------------------
@@ -1177,3 +1193,7 @@ export interface TraversalContext {
     state: any;
     opts: any;
 }
+
+export type NodePathResult<T> =
+    | (Extract<T, Node | null | undefined> extends never ? never : NodePath<Extract<T, Node | null | undefined>>)
+    | (T extends Array<Node | null | undefined> ? Array<NodePath<T[number]>> : never);

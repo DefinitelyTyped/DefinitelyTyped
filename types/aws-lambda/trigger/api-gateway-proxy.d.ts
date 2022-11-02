@@ -23,6 +23,13 @@ export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 export type APIGatewayProxyHandlerV2<T = never> = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
 
 /**
+ * Works with HTTP API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-integration-requests.html
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-mapping-template-reference.html
+ */
+export type APIGatewayProxyWebsocketHandlerV2<T = never> = Handler<APIGatewayProxyWebsocketEventV2, APIGatewayProxyResultV2<T>>;
+
+/**
  * Works with HTTP API integration Payload Format version 2.0 adds JWT Authroizer to RequestContext
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
@@ -162,6 +169,26 @@ export interface APIGatewayEventRequestContextV2 {
     time: string;
     timeEpoch: number;
 }
+/**
+ * Works with Websocket API integration Payload Format version 2.0
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-integration-requests.html
+ * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-mapping-template-reference.html
+ */
+export interface APIGatewayEventWebsocketRequestContextV2 {
+    routeKey: string;
+    messageId: string;
+    eventType: 'CONNECT' | 'MESSAGE' | 'DISCONNECT';
+    extendedRequestId: string;
+    requestTime: string;
+    messageDirection: 'IN';
+    stage: string;
+    connectedAt: number;
+    requestTimeEpoch: number;
+    requestId: string;
+    domainName: string;
+    connectionId: string;
+    apiId: string;
+}
 
 /**
  * Proxy Event with adaptable requestContext for different authorizer scenarios
@@ -177,6 +204,16 @@ export interface APIGatewayProxyEventV2WithRequestContext<TRequestContext> {
     requestContext: TRequestContext;
     body?: string;
     pathParameters?: APIGatewayProxyEventPathParameters;
+    isBase64Encoded: boolean;
+    stageVariables?: APIGatewayProxyEventStageVariables;
+}
+
+/**
+ * Proxy Websocket Event with adaptable requestContext for different authorizer scenarios
+ */
+export interface APIGatewayProxyWebsocketEventV2WithRequestContext<TRequestContext> {
+    requestContext: TRequestContext;
+    body?: string;
     isBase64Encoded: boolean;
     stageVariables?: APIGatewayProxyEventStageVariables;
 }
@@ -216,6 +253,12 @@ export interface APIGatewayEventRequestContextV2WithAuthorizer<TAuthorizer> exte
  * Default Proxy event with no Authorizer
  */
 export type APIGatewayProxyEventV2 = APIGatewayProxyEventV2WithRequestContext<APIGatewayEventRequestContextV2>;
+
+/**
+ * Default Websocket Proxy event with no Authorizer
+ */
+export type APIGatewayProxyWebsocketEventV2 =
+    APIGatewayProxyWebsocketEventV2WithRequestContext<APIGatewayEventWebsocketRequestContextV2>;
 
 /**
  * Works with HTTP API integration Payload Format version 2.0

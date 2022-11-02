@@ -20,8 +20,8 @@ logTree.log({
   name: 'My Tree'
 });
 
-// $ExpectError
+// @ts-expect-error
 logTree.log({});
 
-// $ExpectError
+// @ts-expect-error
 logTree({ name: 'Hello' });

@@ -54,23 +54,23 @@ m(comp2, { title: '', description: '' });
 m(comp2, { title: '', description: '', oncreate: v => `${v.attrs.title}\n${v.attrs.description}` });
 
 // Properties missing
-// $ExpectError
+// @ts-expect-error
 m(comp2, {});
 
 // Property 'description' is missing in type '{ title: string; }'.
-// $ExpectError
+// @ts-expect-error
 m(comp2, { title: '' });
 
 // Property 'title' is missing in type '{ description: string; }'.
-// $ExpectError
+// @ts-expect-error
 m(comp2, { description: '' });
 
 // Type 'boolean' is not assignable to type 'string'.
-// $ExpectError
+// @ts-expect-error
 m(comp2, { title: '', description: true });
 
 // Object literal may only specify known properties, and 'foo' does not exist in type 'Comp2Attrs & Lifecycle<Comp2Attrs, {}> & { key?: string | number | undefined; }'.
-// $ExpectError
+// @ts-expect-error
 m(comp2, { title: '', description: '', foo: '' });
 
 ///////////////////////////////////////////////////////////
@@ -203,7 +203,7 @@ interface InvalidState1 {
 
 // Using the Comp type will apply the State intersection type for us.
 const invalidComp1: Comp<{}, InvalidState1> = {
-    // $ExpectError
+    // @ts-expect-error
     oncreate(nope: string) { return nope; },
     view() {
         return 'test';
@@ -220,7 +220,7 @@ interface InvalidState2 {
 
 // Using the Comp type will apply the State intersection type for us.
 const invalidComp2: Comp<{}, InvalidState2> = {
-    // $ExpectError
+    // @ts-expect-error
     oncreate: 'nope',
     view() {
         return 'test';

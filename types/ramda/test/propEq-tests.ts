@@ -42,6 +42,6 @@ interface Obj {
 
     R.propEq('foo', value)(obj);
 
-    // $ExpectError
+    // @ts-expect-error
     R.propEq('bar', value)(obj);
 };

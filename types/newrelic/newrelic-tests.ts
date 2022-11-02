@@ -38,6 +38,9 @@ newrelic.addIgnoringRule('^/items/[0-9]+$'); // $ExpectType void
 newrelic.addIgnoringRule(/^[0-9]+$/); // $ExpectType void
 
 newrelic.getBrowserTimingHeader(); // $ExpectType string
+newrelic.getBrowserTimingHeader({ nonce: 'foo' }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true }); // $ExpectType string
+newrelic.getBrowserTimingHeader({ hasToRemoveScriptWrapper: true, nonce: 'foo' }); // $ExpectType string
 
 newrelic.startSegment('foo', false, () => 'bar'); // $ExpectType string
 newrelic.startSegment('foo', false, () => 'bar', () => 'baz'); // $ExpectType string
@@ -125,4 +128,5 @@ newrelic.getTraceMetadata();
 
 newrelic.setLambdaHandler(() => void 0); // $ExpectType () => undefined
 newrelic.setLambdaHandler((event: unknown, context: unknown) => ({ statusCode: 200, body: "Hello!" })); // $ExpectType (event: unknown, context: unknown) => { statusCode: number; body: string; }
-newrelic.setLambdaHandler({some: "object"}); // $ExpectError
+// @ts-expect-error
+newrelic.setLambdaHandler({some: "object"});

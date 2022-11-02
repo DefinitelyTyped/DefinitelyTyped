@@ -9,7 +9,8 @@ service.get('engine'); // $ExpectType EngineInfo
 service.get('os'); // $ExpectType OSInfo
 service.get('cpu'); // $ExpectType ICPU
 
-service.get('fakeKey'); // $ExpectError
+// @ts-expect-error
+service.get('fakeKey');
 
 const browser = service.browser; // $ExpectType BrowserInfo
 browser.info; // $ExpectType IBrowser
@@ -50,6 +51,9 @@ helper.compute(['engine']); // $ExpectType EngineInfo
 helper.compute(['os']); // $ExpectType OSInfo
 helper.compute(['cpu']); // $ExpectType ICPU
 
-helper.compute(['fakeKey']); // $ExpectError
-helper.compute([]); // $ExpectError
-helper.compute([123]); // $ExpectError
+// @ts-expect-error
+helper.compute(['fakeKey']);
+// @ts-expect-error
+helper.compute([]);
+// @ts-expect-error
+helper.compute([123]);

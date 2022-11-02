@@ -31,7 +31,7 @@ LinkUI.requires.map(Plugin => new Plugin(editor));
 new LinkUI(editor).init();
 new LinkUI(editor).destroy();
 // $ExpectType LinkFormView
-new LinkUI(editor).formview;
+new LinkUI(editor).formView;
 // $ExpectType LinkActionsView
 new LinkUI(editor).actionsView;
 
@@ -53,16 +53,16 @@ new AutoLink(editor).afterInit();
 
 new LinkCommand(editor).execute('http://example.com');
 new LinkCommand(editor).execute('http://example.com', { target: '_blank' });
-// $ExpectError
+// @ts-expect-error
 new LinkCommand(editor).execute();
 
 new UnlinkCommand(editor).execute();
-// $ExpectError
+// @ts-expect-error
 new UnlinkCommand(editor).execute('');
 
 const emptyElement = new DowncastWriter(new Document(new StylesProcessor())).createEmptyElement('div');
 utils.isLinkElement(emptyElement);
-// $ExpectError
+// @ts-expect-error
 utils.isLinkElement('');
 
 const api = {} as unknown as DowncastConversionApi;
@@ -83,7 +83,7 @@ new LinkActionsView().destroy();
 new LinkFormView(new Locale(), new LinkCommand(editor)).destroy();
 
 utils.openLink('');
-// $ExpectError
+// @ts-expect-error
 utils.openLink();
 
 new ManualDecorator({

@@ -445,9 +445,15 @@ declare namespace OSS {
         method?: HTTPMethods | undefined;
         /** set the request content type */
         'Content-Type'?: string | undefined;
+        /**  image process params, will send with x-oss-process e.g.: {process: 'image/resize,w_200'} */
         process?: string | undefined;
+        /** traffic limit, range: 819200~838860800 */
+        trafficLimit?: number | undefined;
+        /** additional signature parameters in url */
+        subResource?: object | undefined;
         /** set the response headers for download */
         response?: ResponseHeaderType | undefined;
+        /** set the callback for the operation */
         callback?: ObjectCallback | undefined;
     }
 
@@ -691,6 +697,8 @@ declare namespace OSS {
 
         signatureUrl(name: string, options?: SignatureUrlOptions): string;
 
+        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
+
         putACL(name: string, acl: ACLType, options?: RequestOptions): Promise<NormalSuccessResponse>;
 
         restore(name: string, options?: RequestOptions): Promise<NormalSuccessResponse>;
@@ -783,6 +791,11 @@ declare namespace OSS {
          * Create a signature url for directly download.
          */
         signatureUrl(name: string, options?: { expires?: string | undefined; timeout?: string | undefined }): string;
+
+        /**
+         * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
+         */
+        asyncSignatureUrl(name: string, options?: SignatureUrlOptions): Promise<string>;
     }
 }
 
@@ -1046,6 +1059,11 @@ declare class OSS {
      * Create a signature url for download or upload object. When you put object with signatureUrl ,you need to pass Content-Type.Please look at the example.
      */
     signatureUrl(name: string, options?: OSS.SignatureUrlOptions): string;
+
+    /**
+     * Basically the same as signatureUrl, if refreshSTSToken is configured asyncSignatureUrl will refresh stsToken
+     */
+    asyncSignatureUrl(name: string, options?: OSS.SignatureUrlOptions): Promise<string>;
 
     /**
      * Set object's ACL.

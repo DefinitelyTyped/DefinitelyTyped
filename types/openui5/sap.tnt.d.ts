@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.107.0
 
 declare module "sap/tnt/library" {
   /**
@@ -640,7 +640,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Gets the currently selected `NavigationListItem`.
      *
-     * @returns The selected item or null if nothing is selected
+     * @returns The selected item or `null` if nothing is selected
      */
     getSelectedItem(): NavigationListItem | null;
     /**
@@ -720,7 +720,7 @@ declare module "sap/tnt/NavigationList" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -731,7 +731,7 @@ declare module "sap/tnt/NavigationList" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -742,7 +742,7 @@ declare module "sap/tnt/NavigationList" {
        * The item to remove or its index or id
        */
       vItem: int | string | NavigationListItem
-    ): NavigationListItem;
+    ): NavigationListItem | null;
     /**
      * Sets a new value for property {@link #getExpanded expanded}.
      *
@@ -1142,7 +1142,7 @@ declare module "sap/tnt/NavigationListItem" {
        * The item to remove or its index or id
        */
       vItem: int | string | NavigationListItem
-    ): NavigationListItem;
+    ): NavigationListItem | null;
     /**
      * Sets a new value for property {@link #getExpanded expanded}.
      *
@@ -2115,7 +2115,7 @@ declare module "sap/tnt/ToolPage" {
        * The mainContent to remove or its index or id
        */
       vMainContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getHeader header}.
      *

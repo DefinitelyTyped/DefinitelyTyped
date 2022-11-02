@@ -5,7 +5,6 @@
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
-//                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
@@ -2469,7 +2468,7 @@ declare namespace chrome.devtools.inspectedWindow {
     export var tabId: number;
 
     /** Reloads the inspected page. */
-    export function reload(reloadOptions: ReloadOptions): void;
+    export function reload(reloadOptions?: ReloadOptions): void;
     /**
      * Evaluates a JavaScript expression in the context of the main frame of the inspected page. The expression must evaluate to a JSON-compliant object, otherwise an exception is thrown. The eval function can report either a DevTools-side error or a JavaScript exception that occurs during evaluation. In either case, the result parameter of the callback is undefined. In the case of a DevTools-side error, the isException parameter is non-null and has isError set to true and code set to an error code. In the case of a JavaScript error, isException is set to true and value is set to the string value of thrown object.
      * @param expression An expression to evaluate.
@@ -7062,6 +7061,7 @@ declare namespace chrome.runtime {
         | 'geolocation'
         | 'history'
         | 'identity'
+        | 'identity.email'
         | 'idle'
         | 'loginState'
         | 'management'
@@ -7570,11 +7570,11 @@ declare namespace chrome.scripting {
     /* The JavaScript world for a script to execute within. */
     export type ExecutionWorld = 'ISOLATED' | 'MAIN';
 
-    export interface InjectionResult {
+    export interface InjectionResult<T> {
         /* The frame associated with the injection. */
         frameId: number;
         /* The result of the script execution. */
-        result?: any;
+        result: T;
     }
 
     export interface InjectionTarget {
@@ -7597,7 +7597,7 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
     }
 
-    export type ScriptInjection<Args extends any[] = []> = {
+    export type ScriptInjection<Args extends any[], Result> = {
         /* Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
@@ -7607,14 +7607,35 @@ declare namespace chrome.scripting {
         files: string[];
     } | ({
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
-        func: ((...args: Args) => void);
-    } & (Args extends [] ? {
-        /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
-        args?: Args;
-    } : {
+        func: () => Result;
+    }  | {
+        /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
+        func: (...args: Args) => Result;
         /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
         args: Args;
-    })))
+    }))
+
+    type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
+
+    interface RegisteredContentScript {
+        id: string;
+        allFrames?: boolean;
+        css?: string[];
+        excludeMatches?: string[];
+        js?: string[];
+        matches?: string[];
+        persistAcrossSessions?: boolean;
+        runAt?: "document_start" | "document_end" | "document_idle";
+        world?: ExecutionWorld;
+    }
+
+    interface ContentScriptFilter {
+        ids?: string[];
+        css?: string;
+        files?: string[];
+        origin?: StyleOrigin;
+        target?: InjectionTarget;
+    }
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7622,7 +7643,7 @@ declare namespace chrome.scripting {
      * The details of the script which to inject.
      * @return The `executeScript` method provides its result via callback or returned as a `Promise` (MV3 only). The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>): Promise<InjectionResult[]>;
+    export function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>): Promise<InjectionResult<Awaited<Result>>[]>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7631,7 +7652,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript<Args extends any[]>(injection: ScriptInjection<Args>, callback?: (results: InjectionResult[]) => void): void;
+    export function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>, callback?: (results: InjectionResult<Awaited<Result>>[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
@@ -7649,6 +7670,71 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the injection.
      */
     export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection): Promise<void>;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @param callback
+     * Invoked upon completion of the removal.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[], callback?: () => void): void;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter, callback?: () => void): void;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     * @param callback
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback?: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
@@ -7853,6 +7939,28 @@ declare namespace chrome.storage {
          * Parameter items: Object with items in their key-value mappings.
          */
         get(keys: string | string[] | { [key: string]: any } | null, callback: (items: { [key: string]: any }) => void): void;
+        /**
+         * Sets the desired access level for the storage area. The default will be only trusted contexts.
+         * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
+         * @return A void Promise.
+         * @since Chrome 102
+         */
+        setAccessLevel(accessOptions: { accessLevel: AccessLevel }): Promise<void>;
+        /**
+         * Sets the desired access level for the storage area. The default will be only trusted contexts.
+         * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
+         * @param callback Optional.
+         * @since Chrome 102
+         */
+        setAccessLevel(accessOptions: { accessLevel: AccessLevel }, callback: () => void): void;
+        /**
+         * Fired when one or more items change within this storage area.
+         * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
+         * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
+         * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
+         * Parameter items: Object with items in their key-value mappings.
+         */
+        onChanged: StorageAreaChangedEvent;
     }
 
     export interface StorageChange {
@@ -7894,9 +8002,20 @@ declare namespace chrome.storage {
         QUOTA_BYTES: number;
     }
 
+    export interface StorageAreaChangedEvent
+    extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void> { }
+
     type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
+
+    type AccessLevel = keyof typeof AccessLevel;
+
+    /** The storage area's access level. */
+    export var AccessLevel: {
+        TRUSTED_AND_UNTRUSTED_CONTEXTS: 'TRUSTED_AND_UNTRUSTED_CONTEXTS',
+        TRUSTED_CONTEXTS: 'TRUSTED_CONTEXTS'
+    };
 
     /** Items in the local storage area are local to each machine. */
     export var local: LocalStorageArea;
@@ -9350,7 +9469,7 @@ declare namespace chrome.tabs {
      * Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).
      * @return The `getCurrent` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
-    export function getCurrent(): Promise<Tab>;
+    export function getCurrent(): Promise<Tab | undefined>;
     /**
      * Gets the tab that is selected in the specified window.
      * @deprecated since Chrome 33. Please use tabs.query {active: true}.
@@ -9564,7 +9683,7 @@ declare namespace chrome.tabs {
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 20.
      */
-    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback?: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(tabId: number, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 41.
@@ -9575,8 +9694,22 @@ declare namespace chrome.tabs {
         tabId: number,
         message: M,
         options: MessageSendOptions,
-        responseCallback?: (response: R) => void,
+        responseCallback: (response: R) => void,
     ): void;
+    /**
+     * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
+     * @since Chrome 99
+     */
+    export function sendMessage<M = any, R = any>(tabId: number, message: M): Promise<R>;
+    /**
+     * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
+     * @since Chrome 99
+     */
+    export function sendMessage<M = any, R = any>(
+        tabId: number,
+        message: M,
+        options: MessageSendOptions
+    ): Promise<R>;
     /**
      * Sends a single request to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The extension.onRequest event is fired in each content script running in the specified tab for the current extension.
      * @deprecated since Chrome 33. Please use runtime.sendMessage.
@@ -10101,10 +10234,16 @@ declare namespace chrome.tts {
         /** Optional. The error description, if the event type is 'error'. */
         errorMessage?: string | undefined;
         /**
+         * The length of the next part of the utterance.
+         * For example, in a word event, this is the length of the word which will be spoken next.
+         * It will be set to -1 if not set by the speech engine.
+         */
+        length?: number | undefined;
+        /**
          * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
          * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
          */
-        type: string;
+        type: "start" | "end" | "word" | "sentence" | "marker" | "interrupted" | "cancelled" | "error" | "pause" | "resume";
     }
 
     /** A description of a voice available for speech synthesis. */
@@ -10175,6 +10314,7 @@ declare namespace chrome.tts {
     /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
     export function stop(): void;
     /** Gets an array of all available voices. */
+    export function getVoices(): Promise<TtsVoice[]>;
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     /**
      * Speaks text using a text-to-speech engine.

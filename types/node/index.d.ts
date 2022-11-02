@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 17.0
+// Type definitions for non-npm package Node.js 18.11
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -67,7 +67,7 @@
  * IN THE SOFTWARE.
  */
 
-// NOTE: These definitions support NodeJS and TypeScript 3.7+.
+// NOTE: These definitions support NodeJS and TypeScript 4.9+.
 
 // Reference required types from the default lib:
 /// <reference lib="es2020" />
@@ -92,6 +92,7 @@
 /// <reference path="dns/promises.d.ts" />
 /// <reference path="dns/promises.d.ts" />
 /// <reference path="domain.d.ts" />
+/// <reference path="dom-events.d.ts" />
 /// <reference path="events.d.ts" />
 /// <reference path="fs.d.ts" />
 /// <reference path="fs/promises.d.ts" />
@@ -108,12 +109,14 @@
 /// <reference path="punycode.d.ts" />
 /// <reference path="querystring.d.ts" />
 /// <reference path="readline.d.ts" />
+/// <reference path="readline/promises.d.ts" />
 /// <reference path="repl.d.ts" />
 /// <reference path="stream.d.ts" />
 /// <reference path="stream/promises.d.ts" />
 /// <reference path="stream/consumers.d.ts" />
 /// <reference path="stream/web.d.ts" />
 /// <reference path="string_decoder.d.ts" />
+/// <reference path="test.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="timers/promises.d.ts" />
 /// <reference path="tls.d.ts" />

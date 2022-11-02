@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import mParticle = require('@mparticle/web-sdk');
 import { Batch } from '@mparticle/event-models';
 

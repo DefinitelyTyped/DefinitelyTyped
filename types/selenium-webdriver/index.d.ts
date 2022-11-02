@@ -29,7 +29,7 @@ import * as until from './lib/until';
 import * as safari from './safari';
 import { ShadowRootPromise } from './lib/webdriver';
 import { WebSocket } from 'ws';
-import { HttpResponse } from './networkinterceptor'
+import { HttpResponse } from './devtools/networkinterceptor'
 
 export * from './lib/by';
 export { Browser, Capability, Capabilities, ITimeouts } from './lib/capabilities';
@@ -1301,7 +1301,7 @@ export class Window {
    *     has completed.
    * @see <https://fullscreen.spec.whatwg.org/#fullscreen-an-element>
    */
-  fullsceen(): Promise<void>;
+  fullscreen(): Promise<void>;
 
   // endregion
 }

@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "max-line-length": false,
         "no-padding": false,
         "no-reference-import": false,

@@ -7,7 +7,7 @@
 // TypeScript Version: 2.8
 
 export interface CachingConfig {
-    ttl: number | TtlFunction;
+    ttl?: number | TtlFunction;
 }
 
 export interface TtlFunction {
@@ -29,11 +29,16 @@ export interface Store {
 }
 
 export interface StoreConfig extends CachingConfig {
-    store: 'memory' | 'none' | Store | {
-        create(...args: any[]): Store;
-    };
+    store:
+        | 'memory'
+        | 'none'
+        | Store
+        | {
+              create(...args: any[]): Store;
+          };
     max?: number;
     maxSize?: number;
+    sizeCalculation?: (value: any, key: any) => number;
 
     /**
      * You may pass in any other arguments these will be passed on to the `create` method of your store,
@@ -52,11 +57,11 @@ export interface CacheOptions {
 
 export type CallbackFunc<T> = (error: any, result: T) => void;
 export type WrapArgsType<T> =
-  | string
-  | ((callback: CallbackFunc<T>) => void)
-  | CachingConfig
-  | CallbackFunc<T>
-  | (() => PromiseLike<T> | T);
+    | string
+    | ((callback: CallbackFunc<T>) => void)
+    | CachingConfig
+    | CallbackFunc<T>
+    | (() => PromiseLike<T> | T);
 
 export interface Cache {
     set<T>(key: string, value: T, options?: CachingConfig): Promise<T>;

@@ -23,5 +23,3 @@ export class PlaneGeometry extends BufferGeometry {
 
     static fromJSON(data: any): PlaneGeometry;
 }
-
-export { PlaneGeometry as PlaneBufferGeometry };

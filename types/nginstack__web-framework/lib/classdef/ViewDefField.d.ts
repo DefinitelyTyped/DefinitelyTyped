@@ -30,6 +30,13 @@ declare class ViewDefField {
     alignment: string;
     height: number;
     width: number;
+    enterKeyAction:
+        | {
+              IGNORE: string;
+              NEWLINE: string;
+              DONE: string;
+          }
+        | string;
     private tableViewLabel;
     controlType: string;
     private controlType_;
@@ -91,7 +98,7 @@ declare class ViewDefField {
     canHaveGlobalActions(): boolean;
     getGlobalActionClassKey(opt_key?: number): number;
     getGlobalActionRegisterKey(opt_key?: number): number | null;
-    link: any;
+    link: Link;
     linkParametersValuesFieldNames: any[];
     private _originalAssignTo;
     assignTo(field: any, ...args: any[]): void;
@@ -109,13 +116,14 @@ declare class ViewDefField {
     isMasterDetail(): boolean;
 }
 declare namespace ViewDefField {
-    export { VM_THUMBNAIL, VM_LIST, FieldAggregator, Event, ViewDef, Grid };
+    export { VM_THUMBNAIL, VM_LIST, FieldAggregator, Event, ViewDef, Grid, Link };
 }
 type Grid = import('../grid/Grid');
 type ViewDef = import('./ViewDef');
 type Event = import('@nginstack/engine/lib/event/Event');
 import AnchorCollection = require('../anchor/AnchorCollection.js');
 import CellThumbnail = require('./CellThumbnail.js');
+type Link = import('../anchor/Link');
 type FieldAggregator = import('../field-aggregator/FieldAggregator');
 declare var VM_THUMBNAIL: number;
 declare var VM_LIST: number;

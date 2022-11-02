@@ -318,7 +318,8 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
                     db.put(row.doc);
                     db.put<Cat>(row.doc);
                     // Generic strictness test
-                    db.put<Boot>(row.doc); // $ExpectError
+                    // @ts-expect-error
+                    db.put<Boot>(row.doc);
                 }
             }
         });

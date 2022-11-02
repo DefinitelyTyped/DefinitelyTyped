@@ -55,7 +55,8 @@ gotResume({
 gotResume({ url: "http://test.com", transform: zlib.createGzip() }); // $ExpectType TransferStream
 gotResume({ url: "http://test.com", log: console.log }); // $ExpectType TransferStream
 gotResume({ url: "http://test.com", got: { baseUrl: "foo" } }); // $ExpectType TransferStream
-gotResume({}); // $ExpectError
+// @ts-expect-error
+gotResume({});
 
 gotResume("http://test.com"); // $ExpectType TransferStream
 gotResume("http://test.com", { attempts: 0 }); // $ExpectType TransferStream
@@ -92,7 +93,7 @@ gotResume("http://test.com", { transform: zlib.createGzip() }); // $ExpectType T
 gotResume("http://test.com", { log: console.log }); // $ExpectType TransferStream
 gotResume("http://test.com", { got: { baseUrl: "foo" } }); // $ExpectType TransferStream
 gotResume("http://test.com", {}); // $ExpectType TransferStream
-// $ExpectError
+// @ts-expect-error
 gotResume("http://test.com", { url: "foo" });
 
 gotResume.toFile("foo", { url: "http://test.com" }); // $ExpectType Promise<void>
@@ -112,7 +113,8 @@ gotResume.toFile("foo", {
 });
 gotResume.toFile("foo", { url: "http://test.com", Promise }); // $ExpectType Promise<void>
 gotResume.toFile("foo", { url: "http://test.com", length: 10 }); // $ExpectType Promise<void>
-gotResume.toFile("foo", {}); // $ExpectError
+// @ts-expect-error
+gotResume.toFile("foo", {});
 
 // toFile() tests
 
@@ -132,7 +134,7 @@ gotResume.toFile("foo", "http://test.com", {
 gotResume.toFile("foo", "http://test.com", { Promise }); // $ExpectType Promise<void>
 gotResume.toFile("foo", "http://test.com", { length: 10 }); // $ExpectType Promise<void>
 gotResume.toFile("foo", "http://test.com", {}); // $ExpectType Promise<void>
-// $ExpectError
+// @ts-expect-error
 gotResume.toFile("foo", "http://test.com", { url: "foo" });
 
 gotResume.toFile("foo", "http://test.com").cancel();

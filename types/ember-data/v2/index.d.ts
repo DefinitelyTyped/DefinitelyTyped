@@ -143,6 +143,12 @@ export namespace DS {
             query?: {},
         ): string;
         /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
+        /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */
         urlForFindRecord<K extends keyof ModelRegistry>(id: string, modelName: K, snapshot: Snapshot<K>): string;
@@ -901,7 +907,7 @@ export namespace DS {
         /**
          * A hash of adapter options
          */
-        adapterOptions: {};
+        adapterOptions: Record<string, unknown>;
         /**
          * The name of the type of the underlying record for this snapshot, as a string.
          */
@@ -1276,6 +1282,12 @@ export namespace DS {
             requestType?: string,
             query?: {},
         ): string;
+        /**
+         * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
+         */
+        buildQuery<K extends keyof ModelRegistry>(
+            snapshot: Snapshot<K>
+        ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
          */

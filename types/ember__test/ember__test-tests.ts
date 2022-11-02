@@ -9,14 +9,17 @@ declare const MyDb: {
 };
 
 registerWaiter(MyDb, MyDb.hasPendingTransactions);
-registerWaiter(); // $ExpectError
+// @ts-expect-error
+registerWaiter();
 
 registerHelper('boot', app => {
     app.advanceReadiness(); // $ExpectType void
     app.deferReadiness(); // $ExpectType void
     app.register('foo', class {}); // $ExpectType void
-    app.register('foo'); // $ExpectError
-    app.register(); // $ExpectError
+    // @ts-expect-error
+    app.register('foo');
+    // @ts-expect-error
+    app.register();
 });
 
 registerAsyncHelper('boot', app => {

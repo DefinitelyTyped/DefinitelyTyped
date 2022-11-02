@@ -3586,7 +3586,8 @@ fp.now(); // $ExpectType number
     _.chain(fnWithRestParameters).negate(); // $ExpectType FunctionChain<(...args: number[]) => boolean>
     fp.negate(fnWithRestParameters); // $ExpectType (...args: number[]) => boolean
 
-    _.negate(() => 'foo'); // $ExpectError
+    // @ts-expect-error
+    _.negate(() => 'foo');
 
     _.negate((a1: number, a2: number): boolean => true); // $ExpectType (a1: number, a2: number) => boolean
     _((a1: number, a2: number): boolean => true).negate(); // $ExpectType Function<(a1: number, a2: number) => boolean>
@@ -4131,6 +4132,67 @@ fp.now(); // $ExpectType number
     _({}).isEmpty(); // $ExpectType boolean
     _.chain([]).isEmpty(); // $ExpectType PrimitiveChain<boolean>
     fp.isEmpty(anything); // $ExpectType boolean
+
+    if (_.isEmpty(anything)) {
+        const result: undefined | null | '' | [] | never[] | Record<never, never> = anything;
+    } else {
+        anything; // $ExpectType any
+    }
+
+    let string = 'isEmpty';
+    if (Math.random()) {
+        string = '';
+    }
+    if (_.isEmpty(string)) {
+        string; // $ExpectType ""
+    } else {
+        string; // $ExpectType string
+    }
+
+    const array: Array<{ value: boolean }> = [];
+    if (_.isEmpty(array)) {
+        array.push({ value: true });
+    } else {
+        array.push({ value: false });
+    }
+
+    let obj2: { value: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj2 = null;
+    } else if (Math.random()) {
+        obj2 = undefined;
+    }
+    if (_.isEmpty(obj2)) {
+        const result: null | undefined = obj2;
+    } else {
+        obj2; // $ExpectType { value: boolean; }
+    }
+    let obj3: { value?: boolean } | null | undefined = { value: true };
+    if (Math.random()) {
+        obj3 = null;
+    } else if (Math.random()) {
+        obj3 = undefined;
+    }
+    if (_.isEmpty(obj3)) {
+        const result: { value?: never; } | null | undefined = obj3;
+        obj3 = { value: false };
+    } else {
+        obj3; // $ExpectType { value?: boolean | undefined; }
+    }
+    const record: Record<string, string> = {};
+    if (_.isEmpty(record)) {
+        record.test = "123";
+    }
+    interface Foo {
+        bar?: string;
+    }
+    const foo: Foo = {};
+    if (Math.random()) {
+        foo.bar = "bar";
+    }
+    if (_.isEmpty(foo)) {
+        foo.bar = "baz";
+    }
 }
 
 // _.isEqual
@@ -4213,13 +4275,13 @@ fp.now(); // $ExpectType number
     const value: number | (() => void) = anything;
 
     if (_.isFunction(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isFunction(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
@@ -4316,13 +4378,13 @@ fp.now(); // $ExpectType number
     const value: number | (() => void) = anything;
 
     if (_.isNative(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
 
     if (fp.isNative(value)) {
-        value; // $ExpectType () => void
+        value; // $ExpectType () => void || (...args: any[]) => any
     } else {
         value; // $ExpectType number
     }
@@ -5256,6 +5318,7 @@ fp.now(); // $ExpectType number
     _.get({ a: undefined }, "a"); // $ExpectType undefined
     _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
+    _.get({ a: [{ b: { c: 3 } }] }, "a[0].b.c", 0);  // $ExpectType number
 
     _("abc").get(1); // $ExpectType string
     _("abc").get([0], "_");
@@ -5267,6 +5330,7 @@ fp.now(); // $ExpectType number
     _({ a: undefined }).get("a"); // $ExpectType undefined
     _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
+    _({ a: [{ b: { c: 3 } }] }).get("a[0].b.c", 0);  // $ExpectType number
 
     _.chain("abc").get(1); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
@@ -5281,6 +5345,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain | PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
+    _.chain({ a: [{ b: { c: [3] } }] }).get("a[0].b.c").map((val) => val.toFixed());  // $ExpectType CollectionChain<string>
 
     fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
     fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
@@ -5702,6 +5767,11 @@ fp.now(); // $ExpectType number
     _.pick(obj1, ["b", 1], 0, "a"); // $ExpectType Partial<AbcObject>
     _.pick(obj1, readonlyArray); // $ExpectType Partial<AbcObject>
     _.pick(obj2, "a", "b"); // $ExpectType Pick<AbcObject, "a" | "b">
+    _.pick(obj1, ["a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [0, "a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [["b", 1], 0, "a"]); // $ExpectType Partial<AbcObject>
+    _.pick(obj1, [readonlyArray]); // $ExpectType Partial<AbcObject>
+    _.pick(obj2, ["a", "b"]); // $ExpectType Pick<AbcObject, "a" | "b">
     // We can't use ExpectType here because typescript keeps changing what order the types appear.
     let result1: Pick<AbcObject, "a" | "b">;
     result1 = _.pick(obj2, literalsArray);
@@ -5712,6 +5782,11 @@ fp.now(); // $ExpectType number
     _(obj1).pick(["b", 1], 0, "a"); // $ExpectType Object<Partial<AbcObject>>
     _(obj1).pick(readonlyArray); // $ExpectType Object<Partial<AbcObject>>
     _(obj2).pick("a", "b"); // $ExpectType Object<Pick<AbcObject, "a" | "b">>
+    _(obj1).pick(["a"]); // $ExpectType Object<Pick<AbcObject, "a">>
+    _(obj1).pick([0, "a"]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj1).pick([["b", 1], 0, "a"]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj1).pick([readonlyArray]); // $ExpectType Object<Partial<AbcObject>>
+    _(obj2).pick(["a", "b"]); // $ExpectType Object<Pick<AbcObject, "a" | "b">>
     let result2: _.Object<Pick<AbcObject, "a" | "b">>;
     result2 = _(obj2).pick(literalsArray);
     result2 = _(obj2).pick(roLiteralsArray);
@@ -5721,6 +5796,11 @@ fp.now(); // $ExpectType number
     _.chain(obj1).pick(["b", 1], 0, "a"); // $ExpectType ObjectChain<Partial<AbcObject>>
     _.chain(obj1).pick(readonlyArray); // $ExpectType ObjectChain<Partial<AbcObject>>
     _.chain(obj2).pick("a", "b"); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
+    _.chain(obj1).pick(["a"]); // $ExpectType ObjectChain<Pick<AbcObject, "a">>
+    _.chain(obj1).pick([0, "a"]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj1).pick([["b", 1], 0, "a"]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj1).pick([readonlyArray]); // $ExpectType ObjectChain<Partial<AbcObject>>
+    _.chain(obj2).pick(["a", "b"]); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
     let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
     result3 = _.chain(obj2).pick(roLiteralsArray);
@@ -6032,11 +6112,11 @@ fp.now(); // $ExpectType number
     _.values(list); // $ExpectType AbcObject[]
     _.values(abcObject); // $ExpectType (string | number | boolean)[]
 
-    // _(true).values(); // $ExpectError
+    // _(true).values(); // @ts-expect-error
     _("hi").values(); // $ExpectType Collection<string>
     _(dict).values(); // $ExpectType Collection<AbcObject>
 
-    // _.chain(true).values(); // $ExpectError
+    // _.chain(true).values(); // @ts-expect-error
     _.chain("hi").values(); // $ExpectType CollectionChain<string>
     _.chain(dict).values(); // $ExpectType CollectionChain<AbcObject>
 
@@ -6660,8 +6740,8 @@ fp.now(); // $ExpectType number
 {
     _.words("fred, barney, & pebbles"); // $ExpectType string[]
     _.words("fred, barney, & pebbles", /[^, ]+/g); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(); // $ExpectType string[]
-    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType string[]
+    _("fred, barney, & pebbles").words(); // $ExpectType Collection<string>
+    _("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType Collection<string>
     _.chain("fred, barney, & pebbles").words(); // $ExpectType CollectionChain<string>
     _.chain("fred, barney, & pebbles").words(/[^, ]+/g); // $ExpectType CollectionChain<string>
     fp.words("fred, barney, & pebbles"); // $ExpectType string[]

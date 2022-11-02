@@ -56,6 +56,8 @@ declare class _Readable implements _IReadable {
     readonly readableFlowing: boolean | null;
     readonly readableHighWaterMark: number;
     readonly readableLength: number;
+    readonly closed: boolean;
+    readonly errored: Error | null;
     _read(size: number): void;
     read(size?: number): any;
     setEncoding(encoding: string): this;
@@ -406,6 +408,9 @@ declare namespace _Readable {
         writable: boolean;
         readonly writableHighWaterMark: number;
         readonly writableLength: number;
+        readonly closed: boolean;
+        readonly errored: Error | null;
+        readonly writableNeedDrain: boolean;
         constructor(opts?: WritableOptions);
         _write(chunk: any, encoding: string, callback: (error?: Error | null) => void): void;
         _writev?(chunks: Array<{ chunk: any, encoding: string }>, callback: (error?: Error | null) => void): void;

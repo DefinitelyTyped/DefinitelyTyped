@@ -13,7 +13,8 @@ hashed = hash.keys(obj); // $ExpectType string
 hashed = hash.MD5(obj); // $ExpectType string
 hashed = hash.keysMD5(obj); // $ExpectType string
 
-hash(undefined); // $ExpectError
+// @ts-expect-error
+hash(undefined);
 hash(''); // $ExpectType string
 
 const passThroughStream = new stream.PassThrough();

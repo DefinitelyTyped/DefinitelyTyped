@@ -16,7 +16,7 @@ import * as R from 'ramda';
 
     const isLengthNotEqual = R.complement(isLengthEqual);
 
-    // $ExpectError
+    // @ts-expect-error
     isLengthNotEqual('FOO', 'BAR');
     isLengthNotEqual('BAZ', 4); // => true
 

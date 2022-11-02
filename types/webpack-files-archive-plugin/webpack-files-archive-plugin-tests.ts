@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 
 const config: Configuration = {
     plugins: [
-        // $ExpectError
+        // @ts-expect-error
         new FilesArchivePlugin(),
         new FilesArchivePlugin({
             format: ['zip', 'tar'],
@@ -15,7 +15,8 @@ const config: Configuration = {
             format: 'tar',
         }),
         new FilesArchivePlugin({
-            format: 'rar', // $ExpectError
+            // @ts-expect-error
+            format: 'rar',
         }),
         new FilesArchivePlugin({
             format: ['zip', 'tar'],

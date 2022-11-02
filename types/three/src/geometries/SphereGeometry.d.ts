@@ -37,5 +37,3 @@ export class SphereGeometry extends BufferGeometry {
 
     static fromJSON(data: any): SphereGeometry;
 }
-
-export { SphereGeometry as SphereBufferGeometry };

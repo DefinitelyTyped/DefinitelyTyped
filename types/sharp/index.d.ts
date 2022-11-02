@@ -1,4 +1,4 @@
-// Type definitions for sharp 0.30
+// Type definitions for sharp 0.31
 // Project: https://github.com/lovell/sharp
 // Definitions by: Wooseop Kim <https://github.com/wooseopkim>
 //                 Bradley Odell <https://github.com/BTOdell>
@@ -78,6 +78,9 @@ declare namespace sharp {
         current: string;
         installed: string[];
     };
+
+    /** An Object containing the available interpolators and their proper values */
+    const interpolators: Interpolators;
 
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
     const queue: NodeJS.EventEmitter;
@@ -332,6 +335,40 @@ declare namespace sharp {
         flop(flop?: boolean): Sharp;
 
         /**
+         * Perform an affine transform on an image. This operation will always occur after resizing, extraction and rotation, if any.
+         * You must provide an array of length 4 or a 2x2 affine transformation matrix.
+         * By default, new pixels are filled with a black background. You can provide a background color with the `background` option.
+         * A particular interpolator may also be specified. Set the `interpolator` option to an attribute of the `sharp.interpolator` Object e.g. `sharp.interpolator.nohalo`.
+         *
+         * In the case of a 2x2 matrix, the transform is:
+         * X = matrix[0, 0] * (x + idx) + matrix[0, 1] * (y + idy) + odx
+         * Y = matrix[1, 0] * (x + idx) + matrix[1, 1] * (y + idy) + ody
+         *
+         * where:
+         *
+         * x and y are the coordinates in input image.
+         * X and Y are the coordinates in output image.
+         * (0,0) is the upper left corner.
+         *
+         * @param matrix Affine transformation matrix, may either by a array of length four or a 2x2 matrix array
+         * @param options if present, is an Object with optional attributes.
+         *
+         * @returns A sharp instance that can be used to chain operations
+         */
+        affine(matrix: [number, number, number, number] | Matrix2x2, options?: AffineOptions): Sharp;
+
+        /**
+         * Sharpen the image.
+         * When used without parameters, performs a fast, mild sharpen of the output image.
+         * When a sigma is provided, performs a slower, more accurate sharpen of the L channel in the LAB colour space.
+         * Separate control over the level of sharpening in "flat" and "jagged" areas is available.
+         * @param options if present, is an Object with optional attributes
+         * @throws {Error} Invalid parameters
+         * @returns A sharp instance that can be used to chain operations
+         */
+        sharpen(options?: SharpenOptions): Sharp;
+
+        /**
          * Sharpen the image.
          * When used without parameters, performs a fast, mild sharpen of the output image.
          * When a sigma is provided, performs a slower, more accurate sharpen of the L channel in the LAB colour space.
@@ -341,6 +378,8 @@ declare namespace sharp {
          * @param jagged the level of sharpening to apply to "jagged" areas. (optional, default 2.0)
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
+         *
+         * @deprecated Use the object parameter `sharpen({sigma, m1, m2, x1, y2, y3})` instead
          */
         sharpen(sigma?: number, flat?: number, jagged?: number): Sharp;
 
@@ -447,7 +486,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        linear(a?: number | null, b?: number): Sharp;
+        linear(a?: number | number[] | null, b?: number | number[]): Sharp;
 
         /**
          * Recomb the image with the specified matrix.
@@ -716,23 +755,30 @@ declare namespace sharp {
         extract(region: Region): Sharp;
 
         /**
-         * Trim "boring" pixels from all edges that contain values similar to the top-left pixel.
+         * Trim pixels from all edges that contain values similar to the given background colour, which defaults to that of the top-left pixel.
+         * Images with an alpha channel will use the combined bounding box of alpha and non-alpha channels.
          * The info response Object will contain trimOffsetLeft and trimOffsetTop properties.
-         * @param threshold The allowed difference from the top-left pixel, a number greater than zero. (optional, default 10)
+         * @param trim The specific background colour to trim, the threshold for doing so or an Object with both.
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        trim(threshold?: number): Sharp;
+        trim(trim?: string | number | TrimOptions): Sharp;
 
         //#endregion
     }
 
     interface SharpOptions {
         /**
+         *  Level of sensitivity to invalid images, one of (in order of sensitivity):
+         *  'none' (least), 'truncated', 'error' or 'warning' (most), highers level imply lower levels. (optional, default 'warning')
+         */
+        failOn?: FailOnOptions | undefined;
+        /**
          * By default halt processing and raise an error when loading invalid images.
          * Set this flag to false if you'd rather apply a "best effort" to decode images,
          * even if the data is corrupt or invalid. (optional, default true)
-         * (optional, default true)
+         *
+         * @deprecated Use `failOn` instead
          */
         failOnError?: boolean | undefined;
         /**
@@ -761,6 +807,8 @@ declare namespace sharp {
         raw?: Raw | undefined;
         /** Describes a new image to be created. */
         create?: Create | undefined;
+        /** Describes a new text image to be created. */
+        text?: CreateText | undefined;
     }
 
     interface CacheOptions {
@@ -801,6 +849,35 @@ declare namespace sharp {
         background: Color;
         /** Describes a noise to be created. */
         noise?: Noise | undefined;
+    }
+
+    interface CreateText {
+        /** Text to render as a UTF-8 string. It can contain Pango markup, for example `<i>Le</i>Monde`. */
+        text: string;
+        /** Font name to render with. */
+        font?: string;
+        /** Absolute filesystem path to a font file that can be used by `font`. */
+        fontfile?: string;
+        /** Integral number of pixels to word-wrap at. Lines of text wider than this will be broken at word boundaries. (optional, default `0`) */
+        width?: number;
+        /**
+         * Integral number of pixels high. When defined, `dpi` will be ignored and the text will automatically fit the pixel resolution
+         * defined by `width` and `height`. Will be ignored if `width` is not specified or set to 0. (optional, default `0`)
+         */
+        height?: number;
+        /** Text alignment ('left', 'centre', 'center', 'right'). (optional, default 'left') */
+        align?: string;
+        /** Set this to true to apply justification to the text. (optional, default `false`) */
+        justify?: boolean;
+        /** The resolution (size) at which to render the text. Does not take effect if `height` is specified. (optional, default `72`) */
+        dpi?: number;
+        /**
+         * Set this to true to enable RGBA output. This is useful for colour emoji rendering,
+         * or support for pango markup features like `<span foreground="red">Red!</span>`. (optional, default `false`)
+         */
+        rgba?: boolean;
+        /** Text line height in points. Will use the font line height if none is specified. (optional, default `0`) */
+        spacing?: number;
     }
 
     interface WriteableMetadata {
@@ -961,11 +1038,10 @@ declare namespace sharp {
         smartSubsample?: boolean | undefined;
         /** Level of CPU effort to reduce file size, integer 0-6 (optional, default 4) */
         effort?: number | undefined;
-        /**
-         * Level of CPU effort to reduce file size, integer 0-6 (optional, default 4)
-         * @deprecated Use `effort` instead
-         */
-        reductionEffort?: number | undefined;
+        /** Prevent use of animation key frames to minimise file size (slow) (optional, default false) */
+        minSize?: number;
+        /** Allow mixture of lossy and lossless animation frames (slow) (optional, default false) */
+        mixed?: boolean;
     }
 
     interface AvifOptions extends OutputOptions {
@@ -973,11 +1049,6 @@ declare namespace sharp {
         quality?: number | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /**
-         * CPU effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5)
-         * @deprecated Use `effort` instead
-         */
-        speed?: number | undefined;
         /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
         effort?: number | undefined;
         /** set to '4:2:0' to use chroma subsampling, requires libvips v8.11.0 (optional, default '4:4:4') */
@@ -991,19 +1062,18 @@ declare namespace sharp {
         compression?: 'av1' | 'hevc' | undefined;
         /** use lossless compression (optional, default false) */
         lossless?: boolean | undefined;
-        /**
-         * effort vs file size, 0 (slowest/smallest) to 9 (fastest/largest) (optional, default 5)
-         * @deprecated Use `effort` instead
-         */
-        speed?: number | undefined;
         /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
         effort?: number | undefined;
     }
 
     interface GifOptions extends OutputOptions, AnimationOptions {
+        /** Always generate new palettes (slow), re-use existing by default (optional, default false) */
+        reoptimise?: boolean | undefined;
+        /** Alternative spelling of "reoptimise" (optional, default false) */
+        reoptimize?: boolean | undefined;
         /** Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
         colours?: number | undefined;
-        /** Alternative Spelling of "colours". Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
+        /** Alternative spelling of "colours". Maximum number of palette entries, including transparency, between 2 and 256 (optional, default 256) */
         colors?: number | undefined;
         /** Level of CPU effort to reduce file size, between 1 (fastest) and 10 (slowest) (optional, default 7) */
         effort?: number | undefined;
@@ -1014,7 +1084,7 @@ declare namespace sharp {
     interface TiffOptions extends OutputOptions {
         /** Quality, integer 1-100 (optional, default 80) */
         quality?: number | undefined;
-        /** Compression options: lzw, deflate, jpeg, ccittfax4 (optional, default 'jpeg') */
+        /** Compression options: none, jpeg, deflate, packbits, ccittfax4, lzw, webp, zstd, jp2k (optional, default 'jpeg') */
         compression?: string | undefined;
         /** Compression predictor options: none, horizontal, float (optional, default 'horizontal') */
         predictor?: string | undefined;
@@ -1126,6 +1196,13 @@ declare namespace sharp {
         background?: Color | undefined;
     }
 
+    interface TrimOptions {
+        /** background colour, parsed by the color module, defaults to that of the top-left pixel. (optional) */
+        background?: Color | undefined;
+        /** the allowed difference from the above colour, a positive number. (optional, default `10`) */
+        threshold?: number | undefined;
+    }
+
     interface RawOptions {
         depth?: 'char' | 'uchar' | 'short' | 'ushort' | 'int' | 'uint' | 'float' | 'complex' | 'double' | 'dpcomplex';
     }
@@ -1173,7 +1250,7 @@ declare namespace sharp {
 
     interface OverlayOptions {
         /** Buffer containing image data, String containing the path to an image file, or Create object  */
-        input?: string | Buffer | { create: Create } | undefined;
+        input?: string | Buffer | { create: Create } | { text: CreateText } | undefined;
         /** how to blend this image with the image below. (optional, default `'over'`) */
         blend?: Blend | undefined;
         /** gravity at which to place the overlay. (optional, default 'centre') */
@@ -1230,6 +1307,36 @@ declare namespace sharp {
         delay?: number | number[] | undefined;
     }
 
+    interface SharpenOptions {
+        /** The sigma of the Gaussian mask, where sigma = 1 + radius / 2. */
+        sigma: number;
+        /** The level of sharpening to apply to "flat" areas. (optional, default 1.0) */
+        m1?: number | undefined;
+        /** The level of sharpening to apply to "jagged" areas. (optional, default 2.0) */
+        m2?: number | undefined;
+        /** Threshold between "flat" and "jagged" (optional, default 2.0) */
+        x1?: number | undefined;
+        /** Maximum amount of brightening. (optional, default 10.0) */
+        y2?: number | undefined;
+        /** Maximum amount of darkening. (optional, default 20.0) */
+        y3?: number | undefined;
+    }
+
+    interface AffineOptions {
+        /** Parsed by the color module to extract values for red, green, blue and alpha. (optional, default "#000000") */
+        background?: string | object | undefined;
+        /** Input horizontal offset (optional, default 0) */
+        idx?: number | undefined;
+        /** Input vertical offset (optional, default 0) */
+        idy?: number | undefined;
+        /** Output horizontal offset (optional, default 0) */
+        odx?: number | undefined;
+        /** Output horizontal offset (optional, default 0) */
+        ody?: number | undefined;
+        /** Interpolator (optional, default sharp.interpolators.bicubic) */
+        interpolator?: Interpolators[keyof Interpolators] | undefined;
+    }
+
     interface OutputInfo {
         format: string;
         size: number;
@@ -1246,12 +1353,14 @@ declare namespace sharp {
         trimOffsetLeft?: number | undefined;
         /** Only defined when using a trim method */
         trimOffsetTop?: number | undefined;
+        /** DPI the font was rendered at, only defined when using `text` input */
+        textAutofitDpi?: number | undefined;
     }
 
     interface AvailableFormatInfo {
         id: string;
-        input: { file: boolean; buffer: boolean; stream: boolean };
-        output: { file: boolean; buffer: boolean; stream: boolean };
+        input: { file: boolean; buffer: boolean; stream: boolean; fileSuffix?: string[] };
+        output: { file: boolean; buffer: boolean; stream: boolean; alias?: string[] };
     }
 
     interface FitEnum {
@@ -1283,6 +1392,8 @@ declare namespace sharp {
         cmyk: string;
         srgb: string;
     }
+
+    type FailOnOptions = 'none' | 'truncated' | 'error' | 'warning';
 
     type TileLayout = 'dz' | 'iiif' | 'iiif3' | 'zoomify' | 'google';
 
@@ -1363,6 +1474,25 @@ declare namespace sharp {
         items: { current: number; max: number };
     }
 
+    interface Interpolators {
+        /** [Nearest neighbour interpolation](http://en.wikipedia.org/wiki/Nearest-neighbor_interpolation). Suitable for image enlargement only. */
+        nearest: 'nearest';
+        /** [Bilinear interpolation](http://en.wikipedia.org/wiki/Bilinear_interpolation). Faster than bicubic but with less smooth results. */
+        bilinear: 'bilinear';
+        /** [Bicubic interpolation](http://en.wikipedia.org/wiki/Bicubic_interpolation) (the default). */
+        bicubic: 'bicubic';
+        /**
+         * [LBB interpolation](https://github.com/libvips/libvips/blob/master/libvips/resample/lbb.cpp#L100).
+         * Prevents some "[acutance](http://en.wikipedia.org/wiki/Acutance)" but typically reduces performance by a factor of 2.
+         */
+        locallyBoundedBicubic: 'lbb';
+        /** [Nohalo interpolation](http://eprints.soton.ac.uk/268086/). Prevents acutance but typically reduces performance by a factor of 3. */
+        nohalo: 'nohalo';
+        /** [VSQBS interpolation](https://github.com/libvips/libvips/blob/master/libvips/resample/vsqbs.cpp#L48). Prevents "staircasing" when enlarging. */
+        vertexSplitQuadraticBasisSpline: 'vsqbs';
+    }
+
+    type Matrix2x2 = [[number, number], [number, number]];
     type Matrix3x3 = [[number, number, number], [number, number, number], [number, number, number]];
 }
 

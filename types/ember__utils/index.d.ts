@@ -3,10 +3,11 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import { TypeLookup, TypeOf } from './-private/types';
+import { TypeOf } from './-private/types';
 
 /**
  * Compares two javascript values and returns:
@@ -46,4 +47,3 @@ export function isPresent(obj?: unknown): boolean;
  */
 export function typeOf<T>(value: T): TypeOf<T>;
 export function typeOf(): 'undefined';
-export function typeOf(item: unknown): string;

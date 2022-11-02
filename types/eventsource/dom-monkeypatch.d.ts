@@ -30,6 +30,10 @@ interface Event {
    */
   readonly timeStamp: number;
   /**
+   * Unauthorized and redirect error status codes (for example 401, 403, 301, 307)
+   */
+  readonly status?: number | undefined;
+  /**
    * Returns the type of event, e.g.
    * "click", "hashchange", or
    * "submit".

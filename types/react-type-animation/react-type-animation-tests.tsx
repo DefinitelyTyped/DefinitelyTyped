@@ -1,41 +1,35 @@
 import * as React from 'react';
-import Typing from 'react-type-animation';
+import TypeAnimation from 'react-type-animation';
 
-const basic = () => (
-    <Typing>
-        <span>This span will get typed.</span>
-    </Typing>
+const example = () => (
+    <TypeAnimation cursor={false} sequence={['React typing animation based on typical', 1000, '']} wrapper="h2" />
 );
 
-const backspace = () => (
-    <Typing>
-        <span>This span will get typed, then erased.</span>
-        <Typing.Backspace count={20} />
-    </Typing>
+const exampleWithRepeat = () => (
+    <TypeAnimation
+        cursor={false}
+        sequence={['This text will be repeated infinitely.', 1000, '']}
+        wrapper="h2"
+        repeat={Infinity}
+    />
 );
 
-const delay = () => (
-    <Typing>
-        <div>
-            There will be a 1000ms delay here,
-            <Typing.Delay ms={1000} />
-            then this will be typed.
-        </div>
-    </Typing>
+const repeatWithThreeTimes = () => (
+    <TypeAnimation
+        cursor={true}
+        sequence={['This animation', 2000, 'Will write', 2000, 'A sequence three times.']}
+        wrapper="a"
+        repeat={3}
+    />
 );
 
-const speed = () => (
-    <Typing speed={50}>
-        This line will be typed at 50ms/character,
-        <Typing.Speed ms={200} />
-        then this will be typed at 200ms/character.
-    </Typing>
-);
-
-const reset = () => (
-    <Typing>
-        <span>This line will stay.</span>
-        <span>This line will get instantly removed after a 500 ms delay</span>
-        <Typing.Reset count={1} delay={500} />
-    </Typing>
+const predefinedWidth = () => (
+    <div style={{ width: '20em' }}>
+        <TypeAnimation
+            cursor={true}
+            sequence={['Pre-define width of wrapper', 2000, 'to prevent layout-shift.', 2000]}
+            wrapper="h2"
+            repeat={Infinity}
+        />
+    </div>
 );

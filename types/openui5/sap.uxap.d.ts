@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.107.0
 
 declare module "sap/uxap/library" {
   /**
@@ -774,7 +774,7 @@ declare module "sap/uxap/BlockBase" {
        * The mapping to remove or its index or id
        */
       vMapping: int | string | ModelMapping
-    ): ModelMapping;
+    ): ModelMapping | null;
     /**
      * Set the column layout for this particular block.
      *
@@ -1121,7 +1121,7 @@ declare module "sap/uxap/BreadCrumbs" {
        * The link to remove or its index or id
        */
       vLink: int | string | Link
-    ): Link;
+    ): Link | null;
     /**
      * Sets the aggregated {@link #getCurrentLocation currentLocation}.
      *
@@ -2912,7 +2912,7 @@ declare module "sap/uxap/ObjectPageHeader" {
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -2943,7 +2943,7 @@ declare module "sap/uxap/ObjectPageHeader" {
        * The breadCrumbLink to remove or its index or id
        */
       vBreadCrumbLink: int | string | Link
-    ): Link;
+    ): Link | null;
     /**
      * @SINCE 1.50
      *
@@ -3904,7 +3904,7 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @deprecated (since 1.40.1)
      *
@@ -5416,7 +5416,7 @@ declare module "sap/uxap/ObjectPageLayout" {
        * The headerContent to remove or its index or id
        */
       vHeaderContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a section from the aggregation {@link #getSections sections}.
      *
@@ -5427,7 +5427,7 @@ declare module "sap/uxap/ObjectPageLayout" {
        * The section to remove or its index or id
        */
       vSection: int | string | ObjectPageSection
-    ): ObjectPageSection;
+    ): ObjectPageSection | null;
     /**
      * Scrolls the Object page to the given Section.
      */
@@ -6427,7 +6427,7 @@ declare module "sap/uxap/ObjectPageLazyLoader" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
   }
 
   export interface $ObjectPageLazyLoaderSettings extends $ElementSettings {
@@ -6445,6 +6445,8 @@ declare module "sap/uxap/ObjectPageSection" {
   } from "sap/uxap/ObjectPageSectionBase";
 
   import ObjectPageSubSection from "sap/uxap/ObjectPageSubSection";
+
+  import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -6537,11 +6539,29 @@ declare module "sap/uxap/ObjectPageSection" {
       oSubSection: ObjectPageSubSection
     ): this;
     /**
+     * @SINCE 1.106
+     *
+     * Destroys the heading in the aggregation {@link #getHeading heading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyHeading(): this;
+    /**
      * Destroys all the subSections in the aggregation {@link #getSubSections subSections}.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySubSections(): this;
+    /**
+     * @SINCE 1.106
+     *
+     * Gets content of aggregation {@link #getHeading heading}.
+     *
+     * Section heading content.
+     *
+     * Note: For some accessibility concerns we encourage you to use non-focusable elements.
+     */
+    getHeading(): Control;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedSubSection selectedSubSection},
      * or `null`.
@@ -6573,6 +6593,16 @@ declare module "sap/uxap/ObjectPageSection" {
      * @returns Value of property `titleUppercase`
      */
     getTitleUppercase(): boolean;
+    /**
+     * Gets current value of property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `wrapTitle`
+     */
+    getWrapTitle(): boolean;
     /**
      * Checks for the provided `sap.uxap.ObjectPageSubSection` in the aggregation {@link #getSubSections subSections}.
      * and returns its index if found or -1 otherwise.
@@ -6620,7 +6650,20 @@ declare module "sap/uxap/ObjectPageSection" {
        * The subSection to remove or its index or id
        */
       vSubSection: int | string | ObjectPageSubSection
-    ): ObjectPageSubSection;
+    ): ObjectPageSubSection | null;
+    /**
+     * @SINCE 1.106
+     *
+     * Sets the aggregated {@link #getHeading heading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeading(
+      /**
+       * The heading to set
+       */
+      oHeading: Control
+    ): this;
     /**
      * Sets the associated {@link #getSelectedSubSection selectedSubSection}.
      *
@@ -6667,6 +6710,23 @@ declare module "sap/uxap/ObjectPageSection" {
        */
       bTitleUppercase?: boolean
     ): this;
+    /**
+     * Sets a new value for property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWrapTitle(
+      /**
+       * New value for property `wrapTitle`
+       */
+      bWrapTitle?: boolean
+    ): this;
   }
 
   export interface $ObjectPageSectionSettings
@@ -6682,6 +6742,11 @@ declare module "sap/uxap/ObjectPageSection" {
     titleUppercase?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     */
+    wrapTitle?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * The list of Subsections.
      */
     subSections?:
@@ -6689,6 +6754,15 @@ declare module "sap/uxap/ObjectPageSection" {
       | ObjectPageSubSection
       | AggregationBindingInfo
       | `{${string}}`;
+
+    /**
+     * @SINCE 1.106
+     *
+     * Section heading content.
+     *
+     * Note: For some accessibility concerns we encourage you to use non-focusable elements.
+     */
+    heading?: Control;
 
     /**
      * The most recently selected Subsection by the user.
@@ -7340,7 +7414,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
        * The action to remove or its index or id
        */
       vAction: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes all the controls from the aggregation {@link #getActions actions}.
      *
@@ -7375,7 +7449,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
        * The block to remove or its index or id
        */
       vBlock: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a moreBlock from the aggregation {@link #getMoreBlocks moreBlocks}.
      *
@@ -7386,7 +7460,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
        * The moreBlock to remove or its index or id
        */
       vMoreBlock: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getMode mode}.
      *

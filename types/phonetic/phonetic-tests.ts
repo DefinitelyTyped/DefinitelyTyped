@@ -17,17 +17,17 @@ phonetic.generate({ capFirst: false });
 
 // Errors
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ syllables: 'two' });
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ seed: 3 });
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ compoundSimplicity: 'three' });
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ phoneticSimplicity: 'three' });
 
-// $ExpectError
+// @ts-expect-error
 phonetic.generate({ capFirst: 1 });

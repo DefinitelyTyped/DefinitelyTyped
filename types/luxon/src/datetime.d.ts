@@ -282,6 +282,12 @@ export interface ToISOTimeOptions extends ToISOTimeDurationOptions {
      * @default true
      */
     includeOffset?: boolean | undefined;
+
+    /**
+     * add the time zone format extension
+     * @default false
+     */
+    extendedZone?: boolean | undefined;
 }
 
 /** @deprecated alias for backwards compatibility */
@@ -739,6 +745,25 @@ export class DateTime {
      * @param o
      */
     static isDateTime(o: unknown): o is DateTime;
+
+    /**
+     * Produce the format string for a set of options
+     *
+     * @param formatOpts - Intl.DateTimeFormat constructor options and configuration options
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     *
+     * @example
+     * DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); //=> "MMMM d, yyyyy, h:m a ZZZ"
+     */
+    static parseFormatForOpts(formatOpts?: DateTimeFormatOptions, localeOpts?: LocaleOptions): string | null;
+
+    /**
+     * Produce the fully expanded format token for the locale
+     * Does NOT quote characters, so quoted tokens will not round trip correctly
+     * @param fmt - the format string
+     * @param localeOpts - Opts to override the configuration options on this DateTime
+     */
+    static expandFormat(fmt: string, localeOpts?: LocaleOptions): string;
 
     private constructor(config: unknown);
 

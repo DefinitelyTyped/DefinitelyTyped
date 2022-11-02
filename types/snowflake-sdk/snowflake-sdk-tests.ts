@@ -65,7 +65,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 
     conn.execute({
         sqlText: '',
-        fetchAsString: ['NaN'], // $ExpectError
+        // @ts-expect-error
+        fetchAsString: ['NaN'],
         binds: [
             [1, ''],
             [2, ''],

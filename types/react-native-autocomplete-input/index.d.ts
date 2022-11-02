@@ -1,20 +1,14 @@
-// Type definitions for react-native-autocomplete-input 5.0
-// Project: https://github.com/l-urence/react-native-autocomplete-input#readme
+// Type definitions for react-native-autocomplete-input 5.1
+// Project: https://github.com/mrlaessig/react-native-autocomplete-input#readme
 // Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 joleb <https://github.com/joleb>
+//                 AJ <https://github.com/ajenkins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
 import { FC, ReactNode } from 'react';
-import {
-    GestureResponderHandlers,
-    StyleProp,
-    ViewStyle,
-    FlatListProps,
-    TextInputProps,
-    ListViewProps,
-} from 'react-native';
+import { GestureResponderHandlers, StyleProp, ViewStyle, FlatListProps, TextInputProps } from 'react-native';
 
 export interface AutocompleteProps<T> extends TextInputProps {
     /**
@@ -61,9 +55,9 @@ export interface AutocompleteProps<T> extends TextInputProps {
 
     /**
      * function
-     * onShowResult will be called when the autocomplete suggestions appear or disappear.
+     * onShowResults will be called when the autocomplete suggestions appear or disappear.
      */
-    onShowResult?(showResults: boolean): void;
+    onShowResults?(showResults: boolean): void;
 
     /**
      * function
@@ -75,15 +69,13 @@ export interface AutocompleteProps<T> extends TextInputProps {
      * function
      * render custom TextInput. All props passed to this function.
      */
-    renderTextInput?(props: TextInputProps): ReactNode;
+    renderTextInput?(props: AutocompleteProps<T>): ReactNode;
 
     /**
-     * string | bool
-     * Set `keyboardShouldPersistTaps` to true if RN version is <= 0.39.
+     * function
+     * render custom result list. Can be used to replace FlatList. All props passed to this function.
      */
-    renderSeparator?: ListViewProps['renderSeparator'] | undefined;
-
-    keyboardShouldPersistTaps?: 'always' | 'handeld' | 'never' | boolean;
+    renderResultList?(props: AutocompleteProps<T>): ReactNode;
 }
 export const AutocompleteInput: FC<AutocompleteProps<any>>;
 

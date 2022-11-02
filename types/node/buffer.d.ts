@@ -41,10 +41,11 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/buffer.js)
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
+    import { ReadableStream as WebReadableStream } from 'node:stream/web';
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -114,7 +115,6 @@ declare module 'buffer' {
      * A [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) encapsulates immutable, raw data that can be safely shared across
      * multiple worker threads.
      * @since v15.7.0, v14.18.0
-     * @experimental
      */
     export class Blob {
         /**
@@ -158,13 +158,19 @@ declare module 'buffer' {
          */
         text(): Promise<string>;
         /**
-         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
+         * Returns a new (WHATWG) `ReadableStream` that allows the content of the `Blob` to be read.
          * @since v16.7.0
          */
-        stream(): unknown; // pending web streams types
+        stream(): WebReadableStream;
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
+
+    import { Blob as NodeBlob } from 'buffer';
+    // This conditional type will be the existing global Blob in a browser, or
+    // the copy below in a Node environment.
+    type __Blob = typeof globalThis extends { onmessage: any, Blob: infer T }
+        ? T : NodeBlob;
     global {
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
@@ -481,7 +487,7 @@ declare module 'buffer' {
              * if `size` is 0.
              *
              * The underlying memory for `Buffer` instances created in this way is _not_
-             * _initialized_. The contents of the newly created `Buffer` are unknown and_may contain sensitive data_. Use `buf.fill(0)` to initialize
+             * _initialized_. The contents of the newly created `Buffer` are unknown and _may contain sensitive data_. Use `buf.fill(0)` to initialize
              * such `Buffer` instances with zeroes.
              *
              * When using `Buffer.allocUnsafe()` to allocate new `Buffer` instances,
@@ -763,8 +769,6 @@ declare module 'buffer' {
              * Returns a new `Buffer` that references the same memory as the original, but
              * offset and cropped by the `start` and `end` indices.
              *
-             * This is the same behavior as `buf.subarray()`.
-             *
              * This method is not compatible with the `Uint8Array.prototype.slice()`,
              * which is a superclass of `Buffer`. To copy the slice, use`Uint8Array.prototype.slice()`.
              *
@@ -780,8 +784,17 @@ declare module 'buffer' {
              *
              * console.log(buf.toString());
              * // Prints: buffer
+             *
+             * // With buf.slice(), the original buffer is modified.
+             * const notReallyCopiedBuf = buf.slice();
+             * notReallyCopiedBuf[0]++;
+             * console.log(notReallyCopiedBuf.toString());
+             * // Prints: cuffer
+             * console.log(buf.toString());
+             * // Also prints: cuffer (!)
              * ```
              * @since v0.3.0
+             * @deprecated Use `subarray` instead.
              * @param [start=0] Where the new `Buffer` will start.
              * @param [end=buf.length] Where the new `Buffer` will end (not inclusive).
              */
@@ -1948,7 +1961,7 @@ declare module 'buffer' {
              *
              * * a string, `value` is interpreted according to the character encoding in`encoding`.
              * * a `Buffer` or [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array), `value` will be used in its entirety.
-             * To compare a partial `Buffer`, use `buf.slice()`.
+             * To compare a partial `Buffer`, use `buf.subarray`.
              * * a number, `value` will be interpreted as an unsigned 8-bit integer
              * value between `0` and `255`.
              *
@@ -2225,6 +2238,19 @@ declare module 'buffer' {
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;
+
+        interface Blob extends __Blob {}
+        /**
+         * `Blob` class is a global reference for `require('node:buffer').Blob`
+         * https://nodejs.org/api/buffer.html#class-blob
+         * @since v18.0.0
+         */
+        var Blob: typeof globalThis extends {
+            onmessage: any;
+            Blob: infer T;
+        }
+            ? T
+            : typeof NodeBlob;
     }
 }
 declare module 'node:buffer' {

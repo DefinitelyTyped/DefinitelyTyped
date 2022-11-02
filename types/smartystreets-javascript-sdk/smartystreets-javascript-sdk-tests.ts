@@ -34,6 +34,7 @@ lookup.street = '4646 Scott St';
 lookup.city = 'Houston';
 lookup.state = 'TX';
 lookup.zipCode = '77004';
+lookup.addressee = 'addressee';
 batch.add(lookup);
 client
     .send(batch)
@@ -125,8 +126,20 @@ client.send(lookup)
         err, // $ExpectType any
     ) => console.error(err));
 
+// usReverseGeo
 client = SmartyStreetsSDK.core.buildClient.usReverseGeo(credentials);
 lookup = new SmartyStreetsSDK.usReverseGeo.Lookup('29.751711638333997', '-95.35554678347353');
+client.send(lookup)
+    .then((
+        resp, // $ExpectType Lookup
+    ) => console.log(resp))
+    .catch((
+        err, // $ExpectType any
+    ) => console.error(err));
+
+// internationalAddressAutocomplete
+client = SmartyStreetsSDK.core.buildClient.internationalAddressAutocomplete(credentials);
+lookup = new SmartyStreetsSDK.internationalAddressAutocomplete.Lookup('avenue', 'CAN');
 client.send(lookup)
     .then((
         resp, // $ExpectType Lookup

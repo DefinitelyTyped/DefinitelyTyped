@@ -114,7 +114,8 @@ const people = Ember.A([
     Person2.create({ name: 'Majd' }),
 ]);
 people.invoke('sayHello');
-people.invoke('name'); // $ExpectError
+// @ts-expect-error
+people.invoke('name');
 
 type Arr = Ember.NativeArray<Ember.Object & {
     name?: string;
@@ -123,8 +124,10 @@ const arr: Arr = Ember.A([Ember.Object.create(), Ember.Object.create()]);
 arr.setEach('name', 'unknown'); // $ExpectType void
 arr.setEach('name', undefined); // $ExpectType void
 arr.getEach('name'); // $ExpectType (string | undefined)[]
-arr.setEach('age', 123); // $ExpectError
-arr.getEach('age'); // $ExpectError
+// @ts-expect-error
+arr.setEach('age', 123);
+// @ts-expect-error
+arr.getEach('age');
 
 const Person3 = Ember.Object.extend({
     name: '',
@@ -141,7 +144,8 @@ people2.every(isHappy);
 people2.any(isHappy);
 people2.isEvery('isHappy');
 people2.isEvery('isHappy', true);
-people2.isAny('isHappy', 'true'); // $ExpectError
+// @ts-expect-error
+people2.isAny('isHappy', 'true');
 people2.isAny('isHappy', true);
 people2.isAny('isHappy');
 

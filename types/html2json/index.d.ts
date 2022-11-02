@@ -8,7 +8,7 @@ export interface Node {
     tag?: string;
     child?: Node[] | Node;
     text?: string;
-    attrs?: { [key: string]: string | string[] };
+    attr?: { [key: string]: string | string[] };
 }
 export function html2json(html: string): Node;
 export function json2html(json: Node): string;

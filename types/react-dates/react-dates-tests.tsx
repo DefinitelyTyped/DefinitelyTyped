@@ -29,7 +29,7 @@ const onlyRenderText: RenderMonthProps = {
 const onlyRenderElement: RenderMonthProps = {
     renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM'),
 };
-// $ExpectError
+// @ts-expect-error
 const bothRenderMethods: RenderMonthProps = {
     renderMonthText: month => month.format('MMMM'),
     renderMonthElement: ({ isVisible, month, onMonthSelect, onYearSelect }) => month.format('MMMM'),
@@ -414,10 +414,10 @@ const DayPickerFullTest: React.FC = () => (
     />
 );
 
-// $ExpectError
+// @ts-expect-error
 const DayPickerNoOrientationError: React.FC = () => <DayPicker onGetPrevScrollableMonths={event => {}} />;
 const DayPickerWrongOrientationError: React.FC = () => (
-    // $ExpectError
+    // @ts-expect-error
     <DayPicker orientation="horizontal" onGetNextScrollableMonths={event => {}} />
 );
 
@@ -722,16 +722,16 @@ const SingleDatePickerInputFullTest: React.FC = () => (
 );
 
 const isInclusivelyAfterDayResult: boolean = isInclusivelyAfterDay(moment(), moment());
-// $ExpectError
+// @ts-expect-error
 const isInclusivelyAfterDayResultError: boolean = isInclusivelyAfterDay(moment(), 5);
 const isInclusivelyBeforeDayResult: boolean = isInclusivelyBeforeDay(moment(), moment());
-// $ExpectError
+// @ts-expect-error
 const isInclusivelyBeforeDayResultError: boolean = isInclusivelyBeforeDay(new Date(), moment());
 const isNextDayDayResult: boolean = isNextDay(moment(), moment());
-// $ExpectError
+// @ts-expect-error
 const isNextDayDayResultError: boolean = isNextDay(moment());
 const isSameDayResult: boolean = isSameDay(moment(), moment());
-// $ExpectError
+// @ts-expect-error
 const isSameDayResultError: boolean = isSameDay('January 1, 2020', moment());
 const toISODateStringResult: string | null = toISODateString(moment(), 'dd.mm.yyyy');
 const toISODateStringResultFromString: string | null = toISODateString('January 1, 2020');

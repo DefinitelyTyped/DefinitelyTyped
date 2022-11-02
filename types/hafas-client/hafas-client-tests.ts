@@ -84,7 +84,11 @@ client.locations("", { results: 1 })
     .catch(() => { /* ... */ });
 
 client.journeys("", "", { results: 1, subStops: true, age: 65 })
-    .then(journeys => { /* ... */ })
+    .then(journeys => {
+        if (journeys.journeys && journeys.journeys[0].legs.length > 0) {
+            if (journeys.journeys[0].legs[0].prognosedArrival === 'prognosed') { /* ... */ }
+        }
+    })
     .catch(() => { /* ... */ });
 
 if (client.radar) {

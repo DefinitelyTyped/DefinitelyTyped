@@ -22,7 +22,7 @@ function redTests(RED: editorClient.RED) {
         nodeInstance.x;
         // $ExpectType string
         nodeInstance.instanceProp;
-        // $ExpectError
+        // @ts-expect-error
         nodeInstance.wrongKey;
         // $ExpectType string
         nodeInstance._('myNode.label');
@@ -33,6 +33,8 @@ function redTests(RED: editorClient.RED) {
     const myNodeDef: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
         category: 'category',
         defaults: {
+            name: { value: '' },
+            inputs: { value: 1 },
             key: {
                 value: '',
                 required: true,
@@ -44,13 +46,13 @@ function redTests(RED: editorClient.RED) {
                     this.key;
                     // $ExpectType string
                     this.instanceProp;
-                    // $ExpectError
+                    // @ts-expect-error
                     this.wrongKey;
 
                     return true;
                 },
             },
-            // $ExpectError
+            // @ts-expect-error
             instanceProp: {
                 value: '',
             },
@@ -70,7 +72,7 @@ function redTests(RED: editorClient.RED) {
                 this.key;
                 // $ExpectType string
                 this.instanceProp;
-                // $ExpectError
+                // @ts-expect-error
                 this.wrongKey;
             },
             enabled() {
@@ -78,7 +80,7 @@ function redTests(RED: editorClient.RED) {
                 this.key;
                 // $ExpectType string
                 this.instanceProp;
-                // $ExpectError
+                // @ts-expect-error
                 this.wrongKey;
                 return true;
             },
@@ -87,7 +89,7 @@ function redTests(RED: editorClient.RED) {
                 this.key;
                 // $ExpectType string
                 this.instanceProp;
-                // $ExpectError
+                // @ts-expect-error
                 this.wrongKey;
                 return true;
             },
@@ -101,7 +103,7 @@ function redTests(RED: editorClient.RED) {
                   this.key;
                   // $ExpectType string
                   this.instanceProp;
-                  // $ExpectError
+                  // @ts-expect-error
                   this.wrongKey;
                   return 'label';
               },
@@ -113,7 +115,7 @@ function redTests(RED: editorClient.RED) {
                   this.key;
                   // $ExpectType string
                   this.instanceProp;
-                  // $ExpectError
+                  // @ts-expect-error
                   this.wrongKey;
                   return 'label';
               },
@@ -124,7 +126,7 @@ function redTests(RED: editorClient.RED) {
                   this.key;
                   // $ExpectType string
                   this.instanceProp;
-                  // $ExpectError
+                  // @ts-expect-error
                   this.wrongKey;
                   return 'italic';
               },
@@ -133,7 +135,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
         },
         oneditdelete() {
@@ -141,7 +143,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
         },
         oneditprepare() {
@@ -149,7 +151,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
         },
         oneditresize(size) {
@@ -157,7 +159,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
             // $ExpectType number
             size.height;
@@ -169,7 +171,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
         },
         onpaletteadd() {
@@ -177,7 +179,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
         },
         onpaletteremove() {
@@ -185,7 +187,7 @@ function redTests(RED: editorClient.RED) {
             this.key;
             // $ExpectType string
             this.instanceProp;
-            // $ExpectError
+            // @ts-expect-error
             this.wrongKey;
         },
         outputLabels: true
@@ -199,7 +201,7 @@ function redTests(RED: editorClient.RED) {
                   this.key;
                   // $ExpectType string
                   this.instanceProp;
-                  // $ExpectError
+                  // @ts-expect-error
                   this.wrongKey;
                   return 'label';
               },
@@ -211,7 +213,7 @@ function redTests(RED: editorClient.RED) {
                   this.key;
                   // $ExpectType string
                   this.instanceProp;
-                  // $ExpectError
+                  // @ts-expect-error
                   this.wrongKey;
                   return 'label';
               },
@@ -220,7 +222,7 @@ function redTests(RED: editorClient.RED) {
     const defWithReserved: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
         category: 'category',
         defaults: {
-            // $ExpectError
+            // @ts-expect-error
             x: {},
             key: {
                 value: '',
@@ -232,13 +234,13 @@ function redTests(RED: editorClient.RED) {
     RED.nodes.registerType<MyNodeProperties, MyNodeCredentials>('my-node', {
         category: 'category',
         defaults: {
-            // $ExpectError
+            // @ts-expect-error
             wrongKey: {
                 value: '',
             },
         },
         credentials: {
-            // $ExpectError
+            // @ts-expect-error
             wrongKey: {
                 type: 'text',
             },
@@ -262,14 +264,14 @@ function widgetEditableListTests() {
             i;
             // $ExpectType string
             data.key;
-            // $ExpectError
+            // @ts-expect-error
             data.wrongKey;
         },
         connectWith: '.cssSelector',
         filter: data => {
             // $ExpectType string
             data.key;
-            // $ExpectError
+            // @ts-expect-error
             data.wrongKey;
             return true;
         },
@@ -278,7 +280,7 @@ function widgetEditableListTests() {
         removable: true,
         removeItem: data => {
             data.key;
-            // $ExpectError
+            // @ts-expect-error
             data.wrongKey;
         },
         resize: () => {},
@@ -292,11 +294,11 @@ function widgetEditableListTests() {
         sort: (data1, data2) => {
             // $ExpectType string
             data1.key;
-            // $ExpectError
+            // @ts-expect-error
             data1.wrongKey;
             // $ExpectType string
             data2.key;
-            // $ExpectError
+            // @ts-expect-error
             data2.wrongKey;
             return 1;
         },
@@ -310,7 +312,7 @@ function widgetEditableListTests() {
 
 function widgetTypedInputTests() {
     const goodType: editorClient.WidgetTypedInputType = 'msg';
-    // $ExpectError
+    // @ts-expect-error
     const wrongType: editorClient.WidgetTypedInputType = 'wrongType';
     const goodTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
         value: 'mytype',
@@ -320,7 +322,7 @@ function widgetTypedInputTests() {
         options: ['opt1', 'opt2'],
     };
     const wrongTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
-        // $ExpectError
+        // @ts-expect-error
         wrongKey: 'value',
     };
     $('#inputId').typedInput({
@@ -352,7 +354,7 @@ function widgetTypedInputTests() {
     const type = $('#inputId').typedInput('type');
     $('#inputId').typedInput('type', type);
 
-    // $ExpectError
+    // @ts-expect-error
     $('#inputId').typedInput('types', [{ wrongKey: 'value' }]);
     $('#inputId').typedInput('types', [
         'msg',

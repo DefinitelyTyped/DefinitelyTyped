@@ -29,7 +29,7 @@ export function getBlockSupport<T>(
  * Returns a registered block type.
  */
 // tslint:disable:no-unnecessary-generics
-export function getBlockType<T extends Record<string, any> = any>(name: string | undefined): Block<T> | undefined;
+export function getBlockType<T extends Record<string, any> = Record<string, any>>(name: string | undefined): Block<T> | undefined;
 
 /**
  * Returns all registered blocks.

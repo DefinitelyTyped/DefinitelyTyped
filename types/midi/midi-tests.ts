@@ -39,7 +39,9 @@ output.getPortCount(); // $ExpectType number
 output.getPortName(123); // $ExpectType string
 output.openPort(321); // $ExpectType void
 output.openVirtualPort('hello'); // $ExpectType void
-output.send([1]); // $ExpectError
+// @ts-expect-error
+output.send([1]);
 output.send([1, 2, 3]); // $ExpectType void
-output.sendMessage([]); // $ExpectError
+// @ts-expect-error
+output.sendMessage([]);
 output.sendMessage([3, 2, 1]); // $ExpectType void

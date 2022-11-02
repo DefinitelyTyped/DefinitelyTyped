@@ -238,7 +238,7 @@ getTableWidgetAncestor(new ViewSelection());
 
 new InsertColumnCommand(editor).execute();
 new InsertColumnCommand(editor, { order: 'left' }).execute();
-// $ExpectError
+// @ts-expect-error
 new InsertColumnCommand(editor, { order: '' }).execute();
 
 new InsertRowCommand(editor, { order: 'above' }).execute();

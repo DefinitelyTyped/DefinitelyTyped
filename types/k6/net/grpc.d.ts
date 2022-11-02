@@ -25,7 +25,12 @@ export interface ConnectParams {
 }
 
 export interface Params {
+    /**
+     * @deprecated Use metadata instead.
+     */
     headers?: object;
+
+    metadata?: object;
 
     tags?: object;
 

@@ -1,6 +1,8 @@
 QUnit.module( "group a" );
 
 QUnit.test( "a basic test example", function( assert ) {
+  assert.timeout(5_000);
+
   assert.ok( true, "this test is fine" );
 });
 QUnit.test( "a basic test example 2", function( assert ) {
@@ -550,22 +552,25 @@ QUnit.test( "propEqual test", function( assert ) {
   assert.propEqual( foo, bar, "Strictly the same properties without comparing objects constructors." );
 });
 
-// QUnit.assert['mod2'] = function( value: any, expected: any, message: string ): any {
-//     var actual = value % 2;
-//     this.pushResult({
-//         result: actual === expected,
-//         actual: actual,
-//         expected: expected,
-//         message: message
-//     });
-// };
+QUnit.test( "Assert plugin", function ( assert ) {
+    const actual = 42;
+    const from = 40;
+    const to = 50;
+    const isBetween = (actual >= from && actual <= to);
+    assert.pushResult({
+        result: isBetween,
+        actual: actual,
+        expected: `between ${from} and ${to} inclusive`,
+        message: 'message'
+    });
 
-// QUnit.test( "mod2", function( assert ) {
-//     assert.expect( 2 );
-
-//     assert['mod2']( 2, 0, "2 % 2 == 0" );
-//     assert['mod2']( 3, 1, "3 % 2 == 1" );
-// });
+    // without message
+    assert.pushResult({
+        result: isBetween,
+        actual: actual,
+        expected: `between ${from} and ${to} inclusive`
+    });
+});
 
 QUnit.test( "throws", function( assert ) {
 
@@ -673,6 +678,20 @@ QUnit.test( "rejects", function( assert ) {
     },
     "raised error instance satisfies the callback function"
   );
+});
+
+QUnit.test('stateful rejects example', async assert => {
+  let value;
+
+  function asyncChecker () {
+    return (value < 5) ? Promise.resolve(true) : Promise.reject('bad value: ' + value);
+  }
+
+  value = 8;
+  await assert.rejects(asyncChecker(), /bad value: 8/);
+
+  value = Infinity;
+  await assert.rejects(asyncChecker(), /bad value: Infinity/);
 });
 
 QUnit.module( "module", {

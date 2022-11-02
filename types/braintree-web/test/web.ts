@@ -205,6 +205,8 @@ braintree.client.create(
                                     return;
                                 }
 
+                                console.log('regulationEnvironment', payload.authenticationInsight.regulationEnvironment);
+
                                 // Put `payload.nonce` into the `payment-method-nonce` input, and then
                                 // submit the form. Alternatively, you could send the nonce to your server
                                 // with AJAX.
@@ -834,6 +836,21 @@ braintree.client.create(
                 });
             },
         );
+
+        braintree.dataCollector.create({ client: clientInstance }, (error, dataCollectorInstance) => {
+            dataCollectorInstance.getDeviceData({ raw: false }, (err, deviceData) => {
+                // Implementation
+                console.log(deviceData);
+            });
+        });
+
+        braintree.dataCollector
+            .create({ client: clientInstance })
+            .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
+            .then(deviceData => {
+                // Implementation
+                console.log(deviceData);
+            });
     },
 );
 
@@ -942,6 +959,14 @@ braintree.threeDSecure.cancelVerifyCard(
         verifyPayload.binData.issuingBank; // The issuing bank.
     },
 );
+
+braintree.threeDSecure.on('lookup-complete', (data, next) => {
+    console.log('data from lookup', data);
+    console.log('version', data.lookup.threeDSecureVersion);
+    console.log('nonce', data.paymentMethod.nonce);
+    console.log('liabilityShifted', data.threeDSecureInfo.liabilityShifted);
+    next();
+});
 
 // Check if 'number' field is optional (#56167)
 braintree.hostedFields.create({

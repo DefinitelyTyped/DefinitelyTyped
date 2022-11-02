@@ -55,7 +55,8 @@ class CustomPlugin implements Plugin {
 
 // Test a plugin with missing 'hooks' property
 // prettier-ignore
-class BadPlugin implements Plugin { // $ExpectError
+// @ts-expect-error
+class BadPlugin implements Plugin {
     hoooks: Plugin.Hooks; // emulate a bad 'hooks' definition with a typo
     constructor(badArg: number) {}
 }
@@ -64,12 +65,13 @@ const manager = new PluginManager(serverless);
 manager.addPlugin(CustomPlugin);
 // Test adding a plugin with an incorrect constructor
 // prettier-ignore
-manager.addPlugin(BadPlugin); // $ExpectError
+// @ts-expect-error
+manager.addPlugin(BadPlugin);
 
 // Test a plugin with bad arguments for a variable resolver
 class BadVariablePlugin1 implements Plugin {
     hooks: Plugin.Hooks;
-    // $ExpectError
+    // @ts-expect-error
     variableResolvers = {
         badEchoArgs: async (badArg: number) => {},
     };
@@ -78,14 +80,15 @@ class BadVariablePlugin1 implements Plugin {
 // Test a plugin with non-async variable resolver
 class BadVariablePlugin implements Plugin {
     hooks: Plugin.Hooks;
-    // $ExpectError
+    // @ts-expect-error
     variableResolvers = {
         badEchoNotAsync: (source: string) => {},
     };
 }
 
 // Test serverless cli log with no message
-serverless.cli.log(); // $ExpectError
+// @ts-expect-error
+serverless.cli.log();
 
 // Test serverless cli log with no entity
 serverless.cli.log('updating stack...');
@@ -138,7 +141,8 @@ getHttp(
 );
 getHttp(
     {
-        sqs: 'arn', // $ExpectError
+        // @ts-expect-error
+        sqs: 'arn',
     },
     'myFunction',
 );
@@ -469,7 +473,7 @@ const awsServerless: Aws.Serverless = {
                                     path2: true,
                                 },
                             },
-                            schema: {
+                            schemas: {
                                 'application/json': {
                                     type: 'object',
                                     properties: {

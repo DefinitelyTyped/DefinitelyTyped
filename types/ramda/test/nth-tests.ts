@@ -42,13 +42,13 @@ import * as R from 'ramda';
 };
 
 () => {
-    // $ExpectError
+    // @ts-expect-error
     R.nth();
 
-    // $ExpectError
+    // @ts-expect-error
     R.nth(1, {});
 
-    // $ExpectError
+    // @ts-expect-error
     R.nth(1, '', 1);
 };
 

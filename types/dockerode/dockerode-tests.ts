@@ -117,6 +117,38 @@ container.remove({v: true, force: false, link: true}, (err, data) => {
     // NOOP
 });
 
+container.logs((err, logs) => {
+    // $ExpectType Buffer
+    logs;
+});
+
+container.logs({}, (err, logs) => {
+    // $ExpectType Buffer
+    logs;
+});
+
+container.logs({ follow: true }, (err, logs) => {
+    // $ExpectType ReadableStream
+    logs;
+});
+
+container.logs({ follow: false }, (err, logs) => {
+    // $ExpectType Buffer
+    logs;
+});
+
+// $ExpectType Promise<Buffer>
+container.logs({ since: 0, until: 10, stdout: true, stderr: true });
+
+// $ExpectType Promise<Buffer>
+container.logs({ since: '12345.987654321', until: '54321.123456789', stdout: true, stderr: true });
+
+// $ExpectType Promise<ReadableStream>
+container.logs({ follow: true });
+
+// $ExpectType Promise<Buffer>
+container.logs({ follow: false });
+
 const abortController = new AbortController();
 container.wait({
     condition: 'next-exit',
@@ -249,6 +281,10 @@ docker.createService({
         }]
     }
 }, (err, response) => { /* NOOP */ });
+
+docker.listServices({ filters: { name: ['network-name'] } }).then(services => {
+    return services.map(service => docker.getService(service.ID));
+});
 
 const image = docker.getImage('imageName');
 image.remove({force: true, noprune: false}, (err, response) => {

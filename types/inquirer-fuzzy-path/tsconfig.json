@@ -12,6 +12,20 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "inquirer": [
+                "inquirer/v8"
+            ],
+            "inquirer/*": [
+                "inquirer/v8/*"
+            ],
+            "inquirer-autocomplete-prompt": [
+                "inquirer-autocomplete-prompt/v2"
+            ],
+            "inquirer-autocomplete-prompt/*": [
+                "inquirer-autocomplete-prompt/v2/*"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

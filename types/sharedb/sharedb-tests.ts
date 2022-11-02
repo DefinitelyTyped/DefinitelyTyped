@@ -66,15 +66,15 @@ const readonlyProjection = backend.projections['notes_minimal'];
 console.log(readonlyProjection.target, readonlyProjection.fields);
 // backend.projections is used by sharedb internally, so they shouldn't be messed with.
 // Test that marking as readonly in API prevents external modification.
-// $ExpectError
+// @ts-expect-error
 delete backend.projections;
-// $ExpectError
+// @ts-expect-error
 delete backend.projections.notes_minimal;
-// $ExpectError
+// @ts-expect-error
 backend.projections['notes_minimal'].target = 'notes2';
-// $ExpectError
+// @ts-expect-error
 backend.projections['notes_minimal'].fields = {};
-// $ExpectError
+// @ts-expect-error
 backend.projections['notes_minimal'].fields['title'] = true;
 
 // Exercise middleware (backend.use)
@@ -222,6 +222,16 @@ const reboundConnection = backend.connect(backend.connect(), netRequest);
 const connectionHasPending: boolean = connection.hasPending();
 connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
 connection.send({ a: 'nonExistentAction', some: 'data' });
+
+connection.on('doc', (doc) => {
+    console.log(doc.data);
+});
+connection.on('connected', (reason) => {
+    if (reason === 'foo') console.log(reason);
+});
+
+connection.on('pong', () => {});
+if (connection.canSend) connection.ping();
 
 const doc = connection.get('examples', 'counter');
 

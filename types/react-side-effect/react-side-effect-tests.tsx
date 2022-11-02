@@ -54,6 +54,6 @@ const testWithoutMapState = () => {
 };
 
 const testInvalidProp = () => (
-    // $ExpectError
+    // @ts-expect-error
     <DocumentTitleServer notAValidProp="this should fail" />
 );
