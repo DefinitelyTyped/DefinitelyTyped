@@ -10,12 +10,20 @@ declare namespace evaluatex {
 
     type Variable = number;
 
+    type Variables = Record<string, Variable>;
+
+    type Constant = number | ((...args: number[]) => number);
+
+    type Constants = Record<string, Constant>;
+
+    type Options = { latex?: boolean };
+
     type AbstractSyntaxTreeNode = (
         | {
-              type: 'FUNCTION';
-              value: { name?: keyof IncludeMethods<Math> } & ((...args: unknown[]) => number);
-              name: string | null;
-          }
+            type: 'FUNCTION';
+            value: { name?: keyof IncludeMethods<Math> } & ((...args: unknown[]) => number);
+            name: string | null;
+        }
         | { type: 'SYMBOL' | 'PRODUCT' | 'SUM' | 'INVERSE' | 'NEGATE' | 'POWER'; value: string }
         | { type: 'NUMBER'; value: number }
     ) & {
@@ -25,23 +33,25 @@ declare namespace evaluatex {
 
     type Token =
         | {
-              type: 'NUMBER' | 'POWER' | 'DIVIDE' | 'LPAREN' | 'RPAREN' | 'COMMAND';
-              value: string | number;
-              name: string | null;
-          }
+            type: 'NUMBER' | 'POWER' | 'DIVIDE' | 'LPAREN' | 'RPAREN' | 'COMMAND';
+            value: string | number;
+            name: string | null;
+        }
         | {
-              type: 'COMMAND';
-              value(params: unknown[]): unknown;
-              name: string | null;
-          }
+            type: 'COMMAND';
+            value(params: unknown[]): unknown;
+            name: string | null;
+        }
         | { type: 'SYMBOL'; value: string; name: null };
+
+
 
     interface EvaluatexResult {
         /**
          * @param variables a map of variables that can change between invocations of fn.
          * @returns the numerical result of the calculation.
          */
-        (variables?: Record<string, Variable>): number;
+        (variables?: Variables): number;
         tokens: Token[];
         expression: string;
         ast: AbstractSyntaxTreeNode;
