@@ -1,19 +1,14 @@
-import * as express from 'express';
-import * as passport from 'passport';
-import {
-    RegisteredFunction,
-    SessionChallengeStore,
-    Strategy as WebAuthnStrategy,
-    VerifiedFunction,
-} from 'passport-fido2-webauthn';
+import express = require('express');
+import passport = require('passport');
+import webauthn = require('passport-fido2-webauthn');
 
 // Example derived from https://github.com/jaredhanson/passport-webauthn
-const store = new SessionChallengeStore({ key: 'webauthn' });
+const store = new webauthn.SessionChallengeStore({ key: 'webauthn' });
 
 passport.use(
-    new WebAuthnStrategy(
+    new webauthn.Strategy(
         { store },
-        (id: string, userHandle: Buffer, cb: VerifiedFunction) => {
+        (id: string, userHandle: Buffer, cb: webauthn.VerifiedFunction) => {
             db.get(`SELECT * FROM public_key_credentials WHERE external_id = ${id}`, (err, row) => {
                 if (err) {
                     cb(err);
@@ -41,7 +36,7 @@ passport.use(
                 });
             });
         },
-        (user: any, id: string, publicKey: string, cb: RegisteredFunction) => {
+        (user: any, id: string, publicKey: string, cb: webauthn.RegisteredFunction) => {
             db.run(
                 `INSERT INTO users (username, name, handle) VALUES (${user.name}, ${user.displayName}, ${user.id})`,
                 err => {
