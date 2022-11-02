@@ -1,4 +1,4 @@
-// Type definitions for react-headroom 2.2
+// Type definitions for react-headroom 3.2.1
 // Project: https://kyleamathews.github.io/react-headroom/, https://github.com/kyleamathews/react-headroom
 // Definitions by: Zero Cho <https://github.com/zerocho>
 //                 Rafael Derolez <https://github.com/rafaelderolez>
