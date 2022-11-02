@@ -31,7 +31,7 @@ declare namespace evaluatex {
     ) & {
         children: AbstractSyntaxTreeNode[];
         name: null | string;
-        evaluate(): number;
+        evaluate(variables?: Variables): number;
         simplify(): AbstractSyntaxTreeNode;
     };
 

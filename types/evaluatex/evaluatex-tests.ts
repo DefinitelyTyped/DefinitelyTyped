@@ -44,3 +44,4 @@ const tokens: evaluatex.Token[] = lexer('1+1', { max: Math.max.bind(Math) }, { l
 const ast: evaluatex.AbstractSyntaxTreeNode = parser(tokens).simplify();
 
 ast.evaluate();
+ast.evaluate({});
