@@ -17,7 +17,7 @@ declare namespace evaluatex {
     type Constants = Record<string, Constant>;
 
     interface Options {
-        latex?: boolean
+        latex?: boolean;
     }
 
     type AbstractSyntaxTreeNode = (
