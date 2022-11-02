@@ -3804,6 +3804,40 @@ declare namespace ymaps {
     }
 
     namespace util {
+        namespace bounds {
+            function areIntersecting(bounds1: number[][], bounds2: number[][], projection?: IProjection): boolean;
+            function containsBounds(outer: number[][], inner: number[][], projection?: IProjection): boolean;
+            function containsPoint(bounds: number[][], point: number[], projection?: IProjection): boolean;
+            function fromBounds(sourceBounds: number[][][], projection?: IProjection): number[][];
+            function fromGlobalPixelBounds(
+              pixelBounds: number[][],
+              zoom: number,
+              projection?: IProjection,
+            ): number[][];
+            function fromPoints(points: number[][], projection?: IProjection): number[][];
+            function getCenter(bounds: number[][], projection?: IProjection): number[];
+            function getCenterAndZoom(
+              bounds: number[][],
+              containerSize: number[],
+              projection?: IProjection,
+              params?: { inscribe: boolean; margin: number | number[]; preciseZoom: boolean },
+            ): {
+              center: number[][];
+              zoom: number;
+            };
+            function getIntersections(
+              bounds1: number[][],
+              bounds2: number[][],
+              projection?: IProjection,
+            ): number[][][];
+            function getSize(bounds: number[][], projection?: IProjection): number[];
+            function toGlobalPixelBounds(
+              geoBounds: number[][],
+              zoom: number,
+              projection?: IProjection,
+            ): number[][];
+          }
+
         namespace cursor {
             class Accessor {
                 constructor(key: string);
