@@ -27,6 +27,7 @@ export interface ReactHeadroomProps {
     className?: string | undefined;
     children: ReactNode;
     pin?: boolean | undefined;
+    tag?: string | undefined;
 }
 
 export default Headroom;
