@@ -7,7 +7,9 @@ import { X509Certificate } from 'crypto';
 import * as express from 'express';
 import { Strategy as PassportStrategy } from 'passport-strategy';
 
-export class Strategy extends PassportStrategy {
+export = Strategy;
+
+declare class Strategy extends PassportStrategy {
     name: string;
 
     constructor(
@@ -21,7 +23,7 @@ export class Strategy extends PassportStrategy {
     constructor(verify: VerifyFunction, register: RegisterFunction);
 }
 
-export class SessionChallengeStore {
+declare class SessionChallengeStore {
     constructor(options?: SessionStoreOptions);
 
     challenge(req: express.Request, info: { user: any }, cb: ChallengeFunction): void;
@@ -30,24 +32,24 @@ export class SessionChallengeStore {
     verify(req: express.Request, challenge: Buffer, validated: ValidatedFunction): void;
 }
 
-export interface StrategyOptions {
+interface StrategyOptions {
     attestationFormats?: AttestationFormats | undefined;
     store?: SessionChallengeStore | undefined;
 }
-export interface AttestationFormats {
+interface AttestationFormats {
     [key: string]: AttestationFormat;
 }
-export interface AttestationFormat {
+interface AttestationFormat {
     verify: (attStmt: any, authData: any, hash: string | Buffer) => VerifiedAttestation;
     parse?: (attStmt: any) => ParsedAttestation;
 }
-export interface VerifiedAttestation {
+interface VerifiedAttestation {
     format: string;
     trustPath: X509Certificate[];
     type?: string | undefined;
     response?: any;
 }
-export interface ParsedAttestation {
+interface ParsedAttestation {
     trustPath: X509Certificate[];
     version?: any;
     response?: any;
@@ -55,7 +57,7 @@ export interface ParsedAttestation {
     algorithm?: any;
 }
 
-export type VerifyFunction =
+type VerifyFunction =
     | ((
           req: express.Request,
           id: string,
@@ -66,20 +68,20 @@ export type VerifyFunction =
     | ((req: express.Request, id: string, userHandle: Buffer, verified: VerifiedFunction) => void)
     | ((id: string, userHandle: Buffer, flags: AuthenticatorFlags, verified: VerifiedFunction) => void)
     | ((id: string, userHandle: Buffer, verified: VerifiedFunction) => void);
-export interface AuthenticatorFlags {
+interface AuthenticatorFlags {
     userPresent: boolean;
     userVerified: boolean;
 }
-export type VerifiedFunction = (err: any, user?: any, publicKey?: string | { message: string }, info?: any) => void;
+type VerifiedFunction = (err: any, user?: any, publicKey?: string | { message: string }, info?: any) => void;
 
-export type VerifySignCountFunction = (
+type VerifySignCountFunction = (
     id: string,
     authenticatorSignCount: number,
     infoSignCount: number,
     ok: (err: any, ok: boolean) => void,
 ) => void;
 
-export type RegisterFunction =
+type RegisterFunction =
     | ((
           user: any,
           id: string,
@@ -109,12 +111,12 @@ export type RegisterFunction =
       ) => void)
     | ((user: any, id: string, publicKey: string, flags: AuthenticatorFlags, registered: RegisteredFunction) => void)
     | ((user: any, id: string, publicKey: string, registered: RegisteredFunction) => void);
-export type RegisteredFunction = (err: any, user?: any, info?: any) => void;
+type RegisteredFunction = (err: any, user?: any, info?: any) => void;
 
-export interface SessionStoreOptions {
+interface SessionStoreOptions {
     key?: string | undefined;
 }
 
-export type ChallengeFunction = (err: any, challenge?: Buffer) => void;
+type ChallengeFunction = (err: any, challenge?: Buffer) => void;
 
-export type ValidatedFunction = (err: any, ok: boolean, ctx: any) => void;
+type ValidatedFunction = (err: any, ok: boolean, ctx: any) => void;
