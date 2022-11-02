@@ -789,6 +789,7 @@ let eslintConfig: Linter.Config<ESLintRules>;
 eslintConfig = {
     rules: {
         'capitalized-comments': [2, 'always', { ignorePattern: 'const|let' }],
+        'sort-keys': [2, 'asc', { allowLineSeparatedGroups: true }],
     },
     overrides: [{
         files: '*.json',
