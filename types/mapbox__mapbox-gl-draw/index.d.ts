@@ -176,6 +176,8 @@ declare namespace MapboxDraw {
     interface DrawCustomModeThis {
         map: mapboxgl.Map;
 
+        drawConfig: Exclude<MapboxDrawOptions, undefined>;
+
         setSelected(features?: string | string[]): void;
 
         setSelectedCoordinates(coords: Array<{ coord_path: string; feature_id: string }>): void;
