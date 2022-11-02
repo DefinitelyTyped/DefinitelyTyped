@@ -26,6 +26,7 @@ export interface ReactHeadroomProps {
     disableInlineStyles?: boolean | undefined;
     className?: string | undefined;
     children: ReactNode;
+    pin?: boolean | undefined;
 }
 
 export default Headroom;
