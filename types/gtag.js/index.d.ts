@@ -23,7 +23,7 @@ declare namespace Gtag {
   interface ConfigParams {
     page_title?: string | undefined;
     page_location?: string | undefined;
-    page_path?: string | undefined;
+    page_path?: string | URL | undefined;
     send_page_view?: boolean | undefined;
   }
 
