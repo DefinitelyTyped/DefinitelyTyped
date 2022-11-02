@@ -43,7 +43,7 @@ function TestVirtualAuthenticator() {
 
     let rpId: string = residentCredential.rpId();
 
-    let userHandle: Uint8Array = residentCredential.userHandle();
+    let userHandle: Uint8Array | null = residentCredential.userHandle();
 
     let privateKey: string = residentCredential.privateKey();
 

@@ -2,24 +2,21 @@
  * Protocol for virtual authenticators
  * @enum {string}
  */
-export interface IProtocol {
-    CTAP2: string;
-    U2F: string;
+ export enum Protocol {
+    CTAP2 = 'ctap2',
+    U2F = 'ctap1/u2f'
 }
 
 /**
  * AuthenticatorTransport values
  * @enum {string}
  */
-export interface ITransport {
-    BLE: string;
-    USB: string;
-    NFC: string;
-    INTERNAL: string;
+export enum Transport {
+    BLE = 'ble',
+    USB = 'usb',
+    NFC = 'nfc',
+    INTERNAL = 'internal',
 }
-
-export const Protocol: IProtocol;
-export const Transport: ITransport;
 
 /**
  * Options for the creation of virtual authenticators.
@@ -28,13 +25,13 @@ export const Transport: ITransport;
 export class VirtualAuthenticatorOptions {
     constructor();
 
-    getProtocol(): string;
+    getProtocol(): Protocol;
 
-    setProtocol(protocol: string): void;
+    setProtocol(protocol: Protocol): void;
 
-    getTransport(): string;
+    getTransport(): Transport;
 
-    setTransport(transport: string): void;
+    setTransport(transport: Transport): void;
 
     getHasResidentKey(): boolean;
 
@@ -64,7 +61,7 @@ export class Credential {
         credentialId: Uint8Array,
         isResidentCredential: boolean,
         rpId: string,
-        userHandle: Uint8Array,
+        userHandle: Uint8Array | null,
         privateKey: string,
         signCount: number
     )
@@ -75,7 +72,7 @@ export class Credential {
 
     rpId(): string;
 
-    userHandle(): Uint8Array;
+    userHandle(): Uint8Array | null;
 
     privateKey(): string;
 
