@@ -29,6 +29,8 @@ declare namespace evaluatex {
     ) & {
         children: AbstractSyntaxTreeNode[];
         name: null | string;
+        evaluate(): number;
+        simplify(): AbstractSyntaxTreeNode;
     };
 
     type Token =
