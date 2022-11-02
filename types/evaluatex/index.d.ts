@@ -16,7 +16,9 @@ declare namespace evaluatex {
 
     type Constants = Record<string, Constant>;
 
-    type Options = { latex?: boolean };
+    interface Options {
+        latex?: boolean
+    }
 
     type AbstractSyntaxTreeNode = (
         | {
@@ -45,8 +47,6 @@ declare namespace evaluatex {
             name: string | null;
         }
         | { type: 'SYMBOL'; value: string; name: null };
-
-
 
     interface EvaluatexResult {
         /**
