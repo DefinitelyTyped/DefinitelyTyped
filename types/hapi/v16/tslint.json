@@ -27,7 +27,6 @@
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "triple-equals": false,
         "unified-signatures": false,
         "void-return": false,

@@ -25,7 +25,6 @@
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "unified-signatures": false,
         "use-default-type-parameter": false,
         "whitespace": false
