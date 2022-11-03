@@ -2,20 +2,19 @@ import * as gulp from 'gulp';
 import merge2 = require('merge2');
 
 gulp.task('app-js', () =>
-  merge2(
-      gulp.src('static/src/tpl/*.html'),
-      gulp.src([
-        'static/src/js/app.js',
-        'static/src/js/locale_zh-cn.js',
-        'static/src/js/router.js',
-        'static/src/js/tools.js',
-        'static/src/js/services.js',
-        'static/src/js/filters.js',
-        'static/src/js/directives.js',
-        'static/src/js/controllers.js'
-      ])
-    )
-    .pipe(gulp.dest('static/dist/js/'))
+    merge2(
+        gulp.src('static/src/tpl/*.html'),
+        gulp.src([
+            'static/src/js/app.js',
+            'static/src/js/locale_zh-cn.js',
+            'static/src/js/router.js',
+            'static/src/js/tools.js',
+            'static/src/js/services.js',
+            'static/src/js/filters.js',
+            'static/src/js/directives.js',
+            'static/src/js/controllers.js',
+        ]),
+    ).pipe(gulp.dest('static/dist/js/')),
 );
 
 const stream1 = gulp.src('*.html');
@@ -26,7 +25,7 @@ const stream5 = gulp.src('*.html');
 const stream6 = gulp.src('*.html');
 const stream7 = gulp.src('*.html');
 
-let stream = merge2([stream1, stream2], stream3, {end: false});
+let stream = merge2([stream1, stream2], stream3, { end: false });
 
 stream.once('queueDrain', () => {
     stream.add(stream4, stream5);
@@ -41,8 +40,18 @@ stream.add([stream1, stream2]);
 stream.add(stream3);
 
 stream.on('data', (data: any) => {
-  console.log(data);
+    console.log(data);
 });
+
+// initialize with options only
+stream = merge2({ end: false });
+stream.add([stream1, stream2]);
+stream.once('queueDrain', () => {
+    stream.add(stream3);
+});
+
+// ..
+stream.end();
 
 // merge order:
 //   1. merge `stream1`;
