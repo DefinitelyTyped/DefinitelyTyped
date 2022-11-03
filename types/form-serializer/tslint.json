@@ -6,7 +6,6 @@
         "no-declare-current-package": false,
         "no-padding": false,
         "no-var-keyword": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
+        "strict-export-declare-modifiers": false
     }
 }

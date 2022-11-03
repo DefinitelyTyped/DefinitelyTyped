@@ -6,7 +6,6 @@
         "no-consecutive-blank-lines": false,
         "only-arrow-functions": false,
         "prefer-declare-function": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

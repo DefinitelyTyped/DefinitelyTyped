@@ -6,7 +6,6 @@
         "no-var-keyword": false,
         "npm-naming": false,
         "one-line": false,
-        "one-variable-per-declaration": false,
-        "trim-file": false
+        "one-variable-per-declaration": false
     }
 }

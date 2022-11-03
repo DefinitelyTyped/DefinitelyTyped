@@ -16,7 +16,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false
     }

@@ -3,7 +3,6 @@
     "rules": {
         "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "trim-file": false
+        "prefer-const": false
     }
 }
