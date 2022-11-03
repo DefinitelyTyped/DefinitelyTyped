@@ -8,7 +8,7 @@
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 3.9
 
 /**
  * k6 JavaScript API.
