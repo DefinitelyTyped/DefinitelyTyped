@@ -108,7 +108,7 @@ export class Duration {
      * Create a Duration from a JavaScript object with keys like 'years' and 'hours'.
      * If this object is empty then a zero milliseconds duration is returned.
      *
-     * @param obj - the object to create the DateTime from
+     * @param obj - the object to create the Duration from
      * @param obj.years
      * @param obj.quarters
      * @param obj.months
