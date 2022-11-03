@@ -22,6 +22,10 @@ export interface ConnectParams {
     reflect?: boolean;
 
     timeout?: string | number;
+
+    maxReceiveSize?: number;
+
+    maxSendSize?: number;
 }
 
 export interface Params {
