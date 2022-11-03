@@ -13,6 +13,8 @@ client.close();
 
 client.load(['../googleapis/google'], 'language_service.proto', 'extra_service.proto');
 
+client.loadProtoset('./lib/test.protoset');
+
 const req = {
     latitude: 410248224,
     longitude: -747127767,

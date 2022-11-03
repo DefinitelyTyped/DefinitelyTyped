@@ -61,6 +61,9 @@ declare namespace grpc {
         /** Loads and parses the protocol buffer descriptors. */
         load(importPaths: string[], ...protoFiles: string[]): void;
 
+        /** Loads a protoset and parses the protocol buffer descriptors */
+        loadProtoset(protosetPath: string): void;
+
         /** Invokes an unary RPC request. */
         invoke(url: string, request: object, params?: Params): Response;
 
