@@ -14,7 +14,7 @@ export default class MTProto {
     };
   });
 
-  call(method: string, params: object, options?: {
+  call(method: string, params?: object, options?: {
     dcId?: number,
     syncAuth?: boolean,
   }): Promise<object>;
