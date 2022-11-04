@@ -430,8 +430,12 @@ declare module 'node-forge' {
         interface Certificate {
             version: number;
             serialNumber: string;
+            signatureOid: string;
             signature: any;
-            siginfo: any;
+            siginfo: {
+                algorithmOid: string;
+                parameters: any;
+            };
             validity: {
                 notBefore: Date;
                 notAfter: Date;
@@ -451,7 +455,9 @@ declare module 'node-forge' {
             extensions: any[];
             privateKey: PrivateKey;
             publicKey: PublicKey;
-            md: any;
+            md: md.MessageDigest;
+            signatureParameters: any;
+            tbsCertificate: asn1.Asn1;
             /**
              * Sets the subject of this certificate.
              *
@@ -521,6 +527,22 @@ declare module 'node-forge' {
              *         certificate's issuer.
              */
             issued(child: Certificate): boolean;
+
+            /**
+             * Generates the subjectKeyIdentifier for this certificate as byte buffer.
+             *
+             * @return the subjectKeyIdentifier for this certificate as byte buffer.
+             */
+            generateSubjectKeyIdentifier(): util.ByteStringBuffer;
+
+            /**
+             * Verifies the subjectKeyIdentifier extension value for this certificate
+             * against its public key. If no extension is found, false will be
+             * returned.
+             *
+             * @return true if verified, false if not.
+             */
+            verifySubjectKeyIdentifier(): boolean;
         }
 
         interface CertificateRequest extends Certificate {
