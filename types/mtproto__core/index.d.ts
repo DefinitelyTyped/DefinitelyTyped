@@ -18,6 +18,8 @@ export default class MTProto {
     dcId?: number,
     syncAuth?: boolean,
   }): Promise<object>;
+  call(method: 'account.getPassword'): Promise<{ srp_id: number | string, current_algo: account_Password, srp_B: bytes }>;
+  call(method: 'auth.signIn'): Promise<{ srp_id: number | string, current_algo: passwordKdfAlgoUnknown | passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow, srp_B: bytes }>;
 
   setDefaultDc(dcId: number): Promise<string>;
 
@@ -26,6 +28,56 @@ export default class MTProto {
     off(updateName: EventType): void;
     removeAllListeners(): void;
   };
+
+  crypto: {
+    getSRPParams: typeof getSRPParams;
+  };
+}
+
+export type bytes = Uint8Array;
+export type long = number | string;
+
+export type auth_Authorization = auth_authorization | auth_authorizationSignUpRequired;
+export interface auth_authorization {
+  _: 'auth.authorization';
+  setup_password_required?: boolean;
+  otherwise_relogin_days?: number;
+  tmp_sessions?: number;
+  user?: User;
+}
+export interface auth_authorizationSignUpRequired {
+  _: 'auth.authorizationSignUpRequired';
+  terms_of_service: help_TermsOfService;
+}
+
+export type help_TermsOfService = help_termsOfService;
+export interface help_termsOfService {
+  _: 'help.termsOfService';
+  /** TODO: https://core.telegram.org/constructor/help.termsOfService */
+  [key: string]: any;
+}
+
+export type User = userEmpty | user;
+export interface userEmpty {
+  _: 'userEmpty';
+  id: long | '0';
+}
+export interface user {
+  _: 'user';
+  /** TODO: https://core.telegram.org/constructor/user */
+  [key: string]: any;
+}
+
+export type account_Password = passwordKdfAlgoUnknown | passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow;
+export interface passwordKdfAlgoUnknown {
+  _: 'passwordKdfAlgoUnknown';
+}
+export interface passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow {
+  _: 'passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow';
+  salt1: bytes;
+  salt2: bytes;
+  g: number;
+  p: bytes;
 }
 
 export class MyAsyncLocalStorage {
