@@ -1,3 +1,4 @@
+import { IncomingMessage, ServerResponse } from 'http';
 import { GraphQLOperation, UploadOptions } from './';
 
 export { GraphQLOperation, UploadOptions };
