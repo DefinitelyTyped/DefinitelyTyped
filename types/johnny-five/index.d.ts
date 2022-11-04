@@ -445,8 +445,13 @@ export interface LedOption {
 export declare class Led {
     constructor(option: LedOption['pin'] | LedOption);
 
+    animation: Animation;
     id: string;
+    isOn: boolean;
+    isRunning: boolean;
+    mode: Pin['mode'];
     pin: number;
+    value: number;
 
     on(): void;
     off(): void;
