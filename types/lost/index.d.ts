@@ -1,4 +1,4 @@
-// Type definitions for lost 8.3
+// Type definitions for lost 9.0
 // Project: https://github.com/peterramsing/lost
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
