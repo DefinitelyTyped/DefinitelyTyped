@@ -1132,8 +1132,12 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TObject, TPath extends string, TDefault = GetFieldType<TObject, TPath>>(data: TObject, path: TPath, defaultValue?: TDefault): GetFieldType<TObject, TPath> | TDefault;
+        get<TObject, TPath extends string>(data: TObject, path: TPath): string extends TPath ? any : GetFieldType<TObject, TPath>;
         /**
+         * @see _.get
+         */
+        get<TObject, TPath extends string, TDefault = GetFieldType<TObject, TPath>>(data: TObject, path: TPath, defaultValue: TDefault): Exclude<GetFieldType<TObject, TPath>, null | undefined> | TDefault;
+         /**
          * @see _.get
          */
          get(object: any, path: PropertyPath, defaultValue?: any): any;
@@ -1184,7 +1188,11 @@ declare module "../index" {
         /**
          * @see _.get
          */
-         get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue?: TDefault): GetFieldType<T, TPath> | TDefault;
+        get<TPath extends string>(path: TPath): string extends TPath ? any : GetFieldType<T, TPath>;
+        /**
+         * @see _.get
+         */
+        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue: TDefault): Exclude<GetFieldType<T, TPath>, null | undefined> | TDefault;
         /**
          * @see _.get
          */
@@ -1272,7 +1280,11 @@ declare module "../index" {
         /**
          * @see _.get
          */
-        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue?: TDefault): ExpChain<GetFieldType<T, TPath> | TDefault>;
+        get<TPath extends string>(path: TPath): string extends TPath ? LoDashExplicitWrapper<any> : ExpChain<GetFieldType<T, TPath>>;
+        /**
+         * @see _.get
+         */
+        get<TPath extends string, TDefault = GetFieldType<T, TPath>>(path: TPath, defaultValue: TDefault): ExpChain<Exclude<GetFieldType<T, TPath>, null | undefined> | TDefault>;
         /**
          * @see _.get
          */

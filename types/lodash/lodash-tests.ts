@@ -5304,11 +5304,15 @@ fp.now(); // $ExpectType number
 {
     const value: string | undefined = anything;
     const defaultValue: boolean = anything;
+    const objectWithOptionalField: { a?: boolean } = anything;
 
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
     _.get("abc", 1); // $ExpectType string
+    _.get({ a: false }, "a"); // $ExpectType boolean
+    _.get(objectWithOptionalField, "a"); // $ExpectType boolean | undefined
+    _.get(objectWithOptionalField, "a" as string); // $ExpectType any
     _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
@@ -5319,8 +5323,15 @@ fp.now(); // $ExpectType number
     _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
     _.get({ a: [{ b: { c: 3 } }] }, "a[0].b.c", 0);  // $ExpectType number
+    _.get(objectWithOptionalField, "a", defaultValue);  // $ExpectType boolean
+    _.get({}, "a", defaultValue);  // $ExpectType boolean
+    _.get({}, "a" as string, defaultValue);  // $ExpectType boolean
+    _.get(objectWithOptionalField, "a", undefined);  // $ExpectType boolean | undefined
 
     _("abc").get(1); // $ExpectType string
+    _({ a: false }).get("a"); // $ExpectType boolean
+    _(objectWithOptionalField).get("a"); // $ExpectType boolean | undefined
+    _(objectWithOptionalField).get("a" as string); // $ExpectType any
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
@@ -5331,8 +5342,14 @@ fp.now(); // $ExpectType number
     _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
     _({ a: [{ b: { c: 3 } }] }).get("a[0].b.c", 0);  // $ExpectType number
+    _(objectWithOptionalField).get("a", defaultValue);  // $ExpectType boolean
+    _({}).get("a", defaultValue);  // $ExpectType boolean
+    _({}).get("a" as string, defaultValue);  // $ExpectType boolean
+    _(objectWithOptionalField).get("a", undefined);  // $ExpectType boolean | undefined
 
     _.chain("abc").get(1); // $ExpectType StringChain
+    _.chain({ a: false }).get("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain(objectWithOptionalField).get("a" as string); // $ExpectType LoDashExplicitWrapper<any>
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>
@@ -5346,6 +5363,8 @@ fp.now(); // $ExpectType number
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
     _.chain({ a: [{ b: { c: [3] } }] }).get("a[0].b.c").map((val) => val.toFixed());  // $ExpectType CollectionChain<string>
+    _.chain(objectWithOptionalField).get("a", defaultValue);  // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({}).get("a", defaultValue);  // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
     fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
     fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
