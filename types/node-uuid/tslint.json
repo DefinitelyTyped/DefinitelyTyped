@@ -13,7 +13,6 @@
             }
         ],
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false
     }

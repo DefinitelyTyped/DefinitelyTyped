@@ -463,11 +463,13 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
     interface KeyboardEvent<T> extends SyntheticEvent<T> {
         altKey: boolean;
         charCode: number;
         ctrlKey: boolean;
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         key: string;
         keyCode: number;
         locale: string;
@@ -486,7 +488,7 @@ declare namespace React {
         clientX: number;
         clientY: number;
         ctrlKey: boolean;
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         nativeEvent: NativeMouseEvent;
         pageX: number;
@@ -501,7 +503,7 @@ declare namespace React {
         altKey: boolean;
         changedTouches: TouchList;
         ctrlKey: boolean;
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         nativeEvent: NativeTouchEvent;
         shiftKey: boolean;

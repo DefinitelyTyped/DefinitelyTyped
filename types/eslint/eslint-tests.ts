@@ -515,6 +515,7 @@ linter.verify(
 );
 linter.verify(SOURCE, { env: { node: true } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: true } }, 'test.js');
+linter.verify(SOURCE, { globals: { foo: 'off' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'readonly' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'readable' } }, 'test.js');
 linter.verify(SOURCE, { globals: { foo: 'writable' } }, 'test.js');
@@ -788,6 +789,7 @@ let eslintConfig: Linter.Config<ESLintRules>;
 eslintConfig = {
     rules: {
         'capitalized-comments': [2, 'always', { ignorePattern: 'const|let' }],
+        'sort-keys': [2, 'asc', { allowLineSeparatedGroups: true }],
     },
     overrides: [{
         files: '*.json',

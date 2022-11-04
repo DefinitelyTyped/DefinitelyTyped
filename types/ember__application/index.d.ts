@@ -13,9 +13,8 @@ import EventDispatcher from '@ember/application/-private/event-dispatcher';
 import { EventDispatcherEvents } from '@ember/application/types';
 import Router from '@ember/routing/router';
 import Registry from '@ember/application/-private/registry';
-import Resolver from 'ember-resolver';
 import { AnyFn } from 'ember/-private/type-utils';
-import Owner from '@ember/owner';
+import Owner, { Resolver } from '@ember/owner';
 import type GlimmerComponent from '@glimmer/component';
 import EmberObject from '@ember/object';
 

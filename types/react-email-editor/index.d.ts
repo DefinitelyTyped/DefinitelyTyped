@@ -101,6 +101,7 @@ export interface EditorConfig {
 }
 
 export interface Features {
+    readonly audit?: boolean | undefined;
     readonly preview?: boolean | undefined;
     readonly imageEditor?: boolean | undefined;
     readonly undoRedo?: boolean | undefined;
@@ -159,6 +160,11 @@ export interface HtmlExport {
     readonly html: string;
 }
 
+export interface HtmlOptions {
+    readonly cleanup: boolean;
+    readonly minify: boolean;
+}
+
 export interface FileInfo {
     readonly accepted: File[];
     readonly attachments: File[];
@@ -194,9 +200,10 @@ export default class Component extends ReactComponent<EmailEditorProps> {
     registerCallback(type: 'image', callback: FileUploadCallback): void;
     registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
+    loadBlank(type: object): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
-    exportHtml(callback: ExportHtmlCallback): void;
+    exportHtml(callback: ExportHtmlCallback, type?: HtmlOptions): void;
     setMergeTags(mergeTags: ReadonlyArray<MergeTag>): void;
 }
 
