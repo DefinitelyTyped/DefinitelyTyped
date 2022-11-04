@@ -1,11 +1,8 @@
-import http from 'http';
 import express from 'express';
 import Koa from 'koa';
 import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import graphqlUploadKoa from 'graphql-upload/graphqlUploadKoa.js';
 import Upload from 'graphql-upload/Upload.js';
-import GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
-import processRequest from 'graphql-upload/processRequest.js';
 
 express()
     .use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }))
@@ -19,9 +16,3 @@ const manuallyHandleUpload = async (upload: Upload) => {
     }
     throw new Error('Upload is not an instance of Upload');
 };
-
-const stringified: string = GraphQLUpload.toString();
-
-http.createServer((req, res) => {
-    const operations = processRequest(req, res);
-});
