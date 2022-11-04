@@ -19,22 +19,22 @@ const jsonFile = readJSON.sync('test'); // $ExpectType JSONFile
 jsonFile.format; // $ExpectType Format
 jsonFile.format.indent; // $ExpectType number | "\t" | " "
 jsonFile.format.trailing; // $ExpectType boolean
-jsonFile.data; // $ExpectType any
+jsonFile.data; // $ExpectType unknown
 jsonFile.filename; // $ExpectType string
 
-jsonFile.get(); // $ExpectType Promise<any>
-jsonFile.get('foo'); // $ExpectType Promise<any>
-jsonFile.get(1); // $ExpectType Promise<any>
-jsonFile.get(Symbol()); // $ExpectType Promise<any>
-// $ExpectType Promise<any>
+jsonFile.get(); // $ExpectType Promise<unknown>
+jsonFile.get('foo'); // $ExpectType Promise<unknown>
+jsonFile.get(1); // $ExpectType Promise<unknown>
+jsonFile.get(Symbol()); // $ExpectType Promise<unknown>
+// $ExpectType Promise<unknown>
 jsonFile.get('foo', (err, value) => {
     err; // $ExpectType Error | null
-    value; // $ExpectType any
+    value; // $ExpectType unknown
 });
-// $ExpectType Promise<any>
+// $ExpectType Promise<unknown>
 jsonFile.get((err, value) => {
     err; // $ExpectType Error | null
-    value; // $ExpectType any
+    value; // $ExpectType unknown
 });
 
 jsonFile.set({ foo: 'bar' }); // $ExpectType void

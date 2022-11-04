@@ -79,15 +79,15 @@ declare namespace readJSON {
         /**
          * Direct access to the data from the file.
          */
-        data: any;
+        data: unknown;
         constructor(raw: string);
         /**
          * Get top-level keys.
          *
          * @param key The key to get. If empty, the entire data will be returned.
          */
-        get(key: PropertyKey, callback?: (err: Error | null, value: any) => void): Promise<any>;
-        get(callback?: (err: Error | null, value: any) => void): Promise<any>;
+        get(key: PropertyKey, callback?: (err: Error | null, value: unknown) => void): Promise<unknown>;
+        get(callback?: (err: Error | null, value: unknown) => void): Promise<unknown>;
         /**
          * Pass any plain object into "set" to merge in a deep copy.
          *
