@@ -10,7 +10,6 @@ declare module 'BrokenLinkCheckerReport' {
         brokenLinks: string[];
         totalLinksChecked: number;
         totalBrokenLinks: number;
-        extraneousProperty: number;
         /**
          * Adds a link to BrokenLinkCheckerResult.
          * @param syntheticsLink
