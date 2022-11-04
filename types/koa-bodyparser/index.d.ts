@@ -21,8 +21,7 @@ import * as Koa from "koa";
 
 declare module "koa" {
     interface Request {
-        // Fix #62921
-        body?: any;
+        body?: unknown;
         rawBody: string;
     }
 }
