@@ -7,6 +7,13 @@ declare namespace MusicKit {
          * The catalog album used to set a music player's playback queue.
          */
         album?: string | undefined;
+        albums?: string[] | undefined;
+
+        /**
+         * The catalog artist used to set a music video player's playback queue.
+         */
+        musicVideo?: string | undefined;
+        musicVideos?: string[] | undefined;
         /**
          * The media items used to set a music player's playback queue.
          */
@@ -19,13 +26,11 @@ declare namespace MusicKit {
          * The playlist used to set a music player's playback queue.
          */
         playlist?: string | undefined;
+        playlists?: string[] | undefined;
         /**
          * The song used to set a music player's playback queue.
          */
         song?: string | undefined;
-        /**
-         * The songs used to set a music player's playback queue.
-         */
         songs?: string[] | undefined;
         /**
          * The start position for a set playback queue.

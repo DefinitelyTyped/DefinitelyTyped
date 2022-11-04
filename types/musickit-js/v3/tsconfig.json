@@ -2,15 +2,24 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "es6",
+            "dom"
         ],
+        "paths": {
+            "musickit-js": [
+                "musickit-js/v3"
+            ],
+            "musickit-js/*": [
+                "musickit-js/v3/*"
+            ]
+        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,

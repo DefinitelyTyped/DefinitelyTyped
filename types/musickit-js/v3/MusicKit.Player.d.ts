@@ -1,15 +1,51 @@
 declare namespace MusicKit {
+    enum PlaybackType {
+        none,
+        preview,
+        unencryptedFull,
+        encryptedFul,
+    }
+
+    enum PresentationMode {
+        pictureinpicture,
+        inline,
+    }
+
+    enum PlayActivityEndReasonType {
+        NOT_APPLICABLE,
+        OTHER,
+        TRACK_SKIPPED_FORWARDS,
+        PLAYBACK_MANUALLY_PAUSED,
+        PLAYBACK_SUSPENDED,
+        MANUALLY_SELECTED_PLAYBACK_OF_A_DIFF_ITEM,
+        PLAYBACK_PAUSED_DUE_TO_INACTIVITY,
+        NATURAL_END_OF_TRACK,
+        PLAYBACK_STOPPED_DUE_TO_SESSION_TIMEOUT,
+        TRACK_BANNED,
+        FAILED_TO_LOAD,
+        PAUSED_ON_TIMEOUT,
+        SCRUB_BEGIN,
+        SCRUB_END,
+        TRACK_SKIPPED_BACKWARDS,
+        NOT_SUPPORTED_BY_CLIENT,
+        QUICK_PLAY,
+        EXITED_APPLICATION,
+    }
+
+    type PlaybackActions = 'REPEAT' | 'SHUFFLE' | 'AUTOPLAY';
+
     /**
      * The playback states of the music player.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#playbackstates
      */
-    enum PlaybackState {
-        NONE,
-        LOADING,
-        PLAYING,
-        PAUSED,
-        STOPPED,
-        ENDED,
-        SEEKING,
+    enum PlaybackStates {
+        none,
+        loading,
+        playing,
+        paused,
+        stopped,
+        ended,
+        seeking,
         waiting,
         stalled,
         completed,
@@ -17,156 +53,40 @@ declare namespace MusicKit {
 
     /**
      * The playback bit rate of the music player.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#playbackbitrate
      */
     enum PlaybackBitrate {
         HIGH = 256,
         STANDARD = 64,
     }
 
-    type PlayerRepeatMode = 0 | 1 | 2;
-    type PlayerShuffleMode = 0 | 1;
-    type MediaItemPosition = number;
+    /**
+     * Possible values for the playback mode for the music player.
+     */
+    enum PlaybackMode {
+        PREVIEW_ONLY,
+        MIXED_CONTENT,
+        FULL_PLAYBACK_ONLY,
+    }
 
     /**
-     * A media player that represents the media player for a MusicKit instance.
+     * Possible values for the repeat mode for the music player.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#playerrepeatmode
      */
-    interface Player {
-        /**
-         * The current bit rate of the music player.
-         */
-        readonly bitrate: number;
-        /**
-         * The music player has EME loaded.
-         */
-        readonly canSupportDRM: boolean;
-        /**
-         * The current playback duration.
-         */
-        readonly currentPlaybackDuration: number;
-        /**
-         * The current playback progress.
-         */
-        readonly currentPlaybackProgress: number;
-        /**
-         * The current position of the playhead.
-         */
-        readonly currentPlaybackTime: number;
-        /**
-         * No description available.
-         */
-        readonly currentPlaybackTimeRemaining: number;
-        /**
-         * The current playback duration in hours and minutes.
-         */
-        readonly formattedCurrentPlaybackDuration: FormattedPlaybackDuration;
-        /**
-         * A Boolean value indicating whether the player is currently playing.
-         */
-        readonly isPlaying: boolean;
-        /**
-         * The currently-playing media item, or the media item, within an queue,
-         * that you have designated to begin playback.
-         */
-        readonly nowPlayingItem: MediaItem;
-        /**
-         * The index of the now playing item in the current playback queue.
-         */
-        readonly nowPlayingItemIndex?: number | undefined;
-        /**
-         * The current playback rate for the player.
-         */
-        readonly playbackRate: number;
-        /**
-         * The current playback state of the music player.
-         */
-        readonly playbackState: PlaybackState;
-        /**
-         * A Boolean value that indicates whether a playback target is available.
-         */
-        readonly playbackTargetAvailable?: boolean | undefined;
-        /**
-         * The current playback queue of the music player.
-         */
-        readonly queue: Queue;
-        /**
-         * The current repeat mode of the music player.
-         */
-        repeatMode: PlayerRepeatMode;
-        /**
-         * The current shuffle mode of the music player.
-         */
-        shuffleMode: PlayerShuffleMode;
-        /**
-         * A number indicating the current volume of the music player.
-         */
-        volume: number;
-        /**
-         * Adds an event listener as a callback for an event name.
-         *
-         * @param name The name of the event.
-         * @param callback The callback function to invoke when the event occurs.
-         */
-        addEventListener(name: string, callback: () => any): void;
-        /**
-         * Begins playing the media item at the specified index in the queue immediately.
-         *
-         * @param The queue index to begin playing media.
-         */
-        changeToMediaAtIndex(index: number): Promise<MediaItemPosition>;
-        /**
-         * Begins playing the media item in the queue immediately.
-         *
-         * @param descriptor descriptor can be a MusicKit.MediaItem instance or a
-         * string identifier.
-         */
-        changeToMediaItem(descriptor: Descriptor): Promise<MediaItemPosition>;
-        /**
-         * Sets the volume to 0.
-         */
-        mute(): void;
-        /**
-         * Pauses playback of the current item.
-         */
-        pause(): void;
-        /**
-         * Initiates playback of the current item.
-         */
-        play(): Promise<MediaItemPosition>;
-        /**
-         * Prepares a music player for playback.
-         *
-         * @param descriptor descriptor can be a MusicKit.MediaItem instance or a
-         * string identifier.
-         */
-        prepareToPlay(descriptor: Descriptor): Promise<void>;
-        /**
-         * No description available.
-         *
-         * @param name The name of the event.
-         * @param callback The callback function to remove.
-         */
-        removeEventListener(name: string, callback: () => any): void;
-        /**
-         * Sets the playback point to a specified time.
-         *
-         * @param time The time to set as the playback point.
-         */
-        seekToTime(time: number): Promise<void>;
-        /**
-         * Displays the playback target picker if a playback target is available.
-         */
-        showPlaybackTargetPicker(): void;
-        /**
-         * Starts playback of the next media item in the playback queue.
-         */
-        skipToNextItem(): Promise<MediaItemPosition>;
-        /**
-         * Starts playback of the previous media item in the playback queue.
-         */
-        skipToPreviousItem(): Promise<MediaItemPosition>;
-        /**
-         * Stops the currently playing media item.
-         */
-        stop(): void;
+    enum PlayerRepeatMode {
+        none,
+        one,
+        all,
     }
+
+    /**
+     * Possible values for the shuffle mode for the music player.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#playershufflemode
+     */
+    enum PlayerShuffleMode {
+        off,
+        songs,
+    }
+
+    type MediaItemPosition = number;
 }

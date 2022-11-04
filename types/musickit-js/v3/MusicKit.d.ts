@@ -1,8 +1,8 @@
 /// <reference path="MusicKit.Player.d.ts" />
 
 /**
- * Use the MusicKit namespace to configure MusicKit JS and to access app
- * instances, control music playback, and fetch data from the Apple Music API.
+ * Use the MusicKit namespace to configure MusicKit on the Web and access the singleton instance.
+ * It is also a global variable on the window object, and a namespace for other utils and enums.
  */
 
 declare namespace MusicKit {
@@ -11,17 +11,18 @@ declare namespace MusicKit {
      */
     interface AppConfiguration {
         /**
-         * The build number of your app.
+         * Current build number or version of your app
          */
         build?: string | undefined;
         /**
-         * A URL for your app icon.
+         * A URL to the image used to represent your application during the authorization flow.
+         * Ideally this image has a square aspect ratio and is 152px by 152px (2x image content to support Retina Displays). Display dimensions are 76px by 76px.
          */
         icon?: string | undefined;
         /**
-         * The name of your app.
+         * The name of your application during the authorization flow.
          */
-        name?: string | undefined;
+        name: string;
         /**
          * The version of your app.
          */
@@ -38,10 +39,6 @@ declare namespace MusicKit {
         width: number | string;
     }
 
-    const errors: MKError[];
-
-    const version: string;
-
     interface AuthStatus {
         NOT_DETERMINED: 0;
         DENIED: 1;
@@ -50,50 +47,54 @@ declare namespace MusicKit {
     }
 
     /**
-     * A dictionary of configuration options for the MusicKit instance.
+     * The MusicKitConfiguration object is passed to the MusicKit.configure() method above and supports the following properties.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#musickitconfiguration
      */
-    interface Configuration {
+    interface MusicKitConfiguration {
         /**
          * The version of your app.
          */
-        app?: AppConfiguration | undefined;
-        /**
-         * This property indicates whether you have explicitly enabled or disabled
-         * declarative markup.
-         */
-        declarativeMarkup?: boolean | undefined;
+        app: AppConfiguration;
         /**
          * The developer token to identify yourself as a trusted developer and
          * member of the Apple Developer Program.
          */
-        developerToken?: string | undefined;
+        developerToken: string;
         /**
-         * The current storefront for this MusicKit configuration.
+         * This is the value used for the {{storefrontId}} token in the path argument of the Passthrough API method, which helps create reusable URL templates by abstracting the storefront.
+         * If not set, the storefrontId will use the authenticated user’s storefront, which is likely ideal in most situations.
          */
         storefrontId?: string | undefined;
         /**
-         * The playback bit rate of the music player.
+         * Can be used to target a bit rate for playback. Otherwise MusicKit will do its best to determine a proper bit rate.
+         * Can be changed later on the instance.
          */
         bitrate?: PlaybackBitrate | undefined;
     }
     /**
      * Configure a MusicKit instance.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#configure
+     * @param configuration Required: The configuration for the MusicKit instance.
      */
-    function configure(configuration: Configuration): MusicKitInstance;
+    function configure(configuration: MusicKitConfiguration): Promise<MusicKitInstance>;
     /**
      * Returns the configured MusicKit instance.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#getinstance
      */
     function getInstance(): MusicKitInstance;
+    function getInstances(): MusicKitInstance[];
     /**
      * Returns a formatted artwork URL.
-     *
-     * @param artwork An artwork resource object.
-     * @param height The desired artwork height.
-     * @param width the desired artwork width.
+     * https://js-cdn.music.apple.com/musickit/v3/docs/index.html?path=/docs/reference-javascript-musickit--page#formatartworkurl
+     * @param artwork Required: An artwork resource object.
+     * @param height Optional: The desired artwork height.
+     * @param width Optional: the desired artwork width.
      */
-    function formatArtworkURL(artwork: Artwork, height: number, width: number): string;
+    function formatArtworkURL(artwork: Artwork, height?: number, width?: number): string;
     /**
      * Returns an object with milliseconds formatted into hours and minutes.
+     * https://developer.apple.com/documentation/musickitjs/musickit/2992811-formattedmilliseconds
+     * @param milliseconds Required: The milliseconds to format.
      */
     function formattedMilliseconds(milliseconds: number): FormattedPlaybackDuration;
     /**
@@ -102,11 +103,30 @@ declare namespace MusicKit {
     function formattedSeconds(seconds: number): FormattedPlaybackDuration;
     /**
      * Generates Apple Music web player markup.
-     *
+     * https://developer.apple.com/documentation/musickitjs/musickit/2992813-generateembedcode
      * @param url The iTunes URL for the Apple Music content.
-     * @param options The object containing the height and width of the player.
+     * @param options The object containing the height and width of the player. The default value is {height: '450px', width: '660px'}
      */
     function generateEmbedCode(url: string, options: EmbedOptions): string;
 
     function formatMediaTime(seconds: number, separator: string): string;
+
+    function formattedMediaURL(url: string): {
+        contentId: string;
+        isUTS: boolean;
+        kind: 'album' | 'playlist' | 'song' | 'music-video' | 'podcast' | 'episode';
+        storefrontId: string;
+    };
+
+    /**
+     *  Get HLS js file URLs
+     */
+    function getHlsJsCdnConfig(): {
+        hls: string;
+        rtc: string;
+    };
+
+    function getPlayerType(): 'audio' | 'video' | 'podcast-episodes';
+
+    type version = string;
 }
