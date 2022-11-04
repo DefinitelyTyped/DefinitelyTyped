@@ -26,6 +26,7 @@
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
 //                 Priyanshu Rav <https://github.com/priyanshurav>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -1460,6 +1461,8 @@ declare namespace React {
         onProgressCapture?: ReactEventHandler<T> | undefined;
         onRateChange?: ReactEventHandler<T> | undefined;
         onRateChangeCapture?: ReactEventHandler<T> | undefined;
+        onResize?: ReactEventHandler<T> | undefined;
+        onResizeCapture?: ReactEventHandler<T> | undefined;
         onSeeked?: ReactEventHandler<T> | undefined;
         onSeekedCapture?: ReactEventHandler<T> | undefined;
         onSeeking?: ReactEventHandler<T> | undefined;
