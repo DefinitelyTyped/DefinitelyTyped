@@ -5306,6 +5306,10 @@ fp.now(); // $ExpectType number
     const defaultValue: boolean = anything;
     const objectWithOptionalField: { a?: boolean } = anything;
 
+    const anyNumber: number = anything;
+    const arrayOfNumbers: number[] = anything;
+    const tupleOfNumbers: [1] = anything;
+
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
@@ -5313,6 +5317,13 @@ fp.now(); // $ExpectType number
     _.get({ a: false }, "a"); // $ExpectType boolean
     _.get(objectWithOptionalField, "a"); // $ExpectType boolean | undefined
     _.get(objectWithOptionalField, "a" as string); // $ExpectType any
+    _.get({ a: arrayOfNumbers }, 'a.0');  // $ExpectType number
+    _.get({ a: arrayOfNumbers }, 'a[0]');  // $ExpectType number
+    _.get({ a: arrayOfNumbers }, `a[${anyNumber}]`);  // $ExpectType number
+    _.get({ a: tupleOfNumbers }, 'a.0');  // $ExpectType 1
+    _.get({ a: tupleOfNumbers }, 'a[0]');  // $ExpectType 1
+    _.get({ a: tupleOfNumbers }, 'a[1]');  // $ExpectType undefined
+    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`);  // $ExpectType undefined
     _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
@@ -5332,6 +5343,13 @@ fp.now(); // $ExpectType number
     _({ a: false }).get("a"); // $ExpectType boolean
     _(objectWithOptionalField).get("a"); // $ExpectType boolean | undefined
     _(objectWithOptionalField).get("a" as string); // $ExpectType any
+    _({ a: arrayOfNumbers }).get('a.0');  // $ExpectType number
+    _({ a: arrayOfNumbers }).get('a[0]');  // $ExpectType number
+    _({ a: arrayOfNumbers }).get(`a[${anyNumber}]`);  // $ExpectType number
+    _({ a: tupleOfNumbers }).get('a.0');  // $ExpectType 1
+    _({ a: tupleOfNumbers }).get('a[0]');  // $ExpectType 1
+    _({ a: tupleOfNumbers }).get('a[1]');  // $ExpectType undefined
+    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`);  // $ExpectType undefined
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
@@ -5350,6 +5368,13 @@ fp.now(); // $ExpectType number
     _.chain("abc").get(1); // $ExpectType StringChain
     _.chain({ a: false }).get("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain(objectWithOptionalField).get("a" as string); // $ExpectType LoDashExplicitWrapper<any>
+    _.chain({ a: arrayOfNumbers }).get('a.0');  // $ExpectType PrimitiveChain<number>
+    _.chain({ a: arrayOfNumbers }).get('a[0]');  // $ExpectType PrimitiveChain<number>
+    _.chain({ a: arrayOfNumbers }).get(`a[${anyNumber}]`);  // $ExpectType PrimitiveChain<number>
+    _.chain({ a: tupleOfNumbers }).get('a.0');  // $ExpectType PrimitiveChain<1>
+    _.chain({ a: tupleOfNumbers }).get('a[0]');  // $ExpectType PrimitiveChain<1>
+    _.chain({ a: tupleOfNumbers }).get('a[1]');  // $ExpectType never
+    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`);  // $ExpectType never
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>

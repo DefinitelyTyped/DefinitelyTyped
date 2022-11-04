@@ -1023,10 +1023,12 @@ declare module "../index" {
     type GetIndexedField<T, K> = K extends keyof T
         ? T[K]
         : K extends `${number}`
-            ? '0' extends keyof T
-            ? undefined
-            : number extends keyof T
-                ? T[number]
+            ? 'length' extends keyof T
+                ? number extends T['length']
+                    ? number extends keyof T
+                        ? T[number]
+                        : undefined
+                    : undefined
                 : undefined
             : undefined;
 
@@ -1052,7 +1054,7 @@ declare module "../index" {
         ? FieldKey extends keyof T
             ? IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>
             : undefined
-        : undefined;
+        : IndexedFieldWithPossiblyUndefined<T, P>;
 
     interface LoDashStatic {
         /**
