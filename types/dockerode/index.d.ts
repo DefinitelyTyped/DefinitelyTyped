@@ -317,8 +317,9 @@ declare namespace Dockerode {
         modem: any;
         id: string;
 
+        inspect(options: ExecInspectOptions, callback: Callback<ExecInspectInfo>): void;
         inspect(callback: Callback<ExecInspectInfo>): void;
-        inspect(): Promise<ExecInspectInfo>;
+        inspect(options?: ExecInspectOptions): Promise<ExecInspectInfo>;
 
         start(options: ExecStartOptions, callback: Callback<stream.Duplex>): void;
         start(options: ExecStartOptions): Promise<stream.Duplex>;
@@ -1072,6 +1073,10 @@ declare namespace Dockerode {
         OpenStdout: boolean;
         ContainerID: string;
         Pid: number;
+    }
+
+    interface ExecInspectOptions {
+        abortSignal?: AbortSignal;
     }
 
     interface ExecStartOptions {
