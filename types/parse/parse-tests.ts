@@ -2139,3 +2139,14 @@ function testEventuallyQueue() {
         Parse.EventuallyQueue.poll('300');
     }
 }
+
+function LiveQueryEvents() {
+    function testLiveQueryEvents() {
+        Parse.LiveQuery.on('open', () => {
+        });
+        Parse.LiveQuery.on('close', () => {
+        });
+        Parse.LiveQuery.on('error', (error) => {
+        });
+    }
+}
