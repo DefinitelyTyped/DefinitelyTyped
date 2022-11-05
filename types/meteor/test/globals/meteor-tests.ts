@@ -563,7 +563,7 @@ namespace MeteorTests {
     Meteor.publish(
         null,
         function () {
-            return 3;
+            return;
         },
         { is_auto: true },
     );
