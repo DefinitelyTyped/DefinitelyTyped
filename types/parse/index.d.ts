@@ -275,7 +275,7 @@ declare global {
             progress?: Function | undefined;
         }
 
-        interface SuccessFailureOptions extends SuccessOption, ErrorOption { }
+        interface SuccessFailureOptions extends SuccessOption, ErrorOption {}
 
         interface SignUpOptions {
             useMasterKey?: boolean | undefined;
@@ -309,7 +309,7 @@ declare global {
             /** (3.0.0+) json: Return raw json without converting to Parse.Object */
             json?: boolean;
         }
-        interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption { }
+        interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {}
 
         interface SilentOption {
             /**
@@ -660,28 +660,28 @@ declare global {
         }
         interface ObjectConstructor extends ObjectStatic {
             new <T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
-            new(className?: string, attributes?: Attributes, options?: any): Object;
+            new (className?: string, attributes?: Attributes, options?: any): Object;
         }
         const Object: ObjectConstructor;
 
         namespace Object {
-            interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
+            interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions {}
 
-            interface DestroyAllOptions extends BatchSizeOption, ScopeOptions { }
+            interface DestroyAllOptions extends BatchSizeOption, ScopeOptions {}
 
-            interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions { }
+            interface FetchAllOptions extends SuccessFailureOptions, ScopeOptions {}
 
-            interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
+            interface FetchOptions extends SuccessFailureOptions, ScopeOptions {}
 
             interface SaveOptions
                 extends CascadeSaveOption,
-                SuccessFailureOptions,
-                SilentOption,
-                ScopeOptions,
-                ContextOption,
-                WaitOption { }
+                    SuccessFailureOptions,
+                    SilentOption,
+                    ScopeOptions,
+                    ContextOption,
+                    WaitOption {}
 
-            interface SaveAllOptions extends BatchSizeOption, ScopeOptions { }
+            interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
 
             interface SetOptions extends ErrorOption, SilentOption {
                 promise?: any;
@@ -698,7 +698,7 @@ declare global {
                 ? string
                 : T extends Array<infer R>
                 ? // This recursion is unsupported in <=3.6
-                Array<Encode<R>>
+                  Array<Encode<R>>
                 : T extends object
                 ? ToJSON<T>
                 : T;
@@ -735,7 +735,7 @@ declare global {
         }
         interface InstallationConstructor extends ObjectStatic<Installation> {
             new <T extends Attributes>(attributes: T): Installation<T>;
-            new(): Installation;
+            new (): Installation;
         }
         const Installation: InstallationConstructor;
 
@@ -861,10 +861,10 @@ declare global {
                 value:
                     | T['attributes'][K]
                     | (T['attributes'][K] extends Object
-                        ? Pointer
-                        : T['attributes'][K] extends Array<infer E>
-                        ? E
-                        : never),
+                          ? Pointer
+                          : T['attributes'][K] extends Array<infer E>
+                          ? E
+                          : never),
             ): this;
             exclude<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
             exists<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K): this;
@@ -920,10 +920,10 @@ declare global {
                 value:
                     | T['attributes'][K]
                     | (T['attributes'][K] extends Object
-                        ? Pointer
-                        : T['attributes'][K] extends Array<infer E>
-                        ? E
-                        : never),
+                          ? Pointer
+                          : T['attributes'][K] extends Array<infer E>
+                          ? E
+                          : never),
             ): this;
             polygonContains<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
             select<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
@@ -961,11 +961,11 @@ declare global {
         }
 
         namespace Query {
-            interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
-            interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
-            interface FindOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions { }
-            interface FirstOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions { }
-            interface GetOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions { }
+            interface EachOptions extends SuccessFailureOptions, ScopeOptions {}
+            interface CountOptions extends SuccessFailureOptions, ScopeOptions {}
+            interface FindOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
+            interface FirstOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
+            interface GetOptions extends SuccessFailureOptions, ScopeOptions, RawJSONOptions {}
 
             // According to http://docs.parseplatform.org/rest/guide/#aggregate-queries
             interface AggregationOptions {
@@ -982,32 +982,32 @@ declare global {
                 count?: string | undefined;
                 // Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/
                 lookup?:
-                | {
-                    from: string;
-                    localField: string;
-                    foreignField: string;
-                    as: string;
-                }
-                | {
-                    from: string;
-                    let?: Record<string, any>;
-                    pipeline: Record<string, any>;
-                    as: string;
-                }
-                | undefined;
+                    | {
+                          from: string;
+                          localField: string;
+                          foreignField: string;
+                          as: string;
+                      }
+                    | {
+                          from: string;
+                          let?: Record<string, any>;
+                          pipeline: Record<string, any>;
+                          as: string;
+                      }
+                    | undefined;
                 // Graph Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/
                 graphLookup?:
-                | {
-                    from: string;
-                    startWith?: string;
-                    connectFromField: string;
-                    connectToField: string;
-                    as: string;
-                    maxDepth?: number;
-                    depthField?: string;
-                    restrictSearchWithMatch?: Record<string, any>;
-                }
-                | undefined;
+                    | {
+                          from: string;
+                          startWith?: string;
+                          connectFromField: string;
+                          connectToField: string;
+                          as: string;
+                          maxDepth?: number;
+                          depthField?: string;
+                          restrictSearchWithMatch?: Record<string, any>;
+                      }
+                    | undefined;
                 // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/
                 facet?: Record<string, Array<Record<string, any>>> | undefined;
             }
@@ -1116,10 +1116,10 @@ declare global {
          * (source : https://github.com/parse-community/Parse-SDK-JS/blob/8115e959533d1676fe5e5551bc81888b21fc12ef/src/ParseLiveQuery.js)
          * https://docs.parseplatform.org/js/guide/#websocket-status
          */
-        namespace LiveQuery {
+         namespace LiveQuery {
             function on(
                 event: 'open' | 'close',
-                /** When we establish ('open') or lose ('close') the WebSocket connection to the LiveQuery server, you’ll get this event */
+                /** When we establish ('open') or lose the WebSocket connection to the LiveQuery server, you’ll get this event */
                 listener: () => void,
             ): void;
             function on(
@@ -1149,7 +1149,7 @@ declare global {
         }
         interface RoleConstructor extends ObjectStatic<Role> {
             new <T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
-            new(name: string, acl: ACL): Role;
+            new (name: string, acl: ACL): Role;
         }
         const Role: RoleConstructor;
 
@@ -1168,7 +1168,7 @@ declare global {
         }
         interface SessionConstructor extends ObjectStatic<Session> {
             new <T extends Attributes>(attributes: T): Session<T>;
-            new(): Session;
+            new (): Session;
 
             current(): Promise<Session>;
         }
@@ -1209,7 +1209,7 @@ declare global {
         }
         interface UserConstructor extends ObjectStatic<User> {
             new <T extends Attributes>(attributes: T): User<T>;
-            new(attributes?: Attributes): User;
+            new (attributes?: Attributes): User;
 
             allowCustomUserClass(isAllowed: boolean): void;
             become<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
@@ -1416,17 +1416,17 @@ declare global {
 
             interface FieldOptions<
                 T extends
-                | string
-                | number
-                | boolean
-                | Date
-                | File
-                | GeoPoint
-                | Polygon
-                | any[]
-                | object
-                | Pointer
-                | Relation = any,
+                    | string
+                    | number
+                    | boolean
+                    | Date
+                    | File
+                    | GeoPoint
+                    | Polygon
+                    | any[]
+                    | object
+                    | Pointer
+                    | Relation = any,
             > {
                 required?: boolean | undefined;
                 defaultValue?: T | undefined;
@@ -1580,8 +1580,8 @@ declare global {
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
-            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> { } // tslint:disable-line no-empty-interface
-            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> { } // tslint:disable-line no-empty-interface
+            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
+            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
@@ -1613,32 +1613,32 @@ declare global {
             }
 
             function afterDelete<T extends Object = Object>(
-                arg1: { new(): T } | string,
+                arg1: { new (): T } | string,
                 func?: (request: AfterDeleteRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function afterSave<T extends Object = Object>(
-                arg1: { new(): T } | string,
+                arg1: { new (): T } | string,
                 func?: (request: AfterSaveRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeDelete<T extends Object = Object>(
-                arg1: { new(): T } | string,
+                arg1: { new (): T } | string,
                 func?: (request: BeforeDeleteRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeSave<T extends Object = Object>(
-                arg1: { new(): T } | string,
+                arg1: { new (): T } | string,
                 func?: (request: BeforeSaveRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeFind<T extends Object = Object>(
-                arg1: { new(): T } | string,
+                arg1: { new (): T } | string,
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function afterFind<T extends Object = Object>(
-                arg1: { new(): T } | string,
+                arg1: { new (): T } | string,
                 func?: (request: AfterFindRequest<T>) => any,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
@@ -1714,7 +1714,7 @@ declare global {
             function startJob(jobName: string, data: any): Promise<string>;
             function useMasterKey(): void;
 
-            interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
+            interface RunOptions extends SuccessFailureOptions, ScopeOptions {}
 
             /**
              * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
@@ -1738,10 +1738,10 @@ declare global {
                  * The headers for the request.
                  */
                 headers?:
-                | {
-                    [headerName: string]: string | number | boolean;
-                }
-                | undefined;
+                    | {
+                          [headerName: string]: string | number | boolean;
+                      }
+                    | undefined;
                 /**
                  * The method of the request (i.e GET, POST, etc).
                  */
