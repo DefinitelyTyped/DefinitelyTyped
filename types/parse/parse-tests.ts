@@ -208,6 +208,18 @@ function test_query() {
         },
     });
 
+    query.aggregate({
+        unwind: '$field',
+    });
+
+    query.aggregate({
+        unwind: {
+            path: '$field',
+            includeArrayIndex: 'newIndex',
+            preserveNullAndEmptyArrays: true,
+        },
+    });
+
     // Find objects with distinct key
     query.distinct('name');
 
@@ -2124,6 +2136,6 @@ function testEventuallyQueue() {
         // $ExpectType void
         Parse.EventuallyQueue.poll(300);
         // @ts-expect-error
-        Parse.EventuallyQueue.poll("300");
+        Parse.EventuallyQueue.poll('300');
     }
 }
