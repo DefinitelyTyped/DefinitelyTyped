@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MentionsInput, Mention, SuggestionDataItem } from 'react-mentions';
+import { MentionsInput, Mention, SuggestionDataItem, OnChangeHandlerFunc } from 'react-mentions';
 import {
     applyChangeToValue,
     combineRegExps,
@@ -27,7 +27,7 @@ import {
 interface TestProps {
     data: SuggestionDataItem[];
     value?: string | undefined;
-    onChange?: (() => void) | undefined;
+    onChange?: OnChangeHandlerFunc;
     onAdd?: (() => void) | undefined;
     regex: RegExp;
 }

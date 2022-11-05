@@ -1595,6 +1595,13 @@ declare module 'http' {
      */
     function validateHeaderValue(name: string, value: string): void;
 
+    /**
+     * Set the maximum number of idle HTTP parsers. Default: 1000.
+     * @param count
+     * @since v18.8.0, v16.18.0
+     */
+    function setMaxIdleHTTPParsers(count: number): void;
+
     let globalAgent: Agent;
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.

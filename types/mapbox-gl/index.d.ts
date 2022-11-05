@@ -1159,6 +1159,7 @@ declare namespace mapboxgl {
             showAccuracyCircle?: boolean | undefined;
             showUserLocation?: boolean | undefined;
             showUserHeading?: boolean | undefined;
+            geolocation?: Geolocation | undefined;
         });
         trigger(): boolean;
     }

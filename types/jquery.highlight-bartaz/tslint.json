@@ -3,7 +3,6 @@
     "rules": {
         "comment-format": false,
         "no-consecutive-blank-lines": false,
-        "npm-naming": false,
-        "trim-file": false
+        "npm-naming": false
     }
 }
