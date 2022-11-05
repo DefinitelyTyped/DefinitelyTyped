@@ -45,7 +45,7 @@ function test_object() {
     }
 
     game.fetch({
-        success(g: Game) {},
+        success(g: Game) { },
     });
 
     // Create a new instance of that class.
@@ -379,7 +379,7 @@ function test_relation() {
         .relation<Game>('games')
         .query()
         .find()
-        .then((g: Game[]) => {});
+        .then((g: Game[]) => { });
     new Parse.User().relation('games').add(game1);
     new Parse.User().relation('games').add([game1, game2]);
 
@@ -444,7 +444,7 @@ function test_user_acl_roles() {
     const game = new Game();
     game.set('gameScore', new GameScore());
     game.setACL(new Parse.ACL(Parse.User.current()));
-    game.save().then((game: Game) => {});
+    game.save().then((game: Game) => { });
     game.save(null, { useMasterKey: true });
     game.save({ score: '10' }, { useMasterKey: true }).then(
         game => {
@@ -550,7 +550,7 @@ async function test_cloud_functions() {
             success: (result: any) => {
                 // result
             },
-            error: (error: any) => {},
+            error: (error: any) => { },
         },
     );
 
@@ -682,11 +682,11 @@ async function test_cloud_functions() {
         return Promise.resolve(new Parse.File('myFile.txt', { base64: '' }));
     });
 
-    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => {});
+    Parse.Cloud.beforeSaveFile((request: Parse.Cloud.FileTriggerRequest) => { });
 
-    Parse.Cloud.beforeDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {});
+    Parse.Cloud.beforeDeleteFile((request: Parse.Cloud.FileTriggerRequest) => { });
 
-    Parse.Cloud.afterDeleteFile((request: Parse.Cloud.FileTriggerRequest) => {});
+    Parse.Cloud.afterDeleteFile((request: Parse.Cloud.FileTriggerRequest) => { });
 
     Parse.Cloud.define('AFunc', (request: Parse.Cloud.FunctionRequest) => {
         return 'Some result';
@@ -768,7 +768,7 @@ async function test_cloud_functions() {
     Parse.Cloud.getJobsData().then(v => v);
 }
 
-class PlaceObject extends Parse.Object {}
+class PlaceObject extends Parse.Object { }
 
 function test_geo_points() {
     let point = new Parse.GeoPoint();
@@ -800,7 +800,7 @@ function test_geo_points() {
     const query2 = new Parse.Query(PlaceObject);
     query2.withinGeoBox('location', southwestOfSF, northeastOfSF);
 
-    const query3 = new Parse.Query('PlaceObject').find().then((o: Parse.Object[]) => {});
+    const query3 = new Parse.Query('PlaceObject').find().then((o: Parse.Object[]) => { });
 }
 
 function test_push() {
@@ -1063,12 +1063,12 @@ async function test_schema(
 
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
-    schema.delete().then(results => {});
+    schema.delete().then(results => { });
     // $ExpectType RestSchema
     await schema.get();
-    schema.purge().then(results => {});
-    schema.save().then(results => {});
-    schema.update().then(results => {});
+    schema.purge().then(results => { });
+    schema.save().then(results => { });
+    schema.update().then(results => { });
 
     function testGenericType() {
         interface iTestAttributes {
@@ -1084,7 +1084,7 @@ async function test_schema(
             relationField: Parse.Relation;
             pointerField: Parse.Pointer | Parse.Object;
         }
-        class TestObject extends Parse.Object<iTestAttributes> {}
+        class TestObject extends Parse.Object<iTestAttributes> { }
 
         const schema = new Parse.Schema<TestObject>('TestObject');
         schema.addArray('arrField');
@@ -1731,7 +1731,7 @@ function testQuery() {
             attribute2: number;
             attribute3: AnotherSubClass;
             attribute4: string[];
-        }> {}
+        }> { }
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
@@ -2055,10 +2055,10 @@ function testUser() {
     }
     async function testAuthenticationProvider() {
         const authProvider: Parse.AuthProvider = {
-            authenticate: () => {},
+            authenticate: () => { },
             getAuthType: () => 'customAuthorizationProvider',
             restoreAuthentication: () => false,
-            deauthenticate: () => {},
+            deauthenticate: () => { },
         };
         const authData: Parse.AuthData = {
             id: 'some-user-authentication-id',
@@ -2125,5 +2125,16 @@ function testEventuallyQueue() {
         Parse.EventuallyQueue.poll(300);
         // @ts-expect-error
         Parse.EventuallyQueue.poll("300");
+    }
+}
+
+function LiveQueryEvents() {
+    function testLiveQueryEvents() {
+        Parse.LiveQuery.on('open', () => {
+        });
+        Parse.LiveQuery.on('close', () => {
+        });
+        Parse.LiveQuery.on('error', (error) => {
+        });
     }
 }
