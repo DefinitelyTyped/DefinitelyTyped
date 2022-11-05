@@ -1830,7 +1830,7 @@ declare module 'crypto' {
      * Return a random integer `n` such that `min <= n < max`.  This
      * implementation avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias).
      *
-     * The range (`max - min`) must be less than 248. `min` and `max` must
+     * The range (`max - min`) must be less than 2^48. `min` and `max` must
      * be [safe integers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger).
      *
      * If the `callback` function is not provided, the random integer is
@@ -3417,7 +3417,7 @@ declare module 'crypto' {
     interface CheckPrimeOptions {
         /**
          * The number of Miller-Rabin probabilistic primality iterations to perform.
-         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most 2-64 for random input.
+         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most `2**-64` for random input.
          * Care must be used when selecting a number of checks.
          * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
          *

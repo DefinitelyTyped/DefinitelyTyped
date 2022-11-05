@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -11,7 +12,7 @@ import EmberObject from '@ember/object';
 import RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
 import Initializer from '@ember/engine/-private/types/initializer';
 import EngineInstance from '@ember/engine/instance';
-import Resolver from 'ember-resolver';
+import { Resolver } from '@ember/owner';
 
 /**
  * The `Engine` class contains core functionality for both applications and

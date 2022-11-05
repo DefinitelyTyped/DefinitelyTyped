@@ -118,6 +118,8 @@ async function test() {
 
     const eventTarget = new EventTarget();
     events.EventEmitter.setMaxListeners(42, eventTarget);
+    // @ts-expect-error - type returned by EventTarget constuctor should not also be a constructor
+    new eventTarget();
 
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);

@@ -8,6 +8,7 @@ import {
     UploadableMap,
 } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
+import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationLinkedField,
@@ -409,6 +410,10 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     invalidateStore(): void;
+    readUpdatableFragment_EXPERIMENTAL<TKey extends HasUpdatableSpread>(
+        fragmentInput: GraphQLTaggedNode,
+        fragmentRef: TKey,
+    ): UpdatableData<TKey>;
 }
 
 interface OperationDescriptor {
@@ -1041,8 +1046,8 @@ export type RelayResolverErrors = RelayResolverError[];
  * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
  * readUpdatableFragment_EXPERIMENTAL.
  */
-export interface UpdatableData<TData> {
-    readonly updatableData: TData;
+export interface UpdatableData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
+    readonly updatableData: Required<TKey>[' $data'];
 }
 
 /**
@@ -1050,6 +1055,7 @@ export interface UpdatableData<TData> {
  * HasUpdatableSpread.
  * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
  */
-export interface HasUpdatableSpread<TFragmentType> {
-    readonly $updatableFragmentSpreads: TFragmentType;
-}
+export type HasUpdatableSpread<TData = unknown> = Readonly<{
+    ' $data'?: TData | undefined;
+    $updatableFragmentSpreads: FragmentType;
+}>;

@@ -3,10 +3,16 @@ import Ember from 'ember';
 
 const MyResolver = EmberResolver.extend({
     pluralizedTypes: {
-        sheep: 'sheep'
-    }
+        sheep: 'sheep',
+    },
 });
 
 const App = Ember.Application.extend({
-    Resolver: MyResolver
+    Resolver: MyResolver,
 });
+
+const resolver = MyResolver.create();
+resolver.resolve('some:name');
+resolver.normalize('some:name');
+// @ts-expect-error
+resolver.normalize('bad-name');

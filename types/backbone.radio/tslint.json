@@ -8,7 +8,6 @@
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false
     }
 }

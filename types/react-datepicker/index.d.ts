@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 4.4
+// Type definitions for react-datepicker 4.8
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 Greg Smith <https://github.com/smrq>
@@ -194,6 +194,7 @@ export interface ReactDatePickerProps<
     useShortMonthInDropdown?: boolean | undefined;
     useWeekdaysShort?: boolean | undefined;
     weekAriaLabelPrefix?: string | undefined;
+    monthAriaLabelPrefix?: string | undefined;
     value?: string | undefined;
     weekLabel?: string | undefined;
     withPortal?: boolean | undefined;

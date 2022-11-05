@@ -1,12 +1,12 @@
 // Type definitions for Microsoft Dynamics xRM API 9.0
 // Project: https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/developer-guide
-// Definitions by:  David Berry <https://github.com/6ix4our>
-//                  Matt Ngan <https://github.com/mattngan>
+// Definitions by:  Matt Ngan <https://github.com/mattngan>
 //                  Markus Mauch <https://github.com/markusmauch>
 //                  Daryl LaBar <https://github.com/daryllabar>
 //                  Tully H <https://github.com/clownwilleatme>
 //                  Scott Durow <https://github.com/scottdurow>
 //                  Phil Cole <https://github.com/filcole>
+//                  Danish Naglekar <https://github.com/power-maverick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -688,9 +688,7 @@ declare namespace Xrm {
              * 10 seconds to let you know to tune the async OnSave event for better performance. When the
              * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
              * to wait for that handler's promise to be fulfilled.
-
              * This should be used with caution as it might affect the performance of the form save.
-
              * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#async-onsave-timeouts Async onSave timeouts}
              */
             disableAsyncTimeout(): void;
@@ -826,10 +824,8 @@ declare namespace Xrm {
         /**
         * Form Data OnLoad event context.
         * In the API documentation, this is sometimes referred to as the executionContext.
-
         * Subscribe to this event with {@link Data.addOnLoad()}
         * Not to be confused with {@link LoadEventContext}, registered in the designer.
-
         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
         */
         interface DataLoadEventContext extends EventContext {
@@ -850,11 +846,8 @@ declare namespace Xrm {
         /**
          * Synchronous Form OnLoad event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
-
          * Asynchronous version see {@link LoadEventContextAsync}
-
          * Not to be confused with {@link DataLoadEventContext}
-
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
          */
@@ -876,9 +869,7 @@ declare namespace Xrm {
         /**
          * Asynchronous Form OnLoad event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
-
          * Synchronous version see {@link LoadEventContext}
-
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
          */
@@ -894,9 +885,7 @@ declare namespace Xrm {
              * 10 seconds to let you know to tune the async OnLoad event for better performance. When the
              * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
              * to wait for that handler's promise to be fulfilled.
-
              * This should be used with caution as it might affect the performance of the form load.
-
              * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onload#async-onload-timeouts Async onLoad timeouts}
              */
             disableAsyncTimeout(): void;
@@ -905,9 +894,7 @@ declare namespace Xrm {
         /**
          * Synchronous Form OnSave event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
-
          * Asynchronous version see {@link SaveEventContextAsync}
-
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave Form OnSave event}
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
          */
@@ -921,9 +908,7 @@ declare namespace Xrm {
         /**
          * Asynchronous Form OnSave event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
-
          * Synchronous version see {@link SaveEventContext}
-
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
          */
@@ -982,6 +967,8 @@ declare namespace Xrm {
         type PostSaveEventHandler = (context: EventContext) => void;
 
         type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
+        type StageChangeEventHandler = (context: StageChangeEventContext) => void;
+        type StageSelectedEventHandler = (context: StageSelectedEventContext) => void;
 
         type LookupTagClickHandler = (context: LookupTagClickEventContext) => void;
 
@@ -3165,6 +3152,19 @@ declare namespace Xrm {
             commands?: AutoCompleteCommand | undefined;
         }
 
+        interface FieldControlOutput {
+            /* Note: paramType and type properties are also on this object.
+             * It's unclear if they're internal use only.
+             *    paramType: undefined,
+             *    type: number
+             */
+
+            /**
+             * Output value from the control
+             */
+            value: any;
+        }
+
         /**
          * Interface for controls.
          *
@@ -3270,6 +3270,25 @@ declare namespace Xrm {
              * Displays an error or recommendation notification for a control, and lets you specify actions to execute based on the notification.
              */
             addNotification(notification: AddControlNotificationOptions): void;
+
+            /**
+             * Adds an event handler to the OnOutputChange event.
+             * @param handler The function to add to the OnOutputChange event.
+             */
+            addOnOutputChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Removes an event handler from the OnOutputChange event.
+             * @param handler The function to remove from the OnOutputChange event.
+             */
+            removeOnOutputChange(handler: Events.ContextSensitiveHandler): void;
+
+            /**
+             * Returns a dictionary of the output properties of the control.
+             * @returns: A dictionary for the output parameters from the control.
+             *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
+             */
+            getOutputs(): { [index: string]: FieldControlOutput };
 
             /**
              * Gets the control's bound attribute.
@@ -4601,7 +4620,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnPreProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+            addOnPreProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnPreStageChange event so that it will be called before the
@@ -4613,7 +4632,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
+            addOnPreStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnPreProcessStatusChange event so that it will be called when the
@@ -4625,7 +4644,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+            addOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnStageChange event so that it will be called when the
@@ -4637,7 +4656,7 @@ declare namespace Xrm {
              *                anonymous function if you may later want to remove the
              *                event handler.
              */
-            addOnStageChange(handler: Events.ContextSensitiveHandler): void;
+            addOnStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
@@ -4663,28 +4682,28 @@ declare namespace Xrm {
              * @param handler If an anonymous function is set using the addOnPreStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnPreStageChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnPreStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnProcessStatusChange event.
              * @param handler If an anonymous function is set using the addOnProcessStatusChange method it
              *                cannot be removed using this method.
              */
-            removeOnProcessStatusChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnProcessStatusChange(handler: Events.ProcessStatusChangeHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnStageChange event.
              * @param handler If an anonymous function is set using the addOnStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnStageChange(handler: Events.ContextSensitiveHandler): void;
+            removeOnStageChange(handler: Events.StageChangeEventHandler): void;
 
             /**
              * Use this to remove a function as an event handler for the OnStageChange event.
              * @param handler If an anonymous function is set using the addOnStageChange method it
              *                cannot be removed using this method.
              */
-            removeOnStageSelected(handler: Events.ContextSensitiveHandler): void;
+            removeOnStageSelected(handler: Events.StageSelectedEventHandler): void;
 
             /**
              * Progresses to the next stage.
@@ -5285,6 +5304,10 @@ declare namespace Xrm {
              * ID of the selected stage in business process instance.
              */
             selectedStageId?: string | undefined;
+            /**
+             * Sets the focus on the tab of the form.
+             */
+            tabName?: string | undefined;
         }
 
         interface PageInputEntityList {
