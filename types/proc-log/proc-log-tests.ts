@@ -5,16 +5,13 @@
 /// <reference types="node" />
 
 import log = require('proc-log');
-import buffer = require('buffer');
-import http = require('http');
 
 log.error('some', 'random', 'args');
 const only = {};
 log.warn('not', only, 'strings');
 const any = 4;
 log.notice(any, 'value', 'works');
-const buffers = buffer.Buffer.alloc(8, 42);
-log.info('even', buffers);
+log.info("isn't", 'that', 'cool?');
 /**
  * No arguments works too
  */
@@ -22,7 +19,7 @@ log.verbose();
 /**
  * Literally anything
  */
-log.http(http);
+log.http(Symbol('hi!'));
 /**
  * This should be a failure case but they accept any combination of arguments
  */
