@@ -28,6 +28,7 @@
         "test/logging.ts",
         "test/select.ts",
         "test/session.ts",
-        "test/virtual_authenticator.ts"
+        "test/virtual_authenticator.ts",
+        "test/util.ts"
     ]
 }
