@@ -47,6 +47,31 @@ export interface PieCenterProps {
     children?: React.ReactNode;
 }
 
+export interface ContextSelectorProps<T> {
+    theme: {
+        context: {
+            [key: string]: T
+        }
+    };
+}
+
+export interface ThemeContextSelector<T> {
+    (props: ContextSelectorProps<T>): T;
+}
+
+// pie menu selectors
+export const radius: ThemeContextSelector<number>;
+export const centerRadius: ThemeContextSelector<number>;
+export const centralAngle: ThemeContextSelector<number>;
+export const polar: ThemeContextSelector<boolean>;
+export function ifObtuse(value: any, _default: any): any;
+
+// slice selectors
+export const startAngle: ThemeContextSelector<number>;
+export const endAngle: ThemeContextSelector<number>;
+export const skew: ThemeContextSelector<number>;
+
+// components
 export const Slice: React.ComponentType<SliceProps>;
 export const PieMenu: React.ComponentType<PieMenuProps>;
 export const PieCenter: React.ComponentType<PieCenterProps>;
