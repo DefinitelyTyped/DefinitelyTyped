@@ -43,3 +43,4 @@ export function resume(): void;
  * An array of strings of all log method names.
  */
 export const LEVELS: ['error', 'warn', 'notice', 'info', 'verbose', 'silly', 'http'];
+export type LogLevel = 'error' | 'warn' | 'notice' | 'info' | 'verbose' | 'silly' | 'http';
