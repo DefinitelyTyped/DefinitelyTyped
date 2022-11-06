@@ -26,6 +26,7 @@ import VarNode from './core/VarNode';
 import VaryNode from './core/VaryNode';
 
 // accessors
+import BitangentNode from './accessors/BitangentNode';
 import BufferNode from './accessors/BufferNode';
 import CameraNode, { CameraNodeScope } from './accessors/CameraNode';
 import CubeTextureNode from './accessors/CubeTextureNode';
@@ -41,6 +42,7 @@ import PositionNode, { PositionNodeScope } from './accessors/PositionNode';
 import ReferenceNode from './accessors/ReferenceNode';
 import ReflectVectorNode from './accessors/ReflectVectorNode';
 import SkinningNode from './accessors/SkinningNode';
+import TangentNode from './accessors/TangentNode';
 import TextureNode from './accessors/TextureNode';
 import UVNode from './accessors/UVNode';
 import UserDataNode from './accessors/UserDataNode';
@@ -57,6 +59,7 @@ import ColorSpaceNode, { ColorSpaceNodeMethod } from './display/ColorSpaceNode';
 import FrontFacingNode from './display/FrontFacingNode';
 import NormalMapNode from './display/NormalMapNode';
 import ToneMappingNode from './display/ToneMappingNode';
+import BlendModeNode, { BlendMode } from './display/BlendModeNode';
 
 // math
 import MathNode, { MathNodeMethod1, MathNodeMethod2, MathNodeMethod3, MathNodeMethod } from './math/MathNode';
@@ -81,6 +84,7 @@ import JoinNode from './utils/JoinNode';
 import MatcapUVNode from './utils/MatcapUVNode';
 import MaxMipLevelNode from './utils/MaxMipLevelNode';
 import OscNode, { OscNodeMethod } from './utils/OscNode';
+import RemapNode from './utils/RemapNode';
 import RotateUVNode from './utils/RotateUVNode';
 import SplitNode from './utils/SplitNode';
 import SpriteSheetUVNode from './utils/SpriteSheetUVNode';
@@ -141,6 +145,7 @@ export {
     // gpgpu
     ComputeNode,
     // accessors
+    BitangentNode,
     BufferNode,
     CameraNode,
     CameraNodeScope,
@@ -161,10 +166,13 @@ export {
     ReferenceNode,
     ReflectVectorNode,
     SkinningNode,
+    TangentNode,
     TextureNode,
     UVNode,
     UserDataNode,
     // display
+    BlendModeNode,
+    BlendMode,
     ColorAdjustmentNode,
     ColorAdjustmentMethod,
     ColorSpaceNode,
@@ -199,6 +207,7 @@ export {
     MaxMipLevelNode,
     OscNode,
     OscNodeMethod,
+    RemapNode,
     RotateUVNode,
     SplitNode,
     SpriteSheetUVNode,

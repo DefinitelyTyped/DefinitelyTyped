@@ -82,7 +82,7 @@ export default abstract class NodeBuilder {
     abstract getCubeTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
 
     // @TODO: rename to .generateConst()
-    getConst(type: NodeTypeOption, value: unknown): Node;
+    getConst(type: NodeTypeOption, value?: unknown): Node;
     getType(type: NodeTypeOption): NodeTypeOption;
 
     generateMethod(method: string): string;
@@ -117,6 +117,7 @@ export default abstract class NodeBuilder {
         output?: string | null,
         propertyName?: string,
     ): FlowData;
+    hasGeometryAttribute(name: string): boolean;
     abstract getAttributes(shaderStage: NodeShaderStageOption): string;
     abstract getVarys(shaderStage: NodeShaderStageOption): string;
     getVars(shaderStage: NodeShaderStageOption): string;
