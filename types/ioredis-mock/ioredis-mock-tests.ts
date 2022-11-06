@@ -69,8 +69,8 @@ const f = async () => {
     // now you can see we have one new message
 
     // use xread to read all messages in channel
-    const messages1 = await redis.xread(['STREAMS', channel, 0]);
-    const messages2 = messages1[0][1];
+    const messages1 = await redis.xread('STREAMS', channel, 0);
+    const messages2 = messages1![0][1];
     console.log(`reading messages from channel ${channel}, found ${messages2.length} messages`);
     for (const msg1 of messages2) {
         const msg2 = msg1[1][0].toString();

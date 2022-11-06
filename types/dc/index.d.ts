@@ -1,4 +1,4 @@
-// Type definitions for DCJS
+// Type definitions for dc 4.2
 // Project: https://github.com/dc-js/dc.js
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 //                 matt traynham <https://github.com/mtraynham>
@@ -65,12 +65,6 @@ declare namespace dc {
 
     export interface Events {
         trigger(closure: () => void, delay?: number): void;
-    }
-
-    export interface Errors {
-        Exception(msg: string): void;
-        InvalidStateException(): void;
-        BadArgumentException(): void;
     }
 
     export interface Filter {
@@ -178,6 +172,7 @@ declare namespace dc {
         addFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
         resetFilterHandler: IGetSet<(filters: Array<any>) => Array<any>, T>;
         filter: IGetSet<any, T>;
+        replaceFilter: IGetSet<any, T>;
         filters(): Array<any>;
         onClick(datum: any): void;
         filterHandler: IGetSet<(dimension: any, filter: any) => any, T>;
@@ -528,7 +523,9 @@ declare namespace dc {
         round: Round;
         override(obj: any, functionName: string, newFunction: Function): void;
         instanceOfChart(object: any): boolean;
-        errors: Errors;
+        Exception(msg: string): void;
+        InvalidStateException(): void;
+        BadArgumentException(): void;
         dateFormat: d3.time.Format;
         printers: Printers;
         pluck(n: string, f?: Accessor<any, any>): Accessor<any, any>;

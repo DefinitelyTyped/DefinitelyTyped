@@ -8,7 +8,6 @@
         "no-var-keyword": false,
         "no-void-expression": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }
