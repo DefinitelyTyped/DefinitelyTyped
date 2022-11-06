@@ -224,6 +224,7 @@ export * from './scenes/Scene';
  * Textures
  */
 export * from './textures/VideoTexture';
+export * from './textures/CompressedArrayTexture';
 export * from './textures/DataTexture';
 export * from './textures/DataTexture2DArray';
 export * from './textures/DataTexture3D';

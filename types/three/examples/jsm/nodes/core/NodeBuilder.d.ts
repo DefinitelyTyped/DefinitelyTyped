@@ -17,7 +17,7 @@ import NodeAttribute from './NodeAttribute';
 import NodeParser from './NodeParser';
 import NodeUniform from './NodeUniform';
 import NodeVar from './NodeVar';
-import NodeVary from './NodeVary';
+import NodeVarying from './NodeVarying';
 
 export type BuildStageOption = 'construct' | 'analyze' | 'generate';
 
@@ -105,7 +105,7 @@ export default abstract class NodeBuilder {
     getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
     getUniformFromNode(node: Node, shaderStage: NodeShaderStageOption, type: NodeTypeOption): NodeUniform;
     getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
-    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVary;
+    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
     getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;
     addFlowCode(code: string): void;
     getFlowData(node: Node, shaderStage: NodeShaderStageOption): FlowData;

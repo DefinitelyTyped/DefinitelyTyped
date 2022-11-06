@@ -1,6 +1,6 @@
 import Node from '../core/Node';
 
-export type BitangentScope =
+export type BitangentNodeScope =
     | typeof BitangentNode.LOCAL
     | typeof BitangentNode.VIEW
     | typeof BitangentNode.WORLD
@@ -12,7 +12,7 @@ export default class BitangentNode extends Node {
     static VIEW: 'view';
     static WORLD: 'world';
 
-    scope: BitangentScope;
+    scope: BitangentNodeScope;
 
-    constructor(scope?: BitangentScope);
+    constructor(scope?: BitangentNodeScope);
 }
