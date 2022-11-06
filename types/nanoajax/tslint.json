@@ -5,7 +5,6 @@
         "only-arrow-functions": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
+        "strict-export-declare-modifiers": false
     }
 }

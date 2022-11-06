@@ -31,7 +31,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "triple-equals": false,
         "unified-signatures": false
     }

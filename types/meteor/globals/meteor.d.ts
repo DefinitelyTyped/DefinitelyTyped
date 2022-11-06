@@ -137,11 +137,18 @@ declare namespace Meteor {
     function methods(methods: { [key: string]: (this: MethodThisType, ...args: any[]) => any }): void;
 
     /**
-     * Invokes a method passing any number of arguments.
+     * Invokes a method with a sync stub, passing any number of arguments.
      * @param name Name of method to invoke
      * @param args Optional method arguments
      */
     function call(name: string, ...args: any[]): any;
+
+    /**
+     * Invokes a method with an async stub, passing any number of arguments.
+     * @param name Name of method to invoke
+     * @param args Optional method arguments
+     */
+    function callAsync(name: string, ...args: any[]): Promise<any>;
 
     function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
         name: string,

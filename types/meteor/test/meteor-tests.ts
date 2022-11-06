@@ -214,6 +214,10 @@ namespace MeteorTests {
     Meteor.call('foo', 1, 2, function (error: any, result: any) {});
     var result = Meteor.call('foo', 1, 2);
 
+    (async function() {
+        var result = await Meteor.callAsync('foo', 1, 2);
+    })();
+
     /**
      * From Methods, Meteor.apply section
      */
