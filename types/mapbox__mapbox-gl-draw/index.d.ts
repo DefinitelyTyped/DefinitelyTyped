@@ -176,7 +176,7 @@ declare namespace MapboxDraw {
     interface DrawCustomModeThis {
         map: mapboxgl.Map;
 
-        drawConfig: Exclude<MapboxDrawOptions, undefined>;
+        drawConfig: MapboxDrawOptions;
 
         setSelected(features?: string | string[]): void;
 
@@ -270,17 +270,7 @@ declare namespace MapboxDraw {
         direct_select: DrawCustomMode;
     }
 
-    type MapboxDrawOptions = ConstructorParameters<typeof MapboxDraw>[0];
-}
-
-declare class MapboxDraw implements IControl {
-    static modes: MapboxDraw.Modes;
-
-    modes: MapboxDraw.DrawModes;
-
-    getDefaultPosition: () => string;
-
-    constructor(options?: {
+    interface MapboxDrawOptions {
         displayControlsDefault?: boolean | undefined;
         keybindings?: boolean | undefined;
         touchEnabled?: boolean | undefined;
@@ -292,7 +282,17 @@ declare class MapboxDraw implements IControl {
         modes?: { [modeKey: string]: MapboxDraw.DrawCustomMode } | undefined;
         defaultMode?: string | undefined;
         userProperties?: boolean | undefined;
-    });
+    }
+}
+
+declare class MapboxDraw implements IControl {
+    static modes: MapboxDraw.Modes;
+
+    modes: MapboxDraw.DrawModes;
+
+    getDefaultPosition: () => string;
+
+    constructor(options?: MapboxDraw.MapboxDrawOptions);
 
     add(geojson: Feature | FeatureCollection | Geometry): string[];
 
