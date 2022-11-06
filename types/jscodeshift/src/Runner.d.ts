@@ -1,10 +1,10 @@
 import { Options } from './core';
 
-export const run: (
+export function run(
     transformFile: string,
     paths: string[],
     options?: Options,
-) => Promise<{
+): Promise<{
     stats: string;
     timeElapsed: string;
     error: number;
