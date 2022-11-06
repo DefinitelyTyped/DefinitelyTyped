@@ -80,6 +80,7 @@ export default class MathNode extends TempNode {
     static DFDX: 'dFdx';
     static DFDY: 'dFdy';
     static ROUND: 'round';
+    static RECIPROCAL: 'reciprocal';
 
     // 2 inputs
 

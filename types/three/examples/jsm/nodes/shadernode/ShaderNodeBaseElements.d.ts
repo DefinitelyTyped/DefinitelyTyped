@@ -191,6 +191,7 @@ export const modelViewPosition: Swizzable<ModelNode>;
 export const positionGeometry: Swizzable<PositionNode>;
 export const positionLocal: Swizzable<PositionNode>;
 export const positionWorld: Swizzable<PositionNode>;
+export const positionWorldDirection: Swizzable<PositionNode>;
 export const positionView: Swizzable<PositionNode>;
 export const positionViewDirection: Swizzable<PositionNode>;
 
@@ -265,6 +266,7 @@ export const invert: Unary;
 export const dFdx: Unary;
 export const dFdy: Unary;
 export const round: Unary;
+export const reciprocal: Unary;
 
 export const atan2: Binary;
 export const min: Binary;

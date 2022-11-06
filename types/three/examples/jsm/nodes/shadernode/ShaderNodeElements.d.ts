@@ -17,6 +17,7 @@ import {
     ColorAdjustmentNode,
     ColorSpaceNode,
     CubeTextureNode,
+    EquirectUVNode,
     FogNode,
     FogRangeNode,
     InstanceNode,
@@ -25,6 +26,7 @@ import {
     MaxMipLevelNode,
     NormalMapNode,
     OscNode,
+    PosterizeNode,
     RemapNode,
     ReflectVectorNode,
     RotateUVNode,
@@ -32,6 +34,7 @@ import {
     SpriteSheetUVNode,
     TimerNode,
     ToneMappingNode,
+    TriplanarTexturesNode,
 } from '../Nodes';
 
 //
@@ -94,6 +97,8 @@ export function toneMapping(
     color: NodeRepresentation,
 ): Swizzable<ToneMappingNode>;
 
+export function posterize(sourceNode: NodeRepresentation, stepsNode: NodeRepresentation): Swizzable<PosterizeNode>;
+
 // lighting
 
 export function lights(lights: Light[]): Swizzable<LightsNode>;
@@ -102,6 +107,8 @@ export function lightingContext(node: Node, lightingModelNode?: LightingModelNod
 // utils
 
 export const matcapUV: Swizzable<MatcapUVNode>;
+export const equirectUV: Swizzable<EquirectUVNode>;
+
 export function maxMipLevel(texture: Texture): Swizzable<MaxMipLevelNode>;
 
 export function oscSine(timeNode?: NodeRepresentation): Swizzable<OscNode>;
@@ -124,6 +131,18 @@ export function timerLocal(timeScale: number, value?: number): Swizzable<TimerNo
 export function timerGlobal(timeScale: number, value?: number): Swizzable<TimerNode>;
 export function timerDelta(timeScale: number, value?: number): Swizzable<TimerNode>;
 export const frameId: Swizzable<TimerNode>;
+export function triplanarTextures(
+    textureXNode: NodeRepresentation,
+    textureYNode?: NodeRepresentation,
+    textureZNode?: NodeRepresentation,
+    scaleNode?: NodeRepresentation,
+    positionNode?: NodeRepresentation,
+    normalNode?: NodeRepresentation,
+): Swizzable<TriplanarTexturesNode>;
+export function triplanarTexture(
+    texture: NodeRepresentation,
+    ...params: NodeRepresentation[]
+): Swizzable<TriplanarTexturesNode>;
 
 // geometry
 
