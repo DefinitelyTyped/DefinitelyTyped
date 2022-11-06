@@ -277,9 +277,9 @@ declare namespace MapboxDraw {
         boxSelect?: boolean | undefined;
         clickBuffer?: number | undefined;
         touchBuffer?: number | undefined;
-        controls?: MapboxDraw.MapboxDrawControls | undefined;
+        controls?: MapboxDrawControls | undefined;
         styles?: object[] | undefined;
-        modes?: { [modeKey: string]: MapboxDraw.DrawCustomMode } | undefined;
+        modes?: { [modeKey: string]: DrawCustomMode } | undefined;
         defaultMode?: string | undefined;
         userProperties?: boolean | undefined;
     }
