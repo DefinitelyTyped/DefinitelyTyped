@@ -57,6 +57,7 @@ import {
     LogBox,
     MaskedViewIOS,
     Modal,
+    MouseEvent,
     NativeEventEmitter,
     NativeModule, // Not actually exported, not sure why
     NativeModules,
@@ -142,8 +143,8 @@ function dimensionsListener(dimensions: { window: ScaledSize; screen: ScaledSize
 function testDimensions() {
     const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? 'window' : 'screen');
 
-    Dimensions.addEventListener('change', dimensionsListener);
-    Dimensions.removeEventListener('change', dimensionsListener);
+    const subscription = Dimensions.addEventListener('change', dimensionsListener);
+    subscription.remove();
 }
 
 function TextUseWindowDimensions() {
@@ -438,6 +439,12 @@ export class PressableTest extends React.Component<{}> {
         e.isDefaultPrevented();
     };
 
+    onHoverButton = (e: MouseEvent) => {
+        e.persist();
+        e.isPropagationStopped();
+        e.isDefaultPrevented();
+    };
+
     render() {
         return (
             <>
@@ -487,6 +494,12 @@ export class PressableTest extends React.Component<{}> {
                     onPress={this.onPressButton}
                     style={{ backgroundColor: 'blue' }}
                 >
+                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                        <Text style={{ margin: 30 }}>Button</Text>
+                    </View>
+                </Pressable>
+                {/* onHoverIn */}
+                <Pressable ref={this.myRef} onHoverIn={this.onHoverButton} style={{ backgroundColor: 'blue' }}>
                     <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
@@ -1178,6 +1191,7 @@ class TextTest extends React.Component {
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
+                disabled
             >
                 Test text
             </Text>
@@ -1295,6 +1309,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
+                accessibilityLanguage="sv-SE"
             >
                 <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
@@ -1302,6 +1317,13 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityLabelledByTest = () => (
+    <>
+        <View accessibilityLabelledBy="nativeID1"></View>
+        <View accessibilityLabelledBy={["nativeID2", "nativeID3"]}></View>
+    </>
+)
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
@@ -1346,7 +1368,6 @@ AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
 const screenReaderChangedListener = (isEnabled: boolean): void => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`);
 AccessibilityInfo.addEventListener('screenReaderChanged', screenReaderChangedListener,
 ).remove();
-AccessibilityInfo.removeEventListener('screenReaderChanged', screenReaderChangedListener);
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
 
@@ -1417,7 +1438,7 @@ const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
   const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+  return new Promise(() => e.nativeEvent.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
@@ -1951,4 +1972,28 @@ const ActionSheetIOSTest = () => {
         options: ['foo', 'bar'],
         destructiveButtonIndex: [0, 1],
     }, () => undefined);
+}
+
+const EventTargetTest = () => {
+  /**
+   * Refs
+   */
+  const textRef: React.MutableRefObject<Text | null> = React.useRef(null);
+
+  /**
+   * Callbacks
+   */
+  const onTouchEndCallback = React.useCallback((event: GestureResponderEvent) => {
+    const targetRef: React.Component = event.target // should be a reference
+    const wasTextClicked = targetRef === textRef.current // so this check is legal
+
+    const nativeTargetRef = event.nativeEvent.target // should be a number
+  }, [])
+
+  /**
+   * Main part
+   */
+  return <View onTouchEnd={onTouchEndCallback}>
+    <Text ref={textRef}>Just some content</Text>
+  </View>
 }

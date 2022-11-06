@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
         "interface-name": false,
         "member-access": false,
         "no-consecutive-blank-lines": false,
@@ -11,7 +10,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
+        "strict-export-declare-modifiers": false
     }
 }

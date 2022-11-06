@@ -66,4 +66,7 @@ mailchimp.lists.updateListMember('test', 'test', updateListMemberBody);
 mailchimp.lists.deleteListMemberPermanent('test', 'test');
 
 // Promise<void>
+mailchimp.lists.deleteListMember('test', 'test');
+
+// Promise<void>
 mailchimp.lists.updateListMemberTags('test', 'test', updateListMemberTagsBody);

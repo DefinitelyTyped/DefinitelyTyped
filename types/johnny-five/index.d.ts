@@ -109,6 +109,13 @@ export interface BoardOption {
     io?: any;
 }
 
+export interface BoardLogEvent {
+    type: 'info' | 'warn' | 'fail';
+    timestamp: number;
+    class: string;
+    message: string;
+}
+
 export declare class Board {
     constructor(option?: BoardOption);
 
@@ -119,9 +126,15 @@ export declare class Board {
     pins: Array<Pin>;
     port: string;
 
-    on(event: string, cb: () => void): this;
-    on(event: "ready", cb: () => void): this;
+    on(event: "close", cb: () => void): this;
     on(event: "connect", cb: () => void): this;
+    on(event: "error", cb: (error: Error) => void): this;
+    on(event: "exit", cb: () => void): this;
+    on(event: "fail", cb: (event: BoardLogEvent) => void): this;
+    on(event: "info", cb: (event: BoardLogEvent) => void): this;
+    on(event: "message", cb: (event: BoardLogEvent) => void): this;
+    on(event: "ready", cb: () => void): this;
+    on(event: "warn", cb: (event: BoardLogEvent) => void): this;
     pinMode(pin: number | string, mode: number): void;
     analogWrite(pin: number | string, value: number): void;
     analogRead(pin: number | string, cb: (item: number) => void): void;
@@ -422,7 +435,7 @@ export declare class LCD {
 }
 
 export interface LedOption {
-    pin: number;
+    pin: number | string;
     type?: string | undefined;
     controller?: string | undefined;
     address?: number | undefined;
@@ -430,7 +443,7 @@ export interface LedOption {
 }
 
 export declare class Led {
-    constructor(option: number | LedOption);
+    constructor(option: LedOption['pin'] | LedOption);
 
     id: string;
     pin: number;
@@ -446,7 +459,7 @@ export declare class Led {
     fadeIn(ms: number): void;
     fadeOut(ms: number): void;
     pulse(ms: number): void;
-    stop(ms: number): void;
+    stop(): void;
 }
 
 export declare module Led {

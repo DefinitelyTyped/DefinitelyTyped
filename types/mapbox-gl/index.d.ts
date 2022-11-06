@@ -9,6 +9,7 @@
 //                 makspetrov <https://github.com/Nosfit>
 //                 Michael Bullington <https://github.com/mbullington>
 //                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Marko Schilde <https://github.com/mschilde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -1158,6 +1159,7 @@ declare namespace mapboxgl {
             showAccuracyCircle?: boolean | undefined;
             showUserLocation?: boolean | undefined;
             showUserHeading?: boolean | undefined;
+            geolocation?: Geolocation | undefined;
         });
         trigger(): boolean;
     }
@@ -1421,7 +1423,7 @@ declare namespace mapboxgl {
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
+        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | GeoJSON.Geometry | string | undefined;
 
         maxzoom?: number | undefined;
 

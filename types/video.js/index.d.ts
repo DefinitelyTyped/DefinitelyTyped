@@ -10,6 +10,7 @@
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -138,7 +139,7 @@ declare namespace videojs {
      * @return    A player instance or `undefined` if there is no player instance
      *          matching the argument.
      */
-    function getPlayer(id: string): Player;
+    function getPlayer(id: string | Element): Player | undefined;
 
     /**
      * Get an object with the currently created players, keyed by player ID
@@ -1980,11 +1981,6 @@ declare namespace videojs {
          *        The Name of the component to get.
          *
          * @return The `Component` that got registered under the given name.
-         *
-         * @deprecated In `videojs` 6 this will not return `Component`s that were not
-         *             registered using {@link Component.registerComponent}. Currently we
-         *             check the global `videojs` object for a `Component` name and
-         *             return that if it exists.
          */
         getComponent(name: 'Button' | 'button'): typeof Button;
         getComponent(name: 'ClickableComponent' | 'clickablecomponent'): typeof ClickableComponent;
@@ -6167,6 +6163,12 @@ declare namespace videojs {
         url: string;
         rawRequest: XMLHttpRequest;
     }
+
+    const Vhs: {
+        xhr: {
+            beforeRequest: (options: XhrOptions) => void;
+        };
+    };
 }
 
 /**

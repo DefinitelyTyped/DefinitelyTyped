@@ -215,6 +215,11 @@ export interface ConnectionOptions {
     role?: string | undefined;
 
     /**
+     * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
+     */
+    timeout?: number | undefined;
+
+    /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
      *
      * If the parameter clientSessionKeepAlive is set to true, the client’s connection to the server will be kept alive

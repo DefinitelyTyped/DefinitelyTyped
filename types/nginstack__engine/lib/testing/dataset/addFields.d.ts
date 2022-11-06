@@ -1,8 +1,9 @@
 export = addFields;
-declare function addFields(ds: any, fields: FieldObj[]): any;
+declare function addFields(ds: DataSet, fields: FieldObj[]): DataSet;
 declare namespace addFields {
-    export { FieldObj };
+    export { FieldObj, DataSet };
 }
+type DataSet = import('../../dataset/DataSet');
 interface FieldObj {
     name: string;
     type: string;

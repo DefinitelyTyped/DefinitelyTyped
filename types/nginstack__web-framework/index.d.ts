@@ -1,7 +1,8 @@
-// Type definitions for @nginstack/web-framework 63.0
+// Type definitions for @nginstack/web-framework 65.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
+//                 Ricardo Cavalcante <https://github.com/oficial>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 /// <reference path="keys/Classes.d.ts" />
@@ -24,6 +25,7 @@
 /// <reference path="lib/classdef/classHasGlobalActions.d.ts" />
 /// <reference path="lib/classdef/DuplicateMode.d.ts" />
 /// <reference path="lib/classdef/DuplicateMode.d.ts" />
+/// <reference path="lib/classdef/EnterKeyAction.d.ts" />
 /// <reference path="lib/classdef/FieldCalculateEvent.d.ts" />
 /// <reference path="lib/classdef/FieldGroupSet.d.ts" />
 /// <reference path="lib/classdef/getGlobalActions.d.ts" />

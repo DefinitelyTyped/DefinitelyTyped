@@ -1,3 +1,3 @@
-// Tests for Google Publisher Tag 1.20220822
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/461ecca49aa50c8836f8bc485b3eea942eb0fe17
+// Tests for Google Publisher Tag 1.20220926
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b6107fac9e2d6bd0c35895cb5949988ca9605bda
 googletag.cmd;

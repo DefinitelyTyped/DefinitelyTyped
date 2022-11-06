@@ -315,6 +315,7 @@ class CalendarResource {
                     min={new Date()}
                     max={new Date()}
                     scrollToTime={new Date()}
+                    enableAutoScroll={false}
                     formats={{
                         dateFormat: 'h a',
                         agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',

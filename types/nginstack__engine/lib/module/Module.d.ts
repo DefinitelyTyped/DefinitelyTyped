@@ -54,7 +54,7 @@ declare var global_: any;
 declare var Regex_: any;
 declare var cache_: any;
 declare var packageMainCache_: any;
-declare var isAbsolutePathRegex_: any;
+declare var isAbsolutePathRegex_: Regex;
 declare function runOnFileSystem_(filePath: string, method: string): any;
 declare function readFileContent_(path: string): string;
 declare function fileExists_(path: string): boolean;

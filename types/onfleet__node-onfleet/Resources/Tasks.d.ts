@@ -1,36 +1,60 @@
-import { OnfleetDestination, CreateDestinationProps } from './Destinations';
+import { OnfleetDestination, CreateDestinationProps, Location } from './Destinations';
 import { OnfleetMetadata, MatchMetadata } from '../metadata';
 import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
 
 declare class Task {
     autoAssign(tasks: Task.OnfleetTask[]): Promise<any>; // TODO need to confirm response
     batchCreate(tasks: Task.CreateTaskProps[]): Promise<Task.OnfleetTask[]>;
+
     clone(id: string): Promise<Task.OnfleetTask>;
+
     create(task: Task.CreateTaskProps): Promise<Task.OnfleetTask>;
+
     deleteOne(id: string): Promise<number>;
-    forceComplete(id: string): Promise<void>;
+
+    forceComplete(id: string, details: { completionDetails: { success: boolean, notes?: string } }): Promise<void>;
+
     get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.GetTaskResult>;
     get(queryParams?: Task.TaskQueryParam): Promise<Task.GetManyTaskResult>;
+
     matchMetadata: MatchMetadata<Task.OnfleetTask['metadata']>;
+
     update(id: string, task: Partial<Task.CreateTaskProps>): Promise<Task.UpdateTaskResult>;
 }
 
 declare namespace Task {
     type TaskQueryKey = 'shortId';
 
+    enum TaskState {
+        Unassigned,
+        Assigned,
+        Active,
+        Completed
+    }
+
+    interface CompletionEvent {
+        name: string;
+        time: number;
+        location?: Location;
+    }
+
+    interface TaskCompletionDetails {
+        failureNotes?: string;
+        failureReason?: string;
+        events: CompletionEvent[];
+        actions?: any[];
+        time: number | null;
+        firstLocation?: any[];
+        lastLocation?: any[];
+        unavailableAttachments?: any[];
+        notes?: string;
+        success?: boolean;
+    }
+
     interface OnfleetTask {
         completeAfter: number;
         completeBefore: number;
-        completionDetails: {
-            failureNotes: string;
-            failureReason: string;
-            events: any[];
-            actions: any[];
-            time: number | null;
-            firstLocation: any[];
-            lastLocation: any[];
-            unavailableAttachments: any[];
-        };
+        completionDetails: TaskCompletionDetails;
         container: TaskContainer;
         creator: string;
         dependencies: string[];
@@ -58,7 +82,7 @@ declare namespace Task {
         recipients: OnfleetRecipient[];
         serviceTime: number;
         shortId: string;
-        state: number;
+        state: TaskState;
         timeCreated: number;
         timeLastModified: number;
         trackingURL: string;
@@ -66,11 +90,11 @@ declare namespace Task {
         worker: string | null;
         barcodes?:
             | {
-                  /** The requested barcodes */
-                  required: Barcode[];
-                  /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
-                  captured: CapturedBarcode[];
-              }
+            /** The requested barcodes */
+            required: Barcode[];
+            /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
+            captured: CapturedBarcode[];
+        }
             | undefined;
     }
 
@@ -95,6 +119,7 @@ declare namespace Task {
         requirements?: TaskCompletionRequirements | undefined;
         barcodes?: Barcode[] | undefined;
     }
+
     interface TaskAutoAssign {
         mode: string;
         considerDependencies?: boolean | undefined;
@@ -149,15 +174,15 @@ declare namespace Task {
         includeMetadata: boolean;
         overrides?:
             | {
-                  completeAfter?: number | undefined;
-                  completeBefore?: number | undefined;
-                  destination?: string | CreateDestinationProps | undefined;
-                  metadata?: OnfleetMetadata[] | undefined;
-                  notes?: string | undefined;
-                  pickupTask?: boolean | undefined;
-                  recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
-                  serviceTime?: number | undefined;
-              }
+            completeAfter?: number | undefined;
+            completeBefore?: number | undefined;
+            destination?: string | CreateDestinationProps | undefined;
+            metadata?: OnfleetMetadata[] | undefined;
+            notes?: string | undefined;
+            pickupTask?: boolean | undefined;
+            recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
+            serviceTime?: number | undefined;
+        }
             | undefined;
     }
 

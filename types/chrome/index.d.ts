@@ -5,7 +5,6 @@
 //                 sreimer15 <https://github.com/sreimer15>
 //                 MatCarlson <https://github.com/MatCarlson>
 //                 ekinsol <https://github.com/ekinsol>
-//                 Thierry Régagnon <https://github.com/tregagnon>
 //                 Brian Wilson <https://github.com/echoabstract>
 //                 Sebastiaan Pasma <https://github.com/spasma>
 //                 bdbai <https://github.com/bdbai>
@@ -7062,6 +7061,7 @@ declare namespace chrome.runtime {
         | 'geolocation'
         | 'history'
         | 'identity'
+        | 'identity.email'
         | 'idle'
         | 'loginState'
         | 'management'
@@ -7617,6 +7617,26 @@ declare namespace chrome.scripting {
 
     type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
+    interface RegisteredContentScript {
+        id: string;
+        allFrames?: boolean;
+        css?: string[];
+        excludeMatches?: string[];
+        js?: string[];
+        matches?: string[];
+        persistAcrossSessions?: boolean;
+        runAt?: "document_start" | "document_end" | "document_idle";
+        world?: ExecutionWorld;
+    }
+
+    interface ContentScriptFilter {
+        ids?: string[];
+        css?: string;
+        files?: string[];
+        origin?: StyleOrigin;
+        target?: InjectionTarget;
+    }
+
     /**
      * Injects a script into a target context. The script will be run at document_end.
      * @param injection
@@ -7650,6 +7670,71 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the injection.
      */
     export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection): Promise<void>;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @param callback
+     * Invoked upon completion of the removal.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[], callback?: () => void): void;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter, callback?: () => void): void;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     * @param callback
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback?: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
@@ -7855,6 +7940,20 @@ declare namespace chrome.storage {
          */
         get(keys: string | string[] | { [key: string]: any } | null, callback: (items: { [key: string]: any }) => void): void;
         /**
+         * Sets the desired access level for the storage area. The default will be only trusted contexts.
+         * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
+         * @return A void Promise.
+         * @since Chrome 102
+         */
+        setAccessLevel(accessOptions: { accessLevel: AccessLevel }): Promise<void>;
+        /**
+         * Sets the desired access level for the storage area. The default will be only trusted contexts.
+         * @param accessOptions An object containing an accessLevel key which contains the access level of the storage area.
+         * @param callback Optional.
+         * @since Chrome 102
+         */
+        setAccessLevel(accessOptions: { accessLevel: AccessLevel }, callback: () => void): void;
+        /**
          * Fired when one or more items change within this storage area.
          * @param keys A single key to get, list of keys to get, or a dictionary specifying default values.
          * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
@@ -7909,6 +8008,14 @@ declare namespace chrome.storage {
     type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
         extends chrome.events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void> { }
+
+    type AccessLevel = keyof typeof AccessLevel;
+
+    /** The storage area's access level. */
+    export var AccessLevel: {
+        TRUSTED_AND_UNTRUSTED_CONTEXTS: 'TRUSTED_AND_UNTRUSTED_CONTEXTS',
+        TRUSTED_CONTEXTS: 'TRUSTED_CONTEXTS'
+    };
 
     /** Items in the local storage area are local to each machine. */
     export var local: LocalStorageArea;
@@ -10127,10 +10234,16 @@ declare namespace chrome.tts {
         /** Optional. The error description, if the event type is 'error'. */
         errorMessage?: string | undefined;
         /**
+         * The length of the next part of the utterance.
+         * For example, in a word event, this is the length of the word which will be spoken next.
+         * It will be set to -1 if not set by the speech engine.
+         */
+        length?: number | undefined;
+        /**
          * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
          * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
          */
-        type: string;
+        type: "start" | "end" | "word" | "sentence" | "marker" | "interrupted" | "cancelled" | "error" | "pause" | "resume";
     }
 
     /** A description of a voice available for speech synthesis. */
@@ -10201,6 +10314,7 @@ declare namespace chrome.tts {
     /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
     export function stop(): void;
     /** Gets an array of all available voices. */
+    export function getVoices(): Promise<TtsVoice[]>;
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     /**
      * Speaks text using a text-to-speech engine.

@@ -9,6 +9,8 @@ import {
     setResolver,
     setupRenderingTest,
     setupTest,
+    SetupTestOptions,
+    setupApplicationTest,
 } from 'ember-qunit';
 import { render, TestContext } from '@ember/test-helpers';
 import EmberResolver from 'ember-resolver';
@@ -65,7 +67,7 @@ module('rendering', function (hooks) {
 });
 
 module('misc and async', function (hooks) {
-    hooks.beforeEach(async function(assert) {
+    hooks.beforeEach(async function (assert) {
         assert.ok(true, 'hooks can be async');
     });
 
@@ -132,6 +134,16 @@ module('misc and async', function (hooks) {
     });
 });
 // end tests ported from ember-test-helpers
+
+module('returning a promise', function () {
+    test('it can return Promise<void>', function (this: TestContext, assert) {
+        return Promise.resolve();
+    });
+
+    test('it can return a non-empty Promise', function (this: TestContext, assert) {
+        return Promise.resolve('foo');
+    });
+});
 
 // https://github.com/emberjs/rfcs/blob/master/text/0232-simplify-qunit-testing-api.md#qunit-nested-modules-api
 QUnit.module('some description', function (hooks) {
@@ -294,3 +306,22 @@ module('extending TestContext works', function () {
 });
 
 start();
+
+module('with setup options', function (hooks) {
+    // $ExpectType SetupTestOptions | undefined
+    type SetupTestOptions = Parameters<typeof setupTest>[1];
+    // $ExpectType SetupTestOptions | undefined
+    type SetupRenderingTestOptions = Parameters<typeof setupRenderingTest>[1];
+    // $ExpectType SetupTestOptions | undefined
+    type SetupApplicationTestOptions = Parameters<typeof setupApplicationTest>[1];
+
+    const resolver = EmberResolver.create();
+
+    setupTest(hooks, {});
+    setupRenderingTest(hooks, {});
+    setupApplicationTest(hooks, {});
+
+    setupTest(hooks, { resolver });
+    setupRenderingTest(hooks, { resolver });
+    setupApplicationTest(hooks, { resolver });
+});

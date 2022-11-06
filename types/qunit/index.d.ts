@@ -369,20 +369,21 @@ declare global {
         autostart: boolean;
         collapse: boolean;
         current: any;
+        failOnZeroTests: boolean;
         filter: string | RegExp;
         fixture: string;
         hidepassed: boolean;
         maxDepth: number;
         module: string;
         moduleId: string[];
-        notrycatch: boolean;
         noglobals: boolean;
-        seed: string;
+        notrycatch: boolean;
         reorder: boolean;
         requireExpects: boolean;
+        scrolltop: boolean;
+        seed: string;
         testId: string[];
         testTimeout: number;
-        scrolltop: boolean;
         urlConfig: {
             id?: string | undefined;
             label?: string | undefined;

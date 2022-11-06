@@ -61,7 +61,9 @@ export interface ConnectionOptions extends PartialOAuth2Options {
     httpProxy?: string | undefined;
     redirectUri?: string | undefined;
     refreshToken?: string | undefined;
-    refreshFn?: ((conn: Connection, callback: Callback<UserInfo>) => Promise<UserInfo>) | undefined;
+    refreshFn?:
+        | ((conn: Connection, callback: (err: Error | null, accessToken: string, res?: unknown) => void) => unknown)
+        | undefined;
     serverUrl?: string | undefined;
     sessionId?: string | undefined;
     signedRequest?: string | Object | undefined;

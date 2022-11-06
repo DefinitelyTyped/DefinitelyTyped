@@ -21,7 +21,6 @@ import lostVarsGutterLocal = require('lost/lib/lost-vars-gutter-local');
 import lostVarsGutter = require('lost/lib/lost-vars-gutter');
 import lostVars = require('lost/lib/lost-vars');
 import lostWaffle = require('lost/lib/lost-waffle');
-import newBlock = require('lost/lib/new-block');
 
 const libs = [
     lostAlign,
@@ -45,9 +44,47 @@ const libs = [
 const root = postcss.root();
 declare const result: Result;
 
-newBlock(root, '*', ['a', 'b', 'c'], ['d', 'e', 'f']);
-
 // Test that libs can be passed all 3 arguments
 for (const lib of libs) {
     lib(root, {}, result);
 }
+
+// lib/core exports from version 9.0
+// lg-logic
+import { calcValue, validateUnit, parseLostProperty } from 'lost/lib/core/lg-logic';
+calcValue('0');
+calcValue('0', '0');
+calcValue('0', '0', '0');
+calcValue('0', '0', '0', '0');
+
+validateUnit('abc', ['abc', 'def']);
+
+parseLostProperty(root.nodes, 'type', 'decl');
+
+// lg-new-block
+import newBlock = require('lost/lib/core/lg-new-block');
+newBlock(root, '*', ['a', 'b', 'c'], ['d', 'e', 'f']);
+
+// lg-utilities
+import {
+    getColorValue,
+    extractRgbSubstring,
+    glueFractionMembers,
+    hToD,
+    safeHexToRgb,
+    safeRgbToRgb,
+} from 'lost/lib/core/lg-utilities';
+
+getColorValue('abc');
+
+extractRgbSubstring('255,255,255');
+
+glueFractionMembers('abc');
+
+hToD();
+hToD(0);
+hToD(0, 1);
+
+safeHexToRgb('ffffff');
+
+safeRgbToRgb('255,255,255');

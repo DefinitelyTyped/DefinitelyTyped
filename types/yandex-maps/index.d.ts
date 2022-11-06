@@ -4613,6 +4613,7 @@ declare namespace ymaps {
         state: IDataManager;
 
         getRoute(): multiRouter.MultiRoute;
+        getRouteAsync(): Promise<multiRouter.MultiRoute>;
 
         switchPoints(): void;
     }

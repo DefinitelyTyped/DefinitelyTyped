@@ -157,5 +157,5 @@ declare namespace NodePersist {
     function calcTTL(ttl: number | null | undefined): number | undefined;
 }
 
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = NodePersist;

@@ -1,2 +1,6 @@
-declare function _exports(ds: any, fieldName: string): boolean;
-export = _exports;
+export = isTextualField;
+declare function isTextualField(ds: DataSet, fieldName: string): boolean;
+declare namespace isTextualField {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

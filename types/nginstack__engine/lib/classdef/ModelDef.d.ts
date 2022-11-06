@@ -18,7 +18,7 @@ declare class ModelDef {
         ON_DEMAND: string;
     };
     cachedVfsContent: boolean;
-    classDefManager: any;
+    classDefManager: ClassDefManager;
     classChangePolicy: number;
     classFieldName: string;
     dataDictionary: string;
@@ -112,10 +112,13 @@ declare namespace ModelDef {
         Event,
         AdapterDescriptor,
         CachedDataOptions,
+        ClassDefManager,
+        ViewDef,
     };
 }
 import Logger = require('../log/Logger.js');
 type CachedDataOptions = Record<any, any>;
+type ClassDefManager = import('./ClassDefManager');
 import ClassDefCache = require('./ClassDefCache.js');
 import Field = require('./Field.js');
 import FieldList = require('./FieldList.js');
@@ -136,3 +139,4 @@ declare function declareCloneableObject(
     propertyName: string,
     initialValue: any
 ): void;
+type ViewDef = any;

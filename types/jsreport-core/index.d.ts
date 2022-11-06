@@ -172,6 +172,7 @@ declare namespace JsReport {
 
     interface Configuration {
         mode?: any;
+        httpPort?: number;
         /** specifies where is the application root and where jsreport searches for extensions */
         rootDirectory?: string | undefined;
         /** specifies directory of the script that was used to start node.js, this value is mostly metadata that is useful for your own code inside jsreport scripts */

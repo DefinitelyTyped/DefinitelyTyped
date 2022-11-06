@@ -581,8 +581,12 @@ export namespace Rule {
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+
         /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /** The name of the rule(s) this rule was replaced by, if it was deprecated. */
+        replacedBy?: readonly string[];
+
         /**
          * Indicates the type of rule:
          * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
@@ -719,13 +723,13 @@ export namespace Linter {
         rules?: Partial<Rules> | undefined;
     }
 
-    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends HasRules<Rules> {
         $schema?: string | undefined;
         env?: { [name: string]: boolean } | undefined;
         extends?: string | string[] | undefined;
-        globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" } | undefined;
+        globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
         noInlineConfig?: boolean | undefined;
-        overrides?: ConfigOverride[] | undefined;
+        overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
         parser?: string | undefined;
         parserOptions?: ParserOptions | undefined;
         plugins?: string[] | undefined;
@@ -740,7 +744,7 @@ export namespace Linter {
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends BaseConfig<Rules, OverrideRules> {
         ignorePatterns?: string | string[] | undefined;
         root?: boolean | undefined;
     }

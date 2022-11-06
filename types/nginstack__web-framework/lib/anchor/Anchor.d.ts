@@ -21,7 +21,7 @@ declare class Anchor {
     private collection;
     private index;
     parent: any;
-    process: any;
+    process: Process;
     config(nextInteractionNameOrFunction: any, nextProcessKey: any, createNewTab: any): void;
     createNewTab: boolean;
     nextInteractionName: string;
@@ -57,6 +57,8 @@ declare class Anchor {
     protected propertiesToSync_: string[];
 }
 declare namespace Anchor {
-    const createProcess: any;
+    export { createProcess, Process };
 }
 import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
+type Process = import('../process/Process');
+declare var createProcess: any;

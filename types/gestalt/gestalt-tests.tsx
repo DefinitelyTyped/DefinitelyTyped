@@ -236,7 +236,7 @@ const CheckUseReducedMotion = () => {
 <Link href="#" />;
 <Link href="#" externalLinkIcon={{ color: 'light', size: '100' }} />;
 <Mask />;
-<Masonry comp={MasonryComponent} items={[{}]} />;
+<Masonry Item={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
 <Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info" />;
 <Module id="foo" icon="add" iconAccessibilityLabel="hello" title="world" type="info">
@@ -321,7 +321,34 @@ const CheckUseReducedMotion = () => {
     }}
 />;
 <SegmentedControl items={[]} selectedItemIndex={1} onChange={() => {}} />;
-<SelectList id="city" onChange={({ value }) => value} options={[]} />;
+
+<SelectList id="city" onChange={({ value }) => value}>
+    <SelectList.Option label="Hi" value="hi" />
+</SelectList>;
+<SelectList
+    helperText="Note that the family members aren't secondary!"
+    id="selectlistexample15"
+    label="Choose your favorite secondary character"
+    onChange={() => {}}
+    placeholder="Select a character"
+    size="lg"
+>
+    <SelectList.Group disabled={true} label="Family">
+        {['Bart', 'Lisa', 'Homer', 'Marge', 'Maggie'].map(name => (
+            <SelectList.Option key={name} label={name} value={name} />
+        ))}
+    </SelectList.Group>
+    <SelectList.Group label="Neighbors">
+        {['Ned', 'Maude', 'Rod', 'Todd'].map(name => (
+            <SelectList.Option key={name} label={name} value={name} />
+        ))}
+    </SelectList.Group>
+    <SelectList.Group label="Cartoons">
+        {['Itchy', 'Scratchy', 'Poochie'].map(name => (
+            <SelectList.Option key={name} label={name} value={name} />
+        ))}
+    </SelectList.Group>
+</SelectList>;
 <Sheet
     accessibilityDismissButtonLabel="Dismiss"
     accessibilitySheetLabel="Example sheet to demonstrate different sizes"
@@ -591,6 +618,6 @@ new CompositeZIndex([new FixedZIndex(1), new CompositeZIndex([new FixedZIndex(1)
 <Datapoint
     title="Test Value"
     value="100"
-    trend={{ accesibilityLabel: 'Trending up', value: 50 }}
+    trend={{ accessibilityLabel: 'Trending up', value: 50 }}
     trendSentiment="good"
 />;

@@ -344,6 +344,7 @@ declare namespace jwplayer {
 
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
+        addCues(cues: Array<{ begin: number; cueType: string; text: string }>): JWPlayer;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];

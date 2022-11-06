@@ -332,10 +332,8 @@ const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
-    .clearAllTimers()
     .resetAllMocks()
     .restoreAllMocks()
-    .clearAllTimers()
     .deepUnmock('moduleName')
     .disableAutomock()
     .doMock('moduleName')
@@ -357,11 +355,6 @@ jest.autoMockOff()
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3, { logErrorsBeforeRetry: true })
-    .runAllImmediates()
-    .runAllTicks()
-    .runAllTimers()
-    .runOnlyPendingTimers()
-    .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
     .setMock<{ a: 'b' }>('moduleName', { a: 'b' })
@@ -370,13 +363,37 @@ jest.autoMockOff()
     .useFakeTimers()
     .useRealTimers();
 
+// $ExpectType void
+jest.advanceTimersByTime(9001);
+
+// $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType void
+jest.clearAllTimers();
+
+// $ExpectType void
+jest.runAllImmediates();
+
+// $ExpectType void
+jest.runAllTicks();
+
+// $ExpectType void
+jest.runAllTimers();
+
+// $ExpectType void
+jest.runOnlyPendingTimers();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ timerLimit: 50 });
+
+jest.useFakeTimers({ legacyFakeTimers: true });
+// @ts-expect-error
+jest.useFakeTimers({ legacyFakeTimers: true, timerLimit: 50 });
+
 // @ts-expect-error
 jest.useFakeTimers('legacy');
 // @ts-expect-error
@@ -395,6 +412,16 @@ jest.setSystemTime('foo');
 const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
+
+// https://jestjs.io/docs/en/jest-object#jestgetseed
+const seed1: number = jest.getSeed();
+// @ts-expect-error
+const seed2: number = jest.getSeed('foo');
+
+// $ExpectType number
+jest.now();
+// @ts-expect-error
+jest.now('1995-12-17T03:24:00');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
@@ -561,6 +588,18 @@ const spy3Mock = spy3
     .mockReturnValue('value')
     .mockReturnValueOnce('value');
 
+// $ExpectType void
+spy3.withImplementation(
+    () => 'mocked value',
+    () => {},
+);
+
+// $ExpectType Promise<void>
+spy3.withImplementation(
+    () => 'mocked value',
+    async () => {},
+);
+
 const spiedPromiseTarget = {
     resolvesString() {
         return Promise.resolve('string');
@@ -635,8 +674,27 @@ jest.spyOn(spyWithIndexSignatureImpl, 'prop');
 // $ExpectType SpyInstance<{ some: string; }, []>
 jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
-// $ExpectType MockedObject<{}>
+let typedSpy: jest.Spied<typeof spiedTarget.returnsVoid>;
+typedSpy = jest.spyOn(spiedTarget, 'returnsVoid');
+
+let typedSpy1: jest.SpiedClass<typeof globalThis.Date>;
+typedSpy1 = jest.spyOn(globalThis, 'Date');
+
+let typedSpy2: jest.SpiedFunction<typeof spiedTarget.setValue>;
+typedSpy2 = jest.spyOn(spiedTarget, 'setValue');
+
+let typedSpy3: jest.SpiedGetter<typeof spiedTarget2.value>;
+typedSpy3 = jest.spyOn(spiedTarget2, 'value', 'get');
+
+let typedSpy4: jest.SpiedSetter<typeof spiedTarget2.value>;
+typedSpy4 = jest.spyOn(spiedTarget2, 'value', 'set');
+
+// $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
+// $ExpectType MockedObjectDeep<{}>
+jest.mocked({}, { shallow: false });
+// $ExpectType MockedObject<{}>
+jest.mocked({}, { shallow: true });
 // @ts-expect-error
 jest.mocked();
 
@@ -741,21 +799,27 @@ const module = {
 const mockedModule = module as jest.Mocked<typeof module>;
 mockedModule.testFunction.mock.calls[0][0]; // $ExpectType number
 mockedModule.testFunction.mock.calls[0][1]; // $ExpectType string
-mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
-mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedModule.testFunction.mock.lastCall) {
+    mockedModule.testFunction.mock.lastCall[0]; // $ExpectType number
+    mockedModule.testFunction.mock.lastCall[1]; // $ExpectType string
+}
 const testFunction_0_ret = mockedModule.testFunction.mock.results[0];
 if (testFunction_0_ret.type === 'return') {
     testFunction_0_ret.value; // $ExpectType boolean
 }
 
 mockedModule.TestClass.mock.calls[0][0]; // $ExpectType string
-mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+if (mockedModule.TestClass.mock.lastCall) {
+    mockedModule.TestClass.mock.lastCall[0]; // $ExpectType string
+}
 mockedModule.TestClass.mock.instances[0]; // $ExpectType TestClass
 
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 mockedModule.TestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+if (mockedModule.TestClass.prototype.testClassMethod.mock.lastCall) {
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    mockedModule.TestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const TestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (TestClass_testClassMethod_0_ret.type === 'return') {
     TestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -764,8 +828,10 @@ if (TestClass_testClassMethod_0_ret.type === 'return') {
 const mockedTestFunction = module.testFunction as jest.MockedFunction<typeof module.testFunction>;
 mockedTestFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedTestFunction.mock.lastCall) {
+    mockedTestFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestFunction_0_ret = mockedTestFunction.mock.results[0];
 if (mockedTestFunction_0_ret.type === 'return') {
     mockedTestFunction_0_ret.value; // $ExpectType boolean
@@ -774,8 +840,10 @@ if (mockedTestFunction_0_ret.type === 'return') {
 const mockedTestLambdaFunction = module.testLambdaFunction as jest.MockedFunction<typeof module.testLambdaFunction>;
 mockedTestLambdaFunction.mock.calls[0][0]; // $ExpectType number
 mockedTestLambdaFunction.mock.calls[0][1]; // $ExpectType string
-mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
-mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+if (mockedTestLambdaFunction.mock.lastCall) {
+    mockedTestLambdaFunction.mock.lastCall[0]; // $ExpectType number
+    mockedTestLambdaFunction.mock.lastCall[1]; // $ExpectType string
+}
 const mockedTestLambdaFunction_0_ret = mockedTestLambdaFunction.mock.results[0];
 if (mockedTestLambdaFunction_0_ret.type === 'return') {
     mockedTestLambdaFunction_0_ret.value; // $ExpectType boolean
@@ -784,8 +852,10 @@ if (mockedTestLambdaFunction_0_ret.type === 'return') {
 const MockedTestClass = module.TestClass as jest.MockedClass<typeof module.TestClass>;
 MockedTestClass.prototype.testClassMethod.mock.calls[0][0]; // $ExpectType string
 MockedTestClass.prototype.testClassMethod.mock.calls[0][1]; // $ExpectType number
-MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
-MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+if (MockedTestClass.prototype.testClassMethod.mock.lastCall) {
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[0]; // $ExpectType string
+    MockedTestClass.prototype.testClassMethod.mock.lastCall[1]; // $ExpectType number
+}
 const MockedTestClass_testClassMethod_0_ret = mockedModule.TestClass.prototype.testClassMethod.mock.results[0];
 if (MockedTestClass_testClassMethod_0_ret.type === 'return') {
     MockedTestClass_testClassMethod_0_ret.value; // $ExpectType boolean
@@ -1012,12 +1082,14 @@ describe('', () => {
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn()).lastReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(0, 'jest');
-        expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn()).nthCalledWith(1, 'jest');
+        expect(jest.fn()).nthCalledWith(2, {});
 
-        expect(jest.fn()).nthReturnedWith(0, 'jest');
-        expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn()).nthReturnedWith(1, 'jest');
+        expect(jest.fn()).nthReturnedWith(2, {});
+        expect(jest.fn()).nthReturnedWith(3);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1102,12 +1174,14 @@ describe('', () => {
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+        expect(jest.fn()).toHaveLastReturnedWith();
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
-        expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
-        expect(jest.fn()).toHaveNthReturnedWith(1, {});
+        expect(jest.fn()).toHaveNthReturnedWith(1, 'jest');
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -1123,6 +1197,7 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
@@ -1165,12 +1240,16 @@ describe('', () => {
             three: 3,
             four: { four: 3 },
             date: new Date(),
+            dateTwo: Date,
+            list: [1, 2, 3],
         }).toMatchInlineSnapshot({
             one: expect.any(Number),
             // leave out two
             three: 3,
             four: { four: expect.any(Number) },
             date: expect.any(Date),
+            dateTwo: expect.any(Date),
+            list: expect.any(Array),
         });
 
         expect(jest.fn()).toReturn();
@@ -1180,6 +1259,7 @@ describe('', () => {
 
         expect(jest.fn()).toReturnWith('jest');
         expect(jest.fn()).toReturnWith({});
+        expect(jest.fn()).toReturnWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});
