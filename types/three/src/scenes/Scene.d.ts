@@ -29,11 +29,6 @@ export class Scene extends Object3D {
     overrideMaterial: Material | null;
 
     /**
-     * @default true
-     */
-    autoUpdate: boolean;
-
-    /**
      * @default null
      */
     background: null | Color | Texture;
