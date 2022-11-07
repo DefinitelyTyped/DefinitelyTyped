@@ -1,4 +1,8 @@
-import { resolve, ResolutionContext } from 'metro-resolver';
+import { resolve, formatFileCandidates } from 'metro-resolver';
+
+formatFileCandidates(
+    { type: 'asset', name: 'testAsset' },
+);
 
 resolve(
     {
