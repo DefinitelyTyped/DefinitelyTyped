@@ -102,6 +102,7 @@ interface GulpSpriteSmithResult extends Transform {
     css: Readable;
 }
 
-declare function gulpSpritesmith(options: GulpSpriteSmithOptions | GulpSpriteSmithRetinaOptions): GulpSpriteSmithResult;
+declare function gulpSpritesmith(options: GulpSpriteSmithRetinaOptions): GulpSpriteSmithResult;
+declare function gulpSpritesmith(options: GulpSpriteSmithOptions): GulpSpriteSmithResult;
 
 export = gulpSpritesmith;
