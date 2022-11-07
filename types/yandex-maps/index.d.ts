@@ -641,23 +641,23 @@ declare namespace ymaps {
 
         interface IRoutePanelParameters {
             options?: {
-                autofocus?: boolean | undefined;
-                float?: "none" | "left" | "right" | undefined;
-                floatIndex?: number | undefined;
-                maxWidth?: string | undefined;
+                autofocus?: boolean;
+                float?: "none" | "left" | "right";
+                floatIndex?: number;
+                maxWidth?: string;
                 position?: {
-                    bottom?: number | string | undefined;
-                    left?: number | string | undefined;
-                    right?: number | string | undefined;
-                    top?: number | string | undefined;
-                } | undefined;
-                showHeader?: boolean | undefined;
-                title?: string | undefined;
-                visible?: boolean | undefined;
-            } | undefined;
-            state?: {} | undefined;
+                    bottom?: number | string;
+                    left?: number | string;
+                    right?: number | string;
+                    top?: number | string;
+                } ;
+                showHeader?: boolean;
+                title?: string;
+                visible?: boolean;
+            };
+            state?: {};
         }
-        
+
         class RulerControl extends Button {
             constructor(parameters?: IRulerControlParameters);
         }
