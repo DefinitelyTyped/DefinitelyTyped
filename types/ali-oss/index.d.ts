@@ -991,6 +991,11 @@ declare class OSS {
     list(query: OSS.ListObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
 
     /**
+     * List Objects in the bucket.(V2)
+     */
+    listV2(query: OSS.ListV2ObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+
+    /**
      * Add an object to the bucket.
      */
     put(name: string, file: any, options?: OSS.PutObjectOptions): Promise<OSS.PutObjectResult>;
