@@ -104,7 +104,7 @@ interface GulpSpriteSmithResult extends Transform {
 
 declare function gulpSpritesmith(options: GulpSpriteSmithRetinaOptions): GulpSpriteSmithResult;
 // Union type might be better, but in this case it lead to a lot of errors
-// eslint:disable-next-line unified-signatures
+// tslint:disable-next-line unified-signatures
 declare function gulpSpritesmith(options: GulpSpriteSmithOptions): GulpSpriteSmithResult;
 
 export = gulpSpritesmith;
