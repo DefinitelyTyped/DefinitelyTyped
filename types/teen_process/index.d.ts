@@ -1,4 +1,4 @@
-// Type definitions for teen_process 1.16
+// Type definitions for teen_process 2.0
 // Project: https://github.com/appium/node-teen_process
 // Definitions by: Tiger Oakes <https://github.com/NotWoods>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,10 @@ import { URL } from 'url';
 
 export { spawn } from 'child_process';
 
-export interface ExecOptions extends Pick<SpawnOptions, 'cwd' | 'env' | 'shell'> {
+/**
+ * Options for {@link exec teen_process.exec}.
+ */
+export interface TeenProcessExecOptions extends Pick<SpawnOptions, 'cwd' | 'env' | 'shell'> {
     cwd?: string | URL | undefined;
     env?: NodeJS.ProcessEnv | undefined;
     timeout?: number | undefined;
@@ -54,29 +57,49 @@ export interface ExecOptions extends Pick<SpawnOptions, 'cwd' | 'env' | 'shell'>
      * Allows stdout and stderr to be sent to a particular logger, as it it received.
      * This is overridden by the `ignoreOutput` option.
      */
-    logger?: { debug(chunk: string): void } | undefined;
+    logger?: TeenProcessLogger | undefined;
     /**
+     * Maximum size of `stdout` buffer
      * @default 100 * 1024 * 1024 // 100 MB
      */
     maxStdoutBufferSize?: number;
     /**
+     * Maximum size of `stderr` buffer
      * @default 100 * 1024 * 1024 // 100 MB
      */
     maxStderrBufferSize?: number;
 }
 
-export interface ExecResult<T extends string | Buffer> {
+export interface TeenProcessLogger {
+    debug(...args: any[]): void;
+}
+
+/** The value {@link exec teen_process.exec} resolves to */
+export interface TeenProcessExecResult<T extends string | Buffer> {
+    /** Stdout */
     stdout: T;
+    /** Stderr */
     stderr: T;
+    /** Exit code */
     code: number;
 }
 
+/**
+ * Spawns a process
+ * @param cmd - Program to execute
+ * @param args - Arguments to pass to the program
+ * @param opts - Options
+ */
 export function exec(
     cmd: string,
     args: ReadonlyArray<string> | undefined,
-    opts: ExecOptions & { isBuffer: true },
-): Promise<ExecResult<Buffer>>;
-export function exec(cmd: string, args?: ReadonlyArray<string>, opts?: ExecOptions): Promise<ExecResult<string>>;
+    opts: TeenProcessExecOptions & { isBuffer: true },
+): Promise<TeenProcessExecResult<Buffer>>;
+export function exec(
+    cmd: string,
+    args?: ReadonlyArray<string>,
+    opts?: TeenProcessExecOptions,
+): Promise<TeenProcessExecResult<string>>;
 
 export interface SubProcessOptions extends SpawnOptions {
     encoding?: string | undefined;

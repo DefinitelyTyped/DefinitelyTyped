@@ -6,7 +6,6 @@
         "object-literal-key-quotes": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

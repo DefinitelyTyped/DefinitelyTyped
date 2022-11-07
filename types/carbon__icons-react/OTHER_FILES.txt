@@ -934,6 +934,9 @@ es/ImageMedical.d.ts
 es/ImageReference.d.ts
 es/ImageSearch.d.ts
 es/ImageSearchAlt.d.ts
+es/watson-health/WatsonHealthImageAvailabilityLocal.d.ts
+es/watson-health/WatsonHealthImageAvailabilityRetrieving.d.ts
+es/watson-health/WatsonHealthImageAvailabilityUnavailable.d.ts
 es/ImageService.d.ts
 es/ImportExport.d.ts
 es/ImproveRelevance.d.ts
@@ -1356,6 +1359,7 @@ es/PillsAdd.d.ts
 es/PillsSubtract.d.ts
 es/Pin.d.ts
 es/PinFilled.d.ts
+es/Plan.d.ts
 es/Plane.d.ts
 es/PlanePrivate.d.ts
 es/PlaneSea.d.ts
@@ -2942,6 +2946,9 @@ lib/ImageMedical.d.ts
 lib/ImageReference.d.ts
 lib/ImageSearch.d.ts
 lib/ImageSearchAlt.d.ts
+lib/watson-health/WatsonHealthImageAvailabilityLocal.d.ts
+lib/watson-health/WatsonHealthImageAvailabilityRetrieving.d.ts
+lib/watson-health/WatsonHealthImageAvailabilityUnavailable.d.ts
 lib/ImageService.d.ts
 lib/ImportExport.d.ts
 lib/ImproveRelevance.d.ts
@@ -3364,6 +3371,7 @@ lib/PillsAdd.d.ts
 lib/PillsSubtract.d.ts
 lib/Pin.d.ts
 lib/PinFilled.d.ts
+lib/Plan.d.ts
 lib/Plane.d.ts
 lib/PlanePrivate.d.ts
 lib/PlaneSea.d.ts

@@ -25,6 +25,9 @@
         "test/edge.ts",
         "test/firefox.ts",
         "test/remote.ts",
-        "test/logging.ts"
+        "test/logging.ts",
+        "test/select.ts",
+        "test/session.ts",
+        "test/virtual_authenticator.ts"
     ]
 }

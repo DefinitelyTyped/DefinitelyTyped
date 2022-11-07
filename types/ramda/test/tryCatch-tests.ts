@@ -90,10 +90,8 @@ import * as R from 'ramda';
     R.tryCatch(R.prop<'x', true>('x'), R.F)({ x: true }); // $ExpectType boolean
     R.tryCatch(R.prop('x'), R.F)({ x: 13 }); // $ExpectType number | false
     R.tryCatch(R.prop('x'))(R.F)({ x: 13 }); // $ExpectType number | false
-    // @ts-expect-error
-    R.tryCatch(R.prop('x'), R.F)(null);
-    // @ts-expect-error
-    R.tryCatch(R.prop('x'), R.F)(null);
+    R.tryCatch(R.prop('x'), R.F)(null); // $ExpectType false | undefined
+    R.tryCatch(R.prop('x'), R.F)(null); // $ExpectType false | undefined
 
     // Curried generic tryer
 

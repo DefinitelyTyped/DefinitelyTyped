@@ -1,4 +1,4 @@
-// For Library Version: 1.106.0
+// For Library Version: 1.107.0
 
 declare module "sap/uxap/library" {
   /**
@@ -6594,6 +6594,16 @@ declare module "sap/uxap/ObjectPageSection" {
      */
     getTitleUppercase(): boolean;
     /**
+     * Gets current value of property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `wrapTitle`
+     */
+    getWrapTitle(): boolean;
+    /**
      * Checks for the provided `sap.uxap.ObjectPageSubSection` in the aggregation {@link #getSubSections subSections}.
      * and returns its index if found or -1 otherwise.
      *
@@ -6700,6 +6710,23 @@ declare module "sap/uxap/ObjectPageSection" {
        */
       bTitleUppercase?: boolean
     ): this;
+    /**
+     * Sets a new value for property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWrapTitle(
+      /**
+       * New value for property `wrapTitle`
+       */
+      bWrapTitle?: boolean
+    ): this;
   }
 
   export interface $ObjectPageSectionSettings
@@ -6713,6 +6740,11 @@ declare module "sap/uxap/ObjectPageSection" {
      * Determines whether the Section title is displayed in upper case.
      */
     titleUppercase?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     */
+    wrapTitle?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The list of Subsections.

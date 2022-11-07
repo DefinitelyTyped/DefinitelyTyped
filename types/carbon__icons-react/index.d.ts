@@ -1,10 +1,10 @@
-// Type definitions for @carbon/icons-react 11.8
+// Type definitions for @carbon/icons-react 11.10
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
-/** 2008 icons total */
+/** 2012 icons total */
 
 export interface CarbonIconProps
     extends Omit<React.SVGProps<React.ReactSVGElement>, 'ref' | 'tabIndex' | 'aria-hidden'> {
@@ -958,6 +958,9 @@ export const ImageMedical: CarbonIconType;
 export const ImageReference: CarbonIconType;
 export const ImageSearch: CarbonIconType;
 export const ImageSearchAlt: CarbonIconType;
+export const WatsonHealthImageAvailabilityLocal: CarbonIconType;
+export const WatsonHealthImageAvailabilityRetrieving: CarbonIconType;
+export const WatsonHealthImageAvailabilityUnavailable: CarbonIconType;
 export const ImageService: CarbonIconType;
 export const ImportExport: CarbonIconType;
 export const ImproveRelevance: CarbonIconType;
@@ -1380,6 +1383,7 @@ export const PillsAdd: CarbonIconType;
 export const PillsSubtract: CarbonIconType;
 export const Pin: CarbonIconType;
 export const PinFilled: CarbonIconType;
+export const Plan: CarbonIconType;
 export const Plane: CarbonIconType;
 export const PlanePrivate: CarbonIconType;
 export const PlaneSea: CarbonIconType;

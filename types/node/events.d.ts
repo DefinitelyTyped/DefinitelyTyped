@@ -35,16 +35,53 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/events.js)
  */
 declare module 'events' {
+    // NOTE: This class is in the docs but is **not actually exported** by Node.
+    // If https://github.com/nodejs/node/issues/39903 gets resolved and Node
+    // actually starts exporting the class, uncomment below.
+
+    // import { EventListener, EventListenerObject } from '__dom-events';
+    // /** The NodeEventTarget is a Node.js-specific extension to EventTarget that emulates a subset of the EventEmitter API. */
+    // interface NodeEventTarget extends EventTarget {
+    //     /**
+    //      * Node.js-specific extension to the `EventTarget` class that emulates the equivalent `EventEmitter` API.
+    //      * The only difference between `addListener()` and `addEventListener()` is that addListener() will return a reference to the EventTarget.
+    //      */
+    //     addListener(type: string, listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
+    //     /** Node.js-specific extension to the `EventTarget` class that returns an array of event `type` names for which event listeners are registered. */
+    //     eventNames(): string[];
+    //     /** Node.js-specific extension to the `EventTarget` class that returns the number of event listeners registered for the `type`. */
+    //     listenerCount(type: string): number;
+    //     /** Node.js-specific alias for `eventTarget.removeListener()`. */
+    //     off(type: string, listener: EventListener | EventListenerObject): this;
+    //     /** Node.js-specific alias for `eventTarget.addListener()`. */
+    //     on(type: string, listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
+    //     /** Node.js-specific extension to the `EventTarget` class that adds a `once` listener for the given event `type`. This is equivalent to calling `on` with the `once` option set to `true`. */
+    //     once(type: string, listener: EventListener | EventListenerObject): this;
+    //     /**
+    //      * Node.js-specific extension to the `EventTarget` class.
+    //      * If `type` is specified, removes all registered listeners for `type`,
+    //      * otherwise removes all registered listeners.
+    //      */
+    //     removeAllListeners(type: string): this;
+    //     /**
+    //      * Node.js-specific extension to the `EventTarget` class that removes the listener for the given `type`.
+    //      * The only difference between `removeListener()` and `removeEventListener()` is that `removeListener()` will return a reference to the `EventTarget`.
+    //      */
+    //     removeListener(type: string, listener: EventListener | EventListenerObject): this;
+    // }
+
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
          */
         captureRejections?: boolean | undefined;
     }
-    interface NodeEventTarget {
+    // Any EventTarget with a Node-style `once` function
+    interface _NodeEventTarget {
         once(eventName: string | symbol, listener: (...args: any[]) => void): this;
     }
-    interface DOMEventTarget {
+    // Any EventTarget with a DOM-style `addEventListener`
+    interface _DOMEventTarget {
         addEventListener(
             eventName: string,
             listener: (...args: any[]) => void,
@@ -154,8 +191,8 @@ declare module 'events' {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
-        static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: _NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
          * const { on, EventEmitter } = require('events');
@@ -259,7 +296,7 @@ declare module 'events' {
          * ```
          * @since v15.2.0, v14.17.0
          */
-        static getEventListeners(emitter: DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        static getEventListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
          * ```js
          * const {
@@ -277,7 +314,7 @@ declare module 'events' {
          * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
-        static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
+        static setMaxListeners(n?: number, ...eventTargets: Array<_DOMEventTarget | NodeJS.EventEmitter>): void;
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'`
          * events. Listeners installed using this symbol are called before the regular

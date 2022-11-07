@@ -74,6 +74,26 @@ const testGeneral: NightwatchTests = {
         browser.browserName = 'firefox';
     },
 
+    'Can run accessibility tests': () => {
+        browser
+            .url('https://www.google.com')
+            .axeInject()
+            .axeRun(
+                'body',
+                {
+                    rules: {
+                        'color-contrast': {
+                            enabled: false,
+                        },
+                        region: {
+                            enabled: false,
+                        },
+                    },
+                },
+                results => {},
+            );
+    },
+
     'step one: navigate to google': () => {
         browser
             .url('https://www.google.com')

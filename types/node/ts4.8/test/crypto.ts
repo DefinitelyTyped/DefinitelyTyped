@@ -1425,10 +1425,13 @@ import { promisify } from 'node:util';
     // The lack of top level await makes it annoying to use generateKey so let's just fake it for typings.
     const key = null as unknown as crypto.webcrypto.CryptoKey;
     const buf = new Uint8Array(16);
+    // Oops, test relied on DOM `globalThis.length` before
+    const length = 123;
 
     subtle.encrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new TextEncoder().encode('hello')); // $ExpectType Promise<ArrayBuffer>
     subtle.decrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-512', salt: new ArrayBuffer(8), iterations: 1000 }, key, length); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveBits({ name: 'ECDH', public: key }, key, null); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveKey({
         name: 'PBKDF2',
         hash: 'SHA-512',

@@ -45,6 +45,7 @@
  */
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
+    import { ReadableStream as WebReadableStream } from 'node:stream/web';
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -158,10 +159,10 @@ declare module 'buffer' {
          */
         text(): Promise<string>;
         /**
-         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read.
+         * Returns a new (WHATWG) `ReadableStream` that allows the content of the `Blob` to be read.
          * @since v16.7.0
          */
-        stream(): unknown; // pending web streams types
+        stream(): WebReadableStream;
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;

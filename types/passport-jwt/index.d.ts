@@ -10,7 +10,7 @@
 // TypeScript Version: 2.3
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
-import { Request } from 'express';
+import * as express from 'express';
 import { VerifyOptions } from 'jsonwebtoken';
 
 export declare class Strategy extends PassportStrategy {
@@ -36,19 +36,19 @@ export interface VerifyCallback {
 }
 
 export interface VerifyCallbackWithRequest {
-    (req: Request, payload: any, done: VerifiedCallback): void;
+    (req: express.Request, payload: any, done: VerifiedCallback): void;
 }
 
 export interface VerifiedCallback {
-    (error: any, user?: any, info?: any): void;
+    (error: any, user?: Express.User | false, info?: any): void;
 }
 
 export interface JwtFromRequestFunction {
-    (req: Request): string | null;
+    (req: express.Request): string | null;
 }
 
 export interface SecretOrKeyProvider {
-    (request: Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
+    (request: express.Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
 }
 
 export declare namespace ExtractJwt {

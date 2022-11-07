@@ -751,6 +751,11 @@ export interface StreamOptions {
      * A stream to write the output to.
      */
     output?: NodeJS.WriteStream | undefined;
+
+    /**
+     * Whether to display prompts if input is not a TTY.
+     */
+    skipTTYChecks?: boolean | undefined;
 }
 
 /**

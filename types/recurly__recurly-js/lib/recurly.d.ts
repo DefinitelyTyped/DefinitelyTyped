@@ -7,6 +7,7 @@ import { Configure } from './configure';
 import { Elements } from './elements';
 import { Emitter } from './emitter';
 import { GiftCard } from './gift-card';
+import { GooglePay } from './google-pay';
 import { PayPal } from './paypal';
 import { Pricing } from './pricing';
 import { Token } from './token';
@@ -56,6 +57,13 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    */
   Elements: Elements;
   giftCard: GiftCard;
+
+  /**
+   * Use Recurly.js to process Google Pay transactions.
+   *
+   * @see {@link https://developers.recurly.com/reference/recurly-js/index.html#google-pay|GooglePay}
+   */
+   GooglePay: GooglePay;
 
   /**
    * Use Recurly to process PayPal transactions using PayPal Business or Braintree.

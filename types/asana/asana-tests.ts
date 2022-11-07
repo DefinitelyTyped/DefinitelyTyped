@@ -500,6 +500,12 @@ client.tasks
 
 client.tasks.getTask('task_gid');
 
+// Get tasks for a project section
+client.tasks.getTasksForSection('1234');
+
+// Get tasks for a project section with params
+client.tasks.getTasksForSection('1234', { limit: 100 });
+
 client.workspaces.getWorkspaces();
 
 client.customFields

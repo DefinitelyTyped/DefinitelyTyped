@@ -308,6 +308,13 @@ management.getUsersByEmail('email@address.com').then(users => {
     console.log(users);
 });
 
+management.getUserLogs({ id: 'user_id' }).then(roles => console.log(roles));
+management.getUserLogs({ id: 'user_id' }, (err, data) => console.log(data));
+management.getUserLogs({ id: 'user_id', per_page: 3 }).then(roles => console.log(roles));
+management.getUserLogs({ id: 'user_id', per_page: 3 }, (err, data) => console.log(data));
+management.getUserLogs({ id: 'user_id', include_totals: true }).then(rolePage => console.log(rolePage));
+management.getUserLogs({ id: 'user_id', include_totals: true }, (err, data) => console.log(data));
+
 management.getUserRoles({ id: 'user_id' }).then(roles => console.log(roles));
 management.getUserRoles({ id: 'user_id' }, (err, data) => console.log(data));
 management.getUserRoles({ id: 'user_id', per_page: 3 }).then(roles => console.log(roles));

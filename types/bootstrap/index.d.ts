@@ -3,6 +3,7 @@
 // Definitions by: denisname <https://github.com/denisname>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 Kyle Tsang <https://github.com/kyletsang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 

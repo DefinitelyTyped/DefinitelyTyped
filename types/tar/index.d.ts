@@ -553,7 +553,7 @@ export interface ListOptions {
      * filter. This is important for when both file and sync are set, because
      * it will be called synchronously.
      */
-    onentry?(entry: FileStat): void;
+    onentry?(entry: ReadEntry): void;
 
     /**
      * The maximum buffer size for fs.read() operations. Defaults to 16 MB.
@@ -671,6 +671,18 @@ export interface FileOptions {
     f?: string | undefined;
 }
 
+export type RequiredFileOptions = {
+    /**
+     * Uses the given file as the input or output of this function.
+     */
+    file: string;
+} | {
+    /**
+     * Alias for file.
+     */
+    f: string;
+};
+
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
  * tarball. Adding a directory also adds its children recursively. An entry in
@@ -750,23 +762,12 @@ export const x: typeof extract;
  * to list from the tarball. If no paths are provided, then all the entries
  * are listed. If the archive is gzipped, then tar will detect this and unzip
  * it.
- *
- * Archive data should be written to the returned stream.
  */
-export function list(
-    options?: ListOptions & FileOptions,
-    fileList?: ReadonlyArray<string>,
-    callback?: (err?: Error) => void,
-): stream.Writable;
-
-/**
- * List the contents of a tarball archive. The fileList is an array of paths
- * to list from the tarball. If no paths are provided, then all the entries
- * are listed. If the archive is gzipped, then tar will detect this and unzip
- * it.
- */
-export function list(options: ListOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function list(options: ListOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function list(options: ListOptions & RequiredFileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function list(options: ListOptions & RequiredFileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function list(callback?: (err?: Error) => void): Parse;
+export function list(optionsOrFileList: ListOptions | ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
+export function list(options: ListOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
 
 /**
  * Alias for list
