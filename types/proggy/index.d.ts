@@ -62,10 +62,10 @@ export type ClientData = {
  */
 export class Client extends EventEmitter {
     constructor(options?: ClientOptions);
-    on(eventName: ClientEvent, listener: (arg: ClientData) => void): this;
-    off(eventName: ClientEvent, listener: (arg: ClientData) => void): this;
-    addListener(eventName: ClientEvent, listener: (arg: ClientData) => void): this;
-    removeListener(eventName: ClientEvent, listener: (arg: ClientData) => void): this;
+    on(eventName: ClientEvent, listener: (key: string, data: ClientData) => void): this;
+    off(eventName: ClientEvent, listener: (key: string, data: ClientData) => void): this;
+    addListener(eventName: ClientEvent, listener: (key: string, data: ClientData) => void): this;
+    removeListener(eventName: ClientEvent, listener: (key: string, data: ClientData) => void): this;
     /**
      * The number of active trackers this Client is aware of
      */

@@ -98,13 +98,10 @@ client.on();
 client.on('bar');
 // @ts-expect-error
 client.on('hello', () => {});
-client.on('bar', arg => {
-    // $ExpectType ClientData
-    const data = arg;
+client.on('bar', (key, data) => {
     // $ExpectType string
     const name = data.name;
-    // $ExpectType string
-    const key = data.key;
+    console.assert(key === data.key);
     // $ExpectType number
     const value = data.value;
     // $ExpectType number
@@ -117,7 +114,7 @@ client.on('bar', arg => {
     const done = data.done;
     data['file'];
 });
-const listener = (arg: proggy.ClientData) => {
+const listener = (key: string, data: proggy.ClientData) => {
     client.off('barDone', listener);
     client.off('done', listener);
 };
