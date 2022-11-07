@@ -6064,8 +6064,8 @@ export function whereEq<T>(spec: T): <U>(obj: U) => boolean;
  * R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
  * ```
  */
-export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
-export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
+export function without<T>(list1: readonly unknown[], list2: readonly T[]): T[];
+export function without<T>(list1: readonly T[] | readonly unknown[]): (list2: readonly T[]) => T[];
 
 /**
  * Exclusive disjunction logical operation.
