@@ -163,19 +163,10 @@ export interface SnowflakeError extends SnowflakeErrorExternal {
     externalize?: () => SnowflakeErrorExternal;
 }
 
-export enum validFetchAsStringType {
-    STRING = 'STRING',
-    BOOLEAN = 'BOOLEAN',
-    NUMBER = 'NUMBER',
-    DATE = 'DATE',
-    JSON = 'JSON',
-}
-
-// The supported types are: String, Boolean, Number, Date, and JSON.
-export interface StatementOptions {
+export interface StreamOptions {
     start?: number;
     end?: number;
-    fetchAsString?: any[];
+    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
 }
 
 /**
@@ -472,9 +463,9 @@ export interface Statement {
      * Streams the rows in this statement's result. If start and end values are
      * specified, only rows in the specified range are streamed.
      *
-     * @param StatementOptions options
+     * @param StreamOptions options
      */
-    streamRows(options?: StatementOptions): Readable;
+    streamRows(options?: StreamOptions): Readable;
 }
 
 export type Bind = string | number;
