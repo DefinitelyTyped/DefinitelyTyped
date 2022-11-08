@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/base64-js-tests.cjs.ts",
-        "test/base64-js-tests.global.ts"
+        "puzzel-euwa-wrapper.tests.ts"
     ]
 }

@@ -34,9 +34,9 @@ declare module '@puzzel/euwa-wrapper' {
   };
 
   export type SystemVariables = {
-    enteredFormName: string;
     enteredChatId: string;
     enteredFormIssue: string;
+    enteredFormName: string;
     selectedQueueKey: string;
     timeId2Map: string;
   };
