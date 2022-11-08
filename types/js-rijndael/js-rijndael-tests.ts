@@ -1,17 +1,4 @@
-// Type definitions for js-rijndael 1.0
-// Project: https://github.com/kraynel/js-rijndael#readme
-// Definitions by: Juansecu <https://github.com/Juansecu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import {
-    decrypt,
-    encrypt,
-    getBlockSize,
-    getIVSize,
-    getKeySize,
-    listAlgorithms,
-    listModes
-} from 'js-rijndael';
+import { decrypt, encrypt, getBlockSize, getIVSize, getKeySize, listAlgorithms, listModes } from 'js-rijndael';
 
 const cipher = 'rijndael-128';
 const iv = new Uint8Array(16);
