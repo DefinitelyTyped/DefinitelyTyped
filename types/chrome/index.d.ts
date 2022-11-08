@@ -7038,6 +7038,7 @@ declare namespace chrome.runtime {
         | 'certificateProvider'
         | 'clipboardRead'
         | 'clipboardWrite'
+        | 'commands'
         | 'contentSettings'
         | 'contextMenus'
         | 'cookies'
