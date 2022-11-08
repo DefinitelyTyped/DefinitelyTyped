@@ -448,18 +448,19 @@ export declare class Led {
     id: string;
     pin: number;
 
-    on(): void;
-    off(): void;
-    toggle(): void;
-    strobe(ms: number): void;
-    blink(): void;
-    blink(ms: number): void;
-    brightness(val: number): void;
-    fade(brightness: number, ms: number): void;
-    fadeIn(ms: number): void;
-    fadeOut(ms: number): void;
-    pulse(ms: number): void;
-    stop(): void;
+    blink(ms?: number, callback?: () => void): this;
+    blink(callback?: () => void): this;
+    brightness(val: number): this;
+    fade(brightness: number, ms?: number, callback?: () => void): this;
+    fadeIn(ms?: number, callback?: () => void): this;
+    fadeOut(ms?: number, callback?: () => void): this;
+    off(): this;
+    on(): this;
+    pulse(ms?: number, callback?: () => void): this;
+    stop(): this;
+    strobe(ms?: number, callback?: () => void): this;
+    strobe(callback?: () => void): this;
+    toggle(): this;
 }
 
 export declare module Led {
