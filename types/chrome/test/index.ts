@@ -193,6 +193,30 @@ function catBlock() {
 function webRequestAddListenerMandatoryFilters() {
     // @ts-expect-error
     chrome.webRequest.onBeforeRequest.addListener(info => {})
+
+    chrome.webRequest.onSendHeaders.addListener(details => {
+            console.log(
+                (details.requestHeaders ?? [])[0].name,
+                details.documentId,
+                details.documentLifecycle,
+                details.frameType,
+                details.frameId,
+                details.initiator,
+                details.parentDocumentId,
+                details.parentFrameId,
+                details.requestId,
+                details.tabId,
+                details.timeStamp,
+                details.type,
+                details.url
+            );
+        },
+        {
+            urls: ["<all_urls>"],
+        },
+        ["requestHeaders"]
+    );
+
 }
 
 // webNavigation.onBeforeNavigate.addListener example
