@@ -294,7 +294,7 @@ type ConfigurationValue = string | number | string[] | boolean;
 
 interface Configuration {
     onDidChange<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
-    observe<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
+    observe<T, K>(key: string, callback: (this: K, newValue: T, oldValue: T) => void, thisValue?: K): Disposable;
     get(key: string): ConfigurationValue | null;
     get(key: string, coerce: 'string'): string | null;
     get(key: string, coerce: 'number'): number | null;
@@ -1009,7 +1009,7 @@ interface Workspace {
     readonly config: Configuration;
     readonly textDocuments: ReadonlyArray<TextDocument>;
     readonly textEditors: ReadonlyArray<TextEditor>;
-    readonly activeTextEditor: TextEditor;
+    readonly activeTextEditor: TextEditor | null | undefined;
 
     onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;
     onDidChangePath(callback: (newPath: TextEditor) => void): Disposable;

@@ -9,7 +9,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "semicolon": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

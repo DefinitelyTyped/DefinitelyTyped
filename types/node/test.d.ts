@@ -1,6 +1,6 @@
 /**
  * The `node:test` module provides a standalone testing module.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.8.0/lib/test.js)
  */
 declare module 'node:test' {
     /**
@@ -310,5 +310,65 @@ declare module 'node:test' {
         todo?: boolean | string;
     }
 
-    export { test as default, run, test, describe, it };
+    /**
+     * This function is used to create a hook running before running a suite.
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+     *    the second argument. Default: A no-op function.
+     * @param options Configuration options for the hook.
+     * @since v18.8.0
+     */
+    function before(fn?: HookFn, options?: HookOptions): void;
+
+    /**
+     * This function is used to create a hook running after running a suite.
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+     *    the second argument. Default: A no-op function.
+     * @param options Configuration options for the hook.
+     * @since v18.8.0
+     */
+    function after(fn?: HookFn, options?: HookOptions): void;
+
+    /**
+     * This function is used to create a hook running before each subtest of the current suite.
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+     *    the second argument. Default: A no-op function.
+     * @param options Configuration options for the hook.
+     * @since v18.8.0
+     */
+    function beforeEach(fn?: HookFn, options?: HookOptions): void;
+
+    /**
+     * This function is used to create a hook running after each subtest of the current test.
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+     *    the second argument. Default: A no-op function.
+     * @param options Configuration options for the hook.
+     * @since v18.8.0
+     */
+    function afterEach(fn?: HookFn, options?: HookOptions): void;
+
+    /**
+     * The hook function. If the hook uses callbacks, the callback function is passed as the
+     * second argument.
+     */
+    type HookFn = (done: (result?: any) => void) => any;
+
+    /**
+     * Configuration options for hooks.
+     * @since v18.8.0
+     */
+    interface HookOptions {
+        /**
+         * Allows aborting an in-progress hook.
+         */
+        signal?: AbortSignal;
+
+        /**
+         * A number of milliseconds the hook will fail after. If unspecified, subtests inherit this
+         * value from their parent.
+         * @default Infinity
+         */
+        timeout?: number;
+    }
+
+    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach };
 }

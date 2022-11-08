@@ -9,6 +9,7 @@ function test() {
     expect(testElement).to.have.attribute('foo', 'bar');
     expect(testElement).to.have.attr('foo').match(/bar/);
     expect(testElement).to.have.class('foo');
+    expect(testElement).to.have.class(/foo/);
     expect(testElement).to.have.id('id');
     expect(testElement).to.have.html('foo');
     expect(testElement).to.have.text('foo');

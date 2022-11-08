@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.1
+// Type definitions for Jest 29.2
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -26,6 +26,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Alexandre Germain <https://github.com/gerkindev>
 //                 Adam Jones <https://github.com/domdomegg>
+//                 Tom Mrazauskas <https://github.com/mrazauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
@@ -212,6 +213,11 @@ declare namespace jest {
      */
     function getRealSystemTime(): number;
     /**
+     * Retrieves the seed value. It will be randomly generated for each test run
+     * or can be manually set via the `--seed` CLI argument.
+     */
+    function getSeed(): number;
+    /**
      * Returns the current time in ms of the fake timer clock.
      */
     function now(): number;
@@ -384,17 +390,17 @@ declare namespace jest {
         : Value extends Func
         ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
         : never;
-    function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
-        object: T,
-        method: M,
-    ): FunctionProperties<Required<T>>[M] extends Func
-        ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
-        : never;
     function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
         object: T,
         method: M,
     ): Required<T>[M] extends new (...args: any[]) => any
         ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+        : never;
+    function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
+        object: T,
+        method: M,
+    ): FunctionProperties<Required<T>>[M] extends Func
+        ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
         : never;
     /**
      * Indicates that the module system should never return a mocked version of
@@ -689,7 +695,7 @@ declare namespace jest {
          *   expect(mock).toBeCalledWith(expect.any(Number));
          * });
          */
-        any(classType: any): any;
+        any<T extends Constructor>(classType: T): T extends Func ? ReturnType<T> : InstanceType<T>;
         /**
          * Matches any array made up entirely of elements in the provided array.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
@@ -785,7 +791,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        lastReturnedWith<E = any>(value: E): R;
+        lastReturnedWith<E = any>(expected?: E): R;
         /**
          * Ensure that a mock function is called with specific arguments on an Nth call.
          *
@@ -801,7 +807,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        nthReturnedWith<E = any>(n: number, value: E): R;
+        nthReturnedWith<E = any>(n: number, expected?: E): R;
         /**
          * Checks that a value is what you expect. It uses `Object.is` to check strict equality.
          * Don't use `toBe` with floating-point numbers.
@@ -957,7 +963,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveLastReturnedWith<E = any>(expected: E): R;
+        toHaveLastReturnedWith<E = any>(expected?: E): R;
         /**
          * Used to check that an object has a `.length` property
          * and it is set to a certain numeric value.
@@ -972,7 +978,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveNthReturnedWith<E = any>(nthCall: number, expected: E): R;
+        toHaveNthReturnedWith<E = any>(nthCall: number, expected?: E): R;
         /**
          * Use to check if property at provided reference keyPath exists for an object.
          * For checking deeply nested properties in an object you may use dot notation or an array containing
@@ -1004,7 +1010,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toHaveReturnedWith<E = any>(expected: E): R;
+        toHaveReturnedWith<E = any>(expected?: E): R;
         /**
          * Check that a string matches a regular expression.
          */
@@ -1070,7 +1076,7 @@ declare namespace jest {
          * This is particularly useful for ensuring expected objects have the right structure.
          */
         // tslint:disable-next-line: no-unnecessary-generics
-        toReturnWith<E = any>(value: E): R;
+        toReturnWith<E = any>(value?: E): R;
         /**
          * Use to test that objects have the same types as well as structure.
          *
@@ -1161,9 +1167,38 @@ declare namespace jest {
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
-     * Represents a function that has been spied on.
+     * Constructs the type of a spied class.
      */
-    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+    type SpiedClass<T extends abstract new (...args: any) => any> = SpyInstance<
+        InstanceType<T>,
+        ConstructorParameters<T>
+    >;
+
+    /**
+     * Constructs the type of a spied function.
+     */
+    type SpiedFunction<T extends (...args: any) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+
+    /**
+     * Constructs the type of a spied getter.
+     */
+    type SpiedGetter<T> = SpyInstance<T, []>;
+
+    /**
+     * Constructs the type of a spied setter.
+     */
+    type SpiedSetter<T> = SpyInstance<void, [T]>;
+
+    /**
+     * Constructs the type of a spied class or function.
+     */
+    type Spied<T extends (abstract new (...args: any) => any) | ((...args: any) => any)> = T extends abstract new (
+        ...args: any
+    ) => any
+        ? SpiedClass<T>
+        : T extends (...args: any) => any
+        ? SpiedFunction<T>
+        : never;
 
     /**
      * Wrap a function with mock definitions

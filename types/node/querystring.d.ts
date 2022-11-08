@@ -6,9 +6,9 @@
  * const querystring = require('querystring');
  * ```
  *
- * The `querystring` API is considered Legacy. While it is still maintained,
- * new code should use the `URLSearchParams` API instead.
- * @deprecated Legacy
+ * `querystring` is more performant than `URLSearchParams` but is not a
+ * standardized API. Use `URLSearchParams` when performance is not critical
+ * or when compatibility with browser code is desirable.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/querystring.js)
  */
 declare module 'querystring' {

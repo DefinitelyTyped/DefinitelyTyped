@@ -112,6 +112,8 @@ const graphDiv = '#test';
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
         width: [2],
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -119,6 +121,8 @@ const graphDiv = '#test';
         name: 'y density',
         marker: { color: 'rgb(102,0,0)' },
         type: 'histogram',
+        xhoverformat: ',.0f',
+        yhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -273,7 +277,31 @@ const graphDiv = '#test';
         orientation: 'h' as 'h' | 'v',
     };
 
-    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar };
+    // Test the legend with practical types.
+    // https://plotly.com/javascript/reference/layout/#layout-legend
+    const legend: Partial<Plotly.Legend> = {
+        bgcolor: '#ffffff',
+        bordercolor: '#444444',
+        borderwidth: 1,
+        font: { size: 15 },
+        groupclick: 'togglegroup',
+        grouptitlefont: { size: 15 },
+        itemclick: 'toggleothers',
+        itemdoubleclick: 'toggle',
+        itemsizing: 'constant',
+        itemwidth: 50,
+        orientation: 'h',
+        title: { font: { size: 15 }, side: 'top', text: 'Legend Title' },
+        tracegroupgap: 15,
+        traceorder: 'reversed+grouped',
+        valign: 'bottom',
+        x: 1,
+        xanchor: 'left',
+        y: 1,
+        yanchor: 'top',
+    };
+
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar, legend };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
@@ -905,4 +933,26 @@ function rand() {
         console.log(`Colored ${point.color} and hover ${point.hovertext}`);
         console.log(`Can access trace data ${point.data.name} and full data ${point.fullData.name}`);
     });
+})();
+
+//////////////////////////////////////////////////////////////////////
+// Scatter texttemplate
+
+(async () => {
+    const scatter = await newPlot(graphDiv, [
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: 'x: %{x}<br>y: %{y}',
+        },
+        {
+            type: 'scatter',
+            name: 'scatter',
+            x: [1, 2, 3, 4],
+            y: [2, 4, 1, 5],
+            texttemplate: ['x: %{x}', 'y: %{y}'],
+        },
+    ]);
 })();

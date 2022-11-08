@@ -1,4 +1,4 @@
-// Type definitions for css-tree 1.0
+// Type definitions for css-tree 2.0
 // Project: https://github.com/csstree/csstree
 // Definitions by: Erik Källén <https://github.com/erik-kallen>
 //                 Jason Kratzer <https://github.com/pyoor>
@@ -27,29 +27,31 @@ export interface ListItem<TData> {
 
 export type IteratorFn<TData, TResult, TContext = List<TData>> = (this: TContext, item: TData, node: ListItem<TData>, list: List<TData>) => TResult;
 export type FilterFn<TData, TResult extends TData, TContext = List<TData>> = (this: TContext, item: TData, node: ListItem<TData>, list: List<TData>) => item is TResult;
+export type ReduceFn<TData, TValue, TContext = List<TData>> = (this: TContext, accum: TValue, data: TData) => TValue;
 
 export class List<TData> {
     constructor();
+    get size(): number;
+    get isEmpty(): boolean;
+    get first(): TData|null;
+    get last(): TData|null;
+    [Symbol.iterator](): IterableIterator<TData>;
     fromArray(array: TData[]): List<TData>;
     createItem(data: TData): ListItem<TData>;
     toArray(): TData[];
     toJSON(): TData[];
-    getSize(): number;
-    isEmpty(): boolean;
-    first(): TData | null;
-    last(): TData | null;
-    each<TContext>(fn: IteratorFn<TData, void, TContext>, context: TContext): void;
-    each(fn: IteratorFn<TData, void>): void;
     forEach<TContext>(fn: IteratorFn<TData, void, TContext>, context: TContext): void;
     forEach(fn: IteratorFn<TData, void>): void;
-    eachRight<TContext>(fn: IteratorFn<TData, void, TContext>, context: TContext): void;
-    eachRight(fn: IteratorFn<TData, void>): void;
     forEachRight<TContext>(fn: IteratorFn<TData, void, TContext>, context: TContext): void;
     forEachRight(fn: IteratorFn<TData, void>): void;
     nextUntil<TContext>(start: ListItem<TData>, fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
     nextUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
     prevUntil<TContext>(start: ListItem<TData>, fn: IteratorFn<TData, boolean, TContext>, context: TContext): void;
     prevUntil(start: ListItem<TData>, fn: IteratorFn<TData, boolean>): void;
+    reduce<TValue, TContext>(fn: ReduceFn<TData, TValue, TContext>, initialValue: TValue, context: TContext): TValue;
+    reduce<TValue>(fn: ReduceFn<TData, TValue>, initialValue: TValue): TValue;
+    reduceRight<TValue, TContext>(fn: ReduceFn<TData, TValue, TContext>, initialValue: TValue, context: TContext): TValue;
+    reduceRight<TValue>(fn: ReduceFn<TData, TValue>, initialValue: TValue): TValue;
     some<TContext>(fn: IteratorFn<TData, boolean, TContext>, context: TContext): boolean;
     some(fn: IteratorFn<TData, boolean>): boolean;
     map<TContext, TResult>(fn: IteratorFn<TData, TResult, TContext>, context: TContext): List<TResult>;
@@ -813,3 +815,18 @@ export interface DefinitionSyntax {
 }
 
 export const definitionSyntax: DefinitionSyntax;
+
+export const ident: {
+    decode(input: string): string;
+    encode(input: string): string;
+};
+
+export const string: {
+    encode(input: string, apostrophe?: boolean): string;
+    decode(input: string): string;
+};
+
+export const url: {
+    decode(input: string): string;
+    encode(input: string): string;
+};

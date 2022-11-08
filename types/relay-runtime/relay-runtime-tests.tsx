@@ -158,7 +158,18 @@ function handlerProvider(handle: any) {
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
 
-function storeUpdater(store: RecordSourceSelectorProxy) {
+// Updatable fragment.
+interface UserFragment_updatable$data {
+    name: string | null;
+    readonly id: string;
+    readonly " $fragmentType": "UserFragment_updatable";
+}
+interface UserFragment_updatable$key {
+    readonly " $data"?: UserFragment_updatable$data;
+    readonly $updatableFragmentSpreads: FragmentRefs<"UserFragment_updatable">;
+}
+
+function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
     const mutationPayload = store.getRootField('sendConversationMessage');
     const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
@@ -168,6 +179,15 @@ function storeUpdater(store: RecordSourceSelectorProxy) {
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
+    const { updatableData } = store.readUpdatableFragment_EXPERIMENTAL(
+        graphql`
+            fragment UserComponent_user on User {
+                name
+            }
+        `,
+        dataRef
+    );
+    updatableData.name = "NewName";
 }
 
 interface MessageEdge {
