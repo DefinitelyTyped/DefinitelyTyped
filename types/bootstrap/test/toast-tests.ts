@@ -10,6 +10,8 @@ new Toast(element, { animation: false });
 Toast.getInstance(element);
 // $ExpectType Toast
 Toast.getOrCreateInstance(element);
+// $ExpectType boolean
+Toast.isShown();
 
 // $ExpectType string
 Toast.VERSION;
