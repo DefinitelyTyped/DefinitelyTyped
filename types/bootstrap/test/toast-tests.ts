@@ -4,14 +4,13 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType Toast
-new Toast(element, { animation: false });
+const myToast = new Toast(element, { animation: false });
+const myBool = myToast.isShown();
 
 // $ExpectType Toast | null
 Toast.getInstance(element);
 // $ExpectType Toast
 Toast.getOrCreateInstance(element);
-// $ExpectType boolean
-Toast.isShown();
 
 // $ExpectType string
 Toast.VERSION;
