@@ -3,7 +3,7 @@
 // Definitions by: Johan Möller <https://github.com/moelleer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export class InApp {
+export default class InApp {
     ua: string;
 
     readonly browser: string;

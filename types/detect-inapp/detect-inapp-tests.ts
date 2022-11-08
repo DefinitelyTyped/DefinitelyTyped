@@ -1,4 +1,4 @@
-import { InApp } from 'detect-inapp';
+import InApp from 'detect-inapp';
 
 const inApp = new InApp('useragent');
 
