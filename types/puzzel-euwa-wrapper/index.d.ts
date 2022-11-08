@@ -1,8 +1,3 @@
-// Type definitions for EUWA Wrapper Interface 1.0.3
-// Project: https://help.puzzel.com/product-documents/user-guide/puzzel-contact-centre/puzzel-administration-portal/services/chat-configuration/euwa-wrapper-interface
-// Definitions by: Mannuel Ferreira <https://github.com/mannuelf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module '@puzzel/euwa-wrapper' {
   export type Config = {
     customerKey: string;
@@ -10,7 +5,22 @@ declare module '@puzzel/euwa-wrapper' {
   };
 
   export type Options = {
+    /**
+     * Configures how you would like the chat client to behave on start
+     * ```ts
+     * settings: {
+     *  [EUWA.APPS.CHAT]: {
+     *     showStarter: boolean,
+     *    },
+     *   }
+     * ```
+     */
     settings: ApplicationSettings;
+
+    /**
+     * This allows you to subscribe to events or do other actions, before the applications are loaded
+     * However, since the different application’s API-s are defined by the application itself,
+     */
     hooks?: Hooks;
   };
 
@@ -19,13 +29,54 @@ declare module '@puzzel/euwa-wrapper' {
   };
 
   export type Hooks = {
-    [hook: string]: Function;
+    /**
+     * Only publish/subscribe interface is available
+     * @param event
+     * @param callback
+     * @returns
+     */
     onBeforeLoad: (event: string, callback: Function) => void;
+    [hook: string]: Function;
   };
 
   export type ApplicationBridge = {
+    /**
+     * Returns object with minimal chat state
+     * Similar to clicking the start button
+     * It will open the chat window and show the next view
+     * @returns ApplicationAPI
+     */
     api: ApplicationAPI;
     publish: (event: string, ...data: any) => void;
+
+    /**
+     * Subscribe to custom event
+     * @param event
+     * @param callback
+     * ```ts
+     * import {EUWA} from '@puzzel/euwa-wrapper';
+
+        const euwa = new EUWA({
+            configId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+            customerKey: 123456
+        }, {
+            hooks: {
+                // All hooks accept functions
+                onBeforeLoad: subscribeToChatInit
+            }
+        });
+
+        function subscribeToChatInit() {
+            // Get the Chat's event interface
+            const chat = euwa.getApplicationBeforeLoad(EUWA.APPS.CHAT);
+
+            // Subscribe to chatInit* event
+            chat.subscribe('chatInit', data => {
+                console.log('Chat Init Data:', data);
+            });
+        }
+     * ```
+     */
     subscribe: (event: string, callback: Function) => void;
   };
 
@@ -34,27 +85,66 @@ declare module '@puzzel/euwa-wrapper' {
   };
 
   export type SystemVariables = {
+    enteredFormName: string;
     enteredChatId: string;
     enteredFormIssue: string;
-    enteredFormName: string;
     selectedQueueKey: string;
     timeId2Map: string;
   };
 
+  export type ChatState = {
+    isConnected: boolean;
+    isEnded: boolean;
+    isMinimized: boolean;
+  };
+
   export type ApplicationAPI = {
-    [method: string]: Function;
-    getState: Function;
-    isConnected: Function;
+    /**
+     * Returns object with minimal chat state
+     * Similar to clicking the start button
+     * It will open the chat window and show the next view
+     * @returns ChatState
+     */
+    getState: () => ChatState;
+
+    /**
+     * Maximizes the chat window
+     * @returns void
+     */
     maximize: Function;
+
+    /**
+     * Minimizes the chat window
+     * @returns void
+     */
     minimize: Function;
+
+    /**
+     * Starts chat
+     * @returns void
+     */
     startChat: Function;
-    updateSystemVariables: ({
-      enteredFormName,
-      enteredChatId,
-      enteredFormIssue,
-      selectedQueueKey,
-      timeId2Map,
+
+    /**
+     * Updates the chat variables, one may update or set custom variables
+     * @param param
+     * @returns void
+     */
+    updateVariables: ({
+      NewVariableOfYourChoice: string,
     }: SystemVariables) => void;
+
+    /**
+     * Updates system variables
+     * @param enteredFormName
+     * @param enteredChatId
+     * @param enteredFormIssue
+     * @param selectedQueueKey
+     * @param timeId2Map
+     * @returns void
+     */
+    updateSystemVariables: ({ enteredFormName }: SystemVariables) => void;
+    [method: string]: Function;
   };
 
   export class EUWA {
@@ -64,7 +154,24 @@ declare module '@puzzel/euwa-wrapper' {
       { customerKey, configId }: Config,
       { settings, hooks }: Options
     );
+
+    /**
+     * Get the chat application context
+     * @param {string} id - EUWA.APPS.CHAT
+     * ```ts
+     * const chat = await euwa.getApplication(EUWA.APPS.CHAT);
+     * ```
+     */
     getApplication(id: string): Promise<ApplicationBridge>;
+
+    /**
+     * The EUWA’s getApplicationBeforeLoad method is specifically designed to be used with specifically this hook
+     * It will not wait for application’s load and return it’s basic communication interface - events
+     * @param id
+     * ```ts
+     * const chat = euwa.getApplicationBeforeLoad(EUWA.APPS.CHAT);
+     * ```
+     */
     getApplicationBeforeLoad(id: string): ApplicationBridge;
   }
 }
