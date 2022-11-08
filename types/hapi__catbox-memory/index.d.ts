@@ -38,4 +38,4 @@ declare namespace Engine {
     }
 }
 
-export = Engine;
+export { Engine };
