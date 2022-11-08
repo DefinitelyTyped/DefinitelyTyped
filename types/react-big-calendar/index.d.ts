@@ -402,6 +402,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     min?: Date | undefined;
     max?: Date | undefined;
     scrollToTime?: Date | undefined;
+    enableAutoScroll?: boolean | undefined;
     culture?: Culture | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;

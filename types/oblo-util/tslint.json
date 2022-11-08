@@ -5,7 +5,6 @@
         "no-declare-current-package": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
-        "trim-file": false,
         "typedef-whitespace": false
     }
 }

@@ -25,6 +25,7 @@ import DateTimePicker from "sap/m/DateTimePicker";
 import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
+import CalendarUtils from "sap/ui/core/date/CalendarUtils";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -168,9 +169,12 @@ const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
 odataV4Model.delete("something");
 let eTagMap: Record<string, string | null>;
 eTagMap = odataV4Model.getMetaModel().getETags();
+odataV4Model.getKeyPredicate("some/path", {});
 
 const showTimeZone = DateFormatTimezoneDisplay.Show;
 
 const integer = NumberFormat.getIntegerInstance({
     strictGroupingValidation: true
 });
+
+const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();

@@ -112,9 +112,11 @@ declare namespace Dockerode {
         ): void;
         putArchive(file: string | Buffer | NodeJS.ReadableStream, options: {}): Promise<NodeJS.ReadWriteStream>;
 
-        logs(options: ContainerLogsOptions, callback: Callback<NodeJS.ReadableStream>): void;
-        logs(callback: Callback<NodeJS.ReadableStream>): void;
-        logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
+        logs(options: ContainerLogsOptions & { follow?: false }, callback: Callback<Buffer>): void;
+        logs(options: ContainerLogsOptions & { follow: true }, callback: Callback<NodeJS.ReadableStream>): void;
+        logs(callback: Callback<Buffer>): void;
+        logs(options?: ContainerLogsOptions & { follow?: false }): Promise<Buffer>;
+        logs(options?: ContainerLogsOptions & { follow: true }): Promise<NodeJS.ReadableStream>;
 
         stats(options: {}, callback: Callback<ContainerStats>): void;
         stats(callback: Callback<ContainerStats>): void;
@@ -298,9 +300,9 @@ declare namespace Dockerode {
         remove(callback: Callback<any>): void;
         remove(options?: {}): Promise<any>;
 
-        connect(options: {}, callback: Callback<any>): void;
+        connect(options: NetworkConnectOptions, callback: Callback<any>): void;
         connect(callback: Callback<any>): void;
-        connect(options?: {}): Promise<any>;
+        connect(options?: NetworkConnectOptions): Promise<any>;
 
         disconnect(options: {}, callback: Callback<any>): void;
         disconnect(callback: Callback<any>): void;
@@ -440,6 +442,11 @@ declare namespace Dockerode {
         Labels?: { [label: string]: string } | undefined;
 
         abortSignal?: AbortSignal;
+    }
+
+    interface NetworkConnectOptions {
+        Container?: string;
+        EndpointConfig?: EndpointSettings | undefined;
     }
 
     interface NetworkContainer {
@@ -1427,7 +1434,7 @@ declare namespace Dockerode {
     }
 
     interface ServiceListOptions {
-        Filters: {
+        filters: {
             id?: string[] | undefined;
             label?: string[] | undefined;
             mode?: Array<'replicated' | 'global'> | undefined;
@@ -1741,7 +1748,8 @@ declare namespace Dockerode {
         stdout?: boolean | undefined;
         stderr?: boolean | undefined;
         follow?: boolean | undefined;
-        since?: number | undefined;
+        since?: number | string | undefined;
+        until?: number | string | undefined;
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;

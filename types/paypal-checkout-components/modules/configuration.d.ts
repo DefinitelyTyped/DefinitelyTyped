@@ -111,4 +111,5 @@ export interface ButtonStyle {
     shape: ButtonShapeOption;
     size: ButtonSizeOption;
     tagline: boolean;
+    height?: number;
 }

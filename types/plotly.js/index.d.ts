@@ -484,13 +484,22 @@ export interface Layout {
 }
 
 export interface Legend extends Label {
-    traceorder: 'grouped' | 'normal' | 'reversed';
-    x: number;
-    y: number;
     borderwidth: number;
+    groupclick: 'toggleitem' | 'togglegroup';
+    grouptitlefont: Partial<Font>;
+    itemclick: 'toggle' | 'toggleothers' | false;
+    itemdoubleclick: 'toggle' | 'toggleothers' | false;
+    itemsizing: 'trace' | 'constant';
+    itemwidth: number;
     orientation: 'v' | 'h';
+    title: Partial<LegendTitle>;
     tracegroupgap: number;
+    traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
+    uirevision: number | string;
+    valign: 'top' | 'middle' | 'bottom';
+    x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
+    y: number;
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
@@ -1220,6 +1229,9 @@ export interface PlotData {
     hoverlabel: Partial<HoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
+    xhoverformat: string;
+    yhoverformat: string;
+    texttemplate: string | string[];
     textinfo:
         | 'label'
         | 'label+text'
@@ -1608,7 +1620,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<ModeBarDefaultButtons[] | ModeBarButton[]> | false;
+    modeBarButtons: Array<Array<ModeBarDefaultButtons | ModeBarButton>> | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
@@ -1718,6 +1730,12 @@ export interface Label {
 
     /** Sets the default hover label font used by all traces on the graph. */
     font: Partial<Font>;
+}
+
+export interface LegendTitle {
+    font: Partial<Font>;
+    side: 'top' | 'left' | 'top left';
+    text: string;
 }
 
 export interface HoverLabel extends Label {

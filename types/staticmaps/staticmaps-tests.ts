@@ -12,6 +12,7 @@ new StaticMaps({
     paddingY: 1,
     tileUrl: 'https://tile.server/{x}/{y}/{z}',
     tileSize: 50,
+    tileSubdomains: ['a', 'b', 'c'],
     tileRequestLimit: 2,
     tileRequestTimeout: 2000,
     tileRequestHeader: {
@@ -89,6 +90,19 @@ map.addText({
     font: 'Calibri',
     offsetX: 50,
     offsetY: 100
+});
+
+// addCircle
+map.addCircle({
+    coord: [13.437524, 52.4945528],
+    radius: 50,
+});
+map.addCircle({
+    coord: [13.437524, 52.4945528],
+    radius: 100,
+    color: '#ffffff',
+    width: 5,
+    fill: '#000000'
 });
 
 // render

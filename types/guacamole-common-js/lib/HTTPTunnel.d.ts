@@ -12,5 +12,5 @@ export class HTTPTunnel extends Tunnel {
      * @param [extraTunnelHeaders={}] Key value pairs containing the header names and values of any additional
      * headers to be sent in tunnel requests. By default, no extra headers will be added.
      */
-    constructor(tunnelURL: string, crossDomain?: boolean, extraTunnelHeaders?: boolean);
+    constructor(tunnelURL: string, crossDomain?: boolean, extraTunnelHeaders?: Record<string, string>);
 }

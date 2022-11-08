@@ -5,7 +5,6 @@
         "no-padding": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

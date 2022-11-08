@@ -10,7 +10,6 @@
         "npm-naming": false,
         "one-line": false,
         "prefer-template": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

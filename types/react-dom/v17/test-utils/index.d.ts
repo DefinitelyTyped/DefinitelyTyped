@@ -24,6 +24,8 @@ export interface OptionalEventProperties {
     type?: string | undefined;
 }
 
+export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
 export interface SyntheticEventData extends OptionalEventProperties {
     altKey?: boolean | undefined;
     button?: number | undefined;
@@ -39,7 +41,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     deltaY?: number | undefined;
     deltaZ?: number | undefined;
     detail?: number | undefined;
-    getModifierState?(key: string): boolean;
+    getModifierState?(key: ModifierKey): boolean;
     key?: string | undefined;
     keyCode?: number | undefined;
     locale?: string | undefined;

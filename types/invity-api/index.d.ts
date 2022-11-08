@@ -500,7 +500,7 @@ export type SpendTrade = SellVoucherTrade;
 
 // savings types
 
-export type SavingsPaymentMethod = 'bankTransfer';
+export type SavingsPaymentMethod = 'bankTransfer' | 'ach';
 
 export interface InitSavingsTradeRequest {
     returnUrl: string;
@@ -604,6 +604,8 @@ export type SavingsStepParameters = SavingsStepEnabled & {
 
 export type SavingsStepPaymentInfo = SavingsStepEnabled & {
     isAutomaticPaymentPlanningEnabled: boolean;
+    showReceivingAddressChangePaymentInfo: boolean;
+    coinTransferDelayed: boolean;
 };
 
 export interface SavingsProviderFlow {
@@ -703,10 +705,14 @@ export type SavingsKYCStatus =
     | 'Open'
     /** KYC process is in progress. Might take some time to resolve. */
     | 'InProgress'
+    /** KYC process is completed. User may continue (some providers allow to continue). */
+    | 'Completed'
     /** KYC process passed successfully. */
     | 'Verified'
     /** KYC docs are invalid or anything could be wrong. Expecting reason from our partner to handover to the user. */
-    | 'Failed';
+    | 'Failed'
+    /** KYC status check ended up in error state. */
+    | 'Error';
 
 export type SavingsAMLStatus =
     /** AML process didn't start yet. */
@@ -747,6 +753,7 @@ export type SavingsTradeUserKYCStartDocumentType =
     | 'IdentityCard'
     | 'DrivingLicence'
     | 'Selfie'
+    | 'ResidencePermit'
     | 'WalletVerification';
 
 export type SavingsTradeUserKYCStartDocumentImageSide =
@@ -1018,8 +1025,8 @@ export interface P2pTrader {
 }
 
 export interface P2pTradeRequest {
-    provider: string;
-    id: Id;
+    quotesRequest: P2pQuotesRequest;
+    selectedQuote: P2pQuote;
 }
 
 export interface P2pTradeResponse {
