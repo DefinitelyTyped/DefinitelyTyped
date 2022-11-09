@@ -3683,6 +3683,10 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-pretty": {
+            "libraryName": "pino-pretty",
+            "asOfVersion": "5.0.0"
+        },
         "pino-std-serializers": {
             "libraryName": "pino-std-serializers",
             "asOfVersion": "4.0.0"
