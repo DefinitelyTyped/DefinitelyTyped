@@ -468,12 +468,17 @@ const imgProps: ImgProps = {};
 imgProps.decoding = 'async';
 imgProps.decoding = 'auto';
 imgProps.decoding = 'sync';
+imgProps.fetchpriority = 'high';
+imgProps.fetchpriority = 'low';
+imgProps.fetchpriority = 'auto';
 imgProps.loading = 'eager';
 imgProps.loading = 'lazy';
 // @ts-expect-error
-imgProps.loading = 'nonsense';
-// @ts-expect-error
 imgProps.decoding = 'nonsense';
+// @ts-expect-error
+imgProps.fetchpriority = 'nonsense';
+// @ts-expect-error
+imgProps.loading = 'nonsense';
 type ImgPropsWithRef = React.ComponentPropsWithRef<'img'>;
 // $ExpectType ((instance: HTMLImageElement | null) => void) | RefObject<HTMLImageElement> | null | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef['ref'];
