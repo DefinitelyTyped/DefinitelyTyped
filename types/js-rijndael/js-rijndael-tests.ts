@@ -1,17 +1,27 @@
-import { decrypt, encrypt, getBlockSize, getIVSize, getKeySize, listAlgorithms, listModes } from 'js-rijndael';
+import {
+    CipherAlgorithm,
+    decrypt,
+    encrypt,
+    getBlockSize,
+    getIVSize,
+    getKeySize,
+    listAlgorithms,
+    listModes,
+    Mode,
+} from 'js-rijndael';
 
-const cipher = 'rijndael-128';
-const iv = new Uint8Array(16);
-const key = new Uint8Array(32);
-const message = new Uint8Array(16);
-const mode = 'cbc';
+const cipher: CipherAlgorithm = 'rijndael-128';
+const iv: Uint8Array = new Uint8Array(16);
+const key: Uint8Array = new Uint8Array(32);
+const message: Uint8Array = new Uint8Array(16);
+const mode: Mode = 'cbc';
 
-const ctext = encrypt(message, iv, key, cipher, mode);
-const ptext = decrypt(ctext as Uint8Array, iv, key, cipher, mode);
+const ctext: Uint8Array = encrypt(message, iv, key, cipher, mode) as Uint8Array;
+const ptext: Uint8Array = decrypt(ctext, iv, key, cipher, mode) as Uint8Array;
 
-const blockSize = getBlockSize(cipher);
-const keySize = getKeySize(cipher);
-const ivSize = getIVSize(cipher);
+const blockSize: number = getBlockSize(cipher);
+const ivSize: number = getIVSize(cipher);
+const keySize: number = getKeySize(cipher);
 
-const algorithms = listAlgorithms();
-const modes = listModes();
+const algorithms: CipherAlgorithm[] = listAlgorithms();
+const modes: Mode[] = listModes();
