@@ -4,7 +4,6 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType Toast
-// $ExpectType Toast
 const toast = new Toast(element, { animation: false });
 // $ExpectType boolean
 toast.isShown();
