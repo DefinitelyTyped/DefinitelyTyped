@@ -7,13 +7,14 @@ declare module '@puzzel/euwa-wrapper' {
   export type Options = {
     /**
      * Configures how you would like the chat client to behave on start
-     * ```ts
-     * settings: {
-     *  [EUWA.APPS.CHAT]: {
-     *     showStarter: boolean,
-     *    },
-     *   }
-     * ```
+     * @example
+     * new EUWA({ customerKey: string, configId: string }, {
+     *   settings: {
+     *     [EUWA.APPS.CHAT]: {
+     *       showStarter: false,
+     *     },
+     *   },
+     * })
      */
     settings: ApplicationSettings;
 
@@ -47,35 +48,61 @@ declare module '@puzzel/euwa-wrapper' {
      * @returns ApplicationAPI
      */
     api: ApplicationAPI;
+
+    /**
+     * Publish custom events, use this to buidl custom functions to do other work
+     * @example
+     * import {EUWA} from '@puzzel/euwa-wrapper';
+     * const euwa = new EUWA({
+     *    configId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+     *    customerKey: 123456
+     *   }, {
+     *   hooks: {
+     *       // All hooks accept functions
+     *      onBeforeLoad: publishMyCustomEvent
+     *    }
+     * });
+     *
+     * function publishMyCustomEvent() {
+     *    const chat = euwa.getApplicationBeforeLoad(EUWA.APPS.CHAT);
+     *    chat.publish('PublishEvent', data => {
+     *        console.log('PublishEvent Data:', data);
+     *    });
+     * }
+     * @param event
+     * @param data
+     * @returns
+     */
     publish: (event: string, ...data: any) => void;
 
     /**
      * Subscribe to custom event
      * @param event
      * @param callback
-     * ```ts
+     *
+     * @example
      * import {EUWA} from '@puzzel/euwa-wrapper';
-
-        const euwa = new EUWA({
-            configId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-            customerKey: 123456
-        }, {
-            hooks: {
-                // All hooks accept functions
-                onBeforeLoad: subscribeToChatInit
-            }
-        });
-
-        function subscribeToChatInit() {
-            // Get the Chat's event interface
-            const chat = euwa.getApplicationBeforeLoad(EUWA.APPS.CHAT);
-
-            // Subscribe to chatInit* event
-            chat.subscribe('chatInit', data => {
-                console.log('Chat Init Data:', data);
-            });
-        }
-     * ```
+     *
+     *  const euwa = new EUWA({
+     *       configId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+     *       customerKey: 123456
+     *  }, {
+     *       hooks: {
+     *            // All hooks accept functions
+     *             onBeforeLoad: subscribeToChatInit
+     *          }
+     *     }
+     * );
+     *
+     * function subscribeToChatInit() {
+     *    // Get the Chat's event interface
+     *    const chat = euwa.getApplicationBeforeLoad(EUWA.APPS.CHAT);
+     *
+     *    // Subscribe to chatInit* event
+     *    chat.subscribe('chatInit', data => {
+     *        console.log('Chat Init Data:', data);
+     *    });
+     * }
      */
     subscribe: (event: string, callback: Function) => void;
   };
@@ -136,11 +163,11 @@ declare module '@puzzel/euwa-wrapper' {
 
     /**
      * Updates system variables
-     * @param enteredFormName
-     * @param enteredChatId
-     * @param enteredFormIssue
-     * @param selectedQueueKey
-     * @param timeId2Map
+     * @param {string} - enteredFormName
+     * @param {string} - enteredChatId
+     * @param {string} - enteredFormIssue
+     * @param {string} - selectedQueueKey
+     * @param {string} - timeId2Map
      * @returns void
      */
     updateSystemVariables: ({ enteredFormName }: SystemVariables) => void;
@@ -158,19 +185,17 @@ declare module '@puzzel/euwa-wrapper' {
     /**
      * Get the chat application context
      * @param {string} id - EUWA.APPS.CHAT
-     * ```ts
+     * @example
      * const chat = await euwa.getApplication(EUWA.APPS.CHAT);
-     * ```
      */
     getApplication(id: string): Promise<ApplicationBridge>;
 
     /**
      * The EUWA’s getApplicationBeforeLoad method is specifically designed to be used with specifically this hook
      * It will not wait for application’s load and return it’s basic communication interface - events
-     * @param id
-     * ```ts
+     * @param id - EUWA.APPS.CHAT
+     * @example
      * const chat = euwa.getApplicationBeforeLoad(EUWA.APPS.CHAT);
-     * ```
      */
     getApplicationBeforeLoad(id: string): ApplicationBridge;
   }
