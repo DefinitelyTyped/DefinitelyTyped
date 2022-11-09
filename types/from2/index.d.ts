@@ -14,7 +14,7 @@ declare function from2(opts: from2.Options, read: from2.ReadInput): from2.Stream
 
 declare namespace from2 {
     interface Stream extends NodeJS.ReadableStream {
-        destroyed: boolean;
+        readonly destroyed: boolean;
         destroy: (err?: Error) => void;
     }
     function obj(read: ReadObjectInput): Stream;
