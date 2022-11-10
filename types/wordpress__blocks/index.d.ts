@@ -27,7 +27,6 @@ export type CSSDirection = 'top' | 'right' | 'bottom' | 'left';
 export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
-    readonly className: string;
     readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
@@ -43,6 +42,7 @@ export interface BlockIconNormalized {
 export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;
 
 export interface BlockSaveProps<T extends Record<string, any>> {
+    readonly className: string;
     readonly attributes: Readonly<T>;
 }
 
