@@ -11,13 +11,13 @@ import {
 } from 'js-rijndael';
 
 const cipher: CipherAlgorithm = 'rijndael-128';
-const iv: Uint8Array = new Uint8Array(16);
-const key: Uint8Array = new Uint8Array(32);
-const message: Uint8Array = new Uint8Array(16);
+const iv: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
+const key: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const message: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 const mode: Mode = 'cbc';
 
-const ctext: Uint8Array = encrypt(message, iv, key, cipher, mode) as Uint8Array;
-const ptext: Uint8Array = decrypt(ctext, iv, key, cipher, mode) as Uint8Array;
+const ctext: number[] = encrypt(message, iv, key, cipher, mode) as number[];
+const ptext: number[] = decrypt(ctext, iv, key, cipher, mode) as number[];
 
 const blockSize: number = getBlockSize(cipher);
 const ivSize: number = getIVSize(cipher);

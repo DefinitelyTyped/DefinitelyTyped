@@ -17,30 +17,30 @@ declare const ciphers: CipherBody & {
 
 declare function crypt(
     encrypt: boolean,
-    text: Uint8Array,
-    IV: Uint8Array,
-    key: Uint8Array,
+    text: number[],
+    IV: number[],
+    key: number[],
     cipher: CipherAlgorithm,
     mode: Mode,
-): true | Uint8Array;
+): true | number[];
 
-declare function rijndaelCipher(block: Uint8Array, key: Uint8Array, encrypt: boolean): Uint8Array;
+declare function rijndaelCipher(block: number[], key: number[], encrypt: boolean): number[];
 
 export function decrypt(
-    ctext: Uint8Array,
-    IV: Uint8Array,
-    key: Uint8Array,
+    ctext: number[],
+    IV: number[],
+    key: number[],
     cipher: CipherAlgorithm,
     mode: Mode,
-): true | Uint8Array;
+): true | number[];
 
 export function encrypt(
-    message: Uint8Array,
-    IV: Uint8Array,
-    key: Uint8Array,
+    message: number[],
+    IV: number[],
+    key: number[],
     cipher: CipherAlgorithm,
     mode: Mode,
-): true | Uint8Array;
+): true | number[];
 
 export function getBlockSize(cipher: CipherAlgorithm): number;
 
