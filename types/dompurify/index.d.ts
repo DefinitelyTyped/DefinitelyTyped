@@ -1,4 +1,4 @@
-// Type definitions for DOM Purify 2.4.1
+// Type definitions for DOM Purify 2.4
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor https://github.com/davetayls
 //                 Samira Bazuzi <https://github.com/bazuzi>
