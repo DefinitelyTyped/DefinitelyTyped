@@ -1226,7 +1226,7 @@ export interface PlotData {
         | 'z+x+y'
         | 'z+x+y+text'
         | 'z+x+y+name';
-    hoverlabel: Partial<HoverLabel>;
+    hoverlabel: Partial<MultiHoverLabel>;
     hovertemplate: string | string[];
     hovertext: string | string[];
     xhoverformat: string;
@@ -1744,6 +1744,25 @@ export interface HoverLabel extends Label {
      * @default "auto"
      */
     align: 'left' | 'right' | 'auto';
+
+    /**
+     * Sets the default length (in number of characters) of the trace name
+     * in the hover labels for all traces.
+     * -1 shows the whole name regardless of length.
+     * @default 15
+     */
+    namelength: number;
+}
+
+export interface MultiHoverLabel extends Omit<Label, "bgcolor"> {
+    /**
+     * Sets the horizontal alignment of the text content within hover label box.
+     * @default "auto"
+     */
+    align: 'left' | 'right' | 'auto';
+
+    /** Sets the background color of all hover labels on graph or of specific sample. */
+    bgcolor: string | string[];
 
     /**
      * Sets the default length (in number of characters) of the trace name
