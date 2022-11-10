@@ -77,6 +77,11 @@ export interface FakeXMLHttpRequest {
      */
     setResponseHeaders(headers: any): void;
     /**
+     * Sets response status (e.g. 200, 404), checks for validity.
+     * @param status the status code to set
+     */
+    setStatus(status: number): void;
+    /**
      * Sets the respond body, updates the readyState property and fires onreadystatechange.
      * Additionally, populates responseXML with a parsed document if response headers indicate as much.
      */

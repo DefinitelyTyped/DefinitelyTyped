@@ -109,7 +109,7 @@ var maxVelX = new ROSLIB.Param({
     name: 'max_vel_y',
 });
 
-maxVelX.set(0.8);
+maxVelX.set(0.8, function (response) {});
 maxVelX.get(function (value) {
     console.log('MAX VAL: ' + value);
 });
@@ -120,9 +120,10 @@ const tfClient = new ROSLIB.TFClient({
     ros: ros,
     fixedFrame: '/world',
 });
+const stub_tfclient_callback = function (transform: ROSLIB.Transform) {};
 const tfclient_callback = function (transform: ROSLIB.Transform) {
     console.log('Received transform: ' + transform);
-    tfClient.unsubscribe('/transform');
+    tfClient.unsubscribe('/transform', stub_tfclient_callback);
 };
 
 tfClient.subscribe('/transform', tfclient_callback);

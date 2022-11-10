@@ -56,6 +56,10 @@ export function extractReplies(text: string): string[];
 export function extractCashtags(text: string): string[];
 export function extractCashtagsWithIndices(text: string): CashtagWithIndices[];
 export function extractEntitiesWithIndices(text: string): EntityWithIndices[];
+export interface HtmlAttributes {
+    [name: string]: any;
+}
+export function extractHtmlAttrsFromOptions(options: HtmlAttributes): HtmlAttributes;
 
 /**
  * Modifies (in-place) entity indices meant for Unicode text for use with UTF-16 text.
@@ -105,6 +109,30 @@ export function autoLinkEntities(
     entities: ReadonlyArray<EntityWithIndices>,
     options?: AutoLinkOptions,
 ): string;
+export function autoLinkWithJSON(text: string, json: { [key: string]: any }, options?: AutoLinkOptions): string;
+
+export function linkTextWithEntity(entity: UrlEntity, options?: AutoLinkOptions): string;
+
+export function linkToText(
+    entity: EntityWithIndices,
+    text: string,
+    attributes: HtmlAttributes,
+    options?: AutoLinkOptions,
+): string;
+export function linkToTextWithSymbol(
+    entity: EntityWithIndices,
+    symbol: string,
+    text: string,
+    attributes: HtmlAttributes,
+    options?: AutoLinkOptions,
+): string;
+export function linkToCashtag(entity: EntityWithIndices, text: string, options?: AutoLinkOptions): string;
+export function linkToHashtag(entity: EntityWithIndices, text: string, options?: AutoLinkOptions): string;
+export function linkToMentionAndList(entity: EntityWithIndices, text: string, options?: AutoLinkOptions): string;
+export function linkToUrl(entity: EntityWithIndices, text: string, options?: AutoLinkOptions): string;
+
+export function removeOverlappingEntities(entities: EntityWithIndices[]): void;
+export function tagAttrs(attributes: HtmlAttributes): string;
 
 export interface TweetLengthOptions {
     short_url_length: number;
@@ -118,7 +146,8 @@ export function isValidHashtag(hashtag: string): boolean;
 // Note: unicodeDomainsa and requireProtocol can be null
 export function isValidUrl(url: string, unicodeDomains: boolean, requireProtocol: boolean): boolean;
 export function hasInvalidCharacters(text: string): boolean;
-export function isInvalidTweet(text: string): string;
+export function isInvalidTweet(text: string, options?: ParseTweetOptions): boolean;
+export function isValidTweet(text: string, options?: ParseTweetOptions): boolean;
 
 export function getUnicodeTextLength(text: string): number;
 // Note: This function directly modify entities" indices

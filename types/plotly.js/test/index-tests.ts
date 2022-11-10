@@ -277,7 +277,31 @@ const graphDiv = '#test';
         orientation: 'h' as 'h' | 'v',
     };
 
-    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar };
+    // Test the legend with practical types.
+    // https://plotly.com/javascript/reference/layout/#layout-legend
+    const legend: Partial<Plotly.Legend> = {
+        bgcolor: '#ffffff',
+        bordercolor: '#444444',
+        borderwidth: 1,
+        font: { size: 15 },
+        groupclick: 'togglegroup',
+        grouptitlefont: { size: 15 },
+        itemclick: 'toggleothers',
+        itemdoubleclick: 'toggle',
+        itemsizing: 'constant',
+        itemwidth: 50,
+        orientation: 'h',
+        title: { font: { size: 15 }, side: 'top', text: 'Legend Title' },
+        tracegroupgap: 15,
+        traceorder: 'reversed+grouped',
+        valign: 'bottom',
+        x: 1,
+        xanchor: 'left',
+        y: 1,
+        yanchor: 'top',
+    };
+
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar, legend };
     const config: Partial<Config> = {
         modeBarButtons: [
             [

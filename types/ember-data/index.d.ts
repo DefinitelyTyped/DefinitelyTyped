@@ -4,6 +4,8 @@
 //                 Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Chris Thoburn <https://github.com/runspired>
+//                 Peter Wagenet <https://github.com/wagenet>
 //                 Dan Freeman <https://github.com/dfreeman>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
@@ -126,6 +128,7 @@ export namespace DS {
     interface AttrOptions<T> {
         defaultValue?: T extends Exclude<object, null> ? (() => T) : T | (() => T) | undefined;
         allowNull?: boolean | undefined; // TODO: restrict to boolean transform (TS 2.8)
+        [key: string]: unknown;
     }
 
     // The TransformRegistry should really only contain transforms, but historically people have just put the return type directly in.

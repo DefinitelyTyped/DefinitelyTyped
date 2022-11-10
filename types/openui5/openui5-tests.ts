@@ -25,6 +25,7 @@ import DateTimePicker from "sap/m/DateTimePicker";
 import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
+import CalendarUtils from "sap/ui/core/date/CalendarUtils";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -175,3 +176,5 @@ const showTimeZone = DateFormatTimezoneDisplay.Show;
 const integer = NumberFormat.getIntegerInstance({
     strictGroupingValidation: true
 });
+
+const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();

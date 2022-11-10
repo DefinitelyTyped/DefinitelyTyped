@@ -17,7 +17,7 @@ import NodeAttribute from './NodeAttribute';
 import NodeParser from './NodeParser';
 import NodeUniform from './NodeUniform';
 import NodeVar from './NodeVar';
-import NodeVary from './NodeVary';
+import NodeVarying from './NodeVarying';
 
 export type BuildStageOption = 'construct' | 'analyze' | 'generate';
 
@@ -82,7 +82,7 @@ export default abstract class NodeBuilder {
     abstract getCubeTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
 
     // @TODO: rename to .generateConst()
-    getConst(type: NodeTypeOption, value: unknown): Node;
+    getConst(type: NodeTypeOption, value?: unknown): Node;
     getType(type: NodeTypeOption): NodeTypeOption;
 
     generateMethod(method: string): string;
@@ -105,7 +105,7 @@ export default abstract class NodeBuilder {
     getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
     getUniformFromNode(node: Node, shaderStage: NodeShaderStageOption, type: NodeTypeOption): NodeUniform;
     getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
-    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVary;
+    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
     getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;
     addFlowCode(code: string): void;
     getFlowData(node: Node, shaderStage: NodeShaderStageOption): FlowData;
@@ -117,6 +117,7 @@ export default abstract class NodeBuilder {
         output?: string | null,
         propertyName?: string,
     ): FlowData;
+    hasGeometryAttribute(name: string): boolean;
     abstract getAttributes(shaderStage: NodeShaderStageOption): string;
     abstract getVarys(shaderStage: NodeShaderStageOption): string;
     getVars(shaderStage: NodeShaderStageOption): string;
