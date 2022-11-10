@@ -5426,39 +5426,38 @@ declare namespace H {
             }
 
             interface RoutingServiceResult extends H.service.ServiceResult {
-                routes: {
-                    id: string
+                routes: Array<{
+                    id: string,
                     sections: RoutingServiceSection[],
-                }[]
+                }>;
             }
 
             interface RoutingServiceSection {
-                id: string
-                type: string
+                id: string;
+                type: string;
                 transport: {
-                    mode: string
-                }
+                    mode: string,
+                };
                 arrival: {
-                    time: string
-                    place: RoutingServicePlace
-                }
+                    time: string,
+                    place: RoutingServicePlace,
+                };
                 departure: {
-                    time: string
+                    time: string,
                     place: RoutingServicePlace
-                }
+                };
                 summary: {
                     duration: number
                     length: number
-                }
-
+                };
             }
 
             interface RoutingServicePlace {
                 location: {
-                    lat: H.geo.Latitude
-                    lng: H.geo.Longitude
-                }
-                type: string
+                    lat: H.geo.Latitude,
+                    lng: H.geo.Longitude,
+                };
+                type: string;
             }
         }
 
@@ -5805,16 +5804,16 @@ declare namespace H {
              */
             class MultiValueQueryParameter {
                 /**
-                 * @param values {Array<string|number>} - The list of values to be associated to a key in a query string. The order of the values in the list will be preserved to build the query string.
+                 * @param values {Array<string|number>} - The list of values to be associated to a key in a query string. The the values order in the list will be preserved in the query string.
                  * @throws {H.lang.InvalidArgumentError} - in case the argument of the constructor is not an array or its elements have types different from string and number.
                  */
-                constructor(values: (string|number)[]);
+                constructor(values: Array<string|number>);
 
                 /**
                  * Returns the array of values.
                  * @returns {Array<string|number>}
                  */
-                getValues(): (string|number)[];
+                getValues(): Array<string|number>;
             }
         }
 
