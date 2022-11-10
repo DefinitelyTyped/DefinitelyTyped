@@ -36,7 +36,7 @@ export default class ParserRuleContext extends RuleContext {
 
     getTokens(ttype: number): Token[];
 
-    getTypedRuleContext<T extends ParserRuleContext>(cxtType: T, i: number): T;
+    getTypedRuleContext<T extends ParserRuleContext>(cxtType: { new (...args: any[]): T }, i: number): T;
 
-    getTypedRuleContexts<T extends ParserRuleContext>(cxtType: T): T[];
+    getTypedRuleContexts<T extends ParserRuleContext>(cxtType: { new (...args: any[]): T }): T[];
 }
