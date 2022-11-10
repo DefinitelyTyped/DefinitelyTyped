@@ -106,11 +106,15 @@ declare namespace Later {
         [timePeriodAndModifierName: string]: number[] | undefined;
     }
 
-    interface ParseStatic {
+    /**
+     * Parse
+     * For generating schedule data.
+     */
+    namespace parse {
         /**
          * Create a recurrence builder for building schedule data.
          */
-        recur(): RecurrenceBuilder;
+        function recur(): RecurrenceBuilder;
 
         /**
          * Create schedule data by parsing a cron string
@@ -118,14 +122,14 @@ declare namespace Later {
          * @param input - A string value to parse.
          * @param hasSeconds - Whether the cron expression has second part.
          */
-        cron(input?: string, hasSeconds?: boolean): ScheduleData;
+        function cron(input?: string, hasSeconds?: boolean): ScheduleData;
 
         /**
          * Create schedule data by paring a human readable string.
          *
          * @param input - A string value to parse.
          */
-        text(input?: string): ScheduleData;
+        function text(input?: string): ScheduleData;
     }
 
     interface Timer {
@@ -328,16 +332,19 @@ declare namespace Later {
         customModifier(key: string, values: number): RecurrenceBuilder;
     }
 
-    interface DateProvider {
+    /**
+     * Date Provider
+     */
+    namespace date {
         /**
          * Set later to use UTC time.
          */
-        UTC(): void;
+        function UTC(): void;
 
         /**
          * Set later to use local time.
          */
-        localTime(): void;
+        function localTime(): void;
 
         /**
          * Builds and returns a new Date using the specified values.  Date
@@ -350,7 +357,7 @@ declare namespace Later {
          * @param m: Minute between 0 and 59, defaults to 0
          * @param s: Second between 0 and 59, defaults to 0
          */
-        next(Y?: number, M?: number, D?: number, h?: number, m?: number, s?: number): Date;
+        function next(Y?: number, M?: number, D?: number, h?: number, m?: number, s?: number): Date;
 
         /**
          * Builds and returns a new Date using the specified values.  Date
@@ -363,7 +370,7 @@ declare namespace Later {
          * @param m: Minute between 0 and 59, defaults to 59
          * @param s: Second between 0 and 59, defaults to 59
          */
-        prev(Y?: number, M?: number, D?: number, h?: number, m?: number, s?: number): Date;
+        function prev(Y?: number, M?: number, D?: number, h?: number, m?: number, s?: number): Date;
 
         /**
          * Determines if a value will cause a particular constraint to rollover to the
@@ -375,7 +382,7 @@ declare namespace Later {
          * @param constraint: A modifier
          * @param period: A time period
          */
-        nextRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
+        function nextRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
 
         /**
          * Determines if a value will cause a particular constraint to rollover to the
@@ -387,7 +394,7 @@ declare namespace Later {
          * @param constraint: A modifier
          * @param period: A time period
          */
-        prevRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
+        function prevRollover(d: Date, val: number, constraint: Modifier, period: TimePeriod): Date;
     }
 
     interface TimePeriod {
@@ -470,25 +477,37 @@ declare namespace Later {
         (constraint: TimePeriod, value: number): TimePeriod;
     }
 
-    interface ModifierStatic {
+    /**
+     * Later Modifiers:
+     *
+     * This type can be easily extended to include any custom IModifiers that you desire.
+     * These can then be used to create schedules of your own custom type.
+     *
+     * interface IGandalfsLaterModifier extends Later.IModifierStatic {
+     *     duringTheThirdAge: IModifier
+     * }
+     *
+     * Be sure to use this interface when dealing with Later.modifier
+     */
+    namespace modifier {
         /**
          * After Modifier
          */
-        after: Modifier;
+        const after: Modifier;
 
         /**
          * Before Modifier
          */
-        before: Modifier;
+        const before: Modifier;
     }
 
-    interface ArrayStatic {
+    namespace array {
         /**
          * Sorts the array in place.
          * @param array The array to be sorted
          * @param zeroIsLast Should zero be sorted to the end of the array
          */
-        sort(array: number[], zeroIsLast?: boolean): void;
+        function sort(array: number[], zeroIsLast?: boolean): void;
 
         /**
          * Returns the next valid value in the array.
@@ -496,7 +515,7 @@ declare namespace Later {
          * @param array The array to be searched
          * @param extent The extents of the array
          */
-        next(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
+        function next(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
 
         /**
          * Returns the next invalid value in the array.
@@ -504,7 +523,7 @@ declare namespace Later {
          * @param array The array to be searched
          * @param extent The extents of the array
          */
-        nextInvalid(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
+        function nextInvalid(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
 
         /**
          * Returns the previous valid value in the array.
@@ -512,7 +531,7 @@ declare namespace Later {
          * @param array The array to be searched
          * @param extent The extents of the array
          */
-        prev(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
+        function prev(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
 
         /**
          * Returns the previous invalid value in the array.
@@ -520,164 +539,130 @@ declare namespace Later {
          * @param array The array to be searched
          * @param extent The extents of the array
          */
-        prevInvalid(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
+        function prevInvalid(current: number, array: number[], extent: [minimum: number, maximum: number]): number;
     }
-
-    interface Static {
-        /**
-         * Array methods
-         */
-        array: ArrayStatic;
 
         /**
          * Generates instances from schedule data.
          */
-        schedule(input: any): Schedule;
+        function schedule(input: any): Schedule;
 
         /**
          * @param schedule The schedule to be parsed
          */
-        compile(schedule: Schedule): TimePeriod;
-
-        /**
-         * Parse
-         * For generating schedule data.
-         */
-        parse: ParseStatic;
-
-        /**
-         * Date Provider
-         */
-        date: DateProvider;
+        function compile(schedule: Schedule): TimePeriod;
 
         /**
          * Set timeout on window using given recurrence next.
          *
          * @param callback - A callback called after first instance of recurrence pattern.
-         * @param - A recurrence instance.
+         * @param time A recurrence instance.
          */
-        setTimeout(callback: () => void, time: ScheduleData): Timer;
+        function setTimeout(callback: () => void, time: ScheduleData): Timer;
 
         /**
          * Set interval on window using given recurrence
          *
          * @param callback - A callback called after each instance of recurrence pattern.
-         * @param - A recurrence instance.
+         * @param time A recurrence instance.
          */
-        setInterval(callback: () => void, time: ScheduleData): Timer;
+        function setInterval(callback: () => void, time: ScheduleData): Timer;
 
         /**
          * time period information provider.
          */
-        time: TimePeriod;
-        t: TimePeriod;
+        const time: TimePeriod;
+        const t: TimePeriod;
         /**
          * Second time period information provider.
          */
-        second: TimePeriod;
-        s: TimePeriod;
+        const second: TimePeriod;
+        const s: TimePeriod;
         /**
          * Minute time period information provider.
          */
-        minute: TimePeriod;
-        m: TimePeriod;
+        const minute: TimePeriod;
+        const m: TimePeriod;
         /**
          * Hour time period information provider.
          */
-        hour: TimePeriod;
-        h: TimePeriod;
+        const hour: TimePeriod;
+        const h: TimePeriod;
         /**
          * Day time period information provider.
          */
-        day: TimePeriod;
-        D: TimePeriod;
+        const day: TimePeriod;
+        const D: TimePeriod;
         /**
          * Day of week time period information provider.
          */
-        dayOfWeek: TimePeriod;
-        dw: TimePeriod;
-        d: TimePeriod;
+        const dayOfWeek: TimePeriod;
+        const dw: TimePeriod;
+        const d: TimePeriod;
         /**
          * Day of week in month time period information provider.
          */
-        dayOfWeekCount: TimePeriod;
-        dc: TimePeriod;
+        const dayOfWeekCount: TimePeriod;
+        const dc: TimePeriod;
         /**
          * Day in year time period information provider.
          */
-        dayOfYear: TimePeriod;
-        dy: TimePeriod;
+        const dayOfYear: TimePeriod;
+        const dy: TimePeriod;
         /**
          * Week of month time period information provider.
          */
-        weekOfMonth: TimePeriod;
-        wm: TimePeriod;
+        const weekOfMonth: TimePeriod;
+        const wm: TimePeriod;
         /**
          * Week of year from ISO 8601 time period information provider.
          */
-        weekOfYear: TimePeriod;
-        wy: TimePeriod;
+        const weekOfYear: TimePeriod;
+        const wy: TimePeriod;
         /**
          * Month time period information provider.
          */
-        month: TimePeriod;
-        M: TimePeriod;
+        const month: TimePeriod;
+        const M: TimePeriod;
         /**
          * Year time period information provider.
          */
-        year: TimePeriod;
-        Y: TimePeriod;
+        const year: TimePeriod;
+        const Y: TimePeriod;
         /**
          * Full date time period information provider.
          */
-        fullDate: TimePeriod;
-        fd: TimePeriod;
+        const fullDate: TimePeriod;
+        const fd: TimePeriod;
 
         /**
          * Constant for the number of milliseconds in a second.
          */
-        SEC: 1000;
+        const SEC: 1000;
         /**
          * Constant for the number of milliseconds in a minute.
          */
-        MIN: 60_000;
+        const MIN: 60_000;
         /**
          * Constant for the number of milliseconds in an hour.
          */
-        HOUR: 3_600_000;
+        const HOUR: 3_600_000;
         /**
          * Constant for the number of milliseconds in a day.
          */
-        DAY: 86_400_000;
+        const DAY: 86_400_000;
         /**
          * Constant for the number of milliseconds in a week.
          */
-        WEEK: 604_800_000;
+        const WEEK: 604_800_000;
         /**
          * Constant for the number of days in each month.
          */
-        DAYS_IN_MONTH: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const DAYS_IN_MONTH: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         /**
          * Constant for never.
          */
-        NEVER: 0;
-
-        /**
-         * Later Modifiers:
-         *
-         * This type can be easily extended to include any custom IModifiers that you desire.
-         * These can then be used to create schedules of your own custom type.
-         *
-         * interface IGandalfsLaterModifier extends Later.IModifierStatic {
-         *     duringTheThirdAge: IModifier
-         * }
-         *
-         * Be sure to use this interface when dealing with Later.modifier
-         */
-        modifier: ModifierStatic;
-    }
+        const NEVER: 0;
 }
 
-declare const later: Later.Static;
-
-export = later;
+export = Later;
