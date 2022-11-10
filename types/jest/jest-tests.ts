@@ -567,6 +567,8 @@ jest.spyOn(spiedTarget, 'setValue', undefined);
 // @ts-expect-error
 jest.spyOn(spiedTarget2, 'value');
 
+jest.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => null);
+
 const spy1 = jest.spyOn(spiedTarget, 'returnsVoid');
 const spy3 = jest.spyOn(spiedTarget, 'returnsString');
 const spy1Name: string = spy1.getMockName();
@@ -677,8 +679,8 @@ jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 let typedSpy: jest.Spied<typeof spiedTarget.returnsVoid>;
 typedSpy = jest.spyOn(spiedTarget, 'returnsVoid');
 
-let typedSpy1: jest.SpiedClass<typeof globalThis.Date>;
-typedSpy1 = jest.spyOn(globalThis, 'Date');
+let typedSpy1: jest.SpiedClass<typeof globalThis.Error>;
+typedSpy1 = jest.spyOn(globalThis, 'Error');
 
 let typedSpy2: jest.SpiedFunction<typeof spiedTarget.setValue>;
 typedSpy2 = jest.spyOn(spiedTarget, 'setValue');

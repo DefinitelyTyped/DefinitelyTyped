@@ -390,17 +390,17 @@ declare namespace jest {
         : Value extends Func
         ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
         : never;
-    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
-        object: T,
-        method: M,
-    ): Required<T>[M] extends new (...args: any[]) => any
-        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
-        : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
         method: M,
     ): FunctionProperties<Required<T>>[M] extends Func
         ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
+        : never;
+    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        object: T,
+        method: M,
+    ): Required<T>[M] extends new (...args: any[]) => any
+        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
         : never;
     /**
      * Indicates that the module system should never return a mocked version of
