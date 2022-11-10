@@ -298,7 +298,7 @@ export function createRenderer(): ShallowRenderer;
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // tslint:disable-next-line: void-return
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-export function act(callback: () => Promise<void>): Promise<undefined>;
+export function act<T>(callback: () => T | Promise<T>): Promise<T>;
 export function act(callback: () => VoidOrUndefinedOnly): void;
 
 // Intentionally doesn't extend PromiseLike<never>.
