@@ -5320,9 +5320,10 @@ declare namespace H {
              * @param opt_options {H.service.RoutingService.Options=}
              * @returns {H.service.RoutingService}
              */
-            getRoutingService(opt_options?: H.service.RoutingService.Options): H.service.RoutingService;
+            getRoutingService(opt_options?: H.service.RoutingService.Options, opt_version?: number): H.service.RoutingService;
 
             /**
+             * @deprecated since 3.1.30.12 - This service is no longer being actively developed.
              * This method returns an instance of H.service.GeocodingService to query the Geocoder API
              * @param opt_options {H.service.GeocodingService.Options=} - an optional set of options for the new geocoding service to connect to
              * @returns {H.service.GeocodingService} - a new geocoding service instance
@@ -5760,6 +5761,25 @@ declare namespace H {
              * @returns {string} - the URL's string representation
              */
             toString(): string;
+        }
+
+        namespace Url {
+            /**
+             * This class represents the set of values to be associated to a key in cases where it is required to be repeated multiple times in a query string.
+             */
+            class MultiValueQueryParameter {
+                /**
+                 * @param values {Array<string|number>} - The list of values to be associated to a key in a query string. The order of the values in the list will be preserved to build the query string.
+                 * @throws {H.lang.InvalidArgumentError} - in case the argument of the constructor is not an array or its elements have types different from string and number.
+                 */
+                constructor(values: (string|number)[]);
+
+                /**
+                 * Returns the array of values.
+                 * @returns {Array<string|number>}
+                 */
+                getValues(): (string|number)[];
+            }
         }
 
         namespace metaInfo {
