@@ -54,6 +54,7 @@ declare namespace DOMPurify {
         ALLOW_UNKNOWN_PROTOCOLS?: boolean | undefined;
         ALLOWED_ATTR?: string[] | undefined;
         ALLOWED_TAGS?: string[] | undefined;
+        ALLOWED_NAMESPACES?: string[] | undefined;
         ALLOWED_URI_REGEXP?: RegExp | undefined;
         FORBID_ATTR?: string[] | undefined;
         FORBID_CONTENTS?: string[] | undefined;
