@@ -5407,10 +5407,10 @@ declare namespace H {
              * This method sends a "calculateroute" request to Routing REST API and calls the onResult callback function once the service response was received - providing a
              * H.service.ServiceResult object - or the onError callback if a communication error occured.
              * @param calculateRouteParams {H.service.ServiceParameters} - the service parameters to be sent with the routing request.
-             * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Routing REST API provides a response to the request.
+             * @param onResult {function(H.service.RoutingServiceResult)} - this function will be called once the Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            calculateRoute(calculateRouteParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): void;
+            calculateRoute(calculateRouteParams: H.service.ServiceParameters, onResult: (result: H.service.RoutingService.RoutingServiceResult) => void, onError: (error: Error) => void): void;
         }
 
         namespace RoutingService {
@@ -5423,6 +5423,42 @@ declare namespace H {
                 subDomain?: string | undefined;
                 path?: string | undefined;
                 baseUrl?: H.service.Url | undefined;
+            }
+
+            interface RoutingServiceResult extends H.service.ServiceResult {
+                routes: {
+                    id: string
+                    sections: RoutingServiceSection[],
+                }[]
+            }
+
+            interface RoutingServiceSection {
+                id: string
+                type: string
+                transport: {
+                    mode: string
+                }
+                arrival: {
+                    time: string
+                    place: RoutingServicePlace
+                }
+                departure: {
+                    time: string
+                    place: RoutingServicePlace
+                }
+                summary: {
+                    duration: number
+                    length: number
+                }
+
+            }
+
+            interface RoutingServicePlace {
+                location: {
+                    lat: H.geo.Latitude
+                    lng: H.geo.Longitude
+                }
+                type: string
             }
         }
 
