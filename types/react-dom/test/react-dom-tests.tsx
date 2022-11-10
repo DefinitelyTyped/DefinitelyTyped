@@ -205,7 +205,7 @@ describe('React dom test utils', () => {
             it('accepts a callback that returns a value', () => {
                 ReactTestUtils.act(() => "value");
             });
-            it('returns a type that is not Promise-like', () => {
+            it('returns a type that is Promise-like', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
                 result.then(x => {});
