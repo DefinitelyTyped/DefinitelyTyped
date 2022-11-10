@@ -1,6 +1,4 @@
-import { NightwatchAPI } from "nightwatch";
-
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI } from './utils';
 
 // Expect test for language chains
 
@@ -54,6 +52,8 @@ it('actions.dragAndDrop', () => {
 
         const webElement2 = sampleElement.findElement();
         isNightwatchAPI(webElement2);
+        // @ts-expect-error
+        browser.actions().dragAndDrop(webElement2, {x: 12, y: 234});
         browser.actions().dragAndDrop(await webElement2, {x: 12, y: 234});
 
         const webElement3 = await sampleElement.findElement('something');

@@ -13,9 +13,9 @@ import {
     JSON_WEB_OBJECT,
 } from 'nightwatch';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI, isType } from './utils';
+
 function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
-function isType<T>(v: T): T { return v; }
 
 //
 // ./tests/general.ts
