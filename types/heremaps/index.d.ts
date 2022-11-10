@@ -880,6 +880,15 @@ declare namespace H {
             constructor(opt_latLngAlts?: number[], opt_ctx?: H.geo.AltitudeContext);
 
             /**
+             * Decodes the specified Flexible Polyline and converts it to the LineString.
+             *
+             * @param encodedPolyline {string}
+             * @throws {Error} - if the specified data has an invalid encoding.
+             * @throws {H.lang.InvalidArgumentError} - if the third dimension type is other then ABSENT or ALTITUDE
+             */
+            static fromFlexiblePolyline(encodedPolyline: string): LineString;
+
+            /**
              * This method pushes a lat, lng, alt to the end of this LineString.
              * @param lat {H.geo.Latitude}
              * @param lng {H.geo.Longitude}
@@ -2913,6 +2922,7 @@ declare namespace H {
             fillColor: string;
             lineWidth: number;
             lineCap: H.map.SpatialStyle.LineCap;
+            lineTailCap?: H.map.SpatialStyle.LineCap | undefined;
             lineJoin: H.map.SpatialStyle.LineJoin;
             miterLimit: number;
             lineDash: number[];
@@ -2949,6 +2959,7 @@ declare namespace H {
                 fillColor?: string | undefined;
                 lineWidth?: number | undefined;
                 lineCap?: H.map.SpatialStyle.LineCap | undefined;
+                lineTailCap?: H.map.SpatialStyle.LineCap | undefined;
                 lineJoin?: H.map.SpatialStyle.LineJoin | undefined;
                 miterLimit?: number | undefined;
                 lineDash?: number[] | undefined;
@@ -5450,6 +5461,7 @@ declare namespace H {
                     duration: number
                     length: number
                 };
+                polyline: string;
             }
 
             interface RoutingServicePlace {
