@@ -13,9 +13,9 @@ import {
     JSON_WEB_OBJECT,
 } from 'nightwatch';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI, isType } from './utils';
+
 function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
-function isType<T>(v: T): T { return v; }
 
 //
 // ./tests/general.ts
@@ -72,6 +72,28 @@ const testGeneral: NightwatchTests = {
         browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
         // @ts-expect-errors
         browser.browserName = 'firefox';
+
+        browser.element('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+
+        browser.elements('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[0][ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+    },
+
+    'Demo Nightwatch API commands with async/await': async () => {
+        const element = await browser.element('css selector', 'something');
+        isType<string>(element[ELEMENT_KEY]);
+
+        const elements = await browser.elements('css selector', 'something');
+        isType<string>(elements[0][ELEMENT_KEY]);
     },
 
     'Can run accessibility tests': () => {

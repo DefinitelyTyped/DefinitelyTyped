@@ -1,12 +1,6 @@
-import { NightwatchAPI, Cookie, NightwatchLogEntry, NightwatchCallbackResult } from "nightwatch";
+import { Cookie, NightwatchLogEntry } from 'nightwatch';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
-function isNightwatchCallbackResult<T>(result: NightwatchCallbackResult<T>): T | void {
-    if (result.status === 0) {
-        return result.value;
-    }
-}
-function isType<T>(v: T): T { return v; }
+import { isNightwatchAPI, isNightwatchCallbackResult, isType } from './utils';
 
 //
 // .navigateTo
