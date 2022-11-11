@@ -4,28 +4,28 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Size {
-	width: number;
-	height: number;
+    width: number;
+    height: number;
 
-	innerWidth: number;
-	innerHeight: number;
-	outerWidth: number;
-	outerHeight: number;
+    innerWidth: number;
+    innerHeight: number;
+    outerWidth: number;
+    outerHeight: number;
 
-  paddingLeft: number;
-  paddingRight: number;
-  paddingTop: number;
-  paddingBottom: number;
+    paddingLeft: number;
+    paddingRight: number;
+    paddingTop: number;
+    paddingBottom: number;
 
-  marginLeft: number;
-  marginRight: number;
-  marginTop: number;
-  marginBottom: number;
+    marginLeft: number;
+    marginRight: number;
+    marginTop: number;
+    marginBottom: number;
 
-  borderLeftWidth: number;
-  borderRightWidth: number;
-  borderTopWidth: number;
-  borderBottomWidth: number;
+    borderLeftWidth: number;
+    borderRightWidth: number;
+    borderTopWidth: number;
+    borderBottomWidth: number;
 }
 
 declare function getSize(element: string | Element): Size;
