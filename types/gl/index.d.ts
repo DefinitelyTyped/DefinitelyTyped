@@ -19,7 +19,7 @@ interface STACKGL_destroy_context {
 declare function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext & StackGLExtension;
 
 declare namespace createContext {
-    export const WebGLRenderingContext: WebGLRenderingContext & StackGLExtension & {
+    const WebGLRenderingContext: WebGLRenderingContext & StackGLExtension & {
         new(): WebGLRenderingContext & StackGLExtension;
         prototype: WebGLRenderingContext & StackGLExtension;
     };
