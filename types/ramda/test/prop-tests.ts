@@ -109,8 +109,9 @@ function maybe<T>(value: T): T | undefined { return value; }
     R.prop<number>(R.__, obj)('x'); // $ExpectType number
 };
 
-() => { // map using prop function
+() => { // community failed tests
     const objArray = [{ foo: 'bar' }];
     objArray.map(R.prop('foo')); // $ExpectType string[]
     R.map(R.prop('foo'), objArray); // $ExpectType string[]
+    Promise.resolve({ foo: "bar" }).then(R.prop('foo')); // $ExpectType Promise<string>
 };
