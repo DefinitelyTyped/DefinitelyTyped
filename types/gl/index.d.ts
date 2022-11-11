@@ -3,8 +3,6 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type WebGLRenderingContext = typeof window.WebGLRenderingContext & StackGLExtension;
-
 interface StackGLExtension {
     getExtension(extensionName: "STACKGL_resize_drawingbuffer"): STACKGL_resize_drawingbuffer | null;
     getExtension(extensionName: "STACKGL_destroy_context"): STACKGL_destroy_context | null;
@@ -18,10 +16,13 @@ interface STACKGL_destroy_context {
     destroy(): void;
 }
 
-declare function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext;
+declare function createContext(width: number, height: number, options?: WebGLContextAttributes): WebGLRenderingContext & StackGLExtension;
 
 declare namespace createContext {
-    const WebGLRenderingContext: WebGLRenderingContext;
+    const WebGLRenderingContext: WebGLRenderingContext & StackGLExtension & {
+        new(): WebGLRenderingContext & StackGLExtension;
+        prototype: WebGLRenderingContext & StackGLExtension;
+    };
 }
 
 export = createContext;
