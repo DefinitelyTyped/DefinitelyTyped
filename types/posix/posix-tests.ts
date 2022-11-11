@@ -117,8 +117,16 @@ limit.hard;
 
 /* test-initgroups */
 
+posix.initgroups?.('root', 0);
+
 // $ExpectType void
+posix.initgroups!('root', 0);
+
+// @ts-expect-error
 posix.initgroups('root', 0);
+
+// @ts-expect-error
+posix.initgroups?.('root');
 
 /* test-setegid */
 
@@ -240,3 +248,33 @@ posix.closelog('bye');
 
 // $ExpectType void
 posix.closelog();
+
+/* test-swap */
+
+posix.swapon?.('path');
+
+posix.swapon?.('path', { prefer: true });
+
+// $ExpectType void
+posix.swapon!('path', { prefer: true });
+
+if (posix.swapon) {
+    // $ExpectType void
+    posix.swapon('path', { prefer: true });
+}
+
+// @ts-expect-error
+posix.swapon('path');
+
+// @ts-expect-error
+posix.swapon('path', { prefer: true });
+
+posix.swapoff?.('path');
+
+// $ExpectType void
+posix.swapoff!('path');
+
+if (posix.swapoff) {
+    // $ExpectType void
+    posix.swapoff('path');
+}
