@@ -43,7 +43,7 @@ swell.account.updateAddress('', {
 });
 
 swell.attributes.get(''); // $ExpectType Promise<unknown>
-swell.attributes.list({}); // $ExpectType Promise<unknown>
+swell.attributes.list({}); // $ExpectType Promise<ListResult<unknown>>
 
 swell.card.createToken({}); // $ExpectType Promise<unknown>
 swell.card.validateCVC(''); // $ExpectType boolean
@@ -75,10 +75,10 @@ swell.cart.update({
 swell.cart.updateItem('', {}); // $ExpectType Promise<Cart>
 
 swell.categories.get(''); // $ExpectType Promise<unknown>
-swell.categories.list({}); // $ExpectType Promise<unknown>
+swell.categories.list({}); // $ExpectType Promise<ListResult<unknown>>
 
 swell.currency.format(1, {}); // $ExpectType string
-swell.currency.list(); // $ExpectType Promise<unknown>
+swell.currency.list(); // $ExpectType Promise<ListResult<unknown>>
 swell.currency.select(''); // $ExpectType Promise<unknown>
 swell.currency.selected(); // $ExpectType Promise<string>
 
@@ -88,7 +88,7 @@ swell.locale.select(''); // $ExpectType Promise<unknown>
 swell.payment.createElements({}); // $ExpectType Promise<unknown>
 swell.payment.tokenize({}); // $ExpectType void
 swell.products.get(''); // $ExpectType Promise<Product>
-swell.products.list({}); // $ExpectType Promise<Product>
+swell.products.list({}); // $ExpectType Promise<ListResult<Product>>
 // $ExpectType Promise<Product>
 swell.products.variation('', {
     name: '',
@@ -104,7 +104,7 @@ swell.settings.payments(); // $ExpectType Promise<unknown>
 swell.subscriptions.addItem('', {}); // $ExpectType Promise<unknown>
 swell.subscriptions.create({}); // $ExpectType Promise<unknown>
 swell.subscriptions.get(''); // $ExpectType Promise<unknown>
-swell.subscriptions.list(); // $ExpectType Promise<unknown>
+swell.subscriptions.list(); // $ExpectType Promise<ListResult<unknown>>
 swell.subscriptions.removeItem('', ''); // $ExpectType Promise<unknown>
 swell.subscriptions.update('', {}); // $ExpectType Promise<unknown>
 swell.subscriptions.updateItem('', '', {}); // $ExpectType Promise<unknown>
