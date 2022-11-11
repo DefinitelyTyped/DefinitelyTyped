@@ -85,7 +85,7 @@ export interface Font {
         features?: string[] | Record<string, boolean>,
         script?: string,
         language?: string,
-        direction?: string
+        direction?: string,
     ): GlyphRun;
 }
 
@@ -269,13 +269,12 @@ export interface Os2Table {
     defaultChar: number;
     fsSelection: {
         italic: boolean;
-        underscore: boolean;
         negative: boolean;
         outlined: boolean;
         strikeout: boolean;
         underscore: boolean;
         useTypoMetrics: boolean;
-        wws: boolean;       
+        wws: boolean;
     };
     fsType: {
         bitmapOnly: boolean;
