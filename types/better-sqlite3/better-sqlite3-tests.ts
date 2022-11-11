@@ -122,3 +122,9 @@ db.backup('backup-today.db', {
         return paused ? 0 : 200;
     },
 });
+
+const newDb = new Sqlite(db.serialize());
+db.close();
+
+const stmtWithNamedBindForNewDb = newDb.prepare<NamedBindParameters>('INSERT INTO test VALUES (@name, @age, @id)');
+stmtWithNamedBindForNewDb.run({ name: 'bob1', age: 201, id: BigInt(1234) });

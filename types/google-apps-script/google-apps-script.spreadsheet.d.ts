@@ -1757,6 +1757,7 @@ declare namespace GoogleAppsScript {
       setRowGroupControlPosition(position: GroupControlTogglePosition): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
       setRowHeights(startRow: Integer, numRows: Integer, height: Integer): Sheet;
+      setRowHeightsForced(startRow: Integer, numRows: Integer, height: Integer): Sheet;
       setTabColor(color: string | null): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;

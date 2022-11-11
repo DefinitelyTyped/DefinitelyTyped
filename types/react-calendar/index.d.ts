@@ -18,6 +18,7 @@ export type ViewCallback = (props: ViewCallbackProperties) => void;
 export type DrillCallback = (props: DrillCallbackProperties) => void;
 
 export default function Calendar(props: CalendarProps): JSX.Element;
+export function Calendar(props: CalendarProps): JSX.Element;
 
 export interface CalendarProps {
     activeStartDate?: Date | undefined;
@@ -34,6 +35,7 @@ export interface CalendarProps {
     formatMonthYear?: FormatterCallback | undefined;
     formatShortWeekday?: FormatterCallback | undefined;
     formatYear?: FormatterCallback | undefined;
+    goToRangeStartOnSelect?: boolean | undefined;
     inputRef?:
         | ((ref: HTMLInputElement | null) => void)
         | RefObject<HTMLInputElement>

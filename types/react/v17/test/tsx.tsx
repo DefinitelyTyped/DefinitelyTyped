@@ -546,3 +546,145 @@ function reactNodeTests() {
     </div>;
     <div>{createChildren()}</div>;
 }
+
+function elementTypeTests() {
+    const ReturnVoid = () => {};
+    // Test disabled since it fails in TypeScript 4.8 (intended) but not earlier.
+    // class RenderVoid extends React.Component {
+    //     // @ts-expect-error
+    //     render() {}
+    // }
+
+    const ReturnUndefined = () => undefined;
+    class RenderUndefined extends React.Component {
+        // Undesired behavior: Return `undefined` will throw at runtime.
+        // Though this behavior was changed in 18 for this specific reason: A single type for returning and taking children is better.
+        // We'll probably break a lot of existing code if we would reject with little gain for runtime safety.
+        render() {
+          return undefined;
+        }
+    }
+
+    const ReturnNull = () => null;
+    class RenderNull extends React.Component {
+        render() {
+          return null;
+        }
+    }
+
+    const ReturnNumber = () => 0xeac1;
+    class RenderNumber extends React.Component {
+        render() {
+          return 0xeac1;
+        }
+    }
+
+    const ReturnString = () => 'Hello, Dave!';
+    class RenderString extends React.Component {
+        render() {
+          return 'Hello, Dave!';
+        }
+    }
+
+    const ReturnSymbol = () => Symbol.for('react');
+    class RenderSymbol extends React.Component {
+        // Undesired behavior that we can't change in 17 but was fixed in 18.
+        // Accepted because `ReactNode` includes `{}`
+        render() {
+          return Symbol.for('react');
+        }
+    }
+
+    const ReturnArray = () => [<div key="one" />];
+    class RenderArray extends React.Component {
+        render() {
+          return [<div key="one" />];
+        }
+    }
+
+    const ReturnElement = () => <div />;
+    class RenderElement extends React.Component {
+        render() {
+          return <div />;
+        }
+    }
+
+    const ReturnReactNode = ({children}: {children?: React.ReactNode}) => children;
+    class RenderReactNode extends React.Component<{children?: React.ReactNode}> {
+        render() {
+          return this.props.children;
+        }
+    }
+
+    // Undesired behavior. Returning `void` should be rejected in all forms.
+    // Only TypeScript 4.8 rejects `<RenderVoid />`
+    // @ts-expect-error
+    <ReturnVoid />;
+    // @ts-expect-error
+    React.createElement(ReturnVoid);
+    // Test disabled since it fails in TypeScript 4.8 (intended) but not earlier.
+    // <RenderVoid />;
+    // React.createElement(RenderVoid);
+
+    // Undesired behavior. Returning `undefined` should be rejected in all forms.
+    // @ts-expect-error
+    <ReturnUndefined />;
+    // @ts-expect-error
+    React.createElement(ReturnUndefined);
+    <RenderUndefined />;
+    React.createElement(RenderUndefined);
+
+    // Desired behavior.
+    <ReturnNull />;
+    React.createElement(ReturnNull);
+    <RenderNull />;
+    React.createElement(RenderNull);
+
+    // Undesired behavior. Returning `number` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnNumber />;
+    // @ts-expect-error
+    React.createElement(ReturnNumber);
+    <RenderNumber />;
+    React.createElement(RenderNumber);
+
+    // Undesired behavior. Returning `string` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnString />;
+    // @ts-expect-error
+    React.createElement(ReturnString);
+    <RenderString />;
+    React.createElement(RenderString);
+
+    // Undesired behavior. Returning `Symbol` should be rejected in all forms.
+    // We can't change in 17 but was fixed in 18.
+    // Accepted because `ReactNode` includes `{}`
+    // @ts-expect-error
+    <ReturnSymbol />;
+    // @ts-expect-error
+    React.createElement(ReturnSymbol);
+    <RenderSymbol />;
+    React.createElement(RenderSymbol);
+
+    // Undesired behavior. Returning `Array` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnArray />;
+    // @ts-expect-error
+    React.createElement(ReturnArray);
+    <RenderArray />;
+    React.createElement(RenderArray);
+
+    // Desired behavior.
+    <ReturnElement />;
+    React.createElement(ReturnElement);
+    <RenderElement />;
+    React.createElement(RenderElement);
+
+    // Undesired behavior. Returning `ReactNode` should be accepted in all forms.
+    // @ts-expect-error
+    <ReturnReactNode />;
+    // @ts-expect-error
+    React.createElement(ReturnReactNode);
+    <RenderReactNode />;
+    React.createElement(RenderReactNode);
+}

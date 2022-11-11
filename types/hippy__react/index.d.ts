@@ -1,4 +1,4 @@
-// Type definitions for @hippy/react 2.11
+// Type definitions for @hippy/react 2.13
 // Project: http://hippyjs.org
 // Definitions by: zeroyu <https://github.com/zerosrat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -187,7 +187,7 @@ interface Transform {
 }
 
 interface ViewStyle {
-    collapsable?: false;
+    collapsable?: boolean;
     backgroundColor?: string | number;
     backgroundImage?: string;
     backgroundSize?: string;
@@ -689,6 +689,8 @@ interface ModalProps extends LayoutableProps, ClickableProps, TouchableProps {
      */
     supportedOrientations?: ModalOrientation[];
 
+    children?: React.ReactNode;
+
     style?: ViewStyleProp;
 
     /**
@@ -780,6 +782,7 @@ interface RefreshWrapperProps extends LayoutableProps, ClickableProps, Touchable
     onRefresh?: () => void;
     getRefresh?: () => React.ReactElement;
     bounceTime?: number;
+    children?: React.ReactNode;
     style?: ViewStyleProp;
 }
 declare class RefreshWrapper extends React.Component<RefreshWrapperProps> {
@@ -900,6 +903,7 @@ interface ScrollViewProps extends LayoutableProps, ClickableProps, TouchableProp
      * Called when the user stops dragging the scroll view and it either stops or begins to glide.
      */
     onScrollEndDrag?(): void;
+    children?: React.ReactNode;
     style?: ViewStyleProp;
 }
 declare class ScrollView extends React.Component<ScrollViewProps> {
@@ -1225,6 +1229,7 @@ interface ViewPagerProps extends LayoutableProps {
      * * settling
      */
     onPageScrollStateChanged?(evt: PageScrollState): void;
+    children?: React.ReactNode[];
     style?: ViewStyleProp;
 }
 declare class ViewPager extends React.Component<ViewPagerProps> {

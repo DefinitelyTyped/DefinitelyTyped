@@ -57,7 +57,7 @@ conn.on('ready', () => {
     host: '192.168.100.100',
     port: 22,
     username: 'frylock',
-    privateKey: require('fs').readFileSync('/here/is/my/key')
+    privateKey: fs.readFileSync('/here/is/my/key')
 });
 
 // Authenticate using password and send an HTTP request to port 80 on the server:
@@ -188,18 +188,29 @@ conn2.on('ready', () => {
     });
 });
 
+function checkValue(input: Buffer, allowed: Buffer) {
+    const autoReject = (input.length !== allowed.length);
+    if (autoReject) {
+        // Prevent leaking length information by always making a comparison with the
+        // same input when lengths don't match what we expect ...
+        allowed = input;
+    }
+    const isMatch = crypto.timingSafeEqual(input, allowed);
+    return (!autoReject && isMatch);
+}
+
 // Host verification:
 new ssh2.Client().connect({
     hostVerifier: (hash: Buffer) => {
         const expected = Buffer.from('cool');
-        return expected.length === hash.length && crypto.timingSafeEqual(hash, Buffer.from('cool'));
+        return checkValue(hash, expected);
     }
 });
 
 new ssh2.Client().connect({
-    hostVerifier: (hash, callback) => {
+    hostVerifier: (hash: Buffer, callback: ssh2.VerifyCallback) => {
         const expected = Buffer.from('cool');
-        callback(expected.length === hash.length && crypto.timingSafeEqual(hash, Buffer.from('cool')));
+        callback(checkValue(hash, expected));
     }
 });
 
@@ -387,66 +398,96 @@ new ssh2.Server({
 //var ssh2 = require('ssh2');
 var OPEN_MODE = ssh2.utils.sftp.OPEN_MODE,
     STATUS_CODE = ssh2.utils.sftp.STATUS_CODE;
+const allowedUser = Buffer.from('foo');
+const allowedPassword = Buffer.from('bar');
+
+// This simple SFTP server implements file uploading where the contents get
+// ignored ...
 
 new ssh2.Server({
     hostKeys: [fs.readFileSync('host.key')]
-}, (client: any) => {
+}, (client) => {
     console.log('Client connected!');
 
-    client.on('authentication', (ctx: any) => {
-        if (ctx.method === 'password'
-            && ctx.username === 'foo'
-            && ctx.password === 'bar')
+    client.on('authentication', (ctx) => {
+        let allowed = true;
+        if (!checkValue(Buffer.from(ctx.username), allowedUser))
+            allowed = false;
+
+        switch (ctx.method) {
+            case 'password':
+                if (!checkValue(Buffer.from(ctx.password), allowedPassword)) {
+                    ctx.reject();
+                    return
+                }
+                break;
+            default:
+                ctx.reject();
+                return;
+        }
+
+        if (allowed)
             ctx.accept();
         else
             ctx.reject();
     }).on('ready', () => {
         console.log('Client authenticated!');
 
-        client.on('session', (accept: any, reject: any) => {
-            var session = accept();
-            session.on('sftp', (accept: any, reject: any) => {
+        client.on('session', (accept, reject) => {
+            const session = accept();
+            session.on('sftp', (accept, reject) => {
                 console.log('Client SFTP session');
-                var openFiles = new Set<number>();
-                var handleCount = 0;
-                // `sftpStream` is an `SFTPStream` instance in server mode
-                // see: https://github.com/mscdex/ssh2-streams/blob/master/SFTPStream.md
-                var sftpStream = accept();
-                sftpStream.on('OPEN', (reqid: any, filename: any, flags: any, attrs: any) => {
-                    // only allow opening /tmp/foo.txt for writing
-                    if (filename !== '/tmp/foo.txt' || !(flags & OPEN_MODE.WRITE))
-                        return sftpStream.status(reqid, STATUS_CODE.FAILURE);
-                    // create a fake handle to return to the client, this could easily
+                const openFiles = new Map();
+                let handleCount = 0;
+                const sftp = accept();
+                sftp.on('OPEN', (reqid, filename, flags, attrs) => {
+                    // Only allow opening /tmp/foo.txt for writing
+                    if (filename !== '/tmp/foo.txt' || !(flags & OPEN_MODE.WRITE)) {
+                        sftp.status(reqid, STATUS_CODE.FAILURE);
+                        return;
+                    }
+
+                    // Create a fake handle to return to the client, this could easily
                     // be a real file descriptor number for example if actually opening
-                    // the file on the disk
-                    var handle = new Buffer(4);
-                    openFiles.add(handleCount);
+                    // a file on disk
+                    const handle = Buffer.alloc(4);
+                    openFiles.set(handleCount, true);
                     handle.writeUInt32BE(handleCount++, 0);
-                    sftpStream.handle(reqid, handle);
+
                     console.log('Opening file for write')
-                }).on('WRITE', (reqid: any, handle: any, offset: any, data: any) => {
-                    if (handle.length !== 4 || !openFiles.has(handle.readUInt32BE(0)))
-                        return sftpStream.status(reqid, STATUS_CODE.FAILURE);
-                    // fake the write
-                    sftpStream.status(reqid, STATUS_CODE.OK);
-                    var inspected = require('util').inspect(data);
-                    console.log('Write to file at offset %d: %s', offset, inspected);
-                }).on('CLOSE', (reqid: any, handle: any) => {
-                    var fnum: any;
-                    if (handle.length !== 4 || !openFiles.has((fnum = handle.readUInt32BE(0))))
-                        return sftpStream.status(reqid, STATUS_CODE.FAILURE);
-                    openFiles.delete(fnum);
-                    sftpStream.status(reqid, STATUS_CODE.OK);
+                    sftp.handle(reqid, handle);
+                }).on('WRITE', (reqid, handle, offset, data) => {
+                    if (handle.length !== 4
+                        || !openFiles.has(handle.readUInt32BE(0))) {
+                        sftp.status(reqid, STATUS_CODE.FAILURE);
+                        return;
+                    }
+
+                    // Fake the write operation
+                    sftp.status(reqid, STATUS_CODE.OK);
+
+                    console.log(`Write to file at offset ${offset}: ${inspect(data)}`);
+                }).on('CLOSE', (reqid, handle) => {
+                    let fnum;
+                    if (handle.length !== 4
+                        || !openFiles.has(fnum = handle.readUInt32BE(0))) {
+                        sftp.status(reqid, STATUS_CODE.FAILURE);
+                        return;
+                    }
+
                     console.log('Closing file');
+                    openFiles.delete(fnum);
+
+                    sftp.status(reqid, STATUS_CODE.OK);
                 });
             });
         });
-    }).on('end', () => {
+    }).on('close', () => {
         console.log('Client disconnected');
     });
-}).listen(0, '127.0.0.1', function () {
-        console.log('Listening on port ' + this.address().port);
-    });
+}).listen(0, '127.0.0.1', function() {
+    console.log('Listening on port ' + this.address().port);
+});
 
 // ssh agents
 new ssh2.Client().connect({
@@ -469,7 +510,7 @@ new ssh2.HTTPAgent({
     host: '192.168.100.100',
     port: 22,
     username: 'frylock',
-    privateKey: require('fs').readFileSync('/here/is/my/key')
+    privateKey: fs.readFileSync('/here/is/my/key')
 }, {
     srcIP: '127.0.0.1',
 });
@@ -478,7 +519,7 @@ new ssh2.HTTPSAgent({
     host: '192.168.100.100',
     port: 22,
     username: 'frylock',
-    privateKey: require('fs').readFileSync('/here/is/my/key')
+    privateKey: fs.readFileSync('/here/is/my/key')
 }, {
     srcIP: '127.0.0.1',
 });

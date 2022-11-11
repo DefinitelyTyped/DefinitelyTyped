@@ -1138,8 +1138,7 @@ export namespace DS {
             modelName: K,
             query: object,
             options?: { adapterOptions?: object | undefined }
-        ): AdapterPopulatedRecordArray<ModelRegistry[K]> &
-            PromiseArray<ModelRegistry[K], Ember.ArrayProxy<ModelRegistry[K]>>;
+        ): PromiseArray<ModelRegistry[K], AdapterPopulatedRecordArray<ModelRegistry[K]>>;
         /**
          * This method makes a request for one record, where the `id` is not known
          * beforehand (if the `id` is known, use [`findRecord`](#method_findRecord)

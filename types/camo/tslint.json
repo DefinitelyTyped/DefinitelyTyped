@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "member-access": false,
         "no-declare-current-package": false,
         "no-padding": false,

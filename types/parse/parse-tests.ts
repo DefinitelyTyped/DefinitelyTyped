@@ -208,6 +208,18 @@ function test_query() {
         },
     });
 
+    query.aggregate({
+        unwind: '$field',
+    });
+
+    query.aggregate({
+        unwind: {
+            path: '$field',
+            includeArrayIndex: 'newIndex',
+            preserveNullAndEmptyArrays: true,
+        },
+    });
+
     // Find objects with distinct key
     query.distinct('name');
 
@@ -1055,9 +1067,11 @@ async function test_schema(
     // @ts-expect-error
     schema.addRelation('field', 'SomeClass', 'anything');
 
-    schema.addIndex('testIndex', { stringField: 'Number' });
-    // @ts-expect-error
+    schema.addIndex('testIndex', { stringField: 'text' });
     schema.addIndex('testIndex', { stringField: 1 });
+    schema.addIndex('testIndex', { stringField: -1 });
+    // @ts-expect-error
+    schema.addIndex('testIndex', { stringField: true });
 
     schema.deleteField('defaultFieldString');
     schema.deleteIndex('testIndex');
@@ -1527,6 +1541,12 @@ function testObject() {
 
         // $ExpectType Object<OptionalObjectAttributes>
         await objTypedOptional.save({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.saveEventually({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.destroyEventually({});
     }
 
     function testSet(
@@ -2085,5 +2105,48 @@ function testEncryptingUser() {
 
     function testIsEncryptedUserEnabled() {
         Parse.isEncryptedUserEnabled();
+    }
+}
+
+function testEventuallyQueue() {
+    function test() {
+        const obj = new Parse.Object('TestObject');
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.clear();
+        // $ExpectType Promise<any[]>
+        Parse.EventuallyQueue.getQueue();
+        // $ExpectType boolean
+        Parse.EventuallyQueue.isPolling();
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.save(obj);
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.save(obj, {});
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.destroy(obj);
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.destroy(obj, {});
+        // $ExpectType Promise<number>
+        Parse.EventuallyQueue.length();
+        // $ExpectType Promise<boolean>
+        Parse.EventuallyQueue.sendQueue();
+        // $ExpectType void
+        Parse.EventuallyQueue.stopPoll();
+        // $ExpectType void
+        Parse.EventuallyQueue.poll();
+        // $ExpectType void
+        Parse.EventuallyQueue.poll(300);
+        // @ts-expect-error
+        Parse.EventuallyQueue.poll('300');
+    }
+}
+
+function LiveQueryEvents() {
+    function testLiveQueryEvents() {
+        Parse.LiveQuery.on('open', () => {
+        });
+        Parse.LiveQuery.on('close', () => {
+        });
+        Parse.LiveQuery.on('error', (error) => {
+        });
     }
 }

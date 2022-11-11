@@ -15,6 +15,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
+ * Compiles markdown to HTML asynchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Hash of options, having async: true
+ * @return Promise of string of compiled HTML
+ */
+export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
+
+/**
  * Compiles markdown to HTML synchronously.
  *
  * @param src String of markdown source to be compiled
@@ -24,7 +33,7 @@
 export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
@@ -32,7 +41,7 @@ export function marked(src: string, options?: marked.MarkedOptions): string;
 export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param options Hash of options
@@ -67,21 +76,35 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): void;
 
     /**
-     * Compiles markdown to HTML.
+     * Compiles markdown to HTML asynchronously.
      *
      * @param src String of markdown source to be compiled
-     * @param options Hash of options
+     * @param options Hash of options having async: true
+     * @return Promise of string of compiled HTML
+     */
+    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @return String of compiled HTML
+     */
+    function parse(src: string, options?: MarkedOptions): string;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(
-        src: string,
-        options?: MarkedOptions,
-        callback?: (error: any, parseResult: string) => void,
-    ): string;
+    function parse(src: string, options: MarkedOptions, callback: (error: any, parseResult: string) => void): void;
 
     /**
      * @param src Tokenized source as array of tokens
@@ -149,7 +172,12 @@ export namespace marked {
             src: string,
             links: Tokens.Link[] | Tokens.Image[],
         ): Tokens.Link | Tokens.Image | Tokens.Text | T;
-        emStrong(this: Tokenizer & TokenizerThis, src: string, maskedSrc: string, prevChar: string): Tokens.Em | Tokens.Strong | T;
+        emStrong(
+            this: Tokenizer & TokenizerThis,
+            src: string,
+            maskedSrc: string,
+            prevChar: string,
+        ): Tokens.Em | Tokens.Strong | T;
         codespan(this: Tokenizer & TokenizerThis, src: string): Tokens.Codespan | T;
         br(this: Tokenizer & TokenizerThis, src: string): Tokens.Br | T;
         del(this: Tokenizer & TokenizerThis, src: string): Tokens.Del | T;
@@ -223,7 +251,7 @@ export namespace marked {
         static parse(src: Token[] | TokensList, options?: MarkedOptions): string;
         static parseInline(src: Token[], options?: MarkedOptions): string;
         parse(src: Token[] | TokensList): string;
-        parseInline(src: Token[], renderer: Renderer): string;
+        parseInline(src: Token[], renderer?: Renderer): string;
         next(): Token;
     }
 
@@ -238,8 +266,8 @@ export namespace marked {
         lex(src: string): TokensList;
         blockTokens(src: string, tokens: Token[]): Token[];
         blockTokens(src: string, tokens: TokensList): TokensList;
-        inline(src: string, tokens: Token[]): void;
-        inlineTokens(src: string, tokens: Token[]): Token[];
+        inline(src: string, tokens?: Token[]): Token[];
+        inlineTokens(src: string, tokens?: Token[]): Token[];
         state: {
             inLink: boolean;
             inRawBlock: boolean;
@@ -463,7 +491,7 @@ export namespace marked {
     interface TokenizerExtension {
         name: string;
         level: 'block' | 'inline';
-        start?: ((this: TokenizerThis, src: string) => number) | undefined;
+        start?: ((this: TokenizerThis, src: string) => number | void) | undefined;
         tokenizer: (this: TokenizerThis, src: string, tokens: Token[] | TokensList) => Tokens.Generic | void;
         childTokens?: string[] | undefined;
     }
@@ -478,6 +506,11 @@ export namespace marked {
     }
 
     interface MarkedExtension {
+        /**
+         * True will tell marked to await any walkTokens functions before parsing the tokens and returning an HTML string.
+         */
+        async?: boolean;
+
         /**
          * A prefix URL for any relative link.
          */
@@ -516,11 +549,7 @@ export namespace marked {
          * with an error if any occurred during highlighting and a string
          * if highlighting was successful)
          */
-        highlight?(
-            code: string,
-            lang: string,
-            callback?: (error: any, code?: string) => void,
-        ): string | void;
+        highlight?(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void;
 
         /**
          * Set the prefix for code block classes.

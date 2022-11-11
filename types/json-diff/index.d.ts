@@ -1,4 +1,4 @@
-// Type definitions for json-diff 0.7
+// Type definitions for json-diff 0.9
 // Project: https://github.com/andreyvit/json-diff
 // Definitions by: Tommy Wong <https://github.com/wchtommy20013/>
 //                 Jerryh001 <https://github.com/Jerryh001>
@@ -11,6 +11,8 @@ export interface DiffOptions {
     full?: boolean;
     sort?: boolean;
     outputKeys?: string[];
+    keepUnchangedValues?: boolean;
+    outputNewOnly?: boolean;
 }
 export interface DiffStringOptions extends DiffOptions {
     color?: boolean;

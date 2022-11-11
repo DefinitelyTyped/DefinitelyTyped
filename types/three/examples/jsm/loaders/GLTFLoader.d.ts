@@ -65,7 +65,7 @@ export class GLTFLoader extends Loader {
         onError?: (event: ErrorEvent) => void,
     ): void;
 
-    parseAsync(data: ArrayBuffer | string, path: string): Promise<void>;
+    parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
 export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';

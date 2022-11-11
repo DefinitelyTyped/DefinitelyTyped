@@ -93,13 +93,19 @@ transition.to.metadata = 'foo';
 // query params beyond that the second argument is an object of some sort,
 // because TS will always resolve it to the `models` variant if the
 // `queryParams` variant fails.
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', { queryParams: { shouldWork: true } });
+// $ExpectType Transition<unknown>
 router.transitionTo({ queryParams: { areSupported: true } });
 // @ts-expect-error
 router.transitionTo({ queryParams: 'potato' });
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1);
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1, { queryParams: { areSupported: true } });
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1, '13');
+// $ExpectType Transition<unknown>
 router.transitionTo('someRoute', 1, '13', { queryParams: { areSupported: true } });
 
 router.recognize('foo/bar'); // $ExpectType RouteInfo

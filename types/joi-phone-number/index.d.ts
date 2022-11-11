@@ -4,13 +4,14 @@
 //                 James Lismore <https://github.com/jlismore/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { StringSchema, Extension, Root } from 'joi';
+/// <reference types="node" />
+import { StringSchema, Extension, Root, Reference } from 'joi';
 
 declare module 'joi' {
     interface PhoneNumberOptions {
-        defaultCountry?: string[] | string | undefined;
-        strict?: boolean | undefined;
-        format?: 'e164' | 'international' | 'national' | 'rfc3966' | undefined;
+        defaultCountry?: string[] | string | Reference | undefined;
+        strict?: boolean | Reference | undefined;
+        format?: 'e164' | 'international' | 'national' | 'rfc3966' | Reference | undefined;
     }
 
     interface StringSchema {

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
 
 Ember.Route.extend({
     beforeModel(transition: Transition) {

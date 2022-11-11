@@ -4,6 +4,8 @@
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="cypress" />
+
 export interface HappoScreenshotOptions {
     component?: string | undefined;
     variant?: string | undefined;

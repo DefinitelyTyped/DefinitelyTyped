@@ -218,8 +218,8 @@ import isVatFunc from 'validator/lib/isVAT';
     let _isISO8601 = validator.isISO8601;
     _isISO8601 = isISO8601Func;
 
-    let _isISO31661Alpha2 = validator.isISO31661Alpha2;
-    _isISO31661Alpha2 = isISO31661Alpha2Func;
+    validator.isISO31661Alpha2; // $ExpectType (str: string) => boolean
+    isISO31661Alpha2Func; // $ExpectType (str: string) => boolean
 
     let _isISO31661Alpha3 = validator.isISO31661Alpha3;
     _isISO31661Alpha3 = isISO31661Alpha3Func;
@@ -399,7 +399,7 @@ import isEANFuncEs from 'validator/es/lib/isEAN';
 import isISSNFuncEs from 'validator/es/lib/isISSN';
 import isISINFuncEs from 'validator/es/lib/isISIN';
 import isISO8601FuncEs from 'validator/es/lib/isISO8601';
-import isISO31661Alpha2FuncEs from 'validator/es/lib/isISO31661Alpha2';
+import isISO31661Alpha2FuncEs, { CountryCodes } from 'validator/es/lib/isISO31661Alpha2';
 import isISO31661Alpha3FuncEs from 'validator/es/lib/isISO31661Alpha3';
 import isISO4217FuncEs, { CurrencyCodes } from 'validator/es/lib/isISO4217';
 import isISRCFuncEs from 'validator/es/lib/isISRC';
@@ -462,6 +462,9 @@ const any: any = null;
     let result: boolean;
 
     result = validator.contains('sample', 'sample');
+    result = validator.contains('Sample', 'sample', { ignoreCase: true });
+    result = validator.contains('sampletestsample', 'sample', { minOccurrences: 2 });
+    result = validator.contains('Sampletestsample', 'sample', { ignoreCase: true, minOccurrences: 2 });
 
     result = validator.equals('sample', 'sample');
 
@@ -800,6 +803,7 @@ const any: any = null;
 
     result = validator.isNumeric('sample');
     result = validator.isNumeric('+358', { no_symbols: true });
+    result = validator.isNumeric('358,50', { locale: 'pt-BR' });
 
     result = validator.isOctal('076543210');
 
@@ -845,8 +849,6 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'any');
 
     result = validator.isSemVer('sample');
-
-    result = validator.isStrongPassword('sample');
 
     result = validator.isSurrogatePair('sample');
 
@@ -926,6 +928,26 @@ const any: any = null;
 }
 
 {
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test');
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', {
+        minLength: 10,
+    });
+    // $ExpectType boolean
+    validator.isStrongPassword('sample23#@test', { returnScore: false });
+    // $ExpectType boolean
+    validator.isStrongPassword('abc', {
+        minLength: 10,
+        returnScore: false,
+    });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { returnScore: true });
+    // $ExpectType number
+    validator.isStrongPassword('sample23#@test', { minLength: 10, returnScore: true });
+}
+
+{
     let result: string;
 
     result = validator.trim('sample');
@@ -942,4 +964,8 @@ const any: any = null;
 {
     let ver: string;
     ver = validator.version;
+}
+
+{
+    validator.isISO8601('sample', { strict: true, strictSeparator: true });
 }

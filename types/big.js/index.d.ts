@@ -6,7 +6,7 @@
 
 export type BigSource = number | string | Big;
 
-// tslint:disable-next-line:no-const-enum
+// eslint-disable-next-line no-const-enum
 export const enum Comparison {
     /**
      * @deprecated Const enums cannot be used by JavaScript consumers or with single-file transpilation, i.e. isolatedModules
@@ -28,7 +28,7 @@ export const enum Comparison {
     LT = -1,
 }
 
-// tslint:disable-next-line:no-const-enum
+// eslint-disable-next-line no-const-enum
 export const enum RoundingMode {
     /**
      * Rounds towards zero.
@@ -233,6 +233,10 @@ export interface Big {
      * @throws `NaN` if n is invalid.
      */
     mul(n: BigSource): Big;
+    /**
+     * Return a new Big whose value is the value of this Big negated.
+     */
+    neg(): Big;
     /**
      * Returns a Big number whose value is the value of this Big number plus n.
      *

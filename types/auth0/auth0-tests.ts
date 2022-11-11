@@ -144,6 +144,20 @@ management
             });
     });
 
+// Fetch a user's organizations
+management.users.getUserOrganizations({ id: 'my_id' }).then((organizations: auth0.Organization[]) => {
+    console.log(organizations);
+});
+
+// Fetch a user's organizations using cb style
+management.users.getUserOrganizations({ id: 'my_id' }, (err, orgs) => {
+    if (err) {
+        throw err;
+    }
+
+    console.log(orgs);
+});
+
 auth.requestChangePasswordEmail({
     client_id: 'client_id',
     connection: 'My-Connection',
@@ -293,6 +307,13 @@ management.getUsersByEmail('email@address.com', (err, users) => {
 management.getUsersByEmail('email@address.com').then(users => {
     console.log(users);
 });
+
+management.getUserLogs({ id: 'user_id' }).then(roles => console.log(roles));
+management.getUserLogs({ id: 'user_id' }, (err, data) => console.log(data));
+management.getUserLogs({ id: 'user_id', per_page: 3 }).then(roles => console.log(roles));
+management.getUserLogs({ id: 'user_id', per_page: 3 }, (err, data) => console.log(data));
+management.getUserLogs({ id: 'user_id', include_totals: true }).then(rolePage => console.log(rolePage));
+management.getUserLogs({ id: 'user_id', include_totals: true }, (err, data) => console.log(data));
 
 management.getUserRoles({ id: 'user_id' }).then(roles => console.log(roles));
 management.getUserRoles({ id: 'user_id' }, (err, data) => console.log(data));

@@ -755,14 +755,23 @@ function testStorage() {
     chrome.storage.sync.clear();
     chrome.storage.sync.clear(doneCallback);
 
-    chrome.storage.onChanged.addListener(function (changes) {
+    chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS });
+    chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }, doneCallback);
+
+    chrome.storage.sync.onChanged.addListener(function (changes) {
+        var myNewValue: { x: number } = changes['myKey'].newValue;
+        var myOldValue: { x: number } = changes['myKey'].oldValue;
+    });
+
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        var area: string = areaName;
         var myNewValue: { x: number } = changes['myKey'].newValue;
         var myOldValue: { x: number } = changes['myKey'].oldValue;
     });
 }
 
 // https://developer.chrome.com/apps/tts#type-TtsVoice
-function testTtsVoice() {
+async function testTtsVoice() {
     chrome.tts.getVoices(voices =>
         voices.forEach(voice => {
             console.log(voice.voiceName);
@@ -772,6 +781,15 @@ function testTtsVoice() {
             console.log('\teventTypes: ' + voice.eventTypes);
         }),
     );
+
+    const voices = await chrome.tts.getVoices();
+    voices.forEach(voice => {
+        console.log(voice.voiceName);
+        console.log('\tlang: ' + voice.lang);
+        console.log('\tremote: ' + voice.remote);
+        console.log('\textensionId: ' + voice.extensionId);
+        console.log('\teventTypes: ' + voice.eventTypes);
+    });
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
@@ -797,6 +815,14 @@ chrome.devtools.network.getHAR((harLog: chrome.devtools.network.HARLog) => {
 function testDevtools() {
     chrome.devtools.inspectedWindow.eval('1+1', undefined, result => {
         console.log(result);
+    });
+
+    chrome.devtools.inspectedWindow.reload();
+    chrome.devtools.inspectedWindow.reload({});
+    chrome.devtools.inspectedWindow.reload({
+        userAgent: 'Best Browser',
+        ignoreCache: true,
+        injectedScript: 'console.log("Hello World!")',
     });
 }
 
@@ -1019,6 +1045,18 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: function() {}, args: [] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string) => {}, args: [''] });
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => 0 }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => '' }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => {}, args: ['', 0] }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => 0 }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async () => '' }); // $ExpectType InjectionResult<string>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => {}, args: ['', 0] }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} });
@@ -1032,9 +1070,20 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: (name: string) => {}, args: [] });
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: () => {}, args: {} });
-    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] }); // $ExpectType InjectionResult<unknown>[]
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
+
+    await chrome.scripting.removeCSS({ target: { tabId: 0 } });
+
+    await chrome.scripting.registerContentScripts([
+        { id: 'id1', js: ['script1.js'] },
+        { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
+        { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
+    ]);
+    await chrome.scripting.unregisterContentScripts({ ids: ['id1', 'id2'] });
+    await chrome.scripting.unregisterContentScripts({ files: ['script1.js', 'style1.css'] });
+    await chrome.scripting.getRegisteredContentScripts();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu
@@ -1182,6 +1231,8 @@ function testStorageForPromise() {
     chrome.storage.sync.get('testKey').then(() => {});
     chrome.storage.sync.get(['testKey']).then(() => {});
     chrome.storage.sync.get({ testKey: 'testDefaultValue' }).then(() => {});
+
+    chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }).then(() => {});
 }
 
 function testRuntimeSendMessage() {
@@ -1229,14 +1280,16 @@ function testRuntimeSendNativeMessage() {
 
 function testTabsSendMessage() {
     chrome.tabs.sendMessage(1, "Hello World!");
-    chrome.tabs.sendMessage(2, "Hello World!", console.log);
-    chrome.tabs.sendMessage(3, "Hello World!", { }, console.log);
-    chrome.tabs.sendMessage<string>(4, "Hello World!", console.log);
-    chrome.tabs.sendMessage<string, number>(5, "Hello World!", console.log);
+    chrome.tabs.sendMessage(2, "Hello World!").then(() => {});
+    chrome.tabs.sendMessage(3, "Hello World!", console.log);
+    chrome.tabs.sendMessage(4, "Hello World!", { }).then(() => {});
+    chrome.tabs.sendMessage(5, "Hello World!", { }, console.log);
+    chrome.tabs.sendMessage<string>(6, "Hello World!", console.log);
+    chrome.tabs.sendMessage<string, number>(7, "Hello World!", console.log);
     // @ts-expect-error
-    chrome.tabs.sendMessage<number>(6, "Hello World!", console.log);
+    chrome.tabs.sendMessage<number>(8, "Hello World!", console.log);
     // @ts-expect-error
-    chrome.tabs.sendMessage<string, string>(7, "Hello World!", (num: number) => alert(num+1));
+    chrome.tabs.sendMessage<string, string>(9, "Hello World!", (num: number) => alert(num+1));
 }
 
 function testTabsSendRequest() {

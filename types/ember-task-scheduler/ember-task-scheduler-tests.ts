@@ -13,6 +13,7 @@ declare module 'ember-task-scheduler' {
 }
 
 declare var scheduler: SchedulerService;
-const callback = () => {};
-scheduler.scheduleOnce(undefined, callback); // $ExpectType void
-scheduler.cancel(undefined, callback); // $ExpectType unknown[] | null
+const callbackSchedule = () => {};
+const callbackCancel = () => [];
+scheduler.scheduleOnce(null, callbackSchedule); // $ExpectType void
+scheduler.cancel(null, callbackCancel); // $ExpectType unknown[] | null

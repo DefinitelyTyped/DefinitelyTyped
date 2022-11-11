@@ -72,3 +72,6 @@ intlTelInput; // $ExpectType (node: Element, options?: Options | undefined) => P
 const options: IntlTelInput.Options = {
     allowDropdown: true,
 };
+
+window.intlTelInputGlobals.version; // $ExpectType string
+window.intlTelInputGlobals.defaults; // $ExpectType Options

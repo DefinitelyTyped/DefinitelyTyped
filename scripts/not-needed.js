@@ -20,6 +20,9 @@ notNeededPackages.packages[typingsPackageName] = { libraryName, asOfVersion };
 notNeededPackages.packages = Object.fromEntries(Object.entries(notNeededPackages.packages).sort());
 fs.writeFileSync('notNeededPackages.json', JSON.stringify(notNeededPackages, undefined, 4) + '\n', 'utf-8');
 
+/**
+ * @param {string} dir
+ */
 function rmdirRecursive(dir) {
     for (let entry of fs.readdirSync(dir)) {
         entry = path.join(dir, entry);

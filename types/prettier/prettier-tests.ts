@@ -72,7 +72,7 @@ const configFilePathInSpecificPath = prettier.resolveConfigFile.sync('/path');
 
 prettier.clearConfigCache();
 
-const currentSupportInfo = prettier.getSupportInfo();
+prettier.getSupportInfo(); // $ExpectType SupportInfo
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
 // @ts-expect-error
@@ -82,6 +82,7 @@ prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', ra
 
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
+prettierStandalone.getSupportInfo(); // $ExpectType SupportInfo
 
 angularParser.parsers.__ng_action.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
@@ -117,6 +118,13 @@ interface PluginAST {
 }
 
 const plugin: prettier.Plugin<PluginAST> = {
+    languages: [
+        {
+            name: 'Shell',
+            parsers: ['sh'],
+            interpreters: ['bash', 'zsh']
+        }
+    ],
     parsers: {
         lines: {
             parse(text, parsers, options) {

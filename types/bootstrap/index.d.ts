@@ -1,8 +1,10 @@
-// Type definitions for bootstrap 5.1
+// Type definitions for bootstrap 5.2
 // Project: https://getbootstrap.com/
 // Definitions by: denisname <https://github.com/denisname>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 Kyle Tsang <https://github.com/kyletsang>
+//                 Luke Nelson <https://github.com/luc122c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
@@ -39,8 +41,20 @@ declare global {
 
     interface Element {
         addEventListener(
-            type: Carousel.Events,
+            type: Carousel.Events | 'slide.bs.carousel' | 'slid.bs.carousel',
             listener: (this: Element, ev: Carousel.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        addEventListener(
+            type:
+                | Modal.Events
+                | 'show.bs.modal'
+                | 'shown.bs.modal'
+                | 'hide.bs.modal'
+                | 'hidden.bs.modal'
+                | 'hidePrevented.bs.modal',
+            listener: (this: Element, ev: Modal.Event) => any,
             options?: boolean | AddEventListenerOptions,
         ): void;
     }

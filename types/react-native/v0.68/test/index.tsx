@@ -898,6 +898,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                             fadingEdgeLength={200}
                             StickyHeaderComponent={this._stickyHeaderComponent}
                             stickyHeaderHiddenOnScroll={true}
+                            automaticallyAdjustKeyboardInsets
                         />
                     );
                 }}
@@ -1184,6 +1185,7 @@ class TextTest extends React.Component {
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
+                disabled
             >
                 Test text
             </Text>
@@ -1424,7 +1426,7 @@ const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
   const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+  return new Promise(() => e.nativeEvent.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
@@ -1448,6 +1450,13 @@ const NativeIDTest = () => (
 
 const ScrollViewMaintainVisibleContentPositionTest = () => (
     <ScrollView maintainVisibleContentPosition={{ autoscrollToTopThreshold: 1, minIndexForVisible: 10 }}></ScrollView>
+);
+
+const ScrollViewInsetsTest = () => (
+    <>
+      <ScrollView automaticallyAdjustKeyboardInsets />
+      <ScrollView automaticallyAdjustKeyboardInsets={false} />
+    </>
 );
 
 const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Text>;

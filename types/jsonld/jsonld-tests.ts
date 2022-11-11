@@ -6,6 +6,17 @@ const doc: jsonld.JsonLdDocument = {
     "http://schema.org/image": {"@id": "http://manu.sporny.org/images/manu.png"}
   };
 
+const libraryFrame: jsonld.JsonLdDocument = {
+    "@context": {"@vocab": "http://example.org/"},
+    "@id": ["http://example.org/home", "http://example.org/library"],
+    contains: {
+      "@id": ["http://example.org/library/the-republic"],
+      contains: {
+        "@id": ["http://example.org/library/the-republic#introduction"]
+      }
+    }
+  };
+
 const docNQuads =
    `_: <http://schema.org/name> "Manu Sporny" .
     _: <http://schema.org/url> <http://manu.sporny.org/> .

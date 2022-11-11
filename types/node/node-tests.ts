@@ -9,6 +9,7 @@ import './test/crypto';
 import './test/dgram';
 import './test/diagnostics_channel';
 import './test/dns';
+import './test/dom-events'; // dom-events behaves differently under lib-dom
 import './test/events';
 import './test/fs';
 import './test/globals';
@@ -108,7 +109,7 @@ import * as trace_events from 'node:trace_events';
             foo: number;
         }
 
-        class MyServerResponse extends http.ServerResponse {
+        class MyServerResponse<Request extends http.IncomingMessage = http.IncomingMessage> extends http.ServerResponse<Request> {
             foo: string;
         }
 

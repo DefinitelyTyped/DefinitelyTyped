@@ -32,5 +32,5 @@ declare namespace CSSCore {
      */
     function matchesSelector(element: HTMLElement | DOMWindow, selector: string): boolean;
 }
-// tslint:disable-next-line export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = CSSCore;

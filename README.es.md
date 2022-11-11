@@ -29,10 +29,10 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](https://www.
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (3.9 y anteriores)
+#### Versiones más viejas de TypeScript (4.0 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 4.0 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 3.9, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 4.1 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 4.0, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
@@ -160,7 +160,7 @@ Si un paquete nunca estuvo en Definitely Typed, no será necesario añadirlo a `
 #### Running tests
 
 Realiza una prueba ejecutando `npm test <package to test>` donde `<package to test>` es el nombre de tu paquete.
-Este script utiliza [dtslint](https://github.com/Microsoft/dtslint).
+Este script utiliza [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint).
 
 #### Naming
 
@@ -217,7 +217,7 @@ f(1);
 f("one");
 ```
 
-Para más detalles, vea el [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
 #### Linter: `tslint.json`
 

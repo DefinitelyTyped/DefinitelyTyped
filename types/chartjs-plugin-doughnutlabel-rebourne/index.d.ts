@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { ChartType, Plugin } from 'chart.js';
+import { Chart, ChartType, Plugin } from 'chart.js';
 
 declare module 'chart.js' {
     interface PluginOptionsByType<TType extends ChartType> {
@@ -12,6 +12,9 @@ declare module 'chart.js' {
     }
 }
 
+// Using declaration merging https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+// Allows importing the plugin as: import * as DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
+// and using the interfaces as: DoughnutLabel.Label
 declare namespace DoughnutLabel {
     interface Options {
         labels?: Label[];
@@ -29,7 +32,7 @@ declare namespace DoughnutLabel {
 
     interface Label {
         /** The text to display */
-        text: string;
+        text: string | number | ((chart: Chart) => string | number);
         /** The font options used to draw the label text (single label scope) */
         font?: Font;
         /** Color of the labels (single label scope) */
@@ -46,12 +49,12 @@ declare namespace DoughnutLabel {
         /** Defaults to `Chart.defaults.global.defaultFontSize` */
         size?: number | `${number}`;
         /** Defaults to `Chart.defaults.global.defaultFontStyle` */
-        style?: string;
+        style?: 'normal' | 'italic' | 'oblique' | 'initial' | 'inherit';
         /** Defaults to `'normal'` */
         weight?: string;
     }
 }
 
-declare const DoughnutLabelPlugin: Plugin<'doughnut'>;
+declare const DoughnutLabel: Plugin<'doughnut'>;
 
-export = DoughnutLabelPlugin;
+export = DoughnutLabel;

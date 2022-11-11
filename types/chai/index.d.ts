@@ -1,16 +1,14 @@
 // Type definitions for chai 4.3
 // Project: http://chaijs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao>,
-//                 Bart van der Schoor <https://github.com/Bartvds>,
-//                 Andrew Brown <https://github.com/AGBrown>,
-//                 Olivier Chevet <https://github.com/olivr70>,
-//                 Matt Wistrand <https://github.com/mwistrand>,
-//                 Shaun Luttin <https://github.com/shaunluttin>,
-//                 Gintautas Miselis <https://github.com/Naktibalda>,
-//                 Satana Charuwichitratana <https://github.com/micksatana>,
-//                 Erik Schierboom <https://github.com/ErikSchierboom>,
-//                 Bogdan Paranytsia <https://github.com/bparan>,
-//                 CXuesong <https://github.com/CXuesong>,
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Andrew Brown <https://github.com/AGBrown>
+//                 Olivier Chevet <https://github.com/olivr70>
+//                 Matt Wistrand <https://github.com/mwistrand>
+//                 Shaun Luttin <https://github.com/shaunluttin>
+//                 Satana Charuwichitratana <https://github.com/micksatana>
+//                 Erik Schierboom <https://github.com/ErikSchierboom>
+//                 Bogdan Paranytsia <https://github.com/bparan>
+//                 CXuesong <https://github.com/CXuesong>
 //                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
@@ -1202,136 +1200,101 @@ declare namespace Chai {
          * Asserts that fn will throw an error.
          *
          * @param fn   Function that may throw.
+         * @param errMsgMatcher   Expected error message matcher.
+         * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-        throw(fn: () => void, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error with message matching regexp.
-         *
-         * @param fn   Function that may throw.
-         * @param regExp   Potential expected message match.
-         * @param message   Message to display on error.
-         */
-        throw(fn: () => void, regExp: RegExp): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        throw(fn: () => void, constructor: ErrorConstructor, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor
-         * and an error with message matching regexp.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        throw(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
+        throw(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
          * Asserts that fn will throw an error.
          *
          * @param fn   Function that may throw.
+         * @param errorLike   Expected error constructor or error instance.
+         * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        throws(fn: () => void, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error with message matching regexp.
-         *
-         * @param fn   Function that may throw.
-         * @param errType  Potential expected message match or error constructor.
-         * @param message   Message to display on error.
-         */
-        throws(fn: () => void, errType: RegExp | ErrorConstructor, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor
-         * and an error with message matching regexp.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        throws(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
+        throw(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will throw an error.
          *
          * @param fn   Function that may throw.
+         * @param errMsgMatcher   Expected error message matcher.
+         * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-        Throw(fn: () => void, message?: string): void;
+        throws(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
-         * Asserts that function will throw an error with message matching regexp.
+         * Asserts that fn will throw an error.
          *
          * @param fn   Function that may throw.
-         * @param regExp   Potential expected message match.
+         * @param errorLike   Expected error constructor or error instance.
+         * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        Throw(fn: () => void, regExp: RegExp): void;
+        throws(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
-         * Asserts that function will throw an error that is an instance of constructor.
+         * Asserts that fn will throw an error.
          *
          * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
+         * @param errMsgMatcher   Expected error message matcher.
+         * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-        Throw(fn: () => void, constructor: ErrorConstructor, message?: string): void;
+        Throw(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
-         * Asserts that function will throw an error that is an instance of constructor
-         * and an error with message matching regexp.
+         * Asserts that fn will throw an error.
          *
          * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
+         * @param errorLike   Expected error constructor or error instance.
+         * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        Throw(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
+        Throw(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Asserts that fn will not throw an error.
          *
          * @param fn   Function that may throw.
+         * @param errMsgMatcher   Expected error message matcher.
+         * @param ignored   Ignored parameter.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: () => void, message?: string): void;
+        doesNotThrow(fn: () => void, errMsgMatcher?: RegExp | string, ignored?: any, message?: string): void;
 
         /**
-         * Asserts that function will throw an error with message matching regexp.
+         * Asserts that fn will not throw an error.
          *
          * @param fn   Function that may throw.
-         * @param regExp   Potential expected message match.
+         * @param errorLike   Expected error constructor or error instance.
+         * @param errMsgMatcher   Expected error message matcher.
          * @param message   Message to display on error.
          */
-        doesNotThrow(fn: () => void, regExp: RegExp): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        doesNotThrow(fn: () => void, constructor: ErrorConstructor, message?: string): void;
-
-        /**
-         * Asserts that function will throw an error that is an instance of constructor
-         * and an error with message matching regexp.
-         *
-         * @param fn   Function that may throw.
-         * @param constructor   Potential expected error constructor.
-         * @param message   Message to display on error.
-         */
-        doesNotThrow(fn: () => void, constructor: ErrorConstructor, regExp: RegExp): void;
+        doesNotThrow(
+            fn: () => void,
+            errorLike?: ErrorConstructor | Error | null,
+            errMsgMatcher?: RegExp | string | null,
+            message?: string,
+        ): void;
 
         /**
          * Compares two values using operator.

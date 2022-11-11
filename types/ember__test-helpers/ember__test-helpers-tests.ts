@@ -16,6 +16,7 @@ import {
     typeIn,
     fillIn,
     render,
+    rerender,
     find,
     findAll,
     getRootElement,
@@ -57,6 +58,7 @@ module('proper module', function (hooks) {
         const { owner } = this;
         assert.ok(owner, 'owner was setup');
         assert.equal(typeof owner.lookup, 'function', 'has expected lookup interface');
+        owner; // $ExpectType Owner
     });
 
     test('can pauseTest to be resumed "later"', async function(assert) {
@@ -127,6 +129,8 @@ test('DOM interactions', async () => {
 
     const root = getRootElement();
     await click(root);
+
+    await rerender();
 });
 
 test('routing helpers', async (assert) => {

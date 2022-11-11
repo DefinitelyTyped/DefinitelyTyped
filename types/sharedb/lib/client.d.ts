@@ -2,7 +2,7 @@
 import * as ShareDB from './sharedb';
 import Agent = require('./agent');
 
-export class Connection {
+export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap> {
     constructor(ws: ShareDB.Socket);
 
     // This direct reference from connection to agent is not used internal to
@@ -19,6 +19,7 @@ export class Connection {
     nextSnapshotRequestId: number;
 
     state: string;
+    readonly canSend: boolean;
     debug: boolean;
 
     close(): void;
@@ -53,6 +54,8 @@ export class Connection {
      * etc., which will manage the necessary message exchanges.
      */
     send(message: Record<string, unknown>): void;
+
+    ping(): void;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
 export type Snapshot<T = any> = ShareDB.Snapshot<T>;

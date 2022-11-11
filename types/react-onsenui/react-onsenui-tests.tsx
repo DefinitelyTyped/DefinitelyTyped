@@ -43,7 +43,8 @@ export class App extends React.Component<AppProps, AppState> {
     onRadioChange(event: Event) {}
     onCheckboxChange(event: Event) {}
     onSelectChange(event: React.ChangeEvent<HTMLSelectElement>) {}
-    onSearchInputChange(event: Event) {}
+    onSearchInputChange(event: React.ChangeEvent<HTMLInputElement>) {}
+    onSearchInputInput(event: React.ChangeEvent<HTMLInputElement>) {}
 
     render() {
         return (
@@ -72,7 +73,15 @@ export class App extends React.Component<AppProps, AppState> {
                         </Select>
                         <Switch className='left' modifier='material' checked={true} inputId='switchId' name='switchTest' />
                         <Button name='someButton' onClick={this.onClick} />
-                        <SearchInput modifier='material' inputId='searchInputId' disabled={true} onChange={this.onSearchInputChange} value="Search value" />
+                        <SearchInput
+                            modifier='material'
+                            inputId='searchInputId'
+                            disabled={true}
+                            onChange={this.onSearchInputChange}
+                            onInput={this.onSearchInputInput}
+                            value="Search value"
+                            placeholder="Placeholder value"
+                        />
                         <List
                             dataSource={places}
                             renderRow={(row, idx) => (

@@ -5,7 +5,7 @@ import CacheableRequest = require('cacheable-request');
 // You can do
 let cacheableRequest = new CacheableRequest(http.request);
 const cacheReq = cacheableRequest('http://example.com', res => {
-    res; // $ExpectType ServerResponse | ResponseLike
+    res; // $ExpectType ServerResponse<IncomingMessage> | ResponseLike
 });
 cacheReq.on('request', req => req.end());
 
@@ -15,7 +15,7 @@ cacheableRequest = new CacheableRequest(http.request, 'redis://user:pass@localho
 cacheableRequest = new CacheableRequest(http.request, new Map());
 
 cacheableRequest('example.com', res => {
-    res; // $ExpectType ServerResponse | ResponseLike
+    res; // $ExpectType ServerResponse<IncomingMessage> | ResponseLike
 })
     .on('error', err => {
         err; // $ExpectType RequestErrorCls | CacheErrorCls

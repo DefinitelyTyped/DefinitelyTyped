@@ -8,7 +8,11 @@ interface MainType {
   filename: string;
   children: MainType[];
 }
-declare const _instanceFactory: (processArgs: string[], cwd?: string, parentRequire?: RequireType) => yargs.Argv;
+declare const _instanceFactory: (
+  processArgs?: ReadonlyArray<string> | string,
+  cwd?: string, 
+  parentRequire?: RequireType
+) => yargs.Argv;
 export default _instanceFactory;
 
 export type {

@@ -13,6 +13,9 @@ const startServer = async (name: string) => {
     console.log(`${myServer?.name} has benn started. Running on: ${myServer?.address}`);
     console.log(myServer?.status);
     console.log(myServer?.players.max);
+
+    const myServerProperties = myServer.getFile("server.properties");
+    console.log(myServerProperties.getContent());
 };
 
 startServer('my server');

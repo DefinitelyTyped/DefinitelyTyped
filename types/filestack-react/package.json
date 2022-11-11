@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "filestack-js": "^3.20.0"
+    }
+}

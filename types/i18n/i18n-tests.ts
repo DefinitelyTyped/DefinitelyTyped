@@ -285,3 +285,8 @@ i18nInstance.configure({
     locales: ['en', 'de'],
     directory: __dirname + '/locales'
 });
+
+const i18nInstanceWithConstructorOptions = new I18n({
+    locales: ['en', 'de'],
+    directory: __dirname + '/locales'
+});
