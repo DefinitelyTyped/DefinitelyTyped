@@ -49,7 +49,7 @@ declare namespace wkhtmltopdf {
     let shell: string;
 }
 
-interface Options {
+export interface Options {
     /******************
      * Global options *
      ******************/
