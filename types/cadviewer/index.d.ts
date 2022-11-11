@@ -849,7 +849,7 @@
   export function cvjs_getTextOnId(id: string): string;
   export function cvjs_setWatermarks(textline1: string, textline2: string, hexcolor: string, sendtoback: boolean): void;
   export function cvjs_insertSpaceObjectsCustomMenu(jsonMenu: any): void;
-  export function cvjs_styleQTip_color(state :boolean, titlebar :string, content :string, header_1 :string, header_info_1:string, header_info_2 :string ):void;
+  export function cvjs_styleQTip_color(state: boolean, titlebar: string, content: string, header_1: string, header_info_1: string, header_info_2: string): void;
   export function cvjs_setCADViewerSkin(skin: string): void;
   export function cvjs_setRelativeConversionFilesFolder(converterfilespath: string, converterfilesurlpath: string): void;
   export function cvjs_setZoomExtentsMode(mode: string): void;
