@@ -7,12 +7,6 @@
                 "mode": "name-only"
             }
         ],
-        "unified-signatures": false,
-        "no-object-literal-type-assertion": [
-            true,
-            {
-                "allow-arguments": true
-            }
-        ]
+        "unified-signatures": false
     }
 }
