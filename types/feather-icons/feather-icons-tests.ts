@@ -1,7 +1,7 @@
-import * as feather from "feather-icons";
+import * as feather from 'feather-icons';
 
 feather.replace(); // $ExpectType void
-feather.icons[""].toSvg(); // $ExpectType string
-feather.icons[""].name; // $ExpectType string
-feather.icons[""].contents; // $ExpectType string
-feather.icons[""].tags; // $ExpectType string[]
+feather.icons['x'].toSvg(); // $ExpectType string
+feather.icons['x'].name; // $ExpectType string
+feather.icons['x'].contents; // $ExpectType string
+feather.icons['x'].tags; // $ExpectType string[]
