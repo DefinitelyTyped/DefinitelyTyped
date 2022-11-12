@@ -13,7 +13,7 @@
 import { Events } from "./events";
 
 export namespace Storage {
-    interface StorageChange<OType=any,NType=OType> {
+    interface StorageChange<OType = any, NType = OType> {
         /**
          * The old value of the item, if there was an old value.
          * Optional.
