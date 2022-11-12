@@ -88,6 +88,13 @@ pendo.initialize({
     }
 });
 
+pendo.initialize({
+    apiKey: 'YOUR_API_KEY',
+    visitor: { id: "" },
+    account: { id: "" },
+    sanitizeUrl: (url) => url.replace('sensitiveData', '')
+});
+
 pendo.track("User Registered", {
     userId: "user.id",
     plan: "user.plan",
