@@ -30,7 +30,7 @@ export default class ParserRuleContext extends RuleContext {
 
     addErrorNode(badToken: Token): ErrorNode;
 
-    getChild<T extends ParseTree>(i: number, type?: T): T | null;
+    getChild<T extends ParseTree>(i: number, type?: { new (...args: any[]): T }): T | null;
 
     getToken(ttype: number, i: number): Token;
 
