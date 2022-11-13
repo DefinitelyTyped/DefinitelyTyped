@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "dependencies": {
+        "@the-standard/exceptions": "^1.0"
+    },
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        }
+    }
+}
