@@ -1,6 +1,7 @@
 // Type definitions for @the-standard/jest-extensions 1.0
 // Project: https://github.com/ecoulson/standard-jest-extensions#readme
 // Definitions by: Evan Coulson <https://github.com/ecoulson>
+//                 Anshul Kamath <https://github.com/anshulkamath>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
