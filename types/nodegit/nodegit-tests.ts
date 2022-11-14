@@ -19,6 +19,7 @@ const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
 const fetchOptions = new Git.FetchOptions();
+const annotatedCommit = new Git.AnnotatedCommit();
 
 tree.walk().start();
 tree.getEntry('/').then(entry => {
@@ -173,6 +174,25 @@ Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
     refspec.src(); // $ExpectType string
     refspec.srcMatches('refs/remotes/origin/*'); // $ExpectType number
     refspec.string(); // $ExpectType string
+});
+
+Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, null).then(rebase => {
+    return rebase.next().then(rebaseOperation => {
+        rebaseOperation.id(); // $ExpectType Oid
+        rebaseOperation.type(); // $ExpectType number | null
+        rebaseOperation.exec(); // $ExpectType string | null
+
+        rebase.commit(
+            signature,
+            signature,
+            "encoding",
+            "message"
+        ).then(oid => {
+            oid; // $ExpectType Oid
+
+            rebase.finish(signature); // $ExpectType number
+        });
+    });
 });
 
 repo.cleanup();
