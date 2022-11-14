@@ -70,9 +70,9 @@ loc.column; // $ExpectType number
 sourceCode.getIndexFromLoc({ line: 0, column: 0 });
 
 sourceCode.getTokenByRangeStart(0); // $ExpectType Token | null
-sourceCode.getTokenByRangeStart(0, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: true }); // $ExpectType Comment | Token | null || Token | Comment | null
 sourceCode.getTokenByRangeStart(0, { includeComments: false }); // $ExpectType Token | null
-sourceCode.getTokenByRangeStart(0, { includeComments: false as boolean }); // $ExpectType Comment | Token | null
+sourceCode.getTokenByRangeStart(0, { includeComments: false as boolean }); // $ExpectType Comment | Token | null || Token | Comment | null
 
 sourceCode.getFirstToken(AST); // $ExpectType Token | null
 sourceCode.getFirstToken(AST, 0);
@@ -80,7 +80,7 @@ sourceCode.getFirstToken(AST, { skip: 0 });
 sourceCode.getFirstToken(AST, (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier'); // $ExpectType (Token & { type: "Identifier"; }) | null
 sourceCode.getFirstToken(AST, { filter: (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier' }); // $ExpectType (Token & { type: "Identifier"; }) | null
 sourceCode.getFirstToken(AST, { skip: 0, filter: t => t.type === 'Identifier' });
-sourceCode.getFirstToken(AST, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getFirstToken(AST, { includeComments: true }); // $ExpectType Comment | Token | null || Token | Comment | null
 sourceCode.getFirstToken(AST, { includeComments: true, skip: 0 });
 // prettier-ignore
 sourceCode.getFirstToken(AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
@@ -188,7 +188,7 @@ sourceCode.getFirstTokenBetween(AST, AST, {
     skip: 0,
     filter: (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier',
 });
-sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true }); // $ExpectType Comment | Token | null
+sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true }); // $ExpectType Comment | Token | null || Token | Comment | null
 sourceCode.getFirstTokenBetween(AST, AST, { includeComments: true, skip: 0 });
 // prettier-ignore
 sourceCode.getFirstTokenBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; }) | null
@@ -206,7 +206,7 @@ sourceCode.getFirstTokensBetween(AST, AST, { // $ExpectType (Token & { type: "Id
     filter: (t): t is AST.Token & { type: "Identifier" } => t.type === "Identifier",
 });
 sourceCode.getFirstTokensBetween(AST, AST, { count: 0, filter: t => t.type === 'Identifier' });
-sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true }); // $ExpectType (Comment | Token)[]
+sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true }); // $ExpectType (Comment | Token)[] || (Token | Comment)[]
 sourceCode.getFirstTokensBetween(AST, AST, { includeComments: true, count: 0 });
 // prettier-ignore
 sourceCode.getFirstTokensBetween(AST, AST, { // $ExpectType (Token & { type: "Identifier"; })[]
@@ -243,7 +243,7 @@ sourceCode.getTokens(AST, 0);
 sourceCode.getTokens(AST, 0, 0);
 sourceCode.getTokens(AST, (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier'); // $ExpectType (Token & { type: "Identifier"; })[]
 sourceCode.getTokens(AST, { filter: (t): t is AST.Token & { type: 'Identifier' } => t.type === 'Identifier' }); // $ExpectType (Token & { type: "Identifier"; })[]
-sourceCode.getTokens(AST, { includeComments: true }); // $ExpectType (Comment | Token)[]
+sourceCode.getTokens(AST, { includeComments: true }); // $ExpectType (Comment | Token)[] || (Token | Comment)[]
 // prettier-ignore
 sourceCode.getTokens(AST, { // $ExpectType (Token & { type: "Identifier"; })[]
     includeComments: true,
