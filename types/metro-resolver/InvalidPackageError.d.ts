@@ -1,15 +1,4 @@
-import type { FileAndDirCandidates, FileCandidates } from './types';
-
-export class FailedToResolvePathError extends Error {
-    candidates: FileAndDirCandidates;
-    constructor(candidates: FileAndDirCandidates);
-}
-
-export class FailedToResolveNameError extends Error {
-    dirPaths: ReadonlyArray<string>;
-    extraPaths: ReadonlyArray<string>;
-    constructor(dirPaths: ReadonlyArray<string>, extraPaths: ReadonlyArray<string>);
-}
+import { FileCandidates } from './types';
 
 export class InvalidPackageError extends Error {
     /**
@@ -37,10 +26,12 @@ export class InvalidPackageError extends Error {
      */
     packageJsonPath: string;
 
-    constructor(opts: Readonly<{
-        fileCandidates: FileCandidates;
-        indexCandidates: FileCandidates;
-        mainPrefixPath: string;
-        packageJsonPath: string;
-    }>);
+    constructor(
+        opts: Readonly<{
+            fileCandidates: FileCandidates;
+            indexCandidates: FileCandidates;
+            mainPrefixPath: string;
+            packageJsonPath: string;
+        }>,
+    );
 }

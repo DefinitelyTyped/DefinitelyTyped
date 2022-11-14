@@ -101,9 +101,18 @@ export interface ResolutionContext extends ModulePathContext, HasteContext {
     resolveRequest?: CustomResolver;
 }
 
+export interface CustomResolutionContext extends ResolutionContext {
+    resolveRequest: CustomResolver;
+}
+
 export type CustomResolver = (
     context: ResolutionContext,
     realModuleName: string,
     platform: string | null,
     moduleName: string | null,
 ) => Resolution;
+
+export interface CustomResolverOptions {
+    __proto__: null;
+    readonly [key: string]: any;
+}

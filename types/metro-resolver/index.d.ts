@@ -5,10 +5,30 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export * from './types';
-export * from './errors';
+export {
+    AssetFileResolution,
+    CustomResolutionContext,
+    CustomResolver,
+    CustomResolverOptions,
+    DoesFileExist,
+    FileAndDirCandidates,
+    FileCandidates,
+    FileResolution,
+    IsAssetFile,
+    ResolutionContext,
+    Resolution,
+    ResolveAsset,
+    Result,
 
-import type { FileCandidates, ResolutionContext, Resolution } from './types';
+    // didn't exported in the origin code
+    FileContext,
+    FileOrDirContext,
+    HasteContext,
+    ModulePathContext,
+} from './types';
 
-export function formatFileCandidates(candidates: FileCandidates): string;
-export function resolve(context: ResolutionContext, moduleName: string, platform: string | null): Resolution;
+export { FailedToResolveNameError } from './FailedToResolveNameError';
+export { FailedToResolvePathError } from './FailedToResolvePathError';
+export { InvalidPackageError } from './InvalidPackageError';
+export { formatFileCandidates } from './formatFileCandidates';
+export { resolve } from './resolve';

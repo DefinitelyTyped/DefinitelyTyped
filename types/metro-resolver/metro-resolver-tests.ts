@@ -1,8 +1,6 @@
 import { resolve, formatFileCandidates } from 'metro-resolver';
 
-formatFileCandidates(
-    { type: 'asset', name: 'testAsset' },
-);
+formatFileCandidates({ type: 'asset', name: 'testAsset' });
 
 resolve(
     {
