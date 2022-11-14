@@ -1,0 +1,5 @@
+{
+    "rules": {
+        "export-just-namespace": "off"
+    }
+}
