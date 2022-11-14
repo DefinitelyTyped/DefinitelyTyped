@@ -479,8 +479,8 @@ export namespace products {
 }
 
 export namespace settings {
-    function getfunction(): Promise<unknown>;
-    function loadfunction(): Promise<unknown>;
+    function get(): Promise<unknown>;
+    function load(): Promise<unknown>;
     function menus(input?: string): Promise<unknown>;
     function payments(): Promise<unknown>;
 }
