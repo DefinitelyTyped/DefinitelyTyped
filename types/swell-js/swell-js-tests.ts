@@ -95,8 +95,8 @@ swell.products.variation('', {
     value: '',
 });
 
-swell.settings.getfunction(); // $ExpectType Promise<unknown>
-swell.settings.loadfunction(); // $ExpectType Promise<unknown>
+swell.settings.get(); // $ExpectType Promise<unknown>
+swell.settings.load(); // $ExpectType Promise<unknown>
 swell.settings.menus(); // $ExpectType Promise<unknown>
 swell.settings.menus(''); // $ExpectType Promise<unknown>
 swell.settings.payments(); // $ExpectType Promise<unknown>
