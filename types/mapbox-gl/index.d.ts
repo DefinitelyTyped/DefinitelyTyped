@@ -328,7 +328,7 @@ declare namespace mapboxgl {
                 | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
                 | ImageData
                 | ImageBitmap,
-            options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined },
+            options?: { pixelRatio?: number | undefined; sdf?: boolean | undefined, stretchX?: [number, number][] | undefined, stretchY?: [number, number][] | undefined, content?: [number, number, number, number] | undefined },
         ): void;
 
         updateImage(
