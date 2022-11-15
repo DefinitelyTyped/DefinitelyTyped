@@ -1,6 +1,7 @@
 // Type definitions for swell-js 3.17
 // Project: https://github.com/swellstores/swell-js#readme
 // Definitions by: Gus Fune <https://github.com/gusfune>
+//                 Markus <https://github.com/markus-gx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace swell;
@@ -28,11 +29,58 @@ export interface CreateAccountInput {
     password?: string;
 }
 
+export interface ListResult<T> {
+    count: number;
+    results: T[];
+    page: number;
+    pages?: {
+        [key: string]: {
+            start: number;
+            end: number;
+        };
+    };
+}
+
 export type PurchaseOptions = 'subscription' | 'standard';
+
+export interface ImageCamelCase {
+    file: {
+        id: string;
+        dateUploaded: string;
+        length: number;
+        md5: string;
+        filename: string | null;
+        contentType: string;
+        metadata: unknown;
+        url: string;
+        width: number;
+        height: number;
+    };
+    id: string;
+}
+
+export interface ImageSnakeCase {
+    file: {
+        id: string;
+        date_uploaded: string;
+        length: number;
+        md5: string;
+        filename?: string | null;
+        content_type: string;
+        metadata: unknown;
+        url: string;
+        width: number;
+        height: number;
+    };
+    id: string;
+}
+
+export type Image = ImageCamelCase | ImageSnakeCase;
 
 export interface ProductCamelCase {
     price: number;
     sale: boolean;
+    salePrice?: number;
     sku: unknown;
     slug: string;
     stockLevel: number;
@@ -57,16 +105,29 @@ export interface ProductCamelCase {
         variant: true;
     }>;
     attributes: unknown;
-    content: never;
+    content: any;
     description: string;
     id: string;
-    images: never;
+    images: ImageCamelCase[];
     name: string;
+    variants?: {
+        count: number;
+        results: ProductCamelCase[];
+    };
+    crossSells?: Array<{
+        id: string;
+        productId: string;
+    }>;
+    upSells?: Array<{
+        id: string;
+        productId: string;
+    }>;
 }
 
 export interface ProductSnakeCase {
     price: number;
     sale: boolean;
+    sale_price?: number;
     sku: unknown;
     slug: string;
     stock_level: number;
@@ -91,11 +152,23 @@ export interface ProductSnakeCase {
         variant: true;
     }>;
     attributes: unknown;
-    content: never;
+    content: any;
     description: string;
     id: string;
-    images: never;
+    images: ImageSnakeCase[];
     name: string;
+    variants?: {
+        count: number;
+        results: ProductSnakeCase[];
+    };
+    cross_sells?: Array<{
+        id: string;
+        product_id: string;
+    }>;
+    up_sells?: Array<{
+        id: string;
+        product_id: string;
+    }>;
 }
 
 export type Product = ProductCamelCase | ProductSnakeCase;
@@ -412,7 +485,7 @@ export namespace account {
 
 export namespace attributes {
     function get(input: string): Promise<unknown>;
-    function list(input: object): Promise<unknown>;
+    function list(input: object): Promise<ListResult<unknown>>;
 }
 
 export namespace card {
@@ -439,12 +512,12 @@ export namespace cart {
 
 export namespace categories {
     function get(input: string): Promise<unknown>;
-    function list(input: object): Promise<unknown>;
+    function list(input: object): Promise<ListResult<unknown>>;
 }
 
 export namespace currency {
     function format(input: number, format: object): string;
-    function list(): Promise<unknown>;
+    function list(): Promise<ListResult<unknown>>;
     function select(input: string): Promise<unknown>;
     function selected(): Promise<string>;
 }
@@ -461,13 +534,13 @@ export namespace payment {
 
 export namespace products {
     function get(productId: string): Promise<Product>;
-    function list(input: Query | SearchQuery): Promise<Product>;
+    function list(input: Query | SearchQuery): Promise<ListResult<Product>>;
     function variation(productId: string, options: CartOption): Promise<Product>;
 }
 
 export namespace settings {
-    function getfunction(): Promise<unknown>;
-    function loadfunction(): Promise<unknown>;
+    function get(): Promise<unknown>;
+    function load(): Promise<unknown>;
     function menus(input?: string): Promise<unknown>;
     function payments(): Promise<unknown>;
 }
@@ -476,7 +549,7 @@ export namespace subscriptions {
     function addItem(id: string, input: object): Promise<unknown>;
     function create(input: object): Promise<unknown>;
     function get(id: string): Promise<unknown>;
-    function list(): Promise<unknown>;
+    function list(): Promise<ListResult<unknown>>;
     function removeItem(id: string, itemId: string): Promise<unknown>;
     function update(id: string, input: object): Promise<unknown>;
     function updateItem(id: string, itemId: string, input: any): Promise<unknown>;

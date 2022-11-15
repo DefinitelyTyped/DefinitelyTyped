@@ -486,8 +486,8 @@
   export function cvjs_openFileLoadToServer(f_div: string): void;
   export function cvjs_setFileLoadTrialMode(loadMode: any): void;
   export function cvjs_loadServerFileList(mode: any): void;
-  export function cvjs_setRedlinesRelativePath(path: string, serverPath: string): void;
-  export function cvjs_setRedlinesAbsolutePath(path: string, serverPath: string): void;
+  export function cvjs_setRedlinesRelativePath(path: string, serverPath: string, dynamicPathFlag: boolean): void;
+  export function cvjs_setRedlinesAbsolutePath(path: string, serverPath: string, dynamicPathFlag: boolean): void;
   export function cvjs_openSpaceObjectSaveModal(f_div: any): void;
   export function cvjs_openRedlineSaveModal(f_div: any): void;
   export function cvjs_openRedlineLoadModal(f_div: any): void;
@@ -616,7 +616,6 @@
   export function cvjs_drawRedlineArrow(f_div: string): void;
   export function cvjs_drawRedlineText(f_div: string): void;
   export function cvjs_hide_redline_text_modal(f_div: any): void;
-  export function cvjs_exitRedlineTextModal(): void;
   export function cvjs_setStickyNoteRedlineUrl(file: string): void;
   export function cvjs_setStickyNoteSaveRedlineUrl(file: string): void;
   export function cvjs_drawRedline_Freehand(f_div: string): void;
@@ -830,11 +829,11 @@
   export function cvjs_restAPI_getSVGContentData(remainOnServer: boolean): string;
   export function cvjs_setMouseTouchHandlers_SpaceObject(f_div: any, active_floorplan_div_nr: any, room: any): void;
   export function cvjs_setSpaceObjectsCustomMenu(serverFolder: any, fileName: any, flag: any): void;
-  export function cvjs_setIconImageSize(f_div: string, pixelheight: boolean, pixelheight_large: boolean): void;
+  export function cvjs_setIconImageSize(f_div: string, pixelheight: any, pixelheight_large: any): void;
   export function cvjs_changeSpaceObjectNode(currentNode: string, newNode: string): boolean;
   export function cvjs_hideSpaceObjectID(spaceID: string): boolean;
   export function cvjs_showSpaceObjectID(spaceID: string): boolean;
-  export function cvjs_setCADViewerInterfaceVersion(version: boolean): void;
+  export function cvjs_setCADViewerInterfaceVersion(version: number): void;
   export function cvjs_getSpaceObjectByType(getType: string): any;
   export function cvjs_returnAllRedlineObjects(): any;
   export function cvjs_returnAllStickyNoteObjects(): any;
@@ -848,3 +847,9 @@
   export function cvjs_handleObjectsParceTextOnly(flag: boolean): void;
   export function cvjs_processHandleObjects(): void;
   export function cvjs_getTextOnId(id: string): string;
+  export function cvjs_setWatermarks(textline1: string, textline2: string, hexcolor: string, sendtoback: boolean): void;
+  export function cvjs_insertSpaceObjectsCustomMenu(jsonMenu: any): void;
+  export function cvjs_styleQTip_color(state: boolean, titlebar: string, content: string, header_1: string, header_info_1: string, header_info_2: string): void;
+  export function cvjs_setCADViewerSkin(skin: string): void;
+  export function cvjs_setRelativeConversionFilesFolder(converterfilespath: string, converterfilesurlpath: string): void;
+  export function cvjs_setZoomExtentsMode(mode: string): void;

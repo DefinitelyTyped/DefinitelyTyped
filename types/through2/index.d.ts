@@ -2,7 +2,6 @@
 // Project: https://github.com/rvagg/through2
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 Georgios Valotasios <https://github.com/valotas>
-//                 Ben Chauvette <https://github.com/undefined>
 //                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
 //                 Alorel <https://github.com/Alorel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

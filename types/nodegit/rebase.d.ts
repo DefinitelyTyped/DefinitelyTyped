@@ -16,17 +16,22 @@ export interface RebaseOptions {
 export class Rebase {
     static init(
         repo: Repository,
-        branch: AnnotatedCommit,
-        upstream: AnnotatedCommit,
-        onto: AnnotatedCommit,
-        opts?: RebaseOptions,
+        branch: AnnotatedCommit | undefined | null,
+        upstream?: AnnotatedCommit | null,
+        onto?: AnnotatedCommit | null,
+        opts?: RebaseOptions | null,
     ): Promise<Rebase>;
     static initOptions(opts: RebaseOptions, version: number): number;
     static open(repo: Repository, opts?: RebaseOptions): Promise<Rebase>;
 
     abort(): number;
-    commit(author: Signature, committer: Signature, messageEncoding: string, message: string): Oid;
-    finish(signature: Signature): number;
+    commit(
+        author: Signature | undefined | null,
+        committer: Signature,
+        messageEncoding?: string | null,
+        message?: string | null,
+    ): Promise<Oid>;
+    finish(signature?: Signature | null): number;
     inmemoryIndex(index: Index): number;
     next(): Promise<RebaseOperation>;
     operationByIndex(idx: number): RebaseOperation;

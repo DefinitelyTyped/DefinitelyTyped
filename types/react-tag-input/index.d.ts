@@ -34,7 +34,7 @@ export interface ReactTagsProps {
     handleInputFocus?: ((value: string) => void) | undefined;
     handleInputBlur?: ((textInputValue: string) => void) | undefined;
     minQueryLength?: number | undefined;
-    removeComponent?: React.Component<any, any> | undefined;
+    removeComponent?: React.Component<any, any> | React.FC<any> | undefined;
     autocomplete?: boolean | 1 | undefined;
     readOnly?: boolean | undefined;
 

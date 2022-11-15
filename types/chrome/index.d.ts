@@ -4797,11 +4797,12 @@ declare namespace chrome.identity {
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
      * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
      * @param details WebAuth flow options.
-     * @param callback Called with the URL redirected back to your application.
+     * @param callback Optional. Called with the URL redirected back to your application.
      * The callback parameter should be a function that looks like this:
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+    export function launchWebAuthFlow(details: WebAuthFlowOptions): Promise<string | undefined>;
 
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
@@ -10935,6 +10936,18 @@ declare namespace chrome.webRequest {
     export interface WebRequestHeadersDetails extends WebRequestDetails {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeader[] | undefined;
+        documentId: string;
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameId: number;
+        initiator?: string | undefined;
+        parentDocumentId?: string | undefined;
+        parentFrameId: number;
+        requestId: string;
+        tabId: number;
+        timeStamp: number;
+        type: ResourceType;
+        url: string;
     }
 
     export interface WebRequestBodyDetails extends WebRequestDetails {
