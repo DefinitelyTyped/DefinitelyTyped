@@ -222,7 +222,10 @@ export interface NightwatchDesiredCapabilities {
      * This is a list of all the Chrome-specific desired capabilities.
      */
     chromeOptions?: ChromeOptions | undefined;
-
+    
+    /**
+     * This is a list of all the Chrome-specific desired capabilities.
+     */
     "goog:chromeOptions"?: ChromeOptions | undefined;
 }
 
