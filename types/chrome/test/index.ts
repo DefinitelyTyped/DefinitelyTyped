@@ -1602,3 +1602,15 @@ async function testHistoryForPromise() {
     await chrome.history.deleteUrl({ url: 'https://example.com'})
     await chrome.history.getVisits({ url: 'https://example.com'})
 }
+
+// https://developer.chrome.com/docs/extensions/reference/identity/
+async function testIdentity() {
+    // $ExpectType void
+    chrome.identity.launchWebAuthFlow({ url: 'https://example.com '}, () => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/identity/
+async function testIdentityForPromise() {
+    // $ExpectType string | undefined
+    await chrome.identity.launchWebAuthFlow({ url: 'https://example.com '});
+}
