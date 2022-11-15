@@ -176,7 +176,14 @@ Git.Refspec.parse('+refs/heads/*:refs/remotes/origin/*', 0).then(refspec => {
     refspec.string(); // $ExpectType string
 });
 
-Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, null).then(rebase => {
+const rebaseOptions: Git.RebaseOptions = {
+    checkoutOptions: {
+        checkoutStrategy: Git.Checkout.STRATEGY.SAFE,
+    },
+    inmemory: 1,
+};
+
+Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, rebaseOptions).then(rebase => {
     return rebase.next().then(rebaseOperation => {
         rebaseOperation.id(); // $ExpectType Oid
         rebaseOperation.type(); // $ExpectType number | null
