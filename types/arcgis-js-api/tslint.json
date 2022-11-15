@@ -9,7 +9,6 @@
         "no-any-union": false,
         "no-empty-interface": false,
         "no-irregular-whitespace": false,
-        "no-unnecessary-class": false,
         "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "prefer-const": false,
