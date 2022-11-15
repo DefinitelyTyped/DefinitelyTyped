@@ -7,7 +7,7 @@
 import Promise = require('bluebird');
 
 declare namespace retryAsPromised {
-    type MatchOption = string | RegExp | Error;
+    type MatchOption = string | RegExp | Error | Function;
     interface Options {
         $current?: number | undefined;
         max?: number | undefined;

@@ -12,7 +12,7 @@ retry(() => Promise.reject(new Error('No matching values')), {});
 retry(() => Promise.resolve(), {
     max: 100,
     timeout: 60000,
-    match: ['Error matching values', new Error('No matching values'), new RegExp(/Deadlock/, 'i')],
+    match: ['Error matching values', new Error('No matching values'), new RegExp(/Deadlock/, 'i'), () => {}],
     backoffBase: 100,
     backoffExponent: 1.1,
     name: 'Source',
@@ -21,7 +21,7 @@ retry(() => Promise.resolve(), {
             log(options.name);
             log('iteration', options.$current);
         }
-    }
+    },
 });
-retry<Product>(() => Promise.resolve({ name: 'test' }) , {});
+retry<Product>(() => Promise.resolve({ name: 'test' }), {});
 retry<Product>(() => Promise.reject(new Error('No matching product')), {});
