@@ -108,11 +108,11 @@ export interface ProductCamelCase {
     content: any;
     description: string;
     id: string;
-    images: Array<ImageCamelCase>;
+    images: ImageCamelCase[];
     name: string;
     variants?: {
         count: number;
-        results: Array<ProductCamelCase>;
+        results: ProductCamelCase[];
     };
     crossSells?: Array<{
         id: string;
@@ -155,11 +155,11 @@ export interface ProductSnakeCase {
     content: any;
     description: string;
     id: string;
-    images: Array<ImageSnakeCase>;
+    images: ImageSnakeCase[];
     name: string;
     variants?: {
         count: number;
-        results: Array<ProductSnakeCase>;
+        results: ProductSnakeCase[];
     };
     cross_sells?: Array<{
         id: string;
