@@ -1351,7 +1351,7 @@ declare namespace braintree {
         trialPeriod?: boolean | undefined;
     }
 
-    export interface SubscriptionUpdateRequest extends SubscriptionRequest {
+    export interface SubscriptionUpdateRequest extends Partial<SubscriptionRequest> {
         options?:
             | {
                   paypal?:
