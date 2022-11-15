@@ -222,6 +222,8 @@ export interface NightwatchDesiredCapabilities {
      * This is a list of all the Chrome-specific desired capabilities.
      */
     chromeOptions?: ChromeOptions | undefined;
+
+    "goog:chromeOptions"?: ChromeOptions | undefined;
 }
 
 export interface NightwatchScreenshotOptions {
@@ -310,13 +312,6 @@ export interface NightwatchOptions {
     dotenv?: any;
 
     /**
-     * persist the same globals object between runs or have a (deep) copy of it per each test;
-     * this can be useful when persisting data between test suites is needed, such as a cookie or session information.
-     * @default false
-     */
-    persist_globals?: boolean | undefined;
-
-    /**
      * The location where the JUnit XML report files will be saved. Set this to false if you want to disable XML reporting.
      */
     output_folder?: string | undefined;
@@ -343,6 +338,7 @@ export interface NightwatchOptions {
 
     /**
      * Used when running in parallel to specify the delay (in milliseconds) between starting the child processes
+     * @default 10
      */
     parallel_process_delay?: number | undefined;
 
@@ -356,17 +352,6 @@ export interface NightwatchOptions {
      * @default true
      */
     start_process?: boolean | undefined;
-
-    /**
-     * End the session automatically when the test is being terminated, usually after a failed assertion.
-     * @default true
-     */
-    end_session_on_fail?: boolean | undefined;
-
-    /**
-     * Skip the remaining test cases from the current test suite, when one test case fails.
-     */
-    skip_testcases_on_fail?: boolean | undefined;
 
     /**
      * Whether or not to run individual test files in parallel. If set to true, runs the tests in parallel and determines the number of workers automatically.
@@ -390,164 +375,7 @@ export interface NightwatchOptions {
     /**
      * Allows for webdriver config (mostly the same as selenium)
      */
-    webdriver?:
-        | {
-              /**
-               * When this is enabled, the Webdriver server is run in background in a child process and started/stopped automatically.
-               * Nightwatch includes support for managing Chromedriver, Geckodriver (Firefox), Safaridriver, and Selenium Server. Please refer to the Install Webdriver section for details.
-               * @default false
-               */
-              start_process: boolean;
-
-              /**
-               * Only useful if start_process is enabled.
-               * @default none
-               */
-              server_path: string;
-
-              /**
-               * Only needed when the Webdriver service is running on a different machine.
-               */
-              host: string;
-
-              /**
-               * The port number on which the Webdriver service will listen and/or on which Nightwatch will attempt to connect.
-               */
-              port: number;
-
-              /**
-               * Should be set to true if connecting to a remote (cloud) service via HTTPS. Also don't forget to set port to 443.
-               */
-              ssl: boolean;
-
-              /**
-               * The location where the Webdriver service log file output.log file will be placed. Defaults to current directory.
-               * To disable Webdriver logging, set this to false.
-               * @default none
-               */
-              log_path: string | boolean;
-
-              /**
-               * List of cli arguments to be passed to the Webdriver process. This varies for each Webdriver implementation.
-               *
-               * @default none
-               */
-              cli_args: any;
-
-              /**
-               * Some Webdriver implementations (Safari, Edge) support both the W3C Webdriver API as well as the legacy JSON Wire (Selenium) API.
-               *
-               * @default false
-               */
-              use_legacy_jsonwire: boolean;
-
-              /**
-               * Time to wait (in ms) before starting to check the Webdriver server is up and running.
-               *
-               * @default 100
-               */
-              check_process_delay: number;
-
-              /**
-               * Maximum number of ping status check attempts when checking if the Webdriver server is up and running before returning a timeout error.
-               *
-               * @default 5
-               */
-              max_status_poll_tries: number;
-
-              /**
-               * Interval (in ms) to use between status ping checks when checking if the Webdriver server is up and running.
-               *
-               * @default 100
-               */
-              status_poll_interval: number;
-
-              /**
-               * The entire time (in ms) to wait for the Node.js process to be created and running (default is 2 min), including spawning the child process and checking the status.
-               *
-               * @default 120000
-               */
-              process_create_timeout: number;
-
-              /**
-               * Proxy requests to the Webdriver (or Selenium) service. http, https, socks(v5), socks5, sock4, and pac are accepted. Uses node-proxy-agent.
-               *
-               * @example http://user:pass@host:port
-               * @default none
-               */
-              proxy: string;
-
-              /**
-               * Requests to the Webdriver service will timeout in timeout miliseconds; a retry will happen retry_attempts number of times.
-               *
-               * @example {timeout: 15000, retry_attempts: 5}
-               */
-              timeout_options: TimeoutOptions;
-
-              /**
-               * Needed sometimes when using a Selenium Server. The prefix to be added to to all requests (e.g. /wd/hub).
-               */
-              default_path_prefix: string;
-
-              /**
-               * Usually only needed for cloud testing Selenium services. In case the server requires credentials this username will be used to compute the Authorization header.
-               *
-               * The value can be also an environment variable, in which case it will look like this:
-               * "username" : "${SAUCE_USERNAME}"
-               *
-               * @default none
-               */
-              username: string;
-
-              /**
-               * This field will be used together with username to compute the Authorization header.
-               *
-               * Like username, the value can be also an environment variable:
-               * "access_key" : "${SAUCE_ACCESS_KEY}"
-               *
-               * @default none
-               */
-              access_key: string;
-
-              /**
-               * Sets the path to the Chrome binary to use.
-               * On Mac OS X, this path should reference the actual Chrome executable,
-               * not just the application binary (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
-               */
-              chrome_binary?: '';
-
-              /**
-               * Sets the path to Chrome's log file. This path should exist on the machine that will launch Chrome.
-               */
-              chrome_log_file?: '';
-
-              /**
-               * Configures the ChromeDriver to launch Chrome on Android via adb.
-               */
-              android_chrome?: false;
-
-              /**
-               * Sets the path to the Edge binary to use. This path should exist on the machine that will launch Edge.
-               */
-              edge_binary?: '';
-
-              /**
-               * Sets the path to the Edge binary to use.
-               */
-              edge_log_file?: '';
-
-              /**
-               * Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel. This path should exist on the machine that will launch Firefox.
-               */
-              firefox_binary?: '';
-
-              /**
-               * Sets the path to an existing profile to use as a template for new browser sessions.
-               * This profile will be copied for each new session - changes will not be applied to the profile itself.
-               */
-              firefox_profile?: '';
-          }
-        | undefined;
+    webdriver?: {} | NightwatchWebdriverOptions;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
@@ -571,19 +399,9 @@ export interface NightwatchOptions {
     skipgroup?: string;
 
     /**
-     * A name property will be added to the desiredCapabilities containing the test suite name when this is enabled. It is useful when using cloud testing services.
-     */
-    sync_test_names?: boolean;
-
-    /**
      * Skip tests by tag name; can be a list of comma-separated values (no space).
      */
     skiptags?: string;
-
-    /**
-     * Use xpath as the default locator strategy.
-     */
-    use_xpath?: boolean;
 
     parallel_mode?: boolean;
 
@@ -622,6 +440,194 @@ export interface NightwatchOptions {
      * Sets the initial window size: {height: number, width: number}
      */
     window_size?: WindowSize;
+
+    /**
+     * Enable aborting the test run execution when the first test failure occurs; the remaining test suites will be skipped.
+     * @default false
+     */
+    enable_fail_fast?: boolean;
+
+    /**
+     * Controls whether to run tests in unit testing mode, which means the session will not automatically be created.
+     * @default false
+     */
+    unit_tests_mode?: boolean;
+}
+
+export interface NightwatchWebdriverOptions {
+    /**
+     * When this is enabled, the Webdriver server is run in background in a child process and started/stopped automatically.
+     * Nightwatch includes support for managing Chromedriver, Geckodriver (Firefox), Safaridriver, and Selenium Server. Please refer to the Install Webdriver section for details.
+     * @default false
+     */
+    start_process?: boolean;
+
+    /**
+     * Only useful if start_process is enabled.
+     * @default none
+     */
+    server_path?: string;
+
+    /**
+     * Only needed when the Webdriver service is running on a different machine.
+     */
+    host?: string;
+
+    /**
+     * The port number on which the Webdriver service will listen and/or on which Nightwatch will attempt to connect.
+     */
+    port?: number;
+
+    /**
+     * Should be set to true if connecting to a remote (cloud) service via HTTPS. Also don't forget to set port to 443.
+     */
+    ssl?: boolean;
+
+    /**
+     * The location where the Webdriver service log file output.log file will be placed. Defaults to current directory.
+     * To disable Webdriver logging, set this to false.
+     * @default none
+     */
+    log_path?: string | boolean;
+
+    /**
+     * By default, the log file name will be the same as the testsuite file name, but a different filename can be specified as well.
+     * @default none
+     */
+    log_file_name?: string | undefined;
+
+    /**
+     * List of cli arguments to be passed to the Webdriver process. This varies for each Webdriver implementation.
+     *
+     * @default none
+     */
+    cli_args?: any;
+
+    /**
+     * If set to true the keepAlive option is enabled with default settings (keepAliveMsecs = 3000).
+     * If set to an object, can specify specify the keepAliveMsecs value.
+     *
+     * @default false
+     */
+    keep_alive?: boolean | {
+        
+            enabled : boolean, 
+            keepAliveMsecs : number
+        };
+
+
+    /**
+     * Some Webdriver implementations (Safari, Edge) support both the W3C Webdriver API as well as the legacy JSON Wire (Selenium) API.
+     *
+     * @default false
+     */
+    use_legacy_jsonwire: boolean;
+
+    /**
+     * Time to wait (in ms) before starting to check the Webdriver server is up and running.
+     *
+     * @default 100
+     */
+    check_process_delay: number;
+
+    /**
+     * Maximum number of ping status check attempts when checking if the Webdriver server is up and running before returning a timeout error.
+     *
+     * @default 5
+     */
+    max_status_poll_tries?: number;
+
+    /**
+     * Interval (in ms) to use between status ping checks when checking if the Webdriver server is up and running.
+     *
+     * @default 100
+     */
+    status_poll_interval?: number;
+
+    /**
+     * The entire time (in ms) to wait for the Node.js process to be created and running (default is 2 min), including spawning the child process and checking the status.
+     *
+     * @default 120000
+     */
+    process_create_timeout?: number;
+
+    /**
+     * Proxy requests to the Webdriver (or Selenium) service. http, https, socks(v5), socks5, sock4, and pac are accepted. Uses node-proxy-agent.
+     *
+     * @example http://user:pass@host:port
+     * @default none
+     */
+    proxy?: string;
+
+    /**
+     * Requests to the Webdriver service will timeout in timeout miliseconds; a retry will happen retry_attempts number of times.
+     *
+     * @example {timeout: 15000, retry_attempts: 5}
+     */
+    timeout_options?: TimeoutOptions;
+
+    /**
+     * Needed sometimes when using a Selenium Server. The prefix to be added to to all requests (e.g. /wd/hub).
+     */
+    default_path_prefix?: string;
+
+    /**
+     * Usually only needed for cloud testing Selenium services. In case the server requires credentials this username will be used to compute the Authorization header.
+     *
+     * The value can be also an environment variable, in which case it will look like this:
+     * "username" : "${SAUCE_USERNAME}"
+     *
+     * @default none
+     */
+    username?: string;
+
+    /**
+     * This field will be used together with username to compute the Authorization header.
+     *
+     * Like username, the value can be also an environment variable:
+     * "access_key" : "${SAUCE_ACCESS_KEY}"
+     *
+     * @default none
+     */
+    access_key?: string;
+
+    /**
+     * Sets the path to the Chrome binary to use.
+     * On Mac OS X, this path should reference the actual Chrome executable,
+     * not just the application binary (e.g. "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome").
+     */
+    chrome_binary?: '';
+
+    /**
+     * Sets the path to Chrome's log file. This path should exist on the machine that will launch Chrome.
+     */
+    chrome_log_file?: '';
+
+    /**
+     * Configures the ChromeDriver to launch Chrome on Android via adb.
+     */
+    android_chrome?: false;
+
+    /**
+     * Sets the path to the Edge binary to use. This path should exist on the machine that will launch Edge.
+     */
+    edge_binary?: '';
+
+    /**
+     * Sets the path to the Edge binary to use.
+     */
+    edge_log_file?: '';
+
+    /**
+     * Sets the binary to use. The binary may be specified as the path to a Firefox executable or a desired release Channel. This path should exist on the machine that will launch Firefox.
+     */
+    firefox_binary?: '';
+
+    /**
+     * Sets the path to an existing profile to use as a template for new browser sessions.
+     * This profile will be copied for each new session - changes will not be applied to the profile itself.
+     */
+    firefox_profile?: '';
 }
 
 export interface NightwatchGlobals {
@@ -776,6 +782,23 @@ export interface NightwatchSeleniumOptions {
 export interface NightwatchTestSettingGeneric {
     /**
      * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
+     * @aliases base_url, launch_url, launchUrl
+     */
+    baseUrl?: string | undefined;
+     /**
+     * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
+     * @alias baseUrl
+     */
+    base_url?: string | undefined;
+    /**
+     * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
+     * @alias baseUrl
+     */
+    launchUrl?: string | undefined;
+
+    /**
+     * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
+     * @alias baseUrl
      */
     launch_url?: string | undefined;
 
@@ -829,13 +852,33 @@ export interface NightwatchTestSettingGeneric {
      *  "acceptSslCerts" : true
      * }
      * You can view the complete list of capabilities https://code.google.com/p/selenium/wiki/DesiredCapabilities.
+     * @alias capabilities
      */
     desiredCapabilities?: NightwatchDesiredCapabilities | undefined;
+
+    /**
+     * An object which will be passed to the Selenium WebDriver when a new session will be created. You can specify browser name for instance along with other capabilities.
+     * Example:
+     *  "capabilities" : {
+     *  "browserName" : "firefox",
+     *  "acceptSslCerts" : true
+     * }
+     * You can view the complete list of capabilities https://code.google.com/p/selenium/wiki/DesiredCapabilities.
+     */
+    capabilities?: NightwatchDesiredCapabilities | undefined;
+
 
     /**
      * An object which will be made available within the test and can be overwritten per environment. Example:"globals" : {  "myGlobal" : "some_global" }
      */
     globals?: NightwatchTestHooks | undefined;
+
+    /**
+     * persist the same globals object between runs or have a (deep) copy of it per each test;
+     * this can be useful when persisting data between test suites is needed, such as a cookie or session information.
+     * @default false
+     */
+    persist_globals?: boolean | undefined;
 
     /**
      * An array of folders or file patterns to be skipped (relative to the main source folder).
@@ -856,8 +899,21 @@ export interface NightwatchTestSettingGeneric {
 
     /**
      * Use xpath as the default locator strategy
+     * @default false
      */
     use_xpath?: boolean | undefined;
+
+    /**
+     * Set to true if connecting to a remote Grid server via https. Also don't forget to set port to 443.
+     * @default false
+     */
+    use_ssl?: boolean | undefined;
+
+    /**
+     * A name property will be added to the desiredCapabilities containing the test suite name when this is enabled. It is useful when using cloud testing services.
+     * @default true
+     */
+    sync_test_names?: boolean;
 
     /**
      * Same as Selenium settings cli_args. You can override the global cli_args on a per-environment basis.
@@ -866,11 +922,13 @@ export interface NightwatchTestSettingGeneric {
 
     /**
      * End the session automatically when the test is being terminated, usually after a failed assertion.
+     * @default true
      */
     end_session_on_fail?: boolean | undefined;
 
     /**
      * Skip the rest of testcases (if any) when one testcase fails..
+     * @default true
      */
     skip_testcases_on_fail?: boolean | undefined;
 }
