@@ -187,14 +187,14 @@ export namespace Storage {
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
     interface StorageAreaOnChangedChangesType<OType = any, NType = OType> {
-        [s: string]: StorageChange<OType, NType> | undefined;
+        [s: string]: StorageChange<OType, NType>;
     }
 
     /**
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
     interface StorageAreaSyncOnChangedChangesType<OType = any, NType = OType> {
-        [s: string]: StorageChange<OType, NType> | undefined;
+        [s: string]: StorageChange<OType, NType>;
     }
 
     interface Static {
