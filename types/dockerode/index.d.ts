@@ -1474,7 +1474,15 @@ declare namespace Dockerode {
     }
 
     interface ServiceListOptions {
-        filters?: string | undefined;
+        filters?:
+            | {
+                  id?: string[] | undefined;
+                  label?: string[] | undefined;
+                  mode?: Array<'replicated' | 'global'> | undefined;
+                  name?: string[] | undefined;
+              }
+            | string
+            | undefined;
         status?: boolean | undefined;
         abortSignal?: AbortSignal;
     }
