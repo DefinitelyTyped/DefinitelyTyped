@@ -6,43 +6,49 @@
 import type { OutgoingHttpHeaders } from 'http';
 import type { Request } from 'express';
 
-export interface Profile {
-    provider: string;
-    id: number;
-    displayName: string;
-    name: {
-        familyName: string;
-        givenName: string;
-    };
-    emails: Array<{ value: string }>;
-    photos: Array<{ value: string }>;
-    _raw: string;
-    _json: any;
+declare namespace PassportDeezer {
+    interface Profile {
+        provider: string;
+        id: number;
+        displayName: string;
+        name: {
+            familyName: string;
+            givenName: string;
+        };
+        emails: Array<{ value: string }>;
+        photos: Array<{ value: string }>;
+        _raw: string;
+        _json: any;
+    }
+
+    type VerifyCallback = (error?: Error | null, user?: object) => void;
+
+    interface StrategyOptions {
+        clientID: string;
+        clientSecret: string;
+        callbackURL: string;
+        scope: string[];
+        authorizationURL?: string;
+        tokenURL?: string;
+        scopeSeparator?: string;
+        customHeaders?: OutgoingHttpHeaders;
+    }
+
+    type VerifyFunction = (
+        accessToken: string,
+        refreshToken: string | undefined,
+        profile: Profile,
+        done: VerifyCallback,
+    ) => void;
+
+    class Strategy {
+        constructor(options: StrategyOptions, verify: VerifyFunction);
+
+        name: string;
+        authenticate(req: Request, options?: object): void;
+    }
 }
 
-export type VerifyCallback = (error?: Error | null, user?: object) => void;
+declare function PassportDeezer(): void;
 
-export interface StrategyOptions {
-    clientID: string;
-    clientSecret: string;
-    callbackURL: string;
-    scope: string[];
-    authorizationURL?: string;
-    tokenURL?: string;
-    scopeSeparator?: string;
-    customHeaders?: OutgoingHttpHeaders;
-}
-
-export type VerifyFunction = (
-    accessToken: string,
-    refreshToken: string | undefined,
-    profile: Profile,
-    done: VerifyCallback,
-) => void;
-
-export class Strategy {
-    constructor(options: StrategyOptions, verify: VerifyFunction);
-
-    name: string;
-    authenticate(req: Request, options?: object): void;
-}
+export = PassportDeezer;
