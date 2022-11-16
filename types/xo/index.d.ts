@@ -28,6 +28,9 @@ export function getFormatter(
  */
 export function outputFixes(report: ResultReport): void;
 
+export function getConfig(
+    options: CLIEngineOptions & { filePath: string },
+): ReturnType<eslint.ESLint['calculateConfigForFile']>;
 export function lintText(text: string, options?: Options): ResultReport;
 export function lintFiles(patterns: string | string[], options?: Options): ResultReport | Promise<ResultReport>;
 
