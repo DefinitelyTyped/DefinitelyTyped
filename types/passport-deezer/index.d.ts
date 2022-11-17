@@ -6,7 +6,15 @@
 import type { OutgoingHttpHeaders } from 'http';
 import type { Request } from 'express';
 
-declare namespace PassportDeezer {
+declare class Strategy {
+    constructor(options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction);
+
+    name: string;
+    authenticate(req: Request, options?: object): void;
+    static Strategy: { new (options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction): Strategy };
+}
+
+declare namespace Strategy {
     interface Profile {
         provider: string;
         id: number;
@@ -40,15 +48,6 @@ declare namespace PassportDeezer {
         profile: Profile,
         done: VerifyCallback,
     ) => void;
-
-    class Strategy {
-        constructor(options: StrategyOptions, verify: VerifyFunction);
-
-        name: string;
-        authenticate(req: Request, options?: object): void;
-    }
 }
 
-declare function PassportDeezer(): void;
-
-export = PassportDeezer;
+export = Strategy;
