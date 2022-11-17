@@ -24,7 +24,7 @@ declare namespace sprite {
          * @param name The "local" part of the file path, possibly including subdirectories which will get traversed to CSS selectors using the shape.id.separator configuration option.
          * @param svg SVG file content.
          */
-        add(file: string | File, name: string, svg: string): SVGSpriter;
+        add(file: string | File, name: string | null, svg: string): SVGSpriter;
         /**
          * Registering source SVG files
          * @param file Absolute path to the SVG file or a vinyl file object carrying all the necessary values (the following arguments are ignored then).
@@ -45,7 +45,7 @@ declare namespace sprite {
          * Simple Promise wrapper on `SVGSpriter.compile`.
          * @param config Configuration object (same as in `SVGSpriter.compile`).
          */
-        compileAsync(config?: Config): Promise<any>;
+        compileAsync(config?: Config): Promise<{ result: any, data: any }>;
         /**
          * Accessing the intermediate SVG resources
          * @param dest Base directory for the SVG files in case the will be written to disk.
