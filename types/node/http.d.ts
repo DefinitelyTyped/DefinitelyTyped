@@ -107,7 +107,7 @@ declare module 'http' {
         vary?: string | undefined;
         via?: string | undefined;
         warning?: string | undefined;
-        'www-authenticate'?: string | undefined;
+        'www-authenticate'?: string | string[] | undefined;
     }
     // outgoing headers allows numbers (as they are converted internally to strings)
     type OutgoingHttpHeader = number | string | string[];
