@@ -6,9 +6,6 @@ interface Modal {
     off(root: HTMLElement | Document): void;
     /**
      *  Toggle the visibility of a modal window
-     *
-     * @param {KeyboardEvent} event the keydown event
-     * @returns {boolean} safeActive if mobile is open
      */
     toggleModal(event: KeyboardEvent): boolean;
 }

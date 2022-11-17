@@ -11,21 +11,14 @@ interface FileInput {
     /**
      * Get an object of the properties and elements belonging directly to the given
      * file input component.
-     *
-     * @param {HTMLElement} el the element within the file input
-     * @returns {FileInputContext} elements
      */
     getFileInputContext(el: HTMLElement): FileInputContext;
     /**
      * Disable the file input component
-     *
-     * @param {HTMLElement} el An element within the file input component
      */
     disable(el: HTMLElement): void;
     /**
      * Enable the file input component
-     *
-     * @param {HTMLElement} el An element within the file input component
      */
     enable(el: HTMLElement): void;
 }

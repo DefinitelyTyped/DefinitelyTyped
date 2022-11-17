@@ -11,8 +11,6 @@ interface Tooltip {
     off(el: HTMLElement): void;
     /**
      * Setup the tooltip component
-     * @param {HTMLElement} tooltipTrigger The element that creates the tooltip
-     * @returns {object} elements
      */
     setup(tooltipTrigger: HTMLElement): {
         tooltipBody: HTMLSpanElement;
@@ -20,11 +18,6 @@ interface Tooltip {
         tooltipContent: string;
         wrapper: HTMLSpanElement;
     };
-    /**
-     *
-     * @param {DOMElement} trigger - The tooltip trigger
-     * @returns {object} Elements for initialized tooltip; includes trigger, wrapper, and body
-     */
     getTooltipElements(trigger: Element): {
         trigger: Element;
         wrapper: HTMLElement;
@@ -32,7 +25,6 @@ interface Tooltip {
     };
     /**
      * Shows the tooltip
-     * @param {HTMLElement} tooltipTrigger - the element that initializes the tooltip
      */
     show(tooltipTrigger: HTMLElement): void;
     /**
@@ -40,7 +32,6 @@ interface Tooltip {
      * and resets the tooltip position to the original intention
      * in case the window is resized or the element is moved through
      * DOM manipulation.
-     * @param {HTMLElement} tooltipBody - The body of the tooltip
      */
     hide(tooltipBody: HTMLElement): void;
 }

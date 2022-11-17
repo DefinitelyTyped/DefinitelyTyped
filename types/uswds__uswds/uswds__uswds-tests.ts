@@ -217,8 +217,8 @@ timePicker.off(element); // $ExpectType void
 tooltip.init(element); // $ExpectType void
 tooltip.on(element); // $ExpectType void
 tooltip.off(element); // $ExpectType void
-tooltip.show(element); // $ExpectType boolean
-tooltip.hide(element); // $ExpectType boolean
+tooltip.show(element); // $ExpectType void
+tooltip.hide(element); // $ExpectType void
 /*
 $ExpectType {
     tooltipBody: HTMLSpanElement;
