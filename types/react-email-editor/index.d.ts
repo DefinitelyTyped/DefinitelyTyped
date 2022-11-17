@@ -1,7 +1,8 @@
-// Type definitions for react-email-editor 1.1
+// Type definitions for react-email-editor 1.5
 // Project: https://github.com/unlayer/react-email-editor
 // Definitions by: Nikita Granko <https://github.com/ngranko>
 //                 Vladimir Penyazkov <https://github.com/mindtraveller>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -100,6 +101,7 @@ export interface EditorConfig {
 }
 
 export interface Features {
+    readonly audit?: boolean | undefined;
     readonly preview?: boolean | undefined;
     readonly imageEditor?: boolean | undefined;
     readonly undoRedo?: boolean | undefined;
@@ -140,12 +142,14 @@ export interface UnlayerOptions {
 }
 
 export interface EmailEditorProps {
+    readonly editorId?: string | undefined;
     readonly style?: CSSProperties | undefined;
     readonly minHeight?: number | string | undefined;
     readonly options?: UnlayerOptions | undefined;
     readonly tools?: ToolsConfig | undefined;
     readonly appearance?: AppearanceConfig | undefined;
     readonly projectId?: number | undefined;
+    readonly scriptUrl?: string | undefined;
     /** @deprecated Use **onReady** instead */
     onLoad?(): void;
     onReady?(): void;
@@ -154,6 +158,11 @@ export interface EmailEditorProps {
 export interface HtmlExport {
     readonly design: Design;
     readonly html: string;
+}
+
+export interface HtmlOptions {
+    readonly cleanup: boolean;
+    readonly minify: boolean;
 }
 
 export interface FileInfo {
@@ -191,9 +200,10 @@ export default class Component extends ReactComponent<EmailEditorProps> {
     registerCallback(type: 'image', callback: FileUploadCallback): void;
     registerCallback(type: 'displayCondition', callback: DisplayConditionCallback): void;
     addEventListener(type: string, callback: EventCallback): void;
+    loadBlank(type: object): void;
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
-    exportHtml(callback: ExportHtmlCallback): void;
+    exportHtml(callback: ExportHtmlCallback, type?: HtmlOptions): void;
     setMergeTags(mergeTags: ReadonlyArray<MergeTag>): void;
 }
 

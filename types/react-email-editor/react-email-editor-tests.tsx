@@ -81,6 +81,17 @@ class App extends React.Component {
 
   private readonly handleLoad = () => {
     if (this.editorRef.current) {
+      this.editorRef.current.loadBlank(
+        {
+          backgroundColor: '#fff',
+          contentWidth: '50%',
+          contentAlign: 'left',
+          fontFamily: {
+            label: 'Helvetica',
+            value: "'Helvetica Neue', Helvetica, Arial, sans-serif"
+          }
+        }
+      );
       this.editorRef.current.loadDesign({ body: { rows: [] } });
       this.editorRef.current.addEventListener('design:updated', () =>
         console.log('design has been updated'),
@@ -123,6 +134,9 @@ class App extends React.Component {
       this.editorRef.current.exportHtml(({ design, html }: HtmlExport) => {
         console.log('exported design', design);
         console.log('exported HTML: ', html);
+      }, {
+        cleanup: true,
+        minify: true
       });
     }
   }
@@ -203,6 +217,8 @@ class App extends React.Component {
             },
           }}
           projectId={1}
+          editorId="editor"
+          scriptUrl="https://example.com/embed.js"
           onReady={this.handleLoad}
         />
         <button onClick={this.handleClick}>save all</button>

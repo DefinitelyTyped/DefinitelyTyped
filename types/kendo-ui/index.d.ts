@@ -1370,6 +1370,7 @@ declare namespace kendo.data {
     interface DataSourceSortItem {
         field?: string | undefined;
         dir?: string | undefined;
+        compare?: Function | undefined
     }
 
     interface DataSourceTransportBatch extends JQueryAjaxSettings {
@@ -7921,6 +7922,7 @@ declare namespace kendo.ui {
 
         element: JQuery;
         wrapper: JQuery;
+        processor: any;
 
         static extend(proto: Object): PDFViewer;
 

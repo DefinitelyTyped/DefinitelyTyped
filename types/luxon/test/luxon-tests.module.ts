@@ -234,6 +234,8 @@ dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.rescale(); // $ExpectType Duration
+dur.shiftToAll(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === 'hours' ? x * 2 : x)); // $ExpectType Duration
 

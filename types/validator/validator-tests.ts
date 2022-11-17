@@ -462,6 +462,9 @@ const any: any = null;
     let result: boolean;
 
     result = validator.contains('sample', 'sample');
+    result = validator.contains('Sample', 'sample', { ignoreCase: true });
+    result = validator.contains('sampletestsample', 'sample', { minOccurrences: 2 });
+    result = validator.contains('Sampletestsample', 'sample', { ignoreCase: true, minOccurrences: 2 });
 
     result = validator.equals('sample', 'sample');
 
@@ -961,4 +964,8 @@ const any: any = null;
 {
     let ver: string;
     ver = validator.version;
+}
+
+{
+    validator.isISO8601('sample', { strict: true, strictSeparator: true });
 }

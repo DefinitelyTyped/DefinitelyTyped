@@ -917,6 +917,116 @@ declare namespace zingchart {
     history?: history;
     refresh?: refresh;
   }
+  interface gridStyles {
+    align?: string;
+    alpha?: number;
+    backgroundColor?: string;
+    'background-color'?: string;
+    backgroundColor1?: string;
+    'background-color-1'?: string;
+    backgroundColor2?: string;
+    'background-color-2'?: string;
+    bold?: boolean;
+    borderAlpha?: number;
+    'border-alpha'?: number;
+    borderBottom?: number;
+    'border-bottom'?: number;
+    borderColor?: string;
+    'border-color'?: string;
+    borderLeft?: number;
+    'border-left'?: number;
+    borderRadius?: number;
+    'border-radius'?: number;
+    borderRadiusBottomLeft?: number;
+    'border-radius-bottom-left'?: number;
+    borderRadiusBottomRight?: number;
+    'border-radius-bottom-right'?: number;
+    borderRadiusTopLeft?: number;
+    'border-radius-top-left'?: number;
+    borderRadiusTopRight?: number;
+    'border-radius-top-right'?: number;
+    borderRight?: number;
+    'border-right'?: number;
+    borderTop?: number;
+    'border-top'?: number;
+    borderWidth?: number;
+    'border-width'?: number;
+    class?: string;
+    clipText?: boolean;
+    'clip-text'?: boolean;
+    color?: string;
+    cursor?: string;
+    dataN?: any;
+    'data-n'?: any;
+    fillAngle?: number;
+    'fill-angle'?: number;
+    fillOffsetX?: number;
+    'fill-offset-x'?: number;
+    fillOffsetY?: number;
+    'fill-offset-y'?: number;
+    fillType?: string;
+    'fill-type'?: string;
+    fontColor?: string;
+    'font-color'?: string;
+    fontFamily?: string;
+    'font-family'?: string;
+    fontSize?: number;
+    'font-size'?: number;
+    fontStyle?: string;
+    'font-style'?: string;
+    fontWeight?: string|number;
+    'font-weight'?: string|number;
+    gradientColors?: string;
+    'gradient-colors'?: string;
+    gradientStops?: string;
+    'gradient-stops'?: string;
+    id?: string;
+    italic?: boolean;
+    lineGapSize?: number;
+    'line-gap-size'?: number;
+    lineHeight?: number;
+    'line-height'?: number;
+    lineSegmentSize?: number;
+    'line-segment-size'?: number;
+    lineStyle?: string;
+    'line-style'?: string;
+    maxChars?: number;
+    'max-chars'?: number;
+    mediaRules?: Array<{}>;
+    'media-rules'?: Array<{}>;
+    offsetX?: number;
+    'offset-x'?: number;
+    offsetY?: number;
+    'offset-y'?: number;
+    overlap?: boolean;
+    padding?: number;
+    paddingBottom?: number;
+    'padding-bottom'?: number;
+    paddingLeft?: number;
+    'padding-left'?: number;
+    paddingRight?: number;
+    'padding-right'?: number;
+    paddingTop?: number;
+    'padding-top'?: number;
+    rectShortcut?: boolean;
+    'rect-shortcut'?: boolean;
+    rtl?: boolean;
+    text?: string;
+    textAlign?: string;
+    'text-align'?: string;
+    textAlpha?: number;
+    'text-alpha'?: number;
+    textDecoration?: string;
+    'text-decoration'?: string;
+    underline?: boolean;
+    verticalAlign?: string;
+    'vertical-align'?: string;
+    visible?: boolean;
+    wrapText?: boolean;
+    'wrap-text'?: boolean;
+    zIndex?: number;
+    'z-index'?: number;
+  }
   interface guideLabel {
     /**
      * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely invisible and 1.0 being comp
@@ -15477,6 +15587,21 @@ declare namespace zingchart {
        */
       'color-type'?: string;
       colorType?: string;
+      'header-row'?: boolean;
+      headerRow?: boolean;
+      'header-col'?: boolean;
+      headerCol?: boolean;
+      rowLabels?: string[];
+      'row-labels'?: string[];
+      colLabels?: string[];
+      'col-labels'?: string[];
+      'col-widths'?: string[];
+      colWidths?: string[];
+      'data-class'?: string[];
+      dataClass?: string[];
+      flat?: boolean;
+      'force-height'?: boolean;
+      forceHeight?: boolean;
       /**
        * To set the maximum font size. 20 | "30px" | ...
        */
@@ -15742,6 +15867,22 @@ declare namespace zingchart {
       [key: `node[level-${string}`]: node;
       [key: `node[parent-${string}`]: node;
       style?: {
+        // The following attributes can be used to style grid charts:
+        '.td'?: gridStyles;
+        '.td_even'?: gridStyles;
+        '.td_odd'?: gridStyles;
+        '.td_first'?: gridStyles;
+        '.td_last'?: gridStyles;
+        '.th'?: gridStyles;
+        '.th_even'?: gridStyles;
+        '.th_odd'?: gridStyles;
+        '.th_first'?: gridStyles;
+        '.th_last'?: gridStyles;
+        '.tr'?: gridStyles;
+        '.tr_even'?: gridStyles;
+        '.tr_odd'?: gridStyles;
+        '.tr_first'?: gridStyles;
+        '.tr_last'?: gridStyles;
         /**
          * Sets the transparency of the object. Values must range between 0.0 and 1.0, with 0.0 being completely transparent and 1.0 being co
          * mpletely opaque. Note that the leading zero is required before the decimal. 0.3 | 0.4 | 0.9 | ...
@@ -17349,6 +17490,7 @@ declare namespace zingchart {
       'z-index'?: number;
       zIndex?: number;
     };
+    stacked?: boolean;
     subtitle?: {
       /**
        * Sets the transparency of the object. Requires that background-color be set. 0.3 | 0.9 | ...

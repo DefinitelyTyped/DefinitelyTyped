@@ -445,21 +445,27 @@ export interface LedOption {
 export declare class Led {
     constructor(option: LedOption['pin'] | LedOption);
 
+    animation: Animation;
     id: string;
+    isOn: boolean;
+    isRunning: boolean;
+    mode: Pin['mode'];
     pin: number;
+    value: number;
 
-    on(): void;
-    off(): void;
-    toggle(): void;
-    strobe(ms: number): void;
-    blink(): void;
-    blink(ms: number): void;
-    brightness(val: number): void;
-    fade(brightness: number, ms: number): void;
-    fadeIn(ms: number): void;
-    fadeOut(ms: number): void;
-    pulse(ms: number): void;
-    stop(): void;
+    blink(ms?: number, callback?: () => void): this;
+    blink(callback?: () => void): this;
+    brightness(val: number): this;
+    fade(brightness: number, ms?: number, callback?: () => void): this;
+    fadeIn(ms?: number, callback?: () => void): this;
+    fadeOut(ms?: number, callback?: () => void): this;
+    off(): this;
+    on(): this;
+    pulse(ms?: number, callback?: () => void): this;
+    stop(): this;
+    strobe(ms?: number, callback?: () => void): this;
+    strobe(callback?: () => void): this;
+    toggle(): this;
 }
 
 export declare module Led {
@@ -634,6 +640,11 @@ export interface PiezoOption {
     pin: number;
 }
 
+export interface PiezoTune {
+    tempo?: number;
+    song: [frequency: string | null, duration: number][];
+}
+
 export declare class Piezo {
     constructor(option: number | PiezoOption);
 
@@ -643,8 +654,8 @@ export declare class Piezo {
     readonly isPlaying: boolean;
 
     frequency(frequency: number, duration: number): void;
-    play(tune: any, cb?: () => void): void;
-    tone(frequency: number, duration: number): void;
+    play(tune: PiezoTune, cb?: () => void): void;
+    tone(tone: number, duration: number): void;
     noTone(): void;
     off(): void;
 }

@@ -1,4 +1,4 @@
-// Type definitions for non-npm package firemonkey-browser 2.60
+// Type definitions for non-npm package firemonkey-browser 2.62
 // Project: https://github.com/erosman/support/tree/FireMonkey
 // Definitions by: DrakeTDL <https://github.com/DrakeTDL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -55,7 +55,7 @@ declare namespace GM {
          * The URL to make the request to. Must be an absolute URL, beginning
          * with the scheme. May be relative to the current page.
          */
-        url: string;
+        url: string | URL;
         /** String type of HTTP request to make (E.G. "GET", "POST") */
         method?: RequestMethod;
         /** A set of headers to include in the request */
@@ -164,6 +164,46 @@ declare namespace GM {
  */
 declare var unsafeWindow: Window;
 
+/**
+ * exports content script function to the page script's scope, so the page script can call it.
+ * @param func The function to export.
+ * @param targetScope The object to attach the function to. This does not have to be the global window object: it could be any other object in the target window, or an object created by the caller.
+ * @param options.defineAs determines the name of the function in _targetScope_. If this is omitted, you need to assign the return value of exportFunction() to an object in the target scope.
+ * @param options.allowCrossOriginArguments do not check that arguments to the exported function are subsumed by the caller: this allows the caller to pass objects with a different origin
+ * into the exported function, which can then use its privileged status to make cross-origin requests with them
+ * @returns A function which has been created in the target context.
+ * @example // defines a function, then exports it to a content window
+ * exportFunction(notify, window, {defineAs: 'notify'});
+ * @example // Instead of using defineAs, the script can assign the result of exportFunction to an object in the target scope
+ * window.notify = exportFunction(notify, window);
+ * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts#exportfunction}
+ */
+
+declare function exportFunction<T>(
+    func: T,
+    targetScope: object,
+    options?: { defineAs?: string; allowCrossOriginArguments?: boolean },
+): T;
+
+/**
+ * This function provides a safe way to take an object defined in a privileged scope and create a structured clone of it in a less-privileged scope
+ * @param obj The object to clone.
+ * @param targetScope The object to attach the object to.
+ * @param options.cloneFunctions if functions should be cloned. Cloned functions have the same semantics as functions exported using exportFunction()
+ * @param options.wrapReflectors if objects reflected from C++, such as DOM objects, should be cloned.
+ * @returns A reference to the cloned object.
+ * @example // object without methods
+ * unsafeWindow.messenger = cloneInto(obj, unsafeWindow);
+ * @example // object with methods
+ * unsafeWindow.messenger = cloneInto(obj, unsafeWindow, {cloneFunctions: true});
+ * @see {@link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts#cloneinto}
+ */
+declare function cloneInto<T>(
+    obj: T,
+    targetScope: object,
+    options?: { cloneFunctions?: boolean; wrapReflectors?: boolean },
+): T;
+
 //#region GM3 style APIs
 
 declare var GM: {
@@ -238,7 +278,7 @@ declare var GM: {
      * It will seem familiar to anyone who has used XMLHttpRequest, but it provides a more powerful and flexible feature set
      * @see {@link https://erosman.github.io/support/content/help.html#fetch}
      */
-    fetch(url: string, init?: GM.FetchRequest): Promise<GM.FetchResponse>;
+    fetch(url: string | URL, init?: GM.FetchRequest): Promise<GM.FetchResponse>;
 
     /**
      * Given a defined `@resource`, this method fetches and returns the content of the url
