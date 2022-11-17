@@ -1,6 +1,11 @@
-import { FileUpload } from './';
+import { ReadStream } from 'fs-capacitor';
 
-export { FileUpload };
+export interface FileUpload {
+    filename: string;
+    mimetype: string;
+    encoding: string;
+    createReadStream(): ReadStream;
+}
 
 export default class Upload {
     promise: Promise<FileUpload>;

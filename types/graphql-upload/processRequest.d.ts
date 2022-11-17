@@ -1,7 +1,16 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { GraphQLOperation, UploadOptions } from './';
 
-export { GraphQLOperation, UploadOptions };
+export interface UploadOptions {
+    maxFieldSize?: number | undefined;
+    maxFileSize?: number | undefined;
+    maxFiles?: number | undefined;
+}
+
+export interface GraphQLOperation {
+    query: string;
+    operationName?: null | string | undefined;
+    variables?: null | unknown | undefined;
+}
 
 export default function processRequest(
     request: IncomingMessage,

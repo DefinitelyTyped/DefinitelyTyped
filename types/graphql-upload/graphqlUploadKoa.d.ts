@@ -1,7 +1,10 @@
 import { DefaultContext, DefaultState, Middleware } from 'koa';
-import { UploadOptions } from './';
 
-export { UploadOptions };
+export interface UploadOptions {
+    maxFieldSize?: number | undefined;
+    maxFileSize?: number | undefined;
+    maxFiles?: number | undefined;
+}
 
 export default function graphqlUploadKoa<StateT = DefaultState, ContextT = DefaultContext>(
     uploadOptions?: UploadOptions,

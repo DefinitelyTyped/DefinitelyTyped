@@ -1,6 +1,9 @@
 import { RequestHandler } from 'express';
-import { UploadOptions } from './';
 
-export { UploadOptions };
+export interface UploadOptions {
+    maxFieldSize?: number | undefined;
+    maxFileSize?: number | undefined;
+    maxFiles?: number | undefined;
+}
 
 export default function graphqlUploadExpress(uploadOptions?: UploadOptions): RequestHandler;
