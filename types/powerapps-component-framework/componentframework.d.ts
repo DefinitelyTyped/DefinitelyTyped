@@ -1884,6 +1884,23 @@ declare namespace ComponentFramework {
                  * Get the object that encapsulates an Entity Reference as a plain object
                  */
                 getNamedReference(): EntityReference;
+
+                /**
+                 * Whether this record is dirty. Only applicable if the dataset is editable and this record has dirty values.
+                 */
+                isDirty(): boolean;
+
+                /**
+                 * Saves the record.
+                 */
+                save(): Promise<void>;
+
+                /**
+                 * Set value for the column.
+                 * @param columnName Name of the column
+                 * @param value New value for the record
+                 */
+                setValue(columnName: string, value: string | Date | number | number[] | boolean | EntityReference | EntityReference[] | LookupValue | LookupValue[] | FileObject): Promise<void>;
             }
 
             /**
