@@ -5,23 +5,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.8
 
-import { ReadStream } from 'fs-capacitor';
-
-export interface FileUpload {
-    filename: string;
-    mimetype: string;
-    encoding: string;
-    createReadStream(): ReadStream;
-}
-
-export interface GraphQLOperation {
-    query: string;
-    operationName?: null | string | undefined;
-    variables?: null | unknown | undefined;
-}
-
-export interface UploadOptions {
-    maxFieldSize?: number | undefined;
-    maxFileSize?: number | undefined;
-    maxFiles?: number | undefined;
-}
+// Linter does not accept files without definitions. Disabling the rule at
+// the top of the file doesn't work either: It breaks the meta data parser.
+type Dummy = never;
