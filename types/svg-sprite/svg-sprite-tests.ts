@@ -25,7 +25,7 @@ spriter.compile(function(error: any, result: any) {
 
 // Compile the sprite
 (async function() {
-    await spriter.compileAsync();
+    const { result, data } = await spriter.compileAsync();
 })();
 
 // General configuration options
