@@ -1,4 +1,4 @@
-// Type definitions for newrelic 9.4.0
+// Type definitions for newrelic 9.4
 // Project: https://github.com/newrelic/node-newrelic
 // Definitions by: Matt R. Wilson <https://github.com/mastermatt>
 //                 Brooks Patton <https://github.com/brookspatton>
