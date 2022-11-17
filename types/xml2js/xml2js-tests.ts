@@ -2,9 +2,29 @@ import xml2js = require('xml2js');
 import * as processors from 'xml2js/lib/processors';
 import fs = require('fs');
 
+interface TestObject {
+    foo: string;
+}
+
 xml2js.parseString('<root>Hello xml2js!</root>', (err: Error | null, result: any) => { });
 
+// $ExpectType void
+xml2js.parseString<TestObject>('<root>Hello xml2js!</root>', (err: Error | null, result: TestObject) => {
+    // $ExpectType TestObject
+    const test1 = result;
+
+    // $ExpectType string
+    const test2 = result.foo;
+
+    // @ts-expect-error
+    const test3 = result.bar;
+});
+
+// $ExpectType Promise<any>
 xml2js.parseStringPromise('<root>Hello xml2js!</root>');
+
+// $ExpectType Promise<TestObject>
+xml2js.parseStringPromise<TestObject>('<root>Hello xml2js!</root>');
 
 xml2js.parseString('<root>Hello xml2js!</root>', {trim: true}, (err: Error | null, result: any) => { });
 

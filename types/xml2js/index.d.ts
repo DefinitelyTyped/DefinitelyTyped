@@ -1,4 +1,4 @@
-// Type definitions for node-xml2js 0.4
+// Type definitions for xml2js 0.4
 // Project: https://github.com/Leonidas-from-XIV/node-xml2js
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 //                 Jason McNeil <https://github.com/jasonrm>
@@ -14,13 +14,12 @@
 import { EventEmitter } from 'events';
 import * as processors from './lib/processors';
 
-export function parseString(str: convertableToString, callback: (err: Error | null, result: any) => void): void;
-export function parseString(
-    str: convertableToString,
-    options: ParserOptions,
-    callback: (err: Error | null, result: any) => void,
-): void;
-export function parseStringPromise(str: convertableToString, options?: ParserOptions): Promise<any>;
+// tslint:disable-next-line no-unnecessary-generics
+export function parseString<T = any>(str: convertableToString, callback: (err: Error | null, result: T) => void): void;
+// tslint:disable-next-line no-unnecessary-generics
+export function parseString<T = any>(str: convertableToString, options: ParserOptions, callback: (err: Error | null, result: T) => void): void;
+// tslint:disable-next-line no-unnecessary-generics
+export function parseStringPromise<T = any>(str: convertableToString, options?: ParserOptions): Promise<T>;
 
 export const defaults: {
     '0.1': Options;
@@ -46,8 +45,10 @@ export class Builder {
 
 export class Parser extends EventEmitter {
     constructor(options?: ParserOptions);
-    parseString(str: convertableToString, cb?: (error: Error | null, result: any) => void): void;
-    parseStringPromise(str: convertableToString): Promise<any>;
+    // tslint:disable-next-line no-unnecessary-generics
+    parseString<T = any>(str: convertableToString, cb?: (error: Error | null, result: T) => void): void;
+    // tslint:disable-next-line no-unnecessary-generics
+    parseStringPromise<T = any>(str: convertableToString): Promise<T>;
     reset(): void;
 }
 
