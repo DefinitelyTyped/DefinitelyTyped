@@ -1,11 +1,11 @@
-import Printer, { Job } from 'ipp-printer';
+import * as Printer from 'ipp-printer';
 import * as fs from 'node:fs';
 
 const printer = new Printer({
     port: 631
 });
 
-printer.on('job', (job: Job) => {
+printer.on('job', (job: Printer.Job) => {
     console.log('[job %d] Printing document: %s', job.id, job.name);
 
     const filename = `job-${job.id}.ps`;
