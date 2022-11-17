@@ -19,6 +19,7 @@ const id = new Git.Oid();
 const ref = new Git.Reference();
 const tree = new Git.Tree();
 const fetchOptions = new Git.FetchOptions();
+const commit = new Git.Commit();
 const annotatedCommit = new Git.AnnotatedCommit();
 
 tree.walk().start();
@@ -200,6 +201,14 @@ Git.Rebase.init(repo, annotatedCommit, null, annotatedCommit, rebaseOptions).the
             rebase.finish(signature); // $ExpectType number
         });
     });
+});
+
+Git.Reset.reset(repo, commit, Git.Reset.TYPE.HARD, {}).catch(err => console.log(err));
+
+Git.Cherrypick.cherrypick(repo, commit, {}).catch(err => console.log(err));
+
+Git.Branch.createFromAnnotated(repo, "mybranch", commit, 0).then(ref => {
+    ref; // $ExpectType Reference
 });
 
 repo.cleanup();
