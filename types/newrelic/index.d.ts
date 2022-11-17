@@ -500,7 +500,7 @@ export interface LogEvent {
     /**
      * The log level severity. If this key is missing, it will default to "UNKNOWN"
      */
-    level?: string;
+    level?: string | undefined;
 
     /**
      * ECMAScript epoch number denoting the time that this log message was produced. If this key is missing, it will default to the output of `Date.now()`
@@ -510,7 +510,7 @@ export interface LogEvent {
     /**
      * Error associated to this log event. Ignored if missing.
      */
-    error?: Error;
+    error?: Error | undefined;
 }
 
 export interface TraceMetadata {
