@@ -207,3 +207,26 @@ const pagingTest: ComponentFramework.PropertyHelper.DataSetApi.Paging = {
     setPageSize: (pageSize: number) => {},
     loadExactPage: (pageNumber: number) => {},
 };
+
+type EntityRecordValue =
+    | string
+    | Date
+    | number
+    | number[]
+    | boolean
+    | ComponentFramework.EntityReference
+    | ComponentFramework.EntityReference[]
+    | ComponentFramework.LookupValue
+    | ComponentFramework.LookupValue[]
+    | ComponentFramework.FileObject;
+
+const tmpEntityRecordValue: EntityRecordValue = '';
+const entityRecordTest: ComponentFramework.PropertyHelper.DataSetApi.EntityRecord = {
+    getFormattedValue: (columnName: string) => '',
+    getRecordId: () => '',
+    getValue: () => tmpEntityRecordValue,
+    getNamedReference: () => EntityReferenceTest,
+    isDirty: () => true,
+    save: () => Promise.resolve(),
+    setValue: (columnName: string, value: EntityRecordValue) => Promise.resolve()
+};
