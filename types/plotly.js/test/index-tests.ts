@@ -325,6 +325,13 @@ const graphDiv = '#test';
             ],
             ['toImage'],
         ],
+        modeBarButtonsToAdd: [
+            'togglespikelines',
+            'togglehover',
+            'hovercompare',
+            'hoverclosest',
+            'v1hovermode'
+        ],
         setBackground: 'transparent',
         watermark: false,
     };

@@ -903,7 +903,12 @@ export type ModeBarDefaultButtons =
     | 'toggleHover'
     | 'toImage'
     | 'resetViews'
-    | 'toggleSpikelines';
+    | 'toggleSpikelines'
+    | 'togglespikelines'
+    | 'togglehover'
+    | 'hovercompare'
+    | 'hoverclosest'
+    | 'v1hovermode';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
