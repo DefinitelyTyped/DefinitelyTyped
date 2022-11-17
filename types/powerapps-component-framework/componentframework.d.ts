@@ -1878,7 +1878,7 @@ declare namespace ComponentFramework {
                  * Get the raw value of the record's column
                  * @param columnName Column name of the record
                  */
-                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[] | LookupValue | LookupValue[];
+                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[] | LookupValue | LookupValue[] | FileObject;
 
                 /**
                  * Get the object that encapsulates an Entity Reference as a plain object
