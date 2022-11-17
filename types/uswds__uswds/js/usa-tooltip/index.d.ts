@@ -1,8 +1,8 @@
 interface TooltipContext {
-    tooltipBody: HTMLSpanElement,
-    position: string,
-    tooltipContent: string,
-    wrapper: HTMLSpanElement,
+    tooltipBody: HTMLSpanElement;
+    position: string;
+    tooltipContent: string;
+    wrapper: HTMLSpanElement;
 }
 
 interface Tooltip {
@@ -15,10 +15,10 @@ interface Tooltip {
      * @returns {object} elements
      */
     setup(tooltipTrigger: HTMLElement): {
-        tooltipBody: HTMLSpanElement,
-        position: string,
-        tooltipContent: string,
-        wrapper: HTMLSpanElement,
+        tooltipBody: HTMLSpanElement;
+        position: string;
+        tooltipContent: string;
+        wrapper: HTMLSpanElement;
     };
     /**
      *
@@ -26,9 +26,9 @@ interface Tooltip {
      * @returns {object} Elements for initialized tooltip; includes trigger, wrapper, and body
      */
     getTooltipElements(trigger: Element): {
-        trigger: Element,
-        wrapper: HTMLElement,
-        body: HTMLElement,
+        trigger: Element;
+        wrapper: HTMLElement;
+        body: HTMLElement;
     };
     /**
      * Shows the tooltip

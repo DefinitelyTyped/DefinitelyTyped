@@ -235,7 +235,7 @@ $ExpectType {
     body: HTMLElement;
 }
 */
-tooltip.getTooltipElements(element)
+tooltip.getTooltipElements(element);
 
 // Validator
 validator.init(element); // $ExpectType void

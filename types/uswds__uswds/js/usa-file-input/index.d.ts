@@ -5,7 +5,7 @@ interface FileInputContext {
 
 interface FileInput {
     init(root: HTMLElement | Document): void;
-    teardown(root: HTMLElement | Document): void
+    teardown(root: HTMLElement | Document): void;
     on(el: HTMLElement): void;
     off(el: HTMLElement): void;
     /**
