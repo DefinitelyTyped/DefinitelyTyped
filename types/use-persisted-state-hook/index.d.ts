@@ -4,5 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Dispatch, SetStateAction } from 'react';
-export default function usePersistedState<T>(key: string, state: T): [T, Dispatch<SetStateAction<T>>];
 export as namespace usePersistedStateHook;
+export = usePersistedState;
+declare function usePersistedState<T>(key: string, state: T): [T, Dispatch<SetStateAction<T>>];

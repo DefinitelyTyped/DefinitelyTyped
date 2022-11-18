@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import usePersistedState from 'use-persisted-state-hook';
+import usePersistedState = require('use-persisted-state-hook');
 
 const initialState = {
     drawerOpen: true,
