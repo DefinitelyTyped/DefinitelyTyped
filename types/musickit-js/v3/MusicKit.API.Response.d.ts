@@ -2,7 +2,7 @@ declare namespace MusicKit {
     /**
      * https://developer.apple.com/documentation/applemusicapi/search
      */
-    interface APIResponse {
+    interface APIResponse<T> {
         request: {
             baseUrl: string;
             fetchOptions: {
@@ -14,88 +14,73 @@ declare namespace MusicKit {
             url: string;
         };
         response: Response;
+        data: T;
     }
 
-    type CatalogResourceAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: CatalogResourceResponse<T>;
-        }
-    >;
+    /**
+     * A response object that contains no content.
+     * https://developer.apple.com/documentation/applemusicapi/emptybodyresponse
+     */
+    interface EmptyBodyResponse {}
 
-    type CatalogResourcesAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: CatalogResourcesResponse<T>;
-        }
-    >;
+    /**
+     * A response object indicating that an error occurred while processing the request.
+     * https://developer.apple.com/documentation/applemusicapi/errorsresponse
+     */
+    interface ErrorsResponse {
+        errors: Error[];
+    }
 
-    type SearchCatalogAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: SearchCatalogResponse<T>;
-        }
-    >;
+    /**
+     * A response object indicating that the request’s authorization is missing or invalid.
+     * https://developer.apple.com/documentation/applemusicapi/unauthorizedresponse
+     */
+    type UnauthorizedResponse = Record<string, any>;
 
-    type LibraryResourceAPIResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: LibraryResourceResponse<T>;
-        }
-    >;
+    /**
+     * A response object indicating that the request wasn’t accepted due to an issue with the authentication.
+     * https://developer.apple.com/documentation/applemusicapi/forbiddenresponse
+     */
+    interface ForbiddenResponse {
+        errors: Error[];
+    }
 
-    type LibraryResourcesAPIResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: LibraryResourcesResponse<T>;
-        }
-    >;
-
-    type SearchLibraryAPIResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: SearchLibraryResponse<T>;
-        }
-    >;
-
-    type SearchHintsAPIResponse = Promise<
-        APIResponse & {
-            data: SearchHintsResponse;
-        }
-    >;
-
-    type SearchSuggestionsAPIResponse<T extends TermSuggestion | TopResultSuggestion<SEARCH_RESOURCE_TYPE>> = Promise<
-        APIResponse & {
-            data: SearchSuggestionsResponse<T>;
-        }
-    >;
-
-    type ChartAPIResponse<T extends MUSIC_CATALOG_CHART_TYPE> = Promise<
-        APIResponse & {
-            data: ChartResponse<T>;
-        }
-    >;
-
-    interface CatalogResourceResponse<T extends SEARCH_RESOURCE_TYPE> {
+    /**
+     * A response object composed of resource objects for the request.
+     * https://developer.apple.com/documentation/applemusicapi/resourcecollectionresponse
+     */
+    interface ResourceCollectionResponse<T extends RESOURCES> {
         data: T[];
-        next: never;
     }
 
-    interface CatalogResourcesResponse<T extends SEARCH_RESOURCE_TYPE> {
-        data: T[];
-        next?: string;
-    }
-
-    interface LibraryResourceResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
-        data: T[];
-        next: never;
-    }
-
-    interface LibraryResourcesResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+    /**
+     * A response object composed of paginated resource objects for the request.
+     * https://developer.apple.com/documentation/applemusicapi/paginatedresourcecollectionresponse
+     */
+    interface PaginatedResourceCollectionResponse<T extends RESOURCES> {
         data: T[];
         next?: string;
     }
 
     /**
-     * An object that represents the autocomplete options for the hint.
-     * https://developer.apple.com/documentation/applemusicapi/searchhintsresponse/results
+     * The response for a direct resource relationship fetch.
+     * https://developer.apple.com/documentation/applemusicapi/relationshipresponse
      */
-    interface SearchHintsResponseResults {
-        terms: string[];
+    interface RelationshipResponse<T extends RESOURCES> {
+        data: T[];
+        meta?: Record<string, any>;
+        next?: string;
+    }
+
+    /**
+     * The response for a direct resource view fetch.
+     * https://developer.apple.com/documentation/applemusicapi/relationshipviewresponse
+     */
+    interface RelationshipViewResponse<T extends RESOURCES> {
+        data: T[];
+        meta?: Record<string, any>;
+        next?: string;
+        attributes?: Record<string, any>;
     }
 
     /**
@@ -103,15 +88,9 @@ declare namespace MusicKit {
      * https://developer.apple.com/documentation/applemusicapi/searchhintsresponse
      */
     interface SearchHintsResponse {
-        results: SearchHintsResponseResults;
-    }
-
-    /**
-     * An object that represents the results of a search suggestions query.
-     * https://developer.apple.com/documentation/applemusicapi/searchsuggestionsresponse/results
-     */
-    interface SearchSuggestionsResponseResults<T> {
-        suggestions: T[];
+        results: {
+            terms: string[];
+        };
     }
 
     /**
@@ -128,7 +107,7 @@ declare namespace MusicKit {
      * A suggested popular result for similar search prefix terms.
      * https://developer.apple.com/documentation/applemusicapi/searchsuggestionsresponse/results/topresultsuggestion
      */
-    interface TopResultSuggestion<T extends SEARCH_RESOURCE_TYPE> {
+    interface TopResultSuggestion<T extends CATALOG_RESOURCE_TYPE> {
         content: T;
         kind: 'topResults';
     }
@@ -137,82 +116,55 @@ declare namespace MusicKit {
      * The response to a request for search suggestions.
      * https://developer.apple.com/documentation/applemusicapi/searchsuggestionsresponse
      */
-    interface SearchSuggestionsResponse<T extends TermSuggestion | TopResultSuggestion<SEARCH_RESOURCE_TYPE>> {
-        results: SearchSuggestionsResponseResults<T>;
+    interface SearchSuggestionsResponse<T extends TermSuggestion | TopResultSuggestion<CATALOG_RESOURCE_TYPE>> {
+        results: {
+            suggestions: T[];
+        };
     }
-
-    interface SearchResult<T> {
-        data: T[];
-        href?: string;
-        next?: string;
-    }
-
-    /**
-     * An object that represents the results of a catalog search query.
-     * https://developer.apple.com/documentation/applemusicapi/searchresponse/results
-     */
-    type SearchCatalogResponseResults<T extends SEARCH_RESOURCE_TYPE> = {
-        [P in T['type']]?: SearchResult<RESOURCE_BY_TYPE_PROPERTY[P]>;
-    };
 
     /**
      * The response to a search request.
      * https://developer.apple.com/documentation/applemusicapi/searchresponse
      */
-    interface SearchCatalogResponse<T extends SEARCH_RESOURCE_TYPE> {
+    interface SearchCatalogResponse<T extends CATALOG_RESOURCE_TYPE> {
         meta: {
             results: {
                 order: Array<T['type']>;
                 rawOrder: Array<T['type']>;
             };
         };
-        results: SearchCatalogResponseResults<T>;
+        results: {
+            [P in T['type']]?: {
+                data: RESOURCE_BY_TYPE_PROPERTY[P][];
+                href?: `/v1/catalog/${StorefrontId}/search?limit=${number}&term=${string}&types=${T['type']}`;
+                next?: `/v1/catalog/${StorefrontId}/search?offset=${number}&term=${string}&types=${T['type']}`;
+            };
+        } & {
+            top?: {
+                data: CATALOG_RESOURCE_TYPE;
+            };
+        };
     }
-
-    interface SearchLibraryResult<T> {
-        data: T[];
-        href?: string;
-        next?: string;
-    }
-
-    /**
-     * An object that represents the results of a library search query..
-     * https://developer.apple.com/documentation/applemusicapi/librarysearchresponse/results
-     */
-    type SearchLibraryResponseResults<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = {
-        [P in T['type']]?: SearchLibraryResult<RESOURCE_BY_TYPE_PROPERTY[P]>;
-    };
 
     /**
      * The response to a search request.
      * https://developer.apple.com/documentation/applemusicapi/searchresponse
      */
-    interface SearchLibraryResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+    interface SearchLibraryResponse<T extends LIBRARY_RESOURCE_TYPE> {
         meta: {
             results: {
                 order: Array<T['type']>;
                 rawOrder: Array<T['type']>;
             };
         };
-        results: SearchLibraryResponseResults<T>;
+        results: {
+            [P in T['type']]?: {
+                data: RESOURCE_BY_TYPE_PROPERTY[P][];
+                href?: string;
+                next?: string;
+            };
+        };
     }
-
-    interface ChartResponseResult<T> {
-        chart: string;
-        data: T[];
-        href?: string;
-        name: string;
-        next?: string;
-        orderId: string;
-    }
-
-    /**
-     * A mapping of a requested type to an array of charts.
-     * https://developer.apple.com/documentation/applemusicapi/chartresponse/results
-     */
-    type ChartResponseResults<SELECTED extends MUSIC_CATALOG_CHART_TYPE> = {
-        [P in SELECTED['type']]: Array<ChartResponseResult<RESOURCE_BY_TYPE_PROPERTY[P]>>;
-    };
 
     /**
      * The response to a request for a chart.
@@ -224,6 +176,15 @@ declare namespace MusicKit {
                 order: Array<T['type']>;
             };
         };
-        results: ChartResponseResults<T>;
+        results: {
+            [P in T['type']]: Array<{
+                chart: string;
+                data: RESOURCE_BY_TYPE_PROPERTY[P][];
+                href?: string;
+                name: string;
+                next?: string;
+                orderId: string;
+            }>;
+        };
     }
 }
