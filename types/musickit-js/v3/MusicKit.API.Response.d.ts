@@ -16,13 +16,13 @@ declare namespace MusicKit {
         response: Response;
     }
 
-    type CatalogResourceAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
+    type CatalogResourceAPIResponse<T> = Promise<
         APIResponse & {
             data: CatalogResourceResponse<T>;
         }
     >;
 
-    type CatalogResourcesAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
+    type CatalogResourcesAPIResponse<T> = Promise<
         APIResponse & {
             data: CatalogResourcesResponse<T>;
         }
@@ -31,18 +31,6 @@ declare namespace MusicKit {
     type SearchCatalogAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
         APIResponse & {
             data: SearchCatalogResponse<T>;
-        }
-    >;
-
-    type LibraryResourceAPIResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: LibraryResourceResponse<T>;
-        }
-    >;
-
-    type LibraryResourcesAPIResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = Promise<
-        APIResponse & {
-            data: LibraryResourcesResponse<T>;
         }
     >;
 
@@ -70,22 +58,12 @@ declare namespace MusicKit {
         }
     >;
 
-    interface CatalogResourceResponse<T extends SEARCH_RESOURCE_TYPE> {
+    interface CatalogResourceResponse<T> {
         data: T[];
         next: never;
     }
 
-    interface CatalogResourcesResponse<T extends SEARCH_RESOURCE_TYPE> {
-        data: T[];
-        next?: string;
-    }
-
-    interface LibraryResourceResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
-        data: T[];
-        next: never;
-    }
-
-    interface LibraryResourcesResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+    interface CatalogResourcesResponse<T> {
         data: T[];
         next?: string;
     }

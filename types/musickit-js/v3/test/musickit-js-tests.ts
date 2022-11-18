@@ -73,28 +73,26 @@ const test = async () => {
             views: ['appears-on'],
         },
     );
+    if (res.data.data[0].attributes) {
+    }
 
     // $ExpectType APIResponse & { data: CatalogResourcesResponse<Albums>; }
     res = await player.api.music<MusicKit.CatalogResourcesAPI<MusicKit.Albums>>('/v1/catalog/{{storefrontId}}/albums', {
         ids: ['123456789', '987654321'],
     });
+    if (res.data.data[0].attributes) {
+    }
 
-    // $ExpectType APIResponse & { data: LibraryResourceResponse<LibraryAlbums>; }
-    res = await player.api.music<MusicKit.LibraryResourceAPI<MusicKit.LibraryAlbums>>(
-        '/v1/me/library/albums/l.sticiFl',
-    );
-
-    // $ExpectType APIResponse & { data: LibraryResourcesResponse<LibraryAlbums>; }
-    res = await player.api.music<MusicKit.LibraryResourcesAPI<MusicKit.LibraryAlbums>>('/v1/me/library/albums', {
-        ids: ['l.sticiFl'],
-    });
-
-    // $ExpectType APIResponse & { data: LibraryResourcesResponse<LibraryAlbums | LibraryPlaylists>; }
-    res = await player.api.music<MusicKit.LibraryResourcesAPI<MusicKit.LibraryAlbums | MusicKit.LibraryPlaylists>>(
+    res = await player.api.music<MusicKit.CatalogResourceAPI<MusicKit.LibraryAlbums | MusicKit.LibraryPlaylists>>(
         '/v1/me/library/recently-added',
     );
+    if (res.data.data[0].attributes) {
+        const {
+            // $ExpectType string
+            name,
+        } = res.data.data[0].attributes;
+    }
 
-    // $ExpectType APIResponse & { data: ChartResponse<Albums | MusicVideos | Playlists>; }
     res = await player.api.music<MusicKit.ChartAPI<MusicKit.Albums | MusicKit.MusicVideos | MusicKit.Playlists>>(
         `/v1/catalog/{{storefrontId}}/charts`,
         {
@@ -110,7 +108,6 @@ const test = async () => {
         playlists: chartPlaylists,
     } = res.data.results;
 
-    // $ExpectType APIResponse & { data: SearchCatalogResponse<Albums | MusicVideos | Playlists>; }
     res = await player.api.music<
         MusicKit.SearchCatalogAPI<MusicKit.Albums | MusicKit.MusicVideos | MusicKit.Playlists>
     >('/v1/catalog/{{storefrontId}}/search', {
@@ -126,7 +123,6 @@ const test = async () => {
         playlists: searchPlaylists,
     } = res.data.results;
 
-    // $ExpectType APIResponse & { data: SearchLibraryResponse<LibraryAlbums | LibraryArtists | LibraryMusicVideos | LibraryPlaylists>; }
     res = await player.api.music<
         MusicKit.SearchLibraryAPI<
             MusicKit.LibraryAlbums | MusicKit.LibraryArtists | MusicKit.LibraryMusicVideos | MusicKit.LibraryPlaylists
@@ -146,7 +142,6 @@ const test = async () => {
         'library-playlists': searchLibraryPlaylists,
     } = res.data.results;
 
-    // $ExpectType APIResponse & { data: SearchHintsResponse; }
     res = await player.api.music<MusicKit.SearchHintsAPI>('/v1/catalog/{{storefrontId}}/search/hints', {
         term: 'taylor swift',
     });
@@ -155,7 +150,6 @@ const test = async () => {
         terms: searchHintsTerms,
     } = res.data.results;
 
-    // $ExpectType APIResponse & { data: SearchSuggestionsResponse<TermSuggestion>; }
     res = await player.api.music<MusicKit.SearchSuggestionsAPI<MusicKit.TermSuggestion>>(
         '/v1/catalog/{{storefrontId}}/search/suggestions',
         {
@@ -168,7 +162,6 @@ const test = async () => {
         suggestions: searchSuggestionsTerms,
     } = res.data.results;
 
-    // $ExpectType APIResponse & { data: SearchSuggestionsResponse<TopResultSuggestion<Albums | Artists>>; }
     res = await player.api.music<
         MusicKit.SearchSuggestionsAPI<MusicKit.TopResultSuggestion<MusicKit.Albums | MusicKit.Artists>>
     >('/v1/catalog/{{storefrontId}}/search/suggestions', {

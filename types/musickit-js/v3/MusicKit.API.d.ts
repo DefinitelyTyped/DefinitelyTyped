@@ -95,13 +95,13 @@ declare namespace MusicKit {
         meta?: Record<string, any>;
     }
 
-    interface CatalogResourceAPI<T extends SEARCH_RESOURCE_TYPE> {
+    interface CatalogResourceAPI<T> {
         queryParameters: GetCatalogResourceQueryParameters<T>;
         response: CatalogResourceAPIResponse<T>;
     }
 
-    interface CatalogResourcesAPI<T extends SEARCH_RESOURCE_TYPE> {
-        queryParameters: GetCatalogResourcesQueryParameters<T>;
+    interface CatalogResourcesAPI<T> {
+        queryParameters: GetCatalogResourcesQueryParameters;
         response: CatalogResourcesAPIResponse<T>;
     }
 
@@ -113,16 +113,6 @@ declare namespace MusicKit {
     interface ChartAPI<T extends MUSIC_CATALOG_CHART_TYPE> {
         queryParameters: GetCatalogChartsQueryParameters<T>;
         response: ChartAPIResponse<T>;
-    }
-
-    interface LibraryResourceAPI<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
-        queryParameters: GetLibraryResourceQueryParameters<T>;
-        response: LibraryResourceAPIResponse<T>;
-    }
-
-    interface LibraryResourcesAPI<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
-        queryParameters: GetLibraryResourcesQueryParameters<T>;
-        response: LibraryResourcesAPIResponse<T>;
     }
 
     interface SearchLibraryAPI<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
@@ -159,14 +149,10 @@ declare namespace MusicKit {
          */
         music<T>(
             path: string,
-            queryParameters?: T extends LibraryResourceAPI<infer U>
-                ? LibraryResourceAPI<U>['queryParameters']
+            queryParameters?: T extends CatalogResourceAPI<infer U>
+                ? CatalogResourceAPI<U>['queryParameters']
                 : T extends CatalogResourcesAPI<infer U>
                 ? CatalogResourcesAPI<U>['queryParameters']
-                : T extends LibraryResourcesAPI<infer U>
-                ? LibraryResourcesAPI<U>['queryParameters']
-                : T extends CatalogResourceAPI<infer U>
-                ? CatalogResourceAPI<U>['queryParameters']
                 : T extends SearchCatalogAPI<infer U>
                 ? SearchCatalogAPI<U>['queryParameters']
                 : T extends ChartAPI<infer U>
@@ -186,10 +172,6 @@ declare namespace MusicKit {
             ? CatalogResourceAPI<U>['response']
             : T extends CatalogResourcesAPI<infer U>
             ? CatalogResourcesAPI<U>['response']
-            : T extends LibraryResourceAPI<infer U>
-            ? LibraryResourceAPI<U>['response']
-            : T extends LibraryResourcesAPI<infer U>
-            ? LibraryResourcesAPI<U>['response']
             : T extends SearchCatalogAPI<infer U>
             ? SearchCatalogAPI<U>['response']
             : T extends ChartAPI<infer U>
