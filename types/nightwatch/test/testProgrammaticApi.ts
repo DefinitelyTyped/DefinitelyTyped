@@ -1,5 +1,5 @@
 // New Programmatic APi
-import Nightwatch from 'nightwatch';
+import * as Nightwatch from 'nightwatch';
 
 const client = Nightwatch.createClient({
   browserName: 'firefox',
