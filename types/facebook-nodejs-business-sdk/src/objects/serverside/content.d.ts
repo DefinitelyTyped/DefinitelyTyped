@@ -14,7 +14,7 @@ export default class Content {
         title?: string,
         description?: string,
         brand?: string,
-        category?:string,
+        category?: string,
         delivery_category?: string
     );
     get id(): string;
