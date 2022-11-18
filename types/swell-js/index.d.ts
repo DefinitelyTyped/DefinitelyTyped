@@ -457,6 +457,39 @@ export interface InitOptions {
     vaultUrl?: string;
 }
 
+export type Category = CategoryCamelCase | CategorySnakeCase;
+
+export interface CategoryCamelCase {
+    description?: string;
+    id: string;
+    images: Image[];
+    metaDescription?: string;
+    name: string;
+    parentId?: string;
+    slug: string;
+    topId: string;
+}
+
+export interface CategorySnakeCase {
+    description?: string;
+    id: string;
+    images: Image[];
+    meta_description?: string;
+    name: string;
+    parent_id?: string;
+    slug: string;
+    topId: string;
+}
+
+export interface Attribute {
+    filterable: boolean;
+    id: string;
+    name: string;
+    searchable: boolean;
+    values: string[];
+    visible: boolean;
+}
+
 export function init(storeId: string, publicKey: string, options?: InitOptions): void;
 
 export function get(url: string, query: object): Promise<unknown>;
@@ -484,8 +517,9 @@ export namespace account {
 }
 
 export namespace attributes {
-    function get(input: string): Promise<unknown>;
-    function list(input: object): Promise<ListResult<unknown>>;
+    function get(input: string): Promise<Attribute>;
+    function get(): Promise<ListResult<Attribute>>;
+    function list(input: Query): Promise<ListResult<Attribute>>;
 }
 
 export namespace card {
@@ -511,8 +545,9 @@ export namespace cart {
 }
 
 export namespace categories {
-    function get(input: string): Promise<unknown>;
-    function list(input: object): Promise<ListResult<unknown>>;
+    function get(input: string): Promise<Category>;
+    function get(): Promise<ListResult<Category>>;
+    function list(input: object): Promise<ListResult<Category>>;
 }
 
 export namespace currency {
