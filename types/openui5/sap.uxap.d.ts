@@ -1,4 +1,4 @@
-// For Library Version: 1.103.0
+// For Library Version: 1.107.0
 
 declare module "sap/uxap/library" {
   /**
@@ -6446,6 +6446,8 @@ declare module "sap/uxap/ObjectPageSection" {
 
   import ObjectPageSubSection from "sap/uxap/ObjectPageSubSection";
 
+  import Control from "sap/ui/core/Control";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { ID } from "sap/ui/core/library";
@@ -6537,11 +6539,29 @@ declare module "sap/uxap/ObjectPageSection" {
       oSubSection: ObjectPageSubSection
     ): this;
     /**
+     * @SINCE 1.106
+     *
+     * Destroys the heading in the aggregation {@link #getHeading heading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyHeading(): this;
+    /**
      * Destroys all the subSections in the aggregation {@link #getSubSections subSections}.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySubSections(): this;
+    /**
+     * @SINCE 1.106
+     *
+     * Gets content of aggregation {@link #getHeading heading}.
+     *
+     * Section heading content.
+     *
+     * Note: For some accessibility concerns we encourage you to use non-focusable elements.
+     */
+    getHeading(): Control;
     /**
      * ID of the element which is the current target of the association {@link #getSelectedSubSection selectedSubSection},
      * or `null`.
@@ -6573,6 +6593,16 @@ declare module "sap/uxap/ObjectPageSection" {
      * @returns Value of property `titleUppercase`
      */
     getTitleUppercase(): boolean;
+    /**
+     * Gets current value of property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `wrapTitle`
+     */
+    getWrapTitle(): boolean;
     /**
      * Checks for the provided `sap.uxap.ObjectPageSubSection` in the aggregation {@link #getSubSections subSections}.
      * and returns its index if found or -1 otherwise.
@@ -6622,6 +6652,19 @@ declare module "sap/uxap/ObjectPageSection" {
       vSubSection: int | string | ObjectPageSubSection
     ): ObjectPageSubSection | null;
     /**
+     * @SINCE 1.106
+     *
+     * Sets the aggregated {@link #getHeading heading}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeading(
+      /**
+       * The heading to set
+       */
+      oHeading: Control
+    ): this;
+    /**
      * Sets the associated {@link #getSelectedSubSection selectedSubSection}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -6667,6 +6710,23 @@ declare module "sap/uxap/ObjectPageSection" {
        */
       bTitleUppercase?: boolean
     ): this;
+    /**
+     * Sets a new value for property {@link #getWrapTitle wrapTitle}.
+     *
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWrapTitle(
+      /**
+       * New value for property `wrapTitle`
+       */
+      bWrapTitle?: boolean
+    ): this;
   }
 
   export interface $ObjectPageSectionSettings
@@ -6682,6 +6742,11 @@ declare module "sap/uxap/ObjectPageSection" {
     titleUppercase?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
+     */
+    wrapTitle?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * The list of Subsections.
      */
     subSections?:
@@ -6689,6 +6754,15 @@ declare module "sap/uxap/ObjectPageSection" {
       | ObjectPageSubSection
       | AggregationBindingInfo
       | `{${string}}`;
+
+    /**
+     * @SINCE 1.106
+     *
+     * Section heading content.
+     *
+     * Note: For some accessibility concerns we encourage you to use non-focusable elements.
+     */
+    heading?: Control;
 
     /**
      * The most recently selected Subsection by the user.

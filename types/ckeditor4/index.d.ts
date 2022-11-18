@@ -1669,10 +1669,12 @@ declare namespace CKEDITOR {
         hidpi?: boolean | undefined;
         lang?: string | string[] | undefined;
         requires?: string | string[] | undefined;
+        icons?: string | undefined;
 
         afterInit?(editor: editor): any;
         beforeInit?(editor: editor): any;
         init?(editor: editor): void;
+        isSupportedEnvironment?(editor: editor): boolean;
         onLoad?(): any;
     }
 
@@ -2726,7 +2728,7 @@ declare namespace CKEDITOR {
             element: string;
             attributes?: { [key: string]: any } | undefined;
             styles?: { [key: string]: any } | undefined;
-            overrides?: { [key: string]: any } | undefined;
+            overrides?: string | { [key: string]: any } | undefined;
         }
     }
 

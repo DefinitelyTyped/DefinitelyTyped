@@ -1178,6 +1178,7 @@ class TextTest extends React.Component {
                 numberOfLines={2}
                 onLayout={this.handleOnLayout}
                 onTextLayout={this.handleOnTextLayout}
+                disabled
             >
                 Test text
             </Text>
@@ -1295,6 +1296,7 @@ class AccessibilityTest extends React.Component {
                 accessibilityValue={{ min: 60, max: 120, now: 80 }}
                 onMagicTap={() => {}}
                 onAccessibilityEscape={() => {}}
+                accessibilityLanguage="sv-SE"
             >
                 <Text accessibilityIgnoresInvertColors>Text</Text>
                 <View />
@@ -1302,6 +1304,13 @@ class AccessibilityTest extends React.Component {
         );
     }
 }
+
+const AccessibilityLabelledByTest = () => (
+    <>
+        <View accessibilityLabelledBy="nativeID1"></View>
+        <View accessibilityLabelledBy={["nativeID2", "nativeID3"]}></View>
+    </>
+)
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
     console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
@@ -1417,7 +1426,7 @@ const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
   const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+  return new Promise(() => e.nativeEvent.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;

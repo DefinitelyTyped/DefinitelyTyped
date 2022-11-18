@@ -332,10 +332,8 @@ const customMatcherFactories: jasmine.CustomMatcherFactories = {};
 jest.autoMockOff()
     .autoMockOn()
     .clearAllMocks()
-    .clearAllTimers()
     .resetAllMocks()
     .restoreAllMocks()
-    .clearAllTimers()
     .deepUnmock('moduleName')
     .disableAutomock()
     .doMock('moduleName')
@@ -357,11 +355,6 @@ jest.autoMockOff()
     .resetModules()
     .isolateModules(() => {})
     .retryTimes(3, { logErrorsBeforeRetry: true })
-    .runAllImmediates()
-    .runAllTicks()
-    .runAllTimers()
-    .runOnlyPendingTimers()
-    .advanceTimersByTime(9001)
     .setMock('moduleName', {})
     .setMock<{}>('moduleName', {})
     .setMock<{ a: 'b' }>('moduleName', { a: 'b' })
@@ -370,13 +363,37 @@ jest.autoMockOff()
     .useFakeTimers()
     .useRealTimers();
 
+// $ExpectType void
+jest.advanceTimersByTime(9001);
+
+// $ExpectType void
 jest.advanceTimersToNextTimer();
 jest.advanceTimersToNextTimer(2);
+
+// $ExpectType void
+jest.clearAllTimers();
+
+// $ExpectType void
+jest.runAllImmediates();
+
+// $ExpectType void
+jest.runAllTicks();
+
+// $ExpectType void
+jest.runAllTimers();
+
+// $ExpectType void
+jest.runOnlyPendingTimers();
 
 // https://jestjs.io/docs/configuration#faketimers-object
 jest.useFakeTimers();
 jest.useFakeTimers({ legacyFakeTimers: false });
 jest.useFakeTimers({ timerLimit: 50 });
+
+jest.useFakeTimers({ legacyFakeTimers: true });
+// @ts-expect-error
+jest.useFakeTimers({ legacyFakeTimers: true, timerLimit: 50 });
+
 // @ts-expect-error
 jest.useFakeTimers('legacy');
 // @ts-expect-error
@@ -395,6 +412,16 @@ jest.setSystemTime('foo');
 const realSystemTime1: number = jest.getRealSystemTime();
 // @ts-expect-error
 const realSystemTime2: number = jest.getRealSystemTime('foo');
+
+// https://jestjs.io/docs/en/jest-object#jestgetseed
+const seed1: number = jest.getSeed();
+// @ts-expect-error
+const seed2: number = jest.getSeed('foo');
+
+// $ExpectType number
+jest.now();
+// @ts-expect-error
+jest.now('1995-12-17T03:24:00');
 
 // https://jestjs.io/docs/en/jest-object#jestrequireactualmodulename
 // $ExpectType any
@@ -561,6 +588,18 @@ const spy3Mock = spy3
     .mockReturnValue('value')
     .mockReturnValueOnce('value');
 
+// $ExpectType void
+spy3.withImplementation(
+    () => 'mocked value',
+    () => {},
+);
+
+// $ExpectType Promise<void>
+spy3.withImplementation(
+    () => 'mocked value',
+    async () => {},
+);
+
 const spiedPromiseTarget = {
     resolvesString() {
         return Promise.resolve('string');
@@ -635,8 +674,31 @@ jest.spyOn(spyWithIndexSignatureImpl, 'prop');
 // $ExpectType SpyInstance<{ some: string; }, []>
 jest.spyOn(spyWithIndexSignatureImpl, 'prop', 'get');
 
-// $ExpectType MockedObject<{}>
+let typedSpy: jest.Spied<typeof spiedTarget.returnsVoid>;
+typedSpy = jest.spyOn(spiedTarget, 'returnsVoid');
+
+let typedSpy1: jest.SpiedClass<typeof globalThis.Date>;
+typedSpy1 = jest.spyOn(globalThis, 'Date');
+
+let typedSpy2: jest.SpiedFunction<typeof spiedTarget.setValue>;
+typedSpy2 = jest.spyOn(spiedTarget, 'setValue');
+
+let typedSpy3: jest.SpiedGetter<typeof spiedTarget2.value>;
+typedSpy3 = jest.spyOn(spiedTarget2, 'value', 'get');
+
+let typedSpy4: jest.SpiedSetter<typeof spiedTarget2.value>;
+typedSpy4 = jest.spyOn(spiedTarget2, 'value', 'set');
+
+// Test for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63129
+// $ExpectType SpyInstance<void, [key: string, value: string]>
+jest.spyOn(Storage.prototype, 'setItem');
+
+// $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
+// $ExpectType MockedObjectDeep<{}>
+jest.mocked({}, { shallow: false });
+// $ExpectType MockedObject<{}>
+jest.mocked({}, { shallow: true });
 // @ts-expect-error
 jest.mocked();
 
@@ -1024,12 +1086,14 @@ describe('', () => {
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
+        expect(jest.fn()).lastReturnedWith();
 
-        expect(jest.fn()).nthCalledWith(0, 'jest');
-        expect(jest.fn()).nthCalledWith(1, {});
+        expect(jest.fn()).nthCalledWith(1, 'jest');
+        expect(jest.fn()).nthCalledWith(2, {});
 
-        expect(jest.fn()).nthReturnedWith(0, 'jest');
-        expect(jest.fn()).nthReturnedWith(1, {});
+        expect(jest.fn()).nthReturnedWith(1, 'jest');
+        expect(jest.fn()).nthReturnedWith(2, {});
+        expect(jest.fn()).nthReturnedWith(3);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1114,12 +1178,14 @@ describe('', () => {
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
+        expect(jest.fn()).toHaveLastReturnedWith();
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
 
-        expect(jest.fn()).toHaveNthReturnedWith(0, 'jest');
-        expect(jest.fn()).toHaveNthReturnedWith(1, {});
+        expect(jest.fn()).toHaveNthReturnedWith(1, 'jest');
+        expect(jest.fn()).toHaveNthReturnedWith(2, {});
+        expect(jest.fn()).toHaveNthReturnedWith(3);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
@@ -1135,6 +1201,7 @@ describe('', () => {
 
         expect(jest.fn()).toHaveReturnedWith('jest');
         expect(jest.fn()).toHaveReturnedWith({});
+        expect(jest.fn()).toHaveReturnedWith();
 
         expect('').toMatch('');
         expect('').toMatch(/foo/);
@@ -1177,12 +1244,16 @@ describe('', () => {
             three: 3,
             four: { four: 3 },
             date: new Date(),
+            dateTwo: Date,
+            list: [1, 2, 3],
         }).toMatchInlineSnapshot({
             one: expect.any(Number),
             // leave out two
             three: 3,
             four: { four: expect.any(Number) },
             date: expect.any(Date),
+            dateTwo: expect.any(Date),
+            list: expect.any(Array),
         });
 
         expect(jest.fn()).toReturn();
@@ -1192,6 +1263,7 @@ describe('', () => {
 
         expect(jest.fn()).toReturnWith('jest');
         expect(jest.fn()).toReturnWith({});
+        expect(jest.fn()).toReturnWith();
 
         expect(true).toStrictEqual(false);
         expect({}).toStrictEqual({});

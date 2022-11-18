@@ -19,8 +19,9 @@ export let UniformsLib: {
         envMap: IUniform;
         flipEnvMap: IUniform;
         reflectivity: IUniform;
-        refractionRatio: IUniform;
-        maxMipLevel: IUniform;
+        ior: IUniform;
+        refractRatio: IUniform;
+        backgroundBlurriness: IUniform;
     };
     aomap: {
         aoMap: IUniform;

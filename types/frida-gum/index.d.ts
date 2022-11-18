@@ -1,9 +1,9 @@
-// Type definitions for non-npm package frida-gum 18.1
+// Type definitions for non-npm package frida-gum 18.2
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// Minimum TypeScript Version: 4.4
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -175,6 +175,48 @@ declare namespace Script {
      * Runtime being used.
      */
     const runtime: ScriptRuntime;
+
+    /**
+     * Evaluates the given JavaScript `source` in the global scope. Useful for
+     * agents that want to support loading user-provided scripts inside their
+     * own script. The two benefits over simply using `eval()` is that the
+     * script filename can be provided, and source maps are supported — both
+     * inline and through `Script.registerSourceMap()`.
+     *
+     * @param name Name used in future stack traces, e.g. `/plugins/tty.js`.
+     * @param source JavaScript source code to be evaluated.
+     * @returns The resulting value of the evaluated code.
+     */
+    function evaluate(name: string, source: string): any;
+
+    /**
+     * Compiles and evaluates the given JavaScript `source` as an ES module.
+     * Useful for agents that want to support loading user-provided scripts
+     * inside their own script. This API offers the same benefits over `eval()`
+     * as `Script.evaluate()`, in addition to encapsulating the user-provided
+     * code in its own ES module. This means values may be exported, and
+     * subsequently imported by other modules. The parent script may also export
+     * values that can be imported from the loaded child script. This requires
+     * that the parent uses the new ES module bundle format used by newer
+     * versions of frida-compile.
+     *
+     * @param name UNIX-style virtual filesystem name visible to other modules,
+     *             e.g. `/plugins/screenshot.js`.
+     * @param source JavaScript source code.
+     * @returns The module's namespace object.
+     */
+    function load(name: string, source: string): Promise<{ [name: string | symbol]: any }>;
+
+    /**
+     * Registers a source map for the specified script `name`. Should ideally
+     * be called before the given script gets loaded, so stack traces created
+     * during load can make use of the source map.
+     *
+     * @param name Name of the script that the source map is for, e.g.
+     *             `/plugins/screenshot.js`.
+     * @param json Source map contents as JSON.
+     */
+    function registerSourceMap(name: string, json: string): void;
 
     /**
      * Runs `func` on the next tick, i.e. when the current native thread exits

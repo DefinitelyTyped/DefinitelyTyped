@@ -2,8 +2,8 @@ export = ClassDefManager;
 declare function ClassDefManager(
     opt_options?:
         | {
-              vfs: any;
-              classes: any;
+              vfs: DataSet;
+              classes: DataSet;
           }
         | Record<any, any>,
     ...args: any[]
@@ -12,8 +12,8 @@ declare class ClassDefManager {
     constructor(
         opt_options?:
             | {
-                  vfs: any;
-                  classes: any;
+                  vfs: DataSet;
+                  classes: DataSet;
               }
             | Record<any, any>,
         ...args: any[]
@@ -70,21 +70,33 @@ declare class ClassDefManager {
     hasOwnModelDef(classKey: number): boolean;
 }
 declare namespace ClassDefManager {
-    const protectedFieldProperties: string[];
-    const protectedFieldEvents: string[];
-    const protectedModelDefProperties: string[];
-    const protectedModelDefEvents: string[];
-    namespace constructors {
-        export { ModelDef as VIEW };
-        export { ModelDef as MODEL };
-        export { ConfigDef as CONFIG };
-        export { ModelDef as NON_STRICT_MODEL };
-    }
-    function getParentClass(classKey: number | DBKey): number;
-    function getClassVersion(classKey: number | DBKey): number;
-    function getInstance(): ClassDefManager;
+    export {
+        protectedFieldProperties,
+        protectedFieldEvents,
+        protectedModelDefProperties,
+        protectedModelDefEvents,
+        constructors,
+        getParentClass,
+        getClassVersion,
+        getInstance,
+        DataSet,
+    };
 }
+type DataSet = import('../dataset/DataSet');
 declare const classes: import('../database/Classes.js');
 import ModelDef = require('./ModelDef.js');
 import ConfigDef = require('./ConfigDef.js');
+declare var protectedFieldProperties: string[];
+declare var protectedFieldEvents: string[];
+declare var protectedModelDefProperties: string[];
+declare var protectedModelDefEvents: string[];
+declare namespace constructors {
+    export { ModelDef as VIEW };
+    export { ModelDef as MODEL };
+    export { ConfigDef as CONFIG };
+    export { ModelDef as NON_STRICT_MODEL };
+}
+declare function getParentClass(classKey: number | DBKey): number;
+declare function getClassVersion(classKey: number | DBKey): number;
+declare function getInstance(): ClassDefManager;
 import DBKey = require('../dbkey/DBKey.js');

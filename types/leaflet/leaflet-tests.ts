@@ -160,6 +160,9 @@ let layer: L.Layer;
 
 const htmlElement = document.getElementById('foo');
 
+layer.addInteractiveTarget(htmlElement);
+layer.removeInteractiveTarget(htmlElement);
+
 const popupOptions: L.PopupOptions = {};
 
 const tooltipOptions: L.TooltipOptions = {};
@@ -275,6 +278,11 @@ mapPoint = map.project(coordinates, 10);
 coordinates = map.unproject(mapPoint);
 coordinates = map.unproject(mapPoint, 10);
 
+mapPoint = mapPoint.trunc();
+mapPoint = mapPoint.round();
+mapPoint = mapPoint.floor();
+mapPoint = mapPoint.ceil();
+
 let mapPixelBounds: L.Bounds;
 mapPixelBounds = map.getPixelBounds();
 mapPixelBounds = map.getPixelWorldBounds();
@@ -357,6 +365,8 @@ imageOverlay.setBounds(imageOverlayBounds);
 imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
 html = imageOverlay.getElement();
+point = imageOverlay.getCenter();
+imageOverlay = imageOverlay.setStyle({ opacity: 90 });
 
 // SVGOverlay
 let svgOverlayOptions: L.ImageOverlayOptions;
@@ -365,15 +375,24 @@ svgOverlayOptions = {
     opacity: 100
 };
 
-const svgOverlayBounds = latLngBounds;
-const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+let svgOverlayBounds = latLngBounds;
+const svgSvgElement: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 const svgString = '<svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="50"/></svg>';
 
 let svgOverlay: L.SVGOverlay;
 svgOverlay = L.svgOverlay(svgString, svgOverlayBounds);
-svgOverlay = L.svgOverlay(svgElement, svgOverlayBounds, {
+svgOverlay = L.svgOverlay(svgSvgElement, svgOverlayBounds, {
     interactive: false
 });
+svgOverlay.setOpacity(100);
+svgOverlay.bringToFront();
+svgOverlay.bringToBack();
+svgOverlay.setBounds(imageOverlayBounds);
+svgOverlay.setZIndex(1);
+svgOverlayBounds = svgOverlay.getBounds();
+const svgElement: SVGElement = svgOverlay.getElement();
+point = svgOverlay.getCenter();
+svgOverlay = svgOverlay.setStyle({ opacity: 90 });
 
 // videoOverlay
 let videoOverlayOptions: L.VideoOverlayOptions;
@@ -385,7 +404,7 @@ videoOverlayOptions = {
     muted: true
 };
 
-const videoOverlayBounds = latLngBounds;
+let videoOverlayBounds = latLngBounds;
 const videoOverlayUrls = ['https://www.mapbox.com/bites/00188/patricia_nasa.webm'];
 const videoElement = document.createElement('video');
 
@@ -395,6 +414,16 @@ videoOverlay = L.videoOverlay(videoOverlayUrls, videoOverlayBounds, videoOverlay
 videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
     autoplay: true
 });
+videoOverlay.setOpacity(100);
+videoOverlay.bringToFront();
+videoOverlay.bringToBack();
+videoOverlay.setUrl('https://www.mapbox.com/bites/00188/patricia_nasa.webm');
+videoOverlay.setBounds(imageOverlayBounds);
+videoOverlay.setZIndex(1);
+videoOverlayBounds = videoOverlay.getBounds();
+html = videoOverlay.getElement();
+point = videoOverlay.getCenter();
+videoOverlay = videoOverlay.setStyle(videoOverlayOptions);
 
 const eventHandler = () => { };
 const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
@@ -535,6 +564,9 @@ const draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
 draggable.on('drag', () => {});
+let listens: boolean = draggable.listens('drag');
+draggable.off('drag', () => {});
+listens = draggable.listens('drag');
 
 let twoCoords: [number, number] = [1, 2];
 latLng = L.GeoJSON.coordsToLatLng(twoCoords);
@@ -603,6 +635,8 @@ const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
 const divIconHtmlAsFalse = L.divIcon({ html: false });
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
+
+L.Class.callInitHooks();
 
 const myControlClass = L.Control.extend({});
 const myControl = new myControlClass();

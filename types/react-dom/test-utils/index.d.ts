@@ -24,6 +24,8 @@ export interface OptionalEventProperties {
     type?: string | undefined;
 }
 
+export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
 export interface SyntheticEventData extends OptionalEventProperties {
     altKey?: boolean | undefined;
     button?: number | undefined;
@@ -39,7 +41,7 @@ export interface SyntheticEventData extends OptionalEventProperties {
     deltaY?: number | undefined;
     deltaZ?: number | undefined;
     detail?: number | undefined;
-    getModifierState?(key: string): boolean;
+    getModifierState?(key: ModifierKey): boolean;
     key?: string | undefined;
     keyCode?: number | undefined;
     locale?: string | undefined;
@@ -296,8 +298,8 @@ export function createRenderer(): ShallowRenderer;
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 // tslint:disable-next-line: void-return
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
-export function act(callback: () => Promise<void>): Promise<undefined>;
-export function act(callback: () => VoidOrUndefinedOnly): void;
+export function act<T>(callback: () => T | Promise<T>): Promise<T>;
+export function act(callback: () => VoidOrUndefinedOnly): Promise<void>;
 
 // Intentionally doesn't extend PromiseLike<never>.
 // Ideally this should be as hard to accidentally use as possible.

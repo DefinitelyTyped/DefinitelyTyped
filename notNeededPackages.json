@@ -380,6 +380,10 @@
             "libraryName": "bitwise",
             "asOfVersion": "2.0.0"
         },
+        "bl": {
+            "libraryName": "bl",
+            "asOfVersion": "5.1.0"
+        },
         "blob-util": {
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
@@ -436,6 +440,14 @@
             "libraryName": "builtin-modules",
             "asOfVersion": "3.1.0"
         },
+        "bull": {
+            "libraryName": "bull",
+            "asOfVersion": "4.10.0"
+        },
+        "bull-board": {
+            "libraryName": "bull-board",
+            "asOfVersion": "2.0.0"
+        },
         "bulma-calendar": {
             "libraryName": "bulma-calendar",
             "asOfVersion": "6.0.2"
@@ -451,10 +463,6 @@
         "burns": {
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
-        },
-        "cacheable-request": {
-            "libraryName": "cacheable-request",
-            "asOfVersion": "8.3.1"
         },
         "cachefactory": {
             "libraryName": "cachefactory",
@@ -815,6 +823,10 @@
         "credit-card-type": {
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
+        },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
         },
         "cropperjs": {
             "libraryName": "cropperjs",
@@ -1197,6 +1209,10 @@
             "libraryName": "empty-trash",
             "asOfVersion": "3.0.0"
         },
+        "enhanced-resolve": {
+            "libraryName": "enhanced-resolve",
+            "asOfVersion": "5.0.0"
+        },
         "ensure-error": {
             "libraryName": "ensure-error",
             "asOfVersion": "2.0.0"
@@ -1244,6 +1260,10 @@
         "escape-string-regexp": {
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
+        },
+        "eslint-visitor-keys": {
+            "libraryName": "eslint-visitor-keys",
+            "asOfVersion": "3.3.0"
         },
         "ethereumjs-tx": {
             "libraryName": "ethereumjs-tx",
@@ -1309,6 +1329,10 @@
             "libraryName": "express-handlebars",
             "asOfVersion": "6.0.0"
         },
+        "express-jwt": {
+            "libraryName": "express-jwt",
+            "asOfVersion": "7.4.2"
+        },
         "express-mongo-sanitize": {
             "libraryName": "express-mongo-sanitize",
             "asOfVersion": "2.1.0"
@@ -1324,6 +1348,14 @@
         "express-rate-limit": {
             "libraryName": "express-rate-limit",
             "asOfVersion": "6.0.0"
+        },
+        "express-request-id": {
+            "libraryName": "express-request-id",
+            "asOfVersion": "3.0.0"
+        },
+        "express-unless": {
+            "libraryName": "express-unless",
+            "asOfVersion": "2.0.1"
         },
         "express-urlrewrite": {
             "libraryName": "express-urlrewrite",
@@ -1396,6 +1428,10 @@
         "fastify-static": {
             "libraryName": "fastify-static",
             "asOfVersion": "2.2.1"
+        },
+        "favicons": {
+            "libraryName": "favicons",
+            "asOfVersion": "7.0.0"
         },
         "favicons-webpack-plugin": {
             "libraryName": "favicons-webpack-plugin",
@@ -1549,6 +1585,10 @@
             "libraryName": "fromnow",
             "asOfVersion": "3.0.1"
         },
+        "fs-capacitor": {
+            "libraryName": "fs-capacitor",
+            "asOfVersion": "8.0.0"
+        },
         "fs-promise": {
             "libraryName": "fs-promise",
             "asOfVersion": "2.0.0"
@@ -1641,6 +1681,10 @@
             "libraryName": "github",
             "asOfVersion": "7.1.0"
         },
+        "github-slugger": {
+            "libraryName": "github-slugger",
+            "asOfVersion": "2.0.0"
+        },
         "github-username": {
             "libraryName": "github-username",
             "asOfVersion": "5.0.0"
@@ -1712,6 +1756,10 @@
         "gsap": {
             "libraryName": "gsap",
             "asOfVersion": "3.0.0"
+        },
+        "guardian__prosemirror-invisibles": {
+            "libraryName": "@guardian/prosemirror-invisibles",
+            "asOfVersion": "1.3.3"
         },
         "gulp-pug": {
             "libraryName": "gulp-pug",
@@ -2045,6 +2093,10 @@
             "libraryName": "ionic",
             "asOfVersion": "3.19.0"
         },
+        "ioredis": {
+            "libraryName": "ioredis",
+            "asOfVersion": "5.0.0"
+        },
         "ip-address": {
             "libraryName": "ip-address",
             "asOfVersion": "7.0.0"
@@ -2245,6 +2297,10 @@
             "libraryName": "jest-each",
             "asOfVersion": "24.3.0"
         },
+        "jest-expect-message": {
+            "libraryName": "jest-expect-message",
+            "asOfVersion": "1.1.0"
+        },
         "jest-get-type": {
             "libraryName": "jest-get-type",
             "asOfVersion": "24.2.0"
@@ -2336,6 +2392,10 @@
         "json-stream-stringify": {
             "libraryName": "json-stream-stringify",
             "asOfVersion": "2.0.3"
+        },
+        "json-to-csv-export": {
+            "libraryName": "json-to-csv-export",
+            "asOfVersion": "2.0.0"
         },
         "json5": {
             "libraryName": "json5",
@@ -2456,6 +2516,30 @@
         "keytar": {
             "libraryName": "keytar",
             "asOfVersion": "4.4.2"
+        },
+        "keyv": {
+            "libraryName": "keyv",
+            "asOfVersion": "4.2.0"
+        },
+        "keyv__mongo": {
+            "libraryName": "@keyv/mongo",
+            "asOfVersion": "2.1.5"
+        },
+        "keyv__mysql": {
+            "libraryName": "@keyv/mysql",
+            "asOfVersion": "1.3.1"
+        },
+        "keyv__postgres": {
+            "libraryName": "@keyv/postgres",
+            "asOfVersion": "1.2.1"
+        },
+        "keyv__redis": {
+            "libraryName": "@keyv/redis",
+            "asOfVersion": "2.3.0"
+        },
+        "keyv__sqlite": {
+            "libraryName": "@keyv/sqlite",
+            "asOfVersion": "3.0.1"
         },
         "knex": {
             "libraryName": "knex",
@@ -3161,6 +3245,10 @@
             "libraryName": "node-waves",
             "asOfVersion": "0.7.6"
         },
+        "node-xlsx": {
+            "libraryName": "node-xlsx",
+            "asOfVersion": "0.21.0"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
@@ -3280,6 +3368,10 @@
         "orbit-ui__react-components": {
             "libraryName": "@orbit-ui/react-components",
             "asOfVersion": "18.1.2"
+        },
+        "orderedmap": {
+            "libraryName": "orderedmap",
+            "asOfVersion": "2.0.0"
         },
         "os-locale": {
             "libraryName": "os-locale",
@@ -3457,6 +3549,10 @@
             "libraryName": "p-whilst",
             "asOfVersion": "2.0.0"
         },
+        "package-info": {
+            "libraryName": "package-info",
+            "asOfVersion": "5.0.0"
+        },
         "package-json": {
             "libraryName": "package-json",
             "asOfVersion": "6.1.0"
@@ -3595,6 +3691,14 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-pretty": {
+            "libraryName": "pino-pretty",
+            "asOfVersion": "5.0.0"
+        },
+        "pino-std-serializers": {
+            "libraryName": "pino-std-serializers",
+            "asOfVersion": "4.0.0"
+        },
         "pixi-spine": {
             "libraryName": "pixi-spine",
             "asOfVersion": "1.4.2"
@@ -3623,6 +3727,10 @@
             "libraryName": "pkg-versions",
             "asOfVersion": "2.0.0"
         },
+        "pkijs": {
+            "libraryName": "pkijs",
+            "asOfVersion": "3.0.1"
+        },
         "playcanvas": {
             "libraryName": "playcanvas",
             "asOfVersion": "1.23.0"
@@ -3646,6 +3754,54 @@
         "png-img": {
             "libraryName": "png-img",
             "asOfVersion": "4.0.4"
+        },
+        "pollyjs__adapter": {
+            "libraryName": "@pollyjs/adapter",
+            "asOfVersion": "6.0.4"
+        },
+        "pollyjs__adapter-fetch": {
+            "libraryName": "@pollyjs/adapter-fetch",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-node-http": {
+            "libraryName": "@pollyjs/adapter-node-http",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-puppeteer": {
+            "libraryName": "@pollyjs/adapter-puppeteer",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__adapter-xhr": {
+            "libraryName": "@pollyjs/adapter-xhr",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__core": {
+            "libraryName": "@pollyjs/core",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__node-server": {
+            "libraryName": "@pollyjs/node-server",
+            "asOfVersion": "6.0.1"
+        },
+        "pollyjs__persister": {
+            "libraryName": "@pollyjs/persister",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-fs": {
+            "libraryName": "@pollyjs/persister-fs",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-local-storage": {
+            "libraryName": "@pollyjs/persister-local-storage",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__persister-rest": {
+            "libraryName": "@pollyjs/persister-rest",
+            "asOfVersion": "6.0.5"
+        },
+        "pollyjs__utils": {
+            "libraryName": "@pollyjs/utils",
+            "asOfVersion": "6.0.1"
         },
         "poly2tri": {
             "libraryName": "poly2tri",
@@ -3707,9 +3863,77 @@
             "libraryName": "printf",
             "asOfVersion": "0.3.0"
         },
+        "prosemirror-changeset": {
+            "libraryName": "prosemirror-changeset",
+            "asOfVersion": "2.2.0"
+        },
+        "prosemirror-collab": {
+            "libraryName": "prosemirror-collab",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-commands": {
+            "libraryName": "prosemirror-commands",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-dropcursor": {
+            "libraryName": "prosemirror-dropcursor",
+            "asOfVersion": "1.5.0"
+        },
+        "prosemirror-gapcursor": {
+            "libraryName": "prosemirror-gapcursor",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-history": {
+            "libraryName": "prosemirror-history",
+            "asOfVersion": "1.3.0"
+        },
+        "prosemirror-inputrules": {
+            "libraryName": "prosemirror-inputrules",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-keymap": {
+            "libraryName": "prosemirror-keymap",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-markdown": {
+            "libraryName": "prosemirror-markdown",
+            "asOfVersion": "1.9.0"
+        },
+        "prosemirror-menu": {
+            "libraryName": "prosemirror-menu",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-model": {
+            "libraryName": "prosemirror-model",
+            "asOfVersion": "1.17.0"
+        },
+        "prosemirror-schema-basic": {
+            "libraryName": "prosemirror-schema-basic",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-schema-list": {
+            "libraryName": "prosemirror-schema-list",
+            "asOfVersion": "1.2.0"
+        },
+        "prosemirror-state": {
+            "libraryName": "prosemirror-state",
+            "asOfVersion": "1.4.0"
+        },
         "prosemirror-tables": {
             "libraryName": "prosemirror-tables",
             "asOfVersion": "0.9.1"
+        },
+        "prosemirror-test-builder": {
+            "libraryName": "prosemirror-test-builder",
+            "asOfVersion": "1.1.0"
+        },
+        "prosemirror-transform": {
+            "libraryName": "prosemirror-transform",
+            "asOfVersion": "1.5.0"
+        },
+        "prosemirror-view": {
+            "libraryName": "prosemirror-view",
+            "asOfVersion": "1.24.0"
         },
         "protobufjs": {
             "libraryName": "protobufjs",
@@ -3738,6 +3962,14 @@
         "pupa": {
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
+        },
+        "puppeteer": {
+            "libraryName": "puppeteer",
+            "asOfVersion": "7.0.4"
+        },
+        "puppeteer-core": {
+            "libraryName": "puppeteer-core",
+            "asOfVersion": "7.0.4"
         },
         "pusher-js": {
             "libraryName": "pusher-js",
@@ -3846,6 +4078,10 @@
         "raspi-soft-pwm": {
             "libraryName": "raspi-soft-pwm",
             "asOfVersion": "5.1.0"
+        },
+        "rate-limit-redis": {
+            "libraryName": "rate-limit-redis",
+            "asOfVersion": "3.0.0"
         },
         "raven-js": {
             "libraryName": "raven-js",
@@ -5102,6 +5338,10 @@
         "svg.js": {
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
+        },
+        "svgo": {
+            "libraryName": "svgo",
+            "asOfVersion": "3.0.0"
         },
         "swagger-parser": {
             "libraryName": "swagger-parser",

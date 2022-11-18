@@ -9,6 +9,7 @@
 //                 makspetrov <https://github.com/Nosfit>
 //                 Michael Bullington <https://github.com/mbullington>
 //                 Olivier Pascal <https://github.com/pascaloliv>
+//                 Marko Schilde <https://github.com/mschilde>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -869,6 +870,14 @@ declare namespace mapboxgl {
          * @default null
          */
         testMode?: boolean | undefined;
+        /**
+         * Sets the map's worldview. A worldview determines the way that certain disputed boundaries are rendered.
+         * By default, GL JS will not set a worldview so that the worldview of Mapbox tiles will be determined by
+         * the vector tile source's TileJSON. Valid worldview strings must be an ISO alpha-2 country code.
+         *
+         * @default null
+        */
+        worldview?: string | undefined;
     }
 
     type quat = number[];
@@ -1158,6 +1167,7 @@ declare namespace mapboxgl {
             showAccuracyCircle?: boolean | undefined;
             showUserLocation?: boolean | undefined;
             showUserHeading?: boolean | undefined;
+            geolocation?: Geolocation | undefined;
         });
         trigger(): boolean;
     }
@@ -1421,7 +1431,7 @@ declare namespace mapboxgl {
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string | undefined;
+        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | GeoJSON.Geometry | string | undefined;
 
         maxzoom?: number | undefined;
 

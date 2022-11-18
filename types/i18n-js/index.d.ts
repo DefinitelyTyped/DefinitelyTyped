@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = I18n;
 export as namespace I18n;
 

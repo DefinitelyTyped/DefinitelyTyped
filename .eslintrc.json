@@ -8,8 +8,11 @@
     ],
     "rules": {
       "dt-header": "error",
+      "export-just-namespace": "error",
+      "no-bad-reference": "error",
       "no-dead-reference": "error",
       "no-const-enum": "error",
-      "no-useless-files": "error"
+      "no-useless-files": "error",
+      "trim-file": "error"
     }
 }

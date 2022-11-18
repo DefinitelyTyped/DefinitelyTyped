@@ -1,4 +1,4 @@
-// Type definitions for SystemJS 6.1
+// Type definitions for SystemJS 6.13
 // Project: https://github.com/systemjs/systemjs
 // Definitions by: Joel Denning <https://github.com/joeldenning>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,6 +62,12 @@ declare const System: {
    * Use for (let entry of System.entries()) to access all of the modules in the SystemJS registry.
    */
   entries(): Iterable<[string, System.Module]>;
+
+  /**
+   * Dynamically extend additional mappings into the import map at any time.
+   * Any existing map entries will be overridden with the new values.
+   */
+  addImportMap(importMap: System.ImportMap): void;
 };
 
 declare namespace System {
@@ -98,5 +104,11 @@ declare namespace System {
   interface Module {
     default?: any;
     [exportName: string]: any;
+  }
+
+  /** The importmap standard is defined here: https://github.com/WICG/import-maps */
+  interface ImportMap {
+    imports?: Record<string, string>;
+    scopes?: Record<string, Record<string, string>>;
   }
 }

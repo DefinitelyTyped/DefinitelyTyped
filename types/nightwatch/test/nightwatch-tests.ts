@@ -5,16 +5,17 @@ import {
     NightwatchAPI,
     NightwatchAssertion,
     NightwatchAssertionsResult,
+    NightwatchEnsureResult,
+    NightwatchNodeAssertionsResult,
     NightwatchTests,
     PageObjectModel,
     ELEMENT_KEY,
     JSON_WEB_OBJECT,
-    NightwatchNodeAssertionsResult,
 } from 'nightwatch';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI, isType } from './utils';
+
 function isNightwatchAssertionsResult<T>(result: NightwatchAssertionsResult<T>): T { return result.value; }
-function isType<T>(v: T): T { return v; }
 
 //
 // ./tests/general.ts
@@ -71,6 +72,48 @@ const testGeneral: NightwatchTests = {
         browser.WEBDRIVER_ELEMENT_ID = 'some-element-id';
         // @ts-expect-errors
         browser.browserName = 'firefox';
+
+        browser.element('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+
+        browser.elements('css selector', 'something', function(result) {
+            if (result.status === 0) {
+                isType<string>(result.value[0][ELEMENT_KEY]);
+            }
+            isNightwatchAPI(this);
+        });
+    },
+
+    'Demo Nightwatch API commands with async/await': async () => {
+        const element = await browser.element('css selector', 'something');
+        isType<string>(element[ELEMENT_KEY]);
+
+        const elements = await browser.elements('css selector', 'something');
+        isType<string>(elements[0][ELEMENT_KEY]);
+    },
+
+    'Can run accessibility tests': () => {
+        browser
+            .url('https://www.google.com')
+            .axeInject()
+            .axeRun(
+                'body',
+                {
+                    rules: {
+                        'color-contrast': {
+                            enabled: false,
+                        },
+                        region: {
+                            enabled: false,
+                        },
+                    },
+                },
+                results => {},
+            );
     },
 
     'step one: navigate to google': () => {
@@ -141,7 +184,7 @@ const testGeneral: NightwatchTests = {
             .captureBrowserConsoleLogs(event => {
                 console.log(event.type, event.timestamp, event.args[0].value);
             })
-            .navigateTo('https://www.google.com')
+            .navigateTo(browser.baseUrl)
             .executeScript(() => {
                 console.error('here');
             }, []);
@@ -191,6 +234,21 @@ const testGeneral: NightwatchTests = {
         isType<NightwatchNodeAssertionsResult | Error>(await result);
     }
 };
+
+//
+// ./tests/duckDuckGo.ts
+//
+describe('duckduckgo example', function() {
+    it('Search Nightwatch.js and check results', function(browser) {
+      browser
+        .navigateTo('https://duckduckgo.com')
+        .waitForElementVisible('input[name=q]')
+        .sendKeys('input[name=q]', ['Nightwatch.js'])
+        .click('*[type="submit"]')
+        .assert.visible('.results--main')
+        .assert.textContains('.results--main', 'Nightwatch.js');
+    });
+});
 
 //
 // ./pages/google.ts
@@ -550,6 +608,20 @@ it('Ensure demo test', () => {
         .url('https://nightwatchjs.org')
         .ensure.titleMatches(/Nightwatch.js/)
         .ensure.elementIsVisible('#index-container');
+});
+
+it('Ensure async/await demo test', async () => {
+    const result = await browser
+        .url('https://nightwatchjs.org')
+        .ensure.urlContains('nightwatch')
+        .ensure.titleMatches(/Nightwatch.js/)
+        .ensure.elementIsVisible('#index-container');
+
+        function isNightwatchEnsureResult(v: NightwatchEnsureResult) {}
+        function isNull(v: null) {}
+
+        isNightwatchEnsureResult(result);
+        isNull(result.value);
 });
 
 // chai expect test

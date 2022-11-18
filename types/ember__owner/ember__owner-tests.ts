@@ -1,4 +1,4 @@
-import Owner, { Factory, FactoryManager, FullName, RegisterOptions } from '@ember/owner';
+import Owner, { Factory, FactoryManager, FullName, RegisterOptions, KnownForTypeResult, Resolver } from '@ember/owner';
 
 // Just a class we can construct in the Factory and FactoryManager tests
 declare class ConstructThis {
@@ -51,6 +51,14 @@ aFactoryManager.create({ hasProps: true, otherStuff: 'nope' });
 aFactoryManager.create(goodPojo); // $ExpectType ConstructThis
 // @ts-expect-error
 aFactoryManager.create(badPojo);
+
+// ----- Resolver ----- //
+declare let resolver: Resolver;
+resolver.resolve('some-name');
+const knownForFoo = resolver.knownForType?.('foo');
+knownForFoo?.['foo:bar']; // $ExpectType boolean | undefined
+// @ts-expect-error
+knownForFoo?.['blah'];
 
 // This one is last so it can reuse the bits from above!
 // ----- Owner ----- //

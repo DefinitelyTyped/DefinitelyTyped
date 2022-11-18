@@ -8,6 +8,7 @@ import {
     UploadableMap,
 } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
+import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationLinkedField,
@@ -409,6 +410,10 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     invalidateStore(): void;
+    readUpdatableFragment_EXPERIMENTAL<TKey extends HasUpdatableSpread>(
+        fragmentInput: GraphQLTaggedNode,
+        fragmentRef: TKey,
+    ): UpdatableData<TKey>;
 }
 
 interface OperationDescriptor {
@@ -913,8 +918,8 @@ export type MissingFieldHandler =
       };
 
 /**
- * A handler for events related to @required fields. Currently reports missing
- * fields with either `action: LOG` or `action: THROW`.
+ * A handler for events related to @required fields or Relay Resolvers. Currently reports missing
+ * fields with either `action: LOG` or `action: THROW` or when a Relay Resolver throws.
  */
 export type RequiredFieldLogger = (
     arg:
@@ -927,6 +932,12 @@ export type RequiredFieldLogger = (
               kind: 'missing_field.throw';
               owner: string;
               fieldPath: string;
+          }>
+        | Readonly<{
+              kind: 'relay_resolver.error';
+              owner: string;
+              fieldPath: string;
+              error: Error;
           }>,
 ) => void;
 
@@ -1035,8 +1046,8 @@ export type RelayResolverErrors = RelayResolverError[];
  * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
  * readUpdatableFragment_EXPERIMENTAL.
  */
-export interface UpdatableData<TData> {
-    readonly updatableData: TData;
+export interface UpdatableData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
+    readonly updatableData: Required<TKey>[' $data'];
 }
 
 /**
@@ -1044,6 +1055,7 @@ export interface UpdatableData<TData> {
  * HasUpdatableSpread.
  * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
  */
-export interface HasUpdatableSpread<TFragmentType> {
-    readonly $updatableFragmentSpreads: TFragmentType;
-}
+export type HasUpdatableSpread<TData = unknown> = Readonly<{
+    ' $data'?: TData | undefined;
+    $updatableFragmentSpreads: FragmentType;
+}>;
