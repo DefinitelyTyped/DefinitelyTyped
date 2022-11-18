@@ -393,8 +393,11 @@ declare namespace jest {
     function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
         object: T,
         method: M,
-    ): Required<T>[M] extends new (...args: any[]) => any
-        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
+    ): ConstructorProperties<Required<T>>[M] extends new (...args: any[]) => any
+        ? SpyInstance<
+              InstanceType<ConstructorProperties<Required<T>>[M]>,
+              ConstructorArgsType<ConstructorProperties<Required<T>>[M]>
+          >
         : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
@@ -464,7 +467,14 @@ declare namespace jest {
         : never;
     type FunctionProperties<T> = { [K in keyof T as T[K] extends (...args: any[]) => any ? K : never]: T[K] };
     type FunctionPropertyNames<T> = keyof FunctionProperties<T>;
-    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends Constructor ? K : never }[keyof T] & string;
+    type RemoveIndex<T> = {
+        // from https://stackoverflow.com/a/66252656/4536543
+        [P in keyof T as string extends P ? never : number extends P ? never : P]: T[P];
+    };
+    type ConstructorProperties<T> = {
+        [K in keyof RemoveIndex<T> as RemoveIndex<T>[K] extends Constructor ? K : never]: RemoveIndex<T>[K];
+    };
+    type ConstructorPropertyNames<T> = RemoveIndex<keyof ConstructorProperties<T>>;
 
     interface DoneCallback {
         (...args: any[]): any;

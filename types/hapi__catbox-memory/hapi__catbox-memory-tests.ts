@@ -1,4 +1,4 @@
-import * as CatboxMemory from '@hapi/catbox-memory';
+import { Engine as CatboxMemory } from '@hapi/catbox-memory';
 import { Client } from '@hapi/catbox';
 
 const client = new CatboxMemory<string>({

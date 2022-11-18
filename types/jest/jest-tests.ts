@@ -689,6 +689,10 @@ typedSpy3 = jest.spyOn(spiedTarget2, 'value', 'get');
 let typedSpy4: jest.SpiedSetter<typeof spiedTarget2.value>;
 typedSpy4 = jest.spyOn(spiedTarget2, 'value', 'set');
 
+// Test for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63129
+// $ExpectType SpyInstance<void, [key: string, value: string]>
+jest.spyOn(Storage.prototype, 'setItem');
+
 // $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
 // $ExpectType MockedObjectDeep<{}>

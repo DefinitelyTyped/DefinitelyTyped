@@ -464,10 +464,6 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
-        "cacheable-request": {
-            "libraryName": "cacheable-request",
-            "asOfVersion": "8.3.1"
-        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
@@ -827,6 +823,10 @@
         "credit-card-type": {
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
+        },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
         },
         "cropperjs": {
             "libraryName": "cropperjs",
@@ -3245,6 +3245,10 @@
             "libraryName": "node-waves",
             "asOfVersion": "0.7.6"
         },
+        "node-xlsx": {
+            "libraryName": "node-xlsx",
+            "asOfVersion": "0.21.0"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
@@ -3686,6 +3690,10 @@
         "pino": {
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
+        },
+        "pino-pretty": {
+            "libraryName": "pino-pretty",
+            "asOfVersion": "5.0.0"
         },
         "pino-std-serializers": {
             "libraryName": "pino-std-serializers",

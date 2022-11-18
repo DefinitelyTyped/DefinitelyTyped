@@ -6,6 +6,7 @@ export interface ReactScrollLinkProps {
     activeClass?: string | undefined;
     spy?: boolean | undefined;
     hashSpy?: boolean | undefined;
+    horizontal?: boolean | undefined;
     smooth?: boolean | string | undefined;
     offset?: number | undefined;
     delay?: number | undefined;

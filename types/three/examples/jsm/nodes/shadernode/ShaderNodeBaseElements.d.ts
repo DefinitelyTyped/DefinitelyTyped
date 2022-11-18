@@ -20,6 +20,7 @@ import { Material, Texture } from '../../../../src/Three';
 import { NodeTypeOption, NodeUserData, NodeValueOption } from '../core/constants';
 import { NodeBuilderContext } from '../core/NodeBuilder';
 import {
+    BitangentNode,
     BufferNode,
     BypassNode,
     CameraNode,
@@ -43,6 +44,7 @@ import {
     PositionNode,
     PropertyNode,
     ReferenceNode,
+    TangentNode,
     UserDataNode,
     UVNode,
     VarNode,
@@ -90,6 +92,8 @@ export function uniform(nodeOrType: Node | Swizzable | NodeValueOption): Swizzab
 
 export function attribute(attributeName: string, nodeType: NodeTypeOption): Swizzable;
 export function property(name: string, nodeOrType: Node | NodeTypeOption): Swizzable;
+
+export function convert(node: NodeRepresentation, types: NodeTypeOption): Swizzable;
 
 export function bypass(returnNode: NodeRepresentation, callNode: NodeRepresentation): Swizzable<BypassNode>;
 export function code(code: string, nodeType?: NodeTypeOption): Swizzable<CodeNode>;
@@ -164,6 +168,20 @@ export const normalWorld: Swizzable<NormalNode>;
 export const normalView: Swizzable<NormalNode>;
 export const transformedNormalView: Swizzable<VarNode>;
 
+export const tangentGeometry: Swizzable<TangentNode>;
+export const tangentLocal: Swizzable<TangentNode>;
+export const tangentView: Swizzable<TangentNode>;
+export const tangentWorld: Swizzable<TangentNode>;
+export const transformedTangentView: Swizzable<MathNode>;
+export const transformedTangentWorld: Swizzable<MathNode>;
+
+export const bitangentGeometry: Swizzable<BitangentNode>;
+export const bitangentLocal: Swizzable<BitangentNode>;
+export const bitangentView: Swizzable<BitangentNode>;
+export const bitangentWorld: Swizzable<BitangentNode>;
+export const transformedBitangentView: Swizzable<MathNode>;
+export const transformedBitangentWorld: Swizzable<MathNode>;
+
 export const modelViewMatrix: Swizzable<ModelNode>;
 export const modelNormalMatrix: Swizzable<ModelNode>;
 export const modelWorldMatrix: Swizzable<ModelNode>;
@@ -173,6 +191,7 @@ export const modelViewPosition: Swizzable<ModelNode>;
 export const positionGeometry: Swizzable<PositionNode>;
 export const positionLocal: Swizzable<PositionNode>;
 export const positionWorld: Swizzable<PositionNode>;
+export const positionWorldDirection: Swizzable<PositionNode>;
 export const positionView: Swizzable<PositionNode>;
 export const positionViewDirection: Swizzable<PositionNode>;
 
@@ -246,8 +265,8 @@ export const negate: Unary;
 export const invert: Unary;
 export const dFdx: Unary;
 export const dFdy: Unary;
-export const saturate: Unary;
 export const round: Unary;
+export const reciprocal: Unary;
 
 export const atan2: Binary;
 export const min: Binary;
@@ -281,5 +300,8 @@ export const faceDirection: Swizzable;
 export function element(node: NodeRepresentation, indexNode: NodeRepresentation): Swizzable;
 
 // miscellaneous
+export const lumaCoeffs: Swizzable<MathNode>;
+export const luminance: Binary;
+export const difference: Binary;
 export const dotNV: Swizzable<MathNode>;
-export const transformedNormalWorld: Swizzable<MathNode>;
+export const TBNViewMatrix: Swizzable<MathNode>;

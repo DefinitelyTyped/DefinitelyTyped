@@ -7,8 +7,6 @@ export interface BokehPassParamters {
     aspect?: number;
     aperture?: number;
     maxblur?: number;
-    width?: number;
-    height?: number;
 }
 
 export class BokehPass extends Pass {

@@ -4,7 +4,7 @@
 //                 Chuah Chee Shian (shian15810) <https://github.com/shian15810>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import eslint = require("eslint");
+import eslint = require('eslint');
 
 // eslint.CLIEngine.getErrorResults without modification
 // eslint.CLIEngine.getFormatter without modification
@@ -19,28 +19,30 @@ export const getErrorResults: typeof eslint.ESLint.getErrorResults;
  * or null if no formatter with the given name can be found.
  * see {@link https://github.com/eslint/eslint/blob/master/docs/developer-guide/nodejs-api.md#clienginegetformatter}
  */
-export function getFormatter(format?: string): (results: eslint.ESLint.LintResult[], data?: eslint.ESLint.LintResultData) => string;
+export function getFormatter(
+    format?: string,
+): (results: eslint.ESLint.LintResult[], data?: eslint.ESLint.LintResultData) => string;
 /**
  * Used to output fixes from report to disk.
  * It does by looking for files that have an output property in their results
  */
 export function outputFixes(report: ResultReport): void;
 
+export function getConfig(
+    options: CLIEngineOptions & { filePath: string },
+): ReturnType<eslint.ESLint['calculateConfigForFile']>;
 export function lintText(text: string, options?: Options): ResultReport;
 export function lintFiles(patterns: string | string[], options?: Options): ResultReport | Promise<ResultReport>;
 
-export type CLIEngineOptions = Pick<
-    eslint.ESLint.Options,
-    "baseConfig" | "cwd" | "extensions" | "fix" | "ignore"
-> & {
+export type CLIEngineOptions = Pick<eslint.ESLint.Options, 'baseConfig' | 'cwd' | 'extensions' | 'fix' | 'ignore'> & {
     envs?: string[] | undefined;
     globals?: string[] | undefined;
     parser?: string | undefined;
     plugins?: string[];
-    rules?: {[name: string]: eslint.Linter.RuleLevel | eslint.Linter.RuleLevelAndOptions} | undefined
+    rules?: { [name: string]: eslint.Linter.RuleLevel | eslint.Linter.RuleLevelAndOptions } | undefined;
 };
-export type ESLintOptions = Pick<eslint.Linter.LintOptions, "filename">;
-export type ESLintConfig = Pick<eslint.Linter.Config, "extends" | "settings">;
+export type ESLintOptions = Pick<eslint.Linter.LintOptions, 'filename'>;
+export type ESLintConfig = Pick<eslint.Linter.Config, 'extends' | 'settings'>;
 
 export type Options = {
     /** Some paths are ignored by default, including paths in .gitignore and .eslintignore. Additional ignores can be added here */

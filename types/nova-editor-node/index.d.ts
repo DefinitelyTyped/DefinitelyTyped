@@ -613,6 +613,7 @@ interface Path {
     isAbsolute(path: string): boolean;
     join(...paths: string[]): string;
     normalize(path: string): string;
+    relative(from: string, to: string): string;
     split(path: string): string[];
 }
 

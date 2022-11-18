@@ -9,7 +9,6 @@
 //                 Justin Rockwood <https://github.com/jrockwood>
 //                 Keith Kelly <https://github.com/kwkelly>
 //                 Richard Lea <https://github.com/chigix>
-//                 Jed Mao <https://github.com/jedmao>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
