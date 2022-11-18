@@ -166,7 +166,7 @@ export interface SnowflakeError extends SnowflakeErrorExternal {
 export interface StreamOptions {
     start?: number;
     end?: number;
-    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
+    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
 }
 
 /**
@@ -565,7 +565,7 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
+        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'| 'Buffer'> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
     }): Statement;
 
