@@ -13,9 +13,25 @@ declare namespace happypack {
         id?: string | undefined;
         threads?: number | undefined;
         loaders: any;
+        threadPool: ThreadPool;
     }
+
+    interface ThreadPoolConfig {
+        size: number;
+        id?: string | undefined;
+        verbose?: boolean | undefined;
+        debug?: boolean | undefined;
+        bufferedMessaging?: boolean | undefined;
+    }
+
+    interface ThreadPool {
+
+    }
+
+    declare function HappyThreadPool(config: ThreadPoolConfig): ThreadPool;
 }
 
 declare class happypack extends Plugin {
     constructor(options: happypack.PluginOptions);
+    static ThreadPool = happypack.HappyThreadPool
 }
