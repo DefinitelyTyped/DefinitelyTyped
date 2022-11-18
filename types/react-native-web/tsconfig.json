@@ -18,6 +18,6 @@
         "jsx": "react"
     },
     "files": [
-        "index.d.ts",
+        "index.d.ts"
     ]
 }
