@@ -95,104 +95,49 @@ declare namespace MusicKit {
         meta?: Record<string, any>;
     }
 
-    interface CatalogResourceAPI<T extends CATALOG_RESOURCE_TYPE> {
-        queryParameters: {
-            extend?: T['type'];
-            include?: keyof T['relationships'];
-            l?: string;
-            views?: T extends RESOURCES ? Array<keyof T['views']> : never;
-        };
-        response: APIResponse<ResourceCollectionResponse<T>>;
+    interface CatalogResourceAPI<T extends SEARCH_RESOURCE_TYPE> {
+        queryParameters: GetCatalogResourceQueryParameters<T>;
+        response: CatalogResourceAPIResponse<T>;
     }
 
-    interface CatalogResourcesAPI<T extends CATALOG_RESOURCE_TYPE> {
-        queryParameters: {
-            extend?: T['type'];
-            include?: keyof T['relationships'];
-            l?: string;
-        };
-        response: APIResponse<ResourceCollectionResponse<T>>;
+    interface CatalogResourcesAPI<T extends SEARCH_RESOURCE_TYPE> {
+        queryParameters: GetCatalogResourcesQueryParameters<T>;
+        response: CatalogResourcesAPIResponse<T>;
     }
 
-    interface SearchCatalogAPI<T extends CATALOG_RESOURCE_TYPE> {
-        queryParameters: {
-            extend?: T['type'];
-            include?: keyof T['relationships'];
-            l?: string;
-            with?: 'topResults';
-            types: Array<T['type']>;
-        };
-        response: APIResponse<SearchCatalogResponse<T>>;
+    interface SearchCatalogAPI<T extends SEARCH_RESOURCE_TYPE> {
+        queryParameters: SearchCatalogQueryParameters<T>;
+        response: SearchCatalogAPIResponse<T>;
     }
 
     interface ChartAPI<T extends MUSIC_CATALOG_CHART_TYPE> {
-        queryParameters: {
-            l?: string;
-            limit?: number;
-            offset?: string;
-            chart?: 'most-played';
-            genre?: string;
-            types: Array<T['type']>;
-            with?: 'cityCharts' | 'dailyGlobalTopCharts';
-        };
-        response: APIResponse<ChartResponse<T>>;
+        queryParameters: GetCatalogChartsQueryParameters<T>;
+        response: ChartAPIResponse<T>;
     }
 
-    interface LibraryResourceAPI<T extends LIBRARY_RESOURCE_TYPE> {
-        queryParameters: {
-            extend?: T['type'];
-            include?: keyof T['relationships'];
-            l?: string;
-        };
-        response: APIResponse<ResourceCollectionResponse<T>>;
+    interface LibraryResourceAPI<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+        queryParameters: GetLibraryResourceQueryParameters<T>;
+        response: LibraryResourceAPIResponse<T>;
     }
 
-    interface LibraryResourcesAPI<T extends LIBRARY_RESOURCE_TYPE> {
-        queryParameters: {
-            extend?: T['type'];
-            include?: keyof T['relationships'];
-            l?: string;
-        };
-        response: APIResponse<ResourceCollectionResponse<T>>;
+    interface LibraryResourcesAPI<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+        queryParameters: GetLibraryResourcesQueryParameters<T>;
+        response: LibraryResourcesAPIResponse<T>;
     }
 
-    interface SearchLibraryAPI<T extends LIBRARY_RESOURCE_TYPE> {
-        queryParameters: {
-            extend?: T['type'];
-            include?: keyof T['relationships'];
-            l?: string;
-            types: Array<T>;
-        };
-        response: APIResponse<SearchLibraryResponse<T>>;
+    interface SearchLibraryAPI<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+        queryParameters: SearchLibraryQueryParameters<T>;
+        response: SearchLibraryAPIResponse<T>;
     }
 
-    interface SearchSuggestionsAPI<T extends TermSuggestion | TopResultSuggestion<CATALOG_RESOURCE_TYPE>> {
-        queryParameters: T extends TermSuggestion
-            ? {
-                  l?: string;
-                  limit?: number;
-                  term: string;
-                  kinds: Array<T['kind']>;
-              }
-            : T extends TopResultSuggestion<infer U>
-            ? {
-                  l?: string;
-                  limit?: number;
-                  term: string;
-                  kinds: Array<T['kind']>;
-                  types: Array<U['type']>;
-              }
-            : never;
-        response: APIResponse<SearchSuggestionsResponse<T>>;
+    interface SearchSuggestionsAPI<T extends TermSuggestion | TopResultSuggestion<SEARCH_RESOURCE_TYPE>> {
+        queryParameters: GetCatalogSearchSuggestionsQueryParameters<T>;
+        response: SearchSuggestionsAPIResponse<T>;
     }
 
     interface SearchHintsAPI {
-        queryParameters: {
-            l?: string;
-            limit?: number;
-            term: string;
-        };
-        response: APIResponse<SearchHintsResponse>;
+        queryParameters: GetCatalogSearchHintsQueryParameters;
+        response: SearchHintsAPIResponse;
     }
 
     /**
@@ -203,7 +148,7 @@ declare namespace MusicKit {
         /**
          * The storefront used for making calls to the API.
          */
-        storefrontId: StorefrontId;
+        storefrontId: string;
         /**
          * An instance of MusicKitAPI is made available on configured instances of MusicKit as the property api.
          * The primary use of the API class is to facilitate making requests to the Apple Music API, which is done via the ‘passthrough API’ method api.music(...).
@@ -212,52 +157,49 @@ declare namespace MusicKit {
          * @param queryParameters An object with query parameters which will be appended to the request URL.
          * @param options An object with additional options to control how requests are made
          */
-        music(
-            path: ValidatePath,
-            queryParameters?: PathToQueryParameters<typeof path>,
-        ): ParamsToResponse<typeof path, typeof queryParameters>;
-        //     path: ValidatePath,
-        //     queryParameters?: T extends LibraryResourceAPI<infer U>
-        //         ? LibraryResourceAPI<U>['queryParameters']
-        //         : T extends CatalogResourcesAPI<infer U>
-        //         ? CatalogResourcesAPI<U>['queryParameters']
-        //         : T extends LibraryResourcesAPI<infer U>
-        //         ? LibraryResourcesAPI<U>['queryParameters']
-        //         : T extends CatalogResourceAPI<infer U>
-        //         ? CatalogResourceAPI<U>['queryParameters']
-        //         : T extends SearchCatalogAPI<infer U>
-        //         ? SearchCatalogAPI<U>['queryParameters']
-        //         : T extends ChartAPI<infer U>
-        //         ? ChartAPI<U>['queryParameters']
-        //         : T extends SearchLibraryAPI<infer U>
-        //         ? SearchLibraryAPI<U>['queryParameters']
-        //         : T extends SearchSuggestionsAPI<infer U>
-        //         ? SearchSuggestionsAPI<U>['queryParameters']
-        //         : T extends SearchHintsAPI
-        //         ? SearchHintsAPI['queryParameters']
-        //         : never,
+        music<T>(
+            path: string,
+            queryParameters?: T extends LibraryResourceAPI<infer U>
+                ? LibraryResourceAPI<U>['queryParameters']
+                : T extends CatalogResourcesAPI<infer U>
+                ? CatalogResourcesAPI<U>['queryParameters']
+                : T extends LibraryResourcesAPI<infer U>
+                ? LibraryResourcesAPI<U>['queryParameters']
+                : T extends CatalogResourceAPI<infer U>
+                ? CatalogResourceAPI<U>['queryParameters']
+                : T extends SearchCatalogAPI<infer U>
+                ? SearchCatalogAPI<U>['queryParameters']
+                : T extends ChartAPI<infer U>
+                ? ChartAPI<U>['queryParameters']
+                : T extends SearchLibraryAPI<infer U>
+                ? SearchLibraryAPI<U>['queryParameters']
+                : T extends SearchSuggestionsAPI<infer U>
+                ? SearchSuggestionsAPI<U>['queryParameters']
+                : T extends SearchHintsAPI
+                ? SearchHintsAPI['queryParameters']
+                : QueryParameters,
 
-        //     options?: { fetchOptions: { method: 'GET' | 'POST' | 'DELETE' | 'PUT' } },
-        // ): unknown extends T
-        //     ? Promise<APIResponse<unknown>>
-        //     : T extends CatalogResourceAPI<infer U>
-        //     ? CatalogResourceAPI<U>['response']
-        //     : T extends CatalogResourcesAPI<infer U>
-        //     ? CatalogResourcesAPI<U>['response']
-        //     : T extends LibraryResourceAPI<infer U>
-        //     ? LibraryResourceAPI<U>['response']
-        //     : T extends LibraryResourcesAPI<infer U>
-        //     ? LibraryResourcesAPI<U>['response']
-        //     : T extends SearchCatalogAPI<infer U>
-        //     ? SearchCatalogAPI<U>['response']
-        //     : T extends ChartAPI<infer U>
-        //     ? ChartAPI<U>['response']
-        //     : T extends SearchLibraryAPI<infer U>
-        //     ? SearchLibraryAPI<U>['response']
-        //     : T extends SearchSuggestionsAPI<infer U>
-        //     ? SearchSuggestionsAPI<U>['response']
-        //     : T extends SearchHintsAPI
-        //     ? SearchHintsAPI['response']
-        //     : never;
+            options?: { fetchOptions: { method: 'GET' | 'POST' | 'DELETE' | 'PUT' } },
+        ): unknown extends T
+            ? Promise<APIResponse & { data: unknown }>
+            : T extends CatalogResourceAPI<infer U>
+            ? CatalogResourceAPI<U>['response']
+            : T extends CatalogResourcesAPI<infer U>
+            ? CatalogResourcesAPI<U>['response']
+            : T extends LibraryResourceAPI<infer U>
+            ? LibraryResourceAPI<U>['response']
+            : T extends LibraryResourcesAPI<infer U>
+            ? LibraryResourcesAPI<U>['response']
+            : T extends SearchCatalogAPI<infer U>
+            ? SearchCatalogAPI<U>['response']
+            : T extends ChartAPI<infer U>
+            ? ChartAPI<U>['response']
+            : T extends SearchLibraryAPI<infer U>
+            ? SearchLibraryAPI<U>['response']
+            : T extends SearchSuggestionsAPI<infer U>
+            ? SearchSuggestionsAPI<U>['response']
+            : T extends SearchHintsAPI
+            ? SearchHintsAPI['response']
+            : never;
     }
 }

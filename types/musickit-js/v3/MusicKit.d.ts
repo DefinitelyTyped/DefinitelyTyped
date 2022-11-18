@@ -64,7 +64,7 @@ declare namespace MusicKit {
          * This is the value used for the {{storefrontId}} token in the path argument of the Passthrough API method, which helps create reusable URL templates by abstracting the storefront.
          * If not set, the storefrontId will use the authenticated user’s storefront, which is likely ideal in most situations.
          */
-        storefrontId?: StorefrontId;
+        storefrontId?: string | undefined;
         /**
          * Can be used to target a bit rate for playback. Otherwise MusicKit will do its best to determine a proper bit rate.
          * Can be changed later on the instance.
@@ -115,7 +115,7 @@ declare namespace MusicKit {
         contentId: string;
         isUTS: boolean;
         kind: 'album' | 'playlist' | 'song' | 'music-video' | 'podcast' | 'episode';
-        storefrontId: StorefrontId;
+        storefrontId: string;
     };
 
     /**

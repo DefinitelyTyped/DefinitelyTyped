@@ -82,7 +82,7 @@ declare namespace MusicKit {
         /**
          * The current storefront for the configured MusicKit instance.
          */
-        readonly storefrontId: StorefrontId;
+        readonly storefrontId: string;
         /**
          * The current repeat mode of the music player.
          */
