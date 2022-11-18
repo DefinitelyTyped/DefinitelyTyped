@@ -193,6 +193,30 @@ function catBlock() {
 function webRequestAddListenerMandatoryFilters() {
     // @ts-expect-error
     chrome.webRequest.onBeforeRequest.addListener(info => {})
+
+    chrome.webRequest.onSendHeaders.addListener(details => {
+            console.log(
+                (details.requestHeaders ?? [])[0].name,
+                details.documentId,
+                details.documentLifecycle,
+                details.frameType,
+                details.frameId,
+                details.initiator,
+                details.parentDocumentId,
+                details.parentFrameId,
+                details.requestId,
+                details.tabId,
+                details.timeStamp,
+                details.type,
+                details.url
+            );
+        },
+        {
+            urls: ["<all_urls>"],
+        },
+        ["requestHeaders"]
+    );
+
 }
 
 // webNavigation.onBeforeNavigate.addListener example
@@ -1601,4 +1625,16 @@ async function testHistoryForPromise() {
     await chrome.history.deleteAll()
     await chrome.history.deleteUrl({ url: 'https://example.com'})
     await chrome.history.getVisits({ url: 'https://example.com'})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/identity/
+async function testIdentity() {
+    // $ExpectType void
+    chrome.identity.launchWebAuthFlow({ url: 'https://example.com '}, () => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/identity/
+async function testIdentityForPromise() {
+    // $ExpectType string | undefined
+    await chrome.identity.launchWebAuthFlow({ url: 'https://example.com '});
 }

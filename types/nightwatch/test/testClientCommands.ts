@@ -108,12 +108,7 @@ describe('deleteCookie demo', function() {
         .navigateTo('https://www.google.com')
         .setCookie({
             name: "test_cookie",
-            value: "test_value",
-            path: undefined,
-            domain: undefined,
-            secure: undefined,
-            expiry: undefined,
-            httpOnly: undefined
+            value: "test_value"
         })
         .deleteCookie('test_cookie', function(result) {
             isNightwatchAPI(this);
@@ -137,11 +132,6 @@ describe('deleteCookies demo', function() {
         .setCookie({
             name: "test_cookie",
             value: "test_value",
-            path: undefined,
-            domain: undefined,
-            secure: undefined,
-            expiry: undefined,
-            httpOnly: undefined
         })
         .deleteCookies(function(result) {
             isNightwatchAPI(this);
@@ -176,12 +166,7 @@ describe('getCookie command demo', function() {
         .navigateTo('https://www.google.com')
         .setCookie({
             name: "test_cookie",
-            value: "test_value",
-            path: undefined,
-            domain: undefined,
-            secure: undefined,
-            expiry: undefined,
-            httpOnly: undefined
+            value: "test_value"
         }).getCookie('test_cookie', function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<Cookie>(result);
@@ -203,12 +188,7 @@ describe('setCookie command demo', function() {
         .navigateTo('https://www.google.com')
         .setCookie({
             name: "test_cookie",
-            value: "test_value",
-            path: undefined,
-            domain: undefined,
-            secure: undefined,
-            expiry: undefined,
-            httpOnly: undefined
+            value: "test_value"
         }, function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
@@ -218,12 +198,7 @@ describe('setCookie command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.setCookie({
           name: "test_cookie",
-          value: "test_value",
-          path: undefined,
-          domain: undefined,
-          secure: undefined,
-          expiry: undefined,
-          httpOnly: undefined
+          value: "test_value"
         });
         isType<null>(result);
     });
@@ -341,12 +316,7 @@ describe('setCookie command demo', function() {
             .navigateTo('https://www.ecosia.org')
             .setCookie({
                 name: 'testCookie',
-                value: "",
-                path: undefined,
-                domain: undefined,
-                secure: undefined,
-                expiry: undefined,
-                httpOnly: undefined
+                value: ""
             }, function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
@@ -356,12 +326,7 @@ describe('setCookie command demo', function() {
     test('async demo test', async function(browser) {
         const result = await browser.setCookie({
           name: 'testCookie',
-          value: "",
-          path: undefined,
-          domain: undefined,
-          secure: undefined,
-          expiry: undefined,
-          httpOnly: undefined
+          value: ""
         });
         isType<null>(result);
     });

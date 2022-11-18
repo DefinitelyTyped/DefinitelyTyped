@@ -37,15 +37,50 @@ export interface ListResult<T> {
         [key: string]: {
             start: number;
             end: number;
-        }
+        };
     };
 }
 
 export type PurchaseOptions = 'subscription' | 'standard';
 
+export interface ImageCamelCase {
+    file: {
+        id: string;
+        dateUploaded: string;
+        length: number;
+        md5: string;
+        filename: string | null;
+        contentType: string;
+        metadata: unknown;
+        url: string;
+        width: number;
+        height: number;
+    };
+    id: string;
+}
+
+export interface ImageSnakeCase {
+    file: {
+        id: string;
+        date_uploaded: string;
+        length: number;
+        md5: string;
+        filename?: string | null;
+        content_type: string;
+        metadata: unknown;
+        url: string;
+        width: number;
+        height: number;
+    };
+    id: string;
+}
+
+export type Image = ImageCamelCase | ImageSnakeCase;
+
 export interface ProductCamelCase {
     price: number;
     sale: boolean;
+    salePrice?: number;
     sku: unknown;
     slug: string;
     stockLevel: number;
@@ -70,16 +105,29 @@ export interface ProductCamelCase {
         variant: true;
     }>;
     attributes: unknown;
-    content: never;
+    content: any;
     description: string;
     id: string;
-    images: never;
+    images: ImageCamelCase[];
     name: string;
+    variants?: {
+        count: number;
+        results: ProductCamelCase[];
+    };
+    crossSells?: Array<{
+        id: string;
+        productId: string;
+    }>;
+    upSells?: Array<{
+        id: string;
+        productId: string;
+    }>;
 }
 
 export interface ProductSnakeCase {
     price: number;
     sale: boolean;
+    sale_price?: number;
     sku: unknown;
     slug: string;
     stock_level: number;
@@ -104,11 +152,23 @@ export interface ProductSnakeCase {
         variant: true;
     }>;
     attributes: unknown;
-    content: never;
+    content: any;
     description: string;
     id: string;
-    images: never;
+    images: ImageSnakeCase[];
     name: string;
+    variants?: {
+        count: number;
+        results: ProductSnakeCase[];
+    };
+    cross_sells?: Array<{
+        id: string;
+        product_id: string;
+    }>;
+    up_sells?: Array<{
+        id: string;
+        product_id: string;
+    }>;
 }
 
 export type Product = ProductCamelCase | ProductSnakeCase;
