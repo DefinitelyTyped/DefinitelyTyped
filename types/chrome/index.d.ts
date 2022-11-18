@@ -5855,9 +5855,9 @@ declare namespace chrome.notifications {
     } & (T extends true ? {
         /**
          * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Optional for notifications.create method.
          */
-        iconUrl: string;
+        iconUrl?: string | undefined;
         /** Main notification content. Required for notifications.create method. */
         message: string;
         /** Which type of notification to display. Required for notifications.create method. */
@@ -5868,7 +5868,7 @@ declare namespace chrome.notifications {
         /**
          * Optional.
          * A URL to the sender's avatar, app icon, or a thumbnail for image notifications.
-         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Required for notifications.create method.
+         * URLs can be a data URL, a blob URL, or a URL relative to a resource within this extension's .crx file. Optional for notifications.create method.
          */
         iconUrl?: string | undefined;
         /** Optional. Main notification content. Required for notifications.create method. */
