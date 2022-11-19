@@ -1,13 +1,16 @@
 declare namespace MusicKit {
     type QueryParameters = Record<string, string | string[]>;
 
-    interface ResourceQueryParameters {
-        extend?: RESOURCE_TYPES[];
-        include?: RESOURCE_TYPES[];
+    interface ResourceQueryParameters<T extends RESOURCES> {
+        extend?: T['type'];
+        include?: T['relationships'];
         l?: string;
     }
-    type ResourcesQueryParameters = ResourceQueryParameters & { ids: string[] };
-    type ResourcesWithRelationQueryParameters = ResourceQueryParameters & { limit?: number };
+    type ResourcesQueryParameters<T extends CATALOG_RESOURCE_TYPE | LIBRARY_RESOURCE_TYPE> =
+        ResourceQueryParameters<T> & { ids: string[] };
+
+    type ResourcesWithRelationQueryParameters<T extends CATALOG_RESOURCE_TYPE | LIBRARY_RESOURCE_TYPE> =
+        ResourceQueryParameters<T> & { limit?: number };
 
     interface SearchQueryParameters {
         l?: string;
@@ -17,59 +20,51 @@ declare namespace MusicKit {
     }
 
     /**
-     * A protocol for music items that your app can fetch by using a catalog charts request.
-     * https://developer.apple.com/documentation/musickit/musiccatalogchartrequestable
-     */
-    type MUSIC_CATALOG_CHART_TYPE = RESOURCE['Album' | 'MusicVideo' | 'Playlist' | 'Song'];
-
-    /**
-     * An object that represents the results of a catalog search query.
-     * https://developer.apple.com/documentation/applemusicapi/searchresponse/results
-     */
-    type SEARCH_RESOURCE_TYPE =
-        | Activities
-        | Albums
-        | AppleCurators
-        | Artists
-        | Curators
-        | MusicVideos
-        | Playlists
-        | RecordLabels
-        | Songs
-        | Stations;
-
-    type SEARCH_LIBRARY_RESOURCE_TYPE =
-        | LibraryAlbums
-        | LibraryArtists
-        | LibraryMusicVideos
-        | LibraryPlaylists
-        | LibrarySongs;
-
-    /**
      * The entered text for the search with ‘+’ characters between each word, to replace spaces (for example term=james+br).
      */
     type Term = string;
 
-    interface GetCatalogResourceQueryParameters<T> extends ResourceQueryParameters {
-        views?: T extends RESOURCE[keyof RESOURCE] ? Array<keyof T['views']> : never;
-    }
+    type OneOf<T> = { [K in keyof T]: Pick<T, K> }[keyof T];
 
-    type GetCatalogResourcesQueryParameters = ResourcesQueryParameters;
+    type OfUnion<T extends { type: string }> = {
+        [P in T['type']]: Extract<T, { type: P }>;
+    };
+    type Handler<T> = {
+        [P in keyof T]: (variant: T[P]) => any;
+    };
+
+    type GetCatalogResourceQueryParameters<T extends RESOURCES> = ResourceQueryParameters<T> & {
+        views: Array<keyof Required<T>['views']>;
+    };
+
+    type GetCatalogResourcesQueryParameters<T extends CATALOG_RESOURCE_TYPE> = ResourcesQueryParameters<T>;
 
     /**
      * Search the catalog by using a query.
      * https://developer.apple.com/documentation/applemusicapi/search_for_catalog_resources
      */
-    type SearchCatalogQueryParameters<T extends SEARCH_RESOURCE_TYPE> = SearchQueryParameters & {
+    type SearchCatalogQueryParameters<T extends CATALOG_RESOURCE_TYPE> = SearchQueryParameters & {
         with?: 'topResults';
         types: Array<T['type']>;
     };
 
     /**
+     * Fetch a library resource by using its identifier.
+     * https://developer.apple.com/documentation/applemusicapi/get_a_library_album
+     */
+    type GetLibraryResourceQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = ResourcesQueryParameters<T>;
+
+    /**
+     * Fetch one or more library resources by using their identifiers.
+     * https://developer.apple.com/documentation/applemusicapi/get_multiple_library_albums
+     */
+    type GetLibraryResourcesQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = ResourcesQueryParameters<T>;
+
+    /**
      * Search the library by using a query.
      * https://developer.apple.com/documentation/applemusicapi/search_for_library_resources
      */
-    type SearchLibraryQueryParameters<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = SearchQueryParameters & {
+    type SearchLibraryQueryParameters<T extends LIBRARY_RESOURCE_TYPE> = SearchQueryParameters & {
         types: Array<T['type']>;
     };
 
@@ -84,7 +79,7 @@ declare namespace MusicKit {
      * https://developer.apple.com/documentation/applemusicapi/get_catalog_search_suggestions
      */
     type GetCatalogSearchSuggestionsQueryParameters<
-        T extends TermSuggestion | TopResultSuggestion<SEARCH_RESOURCE_TYPE>,
+        T extends TermSuggestion | TopResultSuggestion<CATALOG_RESOURCE_TYPE>,
     > = GetCatalogSearchHintsQueryParameters & {
         kinds: Array<T['kind']>;
     } & (T extends TopResultSuggestion<infer U> ? { types: Array<U['type']> } : {});
@@ -104,7 +99,7 @@ declare namespace MusicKit {
      * Fetch a station by using its identifier.
      * https://developer.apple.com/documentation/applemusicapi/get_catalog_top_charts_genres
      */
-    type GetCatalogTopChartsGenresQueryParameters = ResourceQueryParameters & {
+    type GetCatalogTopChartsGenresQueryParameters = ResourceQueryParameters<Genres> & {
         limit?: number;
         offset?: string;
     };

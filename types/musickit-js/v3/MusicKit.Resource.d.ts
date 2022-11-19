@@ -5,37 +5,12 @@ declare namespace MusicKit {
      */
     type MusicItemID = string;
 
-    interface RESOURCE {
-        Activity: Activities;
-        Album: Albums;
-        AppleCurator: AppleCurators;
-        Artist: Artists;
-        Curator: Curators;
-        Genre: Genres;
-        LibrarySong: LibrarySongs;
-        LibraryAlbum: LibraryAlbums;
-        LibraryArtist: LibraryArtists;
-        LibraryMusicVideo: LibraryMusicVideos;
-        LibraryPlaylist: LibraryPlaylists;
-        MusicVideo: MusicVideos;
-        Playlist: Playlists;
-        Rating: Ratings;
-        RecordLabel: RecordLabels;
-        Song: Songs;
-        Station: Stations;
-        Storefront: Storefronts;
-    }
-    type RESOURCE_TYPES = RESOURCE[keyof RESOURCE]['type'];
-    type RESOURCE_BY_TYPE_PROPERTY = {
-        [key in RESOURCE_TYPES]: filterUnionByProperty<RESOURCE[keyof RESOURCE], 'type', key>;
-    };
-
     /**
      * The rating of the content that potentially plays while playing a resource.
      * A nil value means no rating is available for this resource.
      * https://developer.apple.com/documentation/musickit/contentrating
      */
-    type ContentRating = 'clean' | 'explicit' | null;
+    type ContentRating = 'clean' | 'explicit';
 
     /**
      * A resource—such as an album, song, or playlist.
@@ -46,21 +21,26 @@ declare namespace MusicKit {
         type: string;
         href?: string;
         attributes?: Record<string, any>;
-        relationships?: Record<string, Relationship<any> | Array<Relationship<any>>>;
+        relationships?: Record<string, any>;
         meta?: Record<string, any>;
-        views?: Record<string, View<Resource>>;
+        views?: Record<string, any>;
     }
+
     /**
      * A resource object that represents a storefront, an Apple Music and iTunes Store territory that the content is available in.
      * https://developer.apple.com/documentation/applemusicapi/storefronts
      */
-    interface Storefronts extends Resource {
+    interface Storefronts {
+        id: string;
         type: 'storefronts';
+        href: ResourceHref<Storefronts>;
+        views: never;
+        relationships: never;
         attributes?: {
-            defaultLanguageTag: string;
+            defaultLanguageTag: ISO639;
             explicitContentPolicy: 'allowed' | 'opt-in' | 'prohibited';
             name: string;
-            supportedLanguageTags: string[];
+            supportedLanguageTags: ISO639[];
         };
     }
 
@@ -68,8 +48,12 @@ declare namespace MusicKit {
      * A resource object that represents a music genre.
      * https://developer.apple.com/documentation/applemusicapi/genres
      */
-    interface Genres extends Resource {
+    interface Genres {
+        id: string;
         type: 'genres';
+        href: ResourceHref<Genres>;
+        views: never;
+        relationships: never;
         attributes?: {
             name: string;
             parentId?: string;
@@ -82,14 +66,18 @@ declare namespace MusicKit {
      * A resource object that represents a song.
      * https://developer.apple.com/documentation/applemusicapi/songs-um8
      */
-    interface Songs extends Resource {
+    interface Songs {
         id: MusicItemID;
         type: 'songs';
+        href: ResourceHref<Songs>;
+        views: never;
         attributes?: {
             albumName: string;
             artistName: string;
+            artistUrl?: string;
             artwork: Artwork;
             attribution?: string;
+            audioVariants?: Array<'dolby-atmos' | 'dolby-audio' | 'hi-res-lossless' | 'lossless' | 'lossy-stereo'>;
             composerName?: string;
             contentRating?: ContentRating;
             discNumber?: number;
@@ -97,6 +85,7 @@ declare namespace MusicKit {
             editorialNotes?: EditorialNotes;
             genreNames: string[];
             hasLyrics: boolean;
+            isAppleDigitalMaster: boolean;
             isrc?: string;
             movementCount?: number;
             movementName?: string;
@@ -104,11 +93,12 @@ declare namespace MusicKit {
             name: string;
             playParams?: PlayParameters;
             previews: Preview[];
-            releaseDate?: string;
+            releaseDate?:
+                | `${number}${number}${number}${number}-${number}${number}-${number}${number}`
+                | `${number}${number}${number}${number}`;
             trackNumber?: number;
             url: string;
             workName?: string;
-            artistUrl?: string;
         };
         relationships?: Partial<
             {
@@ -126,11 +116,14 @@ declare namespace MusicKit {
      * A resource object that represents a music video.
      * https://developer.apple.com/documentation/applemusicapi/musicvideos/
      */
-    interface MusicVideos extends Resource {
+    interface MusicVideos {
+        id: MusicItemID;
         type: 'music-videos';
+        href: ResourceHref<MusicVideos>;
         attributes?: {
             albumName?: string;
             artistName: string;
+            artistUrl?: string;
             artwork: Artwork;
             contentRating?: ContentRating;
             durationInMillis: number;
@@ -148,7 +141,6 @@ declare namespace MusicKit {
             videoSubType?: 'preview';
             workId?: string;
             workName?: string;
-            artistUrl?: string;
         };
         relationships?: Partial<
             {
@@ -157,7 +149,7 @@ declare namespace MusicKit {
                 library: Relationship<LibraryMusicVideos>;
             }
         >;
-        views: Partial<{
+        views?: Partial<{
             'more-by-artist': View<MusicVideos>;
             'more-in-genre': View<MusicVideos>;
         }>;
@@ -167,8 +159,11 @@ declare namespace MusicKit {
      * A resource object that represents an Apple curator.
      * https://developer.apple.com/documentation/applemusicapi/applecurators/
      */
-    interface AppleCurators extends Resource {
+    interface AppleCurators {
+        id: string;
         type: 'apple-curators';
+        href: ResourceHref<AppleCurators>;
+        views: never;
         attributes?: {
             artwork: Artwork;
             editorialNotes?: EditorialNotes;
@@ -187,8 +182,11 @@ declare namespace MusicKit {
      * A resource object that represents a curator.
      * https://developer.apple.com/documentation/applemusicapi/curators-uja
      */
-    interface Curators extends Resource {
+    interface Curators {
+        id: string;
         type: 'curators';
+        href: ResourceHref<Curators>;
+        views: never;
         attributes?: {
             artwork: Artwork;
             editorialNotes?: EditorialNotes;
@@ -204,8 +202,11 @@ declare namespace MusicKit {
      * A resource object that represents a station.
      * https://developer.apple.com/documentation/applemusicapi/stations/
      */
-    interface Stations extends Resource {
+    interface Stations {
+        id: string;
         type: 'stations';
+        href: ResourceHref<Stations>;
+        views: never;
         attributes?: {
             artwork: Artwork;
             durationInMillis: number;
@@ -227,8 +228,10 @@ declare namespace MusicKit {
      * A resource object that represents an album.
      * https://developer.apple.com/documentation/applemusicapi/albums-uib
      */
-    interface Albums extends Resource {
+    interface Albums {
+        id: string;
         type: 'albums';
+        href: ResourceHref<Albums>;
         attributes?: {
             artistName: string;
             artistUrl?: string;
@@ -270,8 +273,11 @@ declare namespace MusicKit {
      * A resource object that represents a library album.
      * https://developer.apple.com/documentation/applemusicapi/libraryalbums/
      */
-    interface LibraryAlbums extends Resource {
+    interface LibraryAlbums {
+        id: string;
         type: 'library-albums';
+        href: ResourceHref<LibraryAlbums>;
+        views: never;
         attributes?: {
             artistName: string;
             artwork: Artwork;
@@ -297,8 +303,11 @@ declare namespace MusicKit {
      * A resource object that represents an artist present in a user’s library.
      * https://developer.apple.com/documentation/applemusicapi/libraryartists
      */
-    interface LibraryArtists extends Resource {
+    interface LibraryArtists {
+        id: string;
         type: 'library-artists';
+        href: ResourceHref<LibraryArtists>;
+        views: never;
         attributes?: {
             name: string;
         };
@@ -312,8 +321,11 @@ declare namespace MusicKit {
      * A resource object that represents a library music video.
      * https://developer.apple.com/documentation/applemusicapi/librarymusicvideos
      */
-    interface LibraryMusicVideos extends Resource {
+    interface LibraryMusicVideos {
+        id: string;
         type: 'library-music-videos';
+        href: ResourceHref<LibraryMusicVideos>;
+        views: never;
         attributes?: {
             albumName?: string;
             artistName: string;
@@ -339,8 +351,11 @@ declare namespace MusicKit {
      * A resource object that represents a library playlist.
      * https://developer.apple.com/documentation/applemusicapi/libraryplaylists/
      */
-    interface LibraryPlaylists extends Resource {
+    interface LibraryPlaylists {
+        id: string;
         type: 'library-playlists';
+        href: ResourceHref<LibraryPlaylists>;
+        views: never;
         attributes?: {
             artwork?: Artwork;
             canEdit: boolean;
@@ -360,8 +375,11 @@ declare namespace MusicKit {
      * A resource object that represents a library song.
      * https://developer.apple.com/documentation/applemusicapi/librarysongs
      */
-    interface LibrarySongs extends Resource {
+    interface LibrarySongs {
+        id: string;
         type: 'library-songs';
+        href: ResourceHref<LibrarySongs>;
+        views: never;
         attributes?: {
             albumName: string;
             artistName: string;
@@ -389,8 +407,10 @@ declare namespace MusicKit {
      * A resource object that represents an artist of an album where an artist can be one or more persons.
      * https://developer.apple.com/documentation/applemusicapi/artists-uip
      */
-    interface Artists extends Resource {
+    interface Artists {
+        id: string;
         type: 'artists';
+        href: ResourceHref<Artists>;
         attributes?: {
             editorialNotes?: EditorialNotes;
             genreNames: string[];
@@ -402,11 +422,13 @@ declare namespace MusicKit {
                 RESOURCE_BY_TYPE_PROPERTY[P]
             >;
         }>;
-        views: Partial<{
+        views?: Partial<{
             'appears-on-albums': View<Albums>;
             'compilation-albums': {
                 href?: string;
                 next?: string;
+                views: never;
+                relationships: never;
                 attributes: {
                     title: string;
                 };
@@ -428,9 +450,11 @@ declare namespace MusicKit {
      * A resource object that represents a playlist.
      * https://developer.apple.com/documentation/applemusicapi/playlists-ulf
      */
-    interface Playlists extends Resource {
-        id: MusicItemID;
+
+    interface Playlists {
+        id: string;
         type: 'playlists';
+        href: ResourceHref<Playlists>;
         attributes?: {
             artwork?: Artwork;
             curatorName: string;
@@ -447,20 +471,72 @@ declare namespace MusicKit {
             library: Relationship<LibraryPlaylists>;
             tracks: Relationship<MusicVideos | Songs>;
         }>;
-        views: Partial<{
+        views?: Partial<{
             'featured-artists': View<Artists>;
             'more-by-curator': View<Playlists>;
         }>;
     }
 
     /**
-     * An object that represents a rating for a resource.
-     * https://developer.apple.com/documentation/applemusicapi/ratings-ulo
+     * A resource object that represents a record label.
+     * https://developer.apple.com/documentation/applemusicapi/recordlabels/
      */
-    interface Ratings extends Resource {
-        type: 'ratings';
+    interface RecordLabels {
+        id: string;
+        type: 'record-labels';
+        href: ResourceHref<RecordLabels>;
+        relationships: never;
         attributes?: {
-            value?: -1 | 1;
+            artwork: Artwork;
+            description?: DescriptionAttribute;
+            name: string;
+            url: string;
+        };
+        views?: Partial<{
+            'latest-releases': View<Albums>;
+            'top-releases': View<Albums>;
+        }>;
+    }
+
+    /**
+     * A resource object that represents an activity curator.
+     * https://developer.apple.com/documentation/applemusicapi/activities-ui5
+     */
+    interface Activities {
+        id: string;
+        type: 'activities';
+        href: ResourceHref<Activities>;
+        views: never;
+        attributes?: {
+            artwork: Artwork;
+            editorialNotes?: EditorialNotes;
+            name: string;
+            url: string;
+        };
+        relationships?: Partial<{
+            [P in RESOURCE['Playlist']['type']]: Relationship<RESOURCE_BY_TYPE_PROPERTY[P]>;
+        }>;
+    }
+
+    /**
+     * A resource object that represents recommended resources for a user calculated using their selected preferences.
+     * https://developer.apple.com/documentation/applemusicapi/personalrecommendations
+     */
+    interface PersonalRecommendations {
+        id: string;
+        type: 'personal-recommendation';
+        href: ResourceHref<PersonalRecommendations>;
+        views: never;
+        attributes?: {
+            kind: 'music-recommendations' | 'recently-played' | 'unknown';
+            nextUpdateDate: string;
+            reason?: {
+                stringForDisplay: string;
+            };
+            resourceTypes: Array<RESOURCES['type']>;
+            title?: {
+                stringForDisplay: string;
+            };
         };
         relationships?: Partial<{
             content: Relationship<
@@ -477,60 +553,28 @@ declare namespace MusicKit {
     }
 
     /**
-     * A resource object that represents a record label.
-     * https://developer.apple.com/documentation/applemusicapi/recordlabels/
+     * An object that represents a rating for a resource.
+     * https://developer.apple.com/documentation/applemusicapi/ratings-ulo
      */
-    interface RecordLabels extends Resource {
-        type: 'record-labels';
-        href: string;
+    interface Ratings {
+        id: string;
+        type: 'ratings';
+        href: ResourceHref<Ratings>;
+        views: never;
         attributes?: {
-            artwork: Artwork;
-            description?: DescriptionAttribute;
-            name: string;
-            url: string;
-        };
-        views: Partial<{
-            'latest-releases': View<Albums>;
-            'top-releases': View<Albums>;
-        }>;
-    }
-
-    /**
-     * A resource object that represents an activity curator.
-     * https://developer.apple.com/documentation/applemusicapi/activities-ui5
-     */
-    interface Activities extends Resource {
-        type: 'activities';
-        attributes?: {
-            artwork: Artwork;
-            editorialNotes?: EditorialNotes;
-            name: string;
-            url: string;
+            value?: -1 | 1;
         };
         relationships?: Partial<{
-            [P in RESOURCE['Playlist']['type']]: Relationship<RESOURCE_BY_TYPE_PROPERTY[P]>;
+            content: Relationship<
+                | Albums
+                | LibraryMusicVideos
+                | LibraryPlaylists
+                | LibrarySongs
+                | MusicVideos
+                | Playlists
+                | Songs
+                | Stations
+            >;
         }>;
-    }
-
-    /**
-     * A resource object that represents recommended resources for a user calculated using their selected preferences.
-     * https://developer.apple.com/documentation/applemusicapi/personalrecommendation
-     */
-    interface PersonalRecommendation extends Resource {
-        type: 'personal-recommendation';
-        attributes?: {
-            kind: 'music-recommendations' | 'recently-played' | 'unknown';
-            nextUpdateDate: string;
-            reason?: {
-                stringForDisplay: string;
-            };
-            resourceTypes: RESOURCE_TYPES[];
-            title?: {
-                stringForDisplay: string;
-            };
-        };
-        relationships?: {
-            contents: Array<Relationship<Resource>>;
-        };
     }
 }

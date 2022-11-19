@@ -16,25 +16,37 @@ declare namespace MusicKit {
         response: Response;
     }
 
-    type CatalogResourceAPIResponse<T> = Promise<
+    type CatalogResourceAPIResponse<T extends CATALOG_RESOURCE_TYPE> = Promise<
         APIResponse & {
             data: CatalogResourceResponse<T>;
         }
     >;
 
-    type CatalogResourcesAPIResponse<T> = Promise<
+    type CatalogResourcesAPIResponse<T extends CATALOG_RESOURCE_TYPE> = Promise<
         APIResponse & {
             data: CatalogResourcesResponse<T>;
         }
     >;
 
-    type SearchCatalogAPIResponse<T extends SEARCH_RESOURCE_TYPE> = Promise<
+    type SearchCatalogAPIResponse<T extends CATALOG_RESOURCE_TYPE> = Promise<
         APIResponse & {
             data: SearchCatalogResponse<T>;
         }
     >;
 
-    type SearchLibraryAPIResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = Promise<
+    type LibraryResourceAPIResponse<T extends LIBRARY_RESOURCE_TYPE> = Promise<
+        APIResponse & {
+            data: LibraryResourceResponse<T>;
+        }
+    >;
+
+    type LibraryResourcesAPIResponse<T extends LIBRARY_RESOURCE_TYPE> = Promise<
+        APIResponse & {
+            data: LibraryResourcesResponse<T>;
+        }
+    >;
+
+    type SearchLibraryAPIResponse<T extends LIBRARY_RESOURCE_TYPE> = Promise<
         APIResponse & {
             data: SearchLibraryResponse<T>;
         }
@@ -46,7 +58,7 @@ declare namespace MusicKit {
         }
     >;
 
-    type SearchSuggestionsAPIResponse<T extends TermSuggestion | TopResultSuggestion<SEARCH_RESOURCE_TYPE>> = Promise<
+    type SearchSuggestionsAPIResponse<T extends TermSuggestion | TopResultSuggestion<CATALOG_RESOURCE_TYPE>> = Promise<
         APIResponse & {
             data: SearchSuggestionsResponse<T>;
         }
@@ -58,12 +70,22 @@ declare namespace MusicKit {
         }
     >;
 
-    interface CatalogResourceResponse<T> {
+    interface CatalogResourceResponse<T extends CATALOG_RESOURCE_TYPE> {
         data: T[];
         next: never;
     }
 
-    interface CatalogResourcesResponse<T> {
+    interface CatalogResourcesResponse<T extends CATALOG_RESOURCE_TYPE> {
+        data: T[];
+        next?: string;
+    }
+
+    interface LibraryResourceResponse<T extends LIBRARY_RESOURCE_TYPE> {
+        data: T[];
+        next: never;
+    }
+
+    interface LibraryResourcesResponse<T extends LIBRARY_RESOURCE_TYPE> {
         data: T[];
         next?: string;
     }
@@ -106,7 +128,7 @@ declare namespace MusicKit {
      * A suggested popular result for similar search prefix terms.
      * https://developer.apple.com/documentation/applemusicapi/searchsuggestionsresponse/results/topresultsuggestion
      */
-    interface TopResultSuggestion<T extends SEARCH_RESOURCE_TYPE> {
+    interface TopResultSuggestion<T extends CATALOG_RESOURCE_TYPE> {
         content: T;
         kind: 'topResults';
     }
@@ -115,7 +137,7 @@ declare namespace MusicKit {
      * The response to a request for search suggestions.
      * https://developer.apple.com/documentation/applemusicapi/searchsuggestionsresponse
      */
-    interface SearchSuggestionsResponse<T extends TermSuggestion | TopResultSuggestion<SEARCH_RESOURCE_TYPE>> {
+    interface SearchSuggestionsResponse<T extends TermSuggestion | TopResultSuggestion<CATALOG_RESOURCE_TYPE>> {
         results: SearchSuggestionsResponseResults<T>;
     }
 
@@ -129,7 +151,7 @@ declare namespace MusicKit {
      * An object that represents the results of a catalog search query.
      * https://developer.apple.com/documentation/applemusicapi/searchresponse/results
      */
-    type SearchCatalogResponseResults<T extends SEARCH_RESOURCE_TYPE> = {
+    type SearchCatalogResponseResults<T extends CATALOG_RESOURCE_TYPE> = {
         [P in T['type']]?: SearchResult<RESOURCE_BY_TYPE_PROPERTY[P]>;
     };
 
@@ -137,7 +159,7 @@ declare namespace MusicKit {
      * The response to a search request.
      * https://developer.apple.com/documentation/applemusicapi/searchresponse
      */
-    interface SearchCatalogResponse<T extends SEARCH_RESOURCE_TYPE> {
+    interface SearchCatalogResponse<T extends CATALOG_RESOURCE_TYPE> {
         meta: {
             results: {
                 order: Array<T['type']>;
@@ -157,7 +179,7 @@ declare namespace MusicKit {
      * An object that represents the results of a library search query..
      * https://developer.apple.com/documentation/applemusicapi/librarysearchresponse/results
      */
-    type SearchLibraryResponseResults<T extends SEARCH_LIBRARY_RESOURCE_TYPE> = {
+    type SearchLibraryResponseResults<T extends LIBRARY_RESOURCE_TYPE> = {
         [P in T['type']]?: SearchLibraryResult<RESOURCE_BY_TYPE_PROPERTY[P]>;
     };
 
@@ -165,7 +187,7 @@ declare namespace MusicKit {
      * The response to a search request.
      * https://developer.apple.com/documentation/applemusicapi/searchresponse
      */
-    interface SearchLibraryResponse<T extends SEARCH_LIBRARY_RESOURCE_TYPE> {
+    interface SearchLibraryResponse<T extends LIBRARY_RESOURCE_TYPE> {
         meta: {
             results: {
                 order: Array<T['type']>;
