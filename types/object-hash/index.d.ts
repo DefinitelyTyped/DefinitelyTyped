@@ -1,4 +1,4 @@
-// Type definitions for object-hash 2.2
+// Type definitions for object-hash 3.0
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Artur Diniz <https://github.com/artdiniz>
@@ -105,7 +105,7 @@ declare namespace objectHash {
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: {} | null, options?: objectHash.NormalOption): string;
-declare function objectHash(object: {} | null, options?: objectHash.WithBufferOption): Buffer;
+declare function objectHash(object: any, options?: objectHash.NormalOption): string;
+declare function objectHash(object: any, options?: objectHash.WithBufferOption): Buffer;
 
 export = objectHash;
