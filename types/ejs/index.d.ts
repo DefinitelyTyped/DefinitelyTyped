@@ -375,8 +375,8 @@ export interface Options {
     filename?: string | undefined;
 
     /**
-     * The path to template root(s). When this is set, absolute paths for includes
-     * (/filename.ejs) will be relative to the project root(s).
+     * The path to templates root(s). When this is set, absolute paths for includes
+     * (/filename.ejs) will be relative to the templates root(s).
      *
      * @default undefined
      */
