@@ -2288,11 +2288,11 @@ export type EnhancedPageObject<
 export interface Cookie {
     name: string;
     value: string;
-    path: string | undefined;
-    domain: string | undefined;
-    secure: boolean | undefined;
-    expiry: Date | number | undefined;
-    httpOnly: boolean | undefined;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+    expiry?: Date | number;
+    httpOnly?: boolean;
 }
 
 export interface SharedCommands extends ClientCommands, ElementCommands {}

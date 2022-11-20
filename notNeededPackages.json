@@ -824,6 +824,10 @@
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
         },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
+        },
         "cropperjs": {
             "libraryName": "cropperjs",
             "asOfVersion": "1.3.0"

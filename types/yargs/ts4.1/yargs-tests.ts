@@ -958,6 +958,17 @@ async function Argv$inferOptionTypes() {
         .option("normalize", { normalize: true })
         .parseSync();
 
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date; count: number | "no"; _: (string | number)[]; $0: string; }
+    yargs
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("choices", { choices: colors, default: "red" } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("numberChoices", { choices: stages, default: 1 } as const)
+        .option("coerce", { coerce: () => new Date(), default: "abc" })
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("count", { type: "count", default: "no" } as const)
+        .parseSync();
+
     // $ExpectType (string | number)[] | undefined
     (await yargs.array("x").argv).x;
 
