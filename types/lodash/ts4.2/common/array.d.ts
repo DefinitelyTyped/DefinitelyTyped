@@ -25,17 +25,16 @@ declare module "../index" {
     }
     interface LoDashStatic {
         /**
-         * Creates an array with all falsey values removed. The values false, null, 0, 0n, "", undefined, and NaN are
+         * Creates an array with all falsey values removed. The values false, null, 0, "", undefined, and NaN are
          * falsey.
          *
          * @param array The array to compact.
          * @return Returns the new array of filtered values.
          */
-        compact<T>(array: List<T | Falsey> | null | undefined): T[];
+        compact<T>(array: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
-    type Falsey = null | undefined | false | "" | 0 | 0n;
-    type Truthy<T> = T extends Falsey ? never : T;
+    type Truthy<T> = T extends null | undefined | false | "" | 0 ? never : T;
     interface Collection<T> {
         /**
          * @see _.compact
