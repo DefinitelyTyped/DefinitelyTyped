@@ -295,12 +295,12 @@ export interface IRouter extends RequestHandler {
     /**
      * Stack of configured routes
      */
-    stack: any[];
+    stack: Layer[];
 }
 
 export interface IRoute<Route extends string = string> {
     path: string;
-    stack: any;
+    stack: Layer[];
     all: IRouterHandler<this, Route>;
     get: IRouterHandler<this, Route>;
     post: IRouterHandler<this, Route>;
@@ -1251,4 +1251,25 @@ export interface Application<
 export interface Express extends Application {
     request: Request;
     response: Response;
+}
+
+export interface Layer {
+    handle: Function,
+    name: string | '<anonymous>',
+    params: any,
+    path: any,
+    regexp: RegExp,
+    route?: Route;
+}
+
+export interface Route {
+    path: string,
+    stack: Layer[],
+    methods: {
+        get?: boolean;
+        post?: boolean;
+        put?: boolean;
+        patch?: boolean;
+        delete?: boolean;
+    }
 }

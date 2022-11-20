@@ -257,3 +257,8 @@ app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
 app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
     res.get('content-type'); // $ExpectType string | undefined
 });
+
+app.stack[0].handle; // $ExpectType function
+app.stack[0].name; // $ExpectType string
+app.stack[0].route?.path; // $ExpectType boolean
+app.stack[0].route?.methods; // $ExpectType object
