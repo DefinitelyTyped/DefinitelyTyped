@@ -222,6 +222,8 @@ new IssueCollection().set('fileURI', [issue]);
 
 /// https://novadocs.panic.com/api-reference/notification-request/
 
+const unnamedRequest = new NotificationRequest();
+
 const request = new NotificationRequest('foobar-not-found');
 
 request.title = nova.localize('Foobar Not Found');
