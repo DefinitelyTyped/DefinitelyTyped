@@ -1,7 +1,7 @@
 import * as express from 'express-serve-static-core';
 
 const app: express.Application<{
-    aKey: 'aValue'
+    aKey: 'aValue';
 }> = {} as any;
 
 // App.locals can be extended
@@ -258,7 +258,7 @@ app.get<{}, any, any, {}, { foo: boolean }>('/locals', (req, res, next) => {
     res.get('content-type'); // $ExpectType string | undefined
 });
 
-app.stack[0].handle; // $ExpectType function
+app.stack[0].handle; // $ExpectType () => void
 app.stack[0].name; // $ExpectType string
-app.stack[0].route?.path; // $ExpectType boolean
-app.stack[0].route?.methods; // $ExpectType object
+app.stack[0].route?.path; // $ExpectType string | undefined
+app.stack[0].route?.methods.get; // $ExpectType boolean | undefined
