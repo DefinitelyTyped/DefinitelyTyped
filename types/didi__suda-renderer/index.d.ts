@@ -3,8 +3,6 @@
 // Definitions by: rain <https://github.com/yhlchao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace SudaRendererSDK;
-
 // 渲染器
 declare class SudaRenderer {
     constructor(element: HTMLElement, options: SudaRendererOptions);
