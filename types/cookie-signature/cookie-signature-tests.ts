@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as cookie from "cookie-signature";
 
 let val = cookie.sign('hello', 'tobiiscool');
