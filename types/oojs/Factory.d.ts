@@ -2,29 +2,21 @@ declare namespace OO {
     // HACK: Omit register and unregister because Factory changed their call signatures (!)
     interface Factory extends Omit<Registry, 'register' | 'unregister'> {
         /**
-         * Register a class with the factory.
+         * Register a constructor with the factory.
          *
          *     function MyClass() {};
          *     OO.initClass( MyClass );
-         *     MyClass.key = 'hello';
-         *
-         *     // Register class with the factory
+         *     MyClass.static.name = 'hello';
+         *     // Register class with the factory, available via the symbolic name "hello"
          *     factory.register( MyClass );
          *
-         *     // Instantiate a class based on its registered key (also known as a "symbolic name")
-         *     factory.create( 'hello' );
-         *
-         * @param constructor Class to use when creating an object
-         * @param key The key for {@link create}.
-         *  This parameter is usually omitted in favour of letting the class declare
-         *  its own key, through `MyClass.key`.
-         *  For backwards-compatibility with OOjs 6.0 (2021) and older, it can also be declared
-         *  via `MyClass.static.name`.
+         * @param constructor Constructor to use when creating object
+         * @param name Symbolic name to use for {@link create()}.
+         *  This parameter may be omitted in favour of letting the constructor decide
+         *  its own name, through `constructor.static.name`.
          * @throws {Error} If a parameter is invalid
          */
-        register(
-            constructor: (ConstructorLike & { key: string }) | (ConstructorLike & { static: { name: string } }),
-        ): void;
+        register(constructor: ConstructorLike & { static: { name: string } }): void;
 
         /**
          * Register a class with the factory.
@@ -72,7 +64,7 @@ declare namespace OO {
     }
 
     interface FactoryConstructor {
-        new (): Factory;
+        new(): Factory;
         prototype: Factory;
         super: RegistryConstructor;
         /** @deprecated Use `super` instead */
