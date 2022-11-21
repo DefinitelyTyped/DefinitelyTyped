@@ -2004,7 +2004,7 @@ declare global {
          * Enable pinning in your application.
          * This must be called before your application can use pinning.
          */
-        function enableLocalDatastore(): void;
+        function enableLocalDatastore(polling?: boolean, ms?: number): void;
 
         /**
          * Flag that indicates whether Local Datastore is enabled.
