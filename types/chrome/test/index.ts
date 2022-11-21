@@ -985,6 +985,7 @@ async function testActionForPromise() {
     await chrome.action.getBadgeText({});
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
+    await chrome.action.getUserSettings();
     await chrome.action.setBadgeBackgroundColor({color: 'white'});
     await chrome.action.setBadgeText({text: 'text1'});
     await chrome.action.setPopup({popup: 'popup1'});

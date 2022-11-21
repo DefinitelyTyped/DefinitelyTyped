@@ -583,7 +583,7 @@ interface NotificationCenter {
 /// https://docs.nova.app/api-reference/notification-request/
 
 declare class NotificationRequest {
-    constructor(identifier: string);
+    constructor(identifier?: string);
 
     readonly identifier: string;
     title?: string;
