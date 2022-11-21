@@ -6,10 +6,10 @@
 
 export as namespace swell;
 
-export interface ProductQuery extends Query, SearchQuery{
+export interface ProductQuery extends Query {
     category?: string;
     categories?: string[];
-    $filters: unknown;
+    $filters?: unknown;
 }
 
 export interface Query {
