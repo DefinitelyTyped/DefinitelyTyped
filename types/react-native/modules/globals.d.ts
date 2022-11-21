@@ -1,12 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- */
-
 /*
  * This file is necessary to declare global functions that might also be included by `--lib dom`.
  * Due to a TypeScript bug, these cannot be placed inside a `declare global` block in index.d.ts.

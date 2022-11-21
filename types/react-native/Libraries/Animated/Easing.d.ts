@@ -1,13 +1,4 @@
 /**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @format
- */
-
-/**
  * This class implements common easing functions. The math is pretty obscure,
  * but this cool website has nice visual illustrations of what they represent:
  * http://xaedes.de/dev/transitions/
