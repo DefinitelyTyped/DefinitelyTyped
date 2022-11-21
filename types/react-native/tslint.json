@@ -16,6 +16,8 @@
         "prefer-declare-function": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
-        "use-default-type-parameter": false
+        "use-default-type-parameter": false,
+        "whitespace": false,
+        "interface-name": false
     }
 }

@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 const noop = () => { };
 
 function testInterval() {
@@ -168,4 +175,4 @@ socket.onerror = e => console.log(e.message);
 const formData = new FormData();
 formData.append('file', { fileName: 'example' });
 console.log(formData.getParts());
-console.log(formData.getAll())
+console.log(formData.getAll());
