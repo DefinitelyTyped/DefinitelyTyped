@@ -87,7 +87,7 @@ declare namespace google.accounts {
          * A TokenResponse JavaScript object will be passed to your callback
          * method (as defined in TokenClientConfig) in the popup UX.
          */
-         interface TokenResponse {
+        interface TokenResponse {
             /**
              * The access token of a successful token response.
              */
