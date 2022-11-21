@@ -6,6 +6,12 @@
 
 export as namespace swell;
 
+export interface ProductQuery extends Query {
+    category?: string;
+    categories?: string[];
+    $filters?: unknown;
+}
+
 export interface Query {
     limit?: number;
     page?: number;
@@ -569,7 +575,7 @@ export namespace payment {
 
 export namespace products {
     function get(productId: string): Promise<Product>;
-    function list(input: Query | SearchQuery): Promise<ListResult<Product>>;
+    function list(input: ProductQuery): Promise<ListResult<Product>>;
     function variation(productId: string, options: CartOption): Promise<Product>;
 }
 
