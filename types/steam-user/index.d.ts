@@ -912,6 +912,7 @@ interface Options {
     localPort?: number | null;
     protocol?: SteamUser.EConnectionProtocol;
 	httpProxy?: string | null;
+    socksProxy?: string | null;
 	localAddress?: string | null;
 	autoRelogin?: boolean;
 	singleSentryfile?: boolean;
