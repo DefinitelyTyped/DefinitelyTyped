@@ -177,7 +177,7 @@ const TestComponent: React.FC = () => <div>Hello world</div>;
         temp = props.rows; // $ExpectType rendererNode[]
         temp = props.stylesheet; // $ExpectType { [key: string]: CSSProperties; }
         temp = props.useInlineStyles; // $ExpectType boolean
-        temp = props.rows[0].type; // $ExpectType "text" | "element"
+        temp = props.rows[0].type; // $ExpectType "text" | "element" || "element" | "text"
         return <code>hello world</code>;
     }}
 >

@@ -6,6 +6,7 @@
 //                 XtrimSystems <https://github.com/xtrimsystems>
 //                 Marcin Obiedziński <https://github.com/marcinobiedz>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Scott González <https://github.com/scottgonzalez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -547,7 +548,7 @@ export declare module Led {
 
     export interface RGBOption {
         board?: Board | undefined;
-        pins: Array<number>;
+        pins: Array<number> | { blue: number; green: number; red: number; };
         isAnode?: boolean | undefined;
         controller?: string | undefined;
     }
@@ -658,6 +659,11 @@ export interface PiezoOption {
     pin: number;
 }
 
+export interface PiezoTune {
+    tempo?: number;
+    song: [frequency: string | null, duration: number][];
+}
+
 export declare class Piezo {
     constructor(option: number | PiezoOption);
 
@@ -667,8 +673,8 @@ export declare class Piezo {
     readonly isPlaying: boolean;
 
     frequency(frequency: number, duration: number): void;
-    play(tune: any, cb?: () => void): void;
-    tone(frequency: number, duration: number): void;
+    play(tune: PiezoTune, cb?: () => void): void;
+    tone(tone: number, duration: number): void;
     noTone(): void;
     off(): void;
 }

@@ -464,6 +464,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "cacheable-request": {
+            "libraryName": "cacheable-request",
+            "asOfVersion": "8.3.1"
+        },
         "cachefactory": {
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
@@ -823,6 +827,10 @@
         "credit-card-type": {
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
+        },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
         },
         "cropperjs": {
             "libraryName": "cropperjs",
@@ -2981,6 +2989,10 @@
             "libraryName": "meow",
             "asOfVersion": "6.0.0"
         },
+        "mermaid": {
+            "libraryName": "mermaid",
+            "asOfVersion": "9.2.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
@@ -3240,6 +3252,10 @@
         "node-waves": {
             "libraryName": "node-waves",
             "asOfVersion": "0.7.6"
+        },
+        "node-xlsx": {
+            "libraryName": "node-xlsx",
+            "asOfVersion": "0.21.0"
         },
         "nookies": {
             "libraryName": "nookies",

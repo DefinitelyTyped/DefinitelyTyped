@@ -6,7 +6,7 @@
 //                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 //                 Alex Seidmann <https://github.com/aseidma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import EventEmitter = require('events');
+import { EventEmitter } from 'events';
 
 export function schedule(cronExpression: string, func: ((now: Date | "manual") => void) | string, options?: ScheduleOptions): ScheduledTask;
 

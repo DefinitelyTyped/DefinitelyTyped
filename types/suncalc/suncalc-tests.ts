@@ -7,8 +7,25 @@ let b: boolean | undefined;
 const date = new Date();
 const latitude = 0.0;
 const longitude = 0.0;
+const altitude = 100;
 
 const times = SunCalc.getTimes(date, latitude, longitude);
+d = times.dawn;
+d = times.dusk;
+d = times.goldenHour;
+d = times.goldenHourEnd;
+d = times.nadir;
+d = times.nauticalDawn;
+d = times.nauticalDusk;
+d = times.night;
+d = times.nightEnd;
+d = times.solarNoon;
+d = times.sunrise;
+d = times.sunriseEnd;
+d = times.sunset;
+d = times.sunsetStart;
+
+const timesWithAltitude = SunCalc.getTimes(date, latitude, longitude, altitude);
 d = times.dawn;
 d = times.dusk;
 d = times.goldenHour;
