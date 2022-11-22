@@ -163,6 +163,12 @@ export interface SnowflakeError extends SnowflakeErrorExternal {
     externalize?: () => SnowflakeErrorExternal;
 }
 
+export interface StreamOptions {
+    start?: number;
+    end?: number;
+    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
+}
+
 /**
  * ### Related Docs
  * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#required-connection-options Required Connection Options}
@@ -453,7 +459,13 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): Readable;
+    /**
+     * Streams the rows in this statement's result. If start and end values are
+     * specified, only rows in the specified range are streamed.
+     *
+     * @param StreamOptions options
+     */
+    streamRows(options?: StreamOptions): Readable;
 }
 
 export type Bind = string | number;
