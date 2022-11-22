@@ -1,6 +1,5 @@
 {
     "private": true,
-    "types": "index",
     "exports": {
         ".": {
             "types": {
