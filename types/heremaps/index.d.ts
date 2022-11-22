@@ -2149,7 +2149,7 @@ declare namespace H {
                 anchor?: H.math.IPoint | undefined;
                 hitArea?: H.map.HitArea | undefined;
                 asCanvas?: H.map.HitArea | undefined;
-                crossOrigin: boolean;
+                crossOrigin?: boolean | undefined | null;
             }
         }
 
@@ -2922,6 +2922,7 @@ declare namespace H {
             fillColor: string;
             lineWidth: number;
             lineCap: H.map.SpatialStyle.LineCap;
+            lineHeadCap?: H.map.SpatialStyle.LineCap | undefined;
             lineTailCap?: H.map.SpatialStyle.LineCap | undefined;
             lineJoin: H.map.SpatialStyle.LineJoin;
             miterLimit: number;
@@ -2959,6 +2960,7 @@ declare namespace H {
                 fillColor?: string | undefined;
                 lineWidth?: number | undefined;
                 lineCap?: H.map.SpatialStyle.LineCap | undefined;
+                lineHeadCap?: H.map.SpatialStyle.LineCap | undefined;
                 lineTailCap?: H.map.SpatialStyle.LineCap | undefined;
                 lineJoin?: H.map.SpatialStyle.LineJoin | undefined;
                 miterLimit?: number | undefined;
@@ -5465,8 +5467,8 @@ declare namespace H {
             }
 
             interface RoutingServiceCoordinates {
-                lat: H.geo.Latitude,
-                lng: H.geo.Longitude,
+                lat: H.geo.Latitude;
+                lng: H.geo.Longitude;
             }
 
             interface RoutingServicePlace {
