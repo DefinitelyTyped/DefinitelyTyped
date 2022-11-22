@@ -3,12 +3,5 @@
     "dependencies": {
         "@babel/types": "^7.3.0"
     },
-    "types": "index",
-    "typesVersions": {
-        "<4.3.0-0": {
-            "*": [
-                "ts4.2/*"
-            ]
-        }
-    }
+    "types": "index"
 }
