@@ -6,6 +6,7 @@
 //                 XtrimSystems <https://github.com/xtrimsystems>
 //                 Marcin Obiedziński <https://github.com/marcinobiedz>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
+//                 Scott González <https://github.com/scottgonzalez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
@@ -533,7 +534,7 @@ export declare module Led {
     }
 
     export interface RGBOption {
-        pins: Array<number>;
+        pins: Array<number> | { blue: number; green: number; red: number; };
         isAnode?: boolean | undefined;
         controller?: string | undefined;
     }
