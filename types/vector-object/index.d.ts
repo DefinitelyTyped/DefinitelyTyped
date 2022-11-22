@@ -3,7 +3,6 @@
 // Definitions by: = <https://github.com/bakedpotatolord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export default class Vector {
     vector: object;
     constructor(object: object);
@@ -23,4 +22,3 @@ export default class Vector {
     multiply(scalar: number): Vector;
     divide(scalar: number): Vector;
 }
-
