@@ -1,6 +1,6 @@
 // Type definitions for vector-object 1.3
 // Project: https://github.com/stanleyfok/vector-object
-// Definitions by: = <https://github.com/DefinitelyTyped>
+// Definitions by: = <https://github.com/bakedpotatolord>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
