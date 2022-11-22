@@ -1,4 +1,4 @@
-import Vector from 'vector-object';
+import Vector = require("vector-object");
 
 // $ExpectType Vector
 const v = new Vector({ x: 0, y: 0 });
