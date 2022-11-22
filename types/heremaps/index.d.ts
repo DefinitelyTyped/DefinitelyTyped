@@ -5464,11 +5464,14 @@ declare namespace H {
                 polyline: string;
             }
 
+            interface RoutingServiceCoordinates {
+                lat: H.geo.Latitude,
+                lng: H.geo.Longitude,
+            }
+
             interface RoutingServicePlace {
-                location: {
-                    lat: H.geo.Latitude,
-                    lng: H.geo.Longitude,
-                };
+                location: RoutingServiceCoordinates;
+                originalLocation?: RoutingServiceCoordinates | undefined;
                 type: string;
             }
         }
