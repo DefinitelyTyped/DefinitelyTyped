@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = noisejs;
+export as namespace noisejs;
 
-declare namespace noisejs{
+declare namespace noisejs {
 	class Noise {
 		/**
 		 * Passing in seed will seed this Noise instance
