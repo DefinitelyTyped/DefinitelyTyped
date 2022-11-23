@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = noisejs;
-export as namespace noisejs;
 
 declare namespace noisejs{
 	class Noise {
