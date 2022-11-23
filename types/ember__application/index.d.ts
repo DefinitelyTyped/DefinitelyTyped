@@ -130,7 +130,7 @@ export default class Application extends Engine {
 // whenever we add new base classes to the framework. For example, if we
 // introduce a standalone `Service` or `Route` base class which *does not*
 // extend from `EmberObject`, it will need to be added here.
-type FrameworkObject = EmberObject | GlimmerComponent;
+type FrameworkObject = EmberObject | GlimmerComponent<any>;
 
 /**
  * Framework objects in an Ember application (components, services, routes, etc.)

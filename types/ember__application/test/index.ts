@@ -3,6 +3,7 @@ import EngineInstance from '@ember/engine/instance';
 import Owner from '@ember/owner';
 import ApplicationInstance from '@ember/application/instance';
 import Service from '@ember/service';
+import GlimmerComponent from '@glimmer/component';
 
 // $ExpectType Owner | undefined
 getOwner({});
@@ -14,6 +15,23 @@ declare class MyService extends Service {
 declare let myService: MyService;
 // $ExpectType Owner
 getOwner(myService);
+
+declare class MyComponent extends GlimmerComponent {}
+declare let myComponent: MyComponent;
+// $ExpectType Owner
+getOwner(myComponent);
+
+declare class MyComponentWithSignature extends GlimmerComponent<{
+    Element: HTMLDivElement;
+    Args: {
+        Named: {
+            foo: string;
+        };
+    };
+}> {}
+declare let myComponentWithSignature: MyComponentWithSignature;
+// $ExpectType Owner
+getOwner(myComponentWithSignature);
 
 // @ts-expect-error
 getOwner();
