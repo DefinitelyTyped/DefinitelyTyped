@@ -50,11 +50,11 @@ declare module 'leaflet' {
             locateOptions?: L.LocateOptions | undefined;
         }
         interface StringsOptions {
-            title?: string | undefined,
-            metersUnit?: string | undefined,
-            feetUnit?: string | undefined,
-            popup?: string | undefined,
-            outsideMapBoundsMsg?: string | undefined
+            title?: string | undefined;
+            metersUnit?: string | undefined;
+            feetUnit?: string | undefined;
+            popup?: string | undefined;
+            outsideMapBoundsMsg?: string | undefined;
         }
     }
 
