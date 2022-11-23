@@ -40,8 +40,8 @@ export function validateDate(
 
 export function validateExclusion(
     options: {
-        in?: string[];
-        list?: string[];
+        in?: unknown[];
+        list?: unknown[];
         range?: number[];
         allowBlank?: boolean;
         message?: string;
@@ -50,8 +50,8 @@ export function validateExclusion(
 
 export function validateInclusion(
     options: {
-        in?: string[];
-        list?: string[];
+        in?: unknown[];
+        list?: unknown[];
         range?: number[];
         allowBlank?: boolean;
         message?: string;

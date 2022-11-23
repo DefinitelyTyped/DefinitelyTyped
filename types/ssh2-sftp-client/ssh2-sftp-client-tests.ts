@@ -15,8 +15,8 @@ import * as fs from 'fs';
         .then(() => null);
 
     client.list('/remote/path').then(() => null);
-    client.list('/remote/path', /foobar$/).then(() => null);
-    client.list('/remote/path', 'foo*').then(() => null);
+    client.list('/remote/path', (f) => /foobar$/.test(f.name)).then(() => null);
+    client.list('/remote/path', (f) => f.name.startsWith('foo')).then(() => null);
 
     const type = (await client.list('/remote/path'))[0].type;
     switch (type) {
@@ -43,11 +43,8 @@ import * as fs from 'fs';
                 encoding: null,
                 handle: null,
                 mode: 0o666,
-                autoClose: true,
             },
-            pipeOptions: {
-                end: false,
-            },
+            pipeOptions: { },
         })
         .then(() => null);
 
@@ -61,7 +58,7 @@ import * as fs from 'fs';
         .then(() => null);
 
     client.put('/local/path', '/remote/path').then(() => null);
-    client.put(new Buffer('content'), '/remote/path').then(() => null);
+    client.put(Buffer.from('content', 'utf8'), '/remote/path').then(() => null);
     client.put(fs.createReadStream('Hello World'), '/remote/path').then(() => null);
     client
         .put(fs.createReadStream('Hello World'), '/remote/path', {
@@ -69,11 +66,8 @@ import * as fs from 'fs';
                 flags: 'w',
                 encoding: null,
                 mode: 0o666,
-                autoClose: true,
             },
-            pipeOptions: {
-                end: false,
-            },
+            pipeOptions: { },
         })
         .then(() => null);
 
@@ -105,18 +99,31 @@ import * as fs from 'fs';
     client.realPath('./relative/remote/path').then(() => null);
 
     client.uploadDir('/local/path', '/remote/path').then(() => null);
-    client.uploadDir('/local/path', '/remote/path', /foo*/).then(() => null);
+    client.uploadDir('/local/path', '/remote/path', {
+        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir
+    }).then(() => null);
+    client.uploadDir('/local/path', '/remote/path', {
+        filter: (pathname, isdir) => /foo*/.test(pathname) && !isdir,
+        useFastput: true,
+    }).then(() => null);
 
-    client.downloadDir('/remote/path', '/local/path', /foo*/).then(() => null);
-    client.downloadDir('/remote/path', '/local/path', /foo*/).then(() => null);
+    client.downloadDir('/remote/path', '/local/path').then(() => null);
+
+    client.downloadDir('/remote/path', '/local/path', {
+        filter: (pathname, isdir) => /foo*/.test(pathname) && isdir
+    }).then(() => null);
+    client.downloadDir('/remote/path', '/local/path', {
+        filter: (pathname, isdir) => /foo*/.test(pathname) && !isdir,
+        useFastget: true,
+    }).then(() => null);
 
     client.end().then(() => null);
 
     client.on('event', () => null);
 
-    client.append(new Buffer('content'), 'remote/to');
+    client.append(Buffer.from('content', 'utf8'), 'remote/to');
     client.append(fs.createReadStream('content'), 'remote/to');
-    client.append(new Buffer('content'), 'remote/to', {
+    client.append(Buffer.from('content', 'utf8'), 'remote/to', {
         flags: 'a',
         encoding: null,
         mode: 0o666,

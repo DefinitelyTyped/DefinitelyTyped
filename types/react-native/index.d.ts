@@ -352,7 +352,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, React.ElementRef<HostComponent<unknown>>, React.ElementRef<HostComponent<unknown>>> {}
 
 export interface NativeTouchEvent {
     /**
@@ -388,7 +388,7 @@ export interface NativeTouchEvent {
     /**
      * The node id of the element receiving the touch event
      */
-    target: string;
+    target: NodeHandle;
 
     /**
      * A time identifier for the touch, useful for velocity calculation
@@ -1042,7 +1042,7 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle, target?: NodeHandle | null }>;
 
 interface TextLayoutLine {
     ascender: number;
@@ -4544,6 +4544,11 @@ export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRende
 
 export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
     /**
+     * Rendered in between each item, but not at the top or bottom
+     */
+    ItemSeparatorComponent?: React.ComponentType<any> | null | undefined;
+
+    /**
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
      */
@@ -4556,10 +4561,20 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined;
+
+    /**
      * Rendered at the top of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * The default accessor functions assume this is an Array<{key: string}> but you can override

@@ -65,7 +65,7 @@ Property.replaceSubstitutionsIn({}, [new pmCollection.VariableList(p, [])], fals
 
 // CertificateDefinition Tests
 const certDef: pmCollection.CertificateDefinition = {};
-certDef.matches; // $ExpectType string[] | UrlMatchPatternList | undefined
+certDef.matches; // $ExpectType string[] | UrlMatchPatternList | undefined || UrlMatchPatternList | string[] | undefined
 certDef.key; // $ExpectType string | { src?: string | undefined; } | undefined
 certDef.cert; // $ExpectType string | { src?: string | undefined; } | undefined
 certDef.passphrase; // $ExpectType string | undefined

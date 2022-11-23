@@ -8,7 +8,6 @@
         "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

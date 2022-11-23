@@ -9,7 +9,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "space-within-parens": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

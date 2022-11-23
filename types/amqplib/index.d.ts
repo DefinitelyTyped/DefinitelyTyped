@@ -1,4 +1,4 @@
-// Type definitions for amqplib 0.8
+// Type definitions for amqplib 0.10
 // Project: https://github.com/squaremo/amqp.node, http://squaremo.github.io/amqp.node
 // Definitions by: Michael Nahkies <https://github.com/mnahkies>,
 //                 Ab Reitsma <https://github.com/abreits>,
@@ -11,7 +11,6 @@
 
 /// <reference types="node" />
 
-import * as Promise from 'bluebird';
 import * as events from 'events';
 import { Replies, Options, Message, GetMessage, ConsumeMessage, ServerProperties } from './properties';
 export * from './properties';

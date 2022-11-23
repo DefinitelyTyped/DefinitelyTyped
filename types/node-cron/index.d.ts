@@ -6,17 +6,18 @@
 //                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 //                 Alex Seidmann <https://github.com/aseidma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import EventEmitter = require('events');
+import { EventEmitter } from 'events';
 
-export function schedule(cronExpression: string, func: ((now: Date) => void) | string, options?: ScheduleOptions): ScheduledTask;
+export function schedule(cronExpression: string, func: ((now: Date | "manual") => void) | string, options?: ScheduleOptions): ScheduledTask;
 
 export function validate(cronExpression: string): boolean;
 
 export function getTasks(): Map<string, ScheduledTask>;
 
 export interface ScheduledTask extends EventEmitter {
-    start: () => this;
-    stop: () => this;
+    now: (now?: Date) => void;
+    start: () => void;
+    stop: () => void;
 }
 
 export interface ScheduleOptions {

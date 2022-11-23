@@ -1,5 +1,4 @@
 import Onionoo = require('onionoo');
-import KeyvRedis = require('@keyv/redis');
 
 const onionoo = new Onionoo();
 onionoo; // $ExpectType Instance & Endpoints
@@ -35,4 +34,10 @@ new Onionoo({
 });
 
 new Onionoo({ cache: new Map() });
-new Onionoo({ cache: new KeyvRedis('redis://user:pass@localhost:6379') });
+
+declare const customCache: {
+    set(key: string, value: any, ttl?: number): void;
+    get(key: string): any;
+    delete(key: string): void;
+};
+new Onionoo({ cache: customCache });
