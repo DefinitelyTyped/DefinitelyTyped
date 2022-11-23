@@ -1,7 +1,6 @@
 // Type definitions for johnny-five 1.3.0
 // Project: https://github.com/rwaldron/johnny-five
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-//                 Zoltan Ujvary <https://github.com/ujvzolee>
 //                 Simon Colmer <https://github.com/workshop2>
 //                 XtrimSystems <https://github.com/xtrimsystems>
 //                 Marcin Obiedziński <https://github.com/marcinobiedz>
