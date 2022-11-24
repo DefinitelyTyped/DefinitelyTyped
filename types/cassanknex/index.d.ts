@@ -100,7 +100,7 @@ declare namespace CassanKnex {
         uuid <K extends keyof T>(columnName: K): TypeMatchedValue<T, K, types.Uuid, this>;
         varchar <K extends keyof T>(columnName: K): TypeMatchedValue<T, K, string, this>;
         list <K extends keyof T>(columnName: K, typeName: string): TypeMatchedValue<T, K, any[], this>;
-        primary(primaryKey: string): this;
+        primary(...primaryKeys: Array<string | string[]>): this;
         set <K extends keyof T, A extends string>(columnName: K, a: A): TypeMatchedValue<T, K, Set<T[K]>, this>;
     }
 

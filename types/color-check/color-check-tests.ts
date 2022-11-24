@@ -9,7 +9,7 @@ const c2: Color = '#ffffff';
 colorCheck.colorDifference(r1, c1);
 // $ExpectType boolean
 colorCheck.colorDifference(c1, r1);
-// $ExpectError
+// @ts-expect-error
 colorCheck.colorDifference(r1, undefined);
 
 // $ExpectType number
@@ -19,7 +19,7 @@ colorCheck.colorContrast(c2, r2);
 
 // $ExpectType number
 colorCheck.colorGetLuminance([1, 2, 3]);
-// $ExpectError
+// @ts-expect-error
 colorCheck.colorGetLuminance(r1);
-// $ExpectError
+// @ts-expect-error
 colorCheck.colorGetLuminance([1, 2, 3, 4]);

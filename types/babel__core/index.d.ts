@@ -17,7 +17,7 @@ import * as t from '@babel/types';
 export { ParserOptions, GeneratorOptions, t as types, template, traverse, NodePath, Visitor };
 
 export type Node = t.Node;
-export type ParseResult = t.File | t.Program;
+export type ParseResult = ReturnType<typeof import('@babel/parser').parse>;
 export const version: string;
 export const DEFAULT_EXTENSIONS: ['.js', '.jsx', '.es6', '.es', '.mjs'];
 
@@ -37,6 +37,14 @@ interface InputSourceMap {
 }
 
 export interface TransformOptions {
+    /**
+     * Specify which assumptions it can make about your code, to better optimize the compilation result. **NOTE**: This replaces the various `loose` options in plugins in favor of
+     * top-level options that can apply to multiple plugins
+     *
+     * @see https://babeljs.io/docs/en/assumptions
+     */
+    assumptions?: { [name: string]: boolean } | null | undefined;
+
     /**
      * Include the AST in the returned object
      *

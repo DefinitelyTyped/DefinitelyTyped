@@ -14,7 +14,7 @@ cm.showHint({
 });
 cm.showHint({
     hint: CodeMirror.hint.sql,
-    // $ExpectError
+    // @ts-expect-error
     tables: {
         user: [25],
         tags: {
@@ -32,10 +32,12 @@ cm.showHint({
 
 cm.showHint({
     hint: CodeMirror.hint.sql,
-    tables: [true] // $ExpectError
+    // @ts-expect-error
+    tables: [true]
 });
 
 cm.showHint({
     hint: CodeMirror.hint.sql,
-    tables: [{ text: 25 }] // $ExpectError
+    // @ts-expect-error
+    tables: [{ text: 25 }]
 });

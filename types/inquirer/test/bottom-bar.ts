@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import BottomBar = require('inquirer/lib/ui/bottom-bar');
+import BottomBar from 'inquirer/lib/ui/bottom-bar';
 // tslint:disable-next-line: no-var-requires
 const cmdify = require('cmdify');
 

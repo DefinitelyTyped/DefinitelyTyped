@@ -10,7 +10,7 @@ client.useRequestOpts({
         'Intercom-Version': 2.0,
     },
     forever: true,
-});
+}).usePromises();
 
 // Create a lead.
 client.contacts.create({

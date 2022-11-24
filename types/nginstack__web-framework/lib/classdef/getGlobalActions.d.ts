@@ -1,2 +1,6 @@
-declare function _exports(classKey: number, key: number): any[];
-export = _exports;
+export = getGlobalActions;
+declare function getGlobalActions(classKey: number, key: number): GlobalAction[];
+declare namespace getGlobalActions {
+    export { GlobalAction };
+}
+type GlobalAction = import('./GlobalAction');

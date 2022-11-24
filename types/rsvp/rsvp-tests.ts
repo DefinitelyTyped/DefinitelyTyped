@@ -4,7 +4,8 @@ import RSVP, { all, race, resolve, Promise as RPromise, EventTarget as REventTar
 declare function assertType<T>(value: T): void;
 
 let rsvpPromise: RPromise<number[]> = RSVP.resolve([1, 2, 3]);
-rsvpPromise = Promise.resolve([1, 2, 3]) as PromiseLike<number[]>; // $ExpectError
+// @ts-expect-error
+rsvpPromise = Promise.resolve([1, 2, 3]) as PromiseLike<number[]>;
 
 new RPromise<number>((res, rej) => {
     res(3); // $ExpectType void
@@ -16,7 +17,8 @@ type etType = keyof typeof et; // $ExpectType "on" | "off" | "trigger" || keyof 
 et.on('error', handler => {}); // $ExpectType void
 et.off('error', handler => {}); // $ExpectType void
 et.trigger('error'); // $ExpectType void
-et.trigger('error', '12', 34); // $ExpectError
+// @ts-expect-error
+et.trigger('error', '12', 34);
 
 async function testAsyncAwait() {
     const awaitedNothing = await RSVP.resolve();

@@ -20,6 +20,32 @@ ClassicEditor.create('', { plugins: [FindAndReplace] });
 FindAndReplace.requires.map(Plugin => new Plugin(editor));
 
 const state = new FindAndReplaceState(new Model());
+// $ExpectType string
+state.searchText;
+// @ts-expect-error
+state.searchText = 'foo';
+// $ExpectType string
+state.replaceText;
+// @ts-expect-error
+state.replaceText = 'foo';
+// $ExpectType boolean
+state.matchCase;
+// @ts-expect-error
+state.matchCase = true;
+state.clear(new Model());
+// $ExpectType Collection<Result, "id">
+state.results;
+// @ts-expect-error
+state.results = state.results;
+
+state.on('foo', (ev, ...args) => {
+    // $ExpectType EventInfo<FindAndReplaceState, "foo">
+    ev;
+    // $ExpectType any[]
+    args;
+});
+
+state.set('foo');
 
 const plugin = editor.plugins.get('FindAndReplaceEditing');
 if (plugin instanceof FindAndReplaceEditing) {

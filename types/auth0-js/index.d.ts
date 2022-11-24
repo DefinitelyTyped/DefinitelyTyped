@@ -350,7 +350,7 @@ export class Redirect {
             connection: string;
             /** allow userMetadata to be passed to signUp */
             userMetadata?: unknown | undefined;
-        },
+        } & CrossOriginLoginOptions,
         callback: Auth0Callback<any>,
     ): void;
 }
@@ -892,6 +892,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    onRedirecting?: (done: () => void) => void | undefined;
 }
 
 export interface LogoutOptions {

@@ -57,7 +57,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = React;
 export as namespace React;
 
@@ -99,7 +99,7 @@ declare namespace React {
      * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
      *   to component.
      *
-     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     * `C` must be the type _of_ a React component so you need to use typeof as in `React.ElementRef<typeof MyComponent>`.
      *
      * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
      *       `React.forwardRef()` returns.
@@ -557,8 +557,10 @@ declare namespace React {
         displayName?: string | undefined;
     }
 
+    type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null;
+
     interface ForwardRefRenderFunction<T, P = {}> {
-        (props: PropsWithChildren<P>, ref: ((instance: T | null) => void) | MutableRefObject<T | null> | null): ReactElement | null;
+        (props: PropsWithChildren<P>, ref: ForwardedRef<T>): ReactElement | null;
         displayName?: string | undefined;
         // explicit rejected with `never` required due to
         // https://github.com/microsoft/TypeScript/issues/36826
@@ -1105,18 +1107,6 @@ declare namespace React {
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
-     * Usage note: if calling `useMemo` with a referentially stable function, also give it as the input in
-     * the second argument.
-     *
-     * ```ts
-     * function expensive () { ... }
-     *
-     * function Component () {
-     *   const expensiveResult = useMemo(expensive, [expensive])
-     *   return ...
-     * }
-     * ```
-     *
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usememo
      */
@@ -1208,6 +1198,8 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
     interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
@@ -1216,7 +1208,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         /**
          * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
          */
@@ -1242,7 +1234,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         movementX: number;
         movementY: number;
@@ -1261,7 +1253,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         shiftKey: boolean;
         targetTouches: TouchList;
@@ -1398,7 +1390,9 @@ declare namespace React {
         // Keyboard Events
         onKeyDown?: KeyboardEventHandler<T> | undefined;
         onKeyDownCapture?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPress?: KeyboardEventHandler<T> | undefined;
+        /** @deprecated */
         onKeyPressCapture?: KeyboardEventHandler<T> | undefined;
         onKeyUp?: KeyboardEventHandler<T> | undefined;
         onKeyUpCapture?: KeyboardEventHandler<T> | undefined;
@@ -1833,6 +1827,7 @@ declare namespace React {
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
+        nonce?: string | undefined;
         placeholder?: string | undefined;
         slot?: string | undefined;
         spellCheck?: Booleanish | undefined;
@@ -1953,7 +1948,6 @@ declare namespace React {
         multiple?: boolean | undefined;
         muted?: boolean | undefined;
         name?: string | undefined;
-        nonce?: string | undefined;
         noValidate?: boolean | undefined;
         open?: boolean | undefined;
         optimum?: number | undefined;
@@ -2092,6 +2086,8 @@ declare namespace React {
     }
 
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
+        onCancel?: ReactEventHandler<T> |  undefined;
+        onClose?: ReactEventHandler<T> |  undefined;
         open?: boolean | undefined;
     }
 
@@ -2117,6 +2113,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2362,7 +2359,6 @@ declare namespace React {
         defer?: boolean | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
-        nonce?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
         type?: string | undefined;
@@ -2393,7 +2389,6 @@ declare namespace React {
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         media?: string | undefined;
-        nonce?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
     }
@@ -3058,6 +3053,8 @@ type MergePropTypes<P, T> =
                 & Pick<P, Exclude<keyof P, keyof T>>
         : never;
 
+type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
+
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
 // If declared props have indexed properties, ignore default props entirely as keyof gets widened
@@ -3065,8 +3062,8 @@ type MergePropTypes<P, T> =
 type Defaultize<P, D> = P extends any
     ? string extends keyof P ? P :
         & Pick<P, Exclude<keyof P, keyof D>>
-        & Partial<Pick<P, Extract<keyof P, keyof D>>>
-        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
+        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
+        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D; }

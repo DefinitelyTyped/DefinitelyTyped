@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { AnyFn } from 'ember/-private/type-utils';
+import { assertType } from './lib/assert';
 
 let App: any;
 
@@ -112,10 +114,20 @@ const people = Ember.A([
     Person2.create({ name: 'Majd' }),
 ]);
 people.invoke('sayHello');
+// @ts-expect-error
+people.invoke('name');
 
-const arr = Ember.A([Ember.Object.create(), Ember.Object.create()]);
-arr.setEach('name', 'unknown');
-arr.getEach('name');
+type Arr = Ember.NativeArray<Ember.Object & {
+    name?: string;
+}>;
+const arr: Arr = Ember.A([Ember.Object.create(), Ember.Object.create()]);
+arr.setEach('name', 'unknown'); // $ExpectType void
+arr.setEach('name', undefined); // $ExpectType void
+arr.getEach('name'); // $ExpectType (string | undefined)[]
+// @ts-expect-error
+arr.setEach('age', 123);
+// @ts-expect-error
+arr.getEach('age');
 
 const Person3 = Ember.Object.extend({
     name: '',
@@ -132,11 +144,13 @@ people2.every(isHappy);
 people2.any(isHappy);
 people2.isEvery('isHappy');
 people2.isEvery('isHappy', true);
+// @ts-expect-error
 people2.isAny('isHappy', 'true');
+people2.isAny('isHappy', true);
 people2.isAny('isHappy');
 
 // Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
-const promise = new Ember.RSVP.Promise<string>((resolve: (...args: any[]) => any, reject: (...args: any[]) => any) => {
+const promise = new Ember.RSVP.Promise<string>((resolve: AnyFn, reject: AnyFn) => {
     // on success
     resolve('ok!');
 
@@ -145,10 +159,11 @@ const promise = new Ember.RSVP.Promise<string>((resolve: (...args: any[]) => any
 });
 
 promise.then(
-    (value: any) => {
+    (value) => {
         // on fulfillment
+        assertType<string>(value);
     },
-    (reason: any) => {
+    (reason: unknown) => {
         // on rejection
     },
 );

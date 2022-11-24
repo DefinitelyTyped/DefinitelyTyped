@@ -270,7 +270,7 @@ export class request extends events.EventEmitter {
      *
      * @param [acceptedProtocol] case-insensitive value that was requested by the client
      */
-    accept(acceptedProtocol?: string, allowedOrigin?: string, cookies?: ICookie[]): connection;
+    accept(acceptedProtocol?: string | null, allowedOrigin?: string, cookies?: ICookie[]): connection;
 
     /**
      * Reject connection.

@@ -1,7 +1,7 @@
 import * as webdriver from './index';
 import * as remote from './remote';
 
-export class Driver extends webdriver.WebDriver {
+export class Driver extends webdriver.ChromiumWebDriver {
   /**
    * Creates a new browser session for Microsoft's Edge browser.
    *
@@ -13,13 +13,6 @@ export class Driver extends webdriver.WebDriver {
    */
   static createSession(
     opt_config?: webdriver.CreateSessionCapabilities, opt_service?: remote.DriverService): Driver;
-
-  /**
-   * This function is a no-op as file detectors are not supported by this
-   * implementation.
-   * @override
-   */
-  setFileDetector(): void;
 }
 
 export interface IOptionsValues {

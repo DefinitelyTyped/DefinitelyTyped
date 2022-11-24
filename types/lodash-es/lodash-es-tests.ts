@@ -15,6 +15,7 @@ import camelCase from "lodash-es/camelCase";
 import capitalize from "lodash-es/capitalize";
 import castArray from "lodash-es/castArray";
 import ceil from "lodash-es/ceil";
+import chain from "lodash-es/chain";
 import chunk from "lodash-es/chunk";
 import clamp from "lodash-es/clamp";
 import clone from "lodash-es/clone";

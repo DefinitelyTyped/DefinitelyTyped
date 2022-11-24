@@ -21,6 +21,17 @@ function testConfigWithStringTimeout(): void {
   });
 }
 
+function testConfigWithFlushedSet(): void {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
+    flushAt: 20,
+    flushInterval: 10000,
+    host: "http://example.com",
+    enable: true,
+    timeout: 1000,
+    flushed: true,
+  });
+}
+
 function testIdentify(): void {
   analytics.identify({
     userId: '019mr8mf4r',

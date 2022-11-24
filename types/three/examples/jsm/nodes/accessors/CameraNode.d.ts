@@ -1,29 +1,12 @@
-import { Camera } from '../../../../src/Three';
+import Object3DNode, { Object3DNodeScope } from './Object3DNode';
 
-import { NodeFrame } from '../core/NodeFrame';
-import { TempNode } from '../core/TempNode';
-import { FunctionNode } from '../core/FunctionNode';
-import { FloatNode } from '../inputs/FloatNode';
+export type CameraNodeScope = Object3DNodeScope | typeof CameraNode.PROJECTION_MATRIX;
 
-export class CameraNode extends TempNode {
-    constructor(scope?: string, camera?: Camera);
+export default class CameraNode extends Object3DNode {
+    static PROJECTION_MATRIX: 'projectionMatrix';
 
-    scope: string;
-    near: FloatNode | undefined;
-    far: FloatNode | undefined;
-    camera: Camera | undefined;
-    updateFrame: boolean | undefined;
-    nodeType: string;
+    // @ts-expect-error
+    scope: CameraNodeScope;
 
-    setCamera(camera: Camera): void;
-    setScope(scope: string): void;
-    onUpdateFrame(frame: NodeFrame): void;
-    copy(source: CameraNode): this;
-
-    static Nodes: {
-        depthColor: FunctionNode;
-    };
-    static POSITION: string;
-    static DEPTH: string;
-    static TO_VERTEX: string;
+    constructor(scope?: CameraNodeScope);
 }

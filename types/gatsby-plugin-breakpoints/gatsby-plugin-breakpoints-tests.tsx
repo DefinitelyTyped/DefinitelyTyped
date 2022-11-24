@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
     BreakpointConfig,
     BreakpointProvider,
@@ -49,6 +49,6 @@ function useContext() {
     return context;
 }
 // BreakpointProvider
-const ProviderComponent: React.FC = ({ children }) => {
+const ProviderComponent: React.FC<{ children?: ReactNode }> = ({ children }) => {
     return <BreakpointProvider queries={defaultQueries}>{children}</BreakpointProvider>;
 };

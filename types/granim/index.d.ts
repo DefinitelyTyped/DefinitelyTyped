@@ -46,7 +46,7 @@ declare namespace Granim {
     }
 
     interface State {
-        gradients: string[][] | Gradient[][];
+        gradients: Array<string[] | Gradient[]>;
         transitionSpeed?: number;
         loop?: boolean;
     }

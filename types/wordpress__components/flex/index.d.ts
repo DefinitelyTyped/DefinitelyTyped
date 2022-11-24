@@ -3,27 +3,47 @@ import { ComponentType, HTMLProps, CSSProperties } from 'react';
 declare namespace Flex {
     interface FlexProps {
         /**
+         * Reverses the flex direction.
+         *
+         * @deprecated Use `direction` instead.
+         */
+        isReversed?: boolean | undefined;
+
+        /**
          * Sets align-items. Top and bottom are shorthand for flex-start and flex-end respectively.
          */
         align?: CSSProperties['alignItems'] | 'top' | 'bottom' | undefined;
 
         /**
-         * Determines the spacing in between children components. The `gap` value is a multiplier to the base value of `4`.
+         * The direction flow of the children content can be adjusted with `direction`. `column` will
+         * align children vertically and `row` will align children horizontally.
          */
-        gap?: number | undefined;
+        direction?: CSSProperties['flexDirection'] | undefined;
 
         /**
-         * Sets jusifty-content. Left and right are shorthand for flex-start and flex-end respectively, not the actual CSS value.
+         * Expands to the maximum available width (if horizontal) or height (if vertical).
          */
-        justify?: CSSProperties['justifyContent'] | 'left' | 'right' | undefined;
+        expanded?: boolean | undefined;
 
         /**
-         * Reverses the flex direction.
+         * Spacing in between each child can be adjusted by using `gap`. The value of `gap` works as
+         * a multiplier to the library's grid system (base of `4px`).
          */
-        isReversed?: boolean | undefined;
+        gap?: number | string | undefined;
+
+        /**
+         * Horizontally aligns content if the `direction` is `row`, or vertically aligns content
+         * if the `direction` is `column`.
+         */
+        justify?: CSSProperties['justifyContent'] | undefined;
+
+        /**
+         * Determines if children should wrap.
+         */
+        wrap?: boolean | undefined;
     }
 
-    interface Props extends FlexProps, HTMLProps<HTMLDivElement> {}
+    interface Props extends FlexProps, Omit<HTMLProps<HTMLDivElement>, 'wrap'> {}
 }
 
 declare const Flex: ComponentType<Flex.Props>;

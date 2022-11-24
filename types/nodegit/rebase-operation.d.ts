@@ -7,12 +7,12 @@ export namespace RebaseOperation {
         EDIT = 2,
         SQUASH = 3,
         FIXUP = 4,
-        EXEC = 5
+        EXEC = 5,
     }
 }
 
 export class RebaseOperation {
-    type: number;
-    id: Oid;
-    exec: string;
+    type(): number | null;
+    id(): Oid;
+    exec(): string | null;
 }

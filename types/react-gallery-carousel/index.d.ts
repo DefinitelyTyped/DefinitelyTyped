@@ -64,12 +64,7 @@ declare namespace Carousel {
         children?: React.ReactNode;
     }
 
-    // Buttons of the carousel that accepts a boolean or string.
-    type ButtonType = boolean | string;
-
-    // Object fit css properties
-    type ValueOf<T> = T[keyof T];
-    type ObjectFit = ValueOf<Pick<React.CSSProperties, 'objectFit'>>;
+    type ObjectFit = React.CSSProperties['objectFit'];
 
     /**
      * The Ref carousel element with the imperative handlers.
@@ -89,12 +84,36 @@ declare namespace Carousel {
     };
 
     /**
+     * The available position for small widgets
+     * @see https://github.com/yifaneye/react-gallery-carousel#small-widget-positions
+     */
+
+    type SmallWidgetPositions =
+        | 'topLeft'
+        | 'topCenter'
+        | 'topRight'
+        | 'centerLeft'
+        | 'centerCenter'
+        | 'centerRight'
+        | 'bottomLeft'
+        | 'bottomCenter'
+        | 'bottomRight';
+
+    /**
+     * The available position for large widgets
+     * @see
+     */
+
+    type LargeWidgetPositions = 'top' | 'bottom';
+
+    /**
      * The props of the carousel
      * @see {@link https://github.com/yifaneye/react-gallery-carousel#props}
      */
 
     type CarouselProps = (CarouselWithChildren | CarouselWithImages) &
         Partial<{
+            thumbnails: React.ReactNode;
             index: number;
             isRTL: boolean;
             isLoop: boolean;
@@ -111,27 +130,27 @@ declare namespace Carousel {
             transitionDurationMin: number;
             transitionDurationMax: number;
             widgetsHasShadow: boolean;
-            hasLeftButton: ButtonType;
-            hasRightButton: ButtonType;
-            hasMediaButton: ButtonType;
-            hasSizeButton: ButtonType;
-            hasIndexBoard: ButtonType;
-            hasDotButtons: ButtonType;
-            hasCaptions: ButtonType;
+            hasLeftButton: SmallWidgetPositions | boolean;
+            hasRightButton: SmallWidgetPositions | boolean;
+            hasMediaButton: SmallWidgetPositions | boolean;
+            hasSizeButton: SmallWidgetPositions | boolean;
+            hasIndexBoard: SmallWidgetPositions | boolean;
+            hasDotButtons: LargeWidgetPositions | boolean;
+            hasCaptions: LargeWidgetPositions | boolean;
             hasThumbnails: boolean;
-            hasLeftButtonAtMax: ButtonType;
-            hasRightButtonAtMax: ButtonType;
-            hasMediaButtonAtMax: ButtonType;
-            hasSizeButtonAtMax: ButtonType;
-            hasIndexBoardButtonAtMax: ButtonType;
-            hasDotButtonsAtMax: ButtonType;
-            hasCaptionsAtMax: ButtonType;
+            hasLeftButtonAtMax: SmallWidgetPositions | boolean;
+            hasRightButtonAtMax: SmallWidgetPositions | boolean;
+            hasMediaButtonAtMax: SmallWidgetPositions | boolean;
+            hasSizeButtonAtMax: SmallWidgetPositions | boolean;
+            hasIndexBoardButtonAtMax: SmallWidgetPositions | boolean;
+            hasDotButtonsAtMax: LargeWidgetPositions | boolean;
+            hasCaptionsAtMax: LargeWidgetPositions | boolean;
             hasThumbnailsAtMax: boolean;
             leftIcon: React.ReactNode;
             rightIcon: React.ReactNode;
             playIcon: React.ReactNode;
             pauseIcon: React.ReactNode;
-            miniIcon: React.ReactNode;
+            minIcon: React.ReactNode;
             maxIcon: React.ReactNode;
             activeIcon: React.ReactNode;
             passiveIcon: React.ReactNode;
@@ -139,7 +158,7 @@ declare namespace Carousel {
             shouldMaximizeOnClick: boolean;
             shouldMinimizeOnClick: boolean;
             shouldMinimizeOnSwipeDown: boolean;
-            onIndexChange(): void;
+            onIndexChange({ curIndex, curIndexForDisplay }: { curIndex: number; curIndexForDisplay: number }): void;
             onSwipeMoveX(displacementX: number): void;
             onSwipeMoveY(displacementY: number): void;
             onSwipeEndDown(): void;

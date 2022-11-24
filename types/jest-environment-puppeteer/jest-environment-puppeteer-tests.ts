@@ -1,7 +1,6 @@
 import { Browser, Page, BrowserContext } from 'puppeteer';
 import JestEnvironmentPuppeteer from 'jest-environment-puppeteer';
 import { Config, Circus } from '@jest/types';
-import { Script } from 'vm';
 
 const myBrowser: Browser = browser; // $ExpectType Browser
 const myPage: Page = page; // $ExpectType Page
@@ -24,10 +23,6 @@ class CustomJestEnvironment extends JestEnvironmentPuppeteer {
     async teardown() {
         await this.global.page.waitFor(2000);
         await super.teardown();
-    }
-
-    runScript(script: Script): any {
-        return super.runScript(script);
     }
 
     async handleTestEvent(event: Circus.Event, state: Circus.State) {

@@ -1,3 +1,5 @@
+// This file was auto-generated. Please do not edit it.
+
 import * as p5 from '../../index';
 
 declare module '../../index' {
@@ -33,7 +35,8 @@ declare module '../../index' {
 
         /**
          *   Calculates the distance between two points, in
-         *   either two or three dimensions.
+         *   either two or three dimensions. If you looking for
+         *   distance between two vectors see dist()
          *   @param x1 x-coordinate of the first point
          *   @param y1 y-coordinate of the first point
          *   @param x2 x-coordinate of the second point
@@ -44,7 +47,8 @@ declare module '../../index' {
 
         /**
          *   Calculates the distance between two points, in
-         *   either two or three dimensions.
+         *   either two or three dimensions. If you looking for
+         *   distance between two vectors see dist()
          *   @param x1 x-coordinate of the first point
          *   @param y1 y-coordinate of the first point
          *   @param z1 z-coordinate of the first point
@@ -116,11 +120,11 @@ declare module '../../index' {
         mag(a: number, b: number): number;
 
         /**
-         *   Re-maps a number from one range to another.  In
-         *   the first example above, the number 25 is
-         *   converted from a value in the range of 0 to 100
-         *   into a value that ranges from the left edge of the
-         *   window (0) to the right edge (width).
+         *   Re-maps a number from one range to another. In the
+         *   first example above, the number 25 is converted
+         *   from a value in the range of 0 to 100 into a value
+         *   that ranges from the left edge of the window (0)
+         *   to the right edge (width).
          *   @param value the incoming value to be converted
          *   @param start1 lower bound of the value's current
          *   range
@@ -140,7 +144,7 @@ declare module '../../index' {
             stop1: number,
             start2: number,
             stop2: number,
-            withinBounds?: boolean,
+            withinBounds?: boolean
         ): number;
 
         /**
@@ -204,8 +208,9 @@ declare module '../../index' {
          *   function is an efficient way of multiplying
          *   numbers by themselves (or their reciprocals) in
          *   large quantities. For example, pow(3, 5) is
-         *   equivalent to the expression 33333 and pow(3, -5)
-         *   is equivalent to 1 / 33333. Maps to Math.pow().
+         *   equivalent to the expression 3 × 3 × 3 × 3 × 3 and
+         *   pow(3, -5) is equivalent to 1 / 3 × 3 × 3 × 3 × 3.
+         *   Maps to Math.pow().
          *   @param n base of the exponential expression
          *   @param e power by which to raise the base
          *   @return n^e
@@ -217,7 +222,8 @@ declare module '../../index' {
          *   For example, round(133.8) returns the value 134.
          *   Maps to Math.round().
          *   @param n number to round
-         *   @param decimals number of decimal places to round to, default is 0
+         *   @param [decimals] number of decimal places to
+         *   round to, default is 0
          *   @return rounded number
          */
         round(n: number, decimals?: number): number;
@@ -244,10 +250,10 @@ declare module '../../index' {
         sqrt(n: number): number;
 
         /**
-         * Calculates the fractional part of a number.
-         *
-         * @param [num] Number whose fractional part needs to be found out
-         * @returns fractional part of x, i.e, {x}
+         *   Calculates the fractional part of a number.
+         *   @param num Number whose fractional part needs to
+         *   be found out
+         *   @return fractional part of x, i.e, {x}
          */
         fract(num: number): number;
     }

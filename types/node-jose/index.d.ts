@@ -101,7 +101,7 @@ export namespace JWE {
     }
 
     function createEncrypt(keys: JWK.Key | JWK.Key[]): Encryptor;
-    function createEncrypt(options: EncryptOptions, key: JWK.Key): Encryptor;
+    function createEncrypt(options: EncryptOptions, key: JWK.Key | JWK.Key[]): Encryptor;
 
     function createDecrypt(key: JWK.Key | JWK.KeyStore, opts?: any): Decryptor;
 
@@ -204,9 +204,9 @@ export namespace JWK {
         /**
          * To retrieve a key from a keystore
          */
-        get(kid: string, filter?: KeyStoreGetFilter): RawKey;
-        get(options: KeyStoreGetOptions): RawKey;
-        all(options?: Partial<KeyStoreGetOptions>): RawKey[];
+        get(kid: string, filter?: KeyStoreGetFilter): Key;
+        get(options: KeyStoreGetOptions): Key;
+        all(options?: Partial<KeyStoreGetOptions>): Key[];
         add(key: RawKey): Promise<Key>;
         /**
          * @param key

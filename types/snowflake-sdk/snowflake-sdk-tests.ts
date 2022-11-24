@@ -39,7 +39,24 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             stmt.getStatementId(); // $ExpectType string
             const cols = stmt.getColumns();
             const col1 = cols[0];
-            const stream = stmt.streamRows();
+
+            // These column functions are defined at
+            // https://github.com/snowflakedb/snowflake-connector-nodejs/blob/5848cb627cf9ad5b90e0e2a69b4a1abd4b7cefc3/lib/connection/result/column.js#L103-L116.
+            col1.isString(); // $ExpectType boolean
+            col1.isBinary(); // $ExpectType boolean
+            col1.isNumber(); // $ExpectType boolean
+            col1.isBoolean(); // $ExpectType boolean
+            col1.isDate(); // $ExpectType boolean
+            col1.isTime(); // $ExpectType boolean
+            col1.isTimestamp(); // $ExpectType boolean
+            col1.isTimestampLtz(); // $ExpectType boolean
+            col1.isTimestampNtz(); // $ExpectType boolean
+            col1.isTimestampTz(); // $ExpectType boolean
+            col1.isVariant(); // $ExpectType boolean
+            col1.isObject(); // $ExpectType boolean
+            col1.isArray(); // $ExpectType boolean
+            const option: snowflake.StreamOptions = {start: 0, end: 100, fetchAsString: ['Boolean', 'JSON', 'Buffer']};
+            const stream = stmt.streamRows(option);
             stream.on('data', data => {
                 //
             });
@@ -48,7 +65,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 
     conn.execute({
         sqlText: '',
-        fetchAsString: ['NaN'], // $ExpectError
+        // @ts-expect-error
+        fetchAsString: ['NaN'],
         binds: [
             [1, ''],
             [2, ''],
@@ -57,9 +75,20 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             //
         },
     });
+
+    // $ExpectType Statement
+    const statement = conn.execute({
+        sqlText: ''
+    });
+    const option: snowflake.StreamOptions = {start: 0, end: 100, fetchAsString: ['Number' , 'Date' , 'JSON', 'Buffer']};
+    // $ExpectType Readable
+    const stream = statement.streamRows(option);
+    stream.on('data', data => {
+        //
+    });
 };
 connection.connect(connectCallback);
-connection.connectAsync(connectCallback);
+connection.connectAsync(connectCallback).then(() => {});
 
 //  Key pair connections
 
@@ -79,4 +108,20 @@ snowflake.createConnection({
     username: '',
     authenticator: '',
     token: '',
+});
+
+// Application
+
+snowflake.createConnection({
+    account: '',
+    password: '',
+    username: '',
+    application: '',
+});
+
+// Pool
+// $ExpectType Pool<Connection>
+const pool = snowflake.createPool({
+    account: '',
+    username: '',
 });

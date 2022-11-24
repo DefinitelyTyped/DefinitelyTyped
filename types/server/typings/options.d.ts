@@ -61,7 +61,7 @@ export interface Options {
     security?:
         | false
         | helmet.IHelmetConfiguration & {
-              csurf?: false | CsurfOptions | undefined;
+              csrf?: false | CsurfOptions | undefined;
           } | undefined;
     log?:
         | LogLevel

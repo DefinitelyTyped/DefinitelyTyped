@@ -1,6 +1,6 @@
 // Type definitions for Google API Client
 // Project: https://github.com/google/google-api-javascript-client
-// Definitions by: Frank M <https://github.com/sgtfrankieboy>, grant <https://github.com/grant>
+// Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -166,6 +166,10 @@ declare namespace gapi.client {
          * The scopes to request, as a space-delimited string.
          */
         scope?: string | undefined,
+        /**
+         * Arbitrary value. If present, allows keys generated after July 29th, 2022 to work with the old (deprecated) api.
+         */
+        plugin_name?: string;
 
         hosted_domain?: string | undefined;
     }): Promise<void>;

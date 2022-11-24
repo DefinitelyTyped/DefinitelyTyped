@@ -1,4 +1,4 @@
-// Type definitions for newman 5.1
+// Type definitions for newman 5.3
 // Project: https://github.com/postmanlabs/newman
 // Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,7 @@ import {
     VariableScope,
     VariableScopeDefinition
 } from "postman-collection";
+import { CookieJar } from 'tough-cookie';
 
 export interface NewmanRunOptions {
     /** A JSON / Collection / String representing the collection. */
@@ -19,9 +20,11 @@ export interface NewmanRunOptions {
     /** An environment JSON / file path for the current collection run. */
     environment?: VariableScope | VariableScopeDefinition | string | undefined;
     /** An override to environment variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
-    envVar?: Collection | CollectionDefinition | string | undefined;
+    envVar?: { key: string, value: string } | Array<{ key: string, value: string }> | undefined;
     /** A globals JSON / file path for the current collection run. */
     globals?: VariableScope | VariableScopeDefinition | string | undefined;
+    /** An override to global variables.  See: https://github.com/postmanlabs/newman/blob/develop/lib/run/options.js */
+    globalVar?: { key: string, value: string } | Array<{ key: string, value: string }> | undefined;
     /** The relative path to export the globals file from the current run to  */
     exportGlobals?: string | undefined;
     /** The relative path to export the environment file from the current run to */
@@ -139,12 +142,28 @@ export interface NewmanRunOptions {
      */
     sslClientPassphrase?: string | undefined;
     /**
+     * The path to the client certificate configuration list file. This option
+     * takes precedence over sslClientCert, sslClientKey and
+     * sslClientPassphrase. When there is no match in this configuration list,
+     * sslClientCert is used as fallback.
+     */
+    sslClientCertList?: string | string[] | undefined;
+    /**
+     * The path to the file, that holds one or more trusted CA certificates in
+     * PEM format.
+     */
+    sslExtraCaCerts?: string | undefined;
+    /**
      * Custom HTTP(S) agents which will be used for making the requests. This allows for use of various proxies (e.g. socks)
      */
     requestAgents?: {
         http?: http.Agent | undefined;
         https?: http.Agent | undefined;
     } | undefined;
+    /**
+     * A tough-cookie cookieJar / file path for the current collection run.
+     */
+    cookieJar?: string | CookieJar;
 }
 
 export interface NewmanRunSummary {
@@ -207,3 +226,50 @@ export function run(
 export function run(
     callback: (err: Error | null, summary: NewmanRunSummary) => void
 ): EventEmitter;
+
+/** The event fired when a console function is called within the scripts. */
+export interface ConsoleEvent {
+    cursor: Cursor;
+    level: string;
+    messages: unknown[];
+}
+
+/**
+ * The cursor holds the details of the current state of the run.
+ *
+ * See: https://github.com/postmanlabs/newman/wiki/The-Cursor-Object
+ */
+export interface Cursor {
+    /** Indicates if this cursor position is at the beginning of the run. */
+    bof: boolean;
+
+    /** Indicates if this cursor position is going to change to the next cycle. */
+    cr: boolean;
+
+    /** Total number of iterations that will be repeated on the length. */
+    cycles: number;
+
+    /** The run is empty and there is nothing to execute. */
+    empty: boolean;
+
+    /** Indicates if this cursor position is at the end of the run. */
+    eof: boolean;
+
+    /** A unique identifier added during the Item execution. */
+    httpRequestId?: string;
+
+    /** The current cycle in the total iteration count. */
+    iteration: number;
+
+    /** Total number of items in the collection run. */
+    length: number;
+
+    /** Current index of the item being processed from within the total number of items. */
+    position: number;
+
+    /** A common item identifier in an execution cycle. */
+    ref: string;
+
+    /** A unique identifier added during the Script execution. */
+    scriptId?: string;
+}

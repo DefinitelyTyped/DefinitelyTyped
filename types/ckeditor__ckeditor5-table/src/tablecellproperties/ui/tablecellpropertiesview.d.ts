@@ -153,4 +153,5 @@ export default class TableCellPropertiesView extends View {
      * Focuses the fist focusable field in the form.
      */
     focus(): void;
+    destroy(): void;
 }

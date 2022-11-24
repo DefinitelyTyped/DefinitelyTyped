@@ -100,11 +100,16 @@ const linkTest5 = (
         duration={500}
         delay={1000}
         isDynamic={true}
-        onSetActive={to => {
+        onSetActive={(to, element) => {
             console.log(to);
+            console.log(element);
         }}
-        onSetInactive={() => {}}
+        onSetInactive={(to, element) => {
+            console.log(to);
+            console.log(element);
+        }}
         ignoreCancelEvents={false}
+        horizontal={true}
     >
         Your name
     </Link>
@@ -146,7 +151,7 @@ Events.scrollEvent.register('end', (to, element) => {
 Events.scrollEvent.remove('begin');
 Events.scrollEvent.remove('end');
 
-class CustomComponent extends React.Component {
+class CustomComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return <div>{this.props.children}</div>;
     }

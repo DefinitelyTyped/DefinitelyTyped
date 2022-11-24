@@ -66,21 +66,19 @@ declare module '../../index' {
          *   might return. Rather, there is just a very low
          *   probability that values far from the mean will be
          *   returned; and a higher probability that numbers
-         *   near the mean will be returned.  Takes either 0, 1
-         *   or 2 arguments.
-         *
-         *   If no args, returns a mean of 0 and standard
-         *   deviation of 1.
+         *   near the mean will be returned. Takes either 0, 1
+         *   or 2 arguments. If no args, returns a mean of 0
+         *   and standard deviation of 1.
          *
          *   If one arg, that arg is the mean (standard
          *   deviation is 1).
          *
          *   If two args, first is mean, second is standard
          *   deviation.
-         *   @param mean the mean
-         *   @param sd the standard deviation
+         *   @param [mean] the mean
+         *   @param [sd] the standard deviation
          *   @return the random number
          */
-        randomGaussian(mean: number, sd: number): number;
+        randomGaussian(mean?: number, sd?: number): number;
     }
 }

@@ -135,6 +135,7 @@ declare namespace mock {
          * @param requestConfig The request object to compare mock with.
          */
         match<O extends requests.PostData<T1, T2>>(mockRequest: O, requestConfig: O): boolean;
+        match<O extends requests.PutData<T1, T2>>(mockRequest: O, requestConfig: O): boolean;
     }
 
     namespace requests {
@@ -142,6 +143,8 @@ declare namespace mock {
          * Request methods type
          */
         type Method = "GET" | "POST" | "DELETE" | "PUT" | "HEAD" | "PATCH" | "JSONP";
+
+        type Headers = Record<string, string>;
 
         /**
          * All available request types.
@@ -151,6 +154,7 @@ declare namespace mock {
             Post<any> |
             Head<any> |
             Delete<any> |
+            PutData<any, any> |
             Put<any> |
             Patch<any> |
             Jsonp<any>;
@@ -165,12 +169,13 @@ declare namespace mock {
                 regex?: boolean | undefined;
                 params?: Object | undefined;
                 queryString?: Object | undefined;
-                headers?: Object | undefined;
+                headers?: Headers | undefined;
             };
             response: {
                 status?: number | undefined;
                 delay?: number | undefined;
                 data: TResponse;
+                headers?: Headers | undefined;
             };
         }
 
@@ -247,6 +252,23 @@ declare namespace mock {
                 method: "PUT";
                 path: string;
                 regex?: boolean | undefined;
+            };
+            response: {
+                status?: number | undefined;
+                delay?: number | undefined;
+                data: TResponse;
+            };
+        }
+
+        /**
+         * PUT request mock with payload.
+         */
+        interface PutData<TResponse, TPayload> {
+            request: {
+                method: "PUT";
+                path: string;
+                regex?: boolean | undefined;
+                data: TPayload;
             };
             response: {
                 status?: number | undefined;

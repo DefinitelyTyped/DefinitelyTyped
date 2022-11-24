@@ -25,7 +25,8 @@ export class DepthTexture extends Texture {
         anisotropy?: number,
     );
 
-    image: { width: number; height: number };
+    get image(): { width: number; height: number };
+    set image(value: { width: number; height: number });
 
     /**
      * @default false

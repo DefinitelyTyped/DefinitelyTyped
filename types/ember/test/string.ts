@@ -1,41 +1,51 @@
 import Ember from 'ember';
 import { SafeString } from '@ember/template/-private/handlebars';
 
-const { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, loc, underscore, w } = Ember.String;
+const { dasherize, camelize, capitalize, classify, decamelize, htmlSafe, underscore, w } = Ember.String;
 
-dasherize(); // $ExpectError
+// @ts-expect-error
+dasherize();
 dasherize('blue man group'); // $ExpectType string
-dasherize('', ''); // $ExpectError
+// @ts-expect-error
+dasherize('', '');
 
-camelize(); // $ExpectError
+// @ts-expect-error
+camelize();
 camelize('blue man group'); // $ExpectType string
-camelize('', ''); // $ExpectError
+// @ts-expect-error
+camelize('', '');
 
-decamelize(); // $ExpectError
+// @ts-expect-error
+decamelize();
 decamelize('blue man group'); // $ExpectType string
-decamelize('', ''); // $ExpectError
+// @ts-expect-error
+decamelize('', '');
 
-underscore(); // $ExpectError
+// @ts-expect-error
+underscore();
 underscore('blue man group'); // $ExpectType string
-underscore('', ''); // $ExpectError
+// @ts-expect-error
+underscore('', '');
 
-w(); // $ExpectError
+// @ts-expect-error
+w();
 w('blue man group'); // $ExpectType string[]
-w('', ''); // $ExpectError
+// @ts-expect-error
+w('', '');
 
-classify(); // $ExpectError
+// @ts-expect-error
+classify();
 classify('blue man group'); // $ExpectType string
-classify('', ''); // $ExpectError
+// @ts-expect-error
+classify('', '');
 
-capitalize(); // $ExpectError
+// @ts-expect-error
+capitalize();
 capitalize('blue man group'); // $ExpectType string
-capitalize('', ''); // $ExpectError
-
-loc(); // $ExpectError
-loc('_Hello World'); // $ExpectType string
-// TODO - fix this case upstream in @types/ember https://github.com/typed-ember/ember-cli-typescript/issues/281
-loc('_Hello %@ %@', ['John', 'Smith']); // $ExpectType string
+// @ts-expect-error
+capitalize('', '');
 
 const handlebarsSafeString: SafeString = Ember.String.htmlSafe('lorem ipsum...');
 Ember.String.htmlSafe('lorem ipsum...'); // $ExpectType SafeString
-const regularString: string = Ember.String.htmlSafe('lorem ipsum...'); // $ExpectError
+// @ts-expect-error
+const regularString: string = Ember.String.htmlSafe('lorem ipsum...');

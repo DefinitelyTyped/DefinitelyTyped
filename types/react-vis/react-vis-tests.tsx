@@ -52,6 +52,7 @@ export function Example() {
                 }}
             />
             <LineMarkSeries
+                size={3}
                 className="linemark-series-example"
                 style={{
                     strokeWidth: '3px',

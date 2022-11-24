@@ -15,22 +15,24 @@ export class ReactHowlerTest extends React.Component {
             <div>
                 <ReactHowler
                     src={'some-source-url.mp3'}
+                    preload={false}
                     playing={false}
-                    mute={true}
-                    onPlay={id => console.log('playing sound with id ', id)}
-                    onLoad={() => console.log('sound loaded')}
-                    onLoadError={id =>
-                        console.log('error loading sound with id ', id)
-                    }
-                    onEnd={() => console.log('sound ended')}
-                    onPause={() => console.log('sound paused')}
-                    onStop={id => console.log('sound with id paused', id)}
-                    volume={0.5}
-                    onVolume={id => console.log('volume changed', id)}
                     loop={true}
+                    mute={true}
+                    volume={0.5}
+                    rate={1}
                     html5={true}
                     format={['mp3']}
-                    preload={false}
+                    xhr={{ method: 'GET' }}
+                    onPlay={id => console.log('playing sound with id ', id)}
+                    onPause={id => console.log('sound paused with id ', id)}
+                    onVolume={id => console.log('sound volume with id ', id)}
+                    onStop={id => console.log('sound stopped with id ', id)}
+                    onLoad={() => console.log('sound loaded')}
+                    onLoadError={id => console.log('error loading sound with id ', id)}
+                    onEnd={id => console.log('sound ended')}
+                    onSeek={id => console.log('sound seeked with id ', id)}
+                    onPlayError={id => console.log('error playing sound with id', id)}
                     ref={this.player}
                 />
             </div>

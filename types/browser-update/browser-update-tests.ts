@@ -107,7 +107,8 @@ browserUpdate({ override_ua: 'foo' });
 browserUpdate({ style: 'top' });
 browserUpdate({ style: 'corner' });
 browserUpdate({ style: 'bottom' });
-browserUpdate({ style: 'foo' }); // $ExpectError
+// @ts-expect-error
+browserUpdate({ style: 'foo' });
 browserUpdate({ shift_page_down: true });
 
 browserUpdate({ text: '' });

@@ -34,5 +34,3 @@ export class RingGeometry extends BufferGeometry {
 
     static fromJSON(data: any): RingGeometry;
 }
-
-export { RingGeometry as RingBufferGeometry };

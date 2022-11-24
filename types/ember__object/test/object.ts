@@ -9,7 +9,7 @@ const LifetimeHooks = EmberObject.extend({
     },
 
     willDestroy() {
-        delete this.resource;
+        this.resource = undefined;
         this._super();
     },
 });
@@ -55,10 +55,11 @@ class Foo extends EmberObject {
         this.get('c').split(','); // $ExpectType string[]
         this.set('c', '10').split(','); // $ExpectType string[]
         this.set('c', 10);
-        this.set('c', 10).split(','); // $ExpectError
+        // @ts-expect-error
+        this.set('c', 10).split(',');
 
         this.setProperties({ b: 11 });
-        // this.setProperties({ b: '11' }); // $ExpectError
+        // this.setProperties({ b: '11' }); // @ts-expect-error
         this.setProperties({
             a: 'def',
             b: 11,
@@ -66,9 +67,12 @@ class Foo extends EmberObject {
     }
     bar() {
         notifyPropertyChange(this, 'name');
-        notifyPropertyChange(this); // $ExpectError
-        notifyPropertyChange('name'); // $ExpectError
-        notifyPropertyChange(this, 'name', 'bar'); // $ExpectError
+        // @ts-expect-error
+        notifyPropertyChange(this);
+        // @ts-expect-error
+        notifyPropertyChange('name');
+        // @ts-expect-error
+        notifyPropertyChange(this, 'name', 'bar');
     }
 }
 
@@ -89,7 +93,7 @@ class Foo extends EmberObject {
 //         this.set('b', 10).toFixed(4); // $ExpectType string
 
 //         this.setProperties({ b: 11 });
-//         // this.setProperties({ b: '11' }); // $ExpectError
+//         // this.setProperties({ b: '11' }); // @ts-expect-error
 //         this.setProperties({
 //             a: 'def',
 //             b: 11

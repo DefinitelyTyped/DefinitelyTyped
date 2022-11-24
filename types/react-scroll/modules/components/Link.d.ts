@@ -6,6 +6,7 @@ export interface ReactScrollLinkProps {
     activeClass?: string | undefined;
     spy?: boolean | undefined;
     hashSpy?: boolean | undefined;
+    horizontal?: boolean | undefined;
     smooth?: boolean | string | undefined;
     offset?: number | undefined;
     delay?: number | undefined;
@@ -13,8 +14,8 @@ export interface ReactScrollLinkProps {
     onClick?(): void;
     duration?: number | string | ((distance: number) => number) | undefined;
     absolute?: boolean | undefined;
-    onSetActive?(to: string): void;
-    onSetInactive?(): void;
+    onSetActive?(to: string, element: HTMLElement): void;
+    onSetInactive?(to: string, element: HTMLElement): void;
     ignoreCancelEvents?: boolean | undefined;
     saveHashHistory?: boolean | undefined;
 }

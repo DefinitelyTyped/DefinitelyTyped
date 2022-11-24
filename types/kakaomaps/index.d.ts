@@ -2,6 +2,7 @@
 // Project: https://apis.map.kakao.com/web/documentation/
 // Definitions by: MinByeongDon <https://github.com/MinByeongDon>
 //                 PositiveKo <https://github.com/positiveko>
+//                 Sanghyeon Lee <https://github.com/yongdamsh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
   // # Core
@@ -329,8 +330,8 @@ declare namespace kakao.maps {
     setMap(map: Map|null): void;
     getMap(): Map|null;
     setOptions(options: PolygonOptions): void;
-    setPath(path: LatLng[]): void;
-    getPath(): LatLng[];
+    setPath(path: LatLng[]|LatLng[][]): void;
+    getPath(): LatLng[]|LatLng[][];
     getLength(): number;
     getArea(): number;
     setZIndex(zIndex: number): void;

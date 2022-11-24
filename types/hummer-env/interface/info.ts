@@ -194,8 +194,8 @@ export type animationEasing = 'linear' | 'ease' | 'ease-in' | 'ease-out' | 'ease
 
 export interface animationTypeMap {
     position: {
-        x: number;
-        y: number;
+        x: number | string;
+        y: number | string;
     };
     scale: number;
     scaleX: number;

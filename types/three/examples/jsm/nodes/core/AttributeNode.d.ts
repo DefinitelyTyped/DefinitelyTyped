@@ -1,13 +1,9 @@
-import { TempNode } from './TempNode';
-import { NodeBuilder } from './NodeBuilder';
+import { NodeTypeOption } from './constants';
+import Node from './Node';
+import NodeBuilder from './NodeBuilder';
 
-export class AttributeNode extends TempNode {
-    constructor(name: string, type?: string);
-
-    name: string;
-    nodeType: string;
-
-    getAttributeType(builder: NodeBuilder): string;
-    getType(builder: NodeBuilder): string;
-    copy(source: AttributeNode): this;
+export default class AttributeNode extends Node {
+    constructor(attributeName: string, nodeType?: NodeTypeOption | null);
+    setAttributeName(attributeName: string): this;
+    getAttributeName(builder: NodeBuilder): string;
 }

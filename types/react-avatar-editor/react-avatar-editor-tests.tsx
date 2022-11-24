@@ -36,6 +36,7 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" className="helloworld" />
                 <AvatarEditor image="" width={1} />
                 <AvatarEditor image="" height={1} />
+                <AvatarEditor image="" backgroundColor="green" />
                 <AvatarEditor image="" border={1} />
                 <AvatarEditor image="" border={[1, 2]} />
                 <AvatarEditor image="" borderRadius={1} />
@@ -46,8 +47,8 @@ class AvatarEditorTest extends React.Component {
                 <AvatarEditor image="" rotate={1} />
                 <AvatarEditor image="" crossOrigin="" />
                 <AvatarEditor image="" disableBoundaryChecks={true} />
-                <AvatarEditor image="" disableDrop={true} />
-                <AvatarEditor image="" onDropFile={event => {}} />
+                <AvatarEditor image="" disableHiDPIScaling={true} />
+                <AvatarEditor image="" disableCanvasRotation={true} />
                 <AvatarEditor image="" onLoadFailure={event => {}} />
                 <AvatarEditor image="" onLoadSuccess={imageState => {}} />
                 <AvatarEditor image="" onImageReady={event => {}} />

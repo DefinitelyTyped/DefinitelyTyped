@@ -18,11 +18,19 @@ rollADie({
     noSound: true
 });
 
-rollADie(); // $ExpectError
-rollADie({}); // $ExpectError
-rollADie({ element: null, numberOfDice: 1 }); // $ExpectError
-rollADie({ element, numberOfDice: true }); // $ExpectError
-rollADie({ element, numberOfDice: 1, callback: 34 }); // $ExpectError
-rollADie({ element, numberOfDice: 1, delay: '5000' }); // $ExpectError
-rollADie({ element, numberOfDice: 1, values: { val: 'Hello World!' } }); // $ExpectError
-rollADie({ element, numberOfDice: 1, values: [5, '6'] }); // $ExpectError
+// @ts-expect-error
+rollADie();
+// @ts-expect-error
+rollADie({});
+// @ts-expect-error
+rollADie({ element: null, numberOfDice: 1 });
+// @ts-expect-error
+rollADie({ element, numberOfDice: true });
+// @ts-expect-error
+rollADie({ element, numberOfDice: 1, callback: 34 });
+// @ts-expect-error
+rollADie({ element, numberOfDice: 1, delay: '5000' });
+// @ts-expect-error
+rollADie({ element, numberOfDice: 1, values: { val: 'Hello World!' } });
+// @ts-expect-error
+rollADie({ element, numberOfDice: 1, values: [5, '6'] });

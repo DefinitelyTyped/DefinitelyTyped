@@ -16,20 +16,20 @@ import rmfr = require("rmfr");
         }
     });
 
-    // $ExpectError
+    // @ts-expect-error
     await rmfr(".gitignore", { unlink: (path, cb) => cb(new Error()) });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr();
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("<", { o: "O" }, "/");
-    // $ExpectError
+    // @ts-expect-error
     await rmfr(["1"], { glob: true });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", 1);
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", { chmod: new Set(["a"]) });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", { maxBusyTries: "foo", emfileWait: "bar", glob: "baz" });
-    // $ExpectError
+    // @ts-expect-error
     await rmfr("foo", { disableGlob: true });
 })();

@@ -83,9 +83,9 @@ $el.cheerio;
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
-// $ExpectError
+// @ts-expect-error
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
-// $ExpectError
+// @ts-expect-error
 $el.attr('id', el => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
 
@@ -321,6 +321,7 @@ $el.text('text');
 $el.wrap($('<div class="red-fruit"></div>')).html();
 
 // .css
+$el.css();
 $el.css('width');
 $el.css(['width', 'height']);
 $el.css('width', '50px');
@@ -378,17 +379,17 @@ const doSomething = (element: cheerio.Element): void => {
         element.children;
     }
 
-    // $ExpectError
+    // @ts-expect-error
     let a = element.firstChild;
-    // $ExpectError
+    // @ts-expect-error
     let b = element.lastChild;
 
     if (element.next) {
-        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment" || "script" | "style" | "text" | "tag" | "comment"
         let d = element.next.type;
     }
     if (element.prev) {
-        // $ExpectType "text" | "tag" | "script" | "style" | "comment"
+        // $ExpectType "text" | "tag" | "script" | "style" | "comment" || "script" | "style" | "text" | "tag" | "comment"
         let d = element.prev.type;
     }
 };

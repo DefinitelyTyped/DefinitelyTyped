@@ -1,4 +1,4 @@
-declare module DDPRateLimiter {
+declare namespace DDPRateLimiter {
     interface Matcher {
         type?: string | ((type: string) => boolean) | undefined;
         name?: string | ((name: string) => boolean) | undefined;

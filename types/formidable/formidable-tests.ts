@@ -11,7 +11,7 @@ import {
     Options,
     PersistentFile,
     VolatileFile,
-    Part
+    Part,
 } from "formidable";
 import * as http from "http";
 
@@ -25,7 +25,9 @@ const options: Options = {
     keepExtensions: false,
     maxFields: 1000,
     maxFieldsSize: 20 * 1024 * 1024,
+    maxFiles: Infinity,
     maxFileSize: 200 * 1024 * 1024,
+    maxTotalFileSize: 200 * 1024 * 1024,
     minFileSize: 1,
     multiples: false,
     uploadDir: "/dir",
@@ -33,7 +35,7 @@ const options: Options = {
         // $ExpectType Part
         part;
         return true;
-    }
+    },
 };
 
 const file: File = {
@@ -52,7 +54,7 @@ const file: File = {
         mtime: file.mtime!,
         originalFilename: file.originalFilename,
         filepath: file.filepath,
-        size: file.size
+        size: file.size,
     }),
     toString: () => `File: ${file.originalFilename}`,
 };
@@ -95,7 +97,7 @@ MultipartParser.stateToString;
 MultipartParser.STATES;
 
 const form = new Formidable(options);
-form.on("data", data => {
+form.on('data', data => {
     // $ExpectType EventData
     data;
 
@@ -115,51 +117,45 @@ form.on("data", data => {
     end;
     // $ExpectType string
     formname;
-});
+})
+    .on('fileBegin', (formname, file) => {
+        // $ExpectType string
+        formname;
+        // $ExpectType File
+        file;
 
-form.on("fileBegin", (formname, file) => {
-    // $ExpectType string
-    formname;
-    // $ExpectType File
-    file;
+        form.emit('data', { name: 'fileBegin', formname, value: file });
+    })
+    .on('file', (formname, file) => {
+        // $ExpectType string
+        formname;
+        // $ExpectType File
+        file;
 
-    form.emit("data", { name: "fileBegin", formname, value: file });
-});
-form.on("file", (formname, file) => {
-    // $ExpectType string
-    formname;
-    // $ExpectType File
-    file;
-
-    form.emit("data", { name: "file", formname, value: file });
-});
-
-form.on("progress", (bytesReceived, bytesExpected) => {
-    // $ExpectType number
-    bytesReceived;
-    // $ExpectType number
-    bytesExpected;
-});
-
-form.on("field", (name, value) => {
-    // $ExpectType string
-    name;
-    // $ExpectType string
-    value;
-});
-
-form.on("error", err => {
-    // $ExpectType any
-    err;
-});
-
-form.on("aborted", () => {});
-
-form.once("end", () => {});
-form.once("error", err => {
-    // $ExpectType any
-    err;
-});
+        form.emit('data', { name: 'file', formname, value: file });
+    })
+    .on('progress', (bytesReceived, bytesExpected) => {
+        // $ExpectType number
+        bytesReceived;
+        // $ExpectType number
+        bytesExpected;
+    })
+    .on('field', (name, value) => {
+        // $ExpectType string
+        name;
+        // $ExpectType string
+        value;
+    })
+    .on('error', err => {
+        // $ExpectType any
+        err;
+    })
+    .on('aborted', () => {})
+    .once('end', () => {})
+    .once('error', err => {
+        // $ExpectType any
+        err;
+    });
 
 form.use((self, options) => {
     // $ExpectType IncomingForm
@@ -192,6 +188,10 @@ http.createServer(req => {
         // $ExpectType Files
         files;
     });
+});
+
+http.createServer(req => {
+    form.parse(req); // testing without callback
 });
 
 // $ExpectType IncomingForm

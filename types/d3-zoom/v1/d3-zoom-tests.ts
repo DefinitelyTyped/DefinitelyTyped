@@ -254,7 +254,7 @@ zoomInterpolatorFactory = svgZoom.interpolate<(a: ZoomView, b: ZoomView) => Zoom
 
 // chainable
 svgZoom = svgZoom.on('zoom', zoomedSVGOverlay);
-// $ExpectError
+// @ts-expect-error
 svgZoom = svgZoom.on('zoom', zoomedCanvas); // fails, zoom event handler has wrong this and datum type
 
 let zoomHandler: ((this: SVGRectElement, datum: SVGDatum, index: number, group: SVGRectElement[] | ArrayLike<SVGRectElement>) => void) | undefined;
@@ -297,7 +297,7 @@ const svgOverlayTransition = svgOverlay.transition();
 // use on selection
 svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity);
 svgZoom.transform(svgOverlay, d3Zoom.zoomIdentity, [0, 0]);
-// $ExpectError
+// @ts-expect-error
 svgZoom.transform(groupsSelection, d3Zoom.zoomIdentity); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.transform(svgOverlay, function(datum, index, groups) {
@@ -312,7 +312,7 @@ svgZoom.transform(svgOverlay, function(datum, index, groups) {
 
 // use on transition
 svgOverlayTransition.call(svgZoom.transform, d3Zoom.zoomIdentity);
-// $ExpectError
+// @ts-expect-error
 svgZoom.transform(groupsTransition, d3Zoom.zoomIdentity); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.transform(svgOverlayTransition, d3Zoom.zoomIdentity);
@@ -330,7 +330,7 @@ svgZoom.transform(svgOverlayTransition, function(datum, index, groups) {
 
 // use on selection
 svgZoom.translateBy(svgOverlay, 20, 50);
-// $ExpectError
+// @ts-expect-error
 svgZoom.translateBy(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.translateBy(
@@ -380,7 +380,7 @@ svgZoom.translateBy(
 
 // use on transition
 svgZoom.translateBy(svgOverlayTransition, 20, 50);
-// $ExpectError
+// @ts-expect-error
 svgZoom.translateBy(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.translateBy(
@@ -433,7 +433,7 @@ svgZoom.translateBy(
 // use on selection
 svgZoom.translateTo(svgOverlay, 20, 50);
 svgZoom.translateTo(svgOverlay, 20, 50, [0, 0]);
-// $ExpectError
+// @ts-expect-error
 svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.translateTo(
@@ -483,7 +483,7 @@ svgZoom.translateTo(
 
 // use on transition
 svgZoom.translateTo(svgOverlayTransition, 20, 50);
-// $ExpectError
+// @ts-expect-error
 svgZoom.translateTo(groupsTransition, 20, 50); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.translateTo(
@@ -536,7 +536,7 @@ svgZoom.translateTo(
 // use on selection
 svgZoom.scaleBy(svgOverlay, 3);
 svgZoom.scaleBy(svgOverlay, 3, [0, 0]);
-// $ExpectError
+// @ts-expect-error
 svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.scaleBy(svgOverlay, function(datum, index, groups) {
@@ -550,7 +550,7 @@ svgZoom.scaleBy(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgZoom.scaleBy(svgOverlayTransition, 3);
-// $ExpectError
+// @ts-expect-error
 svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
@@ -568,7 +568,7 @@ svgZoom.scaleBy(svgOverlayTransition, function(datum, index, groups) {
 // use on selection
 svgZoom.scaleTo(svgOverlay, 3);
 svgZoom.scaleTo(svgOverlay, 3, [0, 0]);
-// $ExpectError
+// @ts-expect-error
 svgZoom.scaleBy(groupsSelection, 3); // fails, as groupSelection mismatches DOM Element type and datum type
 
 svgZoom.scaleTo(svgOverlay, function(datum, index, groups) {
@@ -582,7 +582,7 @@ svgZoom.scaleTo(svgOverlay, function(datum, index, groups) {
 });
 // use on transition
 svgZoom.scaleTo(svgOverlayTransition, 3);
-// $ExpectError
+// @ts-expect-error
 svgZoom.scaleBy(groupsTransition, 3); // fails, as groupTransition mismatches DOM Element type and datum type
 
 svgZoom.scaleTo(svgOverlayTransition, function(datum, index, groups) {

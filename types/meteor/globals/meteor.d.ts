@@ -1,5 +1,5 @@
 declare type global_Error = Error;
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in client environment. */
     var isClient: boolean;
@@ -36,12 +36,19 @@ declare module Meteor {
         address: string;
         verified: boolean;
     }
+    /**
+     * UserProfile is left intentionally underspecified here, to allow you
+     * to override it in your application (but keep in mind that the default
+     * Meteor configuration allows users to write directly to their user
+     * record's profile field)
+     */
+    interface UserProfile {}
     interface User {
         _id: string;
         username?: string | undefined;
         emails?: UserEmail[] | undefined;
         createdAt?: Date | undefined;
-        profile?: any;
+        profile?: UserProfile;
         services?: any;
     }
 
@@ -130,18 +137,27 @@ declare module Meteor {
     function methods(methods: { [key: string]: (this: MethodThisType, ...args: any[]) => any }): void;
 
     /**
-     * Invokes a method passing any number of arguments.
+     * Invokes a method with a sync stub, passing any number of arguments.
      * @param name Name of method to invoke
      * @param args Optional method arguments
      */
     function call(name: string, ...args: any[]): any;
+
+    /**
+     * Invokes a method with an async stub, passing any number of arguments.
+     * @param name Name of method to invoke
+     * @param args Optional method arguments
+     */
+    function callAsync(name: string, ...args: any[]): Promise<any>;
 
     function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
         name: string,
         args: ReadonlyArray<EJSONable | EJSONableProperty>,
         options?: {
             wait?: boolean | undefined;
-            onResultReceived?: ((error: global_Error | Meteor.Error | undefined, result?: Result) => void) | undefined;
+            onResultReceived?:
+                | ((error: global_Error | Meteor.Error | undefined, result?: Result) => void)
+                | undefined;
             /**
              * (Client only) if true, don't send this method again on reload, simply call the callback an error with the error code 'invocation-failed'.
              */
@@ -251,7 +267,7 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Login **/
     interface LoginWithExternalServiceOptions {
         requestPermissions?: ReadonlyArray<string> | undefined;
@@ -378,7 +394,7 @@ declare module Meteor {
     /** Pub/Sub **/
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Connection **/
     interface Connection {
         id: string;
@@ -399,7 +415,7 @@ declare module Meteor {
      */
     function publish(
         name: string | null,
-        func: (this: Subscription, ...args: any[]) => void,
+        func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Mongo.Cursor<any>[] | Promise<void | Mongo.Cursor<any> | Mongo.Cursor<any>[]>,
         options?: { is_auto: boolean },
     ): void;
 
@@ -450,11 +466,16 @@ declare interface Subscription {
      * Access inside the publish function. The incoming connection for this subscription.
      */
     stop(): void;
+    /**
+     * Call inside the publish function. Allows subsequent methods or subscriptions for the client of this subscription
+     * to begin running without waiting for the publishing to become ready.
+     */
+    unblock(): void;
     /** Access inside the publish function. The id of the logged-in user, or `null` if no user is logged in. */
     userId: string | null;
 }
 
-declare module Meteor {
+declare namespace Meteor {
     /** Global props **/
     /** True if running in development environment. */
     var isDevelopment: boolean;

@@ -31,8 +31,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (): { [key in keyof Arguments<T>]: Arguments<T>[key] } | Promise<{ [key in keyof Arguments<T>]: Arguments<T>[key] }>;
-        (args: ReadonlyArray<string>, cwd?: string): Argv<T>;
+        (args?: string | ReadonlyArray<string>, cwd?: string): Argv<T>;
 
         /**
          * Set key names as equivalent such that updates to a key will propagate to aliases and vice-versa.
@@ -126,7 +125,7 @@ declare namespace yargs {
          * @param description Use to provide a description for each command your application accepts (the values stored in `argv._`).
          * Set `description` to false to create a hidden command. Hidden commands don't show up in the help output and aren't available for completion.
          * @param [builder] Object to give hints about the options that your command accepts.
-         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command specific help.
+         * Can also be a function. This function is executed with a yargs instance, and can be used to provide advanced command-specific help.
          *
          * Note that when `void` is returned, the handler `argv` object type will not include command-specific arguments.
          * @param [handler] Function, which will be executed with the parsed `argv` object.
@@ -326,7 +325,8 @@ declare namespace yargs {
          * @param args An array of the words in the command line to complete.
          * @param done The callback to be called with the resulting completions.
          */
-        getCompletion(args: ReadonlyArray<string>, done: (completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done: (err: Error|null, completions: ReadonlyArray<string>) => void): Argv<T>;
+        getCompletion(args: ReadonlyArray<string>, done?: never): Promise<ReadonlyArray<string>>;
 
         /**
          * Returns a promise which resolves to a string containing the help text.
@@ -786,25 +786,51 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionType<O extends Options | PositionalOptions> =
+        // Handle special cases first
+        O extends (
+            | { coerce: (arg: any) => infer T }
+        ) ? IsRequiredOrHasDefault<O> extends true ? T : T | undefined :
+        O extends (
+            | { type: "count"; default: infer D }
+            | { count: true; default: infer D }
+        ) ? number | Exclude<D, undefined> :
+        O extends (
+            | { type: "count" }
+            | { count: true }
+        ) ? number :
+        // Try to infer type with InferredOptionTypePrimitive
+        IsUnknown<InferredOptionTypePrimitive<O>> extends false ? InferredOptionTypePrimitive<O> :
+        // Use the type of `default` as the last resort
+        O extends (
+            | { default: infer D }
+        ) ? Exclude<D, undefined> : unknown;
+
+    // prettier-ignore
+    type IsRequiredOrHasDefault<O extends Options | PositionalOptions> =
         O extends (
             | { required: string | true }
             | { require: string | true }
             | { demand: string | true }
             | { demandOption: string | true }
-        ) ?
-        Exclude<InferredOptionTypeInner<O>, undefined> :
-        InferredOptionTypeInner<O>;
+            | { default: {} }
+        ) ? true : false;
+
+    type IsAny<T> = 0 extends (1 & T) ? true : false;
+    // prettier-ignore
+    type IsUnknown<T> =
+        IsAny<T> extends true ? false :
+        unknown extends T ? true :
+        false;
+
+    // prettier-ignore
+    type InferredOptionTypePrimitive<O extends Options | PositionalOptions> =
+        O extends { default: infer D } ? InferredOptionTypeInner<O> | D :
+        IsRequiredOrHasDefault<O> extends true ? InferredOptionTypeInner<O> :
+        InferredOptionTypeInner<O> | undefined;
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
-        O extends { default: any, coerce: (arg: any) => infer T } ? T :
-        O extends { default: infer D } ? D :
-        O extends { type: "count" } ? number :
-        O extends { count: true } ? number :
-        RequiredOptionType<O> | undefined;
-
-    // prettier-ignore
-    type RequiredOptionType<O extends Options | PositionalOptions> =
+        O extends { choices: ReadonlyArray<infer C> } ? C :
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
         O extends { type: "array", normalize: true } ? string[] :
@@ -822,8 +848,6 @@ declare namespace yargs {
         O extends { number: true } ? number :
         O extends { string: true } ? string :
         O extends { normalize: true } ? string :
-        O extends { choices: ReadonlyArray<infer C> } ? C :
-        O extends { coerce: (arg: any) => infer T } ? T :
         unknown;
 
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };

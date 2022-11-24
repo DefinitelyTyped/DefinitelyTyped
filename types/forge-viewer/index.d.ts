@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Forge Viewer 7.58
+// Type definitions for non-npm package Forge Viewer 7.69
 // Project: https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/overview/
 // Definitions by: Autodesk Forge Partner Development <https://github.com/Autodesk-Forge>
 //                 Alan Smith <https://github.com/alansmithnbs>
@@ -51,6 +51,12 @@ declare namespace Autodesk {
           LEAF_OBJECT,
           FIRST_OBJECT,
           LAST_OBJECT,
+        }
+
+        enum SelectionType {
+          MIXED = 1,
+          REGULAR = 2,
+          OVERLAYED = 3
         }
 
         enum ProgressState {
@@ -263,6 +269,8 @@ declare namespace Autodesk {
           loadOptions?: object | undefined;
           sharedPropertyDbPath?: string | undefined;
           ids?: string | undefined;
+          applyScaling?: string | { from: string, to: string };
+          modelNameOverride?: string;
           [key: string]: any;
         }
 
@@ -316,6 +324,7 @@ declare namespace Autodesk {
         const AGGREGATE_SELECTION_CHANGED_EVENT = 'aggregateSelection';
         const ANIM_ENDED = 'animEnded';
         const ANIMATION_READY_EVENT = 'animationReady';
+        const BEFORE_MODEL_UNLOAD_EVENT = 'beforeModelUnload';
         const CAMERA_CHANGE_EVENT = 'cameraChanged';
         const CAMERA_TRANSITION_COMPLETED = 'cameraTransitionCompleted';
         const CUTPLANES_CHANGE_EVENT = 'cutplanesChanged';
@@ -427,7 +436,7 @@ declare namespace Autodesk {
           fetchAlignmentsForNodes(nodes: BubbleNode[]): any;
           getFloorSelector(): any;
           getModel(node: BubbleNode): Model;
-          getModelAndWait(node: BubbleNode): Promise<Model>;
+          getModelAndWait(node: BubbleNode, checkIfVisible?: boolean): Promise<Model>;
           getVisibleNodes(): BubbleNode[];
           hide(node: BubbleNode): void;
           hideAll(): void;
@@ -549,6 +558,9 @@ declare namespace Autodesk {
             accessToken?: string | undefined;
             useADP?: boolean | undefined;
             useConsolidation?: boolean | undefined;
+            optOutTrackingByDefault?: boolean;
+            shouldInitializeAuth?: boolean;
+            useCredentials?: boolean;
             [key: string]: any;
         }
 
@@ -603,6 +615,7 @@ declare namespace Autodesk {
         }
 
         class Extension {
+            container: HTMLDivElement;
             viewer: GuiViewer3D;
             options: any;
             constructor(viewer: GuiViewer3D, options: any);
@@ -613,12 +626,12 @@ declare namespace Autodesk {
             getCache(): object;
             getName(): string;
             getModes(): string[];
-            getState(viewerState: object): void;
+            getState(viewerState: Private.ViewerStateOptions): void;
             isActive(mode: string): boolean;
             load(): boolean | Promise<boolean>;
             unload(): boolean;
             onToolbarCreated(toolbar?: UI.ToolBar): void;
-            restoreState(viewerState: object, immediate: boolean): boolean;
+            restoreState(viewerState: Private.ViewerStateOptions, immediate: boolean): boolean;
             setActive(enable: boolean, mode: string): void;
         }
 
@@ -845,10 +858,11 @@ declare namespace Autodesk {
             attributeName: string;
             displayCategory: string;
             displayName: string;
-            displayValue: string;
+            displayValue: string | number;
             hidden: boolean;
             type: number;
-            units: string;
+            units: string | null;
+            precision?: number;
         }
 
         class PropertySet {
@@ -1058,18 +1072,29 @@ declare namespace Autodesk {
           constructor(viewer: Viewer3D);
         }
 
+        interface SelectionDef {
+          model: Model;
+          ids: number[];
+          selectionType?: SelectionType;
+        }
+
         class Viewer3D {
             constructor(container: HTMLElement, config?: Viewer3DConfig);
 
             canvas: HTMLCanvasElement;
+            canvasWrap: HTMLElement;
+            clientContainer: HTMLElement;
             config: Viewer3DConfig;
             container: HTMLElement;
             navigation: Navigation;
             id: number;
             impl: Private.Viewer3DImpl;
+            loadedExtensions: { [key: string]: Extension };
             model: Model;
             prefs: Private.ViewerPreferences;
+            running: boolean;
             started: boolean;
+            theme: string;
             toolbar: UI.ToolBar;
 
             start(urn?: string, onSuccesfullCallback?: () => void, onErrorCallback?: (errorCode: number, errorMessage: string, statusCode: number, statusText: string) => void): any;
@@ -1078,7 +1103,7 @@ declare namespace Autodesk {
             createControls(): void;
             initialize(): any;
             setUp(config: any): void;
-            tearDown(): void;
+            tearDown(isUnloadModelsWanted?: boolean): void;
             run(): void;
             localize(): void;
             uninitialize(): void;
@@ -1123,7 +1148,7 @@ declare namespace Autodesk {
             getSelectionCount(): number;
             setSelectionMode(mode: number): void;
             getSelection(): number[];
-            getAggregateSelection(callback?: (model: Model, dbId: number) => void): any[];
+            getAggregateSelection(callback?: (model: Model, dbId: number) => void): ReadonlyArray<{ model: Model, selection: number[] }>;
             getAggregateIsolation(): any[];
             getAggregateHiddenNodes(): any[];
             getAllModels(): Model[];
@@ -1137,6 +1162,7 @@ declare namespace Autodesk {
             isNodeVisible(node: number, model?: Model): boolean;
             explode(scale: number): void;
             getExplodeScale(): number;
+            setAggregateSelection(selection: SelectionDef[]): void;
             setQualityLevel(useSAO: boolean, useFXAA: boolean): void;
             setGhosting(value: boolean): void;
             setGroundShadow(value: boolean): void;
@@ -1207,6 +1233,7 @@ declare namespace Autodesk {
             worldToClient(pt: THREE.Vector3): THREE.Vector3;
             clientToWorld(clientX: number, clientY: number, ignoreTransparent?: boolean): any;
             modelHasTopology(): boolean;
+            lockSelection(dbIds: number | number[], lock: boolean, model?: Model): void;
             setSelectionColor(col: THREE.Color, selectionType: number): void;
             set2dSelectionColor(col: THREE.Color, opacity: number): void;
             setTheme(name: string): void;
@@ -1257,12 +1284,12 @@ declare namespace Autodesk {
         }
 
         class GuiViewer3D extends Viewer3D {
-            toolController: ToolController;
             autocam: any;
-            progressbar: any;
-            utilities: ViewingUtilities;
             dockingPanels: any;
             overlays: OverlayManager;
+            progressbar: Private.ProgressBar;
+            toolController: ToolController;
+            utilities: ViewingUtilities;
 
             addPanel(panel: UI.DockingPanel): boolean;
             createDebugSubmenu(button: UI.Button): void;
@@ -1373,6 +1400,36 @@ declare namespace Autodesk {
           class ViewerPropertyPanel extends UI.PropertyPanel {
             constructor(viewer: GuiViewer3D);
             currentNodeIds: object[];
+          }
+
+          namespace Multipage {
+            namespace Events {
+              const FocusedPageChanged = 'focusedPageChanged';
+              const PageLoaded = 'pageLoaded';
+            }
+
+            class MultipageExtension extends Extension {
+              constructor(viewer: Viewer3D, options?: any);
+
+              focusedPage: any;
+              mode: string;
+              modes: string[];
+              multipageTool: ToolInterface;
+              name: string;
+
+              focusFirstPage(): string;
+              focusLastPage(): string;
+              focusNextPage(): string;
+              focusOnPage(pageToFocus: any, immediate?: boolean): string;
+              focusPrevPage(): string;
+              getAllPages(): any[];
+              getCurrentPageIndex(): number;
+              getFocusedPage(): any;
+              getNearestPages(): any[];
+              isPageLoaded(page: any): boolean;
+              isPageInView(page: any): boolean;
+              loadFocusedPage(): Promise<void>;
+            }
           }
 
           namespace PDF {
@@ -1572,7 +1629,9 @@ declare namespace Autodesk {
             function fadeValue(startValue: number, endValue: number, duration: number, setParam: (value: number) => void, onFinished?: () => void): any;
             function formatValueWithUnits(value: number, units: string, type: number, precision: number,
               options?: { noMixedArea?: boolean | undefined; noMixedVolume?: boolean | undefined, preferLetters?: boolean | undefined; }): string;
+            function getAndroidVersion(ua: any): string;
             function getHtmlTemplate(url: string, callback: (error: string, content: string) => void): void;
+            function getIOSVersion(ua: any): string;
             function lerp(x: number, y: number, t: number): number;
 
             interface FragmentList {
@@ -1688,6 +1747,12 @@ declare namespace Autodesk {
               webStorage(name: string, value: any): any;
             }
 
+            class ProgressBar {
+                lastValue: number;
+
+                setPercent(pct: number): void;
+            }
+
             class BoundsCallback implements GeometryCallback {
               constructor(bounds: THREE.Box3);
 
@@ -1795,6 +1860,61 @@ declare namespace Autodesk {
               getSeedUrn(): string;
               getState(filter?: object): object;
               restoreState(viewerState: object, filter?: object, immediate?: boolean): boolean;
+            }
+
+            interface ViewerStateOptions {
+              guid?: string;
+              seedURN?: string;
+              overrides?: [];
+              objectSet?: ObjectSetItem[];
+
+              cutplanes?: number[][];
+
+              viewport?: {
+                name: string;
+                eye: [number, number, number];
+                target: [number, number, number];
+                up: [number, number, number];
+                worldUpVector: [number, number, number];
+                pivotPoint: [number, number, number];
+                distanceToOrbit: number;
+                aspectRatio: number;
+                projection: 'perspective' | 'orthographic';
+                isOrthographic: boolean;
+                fieldOfView?: number;
+                orthographicHeight?: number;
+              };
+
+              renderOptions?: {
+                environment: string;
+                ambientOcclusion: {
+                  enabled: boolean;
+                  radius: number;
+                  intensity: number;
+                };
+                toneMap: {
+                  method: number;
+                  exposure: number;
+                  lightMultiplier: number;
+                };
+                appearance: {
+                  ghostHidden: boolean;
+                  ambientShadow: boolean;
+                  antiAliasing: boolean;
+                  progressiveDisplay: boolean;
+                  swapBlackAndWhite: boolean;
+                  displayLines: boolean;
+                  displayPoints: boolean;
+                };
+              };
+            }
+
+            interface ObjectSetItem {
+              id: number[];
+              isolated: number[];
+              hidden: number[];
+              explodeScale: number;
+              seedUrn: string;
             }
 
             interface HitTestResult {
@@ -2845,7 +2965,8 @@ declare namespace Autodesk {
         datavizDotOverlay: any;
         deviceDepthOcclusion: boolean;
         hasViewables: boolean;
-        surfaceShading: DataVisualization.Core.SurfaceShading;
+        model: Viewing.Model;
+        surfaceShading: { [key: number]: any; };
         streamLineBuilder: DataVisualization.Core.StreamLineBuilder;
 
         constructor(viewer: Viewing.Viewer3D, options?: {
@@ -2869,16 +2990,22 @@ declare namespace Autodesk {
             scale?: number | undefined,
             url?: string | undefined
           }): void;
-        registerSurfaceShadingColors(sensorType: string, colors: number[], alpha?: number): void;
+        registerSurfaceShadingColors(sensorType: string, colors: number[], options?: {
+            alpha?: number;
+            model?: Viewing.Model;
+        }): void;
         removeAllViewables(): void;
-        removeSurfaceShading(): void;
+        removeSurfaceShading(model?: Viewing.Model): void;
         renderSurfaceShading(nodeIds: string|string[],
           sensorType: string,
           valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint, sensorType: string) => number,
-          heatmapConfig?: {
-            confidence?: number | undefined;
-            powerParameter?: number | undefined;
-            alpha?: number | undefined;
+          options?: {
+            heatmapConfig?: {
+              confidence?: number | undefined;
+              powerParameter?: number | undefined;
+              alpha?: number | undefined;
+            };
+            model?: Viewing.Model;
           }): void;
         setupSurfaceShading(model: Viewing.Model, shadingData: DataVisualization.Core.SurfaceShadingData,
           options?: {
@@ -2893,10 +3020,13 @@ declare namespace Autodesk {
         showTextures(): void;
         updateSurfaceShading(valueCallback: (device: DataVisualization.Core.SurfaceShadingPoint,
           sensorType: string) => number,
-          heatmapConfig?: {
-            confidence?: number | undefined;
-            powerParameter?: number | undefined;
-            alpha?: number | undefined;
+          options?: {
+            heatmapConfig?: {
+              confidence?: number | undefined;
+              powerParameter?: number | undefined;
+              alpha?: number | undefined;
+            };
+            model?: Viewing.Model;
           }): void;
       }
 

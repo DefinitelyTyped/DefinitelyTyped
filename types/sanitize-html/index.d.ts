@@ -3,7 +3,6 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>
 //                 Rinze de Laat <https://github.com/biermeester>
-//                 A penguin <https://github.com/sirMerr>
 //                 Johan Davidsson <https://github.com/johandavidson>
 //                 Jianrong Yu <https://github.com/YuJianrong>
 //                 GP <https://github.com/paambaati>

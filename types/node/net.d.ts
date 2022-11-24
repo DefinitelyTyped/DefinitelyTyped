@@ -10,7 +10,7 @@
  * ```js
  * const net = require('net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v17.0.0/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/net.js)
  */
 declare module 'net' {
     import * as stream from 'node:stream';
@@ -54,11 +54,15 @@ declare module 'net' {
         hints?: number | undefined;
         family?: number | undefined;
         lookup?: LookupFunction | undefined;
+        noDelay?: boolean | undefined;
+        keepAlive?: boolean | undefined;
+        keepAliveInitialDelay?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
+    type SocketReadyState = 'opening' | 'open' | 'readOnly' | 'writeOnly' | 'closed';
     /**
      * This class is an abstraction of a TCP socket or a streaming `IPC` endpoint
      * (uses named pipes on Windows, and Unix domain sockets otherwise). It is also
@@ -127,6 +131,17 @@ declare module 'net' {
          * @return The socket itself.
          */
         pause(): this;
+        /**
+         * Close the TCP connection by sending an RST packet and destroy the stream.
+         * If this TCP socket is in connecting status, it will send an RST packet
+         * and destroy this TCP socket once it is connected. Otherwise, it will call
+         * `socket.destroy` with an `ERR_SOCKET_CLOSED` Error. If this is not a TCP socket
+         * (for example, a pipe), calling this method will immediately throw
+         * an `ERR_INVALID_HANDLE_TYPE` Error.
+         * @since v18.3.0
+         * @return The socket itself.
+         */
+        resetAndDestroy(): this;
         /**
          * Resumes reading after a call to `socket.pause()`.
          * @return The socket itself.
@@ -204,7 +219,7 @@ declare module 'net' {
          */
         unref(): this;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will_not_ let the program exit if it's the only socket left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed socket will _not_ let the program exit if it's the only socket left (the default behavior).
          * If the socket is `ref`ed calling `ref` again will have no effect.
          * @since v0.9.1
          * @return The socket itself.
@@ -263,6 +278,17 @@ declare module 'net' {
          */
         readonly localPort?: number;
         /**
+         * The string representation of the local IP family. `'IPv4'` or `'IPv6'`.
+         * @since v18.8.0
+         */
+        readonly localFamily?: string;
+        /**
+         * This property represents the state of the connection as a string.
+         * @see {https://nodejs.org/api/net.html#socketreadystate}
+         * @since v0.5.0
+         */
+        readonly readyState: SocketReadyState;
+        /**
          * The string representation of the remote IP address. For example,`'74.125.127.100'` or `'2001:4860:a005::68'`. Value may be `undefined` if
          * the socket is destroyed (for example, if the client disconnected).
          * @since v0.5.10
@@ -278,6 +304,11 @@ declare module 'net' {
          * @since v0.5.10
          */
         readonly remotePort?: number | undefined;
+        /**
+         * The socket timeout in milliseconds as set by socket.setTimeout(). It is undefined if a timeout has not been set.
+         * @since v10.7.0
+         */
+        readonly timeout?: number | undefined;
         /**
          * Half-closes the socket. i.e., it sends a FIN packet. It is possible the
          * server will still send some data.
@@ -300,7 +331,8 @@ declare module 'net' {
          *   5. end
          *   6. error
          *   7. lookup
-         *   8. timeout
+         *   8. ready
+         *   9. timeout
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: (hadError: boolean) => void): this;
@@ -387,6 +419,33 @@ declare module 'net' {
          * @default false
          */
         pauseOnConnect?: boolean | undefined;
+        /**
+         * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
+         * @default false
+         * @since v16.5.0
+         */
+        noDelay?: boolean | undefined;
+        /**
+         * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
+         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * @default false
+         * @since v16.5.0
+         */
+        keepAlive?: boolean | undefined;
+        /**
+         * If set to a positive number, it sets the initial delay before the first keepalive probe is sent on an idle socket.
+         * @default 0
+         * @since v16.5.0
+         */
+        keepAliveInitialDelay?: number | undefined;
+    }
+    interface DropArgument {
+        localAddress?: string;
+        localPort?: number;
+        localFamily?: string;
+        remoteAddress?: string;
+        remotePort?: number;
+        remoteFamily?: string;
     }
     /**
      * This class is used to create a TCP or `IPC` server.
@@ -492,7 +551,7 @@ declare module 'net' {
          */
         getConnections(cb: (error: Error | null, count: number) => void): void;
         /**
-         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will_not_ let the program exit if it's the only server left (the default behavior).
+         * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will _not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.
          * @since v0.9.1
          */
@@ -524,37 +583,44 @@ declare module 'net' {
          *   2. connection
          *   3. error
          *   4. listening
+         *   5. drop
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'connection', listener: (socket: Socket) => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
         addListener(event: 'listening', listener: () => void): this;
+        addListener(event: 'drop', listener: (data?: DropArgument) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: 'close'): boolean;
         emit(event: 'connection', socket: Socket): boolean;
         emit(event: 'error', err: Error): boolean;
         emit(event: 'listening'): boolean;
+        emit(event: 'drop', data?: DropArgument): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'connection', listener: (socket: Socket) => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
         on(event: 'listening', listener: () => void): this;
+        on(event: 'drop', listener: (data?: DropArgument) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: 'close', listener: () => void): this;
         once(event: 'connection', listener: (socket: Socket) => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
         once(event: 'listening', listener: () => void): this;
+        once(event: 'drop', listener: (data?: DropArgument) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
         prependListener(event: 'listening', listener: () => void): this;
+        prependListener(event: 'drop', listener: (data?: DropArgument) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
         prependOnceListener(event: 'listening', listener: () => void): this;
+        prependOnceListener(event: 'drop', listener: (data?: DropArgument) => void): this;
     }
     type IPVersion = 'ipv4' | 'ipv6';
     /**
@@ -638,7 +704,7 @@ declare module 'net' {
      *
      * The server can be a TCP server or an `IPC` server, depending on what it `listen()` to.
      *
-     * Here is an example of an TCP echo server which listens for connections
+     * Here is an example of a TCP echo server which listens for connections
      * on port 8124:
      *
      * ```js
@@ -717,19 +783,39 @@ declare module 'net' {
     function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
     function createConnection(path: string, connectionListener?: () => void): Socket;
     /**
-     * Tests if input is an IP address. Returns `0` for invalid strings,
-     * returns `4` for IP version 4 addresses, and returns `6` for IP version 6
-     * addresses.
+     * Returns `6` if `input` is an IPv6 address. Returns `4` if `input` is an IPv4
+     * address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no leading zeroes. Otherwise, returns`0`.
+     *
+     * ```js
+     * net.isIP('::1'); // returns 6
+     * net.isIP('127.0.0.1'); // returns 4
+     * net.isIP('127.000.000.001'); // returns 0
+     * net.isIP('127.0.0.1/24'); // returns 0
+     * net.isIP('fhqwhgads'); // returns 0
+     * ```
      * @since v0.3.0
      */
     function isIP(input: string): number;
     /**
-     * Returns `true` if input is a version 4 IP address, otherwise returns `false`.
+     * Returns `true` if `input` is an IPv4 address in [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation) with no
+     * leading zeroes. Otherwise, returns `false`.
+     *
+     * ```js
+     * net.isIPv4('127.0.0.1'); // returns true
+     * net.isIPv4('127.000.000.001'); // returns false
+     * net.isIPv4('127.0.0.1/24'); // returns false
+     * net.isIPv4('fhqwhgads'); // returns false
+     * ```
      * @since v0.3.0
      */
     function isIPv4(input: string): boolean;
     /**
-     * Returns `true` if input is a version 6 IP address, otherwise returns `false`.
+     * Returns `true` if `input` is an IPv6 address. Otherwise, returns `false`.
+     *
+     * ```js
+     * net.isIPv6('::1'); // returns true
+     * net.isIPv6('fhqwhgads'); // returns false
+     * ```
      * @since v0.3.0
      */
     function isIPv6(input: string): boolean;
@@ -760,7 +846,6 @@ declare module 'net' {
     class SocketAddress {
         constructor(options: SocketAddressInitOptions);
         /**
-         * Either \`'ipv4'\` or \`'ipv6'\`.
          * @since v15.14.0, v14.18.0
          */
         readonly address: string;

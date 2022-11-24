@@ -16,7 +16,8 @@ export * from './animation/tracks/BooleanKeyframeTrack';
 export * from './animation/PropertyMixer';
 export * from './animation/PropertyBinding';
 export * from './animation/KeyframeTrack';
-export * from './animation/AnimationUtils';
+import * as AnimationUtils from './animation/AnimationUtils';
+export { AnimationUtils };
 export * from './animation/AnimationObjectGroup';
 export * from './animation/AnimationMixer';
 export * from './animation/AnimationClip';
@@ -42,6 +43,7 @@ export * from './cameras/Camera';
  * Core
  */
 export * from './core/Uniform';
+export * from './core/UniformsGroup';
 export * from './core/InstancedBufferGeometry';
 export * from './core/BufferGeometry';
 export * from './core/InterleavedBufferAttribute';
@@ -65,6 +67,7 @@ export * from './extras/core/ShapePath';
 export * from './extras/core/CurvePath';
 export * from './extras/core/Curve';
 export * from './extras/DataUtils';
+export * from './extras/Earcut';
 export * from './extras/ImageUtils';
 export * from './extras/ShapeUtils';
 export * from './extras/PMREMGenerator';
@@ -155,6 +158,7 @@ export * from './math/Vector2';
 export * from './math/Quaternion';
 export * from './math/Color';
 export * from './math/SphericalHarmonics3';
+export { ColorManagement } from './math/ColorManagement';
 import * as MathUtils from './math/MathUtils';
 export { MathUtils };
 /**
@@ -181,6 +185,8 @@ export * from './renderers/WebGLMultipleRenderTargets';
 export * from './renderers/WebGLRenderTarget';
 export * from './renderers/WebGLRenderer';
 export * from './renderers/WebGL1Renderer';
+export * from './renderers/WebGL3DRenderTarget';
+export * from './renderers/WebGLArrayRenderTarget';
 export * from './renderers/shaders/ShaderLib';
 export * from './renderers/shaders/UniformsLib';
 export * from './renderers/shaders/UniformsUtils';
@@ -204,9 +210,10 @@ export * from './renderers/webgl/WebGLShadowMap';
 export * from './renderers/webgl/WebGLState';
 export * from './renderers/webgl/WebGLTextures';
 export * from './renderers/webgl/WebGLUniforms';
-export * from './renderers/webxr/WebXR';
+export * from './renderers/webgl/WebGLUniformsGroups';
 export * from './renderers/webxr/WebXRController';
 export * from './renderers/webxr/WebXRManager';
+export { WebGLUtils } from './renderers/webgl/WebGLUtils';
 /**
  * Scenes
  */
@@ -217,12 +224,16 @@ export * from './scenes/Scene';
  * Textures
  */
 export * from './textures/VideoTexture';
+export * from './textures/CompressedArrayTexture';
 export * from './textures/DataTexture';
 export * from './textures/DataTexture2DArray';
 export * from './textures/DataTexture3D';
 export * from './textures/CompressedTexture';
 export * from './textures/CubeTexture';
+export * from './textures/Data3DTexture';
+export * from './textures/DataArrayTexture';
 export * from './textures/CanvasTexture';
 export * from './textures/DepthTexture';
 export * from './textures/FramebufferTexture';
+export * from './textures/Source';
 export * from './textures/Texture';

@@ -11,7 +11,7 @@ type commonPropsType0 = CommonReactLinesEllipsisProps['maxLine'];
 type commonPropsType1 = CommonReactLinesEllipsisProps['ellipsis'];
 // $ExpectType boolean | undefined
 type commonPropsType2 = CommonReactLinesEllipsisProps['trimRight'];
-// $ExpectType "letters" | "words" | undefined
+// $ExpectType "letters" | "words" | undefined || "words" | "letters" | undefined
 type commonPropsType3 = CommonReactLinesEllipsisProps['basedOn'];
 // $ExpectType number | undefined
 type commonPropsType4 = CommonReactLinesEllipsisProps['winWidth'];
@@ -50,7 +50,7 @@ responsiveHOC();
  * => ComponentType<P & { innerRef?: LegacyRef<HTMLDivElement> | undefined; }>
  */
 responsiveHOC(10, { leading: true, maxWait: 10, trailing: true });
-// $ExpectError
+// @ts-expect-error
 responsiveHOC('10', {});
-// $ExpectError
+// @ts-expect-error
 responsiveHOC(10, { leading: 1, maxWait: '10', trailing: 1 });

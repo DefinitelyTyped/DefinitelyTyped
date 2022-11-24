@@ -7,7 +7,7 @@ declare module '../../index' {
         /**
          *   Returns the Perlin noise value at specified
          *   coordinates. Perlin noise is a random sequence
-         *   generator producing a more natural ordered,
+         *   generator producing a more naturally ordered,
          *   harmonic succession of numbers compared to the
          *   standard random() function. It was invented by Ken
          *   Perlin in the 1980s and been used since in
@@ -61,7 +61,7 @@ declare module '../../index' {
          *   output signal and as such define the overall
          *   intensity of the noise, whereas higher octaves
          *   create finer grained details in the noise
-         *   sequence.  By default, noise is computed over 4
+         *   sequence. By default, noise is computed over 4
          *   octaves with each octave contributing exactly half
          *   than its predecessor, starting at 50% strength for
          *   the 1st octave. This falloff amount can be changed
@@ -71,12 +71,9 @@ declare module '../../index' {
          *   octave. Any value between 0.0 and 1.0 is valid,
          *   however note that values greater than 0.5 might
          *   result in greater than 1.0 values returned by
-         *   noise().
-         *
-         *
-         *   By changing these parameters, the signal created
-         *   by the noise() function can be adapted to fit very
-         *   specific needs and characteristics.
+         *   noise(). By changing these parameters, the signal
+         *   created by the noise() function can be adapted to
+         *   fit very specific needs and characteristics.
          *   @param lod number of octaves to be used by the
          *   noise
          *   @param falloff falloff factor for each octave

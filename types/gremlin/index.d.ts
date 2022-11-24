@@ -1,7 +1,6 @@
-// Type definitions for gremlin 3.5
+// Type definitions for gremlin 3.6
 // Project: https://tinkerpop.apache.org/
-// Definitions by: keith1024 <https://github.com/keith1024>
-//                 Paulo Soares <https://github.com/7jpsan>
+// Definitions by: Paulo Soares <https://github.com/7jpsan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export { driver, process, structure };
@@ -24,7 +23,7 @@ interface Newable<T> {
 
 declare namespace driver {
     class RemoteConnection {
-        constructor(url: string);
+        constructor(url: string, options?: any);
         open(): Promise<void>;
         submit(bytecode: Bytecode): Promise<any>;
         close(): Promise<void>;
@@ -42,16 +41,30 @@ declare namespace driver {
     class DriverRemoteConnection extends RemoteConnection {
         constructor(url: string, options?: any);
         open(): Promise<void>;
+        isOpen: Promise<boolean>;
         submit(bytecode: Bytecode): Promise<any>;
+        createSession(): this;
+        isSessionBound: boolean;
+        commit(): Promise<any>;
+        rollback(): Promise<any>;
         close(): Promise<void>;
         addListener(event: string | symbol, handler: (...args: any[]) => void): void;
         removeListener(event: string | symbol, handler: (...args: any[]) => void): void;
     }
 
+    interface RequestOptions {
+        requestId: string;
+        batchSize: number;
+        userAgent: string;
+        evaluationTimeout: number;
+    }
+
     class Client {
         constructor(url: string, options?: any);
         open(): Promise<void>;
-        submit(message: Bytecode | string, bindings?: any): Promise<any>;
+        isOpen: Promise<boolean>;
+        submit(message: Bytecode | string, bindings?: any, requestOptions?: RequestOptions): Promise<any>;
+        stream(message: Bytecode | string, bindings?: any, requestOptions?: RequestOptions): any;
         close(): Promise<void>;
     }
 
@@ -118,6 +131,8 @@ declare namespace process {
         static notEndingWith(...args: any[]): TextP;
         static notStartingWith(...args: any[]): TextP;
         static startingWith(...args: any[]): TextP;
+        static regex(...args: any[]): TextP;
+        static notRegex(...args: any[]): TextP;
     }
 
     class Traversal implements AsyncIterableIterator<any> {
@@ -136,6 +151,7 @@ declare namespace process {
     class TraversalStrategies {
         constructor(parent?: TraversalStrategies);
         addStrategy(strategy: TraversalStrategy): void;
+        removeStrategy(strategy: TraversalStrategy): any;
         applyStrategies(traversal: Traversal): Promise<Traversal>;
     }
 
@@ -148,7 +164,7 @@ declare namespace process {
     }
 
     const barrier: {
-        normsack: EnumValue;
+        normSack: EnumValue;
     };
 
     const cardinality: {
@@ -180,7 +196,7 @@ declare namespace process {
     };
 
     interface Operator {
-        addall: EnumValue;
+        addAll: EnumValue;
         and: EnumValue;
         assign: EnumValue;
         div: EnumValue;
@@ -190,7 +206,7 @@ declare namespace process {
         mult: EnumValue;
         or: EnumValue;
         sum: EnumValue;
-        sumlong: EnumValue;
+        sumLong: EnumValue;
     }
 
     const operator: Operator;
@@ -229,6 +245,7 @@ declare namespace process {
 
     class GraphTraversal extends Traversal {
         constructor(graph: Nullable<Graph>, traversalStrategies: Nullable<TraversalStrategies>, bytecode: Bytecode);
+        clone(): this;
         V(...args: any[]): this;
         addE(...args: any[]): this;
         addV(...args: any[]): this;
@@ -241,6 +258,7 @@ declare namespace process {
         bothV(...args: any[]): this;
         branch(...args: any[]): this;
         by(...args: any[]): this;
+        call(...args: any[]): this;
         cap(...args: any[]): this;
         choose(...args: any[]): this;
         coalesce(...args: any[]): this;
@@ -251,8 +269,10 @@ declare namespace process {
         cyclicPath(...args: any[]): this;
         dedup(...args: any[]): this;
         drop(...args: any[]): this;
+        element(...args: any[]): this;
         elementMap(...args: any[]): this;
         emit(...args: any[]): this;
+        fail(...args: any[]): this;
         filter(...args: any[]): this;
         flatMap(...args: any[]): this;
         fold(...args: any[]): this;
@@ -283,7 +303,10 @@ declare namespace process {
         math(...args: any[]): this;
         max(...args: any[]): this;
         mean(...args: any[]): this;
+        mergeE(...args: any[]): this;
+        mergeV(...args: any[]): this;
         min(...args: any[]): this;
+        none(...args: any[]): this;
         not(...args: any[]): this;
         option(...args: any[]): this;
         optional(...args: any[]): this;
@@ -342,6 +365,7 @@ declare namespace process {
             graphTraversalClass?: Newable<T>,
         );
         withRemote(remoteConnection: RemoteConnection): this;
+        tx(): Transaction<this>;
         toString(): string;
         with_(...args: any[]): this;
         withBulk(...args: any[]): this;
@@ -353,7 +377,9 @@ declare namespace process {
         E(...args: any[]): T;
         V(...args: any[]): T;
         addE(...args: any[]): T;
+        mergeE(...args: any[]): T;
         addV(...args: any[]): T;
+        mergeV(...args: any[]): T;
         inject(...args: any[]): T;
         io(...args: any[]): T;
     }
@@ -370,6 +396,7 @@ declare namespace process {
         bothE: (...args: any[]) => T;
         bothV: (...args: any[]) => T;
         branch: (...args: any[]) => T;
+        call: (...args: any[]) => T;
         cap: (...args: any[]) => T;
         choose: (...args: any[]) => T;
         coalesce: (...args: any[]) => T;
@@ -381,6 +408,7 @@ declare namespace process {
         drop: (...args: any[]) => T;
         elementMap: (...args: any[]) => T;
         emit: (...args: any[]) => T;
+        fail: (...args: any[]) => T;
         filter: (...args: any[]) => T;
         flatMap: (...args: any[]) => T;
         fold: (...args: any[]) => T;
@@ -410,6 +438,8 @@ declare namespace process {
         math: (...args: any[]) => T;
         max: (...args: any[]) => T;
         mean: (...args: any[]) => T;
+        mergeE: (...args: any[]) => T;
+        mergeV: (...args: any[]) => T;
         min: (...args: any[]) => T;
         not: (...args: any[]) => T;
         optional: (...args: any[]) => T;
@@ -486,6 +516,15 @@ declare namespace process {
     }
 
     const withOptions: WithOptions;
+
+    class Transaction<S extends GraphTraversalSource = GraphTraversalSource> {
+        constructor(_g: S);
+        begin(): S;
+        commit(): Promise<any>;
+        rollback(): Promise<void>;
+        isOpen: boolean;
+        close(): Promise<void>;
+    }
 }
 
 declare namespace structure {

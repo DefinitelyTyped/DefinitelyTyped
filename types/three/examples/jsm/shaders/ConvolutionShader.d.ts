@@ -1,4 +1,4 @@
-import { Uniform } from '../../../src/core/Uniform';
+import { IUniform } from '../../../src/Three';
 
 export const ConvolutionShader: {
     defines: {
@@ -6,9 +6,9 @@ export const ConvolutionShader: {
         KERNEL_SIZE_INT: string;
     };
     uniforms: {
-        tDiffuse: Uniform;
-        uImageIncrement: Uniform;
-        cKernel: Uniform;
+        tDiffuse: IUniform;
+        uImageIncrement: IUniform;
+        cKernel: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

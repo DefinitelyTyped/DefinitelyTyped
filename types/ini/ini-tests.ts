@@ -8,13 +8,13 @@ const iniContent = '';
 let decoded = ini.decode(iniContent);
 decoded = ini.parse(iniContent);
 
-// $ExpectError
+// @ts-expect-error
 let badDecoded = ini.decode();
-// $ExpectError
+// @ts-expect-error
 badDecoded = ini.decode(null);
-// $ExpectError
+// @ts-expect-error
 badDecoded = ini.parse();
-// $ExpectError
+// @ts-expect-error
 badDecoded = ini.parse(null);
 
 /* ini.encode() / ini.stringify() */
@@ -26,9 +26,9 @@ encoded = ini.encode(decoded, { whitespace: true });
 encoded = ini.encode(decoded, { section: 'Section' });
 encoded = ini.encode(decoded, { whitespace: true, section: 'Section' });
 
-// $ExpectError
+// @ts-expect-error
 let badEncoded = ini.encode();
-// $ExpectError
+// @ts-expect-error
 badEncoded = ini.encode(decoded, null);
 
 encoded = ini.stringify(decoded);
@@ -37,9 +37,9 @@ encoded = ini.stringify(decoded, { whitespace: true });
 encoded = ini.stringify(decoded, { section: 'Section' });
 encoded = ini.stringify(decoded, { whitespace: true, section: 'Section' });
 
-// $ExpectError
+// @ts-expect-error
 badEncoded = ini.stringify();
-// $ExpectError
+// @ts-expect-error
 badEncoded = ini.stringify(decoded, null);
 
 /* ini.safe() / ini.unsafe() */
@@ -47,15 +47,15 @@ badEncoded = ini.stringify(decoded, null);
 // $ExpectType string
 const safeStr = ini.safe('foo bar');
 
-// $ExpectError
+// @ts-expect-error
 let badSafeStr = ini.safe();
-// $ExpectError
+// @ts-expect-error
 badSafeStr = ini.safe(null);
 
 // $ExpectType string
 const unsafeStr = ini.unsafe(safeStr);
 
-// $ExpectError
+// @ts-expect-error
 let badUnsafeStr = ini.unsafe();
-// $ExpectError
+// @ts-expect-error
 badUnsafeStr = ini.unsafe(null);

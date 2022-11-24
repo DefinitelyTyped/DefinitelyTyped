@@ -1,8 +1,8 @@
-import { Peaks } from "../types/backend";
-import { WaveSurferParams } from "../types/params";
-import { DrawingContextAttributes } from "../types/util";
-import Drawer from "./drawer";
-import CanvasEntry from "./drawer.canvasentry";
+import { Peaks } from '../types/backend';
+import { WaveSurferParams } from '../types/params';
+import { DrawingContextAttributes } from '../types/util';
+import Drawer from './drawer';
+import CanvasEntry from './drawer.canvasentry';
 
 export default class MultiCanvas extends Drawer {
     constructor(container: HTMLElement, params: WaveSurferParams);

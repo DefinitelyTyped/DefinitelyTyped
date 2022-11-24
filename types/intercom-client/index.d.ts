@@ -4,7 +4,6 @@
 //                 Josef Hornych <https://github.com/peping>
 //                 Mikhail Monchak <https://github.com/mikhail-monchak>
 //                 Chris Doe <https://github.com/cdoe>
-//                 Malith Wijenayake <https://github.com/malithrw>
 //                 Kroustille <https://github.com/kroustille>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -64,6 +63,7 @@ export class Client {
      * Note that certain request options (such as `json`, and certain `headers` names cannot be overridden).
      */
     useRequestOpts(options?: request.CoreOptions): this;
+    usePromises(): this;
 }
 
 export class ApiResponse<T> extends IncomingMessage {

@@ -14,7 +14,7 @@ import * as Koa from 'koa';
 import * as Joi from 'joi';
 import * as KoaRouter from 'koa-router';
 import * as CoBody from 'co-body';
-import * as busboy from 'busboy';
+import { BusboyConfig } from 'busboy';
 import * as http from 'http';
 
 declare module 'koa' {
@@ -51,17 +51,13 @@ declare namespace createRouter {
                   type?: 'form' | 'json' | 'multipart' | undefined;
                   formOptions?: CoBody.Options | undefined;
                   jsonOptions?: CoBody.Options | undefined;
-                  multipartOptions?: MultipartOptions | undefined;
+                  multipartOptions?: BusboyConfig | undefined;
                   output?: { [status: string]: OutputValidation } | undefined;
                   continueOnError?: boolean | undefined;
                   validateOptions?: Joi.ValidationOptions | undefined;
               }
             | undefined;
         meta?: any;
-    }
-
-    interface MultipartOptions extends Omit<busboy.BusboyConfig, 'headers'> {
-        headers?: http.IncomingHttpHeaders;
     }
 
     interface Spec extends Config {

@@ -4,7 +4,7 @@
  * invoke your lambda, but you can directly use this type for when you are invoking
  * your lambda directly.
  *
- * See tme {@link http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html AWS documentation}
+ * See the {@link http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html AWS documentation}
  * for more information about the runtime behavior, and the
  * {@link https://aws.amazon.com/blogs/compute/node-js-8-10-runtime-now-available-in-aws-lambda/ AWS Blog post}
  * introducing the async handler behavior in the 8.10 runtime.

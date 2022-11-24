@@ -1,4 +1,5 @@
 import { TreeIndex, SearchData } from '..';
 
 export function defaultGetNodeKey(data: TreeIndex): number;
-export function defaultSearchMethod(data: SearchData): boolean;
+// tslint:disable-next-line:no-unnecessary-generics
+export function defaultSearchMethod<T>(data: SearchData<T>): boolean;

@@ -49,8 +49,7 @@ export default class FocusTracker implements DomEmitter, Observable {
     get isFocused(): boolean;
     protected set isFocused(value: boolean);
 
-    set(option: Record<string, unknown>): void;
-    set(name: string, value: unknown): void;
+    set(...args: [option: Record<string, unknown>] | [name: string, value: unknown] | [name: string]): void;
     bind(...bindProperties: string[]): BindChain;
     unbind(...unbindProperties: string[]): void;
     decorate(methodName: string): void;

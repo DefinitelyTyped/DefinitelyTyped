@@ -1,4 +1,4 @@
-// Type definitions for blueimp-load-image 5.14
+// Type definitions for blueimp-load-image 5.16
 // Project: https://github.com/blueimp/JavaScript-Load-Image
 // Definitions by: Evan Kesten <https://github.com/ebk46>
 //                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
@@ -107,6 +107,20 @@ declare namespace loadImage {
     type LoadImageOptions = BasicOptions & CanvasOptions & CropOptions & MetaOptions;
 }
 
+interface ParseMetadata {
+    (
+        file: File | Blob | string,
+        callback: loadImage.ParseMetaDataCallback,
+        options?: loadImage.ParseOptions,
+        data?: loadImage.ImageHead,
+    ): void;
+    (
+        file: File | Blob | string,
+        options?: loadImage.ParseOptions,
+        data?: loadImage.ImageHead,
+    ): Promise<loadImage.MetaData>;
+}
+
 // loadImage is implemented as a callable object.
 interface LoadImage {
     (file: File | Blob | string, callback: loadImage.LoadImageCallback, options: loadImage.LoadImageOptions):
@@ -115,14 +129,9 @@ interface LoadImage {
         | false;
     (file: File | Blob | string, options: loadImage.LoadImageOptions): Promise<loadImage.LoadImageResult>;
 
-    // Parses image meta data and calls the callback with the image head
-    parseMetaData: (
-        file: File | Blob | string,
-        callback: loadImage.ParseMetaDataCallback,
-        options?: loadImage.ParseOptions,
-        data?: loadImage.ImageHead,
-    ) => void;
+    parseMetaData: ParseMetadata;
 
+    // Parses image meta data and calls the callback/returns the promise with the image head
     blobSlice: (this: Blob, start?: number, end?: number) => Blob;
 }
 

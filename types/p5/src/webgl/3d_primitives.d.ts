@@ -30,25 +30,37 @@ declare module '../../index' {
         box(width?: number, Height?: number, depth?: number, detailX?: number, detailY?: number): p5;
 
         /**
-         *   Draw a sphere with given radius
+         *   Draw a sphere with given radius. DetailX and
+         *   detailY determines the number of subdivisions in
+         *   the x-dimension and the y-dimension of a sphere.
+         *   More subdivisions make the sphere seem smoother.
+         *   The recommended maximum values are both 24. Using
+         *   a value greater than 24 may cause a warning or
+         *   slow down the browser.
          *   @param [radius] radius of circle
-         *   @param [detailX] number of segments, the more
-         *   segments the smoother geometry default is 24
-         *   @param [detailY] number of segments, the more
-         *   segments the smoother geometry default is 16
+         *   @param [detailX] optional number of subdivisions
+         *   in x-dimension
+         *   @param [detailY] optional number of subdivisions
+         *   in y-dimension
          *   @chainable
          */
         sphere(radius?: number, detailX?: number, detailY?: number): p5;
 
         /**
          *   Draw a cylinder with given radius and height
+         *   DetailX and detailY determines the number of
+         *   subdivisions in the x-dimension and the
+         *   y-dimension of a cylinder. More subdivisions make
+         *   the cylinder seem smoother. The recommended
+         *   maximum value for detailX is 24. Using a value
+         *   greater than 24 may cause a warning or slow down
+         *   the browser.
          *   @param [radius] radius of the surface
          *   @param [height] height of the cylinder
-         *   @param [detailX] number of segments, the more
-         *   segments the smoother geometry default is 24
-         *   @param [detailY] number of segments in
-         *   y-dimension, the more segments the smoother
-         *   geometry default is 1
+         *   @param [detailX] number of subdivisions in
+         *   x-dimension; default is 24
+         *   @param [detailY] number of subdivisions in
+         *   y-dimension; default is 1
          *   @param [bottomCap] whether to draw the bottom of
          *   the cylinder
          *   @param [topCap] whether to draw the top of the
@@ -65,7 +77,13 @@ declare module '../../index' {
         ): p5;
 
         /**
-         *   Draw a cone with given radius and height
+         *   Draw a cone with given radius and height DetailX
+         *   and detailY determine the number of subdivisions
+         *   in the x-dimension and the y-dimension of a cone.
+         *   More subdivisions make the cone seem smoother. The
+         *   recommended maximum value for detailX is 24. Using
+         *   a value greater than 24 may cause a warning or
+         *   slow down the browser.
          *   @param [radius] radius of the bottom surface
          *   @param [height] height of the cone
          *   @param [detailX] number of segments, the more
@@ -78,7 +96,12 @@ declare module '../../index' {
         cone(radius?: number, height?: number, detailX?: number, detailY?: number, cap?: boolean): p5;
 
         /**
-         *   Draw an ellipsoid with given radius
+         *   Draw an ellipsoid with given radius DetailX and
+         *   detailY determine the number of subdivisions in
+         *   the x-dimension and the y-dimension of a cone.
+         *   More subdivisions make the ellipsoid appear to be
+         *   smoother. Avoid detail number above 150, it may
+         *   crash the browser.
          *   @param [radiusx] x-radius of ellipsoid
          *   @param [radiusy] y-radius of ellipsoid
          *   @param [radiusz] z-radius of ellipsoid
@@ -96,6 +119,14 @@ declare module '../../index' {
 
         /**
          *   Draw a torus with given radius and tube radius
+         *   DetailX and detailY determine the number of
+         *   subdivisions in the x-dimension and the
+         *   y-dimension of a torus. More subdivisions make the
+         *   torus appear to be smoother. The default and
+         *   maximum values for detailX and detailY are 24 and
+         *   16, respectively. Setting them to relatively small
+         *   values like 4 and 6 allows you to create new
+         *   shapes other than a torus.
          *   @param [radius] radius of the whole ring
          *   @param [tubeRadius] radius of the tube
          *   @param [detailX] number of segments in

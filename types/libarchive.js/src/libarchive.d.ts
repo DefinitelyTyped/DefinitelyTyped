@@ -5,7 +5,7 @@ export interface FilesObject { [key: string]: FilesObject | CompressedFile | Fil
 export class Archive {
   static init(options?: { workerUrl: string }): { workerUrl: string };
 
-  static open(file: File, options?: { workerUrl: string }): Archive;
+  static open(file: File, options?: { workerUrl: string }): Promise<Archive>;
 
   constructor(file: File, options: { workerUrl: string });
 

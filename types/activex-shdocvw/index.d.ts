@@ -7,7 +7,7 @@
 /// <reference types="activex-interop" />
 
 declare namespace SHDocVw {
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum BrowserBarConstants {
         AddressBar = 0x0009,
         Tools = 0x000A,
@@ -18,7 +18,7 @@ declare namespace SHDocVw {
         Channels = '{EFA24E63-B078-11D0-89E4-00C04FC9E26E}'
     }
 
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum BrowserNavConstants {
         /** Open the resource or file in a new window. */
         OpenInNewWindow = 1,
@@ -80,7 +80,7 @@ declare namespace SHDocVw {
     }
 
     /** Constants for WebBrowser CommandStateChange */
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum CommandStateChangeConstants {
         CSC_NAVIGATEBACK = 2,
         CSC_NAVIGATEFORWARD = 1,
@@ -88,12 +88,12 @@ declare namespace SHDocVw {
     }
 
     /** Constants for WebBrowser NewProcess notification */
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum NewProcessCauseConstants {
         ProtectedModeRedirect = 1,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum OLECMDEXECOPT {
         OLECMDEXECOPT_DODEFAULT = 0,
         OLECMDEXECOPT_DONTPROMPTUSER = 2,
@@ -101,7 +101,7 @@ declare namespace SHDocVw {
         OLECMDEXECOPT_SHOWHELP = 3,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum OLECMDF {
         OLECMDF_DEFHIDEONCTXTMENU = 32,
         OLECMDF_ENABLED = 2,
@@ -111,7 +111,7 @@ declare namespace SHDocVw {
         OLECMDF_SUPPORTED = 1,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum OLECMDID {
         OLECMDID_ACTIVEXINSTALLSCOPE = 66,
         OLECMDID_ADDTRAVELENTRY = 60,
@@ -198,7 +198,7 @@ declare namespace SHDocVw {
         OLECMDID_ZOOM = 19,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum RefreshConstants {
         Normal = 0,
         IfExpired = 1,
@@ -206,7 +206,7 @@ declare namespace SHDocVw {
     }
 
     /** Constants for WebBrowser security icon notification */
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum SecureLockIconConstants {
         secureLockIconMixed = 1,
         secureLockIconSecure128Bit = 6,
@@ -218,7 +218,7 @@ declare namespace SHDocVw {
     }
 
     /** Options for ShellWindows FindWindow */
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum ShellWindowFindWindowOptions {
         SWFO_COOKIEPASSED = 4,
         SWFO_INCLUDEPENDING = 2,
@@ -226,7 +226,7 @@ declare namespace SHDocVw {
     }
 
     /** Constants for ShellWindows registration */
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum ShellWindowTypeConstants {
         SWC_3RDPARTY = 2,
         SWC_BROWSER = 1,
@@ -235,7 +235,7 @@ declare namespace SHDocVw {
         SWC_EXPLORER = 0,
     }
 
-    // tslint:disable-next-line no-const-enum
+    // eslint-disable-next-line no-const-enum
     const enum tagREADYSTATE {
         READYSTATE_COMPLETE = 4,
         READYSTATE_INTERACTIVE = 3,

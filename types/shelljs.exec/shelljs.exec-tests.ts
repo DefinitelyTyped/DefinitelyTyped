@@ -10,4 +10,5 @@ exec('echo test without options');
 const results = exec('echo test with return');
 results.code; // $ExpectType<number>
 results.stdout; // $ExpectType<string>
-results.silent; // $ExpectError
+// @ts-expect-error
+results.silent;

@@ -9,8 +9,10 @@ new GraphQLObjectType({
 });
 
 fromGlobalId('TG9jYXRpb246bG9uZG9uX2di');
-fromGlobalId(42); // $ExpectError
+// @ts-expect-error
+fromGlobalId(42);
 
 toGlobalId('SomeType', 123);
 toGlobalId('SomeType', '123');
-toGlobalId(123, '123'); // $ExpectError
+// @ts-expect-error
+toGlobalId(123, '123');

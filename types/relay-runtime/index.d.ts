@@ -1,9 +1,9 @@
-// Type definitions for relay-runtime 12.0
+// Type definitions for relay-runtime 14.1
 // Project: https://github.com/facebook/relay, https://facebook.github.io/relay
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Stephen Pittman <https://github.com/Stephen2>
 //                 Marais Rossouw <https://github.com/maraisr>
 //                 Lorenzo Di Giacomo <https://github.com/morrys>
+//                 Levi Buzolic <https://github.com/levibuzolic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -47,9 +47,13 @@ export {
     graphql,
     getFragment,
     getInlineDataFragment,
+    getNode,
     getPaginationFragment,
     getRefetchableFragment,
     getRequest,
+    isFragment,
+    isInlineDataFragment,
+    isRequest,
 } from './lib/query/RelayModernGraphQLTag';
 export { isClientID, generateClientID, generateUniqueClientID } from './lib/store/ClientID';
 export { TaskScheduler } from './lib/store/RelayModernQueryExecutor';
@@ -58,12 +62,17 @@ export {
     Environment as IEnvironment,
     FragmentMap,
     FragmentPointer,
-    FragmentReference,
+    /** @deprecated use FragmentType instead of FragmentReference */
+    FragmentType as FragmentReference,
+    FragmentType,
     FragmentSpecResolver,
     HandleFieldPayload,
+    HasUpdatableSpread,
     InvalidationState,
     MissingFieldHandler,
+    RequiredFieldLogger,
     ModuleImportPointer,
+    MutableRecordSource,
     NormalizationSelector,
     OperationAvailability,
     OperationDescriptor,
@@ -91,24 +100,26 @@ export {
     StoreUpdater,
     LogEvent,
     LogFunction,
+    UpdatableData,
 } from './lib/store/RelayStoreTypes';
 export { GraphQLSubscriptionConfig } from './lib/subscription/requestSubscription';
 export {
     NormalizationArgument,
     NormalizationDefer,
-    NormalizationConnection,
     NormalizationField,
     NormalizationFlightField,
     NormalizationLinkedField,
     NormalizationLinkedHandle,
     NormalizationLocalArgumentDefinition,
     NormalizationModuleImport,
+    NormalizationRootNode,
     NormalizationScalarField,
     NormalizationSelection,
     NormalizationSplitOperation,
     NormalizationStream,
+    NormalizationTypeDiscriminator,
+    NormalizationOperation,
 } from './lib/util/NormalizationNode';
-export { NormalizationOperation } from './lib/util/NormalizationNode';
 export {
     ReaderArgument,
     ReaderArgumentDefinition,
@@ -128,10 +139,11 @@ export {
     RequiredFieldAction,
 } from './lib/util/ReaderNode';
 export { ConcreteRequest, GeneratedNode, RequestParameters } from './lib/util/RelayConcreteNode';
+export { RelayReplaySubject as ReplaySubject } from './lib/util/RelayReplaySubject';
 export * from './lib/util/RelayRuntimeTypes';
 
 // Core API
-export { default as Environment } from './lib/store/RelayModernEnvironment';
+export { default as Environment, EnvironmentConfig } from './lib/store/RelayModernEnvironment';
 export { RelayNetwork as Network } from './lib/network/RelayNetwork';
 export { RelayObservable as Observable } from './lib/network/RelayObservable';
 import QueryResponseCache from './lib/network/RelayQueryResponseCache';
@@ -179,6 +191,8 @@ import getDefaultMissingFieldHandlers from './lib/handlers/getRelayDefaultMissin
 export { getDefaultMissingFieldHandlers };
 import * as ConnectionHandler from './lib/handlers/connection/ConnectionHandler';
 export { ConnectionHandler };
+export { MutationHandlers } from './lib/handlers/connection/MutationHandlers';
+export { VIEWER_ID, VIEWER_TYPE } from './lib/store/ViewerPattern';
 
 // Helpers (can be implemented via the above API)
 export { applyOptimisticMutation } from './lib/mutations/applyOptimisticMutation';
@@ -191,23 +205,42 @@ export { requestSubscription } from './lib/subscription/requestSubscription';
 
 // Utilities
 export { RelayProfiler } from './lib/util/RelayProfiler';
+export { default as createPayloadFor3DField } from './lib/util/createPayloadFor3DField';
 export { default as getRelayHandleKey } from './lib/util/getRelayHandleKey';
 export { default as getRequestIdentifier } from './lib/util/getRequestIdentifier';
 export { default as getFragmentIdentifier } from './lib/util/getFragmentIdentifier';
+export { default as getPaginationMetadata } from './lib/util/getPaginationMetadata';
+export { default as getPaginationVariables } from './lib/util/getPaginationVariables';
+export { default as getRefetchMetadata } from './lib/util/getRefetchMetadata';
+export { default as getValueAtPath } from './lib/util/getValueAtPath';
+export { Direction } from './lib/util/getPaginationVariables';
+export { default as handlePotentialSnapshotErrors } from './lib/util/handlePotentialSnapshotErrors';
+export { default as PreloadableQueryRegistry } from './lib/util/PreloadableQueryRegistry';
 
 // INTERNAL-ONLY
 export { RelayConcreteNode } from './lib/util/RelayConcreteNode';
+export { default as RelayError } from './lib/util/RelayError';
 export { RelayFeatureFlags } from './lib/util/RelayFeatureFlags';
+export const DEFAULT_HANDLE_KEY = '';
 export { default as deepFreeze } from './lib/util/deepFreeze';
 export { default as isPromise } from './lib/util/isPromise';
+export { default as isScalarAndEqual } from './lib/util/isScalarAndEqual';
+export { default as recycleNodesInto } from './lib/util/recycleNodesInto';
+export { default as stableCopy } from './lib/util/stableCopy';
+export { default as getPendingOperationsForFragment } from './lib/util/getPendingOperationsForFragment';
 
 import * as fetchQueryInternal from './lib/query/fetchQueryInternal';
+import withProvidedVariables from './lib/util/withProvidedVariables';
+
+import * as RelayResolverFragments from './lib/store/ResolverFragments';
 
 interface Internal {
     fetchQuery: typeof fetchQueryInternal.fetchQuery;
     fetchQueryDeduped: typeof fetchQueryInternal.fetchQueryDeduped;
     getPromiseForActiveRequest: typeof fetchQueryInternal.getPromiseForActiveRequest;
     getObservableForActiveRequest: typeof fetchQueryInternal.getObservableForActiveRequest;
+    ResolverFragments: typeof RelayResolverFragments;
+    withProvidedVariables: typeof withProvidedVariables;
 }
 
 export const __internal: Internal;
@@ -216,21 +249,13 @@ export const __internal: Internal;
  * relay-compiler-language-typescript support for fragment references
  */
 
-export type _RefType<Ref extends string> =
-    | {
-        ' $refType': Ref;
-    }
-    | {
-        ' $fragmentType': Ref
-    };
+export interface _RefType<Ref extends string> {
+    ' $fragmentType': Ref;
+}
 
-export type _FragmentRefs<Refs extends string> =
-    | {
-        ' $fragmentRefs': FragmentRefs<Refs>;
-    }
-    | {
-        ' $fragmentSpreads': FragmentRefs<Refs>;
-    };
+export interface _FragmentRefs<Refs extends string> {
+    ' $fragmentSpreads': FragmentRefs<Refs>;
+}
 
 // This is used in the actual artifacts to define the various fragment references a container holds.
 export type FragmentRefs<Refs extends string> = {

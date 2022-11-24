@@ -137,6 +137,11 @@ export namespace Manifest {
         /**
          * Optional.
          */
+        granted_host_permissions?: boolean;
+
+        /**
+         * Optional.
+         */
         host_permissions?: MatchPattern[];
 
         /**
@@ -262,6 +267,15 @@ export namespace Manifest {
         dictionaries: Record<string, string>;
     }
 
+    /**
+     * Represents a WebExtension site permissions manifest.json file
+     */
+    interface WebExtensionSitePermissionsManifest extends ManifestBase {
+        site_permissions: SitePermission[];
+
+        install_origins: [string];
+    }
+
     interface ThemeIcons {
         /**
          * A light icon to use for dark themes
@@ -318,13 +332,14 @@ export namespace Manifest {
 
     type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
 
+    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy" | "urlbar";
+
     type PermissionNoPrompt =
-        | OptionalPermission
+        | OptionalPermissionNoPrompt
+        | PermissionPrivileged
         | "alarms"
-        | "mozillaAddons"
         | "storage"
         | "unlimitedStorage"
-        | "activityLog"
         | "captivePortal"
         | "contextualIdentities"
         | "dns"
@@ -332,14 +347,13 @@ export namespace Manifest {
         | "identity"
         | "menus"
         | "contextMenus"
-        | "networkStatus"
-        | "normandyAddonStudy"
-        | "theme"
-        | "urlbar";
+        | "theme";
 
     type Permission = PermissionNoPrompt | OptionalPermission | string;
 
     type PermissionOrOrigin = Permission | MatchPattern;
+
+    type SitePermission = "midi" | "midi-sysex";
 
     type HttpURL = string;
 
@@ -452,8 +466,6 @@ export namespace Manifest {
     type IconPath = Record<string, ExtensionFileUrl> | ExtensionFileUrl;
 
     type IconImageData = Record<string, ImageData> | ImageData;
-
-    type PersistentBackgroundProperty = boolean;
 
     interface ActionManifest {
         /**
@@ -671,6 +683,15 @@ export namespace Manifest {
          * Optional.
          */
         extension_pages?: string;
+
+        /**
+         * In addition, Manifest V3 disallows certain CSP modifications for `extension_pages` that were permitted in Manifest V2.
+         * The `script-src`, `object-src`, and `worker-src` directives may only have the following values:
+         * - `self`
+         * - `none` - Any localhost source, (`http://localhost`, `http://127.0.0.1`, or any port on those domains)
+         * Optional.
+         */
+        sandbox?: string;
     }
 
     interface WebExtensionManifestWebAccessibleResourcesC2ItemType {
@@ -1184,6 +1205,10 @@ export namespace Manifest {
 
     type ThemeTypePropertiesAdditionalBackgroundsTilingItemEnum = "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
 
+    type ThemeTypePropertiesColorSchemeEnum = "auto" | "light" | "dark" | "system";
+
+    type ThemeTypePropertiesContentColorSchemeEnum = "auto" | "light" | "dark" | "system";
+
     interface ThemeTypePropertiesType {
         /**
          * Optional.
@@ -1194,6 +1219,16 @@ export namespace Manifest {
          * Optional.
          */
         additional_backgrounds_tiling?: ThemeTypePropertiesAdditionalBackgroundsTilingItemEnum[];
+
+        /**
+         * Optional.
+         */
+        color_scheme?: ThemeTypePropertiesColorSchemeEnum;
+
+        /**
+         * Optional.
+         */
+        content_color_scheme?: ThemeTypePropertiesContentColorSchemeEnum;
     }
 
     interface Static {

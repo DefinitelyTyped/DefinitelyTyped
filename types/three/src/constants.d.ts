@@ -39,11 +39,6 @@ export const FrontSide: Side;
 export const BackSide: Side;
 export const DoubleSide: Side;
 
-// shading
-export enum Shading {}
-export const FlatShading: Shading;
-export const SmoothShading: Shading;
-
 // blending modes
 export enum Blending {}
 export const NoBlending: Blending;
@@ -105,6 +100,7 @@ export const LinearToneMapping: ToneMapping;
 export const ReinhardToneMapping: ToneMapping;
 export const CineonToneMapping: ToneMapping;
 export const ACESFilmicToneMapping: ToneMapping;
+export const CustomToneMapping: ToneMapping;
 
 // Mapping modes
 export enum Mapping {}
@@ -114,7 +110,6 @@ export const CubeRefractionMapping: Mapping;
 export const EquirectangularReflectionMapping: Mapping;
 export const EquirectangularRefractionMapping: Mapping;
 export const CubeUVReflectionMapping: Mapping;
-export const CubeUVRefractionMapping: Mapping;
 
 // Wrapping modes
 export enum Wrapping {}
@@ -147,7 +142,6 @@ export const FloatType: TextureDataType;
 export const HalfFloatType: TextureDataType;
 export const UnsignedShort4444Type: TextureDataType;
 export const UnsignedShort5551Type: TextureDataType;
-export const UnsignedShort565Type: TextureDataType;
 export const UnsignedInt248Type: TextureDataType;
 
 // Pixel formats
@@ -163,8 +157,9 @@ export const RedFormat: PixelFormat;
 export const RedIntegerFormat: PixelFormat;
 export const RGFormat: PixelFormat;
 export const RGIntegerFormat: PixelFormat;
-export const RGBIntegerFormat: PixelFormat;
 export const RGBAIntegerFormat: PixelFormat;
+export const _SRGBFormat: PixelFormat; // fallback for WebGL 1
+export const _SRGBAFormat: PixelFormat; // fallback for WebGL 1
 
 // Internal Pixel Formats
 export type PixelFormatGPU =
@@ -223,6 +218,7 @@ export type PixelFormatGPU =
     | 'RGB10_A2'
     | 'RGB10_A2UI'
     | 'SRGB8_ALPHA8'
+    | 'SRGB8'
     | 'DEPTH_COMPONENT16'
     | 'DEPTH_COMPONENT24'
     | 'DEPTH_COMPONENT32F'
@@ -263,20 +259,6 @@ export const RGBA_ASTC_10x8_Format: CompressedPixelFormat;
 export const RGBA_ASTC_10x10_Format: CompressedPixelFormat;
 export const RGBA_ASTC_12x10_Format: CompressedPixelFormat;
 export const RGBA_ASTC_12x12_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_4x4_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_5x4_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_5x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_6x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_6x6_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_8x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_8x6_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_8x8_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x5_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x6_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x8_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_10x10_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_12x10_Format: CompressedPixelFormat;
-export const SRGB8_ALPHA8_ASTC_12x12_Format: CompressedPixelFormat;
 
 // BPTC compressed texture formats
 export const RGBA_BPTC_Format: CompressedPixelFormat;
@@ -314,9 +296,6 @@ export const TriangleFanDrawMode: TrianglesDrawModes;
 export enum TextureEncoding {}
 export const LinearEncoding: TextureEncoding;
 export const sRGBEncoding: TextureEncoding;
-export const LogLuvEncoding: TextureEncoding;
-export const RGBM7Encoding: TextureEncoding;
-export const RGBM16Encoding: TextureEncoding;
 
 // Depth packing strategies
 export enum DepthPackingStrategies {}
@@ -327,6 +306,11 @@ export const RGBADepthPacking: DepthPackingStrategies;
 export enum NormalMapTypes {}
 export const TangentSpaceNormalMap: NormalMapTypes;
 export const ObjectSpaceNormalMap: NormalMapTypes;
+
+export type ColorSpace = NoColorSpace | SRGBColorSpace | LinearSRGBColorSpace;
+export type NoColorSpace = '';
+export type SRGBColorSpace = 'srgb';
+export type LinearSRGBColorSpace = 'srgb-linear';
 
 // Stencil Op types
 export enum StencilOp {}

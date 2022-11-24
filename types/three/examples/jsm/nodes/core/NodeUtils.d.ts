@@ -1,7 +1,7 @@
-import { Node } from './Node';
+import { NodeValueOption } from './constants';
+import Node from './Node';
 
-export namespace NodeUtils {
-    const elements: string[];
-
-    function addShortcuts(proto: Node, proxy: string, list: any[]): void;
-}
+export function getNodesKeys(object: Node): string[];
+export function getValueType(value: NodeValueOption): string | null;
+export function getValueFromType(type: string, ...params: number[]): NodeValueOption | null;
+export function getCacheKey(object: Node): string;

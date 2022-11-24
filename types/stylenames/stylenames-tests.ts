@@ -1,12 +1,16 @@
 import styleNames from 'stylenames';
 
-styleNames(); // $ExpectError
+// @ts-expect-error
+styleNames();
 
-styleNames({ foo: 'block' }); // $ExpectError
+// @ts-expect-error
+styleNames({ foo: 'block' });
 
-styleNames({ background: 1 }); // $ExpectError
+// @ts-expect-error
+styleNames({ background: 1 });
 
-styleNames({ backgroundColor: { blue: 1 } }); // $ExpectError
+// @ts-expect-error
+styleNames({ backgroundColor: { blue: 1 } });
 
 styleNames({
     height: '120px',

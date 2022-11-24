@@ -23,7 +23,7 @@ import aws4 = require("aws4");
 // $ExpectType RequestSigner
 const requestSigner = new aws4.RequestSigner({});
 
-// $ExpectType [service: string, region: string]
+// $ExpectType [string, string]
 requestSigner.matchHost("");
 // $ExpectType boolean
 requestSigner.isSingleRegion();

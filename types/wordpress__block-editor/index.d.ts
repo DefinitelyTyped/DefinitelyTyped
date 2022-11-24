@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/block-editor 6.0
+// Type definitions for @wordpress/block-editor 7.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>

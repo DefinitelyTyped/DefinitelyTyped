@@ -2,9 +2,9 @@
 // Project: https://github.com/vadimdemedes/mongorito, https://github.com/vdemedes/mongorito
 // Definitions by: Pinguet62 <https://github.com/pinguet62>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
+// Minimum TypeScript Version: 4.1
 
-import { Collection, CommonOptions, Db, IndexOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
+import { Collection, CreateIndexesOptions, Db, DropIndexesOptions, Long, MongoClientOptions, ReadPreference } from 'mongodb';
 
 export { Timestamp, ObjectId, MinKey, MaxKey, DBRef, Long } from 'mongodb';
 
@@ -67,12 +67,12 @@ export class Model extends Query {
     /**
      * @see mongodb.Collection#createIndex()
      */
-    static createIndex(fieldOrSpec: any, options?: IndexOptions): Promise<string>;
+    static createIndex(fieldOrSpec: any, options?: CreateIndexesOptions): Promise<string>;
 
     /**
      * @see mongodb.Collection#dropIndex()
      */
-    static dropIndex(indexName: string, options?: CommonOptions): Promise<object>;
+    static dropIndex(indexName: string, options?: DropIndexesOptions): Promise<object>;
 
     static embeds(key: string, model: ModelClass): void;
 

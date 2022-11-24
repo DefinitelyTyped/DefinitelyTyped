@@ -7,7 +7,7 @@ export namespace Config {
         GLOBAL = 3,
         LOCAL = 4,
         APP = 5,
-        HIGHEST_LEVEL = -1
+        HIGHEST_LEVEL = -1,
     }
 
     const enum MAP {
@@ -45,7 +45,7 @@ export class Config {
     lock(transaction: any): number;
     setBool(name: string, value: number): Promise<number>;
     setInt32(name: string, value: number): Promise<number>;
-    setInt64(name: string, value: number): number;
+    setInt64(name: string, value: number): Promise<number>;
     setMultivar(name: string, regexp: string, value: string): Promise<number>;
     setString(name: string, value: string): Promise<number>;
     snapshot(): Promise<Config>;

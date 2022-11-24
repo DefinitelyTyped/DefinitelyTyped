@@ -57,6 +57,15 @@ interface MonthYear {
     year: number;
 }
 
+interface CardType {
+    type: string;
+    pattern: RegExp;
+    length: number[];
+    cvcLength: number[];
+    luhn: boolean;
+    format: RegExp;
+}
+
 declare var Payment: {
     /**
      * Formats card numbers:
@@ -84,6 +93,23 @@ declare var Payment: {
      * General numeric input restriction.
      */
     restrictNumeric(elem: HTMLInputElement): HTMLInputElement;
+
+    /**
+     * Returns the array of card types.
+     */
+    getCardArray(): CardType[];
+    /**
+     * Overrides the array of card types with a new array.
+     */
+    setCardArray(cardTypes: ReadonlyArray<CardType>): void;
+    /**
+     * Add a new card type to the card array.
+     */
+    addToCardArray(cardType: CardType): void;
+    /**
+     * Remove a card type from the card array.
+     */
+    removeFromCardArray(cardName: string): void;
 
     fns: Fns;
 };

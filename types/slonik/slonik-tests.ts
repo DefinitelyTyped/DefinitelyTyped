@@ -30,7 +30,7 @@ import {
 import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
 
 // make sure symbols are unique
-// $ExpectError
+// @ts-expect-error
 const badSymbolAssignment: typeof ArrayTokenSymbol = BinaryTokenSymbol;
 
 const VALUE = 'foo';
@@ -66,7 +66,7 @@ pool.connect(async connection => {
     await connection.oneFirst(sql`SELECT foo`);
 
     // Disallow raw strings
-    // $ExpectError
+    // @ts-expect-error
     await connection.query(`SELECT foo`);
 
     // $ExpectType { transactionResult: string; }
@@ -185,7 +185,7 @@ const interceptors: InterceptorType[] = [
             // $ExpectType any
             queryContext.sandbox.foo;
 
-            // $ExpectError
+            // @ts-expect-error
             const foo = queryContext.sandbox + 1;
 
             return null;
@@ -314,7 +314,7 @@ createTimestampWithTimeZoneTypeParser();
       })})
   `);
 
-    // $ExpectError
+    // @ts-expect-error
     sql`SELECT ${sql.json(undefined)}`;
 
     await connection.query(sql`

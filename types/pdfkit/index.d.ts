@@ -65,6 +65,22 @@ declare namespace PDFKit.Mixins {
         textAnnotation(x: number, y: number, w: number, h: number, text: string, option?: AnnotationOption): this;
     }
 
+    interface PDFAttachmentOptions {
+        name?: string;
+        type?: string;
+        description?: string;
+        hidden?: boolean;
+        creationDate?: Date;
+        modifiedDate?: Date;
+    }
+
+    interface PDFAttachment {
+        /**
+         * Embed content of `src` in PDF
+         */
+        file(src: Buffer | ArrayBuffer | string, options?: PDFAttachmentOptions): this;
+    }
+
     // The color forms accepted by PDFKit:
     //     example:   "red"                  [R, G, B]                  [C, M, Y, K]
     type ColorValue = string | PDFGradient | [number, number, number] | [number, number, number, number];
@@ -110,8 +126,8 @@ declare namespace PDFKit.Mixins {
     type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
 
     interface PDFFont {
-        font(buffer: Buffer): this;
-        font(src: string, family?: string, size?: number): this;
+        font(src: PDFFontSource, size?: number): this;
+        font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
         registerFont(name: string, src?: PDFFontSource, family?: string): this;
@@ -168,7 +184,7 @@ declare namespace PDFKit.Mixins {
         /** Whether to stroke the text */
         stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string | undefined;
+        link?: string | null | undefined;
         /** Whether to underline the text */
         underline?: boolean | undefined;
         /** Whether to strike out the text */
@@ -380,6 +396,7 @@ declare namespace PDFKit {
         margin?: number | undefined;
         margins?: { top: number; left: number; bottom: number; right: number } | undefined;
         layout?: 'portrait' | 'landscape' | undefined;
+        font?: string | undefined;
 
         bufferPages?: boolean | undefined;
         tagged?: boolean;
@@ -396,7 +413,8 @@ declare namespace PDFKit {
             Mixins.PDFVector,
             Mixins.PDFFont,
             Mixins.PDFAcroForm,
-            Mixins.PDFMarking {
+            Mixins.PDFMarking,
+            Mixins.PDFAttachment {
         /**
          * PDF Version
          */

@@ -120,11 +120,25 @@ declare namespace formidable {
         minFileSize?: number | undefined;
 
         /**
+         * limit the amount of uploaded files, set Infinity for unlimited
+         *
+         * @default Infinity
+         */
+        maxFiles?: number | undefined;
+
+        /**
          * limit the size of uploaded file
          *
          * @default 200 * 1024 * 1024
          */
         maxFileSize?: number | undefined;
+
+        /**
+         * limit the size of the batch of uploaded files
+         *
+         * @default options.maxFileSize
+         */
+        maxTotalFileSize?: number | undefined;
 
         /**
          * limit the number of fields, set 0 for unlimited

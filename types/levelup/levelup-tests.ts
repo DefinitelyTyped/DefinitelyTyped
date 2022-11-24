@@ -1,4 +1,4 @@
-import { LevelUp as levelup } from 'levelup';
+import levelup = require('levelup');
 import { AbstractLevelDOWN } from 'abstract-leveldown';
 
 interface StringEncoding {
@@ -61,7 +61,7 @@ db.isOpen();
 // $ExpectType boolean
 db.isClosed();
 
-// $ExpectType "new" | "opening" | "open" | "closing" | "closed"
+// $ExpectType "closed" | "open" | "opening" | "new" | "closing"
 db.status;
 
 // $ExpectType boolean

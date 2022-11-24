@@ -16,6 +16,20 @@ export function del<RT extends ResponseType | undefined>(
 ): RefinedResponse<RT>;
 
 /**
+ * Make HEAD request.
+ * https://k6.io/docs/javascript-api/k6-http/head-url-params/
+ * @param url - Request URL.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ * @example
+ * http.head('https://test.k6.io')
+ */
+ export function head<RT extends ResponseType | undefined>(
+    url: string | HttpURL,
+    params?: RefinedParams<RT> | null
+): RefinedResponse<RT>;
+
+/**
  * Make GET request.
  * https://k6.io/docs/javascript-api/k6-http/get-url-params
  * @param url - Request URL.
@@ -694,6 +708,23 @@ export class CookieJar {
      * @param options - Optional settings.
      */
     set(url: string, name: string, value: string, options?: CookieOptions | null): void;
+
+    /**
+     * Delete all cookies for the given URL.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-clear
+     * @param url - URL to delete all cookies for.
+     */
+
+    clear(url: string): void;
+
+    /**
+     * Deletes specific cookie by name for the given URL.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-delete/
+     * @param url - URL to delete cookie for.
+     * @param name - Cookie name to delete.
+     */
+
+    delete(url: string, name: string): void;
 }
 
 /**
@@ -761,6 +792,20 @@ declare namespace http {
     function del<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
+        params?: RefinedParams<RT> | null
+    ): RefinedResponse<RT>;
+
+    /**
+     * Make HEAD request.
+     * https://k6.io/docs/javascript-api/k6-http/head-url-params/
+     * @param url - Request URL.
+     * @param params - Request parameters.
+     * @returns Resulting response.
+     * @example
+     * http.head('https://test.k6.io')
+     */
+    function head<RT extends ResponseType | undefined>(
+        url: string | HttpURL,
         params?: RefinedParams<RT> | null
     ): RefinedResponse<RT>;
 

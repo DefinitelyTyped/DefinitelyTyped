@@ -1,15 +1,12 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "strictFunctionTypes": true,
+        "strict": true,
         "baseUrl": "../",
         "experimentalDecorators": true,
         "typeRoots": [
@@ -22,6 +19,7 @@
         },
         "types": [],
         "noEmit": true,
+        "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
@@ -33,14 +31,14 @@
         "test/computed.ts",
         "test/create.ts",
         "test/create-negative.ts",
-        "test/detect.ts",
-        "test/detect-instance.ts",
         "test/event.ts",
         "test/extend.ts",
+        "test/internals.ts",
         "test/object.ts",
         "test/observable.ts",
         "test/octane.ts",
         "test/proxy.ts",
-        "test/reopen.ts"
+        "test/reopen.ts",
+        "test/get-set.ts"
     ]
 }

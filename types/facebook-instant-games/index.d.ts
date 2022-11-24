@@ -1,8 +1,8 @@
-// Type definitions for non-npm package facebook-instant-games 6.3
+// Type definitions for non-npm package facebook-instant-games 7.0
 // Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>,
-//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>,
-//                 Liana Pigeot <https://github.com/nialna>
+// Definitions by: Menushka Weeratunga <https://github.com/menushka>
+//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>
+//                 Alex A. Yermoshenko <https://github.com/doterax>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -23,6 +23,11 @@ declare namespace FBInstant {
      * Contains functions and properties related to payments and purchases of game products.
      */
     let payments: Payments;
+
+    /**
+     * Contains functions and properties related to tournaments.
+     */
+    let tournament: Tournaments;
 
     /**
      * The current locale. Use this to determine what language the current game should be localized with.
@@ -131,6 +136,24 @@ declare namespace FBInstant {
      * @throws INVALID_OPERATION
      */
     function updateAsync(payload: CustomUpdatePayload | LeaderboardUpdatePayload): Promise<void>;
+
+    /**
+     * This invokes a dialog to let the user invite one or more people to the game.
+     *
+     * A blob of data can be attached to the share which every game session launched from the invite will be able to access from FBInstant.getEntryPointData().
+     * This data must be less than or equal to 1000 characters when stringified.
+     * The user may choose to cancel the action and close the dialog, and the returned promise will resolve when the dialog is closed regardless if
+     * the user actually invited people or not.
+     *
+     * @param payload Specify what to share. See example for details.
+     * @returns A promise that resolves when the share is completed or cancelled.
+     * @throws INVALID_PARAM
+     * @throws NETWORK_FAILURE
+     * @throws PENDING_REQUEST
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @throws INVALID_OPERATION
+     */
+    function inviteAsync(payload: InvitePayload): Promise<void>;
 
     /**
      * Request that the client switch to a different Instant Game. The API will reject if the switch fails - else, the client will load the new game.
@@ -250,14 +273,247 @@ declare namespace FBInstant {
     function getLeaderboardAsync(name: string): Promise<Leaderboard>;
 
     /**
-     * Posts the player's best score for the session to Facebook.
-     * This API should be called whenever the player achieves their best score in a session, preferably at the end of an activity
-     * Scores posted using this API should be consistent & comparable across game sessions.
+     * Requests and performs haptic feedback on supported devices.
      *
-     * @param score An integer value representing the player's best score in a session.
-     * @returns void
+     * @returns haptic feedback requested successfully
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @throws INVALID_OPERATION
+     * @example
+     * FBInstant.performHapticFeedbackAsync();
      */
-    function postSessionScore(score: number): void;
+    function performHapticFeedbackAsync(): Promise<void>;
+
+    /**
+     * Posts a player's score to Facebook and resolves when score has been posted.
+     *
+     * This API should only be called at the end of an activity (example: when the player doesn't have "lives" to continue the game).
+     * This API will be rate-limited when called too frequently. Scores posted using this API should be consistent and comparable across game sessions.
+     * For example, if Player A achieves 200 points in a session, and Player B achieves 320 points in a session, those two scores should be generated
+     * from activities where the scores are fair to be compared and ranked against each other.
+     *
+     * @param score An integer value representing the player's score at the end of an activity.
+     * @returns A promise that resolves when all platform behavior (such as dialogs) generated from the posted score has completed, and the game should resume.
+     * If the behavior resulted in a social context change, that will be reflected by the time the Promise resolves.
+     */
+    function postSessionScoreAsync(score: number): Promise<void>;
+
+    /**
+     * Fetch the instant tournament out of the current context the user is playing.
+     *
+     * This will reject if there is no instant tournament link to the current context.
+     * The instant tournament returned can be either active or expired (An instant tournament is expired if its end time is in the past).
+     * For each instant tournament, there is only one unique context ID linked to it, and that ID doesn't change.
+     *
+     * @returns Promise<Tournament>
+     * @throws PENDING_REQUEST
+     * @throws NETWORK_FAILURE
+     * @throws INVALID_OPERATION
+     * @throws TOURNAMENT_NOT_FOUND
+     * @example
+     * FBInstant.getTournamentAsync()
+     *   .then((tournament) => {
+     *      console.log(tournament.getContextID());
+     *      console.log(tournament.getEndTime());
+     *   });
+     */
+    function getTournamentAsync(): Promise<Tournament>;
+
+    /**
+     * An instant game tournament.
+     */
+    interface Tournament {
+        /**
+         * The unique ID that is associated with this instant tournament.
+         *
+         * @returns A unique identifier for the instant tournament.
+         */
+        getID(): string;
+
+        /**
+         * The unique context ID that is associated with this instant tournament.
+         *
+         * @returns A unique identifier for the game context.
+         */
+        getContextID(): string;
+
+        /**
+         * Timestamp when the instant tournament ends. If the end time is in the past, then the instant tournament is already finished and has expired.
+         *
+         * @returns A unix timestamp of when the tournament will end.
+         * @example
+         * FBInstant.getTournamentAsync()
+         *   .then((tournament) => {
+         *     console.log(tournament.getEndTime());
+         *   });
+         */
+        getEndTime(): number;
+
+        /**
+         * Title of the tournament provided upon the creation of the tournament.
+         *
+         * This is an optional field that can be set by creating the tournament using the FBInstant.tournament.createAsync() API.
+         * @example
+         * FBInstant.getTournamentAsync()
+         *   .then((tournament) => {
+         *     console.log(tournament.getTitle());
+         *   });
+         */
+        getTitle(): string | undefined;
+
+        /**
+         * Payload of the tournament provided upon the creation of the tournament.
+         *
+         * This is an optional field that can be set by creating the tournament using the FBInstant.tournament.createAsync() API.
+         */
+        getPayload(): any;
+    }
+
+    /**
+     * Contains functions and properties related to instant tournaments.
+     */
+    interface Tournaments {
+        /**
+         * Opens the tournament creation dialog if the player is not currently in a tournament session
+         *
+         * @param payload CreateTournamentPayload
+         * @returns Promise<Tournament>
+         * @throws INVALID_PARAM
+         * @throws INVALID_OPERATION
+         * @throws DUPLICATE_POST
+         * @throws NETWORK_FAILURE
+         */
+        createAsync(payload: CreateTournamentPayload): Promise<Tournament>;
+
+        /**
+         * Posts a player's score to Facebook.
+         *
+         * This API should only be called within a tournament context at the end of an activity (example: when the player doesn't have "lives" to continue the game).
+         * This API will be rate-limited when called too frequently. Scores posted using this API should be consistent and comparable across game sessions.
+         * For example, if Player A achieves 200 points in a session, and Player B achieves 320 points in a session, those two scores should be generated
+         * from activities where the scores are fair to be compared and ranked against each other.
+         *
+         * @param score An integer value representing the player's score at the end of an activity.
+         * @returns A promise that resolves when the score post is completed.
+         * @throws INVALID_PARAM
+         * @throws TOURNAMENT_NOT_FOUND
+         * @throws NETWORK_FAILURE
+         */
+        postScoreAsync(score: number): Promise<void>;
+
+        /**
+         * Opens the reshare tournament dialog if the player is currently in a tournament session
+         *
+         * Posts a player’s score to Facebook, and renders a tournament share dialog if the player is currently in a tournament session.
+         * The promise will resolve when the user action is completed.
+         *
+         * @param payload Specifies share content. See example for details.
+         * @returns A promise that resolves if the tournament is shared, or rejects otherwise.
+         * @throws INVALID_OPERATION
+         * @throws TOURNAMENT_NOT_FOUND
+         * @throws NETWORK_FAILURE
+         * @throws USER_INPUT
+         */
+        shareAsync(payload: ShareTournamentPayload): Promise<void>;
+
+        /**
+         * Returns a list of eligible tournaments that can be surfaced in-game, including tournaments:
+         *  1) the player has created;
+         *  2) the player is participating in;
+         *  3) the player's friends (who granted permission) are participating in.
+         *
+         * The instant tournaments returned are active. An instant tournament is expired if its end time is in the past.
+         * For each instant tournament, there is only one unique context ID linked to it, and that ID doesn't change.
+         *
+         * @returns Promise<Tournament[]>
+         * @throws NETWORK_FAILURE
+         * @throws INVALID_OPERATION
+         */
+        getTournamentsAsync(): Promise<Tournament[]>;
+
+        /**
+         * Requests a switch into a specific tournament context. The promise will resolve when the game has switched into the specified context.
+         *
+         * @param tournamentID The Tournament ID of the desired context to switch into.
+         * @returns A promise that resolves when the game has switched into the specified tournament context, or rejects otherwise.
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws SAME_CONTEXT
+         * @throws NETWORK_FAILURE
+         * @throws USER_INPUT
+         * @throws TOURNAMENT_NOT_FOUND
+         */
+        joinAsync(tournamentID: string): Promise<void>;
+    }
+
+    /**
+     * Represents the configurations used in creating an Instant Tournament.
+     */
+    interface CreateTournamentConfig {
+        /**
+         * Optional text title for the tournament.
+         */
+        title?: string;
+
+        /**
+         * Optional base64 encoded image that will be associated with the tournament and included in posts sharing the tournament.
+         */
+        image?: string;
+
+        /**
+         * Optional input for the ordering of which score is best in the tournament.
+         * The options are 'HIGHER_IS_BETTER' or 'LOWER_IS_BETTER'. If not specified, the default is 'HIGHER_IS_BETTER'.
+         */
+        sortOrder?: TournamentSortOrder;
+
+        /**
+         * Optional input for the formatting of the scores in the tournament leaderboard.
+         * The options are 'NUMERIC' or 'TIME'. If not specified, the default is 'NUMERIC'.
+         */
+        scoreFormat?: TournamentScoreFormat;
+
+        /**
+         * Optional input for setting a custom end time for the tournament.
+         * The number passed in represents a unix timestamp. If not specified, the tournament will end one week after creation.
+         */
+        endTime?: number;
+    }
+
+    /**
+     * Represents settings used for FBInstant.tournament.createAsync
+     */
+    interface CreateTournamentPayload {
+        /**
+         * An integer value representing the player's score which will be the first score in the tournament.
+         */
+        initialScore: number;
+
+        /**
+         * An object holding optional configurations for the tournament.
+         */
+        config: CreateTournamentConfig;
+
+        /**
+         * A blob of data to attach to the update.
+         *
+         * All game sessions launched from the update will be able to access this blob from the payload on the tournament.
+         * Must be less than or equal to 1000 characters when stringified.
+         */
+        data?: any;
+    }
+
+    /**
+     * Represents content used to reshare an Instant Tournament.
+     */
+    interface ShareTournamentPayload {
+        /**
+         * An integer value representing the player's latest score.
+         */
+        score: number;
+        /**
+         * A blob of data to attach to the update. Must be less than or equal to 1000 characters when stringified.
+         */
+        data?: any;
+    }
 
     interface Player {
         /**
@@ -477,7 +733,7 @@ declare namespace FBInstant {
          * Attempts to create or switch into a context between a specified player and the current player. The returned promise will reject if the player listed is not a Connected Player of the current
          * player or if the player does not provide permission to enter the new context. Otherwise, the promise will resolve when the game has switched into the new context.
          *
-         * @param playerID ID of the player
+         * @param suggestedPlayerIDs A list of game suggested playerIDs or a single suggested playerID or no input
          * @returns A promise that resolves when the game has switched into the new context, or rejects otherwise.
          * @throws INVALID_PARAM
          * @throws SAME_CONTEXT
@@ -486,7 +742,7 @@ declare namespace FBInstant {
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
          */
-        createAsync(playerID: string): Promise<void>;
+        createAsync(suggestedPlayerIDs?: string | string[]): Promise<void>;
 
         /**
          * Gets an array of ContextPlayer objects containing information about active players — people who actively played the game in the current context in the last 90 days.
@@ -916,6 +1172,11 @@ declare namespace FBInstant {
         image: string;
 
         /**
+         * Optional content for the gif or video.
+         */
+        media?: MediaParams;
+
+        /**
          * A text message to be shared.
          */
         text: string;
@@ -924,6 +1185,36 @@ declare namespace FBInstant {
          * A blob of data to attach to the share. All game sessions launched from the share will be able to access this blob through FBInstant.getEntryPointData().
          */
         data?: any;
+
+        /**
+         * A flag indicating whether to switch the user into the new context created on sharing
+         */
+        switchContext?: boolean;
+    }
+
+    /**
+     * Represents the media payload used by custom update and custom share.
+     */
+    interface MediaParams {
+        /**
+         * If provided, the content should contain information for us to get the gif.
+         */
+        gif?: MediaContent;
+
+        /**
+         * If provided, the content should contain information for us to get the video.
+         */
+        video?: MediaContent;
+    }
+
+    /**
+     * Specify how we could get the content for the media.
+     */
+    interface MediaContent {
+        /**
+         * URL for the media that stores in the developers' server.
+         */
+        url: string;
     }
 
     /**
@@ -1002,8 +1293,6 @@ declare namespace FBInstant {
          *
          * 'LAST' - The update should be posted when the game session ends. The most recent update sent using the 'LAST' strategy will be the one sent.
          *
-         * 'IMMEDIATE_CLEAR' - The update is posted immediately, and clears any other pending updates (such as those sent with the 'LAST' strategy).
-         *
          * If no strategy is specified, we default to 'IMMEDIATE'.
          */
         strategy?: string | undefined;
@@ -1014,6 +1303,38 @@ declare namespace FBInstant {
          * Also note that push notification is not always guaranteed, depending on user setting and platform policies.
          */
         notification?: string | undefined;
+    }
+
+    /**
+     * Represents content to be shared in invites sent by the user.
+     */
+    interface InvitePayload {
+        /**
+         * A base64 encoded image to be shared.
+         */
+        image: string;
+        /**
+         *  A text message, or an object with the default text as the value of 'default' and another object mapping locale keys to translations as the value of 'localizations'.
+         */
+        text: string | LocalizableContent;
+        /**
+         * A blob of data to attach to the share. All game sessions launched from the share will be able to access this blob through FBInstant.getEntryPointData().
+         */
+        data?: any;
+    }
+
+    /**
+     * Represents a string with localizations and a default value to fall back on.
+     */
+    interface LocalizableContent {
+        /**
+         * The default value of the string to use if the viewer's locale is not a key in the localizations object.
+         */
+        default: string;
+        /**
+         * Specifies what string to use for viewers in each locale. See https://lookaside.facebook.com/developers/resources/?id=FacebookLocales.xml for a complete list of supported locale values.
+         */
+        localizations: LocalizationsDict;
     }
 
     /**
@@ -1050,11 +1371,11 @@ declare namespace FBInstant {
         localizations: LocalizationsDict;
     }
 
-    interface DataObject { [ key: string ]: any; }
+    interface DataObject { [key: string]: any; }
 
-    interface StatsObject { [ key: string ]: number; }
+    interface StatsObject { [key: string]: number; }
 
-    interface IncrementObject { [ key: string ]: number; }
+    interface IncrementObject { [key: string]: number; }
 
     /**
      * Represents a mapping from locales to translations of a given string. Each property is an optional five-character Facebook locale code of the form xx_XX.
@@ -1090,6 +1411,10 @@ declare namespace FBInstant {
     type Type = "POST" | "THREAD" | "GROUP" | "SOLO";
 
     type Intent = "INVITE" | "REQUEST" | "CHALLENGE" | "SHARE";
+
+    type TournamentSortOrder = "HIGHER_IS_BETTER" | "LOWER_IS_BETTER";
+
+    type TournamentScoreFormat = "NUMERIC" | "TIME";
 
     type ErrorCodeType = "ADS_FREQUENT_LOAD" |
         "ADS_NO_FILL" |

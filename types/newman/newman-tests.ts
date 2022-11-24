@@ -59,6 +59,11 @@ newman.run({
     bail: true,
     timeoutRequest: 5000,
     suppressExitCode: true,
-    ignoreRedirects: true
-}, () => console.log('done'));
-newman.run(() => console.log('done'));
+    ignoreRedirects: true,
+    sslClientCertList: 'certs.pem',
+    sslExtraCaCerts: 'caCerts.pem',
+    cookieJar: 'cookieJar.json'
+}, () => console.log('done'))
+   .on('console', (e: newman.ConsoleEvent) => console.log(e.cursor.httpRequestId, ...e.messages));
+
+   newman.run(() => console.log('done'));

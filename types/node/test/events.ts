@@ -1,4 +1,4 @@
-import events = require('node:events');
+import * as events from 'node:events';
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -66,7 +66,7 @@ declare const any: any;
         constructor() {
             super();
 
-            this.emit("mingling");
+            this.emit('mingling');
         }
     }
 }
@@ -76,11 +76,14 @@ declare const any: any;
 }
 
 {
-    events.once({
-        addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
-            setTimeout(() => listener(123), 100);
-        }
-    }, 'name');
+    events.once(
+        {
+            addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
+                setTimeout(() => listener(123), 100);
+            },
+        },
+        'name',
+    );
 }
 
 async function test() {
@@ -110,4 +113,17 @@ async function test() {
     let captureRejectionSymbol2: typeof events.EventEmitter.captureRejectionSymbol =
         events.EventEmitter.captureRejectionSymbol;
     captureRejectionSymbol2 = events.captureRejectionSymbol;
+}
+
+{
+    events.EventEmitter.setMaxListeners();
+    events.EventEmitter.setMaxListeners(42);
+
+    const eventTarget = new EventTarget();
+    events.EventEmitter.setMaxListeners(42, eventTarget);
+    // @ts-expect-error - ensure constructor does not return a constructor
+    new eventTarget();
+
+    const eventEmitter = new events.EventEmitter();
+    events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
 }

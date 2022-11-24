@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type CompleteCallback = (
-    err: string | undefined,
+    err: Error | null,
     result: any,
     statusCode?: number,
     headers?: object

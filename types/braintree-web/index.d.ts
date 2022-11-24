@@ -6,7 +6,19 @@
 
 import { VERSION, BraintreeError, callback } from './modules/core';
 import { AmericanExpress } from './modules/american-express';
-import { ApplePay, ApplePaySession, ApplePayStatusCodes, ApplePayPayload } from './modules/apple-pay';
+import {
+    ApplePay,
+    ApplePaySession,
+    ApplePayStatusCodes,
+    ApplePayDetails,
+    ApplePayPayload,
+    ApplePayPaymentRequest,
+    ApplePayLineItem,
+    ApplePayLineItemType,
+    ApplePayPaymentTiming,
+    ApplePayRecurringPaymentDateUnit,
+    ApplePayTokenizeValues
+} from './modules/apple-pay';
 import { Client, CreditCardInfo } from './modules/client';
 import { DataCollector } from './modules/data-collector';
 import { GooglePayment, GooglePaymentTokenizePayload } from './modules/google-payment';
@@ -18,6 +30,7 @@ import {
     HostedFieldsStateObject,
     HostedFieldsBinPayload,
 } from './modules/hosted-fields';
+import { LocalPayment, LocalPaymentTokenizePayload, LocalPaymentTypes } from './modules/local-payment';
 import { PayPal, PayPalTokenizePayload } from './modules/paypal';
 import { PayPalCheckout, PayPalCheckoutCreatePaymentOptions } from './modules/paypal-checkout';
 import { ThreeDSecure, ThreeDSecureVerifyPayload } from './modules/three-d-secure';
@@ -37,6 +50,7 @@ export const client: Client;
 export const dataCollector: DataCollector;
 export const googlePayment: GooglePayment;
 export const hostedFields: HostedFields;
+export const localPayment: LocalPayment;
 export const paypal: PayPal;
 export const paypalCheckout: PayPalCheckout;
 export const threeDSecure: ThreeDSecure;
@@ -52,8 +66,15 @@ export {
     AmericanExpress,
     ApplePay,
     ApplePaySession,
+    ApplePayDetails,
     ApplePayStatusCodes,
     ApplePayPayload,
+    ApplePayPaymentRequest,
+    ApplePayLineItem,
+    ApplePayLineItemType,
+    ApplePayPaymentTiming,
+    ApplePayRecurringPaymentDateUnit,
+    ApplePayTokenizeValues,
     Client,
     CreditCardInfo,
     DataCollector,
@@ -65,6 +86,9 @@ export {
     HostedFieldsTokenizePayload,
     HostedFieldsEvent,
     HostedFieldsStateObject,
+    LocalPayment,
+    LocalPaymentTypes,
+    LocalPaymentTokenizePayload,
     PayPal,
     PayPalTokenizePayload,
     PayPalCheckout,

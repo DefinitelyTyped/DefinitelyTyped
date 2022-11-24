@@ -77,98 +77,97 @@ interface AbstractClearOptions<K = any> extends AbstractOptions {
     limit?: number | undefined;
 }
 
-export interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {
-    open(): Promise<void>;
-    open(callback?: ErrorCallback): void;
-    close(): Promise<void>;
-    close(callback?: ErrorCallback): void;
+declare namespace levelup {
+    interface LevelUpChain<K = any, V = any> {
+        readonly length: number;
+        put(key: K, value: V): this;
+        del(key: K): this;
+        clear(): this;
+        write(callback: ErrorCallback): this;
+        write(): Promise<this>;
+    }
+    interface LevelUp<DB = AbstractLevelDOWN, Iterator = AbstractIterator<any, any>> extends EventEmitter {
+        open(): Promise<void>;
+        open(callback?: ErrorCallback): void;
+        close(): Promise<void>;
+        close(callback?: ErrorCallback): void;
 
-    put: InferDBPut<DB>;
-    get: InferDBGet<DB>;
-    del: InferDBDel<DB>;
-    clear: InferDBClear<DB>;
-    getMany: InferDBGetMany<DB>;
+        put: InferDBPut<DB>;
+        get: InferDBGet<DB>;
+        del: InferDBDel<DB>;
+        clear: InferDBClear<DB>;
+        getMany: InferDBGetMany<DB>;
 
-    batch(array: AbstractBatch[], options?: any): Promise<void>;
-    batch(array: AbstractBatch[], options: any, callback: (err?: any) => any): void;
-    batch(array: AbstractBatch[], callback: (err?: any) => any): void;
+        batch(array: AbstractBatch[], options?: any): Promise<void>;
+        batch(array: AbstractBatch[], options: any, callback: (err?: any) => any): void;
+        batch(array: AbstractBatch[], callback: (err?: any) => any): void;
 
-    batch(): LevelUpChain;
-    iterator(options?: AbstractIteratorOptions): Iterator;
+        batch(): LevelUpChain;
+        iterator(options?: AbstractIteratorOptions): Iterator;
 
-    isOpen(): boolean;
-    isClosed(): boolean;
+        isOpen(): boolean;
+        isClosed(): boolean;
 
-    readonly status: "new" | "opening" | "open" | "closing" | "closed";
-    isOperational(): boolean;
+        readonly status: "closed" | "open" | "opening" | "new" | "closing";
+        isOperational(): boolean;
 
-    createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
-    createKeyStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
-    createValueStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
+        createReadStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
+        createKeyStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
+        createValueStream(options?: AbstractIteratorOptions): NodeJS.ReadableStream;
 
-    /*
-    emitted when a new value is 'put'
-    */
-    on(event: 'put', cb: (key: any, value: any) => void): this;
-    /*
-    emitted when a value is deleted
-    */
-    on(event: 'del', cb: (key: any) => void): this;
-    /*
-    emitted when a batch operation has executed
-    */
-    on(event: 'batch', cb: (ary: any[]) => void): this;
-    /*
-    emitted when clear is called
-    */
-    on(event: 'clear', cb: (opts: any) => void): this;
-    /*
-    emitted on given event
-    */
-    on(event: 'open' | 'ready' | 'closed' | 'opening' | 'closing', cb: () => void): this;
+        /*
+        emitted when a new value is 'put'
+        */
+        on(event: 'put', cb: (key: any, value: any) => void): this;
+        /*
+        emitted when a value is deleted
+        */
+        on(event: 'del', cb: (key: any) => void): this;
+        /*
+        emitted when a batch operation has executed
+        */
+        on(event: 'batch', cb: (ary: any[]) => void): this;
+        /*
+        emitted when clear is called
+        */
+        on(event: 'clear', cb: (opts: any) => void): this;
+        /*
+        emitted on given event
+        */
+        on(event: 'open' | 'ready' | 'closed' | 'opening' | 'closing', cb: () => void): this;
+    }
+
+    interface LevelUpConstructor {
+        <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+            db: DB,
+            options: any,
+            cb?: ErrorCallback): LevelUp<DB>;
+
+        <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+            db: DB,
+            cb?: ErrorCallback): LevelUp<DB>;
+
+        new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+            db: DB,
+            options: any,
+            cb?: ErrorCallback): LevelUp<DB>;
+
+        new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
+            db: DB,
+            cb?: ErrorCallback): LevelUp<DB>;
+
+        errors: {
+            LevelUPError: typeof LevelUPError;
+            InitializationError: typeof InitializationError;
+            OpenError: typeof OpenError;
+            ReadError: typeof ReadError;
+            WriteError: typeof WriteError;
+            NotFoundError: typeof NotFoundError;
+            EncodingError: typeof EncodingError;
+        };
+    }
 }
 
-interface LevelUpConstructor {
-    <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
-        db: DB,
-        options: any,
-        cb?: ErrorCallback): LevelUp<DB>;
+declare const levelup: levelup.LevelUpConstructor;
 
-    <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
-        db: DB,
-        cb?: ErrorCallback): LevelUp<DB>;
-
-    new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
-        db: DB,
-        options: any,
-        cb?: ErrorCallback): LevelUp<DB>;
-
-    new <DB extends AbstractLevelDOWN = AbstractLevelDOWN>(
-        db: DB,
-        cb?: ErrorCallback): LevelUp<DB>;
-
-    errors: {
-        LevelUPError: typeof LevelUPError;
-        InitializationError: typeof InitializationError;
-        OpenError: typeof OpenError;
-        ReadError: typeof ReadError;
-        WriteError: typeof WriteError;
-        NotFoundError: typeof NotFoundError;
-        EncodingError: typeof EncodingError;
-    };
-}
-
-export interface LevelUpChain<K = any, V = any> {
-    readonly length: number;
-    put(key: K, value: V): this;
-    del(key: K): this;
-    clear(): this;
-    write(callback: ErrorCallback): this;
-    write(): Promise<this>;
-}
-
-export const errors: LevelUpConstructor["errors"];
-
-export const LevelUp: LevelUpConstructor;
-
-export {};
+export = levelup;

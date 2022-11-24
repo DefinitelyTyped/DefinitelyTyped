@@ -179,7 +179,7 @@ colDef = {
 
 //#region "Callbacks"
 
-const createRowFunc: DataTables.FunctionCreateRow = (row, data, dataIndex) => { };
+const createRowFunc: DataTables.FunctionCreateRow = (row, data, dataIndex, cells) => { };
 const drawCallbackFunc: DataTables.FunctionDrawCallback = (settings) => { };
 const footerCallbackFunc: DataTables.FunctionFooterCallback = (tfoot, data, start, end, display) => { };
 const formatNumberFunc: DataTables.FunctionFormatNumber = (toForm) => { };
@@ -977,6 +977,21 @@ $('#example tbody').on('click', 'td.details-control', () => {
         tr.addClass('shown');
     }
 });
+
+dt.row(0).select();
+dt.row(0).deselect();
+
+dt.row().select();
+dt.row().deselect();
+dt.row().data();
+dt.row().select().data();
+dt.row().deselect().data();
+
+dt.rows().select();
+dt.rows().deselect();
+dt.rows().data();
+dt.rows().select().data();
+dt.rows().deselect().data();
 
 //#endregion "Methods-Row"
 

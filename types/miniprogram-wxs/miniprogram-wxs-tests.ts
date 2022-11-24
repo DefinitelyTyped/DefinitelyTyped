@@ -4,13 +4,13 @@ getDate();
 // $ExpectType RegExp
 getRegExp('.*');
 
-// $ExpectError
+// @ts-expect-error
 new Date();
 
-// $ExpectError
+// @ts-expect-error
 new RegExp('');
 
-// $ExpectError
+// @ts-expect-error
 console.warn();
 
 // $ExpectType number

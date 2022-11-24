@@ -141,7 +141,7 @@ interface Hasher {
      *     var hash = hasher.finalize('message');
      *     var hash = hasher.finalize(wordArray);
      */
-    finalize(messaegUpdate?: WordArray | string): WordArray;
+    finalize(messageUpdate?: WordArray | string): WordArray;
 }
 
 interface HasherStatic {

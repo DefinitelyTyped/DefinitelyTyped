@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@sinonjs/fake-timers": "^7.1.0"
-    }
-}

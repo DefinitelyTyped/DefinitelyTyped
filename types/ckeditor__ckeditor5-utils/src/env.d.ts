@@ -31,12 +31,24 @@ export function isRegExpUnicodePropertySupported(): boolean;
  */
 export function isSafari(userAgent: string): boolean;
 
+/**
+ * Checks if User Agent represented by the string is running on Windows.
+ */
+export function isWindows(userAgent: string): boolean;
+
+/**
+ * Checks if User Agent represented by the string is running in iOS.
+ */
+export function isiOS(userAgent: string): boolean;
+
 interface Env {
     isMac: boolean;
+    isWindows: boolean;
     isGecko: boolean;
     isSafari: boolean;
     isAndroid: boolean;
     isBlink: boolean;
+    isiOS: boolean;
     features: {
         isRegExpUnicodePropertySupported: boolean;
     };

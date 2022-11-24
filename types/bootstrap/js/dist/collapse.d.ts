@@ -89,7 +89,7 @@ declare namespace Collapse {
         toggle: boolean;
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'toggle' | 'dispose') => void;
+    type jQueryInterface = (config?: Partial<Options> | 'show' | 'hide' | 'toggle' | 'dispose') => JQuery;
 }
 
 export default Collapse;

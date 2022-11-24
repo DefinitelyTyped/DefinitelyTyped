@@ -13,4 +13,5 @@ export default class ImageInsertPanelView extends View {
     readonly keystrokes: KeystrokeHandler;
     getIntegration(name: string): View | undefined;
     focus(): void;
+    destroy(): void;
 }

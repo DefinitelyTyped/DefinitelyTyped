@@ -12,7 +12,7 @@ declare class Connection {
     remainingKeys: number;
     trackingId: string;
     remainingHighKeys: number;
-    getServerDate(forced: boolean): Date;
+    serverDate: Date;
     serverVersion: string;
     isOnline: boolean;
     readTimeout: number;
@@ -132,18 +132,22 @@ declare class Connection {
         classKeyOrSource: number | string,
         iVfsOrParentKey?: DataSet | number,
         iClass?: DataSet
-    ): any;
-    sendMail(mail: any): void;
-    scheduledSendMail(mail: any, maxSize?: number): void;
-    newTask(task: any, userName: string | null, password: string | null): void;
+    ): ModelDef;
+    sendMail(mail: Mail): void;
+    scheduledSendMail(mail: Mail, maxSize?: number): void;
+    newTask(task: Task, userName: string | null, password: string | null): void;
     skipSatSunHoliday(dt: Date, uf: number | null, localidade: number | null): Date;
     getUserGroups(userKey: number): number[];
     isUserInGroup(userKey: number, groupKey: number): boolean;
+    getTimezoneOffset(): number;
 }
 declare namespace Connection {
-    export { fromConfig, Database };
+    export { fromConfig, Database, ModelDef, Mail, Task };
 }
 type Database = import('../database/Database');
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
+type ModelDef = import('../classdef/ModelDef');
+type Mail = import('../mail/Mail');
+type Task = import('../scheduler/Task');
 declare function fromConfig(key: DBKey | number): Connection;

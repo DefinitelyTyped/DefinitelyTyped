@@ -1,5 +1,21 @@
 import factory from "@rdfjs/data-model";
+import Factory from "@rdfjs/data-model/Factory";
 import * as RDF from "@rdfjs/types";
+
+const exports: [
+    'blankNode',
+    'defaultGraph',
+    'fromQuad',
+    'fromTerm',
+    'literal',
+    'namedNode',
+    'quad',
+    'variable'
+] = Factory.exports;
+
+const fromCtor = new Factory();
+const asFactory: RDF.DataFactory = fromCtor;
+fromCtor.init();
 
 const myQuad = factory.quad(
   factory.namedNode('http://example.org/subject'),
@@ -34,7 +50,7 @@ const myBaseQuad = factory.quad<RDF.BaseQuad>(
 
 const myBaseQuadBad = factory.quad(
   factory.namedNode('http://example.org/subject'),
-  // $ExpectError
+  // @ts-expect-error
   factory.blankNode('34'),
   factory.namedNode('http://example.org/object'),
 );
@@ -42,7 +58,7 @@ const myBaseQuadBad = factory.quad(
 const fromQuadValue = factory.fromQuad(myQuad);
 const fromBaseQuadValue = factory.fromQuad(myBaseQuad);
 
-// $ExpectError
+// @ts-expect-error
 factory.fromQuad(factory.variable('?o'));
 
 const fromTermValue = factory.fromTerm(factory.variable('?o'));

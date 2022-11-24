@@ -2,7 +2,6 @@
 // Project: https://github.com/eligrey/FileSaver.js/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 //                 Daniel Roth <https://github.com/DaIgeb>
-//                 Chris Barr <https://github.com/chrismbarr>
 //                 HitkoDev <https://github.com/HitkoDev>
 //                 JounQin <https://github.com/JounQin>
 //                 BendingBender <https://github.com/bendingbender>

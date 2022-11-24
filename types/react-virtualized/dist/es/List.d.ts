@@ -1,8 +1,7 @@
-import { PureComponent, Validator, Requireable } from 'react';
+import { PureComponent } from 'react';
 import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid';
-import { Index, IndexRange, OverscanIndexRange, Alignment } from '../../index';
-import { CellMeasurerCache, CellPosition } from './CellMeasurer';
-import { OnScrollParams } from './ScrollSync';
+import { IndexRange, OverscanIndexRange, Alignment } from '../../index';
+import { CellPosition } from './CellMeasurer';
 
 export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
     index: GridCellProps['rowIndex'];
@@ -13,21 +12,6 @@ export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
 export type RenderedRows = OverscanIndexRange & IndexRange;
 
 export type ListProps = GridCoreProps & {
-    deferredMeasurementCache?: CellMeasurerCache | undefined;
-    /**
-     * Removes fixed height from the scrollingContainer so that the total height
-     * of rows can stretch the window. Intended for use with WindowScroller
-     */
-    autoHeight?: boolean | undefined;
-    /** Optional CSS class name */
-    className?: string | undefined;
-    /**
-     * Used to estimate the total height of a List before all of its rows have actually been measured.
-     * The estimated total height is adjusted as rows are rendered.
-     */
-    estimatedRowSize?: number | undefined;
-    /** Height constraint for list (determines how many actual rows are rendered) */
-    height: number;
     /** Optional renderer to be used in place of rows when rowCount is 0 */
     noRowsRenderer?: (() => JSX.Element) | undefined;
     /**
@@ -35,40 +19,10 @@ export type ListProps = GridCoreProps & {
      * ({ startIndex, stopIndex }): void
      */
     onRowsRendered?: ((info: RenderedRows) => void) | undefined;
-    /**
-     * Number of rows to render above/below the visible bounds of the list.
-     * These rows can help for smoother scrolling on touch devices.
-     */
-    overscanRowCount?: number | undefined;
-    /**
-     * Callback invoked whenever the scroll offset changes within the inner scrollable region.
-     * This callback can be used to sync scrolling between lists, tables, or grids.
-     * ({ clientHeight, scrollHeight, scrollTop }): void
-     */
-    onScroll?: ((params: OnScrollParams) => void) | undefined;
-    /** See Grid#overscanIndicesGetter */
-    overscanIndicesGetter?: OverscanIndicesGetter | undefined;
-    /**
-     * Either a fixed row height (number) or a function that returns the height of a row given its index.
-     * ({ index: number }): number
-     */
-    rowHeight: number | ((info: Index) => number);
     /** Responsible for rendering a row given an index; ({ index: number }): node */
     rowRenderer: ListRowRenderer;
-    /** Number of rows in list. */
-    rowCount: number;
-    /** See Grid#scrollToAlignment */
-    scrollToAlignment?: string | undefined;
     /** Row index to ensure visible (by forcefully scrolling if necessary) */
     scrollToIndex?: number | undefined;
-    /** Vertical offset. */
-    scrollTop?: number | undefined;
-    /** Optional inline style */
-    style?: React.CSSProperties | undefined;
-    /** Tab index for focus */
-    tabIndex?: number | null | undefined;
-    /** Width of list */
-    width: number;
 };
 /**
  * It is inefficient to create and manage a large list of DOM elements within a scrolling container

@@ -16,7 +16,6 @@
 //                 Eliseu Monar dos Santos <https://github.com/eliseumds>
 //                 Craig Michael Thompson <https://github.com/craga89>
 //                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Hammad Jutt <https://github.com/hammadj>
 //                 Dhruv Jain <https://github.com/maddhruv>
 //                 Jeffrey Cherewaty <https://github.com/cherewaty>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

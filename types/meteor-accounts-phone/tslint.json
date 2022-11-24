@@ -3,9 +3,7 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "dt-header": false,
         "no-var-keyword": false,
-        "npm-naming": false,
-        "trim-file": false
+        "npm-naming": false
     }
 }

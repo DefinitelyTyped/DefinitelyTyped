@@ -72,7 +72,7 @@ $selectpicker.selectpicker('toggle');
 $selectpicker.selectpicker('hide');
 $selectpicker.selectpicker('show');
 $selectpicker.selectpicker('destroy');
-// $ExpectError
+// @ts-expect-error
 $selectpicker.selectpicker('destroy', 'aa');
 
 /**
@@ -136,7 +136,8 @@ $.fn.selectpicker.Constructor.DEFAULTS.noneResultsText; // $ExpectType string
 $.fn.selectpicker.Constructor.DEFAULTS.noneSelectedText; // $ExpectType string
 $.fn.selectpicker.Constructor.DEFAULTS.placeholder; // $ExpectType null
 $.fn.selectpicker.Constructor.DEFAULTS.sanitize; // $ExpectType boolean
-$.fn.selectpicker.Constructor.DEFAULTS.sanitizeFn; // $ExpectType ((unsafeElements: (HTMLElement | Node | ChildNode)[]) => void) | null
+// tslint:disable-next-line
+$.fn.selectpicker.Constructor.DEFAULTS.sanitizeFn; // $ExpectType ((unsafeElements: (HTMLElement | Node | ChildNode)[]) => void) | null || ((unsafeElements: (Node | ChildNode | HTMLElement)[]) => void) | null
 $.fn.selectpicker.Constructor.DEFAULTS.selectAllText; // $ExpectType string
 $.fn.selectpicker.Constructor.DEFAULTS.selectedTextFormat; // $ExpectType string
 $.fn.selectpicker.Constructor.DEFAULTS.selectOnTab; // $ExpectType boolean

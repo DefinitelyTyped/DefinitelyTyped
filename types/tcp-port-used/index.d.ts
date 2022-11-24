@@ -5,10 +5,10 @@
 
 export interface TcpPortUsedOptions {
     port: number;
-    host: string;
-    status: boolean;
-    retryTimeMs: number;
-    timeOutMs: number;
+    host?: string;
+    status?: boolean;
+    retryTimeMs?: number;
+    timeOutMs?: number;
 }
 
 export function check(port: number | TcpPortUsedOptions, host?: string): Promise<boolean>;

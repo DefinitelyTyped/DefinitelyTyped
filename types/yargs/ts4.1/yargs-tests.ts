@@ -123,8 +123,11 @@ async function Argv$parsing() {
     const argv1 = await yargs.parse();
     const argv2 = yargs(['-x', '1', '-y', '2']).parseSync();
     const argv3 = yargs.parseSync(['-x', '1', '-y', '2']);
-    const argv4 = await yargs();
+    const argv4 = await yargs(['-x', '1', '-y', '2']).parseAsync();
     console.log(argv1.x, argv2.x, argv3.x, argv4.x);
+
+    // $ExpectType Argv<{}>
+    yargs();
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
     yargs.parse();
@@ -136,7 +139,7 @@ async function Argv$parsing() {
     yargs.argv;
 
     // $ExpectType { [x: string]: unknown; _: (string | number)[]; $0: string; } | Promise<{ [x: string]: unknown; _: (string | number)[]; $0: string; }>
-    yargs();
+    yargs().argv;
 
     // $ExpectType { [x: string]: unknown; update: boolean | undefined; extern: boolean | undefined; _: (string | number)[]; $0: string; }
     yargs(['--update'])
@@ -742,10 +745,24 @@ function Argv$getCompletion() {
         .option('foobar', {})
         .option('foobaz', {})
         .completion()
-        .getCompletion(['./test.js', '--foo'], (completions) => {
-            console.log(completions);
+        .getCompletion(['./test.js', '--foo'], (err, completions) => {
+          if (err !== null) {
+            console.error(err.message);
+          }
+          console.log(completions.length);
         })
         .argv;
+}
+
+function Argv$getCompletionPromise() {
+    const ya = yargs
+        .option('foobar', {})
+        .option('foobaz', {})
+        .completion()
+        .getCompletion(['./test.js', '--foo'])
+        .then(completions => {
+          console.log(completions.length);
+        });
 }
 
 function Argv$getHelp() {
@@ -939,6 +956,17 @@ async function Argv$inferOptionTypes() {
         .option("coerce", { coerce: () => new Date() })
         .option("count", { count: true })
         .option("normalize", { normalize: true })
+        .parseSync();
+
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date; count: number | "no"; _: (string | number)[]; $0: string; }
+    yargs
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("choices", { choices: colors, default: "red" } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("numberChoices", { choices: stages, default: 1 } as const)
+        .option("coerce", { coerce: () => new Date(), default: "abc" })
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("count", { type: "count", default: "no" } as const)
         .parseSync();
 
     // $ExpectType (string | number)[] | undefined
@@ -1218,7 +1246,7 @@ async function Argv$fallbackToUnknownForUnknownOptions() {
     // $ExpectType unknown
     argv.c;
 
-    // $ExpectError
+    // @ts-expect-error
     const x: string = (await yargs.argv).x;
     return x;
 }

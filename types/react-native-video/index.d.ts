@@ -91,7 +91,7 @@ export interface DRMSettings {
   contentId?: string | undefined;
   certificateUrl?: string | undefined;
   base64Certificate?: boolean | undefined;
-  getLicense?(): Promise<string>;
+  getLicense?(spcString: string): Promise<string>;
 }
 
 export const TextTrackType: {
@@ -128,7 +128,7 @@ export enum DRMType {
 
 export interface VideoProperties extends ViewProps {
     filter?: FilterType | undefined;
-    filterEnable?: boolean | undefined;
+    filterEnabled?: boolean | undefined;
 
     /* Native only */
     src?: any;
@@ -237,7 +237,9 @@ export interface VideoProperties extends ViewProps {
 }
 
 export default class Video extends React.Component<VideoProperties> {
-    seek(time: number, tolerance?: number): void;
     presentFullscreenPlayer(): void;
     dismissFullscreenPlayer(): void;
+    restoreUserInterfaceForPictureInPictureStopCompleted(restored: boolean): void;
+    save(): Promise<void>;
+    seek(time: number, tolerance?: number): void;
 }

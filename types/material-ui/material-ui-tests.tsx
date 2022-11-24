@@ -4195,8 +4195,8 @@ const ListExampleMessages = () => (
   </div>
 );
 
-function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.SelectableProps>) {
-  return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
+function wrapState(ComposedComponent: ComponentClass<React.PropsWithChildren<__MaterialUI.List.SelectableProps>>) {
+  return class SelectableList extends Component<{children?: React.ReactNode, defaultValue: number}, {selectedIndex: number}> {
     static propTypes = {
       children: PropTypes.node.isRequired,
       defaultValue: PropTypes.number.isRequired,

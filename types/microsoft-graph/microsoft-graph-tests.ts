@@ -194,4 +194,22 @@ const dataSubjectType: MicrosoftGraph.DataSubjectType = "teacher";
 
 const advancedConfigState: MicrosoftGraph.AdvancedConfigState = "disabled";
 
-const contactRelationship: MicrosoftGraph.ContactRelationship = "unknownFutureValue";
+const messageActionFlag: MicrosoftGraph.MessageActionFlag = "read";
+
+const stagedFeatureName: MicrosoftGraph.StagedFeatureName = "seamlessSso";
+
+const accessReviewExpirationBehavior: MicrosoftGraph.AccessReviewExpirationBehavior = "acceptAccessRecommendation";
+
+const roleEligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.RoleEligibilityScheduleFilterByCurrentUserOptions = "principal";
+
+const bookingPriceType: MicrosoftGraph.BookingPriceType = "undefined";
+
+const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = "succeeded";
+
+const album: MicrosoftGraph.Album = {
+    coverImageItemId: "test",
+};
+
+const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+
+const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = "available";

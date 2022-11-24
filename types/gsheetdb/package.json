@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/node": "^17.0.25",
+        "google-auth-library": "^7.14.1"
+    }
+}

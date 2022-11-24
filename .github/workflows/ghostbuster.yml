@@ -1,0 +1,61 @@
+name: Remove contributors with deleted accounts
+
+on:
+  schedule:
+    # https://crontab.guru/#0_0_*_*_1
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+    inputs:
+      skipPR:
+        description: Push results straight to master instead of opening a PR
+        required: false
+        default: "false"
+
+permissions:
+  contents: read
+
+jobs:
+  ghostbust:
+    permissions:
+      contents: write  # for Git to git push
+      pull-requests: write  # for peter-evans/create-pull-request to create a PR
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+
+      - run: npm install --no-package-lock
+      - run: node ./scripts/ghostbuster.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
+
+      - if: ${{ inputs.skipPR == 'true' }}
+        run: |
+          if [ -n "`git status -s`" ]; then
+            git config --global user.email "typescriptbot@microsoft.com"
+            git config --global user.name "TypeScript Bot"
+            git commit -am "Remove contributors with deleted accounts #no-publishing-comment"
+            # Script can take a bit to run; with such an active repo there's a good chance
+            # someone has merged a PR in that time.
+            git pull --rebase
+            git push
+          fi
+
+      - if: ${{ inputs.skipPR != 'true' }}
+        uses: peter-evans/create-pull-request@v4.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Remove contributors with deleted accounts #no-publishing-comment"
+          committer: "TypeScript Bot <typescriptbot@microsoft.com>"
+          author: "TypeScript Bot <typescriptbot@microsoft.com>"
+          branch: "bust-ghosts"
+          branch-suffix: short-commit-hash
+          delete-branch: true
+          title: Remove contributors with deleted accounts
+          body: "Generated from [.github/workflows/ghostbuster.yml](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/workflows/ghostbuster.yml)"
+

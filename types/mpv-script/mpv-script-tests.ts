@@ -49,9 +49,9 @@ mp.observe_property('test', 'number', (name, value) => {
     value = value;
 });
 mp.observe_property('test', 'none', name => {});
-// $ExpectError
+// @ts-expect-error
 mp.observe_property('test', 'none', (name, value) => {});
-// $ExpectError
+// @ts-expect-error
 mp.observe_property('test', undefined, (name, value) => {});
 
 // $ExpectType OSDSize | undefined

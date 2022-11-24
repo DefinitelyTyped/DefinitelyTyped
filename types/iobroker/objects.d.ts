@@ -130,8 +130,13 @@ declare global {
             T extends ObjectIDs.AdapterScoped ? AdapterScopedObject :
             Read extends "read" ? ioBroker.Object : AnyObject;
 
-        type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
-        type StringOrTranslated = string | { [lang in Languages]?: string; };
+        type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'uk' | 'zh-cn';
+        type StringOrTranslated = string | {
+            // The "en" property is required when an object is used for the languages
+            [lang in Languages as lang extends "en" ? lang : never]: string;
+        } & {
+            [lang in Languages as lang extends "en" ? never : lang]?: string;
+        };
 
         type CommonType = 'number' | 'string' | 'boolean' | 'array' | 'object' | 'mixed' | 'file';
 
@@ -182,7 +187,10 @@ declare global {
             /** Configures this state as an alias for another state */
             alias?: {
                 /** The target state id */
-                id: string;
+                id: string | {
+                    read: string;
+                    write: string;
+                };
                 /** An optional conversion function when reading, e.g. `"(val − 32) * 5/9"` */
                 read?: string;
                 /** An optional conversion function when reading, e.g. `"(val * 9/5) + 32"` */
@@ -191,17 +199,23 @@ declare global {
 
             /**
              * Dictionary of possible values for this state in the form
-             * <pre>
+             * ```jsonc
              * {
              *     "internal value 1": "displayed value 1",
              *     "internal value 2": "displayed value 2",
-             *     ...
+             *     // ...
              * }
-             * </pre>
+             * ```
+             *
+             * or as an array:
+             * ```jsonc
+             * [ "value 1", "value 2", // ... ]
+             * ```
+             *
              * In old ioBroker versions, this could also be a string of the form
-             * "val1:text1;val2:text2" (now deprecated)
+             * `"val1:text1;val2:text2"` (now deprecated)
              */
-            states?: Record<string, string> | string;
+            states?: Record<string, string> | string[] | string;
 
             /** ID of a helper state indicating if the handler of this state is working */
             workingID?: string;
@@ -259,6 +273,13 @@ declare global {
             enabled: boolean;
             /** How and when this instance should be started */
             mode: InstanceMode;
+            /**
+             * The starting priority of this adapter:
+             * - **1:** Logic adapters
+             * - **2:** Data providers
+             * - **3:** All other adapters
+             */
+            tier?: 1 | 2 | 3;
 
             // Make it possible to narrow the object type using the custom property
             custom?: undefined;
@@ -699,5 +720,25 @@ declare global {
         type SettableGroupObject = SettableObject<GroupObject>;
         type SettableScriptObject = SettableObject<ScriptObject>;
         type SettableOtherObject = SettableObject<OtherObject>;
+
+        // Used to infer the return type of GetObjectView
+        type InferGetObjectViewItemType<Design extends string, View extends string> =
+            Design extends 'system' ? (
+                View extends "host" ? HostObject :
+                View extends "adapter" ? AdapterObject :
+                View extends "instance" ? InstanceObject :
+                View extends "meta" ? MetaObject :
+                View extends "device" ? DeviceObject :
+                View extends "channel" ? ChannelObject :
+                View extends "state" ? StateObject :
+                View extends "folder" ? FolderObject :
+                View extends "enum" ? EnumObject :
+                View extends "script" ? ScriptObject :
+                View extends "group" ? GroupObject :
+                View extends "user" ? UserObject :
+                View extends "config" ? OtherObject & { type: "config" } :
+                View extends "custom" ? NonNullable<StateObject["common"]["custom"]> :
+                ioBroker.Object
+            ) : any;
     }
 }

@@ -549,6 +549,17 @@ export class PlayerManager {
     ): void;
 
     /**
+     * Adds an event listener for the timed metadata events
+     */
+    addEventListener(
+        eventType:
+            | events.EventType.TIMED_METADATA_CHANGED
+            | events.EventType.TIMED_METADATA_ENTER
+            | events.EventType.TIMED_METADATA_EXIT,
+        eventListener: TimedMetadataEventHandler
+    ): void;
+
+    /**
      * Adds an event listener for player events that get the base @see{@link events.Event} in the callback.
      * Includes ALL and CLIP_STARTED
      */

@@ -11,10 +11,10 @@ import { BackHandler, StyleProp, ViewStyle } from "react-native";
 import { History, Location } from "history";
 import { RouterProps, match } from "react-router";
 
-export type Route<T = {}> = {
+export type Route<Params extends { [K in keyof Params]?: string } = {}> = {
     key: string;
     routeName: string;
-    match?: match<T> | undefined;
+    match?: match<Params> | undefined;
 };
 
 export type NavigationState<OwnRoute> = {

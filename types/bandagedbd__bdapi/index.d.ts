@@ -301,14 +301,14 @@ declare namespace BdApiModule {
      * @param filter A function to use to filter modules.
      * @returns The modules found or null if none were found.
      */
-    function findModule(filter: () => void): any;
+    function findModule(filter: (module: any) => boolean): any;
 
     /**
      * Searches for multiple internal Discord webpack module based on `filter`. It's the same as `findModule` but will return all matches.
      * @param filter A function to use to filter modules.
      * @returns The modules found or null if none were found.
      */
-    function findAllModules(filter: () => void): any[];
+    function findAllModules(filter: (module: any) => boolean): any[] | null;
 
     /**
      * Searches for an internal Discord webpack module that has every property passed.

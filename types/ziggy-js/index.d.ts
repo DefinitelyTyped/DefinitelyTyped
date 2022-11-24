@@ -84,14 +84,14 @@ export class Router extends String {
 
 declare function route(
     name?: undefined,
-    params?: RouteParamsWithQueryOverload,
+    params?: RouteParamsWithQueryOverload | RouteParam,
     absolute?: boolean,
     config?: Config,
 ): Router;
 
 declare function route(
     name: string,
-    params?: RouteParamsWithQueryOverload,
+    params?: RouteParamsWithQueryOverload | RouteParam,
     absolute?: boolean,
     config?: Config,
 ): string;

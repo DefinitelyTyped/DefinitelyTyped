@@ -1,4 +1,4 @@
-import { EventHandler, ListenerDescriptor } from "../../types/util";
+import { EventHandler, ListenerDescriptor } from '../../types/util';
 
 export default class Observer {
     constructor();

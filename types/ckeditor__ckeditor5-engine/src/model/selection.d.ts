@@ -28,7 +28,6 @@ export type Selectable =
     | Text
     | null
     | Iterable<Range>;
-
 export default class Selection implements Emitter {
     constructor(
         selectable?: Selectable | null,
@@ -70,7 +69,7 @@ export default class Selection implements Emitter {
     is<K extends string>(type: 'element' | 'model:element', name: K): this is (Element | RootElement) & { name: K };
     is<K extends string>(type: 'rootElement' | 'model:rootElement', name: K): this is RootElement & { name: K };
     is(type: string, name?: string): boolean;
-    isEqual(otherSelection: Selection): boolean;
+    isEqual(otherSelection: Selection | DocumentSelection): boolean;
     removeAttribute(key: string): void;
     setAttribute(key: string, value: string | boolean | number): void;
     setFocus(itemOrPosition: Position): void;

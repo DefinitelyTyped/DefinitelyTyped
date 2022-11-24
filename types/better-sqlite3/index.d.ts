@@ -1,4 +1,4 @@
-// Type definitions for better-sqlite3 7.4
+// Type definitions for better-sqlite3 7.6
 // Project: https://github.com/JoshuaWise/better-sqlite3
 // Definitions by: Ben Davies <https://github.com/Morfent>
 //                 Mathew Rumsey <https://github.com/matrumz>
@@ -20,6 +20,7 @@ declare namespace BetterSqlite3 {
         database: Database;
         source: string;
         reader: boolean;
+        busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
         get(...params: BindParameters): any;
@@ -83,7 +84,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string, options?: Database.Options): Database;
+        new (filename: string | Buffer, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
@@ -91,7 +92,7 @@ declare namespace BetterSqlite3 {
     }
 }
 
-declare class SqliteError implements Error {
+declare class SqliteError extends Error {
     name: string;
     message: string;
     code: string;
@@ -109,6 +110,7 @@ declare namespace Database {
         fileMustExist?: boolean | undefined;
         timeout?: number | undefined;
         verbose?: ((message?: any, ...additionalArgs: any[]) => void) | undefined;
+        nativeBinding?: string | undefined;
     }
 
     interface SerializeOptions {
@@ -123,6 +125,7 @@ declare namespace Database {
         varargs?: boolean | undefined;
         deterministic?: boolean | undefined;
         safeIntegers?: boolean | undefined;
+        directOnly?: boolean | undefined;
     }
 
     interface AggregateOptions extends RegistrationOptions {
@@ -145,7 +148,7 @@ declare namespace Database {
         ? BetterSqlite3.Statement<BindParameters>
         : BetterSqlite3.Statement<[BindParameters]>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
-    type Transaction = BetterSqlite3.Transaction<VariableArgFunction>;
+    type Transaction<T extends VariableArgFunction = VariableArgFunction> = BetterSqlite3.Transaction<T>;
     type Database = BetterSqlite3.Database;
 }
 

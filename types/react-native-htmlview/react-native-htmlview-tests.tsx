@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+import HTMLView, { HTMLViewProps } from 'react-native-htmlview';
 
 const styles = StyleSheet.create({
   strong: {},
@@ -51,7 +51,34 @@ class Simple extends React.Component {
         rootComponentProps={defaultRootProps}
         TextComponent={Text}
         textComponentProps={defaultTextProps}
+        renderNode={renderNode}
       />
     );
   }
 }
+
+const renderNode: HTMLViewProps['renderNode'] = (
+  node,
+  index,
+  siblings,
+  parent,
+  defaultRenderer,
+) => {
+  if (node.name === 'p') {
+    const { numberOfLines } = node.attribs;
+
+    return (
+      <Text
+        style={[
+          { color: '#acacac' },
+          node.attribs.style
+        ]}
+        numberOfLines={numberOfLines ? Number(numberOfLines) : undefined}
+      >
+        {defaultRenderer(node.children, node)}
+      </Text>
+    );
+  } else {
+    return defaultRenderer([node], parent);
+  }
+};

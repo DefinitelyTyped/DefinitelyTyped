@@ -72,6 +72,7 @@ render(
                 <>
                     <div>hostname is {context.location.hostname}</div>
                     <button onClick={(): Promise<void> => context.navigate('/')}>Go Home</button>
+                    <button onClick={(): Promise<void> => context.navigate(-1)}>Go Back</button>
                 </>
             )}
         </Location>
@@ -80,6 +81,7 @@ render(
                 <>
                     <div>hostname is {context.location.hostname}</div>
                     <button onClick={(): Promise<void> => context.navigate('/')}>Go Home</button>
+                    <button onClick={(): Promise<void> => context.navigate(-1)}>Go Back</button>
                 </>
             )}
         </LocationProvider>
@@ -87,8 +89,10 @@ render(
     document.getElementById('app-root'),
 );
 
-const handleRef = (el: HTMLAnchorElement) => {
-    el.focus();
+const handleRef = (el: HTMLAnchorElement | null) => {
+    if (el !== null) {
+        el.focus();
+    }
 };
 
 render(<Link innerRef={handleRef} to="./foo"></Link>, document.getElementById('app-root'));

@@ -157,6 +157,23 @@ function serverTest2() {
     });
 }
 
+function serverAcceptNullParameterTest() {
+    const server = http.createServer((req, rsp) => {
+        rsp.writeHead(200);
+        rsp.end("Hello, world!");
+    });
+    server.listen(8888);
+
+    const wsServer = new websocket.server({
+        httpServer: server,
+        autoAcceptConnections: true
+    });
+
+    wsServer.on("request", (request) => {
+        request.accept(null, request.origin);
+    });
+}
+
 function clientTest2() {
     const ipArray = getLocalIpArray();
 
@@ -219,6 +236,7 @@ function testClientAbortApi() {
 {
     console.log(`websocket test start.`);
     serverTest2();
+    serverAcceptNullParameterTest();
     clientTest2();
     clientTest3();
     testClientAbortApi();

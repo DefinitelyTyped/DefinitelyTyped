@@ -101,6 +101,7 @@ const ItemListObj = formValues({ fooBar : "foo" })(
 /* Custom FormSection */
 
 interface MyFormSectionProps {
+    children?: React.ReactNode;
     foo: string;
 }
 
@@ -109,6 +110,7 @@ const MyFormSection: React.FunctionComponent<MyFormSectionProps> = ({ children, 
 /* Custom Field */
 
 interface MyFieldCustomProps {
+    children?: React.ReactNode;
     foo: string;
 }
 type MyFieldProps = MyFieldCustomProps & WrappedFieldProps;
@@ -149,6 +151,7 @@ const FieldImmutableCustom = ImmutableField as new () => GenericField<MyFieldCus
 /* Custom Fields */
 
 interface MyFieldsCustomProps {
+    children?: React.ReactNode;
     foo: string;
 }
 type MyFieldsProps = MyFieldsCustomProps & WrappedFieldsProps;
@@ -160,7 +163,7 @@ const FieldsCustom = Fields as new () => GenericFields<MyFieldsCustomProps>;
 
 /* FieldArray */
 
-const MyArrayField: React.FunctionComponent<WrappedFieldArrayProps> = ({
+const MyArrayField: React.FunctionComponent<React.PropsWithChildren<WrappedFieldArrayProps>> = ({
     children
 }) => null;
 
@@ -170,6 +173,7 @@ interface MyFieldValue {
     num: number;
 }
 interface MyFieldArrayCustomProps {
+    children?: React.ReactNode;
     foo: string;
     bar: number;
 }

@@ -33,7 +33,8 @@ csp.newDirective('form-action', 'self'); // $ExpectType ContentSecurityPolicy
 csp.newDirective('frame-ancestors', 'self'); // $ExpectType ContentSecurityPolicy
 csp.newDirective('block-all-mixed-content', 'self'); // $ExpectType ContentSecurityPolicy
 csp.newDirective('upgrade-insecure-requests', 'self'); // $ExpectType ContentSecurityPolicy
-csp.newDirective('foo', 'self'); // $ExpectError
+// @ts-expect-error
+csp.newDirective('foo', 'self');
 
 // $ExpectType ContentSecurityPolicy
 csp.load({
@@ -62,11 +63,13 @@ csp.load({
     'block-all-mixed-content': ['self'],
     'upgrade-insecure-requests': ['self'],
 });
-csp.load({ foo: ['self'] }); // $ExpectError
+// @ts-expect-error
+csp.load({ foo: ['self'] });
 
 csp.share('json'); // $ExpectType Partial<Record<Directive, string[]>>
 csp.share('string'); // $ExpectType string
 csp.share('html'); // $ExpectType string
-csp.share('foo'); // $ExpectError
+// @ts-expect-error
+csp.share('foo');
 
 csp.valid(); // $ExpectType boolean

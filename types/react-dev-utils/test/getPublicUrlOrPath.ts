@@ -5,6 +5,9 @@ getPublicUrlOrPath(true, '/', undefined);
 getPublicUrlOrPath(true, undefined, '/');
 getPublicUrlOrPath(true, '/', '/');
 getPublicUrlOrPath(true, '/', '/'); // $ExpectType string
-getPublicUrlOrPath(true); // $ExpectError
-getPublicUrlOrPath(true, undefined); // $ExpectError
-getPublicUrlOrPath(true, '/'); // $ExpectError
+// @ts-expect-error
+getPublicUrlOrPath(true);
+// @ts-expect-error
+getPublicUrlOrPath(true, undefined);
+// @ts-expect-error
+getPublicUrlOrPath(true, '/');

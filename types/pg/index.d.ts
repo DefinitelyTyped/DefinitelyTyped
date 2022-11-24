@@ -31,6 +31,7 @@ export interface ClientConfig {
     application_name?: string | undefined;
     connectionTimeoutMillis?: number | undefined;
     types?: CustomTypesConfig | undefined;
+    options?: string | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -51,6 +52,7 @@ export interface PoolConfig extends ClientConfig {
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
     allowExitOnIdle?: boolean | undefined;
+    maxUses?: number | undefined;
 }
 
 export interface QueryConfig<I extends any[] = any[]> {

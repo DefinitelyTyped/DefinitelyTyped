@@ -1,0 +1,34 @@
+{
+    "files": [
+        "index.d.ts",
+        "test/index.ts",
+        "test/tsx.tsx",
+        "test/cssProperties.tsx",
+        "test/elementAttributes.tsx",
+        "test/managedAttributes.tsx",
+        "test/hooks.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "paths": {
+            "react": ["react/v17"],
+            "react-dom": ["react-dom/v17"],
+            "react-dom/*": ["react-dom/v17/*"]
+        },
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    }
+}

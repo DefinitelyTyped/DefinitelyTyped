@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "no-const-enum": false,
         "no-internal-module": false,
         "no-redundant-jsdoc-2": false,
@@ -11,7 +10,6 @@
         "one-line": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

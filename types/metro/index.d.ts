@@ -5,11 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export * from './Asset';
-export * from './Server';
 export * from './DeltaBundler/types';
-export * from './lib/reporting';
 export * from './ModuleGraph/types';
 export * from './ModuleGraph/worker/collectDependencies';
+export * from './Server';
+export * from './lib/reporting';
 export * from './shared/types';
 
 import { Server as HttpServer } from 'http';
@@ -25,21 +25,18 @@ export interface RunServerOptions {
     onReady?: (server: HttpServer | HttpsServer) => void;
     runInspectorProxy?: boolean;
     secureServerOptions?: Record<string, unknown>;
-    secure?: boolean; // deprecated
-    secureCert?: string; // deprecated
-    secureKey?: string; // deprecated
+
+    /** @deprecated since version 0.61 */
+    secure?: boolean;
+
+    /** @deprecated since version 0.61 */
+    secureCert?: string;
+
+    /** @deprecated since version 0.61 */
+    secureKey?: string;
 }
 
 export function runServer(
     config: ConfigT,
-    {
-        hasReducedPerformance,
-        host,
-        onError,
-        onReady,
-        secureServerOptions,
-        secure, // deprecated
-        secureCert, // deprecated
-        secureKey, // deprecated
-    }: RunServerOptions,
+    options: RunServerOptions,
 ): Promise<HttpServer | HttpsServer>;

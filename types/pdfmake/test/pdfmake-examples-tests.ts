@@ -1420,6 +1420,11 @@ const stylingProperties: TDocumentDefinitions = {
         { text: '        "json": "nested"', preserveLeadingSpaces: true },
         { text: '    }', preserveLeadingSpaces: true },
         { text: '}', preserveLeadingSpaces: true },
+        '\n\nFor preserving trailing spaces use preserveTrailingSpaces property:',
+        {
+            text: 'This is a paragraph with preserved trailing spaces.    ',
+            preserveTrailingSpaces: true,
+        },
         '\n\nfontFeatures property:',
         { text: 'Hello World 1234567890', fontFeatures: ['smcp'] },
         { text: 'Hello World 1234567890', fontFeatures: ['c2sc'] },

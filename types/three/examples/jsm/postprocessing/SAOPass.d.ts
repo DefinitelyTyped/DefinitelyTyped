@@ -60,7 +60,7 @@ export class SAOPass extends Pass {
     fsQuad: object;
     params: SAOPassParams;
 
-    static OUTPUT: OUTPUT;
+    static OUTPUT: typeof OUTPUT;
 
     renderPass(
         renderer: WebGLRenderer,

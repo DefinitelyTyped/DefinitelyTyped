@@ -163,7 +163,7 @@ function tsconfig(files) {
 }
 
 function tslint() {
-    return `{ "extends": "dtslint/dt.json" }\n`;
+    return `{ "extends": "@definitelytyped/dtslint/dt.json" }\n`;
 }
 
 function loadString(url: string): Promise<string> {

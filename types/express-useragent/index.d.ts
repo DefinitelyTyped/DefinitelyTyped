@@ -17,6 +17,7 @@ declare global {
 
 export interface Details {
     isMobile: boolean;
+    isMobileNative: boolean;
     isTablet: boolean;
     isiPad: boolean;
     isiPod: boolean;

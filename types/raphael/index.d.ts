@@ -452,7 +452,7 @@ export type RaphaelPotentialFailure<T extends {}> = T & {
  */
 export type RaphaelPaperPluginRegistry<
     TTechnology extends RaphaelTechnology = "SVG" | "VML",
-    T extends {} = RaphaelPaper<TTechnology>> = {
+    T = RaphaelPaper<TTechnology>> = {
         /**
          * Either the paper plugin method or a new namespace with methods.
          */

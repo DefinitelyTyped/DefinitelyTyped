@@ -3,6 +3,8 @@
 // Definitions by: Timo Glastra <https://github.com/TimoGlastra>
 //                 Jakub Kočí <https://github.com/jakubkoci>
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
+//                 James Ebert <https://github.com/JamesKebert>
+//                 Berend Sliedrecht <https://github.com/blu3beri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Buffer } from 'buffer/';
@@ -74,6 +76,12 @@ export function buildCredDefRequest(submitterDid: Did, credDef: CredDef): Promis
 export function buildGetCredDefRequest(submitterDid: Did | null, credDefId: CredDefId): Promise<LedgerRequest>;
 export function parseGetCredDefResponse(response: LedgerResponse): Promise<[CredDefId, CredDef]>;
 
+// Logging
+export function setLogger(
+    logFn: (level: number, target: string, message: string, modulePath: string, file: string, line: number) => void,
+): void;
+export function setDefaultLogger(pattern: 'trace' | 'info' | 'debug'): void;
+
 // Revocation Ledger methods
 export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
 export function buildGetRevocRegDefRequest(submitterDid: Did | null, revRegId: RevRegId): Promise<LedgerRequest>;
@@ -119,7 +127,14 @@ export function appendTxnAuthorAgreementAcceptanceToRequest(
 ): Promise<LedgerRequest>;
 export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
-
+export function generateWalletKey(config?: GenerateWalletKeyConfig): Promise<string>;
+export function buildAttribRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    hash: string | null,
+    raw: Record<string, unknown> | null,
+    enc: string | null,
+): Promise<LedgerRequest>;
 export function buildGetAttribRequest(
     submitterDid: Did | null,
     targetDid: Did,
@@ -198,13 +213,14 @@ export function proverStoreCredential(
     credReqMetadata: CredReqMetadata,
     cred: Cred,
     credDef: CredDef,
-    revRegDef: RevRegDef | null,
+    revRegDef: RevocRegDef | null,
 ): Promise<CredentialId>;
-// TODO: proverGetCredentials
+export function proverGetCredentials(wh: WalletHandle, filter: GetCredentialsFilter): Promise<IndyCredentialInfo[]>;
 export function proverGetCredential(wh: WalletHandle, credId: string): Promise<IndyCredentialInfo>;
 // TODO: proverSearchCredentials
 // TODO: proverFetchCredentials
 // TODO: proverCloseCredentialsSearch
+export function proverDeleteCredential(wh: WalletHandle, credId: string): Promise<void>;
 export function proverGetCredentialsForProofReq(wh: WalletHandle, proofRequest: IndyProofRequest): Promise<ProofCred>;
 export function proverSearchCredentialsForProofReq(
     wh: WalletHandle,
@@ -233,13 +249,13 @@ export function verifierVerifyProof(
     proof: IndyProof,
     schemas: Schemas,
     credentialDefs: CredentialDefs,
-    revRegsDefs: RevRegsDefs,
+    revRegDefs: RevocRegDefs,
     revRegs: RevStates,
 ): Promise<boolean>;
 
 export function createRevocationState(
     blobStorageReaderHandle: BlobReaderHandle,
-    revRegDef: RevRegDef,
+    revRegDef: RevocRegDef,
     revRegDelta: RevocRegDelta,
     timestamp: number,
     credRevId: CredRevocId,
@@ -313,12 +329,17 @@ export interface WalletCredentials {
 }
 
 export interface OpenWalletCredentials extends WalletCredentials {
+    rekey?: string;
     rekey_derivation_method?: KeyDerivationMethod | undefined;
 }
 
 export interface WalletExportImportConfig {
     key: string;
     path: string;
+}
+
+export interface GenerateWalletKeyConfig {
+    seed?: string;
 }
 
 export interface DidConfig {
@@ -342,6 +363,13 @@ export interface SignedLedgerRequest extends LedgerRequest {
 
 export interface LedgerRejectResponse {
     op: 'REJECT';
+    reqId: number;
+    reason: string;
+    identifier: string;
+}
+
+export interface LedgerReqnackResponse {
+    op: 'REQNACK';
     reqId: number;
     reason: string;
     identifier: string;
@@ -388,7 +416,11 @@ export interface LedgerWriteReplyResponse extends LedgerReplyResponse {
     };
 }
 
-export type LedgerResponse = LedgerRejectResponse | LedgerReadReplyResponse | LedgerWriteReplyResponse;
+export type LedgerResponse =
+    | LedgerRejectResponse
+    | LedgerReqnackResponse
+    | LedgerReadReplyResponse
+    | LedgerWriteReplyResponse;
 
 export interface Schema {
     id: SchemaId;
@@ -437,6 +469,15 @@ export interface CredOffer {
     key_correctness_proof: Record<string, unknown>;
 }
 
+export interface GetCredentialsFilter {
+    schema_id?: string;
+    schema_issuer_did?: string;
+    schema_name?: string;
+    schema_version?: string;
+    issuer_did?: string;
+    cred_def_id?: string;
+}
+
 export interface IndyCredentialInfo {
     referent: string;
     attrs: {
@@ -445,7 +486,7 @@ export interface IndyCredentialInfo {
     schema_id: string;
     cred_def_id: string;
     rev_reg_id?: number | undefined;
-    cred_rev_id?: number | undefined;
+    cred_rev_id?: string | undefined;
 }
 
 export interface IndyCredential {
@@ -498,8 +539,10 @@ export interface IndyProof {
     };
     proof: any;
     identifiers: Array<{
-        schema_id: string;
-        timestamp?: number | undefined;
+        schema_id: SchemaId;
+        cred_def_id: CredDefId;
+        rev_reg_id?: RevRegId;
+        timestamp?: number;
     }>;
 }
 
@@ -511,12 +554,8 @@ export interface CredentialDefs {
     [key: string]: CredDef;
 }
 
-export interface RevRegsDefs {
-    [key: string]: unknown;
-}
-
-export interface RevRegDef {
-    [key: string]: unknown;
+export interface RevocRegDefs {
+    [revRegId: string]: RevocRegDef;
 }
 
 export interface RevStates {
@@ -595,7 +634,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_def_id: string;
+    rev_reg_id: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
@@ -606,8 +645,8 @@ export interface RevocRegDelta {
     value: {
         prevAccum: string;
         accum: string;
-        issued: number[];
-        revoked: number[];
+        issued: number[] | undefined;
+        revoked: number[] | undefined;
     };
     ver: string;
 }

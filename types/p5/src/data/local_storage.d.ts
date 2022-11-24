@@ -10,11 +10,11 @@ declare module '../../index' {
          *   persists between browsing sessions and page
          *   reloads. The key can be the name of the variable
          *   but doesn't have to be. To retrieve stored items
-         *   see getItem.  Sensitive data such as passwords or
+         *   see getItem. Sensitive data such as passwords or
          *   personal information should not be stored in local
          *   storage.
          */
-        storeItem(key: string, value: string | number | object | boolean | Color): void;
+        storeItem(key: string, value: string | number | object | boolean | Color | Vector): void;
 
         /**
          *   Returns the value of an item that was stored in
@@ -23,7 +23,7 @@ declare module '../../index' {
          *   local storage
          *   @return Value of stored item
          */
-        getItem(key: string): number | object | string | boolean | Color;
+        getItem(key: string): number | object | string | boolean | Color | Vector;
 
         /**
          *   Clears all local storage items set with

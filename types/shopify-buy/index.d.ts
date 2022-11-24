@@ -281,6 +281,13 @@ declare namespace ShopifyBuy {
         value: string;
     }
 
+    export interface CustomAttributeV2 {
+        customAttributes: {
+            key: string;
+            value: string;
+        }[];
+    }
+
     export interface Collection {
         handle: string;
         body_html: string;
@@ -328,6 +335,11 @@ declare namespace ShopifyBuy {
          * Get completed at date.
          */
         completedAt: string | null;
+
+        /**
+         * Get checkout url
+         */
+        webUrl: string;
     }
 
     export interface LineItem extends GraphModel {

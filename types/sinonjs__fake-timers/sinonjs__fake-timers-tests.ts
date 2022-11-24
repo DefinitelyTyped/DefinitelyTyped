@@ -29,7 +29,7 @@ const browserInstalledClock = FakeTimers.install({
     now: 0,
     shouldAdvanceTime: true,
     shouldClearNativeTimers: true,
-    toFake: ['setTimeout', 'nextTick', 'hrtime', 'performance'],
+    toFake: ['setTimeout', 'requestAnimationFrame', 'queueMicrotask', 'performance'],
 }) as FakeTimers.BrowserClock & FakeTimers.InstalledClock;
 
 const nodeInstalledClock = FakeTimers.install({
@@ -38,7 +38,7 @@ const nodeInstalledClock = FakeTimers.install({
     now: new Date(0),
     shouldAdvanceTime: true,
     shouldClearNativeTimers: false,
-    toFake: ['setTimeout', 'nextTick', 'hrtime'],
+    toFake: ['setTimeout', 'nextTick', 'hrtime', 'performance'],
 }) as FakeTimers.NodeClock & FakeTimers.InstalledClock;
 
 const browserNow: number = browserClock.now;

@@ -70,6 +70,8 @@ interface Color<T extends ColorParam = ColorParam> {
     keyword<V extends string>(val: V): Color<V>;
     hex(): string;
     hex<V extends string>(val: V): Color<V>;
+    hexa(): string;
+    hexa<V extends string>(val: V): Color<V>;
     rgbNumber(): number;
     luminosity(): number;
     contrast(color2: Color): number;

@@ -1,13 +1,13 @@
 // Type definitions for Mapbox GL JS 1.13
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Patrick Reames <https://github.com/patrickr>
 //                 Karl-Aksel Puulmann <https://github.com/macobo>
 //                 Dmytro Gokun <https://github.com/dmytro-gokun>
 //                 Liam Clarke <https://github.com/LiamAttClarke>
 //                 Vladimir Dashukevich <https://github.com/life777>
 //                 Marko Klopets <https://github.com/mklopets>
 //                 André Fonseca <https://github.com/amxfonseca>
+//                 Olivier Pascal <https://github.com/pascaloliv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -292,7 +292,10 @@ declare namespace mapboxgl {
             } & FilterOptions,
         ): MapboxGeoJSONFeature[];
 
-        setStyle(style: mapboxgl.Style | string, options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined }): this;
+        setStyle(
+            style: mapboxgl.Style | string,
+            options?: { diff?: boolean | undefined; localIdeographFontFamily?: string | undefined },
+        ): this;
 
         getStyle(): mapboxgl.Style;
 
@@ -341,15 +344,15 @@ declare namespace mapboxgl {
 
         getFilter(layer: string): any[];
 
-        setPaintProperty(layer: string, name: string, value: any, klass?: string): this;
+        setPaintProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getPaintProperty(layer: string, name: string): any;
 
-        setLayoutProperty(layer: string, name: string, value: any): this;
+        setLayoutProperty(layer: string, name: string, value: any, options?: FilterOptions): this;
 
         getLayoutProperty(layer: string, name: string): any;
 
-        setLight(options: mapboxgl.Light, lightOptions?: any): this;
+        setLight(light: mapboxgl.Light, options?: FilterOptions): this;
 
         getLight(): mapboxgl.Light;
 
@@ -820,7 +823,10 @@ declare namespace mapboxgl {
      * DragRotateHandler
      */
     export class DragRotateHandler {
-        constructor(map: mapboxgl.Map, options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined });
+        constructor(
+            map: mapboxgl.Map,
+            options?: { bearingSnap?: number | undefined; pitchWithRotate?: boolean | undefined },
+        );
 
         isEnabled(): boolean;
 
@@ -934,7 +940,11 @@ declare namespace mapboxgl {
      * Navigation
      */
     export class NavigationControl extends Control {
-        constructor(options?: { showCompass?: boolean | undefined; showZoom?: boolean | undefined; visualizePitch?: boolean | undefined });
+        constructor(options?: {
+            showCompass?: boolean | undefined;
+            showZoom?: boolean | undefined;
+            visualizePitch?: boolean | undefined;
+        });
     }
 
     export class PositionOptions {

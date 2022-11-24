@@ -1,6 +1,7 @@
 // Type definitions for Mithril 2.0
 // Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
-// Definitions by: Mike Linkovich <https://github.com/spacejack>, Isiah Meadows <https://github.com/isiahmeadows>
+// Definitions by: Mike Linkovich <https://github.com/spacejack>
+//                 Claudia Meadows <https://github.com/dead-claudia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
@@ -42,17 +43,17 @@ declare namespace Mithril {
 
     interface Hyperscript {
         /** Creates a virtual element (Vnode). */
-        (selector: string, ...children: Children[]): Vnode<any, any>;
-        /** Creates a virtual element (Vnode). */
-        (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
-        /** Creates a virtual element (Vnode). */
-        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
-        /** Creates a virtual element (Vnode). */
         <Attrs, State>(
             component: ComponentTypes<Attrs, State>,
             attributes: Attrs & CommonAttributes<Attrs, State>,
             ...args: Children[]
         ): Vnode<Attrs, State>;
+        /** Creates a virtual element (Vnode). */
+        (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
+        /** Creates a virtual element (Vnode). */
+        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+        /** Creates a virtual element (Vnode). */
+        (selector: string, ...children: Children[]): Vnode<any, any>;
         /** Creates a fragment virtual element (Vnode). */
         fragment(attrs: CommonAttributes<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
         /** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */

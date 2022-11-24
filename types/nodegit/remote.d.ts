@@ -13,13 +13,13 @@ export namespace Remote {
         DOWNLOAD_TAGS_UNSPECIFIED = 0,
         DOWNLOAD_TAGS_AUTO = 1,
         DOWNLOAD_TAGS_NONE = 2,
-        DOWNLOAD_TAGS_ALL = 3
+        DOWNLOAD_TAGS_ALL = 3,
     }
 
     const enum COMPLETION_TYPE {
         COMPLETION_DOWNLOAD = 0,
         COMPLETION_INDEXING = 1,
-        COMPLETION_ERROR = 2
+        COMPLETION_ERROR = 2,
     }
 }
 
@@ -63,7 +63,12 @@ export class Remote {
     stats(): TransferProgress;
 
     stop(): void;
-    updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
+    updateTips(
+        callbacks: RemoteCallbacks,
+        updateFetchhead: number,
+        downloadTags: number,
+        reflogMessage: string,
+    ): number;
     upload(refspecs: Strarray | string | string[], opts?: PushOptions): number;
     url(): string;
     /**

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import { unzipSync } from 'three/examples/jsm/libs/fflate.module.min';
-import { WEBGL } from 'three/examples/jsm/WebGL';
+import WEBGL from 'three/examples/jsm/capabilities/WebGL';
 
 const vertextPostProcessingShader = /* glsl */ `
 	out vec2 vUv;
@@ -84,12 +84,8 @@ const App = {
 const postProcessScene = new THREE.Scene();
 const postProcessCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-const renderTargetTexture = new THREE.DataTexture2DArray();
-renderTargetTexture.format = THREE.RedFormat;
-renderTargetTexture.type = THREE.UnsignedByteType;
-
-const renderTarget = new THREE.WebGLRenderTarget(DIMENSIONS.width, DIMENSIONS.height);
-renderTarget.setTexture(renderTargetTexture);
+const renderTarget = new THREE.WebGLArrayRenderTarget(DIMENSIONS.width, DIMENSIONS.height, DIMENSIONS.depth);
+renderTarget.texture.format = THREE.RedFormat;
 
 const postProcessMaterial = new THREE.ShaderMaterial({
     uniforms: {
@@ -124,7 +120,7 @@ function init() {
 
     /** Post-processing scene */
 
-    const planeGeometry = new THREE.PlaneBufferGeometry(2, 2);
+    const planeGeometry = new THREE.PlaneGeometry(2, 2);
     const screenQuad = new THREE.Mesh(planeGeometry, postProcessMaterial);
     postProcessScene.add(screenQuad);
 
@@ -145,7 +141,7 @@ function init() {
         const zip = unzipSync(new Uint8Array(data as ArrayBuffer));
         const array = new Uint8Array(zip['head256x256x109'].buffer);
 
-        const texture = new THREE.DataTexture2DArray(array, DIMENSIONS.width, DIMENSIONS.height, DIMENSIONS.depth);
+        const texture = new THREE.DataArrayTexture(array, DIMENSIONS.width, DIMENSIONS.height, DIMENSIONS.depth);
         texture.format = THREE.RedFormat;
         texture.type = THREE.UnsignedByteType;
 
@@ -159,7 +155,7 @@ function init() {
             fragmentShader,
         });
 
-        const geometry = new THREE.PlaneBufferGeometry(planeWidth, planeHeight);
+        const geometry = new THREE.PlaneGeometry(planeWidth, planeHeight);
 
         mesh = new THREE.Mesh(geometry, material);
 
@@ -223,7 +219,7 @@ function animate() {
 /**
  * Renders the 2D array into the render target `renderTarget`.
  */
-function renderTo2DArray() {
+function renderToArrayTexture() {
     const layer = Math.floor((mesh.material as THREE.ShaderMaterial).uniforms['depth'].value);
     postProcessMaterial.uniforms.uDepth.value = layer;
     renderer.setRenderTarget(renderTarget, layer);
@@ -232,9 +228,9 @@ function renderTo2DArray() {
 }
 
 function render() {
-    // Step 1 - Render the input DataTexture2DArray into a
-    // DataTexture2DArray render target.
-    renderTo2DArray();
+    // Step 1 - Render the input DataArrayTexture into a
+    // DataArrayTexture render target.
+    renderToArrayTexture();
 
     // Step 2 - Renders the scene containing the plane with a material
     // sampling the render target texture.

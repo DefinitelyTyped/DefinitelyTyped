@@ -48,7 +48,7 @@ export type MeasuredCellParent = {
 
 export type CellMeasurerChildProps = {
     measure: () => void,
-    registerChild?: (element?: React.ReactNode) => void
+    registerChild?: (element?: Element) => void
 }
 
 export type CellMeasurerProps = {

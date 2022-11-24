@@ -29,8 +29,8 @@ element.addEventListener(Alert.Events.closed, event => {
     // do something…
 });
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').alert();
 
-// $ExpectType void
+// $ExpectType JQuery<HTMLElement>
 $('.alert').alert('close');
