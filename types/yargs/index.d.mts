@@ -28,6 +28,7 @@ export type {
     ToString,
     ToNumber,
     InferredOptionType,
+    InferredOptionTypePrimitive,
     InferredOptionTypeInner,
     InferredOptionTypes,
     CommandModule,
