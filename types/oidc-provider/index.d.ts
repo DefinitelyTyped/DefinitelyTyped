@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 7.12
+// Type definitions for oidc-provider 7.14
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1059,7 +1059,6 @@ export interface Configuration {
 
         jwtResponseModes?: {
             enabled?: boolean | undefined;
-            ack?: string | undefined;
         } | undefined;
 
         pushedAuthorizationRequests?: {
