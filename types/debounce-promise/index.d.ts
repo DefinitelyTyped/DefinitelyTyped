@@ -12,15 +12,15 @@ declare namespace debounce {
 
 // func is called with an array of array of parameters if accumulate is true
 // Use Array<[arg0, arg1, ..., argN]> as func's first parameter type for correct hints
-declare function debounce<T extends (...args: any[]) => any>(
-    func: T,
+declare function debounce<T extends any[], R>(
+    func: (args: Array<[...T]>) => R,
     wait?: number,
     options?: debounce.DebounceOptions & { accumulate: true }
 ): (
-    ...args: Parameters<T>[0][0]
-) => ReturnType<T> extends Promise<any>
-    ? ReturnType<T>
-    : Promise<ReturnType<T>>;
+    ...args: T
+) => R extends Promise<any>
+    ? R
+    : Promise<R>;
 
 declare function debounce<T extends (...args: any[]) => any>(
     func: T,
