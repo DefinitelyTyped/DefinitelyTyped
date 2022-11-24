@@ -29,7 +29,6 @@ export type {
     ToNumber,
     InferredOptionType,
     InferredOptionTypeInner,
-    RequiredOptionType,
     InferredOptionTypes,
     CommandModule,
     ParseCallback,
