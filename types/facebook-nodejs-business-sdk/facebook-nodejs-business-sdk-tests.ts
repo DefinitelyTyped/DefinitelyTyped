@@ -84,4 +84,9 @@ async function testGetAdsFetchFirstPageBoolean(): Promise<Array<Record<string, s
     return ads;
 }
 
+async function checkType() {
+    const fbAdsApi: FacebookAdsApi = new FacebookAdsApi('TOKEN');
+    const fbAdAccount: AdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+}
+
 throw new FacebookRequestError({}, 'GET', 'url', 'data');
