@@ -1,7 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/keyv": "^3.1.4",
-        "@types/responselike": "^1.0.0"
-    }
-}

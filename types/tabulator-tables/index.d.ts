@@ -864,6 +864,7 @@ export interface OptionsGeneral {
     minHeight?: string | number | undefined;
     renderVertical?: RenderMode;
     renderHorizontal?: RenderMode;
+    rowHeight?: number;
 
     /** Manually set the size of the virtual DOM buffer. */
     renderVerticalBuffer?: boolean | number | undefined;

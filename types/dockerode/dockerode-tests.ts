@@ -350,6 +350,10 @@ docker.listServices({ filters: JSON.stringify({ name: ['network-name'] }), statu
     return services.map(service => docker.getService(service.ID));
 });
 
+docker.listServices({ filters: { name: ['network-name'] } }).then(services => {
+    return services.map(service => docker.getService(service.ID));
+});
+
 const image = docker.getImage('imageName');
 image.remove({ force: true, noprune: false }, (err, response) => {
     // NOOP;

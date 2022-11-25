@@ -299,7 +299,7 @@ declare namespace _ {
         <TResult>(customizer: lodash.CloneWithCustomizer<T, TResult | undefined>): TResult | T;
     }
     type LodashCloneWith2x1<T, TResult> = (value: T) => TResult | T;
-    type LodashCompact = <T>(array: lodash.List<T> | null | undefined) => Array<Exclude<T, null | undefined | false | "" | 0>>;
+    type LodashCompact = <T>(array: lodash.List<T> | null | undefined) => Array<Exclude<T, lodash.Falsey>>;
     type LodashNegate = <T extends any[]>(predicate: (...args: T) => any) => (...args: T) => boolean;
     interface LodashFlowRight {
         <A extends any[], R1, R2, R3, R4, R5, R6, R7>(f7: (a: R6) => R7, f6: (a: R5) => R6, f5: (a: R4) => R5, f4: (a: R3) => R4, f3: (a: R2) => R3, f2: (a: R1) => R2, f1: (...args: A) => R1): (...args: A) => R7;

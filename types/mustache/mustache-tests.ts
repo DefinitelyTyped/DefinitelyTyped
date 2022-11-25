@@ -49,3 +49,5 @@ Mustache.templateCache = {
 }
 
 Mustache.tags = ['<%', '%>'];
+
+Mustache.escape = (text: string) => text;

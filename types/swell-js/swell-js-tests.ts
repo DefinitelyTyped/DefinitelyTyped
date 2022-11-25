@@ -42,8 +42,9 @@ swell.account.updateAddress('', {
     zip: '',
 });
 
-swell.attributes.get(''); // $ExpectType Promise<unknown>
-swell.attributes.list({}); // $ExpectType Promise<ListResult<unknown>>
+swell.attributes.get(''); // $ExpectType Promise<Attribute>
+swell.attributes.get(); // $ExpectType Promise<ListResult<Attribute>>
+swell.attributes.list({}); // $ExpectType Promise<ListResult<Attribute>>
 
 swell.card.createToken({}); // $ExpectType Promise<unknown>
 swell.card.validateCVC(''); // $ExpectType boolean
@@ -74,8 +75,9 @@ swell.cart.update({
 });
 swell.cart.updateItem('', {}); // $ExpectType Promise<Cart>
 
-swell.categories.get(''); // $ExpectType Promise<unknown>
-swell.categories.list({}); // $ExpectType Promise<ListResult<unknown>>
+swell.categories.get(''); // $ExpectType Promise<Category>
+swell.categories.get(); // $ExpectType Promise<ListResult<Category>>
+swell.categories.list({}); // $ExpectType Promise<ListResult<Category>>
 
 swell.currency.format(1, {}); // $ExpectType string
 swell.currency.list(); // $ExpectType Promise<ListResult<unknown>>
