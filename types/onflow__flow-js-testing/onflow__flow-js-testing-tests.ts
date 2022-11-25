@@ -185,7 +185,7 @@ shallPass(sendTransaction('set_greeting', [], ['Hello World']));
 // @ts-expect-error
 shallPass(1);
 
-// $ExpectType Promise<[null, string]>
+// $ExpectType Promise<[TransactionStatus | null, string | Error]>
 shallRevert(sendTransaction('set_greeting', [], ['Hello World']));
 
 // @ts-expect-error
