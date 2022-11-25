@@ -4,24 +4,27 @@
 //                 Artur Diniz <https://github.com/artdiniz>
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 declare namespace objectHash {
+    type HashObject = Record<string, unknown> | string | null;
+
     /**
      * @see https://github.com/puleos/object-hash#hashsha1value
      */
-    function sha1(object: {} | null): string;
+    function sha1(object: HashObject): string;
     /**
      * @see https://github.com/puleos/object-hash#hashkeysvalue
      */
-    function keys(object: {} | null): string;
+    function keys(object: HashObject): string;
     /**
      * @see https://github.com/puleos/object-hash#hashmd5value
      */
-    function MD5(object: {} | null): string;
+    function MD5(object: HashObject): string;
     /**
      * @see https://github.com/puleos/object-hash#hashkeysmd5value
      */
-    function keysMD5(object: {} | null): string;
+    function keysMD5(object: HashObject): string;
     /**
      * @see https://github.com/puleos/object-hash#hashwritetostreamvalue-options-stream
      */
@@ -105,7 +108,7 @@ declare namespace objectHash {
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: any, options?: objectHash.NormalOption): string;
-declare function objectHash(object: any, options?: objectHash.WithBufferOption): Buffer;
+declare function objectHash(object: objectHash.HashObject, options?: objectHash.NormalOption): string;
+declare function objectHash(object: objectHash.HashObject, options?: objectHash.WithBufferOption): Buffer;
 
 export = objectHash;

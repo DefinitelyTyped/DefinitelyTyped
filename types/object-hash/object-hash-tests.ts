@@ -13,7 +13,8 @@ const options: hash.Options = {
 };
 
 hash(obj); // $ExpectType string
-hash(undefined); // $ExpectType string
+// @ts-expect-error
+hash(undefined);
 hash(''); // $ExpectType string
 hash(obj, options); // $ExpectType string
 hash(obj, { ...options, encoding: 'buffer' }); // $ExpectType Buffer
