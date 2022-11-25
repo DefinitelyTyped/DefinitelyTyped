@@ -9,7 +9,7 @@ export {};
 
 declare const OPAQUE_ID: unique symbol;
 
-interface OpaqueDevice {
+export interface OpaqueDevice {
     [OPAQUE_ID]: true;
 }
 
