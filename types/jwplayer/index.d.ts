@@ -8,12 +8,13 @@
 //                 Daniel Cassidy <https://github.com/djcsdy>
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 Zack Haigh <https://github.com/zetagame>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
-declare namespace jwplayer {
+export namespace jwplayer {
     interface Version {
         version: string;
         major: number;
@@ -387,7 +388,7 @@ declare namespace jwplayer {
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
-        resize(width: number, height: number): JWPlayer;
+        resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
         setControls(controls: boolean): void;
         setCurrentAudioTrack(index: number): void;
@@ -409,4 +410,4 @@ declare namespace jwplayer {
     }
 }
 
-declare const jwplayer: jwplayer.JWPlayerStatic;
+export const jwplayer: jwplayer.JWPlayerStatic;
