@@ -146,7 +146,7 @@ export interface Props {
     /**
      * Function called when text layer items are successfully loaded.
      */
-    onGetTextSuccess?: (({ items }: { items: TextItem[] }) => void) | undefined;
+    onGetTextSuccess?: (({ items, styles }: { items: TextItem[], styles: CSSStyleDeclaration }) => void) | undefined;
 
     /**
      * Function called in case of an error while loading text layer items.
