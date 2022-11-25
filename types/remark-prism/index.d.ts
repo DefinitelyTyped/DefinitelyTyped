@@ -29,7 +29,7 @@ declare namespace remarkPrism {
      * Plugin to use prism with remark.
      * https://github.com/unifiedjs/unified/blob/main/index.d.ts#L488-L489
      */
-    type Prism = Plugin<[Options?] | void[], Root, Root>;
+    type Prism = Plugin<[Options?] | undefined[], Root, Root>;
 }
 
 declare const remarkPrism: remarkPrism.Prism;
