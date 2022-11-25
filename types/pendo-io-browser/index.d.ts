@@ -32,6 +32,7 @@ declare namespace pendo {
             } | undefined
         } | undefined;
         events?: EventCallbacks | undefined;
+        sanitizeUrl?: (url: string) => string;
     }
 
     interface EventCallbacks {
