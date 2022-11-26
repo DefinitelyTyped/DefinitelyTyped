@@ -1,5 +1,4 @@
 {
-  "license": "MIT",
   "private": true,
   "dependencies": {
     "next": "^12.2.5",
