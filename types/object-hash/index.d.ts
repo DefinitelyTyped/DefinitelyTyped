@@ -7,24 +7,24 @@
 // Minimum TypeScript Version: 3.9
 
 declare namespace objectHash {
-    type HashObject = Record<string, unknown> | string | null;
+    type NotUndefined = Record<string, unknown> | string | null;
 
     /**
      * @see https://github.com/puleos/object-hash#hashsha1value
      */
-    function sha1(object: HashObject): string;
+    function sha1(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashkeysvalue
      */
-    function keys(object: HashObject): string;
+    function keys(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashmd5value
      */
-    function MD5(object: HashObject): string;
+    function MD5(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashkeysmd5value
      */
-    function keysMD5(object: HashObject): string;
+    function keysMD5(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashwritetostreamvalue-options-stream
      */
@@ -108,7 +108,7 @@ declare namespace objectHash {
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: objectHash.HashObject, options?: objectHash.NormalOption): string;
-declare function objectHash(object: objectHash.HashObject, options?: objectHash.WithBufferOption): Buffer;
+declare function objectHash(object: objectHash.NotUndefined, options?: objectHash.NormalOption): string;
+declare function objectHash(object: objectHash.NotUndefined, options?: objectHash.WithBufferOption): Buffer;
 
 export = objectHash;
