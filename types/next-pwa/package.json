@@ -1,7 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "next": "^12.2.5",
-    "workbox-build": "^6.5.4"
+    "next": "^12.2.5"
   }
 }
