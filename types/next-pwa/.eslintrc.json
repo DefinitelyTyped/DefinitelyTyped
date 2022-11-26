@@ -1,0 +1,19 @@
+{
+    "root": true,
+    "extends": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+      // legacy ts-lint rules
+      "dt-header": "off",
+      "export-just-namespace": "off",
+      "no-bad-reference": "off",
+      "no-dead-reference": "off",
+      "no-const-enum": "off",
+      "no-useless-files": "off",
+      "trim-file": "off"
+    }
+}
