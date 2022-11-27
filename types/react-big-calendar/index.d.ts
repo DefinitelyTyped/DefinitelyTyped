@@ -39,7 +39,8 @@ import {
     inRange,
     min,
     max,
-    Unit
+    Unit,
+    StartOfWeek
 } from 'date-arithmetic';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
@@ -363,7 +364,7 @@ export interface DateLocalizerSpec {
     format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
-    startOfWeek: any;
+    startOfWeek: StartOfWeek;
     merge: (date: Date, time: Date) => Date | null;
     inRange: typeof inRange;
     lt: typeof lt;
@@ -402,7 +403,7 @@ export interface DateLocalizerSpec {
 export class DateLocalizer {
     formats: Formats;
     propType: Validator<any>;
-    startOfWeek: (culture: Culture) => number;
+    startOfWeek: (culture: Culture) => StartOfWeek;
 
     constructor(spec: DateLocalizerSpec);
 
