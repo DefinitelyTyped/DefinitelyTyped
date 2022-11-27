@@ -1,6 +1,10 @@
-import ShopifyBuy, { Product } from 'shopify-buy';
+import ShopifyBuy = require('shopify-buy');
 
-declare const product: Product;
+declare const collection: ShopifyBuy.Collection;
+declare const checkout: ShopifyBuy.Checkout;
+declare const product: ShopifyBuy.Product;
+declare const productVariant: ShopifyBuy.ProductVariant;
+declare const shop: ShopifyBuy.Shop;
 
 // Initializing a client to return content in the store's primary language
 const client = ShopifyBuy.buildClient({
