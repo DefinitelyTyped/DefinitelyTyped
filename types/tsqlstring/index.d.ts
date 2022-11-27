@@ -2,7 +2,6 @@
 // Project: https://github.com/kylefarris/tsqlstring
 // Definitions by: Dong Joon Seo <https://github.com/srencat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
 
 export function _escapeString(val: any): string;
 export function _zeroPad(number: number | string, length: number): string;
