@@ -21,6 +21,26 @@
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
+import {
+    milliseconds,
+    seconds,
+    minutes,
+    hours,
+    month,
+    startOf,
+    endOf,
+    add,
+    eq,
+    neq,
+    gte,
+    gt,
+    lte,
+    lt,
+    inRange,
+    min,
+    max,
+    Unit
+} from 'date-arithmetic'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -61,12 +81,12 @@ export type ViewProps<TEvent extends object = Event, TResource extends object = 
 export type ViewsProps<TEvent extends object = Event, TResource extends object = object> =
     | View[]
     | {
-          work_week?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
-          day?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
-          agenda?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
-          month?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
-          week?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
-      };
+        work_week?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+        day?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+        agenda?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+        month?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+        week?: boolean | (React.ComponentType<any> & ViewStatic) | undefined;
+    };
 export type DayLayoutFunction<TEvent extends object = Event> = (_: {
     events: TEvent[];
     minimumStartDifference: number;
@@ -200,37 +220,37 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     timeGutterWrapper?: React.ComponentType | undefined;
     toolbar?: React.ComponentType<ToolbarProps<TEvent, TResource>> | undefined;
     agenda?:
-        | {
-              date?: React.ComponentType | undefined;
-              time?: React.ComponentType | undefined;
-              event?: React.ComponentType<EventProps<TEvent>> | undefined;
-          }
-        | undefined;
+    | {
+        date?: React.ComponentType | undefined;
+        time?: React.ComponentType | undefined;
+        event?: React.ComponentType<EventProps<TEvent>> | undefined;
+    }
+    | undefined;
     day?:
-        | {
-              header?: React.ComponentType<HeaderProps> | undefined;
-              event?: React.ComponentType<EventProps<TEvent>> | undefined;
-          }
-        | undefined;
+    | {
+        header?: React.ComponentType<HeaderProps> | undefined;
+        event?: React.ComponentType<EventProps<TEvent>> | undefined;
+    }
+    | undefined;
     week?:
-        | {
-              header?: React.ComponentType<HeaderProps> | undefined;
-              event?: React.ComponentType<EventProps<TEvent>> | undefined;
-          }
-        | undefined;
+    | {
+        header?: React.ComponentType<HeaderProps> | undefined;
+        event?: React.ComponentType<EventProps<TEvent>> | undefined;
+    }
+    | undefined;
     work_week?:
-        | {
-              header?: React.ComponentType<HeaderProps> | undefined;
-              event?: React.ComponentType<EventProps<TEvent>> | undefined;
-          }
-        | undefined;
+    | {
+        header?: React.ComponentType<HeaderProps> | undefined;
+        event?: React.ComponentType<EventProps<TEvent>> | undefined;
+    }
+    | undefined;
     month?:
-        | {
-              header?: React.ComponentType<HeaderProps> | undefined;
-              dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
-              event?: React.ComponentType<EventProps<TEvent>> | undefined;
-          }
-        | undefined;
+    | {
+        header?: React.ComponentType<HeaderProps> | undefined;
+        dateHeader?: React.ComponentType<DateHeaderProps> | undefined;
+        event?: React.ComponentType<EventProps<TEvent>> | undefined;
+    }
+    | undefined;
     /**
      * component used as a header for each column in the TimeGridHeader
      */
@@ -316,23 +336,23 @@ export interface SlotInfo {
     action: 'select' | 'click' | 'doubleClick';
     resourceId?: number | string | undefined;
     bounds?:
-        | {
-              x: number;
-              y: number;
-              top: number;
-              bottom: number;
-              left: number;
-              right: number;
-          }
-        | undefined;
+    | {
+        x: number;
+        y: number;
+        top: number;
+        bottom: number;
+        left: number;
+        right: number;
+    }
+    | undefined;
     box?:
-        | {
-              x: number;
-              y: number;
-              clientX: number;
-              clientY: number;
-          }
-        | undefined;
+    | {
+        x: number;
+        y: number;
+        clientX: number;
+        clientY: number;
+    }
+    | undefined;
 }
 
 export type Culture = string;
@@ -343,6 +363,40 @@ export interface DateLocalizerSpec {
     format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
+    startOfWeek: any;
+    merge: (date: Date, time: Date) => Date | null;
+    inRange: typeof inRange;
+    lt: typeof lt;
+    lte: typeof lte;
+    gt: typeof gt;
+    gte: typeof gte;
+    eq: typeof eq;
+    neq: typeof neq;
+    startOf: typeof startOf;
+    endOf: typeof endOf;
+    add: typeof add;
+    range: (start: Date, end: Date, unit: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit: Unit) => number;
+    ceil: (date: Date, unit: Unit) => Date;
+    min: typeof min;
+    max: typeof max;
+    minutes: typeof minutes;
+    firstVisibleDay: (date: Date, localizer: any) => Date;
+    lastVisibleDay: (date: Date, localizer: any) => Date;
+    visibleDays: (date: Date, localizer: any) => Date[];
+
+    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset: (date: Date) => number;
+    getDstOffset: (date: Date, dateB: Date) => number;
+    getTotalMin: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight: (date: Date) => number;
+    continuesPrior: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents: (eventA: Event, eventB: Event) => boolean;
+    inEventRange: (event: Event, range: DateRange) => boolean;
+    isSameDate: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset: number;
 }
 
 export class DateLocalizer {
@@ -382,9 +436,9 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     doShowMoreDrillDown?: boolean | undefined;
     drilldownView?: View | null | undefined;
     getDrilldownView?:
-        | ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void)
-        | null
-        | undefined;
+    | ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void)
+    | null
+    | undefined;
     length?: number | undefined;
     toolbar?: boolean | undefined;
     popup?: boolean | undefined;
@@ -444,7 +498,7 @@ export interface MoveOptions {
 
 export class Calendar<TEvent extends object = Event, TResource extends object = object> extends React.Component<
     CalendarProps<TEvent, TResource>
-> {}
+> { }
 
 export interface components {
     dateCellWrapper: React.ComponentType;
@@ -501,21 +555,21 @@ export interface TimeGridProps<TEvent extends object = Event, TResource extends 
     onKeyPressEvent?: ((...args: any[]) => any) | undefined;
     onDrillDown?: ((date: Date, view: View) => void) | undefined;
     getDrilldownView?:
-        | ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void)
-        | null
-        | undefined;
+    | ((targetDate: Date, currentViewName: View, configuredViewNames: View[]) => void)
+    | null
+    | undefined;
     dayLayoutAlgorithm?: any;
 }
 
 export class TimeGrid<TEvent extends object = Event, TResource extends object = object> extends React.Component<
     TimeGridProps<TEvent, TResource>
-> {}
+> { }
 
 export interface WorkWeekProps {
     date: Date;
 }
 
-export class WorkWeek extends Week {}
+export class WorkWeek extends Week { }
 
 export interface WeekProps {
     date: Date;
@@ -530,7 +584,7 @@ export class Week extends React.Component<WeekProps> {
 export interface DayProps {
     date: Date;
 }
-export class Day extends React.Component<DayProps> {}
+export class Day extends React.Component<DayProps> { }
 
 // Turn off automatic exports
-export {};
+export { };
