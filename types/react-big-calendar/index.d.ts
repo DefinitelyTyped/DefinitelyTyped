@@ -375,8 +375,8 @@ export interface DateLocalizerSpec {
     startOf: typeof startOf;
     endOf: typeof endOf;
     add: typeof add;
-    range: (start: Date, end: Date, unit: Unit) => Date[];
-    diff: (dateA: Date, dateB: Date, unit: Unit) => number;
+    range: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
     ceil: (date: Date, unit: Unit) => Date;
     min: typeof min;
     max: typeof max;
@@ -420,9 +420,9 @@ export class DateLocalizer {
     startOf: typeof startOf;
     endOf: typeof endOf;
     add: typeof add;
-    range: (start: Date, end: Date, unit: Unit) => Date[];
-    diff: (dateA: Date, dateB: Date, unit: Unit) => number;
-    ceil: (date: Date, unit: Unit) => Date;
+    range: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
+    ceil: (date: Date, unit?: Unit) => Date;
     min: typeof min;
     max: typeof max;
     minutes: typeof minutes;
