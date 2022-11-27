@@ -408,6 +408,40 @@ export class DateLocalizer {
 
     format(value: FormatInput, format: string, culture?: Culture): string;
     messages: Messages;
+
+    merge: (date: Date, time: Date) => Date | null;
+    inRange: typeof inRange;
+    lt: typeof lt;
+    lte: typeof lte;
+    gt: typeof gt;
+    gte: typeof gte;
+    eq: typeof eq;
+    neq: typeof neq;
+    startOf: typeof startOf;
+    endOf: typeof endOf;
+    add: typeof add;
+    range: (start: Date, end: Date, unit: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit: Unit) => number;
+    ceil: (date: Date, unit: Unit) => Date;
+    min: typeof min;
+    max: typeof max;
+    minutes: typeof minutes;
+    firstVisibleDay: (date: Date, localizer: any) => Date;
+    lastVisibleDay: (date: Date, localizer: any) => Date;
+    visibleDays: (date: Date, localizer: any) => Date[];
+
+    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset: (date: Date) => number;
+    getDstOffset: (date: Date, dateB: Date) => number;
+    getTotalMin: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight: (date: Date) => number;
+    continuesPrior: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents: (eventA: Event, eventB: Event) => boolean;
+    inEventRange: (event: Event, range: DateRange) => boolean;
+    isSameDate: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset: number;
 }
 
 export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
