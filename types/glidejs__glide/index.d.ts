@@ -8,10 +8,10 @@ import ComponentFunction from './components';
 import EventsBus from './core/event/events-bus';
 
 declare namespace Glide {
-    export { TransformerFunction, ComponentFunction, EventsBus, GlideOptions };
+    export { TransformerFunction, ComponentFunction, EventsBus, Options };
 }
 
-interface GlideOptions {
+interface Options {
     /**
      * Type of the movement.
      */
@@ -136,7 +136,7 @@ interface GlideOptions {
     /**
      * Collection of options applied at specified media breakpoints.
      */
-    breakpoints: Record<string, Partial<GlideOptions>>;
+    breakpoints: Record<string, Partial<Options>>;
 
     /**
      * Collection of internally used HTML classes.
@@ -144,8 +144,8 @@ interface GlideOptions {
     classes: {
         swipeable: string;
         dragging: string;
-        direction: Record<GlideOptions['direction'], string>;
-        type: Record<GlideOptions['type'], string>;
+        direction: Record<Options['direction'], string>;
+        type: Record<Options['type'], string>;
         slide: Record<'clone' | 'active', string>;
         arrow: Record<'disabled', string>;
         nav: Record<'active', string>;
@@ -160,7 +160,7 @@ declare class Glide {
     /**
      * Construct glide.
      */
-    constructor(selector: string, options?: Partial<GlideOptions>);
+    constructor(selector: string, options?: Partial<Options>);
 
     /**
      * Initializes glide.
@@ -175,7 +175,7 @@ declare class Glide {
     /**
      * Updates glide with specified settings.
      */
-    update(settings?: Partial<GlideOptions>): Glide;
+    update(settings?: Partial<Options>): Glide;
 
     /**
      * Change slide with specified pattern. A pattern must be in the special format:
@@ -232,7 +232,7 @@ declare class Glide {
     /**
      * Gets value of the core options.
      */
-    readonly settings: GlideOptions;
+    readonly settings: Options;
 
     /**
      * Gets current index of the slider.

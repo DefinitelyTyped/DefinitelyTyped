@@ -7,6 +7,7 @@ new Glide('.glide', { direction: 'rtl' });
 const glide = new Glide('.glide');
 
 declare const events: Glide.EventsBus;
+declare const options: Glide.Options;
 
 glide.mount();
 glide.mutate();
