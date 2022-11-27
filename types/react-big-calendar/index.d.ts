@@ -40,7 +40,7 @@ import {
     min,
     max,
     Unit
-} from 'date-arithmetic'
+} from 'date-arithmetic';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
