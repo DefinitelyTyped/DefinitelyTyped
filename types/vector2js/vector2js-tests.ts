@@ -8,6 +8,7 @@ const res1 = p.add(o).clone().mul(v).flipXY().sub(o).div(2).rotateDegrees(90).ro
 
 const res2 = v.addSelf(p).mulSelf(p).flipXYSelf().subSelf(o).divSelf(2).rotateDegreesSelf(90).rotateRadiansSelf(3.14);
 
+const res3 = p.add({ x: 1, y: 1 });
 const f1 = Vector2.fromArray([1, 1]);
 const f2 = Vector2.fromDegrees(45);
 const f3 = Vector2.fromRadians(0);
