@@ -10,6 +10,6 @@ export = crc32;
 declare function crc32(input: string | Buffer, partialCrc?: Buffer | number): Buffer;
 
 declare namespace crc32 {
-    function signed(buffer: Buffer, partialCrc?: Buffer | number): number;
-    function unsigned(buffer: Buffer, partialCrc?: Buffer | number): number;
+    function signed(buffer: string | Buffer, partialCrc?: Buffer | number): number;
+    function unsigned(buffer: string | Buffer, partialCrc?: Buffer | number): number;
 }
