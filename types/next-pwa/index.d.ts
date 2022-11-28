@@ -7,11 +7,17 @@
 /// <reference types="react"/>
 
 import type { NextConfig } from 'next';
-import type { RuntimeCachingEntry, GenerateSWConfig, InjectManifestConfig } from 'workbox-build';
+
+// match `workbox-build` ^6.5.4 types naming
+import type {
+    RuntimeCachingEntry as RuntimeCaching,
+    GenerateSWConfig as GenerateSWOptions,
+    InjectManifestConfig as InjectManifestOptions,
+} from 'workbox-build';
 
 declare global {
     interface PopStateEventInit extends EventInit {
-        state?: any;
+        state?: unknown;
     }
 
     /**
@@ -22,7 +28,7 @@ declare global {
      */
     interface PopStateEvent extends Event {
         /** Returns a copy of the information that was provided to pushState() or replaceState(). */
-        readonly state: any;
+        readonly state: unknown;
     }
 
     var PopStateEvent: {
@@ -31,7 +37,11 @@ declare global {
     };
 }
 
-type WebpackConfigOptions = Partial<GenerateSWConfig & InjectManifestConfig>;
+/**
+ * The declaration type for the `withPWA` function.
+ */
+type WithPWA = (config: NextConfig) => NextConfig & PluginOptions;
+type WebpackConfigOptions = Partial<GenerateSWOptions & InjectManifestOptions>;
 type ExcludeRoutes = (input: string) => boolean;
 interface FallbackRoutes {
     document: string;
@@ -42,11 +52,14 @@ interface FallbackRoutes {
 }
 
 /**
- * Next.js PWA plugin configuration Object
+ * The **next-pwa** plugin configuration object.
  *
- * @see [Supported Configuration Options](https://github.com/shadowwalker/next-pwa#configuration)
+ * Accepts the following configutation options:
+ * - **[Default plugin options](https://github.com/shadowwalker/next-pwa#available-options)**
+ * - [Workbox's `generateSW` options](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-WebpackGenerateSWOptions)
+ * - [Workbox's `injectManifest` options](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-WebpackInjectManifestOptions)
  */
-interface PWAConfig extends WebpackConfigOptions {
+interface PluginOptions extends WebpackConfigOptions {
     /**
      * The path to the directory where the generated service worker file will be placed.
      * Should be set to `public` for easier deployment to static hosting services.
@@ -65,7 +78,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * @example
      * Disable PWA plugin during development.
      * ```js
-     * const pluginOptions = {
+     * const options = {
      *   disable: process.env.NODE_ENV === "development"
      *   // other options
      * }
@@ -109,7 +122,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * The order within the array matters. The **first rule** that matches is effective.
      * Therefore, **always** put rules with larger scopes behind the rules with a smaller, more specific scope.
      */
-    RuntimeCachingEntry?: RuntimeCachingEntry[];
+    runtimeCaching?: RuntimeCaching[];
 
     /**
      * Array of Glob patterns to exclude files inside `public` folder from being precached.
@@ -131,7 +144,7 @@ interface PWAConfig extends WebpackConfigOptions {
      *
      * @example
      * ```js
-     * const pluginOptions = {
+     * const options = {
      *   buildExcludes: ["!img/super-large-image.jpg", "!fonts/not-used-fonts.otf"]
      *   // other options
      * }
@@ -222,19 +235,28 @@ interface PWAConfig extends WebpackConfigOptions {
     customWorkerDir?: string;
 }
 
-declare namespace pluginPWA {
-    export { PWAConfig, FallbackRoutes, WebpackConfigOptions };
-}
-
 /**
  * Returns a modified Next.js configuration Object with the PWA plugin Object applied.
+ *
+ * During `build`, will generate two files in your `public` _(or custom)_ directory: `workbox-*.js` and `sw.js`, which will be served statically by default.
  *
  * @param config The [Next.js configuration](https://nextjs.org/docs/api-reference/next.config.js/introduction) Object
  *
  * @see [Basic Usage](https://github.com/shadowwalker/next-pwa#basic-usage)
  */
-declare function withPWA(config: NextConfig): NextConfig & PWAConfig;
+declare function withPWA(config: NextConfig): NextConfig & PluginOptions;
 
-declare function pluginPWA(pluginOptions: PWAConfig): typeof withPWA;
+/**
+ * Returns a function constructor for a PWA-ready plugin to Next.js's configuration object.
+ *
+ * @param options The **next-pwa** plugin configuration options.
+ *
+ * @see [Basic usage](https://github.com/shadowwalker/next-pwa#basic-usage)
+ */
+declare function nextPWA(options: PluginOptions): typeof withPWA;
 
-export = pluginPWA;
+declare namespace nextPWA {
+    export { WithPWA, PluginOptions, FallbackRoutes, WebpackConfigOptions };
+}
+
+export = nextPWA;
