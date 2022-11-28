@@ -20,7 +20,7 @@ declare class Vector2 {
      * @param angle in degrees
      * @return Vector2
      */
-    static fromDegrees(angle: number[]): Vector2;
+    static fromDegrees(angle: number): Vector2;
 
     /**
      * @description Creates a Vector from an angle
