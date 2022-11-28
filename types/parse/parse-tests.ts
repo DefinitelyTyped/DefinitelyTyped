@@ -618,9 +618,6 @@ async function test_cloud_functions() {
         // result
     });
 
-    const CUSTOM_ERROR_INVALID_CONDITION = 1001;
-    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002;
-
     interface BeforeSaveObject {
         immutable: boolean;
     }
@@ -632,14 +629,11 @@ async function test_cloud_functions() {
             const original = request.original;
             if (original == null) {
                 // When the object is not new, request.original must be defined
-                throw new Parse.Error(
-                    CUSTOM_ERROR_INVALID_CONDITION,
-                    'Original must me defined for an existing object',
-                );
+                throw new Error('Original must me defined for an existing object');
             }
 
             if (original.get('immutable') !== request.object.get('immutable')) {
-                throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed');
+                throw new Error('This field cannot be changed');
             }
         }
         if (!request.context) {
