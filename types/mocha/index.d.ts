@@ -1142,7 +1142,7 @@ declare namespace Mocha {
 
         constructor(title: string, fn?: Func | AsyncFunc);
 
-        uuid: string;
+        id: string;
         title: string;
         fn: Func | AsyncFunc | undefined;
         body: string;
