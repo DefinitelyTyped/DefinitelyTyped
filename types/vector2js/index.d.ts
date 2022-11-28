@@ -9,6 +9,34 @@ declare class Vector2 {
     constructor(x: number, y: number);
 
     /**
+     * @description Creates a Vector from an array
+     * @param Array: [10,10]
+     * @return Vector2
+     */
+    static fromArray(array: number[]): Vector2;
+
+    /**
+     * @description Creates a Vector from an angle
+     * @param angle in degrees
+     * @return Vector2
+     */
+    static fromDegrees(angle: number[]): Vector2;
+
+    /**
+     * @description Creates a Vector from an angle
+     * @param angle in radians
+     * @return Vector2
+     */
+    static fromRadians(agnle: number): Vector2;
+
+    /**
+     * @description Creates a Vector from string
+     * @param string format: x,y 10,10
+     * @return Vector2
+     */
+    static fromString(s: string): Vector2;
+
+    /**
      * @description Clones the vector
      * @return Vector2
      */
