@@ -3,7 +3,7 @@ import { EUWA } from '@puzzel/euwa-wrapper';
 const euwa = new EUWA(
     {
         configId: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-        customerKey: '0000000',
+        customerKey: '1234567',
     },
     {
         settings: {
