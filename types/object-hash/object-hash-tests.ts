@@ -16,6 +16,7 @@ hash(obj); // $ExpectType string
 // @ts-expect-error
 hash(undefined);
 hash(''); // $ExpectType string
+hash([]); // $ExpectType string
 hash(obj, options); // $ExpectType string
 hash(obj, { ...options, encoding: 'buffer' }); // $ExpectType Buffer
 
