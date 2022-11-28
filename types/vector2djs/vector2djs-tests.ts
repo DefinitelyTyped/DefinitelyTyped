@@ -22,6 +22,6 @@ const res2 = pt2
   .rotateDegreesSelf(90)
   .rotateRadiansSelf(3.14);
 
-const d =pt1.dot(pt2);
+const d = pt1.dot(pt2);
 const s = pt1.toString();
 const s2 = pt1.format('{ %x; %y }');
