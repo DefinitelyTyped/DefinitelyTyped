@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.6
 
+/// <reference types="react"/>
+
 import type { NextConfig } from 'next';
 
 // match `workbox-build` ^6.5.4 types naming
