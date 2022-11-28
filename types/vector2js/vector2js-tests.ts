@@ -1,4 +1,4 @@
-import Vector2 from 'vector2js';
+import Vector2 = require('vector2js');
 
 const o = new Vector2(0, 0);
 const p = new Vector2(1, 1);

@@ -2,7 +2,7 @@
 // Project: https://github.com/RonenNess/Vector2js
 // Definitions by: Leo Nicolle <https://github.com/Leo-Nicolle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export default Vector2;
+export = Vector2;
 declare class Vector2 {
     x: number;
     y: number;
