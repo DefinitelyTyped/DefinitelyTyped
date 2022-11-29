@@ -40,7 +40,7 @@ declare global {
 /**
  * The declaration type for the `withPWA` function.
  */
-type WithPWA = (config: NextConfig) => NextConfig & PluginOptions;
+type WithPWA = (config: NextConfig) => NextConfig & PWAConfig;
 type WebpackConfigOptions = Partial<GenerateSWOptions & InjectManifestOptions>;
 type ExcludeRoutes = (input: string) => boolean;
 interface FallbackRoutes {
@@ -59,7 +59,7 @@ interface FallbackRoutes {
  * - [Workbox's `generateSW` options](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-WebpackGenerateSWOptions)
  * - [Workbox's `injectManifest` options](https://developer.chrome.com/docs/workbox/reference/workbox-build/#type-WebpackInjectManifestOptions)
  */
-interface PluginOptions extends WebpackConfigOptions {
+interface PWAConfig extends WebpackConfigOptions {
     /**
      * The path to the directory where the generated service worker file will be placed.
      * Should be set to `public` for easier deployment to static hosting services.
@@ -244,19 +244,26 @@ interface PluginOptions extends WebpackConfigOptions {
  *
  * @see [Basic Usage](https://github.com/shadowwalker/next-pwa#basic-usage)
  */
-declare function withPWA(config: NextConfig): NextConfig & PluginOptions;
+declare function withPWA(config: NextConfig): NextConfig & PWAConfig;
 
 /**
  * Returns a function constructor for a PWA-ready plugin to Next.js's configuration object.
  *
- * @param options The **next-pwa** plugin configuration options.
+ * @param config The **next-pwa** plugin configuration options.
  *
- * @see [Basic usage](https://github.com/shadowwalker/next-pwa#basic-usage)
+ * @example Import the plugin and its type declarations to your `next.config.js` file.
+ * ```js
+ * /// <reference types="next-pwa" />
+ *
+ * const withPWA = require("next-pwa")({
+ *              dest: "public",
+ * });
+ * ```
  */
-declare function nextPWA(options: PluginOptions): typeof withPWA;
+declare function nextPWA(config: PWAConfig): typeof withPWA;
 
 declare namespace nextPWA {
-    export { WithPWA, PluginOptions, FallbackRoutes, WebpackConfigOptions };
+    export { WithPWA, PWAConfig, FallbackRoutes, WebpackConfigOptions };
 }
 
 export = nextPWA;
