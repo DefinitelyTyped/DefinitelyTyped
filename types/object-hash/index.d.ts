@@ -7,7 +7,7 @@
 // Minimum TypeScript Version: 3.9
 
 declare namespace objectHash {
-    type NotUndefined = Record<string, unknown> | string | null | NotUndefined[];
+    type NotUndefined = Record<string, unknown> | string | number | null | NotUndefined[];
 
     /**
      * @see https://github.com/puleos/object-hash#hashsha1value
