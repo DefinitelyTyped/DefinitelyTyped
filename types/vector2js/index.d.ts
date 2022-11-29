@@ -2,7 +2,6 @@
 // Project: https://github.com/RonenNess/Vector2js
 // Definitions by: Leo Nicolle <https://github.com/Leo-Nicolle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export = Vector2;
 
 type inputVec = Vector2 | { x: number; y: number };
 declare class Vector2 {
