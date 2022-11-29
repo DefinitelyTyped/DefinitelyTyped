@@ -671,7 +671,7 @@ declare namespace OSS {
         /**
          * @since 6.12.0
          */
-        listV2(query: ListV2ObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
+        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
