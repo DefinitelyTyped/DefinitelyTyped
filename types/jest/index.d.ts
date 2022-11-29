@@ -695,7 +695,7 @@ declare namespace jest {
          *   expect(mock).toBeCalledWith(expect.any(Number));
          * });
          */
-        any<T>(classType: T): T extends Func ? ReturnType<T> : T extends Constructor ? InstanceType<T> : any;
+        any(classType: any): any;
         /**
          * Matches any array made up entirely of elements in the provided array.
          * You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value.
