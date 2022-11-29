@@ -25,6 +25,7 @@ DOMPurify.sanitize(dirty, { FORBID_ATTR: ['style'] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { FORBID_TAGS: ['style'] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { KEEP_CONTENT: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { NAMESPACE: 'http://www.w3.org/2000/svg' }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ALLOWED_NAMESPACES: ['http://www.w3.org/2000/svg'] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { PARSER_MEDIA_TYPE: 'text/html' }); // $ExpectType string
 DOMPurify.sanitize(dirty, { RETURN_DOM: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { SANITIZE_DOM: false }); // $ExpectType string

@@ -81,6 +81,9 @@ const customMode: CustomMode = {
         // $ExpectType Map
         this.map;
 
+        // $ExpectType boolean | undefined
+        this.drawConfig.displayControlsDefault;
+
         this.setSelectedCoordinates([
             {
                 coord_path: '0',

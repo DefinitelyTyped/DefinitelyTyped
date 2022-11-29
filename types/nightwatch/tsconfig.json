@@ -29,6 +29,7 @@
         "test/testDescribe.ts",
         "test/testElementCommands.ts",
         "test/testExpect.ts",
-        "test/testProgrammaticApi.ts"
+        "test/testProgrammaticApi.ts",
+        "test/utils.ts"
     ]
 }

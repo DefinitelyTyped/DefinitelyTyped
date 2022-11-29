@@ -583,7 +583,7 @@ interface NotificationCenter {
 /// https://docs.nova.app/api-reference/notification-request/
 
 declare class NotificationRequest {
-    constructor(identifier: string);
+    constructor(identifier?: string);
 
     readonly identifier: string;
     title?: string;
@@ -613,6 +613,7 @@ interface Path {
     isAbsolute(path: string): boolean;
     join(...paths: string[]): string;
     normalize(path: string): string;
+    relative(from: string, to: string): string;
     split(path: string): string[];
 }
 

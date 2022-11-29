@@ -828,6 +828,10 @@
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
         },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
+        },
         "cropperjs": {
             "libraryName": "cropperjs",
             "asOfVersion": "1.3.0"
@@ -2985,6 +2989,10 @@
             "libraryName": "meow",
             "asOfVersion": "6.0.0"
         },
+        "mermaid": {
+            "libraryName": "mermaid",
+            "asOfVersion": "9.2.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
@@ -3244,6 +3252,10 @@
         "node-waves": {
             "libraryName": "node-waves",
             "asOfVersion": "0.7.6"
+        },
+        "node-xlsx": {
+            "libraryName": "node-xlsx",
+            "asOfVersion": "0.21.0"
         },
         "nookies": {
             "libraryName": "nookies",
@@ -3686,6 +3698,10 @@
         "pino": {
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
+        },
+        "pino-pretty": {
+            "libraryName": "pino-pretty",
+            "asOfVersion": "5.0.0"
         },
         "pino-std-serializers": {
             "libraryName": "pino-std-serializers",
