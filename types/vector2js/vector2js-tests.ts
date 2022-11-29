@@ -28,4 +28,3 @@ Vector.upLeft; // $ExpectType Vector
 Vector.downLeft; // $ExpectType Vector
 Vector.upRight; // $ExpectType Vector
 Vector.downRight; // $ExpectType Vector
-const s2 = p.format('{ %x; %y }');

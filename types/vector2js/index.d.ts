@@ -3,8 +3,8 @@
 // Definitions by: Leo Nicolle <https://github.com/Leo-Nicolle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type inputVec = Vector2 | { x: number; y: number };
-declare class Vector2 {
+type InputVec = Vector | { x: number; y: number };
+declare class Vector {
     x: number;
     y: number;
     constructor(x: number, y: number);
@@ -12,60 +12,60 @@ declare class Vector2 {
     /**
      * @description Creates a Vector from an array
      * @param Array: [10,10]
-     * @return Vector2
+     * @return Vector
      */
-    static fromArray(array: number[]): Vector2;
+    static fromArray(array: number[]): Vector;
 
     /**
      * @description Creates a Vector from an angle
      * @param angle in degrees
-     * @return Vector2
+     * @return Vector
      */
-    static fromDegrees(angle: number): Vector2;
+    static fromDegrees(angle: number): Vector;
 
     /**
      * @description Creates a Vector from an angle
      * @param angle in radians
-     * @return Vector2
+     * @return Vector
      */
-    static fromRadians(agnle: number): Vector2;
+    static fromRadians(agnle: number): Vector;
 
     /**
      * @description Creates a Vector from string
      * @param string format: x,y 10,10
-     * @return Vector2
+     * @return Vector
      */
-    static fromString(s: string): Vector2;
+    static fromString(s: string): Vector;
 
     /**
      * @description Clones the vector
-     * @return Vector2
+     * @return Vector
      */
-    clone(): Vector2;
+    clone(): Vector;
 
     /**
      * @param vector the vector to compare with
      * @return equality of each component
      */
-    equals(vector: inputVec): boolean;
+    equals(vector: InputVec): boolean;
 
     /**
      * @param vector The vector to copy values from
      * @return this
      */
-    copy(vector: inputVec): this;
+    copy(vector: InputVec): this;
 
     /**
      * @param vector  The vector to copy X from
      * @return this
      */
-    copyX(vector: inputVec): this;
+    copyX(vector: InputVec): this;
 
     /**
      * @param vector  The vector to copy Y from
      * @return this
      */
-    copyY(vector: inputVec): this;
+    copyY(vector: InputVec): this;
 
     /**
      * @description Convert to an Object with {x, y}.
@@ -91,7 +91,7 @@ declare class Vector2 {
      * @description Clone and flip between x and y values.
      * @return Cloned vector vith flipped X and Y components
      */
-    flipXY(): Vector2;
+    flipXY(): Vector;
 
     /**
      * @description flip between x and y values.
@@ -103,7 +103,7 @@ declare class Vector2 {
      * @description Clone and invert x and y values
      * @return "{-x,-y}"
      */
-    invert(): Vector2;
+    invert(): Vector;
 
     /**
      * @description Invert x and y values (*-1)
@@ -116,21 +116,21 @@ declare class Vector2 {
      * @param  other vector to get distance from.
      * @return Distance between the two vectors
      */
-    distanceFrom(other: inputVec): number;
+    distanceFrom(other: InputVec): number;
 
     /**
      * @description Get angle from another vector in radians.
      * @param  other vector to get angle from.
      * @return Angle in radians from this to other
      */
-    radiansTo(other: inputVec): number;
+    radiansTo(other: InputVec): number;
 
     /**
      * @description Get degrees from another vector in degrees.
      * @param  other vector to get angle from.
      * @return Angle in degrees from this to other
      */
-    degreesTo(other: inputVec): number;
+    degreesTo(other: InputVec): number;
 
     /**
      * @description Get angle from X axis.
@@ -138,13 +138,13 @@ declare class Vector2 {
      * @param  other vector to get angle from.
      * @return angle in radians
      */
-    toRadians(other: inputVec): number;
+    toRadians(other: InputVec): number;
     /**
      * @description Get angle from X axis.
      * This is equivalent to doing vector.zero.degreeto(this).
      * @return Angle In Degrees (0-360)
      */
-    toDegrees(other: inputVec): number;
+    toDegrees(other: InputVec): number;
     /**
      * @description Rotate by a given angle.
      * @param degrees to rotate this vector by.
@@ -157,7 +157,7 @@ declare class Vector2 {
      * @param degrees to rotate this vector by.
      * @return Cloned Rotated Vector
      */
-    rotateDegrees(degrees: number): Vector2;
+    rotateDegrees(degrees: number): Vector;
 
     /**
      * @description Rotate by a given angle.
@@ -171,7 +171,7 @@ declare class Vector2 {
      * @param radians to rotate this vector by.
      * @return Cloned Rotated Vector
      */
-    rotateRadians(radians: number): Vector2;
+    rotateRadians(radians: number): Vector;
 
     /**
      * @description get length (aka magnitude)
@@ -187,37 +187,37 @@ declare class Vector2 {
 
     /**
      * @description Clone and normalize the vector.
-     * @return Vector2
+     * @return Vector
      */
-    normalize(): Vector2;
+    normalize(): Vector;
 
     /**
      * @description Add other vector to self.
      * @param vector to add.
      * @return this
      */
-    addSelf(other: inputVec | number): this;
+    addSelf(other: InputVec | number): this;
 
     /**
      * @description Subtract other vector from self.
      * @param vector to subtract.
      * @return this
      */
-    subSelf(other: inputVec | number): this;
+    subSelf(other: InputVec | number): this;
 
     /**
      * @description Divide self by other vector.
      * @param vector to divide from.
      * @return this
      */
-    divSelf(other: inputVec | number): this;
+    divSelf(other: InputVec | number): this;
 
     /**
      * @description Multiply self vector by other vector.
      * @param vector to multiply components with.
      * @return this
      */
-    mulSelf(other: inputVec | number): this;
+    mulSelf(other: InputVec | number): this;
 
     /**
      * @description Add scalar value to self.
@@ -250,58 +250,58 @@ declare class Vector2 {
     /**
      * @description Clone self and add other vector to it.
      * @param vector to add with.
-     * @return Vector2
+     * @return Vector
      */
-    add(other: inputVec | number): Vector2;
+    add(other: InputVec | number): Vector;
 
     /**
      * @description Clone self and subtract other vector from it.
      * @param vector to subtract from.
-     * @return Vector2
+     * @return Vector
      */
-    sub(other: inputVec | number): Vector2;
+    sub(other: InputVec | number): Vector;
 
     /**
      * @description Clone self and multiply by other vector.
      * @param vector to multiply with.
-     * @return Vector2
+     * @return Vector
      */
-    mul(other: inputVec | number): Vector2;
+    mul(other: InputVec | number): Vector;
 
     /**
      * @description Clone and divide by other vector.
      * @param vector to divide with.
-     * @return Vector2
+     * @return Vector
      */
-    div(other: inputVec | number): Vector2;
+    div(other: InputVec | number): Vector;
 
     /**
      * @description Clone and add scalar.
      * @param value to add.
-     * @return Vector2
+     * @return Vector
      */
-    addScalar(scalar: number): Vector2;
+    addScalar(scalar: number): Vector;
 
     /**
      * @description Clone and substract scalar.
      * @param value to subtract.
-     * @return Vector2
+     * @return Vector
      */
-    subScalar(scalar: number): Vector2;
+    subScalar(scalar: number): Vector;
 
     /**
      * @description Clone and multiply by scalar.
      * @param value to multiply with.
-     * @return Vector2
+     * @return Vector
      */
-    mulScalar(scalar: number): Vector2;
+    mulScalar(scalar: number): Vector;
 
     /**
      * @description Clone and divide by scalar.
      * @param value to divide by.
-     * @return Vector2
+     * @return Vector
      */
-    divScalar(scalar: number): Vector2;
+    divScalar(scalar: number): Vector;
 
     /**
      * @description Clamp vector values into range.
@@ -317,9 +317,9 @@ declare class Vector2 {
      * Note: this function does not validate that min < max.
      * @param min value
      * @param max value
-     * @return Vector2
+     * @return Vector
      */
-    clamp(min: number, max: number): Vector2;
+    clamp(min: number, max: number): Vector;
 
     /**
      * @description Apply a function on x and y components of the vector.
@@ -331,9 +331,9 @@ declare class Vector2 {
     /**
      * @description Clone and apply a function on x and y components.
      * @param function to apply on components.
-     * @return Vector2
+     * @return Vector
      */
-    apply(func: (component: number) => number): Vector2;
+    apply(func: (component: number) => number): Vector;
 
     /**
      * @description abs component values (x, y positive).
@@ -343,9 +343,9 @@ declare class Vector2 {
 
     /**
      * @description Clone and abs component values (x, y positive).
-     * @return Vector2
+     * @return Vector
      */
-    abs(): Vector2;
+    abs(): Vector;
 
     /**
      * @description round components values
@@ -355,21 +355,21 @@ declare class Vector2 {
 
     /**
      * @description Clone and round components values
-     * @return Vector2
+     * @return Vector
      */
-    round(): Vector2;
+    round(): Vector;
 
     /**
      * @param vector to compute dot-product with.
      * @return Dot Product
      */
-    dot(other: inputVec): number;
+    dot(other: InputVec): number;
 
     /**
      * @param vector to compute cross-product with.
-     * @return Vector2
+     * @return Vector
      */
-    cross(other: inputVec): Vector2;
+    cross(other: InputVec): Vector;
 
     /**
      * @description If any of the components of this vector are nan, null, undefined, etc. set them to defaults.
@@ -383,9 +383,9 @@ declare class Vector2 {
      * @description Clone and replace nan, null, undefined, etc by defaults.
      * @param x default value
      * @param y default value
-     * @return Vector2
+     * @return Vector
      */
-    repair(x: number, y: number): Vector2;
+    repair(x: number, y: number): Vector;
 
     /**
      * @description Convert to string in the form of "x,y".
