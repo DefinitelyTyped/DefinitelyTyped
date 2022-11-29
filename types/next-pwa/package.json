@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "next": "^12.2.5"
+    "next": "^12.2.5",
+    "@types/react": "^18.0.25"
   }
 }
