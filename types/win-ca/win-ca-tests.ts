@@ -1,4 +1,4 @@
-import ca, { der2 } from "./";
+import ca, { der2 } from "win-ca";
 
 // $ExpectType void
 ca({
