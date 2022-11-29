@@ -1,4 +1,3 @@
-import Api, { CaOptions, Certificate, der2, Store } from "./";
+import Api from "./";
 
-export default Api;
-export { der2, Certificate, Store, CaOptions };
+export = Api;
