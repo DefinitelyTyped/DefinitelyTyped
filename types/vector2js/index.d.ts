@@ -401,3 +401,19 @@ declare class Vector2 {
      */
     format(format: string): string;
 }
+
+declare namespace Vector {
+    const zero: Vector;
+    const one: Vector;
+    const up: Vector;
+    const down: Vector;
+    const left: Vector;
+    const right: Vector;
+    const upLeft: Vector;
+    const downLeft: Vector;
+    const upRight: Vector;
+    const downRight: Vector;
+}
+
+export = Vector;
+export as namespace Vector;
