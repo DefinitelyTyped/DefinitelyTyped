@@ -15,11 +15,13 @@ const options: hash.Options = {
 hash(obj); // $ExpectType string
 // @ts-expect-error
 hash(undefined);
+hash('1'); // $ExpectType string
 hash(1); // $ExpectType string
+hash(true); // $ExpectType string
+hash(null); // $ExpectType string
 hash([1, 2, 3]); // $ExpectType string
-hash([1, '2', 3]); // $ExpectType string
+hash([1, '2', 3, true]); // $ExpectType string
 hash(['1', '1', '3']); // $ExpectType string
-hash(''); // $ExpectType string
 hash([{ objectInArray: true }]); // $ExpectType string
 hash(obj, options); // $ExpectType string
 hash(obj, { ...options, encoding: 'buffer' }); // $ExpectType Buffer
