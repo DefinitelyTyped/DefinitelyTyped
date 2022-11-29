@@ -159,7 +159,7 @@ declare namespace process {
         apply(traversal: Traversal): Promise<Traversal>;
     }
 
-    class Traverser {
+    class Traverser extends Map {
         constructor(object: any, bulk?: number);
     }
 
