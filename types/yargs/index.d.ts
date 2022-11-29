@@ -879,15 +879,17 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
-        O extends { choices: ReadonlyArray<infer C> } ? C :
+        O extends { type: "array", choices: ReadonlyArray<infer C> } ? C[] :
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
         O extends { type: "array", normalize: true } ? string[] :
+        O extends { array: true, choices: ReadonlyArray<infer C> } ? C[] :
         O extends { array: true, type: "string" } ? string[] :
         O extends { array: true, type: "number" } ? number[] :
         O extends { array: true, string: true } ? string[] :
         O extends { array: true, number: true } ? number[] :
         O extends { array: true, normalize: true } ? string[] :
+        O extends { choices: ReadonlyArray<infer C> } ? C :
         O extends { type: "array" } ? Array<string | number> :
         O extends { type: "boolean" } ? boolean :
         O extends { type: "number" } ? number :
