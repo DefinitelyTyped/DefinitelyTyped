@@ -321,6 +321,12 @@ function dslTests() {
     g.V().where(__.hasNotLabel('test'));
     g.V().aged(33);
     g.tx().begin();
+    
+    // $ExpectType Promise<Traverser[]>
+    g.V().has("test").toList();
+    g.V().has("test").toList().then(arr => {
+        arr.map(element => element.get("key"))
+    });
 }
 
 async function asyncIteratorTest() {
