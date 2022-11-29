@@ -125,12 +125,12 @@ interface PluginOptions extends WebpackConfigOptions {
     runtimeCaching?: RuntimeCaching[];
 
     /**
-     * Array of Glob patterns to exclude files inside `public` folder from being precached.
+     * Array of Glob patterns to exclude files inside `public` _(or custom `dest`)_  folder from being precached.
      *
      * _Default: [ "!noprecache\/\*\*\/\*" ]_
      *
      * @remarks
-     * The default value will precache all files inside `public` folder except those inside `public/noprecache` folder.
+     * The default value will precache all files inside `public` folder except those inside `public/noprecache` folder _(or custom `dest`)_.
      */
     publicExcludes?: string[];
 
@@ -238,7 +238,7 @@ interface PluginOptions extends WebpackConfigOptions {
 /**
  * Returns a modified Next.js configuration Object with the PWA plugin Object applied.
  *
- * During `build`, will generate two files in your `public` _(or custom)_ directory: `workbox-*.js` and `sw.js`, which will be served statically by default.
+ * During `build`, will generate two files in your `public` _(or custom `dest`)_ directory: `workbox-*.js` and `sw.js`, which will be served statically by default.
  *
  * @param config The [Next.js configuration](https://nextjs.org/docs/api-reference/next.config.js/introduction) Object
  *
