@@ -7,9 +7,9 @@ namespace Module {
     declare const path: string;
     declare const config: conventionalChangelogPresetLoader.Config;
 
-    // $ExpectType Config<Commit<string | number | symbol>, Context>
+    // $ExpectType Config<Commit<string | number | symbol>, Context> || Config<Commit, Context>
     conventionalChangelogPresetLoader(path);
-    // $ExpectType Config<Commit<string | number | symbol>, Context>
+    // $ExpectType Config<Commit<string | number | symbol>, Context> || Config<Commit, Context>
     conventionalChangelogPresetLoader(config);
 
     // @ts-expect-error
