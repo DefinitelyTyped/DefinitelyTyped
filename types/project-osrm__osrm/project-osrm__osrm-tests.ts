@@ -65,6 +65,11 @@ osrm.route({ coordinates }, { format: 'json_buffer' }, (err, result) => {
     result;
 });
 
+osrm.route({ coordinates, skip_waypoints: true }, { format: 'json_buffer' }, (err, result) => {
+    // $ExpectType Buffer
+    result;
+});
+
 // Nearest
 osrm.nearest({ coordinates, number: 3, bearings }, (err, response) => {
     console.log(response.waypoints); // array of Waypoint objects
