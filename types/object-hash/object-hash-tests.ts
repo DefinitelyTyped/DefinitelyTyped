@@ -5,22 +5,6 @@ import stream = require('stream');
 
 const obj = { any: true };
 
-// $ExpectType string
-let hashed = hash(obj);
-
-hashed = hash.sha1(obj); // $ExpectType string
-hashed = hash.keys(obj); // $ExpectType string
-hashed = hash.MD5(obj); // $ExpectType string
-hashed = hash.keysMD5(obj); // $ExpectType string
-
-// @ts-expect-error
-hash(undefined);
-hash(''); // $ExpectType string
-
-const passThroughStream = new stream.PassThrough();
-hash.writeToStream(obj, passThroughStream);
-hashed = passThroughStream.read().toString();
-
 const options: hash.Options = {
     algorithm: 'md5',
     encoding: 'hex',
@@ -28,11 +12,18 @@ const options: hash.Options = {
     unorderedArrays: true,
 };
 
-// $ExpectType string
-hashed = hash(obj, options);
+hash(obj); // $ExpectType string
+// @ts-expect-error
+hash(undefined);
+hash(''); // $ExpectType string
+hash(obj, options); // $ExpectType string
+hash(obj, { ...options, encoding: 'buffer' }); // $ExpectType Buffer
 
-// $ExpectType Buffer
-const bufferHashed = hash(obj, {
-    ...options,
-    encoding: 'buffer',
-});
+hash.sha1(obj); // $ExpectType string
+hash.keys(obj); // $ExpectType string
+hash.MD5(obj); // $ExpectType string
+hash.keysMD5(obj); // $ExpectType string
+
+const passThroughStream = new stream.PassThrough();
+hash.writeToStream(obj, passThroughStream);
+passThroughStream.read().toString();

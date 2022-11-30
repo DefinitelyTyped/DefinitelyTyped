@@ -4,13 +4,26 @@ import { Repository } from './repository';
 import { Signature } from './signature';
 import { Oid } from './oid';
 import { RebaseOperation } from './rebase-operation';
-import { Index } from './index';
+import { Index, MergeOptions, Tree } from './index';
 
-export interface RebaseOptions {
-    version: number;
-    quiet: number;
-    rewriteNotesRef: string;
-    checkoutOptions: CheckoutOptions;
+export interface RebaseOptions<PayloadType = any> {
+    version?: number | null;
+    quiet?: number | null;
+    inmemory?: number | null;
+    rewriteNotesRef?: string | null;
+    mergeOptions?: MergeOptions | null;
+    checkoutOptions?: CheckoutOptions | null;
+    commitCreateCb?: ((
+        author: Signature,
+        committer: Signature,
+        message_encoding: string,
+        message: string,
+        tree: Tree,
+        parent_count: number,
+        parents: Oid[],
+        payload?: PayloadType
+    ) => Oid) | null;
+    payload?: PayloadType | null;
 }
 
 export class Rebase {

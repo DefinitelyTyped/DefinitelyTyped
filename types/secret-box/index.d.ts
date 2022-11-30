@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 
+import { Codec } from 'varstruct';
 import { BinaryLike } from 'node:crypto';
 
 /**
@@ -35,7 +36,8 @@ export function encrypt(message: Buffer, passphrase: string | Buffer, opts?: Enc
  * // => The secret launch code is 1234.
  */
 export function decrypt(secret: Buffer, passphrase: string | Buffer): Buffer;
-export const struct: any;
+
+export const struct: Codec<SerializedResult>;
 
 export interface EncryptOptions {
     salt?: Buffer;
@@ -43,4 +45,15 @@ export interface EncryptOptions {
     n?: number;
     r?: number;
     p?: number;
+}
+
+export interface SerializedResult {
+    version: number;
+    n: number;
+    r: number;
+    p: number;
+    salt: Buffer;
+    iv: Buffer;
+    authTag: Buffer;
+    secret: Buffer;
 }

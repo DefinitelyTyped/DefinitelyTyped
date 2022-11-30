@@ -2,13 +2,27 @@
 google.accounts.oauth2.initCodeClient({
     client_id: '',
     scope: '',
+    callback: response => {
+        // $ExpectType string
+        response.code;
+        // $ExpectType string
+        response.scope;
+        // $ExpectType string
+        response.state;
+        // $ExpectType string
+        response.error;
+        // $ExpectType string
+        response.error_description;
+        // $ExpectType string
+        response.error_uri;
+    }
 });
 
 // $ExpectType TokenClient
 google.accounts.oauth2.initTokenClient({
     client_id: '',
     callback: response => {
-        // response.access_token
+        // $ExpectType string
         response.access_token;
         // $ExpectType string
         response.expires_in;

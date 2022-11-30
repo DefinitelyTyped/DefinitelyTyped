@@ -875,6 +875,8 @@ export interface ModeBar {
     uirevision: number | string;
 }
 
+export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
+
 export type ModeBarDefaultButtons =
     | 'lasso2d'
     | 'select2d'
@@ -903,7 +905,12 @@ export type ModeBarDefaultButtons =
     | 'toggleHover'
     | 'toImage'
     | 'resetViews'
-    | 'toggleSpikelines';
+    | 'toggleSpikelines'
+    | 'togglespikelines'
+    | 'togglehover'
+    | 'hovercompare'
+    | 'hoverclosest'
+    | 'v1hovermode';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
@@ -1612,7 +1619,7 @@ export interface Config {
     modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
     /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
-    modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
+    modeBarButtonsToAdd: ModeBarButtonAny[];
 
     /**
      * fully custom mode bar buttons as nested array, where the outer
@@ -1620,7 +1627,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<Array<ModeBarDefaultButtons | ModeBarButton>> | false;
+    modeBarButtons: ModeBarButtonAny[][] | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
