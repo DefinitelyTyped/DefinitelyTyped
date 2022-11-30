@@ -586,7 +586,7 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: boolean | Array<'duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed'> | boolean;
+        annotations?: boolean | Array<'duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed'>;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
