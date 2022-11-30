@@ -129,10 +129,10 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * Array of Glob patterns to exclude files inside `public` _(or custom `dest`)_  folder from being precached.
      *
-     * @default ["!noprecache/** /*"]
-     *
      * @remarks
      * The default value will precache all files inside `public` folder except those inside `public/noprecache` folder _(or custom `dest`)_.
+     *
+     * @see [Default value](https://github.com/shadowwalker/next-pwa#:~:text=and%20specific%20scope.-,publicExcludes,-%2D%20an%20array%20of)
      */
     publicExcludes?: string[];
 
