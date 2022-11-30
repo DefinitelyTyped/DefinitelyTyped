@@ -498,6 +498,12 @@ declare namespace OSRM {
          * Whether or not adds a Hint to the response which can be used in subsequent requests. (optional, default true)
          */
         generate_hints?: boolean;
+        /**
+         * Removes waypoints from the response. Waypoints are still calculated, but not serialized.
+         * Could be useful in case you are interested in some other part of response and do not want to transfer waste data.
+         * @default false
+         */
+        skip_waypoints?: boolean;
     }
 
     /**
