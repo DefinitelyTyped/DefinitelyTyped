@@ -391,10 +391,10 @@ instance.eCommerce.logProductAction(
     eCommerceCustomFlags,
 );
 
-instance.eCommerce.logProductAction(300, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
+instance.eCommerce.logProductAction(0, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
 
 instance.eCommerce.logProductAction(
-    300,
+    0,
     [product1, product2],
     eCommerceCustomAttributes,
     eCommerceCustomFlags,
