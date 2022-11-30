@@ -255,6 +255,19 @@ export interface ShippingSnakeCase extends AddressWithContact {
 
 export type Shipping = ShippingCamelCase | ShippingSnakeCase;
 
+export interface Coupon {
+    name: string;
+    id: string;
+    description: string;
+}
+
+export interface Discount {
+    type: string;
+    rule: Record<string, string | number | null>;
+    amount: number;
+    id: string;
+}
+
 export interface CartCamelCase {
     accountLoggedIn: unknown;
     authTotal: number;
@@ -262,11 +275,11 @@ export interface CartCamelCase {
     captureTotal: number;
     checkoutId: string;
     checkoutUrl: string;
-    coupon: unknown;
+    coupon: Coupon | null;
     currency: string;
     dateAbandoned: string;
     dateCreated: string;
-    discounts: unknown;
+    discounts: Discount[];
     discountTotal: number;
     giftcardTotal: number;
     grandTotal: number;
@@ -298,11 +311,12 @@ export interface CartSnakeCase {
     capture_total: number;
     checkout_id: string;
     checkout_url: string;
-    coupon: unknown;
+    coupon: Coupon | null;
+    coupon_id?: string;
     currency: string;
     date_abandoned: string;
     date_created: string;
-    discounts: unknown;
+    discounts: Discount[];
     discount_total: number;
     giftcard_total: number;
     grand_total: number;
@@ -338,12 +352,13 @@ export interface OrderCamelCase {
     accountLoggedIn: unknown;
     billing: Billing;
     comments: unknown;
-    coupon: unknown;
+    coupon: Coupon | null;
     couponCode: unknown;
+    couponId?: string;
     currency: string;
     dateCreated: string;
     delivered: boolean;
-    discounts: unknown;
+    discounts: Discount[];
     discountTotal: number;
     gift: unknown;
     giftcards: unknown;
@@ -393,12 +408,13 @@ export interface OrderSnakeCase {
     account_logged_in: unknown;
     billing: Billing;
     comments: unknown;
-    coupon: unknown;
+    coupon: Coupon | null;
     coupon_code: unknown;
+    coupon_id?: string;
     currency: string;
     date_created: string;
     delivered: boolean;
-    discounts: unknown;
+    discounts: Discount[];
     discount_total: number;
     gift: unknown;
     giftcards: unknown;
