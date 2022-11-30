@@ -3404,6 +3404,12 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
     getScrollResponder(): JSX.Element;
 }
 
+/**
+ * React Native provides RootTag and RootTagContext as identifiers for a window's root view
+ */
+ export type RootTag = number;
+ export const RootTagContext: React.Context<RootTag>;
+
 export interface SliderPropsAndroid extends ViewProps {
     /**
      * Color of the foreground switch grip.
