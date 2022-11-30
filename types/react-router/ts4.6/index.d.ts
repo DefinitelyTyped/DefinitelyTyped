@@ -1,28 +1,3 @@
-// Type definitions for React Router 5.1
-// Project: https://github.com/ReactTraining/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>
-//                 Yuichi Murata <https://github.com/mrk21>
-//                 Václav Ostrožlík <https://github.com/vasek17>
-//                 Nathan Brown <https://github.com/ngbrown>
-//                 Alex Wendland <https://github.com/awendland>
-//                 Kostya Esmukov <https://github.com/KostyaEsmukov>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Karol Janyst <https://github.com/LKay>
-//                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Huy Nguyen <https://github.com/huy-nguyen>
-//                 Jérémy Fauvel <https://github.com/grmiade>
-//                 Daniel Roth <https://github.com/DaIgeb>
-//                 Egor Shulga <https://github.com/egorshulga>
-//                 Rahul Raina <https://github.com/rraina>
-//                 Duong Tran <https://github.com/t49tran>
-//                 Ben Smith <https://github.com/8enSmith>
-//                 Wesley Tsai <https://github.com/wezleytsai>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Pawel Fajfer <https://github.com/pawfa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from 'react';
 import * as H from 'history';
 
@@ -157,12 +132,12 @@ export type ExtractRouteOptionalParam<T extends string, U = string | number | bo
 export type ExtractRouteParams<T extends string, U = string | number | boolean> = string extends T
     ? { [k in string]?: U }
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}/${infer Rest}`
-    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})${infer Modifier extends '?' | '+' | '*' | ''}`
-        ? ExtractRouteOptionalParam<`${Param}${Modifier}`, U> & ExtractRouteParams<Rest, U>
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+        ? ExtractRouteOptionalParam<Param, U> & ExtractRouteParams<Rest, U>
         : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U> & ExtractRouteParams<Rest, U>
     : T extends `${infer _Start}:${infer ParamWithOptionalRegExp}`
-    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})${infer Modifier extends '?' | '+' | '*' | ''}`
-        ? ExtractRouteOptionalParam<`${Param}${Modifier}`, U>
+    ? ParamWithOptionalRegExp extends `${infer Param}(${infer _RegExp})`
+        ? ExtractRouteOptionalParam<Param, U>
         : ExtractRouteOptionalParam<ParamWithOptionalRegExp, U>
     : {};
 
