@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.6
 
+/// <reference types="react"/>
+
 import type { NextConfig } from 'next';
 
 // match `workbox-build` ^6.5.4 types naming
@@ -71,7 +73,7 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * Whether to disable the PWA plugin as a whole.
      *
-     * `Default: false`
+     * @default false
      *
      * @example
      * Disable PWA plugin during development.
@@ -88,7 +90,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * Configure if the service worker should be registered by the plugin.
      * Set to `false` if you want to register the service worker manually.
      *
-     * `Default: true`
+     * @default true
      *
      * @see [Registering the service worker manually](https://github.com/shadowwalker/next-pwa/blob/master/register.js)
      */
@@ -97,7 +99,9 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * URL scope of the PWA.
      *
-     * `Default:` [`basePath`](https://nextjs.org/docs/api-reference/next.config.js/basepath) or `'/'`
+     * @default basePath or "/"
+     *
+     * @see [Next.js `basePath` documentation](https://nextjs.org/docs/api-reference/next.config.js/basepath)
      *
      * @see [Service Worker Scope](https://developers.google.com/web/ilt/pwa/introduction-to-service-worker#scope)
      */
@@ -107,7 +111,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * Service worker script file name.
      * Set to a different value to customize the output file name.
      *
-     * `Default: "/sw.js"`
+     * @default "/sw.js"
      */
     sw?: string;
 
@@ -125,7 +129,7 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * Array of Glob patterns to exclude files inside `public` _(or custom `dest`)_  folder from being precached.
      *
-     * _Default: [ "!noprecache\/\*\*\/\*" ]_
+     * @default ["!noprecache/**‎/*"]
      *
      * @remarks
      * The default value will precache all files inside `public` folder except those inside `public/noprecache` folder _(or custom `dest`)_.
@@ -138,7 +142,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * The interpreter follows [the same rules](https://.js.org/configuration/module/#ruleexclude)
      * as 's standard `exclude` option.
      *
-     * `Default: []`
+     * @default []
      *
      * @example
      * ```js
@@ -153,7 +157,7 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * Whether to cache the start URL.
      *
-     * `Default: true`
+     * @default true
      *
      * @see [Discussion of use case to not cache start url at all](https://github.com/shadowwalker/next-pwa/pull/296#issuecomment-1094167025)
      */
@@ -163,7 +167,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * If your start url returns different HTML document under different state
      * (ex.: signed in against not signed in), this should be set to true.
      *
-     * Default: true`
+     * @default true
      *
      * @remarks
      * Only effective when `cacheStartUrl` is set to `true`.
@@ -175,7 +179,7 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * The url to another route that is the target of a redirect from the start url.
      *
-     * `Default: undefined`
+     * @default undefined
      *
      * @remarks
      * Only effective when `dynamicStartUrl` is set to `true`.
@@ -187,7 +191,10 @@ interface PWAConfig extends WebpackConfigOptions {
      * If you just need an offline fallback page,
      * simply create a `/_offline` page such as `pages/_offline.{js,jsx,tsx}`.
      *
-     * `Default: {}` or `{ document: "/_offline" }` if a `/_offline` page exists
+     * @default
+     * {} // no fallback routes
+     *
+     * { document: "/_offline" } // if a `/_offline` page exists
      *
      * @see [Offline Fallbacks](https://github.com/shadowwalker/next-pwa#offline-fallbacks)
      */
@@ -196,7 +203,7 @@ interface PWAConfig extends WebpackConfigOptions {
     /**
      * Whether no enable additional route caching when navigating between pages with `next/link`.
      *
-     * `Default: false`
+     * @default false
      *
      * @remarks
      * This improves user experience on specific use cases, however it also adds **extra** network calls overhead.
@@ -210,7 +217,7 @@ interface PWAConfig extends WebpackConfigOptions {
      *
      * The url prefix to enable hosting static files on a subdomain.
      *
-     * `Default: ""`
+     * @default ""
      */
     subdomainPrefix?: string;
 
@@ -218,7 +225,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * Customize the behavior of the app when the device goes back online.
      * Indicates if the app should refresh the page by calling `location.reload()`.
      *
-     * `Default: true`
+     * @default true
      */
     reloadOnOnline?: boolean;
 
@@ -226,7 +233,7 @@ interface PWAConfig extends WebpackConfigOptions {
      * Customize the directory where the plugin will look for a custom worker implementation
      * to add to the service worker generated by Workbox.
      *
-     * `Default: "worker"`
+     * @default "worker"
      *
      * @see [Custom Service Worker](https://github.com/shadowwalker/next-pwa/tree/master/examples/custom-ts-worker)
      */
