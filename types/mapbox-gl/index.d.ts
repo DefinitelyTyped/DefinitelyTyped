@@ -600,6 +600,9 @@ declare namespace mapboxgl {
 
         getFog(): Fog | null;
         setFog(fog: Fog): this;
+
+        getProjection(): Projection;
+        setProjection(projection: Projection | string): this;
     }
 
     export interface MapboxOptions {
@@ -778,19 +781,7 @@ declare namespace mapboxgl {
          *
          * @default 'mercator'
          */
-        projection?: {
-            name:
-                | 'albers'
-                | 'equalEarth'
-                | 'equirectangular'
-                | 'lambertConformalConic'
-                | 'mercator'
-                | 'naturalEarth'
-                | 'winkelTripel'
-                | 'globe';
-            center?: [number, number];
-            parallels?: [number, number];
-        };
+        projection?: Projection;
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
@@ -2660,4 +2651,18 @@ declare namespace mapboxgl {
     export type ElevationQueryOptions = {
         exaggerated: boolean;
     };
+
+    export interface Projection {
+        name:
+            | 'albers'
+            | 'equalEarth'
+            | 'equirectangular'
+            | 'lambertConformalConic'
+            | 'mercator'
+            | 'naturalEarth'
+            | 'winkelTripel'
+            | 'globe';
+        center?: [number, number];
+        parallels?: [number, number];
+    }
 }
