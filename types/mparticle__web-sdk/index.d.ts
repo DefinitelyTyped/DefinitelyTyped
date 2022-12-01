@@ -1,4 +1,4 @@
-// Type definitions for mParticle/web-sdk SDK 2.16
+// Type definitions for mParticle/web-sdk SDK 2.18
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
@@ -67,6 +67,10 @@ interface GetAppVersion {
     (): string;
 }
 interface GetDeviceId {
+    (): string;
+}
+
+interface GetEnvironment {
     (): string;
 }
 interface GetVersion {
@@ -304,6 +308,7 @@ export const getAppName: GetAppName;
 export const getAppVersion: GetAppVersion;
 export const getDeviceId: GetDeviceId;
 export const setDeviceId: SetDeviceId;
+export const getEnvironment: GetEnvironment;
 export function getInstance(instanceName?: string): mParticleInstance;
 export const getVersion: GetVersion;
 /**
@@ -673,6 +678,7 @@ declare class mParticleInstance {
     getAppVersion: GetAppVersion;
     getDeviceId: GetDeviceId;
     setDeviceId: SetDeviceId;
+    getEnvironment: GetEnvironment;
     getVersion: GetVersion;
     init: Init;
     isInitialized: IsInitialized;
