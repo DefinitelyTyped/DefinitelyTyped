@@ -15,6 +15,14 @@ google.accounts.oauth2.initCodeClient({
         response.error_description;
         // $ExpectType string
         response.error_uri;
+    },
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType string
+        error.type;
     }
 });
 
@@ -43,6 +51,14 @@ google.accounts.oauth2.initTokenClient({
         // $ExpectType string
         response.error_uri;
     },
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType string
+        error.type;
+    }
 });
 
 // $ExpectType boolean

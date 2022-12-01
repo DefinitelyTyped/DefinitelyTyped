@@ -38,6 +38,12 @@ declare namespace google.accounts {
          */
         function revoke(accessToken: string, done: () => void): void;
 
+        interface ko extends Error {
+            message: string;
+            stack?: string;
+            type: string;
+        }
+
         interface OverridableTokenClientConfig {
             /**
              * Optional. A space-delimited, case-sensitive list of prompts to
@@ -255,6 +261,13 @@ declare namespace google.accounts {
              * server's response.
              */
             state?: string;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ko) => void;
         }
 
         interface CodeClientConfig {
@@ -331,6 +344,13 @@ declare namespace google.accounts {
              * to select an account.
              */
             select_account?: boolean;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ko) => void;
         }
     }
 
