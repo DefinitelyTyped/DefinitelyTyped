@@ -38,7 +38,7 @@ declare namespace google.accounts {
          */
         function revoke(accessToken: string, done: () => void): void;
 
-        interface ko extends Error {
+        interface ClientConfigError extends Error {
             message: string;
             stack?: string;
             type: string;
@@ -267,7 +267,7 @@ declare namespace google.accounts {
              * errors, such as the popup window is failed to open; or closed
              * before an OAuth response is returned.
              */
-            error_callback?: (error: ko) => void;
+            error_callback?: (error: ClientConfigError) => void;
         }
 
         interface CodeClientConfig {
@@ -350,7 +350,7 @@ declare namespace google.accounts {
              * errors, such as the popup window is failed to open; or closed
              * before an OAuth response is returned.
              */
-            error_callback?: (error: ko) => void;
+            error_callback?: (error: ClientConfigError) => void;
         }
     }
 
