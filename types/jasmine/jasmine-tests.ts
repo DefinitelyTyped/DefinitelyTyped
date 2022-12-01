@@ -652,7 +652,7 @@ describe("A spy, when configured to fake a promised rejection", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
-        getMaybeAsyncBar: (): number|Promise<number> => {
+        getMaybeAsyncBar: (): number | Promise<number> => {
             return bar;
         },
         getBar: () => {
