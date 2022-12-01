@@ -514,6 +514,7 @@ export interface DrawflowConnection {
 
 export interface DrawflowConnectionDetail {
     input: string;
+    output: string;
     node: string;
 }
 
