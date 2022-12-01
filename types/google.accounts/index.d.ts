@@ -41,7 +41,7 @@ declare namespace google.accounts {
         interface ClientConfigError extends Error {
             message: string;
             stack?: string;
-            type: 'popup_failed_to_open' | 'popup_closed' | 'unknown';
+            type: 'unknown' | 'popup_closed' | 'popup_failed_to_open';
         }
 
         interface OverridableTokenClientConfig {

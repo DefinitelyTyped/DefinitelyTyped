@@ -21,7 +21,7 @@ google.accounts.oauth2.initCodeClient({
         error.message;
         // $ExpectType string | undefined
         error.stack;
-        // $ExpectType string
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
         error.type;
     }
 });
@@ -56,7 +56,7 @@ google.accounts.oauth2.initTokenClient({
         error.message;
         // $ExpectType string | undefined
         error.stack;
-        // $ExpectType string
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
         error.type;
     }
 });
