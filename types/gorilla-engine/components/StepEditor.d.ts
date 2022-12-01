@@ -1,0 +1,29 @@
+declare namespace GorillaEngine.UI {
+    export interface StepEditorProps extends Common, Background, Bounds, Clickable {
+        value;
+        divSize: number;
+        min: number;
+        max: number;
+        paramPath: string;
+        startIndex: number;
+        endIndex: number;
+        step: Partial<{
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+            cornerRadius: number;
+            border: number;
+            markDefault: boolean;
+            incrementHeight: number;
+            backgroundColor: string;
+            onColor: string;
+            offColor: string;
+        }>;
+    }
+
+    export interface StepEditor extends StepEditorProps {}
+    export class StepEditor extends Component {
+        constructor(options: Partial<StepEditorProps>);
+    }
+}
