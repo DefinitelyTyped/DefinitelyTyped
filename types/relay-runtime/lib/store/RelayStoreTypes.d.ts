@@ -16,7 +16,7 @@ import {
     NormalizationSelectableNode,
     NormalizationSplitOperation,
 } from '../util/NormalizationNode';
-import { ReaderFragment } from '../util/ReaderNode';
+import { ReaderFragment, ReaderLinkedField } from '../util/ReaderNode';
 import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
 import { CacheConfig, DataID, Disposable, FetchPolicy, RenderPolicy, Variables } from '../util/RelayRuntimeTypes';
 import { InvalidationState } from './RelayModernStore';
@@ -893,7 +893,7 @@ export type MissingFieldHandler =
           kind: 'scalar';
           handle: (
               field: NormalizationScalarField,
-              record: Record | null | undefined,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => unknown;
@@ -901,8 +901,8 @@ export type MissingFieldHandler =
     | {
           kind: 'linked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => DataID | null | undefined;
@@ -910,8 +910,8 @@ export type MissingFieldHandler =
     | {
           kind: 'pluralLinked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => Array<DataID | null | undefined> | null | undefined;

@@ -338,10 +338,6 @@ let factory = new OO.Factory();
 // $ExpectType RegistryConstructor
 OO.Factory.super;
 
-class FactoryClass {
-    static key = 'FactoryClass';
-}
-
 class FactoryClass2 {
     static static = {
         name: 'FactoryClass2',
@@ -351,9 +347,6 @@ class FactoryClass2 {
 {
     // @ts-expect-error
     factory.register(SubClass);
-
-    // $ExpectType void
-    factory.register(FactoryClass);
 
     // $ExpectType void
     factory.register(FactoryClass2);

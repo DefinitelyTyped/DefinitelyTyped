@@ -374,7 +374,7 @@ const provider = new Provider('https://op.example.com', {
         webMessageResponseMode: { enabled: false, ack: 'draft' },
         revocation: { enabled: false },
         jwtIntrospection: { enabled: false, ack: 'draft' },
-        jwtResponseModes: { enabled: false, ack: 'draft' },
+        jwtResponseModes: { enabled: false },
         pushedAuthorizationRequests: { enabled: false },
         registration: {
             enabled: true,

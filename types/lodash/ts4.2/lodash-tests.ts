@@ -64,7 +64,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.compact
 {
-    const list: _.List<AbcObject | null | undefined | false | '' | 0> | null | undefined = anything;
+    const list: _.List<AbcObject | null | undefined | false | '' | 0 | 0n> | null | undefined = anything;
 
     _.compact(list); // $ExpectType AbcObject[]
     _(list).compact(); // $ExpectType Collection<AbcObject>
@@ -74,7 +74,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.compact in a pipe with other functions
 {
-    const list: _.List<_.Many<AbcObject | null | undefined> | null | undefined> = anything;
+    const list: _.List<_.Many<AbcObject | null | undefined | false | '' | 0 | 0n> | null | undefined> = anything;
 
     fp.pipe(fp.flatten, fp.compact)(list); // $ExpectType AbcObject[]
 }

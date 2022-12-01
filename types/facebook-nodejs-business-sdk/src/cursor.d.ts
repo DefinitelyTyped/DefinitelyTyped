@@ -17,6 +17,6 @@ export default class Cursor extends Array<Record<string, any>> {
         sourceObject: Record<string, any>,
         targetClass: Record<string, any>,
         params: Record<string, any>,
-        endpoint: string | null | undefined,
+        endpoint?: string | null,
     );
 }
