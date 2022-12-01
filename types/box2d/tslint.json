@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
@@ -15,7 +14,6 @@
         "no-var-keyword": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

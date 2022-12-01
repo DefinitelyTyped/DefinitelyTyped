@@ -4,7 +4,12 @@ import * as $ from 'jquery';
 const element = new Element();
 
 // $ExpectType Tooltip
-new Tooltip(element, { delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
+new Tooltip(element, {
+    delay: 0.5,
+    title: () => 'foo',
+    customClass: () => 'custom-class',
+    placement: () => 'auto',
+});
 
 // $ExpectType Tooltip | null
 Tooltip.getInstance(element);
@@ -22,7 +27,7 @@ Tooltip.Default.placement;
 Tooltip.Default.selector;
 Tooltip.Default.template;
 Tooltip.Default.title;
-Tooltip.Default.fallbackPlacement;
+Tooltip.Default.fallbackPlacements;
 Tooltip.Default.boundary;
 Tooltip.Default.customClass;
 Tooltip.Default.sanitize;
@@ -30,6 +35,10 @@ Tooltip.Default.sanitizeFn;
 Tooltip.Default.allowList;
 Tooltip.Default.offset;
 Tooltip.Default.popperConfig;
+
+Tooltip.Default.allowList['*'];
+Tooltip.Default.allowList['*'].push(/^data-my-app-[\w-]+/);
+Tooltip.Default.allowList['td'];
 
 Tooltip.DefaultType.animation; // $ExpectType string
 Tooltip.DefaultType.container; // $ExpectType string
@@ -39,7 +48,7 @@ Tooltip.DefaultType.placement; // $ExpectType string
 Tooltip.DefaultType.selector; // $ExpectType string
 Tooltip.DefaultType.template; // $ExpectType string
 Tooltip.DefaultType.title; // $ExpectType string
-Tooltip.DefaultType.fallbackPlacement; // $ExpectType string
+Tooltip.DefaultType.fallbackPlacements; // $ExpectType string
 Tooltip.DefaultType.boundary; // $ExpectType string
 Tooltip.DefaultType.customClass; // $ExpectType string
 Tooltip.DefaultType.sanitize; // $ExpectType string

@@ -26,6 +26,7 @@ import {
     RelayProp,
     RelayRefetchProp,
     requestSubscription,
+    ProfilerContext,
 } from 'react-relay';
 
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -717,12 +718,13 @@ requestSubscription(
 ReactRelayContext.Consumer.prototype;
 ReactRelayContext.Provider.prototype;
 
-const MyRelayContextProvider: React.FunctionComponent<{ children?: React.ReactNode }> = ({children}) => {
+const MyRelayContextProvider: React.FunctionComponent<{ children?: React.ReactNode }> = ({ children }) => {
     return (
         <ReactRelayContext.Provider
             value={{
                 environment: modernEnvironment,
-            }}>
+            }}
+        >
             {children}
         </ReactRelayContext.Provider>
     );
@@ -756,5 +758,19 @@ const MyRelayContextConsumer: React.FunctionComponent = () => {
                 return <div>Loading</div>;
             }}
         />
+    );
+};
+
+const MyRelayProfilerContextProvider: React.FunctionComponent = () => {
+    const context = React.useMemo(
+        () => ({
+            wrapPrepareQueryResource<T>(cb: () => T): T {
+                return cb();
+            },
+        }),
+        [],
+    );
+    return (
+        <ProfilerContext.Provider value={context}><div /></ProfilerContext.Provider>
     );
 };

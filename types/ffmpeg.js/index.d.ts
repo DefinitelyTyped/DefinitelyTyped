@@ -1,7 +1,6 @@
 // Type definitions for package ffmpeg.js 3.1
 // Project: https://github.com/Kagami/ffmpeg.js
-// Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
-//                 Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 

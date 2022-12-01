@@ -109,3 +109,12 @@ anime.set(
         height: "1000px"
     }
 );
+
+// test importing from lib/ files
+import animeCJS = require('animejs/lib/anime');
+import animeMin = require('animejs/lib/anime.min');
+import animeES6 from 'animejs/lib/anime.es';
+
+animeCJS({});
+animeES6({});
+animeMin({});

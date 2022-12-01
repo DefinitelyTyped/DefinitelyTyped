@@ -7,9 +7,10 @@ export type useQueryLoaderHookType<TQuery extends OperationType> = [
     DisposeFn,
 ];
 
-export type UseQueryLoaderLoadQueryOptions = LoadQueryOptions & Readonly<{
-    __environment?: IEnvironment | null | undefined,
-}>;
+export type UseQueryLoaderLoadQueryOptions = LoadQueryOptions &
+    Readonly<{
+        __environment?: IEnvironment | null | undefined;
+    }>;
 
 export function useQueryLoader<TQuery extends OperationType>(
     preloadableRequest: GraphQLTaggedNode | PreloadableConcreteRequest<TQuery>,

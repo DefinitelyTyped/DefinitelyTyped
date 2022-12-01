@@ -53,57 +53,7 @@ export interface BankingAccount {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
-export type BankingAccountDetailV2 = {
-  /**
-   * A unique ID of the account adhering to the standards for ID permanence
-   */
-  accountId: string;
-  /**
-   * Date that the account was created (if known)
-   */
-  creationDate?: string | null;
-  /**
-   * The display name of the account as defined by the bank. This should not incorporate account numbers or PANs. If it does the values should be masked according to the rules of the MaskedAccountString common type.
-   */
-  displayName: string;
-  /**
-   * Flag indicating that the customer associated with the authorisation is an owner of the account. Does not indicate sole ownership, however. If not present then 'true' is assumed
-   */
-  isOwned?: boolean | null;
-  /**
-   * A masked version of the account. Whether BSB/Account Number, Credit Card PAN or another number
-   */
-  maskedNumber: string;
-  /**
-   * A customer supplied nick name for the account
-   */
-  nickname?: string | null;
-  /**
-   * Open or closed status for the account. If not present then OPEN is assumed
-   */
-  openStatus?: ("CLOSED" | "OPEN") | null;
-  /**
-   * The category to which a product or account belongs. See [here](#product-categories) for more details
-   */
-  productCategory:
-    | "BUSINESS_LOANS"
-    | "CRED_AND_CHRG_CARDS"
-    | "LEASES"
-    | "MARGIN_LOANS"
-    | "OVERDRAFTS"
-    | "PERS_LOANS"
-    | "REGULATED_TRUST_ACCOUNTS"
-    | "RESIDENTIAL_MORTGAGES"
-    | "TERM_DEPOSITS"
-    | "TRADE_FINANCE"
-    | "TRANS_AND_SAVINGS_ACCOUNTS"
-    | "TRAVEL_CARDS";
-  /**
-   * The unique identifier of the account as defined by the data holder (akin to model number for the account)
-   */
-  productName: string;
-  [k: string]: unknown;
-} & {
+export interface BankingAccountDetailV2 extends BankingAccount {
   /**
    * The unmasked BSB for the account. Is expected to be formatted as digits only with leading zeros included and no punctuation or spaces
    */
@@ -770,7 +720,7 @@ export type BankingAccountDetailV2 = {
     [k: string]: unknown;
   }[];
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface BankingAuthorisedEntity {
@@ -1175,29 +1125,7 @@ export interface BankingLoanAccountV2 {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
-export type BankingPayeeDetailV2 = {
-  /**
-   * The date the payee was created by the customer
-   */
-  creationDate?: string | null;
-  /**
-   * A description of the payee provided by the customer
-   */
-  description?: string | null;
-  /**
-   * The short display name of the payee as provided by the customer. Where a customer has not provided a nickname, a display name derived by the bank for the payee consistent with existing digital banking channels
-   */
-  nickname: string;
-  /**
-   * ID of the payee adhering to the rules of ID permanence
-   */
-  payeeId: string;
-  /**
-   * The type of payee.<br/>DOMESTIC means a registered payee for domestic payments including NPP. <br/>INTERNATIONAL means a registered payee for international payments. <br/>BILLER means a registered payee for BPAY. <br/>DIGITAL_WALLET means a registered payee for a bank's digital wallet
-   */
-  type: "BILLER" | "DIGITAL_WALLET" | "DOMESTIC" | "INTERNATIONAL";
-  [k: string]: unknown;
-} & {
+export interface BankingPayeeDetailV2 extends BankingPayeeV2 {
   /**
    * Type of object included that describes the payee in detail
    */
@@ -1345,7 +1273,7 @@ export type BankingPayeeDetailV2 = {
     [k: string]: unknown;
   };
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface BankingPayeeV2 {
@@ -1641,187 +1569,7 @@ export interface BankingProductDepositRate {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
-export type BankingProductDetailV4 = {
-  /**
-   * Object that contains links to additional information on specific topics
-   */
-  additionalInformation?: {
-    /**
-     * An array of additional bundles for the product, if applicable. To be treated as secondary documents to the `bundleUri`. Only to be used if there is a primary `bundleUri`.
-     */
-    additionalBundleUris?:
-      | {
-          /**
-           * The URI describing the additional information
-           */
-          additionalInfoUri: string;
-          /**
-           * Display text providing more information about the document URI
-           */
-          description?: string | null;
-          [k: string]: unknown;
-        }[]
-      | null;
-    /**
-     * An array of additional eligibility rules and criteria for the product, if applicable. To be treated as secondary documents to the `eligibilityUri`. Only to be used if there is a primary `eligibilityUri`.
-     */
-    additionalEligibilityUris?:
-      | {
-          /**
-           * The URI describing the additional information
-           */
-          additionalInfoUri: string;
-          /**
-           * Display text providing more information about the document URI
-           */
-          description?: string | null;
-          [k: string]: unknown;
-        }[]
-      | null;
-    /**
-     * An array of additional fees, pricing, discounts, exemptions and bonuses for the product, if applicable. To be treated as secondary documents to the `feesAndPricingUri`. Only to be used if there is a primary `feesAndPricingUri`.
-     */
-    additionalFeesAndPricingUris?:
-      | {
-          /**
-           * The URI describing the additional information
-           */
-          additionalInfoUri: string;
-          /**
-           * Display text providing more information about the document URI
-           */
-          description?: string | null;
-          [k: string]: unknown;
-        }[]
-      | null;
-    /**
-     * An array of additional general overviews for the product or features of the product, if applicable. To be treated as secondary documents to the `overviewUri`. Only to be used if there is a primary `overviewUri`.
-     */
-    additionalOverviewUris?:
-      | {
-          /**
-           * The URI describing the additional information
-           */
-          additionalInfoUri: string;
-          /**
-           * Display text providing more information about the document URI
-           */
-          description?: string | null;
-          [k: string]: unknown;
-        }[]
-      | null;
-    /**
-     * An array of additional terms and conditions for the product, if applicable. To be treated as secondary documents to the `termsUri`. Only to be used if there is a primary `termsUri`.
-     */
-    additionalTermsUris?:
-      | {
-          /**
-           * The URI describing the additional information
-           */
-          additionalInfoUri: string;
-          /**
-           * Display text providing more information about the document URI
-           */
-          description?: string | null;
-          [k: string]: unknown;
-        }[]
-      | null;
-    /**
-     * Description of a bundle that this product can be part of. Mandatory if `additionalBundleUris` includes one or more supporting documents.
-     */
-    bundleUri?: string | null;
-    /**
-     * Eligibility rules and criteria for the product. Mandatory if `additionalEligibilityUris` includes one or more supporting documents.
-     */
-    eligibilityUri?: string | null;
-    /**
-     * Description of fees, pricing, discounts, exemptions and bonuses for the product. Mandatory if `additionalFeesAndPricingUris` includes one or more supporting documents.
-     */
-    feesAndPricingUri?: string | null;
-    /**
-     * General overview of the product. Mandatory if `additionalOverviewUris` includes one or more supporting documents.
-     */
-    overviewUri?: string | null;
-    /**
-     * Terms and conditions for the product. Mandatory if `additionalTermsUris` includes one or more supporting documents.
-     */
-    termsUri?: string | null;
-    [k: string]: unknown;
-  };
-  /**
-   * A link to an application web page where this product can be applied for.
-   */
-  applicationUri?: string | null;
-  /**
-   * A label of the brand for the product. Able to be used for filtering. For data holders with single brands this value is still required
-   */
-  brand: string;
-  /**
-   * An optional display name of the brand
-   */
-  brandName?: string | null;
-  /**
-   * An array of card art images
-   */
-  cardArt?:
-    | {
-        /**
-         * URI reference to a PNG, JPG or GIF image with proportions defined by ISO 7810 ID-1 and width no greater than 512 pixels. The URI reference may be a link or url-encoded data URI according to **[[RFC2397]](#nref-RFC2397)**
-         */
-        imageUri: string;
-        /**
-         * Display label for the specific image
-         */
-        title?: string;
-        [k: string]: unknown;
-      }[]
-    | null;
-  /**
-   * A description of the product
-   */
-  description: string;
-  /**
-   * The date and time from which this product is effective (ie. is available for origination).  Used to enable the articulation of products to the regime before they are available for customers to originate
-   */
-  effectiveFrom?: string | null;
-  /**
-   * The date and time at which this product will be retired and will no longer be offered.  Used to enable the managed deprecation of products
-   */
-  effectiveTo?: string | null;
-  /**
-   * Indicates whether the product is specifically tailored to a circumstance.  In this case fees and prices are significantly negotiated depending on context. While all products are open to a degree of tailoring this flag indicates that tailoring is expected and thus that the provision of specific fees and rates is not applicable
-   */
-  isTailored: boolean;
-  /**
-   * The last date and time that the information for this product was changed (or the creation date for the product if it has never been altered)
-   */
-  lastUpdated: string;
-  /**
-   * The display name of the product
-   */
-  name: string;
-  /**
-   * The category to which a product or account belongs. See [here](#product-categories) for more details
-   */
-  productCategory:
-    | "BUSINESS_LOANS"
-    | "CRED_AND_CHRG_CARDS"
-    | "LEASES"
-    | "MARGIN_LOANS"
-    | "OVERDRAFTS"
-    | "PERS_LOANS"
-    | "REGULATED_TRUST_ACCOUNTS"
-    | "RESIDENTIAL_MORTGAGES"
-    | "TERM_DEPOSITS"
-    | "TRADE_FINANCE"
-    | "TRANS_AND_SAVINGS_ACCOUNTS"
-    | "TRAVEL_CARDS";
-  /**
-   * A data holder specific unique identifier for this product. This identifier must be unique to a product but does not otherwise need to adhere to ID permanence guidelines.
-   */
-  productId: string;
-  [k: string]: unknown;
-} & {
+export interface BankingProductDetailV4 extends BankingProductV4 {
   /**
    * An array of bundles that this product participates in.  Each bundle is described by free form information but also by a list of product IDs of the other products that are included in the bundle.  It is assumed that the current product is included in the bundle also
    */
@@ -2296,7 +2044,7 @@ export type BankingProductDetailV4 = {
     [k: string]: unknown;
   }[];
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 export interface BankingProductDiscount {
@@ -3927,89 +3675,7 @@ export interface BankingTransaction {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
-export type BankingTransactionDetail = {
-  /**
-   * ID of the account for which transactions are provided
-   */
-  accountId: string;
-  /**
-   * The value of the transaction. Negative values mean money was outgoing from the account
-   */
-  amount: string;
-  /**
-   * 6 Digit APCA number for the initiating institution. The field is fixed-width and padded with leading zeros if applicable.
-   */
-  apcaNumber?: string | null;
-  /**
-   * BPAY Biller Code for the transaction (if available)
-   */
-  billerCode?: string | null;
-  /**
-   * Name of the BPAY biller for the transaction (if available)
-   */
-  billerName?: string | null;
-  /**
-   * BPAY CRN for the transaction (if available).<br/>Where the CRN contains sensitive information, it should be masked in line with how the Data Holder currently displays account identifiers in their existing online banking channels. If the contents of the CRN match the format of a Credit Card PAN they should be masked according to the rules applicable for MaskedPANString. If the contents are are otherwise sensitive, then it should be masked using the rules applicable for the MaskedAccountString common type.
-   */
-  crn?: string | null;
-  /**
-   * The currency for the transaction amount. AUD assumed if not present
-   */
-  currency?: string | null;
-  /**
-   * The transaction description as applied by the financial institution
-   */
-  description: string;
-  /**
-   * The time the transaction was executed by the originating customer, if available
-   */
-  executionDateTime?: string | null;
-  /**
-   * True if extended information is available using the transaction detail end point. False if extended data is not available
-   */
-  isDetailAvailable: boolean;
-  /**
-   * The merchant category code (or MCC) for an outgoing payment to a merchant
-   */
-  merchantCategoryCode?: string | null;
-  /**
-   * Name of the merchant for an outgoing payment to a merchant
-   */
-  merchantName?: string | null;
-  /**
-   * The time the transaction was posted. This field is Mandatory if the transaction has status POSTED.  This is the time that appears on a standard statement
-   */
-  postingDateTime?: string | null;
-  /**
-   * The reference for the transaction provided by the originating institution. Empty string if no data provided
-   */
-  reference: string;
-  /**
-   * Status of the transaction whether pending or posted. Note that there is currently no provision in the standards to guarantee the ability to correlate a pending transaction with an associated posted transaction
-   */
-  status: "PENDING" | "POSTED";
-  /**
-   * A unique ID of the transaction adhering to the standards for ID permanence.  This is mandatory (through hashing if necessary) unless there are specific and justifiable technical reasons why a transaction cannot be uniquely identified for a particular account type. It is mandatory if `isDetailAvailable` is set to true.
-   */
-  transactionId?: string | null;
-  /**
-   * The type of the transaction
-   */
-  type:
-    | "DIRECT_DEBIT"
-    | "FEE"
-    | "INTEREST_CHARGED"
-    | "INTEREST_PAID"
-    | "OTHER"
-    | "PAYMENT"
-    | "TRANSFER_INCOMING"
-    | "TRANSFER_OUTGOING";
-  /**
-   * Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry
-   */
-  valueDateTime?: string | null;
-  [k: string]: unknown;
-} & {
+export interface BankingTransactionDetail extends BankingTransaction {
   extendedData: {
     /**
      * Label of the originating payer. Mandatory for inbound payment
@@ -4045,7 +3711,7 @@ export type BankingTransactionDetail = {
     [k: string]: unknown;
   };
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the banking api. */
 
 /**

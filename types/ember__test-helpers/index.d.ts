@@ -2,11 +2,12 @@
 // Project: https://github.com/emberjs/ember-test-helpers
 // Definitions by: Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 //                 Chris Krycho <https://github.com/chriskrycho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import ApplicationInstance from '@ember/application/instance';
+import Owner from '@ember/owner';
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 
 export interface TestContext {
@@ -17,12 +18,7 @@ export interface TestContext {
     render(template?: string | string[] | TemplateFactory): Promise<void>;
     clearRender(): void;
     factory(fullName: string): unknown;
-    // NOTE: this uses an intersection instead of something more normal because
-    // it is intentionally causing a collision between the two `factoryFor`
-    // definitions.
-    owner: ApplicationInstance & {
-        factoryFor(fullName: string, options?: {}): unknown;
-    };
+    owner: Owner;
     pauseTest(): Promise<void>;
     resumeTest(): void;
     element: Element | Document;

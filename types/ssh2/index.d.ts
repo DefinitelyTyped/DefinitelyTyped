@@ -53,7 +53,9 @@ export type ServerHostKeyAlgorithm = "ssh-ed25519"
 export type CompressionAlgorithm = "none" | "zlib" | "zlib@openssh.com";
 
 export type CipherAlgorithm = "chacha20-poly1305@openssh.com"
+    | "aes128-gcm"
     | "aes128-gcm@openssh.com"
+    | "aes256-gcm"
     | "aes256-gcm@openssh.com"
     | "aes128-ctr"
     | "aes192-ctr"

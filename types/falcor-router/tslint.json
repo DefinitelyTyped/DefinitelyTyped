@@ -7,7 +7,6 @@
         "no-padding": false,
         "no-reference-import": false,
         "semicolon": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

@@ -29,6 +29,8 @@ async function connect() {
     port.readable.getReader();
 
     await port.close();
+
+    await port.forget();
 }
 
 navigator.serial.requestPort().then(port => {

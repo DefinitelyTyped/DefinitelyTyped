@@ -72,7 +72,8 @@ declare var AbortController: {
 declare var AbortSignal: {
     prototype: AbortSignal;
     new(): AbortSignal;
-    // TODO: Add abort() static
+    abort(reason?: any): AbortSignal;
+    timeout(milliseconds: number): AbortSignal;
 };
 //#endregion borrowed
 
@@ -87,6 +88,7 @@ interface RelativeIndexable<T> {
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
+interface ReadonlyArray<T> extends RelativeIndexable<T> {}
 interface Int8Array extends RelativeIndexable<number> {}
 interface Uint8Array extends RelativeIndexable<number> {}
 interface Uint8ClampedArray extends RelativeIndexable<number> {}

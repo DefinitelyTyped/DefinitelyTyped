@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -110,6 +111,15 @@ export default class Component<S = unknown> extends CoreView {
  * @return the same object passed in, now associated with the manager
  */
 export function setComponentManager<T>(managerFactory: (owner: unknown) => ComponentManager<unknown>, object: T): T;
+
+/**
+ * Takes a component class and returns the template associated with the given component class,
+ * if any, or one of its superclasses, if any, or undefined if no template association was found.
+ *
+ * @param object the component object
+ * @return the template factory of the given component
+ */
+ export function getComponentTemplate(obj: object): TemplateFactory | undefined;
 
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces

@@ -110,6 +110,13 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     matrixAutoUpdate: boolean;
 
     /**
+     * When this is set, the renderer checks every frame if the object and its children need matrix updates.
+     * Otherwise, you have to maintain all matrices in the object and its children yourself.
+     * @default THREE.Object3D.DefaultMatrixWorldAutoUpdate
+     */
+    matrixWorldAutoUpdate: boolean;
+
+    /**
      * When this is set, it calculates the matrixWorld in that frame and resets this property to false.
      * @default false
      */
@@ -210,6 +217,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
 
     static DefaultUp: Vector3;
     static DefaultMatrixAutoUpdate: boolean;
+    static DefaultMatrixWorldAutoUpdate: boolean;
 
     /**
      * Applies the matrix transform to the object and updates the object's position, rotation and scale.
@@ -324,7 +332,8 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * This method does not support objects having non-uniformly-scaled parent(s).
      * @param vector A world vector to look at.
      */
-    lookAt(vector: Vector3 | number, y?: number, z?: number): void;
+    lookAt(vector: Vector3): void;
+    lookAt(x: number, y: number, z: number): void;
 
     /**
      * Adds object as child of this object.
@@ -363,7 +372,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      */
     getObjectByName(name: string): Object3D | undefined;
 
-    getObjectByProperty(name: string, value: string): Object3D | undefined;
+    getObjectByProperty(name: string, value: any): Object3D | undefined;
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;

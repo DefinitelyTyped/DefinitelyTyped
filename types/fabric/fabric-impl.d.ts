@@ -729,7 +729,7 @@ export class Intersection {
     /**
      * Checks if polygon intersects rectangle
      */
-    static intersectPolygonRectangle(points: Point[], r1: number, r2: number): Intersection;
+    static intersectPolygonRectangle(points: Point[], r1: Point, r2: Point): Intersection;
 }
 
 interface IPatternOptions {
@@ -1953,6 +1953,13 @@ export class Canvas {
      * @param [options] Options object
      */
     constructor(element: HTMLCanvasElement | string | null, options?: ICanvasOptions);
+    /**
+     * Constructor
+     * @param {HTMLCanvasElement | String} element <canvas> element to initialize instance on
+     * @param {Object} [options] Options object
+     * @return {Object} thisArg
+     */
+    initialize(element: HTMLCanvasElement | string | null, options?: ICanvasOptions): Canvas;
 
     /**
      * When true, target detection is skipped when hovering over canvas. This can be used to improve performance.

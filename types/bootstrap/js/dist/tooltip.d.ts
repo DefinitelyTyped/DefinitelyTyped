@@ -127,6 +127,8 @@ declare namespace Tooltip {
 
     type OffsetFunction = () => Offset;
 
+    type PopoverPlacement = 'auto' | 'top' | 'bottom' | 'left' | 'right';
+
     type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Popper.Options>;
 
     interface Options {
@@ -182,7 +184,7 @@ declare namespace Tooltip {
          *
          * @default 'top'
          */
-        placement: 'auto' | 'top' | 'bottom' | 'left' | 'right' | (() => void);
+        placement: PopoverPlacement | (() => PopoverPlacement);
 
         /**
          * If a selector is provided, tooltip objects will be delegated to the
@@ -262,7 +264,7 @@ declare namespace Tooltip {
          * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
          * @default ['top', 'right', 'bottom', 'left']
          */
-        fallbackPlacement: string[];
+        fallbackPlacements: string[];
 
         /**
          * Overflow constraint boundary of the popover. Accepts the values of
@@ -300,7 +302,7 @@ declare namespace Tooltip {
          *
          * @see {@link https://v5.getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer}
          */
-        allowList: Record<keyof HTMLElementTagNameMap, string[]>;
+        allowList: Record<keyof HTMLElementTagNameMap | '*', Array<string | RegExp>>;
 
         /**
          * Here you can supply your own sanitize function. This can be useful if

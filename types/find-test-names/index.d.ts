@@ -1,4 +1,4 @@
-// Type definitions for find-test-names 1.17
+// Type definitions for find-test-names 1.21
 // Project: https://github.com/bahmutov/find-test-names
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -125,4 +125,16 @@ export function setEffectiveTags(structure: Structure): Structure;
  * @param tags
  */
 export function filterByEffectiveTags(structure: string | Structure, tags: string[]): Test[];
+
+/**
+ * Returns a single object with full test titles as keys.
+ */
+export function findEffectiveTestTags(source: string): Record<string, Tags>;
+
+/**
+ * Reads the source code of the given spec file from disk
+ * and finds all tests and their effective tags.
+ */
+export function findEffectiveTestTagsIn(specFilename: string): ReturnType<typeof findEffectiveTestTags>;
+
 export { formatTestList };

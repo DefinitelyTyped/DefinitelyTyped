@@ -85,7 +85,7 @@ declare namespace google.accounts {
 
         /**
          * A TokenResponse JavaScript object will be passed to your callback
-         * method in the popup UX.
+         * method (as defined in TokenClientConfig) in the popup UX.
          */
         interface TokenResponse {
             /**
@@ -134,6 +134,47 @@ declare namespace google.accounts {
              * Human-readable ASCII text providing additional information, used
              * to assist the client developer in understanding the error that
              * occurred.
+             */
+            error_description: string;
+
+            /**
+             * A URI identifying a human-readable web page with information
+             * about the error, used to provide the client developer with
+             * additional information about the error.
+             */
+            error_uri: string;
+        }
+
+        /**
+         * A CodeResponse JavaScript object will be passed to your callback
+         * method (as defined in CodeClientConfig) in the popup UX.
+         */
+        interface CodeResponse {
+            /**
+             * The authorization code of a successful token response.
+             */
+            code: string;
+
+            /**
+             * A space-delimited list of scopes that are approved by the user.
+             */
+            scope: string;
+
+            /**
+             * The string value that your application uses to maintain state
+             * between your authorization request and the response.
+             */
+            state: string;
+
+            /**
+             * A single ASCII error code.
+             */
+            error: string;
+
+            /**
+             * Human-readable ASCII text providing additional information,
+             * used to assist the client developer in understanding
+             * the error that occurred.
              */
             error_description: string;
 
@@ -246,7 +287,7 @@ declare namespace google.accounts {
              * returned code response. The property will be ignored by the
              * redirect UX.
              */
-            callback?: (response: unknown) => void;
+            callback?: (response: CodeResponse) => void;
 
             /**
              * Optional. Recommended for redirect UX. Specifies any string value

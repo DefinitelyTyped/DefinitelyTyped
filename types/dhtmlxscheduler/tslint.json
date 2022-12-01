@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "eofline": false,
         "jsdoc-format": false,
         "max-line-length": false,
@@ -16,7 +15,6 @@
         "prefer-const": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

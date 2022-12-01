@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "dt-header": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,
@@ -12,7 +11,6 @@
         "space-before-function-paren": false,
         "space-within-parens": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

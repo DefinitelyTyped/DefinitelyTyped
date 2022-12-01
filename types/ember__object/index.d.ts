@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -22,7 +23,9 @@ import ComputedProperty from '@ember/object/computed';
  * of `Ember.CoreObject` with the `Ember.Observable` mixin applied. For details,
  * see the documentation for each of these.
  */
-export default class EmberObject extends CoreObject.extend(Observable) {}
+export default class EmberObject extends CoreObject {}
+// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+export default interface EmberObject extends Observable {}
 
 /**
  * This helper returns a new property descriptor that wraps the passed computed

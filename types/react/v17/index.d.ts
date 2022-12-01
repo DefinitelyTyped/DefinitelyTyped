@@ -53,7 +53,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 // Destructors are only allowed to return void.
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = React;
 export as namespace React;
 
@@ -96,7 +96,7 @@ declare namespace React {
      * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
      *   to component.
      *
-     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     * `C` must be the type _of_ a React component so you need to use typeof as in `React.ElementRef<typeof MyComponent>`.
      *
      * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
      *       `React.forwardRef()` returns.
@@ -1196,6 +1196,8 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
     interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
@@ -1205,7 +1207,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         /**
          * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
          */
@@ -1231,7 +1233,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         movementX: number;
         movementY: number;
@@ -1250,7 +1252,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         shiftKey: boolean;
         targetTouches: TouchList;
@@ -1824,6 +1826,7 @@ declare namespace React {
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
+        nonce?: string | undefined;
         placeholder?: string | undefined;
         slot?: string | undefined;
         spellCheck?: Booleanish | undefined;
@@ -1944,7 +1947,6 @@ declare namespace React {
         multiple?: boolean | undefined;
         muted?: boolean | undefined;
         name?: string | undefined;
-        nonce?: string | undefined;
         noValidate?: boolean | undefined;
         open?: boolean | undefined;
         optimum?: number | undefined;
@@ -2355,7 +2357,6 @@ declare namespace React {
         defer?: boolean | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
-        nonce?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
         type?: string | undefined;
@@ -2386,7 +2387,6 @@ declare namespace React {
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         media?: string | undefined;
-        nonce?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
     }

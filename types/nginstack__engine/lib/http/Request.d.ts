@@ -4,7 +4,7 @@ declare class Request {
     content: string;
     contentLength: number;
     contentType: string;
-    xml: any;
+    xml: string;
     localAddress: string;
     localHost: string;
     localPort: number;
@@ -34,4 +34,8 @@ declare class Request {
     read(size: number): string;
     isHttps(trustProxy?: boolean): boolean;
 }
+declare namespace Request {
+    export { DBKey };
+}
 import RequestBody = require('./RequestBody.js');
+type DBKey = any;

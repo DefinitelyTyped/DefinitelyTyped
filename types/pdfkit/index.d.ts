@@ -126,9 +126,8 @@ declare namespace PDFKit.Mixins {
     type PDFFontSource = string | Buffer | Uint8Array | ArrayBuffer;
 
     interface PDFFont {
-        font(buffer: Buffer): this;
-        font(src: string, size?: number): this;
-        font(src: string, family?: string, size?: number): this;
+        font(src: PDFFontSource, size?: number): this;
+        font(src: PDFFontSource, family: string, size?: number): this;
         fontSize(size: number): this;
         currentLineHeight(includeGap?: boolean): number;
         registerFont(name: string, src?: PDFFontSource, family?: string): this;
@@ -185,7 +184,7 @@ declare namespace PDFKit.Mixins {
         /** Whether to stroke the text */
         stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string | undefined;
+        link?: string | null | undefined;
         /** Whether to underline the text */
         underline?: boolean | undefined;
         /** Whether to strike out the text */

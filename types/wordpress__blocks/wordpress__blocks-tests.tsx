@@ -391,6 +391,7 @@ blocks.registerBlockType({
     title: 'Notice',
     category: 'text',
     parent: ['core/group'],
+    ancestor: ['core/group'],
     icon: 'star-half',
     description: 'Shows warning, error or success notices…',
     keywords: ['alert', 'message'],
@@ -465,6 +466,7 @@ blocks.registerBlockType(
         title: 'Notice',
         category: 'text',
         parent: ['core/group'],
+        ancestor: ['core/group'],
         icon: 'star-half',
         description: 'Shows warning, error or success notices…',
         keywords: ['alert', 'message'],
@@ -543,6 +545,14 @@ blocks.getBlockVariations('core/columns');
 blocks.registerBlockVariation('core/columns', {
     name: 'core/columns/variation',
     title: 'Core Column Variation',
+    innerBlocks: [
+        [ 'core/paragraph' ],
+        [
+            'core/paragraph',
+            { placeholder: 'Enter side content...' },
+            [ [ 'core/paragraph' ] ]
+        ],
+    ],
 });
 
 // $ExpectType void

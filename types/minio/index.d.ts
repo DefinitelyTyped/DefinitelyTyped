@@ -90,7 +90,7 @@ export interface BucketItem {
 }
 
 export interface BucketItemWithMetadata extends BucketItem {
-    metadata: ItemBucketMetadata;
+    metadata: ItemBucketMetadata | ItemBucketMetadataList;
 }
 
 export interface BucketItemStat {
@@ -118,6 +118,15 @@ export interface PostPolicyResult {
     formData: {
         [key: string]: any;
     };
+}
+
+export interface MetadataItem {
+    Key: string;
+    Value: string;
+}
+
+export interface ItemBucketMetadataList {
+    Items: MetadataItem[];
 }
 
 export interface ItemBucketMetadata {
@@ -457,7 +466,10 @@ export class PostPolicy {
     setKeyStartsWith(prefix: string): void;
     setBucket(bucketName: string): void;
     setContentType(type: string): void;
+    setContentTypeStartsWith(prefix: string): void;
     setContentLengthRange(min: number, max: number): void;
+    setContentDisposition(disposition: string): void;
+    setUserMetaData(metadata: Record<string, string>): void;
 }
 
 export class NotificationPoller extends EventEmitter {

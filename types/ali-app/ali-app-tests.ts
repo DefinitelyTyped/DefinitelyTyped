@@ -1181,6 +1181,25 @@
             img.src = res.apFilePaths[0];
         },
     });
+    my.generateImageFromCode({
+        code: 'https://www.alipay.com',
+        format: 'QRCODE',
+        width: 200,
+        correctLevel: 'H',
+        success: res => {
+            console.log(res.image);
+        },
+        fail(res) {
+            console.log(res.error);
+        },
+        complete(res) {
+            if (res.image) {
+                console.log('success', res.image);
+            } else {
+                console.log('fail', res.error, res.errorMessage);
+            }
+        },
+    });
     my.previewImage({
         current: 2,
         urls: [
@@ -1191,6 +1210,9 @@
     });
     my.saveImage({
         url: 'https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg'
+    });
+    my.saveImageToPhotosAlbum({
+        filePath: 'https://img.alicdn.com/tps/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',
     });
     my.compressImage({
         apFilePaths: ['https://resource/apmlcc0ed184daffc5a0d8da86b2f518cf7b.image'],

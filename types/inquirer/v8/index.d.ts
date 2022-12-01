@@ -9,7 +9,6 @@
 //                 Justin Rockwood <https://github.com/jrockwood>
 //                 Keith Kelly <https://github.com/kwkelly>
 //                 Richard Lea <https://github.com/chigix>
-//                 Jed Mao <https://github.com/jedmao>
 //                 Manuel Thalmann <https://github.com/manuth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
@@ -49,9 +48,19 @@ import './lib/utils/screen-manager';
 type LiteralUnion<T extends F, F = string> = T | (F & {});
 
 /**
+ * Represents a function for prompting questions to the user.
+ */
+export interface PromptFunction {
+    /**
+     * Prompts the questions to the user.
+     */
+    <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T>;
+}
+
+/**
  * Provides prompts for answering questions.
  */
-interface PromptModuleBase {
+export interface PromptModuleBase extends PromptFunction {
     /**
      * Registers a new prompt-type.
      *
@@ -741,6 +750,11 @@ export interface StreamOptions {
      * A stream to write the output to.
      */
     output?: NodeJS.WriteStream | undefined;
+
+    /**
+     * Whether to display prompts if input is not a TTY.
+     */
+    skipTTYChecks?: boolean | undefined;
 }
 
 /**

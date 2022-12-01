@@ -63,8 +63,8 @@ export class Database implements Options {
 
     openSync(connStr: string | ConnStr): boolean;
 
-    close(cb?: (err: Error, db: Database) => any): void;
-    close(): Promise<void>;
+    close(cb: (err: Error | undefined) => void): false;
+    close(): Promise<Error | undefined>;
 
     closeSync(): boolean;
 

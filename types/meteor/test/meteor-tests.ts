@@ -145,6 +145,15 @@ namespace MeteorTests {
         Meteor.subscribe('counts-by-room', Session.get('roomId'));
     });
 
+    // Async publish function
+    Meteor.publish('userData', async function (userId: unknown) {
+        check(userId, String);
+        const user = await Meteor.users.findOneAsync(userId);
+        if (user) {
+            return Meteor.users.find(userId, { fields: { profile: 1 } });
+        }
+    });
+
     // Checking status
     let status: DDP.Status = 'connected';
 
@@ -213,6 +222,10 @@ namespace MeteorTests {
      */
     Meteor.call('foo', 1, 2, function (error: any, result: any) {});
     var result = Meteor.call('foo', 1, 2);
+
+    (async function() {
+        var result = await Meteor.callAsync('foo', 1, 2);
+    })();
 
     /**
      * From Methods, Meteor.apply section
@@ -576,7 +589,7 @@ namespace MeteorTests {
     Meteor.publish(
         null,
         function () {
-            return 3;
+            return;
         },
         { is_auto: true },
     );

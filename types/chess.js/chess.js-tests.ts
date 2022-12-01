@@ -64,6 +64,15 @@ chess.moves({ legal: false });
 // $ExpectType string[]
 chess.moves({ legal: true });
 
+// $ExpectType string[]
+chess.moves({ piece: 'n' });
+
+// $ExpectType string[]
+chess.moves({ square: 'b1', piece: 'n' });
+
+// $ExpectType Move[]
+chess.moves({ square: 'b1', piece: 'n', verbose: true });
+
 // $ExpectType Move[]
 chess.moves({ square: 'e2', verbose: true });
 
@@ -146,7 +155,7 @@ chess.header('White', 'Morphy', 'Black', 'Anderssen', 'Date', '1858-??-??');
 // $ExpectType string
 chess.ascii();
 
-// $ExpectType "w" | "b" || "b" | "w"
+// $ExpectType PieceColor
 chess.turn();
 
 // --- move --- \\
@@ -190,10 +199,10 @@ chess.get('a5');
 // $ExpectType Piece | null
 chess.remove('a5');
 
-// $ExpectType "light" | "dark"
+// $ExpectType SquareColor
 chess.square_color('a5');
 
-// $ExpectType "light" | "dark" | null
+// $ExpectType SquareColor | null
 chess.square_color('invalid square string');
 
 // --- history --- \\
@@ -210,7 +219,7 @@ chess.history({ verbose: false });
 // $ExpectType Move[]
 chess.history({ verbose: true });
 
-// $ExpectType ({ type: PieceType; color: "w" | "b"; square: Square; } | null)[][] || ({ type: PieceType; color: "b" | "w"; square: Square; } | null)[][]
+// $ExpectType ({ type: PieceType; color: PieceColor; square: Square; } | null)[][]
 chess.board();
 
 // --- comments --- \\

@@ -12,6 +12,10 @@ import {
     TextureEncoding,
 } from '../constants';
 
+/** Shim for OffscreenCanvas. */
+// tslint:disable-next-line:no-empty-interface
+export interface OffscreenCanvas extends EventTarget {}
+
 export class Texture extends EventDispatcher {
     /**
      * @param [image]
@@ -26,7 +30,7 @@ export class Texture extends EventDispatcher {
      * @param [encoding=THREE.LinearEncoding]
      */
     constructor(
-        image?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+        image?: TexImageSource | OffscreenCanvas,
         mapping?: Mapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,

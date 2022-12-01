@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -98,6 +99,27 @@ export interface Factory<T> {
 export interface FactoryManager<T> extends Factory<T> {
     /** The registered or resolved class. */
     readonly class: Factory<T>;
+}
+
+/**
+ * A record mapping all known items of a given type: if the item is known it
+ * will be `true`; otherwise it will be `false` or `undefined`.
+ */
+export type KnownForTypeResult<Type extends string> = {
+    [FullName in `${Type}:${string}`]: boolean | undefined;
+};
+
+/**
+ * The contract a custom resolver must implement. Most apps never need to think
+ * about this: the application's resolver is supplied by `ember-resolver` in
+ * the default blueprint.
+ */
+export interface Resolver {
+    resolve: (name: string) => Factory<object> | object | undefined;
+    knownForType?: <Type extends string>(type: Type) => KnownForTypeResult<Type>;
+    lookupDescription?: (fullName: FullName) => string;
+    makeToString?: (factory: Factory<object>, fullName: FullName) => string;
+    normalize?: (fullName: FullName) => string;
 }
 
 // Don't export things unless we *intend* to.

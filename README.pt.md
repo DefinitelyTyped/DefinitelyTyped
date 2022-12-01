@@ -11,7 +11,7 @@ Veja também o site [definitelytyped.org](http://definitelytyped.org), embora as
 Essa seção acompanha a saúde do respositório e o processo de publicação.
 Ela pode servir de ajuda para contribuidores que estejam passando por problemas com suas PRs e pacotes.
 
-* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/Microsoft/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Build mais recente com [tipagem checada/analisada pelo linter](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) de forma limpa: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * Todos os pacotes tem seus tipos checados/são analisadas pelo linter no typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * Todos os pacotes estão sendo [publicados no npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) em menos de uma hora: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) esteve ativo no Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -49,11 +49,11 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (3.9 e anteriores)
+#### Versões antigas do TypeScript (4.0 e anteriores)
 
 O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 4.0 e acima são testadas.
-Se você está usando as versões 2.0 a 3.9 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
+Atualmente, as versões 4.1 e acima são testadas.
+Se você está usando as versões 2.0 a 4.0 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
 Mas não tem nenhuma garantia de que elas funcionarão.
 Esta é a tabela de duração de suporte das versões.
 
@@ -187,7 +187,7 @@ Se um pacote nunca esteve no Definitely Typed, ele não precisa ser adicionado a
 
 Teste suas mudanças executando o comando `npm test nome-do-pacote` onde `nome-do-pacote` é o nome do seu pacote.
 
-Este script usa o [dtslint](https://github.com/Microsoft/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
+Este script usa o [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) para executar o compilador de TypeScript em seus arquivos dts.
 
 #### Naming
 
@@ -243,7 +243,7 @@ f(1);
 f("um");
 ```
 
-Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/Microsoft/dtslint#write-tests).
+Para mais detalhes, veja o arquivo readme do [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests).
 
 #### Linter: `tslint.json`
 
