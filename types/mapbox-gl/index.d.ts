@@ -867,7 +867,7 @@ declare namespace mapboxgl {
          * the vector tile source's TileJSON. Valid worldview strings must be an ISO alpha-2 country code.
          *
          * @default null
-        */
+         */
         worldview?: string | undefined;
     }
 
@@ -1422,7 +1422,12 @@ declare namespace mapboxgl {
     }
 
     export interface GeoJSONSourceOptions {
-        data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | GeoJSON.Geometry | string | undefined;
+        data?:
+            | GeoJSON.Feature<GeoJSON.Geometry>
+            | GeoJSON.FeatureCollection<GeoJSON.Geometry>
+            | GeoJSON.Geometry
+            | string
+            | undefined;
 
         maxzoom?: number | undefined;
 

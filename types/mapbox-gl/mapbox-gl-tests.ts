@@ -1979,10 +1979,10 @@ expectType<mapboxgl.Projection>({ name: 'mercator' });
 expectType<mapboxgl.Projection>({ name: 'lambertConformalConic', center: [0, 0], parallels: [30, 60] });
 
 // set projection with string
-map.setProjection('mercator')
+map.setProjection('mercator');
 
 // set projection with config
-map.setProjection({ name: 'globe'})
+map.setProjection({ name: 'globe' });
 
 // get projections
 expectType<mapboxgl.Projection>(map.getProjection());
