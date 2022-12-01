@@ -8,7 +8,7 @@ import {
     UserData
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
-import TEventRequest from "./src/objects/serverside/event-request";
+import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
 
 async function testGetAdsFetchFirstPageFalse(): Promise<Array<Record<string, string>>> {
     const ads = [];
