@@ -512,12 +512,12 @@ export interface Attribute {
     visible: boolean;
 }
 
-export type ShippingService = {
+export interface ShippingService {
     id: string;
     name: string;
     price: number;
     description: string;
-};
+}
 
 export interface ShippingRatesCamelCase {
     dateCreated: string;
