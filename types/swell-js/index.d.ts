@@ -512,6 +512,27 @@ export interface Attribute {
     visible: boolean;
 }
 
+export type ShippingService = {
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+};
+
+export interface ShippingRatesCamelCase {
+    dateCreated: string;
+    fingerprint: string;
+    services: ShippingService[];
+}
+
+export interface ShippingRatesSnakeCase {
+    date_created: string;
+    fingerprint: string;
+    services: ShippingService[];
+}
+
+export type ShippingRates = ShippingRatesCamelCase | ShippingRatesSnakeCase;
+
 export function init(storeId: string, publicKey: string, options?: InitOptions): void;
 
 export function get(url: string, query: object): Promise<unknown>;
@@ -557,6 +578,7 @@ export namespace cart {
     function applyGiftcard(input: string): Promise<Cart>;
     function get(): Promise<Cart>;
     function getSettings(): Promise<unknown>;
+    function getShippingRates(): Promise<ShippingRates>;
     function removeCoupon(): Promise<Cart>;
     function removeGiftcard(itemId: string): Promise<Cart>;
     function removeItem(itemId: string): Promise<Cart>;

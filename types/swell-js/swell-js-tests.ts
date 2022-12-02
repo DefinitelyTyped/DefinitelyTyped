@@ -59,6 +59,7 @@ swell.cart.applyCoupon(''); // $ExpectType Promise<Cart>
 swell.cart.applyGiftcard(''); // $ExpectType Promise<Cart>
 swell.cart.get(); // $ExpectType Promise<Cart>
 swell.cart.getSettings(); // $ExpectType Promise<unknown>
+swell.cart.getShippingRates(); // $ExpectType Promise<ShippingRates>
 swell.cart.removeCoupon(); // $ExpectType Promise<Cart>
 swell.cart.removeGiftcard(''); // $ExpectType Promise<Cart>
 swell.cart.removeItem(''); // $ExpectType Promise<Cart>
