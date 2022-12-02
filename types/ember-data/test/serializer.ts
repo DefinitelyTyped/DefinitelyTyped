@@ -21,7 +21,7 @@ const Customized = DS.JSONAPISerializer.extend({
     },
     normalizeResponse(
         store: DS.Store,
-        primaryModelClass: ModelSchema,
+        primaryModelClass: ModelSchema<'user'>,
         payload: any,
         id: string | number,
         requestType: string,

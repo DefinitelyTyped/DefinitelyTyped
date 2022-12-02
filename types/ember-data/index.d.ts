@@ -69,7 +69,7 @@ export interface ModelSchema<ModelName extends keyof ModelRegistry = keyof Model
         binding?: T,
     ): void;
 }
-interface RelationshipSchema {
+export interface RelationshipSchema {
     name: string; // property key for this relationship
     kind: 'belongsTo' | 'hasMany';
     type: string; // related type
@@ -81,7 +81,7 @@ interface RelationshipSchema {
         [key: string]: unknown;
     };
 }
-interface AttributeSchema {
+export interface AttributeSchema {
     name: string;
     kind?: 'attribute';
     options?: Record<string, unknown>;

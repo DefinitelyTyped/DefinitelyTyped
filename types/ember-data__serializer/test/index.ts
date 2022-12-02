@@ -2,9 +2,22 @@ import Serializer from '@ember-data/serializer';
 import ModelRegistry from 'ember-data/types/registries/model';
 import Store from '@ember-data/store';
 import Model from '@ember-data/model';
+import { AttributeSchema, ModelSchema, RelationshipSchema } from 'ember-data';
 
-class FakeModel extends Model {
-    hasFunData = true;
+class FakeModel implements ModelSchema {
+    modelName = 'fake-model' as const;
+    fields = new Map();
+    attributes = new Map();
+    relationshipsByName = new Map();
+    eachAttribute<T>(callback: (this: T, key: string, attribute: AttributeSchema) => void, binding?: T): void {}
+    eachRelationship<T>(
+        callback: (this: T, key: string, relationship: RelationshipSchema) => void,
+        binding?: T,
+    ): void {}
+    eachTransformedAttribute<T>(
+        callback: (this: T, key: string, relationship: RelationshipSchema) => void,
+        binding?: T,
+    ): void {}
 }
 
 declare module 'ember-data/types/registries/model' {
