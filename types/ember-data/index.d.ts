@@ -57,35 +57,35 @@ interface RelationshipMeta<Model extends DS.Model> {
     isRelationship: true;
 }
 
-export interface ModelSchema {
-  modelName: keyof ModelRegistry;
-  fields: Map<string, 'attribute' | 'belongsTo' | 'hasMany'>;
-  attributes: Map<string, AttributeSchema>;
-  relationshipsByName: Map<string, RelationshipSchema>;
-  eachAttribute<T>(callback: (this: T, key: string, attribute: AttributeSchema) => void, binding?: T): void;
-  eachRelationship<T>(callback: (this: T, key: string, relationship: RelationshipSchema) => void, binding?: T): void;
-  eachTransformedAttribute<T>(
-    callback: (this: T, key: string, relationship: RelationshipSchema) => void,
-    binding?: T
-  ): void;
+export interface ModelSchema<ModelName extends keyof ModelRegistry = keyof ModelRegistry> {
+    modelName: ModelName;
+    fields: Map<string, 'attribute' | 'belongsTo' | 'hasMany'>;
+    attributes: Map<string, AttributeSchema>;
+    relationshipsByName: Map<string, RelationshipSchema>;
+    eachAttribute<T>(callback: (this: T, key: string, attribute: AttributeSchema) => void, binding?: T): void;
+    eachRelationship<T>(callback: (this: T, key: string, relationship: RelationshipSchema) => void, binding?: T): void;
+    eachTransformedAttribute<T>(
+        callback: (this: T, key: string, relationship: RelationshipSchema) => void,
+        binding?: T,
+    ): void;
 }
 interface RelationshipSchema {
-  name: string; // property key for this relationship
-  kind: 'belongsTo' | 'hasMany';
-  type: string; // related type
-  options: {
-    async: boolean;
-    polymorphic?: boolean;
-    as?: string;
-    inverse: string | null; // property key on the related type (if any)
-    [key: string]: unknown;
-  };
+    name: string; // property key for this relationship
+    kind: 'belongsTo' | 'hasMany';
+    type: string; // related type
+    options: {
+        async: boolean;
+        polymorphic?: boolean;
+        as?: string;
+        inverse: string | null; // property key on the related type (if any)
+        [key: string]: unknown;
+    };
 }
 interface AttributeSchema {
-  name: string;
-  kind?: 'attribute';
-  options?: Record<string, unknown>;
-  type?: string;
+    name: string;
+    kind?: 'attribute';
+    options?: Record<string, unknown>;
+    type?: string;
 }
 
 export namespace DS {
@@ -1290,7 +1290,7 @@ export namespace DS {
          */
         findRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             id: string,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
@@ -1300,7 +1300,7 @@ export namespace DS {
          */
         findAll<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             sinceToken: string,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): RSVP.Promise<any>;
@@ -1310,7 +1310,7 @@ export namespace DS {
          */
         query<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             query: {}
         ): RSVP.Promise<any>;
         /**
@@ -1319,7 +1319,7 @@ export namespace DS {
          */
         queryRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             query: {}
         ): RSVP.Promise<any>;
         /**
@@ -1327,7 +1327,7 @@ export namespace DS {
          */
         findMany<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             ids: any[],
             snapshots: any[]
         ): RSVP.Promise<any>;
@@ -1358,7 +1358,7 @@ export namespace DS {
          */
         createRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -1367,7 +1367,7 @@ export namespace DS {
          */
         updateRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -1375,7 +1375,7 @@ export namespace DS {
          */
         deleteRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -1811,7 +1811,7 @@ export namespace DS {
          */
         serializeIntoHash<K extends keyof ModelRegistry>(
             hash: {},
-            typeClass: ModelSchema,
+            typeClass: ModelSchema<K>,
             snapshot: Snapshot<K>,
             options?: {}
         ): any;
@@ -1951,7 +1951,7 @@ export namespace DS {
          */
         serializeIntoHash<K extends keyof ModelRegistry>(
             hash: {},
-            typeClass: ModelSchema,
+            typeClass: ModelSchema<K>,
             snapshot: Snapshot<K>,
             options?: {}
         ): any;
@@ -2067,7 +2067,7 @@ export namespace DS {
          */
         findRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             id: string,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
@@ -2076,7 +2076,7 @@ export namespace DS {
          */
         findAll<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             sinceToken: string,
             snapshotRecordArray: SnapshotRecordArray<K>
         ): RSVP.Promise<any>;
@@ -2085,7 +2085,7 @@ export namespace DS {
          */
         query<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             query: {},
             recordArray: AdapterPopulatedRecordArray<any>
         ): RSVP.Promise<any>;
@@ -2095,7 +2095,7 @@ export namespace DS {
          */
         queryRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             query: {}
         ): RSVP.Promise<any>;
         /**
@@ -2106,7 +2106,7 @@ export namespace DS {
          */
         generateIdForRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             inputProperties: {}
         ): string | number;
         /**
@@ -2122,7 +2122,7 @@ export namespace DS {
          */
         createRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -2131,7 +2131,7 @@ export namespace DS {
          */
         updateRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -2140,7 +2140,7 @@ export namespace DS {
          */
         deleteRecord<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             snapshot: Snapshot<K>
         ): RSVP.Promise<any>;
         /**
@@ -2150,7 +2150,7 @@ export namespace DS {
          */
         findMany<K extends keyof ModelRegistry>(
             store: Store,
-            type: ModelSchema,
+            type: ModelSchema<K>,
             ids: any[],
             snapshots: any[]
         ): RSVP.Promise<any>;
