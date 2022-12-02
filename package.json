@@ -27,7 +27,7 @@
         "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/dtslint": "latest",
         "@definitelytyped/dtslint-runner": "latest",
-        "@definitelytyped/header-parser": "^0.0.100",
+        "@definitelytyped/header-parser": "latest",
         "@definitelytyped/utils": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",

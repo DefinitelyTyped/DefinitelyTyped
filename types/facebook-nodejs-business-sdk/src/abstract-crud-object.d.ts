@@ -7,10 +7,10 @@ export class AbstractCrudObject extends AbstractObject {
     _api: FacebookAdsApi;
     id: string;
     constructor(
-        id: string | number | null | undefined,
-        data: Record<string, any> | undefined,
-        parentId: string | null | undefined,
-        api: FacebookAdsApi | null | undefined,
+        id?: string | number | null,
+        data?: Record<string, any>,
+        parentId?: string | null,
+        api?: FacebookAdsApi | null,
     );
     _defineProperty(field: string): void;
     setData(data: Record<string, any>): AbstractCrudObject;
@@ -27,10 +27,22 @@ export class AbstractCrudObject extends AbstractObject {
     getEdge(
         targetClass: Record<string, any>,
         fields: string[],
+        params?: Record<string, any>,
+    ): Promise<Cursor>;
+    getEdge(
+        targetClass: Record<string, any>,
+        fields: string[],
         params: Record<string, any> | undefined,
-        fetchFirstPage: boolean | undefined,
-        endpoint: string | null | undefined,
+        fetchFirstPage: false,
+        endpoint?: string | null,
     ): Cursor;
+    getEdge(
+        targetClass: Record<string, any>,
+        fields: string[],
+        params?: Record<string, any>,
+        fetchFirstPage?: boolean,
+        endpoint?: string | null,
+    ): Cursor | Promise<Cursor>;
     createEdge(
         endpoint: string,
         fields: string[],
