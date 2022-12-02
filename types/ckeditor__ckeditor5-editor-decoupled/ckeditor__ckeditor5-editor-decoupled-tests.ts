@@ -47,6 +47,8 @@ class MyPlugin extends Plugin {}
     editor.ui;
     // $ExpectType DecoupledEditorUIView
     editor.ui.view;
+    // $expectType HTMLElement
+    editor.sourceElement;
 
     editor = await DecoupledEditor.create(htmlElement, {
         toolbar: {
