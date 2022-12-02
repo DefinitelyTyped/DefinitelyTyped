@@ -33,7 +33,7 @@ declare function store<T extends object>(data: T, name?: string): T;
  * By setting this property to `true`, Reef allows inlined event attributes for your template components
  * (e.g. `onclick`, `onchange`), default `falsy`
  */
-declare function render(elem: Node | string, template: string, events?: Reef.InlinedEvents): void;
+declare function render(elem: Node | string, template: string, events?: boolean): void;
 
 /**
  * Create a new reactive component
