@@ -1,173 +1,86 @@
-// Type definitions for reefjs 7.6
+// Type definitions for reefjs 12.1
 // Project: https://github.com/cferdinandi/reef#readme
-// Definitions by: shockdevv <https://github.com/shockdevv>
+// Definitions by: bryandonmarc <https://github.com/bryandonmarc>
+//                 shockdevv <https://github.com/shockdevv>
 //                 cferdinandi <https://github.com/cferdinandi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = Reef;
+/**
+ * Create a new store that holds reactive data that you can share with multiple components.
+ * Any time you update the `data` object, it fires a default `reef:store` event. All created components listen to
+ * this event by default, and will re-render when fired. This may not be ideal for multiple store instances.
+ *
+ * To create a custom event namespace, set the `name` parameter, and initialize your Reef components with an
+ * `options` parameter with the `stores` property as an array containing the value of `name`.
+ *
+ * @param  data The data object
+ * @param  name The custom event namespace, default `''`
+ * @return      The reactive store proxy
+ */
+declare function store<T extends object>(data: T, name?: string): T;
 
-declare class Reef {
-    data: Record<string, any>;
-    elem: string;
-    allowHTML: boolean;
-    attached: Reef[];
-    debounce: number;
-    lagoon: boolean;
-    store: Reef.Store;
-    template: string | ((props?: Record<string, any>, elemOrRouter?: Element | Reef.Router, elem?: Element) => string);
+/**
+ * Safely render UI from an HTML string
+ *
+ * @param template
+ * The selector for the element you want to render the UI into.
+ * Alternatively, you can pass in the element itself.
+ *
+ * @param template
+ * A string or a function that returns a string, to render into the DOM.
+ *
+ * @param events
+ * By setting this property to `true`, Reef allows inlined event attributes for your template components
+ * (e.g. `onclick`, `onchange`), default `falsy`
+ */
+declare function render(elem: Node | string, template: string, events?: Reef.InlinedEvents): void;
 
-    /**
-     * Create a new Reef() instance, passing in two arguments: your selector, and your options.
-     *
-     * @param elem - The first argument is the selector for the element you want to render the UI into. Alternatively, you can pass in the element itself.
-     * @param options - An object of options that can be provided to your component.
-     * It requires a template property, as either a string or a function that returns a string, to render into the DOM.
-     *
-     * {@link https://reefjs.com/getting-started/#3-create-your-component}
-     */
-    constructor(elem: string | Element, options: Reef.Options);
-
-    /**
-     * Render your component into the DOM.
-     *
-     * @returns HTML Element.
-     *
-     * {@link https://reefjs.com/getting-started/#4-render-your-component}
-     */
-    render(): Element;
-
-    /**
-     * This creates a non-reactive copy of your data that won’t affect the state of your component.
-     * It can also create an immutable copy of any array or object, not just your component data.
-     *
-     * @param data - Object or array.
-     * @returns Copy of the provided array or object.
-     *
-     * {@link https://reefjs.com/state-management/#non-reactive-data}
-     */
-    static clone(data: Record<string, any> | any[]): any;
-
-    /**
-     * Attach one or more components to another component.
-     *
-     * @param component - The component(s) to attach.
-     *
-     * {@link https://reefjs.com/advanced/#attaching-and-detaching-nested-components}
-     */
-    attach(component: Reef | Reef[]): void;
-
-    /**
-     * Detach one or more linked components from another component.
-     *
-     * @param component - The component(s) to detach.
-     *
-     * {@link https://reefjs.com/advanced/#attaching-and-detaching-nested-components}
-     */
-    detach(component: Reef | Reef[]): void;
-
-    /**
-     * Emits a custom event that you can listen for with addEventListener().
-     *
-     * @param elem - The element to emit the custom event on.
-     * @param name - The name of the custom event.
-     * @param details - Details to attach to the event.
-     *
-     * {@link https://reefjs.com/advanced/#event-hooks}
-     */
-    static emit(elem: Element | Document, name: string, details?: Record<string, any>): void;
-
-    /**
-     * By default, Reef fails silently. You can put Reef into debugging mode to expose helpful error message in the Console tab of your browser’s Developer Tools.
-     *
-     * @param state - Boolean: true or false.
-     *
-     * {@link https://reefjs.com/advanced/#debugging}
-     */
-    static debug(state: boolean): void;
-}
+/**
+ * Create a new reactive component
+ * @param elem
+ * The selector for the element you want to render the UI into.
+ * Alternatively, you can pass in the element itself.
+ *
+ * @param template
+ * A string or a function that returns a string, to render into the DOM.
+ *
+ * @param options
+ * Additional options, default `{}`
+ */
+declare function component(elem: Node | string, template: () => string, options?: Reef.Options): void;
 
 declare namespace Reef {
-    /**
-     * Types not provided yet.
-     */
-    type Router = any;
+    type InlinedEvents = boolean;
 
     interface Options {
         /**
-         * Allows to define state for your components.
-         * The data object is automatically encoded and passed into your template function (first argument), so that you can use it to customize your template.
+         * By default, Reef components listen to the default store event `reef:store` and re-renders everytime it is fired.
+         * This may not be ideal if you have multiple stores in your application. A change in one store may
+         * cause all components to re-render, even if it is not depending on the specific store that changed.
+         *
+         * Setting this property will allow you to customize which specific store event you want to listen to for this
+         * component to re-render. Each value set in this property will take on the form `reef:store-${store}`.
+         *
+         * For example, setting this property to `['foo', 'bar']` will make this component only re-render everytime
+         * `reef:store-foo` or `reef:store-bar` is fired.
+         *
+         * To take advantage of this specificity, Reef stores should be made with setting the `name` parameter.
+         *
+         * Any changes made to `reefStore` and `bazStore` will not cause the component to re-render, only changes made
+         * to `fooStore` and `barStore`.
          */
-        data?: Record<string, any> | undefined;
+        stores?: string[];
 
         /**
-         * A Data Store is a special Reef object that holds reactive data that you can share with multiple components.
-         * Any time you update the data in your Data Store, any components that use the data will also be updated, and will render again if there are any UI changes.
+         * By default, Reef sanitizes your template component's attributes,
+         * removing `src`, `href`, and `xlink:href` with dangerously set values containing `javascript:` or `data:text/html`
+         * and inlined event attributes starting with `on`, (e.g. `onclick`, `onchange`).
+         *
+         * By setting this property to `true`, Reef allows inlined event attributes for your template components.
+         * Currently, there is no way to include dangerously set attributes except for inlined events.
          */
-        store?: Store | undefined;
-
-        /**
-         * A string or a function that returns a string, to render into the DOM.
-         * Note: when using a router, the element that the template was rendered into becomes the third argument on the template() function.
-         */
-        template:
-            | string
-            | ((props: Record<string, any>, elemOrRouter?: Element | Router, elem?: Element) => string);
-
-        /**
-         * Prevents Cross-Site Scripting (XSS) Attacks. You can disable this feature by setting this option to true.
-         */
-        allowHTML?: boolean | undefined;
-
-        /**
-         * Associate a nested component with its parent.
-         */
-        attachTo?: Reef | undefined;
-
-        /**
-         * For any Reef component that should be updated when the route changes, add a router property and associate your router component with it.
-         */
-        router?: Router | undefined;
-    }
-
-    interface DataStore {
-        data: Record<string, any>;
-        setters?: { [key: string]: (data: Record<string, any>, ...args: any[]) => void } | undefined;
-        getters?: { [key: string]: (data: Record<string, any>) => any } | undefined;
-    }
-
-    class Store {
-        data: Record<string, any>;
-
-        /**
-         * Creates a Data Store. A Data Store is a special Reef object that holds reactive data you can share with multiple components.
-         * Any time you update the data in your Data Store, any components that use the data will also be updated, and will render again if there are any UI changes.
-         *
-         * @param DataStore - Single object containing data, setters, and getters.
-         *
-         * {@link https://reefjs.com/advanced/#shared-state-with-data-stores}
-         *
-         */
-        constructor(DataStore: DataStore);
-
-        /**
-         *  Setter function to update data.
-         *
-         * @param name - Name of setter.
-         * @param args - Any required arguments.
-         *
-         * {@link https://reefjs.com/advanced/#setters}
-         *
-         */
-        do(name: string, ...args: any[]): void;
-
-        /**
-         *  Getter function to retrieve data.
-         *
-         * @param name - Name of getter.
-         *
-         * {@link https://reefjs.com/advanced/#getters}
-         *
-         */
-        get(name: string): any;
+        events?: boolean;
     }
 }
+
+export { store, render, component };
