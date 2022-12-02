@@ -1,6 +1,6 @@
 import RESTSerializer, { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
 import EmberObject from '@ember/object';
-import Model from '@ember-data/model';
+import { ModelSchema } from 'ember-data';
 
 class MySerializer extends RESTSerializer {
     because = 'this needs to have the right type *and* the right runtime';
@@ -13,6 +13,6 @@ class MySerializer extends RESTSerializer {
 
 class Foo extends EmberObject.extend(EmbeddedRecordsMixin) {
     someMethod() {
-        this.normalize; // $ExpectType (typeClass: Model, hash: {}, prop: string) => {}
+        this.normalize; // $ExpectType (typeClass: ModelSchema<"fake-model">, hash: {}, prop: string) => {}
     }
 }
