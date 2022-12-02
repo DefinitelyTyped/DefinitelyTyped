@@ -1361,7 +1361,7 @@ declare namespace braintree {
                       | undefined;
                   prorateCharges?: boolean | undefined;
                   replaceAllAddOnsAndDiscounts?: boolean | undefined;
-                  revertSubscriptionOnProrationFailure: boolean | undefined;
+                  revertSubscriptionOnProrationFailure?: boolean | undefined;
               }
             | undefined;
     }
