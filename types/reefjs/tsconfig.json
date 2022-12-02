@@ -1,6 +1,10 @@
 {
     "compilerOptions": {
         "strict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "module": "commonjs",
         "lib": [
             "es6",
