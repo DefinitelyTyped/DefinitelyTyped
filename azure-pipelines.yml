@@ -9,10 +9,10 @@ jobs:
 
   steps:
   - task: NodeTool@0
-   displayName: Use Node 16
-   inputs:
-     versionSpec: 16.x
-     checkLatest: true
+    displayName: Use Node 16
+    inputs:
+      versionSpec: 16.x
+      checkLatest: true
   - task: Npm@1
     displayName: 'npm install'
     inputs:

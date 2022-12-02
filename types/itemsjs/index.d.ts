@@ -123,6 +123,8 @@ declare namespace itemsjs {
         order?: Order | undefined;
         /** @default false */
         show_facet_stats?: boolean | undefined;
+        /** @default false */
+        hide_zero_doc_count?: boolean | undefined;
     }
 
     /** Configuration for itemsjs */

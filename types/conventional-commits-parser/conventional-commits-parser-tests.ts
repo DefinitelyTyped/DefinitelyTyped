@@ -22,7 +22,7 @@ namespace Module.Commit {
     namespace Case01 {
         declare const commit: conventionalCommitsParser.Commit;
 
-        // $ExpectType Commit<string | number | symbol>
+        // $ExpectType Commit<string | number | symbol> || Commit
         commit;
         commit.body; // $ExpectType Field
         commit.footer; // $ExpectType Field

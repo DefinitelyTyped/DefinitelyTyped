@@ -870,6 +870,14 @@ declare namespace mapboxgl {
          * @default null
          */
         testMode?: boolean | undefined;
+        /**
+         * Sets the map's worldview. A worldview determines the way that certain disputed boundaries are rendered.
+         * By default, GL JS will not set a worldview so that the worldview of Mapbox tiles will be determined by
+         * the vector tile source's TileJSON. Valid worldview strings must be an ISO alpha-2 country code.
+         *
+         * @default null
+        */
+        worldview?: string | undefined;
     }
 
     type quat = number[];

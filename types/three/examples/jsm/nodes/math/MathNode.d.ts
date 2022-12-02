@@ -27,7 +27,6 @@ export type MathNodeMethod1 =
     | typeof MathNode.INVERT
     | typeof MathNode.DFDX
     | typeof MathNode.DFDY
-    | typeof MathNode.SATURATE
     | typeof MathNode.ROUND;
 
 export type MathNodeMethod2 =
@@ -80,8 +79,8 @@ export default class MathNode extends TempNode {
     static INVERT: 'invert';
     static DFDX: 'dFdx';
     static DFDY: 'dFdy';
-    static SATURATE: 'saturate';
     static ROUND: 'round';
+    static RECIPROCAL: 'reciprocal';
 
     // 2 inputs
 

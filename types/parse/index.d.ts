@@ -1121,6 +1121,24 @@ declare global {
         }
 
         /**
+         * The LiveQuery namespace is basically an EventEmitter
+         * (source : https://github.com/parse-community/Parse-SDK-JS/blob/8115e959533d1676fe5e5551bc81888b21fc12ef/src/ParseLiveQuery.js)
+         * https://docs.parseplatform.org/js/guide/#websocket-status
+         */
+         namespace LiveQuery {
+            function on(
+                event: 'open' | 'close',
+                /** When we establish ('open') or lose the WebSocket connection to the LiveQuery server, you’ll get this event */
+                listener: () => void,
+            ): void;
+            function on(
+                event: 'error',
+                /** When some network error or LiveQuery server error happens, you’ll get this event. */
+                listener: (error: any) => void,
+            ): void;
+        }
+
+        /**
          * Represents a Role on the Parse server. Roles represent groupings of
          * Users for the purposes of granting permissions (e.g. specifying an ACL
          * for an Object). Roles are specified by their sets of child users and
