@@ -50,8 +50,6 @@ declare function render(elem: Node | string, template: string, events?: Reef.Inl
 declare function component(elem: Node | string, template: () => string, options?: Reef.Options): void;
 
 declare namespace Reef {
-    type InlinedEvents = boolean;
-
     interface Options {
         /**
          * By default, Reef components listen to the default store event `reef:store` and re-renders everytime it is fired.
