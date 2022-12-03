@@ -2183,7 +2183,7 @@ export interface Nightwatch {
         enable_global_apis,
         config,
     }: CreateClientParams): this;
-    cliRunner(argv?: {}): this;
+    CliRunner(argv?: {}): this;
     initClient(opts: any): this;
     runner(argv?: {}, done?: () => void, settings?: {}): this;
     runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
