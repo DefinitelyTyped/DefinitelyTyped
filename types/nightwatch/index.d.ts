@@ -6412,25 +6412,5 @@ export interface PageObjectModel {
     props?: any;
 }
 
-export function cli(callback: any): Nightwatch;
-export function client(settings: NightwatchOptions, reporter?: any, argv?: {}): Nightwatch;
-export function createClient({
-    headless,
-    silent,
-    output,
-    useAsync,
-    env,
-    timeout,
-    parallel,
-    reporter,
-    browserName,
-    globals,
-    devtools,
-    debug,
-    enable_global_apis,
-    config,
-}: CreateClientParams): Nightwatch;
-export function CliRunner(argv?: {}): Nightwatch;
-export function initClient(opts: any): Nightwatch;
-export function runner(argv?: {}, done?: () => void, settings?: {}): Nightwatch;
-export function runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
+declare const _default: Nightwatch;
+export default _default;
