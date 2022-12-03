@@ -153,22 +153,20 @@ declare namespace CDP {
     // Generated content end.
     /////////////////////////////////////////////////
 
-    type Client = {
-        close: () => Promise<void>;
-        on(event: 'event', callback: (message: EventMessage) => void): void;
-        on(event: 'ready' | 'disconnect', callback: () => void): void;
-        // '<domain>.<method>' i.e. Network.requestWillBeSent
-        on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
-        // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
-        on(event: string, callback: (params: object, sessionId?: string) => void): void;
-        // client.send(method, [params], [sessionId], [callback])
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], callback: SendCallback<T>): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string, callback: SendCallback<T>): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
-            Promise<ProtocolMappingApi.Commands[T]['returnType']>;
-
-        // stable domains
+    type IsNullableObj<T> = Record<keyof T, undefined> extends T ? true : false;
+    /**
+     * Checks whether the only parameter of `T[key]` is nullable i.e. all of
+     * its properties are optional, and makes it optional if so.
+     */
+    type OptIfParamNullable<T> = {
+        [key in keyof T]: T[key] extends (params: any) => any ?
+            IsNullableObj<Parameters<T[key]>[0]> extends true ?
+                (params?: Parameters<T[key]>[0]) => ReturnType<T[key]> :
+                T[key] :
+            T[key]
+    };
+    type ImproveAPI<T> = {[key in keyof T]: OptIfParamNullable<T[key]>};
+    interface StableDomains {
         Browser: ProtocolProxyApi.BrowserApi;
         Debugger: ProtocolProxyApi.DebuggerApi;
         DOM: ProtocolProxyApi.DOMApi;
@@ -184,14 +182,14 @@ declare namespace CDP {
         Runtime: ProtocolProxyApi.RuntimeApi;
         Security: ProtocolProxyApi.SecurityApi;
         Target: ProtocolProxyApi.TargetApi;
-
-        // deprecated domains
+    }
+    interface DeprecatedDomains {
         /** @deprecated This domain is deprecated - use Runtime or Log instead. */
         Console: ProtocolProxyApi.ConsoleApi;
         /** @deprecated This domain is deprecated. */
         Schema: ProtocolProxyApi.SchemaApi;
-
-        // experimental domains
+    }
+    interface ExperimentalDomains {
         /** @deprecated this API is experimental. */
         Accessibility: ProtocolProxyApi.AccessibilityApi;
         /** @deprecated this API is experimental. */
@@ -248,7 +246,23 @@ declare namespace CDP {
         WebAudio: ProtocolProxyApi.WebAudioApi;
         /** @deprecated this API is experimental. */
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
-    } & EventPromises<ProtocolMappingApi.Events> & EventCallbacks<ProtocolMappingApi.Events>;
+    }
+    type AllDomains = StableDomains & DeprecatedDomains & ExperimentalDomains;
+    type Client = {
+        close: () => Promise<void>;
+        on(event: 'event', callback: (message: EventMessage) => void): void;
+        on(event: 'ready' | 'disconnect', callback: () => void): void;
+        // '<domain>.<method>' i.e. Network.requestWillBeSent
+        on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
+        // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
+        on(event: string, callback: (params: object, sessionId?: string) => void): void;
+        // client.send(method, [params], [sessionId], [callback])
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string, callback: SendCallback<T>): void;
+        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
+            Promise<ProtocolMappingApi.Commands[T]['returnType']>;
+    } & EventPromises<ProtocolMappingApi.Events> & EventCallbacks<ProtocolMappingApi.Events> & ImproveAPI<AllDomains>;
 
     // '<domain>.<event>' i.e. Page.loadEventFired
     type EventPromises<T extends ProtocolMappingApi.Events> = {
