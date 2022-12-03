@@ -38,6 +38,12 @@ declare namespace google.accounts {
          */
         function revoke(accessToken: string, done: () => void): void;
 
+        interface ClientConfigError extends Error {
+            message: string;
+            stack?: string;
+            type: 'unknown' | 'popup_closed' | 'popup_failed_to_open';
+        }
+
         interface OverridableTokenClientConfig {
             /**
              * Optional. A space-delimited, case-sensitive list of prompts to
@@ -255,6 +261,13 @@ declare namespace google.accounts {
              * server's response.
              */
             state?: string;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ClientConfigError) => void;
         }
 
         interface CodeClientConfig {
@@ -331,6 +344,13 @@ declare namespace google.accounts {
              * to select an account.
              */
             select_account?: boolean;
+
+            /**
+             * Optional. The JavaScript function that handles some non-OAuth
+             * errors, such as the popup window is failed to open; or closed
+             * before an OAuth response is returned.
+             */
+            error_callback?: (error: ClientConfigError) => void;
         }
     }
 

@@ -129,6 +129,8 @@ mParticle.getAppVersion();
 
 mParticle.getDeviceId();
 
+mParticle.getEnvironment();
+
 const instance = mParticle.getInstance();
 
 mParticle.getVersion();

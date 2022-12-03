@@ -11,9 +11,15 @@ export default class Vehicle extends AbstractCrudObject {
     static get StateOfVehicle(): Record<string, any>;
     static get Transmission(): Record<string, any>;
     static get VehicleType(): Record<string, any>;
-    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getAugmentedRealitiesMetadata(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getChannelsToIntegrityStatus(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideosMetadata(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getVideosMetadata(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Vehicle>;
     update(fields: string[], params?: Record<string, any>): Promise<Vehicle>;
 }
