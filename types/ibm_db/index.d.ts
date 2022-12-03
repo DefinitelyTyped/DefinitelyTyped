@@ -230,6 +230,6 @@ export class Pool implements PoolOptions {
     setMaxPoolSize(count: number): boolean;
     setConnectTimeout(timeout: number): boolean;
     cleanup(connStr: string): boolean;
-    close(): Promise<boolean>
+    close(): Promise<boolean>;
     close(cb: (foo: any, bar: any) => any): void;
 } // Class Pool
