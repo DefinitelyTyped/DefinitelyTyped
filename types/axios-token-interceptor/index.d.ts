@@ -8,7 +8,7 @@
 import { AxiosRequestConfig } from 'axios';
 
 // Module
-declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions): AxiosTokenProvider.TokenProvider;
+declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions<any>): AxiosTokenProvider.TokenProvider;
 declare namespace AxiosTokenProvider {
     function tokenCache<T>(getToken: () => Promise<T>, options: TokenCacheOptions<T>): TokenCache;
 
