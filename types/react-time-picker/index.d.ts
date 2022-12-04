@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
+/// <reference types="dist/" />
+
 import { ClockProps } from 'react-clock';
 
 export default function TimePicker(props: TimePickerProps): JSX.Element;
