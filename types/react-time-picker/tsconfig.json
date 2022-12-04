@@ -21,6 +21,6 @@
   "files": [
     "index.d.ts",
     "react-time-picker-tests.tsx",
-    "test"
+    "test/react-time-picker-nostyle-tests.tsx"
   ]
 }
