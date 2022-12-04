@@ -20,6 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-time-picker-tests.tsx"
+        "react-time-picker-tests.tsx",
+        "react-time-picker-nostyle-tests.tsx"
     ]
 }
