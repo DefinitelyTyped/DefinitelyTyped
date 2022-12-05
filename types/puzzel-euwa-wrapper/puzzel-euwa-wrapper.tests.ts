@@ -16,11 +16,13 @@ const euwa = new EUWA(
 
 (async () => {
     if (euwa && EUWA.APPS.CHAT) {
+        O;
         const chat = await euwa.getApplication(EUWA.APPS.CHAT);
         const agentsOnline = Object.keys(chat.api).length > 0;
         const { isConnected, isEnded, isMinimized } = chat.api.getState();
 
         if (agentsOnline && !isConnected) {
+            // $ExpectType void
             chat.api.startChat();
         }
     }
