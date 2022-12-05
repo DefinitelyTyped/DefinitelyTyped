@@ -35,13 +35,6 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
     return result;
 };
 
-const getItemStyle = ({ isDragging, isClone }: DraggableStateSnapshot, draggableStyle: any) => ({
-    userSelect: 'none',
-    background: isDragging ? 'lightgreen' : 'grey',
-    boxShadow: isClone ? 'inset 0px 0px 0px 2px blue' : 'none',
-    ...draggableStyle,
-});
-
 const getListStyle = (snapshot: DroppableStateSnapshot) => ({
     background: snapshot.draggingFromThisWith ? 'lightpink' : snapshot.isDraggingOver ? 'lightblue' : 'lightgrey',
     width: 250,
@@ -100,7 +93,12 @@ class App extends React.Component<{}, AppState> {
                     ref={innerRef}
                     {...draggableProps}
                     {...dragHandleProps}
-                    style={getItemStyle(snapshot, draggableProps.style)}
+                    style={{
+                        ...draggableProps.style,
+                        userSelect: 'none',
+                        background: snapshot.isDragging ? 'lightgreen' : 'grey',
+                        boxShadow: snapshot.isClone ? 'inset 0px 0px 0px 2px blue' : 'none',
+                    }}
                 >
                     {item.content}
                 </div>

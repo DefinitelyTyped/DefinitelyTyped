@@ -614,13 +614,45 @@ export interface DropAnimation {
     duration: number;
     curve: string;
     moveTo: Position;
-    opacity: number | null | undefined;
-    scale: number | null | undefined;
+    /**
+     * This value will actually be `null` instead of `undefined`.
+     *
+     * The type is fudged because `null` is not compatible with the
+     * `React.CSSProperties` type.
+     *
+     * The `style` prop should interpret `null` and `undefined` the same way.
+     */
+    opacity: number | undefined;
+    /**
+     * This value will actually be `null` instead of `undefined`.
+     *
+     * The type is fudged because `null` is not compatible with the
+     * `React.CSSProperties` type.
+     *
+     * The `style` prop should interpret `null` and `undefined` the same way.
+     */
+    scale: number | undefined;
 }
 
 export interface NotDraggingStyle {
-    transform: string | null | undefined;
-    transition: null | 'none';
+    /**
+     * This value will actually be `null` instead of `undefined`.
+     *
+     * The type is fudged because `null` is not compatible with the
+     * `React.CSSProperties` type.
+     *
+     * The `style` prop should interpret `null` and `undefined` the same way.
+     */
+    transform: string | undefined;
+    /**
+     * This value will actually be `null` instead of `undefined`.
+     *
+     * The type is fudged because `null` is not compatible with the
+     * `React.CSSProperties` type.
+     *
+     * The `style` prop should interpret `null` and `undefined` the same way.
+     */
+    transition: 'none' | undefined;
 }
 
 export interface DraggingStyle {
@@ -631,9 +663,25 @@ export interface DraggingStyle {
     width: number;
     height: number;
     transition: string;
-    transform: string | null | undefined;
+    /**
+     * This value will actually be `null` instead of `undefined`.
+     *
+     * The type is fudged because `null` is not compatible with the
+     * `React.CSSProperties` type.
+     *
+     * The `style` prop should interpret `null` and `undefined` the same way.
+     */
+    transform: string | undefined;
     zIndex: number;
-    opacity: number | null | undefined;
+    /**
+     * This value will actually be `null` instead of `undefined`.
+     *
+     * The type is fudged because `null` is not compatible with the
+     * `React.CSSProperties` type.
+     *
+     * The `style` prop should interpret `null` and `undefined` the same way.
+     */
+    opacity: number | undefined;
     pointerEvents: 'none';
 }
 
