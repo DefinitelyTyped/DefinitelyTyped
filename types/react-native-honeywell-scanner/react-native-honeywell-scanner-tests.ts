@@ -14,11 +14,8 @@ class Example {
 
         HoneywellScanner.on('barcodeReadSuccess', event => {
             if (event && typeof event === 'object') {
-                return event.data;
+                const data = event.data;
             }
-            
-            return event;
-            // TODO
         });
 
         HoneywellScanner.on('barcodeReadFail', () => {
