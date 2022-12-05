@@ -223,18 +223,18 @@ export interface DraggableLocation {
 }
 
 export interface DraggableIdMap {
-    [id: DraggableId]: true;
+    [id: string]: true;
 }
 
 export interface DroppableIdMap {
-    [id: DroppableId]: true;
+    [id: string]: true;
 }
 
 export interface DraggableDimensionMap {
-    [key: DraggableId]: DraggableDimension;
+    [key: string]: DraggableDimension;
 }
 export interface DroppableDimensionMap {
-    [key: DroppableId]: DroppableDimension;
+    [key: string]: DroppableDimension;
 }
 
 export interface Displacement {
@@ -243,7 +243,7 @@ export interface Displacement {
 }
 
 export interface DisplacementMap {
-    [key: DraggableId]: Displacement;
+    [key: string]: Displacement;
 }
 
 export interface DisplacedBy {
@@ -572,7 +572,7 @@ export interface DroppableProvidedProps {
 }
 
 export interface DroppableProvided {
-    innerRef: (element?: HTMLElement | null | undefined) => void;
+    innerRef: (element?: HTMLElement | null) => void;
     placeholder: React.ReactNode | null | undefined;
     droppableProps: DroppableProps;
 }
