@@ -845,6 +845,10 @@ import { promisify } from 'node:util';
         key: 'asd',
         format: 'der',
     });
+    crypto.createPrivateKey({
+        key: 'asd',
+        format: 'jwk',
+    });
 }
 
 {
