@@ -3131,23 +3131,23 @@ declare module 'crypto' {
         /**
          * @default 'always'
          */
-        subject: 'always' | 'never';
+        subject?: 'always' | 'default' | 'never';
         /**
          * @default true
          */
-        wildcards: boolean;
+        wildcards?: boolean;
         /**
          * @default true
          */
-        partialWildcards: boolean;
+        partialWildcards?: boolean;
         /**
          * @default false
          */
-        multiLabelWildcards: boolean;
+        multiLabelWildcards?: boolean;
         /**
          * @default false
          */
-        singleLabelSubdomains: boolean;
+        singleLabelSubdomains?: boolean;
     }
     /**
      * Encapsulates an X509 certificate and provides read-only access to
