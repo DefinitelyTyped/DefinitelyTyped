@@ -1246,6 +1246,10 @@ describe('', () => {
             date: new Date(),
             dateTwo: Date,
             list: [1, 2, 3],
+            listOfStrings: ['one', 'two', 'three'],
+            symbolOne: Symbol('one'),
+            functionOne: () => {},
+            bigIntegerOne: BigInt('9007199254740991'),
         }).toMatchInlineSnapshot({
             one: expect.any(Number),
             // leave out two
@@ -1254,6 +1258,10 @@ describe('', () => {
             date: expect.any(Date),
             dateTwo: expect.any(Date),
             list: expect.any(Array),
+            listOfStrings: expect.any(Array),
+            symbolOne: expect.any(Symbol),
+            functionOne: expect.any(Function),
+            bigIntegerOne: expect.any(BigInt),
         });
 
         expect(jest.fn()).toReturn();
