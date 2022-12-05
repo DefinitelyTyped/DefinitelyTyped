@@ -594,7 +594,7 @@ export interface DroppableProps {
     ignoreContainerClipping?: boolean | undefined;
     renderClone?: DraggableChildrenFn | null | undefined;
     getContainerForClone?: (() => HTMLElement) | undefined;
-    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactNode;
+    children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement> | null;
 }
 
 export class Droppable extends React.Component<DroppableProps> {}
@@ -677,7 +677,7 @@ export type DraggableChildrenFn = (
     provided: DraggableProvided,
     snapshot: DraggableStateSnapshot,
     rubric: DraggableRubric,
-) => React.ReactNode | null;
+) => React.ReactElement<HTMLElement> | null;
 
 export interface DraggableProps {
     draggableId: DraggableId;
