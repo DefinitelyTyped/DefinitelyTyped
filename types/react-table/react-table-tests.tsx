@@ -432,8 +432,11 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
         <>
             <table {...getTableProps()}>
                 <thead>
-                    {headerGroups.map((headerGroup: HeaderGroup<Data>) => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
+                    {
+                    headerGroups.map((headerGroup: HeaderGroup<Data>) => {
+                        const {key, ...restHeaderGroup} = headerGroup.getHeaderGroupProps()
+                        return (
+                        <tr key = {key} {...restHeaderGroup}>
                             {headerGroup.headers.map(column => {
                                 // $ExpectType TableHeaderProps
                                 const headerProps = column.getHeaderProps();
@@ -442,6 +445,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                                     className: headerClassName,
                                     style: headerStyle,
                                     role: headerRole,
+                                    ...restHeaderProps
                                 } = headerProps;
                                 // $ExpectType TableGroupByToggleProps
                                 const groupByToggleProps = column.getGroupByToggleProps();
@@ -454,7 +458,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                                 const sortByProps = column.getSortByToggleProps();
                                 const { title: sortTitle, style: sortStyle, onClick: sortOnClick } = sortByProps;
                                 return (
-                                    <th {...headerProps}>
+                                    <th key = {headerKey} {...restHeaderProps}>
                                         <div>
                                             {column.canGroupBy ? (
                                                 // If the column can be grouped, let's add a toggle
@@ -472,16 +476,18 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                                 );
                             })}
                         </tr>
-                    ))}
+)})}
                 </thead>
                 <tbody {...getTableBodyProps()}>
                     {page.map((row: Row<Data>) => {
                         prepareRow(row);
+                        const {key, ...restRowProps} = row.getRowProps()
                         return (
-                            <tr {...row.getRowProps()}>
+                            <tr key = {key} {...restRowProps}>
                                 {row.cells.map((cell: Cell<Data>) => {
+                                    const {key, ...restCellProps} = cell.getCellProps()
                                     return (
-                                        <td {...cell.getCellProps()}>
+                                        <td key = {key} {...restCellProps}>
                                             {cell.isGrouped ? (
                                                 <>
                                                     <span {...row.getToggleRowExpandedProps()}>
@@ -506,15 +512,19 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                     })}
                 </tbody>
                 <tfoot>
-                    {footerGroups.map((footerGroup) => (
-                        <tr {...footerGroup.getFooterGroupProps()}>
+                    {footerGroups.map((footerGroup) => {
+                        const {key, ...restFooterGroupProps} = footerGroup.getFooterGroupProps()
+                        return (
+                        <tr key = {key} {...restFooterGroupProps}>
                             {footerGroup.headers.map((column) => (
                                 <td {...column.getFooterProps()}>
                                     {column.render('Footer')}
                                 </td>
                             ))}
                         </tr>
-                    ))}
+                        )
+                    }
+                    )}
                 </tfoot>
             </table>
             {/*
