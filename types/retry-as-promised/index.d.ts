@@ -7,7 +7,12 @@
 import Promise = require('bluebird');
 
 declare namespace retryAsPromised {
-    type MatchOption = string | RegExp | Error;
+    type MatchOption =
+        | string
+        | RegExp
+        | Error
+        // tslint:disable-next-line ban-types
+        | Function;
     interface Options {
         $current?: number | undefined;
         max?: number | undefined;
