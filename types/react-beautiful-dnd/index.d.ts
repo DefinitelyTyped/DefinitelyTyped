@@ -574,7 +574,7 @@ export interface DroppableProvidedProps {
 export interface DroppableProvided {
     innerRef: (element?: HTMLElement | null) => void;
     placeholder: React.ReactNode | null | undefined;
-    droppableProps: DroppableProps;
+    droppableProps: DroppableProvidedProps;
 }
 
 export interface DroppableStateSnapshot {
