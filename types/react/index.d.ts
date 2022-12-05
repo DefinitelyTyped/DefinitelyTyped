@@ -1892,6 +1892,7 @@ declare namespace React {
         autoCorrect?: string | undefined;
         autoSave?: string | undefined;
         color?: string | undefined;
+        elementtiming?: string | undefined;
         itemProp?: string | undefined;
         itemScope?: boolean | undefined;
         itemType?: string | undefined;

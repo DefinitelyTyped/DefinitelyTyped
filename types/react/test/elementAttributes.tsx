@@ -24,6 +24,8 @@ const testCases = [
     <span autoCapitalize="sentences" />,
     <span autoCorrect="off" />,
     <span autoCorrect="on" />,
+    <p elementtiming="identifier"></p>,
+    <img elementtiming="identifier" />,
     <span translate="no" />,
     <span translate="yes" />,
     <svg>
