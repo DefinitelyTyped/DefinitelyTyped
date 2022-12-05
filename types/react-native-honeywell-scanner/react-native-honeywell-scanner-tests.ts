@@ -13,6 +13,11 @@ class Example {
         }
 
         HoneywellScanner.on('barcodeReadSuccess', event => {
+            if (event && typeof event === 'object') {
+                return event.data;
+            }
+            
+            return event;
             // TODO
         });
 
