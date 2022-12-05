@@ -5,7 +5,7 @@ export function run(
     paths: string[],
     options?: Options,
 ): Promise<{
-    stats: string;
+    stats: { [messageName: string]: number };
     timeElapsed: string;
     error: number;
     ok: number;
