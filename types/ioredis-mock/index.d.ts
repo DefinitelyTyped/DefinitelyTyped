@@ -6,8 +6,7 @@
 
 import ioredis = require('ioredis');
 
-
-export type RedisOptions = { data?: Record<string, unknown> } & ioredis.RedisOptions
+export type RedisOptions = { data?: Record<string, unknown> } & ioredis.RedisOptions;
 
 export interface Constructor {
     new(port: number, host: string, options: RedisOptions): ioredis.Redis;
