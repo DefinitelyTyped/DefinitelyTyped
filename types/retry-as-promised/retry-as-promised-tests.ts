@@ -16,6 +16,8 @@ declare class TestError extends BaseError {
 const log = (...args: any[]): void => {};
 
 retry(() => Promise.resolve(), {});
+// any PromiseLike can be passed as callback
+retry(() => Promise.resolve() as PromiseLike<void>, {});
 retry(() => Promise.reject('Error matching values'), {});
 retry(() => Promise.reject(new Error('No matching values')), {});
 retry(() => Promise.resolve(), {

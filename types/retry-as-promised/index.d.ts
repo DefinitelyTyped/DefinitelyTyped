@@ -1,10 +1,8 @@
-// Type definitions for retry-as-promised 2.3
+// Type definitions for retry-as-promised 5.0
 // Project: https://github.com/mickhansen/retry-as-promised
 // Definitions by: Florian Oellerich <https://github.com/Raigen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
-
-import Promise = require('bluebird');
 
 declare namespace retryAsPromised {
     type MatchOption =
@@ -24,7 +22,7 @@ declare namespace retryAsPromised {
         name?: string | undefined;
     }
 
-    type RetryCallback<T> = ({ current }: { current: Options['$current'] }) => Promise.Thenable<T>;
+    type RetryCallback<T> = ({ current }: { current: Options['$current'] }) => PromiseLike<T>;
     type RetryAsPromisedStatic = <T = any>(callback: RetryCallback<T>, options: Options | number) => Promise<T>;
 }
 
