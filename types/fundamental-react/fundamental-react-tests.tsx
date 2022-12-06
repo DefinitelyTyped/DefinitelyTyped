@@ -27,7 +27,6 @@ import {
     InfoLabel,
     InlineHelp,
     InputGroup,
-    LayoutGrid,
     LayoutPanel,
     Link,
     List,
@@ -52,7 +51,10 @@ import {
     TimePicker,
     Title,
     Token,
-    TreeView,
+    Tree,
+    Column,
+    Container,
+    Row,
 } from "fundamental-react";
 import * as React from "react";
 
@@ -2402,217 +2404,32 @@ const switches = (
 
 const tokens = (
     <div>
-        <Token onClick={function w() {}}>Bibendum</Token>
-        <Token onClick={function w() {}}>Lorem</Token>
-        <Token onClick={function w() {}}>Dolor</Token>
-        <Token onClick={function w() {}}>Filter</Token>
+        <Token buttonLabel="Bibendum" onClick={function w() {}}>
+            Bibendum
+        </Token>
+        <Token buttonLabel="Lorem" onClick={function w() {}}>
+            Lorem
+        </Token>
+        <Token buttonLabel="Dolor" onClick={function w() {}}>
+            Dolor
+        </Token>
+        <Token buttonLabel="Filter" onClick={function w() {}}>
+            Filter
+        </Token>
     </div>
 );
 
-const treeViews = (
-    <div>
-        <TreeView>
-            <TreeView.Tree>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 1</TreeView.Col>
-                    </TreeView.Row>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 2</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 2</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 3</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                            </TreeView.Row>
-                            <TreeView.Branch>
-                                <TreeView.Item>
-                                    <TreeView.Row>
-                                        <TreeView.Col>
-                                            Grandchild 1
-                                        </TreeView.Col>
-                                    </TreeView.Row>
-                                </TreeView.Item>
-                                <TreeView.Item>
-                                    <TreeView.Row>
-                                        <TreeView.Col>
-                                            Grandchild 2
-                                        </TreeView.Col>
-                                    </TreeView.Row>
-                                </TreeView.Item>
-                            </TreeView.Branch>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-            </TreeView.Tree>
-        </TreeView>
-        <TreeView>
-            <TreeView.Head>
-                <TreeView.Col>Column Header 1</TreeView.Col>
-                <TreeView.Col>Column Header 2</TreeView.Col>
-                <TreeView.Col>Column Header 3</TreeView.Col>
-                <TreeView.Col>Column Header 4</TreeView.Col>
-            </TreeView.Head>
-            <TreeView.Tree>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 1</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                            <TreeView.Branch>
-                                <TreeView.Item>
-                                    <TreeView.Row>
-                                        <TreeView.Col>
-                                            Grandchild 1
-                                        </TreeView.Col>
-                                        <TreeView.Col>Data Col 2</TreeView.Col>
-                                        <TreeView.Col>Data Col 3</TreeView.Col>
-                                        <TreeView.Col>Data Col 4</TreeView.Col>
-                                    </TreeView.Row>
-                                    <TreeView.Branch>
-                                        <TreeView.Item>
-                                            <TreeView.Row>
-                                                <TreeView.Col>
-                                                    Great Grandchild 1
-                                                </TreeView.Col>
-                                                <TreeView.Col>
-                                                    Data Col 2
-                                                </TreeView.Col>
-                                                <TreeView.Col>
-                                                    Data Col 3
-                                                </TreeView.Col>
-                                                <TreeView.Col>
-                                                    Data Col 4
-                                                </TreeView.Col>
-                                            </TreeView.Row>
-                                        </TreeView.Item>
-                                    </TreeView.Branch>
-                                </TreeView.Item>
-                            </TreeView.Branch>
-                        </TreeView.Item>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 2</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 2</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 2</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 3</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                </TreeView.Item>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 4</TreeView.Col>
-                        <TreeView.Col>Data Col 2</TreeView.Col>
-                        <TreeView.Col>Data Col 3</TreeView.Col>
-                        <TreeView.Col>Data Col 4</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col>Child 1</TreeView.Col>
-                                <TreeView.Col>Data Col 2</TreeView.Col>
-                                <TreeView.Col>Data Col 3</TreeView.Col>
-                                <TreeView.Col>Data Col 4</TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-            </TreeView.Tree>
-        </TreeView>
-        <TreeView>
-            <TreeView.Head>
-                <TreeView.Col>Column Header 1</TreeView.Col>
-                <TreeView.Col>Column Header 2</TreeView.Col>
-                <TreeView.Col>Column Header 3</TreeView.Col>
-                <TreeView.Col>Column Header 4</TreeView.Col>
-            </TreeView.Head>
-            <TreeView.Tree>
-                <TreeView.Item>
-                    <TreeView.Row>
-                        <TreeView.Col>Row 1</TreeView.Col>
-                    </TreeView.Row>
-                    <TreeView.Branch>
-                        <TreeView.Item>
-                            <TreeView.Row>
-                                <TreeView.Col />
-                                <TreeView.Col>
-                                    <a href="http://www.google.com">Google</a>
-                                </TreeView.Col>
-                                <TreeView.Col>
-                                    <a href="http://www.bing.com">Bing</a>
-                                </TreeView.Col>
-                                <TreeView.Col>
-                                    <a href="http://www.yahoo.com">Yahoo</a>
-                                </TreeView.Col>
-                            </TreeView.Row>
-                        </TreeView.Item>
-                    </TreeView.Branch>
-                </TreeView.Item>
-            </TreeView.Tree>
-        </TreeView>
-    </div>
+const tree = (
+    <Tree>
+        <Tree.Node>A</Tree.Node>
+        <Tree.Node>B</Tree.Node>
+    </Tree>
+);
+
+const gridLayout = (
+    <Container>
+        <Row>
+            <Column span={4}>123</Column>
+        </Row>
+    </Container>
 );
