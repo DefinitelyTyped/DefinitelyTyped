@@ -541,8 +541,8 @@ export interface SensorAPI {
     canGetLock: (id: DraggableId) => boolean;
     isLockClaimed: () => boolean;
     tryReleaseLock: () => void;
-    findClosestDraggableId: (event: Event) => DraggableId | null | undefined;
-    findOptionsForDraggable: (id: DraggableId) => DraggableOptions | null | undefined;
+    findClosestDraggableId: (event: Event) => DraggableId | null;
+    findOptionsForDraggable: (id: DraggableId) => DraggableOptions | null;
 }
 
 export type Sensor = (api: SensorAPI) => void;
@@ -558,7 +558,7 @@ export interface DragDropContextProps extends Responders {
     liftInstruction?: string | undefined;
     nonce?: string | undefined;
     sensors?: Sensor[] | undefined;
-    enableDefaultSensors?: boolean | null | undefined;
+    enableDefaultSensors?: boolean | undefined;
 }
 
 export class DragDropContext extends React.Component<DragDropContextProps> {}
@@ -597,7 +597,7 @@ export interface DroppableProps {
     isCombineEnabled?: boolean | undefined;
     direction?: Direction | undefined;
     ignoreContainerClipping?: boolean | undefined;
-    renderClone?: DraggableChildrenFn | null | undefined;
+    renderClone?: DraggableChildrenFn | undefined;
     getContainerForClone?: (() => HTMLElement) | undefined;
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
@@ -706,7 +706,7 @@ export interface DraggableProvidedDragHandleProps {
 
 export interface DraggableProvided {
     // will be removed after move to react 16
-    innerRef(element?: HTMLElement | null): void;
+    innerRef(element: HTMLElement | null): void;
     draggableProps: DraggableProvidedDraggableProps;
     dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
 }

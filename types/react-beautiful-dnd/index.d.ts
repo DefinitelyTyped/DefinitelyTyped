@@ -529,15 +529,15 @@ export type TryGetLock = (
     draggableId: DraggableId,
     forceStop?: () => void,
     options?: TryGetLockOptions,
-) => PreDragActions | null | undefined;
+) => PreDragActions | null;
 
 export interface SensorAPI {
     tryGetLock: TryGetLock;
     canGetLock: (id: DraggableId) => boolean;
     isLockClaimed: () => boolean;
     tryReleaseLock: () => void;
-    findClosestDraggableId: (event: Event) => DraggableId | null | undefined;
-    findOptionsForDraggable: (id: DraggableId) => DraggableOptions | null | undefined;
+    findClosestDraggableId: (event: Event) => DraggableId | null;
+    findOptionsForDraggable: (id: DraggableId) => DraggableOptions | null;
 }
 
 export type Sensor = (api: SensorAPI) => void;
@@ -572,7 +572,7 @@ export interface DroppableProvidedProps {
 }
 
 export interface DroppableProvided {
-    innerRef: (element?: HTMLElement | null) => void;
+    innerRef: (element: HTMLElement | null) => void;
     placeholder: React.ReactNode | null | undefined;
     droppableProps: DroppableProvidedProps;
 }
@@ -592,7 +592,7 @@ export interface DroppableProps {
     isCombineEnabled?: boolean | undefined;
     direction?: Direction | undefined;
     ignoreContainerClipping?: boolean | undefined;
-    renderClone?: DraggableChildrenFn | null | undefined;
+    renderClone?: DraggableChildrenFn | undefined;
     getContainerForClone?: (() => HTMLElement) | undefined;
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
@@ -702,7 +702,7 @@ export interface DraggableProvidedDragHandleProps {
 
 export interface DraggableProvided {
     // will be removed after move to react 16
-    innerRef: (element?: HTMLElement | null) => void;
+    innerRef: (element: HTMLElement | null) => void;
     draggableProps: DraggableProvidedDraggableProps;
     dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
 }
