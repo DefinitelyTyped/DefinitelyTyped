@@ -6,12 +6,12 @@ import {
     DataApiMixin,
     Editor,
     EditorUI,
+    EditorWithUI 
     MultiCommand,
     PendingActions,
     Plugin,
 } from '@ckeditor/ckeditor5-core';
 import CommandCollection from '@ckeditor/ckeditor5-core/src/commandcollection';
-import { EditorWithUI } from '@ckeditor/ckeditor5-core/src/editor/editorwithui';
 import Selection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import ParagraphCommand from '@ckeditor/ckeditor5-paragraph/src/paragraphcommand';
 import View from '@ckeditor/ckeditor5-ui/src/view';
