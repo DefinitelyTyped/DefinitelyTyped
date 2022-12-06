@@ -12,6 +12,7 @@ export { default as Context } from './src/context';
 export { default as ContextPlugin } from './src/contextplugin';
 export { default as Editor } from './src/editor/editor';
 export { default as EditorUI } from './src/editor/editorui';
+export { default as EditorWithUI  } from './src/editor/editorwithui';
 export { default as attachToForm } from './src/editor/utils/attachtoform';
 export { default as DataApiMixin } from './src/editor/utils/dataapimixin';
 export { default as ElementApiMixin } from './src/editor/utils/elementapimixin';
