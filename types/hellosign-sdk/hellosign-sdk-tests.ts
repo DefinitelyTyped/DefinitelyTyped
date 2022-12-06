@@ -1,13 +1,12 @@
 import * as fs from 'fs';
-import { EventResponse, Signature } from 'hellosign-sdk';
-import HelloSign = require('hellosign-sdk');
+import helloSign, { HelloSign } from 'hellosign-sdk';
 
 // $ExpectType HelloSign
-new HelloSign({ key: 'test', client_id: 'client_id', client_secret: 'client_secret' });
+helloSign({ key: 'test', client_id: 'client_id', client_secret: 'client_secret' });
 // $ExpectType HelloSign
-new HelloSign({ username: 'username', password: 'password' });
+helloSign({ username: 'username', password: 'password' });
 
-const hsClient = new HelloSign({ key: 'test' });
+const hsClient = helloSign({ key: 'test' });
 // $ExpectType void
 hsClient.setApiKey('key');
 
@@ -90,7 +89,7 @@ hsClient.account.create({ email_address: 'email_address' });
 // $ExpectType Promise<AccountResponse>
 hsClient.account.verify({ email_address: 'email_address' });
 
-// SignatureRequestModule
+// HelloSign.SignatureRequestModule
 const signatureRequestResponse: HelloSign.SignatureRequestResponse = {
     signature_request: {
         test_mode: 0,
@@ -214,7 +213,7 @@ hsClient.signatureRequest.removeAccess('signature_request_id');
 // $ExpectType Promise<BaseResponse>
 hsClient.signatureRequest.releaseHold('signature_request_id');
 
-export const eventHandler = async (data: EventResponse): Promise<void> => {
+export const eventHandler = async (data: HelloSign.EventResponse): Promise<void> => {
     const eventType = data.event.event_type;
     const eventTime: string = data.event.event_time;
 
@@ -483,7 +482,7 @@ hsClient.apiApp.update('client_id', { name: 'name' });
 // $ExpectType Promise<BaseResponse>
 hsClient.apiApp.delete('client_id');
 
-const signatureRequestSigned = async (data: EventResponse) => {
+const signatureRequestSigned = async (data: HelloSign.EventResponse) => {
     const { ...metadata } = data.signature_request.metadata;
     const sigReqId = data.signature_request.signature_request_id;
     const signatures = data.signature_request.signatures;
@@ -505,7 +504,7 @@ const signatureRequestSigned = async (data: EventResponse) => {
     }
 };
 
-const signatureRequestDownloadable = async (data: EventResponse) => {
+const signatureRequestDownloadable = async (data: HelloSign.EventResponse) => {
     const allSigned = data.signature_request.signatures.every(signature => signature.status_code === 'signed');
     if (!allSigned) return;
 
@@ -536,8 +535,8 @@ export const getSignatureData = async (sigReqId: string) => {
     const data = await hsClient.signatureRequest.get(sigReqId);
     const metadata = data.signature_request.metadata;
     const signatures = data.signature_request.signatures;
-    let sigA: Signature;
-    let sigB: Signature | undefined;
+    let sigA: HelloSign.Signature;
+    let sigB: HelloSign.Signature | undefined;
     if (signatures.length === 2) {
         sigB = signatures[0];
         sigA = signatures[1];
@@ -574,7 +573,7 @@ export const sendSigningRequest = async (pdfFilePath: string) => {
     };
 
     const data = await hsClient.signatureRequest.createEmbedded({
-        test_mode: 0 || 1,
+        test_mode: 'TEST',
         clientId: 'TEST',
         subject: 'TEST',
         signers: [
@@ -673,7 +672,7 @@ export const sendSigningRequestWithTemplates = async (pdfFilePath: string) => {
     };
 
     const data = await hsClient.signatureRequest.createEmbedded({
-        test_mode: 0 || 1,
+        test_mode: 'TEST',
         clientId: 'TEST',
         subject: 'TEST',
         signers: [
