@@ -12,6 +12,6 @@ import EditorUI from './editorui';
  * which bases on {@link module:core/editor/editor~Editor} itself, and the UI part which bases on this interface.
  * This will make your features compatible with more types of editors.
  */
-export interface EditorWithUI extends Editor {
+export default interface EditorWithUI extends Editor {
     readonly ui: EditorUI;
 }
