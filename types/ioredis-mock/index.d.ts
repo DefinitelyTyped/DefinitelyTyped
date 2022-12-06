@@ -5,4 +5,10 @@
 // Minimum TypeScript Version: 4.2
 
 import ioredis = require('ioredis');
-export = ioredis;
+
+export interface Constructor {
+    new(option?: { data: Record<string, unknown> }): RealIORedis.Redis;
+}
+
+export const redisMock: Constructor;
+export { redisMock as default };

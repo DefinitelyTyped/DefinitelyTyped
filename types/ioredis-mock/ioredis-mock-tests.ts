@@ -2,11 +2,19 @@ import IORedis, { RedisOptions } from 'ioredis-mock';
 
 // see https://github.com/luin/ioredis/tree/master/examples
 
+const emptyOption = new IORedis()
+
+
 const redis = new IORedis({
-    port: 1234,
-    host: process.env.redisEndpoint,
-    username: process.env.redisUsername,
-    password: process.env.redisPW,
+    data: {
+        user_next: '3',
+        emails: {
+            'clark@daily.planet': '1',
+            'bruce@wayne.enterprises': '2',
+        },
+        'user:1': { id: '1', username: 'superman', email: 'clark@daily.planet' },
+        'user:2': { id: '2', username: 'batman', email: 'bruce@wayne.enterprises' },
+    },
 });
 
 // ioredis supports all Redis commands:
