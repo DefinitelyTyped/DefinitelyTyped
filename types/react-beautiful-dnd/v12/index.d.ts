@@ -534,7 +534,7 @@ export type TryGetLock = (
     draggableId: DraggableId,
     forceStop?: () => void,
     options?: TryGetLockOptions,
-) => PreDragActions | null | undefined;
+) => PreDragActions | null;
 
 export interface SensorAPI {
     tryGetLock: TryGetLock;
