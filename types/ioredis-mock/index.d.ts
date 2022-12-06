@@ -7,7 +7,7 @@
 import ioredis = require('ioredis');
 
 export interface Constructor {
-    new(option?: { data: Record<string, unknown> }): RealIORedis.Redis;
+    new(option?: { data: Record<string, unknown> }): ioredis.Redis;
 }
 
 export const redisMock: Constructor;
