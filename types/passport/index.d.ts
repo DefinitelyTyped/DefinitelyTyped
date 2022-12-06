@@ -70,6 +70,7 @@ declare namespace passport {
         userProperty?: string | undefined;
         passReqToCallback?: boolean | undefined;
         prompt?: string | undefined;
+        callbackURL?: string | undefined;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
