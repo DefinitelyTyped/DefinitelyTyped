@@ -25,6 +25,8 @@ export interface Connection extends events.EventEmitter {
 }
 
 export interface Channel extends events.EventEmitter {
+    connection: Connection;
+
     close(): Promise<void>;
 
     assertQueue(queue: string, options?: Options.AssertQueue): Promise<Replies.AssertQueue>;
