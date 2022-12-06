@@ -195,9 +195,11 @@ declare namespace yargs {
         completion(cmd: string, func?: AsyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: SyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: PromiseCompletionFunction): Argv<T>;
+        completion(cmd: string, func?: FallbackCompletionFunction): Argv<T>;
         completion(cmd: string, description?: string | false, func?: AsyncCompletionFunction): Argv<T>;
         completion(cmd: string, description?: string | false, func?: SyncCompletionFunction): Argv<T>;
         completion(cmd: string, description?: string | false, func?: PromiseCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: FallbackCompletionFunction): Argv<T>;
 
         /**
          * Tells the parser that if the option specified by `key` is passed in, it should be interpreted as a path to a JSON config file.
@@ -921,9 +923,11 @@ declare namespace yargs {
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
+    type FallbackCompletionFunction = (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completions: string[]) => any) => void;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void | Promise<void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = 'boolean' | 'number' | 'string';
+    type CompletionCallback = (err: Error | null, completions: string[] | undefined) => void;
 }
 
 declare var yargs: yargs.Argv;

@@ -6,7 +6,7 @@ import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { Arguments } from 'yargs';
+import { Arguments, CompletionCallback } from 'yargs';
 
 const stringVal = 'string';
 
@@ -491,6 +491,26 @@ function Argv$completion_hide() {
             }, 10);
         });
     }).argv;
+
+    // fallback func
+    yargs.completion('completion', false, (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completion: string[]) => void) => {
+        // if 'apple' present return default completions
+        if (argv._.includes('apple')) {
+            completionFilter();
+        } else {
+            completionFilter((err: Error | null, defaultCompletions: string[] | undefined) => {
+                if (defaultCompletions === undefined) {
+                    done([]);
+                    return;
+                }
+                const filteredCompletions = defaultCompletions.filter(
+                    completion => !completion.includes('banana'),
+                );
+                // else return default completions w/o 'banana'
+                done(filteredCompletions);
+            });
+        }
+    }).argv;
 }
 
 function Argv$completion_sync() {
@@ -528,6 +548,29 @@ function Argv$completion_promise() {
                     resolve(['apple', 'banana']);
                 }, 10);
             });
+        })
+        .argv;
+}
+
+function Argv$completion_fallback() {
+    const argv = yargs
+        .completion('completion', (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completion: string[]) => void) => {
+            // if 'apple' present return default completions
+            if (argv._.includes('apple')) {
+                completionFilter();
+            } else {
+                completionFilter((err: Error | null, defaultCompletions: string[] | undefined) => {
+                    if (defaultCompletions === undefined) {
+                        done([]);
+                        return;
+                    }
+                    const filteredCompletions = defaultCompletions.filter(
+                        completion => !completion.includes('banana'),
+                    );
+                    // else return default completions w/o 'banana'
+                    done(filteredCompletions);
+                });
+            }
         })
         .argv;
 }
