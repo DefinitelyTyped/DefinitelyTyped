@@ -3,7 +3,7 @@ import IORedis, { RedisOptions } from 'ioredis-mock';
 // see https://www.npmjs.com/package/ioredis-mock for MockRedisInput input
 // see https://github.com/luin/ioredis/tree/master/examples
 
-const emptyOption = new IORedis()
+const emptyOption = new IORedis();
 
 const redis = new IORedis({
     data: {
