@@ -66,6 +66,12 @@ export interface MatchImageSnapshotOptions {
      */
     diffDirection?: 'horizontal' | 'vertical' | undefined;
     /**
+     * Either only include the difference between the baseline and the received image in the diff image, or include
+     * the 3 images (following the direction set by `diffDirection`).
+     * @default false
+     */
+    onlyDiff?: boolean | undefined;
+    /**
      * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
      * This string can be copy-pasted to a browser address string to preview the diff for a failed test.
      * @default false
