@@ -9,6 +9,7 @@ export interface SuccessResponse {
     razorpay_payment_id: string;
 }
 
+// type valid for errors after successful API integration
 export interface ErrorResponse {
     code: number;
     description: string;
