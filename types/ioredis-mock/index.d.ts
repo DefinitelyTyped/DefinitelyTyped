@@ -7,18 +7,18 @@
 import ioredis = require('ioredis');
 
 
-type Option = { data?: Record<string, unknown> } & ioredis.RedisOptions
+export type RedisOptions = { data?: Record<string, unknown> } & ioredis.RedisOptions
 
 export interface Constructor {
-    new(port: number, host: string, options: Option): ioredis.Redis;
-    new(path: string, options: Option): ioredis.Redis;
-    new(port: number, options: Option): ioredis.Redis;
+    new(port: number, host: string, options: RedisOptions): ioredis.Redis;
+    new(path: string, options: RedisOptions): ioredis.Redis;
+    new(port: number, options: RedisOptions): ioredis.Redis;
     new(port: number, host: string): ioredis.Redis;
-    new(options: Option): ioredis.Redis;
+    new(options: RedisOptions): ioredis.Redis;
     new(port: number): ioredis.Redis;
     new(path: string): ioredis.Redis;
     new(): ioredis.Redis;
 }
 
 export const redisMock: Constructor;
-export {redisMock as default};
+export { redisMock as default };
