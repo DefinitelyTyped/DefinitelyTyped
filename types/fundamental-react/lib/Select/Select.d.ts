@@ -22,7 +22,7 @@ export interface SelectProps<T extends string = string> {
     listItemTextClassName?: string | undefined;
     placeholder?: string | undefined;
     readOnly?: boolean | undefined;
-    selectedKey?: string | undefined;
+    selectedKey?: T | undefined;
     textContentClassName?: string | undefined;
     triggerClassName?: string | undefined;
     validationState?:
@@ -43,7 +43,7 @@ export interface SelectProps<T extends string = string> {
     ref?: React.Ref<HTMLDivElement> | undefined;
 }
 
-declare const Select: (<T extends string = string>(props: SelectProps<T>) => JSX.Element) & {
+declare const Select: (<T extends string = string>(props: SelectProps<T> & { selectedKey?: T }) => JSX.Element) & {
     displayName: 'Select';
 };
 
