@@ -172,7 +172,7 @@ export interface ProductCamelCase {
         id: string;
         productId: string;
     }>;
-    purchaseOptions: ProductPurchaseOptionCamelCase;
+    purchaseOptions?: ProductPurchaseOptionCamelCase;
 }
 
 export interface ProductSnakeCase {
@@ -221,7 +221,7 @@ export interface ProductSnakeCase {
         id: string;
         product_id: string;
     }>;
-    purchase_options: ProductPurchaseOptionSnakeCase;
+    purchase_options?: ProductPurchaseOptionSnakeCase;
 }
 
 export type SwellProduct = ProductCamelCase | ProductSnakeCase;
