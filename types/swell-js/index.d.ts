@@ -92,6 +92,7 @@ export interface ProductCamelCase {
     price: number;
     sale: boolean;
     salePrice?: number;
+    origPrice?: number;
     sku: unknown;
     slug: string;
     stockLevel: number;
@@ -139,6 +140,7 @@ export interface ProductSnakeCase {
     price: number;
     sale: boolean;
     sale_price?: number;
+    orig_price?: number;
     sku: unknown;
     slug: string;
     stock_level: number;
