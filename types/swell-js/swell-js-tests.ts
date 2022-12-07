@@ -26,7 +26,7 @@ Swell.account.createCard({}); // $ExpectType Promise<unknown>
 Swell.account.deleteAddress(''); // $ExpectType Promise<unknown>
 Swell.account.deleteCard(''); // $ExpectType Promise<unknown>
 Swell.account.get(); // $ExpectType Promise<unknown>
-Swell.account.getOrder(''); // $ExpectType Promise<SwellOrder>
+Swell.account.getOrder(''); // $ExpectType Promise<Order>
 Swell.account.listAddresses(); // $ExpectType Promise<unknown>
 Swell.account.listOrders({}); // $ExpectType Promise<unknown>
 Swell.account.login('', ''); // $ExpectType Promise<unknown>
@@ -51,34 +51,34 @@ Swell.card.validateCVC(''); // $ExpectType boolean
 Swell.card.validateExpiry(''); // $ExpectType boolean
 Swell.card.validateNumber(''); // $ExpectType boolean
 
-// $ExpectType Promise<SwellCart>
+// $ExpectType Promise<Cart>
 Swell.cart.addItem({
     product_id: '',
 });
-Swell.cart.applyCoupon(''); // $ExpectType Promise<SwellCart>
-Swell.cart.applyGiftcard(''); // $ExpectType Promise<SwellCart>
-Swell.cart.get(); // $ExpectType Promise<SwellCart>
+Swell.cart.applyCoupon(''); // $ExpectType Promise<Cart>
+Swell.cart.applyGiftcard(''); // $ExpectType Promise<Cart>
+Swell.cart.get(); // $ExpectType Promise<Cart>
 Swell.cart.getSettings(); // $ExpectType Promise<unknown>
 Swell.cart.getShippingRates(); // $ExpectType Promise<ShippingRates>
-Swell.cart.removeCoupon(); // $ExpectType Promise<SwellCart>
-Swell.cart.removeGiftcard(''); // $ExpectType Promise<SwellCart>
-Swell.cart.removeItem(''); // $ExpectType Promise<SwellCart>
-// $ExpectType Promise<SwellCart>
+Swell.cart.removeCoupon(); // $ExpectType Promise<Cart>
+Swell.cart.removeGiftcard(''); // $ExpectType Promise<Cart>
+Swell.cart.removeItem(''); // $ExpectType Promise<Cart>
+// $ExpectType Promise<Cart>
 Swell.cart.setItems([
     {
         product_id: '',
     },
 ]);
-Swell.cart.submitOrder(); // $ExpectType Promise<SwellOrder>
-// $ExpectType Promise<SwellCart>
+Swell.cart.submitOrder(); // $ExpectType Promise<Order>
+// $ExpectType Promise<Cart>
 Swell.cart.update({
     product_id: '',
 });
-Swell.cart.updateItem('', {}); // $ExpectType Promise<SwellCart>
+Swell.cart.updateItem('', {}); // $ExpectType Promise<Cart>
 
-Swell.categories.get(''); // $ExpectType Promise<SwellCategory>
-Swell.categories.get(); // $ExpectType Promise<ListResult<SwellCategory>>
-Swell.categories.list({}); // $ExpectType Promise<ListResult<SwellCategory>>
+Swell.categories.get(''); // $ExpectType Promise<Category>
+Swell.categories.get(); // $ExpectType Promise<ListResult<Category>>
+Swell.categories.list({}); // $ExpectType Promise<ListResult<Category>>
 
 Swell.currency.format(1, {}); // $ExpectType string
 Swell.currency.list(); // $ExpectType Promise<ListResult<unknown>>
@@ -90,9 +90,9 @@ Swell.locale.select(''); // $ExpectType Promise<unknown>
 
 Swell.payment.createElements({}); // $ExpectType Promise<unknown>
 Swell.payment.tokenize({}); // $ExpectType void
-Swell.products.get(''); // $ExpectType Promise<SwellProduct>
-Swell.products.list({}); // $ExpectType Promise<ListResult<SwellProduct>>
-// $ExpectType Promise<SwellProduct>
+Swell.products.get(''); // $ExpectType Promise<Product>
+Swell.products.list({}); // $ExpectType Promise<ListResult<Product>>
+// $ExpectType Promise<Product>
 Swell.products.variation('', {
     name: '',
     value: '',
