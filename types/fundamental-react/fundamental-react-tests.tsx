@@ -55,7 +55,8 @@ import {
     Column,
     Container,
     Row,
-} from "fundamental-react";
+    Wizard,
+} from 'fundamental-react';
 import * as React from "react";
 
 const counter = <Counter>101</Counter>;
@@ -2432,4 +2433,18 @@ const gridLayout = (
             <Column span={4}>123</Column>
         </Row>
     </Container>
+);
+
+const wizard = (
+    <Wizard contentSize="sm" headerSize="sm" option="stacked" background="list">
+        <Wizard.Step title="First Step">
+            <p>This is the first step.</p>
+        </Wizard.Step>
+        <Wizard.Step title="Second Step">
+            <p>This is the second step.</p>
+        </Wizard.Step>
+        <Wizard.Step title="Final Step">
+            <p>This is the final step.</p>
+        </Wizard.Step>
+    </Wizard>
 );

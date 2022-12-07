@@ -1,4 +1,4 @@
-// Type definitions for fundamental-react 0.13
+// Type definitions for fundamental-react 0.14
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
@@ -63,3 +63,4 @@ export { default as Container } from "./lib/Container/Container";
 export { default as Row } from "./lib/Row/Row";
 export { default as Column } from "./lib/Column/Column";
 export { default as Tree } from "./lib/Tree/Tree";
+export { default as Wizard } from "./lib/Wizard/Wizard";
