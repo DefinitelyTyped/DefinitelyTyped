@@ -671,7 +671,7 @@ declare namespace OSS {
         /**
          * @since 6.12.0
          */
-        listV2(query: ListV2ObjectsQuery | null, options: RequestOptions): Promise<ListObjectResult>;
+        listV2(query: ListV2ObjectsQuery | null, options?: RequestOptions): Promise<ListObjectResult>;
 
         put(name: string, file: any, options?: PutObjectOptions): Promise<PutObjectResult>;
 
@@ -989,6 +989,11 @@ declare class OSS {
      * List objects in the bucket.
      */
     list(query: OSS.ListObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
+
+    /**
+     * List Objects in the bucket.(V2)
+     */
+    listV2(query: OSS.ListV2ObjectsQuery | null, options: OSS.RequestOptions): Promise<OSS.ListObjectResult>;
 
     /**
      * Add an object to the bucket.

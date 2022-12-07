@@ -9,7 +9,7 @@
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
 
 /// <reference no-default-lib="true"/>
-/// <reference lib="es7" />
+/// <reference lib="es2020" />
 /// <reference lib="WebWorker" />
 
 /// https://docs.nova.app/api-reference/assistants-registry/

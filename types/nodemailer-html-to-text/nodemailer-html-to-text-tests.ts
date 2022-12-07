@@ -14,8 +14,13 @@ function plugin_with_options_test() {
     const options: HtmlToTextOptions = {
         wordwrap: null,
         tables: true,
-        hideLinkHrefIfSameAsText: true,
         ignoreImage: true,
+        selectors: [
+            {
+                selector: 'a',
+                options: { hideLinkHrefIfSameAsText: true }
+            }
+        ]
     };
 
     transporter.use('compile', htmlToText(options));

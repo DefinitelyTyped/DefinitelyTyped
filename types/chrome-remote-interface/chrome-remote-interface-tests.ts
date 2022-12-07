@@ -20,7 +20,11 @@ function assertType<T>(value: T): T {
             if (message.method === 'Network.requestWillBeSent') {}
         });
         const { Network, Page, Runtime } = client;
+        await Network.enable();
         await Network.enable({});
+        // @ts-expect-error
+        await Network.setAcceptedEncodings();
+        await Network.setAcceptedEncodings({encodings: []});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
         const loadEvent = await client['Page.loadEventFired'](); // instead of: await Page.loadEventFired();

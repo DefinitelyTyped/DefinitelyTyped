@@ -6412,4 +6412,5 @@ export interface PageObjectModel {
     props?: any;
 }
 
-export const Nightwatch: NightwatchClient & Nightwatch;
+declare const _default: Nightwatch;
+export default _default;

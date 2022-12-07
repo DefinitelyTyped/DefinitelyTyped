@@ -2068,7 +2068,7 @@ export class Canvas {
      * Returns currently active object
      * @return {fabric.Object} active object
      */
-    getActiveObject(): Object;
+    getActiveObject(): Object | null;
     /**
      * Returns an array with the current selected objects
      * @return {fabric.Object} active object
