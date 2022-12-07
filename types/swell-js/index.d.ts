@@ -85,9 +85,6 @@ export interface ImageSnakeCase {
     id: string;
 }
 
-export type ProductImage = ImageCamelCase | ImageSnakeCase;
-export type CategoryImage = ImageCamelCase | ImageSnakeCase;
-
 export type ProductPurchaseOptionCamelCase = Record<
     PurchaseOptions,
     {
@@ -95,6 +92,7 @@ export type ProductPurchaseOptionCamelCase = Record<
         price: number;
         sale: boolean;
         salePrice?: number | null;
+        origPrice?: number | null;
         prices: [
             {
                 price: number;
@@ -113,6 +111,7 @@ export type ProductPurchaseOptionSnakeCase = Record<
         price: number;
         sale: boolean;
         sale_price?: number | null;
+        orig_price?: number | null;
         prices: [
             {
                 price: number;
@@ -214,6 +213,24 @@ export type ProductOption = ProductOptionCamelCase | ProductOptionSnakeCase;
 
 export type ProductOptionValue = ProductOptionValueCamelCase | ProductOptionValueSnakeCase;
 
+export interface ProductCategorySnakeCase {
+    date_created: string;
+    id: string;
+    parent_id: string;
+    product_id: string;
+    sort: number;
+}
+
+export interface ProductCategoryCamelCase {
+    dateCreated: string;
+    id: string;
+    parentId: string;
+    productId: string;
+    sort: number;
+}
+
+export type ProductCategory = ProductCategoryCamelCase | ProductCategorySnakeCase;
+
 export interface ProductCamelCase {
     price: number;
     sale: boolean;
@@ -228,8 +245,12 @@ export interface ProductCamelCase {
     attributes: unknown;
     content: any;
     description: string;
+    metaDescription?: string | null;
+    metaTitle?: string | null;
+    bundle: boolean;
+    tags: unknown[];
     id: string;
-    images: ProductImage[];
+    images: ImageCamelCase[];
     name: string;
     variants?: {
         count: number;
@@ -238,12 +259,18 @@ export interface ProductCamelCase {
     crossSells?: Array<{
         id: string;
         productId: string;
+        product?: ProductCamelCase;
     }>;
     upSells?: Array<{
         id: string;
         productId: string;
+        product?: ProductCamelCase;
     }>;
     purchaseOptions?: ProductPurchaseOptionCamelCase;
+    categories?: {
+        count: number;
+        results: ProductCategoryCamelCase[] | null;
+    };
 }
 
 export interface ProductSnakeCase {
@@ -256,12 +283,16 @@ export interface ProductSnakeCase {
     stock_level: number;
     stock_purchasable: boolean;
     stock_tracking: boolean;
-    options?: ProductOptionSnakeCase;
+    options?: ProductOptionSnakeCase[];
     attributes: unknown;
     content: any;
     description: string;
+    meta_description?: string | null;
+    meta_title?: string | null;
+    bundle: boolean;
+    tags: unknown[];
     id: string;
-    images: ProductImage[];
+    images: ImageSnakeCase[];
     name: string;
     variants?: {
         count: number;
@@ -270,12 +301,18 @@ export interface ProductSnakeCase {
     cross_sells?: Array<{
         id: string;
         product_id: string;
+        product: ProductSnakeCase;
     }>;
     up_sells?: Array<{
         id: string;
         product_id: string;
+        product: ProductSnakeCase;
     }>;
     purchase_options?: ProductPurchaseOptionSnakeCase;
+    categories?: {
+        count: number;
+        results: ProductCategorySnakeCase[] | null;
+    };
 }
 
 export type Product = ProductCamelCase | ProductSnakeCase;
@@ -611,25 +648,53 @@ export interface InitOptions {
 }
 
 export interface CategoryCamelCase {
+    active: boolean;
+    dateCreated: string;
+    dateUpdated: string;
     description?: string;
     id: string;
-    images: CategoryImage[];
-    metaDescription?: string;
+    images: ImageCamelCase[];
+    metaTitle?: string | null;
+    metaDescription?: string | null;
     name: string;
     parentId?: string;
     slug: string;
+    sort: number;
     topId: string;
+    products?: {
+        count: number;
+        results: {
+            dateCreated: string;
+            id: string;
+            parentId: string;
+            productId: string;
+        } | null;
+    } | null;
 }
 
 export interface CategorySnakeCase {
+    active: boolean;
+    date_created: string;
+    date_updated: string;
     description?: string;
     id: string;
-    images: CategoryImage[];
-    meta_description?: string;
+    images: ImageSnakeCase[];
+    meta_title?: string | null;
+    meta_description?: string | null;
     name: string;
     parent_id?: string;
     slug: string;
-    topId: string;
+    sort: number;
+    top_id: string;
+    products?: {
+        count: number;
+        results: {
+            date_created: string;
+            id: string;
+            parent_id: string;
+            product_id: string;
+        } | null;
+    } | null;
 }
 
 export type Category = CategoryCamelCase | CategorySnakeCase;
