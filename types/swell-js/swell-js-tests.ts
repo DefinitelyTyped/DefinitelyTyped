@@ -1,19 +1,19 @@
-swell.init('', ''); // $ExpectType void
+Swell.init('', ''); // $ExpectType void
 // $ExpectType void
-swell.init('', '', {
+Swell.init('', '', {
     useCamelCase: true,
 });
 
-swell.get('', {}); // $ExpectType Promise<unknown>
-swell.put('', {}); // $ExpectType Promise<unknown>
-swell.post('', {}); // $ExpectType Promise<unknown>
+Swell.get('', {}); // $ExpectType Promise<unknown>
+Swell.put('', {}); // $ExpectType Promise<unknown>
+Swell.post('', {}); // $ExpectType Promise<unknown>
 
 // $ExpectType Promise<unknown>
-swell.account.create({
+Swell.account.create({
     email: 'hello@world.com',
 });
 // $ExpectType Promise<AddressWithContact>
-swell.account.createAddress({
+Swell.account.createAddress({
     address1: '',
     city: '',
     country: '',
@@ -22,19 +22,19 @@ swell.account.createAddress({
     state: '',
     zip: '',
 });
-swell.account.createCard({}); // $ExpectType Promise<unknown>
-swell.account.deleteAddress(''); // $ExpectType Promise<unknown>
-swell.account.deleteCard(''); // $ExpectType Promise<unknown>
-swell.account.get(); // $ExpectType Promise<unknown>
-swell.account.getOrder(''); // $ExpectType Promise<unknown>
-swell.account.listAddresses(); // $ExpectType Promise<unknown>
-swell.account.listOrders({}); // $ExpectType Promise<unknown>
-swell.account.login('', ''); // $ExpectType Promise<unknown>
-swell.account.logout(); // $ExpectType Promise<unknown>
-swell.account.recover({}); // $ExpectType Promise<unknown>
-swell.account.update({}); // $ExpectType Promise<unknown>
+Swell.account.createCard({}); // $ExpectType Promise<unknown>
+Swell.account.deleteAddress(''); // $ExpectType Promise<unknown>
+Swell.account.deleteCard(''); // $ExpectType Promise<unknown>
+Swell.account.get(); // $ExpectType Promise<unknown>
+Swell.account.getOrder(''); // $ExpectType Promise<SwellOrder>
+Swell.account.listAddresses(); // $ExpectType Promise<unknown>
+Swell.account.listOrders({}); // $ExpectType Promise<unknown>
+Swell.account.login('', ''); // $ExpectType Promise<unknown>
+Swell.account.logout(); // $ExpectType Promise<unknown>
+Swell.account.recover({}); // $ExpectType Promise<unknown>
+Swell.account.update({}); // $ExpectType Promise<unknown>
 // $ExpectType Promise<AddressWithContact>
-swell.account.updateAddress('', {
+Swell.account.updateAddress('', {
     address1: '',
     city: '',
     country: '',
@@ -42,72 +42,72 @@ swell.account.updateAddress('', {
     zip: '',
 });
 
-swell.attributes.get(''); // $ExpectType Promise<Attribute>
-swell.attributes.get(); // $ExpectType Promise<ListResult<Attribute>>
-swell.attributes.list({}); // $ExpectType Promise<ListResult<Attribute>>
+Swell.attributes.get(''); // $ExpectType Promise<Attribute>
+Swell.attributes.get(); // $ExpectType Promise<ListResult<Attribute>>
+Swell.attributes.list({}); // $ExpectType Promise<ListResult<Attribute>>
 
-swell.card.createToken({}); // $ExpectType Promise<unknown>
-swell.card.validateCVC(''); // $ExpectType boolean
-swell.card.validateExpiry(''); // $ExpectType boolean
-swell.card.validateNumber(''); // $ExpectType boolean
+Swell.card.createToken({}); // $ExpectType Promise<unknown>
+Swell.card.validateCVC(''); // $ExpectType boolean
+Swell.card.validateExpiry(''); // $ExpectType boolean
+Swell.card.validateNumber(''); // $ExpectType boolean
 
-// $ExpectType Promise<Cart>
-swell.cart.addItem({
+// $ExpectType Promise<SwellCart>
+Swell.cart.addItem({
     product_id: '',
 });
-swell.cart.applyCoupon(''); // $ExpectType Promise<Cart>
-swell.cart.applyGiftcard(''); // $ExpectType Promise<Cart>
-swell.cart.get(); // $ExpectType Promise<Cart>
-swell.cart.getSettings(); // $ExpectType Promise<unknown>
-swell.cart.getShippingRates(); // $ExpectType Promise<ShippingRates>
-swell.cart.removeCoupon(); // $ExpectType Promise<Cart>
-swell.cart.removeGiftcard(''); // $ExpectType Promise<Cart>
-swell.cart.removeItem(''); // $ExpectType Promise<Cart>
-// $ExpectType Promise<Cart>
-swell.cart.setItems([
+Swell.cart.applyCoupon(''); // $ExpectType Promise<SwellCart>
+Swell.cart.applyGiftcard(''); // $ExpectType Promise<SwellCart>
+Swell.cart.get(); // $ExpectType Promise<SwellCart>
+Swell.cart.getSettings(); // $ExpectType Promise<unknown>
+Swell.cart.getShippingRates(); // $ExpectType Promise<ShippingRates>
+Swell.cart.removeCoupon(); // $ExpectType Promise<SwellCart>
+Swell.cart.removeGiftcard(''); // $ExpectType Promise<SwellCart>
+Swell.cart.removeItem(''); // $ExpectType Promise<SwellCart>
+// $ExpectType Promise<SwellCart>
+Swell.cart.setItems([
     {
         product_id: '',
     },
 ]);
-swell.cart.submitOrder(); // $ExpectType Promise<Order>
-// $ExpectType Promise<Cart>
-swell.cart.update({
+Swell.cart.submitOrder(); // $ExpectType Promise<SwellOrder>
+// $ExpectType Promise<SwellCart>
+Swell.cart.update({
     product_id: '',
 });
-swell.cart.updateItem('', {}); // $ExpectType Promise<Cart>
+Swell.cart.updateItem('', {}); // $ExpectType Promise<SwellCart>
 
-swell.categories.get(''); // $ExpectType Promise<Category>
-swell.categories.get(); // $ExpectType Promise<ListResult<Category>>
-swell.categories.list({}); // $ExpectType Promise<ListResult<Category>>
+Swell.categories.get(''); // $ExpectType Promise<SwellCategory>
+Swell.categories.get(); // $ExpectType Promise<ListResult<SwellCategory>>
+Swell.categories.list({}); // $ExpectType Promise<ListResult<SwellCategory>>
 
-swell.currency.format(1, {}); // $ExpectType string
-swell.currency.list(); // $ExpectType Promise<ListResult<unknown>>
-swell.currency.select(''); // $ExpectType Promise<unknown>
-swell.currency.selected(); // $ExpectType Promise<string>
+Swell.currency.format(1, {}); // $ExpectType string
+Swell.currency.list(); // $ExpectType Promise<ListResult<unknown>>
+Swell.currency.select(''); // $ExpectType Promise<unknown>
+Swell.currency.selected(); // $ExpectType Promise<string>
 
-swell.locale.selected(); // $ExpectType Promise<string>
-swell.locale.select(''); // $ExpectType Promise<unknown>
+Swell.locale.selected(); // $ExpectType Promise<string>
+Swell.locale.select(''); // $ExpectType Promise<unknown>
 
-swell.payment.createElements({}); // $ExpectType Promise<unknown>
-swell.payment.tokenize({}); // $ExpectType void
-swell.products.get(''); // $ExpectType Promise<Product>
-swell.products.list({}); // $ExpectType Promise<ListResult<Product>>
-// $ExpectType Promise<Product>
-swell.products.variation('', {
+Swell.payment.createElements({}); // $ExpectType Promise<unknown>
+Swell.payment.tokenize({}); // $ExpectType void
+Swell.products.get(''); // $ExpectType Promise<SwellProduct>
+Swell.products.list({}); // $ExpectType Promise<ListResult<SwellProduct>>
+// $ExpectType Promise<SwellProduct>
+Swell.products.variation('', {
     name: '',
     value: '',
 });
 
-swell.settings.get(); // $ExpectType Promise<unknown>
-swell.settings.load(); // $ExpectType Promise<unknown>
-swell.settings.menus(); // $ExpectType Promise<unknown>
-swell.settings.menus(''); // $ExpectType Promise<unknown>
-swell.settings.payments(); // $ExpectType Promise<unknown>
+Swell.settings.get(); // $ExpectType Promise<unknown>
+Swell.settings.load(); // $ExpectType Promise<unknown>
+Swell.settings.menus(); // $ExpectType Promise<unknown>
+Swell.settings.menus(''); // $ExpectType Promise<unknown>
+Swell.settings.payments(); // $ExpectType Promise<unknown>
 
-swell.subscriptions.addItem('', {}); // $ExpectType Promise<unknown>
-swell.subscriptions.create({}); // $ExpectType Promise<unknown>
-swell.subscriptions.get(''); // $ExpectType Promise<unknown>
-swell.subscriptions.list(); // $ExpectType Promise<ListResult<unknown>>
-swell.subscriptions.removeItem('', ''); // $ExpectType Promise<unknown>
-swell.subscriptions.update('', {}); // $ExpectType Promise<unknown>
-swell.subscriptions.updateItem('', '', {}); // $ExpectType Promise<unknown>
+Swell.subscriptions.addItem('', {}); // $ExpectType Promise<unknown>
+Swell.subscriptions.create({}); // $ExpectType Promise<unknown>
+Swell.subscriptions.get(''); // $ExpectType Promise<unknown>
+Swell.subscriptions.list(); // $ExpectType Promise<ListResult<unknown>>
+Swell.subscriptions.removeItem('', ''); // $ExpectType Promise<unknown>
+Swell.subscriptions.update('', {}); // $ExpectType Promise<unknown>
+Swell.subscriptions.updateItem('', '', {}); // $ExpectType Promise<unknown>
