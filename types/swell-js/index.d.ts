@@ -159,7 +159,7 @@ export interface ProductVariantCamelCase {
     dateUpdated: string;
     dimensions: unknown[];
     id: string;
-    images: ImageSnakeCase[];
+    images: ImageCamelCase[];
     name: string;
     optionValueIds: string[];
     parentId: string;
@@ -216,24 +216,6 @@ export interface ProductOptionCamelCase {
 export type ProductOption = ProductOptionCamelCase | ProductOptionSnakeCase;
 
 export type ProductOptionValue = ProductOptionValueCamelCase | ProductOptionValueSnakeCase;
-
-export interface ProductCategorySnakeCase {
-    date_created: string;
-    id: string;
-    parent_id: string;
-    product_id: string;
-    sort: number;
-}
-
-export interface ProductCategoryCamelCase {
-    dateCreated: string;
-    id: string;
-    parentId: string;
-    productId: string;
-    sort: number;
-}
-
-export type ProductCategory = ProductCategoryCamelCase | ProductCategorySnakeCase;
 
 export interface ProductCamelCase {
     price: number;

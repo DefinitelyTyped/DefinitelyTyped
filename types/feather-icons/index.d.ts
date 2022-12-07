@@ -12,7 +12,7 @@ export type FeatherIconNames = keyof typeof genIcons;
 export type FeatherStrokeLineCap = 'butt' | 'round' | 'square';
 export type FeatherStrokeLineJoin = 'arcs' | 'bevel' | 'miter' | 'miter-clip' | 'round';
 
-type FeatherToSvg = (options?: FeatherAttributes) => string;
+type FeatherToSvg = (options?: Partial<FeatherAttributes>) => string;
 
 export interface FeatherAttributes {
     [index: string]: string | number;
@@ -37,8 +37,8 @@ export interface FeatherIcon {
     toSvg: FeatherToSvg;
 }
 
-export function replace(options?: FeatherAttributes): void;
+export function replace(options?: Partial<FeatherAttributes>): void;
 
 export const icons: {
-    [key in FeatherIconNames]: FeatherIcon
+    [key in FeatherIconNames]: FeatherIcon;
 };
