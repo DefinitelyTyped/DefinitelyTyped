@@ -4,6 +4,8 @@
         "no-unnecessary-qualifier": false,
         "use-default-type-parameter": false,
         "no-mergeable-namespace": false,
-        "ban-types": false
+        "ban-types": false,
+        "no-empty-interface": false,
+        "no-unnecessary-class": ["allow-static-only"]
     }
 }
