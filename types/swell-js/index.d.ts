@@ -64,6 +64,7 @@ export interface ImageFileCamelCase {
 
 export interface ImageCamelCase {
     file: ImageFileCamelCase;
+    caption?: string | null;
     id: string;
 }
 
@@ -82,8 +83,25 @@ export interface ImageFileSnakeCase {
 
 export interface ImageSnakeCase {
     file: ImageFileSnakeCase;
+    caption?: string | null;
     id: string;
 }
+
+export interface PriceCamelCase {
+    price: number;
+    quantityMin: number;
+    quantityMax: number | null;
+    accountGroup: unknown | null;
+}
+
+export interface PriceSnakeCase {
+    price: number;
+    quantity_min: number;
+    quantity_max: number | null;
+    account_group: unknown | null;
+}
+
+export type Price = PriceCamelCase | PriceSnakeCase;
 
 export type ProductPurchaseOptionCamelCase = Record<
     PurchaseOptions,
@@ -93,14 +111,7 @@ export type ProductPurchaseOptionCamelCase = Record<
         sale: boolean;
         salePrice?: number | null;
         origPrice?: number | null;
-        prices: [
-            {
-                price: number;
-                quantityMin: number;
-                quantityMax: number | null;
-                accountGroup: unknown | null;
-            },
-        ];
+        prices: PriceCamelCase[];
     }
 >;
 
@@ -112,14 +123,7 @@ export type ProductPurchaseOptionSnakeCase = Record<
         sale: boolean;
         sale_price?: number | null;
         orig_price?: number | null;
-        prices: [
-            {
-                price: number;
-                quantity_min: number;
-                quantity_max: number | null;
-                account_group: unknown | null;
-            },
-        ];
+        prices: PriceSnakeCase[];
     }
 >;
 
@@ -133,12 +137,12 @@ export interface ProductVariantSnakeCase {
     date_updated: string;
     dimensions: unknown[];
     id: string;
-    images: ImageFileSnakeCase[];
+    images: ImageSnakeCase[];
     name: string;
     option_value_ids: string[];
     parent_id: string;
     price: number | null;
-    prices: unknown[];
+    prices: PriceSnakeCase[];
     purchase_options: ProductPurchaseOptionSnakeCase;
     sale_price: number | null;
     sale: boolean;
@@ -155,12 +159,12 @@ export interface ProductVariantCamelCase {
     dateUpdated: string;
     dimensions: unknown[];
     id: string;
-    images: ImageFileSnakeCase[];
+    images: ImageSnakeCase[];
     name: string;
     optionValueIds: string[];
     parentId: string;
     price: number | null;
-    prices: unknown[];
+    prices: PriceCamelCase[];
     purchaseOptions: ProductPurchaseOptionSnakeCase;
     salePrice: number | null;
     sale: boolean;
@@ -236,6 +240,7 @@ export interface ProductCamelCase {
     sale: boolean;
     salePrice?: number;
     origPrice?: number;
+    prices?: PriceCamelCase[];
     sku: unknown;
     slug: string;
     stockLevel: number;
@@ -278,6 +283,7 @@ export interface ProductSnakeCase {
     sale: boolean;
     sale_price?: number;
     orig_price?: number;
+    prices?: PriceSnakeCase[];
     sku: unknown;
     slug: string;
     stock_level: number;
