@@ -88,6 +88,44 @@ export interface ImageSnakeCase {
 export type SwellProductImage = ImageCamelCase | ImageSnakeCase;
 export type SwellCategoryImage = ImageCamelCase | ImageSnakeCase;
 
+export type ProductPurchaseOptionCamelCase = Record<
+    PurchaseOptions,
+    {
+        active: boolean;
+        price: number;
+        sale: boolean;
+        salePrice?: number | null;
+        prices: [
+            {
+                price: number;
+                quantityMin: number;
+                quantityMax: number | null;
+                accountGroup: unknown | null;
+            },
+        ];
+    }
+>;
+
+export type ProductPurchaseOptionSnakeCase = Record<
+    PurchaseOptions,
+    {
+        active: boolean;
+        price: number;
+        sale: boolean;
+        sale_price?: number | null;
+        prices: [
+            {
+                price: number;
+                quantity_min: number;
+                quantity_max: number | null;
+                account_group: unknown | null;
+            },
+        ];
+    }
+>;
+
+export type ProductPurchaseOption = ProductPurchaseOptionSnakeCase | ProductPurchaseOptionCamelCase;
+
 export interface ProductCamelCase {
     price: number;
     sale: boolean;
@@ -134,6 +172,7 @@ export interface ProductCamelCase {
         id: string;
         productId: string;
     }>;
+    purchaseOptions: ProductPurchaseOptionCamelCase;
 }
 
 export interface ProductSnakeCase {
@@ -182,6 +221,7 @@ export interface ProductSnakeCase {
         id: string;
         product_id: string;
     }>;
+    purchase_options: ProductPurchaseOptionSnakeCase;
 }
 
 export type SwellProduct = ProductCamelCase | ProductSnakeCase;
