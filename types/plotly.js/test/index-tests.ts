@@ -979,3 +979,39 @@ function rand() {
         },
     ]);
 })();
+
+(() => {
+    // should create a circular contour plot drawn with lines
+    const Steps = 50;
+    const Span = 1.0;
+
+    const z: number[][] = [];
+    for (let ydx = 0; ydx < Steps; ydx++) {
+        const _z = new Array<number>(Steps);
+        const y = -Span + ydx * 2 * Span / Steps;
+        for (let xdx = 0; xdx < Steps; xdx++) {
+            const x = -Span + xdx * 2 * Span / Steps;
+            _z[xdx] = Math.sqrt(x * x + y * y);
+        }
+        z.push(_z);
+    }
+
+    const data: Array<Partial<Plotly.PlotData>> = [
+        {
+            z,
+            type: 'contour',
+            contours: {
+                coloring: 'lines',
+                labelfont: {
+                    color: 'black',
+                    family: 'monospace'
+                },
+                showlabels: true,
+            }
+        },
+    ];
+    const layout: Partial<Plotly.Layout> = {
+        autosize: true,
+    };
+    Plotly.newPlot('myDiv', data, layout);
+})();

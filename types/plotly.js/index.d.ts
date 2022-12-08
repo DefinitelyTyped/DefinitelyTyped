@@ -1334,6 +1334,19 @@ export interface PlotData {
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
     offset: number;
+    contours: Partial<{
+        coloring: 'fill' | 'heatmap' | 'lines' | 'none';
+        end: number;
+        labelfont: Partial<Font>;
+        labelformat: string;
+        operation: '=' | '<' | '>=' | '>' | '<=' | '[]' | '()' | '[)' | '(]' | '][' | ')(' | '](' | ')[';
+        showlabels: boolean;
+        showlines: boolean;
+        size: number;
+        start: number;
+        type: 'levels' | 'constraint';
+        value: number | [lowerBound: number, upperBound: number];
+    }>;
 }
 
 /**
