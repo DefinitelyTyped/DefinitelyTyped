@@ -1,12 +1,18 @@
-// Type definitions for Visual Studio Code 1.73
+// Type definitions for Visual Studio Code 1.74
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *  Licensed under the MIT License.
+ *  See https://github.com/microsoft/vscode/blob/main/LICENSE.txt for license information.
  *--------------------------------------------------------------------------------------------*/
+
+/**
+ * Type Definition for Visual Studio Code 1.74 Extension API
+ * See https://code.visualstudio.com/api for more information
+ */
 
 declare module 'vscode' {
 
@@ -1438,7 +1444,7 @@ declare module 'vscode' {
          * ```ts
          * const u = URI.parse('file://server/c$/folder/file.txt')
          * u.authority === 'server'
-         * u.path === '/server/c$/file.txt'
+         * u.path === '/shares/c$/file.txt'
          * u.fsPath === '\\server\c$\folder\file.txt'
          * ```
          */
@@ -1474,7 +1480,7 @@ declare module 'vscode' {
          * the `skipEncoding`-argument: `uri.toString(true)`.
          *
          * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-         *	the `#` and `?` characters occurring in the path will always be encoded.
+         *    the `#` and `?` characters occurring in the path will always be encoded.
          * @returns A string representation of this Uri.
          */
         toString(skipEncoding?: boolean): string;
@@ -1883,8 +1889,8 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         * 	'Images': ['png', 'jpg']
-         * 	'TypeScript': ['ts', 'tsx']
+         *     'Images': ['png', 'jpg']
+         *     'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
@@ -1918,8 +1924,8 @@ declare module 'vscode' {
          * like "TypeScript", and an array of extensions, e.g.
          * ```ts
          * {
-         * 	'Images': ['png', 'jpg']
-         * 	'TypeScript': ['ts', 'tsx']
+         *     'Images': ['png', 'jpg']
+         *     'TypeScript': ['ts', 'tsx']
          * }
          * ```
          */
@@ -2071,7 +2077,9 @@ declare module 'vscode' {
     export class RelativePattern {
 
         /**
-         * A base file path to which this pattern will be matched against relatively.
+         * A base file path to which this pattern will be matched against relatively. The
+         * file path must be absolute, should not have any trailing path separators and
+         * not include any relative segments (`.` or `..`).
          */
         baseUri: Uri;
 
@@ -2206,23 +2214,23 @@ declare module 'vscode' {
      *
      * ```ts
      * let a: HoverProvider = {
-     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
-     * 		return new Hover('Hello World');
-     * 	}
+     *     provideHover(doc, pos, token): ProviderResult<Hover> {
+     *         return new Hover('Hello World');
+     *     }
      * }
      *
      * let b: HoverProvider = {
-     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
-     * 		return new Promise(resolve => {
-     * 			resolve(new Hover('Hello World'));
-     * 	 	});
-     * 	}
+     *     provideHover(doc, pos, token): ProviderResult<Hover> {
+     *         return new Promise(resolve => {
+     *             resolve(new Hover('Hello World'));
+     *          });
+     *     }
      * }
      *
      * let c: HoverProvider = {
-     * 	provideHover(doc, pos, token): ProviderResult<Hover> {
-     * 		return; // undefined
-     * 	}
+     *     provideHover(doc, pos, token): ProviderResult<Hover> {
+     *         return; // undefined
+     *     }
      * }
      * ```
      */
@@ -5954,19 +5962,19 @@ declare module 'vscode' {
          * @param section Configuration name, supports _dotted_ names.
          * @param value The new value.
          * @param configurationTarget The {@link ConfigurationTarget configuration target} or a boolean value.
-         *	- If `true` updates {@link ConfigurationTarget.Global Global settings}.
-         *	- If `false` updates {@link ConfigurationTarget.Workspace Workspace settings}.
-         *	- If `undefined` or `null` updates to {@link ConfigurationTarget.WorkspaceFolder Workspace folder settings} if configuration is resource specific,
-         * 	otherwise to {@link ConfigurationTarget.Workspace Workspace settings}.
+         *    - If `true` updates {@link ConfigurationTarget.Global Global settings}.
+         *    - If `false` updates {@link ConfigurationTarget.Workspace Workspace settings}.
+         *    - If `undefined` or `null` updates to {@link ConfigurationTarget.WorkspaceFolder Workspace folder settings} if configuration is resource specific,
+         *     otherwise to {@link ConfigurationTarget.Workspace Workspace settings}.
          * @param overrideInLanguage Whether to update the value in the scope of requested languageId or not.
-         *	- If `true` updates the value under the requested languageId.
-         *	- If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
+         *    - If `true` updates the value under the requested languageId.
+         *    - If `undefined` updates the value under the requested languageId only if the configuration is defined for the language.
          * @throws error while updating
-         *	- configuration which is not registered.
-         *	- window configuration to workspace folder
-         *	- configuration to workspace or workspace folder when no workspace is opened.
-         *	- configuration to workspace folder when there is no workspace folder settings.
-         *	- configuration to workspace folder when {@link WorkspaceConfiguration} is not scoped to a resource.
+         *    - configuration which is not registered.
+         *    - window configuration to workspace folder
+         *    - configuration to workspace or workspace folder when no workspace is opened.
+         *    - configuration to workspace folder when there is no workspace folder settings.
+         *    - configuration to workspace folder when {@link WorkspaceConfiguration} is not scoped to a resource.
          */
         update(section: string, value: any, configurationTarget?: ConfigurationTarget | boolean | null, overrideInLanguage?: boolean): Thenable<void>;
 
@@ -6469,6 +6477,70 @@ declare module 'vscode' {
     }
 
     /**
+     * A channel for containing log output.
+     *
+     * To get an instance of a `LogOutputChannel` use
+     * {@link window.createOutputChannel createOutputChannel}.
+     */
+    export interface LogOutputChannel extends OutputChannel {
+
+        /**
+         * The current log level of the channel. Defaults to {@link env.logLevel editor log level}.
+         */
+        readonly logLevel: LogLevel;
+
+        /**
+         * An {@link Event} which fires when the log level of the channel changes.
+         */
+        readonly onDidChangeLogLevel: Event<LogLevel>;
+
+        /**
+         * Outputs the given trace message to the channel. Use this method to log verbose information.
+         *
+         * The message is only loggeed if the channel is configured to display {@link LogLevel.Trace trace} log level.
+         *
+         * @param message trace message to log
+         */
+        trace(message: string, ...args: any[]): void;
+
+        /**
+         * Outputs the given debug message to the channel.
+         *
+         * The message is only loggeed if the channel is configured to display {@link LogLevel.Debug debug} log level or lower.
+         *
+         * @param message debug message to log
+         */
+        debug(message: string, ...args: any[]): void;
+
+        /**
+         * Outputs the given information message to the channel.
+         *
+         * The message is only loggeed if the channel is configured to display {@link LogLevel.Info info} log level or lower.
+         *
+         * @param message info message to log
+         */
+        info(message: string, ...args: any[]): void;
+
+        /**
+         * Outputs the given warning message to the channel.
+         *
+         * The message is only loggeed if the channel is configured to display {@link LogLevel.Warning warning} log level or lower.
+         *
+         * @param message warning message to log
+         */
+        warn(message: string, ...args: any[]): void;
+
+        /**
+         * Outputs the given error or error message to the channel.
+         *
+         * The message is only loggeed if the channel is configured to display {@link LogLevel.Error error} log level or lower.
+         *
+         * @param error Error or error message to log
+         */
+        error(error: string | Error, ...args: any[]): void;
+    }
+
+    /**
      * Accessibility information which controls screen reader behavior.
      */
     export interface AccessibilityInformation {
@@ -6643,7 +6715,7 @@ declare module 'vscode' {
          * ```typescript
          * window.onDidCloseTerminal(t => {
          *   if (t.exitStatus && t.exitStatus.code) {
-         *   	vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
+         *       vscode.window.showInformationMessage(`Exit code: ${t.exitStatus.code}`);
          *   }
          * });
          * ```
@@ -9197,6 +9269,42 @@ declare module 'vscode' {
     }
 
     /**
+     * Log levels
+     */
+    export enum LogLevel {
+
+        /**
+         * No messages are logged with this level.
+         */
+        Off = 0,
+
+        /**
+         * All messages are logged with this level.
+         */
+        Trace = 1,
+
+        /**
+         * Messages with debug and higher log level are logged with this level.
+         */
+        Debug = 2,
+
+        /**
+         * Messages with info and higher log level are logged with this level.
+         */
+        Info = 3,
+
+        /**
+         * Messages with warning and higher log level are logged with this level.
+         */
+        Warning = 4,
+
+        /**
+         * Only error messages are logged with this level.
+         */
+        Error = 5
+    }
+
+    /**
      * Namespace describing the environment the editor runs in.
      */
     export namespace env {
@@ -9360,6 +9468,16 @@ declare module 'vscode' {
          * @return A uri that can be used on the client machine.
          */
         export function asExternalUri(target: Uri): Thenable<Uri>;
+
+        /**
+         * The current log level of the editor.
+         */
+        export const logLevel: LogLevel;
+
+        /**
+         * An {@link Event} which fires when the log level of the editor changes.
+         */
+        export const onDidChangeLogLevel: Event<LogLevel>;
     }
 
     /**
@@ -9383,18 +9501,18 @@ declare module 'vscode' {
      * register a command handler with the identifier `extension.sayHello`.
      * ```javascript
      * commands.registerCommand('extension.sayHello', () => {
-     * 	window.showInformationMessage('Hello World!');
+     *     window.showInformationMessage('Hello World!');
      * });
      * ```
      * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
      * ```json
      * {
-     * 	"contributes": {
-     * 		"commands": [{
-     * 			"command": "extension.sayHello",
-     * 			"title": "Hello World"
-     * 		}]
-     * 	}
+     *     "contributes": {
+     *         "commands": [{
+     *             "command": "extension.sayHello",
+     *             "title": "Hello World"
+     *         }]
+     *     }
      * }
      * ```
      */
@@ -9924,6 +10042,14 @@ declare module 'vscode' {
          * @param languageId The identifier of the language associated with the channel.
          */
         export function createOutputChannel(name: string, languageId?: string): OutputChannel;
+
+        /**
+         * Creates a new {@link LogOutputChannel log output channel} with the given name.
+         *
+         * @param name Human-readable string which will be used to represent the channel in the UI.
+         * @param options Options for the log output channel.
+         */
+        export function createOutputChannel(name: string, options: { log: true }): LogOutputChannel;
 
         /**
          * Create and show a new webview panel.
@@ -11624,11 +11750,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillSaveTextDocument(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -11673,11 +11799,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -11710,7 +11836,7 @@ declare module 'vscode' {
      * An event that is fired when files are going to be deleted.
      *
      * To make modifications to the workspace before the files are deleted,
-     * call the {@link FileWillCreateEvent.waitUntil `waitUntil}-function with a
+     * call the {@link FileWillCreateEvent.waitUntil `waitUntil`}-function with a
      * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
      */
     export interface FileWillDeleteEvent {
@@ -11733,11 +11859,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -11770,7 +11896,7 @@ declare module 'vscode' {
      * An event that is fired when files are going to be renamed.
      *
      * To make modifications to the workspace before the files are renamed,
-     * call the {@link FileWillCreateEvent.waitUntil `waitUntil}-function with a
+     * call the {@link FileWillCreateEvent.waitUntil `waitUntil`}-function with a
      * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
      */
     export interface FileWillRenameEvent {
@@ -11793,11 +11919,11 @@ declare module 'vscode' {
          *
          * ```ts
          * workspace.onWillCreateFiles(event => {
-         * 	// async, will *throw* an error
-         * 	setTimeout(() => event.waitUntil(promise));
+         *     // async, will *throw* an error
+         *     setTimeout(() => event.waitUntil(promise));
          *
-         * 	// sync, OK
-         * 	event.waitUntil(promise);
+         *     // sync, OK
+         *     event.waitUntil(promise);
          * })
          * ```
          *
@@ -11995,9 +12121,11 @@ declare module 'vscode' {
          * by an optional set of `workspaceFoldersToAdd` on the `vscode.workspace.workspaceFolders` array. This "splice"
          * behavior can be used to add, remove and change workspace folders in a single operation.
          *
-         * If the first workspace folder is added, removed or changed, the currently executing extensions (including the
-         * one that called this method) will be terminated and restarted so that the (deprecated) `rootPath` property is
-         * updated to point to the first workspace folder.
+         * **Note:** in some cases calling this method may result in the currently executing extensions (including the
+         * one that called this method) to be terminated and restarted. For example when the first workspace folder is
+         * added, removed or changed the (deprecated) `rootPath` property is updated to point to the first workspace
+         * folder. Another case is when transitioning from an empty or single-folder workspace into a multi-folder
+         * workspace (see also: https://code.visualstudio.com/docs/editor/workspaces).
          *
          * Use the {@linkcode onDidChangeWorkspaceFolders onDidChangeWorkspaceFolders()} event to get notified when the
          * workspace folders have been updated.
@@ -12545,9 +12673,9 @@ declare module 'vscode' {
      *
      * ```javascript
      * languages.registerHoverProvider('javascript', {
-     * 	provideHover(document, position, token) {
-     * 		return new Hover('I am a hover!');
-     * 	}
+     *     provideHover(document, position, token) {
+     *         return new Hover('I am a hover!');
+     *     }
      * });
      * ```
      *
@@ -13571,10 +13699,10 @@ declare module 'vscode' {
          *
          * ```ts
          * new vscode.NotebookCellOutput([
-         * 	vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
-         * 	vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
-         * 	vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
-         * 	vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
+         *     vscode.NotebookCellOutputItem.text('Hello', 'text/plain'),
+         *     vscode.NotebookCellOutputItem.text('<i>Hello</i>', 'text/html'),
+         *     vscode.NotebookCellOutputItem.text('_Hello_', 'text/markdown'),
+         *     vscode.NotebookCellOutputItem.text('Hey', 'text/plain'), // INVALID: repeated type, editor will pick just one
          * ])
          * ```
          */
@@ -14881,7 +15009,7 @@ declare module 'vscode' {
      */
     export enum DebugConfigurationProviderTriggerKind {
         /**
-         *	`DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
+         *    `DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.
          */
         Initial = 1,
         /**
@@ -15030,16 +15158,16 @@ declare module 'vscode' {
      *
      * ```javascript
      * export function activate(context: vscode.ExtensionContext) {
-     * 	let api = {
-     * 		sum(a, b) {
-     * 			return a + b;
-     * 		},
-     * 		mul(a, b) {
-     * 			return a * b;
-     * 		}
-     * 	};
-     * 	// 'export' public api-surface
-     * 	return api;
+     *     let api = {
+     *         sum(a, b) {
+     *             return a + b;
+     *         },
+     *         mul(a, b) {
+     *             return a * b;
+     *         }
+     *     };
+     *     // 'export' public api-surface
+     *     return api;
      * }
      * ```
      * When depending on the API of another extension add an `extensionDependencies`-entry
@@ -15234,16 +15362,16 @@ declare module 'vscode' {
          * For example, a comment is given a context value as `editable`. When contributing actions to `comments/comment/title`
          * using `menus` extension point, you can specify context value for key `comment` in `when` expression like `comment == editable`.
          * ```json
-         *	"contributes": {
-         *		"menus": {
-         *			"comments/comment/title": [
-         *				{
-         *					"command": "extension.deleteComment",
-         *					"when": "comment == editable"
-         *				}
-         *			]
-         *		}
-         *	}
+         *    "contributes": {
+         *        "menus": {
+         *            "comments/comment/title": [
+         *                {
+         *                    "command": "extension.deleteComment",
+         *                    "when": "comment == editable"
+         *                }
+         *            ]
+         *        }
+         *    }
          * ```
          * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
          */
