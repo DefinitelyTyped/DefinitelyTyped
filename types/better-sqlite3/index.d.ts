@@ -20,6 +20,7 @@ declare namespace BetterSqlite3 {
         database: Database;
         source: string;
         reader: boolean;
+        readonly: boolean;
         busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
