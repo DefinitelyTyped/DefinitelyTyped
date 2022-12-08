@@ -70,3 +70,10 @@ s3Lambda.expectResolve((result: APIGatewayProxyResult) => {});
 s3Lambda.expectReject((error: TError) => {
     const t: string = error.message;
 });
+
+s3Lambda.expectResult();
+s3Lambda.expectResolve();
+s3Lambda.expectReject();
+s3Lambda.expectError();
+s3Lambda.expectFail();
+s3Lambda.expectSucceed();
