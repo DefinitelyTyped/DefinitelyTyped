@@ -7323,6 +7323,7 @@ interface AlertOptions {
     userInterfaceStyle?: 'unspecified' | 'light' | 'dark';
     /** @platform android */
     onDismiss?: (() => void) | undefined;
+    rootTag?: number | undefined;
 }
 
 /**

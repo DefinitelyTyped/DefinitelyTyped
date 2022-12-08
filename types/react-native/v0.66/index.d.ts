@@ -7189,6 +7189,7 @@ interface AlertOptions {
     cancelable?: boolean | undefined;
     /** @platform android */
     onDismiss?: (() => void) | undefined;
+    rootTag?: number | undefined;
 }
 
 /**
