@@ -10,13 +10,14 @@ import {
     APIGatewayProxyResult,
 } from 'aws-lambda';
 
-const handler: Handler = () => Promise.resolve();
-const context: Context = {} as any;
-const clientContext: ClientContext = {} as any;
-
 interface TResult {
     data: string;
 }
+
+const handler: Handler<any, TResult> = () => Promise.resolve({ data: '123' });
+const context: Context = {} as any;
+const clientContext: ClientContext = {} as any;
+
 interface TError {
     message: string;
 }
