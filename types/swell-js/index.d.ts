@@ -324,34 +324,44 @@ export interface ProductSnakeCase {
 export type Product = ProductCamelCase | ProductSnakeCase;
 
 export interface CartItemCamelCase {
+    delivery?: string | null;
     discountEach: number;
     discountTotal: number;
+    discounts: unknown[];
     id: string;
     origPrice: number;
     price: number;
     priceTotal: number;
     productId: string;
+    productName: string;
     quantity: number;
     shipmentWeight: number;
+    stockTracking: boolean;
     taxEach: number;
     taxTotal: number;
-    variant: null;
+    variantId: string;
+    variant: ProductVariantCamelCase | null;
     product: Product;
 }
 
 export interface CartItemSnakeCase {
+    delivery?: string | null;
     discount_each: number;
     discount_total: number;
+    discounts: unknown[];
     id: string;
     orig_price: number;
     price: number;
     price_total: number;
     product_id: string;
+    product_name: string;
     quantity: number;
     shipment_weight: number;
+    stock_tracking: boolean;
     tax_each: number;
     tax_total: number;
-    variant: null;
+    variant_id: string;
+    variant: ProductVariantSnakeCase | null;
     product: Product;
 }
 
@@ -399,9 +409,27 @@ export interface ShippingSnakeCase extends AddressWithContact {
     last_name: string;
 }
 
-export type CartShipping = ShippingCamelCase | ShippingSnakeCase;
-
 export type OrderShipping = ShippingCamelCase | ShippingSnakeCase;
+
+export interface CartShippingCamelCase {
+    country: string;
+    accountAddressId: string | null;
+    account?: unknown;
+    service: string;
+    serviceName: string;
+    price: number;
+}
+
+export interface CartShippingSnakeCase {
+    country: string;
+    account_address_id: string | null;
+    account?: unknown;
+    service: string;
+    service_name: string;
+    price: number;
+}
+
+export type CartShipping = CartShippingCamelCase | CartShippingSnakeCase;
 
 export interface Coupon {
     name: string;
@@ -424,6 +452,20 @@ export type CartDiscount = Discount;
 
 export type OrderDiscount = Discount;
 
+export interface ShipmentRatingCamelCase {
+    dateCreated: string;
+    fingerprint: string;
+    services: ShippingRatesCamelCase[];
+}
+
+export interface ShipmentRatingSnakeCase {
+    date_created: string;
+    fingerprint: string;
+    services: ShippingRatesCamelCase[];
+}
+
+export type ShipmentRating = ShipmentRatingCamelCase | ShipmentRatingSnakeCase;
+
 export interface CartCamelCase {
     accountLoggedIn: unknown;
     authTotal: number;
@@ -439,23 +481,25 @@ export interface CartCamelCase {
     discountTotal: number;
     giftcardTotal: number;
     grandTotal: number;
-    guest: true;
+    guest: boolean;
     id: string;
     itemDiscount: number;
     itemQuantity: number;
-    items: CartItem[];
+    items: CartItemCamelCase[];
     itemShipmentWeight: number;
     itemTax: number;
-    promotionIds: unknown;
-    promotions: unknown;
+    metadata: any;
+    promotionIds: unknown[];
+    promotions: ListResult<unknown>;
     recovered: boolean;
     shipmentDelivery: boolean;
     shipmentDiscount: number;
     shipmentPrice: number;
+    shipmentRating: ShipmentRatingCamelCase;
     shipmentTotal: number;
-    shipping: CartShipping;
+    shipping: CartShippingCamelCase;
     subTotal: number;
-    taxes: unknown;
+    taxes: unknown | null;
     taxIncludedTotal: number;
     taxTotal: number;
 }
@@ -483,16 +527,18 @@ export interface CartSnakeCase {
     items: CartItemSnakeCase[];
     item_shipment_weight: number;
     item_tax: number;
-    promotion_ids: unknown;
-    promotions: unknown;
+    metadata: any;
+    promotion_ids: unknown[];
+    promotions: ListResult<unknown>;
     recovered: boolean;
     shipment_delivery: boolean;
     shipment_discount: number;
     shipment_price: number;
+    shipment_rating: ShipmentRatingSnakeCase;
     shipment_total: number;
-    shipping: CartShipping;
+    shipping: CartShippingSnakeCase;
     sub_total: number;
-    taxes: unknown;
+    taxes: unknown | null;
     tax_included_total: number;
     tax_total: number;
 }
@@ -561,9 +607,9 @@ export interface OrderCamelCase {
     shipmentDelivery: boolean;
     shipmentDiscount: number;
     shipmentPrice: number;
-    shipmentRating: unknown;
     shipmentTax: unknown;
     shipmentTaxIncluded: unknown;
+    shipmentRating: ShipmentRatingCamelCase;
     shipmentTotal: number;
     shipping: OrderShipping;
     status: string;
@@ -617,7 +663,7 @@ export interface OrderSnakeCase {
     shipment_delivery: boolean;
     shipment_discount: number;
     shipment_price: number;
-    shipment_rating: unknown;
+    shipment_rating: ShipmentRatingSnakeCase;
     shipment_tax: unknown;
     shipment_tax_included: unknown;
     shipment_total: number;
