@@ -11601,7 +11601,7 @@ declare namespace chrome.declarativeNetRequest {
         type: RuleActionType;
     }
 
-    export type RuleCondition = {
+    export interface RuleCondition {
         /**
          * Specifies whether the network request is first-party or third-party to the domain from which it originated.
          * If omitted, all requests are accepted.
