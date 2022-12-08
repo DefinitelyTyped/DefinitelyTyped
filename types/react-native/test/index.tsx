@@ -72,6 +72,7 @@ import {
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
+    RootTagContext,
     ScaledSize,
     ScrollView,
     ScrollViewProps,
@@ -961,6 +962,7 @@ class AlertTest extends React.Component {
             {
                 cancelable: false,
                 onDismiss: () => {},
+                rootTag: React.useContext(RootTagContext),
             },
         );
     }
