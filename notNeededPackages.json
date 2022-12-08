@@ -4771,6 +4771,10 @@
             "libraryName": "resumablejs",
             "asOfVersion": "1.1.0"
         },
+        "retry-as-promised": {
+            "libraryName": "retry-as-promised",
+            "asOfVersion": "7.0.3"
+        },
         "rev-hash": {
             "libraryName": "rev-hash",
             "asOfVersion": "3.0.0"
