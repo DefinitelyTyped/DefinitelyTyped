@@ -10,6 +10,7 @@
 //                 Arun George <https://github.com/aruniverse>
 //                 Nick Garlis <https://github.com/nickgarlis>
 //                 Brian Powers <https://github.com/brianspowers>
+//                 Declan Warn <https://github.com/declan-warn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js

@@ -8,6 +8,7 @@
 //                 Taeheon Kim <https://github.com/lonyele>
 //                 Kanitkorn Sujautra <https://github.com/lukyth>
 //                 Arun George <https://github.com/aruniverse>
+//                 Declan Warn <https://github.com/declan-warn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 // Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
