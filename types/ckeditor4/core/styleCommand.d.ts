@@ -1,10 +1,10 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly styleCommand: typeof styleCommand
+        readonly styleCommand: typeof styleCommand;
     }
     class styleCommand {
-        constructor(style: style, ext?: unknown)
+        constructor(style: style, ext?: unknown);
 
-        exec(editor: editor): void
+        exec(editor: editor): void;
     }
 }

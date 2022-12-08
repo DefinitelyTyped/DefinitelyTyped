@@ -1,18 +1,16 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        xml: typeof xml
+        xml: typeof xml;
     }
     class xml {
-        baseXml: unknown
+        baseXml: unknown;
 
-        constructor(xmlObjectOrData: unknown)
+        constructor(xmlObjectOrData: unknown);
 
-        getInnerXml(xpath: string, contextNode?: unknown): string
+        getInnerXml(xpath: string, contextNode?: unknown): string;
 
-        selectNodes(xpath: string, contextNode?: unknown): unknown[]
+        selectNodes(xpath: string, contextNode?: unknown): unknown[];
 
-        selectSingleNode(xpath: string, contextNode?: unknown): unknown
+        selectSingleNode(xpath: string, contextNode?: unknown): unknown;
     }
 }
-
-

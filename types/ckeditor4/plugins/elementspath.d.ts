@@ -1,22 +1,22 @@
 declare namespace CKEDITOR {
     interface CKEditorPluginsEditorInternal {
-        elementsPath?: elementsPath
+        elementsPath?: elementsPath;
     }
     interface elementsPath {
-        idBase: string
-        list: dom.element[]
-        filters: filter[]
-        onClick(elementsIndex: number): void
+        idBase: string;
+        list: dom.element[];
+        filters: filter[];
+        onClick(elementsIndex: number): void;
     }
 
     namespace elementsPath {
         namespace events {
             interface elementsPathUpdate extends eventData {
-                space: dom.element
+                space: dom.element;
             }
 
             interface selectionChange extends eventData {
-                selection: dom.selection
+                selection: dom.selection;
             }
         }
     }

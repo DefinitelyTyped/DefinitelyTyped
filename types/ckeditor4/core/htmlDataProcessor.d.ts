@@ -1,30 +1,27 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        htmlDataProcessor: typeof htmlDataProcessor
+        htmlDataProcessor: typeof htmlDataProcessor;
     }
     /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_htmlDataProcessor.html */
     class htmlDataProcessor implements dataProcessor {
-        dataFilter: htmlParser.filter
-        htmlFilter: htmlParser.filter
-        writer: htmlParser.basicWriter
+        dataFilter: htmlParser.filter;
+        htmlFilter: htmlParser.filter;
+        writer: htmlParser.basicWriter;
 
-        constructor(editor: editor)
+        constructor(editor: editor);
 
         toDataFormat(
             html: string,
             options?:
                 | string
                 | {
-                      context?: string | undefined
-                      filter?: filter | undefined
-                      enterMode?: number | undefined
-                  }
-        ): string
+                      context?: string | undefined;
+                      filter?: filter | undefined;
+                      enterMode?: number | undefined;
+                  },
+        ): string;
 
-        toHtml(
-            data: string,
-            options?: string | htmlDataProcessorOptions
-        ): string
+        toHtml(data: string, options?: string | htmlDataProcessorOptions): string;
     }
 
     /**
@@ -33,13 +30,11 @@ declare namespace CKEDITOR {
      * https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_htmlDataProcessor.html#method-toHtml
      */
     interface htmlDataProcessorOptions {
-        context?: string | undefined
-        fixForBody?: boolean | undefined
-        filter?: filter | undefined
-        dontFilter?: boolean | undefined
-        enterMode?: number | undefined
-        protectedWhitespaces?: boolean | undefined
+        context?: string | undefined;
+        fixForBody?: boolean | undefined;
+        filter?: filter | undefined;
+        dontFilter?: boolean | undefined;
+        enterMode?: number | undefined;
+        protectedWhitespaces?: boolean | undefined;
     }
-
-
 }

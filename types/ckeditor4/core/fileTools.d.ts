@@ -1,104 +1,85 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        fileTools: fileTools
+        fileTools: fileTools;
     }
 
     /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_fileTools.html */
     class fileTools {
-        readonly fileLoader: typeof fileTools.fileLoader
-        readonly uploadRepository: typeof fileTools.uploadRepository
+        readonly fileLoader: typeof fileTools.fileLoader;
+        readonly uploadRepository: typeof fileTools.uploadRepository;
 
-        isFileUploadSupported: boolean
+        isFileUploadSupported: boolean;
 
-        constructor()
+        constructor();
 
-        addUploadWidget(
-            editor: editor,
-            name: string,
-            def: fileTools.uploadWidgetDefinition
-        ): void
+        addUploadWidget(editor: editor, name: string, def: fileTools.uploadWidgetDefinition): void;
 
-        bindNotification(editor: editor, fileLoader: fileTools.fileLoader): void
+        bindNotification(editor: editor, fileLoader: fileTools.fileLoader): void;
 
-        getUploadUrl(config: { [key: string]: unknown }, type?: string): string
+        getUploadUrl(config: { [key: string]: unknown }, type?: string): string;
 
-        isTypeSupported(file: Blob, supportedTypes: RegExp): boolean
+        isTypeSupported(file: Blob, supportedTypes: RegExp): boolean;
 
-        markElement(
-            element: dom.element,
-            widgetName: string,
-            loaderId: number
-        ): void
+        markElement(element: dom.element, widgetName: string, loaderId: number): void;
     }
 
     namespace fileTools {
         class fileLoader extends event {
-            readonly data: string
-            readonly file: Blob
-            readonly fileName: string
-            readonly id: number
-            readonly loaded: number
-            readonly message: string
-            readonly reader: FileReader
-            readonly responseData: unknown
-            status: string
-            readonly total: number
-            readonly uploadTotal: number
-            readonly uploadUrl: string
-            readonly uploaded: string
-            readonly url: string
-            readonly xhr: XMLHttpRequest
+            readonly data: string;
+            readonly file: Blob;
+            readonly fileName: string;
+            readonly id: number;
+            readonly loaded: number;
+            readonly message: string;
+            readonly reader: FileReader;
+            readonly responseData: unknown;
+            status: string;
+            readonly total: number;
+            readonly uploadTotal: number;
+            readonly uploadUrl: string;
+            readonly uploaded: string;
+            readonly url: string;
+            readonly xhr: XMLHttpRequest;
 
-            constructor(
-                editor: editor,
-                fileOrData: Blob | string,
-                fileName?: string
-            )
+            constructor(editor: editor, fileOrData: Blob | string, fileName?: string);
 
-            abort(): void
+            abort(): void;
 
-            isFinished(): boolean
+            isFinished(): boolean;
 
-            load(): void
+            load(): void;
 
-            loadAndUpload(
-                url: string,
-                additionalRequestParameters?: unknown
-            ): void
+            loadAndUpload(url: string, additionalRequestParameters?: unknown): void;
 
-            update(): void
+            update(): void;
 
-            upload(url: string, additionalRequestParameters?: unknown): void
+            upload(url: string, additionalRequestParameters?: unknown): void;
         }
 
         class uploadRepository extends event {
-            readonly loaders: fileLoader[]
+            readonly loaders: fileLoader[];
 
-            constructor(editor: editor)
+            constructor(editor: editor);
 
-            create(
-                fileOrData: Blob | string,
-                fileName: string,
-                loaderType?: unknown
-            ): fileLoader
+            create(fileOrData: Blob | string, fileName: string, loaderType?: unknown): fileLoader;
 
-            isFinished(): boolean
+            isFinished(): boolean;
         }
 
         interface uploadWidgetDefinition extends plugins.widget.definition {
-            additionalRequestParameters?: unknown
-            fileToElement?: ((pastedFile: unknown) => HTMLElement) | undefined
-            loadMethod?: 'load' | 'loadAndUpload' | 'upload' | undefined
-            loaderType?: unknown
-            onAbort?: (() => boolean) | undefined
-            onError?: (() => boolean) | undefined
-            onLoaded?: (() => boolean) | undefined
-            onUploaded?: (() => boolean) | undefined
-            onUploading?: (() => boolean) | undefined
-            replaceWith?: (() => unknown) | undefined
-            skipNotifications?: boolean | undefined
-            supportedTypes?: RegExp | undefined
-            uploadUrl?: string | undefined
+            additionalRequestParameters?: unknown;
+            fileToElement?: ((pastedFile: unknown) => HTMLElement) | undefined;
+            loadMethod?: 'load' | 'loadAndUpload' | 'upload' | undefined;
+            loaderType?: unknown;
+            onAbort?: (() => boolean) | undefined;
+            onError?: (() => boolean) | undefined;
+            onLoaded?: (() => boolean) | undefined;
+            onUploaded?: (() => boolean) | undefined;
+            onUploading?: (() => boolean) | undefined;
+            replaceWith?: (() => unknown) | undefined;
+            skipNotifications?: boolean | undefined;
+            supportedTypes?: RegExp | undefined;
+            uploadUrl?: string | undefined;
         }
     }
 }

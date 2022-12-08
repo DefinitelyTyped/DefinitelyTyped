@@ -2,22 +2,16 @@
 
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly lang: lang
+        readonly lang: lang;
     }
     class lang {
-        languages: { [code: string]: number }
-        rtl: { [code: string]: number }
+        languages: { [code: string]: number };
+        rtl: { [code: string]: number };
 
-        private constructor()
+        private constructor();
 
+        detect(defaultLanguage: string, probeLanguage?: string): string;
 
-
-        detect(defaultLanguage: string, probeLanguage?: string): string
-
-        load(
-            languageCode: string,
-            defaultLanguage: string,
-            callback: (code: string, entries: unknown) => void
-        ): void
+        load(languageCode: string, defaultLanguage: string, callback: (code: string, entries: unknown) => void): void;
     }
 }

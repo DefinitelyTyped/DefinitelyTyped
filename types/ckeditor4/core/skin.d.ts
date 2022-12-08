@@ -1,37 +1,27 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        skin: skin
+        skin: skin;
     }
     class skin {
-        icons: { [name: string]: { path: string } }
+        icons: { [name: string]: { path: string } };
         // tslint:disable-next-line:no-duplicate-variable
-        name: string
-        ua: { [name: string]: unknown }
-        ua_dialog: string
-        ua_editor: string
+        name: string;
+        ua: { [name: string]: unknown };
+        ua_dialog: string;
+        ua_editor: string;
 
-        private constructor()
+        private constructor();
 
-        addIcon(
-            name: string,
-            path: string,
-            offset?: number,
-            bgsize?: string
-        ): void
+        addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
 
-        chameleon(editor: string, part: string): void
+        chameleon(editor: string, part: string): void;
 
-        getIconStyle(
-            name: string,
-            rtl?: boolean,
-            overridePath?: number,
-            overrideBgsize?: string
-        ): unknown
+        getIconStyle(name: string, rtl?: boolean, overridePath?: number, overrideBgsize?: string): unknown;
 
-        getPath(part: string): unknown
+        getPath(part: string): unknown;
 
-        loadPart(part: string, fn: () => void): void
+        loadPart(part: string, fn: () => void): void;
 
-        path(): string
+        path(): string;
     }
 }

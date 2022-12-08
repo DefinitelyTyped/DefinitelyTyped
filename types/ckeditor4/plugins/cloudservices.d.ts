@@ -1,3 +1,1 @@
-declare namespace CKEDITOR {
-
-}
+declare namespace CKEDITOR {}

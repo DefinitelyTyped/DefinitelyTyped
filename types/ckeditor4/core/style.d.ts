@@ -1,89 +1,71 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly style: typeof style
+        readonly style: typeof style;
     }
 
-
     class style {
-        alwaysRemoveElement: boolean
-        includeReadonly: boolean
+        alwaysRemoveElement: boolean;
+        includeReadonly: boolean;
 
-        constructor(
-            styleDefinition: style.definition,
-            variableValues?: Record<string, string>
-        )
+        constructor(styleDefinition: style.definition, variableValues?: Record<string, string>);
 
-        static addCustomHandler(defintion: style.customHandler ): style
+        static addCustomHandler(defintion: style.customHandler): style;
 
-        static getStyleText(style: style.definition): string
+        static getStyleText(style: style.definition): string;
 
-        apply(editor: editor): void
+        apply(editor: editor): void;
 
-        applyToObject(element: dom.element, editor: editor): void
+        applyToObject(element: dom.element, editor: editor): void;
 
-        applyToRange(range: dom.range, editor: editor): void
+        applyToRange(range: dom.range, editor: editor): void;
 
-        buildPreview(label?: string): string
+        buildPreview(label?: string): string;
 
-        checkActive(elementPath: dom.elementPath, editor: editor): boolean
+        checkActive(elementPath: dom.elementPath, editor: editor): boolean;
 
-        checkApplicable(
-            elementPath: dom.elementPath,
-            editor: editor,
-            filter?: filter
-        ): boolean
+        checkApplicable(elementPath: dom.elementPath, editor: editor, filter?: filter): boolean;
 
-        checkElementMatch(
-            element: dom.element,
-            fullMatch: boolean,
-            editor: editor
-        ): boolean
+        checkElementMatch(element: dom.element, fullMatch: boolean, editor: editor): boolean;
 
-        checkElementRemovable(
-            element: dom.element,
-            fullMatch: boolean,
-            editor: editor
-        ): boolean
+        checkElementRemovable(element: dom.element, fullMatch: boolean, editor: editor): boolean;
 
-        getDefinition(): style.definition
+        getDefinition(): style.definition;
 
-        remove(editor: editor): void
+        remove(editor: editor): void;
 
-        removeFromRange(range: dom.range, editor: editor): void
+        removeFromRange(range: dom.range, editor: editor): void;
 
-        toAllowedContentRules(editor?: editor): filter.allowedContentRules
+        toAllowedContentRules(editor?: editor): filter.allowedContentRules;
     }
 
     namespace style {
         namespace customHandlers {
             class widget extends style {
-                group: unknown[]
-                widget: string
+                group: unknown[];
+                widget: string;
 
-                checkElement(element: dom.element): boolean
+                checkElement(element: dom.element): boolean;
 
-                getClassesArray(): string[]
+                getClassesArray(): string[];
 
-                getDefintion(): definition
+                getDefintion(): definition;
 
-                removeStylesFromSameGroup(editor: editor): boolean
+                removeStylesFromSameGroup(editor: editor): boolean;
             }
         }
 
         interface definition {
-            attributes?: { [att: string]: string } | undefined
-            element?: string | undefined
-            name?: string | undefined
-            styles?: { [att: string]: string } | undefined
-            type?: string | number | undefined
+            attributes?: { [att: string]: string } | undefined;
+            element?: string | undefined;
+            name?: string | undefined;
+            styles?: { [att: string]: string } | undefined;
+            type?: string | number | undefined;
         }
 
         interface customHandler {
-            type: string | number
-            setup?: ((style: definition) => void) | undefined
-            assignedTo?: number | undefined
+            type: string | number;
+            setup?: ((style: definition) => void) | undefined;
+            assignedTo?: number | undefined;
         }
     }
-
-
 }

@@ -1,284 +1,230 @@
-
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly tools: tools
+        readonly tools: tools;
     }
     class tools {
-        readonly array: tools.array
-        readonly color: typeof tools.color
-        readonly object: tools.object
-        readonly promise: typeof Promise
-        readonly style: tools.style
+        readonly array: tools.array;
+        readonly color: typeof tools.color;
+        readonly object: tools.object;
+        readonly promise: typeof Promise;
+        readonly style: tools.style;
 
+        addFunction(fn: () => unknown, scope?: unknown): number;
 
-        addFunction(fn: () => unknown, scope?: unknown): number
-
-        arrayCompare(arrayA: unknown[], arrayB: unknown[]): boolean
+        arrayCompare(arrayA: unknown[], arrayB: unknown[]): boolean;
 
         clone(source: { [key: string]: unknown }): {
-            [key: string]: unknown
-        }
+            [key: string]: unknown;
+        };
 
         copy(source: { [key: string]: unknown }): {
-            [key: string]: unknown
-        }
+            [key: string]: unknown;
+        };
 
         createClass(definition: {
-            $?: (...args: any[]) => unknown,
-            base?: abstract new (...args: any[]) => any
-            privates?: { [name: string]: (...args: any[]) => unknown}
-            proto?: { [name: string]: (...args: any[]) => unknown}
-            statics?: { [name: string]: (...args: any[]) => unknown}
-        }): (...args: any[]) => unknown
+            $?: (...args: any[]) => unknown;
+            base?: abstract new (...args: any[]) => any;
+            privates?: { [name: string]: (...args: any[]) => unknown };
+            proto?: { [name: string]: (...args: any[]) => unknown };
+            statics?: { [name: string]: (...args: any[]) => unknown };
+        }): (...args: any[]) => unknown;
 
-        cssStyleToDomStyle(cssName: string): string
+        cssStyleToDomStyle(cssName: string): string;
 
-        cssVendorPrefix(
-            property: string,
-            value: string,
-            asString?: boolean
-        ): { [cssClass: string]: string | number }
+        cssVendorPrefix(property: string, value: string, asString?: boolean): { [cssClass: string]: string | number };
 
-        defer<T extends (...args: unknown[]) => unknown>(
-            fn: T,
-            ...args: Parameters<T>
-        ): T
+        defer<T extends (...args: unknown[]) => unknown>(fn: T, ...args: Parameters<T>): T;
 
-        enableHtml5Elements(
-            doc: Document | DocumentFragment,
-            withAppend?: boolean
-        ): void
+        enableHtml5Elements(doc: Document | DocumentFragment, withAppend?: boolean): void;
 
-        escapeCss(selector: string): string
+        escapeCss(selector: string): string;
 
         eventsBuffer(
             minInterval: number,
             output: () => void,
-            scopeObj: unknown
-        ): { input: () => void; reset: () => void }
+            scopeObj: unknown,
+        ): { input: () => void; reset: () => void };
 
         extend(
             target: { [key: string]: unknown },
             source: { [key: string]: unknown },
             overwrite: boolean,
-            properties: { [key: string]: unknown }
-        ): { [key: string]: unknown }
+            properties: { [key: string]: unknown },
+        ): { [key: string]: unknown };
 
-        fixDomain(): boolean
+        fixDomain(): boolean;
 
-        genKey(subKey: string): string
+        genKey(subKey: string): string;
 
-        getCookie(name: string): string
+        getCookie(name: string): string;
 
-        getCsrfToken(): string
+        getCsrfToken(): string;
 
-        getIndex<T>(
-            array: T[],
-            compareFunction: (element: T) => boolean
-        ): number
+        getIndex<T>(array: T[], compareFunction: (element: T) => boolean): number;
 
-        getMouseButton(evt: dom.event): boolean
+        getMouseButton(evt: dom.event): boolean;
 
-        getNextId(): string
+        getNextId(): string;
 
-        getNextNumber(): number
+        getNextNumber(): number;
 
-        getUniqueId(): string
+        getUniqueId(): string;
 
-        htmlDecode(text: string): string
+        htmlDecode(text: string): string;
 
-        htmlDecodeAttr(text: string): string
+        htmlDecodeAttr(text: string): string;
 
-        htmlEncode(text: string): string
+        htmlEncode(text: string): string;
 
-        htmlEncodeAttr(text: string): string
+        htmlEncodeAttr(text: string): string;
 
-        indexOf<T>(array: T[], value: T | ((el: T) => boolean)): number
+        indexOf<T>(array: T[], value: T | ((el: T) => boolean)): number;
 
-        isArray(object: unknown): object is unknown[]
+        isArray(object: unknown): object is unknown[];
 
-        isEmpty(object: { [key: string]: unknown }): boolean
+        isEmpty(object: { [key: string]: unknown }): boolean;
 
-        keystrokeToArray(
-            lang: { [key: string]: unknown },
-            keystroke: number
-        ): { display: string[]; aria: string[] }
+        keystrokeToArray(lang: { [key: string]: unknown }, keystroke: number): { display: string[]; aria: string[] };
 
-        keystrokeToString(
-            lang: { [key: string]: unknown },
-            keystroke: number
-        ): { display: string; aria: string }
+        keystrokeToString(lang: { [key: string]: unknown }, keystroke: number): { display: string; aria: string };
 
-        ltrim(str: string): string
+        ltrim(str: string): string;
 
-        normalizeCssText(
-            styleText: string,
-            nativeNormalize: boolean
-        ): string
+        normalizeCssText(styleText: string, nativeNormalize: boolean): string;
 
-        normalizeHex(styleText: string): string
+        normalizeHex(styleText: string): string;
 
-        objectCompare(
-            left: { [key: string]: unknown },
-            right: { [key: string]: unknown },
-            onlyLef?: boolean
-        ): boolean
+        objectCompare(left: { [key: string]: unknown }, right: { [key: string]: unknown }, onlyLef?: boolean): boolean;
 
-        objectKeys(obj: { [key: string]: unknown }): string[]
+        objectKeys(obj: { [key: string]: unknown }): string[];
 
         override<T extends (...args: any[]) => any>(
             originalFunction: T,
-            functionBuilder: (originalFunction: T) => T
-        ): T
+            functionBuilder: (originalFunction: T) => T,
+        ): T;
 
-        parseCssText(
-            styleText: string,
-            normalize?: boolean,
-            nativeNormalize?: boolean
-        ): { [key: string]: unknown }
+        parseCssText(styleText: string, normalize?: boolean, nativeNormalize?: boolean): { [key: string]: unknown };
 
         prototypedCopy(source: { [key: string]: unknown }): {
-            [key: string]: unknown
-        }
+            [key: string]: unknown;
+        };
 
-        removeFunction(ref: number): void
+        removeFunction(ref: number): void;
 
-        repeat(str: string, times: number): string
+        repeat(str: string, times: number): string;
 
-        rtrim(str: string): string
+        rtrim(str: string): string;
 
-        search<T>(array: T[], value: T | ((element: T) => boolean)): T
+        search<T>(array: T[], value: T | ((element: T) => boolean)): T;
 
-        setCookie(name: string, value: string): void
+        setCookie(name: string, value: string): void;
 
         setTimeout(
             func: (...args: unknown[]) => void,
             milliseconds?: number,
             scope?: { [key: string]: unknown },
             args?: unknown,
-            ownerWindow?: Window
-        ): number
+            ownerWindow?: Window,
+        ): number;
 
-        transformPlainTextToHtml(
-            text: string,
-            etnerMode: number
-        ): string
+        transformPlainTextToHtml(text: string, etnerMode: number): string;
 
-        trim(str: string): string
+        trim(str: string): string;
 
-        tryThese(
-            ...fn: Array<(...args: unknown[]) => unknown>
-        ): unknown
+        tryThese(...fn: Array<(...args: unknown[]) => unknown>): unknown;
 
-        writeCssText(
-            styles: { [key: string]: unknown },
-            sort?: boolean
-        ): string
-}
+        writeCssText(styles: { [key: string]: unknown }, sort?: boolean): string;
+    }
 
     namespace tools {
         class array {
             every<T>(
                 array: T[],
                 fn: (value: T, index: number, array: T[]) => boolean,
-                thisArg?: { [key: string]: unknown }
-            ): boolean
+                thisArg?: { [key: string]: unknown },
+            ): boolean;
 
             filter<T>(
                 array: T[],
                 fn: (value: T, index: number, array: T[]) => boolean,
-                thisArg?: { [key: string]: unknown }
-            ): T[]
+                thisArg?: { [key: string]: unknown },
+            ): T[];
 
             forEach<T>(
                 array: T[],
                 fn: (value: T, index: number, array: T[]) => void,
-                thisArg?: { [key: string]: unknown }
-            ): void
+                thisArg?: { [key: string]: unknown },
+            ): void;
 
-            isArray(object: unknown): boolean
+            isArray(object: unknown): boolean;
 
-            map<T, K>(
-                array: T[],
-                fn: (value: T) => K,
-                thisArg?: { [key: string]: unknown }
-            ): K[]
+            map<T, K>(array: T[], fn: (value: T) => K, thisArg?: { [key: string]: unknown }): K[];
 
             reduce<T, K>(
                 array: T[],
                 fn: (accumulator: K, a: T, index: number, array: T[]) => K,
                 initial: K,
-                thisArg?: { [key: string]: unknown }
-            ): K
-            }
+                thisArg?: { [key: string]: unknown },
+            ): K;
+        }
 
         class color {
-            namedColors: {[colorName: string]: string}
+            namedColors: { [colorName: string]: string };
 
-            constructor(colorCode: string, defaultValue: string)
+            constructor(colorCode: string, defaultValue: string);
 
-            getHex(): string
+            getHex(): string;
 
-            getHexWithAlpha(): string
+            getHexWithAlpha(): string;
 
-            getHsl(): string
+            getHsl(): string;
 
-            getHsla(): string
+            getHsla(): string;
 
-            getInitialValue(): string
+            getInitialValue(): string;
 
-            getRgb(): string
+            getRgb(): string;
 
-            getRgba(): string
+            getRgba(): string;
         }
 
-            // @ts-ignore
+        // @ts-ignore
         class object {
-            findKey(
-                obj: { [key: string]: unknown },
-            value: unknown
-            ): string
+            findKey(obj: { [key: string]: unknown }, value: unknown): string;
 
-            merge(
-                obj1: { [key: string]: unknown },
-                obj2: { [key: string]: unknown }
-            ): { [key: string]: unknown }
+            merge(obj1: { [key: string]: unknown }, obj2: { [key: string]: unknown }): { [key: string]: unknown };
         }
 
-        type promise<T> = Promise<T>
-
+        type promise<T> = Promise<T>;
 
         class style {
-            parse: style.parse
-            border: style.border
-            private constructor()
+            parse: style.parse;
+            border: style.border;
+            private constructor();
         }
 
         namespace style {
             class parse {
                 background(value: string): {
-                    color: string
-                    unprocessed: string
-                }
+                    color: string;
+                    unprocessed: string;
+                };
 
                 border(value: string): {
-                    width: string
-                    style: string
-                    color: string
-                }
+                    width: string;
+                    style: string;
+                    color: string;
+                };
 
                 margin(value: string): {
-                    top: number
-                    right: number
-                    bottom: number
-                    left: number
-                }
+                    top: number;
+                    right: number;
+                    bottom: number;
+                    left: number;
+                };
             }
 
-            class border {
-
-            }
+            class border {}
         }
-}
-
+    }
 }

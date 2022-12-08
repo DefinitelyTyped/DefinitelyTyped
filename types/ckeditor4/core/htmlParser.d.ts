@@ -1,285 +1,240 @@
 declare namespace CKEDITOR {
-
     interface CKEditorStatic {
-        readonly htmlParser: typeof htmlParser
+        readonly htmlParser: typeof htmlParser;
     }
     /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_htmlParser.html */
     class htmlParser {
+        basicWriter: typeof htmlParser.basicWriter;
+        cdata: typeof htmlParser.cdata;
+        comment: typeof htmlParser.comment;
+        cssStyle: typeof htmlParser.cssStyle;
+        element: typeof htmlParser.element;
+        filter: typeof htmlParser.filter;
+        filterRulesGroup: typeof htmlParser.filterRulesGroup;
+        fragment: typeof htmlParser.fragment;
+        node: typeof htmlParser.node;
+        text: typeof htmlParser.text;
 
-        basicWriter: typeof htmlParser.basicWriter
-        cdata: typeof htmlParser.cdata
-        comment: typeof htmlParser.comment
-        cssStyle: typeof htmlParser.cssStyle
-        element: typeof htmlParser.element
-        filter: typeof htmlParser.filter
-        filterRulesGroup: typeof htmlParser.filterRulesGroup
-        fragment: typeof htmlParser.fragment
-        node: typeof htmlParser.node
-        text: typeof htmlParser.text
+        constructor();
 
+        onCDATA?(cdata?: string): void;
 
-        constructor()
+        onComment?(comment?: string): void;
 
-        onCDATA?(cdata?: string): void
+        onTagOpen?(tagName?: string, attributes?: { [attr: string]: string }, selfClosing?: boolean): void;
 
-        onComment?(comment?: string): void
+        onTagClose?(tagName?: string): void;
 
-        onTagOpen?(tagName?: string, attributes?: { [attr: string]: string }, selfClosing?: boolean): void
+        onText?(text?: string): void;
 
-        onTagClose?(tagName?: string): void
-
-        onText?(text?: string): void
-
-        parse(html: string): void
-
+        parse(html: string): void;
     }
 
     namespace htmlParser {
         class basicWriter {
-            constructor()
+            constructor();
 
-            attribute(attName: string, attValue: string): void
+            attribute(attName: string, attValue: string): void;
 
-            closeTag(tagName: string): void
+            closeTag(tagName: string): void;
 
-            comment(comment: string): void
+            comment(comment: string): void;
 
-            getHtml(reset: boolean): string
+            getHtml(reset: boolean): string;
 
-            openTag(
-                tagName: string,
-                attributes: { [key: string]: string }
-            ): void
+            openTag(tagName: string, attributes: { [key: string]: string }): void;
 
-            openTagClose(tagName: string, isSelfClose: boolean): void
+            openTagClose(tagName: string, isSelfClose: boolean): void;
 
-            reset(): void
+            reset(): void;
 
-            text(text: string): void
+            text(text: string): void;
 
-            write(data: string): void
+            write(data: string): void;
         }
 
         class cdata extends node {
-            constructor(value: string)
+            constructor(value: string);
 
-            type: number
+            type: number;
 
-            writeHtml(writer: basicWriter): void
+            writeHtml(writer: basicWriter): void;
         }
 
         class comment extends node {
-            type: number
-            value: string
+            type: number;
+            value: string;
 
-            constructor(value: string)
+            constructor(value: string);
 
-            filter(filter: filter): boolean
+            filter(filter: filter): boolean;
 
-            writeHtml(writer: basicWriter, filter?: filter): void
+            writeHtml(writer: basicWriter, filter?: filter): void;
         }
 
         class cssStyle {
-            constructor(elementOrStyleText: element | string)
+            constructor(elementOrStyleText: element | string);
 
-            populate(
-                obj: element | dom.element | { [key: string]: unknown }
-            ): void
+            populate(obj: element | dom.element | { [key: string]: unknown }): void;
         }
 
         class element extends node {
-            attributes: { [name: string]: string }
-            children: node[]
-            name: string
-            type: number
+            attributes: { [name: string]: string };
+            children: node[];
+            name: string;
+            type: number;
 
-            constructor(
-                name: string,
-                attributes?: { [name: string]: string } | null
-            )
+            constructor(name: string, attributes?: { [name: string]: string } | null);
 
-            add(node: node, index?: number): void
+            add(node: node, index?: number): void;
 
-            addClass(className: string): void
+            addClass(className: string): void;
 
-            clone(): element
+            clone(): element;
 
-            filter(filter: filter): boolean
+            filter(filter: filter): boolean;
 
-            filterChildren(filter: filter): void
+            filterChildren(filter: filter): void;
 
-            find(
-                criteria: string | ((el: node) => boolean),
-                recursive?: boolean
-            ): node[]
+            find(criteria: string | ((el: node) => boolean), recursive?: boolean): node[];
 
-            forEach(
-                callback: (node: node) => void | false,
-                type?: number,
-                skipRoot?: boolean
-            ): void
+            forEach(callback: (node: node) => void | false, type?: number, skipRoot?: boolean): void;
 
-            getFirst(
-                condition:
-                    | string
-                    | { [key: string]: string }
-                    | ((node: node) => boolean)
-            ): node
+            getFirst(condition: string | { [key: string]: string } | ((node: node) => boolean)): node;
 
-            getHtml(): string
+            getHtml(): string;
 
-            getOuterHtml(): string
+            getOuterHtml(): string;
 
-            hasClass(className: string): boolean
+            hasClass(className: string): boolean;
 
-            removeClass(className: string): void
+            removeClass(className: string): void;
 
-            replaceWithChildren(): void
+            replaceWithChildren(): void;
 
-            setHtml(html: string): void
+            setHtml(html: string): void;
 
-            split(index: number): element
+            split(index: number): element;
 
-            writeChildrenHtml(writer: basicWriter, filter?: filter): void
+            writeChildrenHtml(writer: basicWriter, filter?: filter): void;
 
-            writeHtml(writer: basicWriter, filter?: filter): void
+            writeHtml(writer: basicWriter, filter?: filter): void;
         }
 
         class filter {
-            attributeNameRules: filterRulesGroup
-            attributesRules: { [name: string]: filterRulesGroup }
-            commentRules: filterRulesGroup
-            elementNameRules: filterRulesGroup
-            elementsRules: { [name: string]: filterRulesGroup }
-            id: number
-            rootRules: filterRulesGroup
-            textRules: filterRulesGroup
+            attributeNameRules: filterRulesGroup;
+            attributesRules: { [name: string]: filterRulesGroup };
+            commentRules: filterRulesGroup;
+            elementNameRules: filterRulesGroup;
+            elementsRules: { [name: string]: filterRulesGroup };
+            id: number;
+            rootRules: filterRulesGroup;
+            textRules: filterRulesGroup;
 
-            constructor(rules?: filterRulesDefinition)
+            constructor(rules?: filterRulesDefinition);
 
             addRules(
                 rules: filterRulesDefinition,
                 options?:
                     | number
                     | {
-                    priority?: number | undefined
-                    applyToAll?: boolean | undefined
-                }
-            ): void
+                          priority?: number | undefined;
+                          applyToAll?: boolean | undefined;
+                      },
+            ): void;
 
-            applyTo(node: node): void
+            applyTo(node: node): void;
         }
 
         interface filterRulesDefinition {
-            elementNames?: unknown
-            attributeNames?: unknown
-            elements?: unknown
-            attributes?: unknown
-            text?: unknown
-            comment?: unknown
-            root?: unknown
+            elementNames?: unknown;
+            attributeNames?: unknown;
+            elements?: unknown;
+            attributes?: unknown;
+            text?: unknown;
+            comment?: unknown;
+            root?: unknown;
         }
 
         class filterRulesGroup {
             rules: Array<{
-                value: rule
-                priority: number
-                option: ruleOptions
-            }>
+                value: rule;
+                priority: number;
+                option: ruleOptions;
+            }>;
 
-            add(rule: rule, priority: number, options: ruleOptions): void
+            add(rule: rule, priority: number, options: ruleOptions): void;
 
-            addMany(
-                rules: rule[],
-                priority: number,
-                options: ruleOptions
-            ): void
+            addMany(rules: rule[], priority: number, options: ruleOptions): void;
 
-            exec(
-                currentValue: node | fragment | string
-            ): node | fragment | string
+            exec(currentValue: node | fragment | string): node | fragment | string;
 
-            execOnName(currentName: string): string
+            execOnName(currentName: string): string;
 
-            findIndex(priority: number): number
+            findIndex(priority: number): number;
         }
 
         class fragment {
-            children: node[]
-            parent: fragment
-            readonly type: number
+            children: node[];
+            parent: fragment;
+            readonly type: number;
 
-            constructor()
+            constructor();
 
-            add(node: node, index?: number): void
+            add(node: node, index?: number): void;
 
-            filter(filter: filter): void
+            filter(filter: filter): void;
 
-            filterChildren(filter: filter, filterRoot?: boolean): void
+            filterChildren(filter: filter, filterRoot?: boolean): void;
 
-            forEach(
-                callback: (node: node) => void | false,
-                type?: number,
-                skipRoot?: boolean
-            ): void
+            forEach(callback: (node: node) => void | false, type?: number, skipRoot?: boolean): void;
 
-            writeChildrenHtml(
-                writer: basicWriter,
-                filter?: filter,
-                filterRoot?: boolean
-            ): void
+            writeChildrenHtml(writer: basicWriter, filter?: filter, filterRoot?: boolean): void;
 
-            writeHtml(writer: basicWriter, filter?: filter): void
+            writeHtml(writer: basicWriter, filter?: filter): void;
 
-            static fromBBCode(source: string): fragment
+            static fromBBCode(source: string): fragment;
 
             static fromHtml(
                 fragmentHtml: string,
                 parent?: element | string,
-                fixingBlock?: string | boolean
-            ): fragment | element
+                fixingBlock?: string | boolean,
+            ): fragment | element;
         }
 
         class node {
-            constructor()
+            constructor();
 
-            getAscendant(
-                condition:
-                    | string
-                    | { [name: string]: string }
-                    | ((node: element) => boolean)
-            ): element
+            getAscendant(condition: string | { [name: string]: string } | ((node: element) => boolean)): element;
 
-            getIndex(): number
+            getIndex(): number;
 
-            insertAfter(node: node): void
+            insertAfter(node: node): void;
 
-            insertBefore(node: node): void
+            insertBefore(node: node): void;
 
-            remove(): node
+            remove(): node;
 
-            replaceWith(node: node): void
+            replaceWith(node: node): void;
 
-            wrapWith(wrapper: element): element
+            wrapWith(wrapper: element): element;
         }
 
-        type rule =
-            | ((value: node | fragment | string) => boolean)
-            | [string, string]
+        type rule = ((value: node | fragment | string) => boolean) | [string, string];
 
         interface ruleOptions {
-            applyToAll?: boolean | undefined
-            excludeNestedEditable?: boolean | undefined
+            applyToAll?: boolean | undefined;
+            excludeNestedEditable?: boolean | undefined;
         }
 
         class text extends node {
-            constructor(value: string)
+            constructor(value: string);
 
-            type: number
+            type: number;
 
-            filter(filter: filter): boolean
+            filter(filter: filter): boolean;
 
-            writeHtml(writer: basicWriter, filter?: filter): void
+            writeHtml(writer: basicWriter, filter?: filter): void;
         }
     }
 }

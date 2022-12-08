@@ -2,14 +2,14 @@
 
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly keystrokeHandler: typeof keystrokeHandler
+        readonly keystrokeHandler: typeof keystrokeHandler;
     }
     class keystrokeHandler {
-        blockedKeystrokes: { [key: number]: string | boolean }
-        keystrokes: { [key: number]: string | boolean }
+        blockedKeystrokes: { [key: number]: string | boolean };
+        keystrokes: { [key: number]: string | boolean };
 
-        constructor(editor: editor)
+        constructor(editor: editor);
 
-        attach(domObject: dom.domObject): void
+        attach(domObject: dom.domObject): void;
     }
 }

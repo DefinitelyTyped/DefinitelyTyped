@@ -2,28 +2,24 @@
 
 declare namespace CKEDITOR {
     class resourceManager {
-        basePath: string
-        externals: { [key: string]: unknown }
-        fileName: string
-        loaded: { [key: string]: unknown }
-        registered: { [key: string]: unknown }
+        basePath: string;
+        externals: { [key: string]: unknown };
+        fileName: string;
+        loaded: { [key: string]: unknown };
+        registered: { [key: string]: unknown };
 
-        constructor(basePath: string, fileName: string)
+        constructor(basePath: string, fileName: string);
 
-        add(name: string, definition?: pluginDefinition): void
+        add(name: string, definition?: pluginDefinition): void;
 
-        addExternal(names: string, path: string, fileName?: string): void
+        addExternal(names: string, path: string, fileName?: string): void;
 
-        get(name: string): pluginDefinition
+        get(name: string): pluginDefinition;
 
-        getFilePath(name: string): string
+        getFilePath(name: string): string;
 
-        getPath(name: string): string
+        getPath(name: string): string;
 
-        load(
-            name: string | string[],
-            callback: (loaded: string[]) => void,
-            scope?: { [key: string]: unknown }
-        ): void
+        load(name: string | string[], callback: (loaded: string[]) => void, scope?: { [key: string]: unknown }): void;
     }
 }
