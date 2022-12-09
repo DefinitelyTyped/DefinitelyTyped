@@ -84,6 +84,7 @@ interface ExpectPuppeteer {
     toClick(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
     toDisplayDialog(block: () => Promise<void>): Promise<Dialog>;
     toFill(selector: string | MatchSelector, value: string, options?: ExpectTimingActions): Promise<void>;
+    toFillForm(selector: string | MatchSelector, value: { [key: string]: any}, options?: ExpectTimingActions): Promise<void>;
     toMatch(selector: string | MatchSelector, options?: ExpectTimingActions): Promise<void>;
     toMatchElement(selector: string | MatchSelector, options?: ExpectToClickOptions): Promise<void>;
     toSelect(selector: string | MatchSelector, valueOrText: string, options?: ExpectTimingActions): Promise<void>;
