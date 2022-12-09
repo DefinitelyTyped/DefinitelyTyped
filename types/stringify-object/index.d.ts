@@ -2,7 +2,6 @@
 // Project: https://github.com/yeoman/stringify-object
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
 
 /**
  * Stringify an object/array like JSON.stringify just without all the double-quotes
