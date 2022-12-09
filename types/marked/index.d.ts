@@ -527,7 +527,7 @@ export namespace marked {
          * Add tokenizers and renderers to marked
          */
         extensions?:
-            | Array<TokenizerAndRendererExtension>
+            | TokenizerAndRendererExtension[]
             | undefined;
 
         /**
