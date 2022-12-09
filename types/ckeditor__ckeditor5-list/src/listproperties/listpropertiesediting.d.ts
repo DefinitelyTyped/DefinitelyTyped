@@ -1,5 +1,5 @@
 import { Plugin, Editor } from '@ckeditor/ckeditor5-core';
-import ListEditing from './listediting';
+import ListEditing from '../list/listediting';
 
 /**
  * The engine of the list properties feature.
