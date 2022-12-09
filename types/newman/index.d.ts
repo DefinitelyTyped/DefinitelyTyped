@@ -9,6 +9,9 @@ import { EventEmitter } from "events";
 import {
     Collection,
     CollectionDefinition,
+    Item,
+    Request,
+    Response,
     VariableScope,
     VariableScopeDefinition
 } from "postman-collection";
@@ -168,9 +171,9 @@ export interface NewmanRunOptions {
 
 export interface NewmanRunSummary {
     error?: any;
-    collection: any;
-    environment: any;
-    globals: any;
+    collection: Collection;
+    environment: VariableScope;
+    globals: VariableScope;
     run: NewmanRun;
 }
 export interface NewmanRun {
@@ -196,13 +199,18 @@ export interface NewmanRunStat {
 export interface NewmanRunExecution {
     item: NewmanRunExecutionItem;
     assertions: NewmanRunExecutionAssertion[];
+    response: Response;
+    request: Request;
+    cursor: Cursor;
 }
-export interface NewmanRunExecutionItem {
+
+export interface NewmanRunExecutionItem extends Item {
     name: string;
 }
 export interface NewmanRunExecutionAssertion {
     assertion: string;
     error: NewmanRunExecutionAssertionError;
+    skipped: boolean;
 }
 export interface NewmanRunExecutionAssertionError {
     name: string;
