@@ -2,7 +2,6 @@
 // Project: https://github.com/npm/promise-spawn#readme
 // Definitions by: Anton Golub <https://github.com/antongolub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
 /// <reference types="node" />
 
 import { SpawnOptions, spawn } from 'child_process';
