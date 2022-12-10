@@ -8,7 +8,7 @@ import { SpawnOptions, spawn } from 'child_process';
 
 type NativeSpawnResult = ReturnType<typeof spawn>;
 
-type SpawnResult<Extra, Output> = Promise<{
+type SpawnResult<Output, Extra> = Promise<{
     cmd: string;
     args: string[];
     code: number;
@@ -28,12 +28,12 @@ declare const promiseSpawn: {
         args: string[],
         opts?: O,
         extra?: Record<any, any>,
-    ): SpawnResult<typeof extra, O extends { stdioString: true } ? string : Buffer>;
+    ): SpawnResult<O extends { stdioString: true } ? string : Buffer, typeof extra>;
     open<O extends PromiseSpawnOptions & { command?: string } = PromiseSpawnOptions & { command?: string }>(
         args: string | string[],
         opts?: O,
         extra?: Record<any, any>,
-    ): SpawnResult<typeof extra, O extends { stdioString: true } ? string : Buffer>;
+    ): SpawnResult<O extends { stdioString: true } ? string : Buffer, typeof extra>;
 };
 
 export = promiseSpawn;
