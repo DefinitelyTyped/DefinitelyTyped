@@ -3,6 +3,9 @@
 // Definitions by: Gus Fune <https://github.com/gusfune>
 //                 Markus <https://github.com/markus-gx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference path="settings.d.ts" />
+
+import type { Settings } from './settings';
 
 export as namespace Swell;
 
@@ -866,7 +869,7 @@ export namespace products {
 }
 
 export namespace settings {
-    function get(): Promise<unknown>;
+    function get(): Promise<Settings>;
     function load(): Promise<unknown>;
     function menus(input?: string): Promise<unknown>;
     function payments(): Promise<unknown>;
