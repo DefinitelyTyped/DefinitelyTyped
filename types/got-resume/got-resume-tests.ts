@@ -54,7 +54,6 @@ gotResume({
 });
 gotResume({ url: "http://test.com", transform: zlib.createGzip() }); // $ExpectType TransferStream
 gotResume({ url: "http://test.com", log: console.log }); // $ExpectType TransferStream
-gotResume({ url: "http://test.com", got: { baseUrl: "foo" } }); // $ExpectType TransferStream
 // @ts-expect-error
 gotResume({});
 
@@ -91,7 +90,6 @@ gotResume("http://test.com", {
 });
 gotResume("http://test.com", { transform: zlib.createGzip() }); // $ExpectType TransferStream
 gotResume("http://test.com", { log: console.log }); // $ExpectType TransferStream
-gotResume("http://test.com", { got: { baseUrl: "foo" } }); // $ExpectType TransferStream
 gotResume("http://test.com", {}); // $ExpectType TransferStream
 // @ts-expect-error
 gotResume("http://test.com", { url: "foo" });
@@ -168,7 +166,7 @@ transfer.options; // $ExpectType ToFileOptions & Partial<WithUrl>
 transfer.url; // $ExpectType string | undefined
 transfer.length; // $ExpectType number | undefined
 transfer.log; // $ExpectType (...args: unknown[]) => void
-transfer.gotOptions; // $ExpectType GotOptions<string | null>
+transfer.gotOptions; // $ExpectType Options
 transfer.idleTimeout; // $ExpectType number | undefined
 
 transfer.attempt; // $ExpectType number
