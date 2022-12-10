@@ -8,13 +8,13 @@ import { SpawnOptions, spawn } from 'child_process';
 
 type NativeSpawnResult = ReturnType<typeof spawn>;
 
-type SpawnResult<Extra> = Promise<{
+type SpawnResult<Extra, Output> = Promise<{
     cmd: string;
     args: string[];
     code: number;
     signal: NodeJS.Signals | null;
-    stdout: string | Buffer;
-    stderr: string | Buffer;
+    stdout: Output;
+    stderr: Output;
 } & Extra> & { process: NativeSpawnResult, stdio: NativeSpawnResult['stdio'] };
 
 type PromiseSpawnOptions = {
@@ -23,17 +23,17 @@ type PromiseSpawnOptions = {
 } & SpawnOptions;
 
 declare const promiseSpawn: {
-    (
+    <O extends PromiseSpawnOptions = PromiseSpawnOptions>(
         cmd: string,
         args: string[],
-        opts?: PromiseSpawnOptions,
+        opts?: O,
         extra?: Record<any, any>,
-    ): SpawnResult<typeof extra>;
-    open(
+    ): SpawnResult<typeof extra, O extends { stdioString: true } ? string : Buffer>;
+    open<O extends PromiseSpawnOptions & { command?: string } = PromiseSpawnOptions & { command?: string }>(
         args: string | string[],
-        opts?: PromiseSpawnOptions & { command?: string },
+        opts?: O,
         extra?: Record<any, any>,
-    ): SpawnResult<typeof extra>;
+    ): SpawnResult<typeof extra, O extends { stdioString: true } ? string : Buffer>;
 };
 
 export = promiseSpawn;
