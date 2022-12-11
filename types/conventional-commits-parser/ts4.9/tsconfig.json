@@ -8,9 +8,9 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
         "noEmit": true,
@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "conventional-changelog-preset-loader-tests.ts"
+        "conventional-commits-parser-tests.ts"
     ]
 }
