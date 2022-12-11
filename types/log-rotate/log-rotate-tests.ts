@@ -1,7 +1,7 @@
-import LogRotate = require('log-rotate');
+import logRotate = require('log-rotate');
 
 // $ExpectType void
-LogRotate('file', (err, rotate) => {});
+logRotate('file', (err, rotate) => {});
 
 // $ExpectType void
-LogRotate('file', {}, (err, rotate) => {});
+logRotate('file', {}, (err, rotate) => {});

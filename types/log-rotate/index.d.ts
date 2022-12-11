@@ -3,9 +3,9 @@
 // Definitions by: sandrewtx08 <https://github.com/sandrewTx08>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function LogRotate(file: string, options: LogRotate.Options, cb: LogRotate.Callback): void;
-declare function LogRotate(file: string, cb: LogRotate.Callback): void;
-declare namespace LogRotate {
+declare function logRotate(file: string, options: logRotate.Options, cb: logRotate.Callback): void;
+declare function logRotate(file: string, cb: logRotate.Callback): void;
+declare namespace logRotate {
     type Callback = (err: Error | null, rotated?: string) => void;
     interface Options {
         /**
@@ -20,4 +20,4 @@ declare namespace LogRotate {
     }
 }
 
-export = LogRotate;
+export = logRotate;
