@@ -159,10 +159,8 @@ declare namespace CDP {
         `${D}.${E}` extends keyof ProtocolMappingApi.Events ?
             ProtocolMappingApi.Events[`${D}.${E}`][0] : never;
     type DoEventProps<D extends string> = {
-        [event in GetEvent<D>]: (listener: GetReturnType<D, event> extends undefined ?
-                (sessionId?: string) => void :
-                (params: GetReturnType<D, event>, sessionId?: string) => void)
-            => () => Client};
+        [event in GetEvent<D>]:
+            (listener: (params: GetReturnType<D, event>, sessionId?: string) => void) => () => Client};
     type DoEventObj<D> = D extends string ? DoEventProps<D> : Record<keyof any, never>;
 
     type IsNullableObj<T> = Record<keyof T, undefined> extends T ? true : false;
