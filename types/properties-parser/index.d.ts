@@ -38,4 +38,5 @@ export interface Editor {
     addHeadComment(comment: string): void;
 
     toString(): string;
+    valueOf(): string;
 }
