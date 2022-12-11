@@ -1870,6 +1870,7 @@ declare namespace React {
         tabIndex?: number | undefined;
         title?: string | undefined;
         translate?: 'yes' | 'no' | undefined;
+        inert?: boolean;
 
         // Unknown
         radioGroup?: string | undefined; // <command>, <menuitem>
