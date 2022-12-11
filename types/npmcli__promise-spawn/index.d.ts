@@ -28,12 +28,12 @@ declare const promiseSpawn: {
         args: string[],
         opts?: O,
         extra?: Record<any, any>,
-    ): SpawnResult<O extends { stdioString: true } ? string : Buffer, typeof extra>;
+    ): SpawnResult<O extends { stdioString: false } ? Buffer : string, typeof extra>;
     open<O extends PromiseSpawnOptions & { command?: string } = PromiseSpawnOptions & { command?: string }>(
         args: string | string[],
         opts?: O,
         extra?: Record<any, any>,
-    ): SpawnResult<O extends { stdioString: true } ? string : Buffer, typeof extra>;
+    ): SpawnResult<O extends { stdioString: false } ? Buffer : string, typeof extra>;
 };
 
 export = promiseSpawn;

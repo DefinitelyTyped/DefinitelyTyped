@@ -20,9 +20,9 @@ import promiseSpawn = require('@npmcli/promise-spawn');
     const {
         stdout: o1,
         stderr: e1,
-    }: { stdout: string, stderr: string } = (await promiseSpawn('node', ['index.js'], { stdioString: true }));
+    }: { stdout: string, stderr: string } = (await promiseSpawn('node', ['index.js']));
     const {
         stdout: o2,
         stderr: e2,
-    }: { stdout: Buffer, stderr: Buffer } = (await promiseSpawn('node', ['index.js']));
+    }: { stdout: Buffer, stderr: Buffer } = (await promiseSpawn('node', ['index.js'], { stdioString: false }));
 })();
