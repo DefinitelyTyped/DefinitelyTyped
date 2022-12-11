@@ -26,9 +26,9 @@ convert.fromMapFileComment(comment, filename => filename + 'dummy').toJSON();
     (await convert.fromMapFileComment(comment, async filename => filename + 'dummy')).toJSON();
 })();
 
-// $ExpectType string
+// $ExpectType string | undefined
 convert.fromMapFileSource(comment, filename => filename + 'dummy')?.toJSON();
 (async () => {
-    // $ExpectType string
+    // $ExpectType string | undefined
     (await convert.fromMapFileSource(comment, async filename => filename + 'dummy'))?.toJSON();
 })();
