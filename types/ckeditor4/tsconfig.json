@@ -19,7 +19,7 @@
   },
   "files": [
     "index.d.ts",
-    "ckeditor4-tests.ts",
-    "ckeditor4-plugin-tests.ts"
+    "test/ckeditor4-tests.ts",
+    "test/ckeditor4-plugin-tests.ts"
   ]
 }
