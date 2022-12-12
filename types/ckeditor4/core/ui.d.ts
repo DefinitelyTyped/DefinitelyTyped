@@ -50,6 +50,7 @@ declare namespace CKEDITOR {
             [key: string]: unknown;
         }
 
+        // tslint:disable-next-line:no-empty-interface
         interface _uiElement {}
 
         interface balloonPanel extends _uiElement {
@@ -232,6 +233,7 @@ declare namespace CKEDITOR {
             create(definition: U): T;
         }
 
+        // tslint:disable-next-line:no-empty-interface
         interface menuButton extends button {}
 
         namespace menuButton {
@@ -258,6 +260,7 @@ declare namespace CKEDITOR {
             const handler: handlerDefinition<panel>;
         }
 
+        // tslint:disable-next-line:no-empty-interface
         interface panelButton extends button {}
 
         namespace panelButton {

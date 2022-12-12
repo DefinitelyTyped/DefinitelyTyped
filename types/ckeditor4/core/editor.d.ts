@@ -186,6 +186,7 @@ declare namespace CKEDITOR {
         updateElement(): void;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface CKEditorPluginsEditorInstance {}
 
     interface eventObject {
