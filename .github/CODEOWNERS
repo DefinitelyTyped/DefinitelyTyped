@@ -6294,6 +6294,7 @@
 /types/prop-types/                                       @DovydasNavickas @ferdaber @eps1lon
 /types/proper-lockfile/                                  @qlonik @LinusU @ulrichb
 /types/proper-url-join/                                  @jsamr
+/types/properties-parser/                                @DefinitelyTyped
 /types/properties-reader/                                @Goldsmith42
 /types/proposal-relative-indexing-method/                @Semigradsky
 /types/prosemirror-dev-tools/                            @ifiokjr
