@@ -9,7 +9,8 @@ export = status;
 declare const status: Status;
 
 interface Status {
-    (code_msg: number | string): number | string;
+    (code: number): string;
+    (msg: string): number;
 
     codes: number[];
     code: { [msg: string]: number | undefined };
