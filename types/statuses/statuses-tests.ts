@@ -1,12 +1,14 @@
 import status = require('statuses');
 
-let code_msg: number | string;
+let s: string = status(403); // => 'Forbidden'
+s = status('403'); // => 'Forbidden'
+s = status(306); // throws
 
-code_msg = status(403); // => 'Forbidden'
-code_msg = status('403'); // => 'Forbidden'
-code_msg = status('forbidden'); // => 403
-code_msg = status('Forbidden'); // => 403
-code_msg = status(306); // throws
+let n: number = status('forbidden'); // => 403
+n = status('Forbidden'); // => 403
+
+declare let input: "418" | string;
+status(input); // $ExpectType string | number
 
 let codes: number[];
 codes = status.codes;
