@@ -1,5 +1,5 @@
-// Type definitions for CKEDITOR 4.16+
-// Project: https://CKEDITOR.com/CKEDITOR-4/, http://CKEDITOR.com
+// Type definitions for CKEDITOR 4.20
+// Project: https://ckeditor.com/ckeditor-4/, http://ckeditor.com
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 //                 Stuart Long <https://github.com/stuartlong>
 //                 Viktor Pegy <https://github.com/viktorpegy>
@@ -14,7 +14,7 @@
 /// <reference path="./core/command.d.ts" />
 /// <reference path="./core/config.d.ts" />
 /// <reference path="./core/dataProcessor.d.ts" />
-/// <reference path="./core/dialog.d.ts" />
+
 /// <reference path="./core/dtd.d.ts" />
 /// <reference path="./core/editable.d.ts" />
 /// <reference path="./core/editor.d.ts" />
@@ -40,19 +40,19 @@
 /// <reference path="./core/tools.d.ts" />
 /// <reference path="./core/ui.d.ts" />
 /// <reference path="./core/xml.d.ts" />
-
 /// <reference path="./plugins/plugins.d.ts" />
 /// <reference path="./plugins/ajax.d.ts" />
+/// <reference path="./plugins/balloontoolbar.d.ts" />
 /// <reference path="./plugins/codesnippet.d.ts" />
 /// <reference path="./plugins/cloudservices.d.ts" />
+/// <reference path="./plugins/dialog.d.ts" />
 /// <reference path="./plugins/elementsPath.d.ts" />
 
-declare const ckEditor: CKEDITOR.CKEditorStatic
-export = ckEditor;
+export default CKEDITOR;
 
 declare global {
     interface Window {
-        CKEDITOR: CKEDITOR.CKEditorStatic
-        CKEDITOR_BASEPATH: string
+        CKEDITOR: CKEDITOR.CKEditorStatic;
+        CKEDITOR_BASEPATH: string;
     }
 }

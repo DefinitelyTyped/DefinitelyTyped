@@ -1,14 +1,15 @@
-// https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_resourceManager
+// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_resourceManager
 
 declare namespace CKEDITOR {
-    class resourceManager {
+    interface resourceManagerStatic {
+        new (basePath: string, fileName: string): resourceManager;
+    }
+    interface resourceManager {
         basePath: string;
         externals: { [key: string]: unknown };
         fileName: string;
         loaded: { [key: string]: unknown };
         registered: { [key: string]: unknown };
-
-        constructor(basePath: string, fileName: string);
 
         add(name: string, definition?: pluginDefinition): void;
 

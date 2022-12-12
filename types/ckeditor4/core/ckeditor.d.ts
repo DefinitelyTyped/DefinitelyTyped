@@ -1,5 +1,15 @@
 declare namespace CKEDITOR {
-    /** https://ckeditor.com/docs/CKEDITOR4/latest/api/CKEDITOR.html */
+    /**
+     * https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR.html
+     * This is the interface which describes the global window.CKEDITOR variable, from this interface you should be able
+     * to document any usages of CKEditor4 in your code.
+     * Generally you shouldn't extend interface to add or remove any properties unless
+     * heavy modification of CKEditor has occurred. Rather use the official extensible interfaces such as:
+     * @link CKEDITOR.CKEditorStyleHandlersStatic
+     * @link CKEDITOR.CKEditorPluginsCore
+     * @link CKEDITOR.CKEditorPluginsEditor
+     * @link CKEDITOR.CKEditorPluginsEditorInternal
+     */
     interface CKEditorStatic {
         // Config options
         disableAutoInline: boolean;
@@ -140,7 +150,9 @@ declare namespace CKEDITOR {
 
         on(
             eventName: string,
-            listenerFunction: (eventInfo: eventInfo) => void,
+            listenerFunction: (eventInfo: eventInfo<dom.domObject<Event | EventTarget>
+                | dom.event<Event | EventTarget>
+                | eventData>) => void,
             scopeObj?: { [key: string]: any },
             listenerData?: { [key: string]: any },
             priority?: number,
@@ -148,7 +160,9 @@ declare namespace CKEDITOR {
 
         once(
             eventName: string,
-            listenerFunction: (eventInfo: eventInfo) => void,
+            listenerFunction: (eventInfo: eventInfo<dom.domObject<Event | EventTarget>
+                | dom.event<Event | EventTarget>
+                | eventData>) => void,
             scopeObj?: { [key: string]: any },
             listenerData?: { [key: string]: any },
             priority?: number,
@@ -156,7 +170,9 @@ declare namespace CKEDITOR {
 
         removeAllListeners(): void;
 
-        removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo) => void): void;
+        removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo<dom.domObject<Event | EventTarget>
+            | dom.event<Event | EventTarget>
+            | eventData>) => void): void;
     }
 
     interface listenerRegistration {

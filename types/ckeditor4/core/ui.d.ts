@@ -1,18 +1,34 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        ui: typeof ui;
+        ui: uiConstructor & CKEditorUIStatic;
     }
 
-    class ui extends event {
-        readonly dialog: {
-            textInput: typeof ui.dialog.textInput;
+    interface CKEditorUIStatic {
+        balloonPanel: { new (editor: editor, definition: ui.balloonPanel.definition): ui.balloonPanel };
+        button: ui.buttonConstructor<ui.button>;
+        floatPanel: {
+            new (
+                editor: editor,
+                parentElement: dom.element,
+                definition: { [key: string]: unknown },
+                level: number,
+            ): ui.floatPanel;
         };
+        handlerDefinition: ui.handlerDefinition;
+        menuButton: ui.buttonConstructor<ui.menuButton>;
+        panel: { new (document: dom.document, definition: ui.uiDefinition): ui.panel };
+        panelButton: ui.buttonConstructor<ui.panelButton>;
+        richCombo: { new (): ui.richCombo };
+    }
 
-        constructor(editor: editor);
+    interface uiConstructor extends eventConstructor<ui> {
+        new (editor: editor): ui;
+    }
 
+    interface ui extends event {
         add(name: string, type: { [key: string]: unknown }, definition: { [key: string]: unknown }): void;
 
-        addButton(name: string, definition: ui.buttonDefinition): void;
+        addButton(name: string, definition: ui.button.definition): void;
 
         addHandler(type: { [key: string]: unknown }, handler: { [key: string]: unknown }): void;
 
@@ -30,288 +46,13 @@ declare namespace CKEDITOR {
     }
 
     namespace ui {
-        namespace dialog {
-            class button extends uiElement {
-                constructor(dialog: dialog, elementDefinition: definitions.button, htmlList: unknown[]);
-
-                accessKeyDown(): void;
-
-                accessKeyUp(): void;
-
-                click(): unknown;
-            }
-
-            class checkbox extends uiElement {
-                constructor(dialog: dialog, elementDefinition: definitions.checkbox, htmlList: unknown[]);
-
-                accessKeyUp(): void;
-
-                getValue(): boolean;
-
-                setValue(checked: boolean, noChangeEvent: boolean): undefined;
-            }
-
-            namespace definitions {
-                interface button {
-                    label: string;
-                    disabled?: boolean | undefined;
-                }
-
-                interface checkbox {
-                    checked?: boolean | undefined;
-                    validate?: (() => boolean) | undefined;
-                    label?: string | undefined;
-                }
-
-                interface fieldSet {
-                    label?: string | undefined;
-                    children: unknown[];
-                }
-
-                interface file {
-                    validate?: (() => boolean) | undefined;
-                }
-
-                interface fileButton {
-                    for: string;
-                    validate?: (() => boolean) | undefined;
-                }
-
-                interface hbox {
-                    widths?: string[] | undefined;
-                    height?: string | undefined;
-                    padding?: string | undefined;
-                    align?: string | undefined;
-                }
-
-                interface html {
-                    html: string;
-                }
-
-                interface iframeElement {
-                    src: string;
-                    width: string;
-                    height: string;
-                    onContentLoad?: (() => void) | undefined;
-                }
-
-                interface labeledElement {
-                    label: string;
-                    labelLayout?: 'horizontal' | 'vertical' | undefined;
-                    widths?: [string, string] | undefined;
-                    role?: string | undefined;
-                    includeLabel?: boolean | undefined;
-                }
-
-                interface radio {
-                    default: unknown;
-                    validate?: (() => boolean) | undefined;
-                    items: Array<[string, string] | [string]>;
-                }
-
-                interface select {
-                    default: unknown;
-                    validate?: (() => boolean) | undefined;
-                    items: Array<[string, string] | [string]>;
-                    multiple?: boolean | undefined;
-                    size?: number | undefined;
-                }
-
-                interface textarea {
-                    rows?: number | undefined;
-                    cols?: number | undefined;
-                    default?: string | undefined;
-                    validate?: (() => boolean) | undefined;
-                }
-
-                interface textInput {
-                    default?: string | undefined;
-                    validate?: (() => boolean) | undefined;
-                    maxLength?: number | undefined;
-                    size?: string | undefined;
-                }
-
-                interface uiElement {
-                    id: string;
-                    type: number;
-                    title?: string | undefined;
-                    hidden?: boolean | undefined;
-                    className?: string | undefined;
-                    style?: string | undefined;
-                    accessKey?: string | undefined;
-                }
-
-                interface vbox {
-                    width?: string | undefined;
-                    heights?: string[] | undefined;
-                    align?: string | undefined;
-                    padding?: string | undefined;
-                    expand?: boolean | undefined;
-                }
-            }
-
-            class fieldset extends uiElement {
-                constructor(
-                    dialog: dialog,
-                    childObjList: unknown[],
-                    childHtmlList: unknown[],
-                    htmlList: unknown[],
-                    elementDefinition: definitions.fieldSet,
-                );
-            }
-
-            class file extends labeledElement {
-                constructor(dialog: dialog, elementDefinition: definitions.file, htmlList: unknown[]);
-
-                getAction(): string;
-
-                registerEvents(definition: { [key: string]: unknown }): file;
-
-                reset(): void;
-
-                setInitValue(): void;
-
-                submit(): file;
-            }
-
-            class fileButton extends button {
-                constructor(dialog: dialog, elementDefinition: definitions.fileButton, htmlList: unknown[]);
-            }
-
-            class hbox extends uiElement {
-                constructor(
-                    dialog: dialog,
-                    childObjList: unknown[],
-                    childHtmlList: unknown[],
-                    htmlList: unknown[],
-                    elementDefinition: definitions.hbox,
-                );
-
-                getChild(indices: number): uiElement;
-                getChild(indices: number[]): uiElement[];
-            }
-
-            class html extends uiElement {
-                constructor(dialog: dialog, elementDefinition: definitions.html, htmlList: unknown[]);
-            }
-
-            class iframeElement extends uiElement {}
-
-            class labeledElement extends uiElement {
-                constructor(
-                    dialog: dialog,
-                    elementDefinition: definitions.labeledElement,
-                    htmlList: unknown[],
-                    contentHtml: () => string,
-                );
-
-                getLabel(): string;
-
-                setLabel(label: string): labeledElement;
-            }
-
-            class radio extends labeledElement {
-                constructor(dialog: dialog, elementDefinition: definitions.radio, htmlList: unknown[]);
-
-                accessKeyUp(): void;
-
-                getValue(): string;
-
-                setValue(value: string, noChangeEvent: boolean): undefined;
-            }
-
-            class select extends uiElement {
-                constructor(dialog: dialog, elementDefinition: definitions.select, htmlList: unknown[]);
-
-                add(label: string, value?: string, indexedDB?: number): select;
-
-                clear(): select;
-
-                remove(index: number): select;
-            }
-
-            class textarea extends labeledElement {
-                constructor(dialog: dialog, elementDefinition: definitions.textarea, htmlList: unknown[]);
-            }
-
-            class textInput extends labeledElement {
-                constructor(dialog: dialog, elementDefinition: definitions.textInput, htmlList: unknown[]);
-
-                accessKeyUp(): void;
-
-                focus(): undefined;
-
-                getDirectionMarker(): string;
-
-                getValue(): string;
-
-                select(): void;
-
-                setDirectionMarker(dir: string): void;
-
-                setValue(value: string, noChangeEvent: boolean): textInput;
-            }
-
-            class uiElement {
-                eventProcessors: unknown;
-
-                // Not sure that the htmlList array type is right.
-                constructor(
-                    dialog: dialog,
-                    elementDefinition: definitions.uiElement,
-                    htmlList: unknown[],
-                    nodeNameArg?: () => string | string,
-                    stylesArg?: () => { [key: string]: unknown } | { [key: string]: unknown },
-                    attributesArg?: () => { [key: string]: unknown } | { [key: string]: unknown },
-                    contentsArg?: () => { [key: string]: unknown } | string,
-                );
-
-                accessKeyDown(dialog: dialog, key: string): void;
-
-                accessKeyUp(dialog: dialog, key: string): void;
-
-                disable(): void;
-
-                enable(): void;
-
-                focus(): uiElement | undefined;
-
-                getDialog(): dialog;
-
-                getElement(): dom.element;
-
-                getInputElement(): dom.element;
-
-                getValue(): unknown;
-
-                isChanged(): boolean;
-
-                isEnabled(): boolean;
-
-                isFocusable(): boolean;
-
-                isVisible(): boolean;
-
-                // tslint:disable-next-line:no-unnecessary-qualifier
-                registerEvents(definition: CKEDITOR.dialog.definition.uiElement): uiElement;
-
-                selectParentTab(): uiElement;
-
-                setValue(value: unknown, noChangeEvent: boolean): uiElement | undefined;
-            }
-
-            class vbox extends hbox {
-                constructor(
-                    dialog: dialog,
-                    childObjList: unknown[],
-                    childHtmlList: unknown[],
-                    htmlList: unknown[],
-                    elementDefinition: definitions.vbox,
-                );
-            }
+        interface uiDefinition {
+            [key: string]: unknown;
         }
 
-        class balloonPanel {
+        interface _uiElement {}
+
+        interface balloonPanel extends _uiElement {
             activeShowListeners: {
                 [id: number]: { removeListener: listenerRegistration };
             };
@@ -340,8 +81,8 @@ declare namespace CKEDITOR {
                     | dom.element
                     | boolean
                     | {
-                          focusElement?: dom.element | boolean | undefined;
-                          show?: boolean | undefined;
+                          focusElement?: dom.element | boolean;
+                          show?: boolean;
                       },
             ): void;
 
@@ -377,75 +118,55 @@ declare namespace CKEDITOR {
         }
 
         namespace balloonPanel {
-            interface definition {
-                content?: string | undefined;
-                title?: string | undefined;
+            interface definition extends uiDefinition {
+                content?: string;
+                title?: string;
             }
 
             interface templates {
-                close?: template | undefined;
-                content?: template | undefined;
-                panel?: template | undefined;
-                title?: template | undefined;
-                triangle?: template | undefined;
-                triangleInner?: template | undefined;
-                triangleOuter?: template | undefined;
+                close?: template;
+                content?: template;
+                panel?: template;
+                title?: template;
+                triangle?: template;
+                triangleInner?: template;
+                triangleOuter?: template;
             }
 
             interface templateDefinitions {
-                close?: string | undefined;
-                content?: string | undefined;
-                panel?: string | undefined;
-                title?: string | undefined;
-                triangle?: string | undefined;
-                triangleInner?: string | undefined;
-                triangleOuter?: string | undefined;
+                close?: string;
+                content?: string;
+                panel?: string;
+                title?: string;
+                triangle?: string;
+                triangleInner?: string;
+                triangleOuter?: string;
             }
 
             interface rect {
-                height?: number | undefined;
-                left?: number | undefined;
-                top?: number | undefined;
-                visible?: boolean | undefined;
-                width?: number | undefined;
+                height?: number;
+                left?: number;
+                top?: number;
+                visible?: boolean;
+                width?: number;
             }
 
             interface parts {
-                close?: dom.element | undefined;
-                content?: dom.element | undefined;
-                panel?: dom.element | undefined;
-                title?: dom.element | undefined;
-                triangle?: dom.element | undefined;
-                triangleInner?: dom.element | undefined;
-                triangleOuter?: dom.element | undefined;
+                close?: dom.element;
+                content?: dom.element;
+                panel?: dom.element;
+                title?: dom.element;
+                triangle?: dom.element;
+                triangleInner?: dom.element;
+                triangleOuter?: dom.element;
             }
         }
 
-        class balloonToolbar {
-            constructor(editor: editor, definition: { [key: string]: unknown });
-
-            addElement(name: string, element: button | richCombo): void;
-
-            addElements(elements: { [itemName: string]: button | richCombo }): void;
-
-            deleteItem(name: string): void;
-
-            destroy(): void;
-
-            getItem(name: string): button | richCombo;
-
-            hide(): void;
-
-            refresh(): void;
-
-            show(): void;
+        interface buttonConstructor<T extends button> {
+            new (definition: button.definition): T;
         }
 
-        class button {
-            static readonly handler: handlerDefinition<button>;
-
-            constructor(definition: { [key: string]: unknown });
-
+        interface button extends _uiElement {
             getState(): number;
 
             render(editor: editor, output: string[]): void;
@@ -455,22 +176,19 @@ declare namespace CKEDITOR {
             toFeature(editor: editor): feature;
         }
 
-        interface buttonDefinition {
-            icon?: string | undefined;
-            iconOffset?: number | undefined;
-            label: string;
-            command: string;
-            toolbar: string;
+        namespace button {
+            interface definition extends uiDefinition {
+                icon?: string;
+                iconOffset?: number;
+                label: string;
+                command: string;
+                toolbar: string;
+            }
+
+            const handler: handlerDefinition<button>;
         }
 
-        class floatPanel {
-            constructor(
-                editor: editor,
-                parentElement: dom.element,
-                definition: { [key: string]: unknown },
-                level: number,
-            );
-
+        interface floatPanel extends _uiElement {
             addBlock(name: string, block: { [key: string]: unknown }): void;
 
             addListBlock(name: string, multiSelect: boolean): void;
@@ -508,17 +226,19 @@ declare namespace CKEDITOR {
             ): void;
         }
 
-        class handlerDefinition<T> {
+        interface handlerDefinition<T extends _uiElement = _uiElement, U extends uiDefinition = uiDefinition> {
             contentsElement: dom.element;
 
-            create(definition: { [key: string]: unknown }): T;
+            create(definition: U): T;
         }
 
-        class menuButton extends button {}
+        interface menuButton extends button {}
 
-        class panel {
-            constructor(document: dom.document, definition: { [key: string]: unknown });
+        namespace menuButton {
+            const handler: handlerDefinition<menuButton>;
+        }
 
+        interface panel extends _uiElement {
             addBlock(name: string, block: { [key: string]: unknown }): void;
 
             getBlock(name: string): panel.block;
@@ -529,7 +249,7 @@ declare namespace CKEDITOR {
         }
 
         namespace panel {
-            class block {
+            interface block {
                 getItems(): dom.nodeList;
 
                 markItem(index: number): void;
@@ -538,12 +258,18 @@ declare namespace CKEDITOR {
             const handler: handlerDefinition<panel>;
         }
 
-        class panelButton extends button {}
+        interface panelButton extends button {}
 
-        class richCombo {
-            static readonly handler: handlerDefinition<richCombo>;
+        namespace panelButton {
+            const handler: handlerDefinition<panelButton>;
+        }
 
+        interface richCombo extends _uiElement {
             render(editor: editor, output: string[]): void;
+        }
+
+        namespace richCombo {
+            const handler: handlerDefinition<richCombo>;
         }
     }
 }

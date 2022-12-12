@@ -1,20 +1,20 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        editable: typeof editable;
+        readonly editable: { new (editor: editor, element: HTMLElement | dom.element): editable };
     }
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_editable.html */
-    class editable extends dom.element {
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editable.html */
+    interface editable extends dom.element {
         hasFocus: boolean;
         readonly status: string;
-
-        constructor(editor: editor, element: HTMLElement | dom.element);
 
         attachClass(className: string): void;
 
         attachListener(
             obj: event | editable,
             eventName: string,
-            listenerFunction: (ei: eventInfo) => void,
+            listenerFunction: (ei: eventInfo<dom.domObject<Event | EventTarget>
+                | dom.event<Event | EventTarget>
+                | eventData>) => void,
             scopeobj?: unknown,
             listenerData?: unknown,
             priority?: number,

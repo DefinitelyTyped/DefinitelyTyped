@@ -1,12 +1,10 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly template: typeof template;
+        readonly template: { new (source: string): template };
     }
 
-    class template {
+    interface template {
         readonly source: string;
-
-        constructor(source: string);
 
         output(data: unknown, buffer?: unknown[]): string | number;
     }

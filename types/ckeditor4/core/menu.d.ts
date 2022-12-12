@@ -1,11 +1,9 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        menu: typeof menu;
+        menu: { new (): menu };
     }
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_menu.html */
-    class menu {
-        constructor();
-
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_menu.html */
+    interface menu {
         add(item: unknown): void;
 
         addListener(
@@ -24,7 +22,7 @@ declare namespace CKEDITOR {
         show(offsetParent: dom.element, corner?: number, offsetX?: number, offsetY?: number): void;
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_menuItem.html */
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_menuItem.html */
     interface menuItemDefinition {
         label: string;
         command: string;

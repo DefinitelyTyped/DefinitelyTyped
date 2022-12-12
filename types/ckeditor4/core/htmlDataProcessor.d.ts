@@ -1,14 +1,12 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        htmlDataProcessor: typeof htmlDataProcessor;
+        readonly htmlDataProcessor: { new (editor: editor): htmlDataProcessor };
     }
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_htmlDataProcessor.html */
-    class htmlDataProcessor implements dataProcessor {
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_htmlDataProcessor.html */
+    interface htmlDataProcessor extends dataProcessor {
         dataFilter: htmlParser.filter;
         htmlFilter: htmlParser.filter;
         writer: htmlParser.basicWriter;
-
-        constructor(editor: editor);
 
         toDataFormat(
             html: string,

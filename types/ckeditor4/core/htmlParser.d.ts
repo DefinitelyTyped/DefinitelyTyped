@@ -1,22 +1,31 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly htmlParser: typeof htmlParser;
+        readonly htmlParser: {
+            new (): htmlParser;
+            basicWriter: { new (): htmlParser.basicWriter };
+            cdata: { new (value: string): htmlParser.cdata };
+            comment: { new (value: string): htmlParser.comment };
+            cssStyle: { new (elementOrStyleText: htmlParser.element | string): htmlParser.cssStyle };
+            element: { new (name: string, attributes?: { [name: string]: string } | null): htmlParser.element };
+            filter: { new (rules?: htmlParser.filterRulesDefinition): htmlParser.filter };
+            filterRulesGroup: { new (): htmlParser.filterRulesGroup };
+            fragment: {
+                new (): htmlParser.fragment;
+
+                fromBBCode(source: string): htmlParser.fragment;
+
+                fromHtml(
+                    fragmentHtml: string,
+                    parent?: htmlParser.element | string,
+                    fixingBlock?: string | boolean,
+                ): htmlParser.fragment | htmlParser.element;
+            };
+            node: { new (): htmlParser.node };
+            text: { new (value: string): htmlParser.text };
+        };
     }
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_htmlParser.html */
-    class htmlParser {
-        basicWriter: typeof htmlParser.basicWriter;
-        cdata: typeof htmlParser.cdata;
-        comment: typeof htmlParser.comment;
-        cssStyle: typeof htmlParser.cssStyle;
-        element: typeof htmlParser.element;
-        filter: typeof htmlParser.filter;
-        filterRulesGroup: typeof htmlParser.filterRulesGroup;
-        fragment: typeof htmlParser.fragment;
-        node: typeof htmlParser.node;
-        text: typeof htmlParser.text;
-
-        constructor();
-
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_htmlParser.html */
+    interface htmlParser {
         onCDATA?(cdata?: string): void;
 
         onComment?(comment?: string): void;
@@ -31,9 +40,7 @@ declare namespace CKEDITOR {
     }
 
     namespace htmlParser {
-        class basicWriter {
-            constructor();
-
+        interface basicWriter {
             attribute(attName: string, attValue: string): void;
 
             closeTag(tagName: string): void;
@@ -53,38 +60,30 @@ declare namespace CKEDITOR {
             write(data: string): void;
         }
 
-        class cdata extends node {
-            constructor(value: string);
-
+        interface cdata extends node {
             type: number;
 
             writeHtml(writer: basicWriter): void;
         }
 
-        class comment extends node {
+        interface comment extends node {
             type: number;
             value: string;
-
-            constructor(value: string);
 
             filter(filter: filter): boolean;
 
             writeHtml(writer: basicWriter, filter?: filter): void;
         }
 
-        class cssStyle {
-            constructor(elementOrStyleText: element | string);
-
+        interface cssStyle {
             populate(obj: element | dom.element | { [key: string]: unknown }): void;
         }
 
-        class element extends node {
+        interface element extends node {
             attributes: { [name: string]: string };
             children: node[];
             name: string;
             type: number;
-
-            constructor(name: string, attributes?: { [name: string]: string } | null);
 
             add(node: node, index?: number): void;
 
@@ -121,7 +120,7 @@ declare namespace CKEDITOR {
             writeHtml(writer: basicWriter, filter?: filter): void;
         }
 
-        class filter {
+        interface filter {
             attributeNameRules: filterRulesGroup;
             attributesRules: { [name: string]: filterRulesGroup };
             commentRules: filterRulesGroup;
@@ -130,8 +129,6 @@ declare namespace CKEDITOR {
             id: number;
             rootRules: filterRulesGroup;
             textRules: filterRulesGroup;
-
-            constructor(rules?: filterRulesDefinition);
 
             addRules(
                 rules: filterRulesDefinition,
@@ -156,7 +153,7 @@ declare namespace CKEDITOR {
             root?: unknown;
         }
 
-        class filterRulesGroup {
+        interface filterRulesGroup {
             rules: Array<{
                 value: rule;
                 priority: number;
@@ -174,12 +171,10 @@ declare namespace CKEDITOR {
             findIndex(priority: number): number;
         }
 
-        class fragment {
+        interface fragment {
             children: node[];
             parent: fragment;
             readonly type: number;
-
-            constructor();
 
             add(node: node, index?: number): void;
 
@@ -192,19 +187,9 @@ declare namespace CKEDITOR {
             writeChildrenHtml(writer: basicWriter, filter?: filter, filterRoot?: boolean): void;
 
             writeHtml(writer: basicWriter, filter?: filter): void;
-
-            static fromBBCode(source: string): fragment;
-
-            static fromHtml(
-                fragmentHtml: string,
-                parent?: element | string,
-                fixingBlock?: string | boolean,
-            ): fragment | element;
         }
 
-        class node {
-            constructor();
-
+        interface node {
             getAscendant(condition: string | { [name: string]: string } | ((node: element) => boolean)): element;
 
             getIndex(): number;
@@ -227,9 +212,7 @@ declare namespace CKEDITOR {
             excludeNestedEditable?: boolean | undefined;
         }
 
-        class text extends node {
-            constructor(value: string);
-
+        interface text extends node {
             type: number;
 
             filter(filter: filter): boolean;

@@ -1,17 +1,13 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly style: typeof style;
+        readonly style: {
+            customHandlers: CKEditorStyleHandlersStatic;
+        } & styleStatic<style>;
     }
 
-    class style {
+    interface style {
         alwaysRemoveElement: boolean;
         includeReadonly: boolean;
-
-        constructor(styleDefinition: style.definition, variableValues?: Record<string, string>);
-
-        static addCustomHandler(defintion: style.customHandler): style;
-
-        static getStyleText(style: style.definition): string;
 
         apply(editor: editor): void;
 
@@ -38,9 +34,33 @@ declare namespace CKEDITOR {
         toAllowedContentRules(editor?: editor): filter.allowedContentRules;
     }
 
+    interface styleStatic<T extends style> {
+        new (styleDefinition: style.definition, variableValues?: Record<string, string>): T;
+        addCustomHandler(defintion: style.customHandler): T;
+
+        getStyleText(style: style.definition): string;
+    }
+
+    /**
+     * Extend this interface when defining your own custom styles, follow the example below using the
+     * {@link styleStatic} interface, typed by your custom handler which extends {@link style}.
+     *
+     * @example
+     *  interface yourCustomHandler extends style {
+     *      yourHandlerMethods: unknown
+     *  }
+     *
+     *  interface CKEditorStyleHandlersStatic {
+     *      yourCustomHandler: styleStatic<yourCustomHandler>
+     *  }
+     */
+    interface CKEditorStyleHandlersStatic {
+        widget: styleStatic<style.customHandlers.widget>;
+    }
+
     namespace style {
         namespace customHandlers {
-            class widget extends style {
+            interface widget extends style {
                 group: unknown[];
                 widget: string;
 

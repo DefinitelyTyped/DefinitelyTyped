@@ -1,13 +1,11 @@
 declare namespace CKEDITOR {
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_loader.html */
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_loader.html */
     interface CKEditorStatic {
         readonly loader: loader;
     }
 
     // Singleton
-    class loader {
-        private constructor();
-
+    interface loader {
         loadedScripts: string[];
         scripts: string[];
 

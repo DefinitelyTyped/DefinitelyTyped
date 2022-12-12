@@ -1,14 +1,12 @@
-/** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_lang.html */
+/** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_lang.html */
 
 declare namespace CKEDITOR {
     interface CKEditorStatic {
         readonly lang: lang;
     }
-    class lang {
+    interface lang {
         languages: { [code: string]: number };
         rtl: { [code: string]: number };
-
-        private constructor();
 
         detect(defaultLanguage: string, probeLanguage?: string): string;
 

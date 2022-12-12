@@ -1,7 +1,7 @@
 /** https://docs.com/CKEDITOR4/latest/api/CKEDITOR_config.html */
 
 declare namespace CKEDITOR {
-    class config {
+    interface config {
         allowedContent?: boolean | filter.allowedContentRules | undefined;
         autoEmbed_widget?: string | ((url: string) => string) | undefined;
         autoGrow_bottomSpace?: number | undefined;
@@ -290,8 +290,6 @@ declare namespace CKEDITOR {
         wsc_top?: string | undefined;
         wsc_userDictionaryName?: string | undefined;
         wsc_width?: string | undefined;
-
-        private constructor();
     }
 
     namespace config {

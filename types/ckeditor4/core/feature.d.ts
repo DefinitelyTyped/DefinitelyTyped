@@ -1,4 +1,4 @@
-/** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_feature.html */
+/** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_feature.html */
 
 declare namespace CKEDITOR {
     interface feature {

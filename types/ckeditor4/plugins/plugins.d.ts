@@ -1,9 +1,9 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        plugins: CKEditorPluginsCore;
+        plugins: CKEditorPluginsCore & plugins;
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_pluginDefinition.html */
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_pluginDefinition.html */
     interface pluginDefinition {
         hidpi?: boolean | undefined;
         icons?: string;
@@ -19,106 +19,97 @@ declare namespace CKEDITOR {
         onLoad?(): unknown;
     }
 
-    interface CKEditorPluginsCore extends resourceManager {}
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_plugins.html */
+    interface plugins extends resourceManager {}
+
+    interface CKEditorPluginsCore {
+        autoEmbed?: plugins.autoEmbed;
+        clipboard?: {
+            dataTransfer: { new (nativeDataTransfer?: DataTransfer, editor?: editor): plugins.clipboard.dataTransfer };
+            fallbackDataTransfer: {
+                new (dataTransfer: plugins.clipboard.dataTransfer): plugins.clipboard.fallbackDataTransfer;
+            };
+        } & plugins.clipboard;
+        contextMenu?: { new (editor: editor): plugins.contextMenu };
+        copyformatting?: {
+            state: plugins.copyformatting.stateConstructor
+        } & plugins.copyformatting;
+        embedBase?: {
+            createWidgetBaseDefinition(editor: editor): plugins.embedBase.baseDefinition;
+        };
+        image2: plugins.image2;
+        imagebase?: {
+            progressBar: { new (): plugins.imagebase.progressBar };
+            progressReporter: { new (wrapperHtml?: string): plugins.imagebase.progressReporter };
+        } & plugins.imagebase;
+        indent?: {
+            registerCommands(editor: editor, commands: { [key: string]: command }): void;
+            readonly genericDefinition: plugins.indent.genericDefinition;
+            readonly specificDefinition: plugins.indent.specificDefinition;
+        };
+        indentList?: plugins.indentList;
+        link?: plugins.link;
+        list?: { new (): plugins.list };
+        notification?: {
+            new (editor: editor, options: plugins.notification.options): plugins.notification;
+        };
+        notificationAggregator?: {
+            task: plugins.notificationAggregator.taskConstructor ;
+        } & plugins.notificationAggregatorConstructor;
+        pastetools?: plugins.pastetools;
+        tableselection?: plugins.tableselection;
+        widget?: {
+            nestedEditable: {
+                new (
+                    editor: editor,
+                    element: dom.element,
+                    config: { filter?: filter | undefined },
+                ): plugins.widget.nestedEditable;
+            };
+            repository: plugins.widget.repositoryConstructor;
+        } & plugins.widgetConstructor;
+        widgetselection?: plugins.widgetselection;
+    }
 
     interface CKEditorPluginsEditor {}
 
     interface CKEditorPluginsEditorInternal {}
 
+    interface CKEditorPluginsEditorInstance {}
+
     namespace plugins {
-        interface underscoreApiStatic {}
-        interface pluginsApiStatic {}
-
-        namespace cloudservices {
-            class cloudServicesLoader extends fileTools.fileLoader {
-                customToken: string;
-
-                constructor(editor: editor, fileOrData: Blob | string, fileName?: string, token?: string);
-
-                loadAndUpload(url?: string, additionalRequestParameters?: unknown): void;
-
-                upload(url?: string, additionalRequestParameters?: unknown): void;
-            }
-        }
-
-        class autoEmbed {
+        interface autoEmbed {
             getWidgetDefinition(editor: editor, url: string): widget.definition;
         }
 
-        namespace balloontoolbar {
-            const PRIORITY: { [pri: string]: number };
+        interface clipboard {
+            isCustomCopyCutSupported: boolean;
+            isCustomDataTypesSupported: boolean;
+            isFileApiSupported: boolean;
+            mainPasteEvent: string;
 
-            class context {
-                editor: editor;
-                options: contextDefinition;
-                toolbar: ui.balloonToolbar;
+            addPasteButton(editor: editor, name: string, definition: { [key: string]: unknown }): void;
 
-                constructor(editor: editor, options: contextDefinition);
+            canClipboardApiBeTrusted(dataTransfer: clipboard.dataTransfer, editor: editor): boolean;
 
-                destroy(): void;
+            getDropTarget(editor: editor): dom.domObject;
 
-                hide(): void;
+            getRangeAtDropPosition(domEvent: Event, editor: editor): dom.range;
 
-                refresh(): void;
+            initDragDataTransfer(evt?: dom.event, editor?: editor): void;
 
-                show(pointedElement?: dom.element): void;
-            }
+            initPasteDataTransfer(evt?: dom.event, sourceEditor?: editor): void;
 
-            interface contextDefinition {
-                cssSelector?: string | undefined;
-                priority?: number | undefined;
-                widgets?: string[] | string | undefined;
+            preventDefaultDropOnElement(element: dom.element): void;
 
-                refresh?:
-                    | ((editor: editor, path: dom.elementPath, selection: dom.selection) => dom.element)
-                    | undefined;
-            }
-
-            class contextManager {
-                editor: editor;
-
-                constructor(editor: editor);
-
-                add(context: context): void;
-
-                check(selection?: dom.selection): void;
-
-                create(options: contextDefinition): context;
-
-                destroy(): void;
-
-                hide(): void;
-            }
+            resetDragDataTransfer(): void;
         }
 
         namespace clipboard {
-            const isCustomCopyCutSupported: boolean;
-            const isCustomDataTypesSupported: boolean;
-            const isFileApiSupported: boolean;
-            const mainPasteEvent: string;
-
-            function addPasteButton(editor: editor, name: string, definition: { [key: string]: unknown }): void;
-
-            function canClipboardApiBeTrusted(dataTransfer: dataTransfer, editor: editor): boolean;
-
-            function getDropTarget(editor: editor): dom.domObject;
-
-            function getRangeAtDropPosition(domEvent: Event, editor: editor): dom.range;
-
-            function initDragDataTransfer(evt?: dom.event, editor?: editor): void;
-
-            function initPasteDataTransfer(evt?: dom.event, sourceEditor?: editor): void;
-
-            function preventDefaultDropOnElement(element: dom.element): void;
-
-            function resetDragDataTransfer(): void;
-
-            class dataTransfer {
+            interface dataTransfer {
                 readonly $: DataTransfer;
                 readonly id: string;
                 readonly sourceEditor: editor;
-
-                constructor(nativeDataTransfer?: DataTransfer, editor?: editor);
 
                 cacheData(): void;
 
@@ -137,9 +128,7 @@ declare namespace CKEDITOR {
                 storeId(): void;
             }
 
-            class fallbackDataTransfer {
-                constructor(dataTransfer: dataTransfer);
-
+            interface fallbackDataTransfer {
                 getData(type: string, getNative?: boolean): string;
 
                 isRequired(): boolean;
@@ -148,37 +137,36 @@ declare namespace CKEDITOR {
             }
         }
 
-        class contextMenu extends menu {
-            constructor(editor: editor);
-
+        interface contextMenu extends menu {
             addTarget(element: dom.element, nativeContextMenuOnCtrl?: boolean): void;
 
             open(offsetParent: dom.element, corner?: number, offsetX?: number, offsetY?: number): void;
         }
 
-        namespace copyformatting {
-            let breakOnElements: string[];
-            let elementsForInlineTransform: string[];
-            let excludedAttributes: string[];
-            let excludedAttributesFromInlineTransform: string[];
-            let inlineBoundary: string[];
-            let preservedElements: string[];
+        interface copyformatting {
+            breakOnElements: string[];
+            elementsForInlineTransform: string[];
+            excludedAttributes: string[];
+            excludedAttributesFromInlineTransform: string[];
+            inlineBoundary: string[];
+            preservedElements: string[];
+        }
 
-            class state extends event {
+        namespace copyformatting {
+            interface stateConstructor extends eventConstructor<state> {
+                new (editor: editor): state;
+            }
+            interface state extends event {
                 editor: editor;
                 filter: filter;
                 sticky: boolean;
                 styles: style[];
-
-                constructor(editor: editor);
             }
         }
 
         namespace easyimage {}
 
         namespace embedBase {
-            function createWidgetBaseDefinition(editor: editor): baseDefinition;
-
             interface baseDefinition extends widget.definition {
                 providerUrl: template;
                 urlRegExp: RegExp;
@@ -206,43 +194,45 @@ declare namespace CKEDITOR {
             }
         }
 
-        namespace image2 {
-            function checkHasNaturalRatio(image: dom.element): boolean;
+        interface image2 {
+            checkHasNaturalRatio(image: dom.element): boolean;
 
-            function getLinkAttributesGetter(): (
+            getLinkAttributesGetter(): (
                 editor: editor,
                 data: { [key: string]: string },
             ) => { set: { [tag: string]: string }; removed: string[] };
 
-            function getLinkAttributesParser(): (editor: editor, element: dom.element) => { [key: string]: string };
+            getLinkAttributesParser(): (editor: editor, element: dom.element) => { [key: string]: string };
 
-            function getNatural(image: dom.element): {
+            getNatural(image: dom.element): {
                 [key: string]: string;
             };
         }
 
+        interface imagebase {
+            featuresDefinitions: { [key: string]: string };
+
+            addFeature(
+                editor: editor,
+                name: string,
+                definition: imagebase.imageWidgetDefinition,
+            ): imagebase.imageWidgetDefinition;
+
+            addImageWidget(editor: editor, name: string, definition: imagebase.imageWidgetDefinition): void;
+        }
+
         namespace imagebase {
-            const featuresDefinitions: { [key: string]: string };
-
-            function addFeature(editor: editor, name: string, definition: imageWidgetDefinition): imageWidgetDefinition;
-
-            function addImageWidget(editor: editor, name: string, definition: imageWidgetDefinition): void;
-
             interface imageWidgetDefinition extends widget.definition {
                 features: string[];
                 upcast: string;
             }
 
-            class progressBar extends progressReporter {
+            interface progressBar extends progressReporter {
                 bar: dom.element;
-
-                constructor();
             }
 
-            class progressReporter {
+            interface progressReporter {
                 wrapper: dom.element;
-
-                constructor(wrapperHtml?: string);
 
                 aborted(): void;
 
@@ -259,9 +249,7 @@ declare namespace CKEDITOR {
         }
 
         namespace indent {
-            function registerCommands(editor: editor, commands: { [key: string]: command }): void;
-
-            class genericDefinition implements commandDefinition {
+            interface genericDefinition extends commandDefinition {
                 async: boolean;
                 canUndo: boolean;
                 context: boolean;
@@ -278,7 +266,7 @@ declare namespace CKEDITOR {
                 refresh?(editor: editor, path: dom.elementPath): void;
             }
 
-            class specificDefinition {
+            interface specificDefinition {
                 database: { [key: string]: unknown };
                 readonly enterBr: boolean;
                 readonly indentKey: { [key: string]: unknown };
@@ -299,8 +287,8 @@ declare namespace CKEDITOR {
             }
         }
 
-        namespace indentList {
-            function firstItemInPath(
+        interface indentList {
+            firstItemInPath(
                 query:
                     | string
                     | string[]
@@ -309,34 +297,24 @@ declare namespace CKEDITOR {
                     | ((element: dom.element) => boolean),
             ): boolean;
         }
+        interface link {
+            getEditorAnchors(editor: editor): dom.element[];
 
-        namespace link {
-            // DEPRECATED 4.3.3
-            const emptyAnchorFix: boolean;
-
-            // DEPRECATED 4.3.3
-            const fakeAnchor: boolean;
-
-            // DEPRECATED 4.3.3
-            const synAnchorSelector: boolean;
-
-            function getEditorAnchors(editor: editor): dom.element[];
-
-            function getLinkAttributes(
+            getLinkAttributes(
                 editor: editor,
                 data: { [key: string]: unknown },
             ): { set: { [key: string]: string }; removed: string[] };
 
-            function getSelectedLink(editor: editor, returnMultiple?: boolean): dom.element | dom.element[];
+            getSelectedLink(editor: editor, returnMultiple?: boolean): dom.element | dom.element[];
 
-            function parseLinkAttributes(editor: editor, element: dom.element): { [key: string]: unknown };
+            parseLinkAttributes(editor: editor, element: dom.element): { [key: string]: unknown };
 
-            function showDisplayTextForElement(element: dom.element, editor: editor): boolean;
+            showDisplayTextForElement(element: dom.element, editor: editor): boolean;
 
-            function tryRestoreFakeAnchor(editor: editor, element: dom.element): dom.element;
+            tryRestoreFakeAnchor(editor: editor, element: dom.element): dom.element;
         }
 
-        class list {
+        interface list {
             arrayToList(listArray: unknown, database: unknown, paragraphMode: unknown, dir: unknown): void;
 
             listToArray(
@@ -348,7 +326,7 @@ declare namespace CKEDITOR {
             ): void;
         }
 
-        class notification {
+        interface notification {
             readonly area: notification.area;
             readonly duration: number;
             readonly editor: editor;
@@ -357,8 +335,6 @@ declare namespace CKEDITOR {
             readonly message: string;
             readonly progress: number;
             readonly type: notification.type;
-
-            constructor(editor: editor, options: notification.options);
 
             hide(): void;
 
@@ -398,11 +374,13 @@ declare namespace CKEDITOR {
             type type = 'info' | 'warning' | 'success' | 'progress';
         }
 
-        class notificationAggregator extends event {
+        interface notificationAggregatorConstructor extends eventConstructor<notificationAggregator> {
+            new (editor: editor, message: string, singularMessage?: string): notificationAggregator;
+        }
+
+        interface notificationAggregator extends event {
             readonly editor: editor;
             readonly notification: notification;
-
-            constructor(editor: editor, message: string, singularMessage?: string);
 
             createTask(options?: { weight?: number | undefined }): notificationAggregator.task;
 
@@ -418,9 +396,11 @@ declare namespace CKEDITOR {
         }
 
         namespace notificationAggregator {
-            class task extends event {
-                constructor(weight?: number);
+            interface taskConstructor extends eventConstructor<task> {
+                new (weight?: number): task;
+            }
 
+            interface task extends event {
                 cancel(): void;
 
                 done(): void;
@@ -434,19 +414,19 @@ declare namespace CKEDITOR {
         }
 
         namespace pastefromword {
-            class lists {
+            interface lists {
                 numbering: lists.numbering;
             }
 
             namespace lists {
-                class numbering {
+                interface numbering {
                     getStyle(marker: string): string;
 
                     toNumber(marker: string, markerType: string): number;
                 }
             }
 
-            class styles {
+            interface styles {
                 pushStylesLower(
                     element: htmlParser.element,
                     exceptions: { [style: string]: boolean },
@@ -455,125 +435,49 @@ declare namespace CKEDITOR {
             }
         }
 
-        namespace tableselection {
-            function getCellsBetween(first: dom.element, last: dom.element): dom.element[];
+        interface pastetools {
+            filters: { [filter: string]: unknown };
+            createFilter(options: { rules: () => unknown }): () => unknown;
+            getClipboardData(data: eventData, type: string): string;
+            getConfigValue(editor: editor, configVariable: string): string | boolean | number | unknown | unknown[];
+            getContentGeneratorName(content: string): string | undefined;
+            loadFilters(filters: string[], callback: () => void): boolean;
         }
 
-        namespace widget {
-            const WRAPPER_CLASS_PREFIX: string;
-
-            function getNestedEditable(guard: dom.element, node: dom.node): dom.element;
-
-            function isDomDragHandler(node: dom.node): boolean;
-
-            function isDomDragHandlerContainer(node: dom.node): boolean;
-
-            function isDomNestedEditable(node: dom.node): boolean;
-
-            function isDomWidget(node: dom.node): boolean;
-
-            function isDomWidgetElement(node: dom.node): boolean;
-
-            function isDomWidgetWrapper(node: dom.node): boolean;
-
-            function isParserWidgetElement(node: dom.node): boolean;
-
-            function isParserWidgetWrapper(node: dom.node): boolean;
-
-            namespace nestedEditable {
-                interface definition {
-                    allowedContent?: filter.allowedContentRules | undefined;
-                    disallowedContent?: filter.disallowedContentRules | undefined;
-                    pathName?: string | undefined;
-                    selector?: string | undefined;
-                }
-            }
-
-            class nestedEditable extends dom.element {
-                readonly editor: editor;
-                readonly enterMode: number;
-                readonly filter: filter;
-                readonly shiftEnterMode: number;
-
-                constructor(editor: editor, element: dom.element, config: { filter?: filter | undefined });
-
-                getData(): string;
-
-                setData(data: string): void;
-            }
-
-            interface definition extends feature {
-                button?: string | undefined;
-                data?: ((evt: eventInfo) => void) | undefined;
-                defaults?: { [key: string]: unknown } | undefined;
-                dialog?: string | undefined;
-                downcast?: string | ((element: htmlParser.element) => void) | undefined;
-                downcasts?: { [key: string]: unknown } | undefined;
-                draggable?: boolean | undefined;
-                edit?: (() => void) | undefined;
-                editables?: { [key: string]: unknown } | undefined;
-                getLabel?: (() => unknown) | undefined;
-                init?: (() => void) | undefined;
-                inline?: boolean | undefined;
-                insert?: (() => void) | undefined;
-                mask?: boolean | undefined;
-                parts?: { [key: string]: unknown } | undefined;
-                pathName?: string | undefined;
-                styleToAllowedContentRules?: ((style: style) => filter.allowedContentRules) | undefined;
-                styleableElements?: string | undefined;
-                template?: string | template | undefined;
-                upcast?: string | ((element: htmlParser.element, data: unknown) => boolean) | undefined;
-                upcastPriority?: number | undefined;
-                upcasts?: { [key: string]: unknown } | undefined;
-            }
-
-            class repository extends event {
-                readonly editor: editor;
-                readonly focused: widget;
-                readonly instances: { [id: string]: widget };
-                readonly registered: { [name: string]: definition };
-                readonly selected: widget[];
-                readonly widgetHoldingFocusedEditable: widget;
-
-                add(name: string, widgetDef: definition): void;
-
-                addUpcastCallback(callback: (element: htmlParser.element, data: unknown) => boolean): void;
-
-                checkSelection(): void;
-
-                checkWidgets(options?: { initOnlyNew?: boolean | undefined; focusInited?: boolean | undefined }): void;
-
-                del(widget: widget): void;
-
-                destroy(widget: widget, offline?: boolean): void;
-
-                destroyAll(offline?: boolean): void;
-
-                finalizeCreation(container: unknown): void;
-
-                getByElement(element: unknown, checkWrapperOnly: boolean): widget;
-
-                initOn(
-                    element: dom.element,
-                    widgetDef?: string | definition,
-                    startupData?: { [key: string]: unknown },
-                ): widget;
-
-                initOnAll(container?: dom.element): widget[];
-
-                parseElementClasses(classes: string): unknown;
-
-                wrapElement(element: unknown, widgetName?: string): unknown;
-            }
-
-            class widgetselection {
-                addFillers(editable: editable): boolean;
-
-                removeFillers(editable: editable): void;
-            }
+        interface tableselection {
+            getCellsBetween(first: dom.element, last: dom.element): dom.element[];
         }
 
-        class widget extends event implements widget.definition {
+        interface widgetConstructor extends eventConstructor<widget> {
+            WRAPPER_CLASS_PREFIX: string;
+
+            getNestedEditable(guard: dom.element, node: dom.node): dom.element;
+
+            isDomDragHandler(node: dom.node): boolean;
+
+            isDomDragHandlerContainer(node: dom.node): boolean;
+
+            isDomNestedEditable(node: dom.node): boolean;
+
+            isDomWidget(node: dom.node): boolean;
+
+            isDomWidgetElement(node: dom.node): boolean;
+
+            isDomWidgetWrapper(node: dom.node): boolean;
+
+            isParserWidgetElement(node: dom.node): boolean;
+
+            isParserWidgetWrapper(node: dom.node): boolean;
+
+            new (
+                widgetsRepo: widget.repository,
+                id: number,
+                element: dom.element,
+                widgetDef: widget.definition,
+                startupData?: unknown,
+            ): widget;
+        }
+        interface widget extends event, widget.definition {
             readonly dataReady: boolean;
             readonly definition: widget.definition;
             readonly editor: editor;
@@ -584,14 +488,6 @@ declare namespace CKEDITOR {
             readonly ready: boolean;
             readonly repository: widget.repository;
             readonly wrapper: dom.element;
-
-            constructor(
-                widgetsRepo: widget.repository,
-                id: number,
-                element: dom.element,
-                widgetDef: widget.definition,
-                starupData?: unknown,
-            );
 
             addClass(className: string): void;
 
@@ -630,20 +526,97 @@ declare namespace CKEDITOR {
             updateDragHandlerPosition(): void;
         }
 
-        function add(name: string, definition?: pluginDefinition): void;
+        namespace widget {
+            namespace nestedEditable {
+                interface definition {
+                    allowedContent?: filter.allowedContentRules | undefined;
+                    disallowedContent?: filter.disallowedContentRules | undefined;
+                    pathName?: string | undefined;
+                    selector?: string | undefined;
+                }
+            }
 
-        function addExternal(name: string, path: string, fileName?: string): void;
+            interface nestedEditable extends dom.element {
+                readonly editor: editor;
+                readonly enterMode: number;
+                readonly filter: filter;
+                readonly shiftEnterMode: number;
 
-        function get(name: string): unknown;
+                getData(): string;
 
-        function getFilePath(name: string): string;
+                setData(data: string): void;
+            }
 
-        function getPath(name: string): string;
+            interface definition extends feature {
+                button?: string | undefined;
+                data?: ((evt: eventInfo) => void) | undefined;
+                defaults?: { [key: string]: unknown } | undefined;
+                dialog?: string | undefined;
+                downcast?: string | ((element: htmlParser.element) => void) | undefined;
+                downcasts?: { [key: string]: unknown } | undefined;
+                draggable?: boolean | undefined;
+                edit?: (() => void) | undefined;
+                editables?: { [key: string]: unknown } | undefined;
+                getLabel?: (() => unknown) | undefined;
+                init?: (() => void) | undefined;
+                inline?: boolean | undefined;
+                insert?: (() => void) | undefined;
+                mask?: boolean | undefined;
+                parts?: { [key: string]: unknown } | undefined;
+                pathName?: string | undefined;
+                styleToAllowedContentRules?: ((style: style) => filter.allowedContentRules) | undefined;
+                styleableElements?: string | undefined;
+                template?: string | template | undefined;
+                upcast?: string | ((element: htmlParser.element, data: unknown) => boolean) | undefined;
+                upcastPriority?: number | undefined;
+                upcasts?: { [key: string]: unknown } | undefined;
+            }
 
-        function load(name: string, callback: (plugins: string[]) => void, scope?: { [key: string]: unknown }): void;
+            interface repositoryConstructor extends eventConstructor<repository> {}
 
-        function setLang(pluginName: string, languageCode: string, languageEntries: unknown): void;
+            interface repository extends event {
+                readonly editor: editor;
+                readonly focused: widget;
+                readonly instances: { [id: string]: widget };
+                readonly registered: { [name: string]: definition };
+                readonly selected: widget[];
+                readonly widgetHoldingFocusedEditable: widget;
 
-        const registered: { [key: string]: pluginDefinition };
+                add(name: string, widgetDef: definition): void;
+
+                addUpcastCallback(callback: (element: htmlParser.element, data: unknown) => boolean): void;
+
+                checkSelection(): void;
+
+                checkWidgets(options?: { initOnlyNew?: boolean | undefined; focusInited?: boolean | undefined }): void;
+
+                del(widget: widget): void;
+
+                destroy(widget: widget, offline?: boolean): void;
+
+                destroyAll(offline?: boolean): void;
+
+                finalizeCreation(container: unknown): void;
+
+                getByElement(element: unknown, checkWrapperOnly: boolean): widget;
+
+                initOn(
+                    element: dom.element,
+                    widgetDef?: string | definition,
+                    startupData?: { [key: string]: unknown },
+                ): widget;
+
+                initOnAll(container?: dom.element): widget[];
+
+                parseElementClasses(classes: string): unknown;
+
+                wrapElement(element: unknown, widgetName?: string): unknown;
+            }
+        }
+        interface widgetselection {
+            addFillers(editable: editable): boolean;
+
+            removeFillers(editable: editable): void;
+        }
     }
 }

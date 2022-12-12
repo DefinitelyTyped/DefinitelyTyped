@@ -1,769 +1,704 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly dom: typeof dom
+        readonly dom: domStatic;
     }
+
+    interface domStatic {
+        comment: { new (comment: string | Node, ownerDocument?: dom.document): dom.comment };
+        document: { new (domDocument: Document): dom.document };
+        documentFragment: { new <T extends Event | EventTarget = Node>(nodeOrDoc: T): dom.documentFragment<T> };
+        domObject: { new <T extends Event | EventTarget = Node>(nativeDomObject: T): dom.domObject<T> };
+        element: {
+            new (element: string | HTMLElement, ownerDocument?: dom.document): dom.element;
+            // static method
+            clearAllMarkers(database: unknown): unknown;
+
+            clearMarkers(database: unknown, element: dom.element, removeFromDatabase: boolean): void;
+
+            createFromHtml(html: string): dom.element;
+
+            get(element: string | HTMLElement | dom.element): dom.element;
+
+            setMarker(database: unknown, element: dom.element, name: string, value: unknown): dom.element;
+        };
+        elementPath: { new (startNode: dom.element, root?: dom.element): dom.elementPath };
+        event: {
+            new (domEvent: Event | EventTarget): dom.event<Event | EventTarget, dom.node<Event | EventTarget>>;
+        };
+        iterator: { new (range: dom.range): dom.iterator };
+        node: { new (domNode: Event | EventTarget): dom.node<Event | EventTarget> };
+        nodeList: { new (nativeList: NodeList): dom.nodeList<Event | EventTarget> };
+        range: {
+            new (root: dom.element | dom.document): dom.range;
+            mergeRanges(ranges: dom.range[]): dom.range[];
+        };
+        rangeList: { new (ranges?: dom.range | dom.range[]): dom.rangeList };
+        selection: { new (target: dom.document | dom.element | dom.selection): dom.selection };
+        text: { new (text: Text | string, ownerDocument?: dom.document): dom.text };
+        walker: {
+            new (range: dom.range): dom.walker;
+            validEmptyBlockContainers: { [key: string]: unknown };
+            blockBoundary(customNodeNames: unknown): (node: dom.node) => boolean;
+
+            bogus(isReject?: boolean): (node: dom.node) => boolean;
+
+            bookmark(contentOnly?: boolean, isReject?: boolean): (node: dom.node) => boolean;
+
+            editable(isReject?: boolean): (node: dom.node) => boolean;
+
+            empty(isReject?: boolean): (node: dom.node) => boolean;
+
+            ignored(isReject?: boolean): (node: dom.node) => boolean;
+
+            invisible(isReject?: boolean): (node: dom.node) => boolean;
+
+            listItemBoundary(): (node: dom.node) => boolean;
+
+            nodeType(type: number, isReject?: boolean): (node: dom.node) => boolean;
+
+            temp(isReject?: boolean): (node: dom.node) => boolean;
+
+            whitespaces(isReject?: boolean): (node: dom.node) => boolean;
+        };
+        window: { new (domWindow: Window): dom.window };
+    }
+
     namespace dom {
         interface bookmark {
-            startNode: node | string
-            endNode: node | string
-            serializable: boolean
-            collapsed: boolean
+            startNode: node | string;
+            endNode: node | string;
+            serializable: boolean;
+            collapsed: boolean;
         }
 
         interface bookmark2 {
-            start: number[]
-            end: number[]
-            startOffset: number
-            endOffset: number
-            collapsed: boolean
-            normalized: boolean
-            is2: boolean
+            start: number[];
+            end: number[];
+            startOffset: number;
+            endOffset: number;
+            collapsed: boolean;
+            normalized: boolean;
+            is2: boolean;
         }
 
         interface shrinkOptions {
-            shrinkOnBlockBoundary?: boolean | undefined
-            skipBogus?: boolean | undefined
+            shrinkOnBlockBoundary?: boolean | undefined;
+            skipBogus?: boolean | undefined;
         }
 
         interface rangeListIterator {
-            getNextRange(mergeConsequent?: boolean): range
+            getNextRange(mergeConsequent?: boolean): range;
         }
 
         interface position {
-            x: number
-            y: number
+            x: number;
+            y: number;
         }
 
         interface widthAndHeight {
-            width: number
-            height: number
+            width: number;
+            height: number;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_comment.html */
-        class comment extends node {
-            readonly type: number
-
-            constructor(comment: string | Node, ownerDocument?: document)
-
-            getOuterHtml(): string
+        interface comment<T extends Event | EventTarget = Node> extends node<T> {
+            readonly type: number;
+            getOuterHtml(): string;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_document.html */
-        class document extends domObject<Document> {
-            readonly type: number
+        interface document extends domObject<Document> {
+            readonly type: number;
 
-            constructor(domDocument: Document)
+            appendStyleSheet(cssFileUrl: string): void;
 
-            appendStyleSheet(cssFileUrl: string): void
-
-            appendStyleText(cssStyleText: string): CSSStyleSheet
+            appendStyleText(cssStyleText: string): CSSStyleSheet;
 
             createElement(
                 name: string,
                 attribsAndStyles?: {
-                    attributes?: { [key: string]: string } | undefined
-                    styles?: { [key: string]: string } | undefined
-                }
-            ): element
+                    attributes?: { [key: string]: string } | undefined;
+                    styles?: { [key: string]: string } | undefined;
+                },
+            ): element;
 
-            createText(text: string): element
+            createText(text: string): element;
 
-            find(selector: string): nodeList<HTMLElement>
+            find(selector: string): nodeList<HTMLElement>;
 
-            findOne(selector: string): element
+            findOne(selector: string): element;
 
-            focus(): void
+            focus(): void;
 
-            getActive(): element
+            getActive(): element;
 
-            getBody(): element
+            getBody(): element;
 
-            getByAddress(address: unknown[], normalized?: boolean): node
+            getByAddress(address: unknown[], normalized?: boolean): node;
 
-            getById(elementId: string): element
+            getById(elementId: string): element;
 
-            getDocumentElement(): element
+            getDocumentElement(): element;
 
-            getElementsByTag(tagName: string): nodeList<HTMLElement>
+            getElementsByTag(tagName: string): nodeList<HTMLElement>;
 
-            getHead(): element
+            getHead(): element;
 
-            getSelection(): selection
+            getSelection(): selection;
 
-            getWindow(): window
+            getWindow(): window;
 
-            write(html: string): void
+            write(html: string): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_documentFragment.html */
-        class documentFragment<
-            T extends Event | EventTarget = Node
-        > extends node {
-            readonly type: number
+        interface documentFragment<T extends Event | EventTarget = Node> extends node<T> {
+            readonly type: number;
 
-            constructor(nodeOrDoc: T)
-
-            insertAfterNode(node: node): void
+            insertAfterNode(node: node): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_domObject.html */
-        class domObject<
-            T extends Event | EventTarget = Node
-        > extends CKEDITOR.event {
-            readonly $: T
+        interface domObject<T extends Event | EventTarget = Node> extends CKEDITOR.event {
+            readonly $: T;
 
-            constructor(nativeDomObject: T)
+            clearCustomData(): void;
 
-            clearCustomData(): void
+            equals(object: unknown): boolean;
 
-            equals(object: unknown): boolean
+            getCustomData(key: string): unknown;
 
-            getCustomData(key: string): unknown
+            getPrivate(): { [key: string]: unknown };
 
-            getPrivate(): { [key: string]: unknown }
+            getUniqueId(): number;
 
-            getUniqueId(): number
+            removeAllListeners(): void;
 
-            removeAllListeners(): void
+            removeCustomData(key: string): unknown;
 
-            removeCustomData(key: string): unknown
-
-            setCustomData(key: string, value: unknown): domObject
+            setCustomData(key: string, value: unknown): domObject;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_element.html */
-        class element extends node<HTMLElement> {
-            readonly type: number
+        interface element extends node<HTMLElement> {
+            readonly type: number;
 
-            constructor(element: string | HTMLElement, ownerDocument?: document)
+            addClass(className: string): void;
 
-            addClass(className: string): void
+            append(node: node | string, toStart?: boolean): node;
 
-            append(node: node | string, toStart?: boolean): node
+            appendBogus(force: boolean): void;
 
-            appendBogus(force: boolean): void
+            appendHtml(html: string): void;
 
-            appendHtml(html: string): void
+            appendText(text: string): node;
 
-            appendText(text: string): node
+            breakParent(parent: element): void;
 
-            breakParent(parent: element): void
+            contains(node: node): boolean;
 
-            contains(node: node): boolean
+            copyAttributes(dest: element, skipAttributes: { [key: string]: string }): void;
 
-            copyAttributes(
-                dest: element,
-                skipAttributes: { [key: string]: string }
-            ): void
+            data(name: string, value?: string | false): string;
 
-            data(name: string, value?: string | false): string
+            disableContextMenu(): void;
 
-            disableContextMenu(): void
+            find(selector: string): nodeList<HTMLElement>;
 
-            find(selector: string): nodeList<HTMLElement>
+            findOne(selector: string): element;
 
-            findOne(selector: string): element
+            focus(defer?: boolean): void;
 
-            focus(defer?: boolean): void
+            focusNext(ignoreChildren?: boolean, indexToUse?: number): void;
 
-            focusNext(ignoreChildren?: boolean, indexToUse?: number): void
+            focusPrevious(ignoreChildren?: boolean, indexToUse?: number): void;
 
-            focusPrevious(ignoreChildren?: boolean, indexToUse?: number): void
+            forEach(callback: (node: node) => void, type?: number, skipRoot?: boolean): void;
 
-            forEach(
-                callback: (node: node) => void,
-                type?: number,
-                skipRoot?: boolean
-            ): void
+            getAttribute(name: string): string;
 
-            getAttribute(name: string): string
+            getBogus(): node | boolean;
 
-            getBogus(): node | boolean
+            getChild(indices: number | number[]): node;
 
-            getChild(indices: number | number[]): node
+            getChildCount(): number;
 
-            getChildCount(): number
+            getChildren(): nodeList;
 
-            getChildren(): nodeList
+            getClientRect(): ClientRect;
 
-            getClientRect(): ClientRect
+            getComputedStyle(propertyName: string): string;
 
-            getComputedStyle(propertyName: string): string
+            getDirection(useComputed: boolean): string;
 
-            getDirection(useComputed: boolean): string
+            getDocumentPosition(refDocument: document): position;
 
-            getDocumentPosition(refDocument: document): dom.position
+            getDtd(): dtdDefinition;
 
-            getDtd(): dtdDefinition
+            getEditor(): editor;
 
-            getEditor(): editor
+            getElementsByTag(tagName: string): nodeList;
 
-            getElementsByTag(tagName: string): nodeList
+            getFirst(evaluator?: (node: node) => boolean): node;
 
-            getFirst(evaluator?: (node: node) => boolean): node
+            getFrameDocument(): document;
 
-            getFrameDocument(): document
+            getHtml(): string;
 
-            getHtml(): string
+            getId(): string;
 
-            getId(): string
+            getLast(evaluator?: (node: node) => boolean): node;
 
-            getLast(evaluator?: (node: node) => boolean): node
+            getName(): string;
 
-            getName(): string
+            getNameAtt(): string;
 
-            getNameAtt(): string
+            getOuterHtml(): string;
 
-            getOuterHtml(): string
+            getPositionedAncestor(): element;
 
-            getPositionedAncestor(): element
+            getSize(type: string, isBorderBox: boolean): void;
 
-            getSize(type: string, isBorderBox: boolean): void
+            getStyle(name: string): string;
 
-            getStyle(name: string): string
+            getTabIndex(): number;
 
-            getTabIndex(): number
+            getText(): string;
 
-            getText(): string
+            getValue(): string;
 
-            getValue(): string
+            getWindow(): window;
 
-            getWindow(): window
+            hasAttributes(): boolean;
 
-            hasAttributes(): boolean
+            hasAttribute(name: string): boolean;
 
-            hasAttribute(name: string): boolean
+            hasClass(className: string): boolean;
 
-            hasClass(className: string): boolean
+            hide(): void;
 
-            hide(): void
+            is(...name: string[]): boolean;
+            is(name: unknown): boolean;
 
-            is(...name: string[]): boolean
-            is(name: unknown): boolean
+            isBlockBoundary(customNodeNames: { [tagName: string]: 1 }): boolean;
 
-            isBlockBoundary(customNodeNames: { [tagName: string]: 1 }): boolean
+            isEditable(textCursor?: boolean): boolean;
 
-            isEditable(textCursor?: boolean): boolean
+            isEmptyInlineRemoveable(): boolean;
 
-            isEmptyInlineRemoveable(): boolean
+            isIdentical(otherElement: element): boolean;
 
-            isIdentical(otherElement: element): boolean
+            isVisible(): boolean;
 
-            isVisible(): boolean
+            mergeSiblings(inlineOnly?: boolean): void;
 
-            mergeSiblings(inlineOnly?: boolean): void
+            moveChildren(target: element, toStart?: boolean): void;
 
-            moveChildren(target: element, toStart?: boolean): void
+            removeAttribute(name: string): void;
 
-            removeAttribute(name: string): void
+            removeAttributes(attributes?: string[]): void;
 
-            removeAttributes(attributes?: string[]): void
+            removeClass(className: string): void;
 
-            removeClass(className: string): void
+            removeStyle(name: string): void;
 
-            removeStyle(name: string): void
+            renameNode(newTag: string): void;
 
-            renameNode(newTag: string): void
+            scrollIntoParent(parent: element | window, alignToTop: boolean, hscroll: boolean): void;
 
-            scrollIntoParent(
-                parent: element | window,
-                alignToTop: boolean,
-                hscroll: boolean
-            ): void
+            scrollIntoView(alignToTop?: boolean): void;
 
-            scrollIntoView(alignToTop?: boolean): void
+            setAttribute(name: string, value: string): element;
 
-            setAttribute(name: string, value: string): element
+            setAttributes(attributesPairs: { [key: string]: string }): element;
 
-            setAttributes(attributesPairs: { [key: string]: string }): element
+            setHtml(html: string): string;
 
-            setHtml(html: string): string
+            setOpacity(opacity: number): void;
 
-            setOpacity(opacity: number): void
+            setSize(type: string, size: number, isBorderBox: boolean): void;
 
-            setSize(type: string, size: number, isBorderBox: boolean): void
+            setState(state: number, base?: string, useAria?: boolean): void;
 
-            setState(state: number, base?: string, useAria?: boolean): void
+            setStyle(name: string, value: string): element;
 
-            setStyle(name: string, value: string): element
+            setStyles(stylesPair: { [key: string]: string }): element;
 
-            setStyles(stylesPair: { [key: string]: string }): element
+            setText(text: string): string;
 
-            setText(text: string): string
+            setValue(value: string): element;
 
-            setValue(value: string): element
+            show(): void;
 
-            show(): void
-
-            unselectable(): void
-
-            // static method
-            static clearAllMarkers(database: unknown): unknown
-
-            static clearMarkers(
-                database: unknown,
-                element: element,
-                removeFromDatabase: boolean
-            ): void
-
-            static createFromHtml(html: string): element
-
-            static get(element: string | HTMLElement | element): element
-
-            static setMarker(
-                database: unknown,
-                element: element,
-                name: string,
-                value: unknown
-            ): element
+            unselectable(): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_elementPath.html */
-        class elementPath {
-            readonly block: element
-            readonly blockLimit: element
-            readonly elements: element[]
-            readonly lastElement: element
-            readonly root: element
+        interface elementPath {
+            readonly block: element;
+            readonly blockLimit: element;
+            readonly elements: element[];
+            readonly lastElement: element;
+            readonly root: element;
 
-            constructor(startNode: element, root?: element)
-
-            compare(otherPath: elementPath): boolean
+            compare(otherPath: elementPath): boolean;
 
             contains(
-                query:
-                    | string
-                    | string[]
-                    | ((element: element) => boolean)
-                    | { [key: string]: unknown }
-                    | element,
+                query: string | string[] | ((element: element) => boolean) | { [key: string]: unknown } | element,
                 excludeRoot?: boolean,
-                fromTop?: boolean
-            ): element
+                fromTop?: boolean,
+            ): element;
 
-            direction(): 'ltr' | 'rtl'
+            direction(): 'ltr' | 'rtl';
 
-            isContextFor(tag: string): boolean
+            isContextFor(tag: string): boolean;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_event.html */
-        class event<
-            T extends Event | EventTarget = Event,
-            U extends node<Event | EventTarget> = node<T>
-        > {
-            readonly $: T
+        interface event<T extends Event | EventTarget = Event, U extends node<Event | EventTarget> = node<T>> {
+            readonly $: T;
 
-            constructor(domEvent: Event)
+            getKey(): number;
 
-            getKey(): number
+            getKeystroke(): number;
 
-            getKeystroke(): number
+            getPageOffset(): position;
 
-            getPageOffset(): dom.position
+            preventDefault(stopPropagation?: boolean): void;
 
-            preventDefault(stopPropagation?: boolean): void
+            stopPropagation(): void;
 
-            stopPropagation(): void
+            getTarget(): U;
 
-            getTarget(): U
-
-            getPhase(): number
+            getPhase(): number;
 
             on(
                 eventName: string,
-                listenerFunction: (eventInfo: eventInfo) => void,
+                listenerFunction: (eventInfo: eventInfo<domObject<Event | EventTarget>
+                    | event<Event | EventTarget>
+                    | eventData>) => void,
                 scopeObj?: unknown,
                 listenerData?: unknown,
-                priority?: number
-            ): { removeListener: () => void }
+                priority?: number,
+            ): { removeListener: () => void };
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_iterator.html */
-        class iterator {
-            readonly activeFilter: filter
-            enforceRealBlocks: boolean
-            enlargeBr: boolean
-            readonly filter: filter
-            forceBrBreak: boolean
-            readonly range: range
+        interface iterator {
+            readonly activeFilter: filter;
+            enforceRealBlocks: boolean;
+            enlargeBr: boolean;
+            readonly filter: filter;
+            forceBrBreak: boolean;
+            readonly range: range;
 
-            constructor(range: range)
-
-            getNextParagraph(blockTag?: string): element
+            getNextParagraph(blockTag?: string): element;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_node.html */
-        class node<T extends Event | EventTarget = Node> extends domObject<T> {
-            type: number
+        interface node<T extends Event | EventTarget = Node> extends domObject<T> {
+            type: number;
 
-            constructor(domNode: T)
+            appendTo(element: element): element;
 
-            appendTo(element: element): element
+            clone(includeChildren: boolean, cloneId: boolean): node<T>;
 
-            clone(includeChildren: boolean, cloneId: boolean): node<T>
+            hasPrevious(): boolean;
 
-            hasPrevious(): boolean
+            hasNext(): boolean;
 
-            hasNext(): boolean
+            insertAfter(node: node<Event | EventTarget>): node<Event | EventTarget>;
 
-            insertAfter(node: node): node
+            insertBefore(node: node<Event | EventTarget>): node<Event | EventTarget>;
 
-            insertBefore(node: node): node
+            insertBeforeMe(node: node<Event | EventTarget>): node<Event | EventTarget>;
 
-            insertBeforeMe(node: node): node
+            getAddress(normalized?: boolean): number[];
 
-            getAddress(normalized?: boolean): number[]
+            getAscendant(reference: string, includeSelf?: boolean): node<Event | EventTarget>;
 
-            getAscendant(reference: string, includeSelf?: boolean): node
+            getCommonAncestor(node: node<Event | EventTarget>): void;
 
-            getCommonAncestor(node: node): void
+            getDocument(): document;
 
-            getDocument(): document
+            getIndex(normalized?: boolean): number;
 
-            getIndex(normalized?: boolean): number
-
-            getNext(evaluator?: (node: node) => boolean): node
+            getNext(evaluator?: (node: node<Event | EventTarget>) => boolean): node<Event | EventTarget>;
 
             getNextSourceNode(
                 startFromSibling?: boolean,
                 nodeType?: number,
-                guard?: node | ((node: node) => boolean)
-            ): node
+                guard?: node<Event | EventTarget> | ((node: node<Event | EventTarget>) => boolean),
+            ): node<Event | EventTarget>;
 
-            getParent(allowFragmentParent?: boolean): element
+            getParent(allowFragmentParent?: boolean): element;
 
-            getParents(closerFirst?: boolean): node[]
+            getParents(closerFirst?: boolean): node[];
 
-            getPosition(otherNode: node): void
+            getPosition(otherNode: node): void;
 
-            getPrevious(evaluator?: (node: node) => boolean): node
+            getPrevious(evaluator?: (node: node) => boolean): node;
 
             getPreviousSourceNode(
                 startFromSibling?: boolean,
                 nodeType?: number,
-                guard?: node | ((node: node) => boolean)
-            ): node
+                guard?: node<Event | EventTarget> | ((node: node<Event | EventTarget>) => boolean),
+            ): node<Event | EventTarget>;
 
-            hasAscendant(name: string, includeSelf: boolean): boolean
+            hasAscendant(name: string, includeSelf: boolean): boolean;
 
-            remove(preserveChildren?: boolean): node
+            remove(preserveChildren?: boolean): node;
 
-            replace(nodeToReplace: node): void
+            replace(nodeToReplace: node): void;
 
-            trim(): void
+            trim(): void;
 
-            ltrim(): void
+            ltrim(): void;
 
-            rtrim(): void
+            rtrim(): void;
 
-            isReadOnly(): boolean
+            isReadOnly(): boolean;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_nodeList.html */
-        class nodeList<T extends Node = Node> {
-            constructor(nativeList: NodeList)
+        interface nodeList<T extends Event | EventTarget = Node> {
+            count(): number;
 
-            count(): number
+            getItem(index: number): node<T>;
 
-            getItem(index: number): node<T>
-
-            toArray(): node<T>[]
+            toArray(): Array<node<T>>;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_range.html */
-        class range {
-            readonly collapsed: boolean
-            readonly document: document
-            readonly endContainer: element | text
-            readonly endOffset: number
-            readonly root: element
-            readonly startContainer: element | text
-            readonly startOffset: number
+        interface range {
+            readonly collapsed: boolean;
+            readonly document: document;
+            readonly endContainer: element | text;
+            readonly endOffset: number;
+            readonly root: element;
+            readonly startContainer: element | text;
+            readonly startOffset: number;
 
-            constructor(root: element | document)
+            checkBoundaryOfElement(element: element, checkType: number): boolean;
 
-            checkBoundaryOfElement(element: element, checkType: number): boolean
+            checkEndOfBlock(): boolean;
 
-            checkEndOfBlock(): boolean
+            checkReadOnly(): boolean;
 
-            checkReadOnly(): boolean
+            checkStartOfBlock(): boolean;
 
-            checkStartOfBlock(): boolean
+            clone(cloneId?: boolean): range;
 
-            clone(cloneId?: boolean): range
+            cloneContents(): documentFragment;
 
-            cloneContents(): documentFragment
+            collapse(toStart?: boolean): boolean;
 
-            collapse(toStart?: boolean): boolean
+            createBookmark(serializable?: boolean): bookmark;
 
-            createBookmark(serializable?: boolean): dom.bookmark
+            createBookmark2(normalized?: boolean): bookmark2;
 
-            createBookmark2(normalized?: boolean): dom.bookmark2
+            createIterator(): iterator;
 
-            createIterator(): iterator
+            deleteContents(mergeThen?: boolean): void;
 
-            deleteContents(mergeThen?: boolean): void
+            endPath(): elementPath;
 
-            endPath(): elementPath
+            enlarge(unit: number, excludeBrs?: boolean): void;
 
-            enlarge(unit: number, excludeBrs?: boolean): void
+            extractContents(mergeThen?: boolean, cloneId?: boolean): documentFragment;
 
-            extractContents(
-                mergeThen?: boolean,
-                cloneId?: boolean
-            ): documentFragment
+            fixBlock(isStart: boolean, blockTag: string): element;
 
-            fixBlock(isStart: boolean, blockTag: string): element
+            getBoundaryNodes(): { startNode: node; endNode: node };
 
-            getBoundaryNodes(): { startNode: node; endNode: node }
+            getCommonAncestor(includeSelf?: boolean, ignoreTextNode?: boolean): element;
 
-            getCommonAncestor(
-                includeSelf?: boolean,
-                ignoreTextNode?: boolean
-            ): element
+            getEnclosedNode(): node;
 
-            getEnclosedNode(): node
-
-            getNextEditableNode(): element | text
+            getNextEditableNode(): element | text;
 
             getNextNode(
                 evaluator?: (element: element) => boolean,
                 guard?: (element: element) => boolean,
-                boundary?: element
-            ): element
+                boundary?: element,
+            ): element;
 
-            getPreviousEditableNode(): element | text
+            getPreviousEditableNode(): element | text;
 
             getPreviousNode(
                 evaluator?: (element: element) => boolean,
                 guard?: (element: element) => boolean,
-                boundary?: element
-            ): element
+                boundary?: element,
+            ): element;
 
-            getTouchedEndNode(): node
+            getTouchedEndNode(): node;
 
-            getTouchedStartNode(): node
+            getTouchedStartNode(): node;
 
-            insertNode(node: node): void
+            insertNode(node: node): void;
 
-            moveToBookmark(bookmark: dom.bookmark | dom.bookmark2): void
+            moveToBookmark(bookmark: bookmark | bookmark2): void;
 
-            moveToClosestEditablePosition(
-                element?: element,
-                isMoveForward?: boolean
-            ): boolean
+            moveToClosestEditablePosition(element?: element, isMoveForward?: boolean): boolean;
 
-            moveToElementEditEnd(target: element): boolean
+            moveToElementEditEnd(target: element): boolean;
 
-            moveToElementEditStart(target: element): boolean
+            moveToElementEditStart(target: element): boolean;
 
-            moveToElementEditablePosition(
-                element: element,
-                isMoveToEnd: boolean
-            ): boolean
+            moveToElementEditablePosition(element: element, isMoveToEnd: boolean): boolean;
 
-            moveToPosition(node: node, position: number): void
+            moveToPosition(node: node, position: number): void;
 
-            moveToRange(range: range): void
+            moveToRange(range: range): void;
 
-            optimize(): void
+            optimize(): void;
 
-            optimizeBookmark(): void
+            optimizeBookmark(): void;
 
-            removeEmptyBlocksAtEnd(atEnd: boolean): void
+            removeEmptyBlocksAtEnd(atEnd: boolean): void;
 
-            scrollIntoView(): void
+            scrollIntoView(): void;
 
-            select(): selection
+            select(): selection;
 
-            selectNodeContents(node: node): void
+            selectNodeContents(node: node): void;
 
-            setEnd(endNode: node, endOffset: number): void
+            setEnd(endNode: node, endOffset: number): void;
 
-            setEndAfter(node: node): void
+            setEndAfter(node: node): void;
 
-            setEndAt(node: node, position: number): void
+            setEndAt(node: node, position: number): void;
 
-            setEndBefore(node: node): void
+            setEndBefore(node: node): void;
 
-            setStart(startNode: node, startOffset: number): void
+            setStart(startNode: node, startOffset: number): void;
 
-            setStartAfter(node: node): void
+            setStartAfter(node: node): void;
 
-            setStartAt(node: node, position: number): void
+            setStartAt(node: node, position: number): void;
 
-            setStartBefore(node: node): void
+            setStartBefore(node: node): void;
 
-            shrink(
-                mode: number,
-                selectContents?: boolean,
-                options?: boolean | dom.shrinkOptions
-            ): void
+            shrink(mode: number, selectContents?: boolean, options?: boolean | shrinkOptions): void;
 
-            splitBlock(cloneId?: boolean): void
+            splitBlock(cloneId?: boolean): void;
 
-            splitElement(toSplit: element, cloneId?: boolean): element
+            splitElement(toSplit: element, cloneId?: boolean): element;
 
-            startPath(): elementPath
+            startPath(): elementPath;
 
-            trim(ignoreStart?: boolean, ignoreEnd?: boolean): void
-
-            static mergeRanges(ranges: range[]): range[]
+            trim(ignoreStart?: boolean, ignoreEnd?: boolean): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_rangeList.html */
-        class rangeList {
-            constructor(ranges?: range | range[])
+        interface rangeList {
+            createBokmarks(serializable?: boolean): bookmark[];
 
-            createBokmarks(serializable?: boolean): dom.bookmark[]
+            createBookmarks2(normalized?: boolean): bookmark2[];
 
-            createBookmarks2(normalized?: boolean): dom.bookmark2[]
+            createIterator(): rangeListIterator;
 
-            createIterator(): dom.rangeListIterator
-
-            moveToBookmarks(bookmarks: dom.bookmark[]): void
+            moveToBookmarks(bookmarks: bookmark[]): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_selection.html */
-        class selection {
-            readonly FILLING_CHAR_SEQUENCE: string
-            readonly document: document
-            readonly isFake: boolean
-            readonly isLocked: boolean
-            readonly rev: number
-            readonly root: element
+        interface selection {
+            readonly FILLING_CHAR_SEQUENCE: string;
+            readonly document: document;
+            readonly isFake: boolean;
+            readonly isLocked: boolean;
+            readonly rev: number;
+            readonly root: element;
 
-            constructor(target: document | element | selection)
+            createBookmarks(serializable: unknown): bookmark[];
 
-            createBookmarks(serializable: unknown): dom.bookmark[]
+            createBookmarks2(normalized: unknown): bookmark2[];
 
-            createBookmarks2(normalized: unknown): dom.bookmark2[]
+            fake(element: element, ariaLabel?: boolean): void;
 
-            fake(element: element, ariaLabel?: boolean): void
+            getCommonAncestor(): element;
 
-            getCommonAncestor(): element
+            getNative(): Selection;
 
-            getNative(): Selection
+            getRanges(onlyEditables?: boolean): range[];
 
-            getRanges(onlyEditables?: boolean): range[]
+            getSelectedElement(): element;
 
-            getSelectedElement(): element
+            getSelectedText(): string;
 
-            getSelectedText(): string
+            getStartElement(): element;
 
-            getStartElement(): element
+            getType(): number;
 
-            getType(): number
+            isCollapsed(): boolean;
 
-            isCollapsed(): boolean
+            isHidden(): boolean;
 
-            isHidden(): boolean
+            isInTable(allowPartialSelection?: boolean): boolean;
 
-            isInTable(allowPartialSelection?: boolean): boolean
+            lock(): void;
 
-            lock(): void
+            removeAllRanges(): void;
 
-            removeAllRanges(): void
+            reset(): void;
 
-            reset(): void
+            scrollIntoView(): void;
 
-            scrollIntoView(): void
+            selectBookmarks(bookmarks: Array<bookmark | bookmark2>): selection;
 
-            selectBookmarks(
-                bookmarks: Array<dom.bookmark | dom.bookmark2>
-            ): selection
+            selectElement(element: element): void;
 
-            selectElement(element: element): void
+            selectRanges(ranges: range[]): void;
 
-            selectRanges(ranges: range[]): void
-
-            unlock(restore: boolean): void
+            unlock(restore: boolean): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_text.html */
-        class text extends node<Text> {
-            readonly type: number
+        interface text extends node<Text> {
+            readonly type: number;
 
-            constructor(text: Text | string, ownerDocument?: document)
+            getLength(): number;
 
-            getLength(): number
+            getText(): string;
 
-            getText(): string
+            setText(text: string): void;
 
-            setText(text: string): void
+            split(offset: number): text;
 
-            split(offset: number): text
-
-            substring(indexA: number, indexB?: number): void
+            substring(indexA: number, indexB?: number): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_walker.html */
-        class walker {
-            evaluator: (node: node) => boolean
-            guard: (node: node, movingOut?: boolean) => boolean
+        interface walker {
+            evaluator: (node: node) => boolean;
+            guard: (node: node, movingOut?: boolean) => boolean;
 
-            static validEmptyBlockContainers: { [key: string]: unknown }
+            checkBackward(): boolean;
 
-            constructor(range: range)
+            checkForward(): boolean;
 
-            checkBackward(): boolean
+            end(): void;
 
-            checkForward(): boolean
+            lastBackward(): node;
 
-            end(): void
+            lastForward(): node;
 
-            lastBackward(): node
+            next(): node;
 
-            lastForward(): node
+            previous(): node;
 
-            next(): node
-
-            previous(): node
-
-            reset(): void
-
-            static blockBoundary(
-                customNodeNames: unknown
-            ): (node: node) => boolean
-
-            static bogus(isReject?: boolean): (node: node) => boolean
-
-            static bookmark(
-                contentOnly?: boolean,
-                isReject?: boolean
-            ): (node: node) => boolean
-
-            static editable(isReject?: boolean): (node: node) => boolean
-
-            static empty(isReject?: boolean): (node: node) => boolean
-
-            static ignored(isReject?: boolean): (node: node) => boolean
-
-            static invisible(isReject?: boolean): (node: node) => boolean
-
-            static listItemBoundary(): (node: node) => boolean
-
-            static nodeType(
-                type: number,
-                isReject?: boolean
-            ): (node: node) => boolean
-
-            static temp(isReject?: boolean): (node: node) => boolean
-
-            static whitespaces(isReject?: boolean): (node: node) => boolean
+            reset(): void;
         }
 
         /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dom_window.html */
-        class window extends domObject {
-            constructor(domWindow: Window)
+        interface window extends domObject<Window> {
+            focus(): void;
 
-            focus(): void
+            getViewPaneSize(): widthAndHeight;
 
-            getViewPaneSize(): dom.widthAndHeight
+            getScrollPosition(): position;
 
-            getScrollPosition(): dom.position
-
-            getFrame(): element
+            getFrame(): element;
         }
     }
 }

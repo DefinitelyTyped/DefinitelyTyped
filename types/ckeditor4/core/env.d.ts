@@ -1,10 +1,10 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        env: env;
+        readonly env: env;
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_env.html */
-    class env {
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_env.html */
+    interface env {
         air: boolean;
         chrome: boolean;
         cssClass: string;
@@ -22,8 +22,6 @@ declare namespace CKEDITOR {
         safari: boolean;
         version: number;
         webkit: boolean;
-
-        private constructor();
 
         secure(): boolean;
     }

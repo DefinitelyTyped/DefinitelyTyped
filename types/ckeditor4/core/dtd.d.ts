@@ -3,11 +3,9 @@ declare namespace CKEDITOR {
         dtd: dtdDefinition;
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_dtd.html */
-    class dtdDefinition {
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_dtd.html */
+    interface dtdDefinition {
         [outerTagName: string]: { [innerTagName: string]: 1 };
-
-        private constructor();
 
         $block: { [tagName: string]: 1 };
         $blockLimit: { [tagName: string]: 1 };

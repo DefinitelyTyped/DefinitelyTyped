@@ -1,14 +1,17 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly tools: tools;
+        readonly tools: {
+            readonly array: tools.array;
+            readonly color: tools.colorConstructor;
+            readonly object: tools._object;
+            readonly promise: PromiseConstructor;
+            readonly style: {
+                readonly parse: tools.style.parse;
+                readonly border: tools.style.borderConstructor;
+            };
+        } & tools;
     }
-    class tools {
-        readonly array: tools.array;
-        readonly color: typeof tools.color;
-        readonly object: tools.object;
-        readonly promise: typeof Promise;
-        readonly style: tools.style;
-
+    interface tools {
         addFunction(fn: () => unknown, scope?: unknown): number;
 
         arrayCompare(arrayA: unknown[], arrayB: unknown[]): boolean;
@@ -33,7 +36,7 @@ declare namespace CKEDITOR {
 
         cssVendorPrefix(property: string, value: string, asString?: boolean): { [cssClass: string]: string | number };
 
-        defer<T extends (...args: unknown[]) => unknown>(fn: T, ...args: Parameters<T>): T;
+        defer(fn: () => void): void;
 
         enableHtml5Elements(doc: Document | DocumentFragment, withAppend?: boolean): void;
 
@@ -62,7 +65,7 @@ declare namespace CKEDITOR {
 
         getIndex<T>(array: T[], compareFunction: (element: T) => boolean): number;
 
-        getMouseButton(evt: dom.event): boolean;
+        getMouseButton(evt: dom.event<Event | EventTarget>): boolean;
 
         getNextId(): string;
 
@@ -137,7 +140,7 @@ declare namespace CKEDITOR {
     }
 
     namespace tools {
-        class array {
+        interface array {
             every<T>(
                 array: T[],
                 fn: (value: T, index: number, array: T[]) => boolean,
@@ -168,11 +171,12 @@ declare namespace CKEDITOR {
             ): K;
         }
 
-        class color {
+        interface colorConstructor {
+            new (): color;
             namedColors: { [colorName: string]: string };
+        }
 
-            constructor(colorCode: string, defaultValue: string);
-
+        interface color {
             getHex(): string;
 
             getHexWithAlpha(): string;
@@ -188,23 +192,14 @@ declare namespace CKEDITOR {
             getRgba(): string;
         }
 
-        // @ts-ignore
-        class object {
+        interface _object {
             findKey(obj: { [key: string]: unknown }, value: unknown): string;
 
             merge(obj1: { [key: string]: unknown }, obj2: { [key: string]: unknown }): { [key: string]: unknown };
         }
 
-        type promise<T> = Promise<T>;
-
-        class style {
-            parse: style.parse;
-            border: style.border;
-            private constructor();
-        }
-
         namespace style {
-            class parse {
+            interface parse {
                 background(value: string): {
                     color: string;
                     unprocessed: string;
@@ -224,7 +219,39 @@ declare namespace CKEDITOR {
                 };
             }
 
-            class border {}
+            interface borderConstructor {
+                new (props: { color: string; style: string; width: string }): border;
+
+                fromCssRule(value: string): border;
+
+                splitCssValues(
+                    styles: borderShorthand,
+                    fallback?: {
+                        color?: string;
+                        style?: string;
+                        width?: string;
+                    },
+                ): borderStyle;
+            }
+
+            interface borderShorthand {
+                'border-color'?: string;
+                'border-style'?: string;
+                'border-width'?: string;
+            }
+
+            interface borderStyle {
+                'border-top': border;
+                'border-right': border;
+                'border-bottom': border;
+                'border-left': border;
+            }
+
+            interface border {
+                color: string;
+                style: string;
+                width: string;
+            }
         }
     }
 }

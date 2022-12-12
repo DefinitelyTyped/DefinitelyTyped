@@ -1,16 +1,14 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        skin: skin;
+        readonly skin: skin;
     }
-    class skin {
+    interface skin {
         icons: { [name: string]: { path: string } };
         // tslint:disable-next-line:no-duplicate-variable
         name: string;
         ua: { [name: string]: unknown };
         ua_dialog: string;
         ua_editor: string;
-
-        private constructor();
 
         addIcon(name: string, path: string, offset?: number, bgsize?: string): void;
 

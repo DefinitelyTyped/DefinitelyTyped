@@ -1,14 +1,16 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly event: typeof event;
+        event: eventConstructor;
     }
+
+    type eventDataTypes = dom.domObject<Event | EventTarget> | dom.event<Event | EventTarget> | eventData;
 
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_eventInfo.html */
     interface eventInfo<
-        T extends dom.domObject<Event | EventTarget> | dom.event<Event | EventTarget> | eventData = dom.event,
+        T extends eventDataTypes = dom.event,
     > {
         data: T;
-        editor: typeof editor;
+        editor: editor;
         listenerData: unknown;
         name: string;
         sender: { [key: string]: unknown };
@@ -24,12 +26,16 @@ declare namespace CKEDITOR {
         [key: string]: unknown;
     }
 
+    interface eventConstructor<T extends event = event> {
+        new (): T;
+
+        useCapture: boolean;
+
+        implementOn(targetObject: { [key: string]: unknown }): void;
+    }
+
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_event.html */
-    class event {
-        static useCapture: boolean;
-
-        constructor();
-
+    interface event {
         capture(): void;
 
         define(name: string, meta: eventData): void;
@@ -40,14 +46,9 @@ declare namespace CKEDITOR {
 
         hasListeners(eventName: string): boolean;
 
-        on<
-            T extends
-                | dom.domObject<Event | EventTarget>
-                | dom.event<Event | EventTarget>
-                | eventData = dom.event<EventTarget>,
-        >(
+        on(
             eventName: string,
-            listenerFunction: (eventInfo: eventInfo<T>) => void,
+            listenerFunction: (eventInfo: eventInfo<eventDataTypes>) => void,
             scopeObj?: { [key: string]: unknown } | null,
             listenerData?: unknown,
             priority?: number,
@@ -55,7 +56,7 @@ declare namespace CKEDITOR {
 
         once(
             eventName: string,
-            listenerFunction: (eventInfo: eventInfo) => void,
+            listenerFunction: (eventInfo: eventInfo<eventDataTypes>) => void,
             scopeObj?: { [key: string]: unknown } | null,
             listenerData?: unknown,
             priority?: number,
@@ -63,8 +64,6 @@ declare namespace CKEDITOR {
 
         removeAllListeners(): void;
 
-        removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo) => void): void;
-
-        static implementOn(targetObject: { [key: string]: unknown }): void;
+        removeListener(eventName: string, listenerFunction: (eventInfo: eventInfo<eventDataTypes>) => void): void;
     }
 }

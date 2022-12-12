@@ -1,16 +1,14 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        fileTools: fileTools;
+        readonly fileTools: {
+            readonly fileLoader: fileTools.fileLoaderConstructor;
+            readonly uploadRepository: fileTools.uploadRepositoryConstructor;
+        } & fileTools;
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_fileTools.html */
-    class fileTools {
-        readonly fileLoader: typeof fileTools.fileLoader;
-        readonly uploadRepository: typeof fileTools.uploadRepository;
-
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_fileTools.html */
+    interface fileTools {
         isFileUploadSupported: boolean;
-
-        constructor();
 
         addUploadWidget(editor: editor, name: string, def: fileTools.uploadWidgetDefinition): void;
 
@@ -24,7 +22,10 @@ declare namespace CKEDITOR {
     }
 
     namespace fileTools {
-        class fileLoader extends event {
+        interface fileLoaderConstructor extends eventConstructor<fileLoader> {
+            new (editor: editor, fileOrData: Blob | string, fileName?: string): fileLoader;
+        }
+        interface fileLoader extends event {
             readonly data: string;
             readonly file: Blob;
             readonly fileName: string;
@@ -41,8 +42,6 @@ declare namespace CKEDITOR {
             readonly url: string;
             readonly xhr: XMLHttpRequest;
 
-            constructor(editor: editor, fileOrData: Blob | string, fileName?: string);
-
             abort(): void;
 
             isFinished(): boolean;
@@ -56,10 +55,12 @@ declare namespace CKEDITOR {
             upload(url: string, additionalRequestParameters?: unknown): void;
         }
 
-        class uploadRepository extends event {
-            readonly loaders: fileLoader[];
+        interface uploadRepositoryConstructor extends eventConstructor<uploadRepository> {
+            new (editor: editor): uploadRepository;
+        }
 
-            constructor(editor: editor);
+        interface uploadRepository extends event {
+            readonly loaders: fileLoader[];
 
             create(fileOrData: Blob | string, fileName: string, loaderType?: unknown): fileLoader;
 

@@ -4,7 +4,7 @@ declare namespace CKEDITOR {
         ajax?: ajax;
     }
     // singleton
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_ajax.html */
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_ajax.html */
     interface ajax {
         load(url: string, callback?: (data: any) => void): string;
         loadXml(url: string, callback?: (data: any) => void): xml;

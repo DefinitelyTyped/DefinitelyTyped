@@ -1,14 +1,12 @@
-/** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_keystrokeHandler.html */
+/** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_keystrokeHandler.html */
 
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly keystrokeHandler: typeof keystrokeHandler;
+        readonly keystrokeHandler: { new (editor: editor): keystrokeHandler };
     }
-    class keystrokeHandler {
+    interface keystrokeHandler {
         blockedKeystrokes: { [key: number]: string | boolean };
         keystrokes: { [key: number]: string | boolean };
-
-        constructor(editor: editor);
 
         attach(domObject: dom.domObject): void;
     }

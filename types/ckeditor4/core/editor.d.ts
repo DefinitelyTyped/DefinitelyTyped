@@ -1,32 +1,14 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly editor: typeof editor;
-    }
-    namespace editor {
-        namespace events {
-            interface contentDom extends eventData {
-                editor: editor;
-            }
-
-            interface fileUploadRequest extends eventData {
-                url: string;
-                fileLoader: fileTools.fileLoader;
-                requestData: unknown;
-            }
-
-            interface key extends eventData {
-                keyCode: number;
-                domEvent: dom.domObject<KeyboardEvent>;
-            }
-
-            interface toHtml extends eventData, htmlDataProcessorOptions {
-                dataValue: string | htmlParser.fragment | dom.element;
-            }
-        }
+        readonly editor: editorConstructor;
     }
 
-    /** https://com/docs/CKEDITOR4/latest/api/CKEDITOR_editor.html */
-    class editor extends event {
+    interface editorConstructor extends eventConstructor<editor> {
+        new (instanceConfig?: config, element?: dom.element, mode?: number): editor;
+    }
+
+    /** https://com/docs/ckeditor4/latest/api/CKEDITOR_editor.html */
+    interface editor extends event, CKEditorPluginsEditorInstance {
         readonly activeEnterMode: number;
         readonly activeFilter: filter;
         readonly activeShiftEnterMode: number;
@@ -62,9 +44,7 @@ declare namespace CKEDITOR {
         readonly window: dom.window;
         readonly _: CKEditorPluginsEditorInternal;
 
-        constructor(instanceConfig?: config, element?: dom.element, mode?: number);
-
-        addCommand(commandName: string, commandDefinition: commandDefinition): void;
+        addCommand(commandName: string, commandDefinition: command | commandDefinition | styleCommand): void;
 
         addContentsCss(cssPath: string): void;
 
@@ -206,97 +186,122 @@ declare namespace CKEDITOR {
         updateElement(): void;
     }
 
+    interface CKEditorPluginsEditorInstance {}
+
     interface eventObject {
-        activeEnterModeChange?: ((evt: eventInfo) => void) | undefined;
-        activeFilterChange?: ((event: eventInfo) => void) | undefined;
-        afterCommandExec?: ((event: eventInfo) => void) | undefined;
-        afterInsertHtml?: ((event: eventInfo) => void) | undefined;
-        afterPaste?: ((event: eventInfo) => void) | undefined;
-        afterPasteFromWord?: ((event: eventInfo) => void) | undefined;
-        afterSetData?: ((event: eventInfo) => void) | undefined;
-        afterUndoImage?: ((event: eventInfo) => void) | undefined;
-        ariaEditorHelpLabel?: ((event: eventInfo) => void) | undefined;
-        ariaWidget?: ((event: eventInfo) => void) | undefined;
-        autogrow?: ((event: eventInfo) => void) | undefined;
+        activeEnterModeChange?: ((evt: eventInfo<eventData>) => void) | undefined;
+        activeFilterChange?: ((event: eventInfo<eventData>) => void) | undefined;
+        afterCommandExec?: ((event: eventInfo<eventData>) => void) | undefined;
+        afterInsertHtml?: ((event: eventInfo<eventData>) => void) | undefined;
+        afterPaste?: ((event: eventInfo<eventData>) => void) | undefined;
+        afterPasteFromWord?: ((event: eventInfo<eventData>) => void) | undefined;
+        afterSetData?: ((event: eventInfo<eventData>) => void) | undefined;
+        afterUndoImage?: ((event: eventInfo<eventData>) => void) | undefined;
+        ariaEditorHelpLabel?: ((event: eventInfo<eventData>) => void) | undefined;
+        ariaWidget?: ((event: eventInfo<eventData>) => void) | undefined;
+        autogrow?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        beforeCommandExec?: ((event: eventInfo) => void) | undefined;
-        beforeDestroy?: ((event: eventInfo) => void) | undefined;
-        beforeGetData?: ((event: eventInfo) => void) | undefined;
-        beforeModeUnload?: ((event: eventInfo) => void) | undefined;
-        beforeSetMode?: ((event: eventInfo) => void) | undefined;
-        beforeUndoImage?: ((event: eventInfo) => void) | undefined;
-        blur?: ((event: eventInfo) => void) | undefined;
+        beforeCommandExec?: ((event: eventInfo<eventData>) => void) | undefined;
+        beforeDestroy?: ((event: eventInfo<eventData>) => void) | undefined;
+        beforeGetData?: ((event: eventInfo<eventData>) => void) | undefined;
+        beforeModeUnload?: ((event: eventInfo<eventData>) => void) | undefined;
+        beforeSetMode?: ((event: eventInfo<eventData>) => void) | undefined;
+        beforeUndoImage?: ((event: eventInfo<eventData>) => void) | undefined;
+        blur?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        change?: ((event: eventInfo) => void) | undefined;
-        configLoaded?: ((event: eventInfo) => void) | undefined;
-        contentDirChanged?: ((event: eventInfo) => void) | undefined;
-        contentDom?: ((event: eventInfo) => void) | undefined;
-        contentDomInvalidated?: ((event: eventInfo) => void) | undefined;
-        contentDomUnload?: ((event: eventInfo) => void) | undefined;
-        customConfigLoaded?: ((event: eventInfo) => void) | undefined;
+        change?: ((event: eventInfo<eventData>) => void) | undefined;
+        configLoaded?: ((event: eventInfo<eventData>) => void) | undefined;
+        contentDirChanged?: ((event: eventInfo<eventData>) => void) | undefined;
+        contentDom?: ((event: eventInfo<editor.events.contentDom>) => void) | undefined;
+        contentDomInvalidated?: ((event: eventInfo<eventData>) => void) | undefined;
+        contentDomUnload?: ((event: eventInfo<eventData>) => void) | undefined;
+        customConfigLoaded?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        dataFiltered?: ((event: eventInfo) => void) | undefined;
-        dataReady?: ((event: eventInfo) => void) | undefined;
-        destroy?: ((event: eventInfo) => void) | undefined;
-        dialogHide?: ((event: eventInfo) => void) | undefined;
-        dialogShow?: ((event: eventInfo) => void) | undefined;
-        dirChanged?: ((event: eventInfo) => void) | undefined;
-        doubleclick?: ((event: eventInfo) => void) | undefined;
-        dragend?: ((event: eventInfo) => void) | undefined;
-        dragstart?: ((event: eventInfo) => void) | undefined;
-        drop?: ((event: eventInfo) => void) | undefined;
+        dataFiltered?: ((event: eventInfo<eventData>) => void) | undefined;
+        dataReady?: ((event: eventInfo<eventData>) => void) | undefined;
+        destroy?: ((event: eventInfo<eventData>) => void) | undefined;
+        dialogHide?: ((event: eventInfo<eventData>) => void) | undefined;
+        dialogShow?: ((event: eventInfo<eventData>) => void) | undefined;
+        dirChanged?: ((event: eventInfo<eventData>) => void) | undefined;
+        doubleclick?: ((event: eventInfo<eventData>) => void) | undefined;
+        dragend?: ((event: eventInfo<eventData>) => void) | undefined;
+        dragstart?: ((event: eventInfo<eventData>) => void) | undefined;
+        drop?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        elementsPathUpdate?: ((event: eventInfo) => void) | undefined;
+        elementsPathUpdate?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        fileUploadRequest?: ((event: eventInfo) => void) | undefined;
-        fileUploadResponse?: ((event: eventInfo) => void) | undefined;
-        floatingSpaceLayout?: ((event: eventInfo) => void) | undefined;
-        focus?: ((event: eventInfo) => void) | undefined;
+        fileUploadRequest?: ((event: eventInfo<editor.events.fileUploadRequest>) => void) | undefined;
+        fileUploadResponse?: ((event: eventInfo<eventData>) => void) | undefined;
+        floatingSpaceLayout?: ((event: eventInfo<eventData>) => void) | undefined;
+        focus?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        getData?: ((event: eventInfo) => void) | undefined;
-        getSnapshot?: ((event: eventInfo) => void) | undefined;
+        getData?: ((event: eventInfo<eventData>) => void) | undefined;
+        getSnapshot?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        insertElement?: ((event: eventInfo) => void) | undefined;
-        insertHtml?: ((event: eventInfo) => void) | undefined;
-        insertText?: ((event: eventInfo) => void) | undefined;
-        instanceReady?: ((event: eventInfo) => void) | undefined;
+        insertElement?: ((event: eventInfo<eventData>) => void) | undefined;
+        insertHtml?: ((event: eventInfo<eventData>) => void) | undefined;
+        insertText?: ((event: eventInfo<eventData>) => void) | undefined;
+        instanceReady?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        key?: ((event: eventInfo) => void) | undefined;
+        key?: ((event: eventInfo<editor.events.key>) => void) | undefined;
 
-        langLoaded?: ((event: eventInfo) => void) | undefined;
-        loadSnapshot?: ((event: eventInfo) => void) | undefined;
-        loaded?: ((event: eventInfo) => void) | undefined;
-        lockSnapshot?: ((event: eventInfo) => void) | undefined;
-        maximize?: ((event: eventInfo) => void) | undefined;
-        menuShow?: ((event: eventInfo) => void) | undefined;
-        mode?: ((event: eventInfo) => void) | undefined;
+        langLoaded?: ((event: eventInfo<eventData>) => void) | undefined;
+        loadSnapshot?: ((event: eventInfo<eventData>) => void) | undefined;
+        loaded?: ((event: eventInfo<eventData>) => void) | undefined;
+        lockSnapshot?: ((event: eventInfo<eventData>) => void) | undefined;
+        maximize?: ((event: eventInfo<eventData>) => void) | undefined;
+        menuShow?: ((event: eventInfo<eventData>) => void) | undefined;
+        mode?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        notificationHide?: ((event: eventInfo) => void) | undefined;
-        notificationShow?: ((event: eventInfo) => void) | undefined;
-        notificationUpdate?: ((event: eventInfo) => void) | undefined;
+        notificationHide?: ((event: eventInfo<eventData>) => void) | undefined;
+        notificationShow?: ((event: eventInfo<eventData>) => void) | undefined;
+        notificationUpdate?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        paste?: ((event: eventInfo) => void) | undefined;
-        pasteFromWord?: ((event: eventInfo) => void) | undefined;
-        pluginsLoaded?: ((event: eventInfo) => void) | undefined;
+        paste?: ((event: eventInfo<eventData>) => void) | undefined;
+        pasteFromWord?: ((event: eventInfo<eventData>) => void) | undefined;
+        pluginsLoaded?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        readOnly?: ((event: eventInfo) => void) | undefined;
-        removeFormatCleanup?: ((event: eventInfo) => void) | undefined;
-        required?: ((event: eventInfo) => void) | undefined;
-        resize?: ((event: eventInfo) => void) | undefined;
+        readOnly?: ((event: eventInfo<eventData>) => void) | undefined;
+        removeFormatCleanup?: ((event: eventInfo<eventData>) => void) | undefined;
+        required?: ((event: eventInfo<eventData>) => void) | undefined;
+        resize?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        save?: ((event: eventInfo) => void) | undefined;
-        saveSnapshot?: ((event: eventInfo) => void) | undefined;
-        selectionChange?: ((event: eventInfo) => void) | undefined;
-        setData?: ((event: eventInfo) => void) | undefined;
-        stylesSet?: ((event: eventInfo) => void) | undefined;
+        save?: ((event: eventInfo<eventData>) => void) | undefined;
+        saveSnapshot?: ((event: eventInfo<eventData>) => void) | undefined;
+        selectionChange?: ((event: eventInfo<eventData>) => void) | undefined;
+        setData?: ((event: eventInfo<eventData>) => void) | undefined;
+        stylesSet?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        template?: ((event: eventInfo) => void) | undefined;
-        toDataFormat?: ((event: eventInfo) => void) | undefined;
-        toHtml?: ((event: eventInfo) => void) | undefined;
+        template?: ((event: eventInfo<eventData>) => void) | undefined;
+        toDataFormat?: ((event: eventInfo<eventData>) => void) | undefined;
+        toHtml?: ((event: eventInfo<editor.events.toHtml>) => void) | undefined;
 
-        unlockSnapshot?: ((event: eventInfo) => void) | undefined;
-        updateSnapshot?: ((event: eventInfo) => void) | undefined;
+        unlockSnapshot?: ((event: eventInfo<eventData>) => void) | undefined;
+        updateSnapshot?: ((event: eventInfo<eventData>) => void) | undefined;
 
-        widgetDefinition?: ((event: eventInfo) => void) | undefined;
+        widgetDefinition?: ((event: eventInfo<eventData>) => void) | undefined;
+    }
+
+    namespace editor {
+        namespace events {
+            interface contentDom extends eventData {
+                editor: editor;
+            }
+
+            interface fileUploadRequest extends eventData {
+                url: string;
+                fileLoader: fileTools.fileLoader;
+                requestData: unknown;
+            }
+
+            interface key extends eventData {
+                keyCode: number;
+                domEvent: dom.domObject<KeyboardEvent>;
+            }
+
+            interface toHtml extends eventData, htmlDataProcessorOptions {
+                dataValue: string | htmlParser.fragment | dom.element;
+            }
+        }
     }
 }

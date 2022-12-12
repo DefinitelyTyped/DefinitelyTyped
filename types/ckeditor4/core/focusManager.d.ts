@@ -1,14 +1,12 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        focusManager: typeof focusManager;
+        readonly focusManager: { new (editor: editor): focusManager };
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_focusManager.html */
-    class focusManager {
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_focusManager.html */
+    interface focusManager {
         currentActive: dom.domObject;
         hasFocus: boolean;
-
-        constructor(editor: editor);
 
         add(element: dom.element, isCapture: boolean): void;
 

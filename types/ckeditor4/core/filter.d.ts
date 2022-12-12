@@ -1,10 +1,13 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        readonly filter: typeof filter;
+        readonly filter: {
+            instances: { [id: string]: filter };
+            new (editorOrRules: editor | filter.allowedContentRules): filter;
+        };
     }
 
-    /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_filter.html */
-    class filter {
+    /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_filter.html */
+    interface filter {
         readonly allowedContent: filter.allowedContentRules[];
         readonly customConfig: boolean;
         readonly disabled: boolean;
@@ -12,10 +15,6 @@ declare namespace CKEDITOR {
         readonly editor: editor;
         readonly elementCallbacks: Array<(element: htmlParser.element) => number>;
         readonly id: number;
-
-        static instances: { [id: string]: filter };
-
-        constructor(editorOrRules: editor | filter.allowedContentRules);
 
         addContentForms(forms: unknown[]): void;
 
@@ -50,16 +49,18 @@ declare namespace CKEDITOR {
     }
 
     namespace filter {
-        /** https://CKEDITOR.com/docs/CKEDITOR4/latest/guide/dev_allowed_content_rules.html#object-format */
-        type allowedContentObject = { [name: string]: { [style: string]: string } | string };
+        /** https://ckeditor.com/docs/ckeditor4/latest/guide/dev_allowed_content_rules.html#object-format */
+        interface allowedContentObject {
+            [name: string]: { [style: string]: string } | string;
+        }
 
-        /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_filter_allowedContentRules.html */
+        /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_filter_allowedContentRules.html */
         type allowedContentRule = string | style | allowedContentObject | allowedContentRule[];
         type allowedContentRules = allowedContentRule | allowedContentRule[];
 
         type contentRule = string | style;
 
-        /** https://CKEDITOR.com/docs/CKEDITOR4/latest/api/CKEDITOR_filter_disallowedContentRules.html */
+        /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_filter_disallowedContentRules.html */
         type disallowedContentRule = string | { [key: string]: unknown };
         type disallowedContentRules = disallowedContentRule | disallowedContentRule[];
 

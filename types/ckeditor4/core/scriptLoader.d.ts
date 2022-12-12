@@ -2,11 +2,10 @@
 
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        scriptLoader: scriptLoader;
+        readonly scriptLoader: scriptLoader;
     }
 
-    class scriptLoader {
-        private constructor();
+    interface scriptLoader {
         load(
             scriptUrls: string | string[],
             callback: (succeededUrls: boolean | string[], failedUrls: string[]) => void,
