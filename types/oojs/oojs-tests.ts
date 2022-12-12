@@ -468,14 +468,26 @@ registry.lookup('foo');
 
     // @ts-expect-error
     registry.on('unregister', 'unregisterIllegal', [], funcObj);
+
+    registry.on('non-exist', function (arg) {
+        this; // $ExpectType null
+        arg; // $ExpectType any
+    });
 }
 
-// $ExpectType Registry
-registry.once('register', function (name, data) {
-    this; // $ExpectType null
-    name; // $ExpectType string
-    data; // $ExpectType unknown
-});
+{
+    // $ExpectType Registry
+    registry.once('register', function (name, data) {
+        this; // $ExpectType null
+        name; // $ExpectType string
+        data; // $ExpectType unknown
+    });
+
+    registry.once('non-exist', function (arg) {
+        this; // $ExpectType null
+        arg; // $ExpectType any
+    });
+}
 
 {
     let funcObj = {
@@ -511,6 +523,11 @@ registry.once('register', function (name, data) {
 
     // @ts-expect-error
     registry.off('unregister', 'unregisterIllegal', funcObj);
+
+    registry.off('non-exist', function (arg) {
+        this; // $ExpectType null
+        arg; // $ExpectType any
+    });
 }
 
 {
@@ -525,6 +542,9 @@ registry.once('register', function (name, data) {
 
     // @ts-expect-error
     registry.emit('unregister');
+
+    // $ExpectType boolean
+    registry.emit('non-exist', 1, 2, 3, 4);
 }
 
 {
@@ -539,6 +559,9 @@ registry.once('register', function (name, data) {
 
     // @ts-expect-error
     registry.emitThrow('unregister');
+
+    // $ExpectType boolean
+    registry.emitThrow('non-exist', 1, 2, 3, 4);
 }
 
 {
@@ -574,6 +597,10 @@ registry.once('register', function (name, data) {
             this; // $ExpectType null
             name; // $ExpectType string
             data; // $ExpectType unknown
+        },
+        nonExist(arg) {
+            this; // $ExpectType null
+            arg; // $ExpectType any
         },
     });
 
@@ -643,12 +670,17 @@ registry.once('register', function (name, data) {
             name; // $ExpectType string
             data; // $ExpectType unknown
         },
+        nonExist(arg) {
+            this; // $ExpectType null
+            arg; // $ExpectType any
+        },
     });
 
     registry.disconnect(null, {
         register: [
             function (arg1, arg2, arg3, arg4, arg5, name, data) {
                 this; // $ExpectType null
+                arg1; // $ExpectType number
                 arg2; // $ExpectType number
                 arg3; // $ExpectType number
                 arg4; // $ExpectType number

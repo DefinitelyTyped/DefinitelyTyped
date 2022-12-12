@@ -81,7 +81,7 @@ declare namespace OO {
          */
         clearItems(): this;
 
-        // #region Event utils
+        // #region EventEmitter overloads
         on<K extends keyof EmitterListEventMap, A extends ArgTuple = [], C = null>(
             event: K,
             method: EventHandler<C, (this: C, ...args: [...A, ...EmitterListEventMap[K]]) => void>,
@@ -123,24 +123,11 @@ declare namespace OO {
 
         connect<T extends Partial<Record<keyof EmitterListEventMap, any>>, C>(
             context: C,
-            methods: {
-                [K in keyof T]: EventConnectionMapEntry<
-                    C,
-                    K extends keyof EmitterListEventMap ? EmitterListEventMap[K] : any[],
-                    T[K]
-                >;
-            },
+            methods: EventConnectionMap<T, C, EmitterListEventMap>, // tslint:disable-line:no-unnecessary-generics
         ): this;
-
         disconnect<T extends Partial<Record<keyof EmitterListEventMap, any>>, C>(
             context: C,
-            methods?: {
-                [K in keyof T]: EventConnectionMapEntry<
-                    C,
-                    K extends keyof EmitterListEventMap ? EmitterListEventMap[K] : any[],
-                    T[K]
-                >;
-            },
+            methods?: EventConnectionMap<T, C, EmitterListEventMap>, // tslint:disable-line:no-unnecessary-generics
         ): this;
         // #endregion
     }
