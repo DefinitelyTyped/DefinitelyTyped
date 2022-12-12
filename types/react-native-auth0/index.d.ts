@@ -42,19 +42,18 @@ export interface CreateUserResponse {
     email: string;
 }
 
-
 export interface ExchangeParams {
     code: string;
     redirectUri: string;
     verifier: string;
 }
 
-export interface ExchangeNativeSocialParams<T> {
+export interface ExchangeNativeSocialParams {
     subjectToken: string;
     subjectTokenType: string;
     audience?: string;
     scope?: string;
-    userProfile?: T;
+    userProfile?: any;
 }
 
 export interface LogoutParams {
@@ -164,7 +163,7 @@ export class Auth {
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<Credentials>;
-    exchangeNativeSocial<T>(params: ExchangeNativeSocialParams<T>): Promise<Credentials>;
+    exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<Credentials>;
     logoutUrl(params: LogoutParams): string;
     passwordRealm(params: PasswordRealmParams): Promise<Credentials>;
     refreshToken(params: RefreshTokenParams): Promise<Credentials>;
@@ -313,27 +312,26 @@ export default class Auth0 {
 }
 
 export class Auth0ContextInterface {
-    user: any
-    error: any
-    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>
+    user: any;
+    error: any;
+    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
     clearSession(): Promise<void>;
-    getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>
-    clearCredentials(): Promise<void>
+    getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
+    clearCredentials(): Promise<void>;
     requireLocalAuthentication(
         title?: string,
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
-    ): Promise<void>
+    ): Promise<void>;
 }
 
 export class Auth0Props {
-    domain: string
-    clientId: string
-    children?: any
+    domain: string;
+    clientId: string;
+    children?: any;
 }
 
-export default function useAuth0(): Auth0ContextInterface;
+export function useAuth0(): Auth0ContextInterface;
 
-export const Auth0Provider: React.FC<Auth0Props>
-
+export const Auth0Provider: React.FC<Auth0Props>;

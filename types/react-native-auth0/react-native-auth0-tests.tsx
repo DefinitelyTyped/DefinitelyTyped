@@ -1,5 +1,4 @@
-import useAuth0, { AuthorizeOptions, AuthorizeParams, ClearSessionParams, Credentials } from 'react-native-auth0';
-import Auth0, { Auth0Provider } from 'react-native-auth0';
+import Auth0, { useAuth0, Auth0Provider, AuthorizeOptions, AuthorizeParams, ClearSessionParams, Credentials } from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -268,7 +267,6 @@ auth0.credentialsManager.hasValidCredentials();
 auth0.credentialsManager.hasValidCredentials(123);
 
 function Test() {
-
     const {
         user,
         error,
@@ -285,12 +283,11 @@ function Test() {
         getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>,
         clearCredentials: () => Promise<void>,
         requireLocalAuthentication: () => Promise<void>
-
-    } = useAuth0()
+    } = useAuth0();
 
     return (
         <Auth0Provider domain={'type'} clientId={'type'}>
             Test
         </Auth0Provider>
-    )
+    );
 }
