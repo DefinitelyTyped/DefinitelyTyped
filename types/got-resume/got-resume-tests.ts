@@ -95,14 +95,14 @@ gotResume("http://test.com", {}); // $ExpectType TransferStream
 gotResume("http://test.com", { url: "foo" });
 
 gotResume.toFile("foo", { url: "http://test.com" }); // $ExpectType Promise<void>
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", {
     url: "http://test.com",
     onProgress(progress) {
         progress; // $ExpectType Progress
     },
 });
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", {
     url: "http://test.com",
     onResponse(response) {
@@ -117,13 +117,13 @@ gotResume.toFile("foo", {});
 // toFile() tests
 
 gotResume.toFile("foo", "http://test.com"); // $ExpectType Promise<void>
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", "http://test.com", {
     onProgress(progress) {
         progress; // $ExpectType Progress
     },
 });
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", "http://test.com", {
     onResponse(response) {
         response; // $ExpectType IncomingMessage
@@ -180,7 +180,7 @@ transfer.res; // $ExpectType IncomingMessage | undefined
 transfer.err; // $ExpectType Error | undefined
 transfer.lastMod; // $ExpectType string | undefined
 transfer.etag; // $ExpectType string | undefined
-transfer.prePromise; // $ExpectType Promise<void> | undefined
+transfer.prePromise; // $ExpectType Bluebird<void> | undefined
 transfer.waitTimer; // $ExpectType number | undefined
 transfer.stream; // $ExpectType TransferStream
 
