@@ -1,4 +1,5 @@
-import Auth0 from 'react-native-auth0';
+import useAuth0, { AuthorizeOptions, AuthorizeParams, ClearSessionParams, Credentials } from 'react-native-auth0';
+import Auth0, { Auth0Provider } from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -252,15 +253,44 @@ auth0.credentialsManager.saveCredentials({
     scope: 'a scope',
 });
 
-const cleared: boolean = auth0.credentialsManager.clearCredentials();
+auth0.credentialsManager.clearCredentials();
 
-const { accessToken } = auth0.credentialsManager.getCredentials();
+auth0.credentialsManager.getCredentials();
 
-const { idToken } = auth0.credentialsManager.getCredentials('a scope', 0, {});
+auth0.credentialsManager.getCredentials('a scope', 0, {});
 
 auth0.credentialsManager.requireLocalAuthentication();
 
 auth0.credentialsManager.requireLocalAuthentication('a title', 'a description', 'a cancel title', 'a fallback title');
 
-let hasValidCreds: boolean = auth0.credentialsManager.hasValidCredentials();
-hasValidCreds = auth0.credentialsManager.hasValidCredentials(123);
+auth0.credentialsManager.hasValidCredentials();
+
+auth0.credentialsManager.hasValidCredentials(123);
+
+function Test() {
+
+    const {
+        user,
+        error,
+        authorize,
+        clearSession,
+        getCredentials,
+        clearCredentials,
+        requireLocalAuthentication,
+    }: {
+        user: any,
+        error: any,
+        authorize: (parameters: AuthorizeParams, options?: AuthorizeOptions) => Promise<void>,
+        clearSession: (parameters?: ClearSessionParams) => Promise<void>,
+        getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>,
+        clearCredentials: () => Promise<void>,
+        requireLocalAuthentication: () => Promise<void>
+
+    } = useAuth0()
+
+    return (
+        <Auth0Provider domain={'type'} clientId={'type'}>
+            Test
+        </Auth0Provider>
+    )
+}

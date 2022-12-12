@@ -11,6 +11,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
+import * as React from 'react';
+
 /**
  * Auth
  */
@@ -25,13 +27,13 @@ export interface CreateUserParams<T> {
     email: string;
     password: string;
     connection: string;
-    username?: string | undefined;
-    given_name?: string | undefined;
-    family_name?: string | undefined;
-    name?: string | undefined;
-    nickname?: string | undefined;
-    picture?: string | undefined;
-    metadata?: T | undefined;
+    username?: string;
+    given_name?: string;
+    family_name?: string;
+    name?: string;
+    nickname?: string;
+    picture?: string;
+    metadata?: T;
 }
 
 export interface CreateUserResponse {
@@ -40,14 +42,6 @@ export interface CreateUserResponse {
     email: string;
 }
 
-export interface ExchangeResponse {
-    accessToken: string;
-    expiresIn: number;
-    idToken: string;
-    refreshToken: string;
-    scope?: string | undefined;
-    tokenType: string;
-}
 
 export interface ExchangeParams {
     code: string;
@@ -55,58 +49,31 @@ export interface ExchangeParams {
     verifier: string;
 }
 
-export interface ExchangeNativeSocialResponse {
-    accessToken: string;
-    expiresIn: number;
-    idToken: string;
-    refreshToken: string;
-    scope?: string | undefined;
-    tokenType: string;
-}
-
-export interface ExchangeNativeSocialParams {
+export interface ExchangeNativeSocialParams<T> {
     subjectToken: string;
     subjectTokenType: string;
-    audience?: string | undefined;
-    scope?: string | undefined;
-    userProfile?: any | undefined;
+    audience?: string;
+    scope?: string;
+    userProfile?: T;
 }
 
 export interface LogoutParams {
     federated: boolean;
-    clientId?: string | undefined;
-    returnTo?: string | undefined;
+    clientId?: string;
+    returnTo?: string;
 }
 
 export interface PasswordRealmParams {
     username: string;
     password: string;
     realm: string;
-    audience?: string | undefined;
-    scope?: string | undefined;
-}
-
-export interface PasswordRealmResponse {
-    accessToken: string;
-    expiresIn: number;
-    idToken: string;
-    scope: string;
-    tokenType: 'Bearer';
-    refreshToken?: string | undefined;
-}
-
-export interface RefreshTokenResponse {
-    accessToken: string;
-    expiresIn: number;
-    idToken: string;
-    refreshToken?: string | undefined;
-    scope?: string | undefined;
-    tokenType: string;
+    audience?: string;
+    scope?: string;
 }
 
 export interface RefreshTokenParams {
     refreshToken: string;
-    scope?: string | undefined;
+    scope?: string;
 }
 
 export interface RevokeParams {
@@ -128,8 +95,8 @@ export interface AuthParams {
 
 export interface PasswordlessWithEmailParams {
     email: string;
-    send?: 'link' | 'code' | undefined;
-    authParams?: AuthParams | undefined;
+    send?: 'link' | 'code';
+    authParams?: AuthParams;
 }
 
 export interface PasswordlessWithSMSParams {
@@ -141,15 +108,15 @@ export interface PasswordlessWithSMSParams {
 export interface LoginWithEmailParams {
     email: string;
     code: string;
-    audience?: string | undefined;
-    scope?: string | undefined;
+    audience?: string;
+    scope?: string;
 }
 
 export interface LoginWithSMSParams {
     phoneNumber: string;
     code: string;
-    audience?: string | undefined;
-    scope?: string | undefined;
+    audience?: string;
+    scope?: string;
 }
 
 export interface LoginWithOTPParams {
@@ -160,7 +127,7 @@ export interface LoginWithOTPParams {
 export interface LoginWithOOBParams {
     mfaToken: string;
     oobCode: string;
-    bindingCode?: string | undefined;
+    bindingCode?: string;
 }
 
 export interface LoginWithRecoveryCodeParams {
@@ -170,8 +137,14 @@ export interface LoginWithRecoveryCodeParams {
 
 export interface MultiFactorChallengeParams {
     mfaToken: string;
-    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob' | undefined;
-    authenticatorId?: string | undefined;
+    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob';
+    authenticatorId?: string;
+}
+
+export interface MultiFactorChallengeResponse {
+    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob';
+    oobCode?: string;
+    bindingMethod?: string;
 }
 
 export type UserInfo<CustomClaims = {}> = {
@@ -190,23 +163,23 @@ export class Auth {
     authorizeUrl(params: AuthorizeUrlParams): string;
     /* tslint:disable-next-line no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
-    exchange(params: ExchangeParams): Promise<ExchangeResponse>;
-    exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<ExchangeNativeSocialResponse>;
+    exchange(params: ExchangeParams): Promise<Credentials>;
+    exchangeNativeSocial<T>(params: ExchangeNativeSocialParams<T>): Promise<Credentials>;
     logoutUrl(params: LogoutParams): string;
-    passwordRealm(params: PasswordRealmParams): Promise<PasswordRealmResponse>;
-    refreshToken(params: RefreshTokenParams): Promise<RefreshTokenResponse>;
+    passwordRealm(params: PasswordRealmParams): Promise<Credentials>;
+    refreshToken(params: RefreshTokenParams): Promise<Credentials>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
     /* tslint:disable-next-line no-unnecessary-generics */
     userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
     passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
     passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
-    loginWithEmail(params: LoginWithEmailParams): Promise<any>;
-    loginWithSMS(params: LoginWithSMSParams): Promise<any>;
-    loginWithOTP(params: LoginWithOTPParams): Promise<any>;
-    loginWithOOB(params: LoginWithOOBParams): Promise<any>;
-    loginWithRecoveryCode(params: LoginWithRecoveryCodeParams): Promise<any>;
-    multifactorChallenge(params: MultiFactorChallengeParams): Promise<any>;
+    loginWithEmail(params: LoginWithEmailParams): Promise<Credentials>;
+    loginWithSMS(params: LoginWithSMSParams): Promise<Credentials>;
+    loginWithOTP(params: LoginWithOTPParams): Promise<Credentials>;
+    loginWithOOB(params: LoginWithOOBParams): Promise<Credentials>;
+    loginWithRecoveryCode(params: LoginWithRecoveryCodeParams): Promise<Credentials>;
+    multifactorChallenge(params: MultiFactorChallengeParams): Promise<MultiFactorChallengeResponse>;
 }
 
 /**
@@ -217,15 +190,15 @@ export interface Auth0User<T> {
     email: string;
     emailVerified: boolean;
     identities: any[];
-    last_ip?: string | undefined;
-    last_login?: string | undefined;
+    last_ip?: string;
+    last_login?: string;
     logins_count: number;
     name: string;
     nickname: string;
-    picture?: string | undefined;
+    picture?: string;
     updated_at: string;
     userId: string;
-    userMetadata?: T | undefined;
+    userMetadata?: T;
 }
 
 export interface GetUserParams {
@@ -277,10 +250,10 @@ export interface ClearSessionParams {
 
 export interface Credentials {
     accessToken: string;
-    idToken: string;
-    refreshToken?: string | undefined;
+    idToken?: string;
+    refreshToken?: string;
+    scope?: string;
     expiresIn: number;
-    scope: string;
     tokenType: string;
 }
 
@@ -308,22 +281,22 @@ export interface SaveCredentialsParams {
     accessToken: string;
     tokenType: string;
     expiresIn: number;
-    refreshToken?: string | undefined;
-    scope?: string | undefined;
+    refreshToken?: string;
+    scope?: string;
 }
 
 export class CredentialsManager {
     constructor(domain: string, clientId: string);
     saveCredentials(params: SaveCredentialsParams): boolean;
-    getCredentials(scope?: string | undefined, minTtl?: number | undefined, parameters?: any): Credentials;
+    getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     requireLocalAuthentication(
-        title?: string | undefined,
-        description?: string | undefined,
-        cancelTitle?: string | undefined,
-        fallbackTitle?: string | undefined,
-    ): void;
-    hasValidCredentials(minTtl?: number | undefined): boolean;
-    clearCredentials(): boolean;
+        title?: string,
+        description?: string,
+        cancelTitle?: string,
+        fallbackTitle?: string,
+    ): Promise<void>;
+    hasValidCredentials(minTtl?: number): Promise<boolean>;
+    clearCredentials(): Promise<boolean>;
 }
 
 /**
@@ -338,3 +311,29 @@ export default class Auth0 {
 
     users(token: string): Users;
 }
+
+export class Auth0ContextInterface {
+    user: any
+    error: any
+    authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>
+    clearSession(): Promise<void>;
+    getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>
+    clearCredentials(): Promise<void>
+    requireLocalAuthentication(
+        title?: string,
+        description?: string,
+        cancelTitle?: string,
+        fallbackTitle?: string,
+    ): Promise<void>
+}
+
+export class Auth0Props {
+    domain: string
+    clientId: string
+    children?: any
+}
+
+export default function useAuth0(): Auth0ContextInterface;
+
+export const Auth0Provider: React.FC<Auth0Props>
+
