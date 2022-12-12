@@ -8,6 +8,7 @@
 //                 Yam Mesicka <https://github.com/yammesicka>
 //                 Mathias Djärv <https://github.com/mdjarv>
 //                 Greg Friedman <https://github.com/gfriedm4>
+//                 Poovamraj T T <https://github.com/poovamraj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
