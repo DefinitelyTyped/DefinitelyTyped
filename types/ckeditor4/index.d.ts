@@ -46,7 +46,7 @@
 /// <reference path="./plugins/codesnippet.d.ts" />
 /// <reference path="./plugins/cloudservices.d.ts" />
 /// <reference path="./plugins/dialog.d.ts" />
-/// <reference path="./plugins/elementsPath.d.ts" />
+/// <reference path="./plugins/elementspath.d.ts" />
 
 export default CKEDITOR;
 
