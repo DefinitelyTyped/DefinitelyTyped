@@ -11,6 +11,7 @@ function test_dropdown_static() {
 function test_dropdown() {
     const selector = '.ui.dropdown';
     $(selector).dropdown('setup menu'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('change values'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('refresh'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('toggle'); // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('show'); // $ExpectType JQuery<HTMLElement>
