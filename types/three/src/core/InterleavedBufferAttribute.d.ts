@@ -25,7 +25,9 @@ export class InterleavedBufferAttribute {
     get array(): ArrayLike<number>;
     set needsUpdate(value: boolean);
 
+    readonly isBufferAttribute: false;
     readonly isInterleavedBufferAttribute: true;
+    readonly isGLBufferAttribute: false;
 
     applyMatrix4(m: Matrix4): this;
     clone(data?: object): BufferAttribute;

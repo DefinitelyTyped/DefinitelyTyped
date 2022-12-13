@@ -5,6 +5,10 @@
 export class GLBufferAttribute {
     constructor(buffer: WebGLBuffer, type: number, itemSize: number, elementSize: 1 | 2 | 4, count: number);
 
+    /**
+     * @default ''
+     */
+    name: string;
     buffer: WebGLBuffer;
     type: number;
     itemSize: number;
@@ -12,6 +16,8 @@ export class GLBufferAttribute {
     count: number;
     version: number;
 
+    readonly isBufferAttribute: false;
+    readonly isInterleavedBufferAttribute: false;
     readonly isGLBufferAttribute: true;
 
     set needsUpdate(value: boolean);

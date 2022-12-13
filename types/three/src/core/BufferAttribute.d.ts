@@ -43,6 +43,8 @@ export class BufferAttribute {
     set needsUpdate(value: boolean);
 
     readonly isBufferAttribute: true;
+    readonly isInterleavedBufferAttribute: false;
+    readonly isGLBufferAttribute: false;
 
     onUploadCallback: () => void;
     onUpload(callback: () => void): this;
