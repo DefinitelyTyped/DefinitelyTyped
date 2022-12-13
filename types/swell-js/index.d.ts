@@ -718,14 +718,12 @@ export interface CategoryCamelCase {
     topId: string;
     products?: {
         count: number;
-        results:
-            | {
-                  dateCreated: string;
-                  id: string;
-                  parentId: string;
-                  productId: string;
-              }[]
-            | null;
+        results: Array<{
+            dateCreated: string;
+            id: string;
+            parentId: string;
+            productId: string;
+        }> | null;
     } | null;
 }
 
@@ -745,14 +743,12 @@ export interface CategorySnakeCase {
     top_id: string;
     products?: {
         count: number;
-        results:
-            | {
-                  date_created: string;
-                  id: string;
-                  parent_id: string;
-                  product_id: string;
-              }[]
-            | null;
+        results: Array<{
+            date_created: string;
+            id: string;
+            parent_id: string;
+            product_id: string;
+        }> | null;
     } | null;
 }
 
