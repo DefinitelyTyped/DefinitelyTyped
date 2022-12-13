@@ -1347,6 +1347,8 @@ export interface PlotData {
         type: 'levels' | 'constraint';
         value: number | [lowerBound: number, upperBound: number];
     }>;
+    autocontour: boolean;
+    ncontours: number;
 }
 
 /**
