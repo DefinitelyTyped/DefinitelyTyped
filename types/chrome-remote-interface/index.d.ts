@@ -176,7 +176,7 @@ declare namespace CDP {
             T[key]
     };
 
-    type ImproveAPI<T> = {[key in keyof T]: OptIfParamNullable<T[key]> & DoEventObj<key>};
+    type ImproveAPI<T> = {[key in keyof T]: DoEventObj<key> & OptIfParamNullable<T[key]>};
     interface StableDomains {
         Browser: ProtocolProxyApi.BrowserApi;
         Debugger: ProtocolProxyApi.DebuggerApi;
