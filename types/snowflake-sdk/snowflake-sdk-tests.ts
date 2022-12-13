@@ -28,8 +28,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         binds: [1, ''],
         complete(err, stmt, rows) {
             err; // $ExpectType SnowflakeError | undefined
-            err?.data?.line; // $ExpectType any | undefined
-            err?.data?.pos; // $ExpectType any | undefined
+            err?.data?.line; // $ExpectType any
+            err?.data?.pos; // $ExpectType any
             stmt.cancel((err, stmt) => {
                 //
             });
