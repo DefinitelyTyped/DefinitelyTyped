@@ -1,4 +1,4 @@
-import Auth0 from 'react-native-auth0';
+import Auth0, { useAuth0, Auth0Provider, AuthorizeOptions, AuthorizeParams, ClearSessionParams, Credentials } from 'react-native-auth0';
 
 const auth0 = new Auth0({
     domain: 'definitely-typed',
@@ -22,6 +22,24 @@ auth0.auth.exchange({
     code: 'my-code',
     redirectUri: 'http://localhost:3000',
     verifier: 'verifier',
+});
+
+auth0.auth.exchangeNativeSocial({
+    subjectToken: 'a subject token',
+    subjectTokenType: 'a subject token type',
+});
+
+auth0.auth.exchangeNativeSocial({
+    subjectToken: 'a subject token',
+    subjectTokenType: 'a subject token type',
+    userProfile: {
+        name: {
+            firstName: 'John',
+            lastName: 'Smith',
+        },
+    },
+    audience: 'http://myapi.com',
+    scope: 'openid',
 });
 
 auth0.auth.logoutUrl({
@@ -133,8 +151,7 @@ auth0.webAuth
     // @ts-expect-error
     .then(credentials => credentials.doesNotExist);
 
-auth0.webAuth
-.authorize({
+auth0.webAuth.authorize({
     state: 'state',
     nonce: 'nonce',
     scope: 'openid',
@@ -187,3 +204,90 @@ auth0.auth.loginWithSMS({
     phoneNumber: 'info@auth0.com',
     code: '123456',
 });
+
+auth0.auth.loginWithOTP({
+    mfaToken: '1234',
+    otp: '1234',
+});
+
+auth0.auth.loginWithOOB({
+    mfaToken: '1234',
+    oobCode: '123',
+});
+
+auth0.auth.loginWithOOB({
+    mfaToken: '1234',
+    oobCode: '123',
+    bindingCode: '1234',
+});
+
+auth0.auth.loginWithRecoveryCode({
+    mfaToken: '123',
+    recoveryCode: '123',
+});
+
+auth0.auth.multifactorChallenge({
+    mfaToken: '123',
+});
+
+auth0.auth.multifactorChallenge({
+    mfaToken: '123',
+    authenticatorId: '12345',
+    challengeType: 'oob otp',
+});
+
+auth0.credentialsManager.saveCredentials({
+    accessToken: 'an access token',
+    expiresIn: 123,
+    idToken: 'an id token',
+    tokenType: 'a token type',
+});
+
+auth0.credentialsManager.saveCredentials({
+    accessToken: 'an access token',
+    expiresIn: 123,
+    idToken: 'an id token',
+    tokenType: 'a token type',
+    refreshToken: 'a refresh token',
+    scope: 'a scope',
+});
+
+auth0.credentialsManager.clearCredentials();
+
+auth0.credentialsManager.getCredentials();
+
+auth0.credentialsManager.getCredentials('a scope', 0, {});
+
+auth0.credentialsManager.requireLocalAuthentication();
+
+auth0.credentialsManager.requireLocalAuthentication('a title', 'a description', 'a cancel title', 'a fallback title');
+
+auth0.credentialsManager.hasValidCredentials();
+
+auth0.credentialsManager.hasValidCredentials(123);
+
+function Test() {
+    const {
+        user,
+        error,
+        authorize,
+        clearSession,
+        getCredentials,
+        clearCredentials,
+        requireLocalAuthentication,
+    }: {
+        user: any,
+        error: any,
+        authorize: (parameters: AuthorizeParams, options?: AuthorizeOptions) => Promise<void>,
+        clearSession: (parameters?: ClearSessionParams) => Promise<void>,
+        getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>,
+        clearCredentials: () => Promise<void>,
+        requireLocalAuthentication: () => Promise<void>
+    } = useAuth0();
+
+    return (
+        <Auth0Provider domain={'type'} clientId={'type'}>
+            Test
+        </Auth0Provider>
+    );
+}
