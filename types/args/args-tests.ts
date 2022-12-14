@@ -1,6 +1,6 @@
 import * as args from "args";
 
-args
+const result = args
     .option("opt1", "desc")
     .option("opt2", "desc", false, (value: any): any => value)
     .options([
@@ -17,9 +17,16 @@ args
     ])
     .command("cm1", "desc")
     .command("cm2", "desc", (value: any): void => { }, ['a'])
-    .command("cm3", "desc", (name, subs, options: { opt3: number}): void => {
-        const x = options.opt3;
+    .command("cm3", "desc", (name, subs, options: { opt1: number}): void => {
+        const x = options.opt1;
      }, ['a'])
+     .command("cm4", "desc", (name, subs, options): void => {
+        const a = options.opt1;
+        const b = options.opt2;
+        const c = options.opt4;
+        // @ts-expect-error
+        const d = options.opt8;
+     }, )
     .example("ex1", "desc")
     .examples([
         {
@@ -27,6 +34,11 @@ args
             description: "desc",
         },
     ]);
+
+const {opt1, opt2, opt3, opt4} = result.parse([]);
+
+// @ts-expect-error
+const {opt5} = result.parse([]);
 
 args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
     help: true,
@@ -63,6 +75,12 @@ args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
     },
     mainColor: "yellow",
     subColor: "dim"
+});
+
+args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
+    mri: {
+        boolean: ['wat'],
+    }
 });
 
 args.showHelp();
