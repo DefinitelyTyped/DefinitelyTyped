@@ -101,7 +101,7 @@ declare namespace fetch {
         /**
          * A function called whenever a retry is attempted.
          */
-        onRetry?: (() => void) | undefined;
+        onRetry?: ((cause: unknown) => void) | undefined;
 
         /**
          * Matches the response body against the given [Subresource

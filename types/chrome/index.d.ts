@@ -143,6 +143,11 @@ declare namespace chrome.action {
         tabId?: number | undefined;
     }
 
+    export interface UserSettings {
+        /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
+        isOnToolbar: boolean;
+    }
+
     /**
      * Since Chrome 88.
      * Disables the action for a tab.
@@ -237,6 +242,21 @@ declare namespace chrome.action {
      * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
     export function getTitle(details: TabDetails): Promise<string>;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (userSettings: UserSettings) => {...}
+     */
+    export function getUserSettings(callback: (userSettings: UserSettings) => void): void;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @return The `getUserSettings` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getUserSettings(): Promise<UserSettings>;
 
     /**
      * Since Chrome 88.
@@ -4797,11 +4817,12 @@ declare namespace chrome.identity {
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
      * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
      * @param details WebAuth flow options.
-     * @param callback Called with the URL redirected back to your application.
+     * @param callback Optional. Called with the URL redirected back to your application.
      * The callback parameter should be a function that looks like this:
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+    export function launchWebAuthFlow(details: WebAuthFlowOptions): Promise<string | undefined>;
 
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
@@ -7061,6 +7082,7 @@ declare namespace chrome.runtime {
         | 'geolocation'
         | 'history'
         | 'identity'
+        | 'identity.email'
         | 'idle'
         | 'loginState'
         | 'management'
@@ -7601,6 +7623,8 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
         world?: ExecutionWorld;
+        /* Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
+        injectImmediately?: boolean;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -7615,6 +7639,26 @@ declare namespace chrome.scripting {
     }))
 
     type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
+
+    interface RegisteredContentScript {
+        id: string;
+        allFrames?: boolean;
+        css?: string[];
+        excludeMatches?: string[];
+        js?: string[];
+        matches?: string[];
+        persistAcrossSessions?: boolean;
+        runAt?: "document_start" | "document_end" | "document_idle";
+        world?: ExecutionWorld;
+    }
+
+    interface ContentScriptFilter {
+        ids?: string[];
+        css?: string;
+        files?: string[];
+        origin?: StyleOrigin;
+        target?: InjectionTarget;
+    }
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7649,6 +7693,71 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the injection.
      */
     export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection): Promise<void>;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @param callback
+     * Invoked upon completion of the removal.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[], callback?: () => void): void;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter, callback?: () => void): void;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     * @param callback
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback?: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
@@ -10148,10 +10257,16 @@ declare namespace chrome.tts {
         /** Optional. The error description, if the event type is 'error'. */
         errorMessage?: string | undefined;
         /**
+         * The length of the next part of the utterance.
+         * For example, in a word event, this is the length of the word which will be spoken next.
+         * It will be set to -1 if not set by the speech engine.
+         */
+        length?: number | undefined;
+        /**
          * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
          * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
          */
-        type: string;
+        type: "start" | "end" | "word" | "sentence" | "marker" | "interrupted" | "cancelled" | "error" | "pause" | "resume";
     }
 
     /** A description of a voice available for speech synthesis. */
@@ -10222,6 +10337,7 @@ declare namespace chrome.tts {
     /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
     export function stop(): void;
     /** Gets an array of all available voices. */
+    export function getVoices(): Promise<TtsVoice[]>;
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     /**
      * Speaks text using a text-to-speech engine.
@@ -10842,6 +10958,18 @@ declare namespace chrome.webRequest {
     export interface WebRequestHeadersDetails extends WebRequestDetails {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeader[] | undefined;
+        documentId: string;
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameId: number;
+        initiator?: string | undefined;
+        parentDocumentId?: string | undefined;
+        parentFrameId: number;
+        requestId: string;
+        tabId: number;
+        timeStamp: number;
+        type: ResourceType;
+        url: string;
     }
 
     export interface WebRequestBodyDetails extends WebRequestDetails {

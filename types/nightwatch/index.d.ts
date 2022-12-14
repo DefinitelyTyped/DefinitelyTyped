@@ -1865,7 +1865,7 @@ export class Element {
     message: string;
     timeout: number;
     getId: () => string;
-    findElement: ElementCommands['findElement'];
+    findElement: ElementCommands['findElement'] & {(): Awaitable<NightwatchAPI, WebElement>};
     element: typeof globalElement;
     find: (selector: Definition | WebElement | By) => any;
     get: (selector: Definition | WebElement | By) => any;
@@ -2288,11 +2288,11 @@ export type EnhancedPageObject<
 export interface Cookie {
     name: string;
     value: string;
-    path: string | undefined;
-    domain: string | undefined;
-    secure: boolean | undefined;
-    expiry: Date | number | undefined;
-    httpOnly: boolean | undefined;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+    expiry?: Date | number;
+    httpOnly?: boolean;
 }
 
 export interface SharedCommands extends ClientCommands, ElementCommands {}
@@ -3419,6 +3419,64 @@ export interface ClientCommands extends ChromiumClientCommands {
      * @see https://nightwatchjs.org/api/useXpath.html
      */
     useXpath(callback?: (this: NightwatchAPI) => void): Awaitable<this, undefined>;
+
+    /**
+     * Injects the axe-core js library into the current page (using the .executeScript() command) to be paired
+     * with axeRun to evaluate the axe-core accessibility rules.
+     *
+     * @example
+     * this.demoTest = function () {
+     *   browser
+     *     .url('https://nightwatchjs.org')
+     *     .axeInject()
+     *     .axeRun();
+     * };
+     *
+     * @see https://nightwatchjs.org/api/axeInject.html
+     */
+    axeInject(): Awaitable<this, null>;
+
+    /**
+     * Analyzes the current page against applied axe rules.
+     *
+     * @example
+     * this.demoTest = function () {
+     *   browser
+     *     .url('https://nightwatchjs.org')
+     *     .axeInject()
+     *     .axeRun(
+     *        'body',
+     *        { runOnly: ['color-contrast', 'image-alt'] }
+     *     );
+     * };
+     *
+     * @example
+     * this.demoTest = function () {
+     *   browser
+     *     .url('https://nightwatchjs.org')
+     *     .axeInject()
+     *     .axeRun(
+     *        'body',
+     *        {
+     *          'color-contrast': {
+     *             enabled: false
+     *            }
+     *          },
+     *        }
+     *     );
+     * };
+     *
+     * @param selector - CSS selector to scope rule analysis against, will cascade to child elements
+     * @param options - Allows configuration of what rules will be run (accessibility standard or rules to enable/disable)
+     * @see {@link https://www.deque.com/axe/core-documentation/api-documentation/#options-parameter}
+     *
+     * @see {@link https://nightwatchjs.org/api/axeRun.html}
+     */
+    axeRun(
+        selector?: string,
+        options?: { [key: string]: any },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 }
 
 export interface ElementCommands {
@@ -5555,15 +5613,22 @@ export interface WebDriverProtocolElements {
      *
      *   'es6 async demo Test': async function(browser) {
      *     const result = await browser.element('css selector', 'body');
-     *     console.log('result value is:', result.value);
+     *     console.log('result value is:', result);
+     *   },
+     *
+     *   'demo Test with page object': function(browser) {
+     *     const loginPage = browser.page.login();
+     *     loginPage.api.element('@resultContainer', function(result) {
+     *       console.log(result.value)
+     *     });
      *   }
      * }
      */
     element(
         using: LocateStrategy,
         value: string,
-        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
+    ): Awaitable<this, { [ELEMENT_KEY]: string }>;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as web element JSON objects.
@@ -5586,7 +5651,7 @@ export interface WebDriverProtocolElements {
      *
      *   'es6 async demo Test': async function(browser) {
      *     const result = await browser.elements('css selector', 'ul li');
-     *     console.log('result value is:', result.value);
+     *     console.log('result value is:', result);
      *   },
      *
      *   'page object demo Test': function (browser) {
@@ -5606,8 +5671,8 @@ export interface WebDriverProtocolElements {
     elements(
         using: LocateStrategy,
         value: string,
-        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
+    ): Awaitable<this, Array<{ [ELEMENT_KEY]: string }>>;
 
     /**
      * Search for an element on the page, starting from the identified element. The located element will be returned as a Web Element JSON object.
@@ -6347,4 +6412,5 @@ export interface PageObjectModel {
     props?: any;
 }
 
-export const Nightwatch: NightwatchClient & Nightwatch;
+declare const _default: Nightwatch;
+export default _default;

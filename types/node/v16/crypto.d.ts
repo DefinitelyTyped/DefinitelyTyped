@@ -1799,7 +1799,7 @@ declare module 'crypto' {
      * Return a random integer `n` such that `min <= n < max`.  This
      * implementation avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias).
      *
-     * The range (`max - min`) must be less than 248. `min` and `max` must
+     * The range (`max - min`) must be less than `2**48`. `min` and `max` must
      * be [safe integers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isSafeInteger).
      *
      * If the `callback` function is not provided, the random integer is
@@ -2325,7 +2325,7 @@ declare module 'crypto' {
     /** @deprecated since v10.0.0 */
     const DEFAULT_ENCODING: BufferEncoding;
     type KeyType = 'rsa' | 'rsa-pss' | 'dsa' | 'ec' | 'ed25519' | 'ed448' | 'x25519' | 'x448';
-    type KeyFormat = 'pem' | 'der';
+    type KeyFormat = 'pem' | 'der' | 'jwk';
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
         cipher?: string | undefined;
@@ -3099,23 +3099,23 @@ declare module 'crypto' {
         /**
          * @default 'always'
          */
-        subject: 'always' | 'never';
+        subject?: 'always' | 'default' | 'never';
         /**
          * @default true
          */
-        wildcards: boolean;
+        wildcards?: boolean;
         /**
          * @default true
          */
-        partialWildcards: boolean;
+        partialWildcards?: boolean;
         /**
          * @default false
          */
-        multiLabelWildcards: boolean;
+        multiLabelWildcards?: boolean;
         /**
          * @default false
          */
-        singleLabelSubdomains: boolean;
+        singleLabelSubdomains?: boolean;
     }
     /**
      * Encapsulates an X509 certificate and provides read-only access to
@@ -3345,7 +3345,7 @@ declare module 'crypto' {
     interface CheckPrimeOptions {
         /**
          * The number of Miller-Rabin probabilistic primality iterations to perform.
-         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most 2-64 for random input.
+         * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most `2**-64` for random input.
          * Care must be used when selecting a number of checks.
          * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
          *

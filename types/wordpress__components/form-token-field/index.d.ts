@@ -3,6 +3,10 @@ import { ComponentType, FocusEventHandler, MouseEventHandler } from 'react';
 declare namespace FormTokenField {
     interface Props {
         /**
+         * The label for the control.
+         */
+        label?: string | undefined;
+        /**
          * An array of strings or objects to display as tokens in the field. If
          * objects are present in the array, they **must** have a property of
          * `value`. Here is an example object that could be passed in as a value:

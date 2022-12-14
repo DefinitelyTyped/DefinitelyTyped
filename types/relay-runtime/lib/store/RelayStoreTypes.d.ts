@@ -8,6 +8,7 @@ import {
     UploadableMap,
 } from '../network/RelayNetworkTypes';
 import { RelayObservable } from '../network/RelayObservable';
+import { GraphQLTaggedNode } from '../query/RelayModernGraphQLTag';
 import { RequestIdentifier } from '../util/getRequestIdentifier';
 import {
     NormalizationLinkedField,
@@ -15,7 +16,7 @@ import {
     NormalizationSelectableNode,
     NormalizationSplitOperation,
 } from '../util/NormalizationNode';
-import { ReaderFragment } from '../util/ReaderNode';
+import { ReaderFragment, ReaderLinkedField } from '../util/ReaderNode';
 import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
 import { CacheConfig, DataID, Disposable, FetchPolicy, RenderPolicy, Variables } from '../util/RelayRuntimeTypes';
 import { InvalidationState } from './RelayModernStore';
@@ -409,6 +410,10 @@ export interface RecordSourceSelectorProxy<T = {}> extends RecordSourceProxy {
     getRootField(fieldName: string): RecordProxy | null;
     getPluralRootField(fieldName: string): Array<RecordProxy<T> | null> | null;
     invalidateStore(): void;
+    readUpdatableFragment_EXPERIMENTAL<TKey extends HasUpdatableSpread>(
+        fragmentInput: GraphQLTaggedNode,
+        fragmentRef: TKey,
+    ): UpdatableData<TKey>;
 }
 
 interface OperationDescriptor {
@@ -888,7 +893,7 @@ export type MissingFieldHandler =
           kind: 'scalar';
           handle: (
               field: NormalizationScalarField,
-              record: Record | null | undefined,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => unknown;
@@ -896,8 +901,8 @@ export type MissingFieldHandler =
     | {
           kind: 'linked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => DataID | null | undefined;
@@ -905,8 +910,8 @@ export type MissingFieldHandler =
     | {
           kind: 'pluralLinked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => Array<DataID | null | undefined> | null | undefined;
@@ -1041,8 +1046,8 @@ export type RelayResolverErrors = RelayResolverError[];
  * The return type of calls to readUpdatableQuery_EXPERIMENTAL and
  * readUpdatableFragment_EXPERIMENTAL.
  */
-export interface UpdatableData<TData> {
-    readonly updatableData: TData;
+export interface UpdatableData<TKey extends HasUpdatableSpread<TData>, TData = unknown> {
+    readonly updatableData: Required<TKey>[' $data'];
 }
 
 /**
@@ -1050,6 +1055,7 @@ export interface UpdatableData<TData> {
  * HasUpdatableSpread.
  * This type is expected by store.readUpdatableFragment_EXPERIMENTAL.
  */
-export interface HasUpdatableSpread<TFragmentType> {
-    readonly $updatableFragmentSpreads: TFragmentType;
-}
+export type HasUpdatableSpread<TData = unknown> = Readonly<{
+    ' $data'?: TData | undefined;
+    $updatableFragmentSpreads: FragmentType;
+}>;

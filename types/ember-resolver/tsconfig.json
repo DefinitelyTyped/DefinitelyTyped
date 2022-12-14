@@ -1,15 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
+        "lib": ["es6", "dom"],
         "strict": true,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "paths": {
             "@ember/*": ["ember__*"]
         },
@@ -18,8 +13,5 @@
         "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "ember-resolver-tests.ts"
-    ]
+    "files": ["index.d.ts", "ember-resolver-tests.ts"]
 }

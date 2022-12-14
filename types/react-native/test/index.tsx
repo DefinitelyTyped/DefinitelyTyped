@@ -72,6 +72,7 @@ import {
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
+    RootTagContext,
     ScaledSize,
     ScrollView,
     ScrollViewProps,
@@ -334,6 +335,8 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 
     testFindNodeHandle() {
         const { rootView, customView } = this.refs;
+
+        const rootTag = React.useContext(RootTagContext);
 
         const nativeComponentHandle = findNodeHandle(rootView);
 
@@ -1438,7 +1441,7 @@ const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
 const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
   const e: SwitchChangeEvent = event;
-  return new Promise(() => e.value);
+  return new Promise(() => e.nativeEvent.value);
 }} />;
 
 const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
@@ -1972,4 +1975,28 @@ const ActionSheetIOSTest = () => {
         options: ['foo', 'bar'],
         destructiveButtonIndex: [0, 1],
     }, () => undefined);
+}
+
+const EventTargetTest = () => {
+  /**
+   * Refs
+   */
+  const textRef: React.MutableRefObject<Text | null> = React.useRef(null);
+
+  /**
+   * Callbacks
+   */
+  const onTouchEndCallback = React.useCallback((event: GestureResponderEvent) => {
+    const targetRef: React.Component = event.target // should be a reference
+    const wasTextClicked = targetRef === textRef.current // so this check is legal
+
+    const nativeTargetRef = event.nativeEvent.target // should be a number
+  }, [])
+
+  /**
+   * Main part
+   */
+  return <View onTouchEnd={onTouchEndCallback}>
+    <Text ref={textRef}>Just some content</Text>
+  </View>
 }

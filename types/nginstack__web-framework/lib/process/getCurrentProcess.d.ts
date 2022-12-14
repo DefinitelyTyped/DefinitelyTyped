@@ -1,5 +1,5 @@
 export = getCurrentProcess;
-declare function getCurrentProcess(): any;
+declare function getCurrentProcess(): Process;
 declare namespace getCurrentProcess {
     const processManager_: any;
 }

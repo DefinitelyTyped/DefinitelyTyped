@@ -43,6 +43,7 @@ declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
+    import { LookupOptions } from 'node:dns';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -113,56 +114,87 @@ declare module 'http' {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
-        signal?: AbortSignal | undefined;
-        protocol?: string | null | undefined;
-        host?: string | null | undefined;
-        hostname?: string | null | undefined;
-        family?: number | undefined;
-        port?: number | string | null | undefined;
-        defaultPort?: number | string | undefined;
-        localAddress?: string | undefined;
-        socketPath?: string | undefined;
-        /**
-         * @default 8192
-         */
-        maxHeaderSize?: number | undefined;
-        method?: string | undefined;
-        path?: string | null | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
-        auth?: string | null | undefined;
-        agent?: Agent | boolean | undefined;
         _defaultAgent?: Agent | undefined;
-        timeout?: number | undefined;
-        setHost?: boolean | undefined;
+        agent?: Agent | boolean | undefined;
+        auth?: string | null | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?:
             | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
             | undefined;
+        defaultPort?: number | string | undefined;
+        family?: number | undefined;
+        headers?: OutgoingHttpHeaders | undefined;
+        hints?: LookupOptions['hints'];
+        host?: string | null | undefined;
+        hostname?: string | null | undefined;
+        insecureHTTPParser?: boolean | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
         lookup?: LookupFunction | undefined;
+        /**
+         * @default 16384
+         */
+        maxHeaderSize?: number | undefined;
+        method?: string | undefined;
+        path?: string | null | undefined;
+        port?: number | string | null | undefined;
+        protocol?: string | null | undefined;
+        setHost?: boolean | undefined;
+        signal?: AbortSignal | undefined;
+        socketPath?: string | undefined;
+        timeout?: number | undefined;
+        uniqueHeaders?: Array<string | string[]> | undefined;
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
     > {
+        /**
+         * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
+         */
         IncomingMessage?: Request | undefined;
+        /**
+         * Specifies the `ServerResponse` class to be used. Useful for extending the original `ServerResponse`.
+         */
         ServerResponse?: Response | undefined;
         /**
-         * Optionally overrides the value of
-         * `--max-http-header-size` for requests received by this server, i.e.
-         * the maximum length of request headers in bytes.
-         * @default 8192
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @see Server.requestTimeout for more information.
+         * @default 300000
+         * @since v18.0.0
          */
-        maxHeaderSize?: number | undefined;
+        requestTimeout?: number | undefined;
         /**
-         * Use an insecure HTTP parser that accepts invalid HTTP headers when true.
+         * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
+         * after it has finished writing the last response, before a socket will be destroyed.
+         * @see Server.keepAliveTimeout for more information.
+         * @default 5000
+         * @since v18.0.0
+         */
+        keepAliveTimeout?: number | undefined;
+        /**
+         * Sets the interval value in milliseconds to check for request and headers timeout in incomplete requests.
+         * @default 30000
+         */
+        connectionsCheckingInterval?: number | undefined;
+        /**
+         * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
          * See --insecure-http-parser for more information.
          * @default false
          */
         insecureHTTPParser?: boolean | undefined;
         /**
+         * Optionally overrides the value of
+         * `--max-http-header-size` for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 16384
+         * @since v13.3.0
+         */
+        maxHeaderSize?: number | undefined;
+        /**
          * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
-         * @default false
+         * @default true
          * @since v16.5.0
          */
         noDelay?: boolean | undefined;
@@ -179,6 +211,11 @@ declare module 'http' {
          * @since v16.5.0
          */
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * A list of response headers that should be sent only once.
+         * If the header's value is an array, the items will be joined using `; `.
+         */
+        uniqueHeaders?: Array<string | string[]> | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -570,11 +607,46 @@ declare module 'http' {
         assignSocket(socket: Socket): void;
         detachSocket(socket: Socket): void;
         /**
-         * Sends a HTTP/1.1 100 Continue message to the client, indicating that
+         * Sends an HTTP/1.1 100 Continue message to the client, indicating that
          * the request body should be sent. See the `'checkContinue'` event on`Server`.
          * @since v0.3.0
          */
         writeContinue(callback?: () => void): void;
+        /**
+         * Sends an HTTP/1.1 103 Early Hints message to the client with a Link header,
+         * indicating that the user agent can preload/preconnect the linked resources.
+         * The `hints` is an object containing the values of headers to be sent with
+         * early hints message. The optional `callback` argument will be called when
+         * the response message has been written.
+         *
+         * Example:
+         *
+         * ```js
+         * const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLink,
+         * });
+         *
+         * const earlyHintsLinks = [
+         *   '</styles.css>; rel=preload; as=style',
+         *   '</scripts.js>; rel=preload; as=script',
+         * ];
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks,
+         *   'x-trace-id': 'id for diagnostics'
+         * });
+         *
+         * const earlyHintsCallback = () => console.log('early hints message sent');
+         * response.writeEarlyHints({
+         *   'link': earlyHintsLinks
+         * }, earlyHintsCallback);
+         * ```
+         *
+         * @since v18.11.0
+         * @param hints An object containing the values of headers
+         * @param callback Will be called when the response message has been written
+         */
+        writeEarlyHints(hints: Record<string, string | string[]>, callback?: () => void): void;
         /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.
@@ -639,7 +711,7 @@ declare module 'http' {
         ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
-         * Sends a HTTP/1.1 102 Processing message to the client, indicating that
+         * Sends an HTTP/1.1 102 Processing message to the client, indicating that
          * the request body should be sent.
          * @since v10.0.0
          */
@@ -1541,6 +1613,32 @@ declare module 'http' {
      */
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+
+    /**
+     * Performs the low-level validations on the provided name that are done when `res.setHeader(name, value)` is called.
+     * Passing illegal value as name will result in a TypeError being thrown, identified by `code: 'ERR_INVALID_HTTP_TOKEN'`.
+     * @param name Header name
+     * @since v14.3.0
+     */
+    function validateHeaderName(name: string): void;
+    /**
+     * Performs the low-level validations on the provided value that are done when `res.setHeader(name, value)` is called.
+     * Passing illegal value as value will result in a TypeError being thrown.
+     * - Undefined value error is identified by `code: 'ERR_HTTP_INVALID_HEADER_VALUE'`.
+     * - Invalid value character error is identified by `code: 'ERR_INVALID_CHAR'`.
+     * @param name Header name
+     * @param value Header value
+     * @since v14.3.0
+     */
+    function validateHeaderValue(name: string, value: string): void;
+
+    /**
+     * Set the maximum number of idle HTTP parsers. Default: 1000.
+     * @param count
+     * @since v18.8.0, v16.18.0
+     */
+    function setMaxIdleHTTPParsers(count: number): void;
+
     let globalAgent: Agent;
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.

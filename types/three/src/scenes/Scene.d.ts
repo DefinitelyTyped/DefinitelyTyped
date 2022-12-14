@@ -22,16 +22,13 @@ export class Scene extends Object3D {
      */
     fog: FogBase | null;
 
+    backgroundBlurriness: number;
+
     /**
      * If not null, it will force everything in the scene to be rendered with that material. Default is null.
      * @default null
      */
     overrideMaterial: Material | null;
-
-    /**
-     * @default true
-     */
-    autoUpdate: boolean;
 
     /**
      * @default null

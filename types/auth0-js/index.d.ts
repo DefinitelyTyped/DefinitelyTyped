@@ -754,7 +754,7 @@ export interface PasswordlessStartAuthParams extends BaseAuthOptions {
 
 export interface PasswordlessStartOptions {
     connection: string;
-    send: string;
+    send: "link" | "code";
     phoneNumber?: string | undefined;
     email?: string | undefined;
     authParams?: PasswordlessStartAuthParams | undefined;
@@ -765,7 +765,7 @@ export interface PasswordlessVerifyOptions extends BaseAuthOptions {
     verificationCode: string;
     phoneNumber?: string | undefined;
     email?: string | undefined;
-    send?: string | undefined;
+    send?: "link" | "code" | undefined;
     responseMode?: string | undefined;
 }
 

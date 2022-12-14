@@ -312,6 +312,21 @@ import { URL } from 'node:url';
         response.createPushResponse(outgoingHeaders, (err: Error | null, res: Http2ServerResponse) => {});
 
         response.writeContinue();
+
+        // writeEarlyHints
+        const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+        response.writeEarlyHints({
+            link: earlyHintsLink,
+        });
+        const earlyHintsLinks = [
+            '</styles.css>; rel=preload; as=style',
+            '</scripts.js>; rel=preload; as=script',
+        ];
+        response.writeEarlyHints({
+            link: earlyHintsLinks,
+            'x-trace-id': 'id for diagnostics'
+        });
+
         response.writeHead(200).end().end();
         response.writeHead(200, outgoingHeaders);
         response.writeHead(200, 'OK', outgoingHeaders);

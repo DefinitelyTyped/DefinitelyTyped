@@ -1621,6 +1621,23 @@ declare namespace my {
      */
     function chooseImage(options: Partial<ChooseImageOptions>): void;
 
+    interface GenerateImageFromCodeOptions extends BaseOptions {
+        code: string;
+        format: 'QRCODE';
+        width: number;
+        /**
+         * @defaultValue 'H'
+         */
+        correctLevel?: 'L' | 'M' | 'Q' | 'H';
+        success?(res: { image: string }): void;
+    }
+
+    /**
+     * 生成二维码，由客户端生成，速度快且不耗流量。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.generateimagefromcode)
+     * @param options
+     */
+    function generateImageFromCode(options: GenerateImageFromCodeOptions): void;
+
     interface PreviewImageOptions extends BaseOptions {
         /** 当当前显示图片索引，默认 0 */
         current?: number | undefined;
@@ -1640,9 +1657,24 @@ declare namespace my {
         success?(res: { errMsg: string }): void;
     }
     /**
-     * 保存在线图片到手机相册。
+     * @deprecated
+     * 保存在线图片到手机相册。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.saveimage)
      */
     function saveImage(options: SaveImageOptions): void;
+
+    interface SaveImageToPhotosAlbumOptions extends BaseOptions {
+        /**
+         * 要保存的图片链接
+         */
+        filePath: string;
+        success?(res: { errMsg: string }): void;
+    }
+
+    /**
+     * 保存在线图片到手机相册。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.saveImagetophotosalbum)
+     * @param options
+     */
+    function saveImageToPhotosAlbum(options: SaveImageToPhotosAlbumOptions): void;
 
     interface CompressImageOptions extends BaseOptions {
         /**
@@ -1685,10 +1717,20 @@ declare namespace my {
             width: number;    // 图片宽度（单位px）
             height: number;    // 图片高度（单位px）
             path: string;    // 图片本地路径
+            orientation:
+                | 'up'
+                | 'up-mirrored'
+                | 'down'
+                | ' down-mirrored'
+                | 'left-mirrored'
+                | 'right'
+                | 'lright-mirrored'
+                | 'left';
+            type: 'png' | 'jpg' | 'gif' | 'webp' | 'hevc' | 'bmp' | 'heic';
         }): void;
     }
     /**
-     * 获取图片信息
+     * 获取图片信息。文档详见(https://opendocs.alipay.com/mini/api/media/image/my.getimageinfo)
      */
     function getImageInfo(options: GetImageInfoOptions): void;
     //#endregion

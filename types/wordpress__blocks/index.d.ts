@@ -27,7 +27,6 @@ export type CSSDirection = 'top' | 'right' | 'bottom' | 'left';
 export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
-    readonly className: string;
     readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
@@ -43,6 +42,7 @@ export interface BlockIconNormalized {
 export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;
 
 export interface BlockSaveProps<T extends Record<string, any>> {
+    readonly className: string;
     readonly attributes: Readonly<T>;
 }
 
@@ -206,8 +206,17 @@ export interface Block<T extends Record<string, any> = {}> {
     /**
      * Setting `parent` lets a block require that it is only available when
      * nested within the specified blocks.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#parent}
      */
     readonly parent?: readonly string[] | undefined;
+    /**
+     * Setting `ancestor` lets a block require that it is only available when
+     * nested within the specified blocks.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#ancestor}
+     */
+    readonly ancestor?: readonly string[] | undefined;
     /**
      * Context provided for available access by descendants of blocks of this
      * type, in the form of an object which maps a context name to one of the

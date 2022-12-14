@@ -3,7 +3,6 @@
     "rules": {
         "no-consecutive-blank-lines": false,
         "no-internal-module": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

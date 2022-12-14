@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Node.js 18.7
+// Type definitions for non-npm package Node.js 18.11
 // Project: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped>
@@ -41,6 +41,7 @@
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 wafuwafu13 <https://github.com/wafuwafu13>
 //                 Matteo Collina <https://github.com/mcollina>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -92,6 +93,7 @@
 /// <reference path="dns/promises.d.ts" />
 /// <reference path="dns/promises.d.ts" />
 /// <reference path="domain.d.ts" />
+/// <reference path="dom-events.d.ts" />
 /// <reference path="events.d.ts" />
 /// <reference path="fs.d.ts" />
 /// <reference path="fs/promises.d.ts" />

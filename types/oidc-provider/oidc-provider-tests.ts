@@ -1,4 +1,4 @@
-import { Provider, interactionPolicy, errors, JWKS } from 'oidc-provider';
+import Provider, { interactionPolicy, errors, JWKS } from 'oidc-provider';
 
 errors.AccessDenied.name;
 
@@ -13,14 +13,6 @@ new Provider('https://op.example.com', {
                 token.iat.toFixed();
                 parts.header = { foo: 'bar' };
                 parts.payload.foo = 'bar';
-                return parts;
-            },
-            async paseto(ctx, token, parts) {
-                ctx.oidc.issuer.substring(0);
-                token.iat.toFixed();
-                parts.footer = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                parts.assertion = 'bar';
                 return parts;
             },
         },
@@ -178,18 +170,12 @@ const provider = new Provider('https://op.example.com', {
                 parts.payload.foo = 'bar';
                 return parts;
             },
-            paseto(ctx, token, parts) {
-                ctx.oidc.issuer.substring(0);
-                token.iat.toFixed();
-                parts.footer = { foo: 'bar' };
-                parts.payload.foo = 'bar';
-                return parts;
-            },
         },
     },
     httpOptions(url) {
         url.searchParams.keys();
-        return { timeout: 5000 };
+        const c = new AbortController();
+        return { signal: c.signal };
     },
     async expiresWithSession(ctx, token) {
         ctx.oidc.issuer.substring(0);
@@ -243,7 +229,7 @@ const provider = new Provider('https://op.example.com', {
     },
     scopes: ['foo', 'bar'],
     subjectTypes: ['public', 'pairwise'],
-    tokenEndpointAuthMethods: ['self_signed_tls_client_auth'],
+    clientAuthMethods: ['self_signed_tls_client_auth'],
     ttl: {
         CustomToken: 23,
         AccessToken(ctx, accessToken) {
@@ -374,7 +360,7 @@ const provider = new Provider('https://op.example.com', {
         webMessageResponseMode: { enabled: false, ack: 'draft' },
         revocation: { enabled: false },
         jwtIntrospection: { enabled: false, ack: 'draft' },
-        jwtResponseModes: { enabled: false, ack: 'draft' },
+        jwtResponseModes: { enabled: false },
         pushedAuthorizationRequests: { enabled: false },
         registration: {
             enabled: true,
@@ -433,7 +419,7 @@ const provider = new Provider('https://op.example.com', {
         },
         clientCredentials: { enabled: false },
         backchannelLogout: { enabled: false },
-        dPoP: { enabled: false, ack: 'draft', iatTolerance: 120 },
+        dPoP: { enabled: false, ack: 'draft' },
         deviceFlow: {
             enabled: false,
             charset: 'digits',
@@ -485,11 +471,11 @@ const provider = new Provider('https://op.example.com', {
         },
     },
     enabledJWA: {
-        tokenEndpointAuthSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
-        idTokenSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        requestObjectSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        userinfoSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
-        introspectionSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA', 'none'],
+        clientAuthSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        idTokenSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        requestObjectSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        userinfoSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
+        introspectionSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
         authorizationSigningAlgValues: ['HS256', 'RS256', 'PS256', 'ES256', 'EdDSA'],
         idTokenEncryptionAlgValues: ['A128KW', 'A256KW', 'ECDH-ES', 'ECDH-ES+A128KW', 'ECDH-ES+A256KW', 'RSA-OAEP'],
         requestObjectEncryptionAlgValues: [

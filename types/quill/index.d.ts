@@ -99,6 +99,13 @@ export class RangeStatic implements RangeStatic {
     length: number;
 }
 
+export interface History {
+    clear(): void;
+    cutoff(): void;
+    undo(): void;
+    redo(): void;
+}
+
 export interface EventEmitter {
     on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
     on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
@@ -119,6 +126,7 @@ export class Quill implements EventEmitter {
     clipboard: ClipboardStatic;
     scroll: Blot;
     keyboard: KeyboardStatic;
+    history: History;
     constructor(container: string | Element, options?: QuillOptionsStatic);
     deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;

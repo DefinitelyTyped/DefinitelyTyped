@@ -1,7 +1,7 @@
 export = Route;
-declare function Route(opt_routeSet: any): void;
+declare function Route(opt_routeSet: RouteSet | null): void;
 declare class Route {
-    constructor(opt_routeSet: any);
+    constructor(opt_routeSet: RouteSet | null);
     private routeSet_;
     private propertiesToAssign_;
     private matcher_;
@@ -16,13 +16,18 @@ declare class Route {
     testScope(scope: string): boolean;
 }
 declare namespace Route {
-    const resolveGlobalParameter: any;
-    function parseAction(action: string): {
-        action: string;
-        method: string;
-        parameters: any[];
-        openParameters: any;
-    };
-    function testScope(scope: string | string[], requiredScope: string | string[]): boolean;
+    export { resolveGlobalParameter, parseAction, testScope, RouteSet };
 }
+type RouteSet = import('./RouteSet');
 import RouteDef = require('./RouteDef.js');
+declare var resolveGlobalParameter: any;
+declare function parseAction(action: string): {
+    action: string;
+    method: string;
+    parameters: any[];
+    openParameters: any;
+};
+declare function testScope(
+    scope: string | string[],
+    requiredScope: string | string[]
+): boolean;

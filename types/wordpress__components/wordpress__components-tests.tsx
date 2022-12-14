@@ -413,6 +413,7 @@ const buttonGroupRef = createRef<HTMLDivElement>();
 // form-token-field
 //
 <C.FormTokenField
+    label={'Select a FooBar'}
     value={[
         'foo',
         {

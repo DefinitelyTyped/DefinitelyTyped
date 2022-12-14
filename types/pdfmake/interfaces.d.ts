@@ -672,10 +672,45 @@ export interface Style {
     /**
      * Margins to apply.
      *
+     * Overrides the single-side `marginXXX` properties, unless this value is inherited
+     * from a style and they are set directly on the content object.
+     *
      * Ignored for content within an inline text array
      * (`{ text: [{ ... }] }`).
      */
     margin?: Margins | undefined;
+
+    /**
+     * Margin in `pt` to apply above the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginTop?: number | undefined;
+
+    /**
+     * Margin in `pt` to apply to the right of the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginRight?: number | undefined;
+
+    /**
+     * Margin in `pt` to apply below the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginBottom?: number | undefined;
+
+    /**
+     * Margin in `pt` to apply to the left of the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginLeft?: number | undefined;
 
     /**
      * Controls whether to preserve spaces at the beginning of a paragraph.

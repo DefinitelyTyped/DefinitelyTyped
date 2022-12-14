@@ -126,7 +126,8 @@ pubnub.addListener({
             id,
             name,
             url
-        }
+        },
+        userMetadata
     }) => console.log({
         channel,
         subscription,
@@ -137,7 +138,8 @@ pubnub.addListener({
             id,
             name,
             url
-        }
+        },
+        userMetadata
     })
 });
 

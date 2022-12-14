@@ -60,6 +60,21 @@ declare namespace ScrollSpy {
         method: 'auto' | 'offset' | 'position';
 
         /**
+         * Intersection Observer [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin)
+         * valid units, when calculating scroll position.
+         *
+         * @default '0px 0px -25%'
+         */
+        rootMargin: string;
+
+        /**
+         * Enables smooth scrolling when a user clicks on a link that refers to ScrollSpy observables.
+         *
+         * @default false
+         */
+        smoothScroll: boolean;
+
+        /**
          * Specifies element to apply Scrollspy plugin.
          */
         target: string | Element | JQuery;
