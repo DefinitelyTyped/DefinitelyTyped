@@ -413,5 +413,5 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * @param object
      * @param recursive
      */
-    copy(source: this, recursive?: boolean): this;
+    copy(source: Object3D, recursive?: boolean): this;
 }
