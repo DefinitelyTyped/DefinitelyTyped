@@ -1127,7 +1127,7 @@ declare module "encoding" {
          * Set to true if processing the data in chunks, and false for the final chunk or if the data is not chunked.
          * It defaults to false.
          */
-        stream: boolean
+        stream: boolean;
     }
 
     /**
@@ -1148,7 +1148,7 @@ declare module "encoding" {
          * @param buffer [Optional] an ArrayBuffer, a TypedArray or a DataView object containing the text to decode.
          * @param options [Optional] An object with the stream property
          */
-        decode(buffer?:ArrayBuffer| TypedArray | DataView, options?: StreamObject): string;
+        decode(buffer?: ArrayBuffer| TypedArray | DataView, options?: StreamObject): string;
 
         /**
          * The fatal  flag passed into the constructor
@@ -1164,7 +1164,7 @@ declare module "encoding" {
         readonly encoding: string;
     }
 
-    export { base64, base64url, base16, TextEncoder, TextDecoder};
+    export { base64, base64url, base16, TextEncoder, TextDecoder };
 }
 
 /**
