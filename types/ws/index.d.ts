@@ -26,7 +26,6 @@ import { Duplex, DuplexOptions } from "stream";
 import { SecureContextOptions } from "tls";
 import { URL } from "url";
 import { ZlibOptions } from "zlib";
-import { Buffer } from 'buffer';
 
 type FirstArgument<F extends typeof Buffer.from> = F extends (data: infer A) => any ? A : never;
 
