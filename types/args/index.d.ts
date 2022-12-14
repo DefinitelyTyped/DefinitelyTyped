@@ -10,7 +10,7 @@ interface args <TOptions extends Record<string, any>> {
     sub: string[];
 
     option<TName extends string | [string, string]>(name: TName, description: string, defaultValue?: any, init?: OptionInitFunction): args<TOptions & {[key in OptionName<TName>]: any}>;
-    options<TNames extends string, TOptionList extends Option<TNames>[]>(list: TOptionList): args<TOptions & {[key in OptionNames<TOptionList>]: any}>;
+    options<TNames extends string>(list: Array<Option<TNames>>): args<TOptions & {[key in TNames]: any}>;
     command(name: string, description: string, init?: (name: string, sub: string[], options: TOptions) => void, aliases?: string[]): args<TOptions>;
     example(usage: string, description: string): args<TOptions>;
     examples(list: Example[]): args<TOptions>;
@@ -64,8 +64,8 @@ interface ConfigurationOptions {
     subColor?: string | string[];
 }
 
-interface Option<TName extends string | [string | string]> {
-    name: TName;
+interface Option<TName extends string> {
+    name: TName | [TName, TName];
     description: string;
     init?: OptionInitFunction | undefined;
     defaultValue?: any;
@@ -76,5 +76,4 @@ interface Example {
     description: string;
 }
 
-type OptionNames<TOptions extends Option<any>[]> = TOptions extends Option<infer U>[] ? U : never;
 type OptionName<TOptionName extends string | [string, string]> = TOptionName extends string ? TOptionName : TOptionName extends [string, string] ? TOptionName[0] | TOptionName[1] : never;

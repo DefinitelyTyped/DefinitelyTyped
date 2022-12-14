@@ -15,6 +15,14 @@ const result = args
             description: 'desc',
         },
     ])
+    .options([
+        {
+            name: ['o', 'opt5'],
+            description: 'desc',
+            defaultValue: 1,
+            init: (value: any) => { },
+        },
+    ])
     .command("cm1", "desc")
     .command("cm2", "desc", (value: any): void => { }, ['a'])
     .command("cm3", "desc", (name, subs, options: { opt1: number}): void => {
@@ -26,7 +34,7 @@ const result = args
         const c = options.opt4;
         // @ts-expect-error
         const d = options.opt8;
-     }, )
+     })
     .example("ex1", "desc")
     .examples([
         {
@@ -38,7 +46,7 @@ const result = args
 const {opt1, opt2, opt3, opt4} = result.parse([]);
 
 // @ts-expect-error
-const {opt5} = result.parse([]);
+const {opt6} = result.parse([]);
 
 args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
     help: true,
