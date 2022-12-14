@@ -8,6 +8,8 @@ import * as wslib from "ws";
     const ws = new WebSocket("ws://www.host.com/path");
     ws.on("open", () => ws.send("something"));
     ws.on("message", data => {});
+    // @ts-expect-error
+    ws.send({hello: 'world'});
 }
 
 {
