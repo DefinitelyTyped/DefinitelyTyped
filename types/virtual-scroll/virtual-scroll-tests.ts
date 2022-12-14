@@ -11,7 +11,7 @@ const scrollOptions: VirtualScroll.VirtualScrollOptions = {
     touchMultiplier: 1.8,
     useKeyboard: false,
     useTouch: false,
-}
+};
 
 const scroll = new VirtualScroll(scrollOptions);
 
