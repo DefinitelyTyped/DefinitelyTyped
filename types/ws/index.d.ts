@@ -36,7 +36,8 @@ type BufferLike =
     | ArrayBuffer
     | ArrayBufferView
     | FirstArgument<typeof Buffer.from>
-    | { valueOf(): string };
+    | { valueOf(): string }
+    | Buffer[];
 
 // WebSocket socket.
 declare class WebSocket extends EventEmitter {
