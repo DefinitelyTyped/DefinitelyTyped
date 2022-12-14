@@ -27,6 +27,15 @@ import { SecureContextOptions } from "tls";
 import { URL } from "url";
 import { ZlibOptions } from "zlib";
 
+
+type BufferLike =
+    | string
+    | Buffer
+    | ArrayBuffer
+    | ArrayBufferView
+    | { [Symbol.toPrimitive](): string } |
+    { valueOf(): string }
+
 // WebSocket socket.
 declare class WebSocket extends EventEmitter {
     /** The connection is not yet open. */
@@ -77,9 +86,9 @@ declare class WebSocket extends EventEmitter {
     close(code?: number, data?: string | Buffer): void;
     ping(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
-    send(data: any, cb?: (err?: Error) => void): void;
+    send(data: BufferLike, cb?: (err?: Error) => void): void;
     send(
-        data: any,
+        data: BufferLike,
         options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined },
         cb?: (err?: Error) => void,
     ): void;
@@ -187,6 +196,7 @@ declare class WebSocket extends EventEmitter {
 }
 
 declare const WebSocketAlias: typeof WebSocket;
+
 interface WebSocketAlias extends WebSocket {} // tslint:disable-line no-empty-interface
 
 declare namespace WebSocket {
@@ -366,8 +376,10 @@ declare namespace WebSocket {
     }
 
     const WebSocketServer: typeof Server;
+
     interface WebSocketServer extends Server {} // tslint:disable-line no-empty-interface
     const WebSocket: typeof WebSocketAlias;
+
     interface WebSocket extends WebSocketAlias {} // tslint:disable-line no-empty-interface
 
     // WebSocket stream
