@@ -9,7 +9,8 @@ import * as wslib from "ws";
     ws.on("open", () => ws.send("something"));
     ws.on("message", data => {});
     // @ts-expect-error
-    ws.send({hello: 'world'});
+    ws.send({ hello: 'world' });
+    ws.send({ [Symbol.toPrimitive]: () => 'hello' });
 }
 
 {
@@ -351,8 +352,12 @@ declare module 'ws' {
             return 'foo';
         }
     }
+
     const server = new http.Server();
-    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({
+        WebSocket: CustomWebSocket,
+        noServer: true
+    });
     webSocketServer.on('connection', (ws) => {
         // $ExpectType CustomWebSocket
         ws;
