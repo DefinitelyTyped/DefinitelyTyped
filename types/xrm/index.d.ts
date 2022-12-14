@@ -460,7 +460,7 @@ declare namespace Xrm {
          * @deprecated Deprecated in v9. Use {@link Xrm.UserSettings.languageId globalContext.userSetings.languageId} instead.
          * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          * @returns The user's language code.
-         * @see {@link http://msdn.microsoft.com/en-us/library/ms912047(WinEmbedded.10).aspx External Link: Microsoft Locale ID Values}
+         * @see {@link https://learn.microsoft.com/en-us/previous-versions/windows/embedded/ms912047(v=winembedded.10) External Link: Microsoft Locale ID Values}
          */
         getUserLcid(): number;
 
@@ -567,7 +567,7 @@ declare namespace Xrm {
 
     /**
      * <CrmParameter> used in RibbonDiffXml actions
-     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)}
+     * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8) External Link: <CrmParameter> (RibbonDiffXml)}
      */
     interface CommandProperties {
         /**
@@ -613,7 +613,7 @@ declare namespace Xrm {
      *
      * Not to be confused with the more commonly used {@link Xrm.LookupValue LookupValue }.
      *
-     * @see {@link https://docs.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks}
+     * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg309332(v=crm.8)#remarks External Link: CrmParameter Remarks}
      */
     interface EntityReference {
         /**
@@ -689,7 +689,7 @@ declare namespace Xrm {
              * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
              * to wait for that handler's promise to be fulfilled.
              * This should be used with caution as it might affect the performance of the form save.
-             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#async-onsave-timeouts Async onSave timeouts}
+             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#async-onsave-timeouts External Link: Async onSave timeouts}
              */
             disableAsyncTimeout(): void;
         }
@@ -826,18 +826,18 @@ declare namespace Xrm {
         * In the API documentation, this is sometimes referred to as the executionContext.
         * Subscribe to this event with {@link Data.addOnLoad()}
         * Not to be confused with {@link LoadEventContext}, registered in the designer.
-        * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+        * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
         */
         interface DataLoadEventContext extends EventContext {
             /**
-             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
              */
             getEventArgs(): DataLoadEventArguments;
         }
 
         /**
          * Return value of {@link DataLoadEventContext.getEventArgs()}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
          */
         interface DataLoadEventArguments {
             getDataLoadState(): XrmEnum.FormDataLoadState;
@@ -848,19 +848,19 @@ declare namespace Xrm {
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Asynchronous version see {@link LoadEventContextAsync}
          * Not to be confused with {@link DataLoadEventContext}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support External Link: Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface LoadEventContext extends EventContext {
             /**
-             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
              */
             getEventArgs(): LoadEventArguments;
         }
 
         /**
          * Return value of {@link LoadEventContext.getEventArgs()}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
          */
         interface LoadEventArguments {
             getDataLoadState(): XrmEnum.FormDataLoadState;
@@ -870,8 +870,8 @@ declare namespace Xrm {
          * Asynchronous Form OnLoad event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Synchronous version see {@link LoadEventContext}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support External Link: Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface LoadEventContextAsync extends LoadEventContext {
             getEventArgs(): LoadEventArgumentsAsync;
@@ -886,7 +886,7 @@ declare namespace Xrm {
              * disableAsyncTimeout is set, the timeout for that handler will not be applied. It will continue
              * to wait for that handler's promise to be fulfilled.
              * This should be used with caution as it might affect the performance of the form load.
-             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onload#async-onload-timeouts Async onLoad timeouts}
+             * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onload#async-onload-timeouts External Link: Async onLoad timeouts}
              */
             disableAsyncTimeout(): void;
         }
@@ -895,8 +895,8 @@ declare namespace Xrm {
          * Synchronous Form OnSave event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Asynchronous version see {@link SaveEventContextAsync}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave Form OnSave event}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave External Link: Form OnSave event}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface SaveEventContext extends EventContext {
             /**
@@ -909,8 +909,8 @@ declare namespace Xrm {
          * Asynchronous Form OnSave event context.
          * In the API documentation, this is sometimes referred to as the executionContext.
          * Synchronous version see {@link SaveEventContext}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support Form OnSave event: Asynchronous event handler support}
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context Execution context (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/events/form-onsave#asynchronous-event-handler-support External Link: Form OnSave event: Asynchronous event handler support}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
          */
         interface SaveEventContextAsync extends SaveEventContext {
             getEventArgs(): SaveEventArgumentsAsync;
@@ -1195,7 +1195,7 @@ declare namespace Xrm {
         /**
          * Adds a function to be called on the form OnLoad event.
          * The function will be added to the bottom of the event handler pipeline.
-         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addonload ui.addOnLoad (Client API reference)}
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addonload External Link: ui.addOnLoad (Client API reference)}
          */
         addOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
 
@@ -1272,7 +1272,7 @@ declare namespace Xrm {
 
         /**
          * Removes a function from the form OnLoad event.
-         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeonload ui.removeOnLoad (Client API reference)}
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeonload External Link: ui.removeOnLoad (Client API reference)}
          */
         removeOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
 
@@ -1394,7 +1394,7 @@ declare namespace Xrm {
          * @param entityName    The logical name of the entity.
          * @param stateCode     The state code to find out the allowed status transition values.
          * @returns Returns an object with .then() function. The parameter to the delegate is an array of numbers representing the valid status transitions.
-         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getallowedstatustransitions getAllowedStatusTransitions (Client API reference)}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getallowedstatustransitions External Link: getAllowedStatusTransitions (Client API reference)}
          */
         getAllowedStatusTransitions(entityName: string, stateCode: number): PromiseLike<number[]>;
 
@@ -1556,7 +1556,7 @@ declare namespace Xrm {
     interface Mobile {
         /**
          * Provides methods to create and manage records in the mobile clients while working in the offline mode.
-         * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx External Link: Xrm.Mobile.offline (client-side reference)}
+         * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/mt787123(v=crm.8) External Link: Xrm.Mobile.offline (client-side reference)}
          * @deprecated Use {@link Xrm.WebApi.offline} instead.  Xrm.WebApi.offline is implemented differently than Xrm.Mobile.offline
          * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
          */
@@ -1566,7 +1566,7 @@ declare namespace Xrm {
     /**
      * Interface for the Mobile.offline methods to create and manage records in the mobile clients while working in the offline mode.
      * @deprecated Use {@link Xrm.WebApi.offline} instead.  Xrm.WebApi.offline is implemented differently than Xrm.Mobile.offline
-     * @see {@link https://msdn.microsoft.com/en-us/library/mt787123.aspx External Link: Xrm.Mobile.offline (client-side reference)}
+     * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/mt787123(v=crm.8) External Link: Xrm.Mobile.offline (client-side reference)}
      * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#some-client-apis-are-deprecated External Link: Deprecated Client APIs}
      */
     interface MobileOffline {
@@ -2482,7 +2482,7 @@ declare namespace Xrm {
 
             /**
              * Interface for a quick view control instance on a form.
-             * @see {@link https://msdn.microsoft.com/en-us/library/mt736908.aspx External Link: Xrm.Page.ui quickForms (client-side reference)}
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (client-side reference)}
              * @deprecated Use {@link Xrm.Controls.ViewSelectorItem} instead.
              */
             interface QuickForm extends Controls.QuickFormControl { }
@@ -3433,9 +3433,9 @@ declare namespace Xrm {
              * @param isDefault true, to treat this view as default.
              * @remarks Cannot be used on "Owner" Lookup controls.
              *          The viewId is never saved to CRM, but must be unique across available views.  Generating
-             *          a new value can be accomplished with a {@link http://www.guidgen.com/ Guid generator(external link)}.
+             *          a new value can be accomplished with a {@link http://www.guidgen.com/ External Link: Guid generator}.
              * @example Example viewId value: "{00000000-0000-0000-0000-000000000001}"
-             * @see {@link http://msdn.microsoft.com/en-us/library/gg334522.aspx External Link: Layout XML Reference}
+             * @see {@link https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/developers-guide/gg334522(v=crm.8) External Link: Layout XML Reference}
              */
             addCustomView(
                 viewId: string,
@@ -4395,7 +4395,7 @@ declare namespace Xrm {
         isValid(): boolean;
 
         /**
-         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsave removeOnPostSave (Client API reference)}
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsave External Link: removeOnPostSave (Client API reference)}
          */
         removeOnPostSave(handler: Events.PostSaveEventHandler): void;
 
@@ -4823,7 +4823,7 @@ declare namespace Xrm {
 
     /**
      * An definition module for URL-based, CRM component parameters.
-     * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
      */
     namespace Url {
         /**
@@ -4848,7 +4848,7 @@ declare namespace Xrm {
          * Interface for defining parameters on a request to open a form with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          * @remarks  A member for "pagetype" is not provided.  The value "entityrecord" is required in
          *           the URL, for forms. Example:  "pagetype=entityrecord"
          */
@@ -4888,7 +4888,7 @@ declare namespace Xrm {
          * Interface for defining parameters on a request to open a view with main.aspx (as with
          * window.open). Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          * @remarks  A member for "pagetype" is not provided.  The value "entitylist" is required in
          *           the URL, for views. Example:  "pagetype=entitylist"
          */
@@ -4934,7 +4934,7 @@ declare namespace Xrm {
          * Interface for defining parameters of a request to open a dialog with rundialog.aspx (as with
          * window.open).  Useful for parsing the keys and values into a string of the format:
          * "&key=value".
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          */
         interface DialogOpenParameters {
             /**
@@ -4959,7 +4959,7 @@ declare namespace Xrm {
          * window.open).  Useful for parsing out the keys and values into a string of the format:
          * "&key=value"
          *
-         * @see {@link http://msdn.microsoft.com/en-us/library/gg328483.aspx External Link: Open forms, views, dialogs, and reports with a URL}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/open-forms-views-dialogs-reports-url External Link: Open forms, views, dialogs, and reports with a URL}
          */
         interface ReportOpenParameters {
             /**
@@ -6173,7 +6173,7 @@ declare namespace XrmEnum {
 
     /**
      * Possible state of form data load.
-     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value getEventArgs (Client API reference)}
+     * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
      */
     const enum FormDataLoadState {
         InitialLoad = 1,
