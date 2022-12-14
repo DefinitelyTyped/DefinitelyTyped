@@ -11,7 +11,7 @@ interface args {
 
     option(name: string | [string, string], description: string, defaultValue?: any, init?: OptionInitFunction): args;
     options(list: Option[]): args;
-    command(name: string, description: string, init?: (name: string, sub: string[], options: ConfigurationOptions) => void, aliases?: string[]): args;
+    command<TOptions extends Record<string, unknown>>(name: string, description: string, init?: (name: string, sub: string[], options: TOptions) => void, aliases?: string[]): args;
     example(usage: string, description: string): args;
     examples(list: Example[]): args;
     parse(argv: string[], options?: ConfigurationOptions): { [key: string]: any };

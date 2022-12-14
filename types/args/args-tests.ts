@@ -17,6 +17,9 @@ args
     ])
     .command("cm1", "desc")
     .command("cm2", "desc", (value: any): void => { }, ['a'])
+    .command("cm3", "desc", (name, subs, options: { opt3: number}): void => {
+        const x = options.opt3;
+     }, ['a'])
     .example("ex1", "desc")
     .examples([
         {
