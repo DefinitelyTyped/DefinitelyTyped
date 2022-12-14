@@ -26,15 +26,15 @@ import { Duplex, DuplexOptions } from "stream";
 import { SecureContextOptions } from "tls";
 import { URL } from "url";
 import { ZlibOptions } from "zlib";
-
+import { Buffer } from 'buffer';
 
 type BufferLike =
     | string
     | Buffer
     | ArrayBuffer
     | ArrayBufferView
-    | { [Symbol.toPrimitive](): string } |
-    { valueOf(): string }
+    | { [Symbol.toPrimitive](): string }
+    | { valueOf(): string };
 
 // WebSocket socket.
 declare class WebSocket extends EventEmitter {

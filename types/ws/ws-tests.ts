@@ -47,7 +47,7 @@ import * as wslib from "ws";
 {
     const wss = new WebSocket.Server({ port: 8082 });
 
-    const broadcast = (data: any) => {
+    const broadcast = (data: string) => {
         wss.clients.forEach(ws => ws.send(data));
     };
 }
