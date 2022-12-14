@@ -352,12 +352,8 @@ declare module 'ws' {
             return 'foo';
         }
     }
-
     const server = new http.Server();
-    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({
-        WebSocket: CustomWebSocket,
-        noServer: true
-    });
+    const webSocketServer = new WebSocket.WebSocketServer<CustomWebSocket>({WebSocket: CustomWebSocket, noServer: true});
     webSocketServer.on('connection', (ws) => {
         // $ExpectType CustomWebSocket
         ws;
