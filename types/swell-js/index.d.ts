@@ -1,10 +1,14 @@
-// Type definitions for swell-js 3.17
+// Type definitions for swell-js 3.18
 // Project: https://github.com/swellstores/swell-js#readme
 // Definitions by: Gus Fune <https://github.com/gusfune>
 //                 Markus <https://github.com/markus-gx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference path="currency.d.ts" />
+/// <reference path="locale.d.ts" />
 /// <reference path="settings.d.ts" />
 
+import type { Locale } from './locale';
+import type { Currency, CurrencySelect } from './currency';
 import type { Settings } from './settings';
 
 export as namespace Swell;
@@ -187,13 +191,14 @@ export interface ProductOptionValueSnakeCase {
 }
 
 export interface ProductOptionSnakeCase {
-    id: string;
-    values: ProductOptionValueSnakeCase[];
     active: true;
+    attribute_id?: string | null;
     description: null;
+    id: string;
     input_type: string;
     name: string;
     required: boolean;
+    values: ProductOptionValueSnakeCase[];
     variant: boolean;
 }
 
@@ -206,13 +211,14 @@ export interface ProductOptionValueCamelCase {
 }
 
 export interface ProductOptionCamelCase {
-    id: string;
-    values: ProductOptionValueCamelCase[];
     active: boolean;
+    attributeId?: string | null;
     description: string | null;
+    id: string;
     inputType: string;
     name: string;
     required: boolean;
+    values: ProductOptionValueCamelCase[];
     variant: boolean;
 }
 
@@ -847,14 +853,14 @@ export namespace categories {
 
 export namespace currency {
     function format(input: number, format: object): string;
-    function list(): Promise<ListResult<unknown>>;
-    function select(input: string): Promise<unknown>;
-    function selected(): Promise<string>;
+    function list(): Promise<Currency[]>;
+    function select(input: string): Promise<CurrencySelect>;
+    function selected(): string;
 }
 
 export namespace locale {
-    function selected(): Promise<string>;
-    function select(locale: string): Promise<unknown>;
+    function selected(): string;
+    function select(locale: string): Promise<Locale>;
 }
 
 export namespace payment {
