@@ -1071,9 +1071,11 @@ expect.extend({
 describe('', () => {
     it('', () => {
         const spiedObj = {
-            method: (arg1: string, arg2: number) => "abc"
+            method: (arg1: string, arg2: number) => "abc",
+            overloadMethod: ((arg1: string) => "abc") as (((arg1: string) => string) | ((arg1: number) => number) | ((arg1: string, arg2: number) => string)),
         };
         const spy = jest.spyOn(spiedObj, "method");
+        const overloadMethodSpy = jest.spyOn(spiedObj, "overloadMethod");
 
         /* Corrections of previous typings */
         // @ts-expect-error
@@ -1091,6 +1093,11 @@ describe('', () => {
         expect(spy).lastCalledWith("abc", 123);
         // @ts-expect-error
         expect(spy).lastCalledWith(123, "abc");
+        expect(overloadMethodSpy).lastCalledWith("abc");
+        expect(overloadMethodSpy).lastCalledWith(123);
+        expect(overloadMethodSpy).lastCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).lastCalledWith(true);
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
@@ -1098,12 +1105,21 @@ describe('', () => {
         expect(spy).lastReturnedWith("abc");
         // @ts-expect-error
         expect(spy).lastReturnedWith(123);
+        expect(overloadMethodSpy).lastReturnedWith("abc");
+        expect(overloadMethodSpy).lastReturnedWith(123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).lastReturnedWith(true);
 
         expect(jest.fn()).nthCalledWith(1, 'jest');
         expect(jest.fn()).nthCalledWith(2, {});
         expect(spy).nthCalledWith(0, "abc", 123);
         // @ts-expect-error
         expect(spy).nthCalledWith(0, 123, "abc");
+        expect(overloadMethodSpy).nthCalledWith(0, "abc");
+        expect(overloadMethodSpy).nthCalledWith(0, 123);
+        expect(overloadMethodSpy).nthCalledWith(0, "abc", 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).nthCalledWith(0, true);
 
         expect(jest.fn()).nthReturnedWith(1, 'jest');
         expect(jest.fn()).nthReturnedWith(2, {});
@@ -1111,6 +1127,10 @@ describe('', () => {
         expect(spy).nthReturnedWith(0, "abc");
         // @ts-expect-error
         expect(spy).nthReturnedWith(0, 123);
+        expect(overloadMethodSpy).nthReturnedWith(0, "abc");
+        expect(overloadMethodSpy).nthReturnedWith(0, 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).nthReturnedWith(0, true);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1126,6 +1146,11 @@ describe('', () => {
         expect(spy).toBeCalledWith("abc", 123);
         // @ts-expect-error
         expect(spy).toBeCalledWith(123, "abc");
+        expect(overloadMethodSpy).toBeCalledWith("abc");
+        expect(overloadMethodSpy).toBeCalledWith(123);
+        expect(overloadMethodSpy).toBeCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).toBeCalledWith(true);
 
         // @ts-expect-error
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
@@ -1190,6 +1215,11 @@ describe('', () => {
         expect(spy).toHaveBeenCalledWith("abc", 123);
         // @ts-expect-error
         expect(spy).toHaveBeenCalledWith(123, "abc");
+        expect(overloadMethodSpy).toBeCalledWith("abc");
+        expect(overloadMethodSpy).toBeCalledWith(123);
+        expect(overloadMethodSpy).toBeCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).toBeCalledWith(true);
 
         expect(jest.fn()).toHaveBeenNthCalledWith(0);
         expect(jest.fn()).toHaveBeenNthCalledWith(1, 'jest');
@@ -1197,6 +1227,11 @@ describe('', () => {
         expect(spy).toHaveBeenNthCalledWith(0, "abc", 123);
         // @ts-expect-error
         expect(spy).toHaveBeenNthCalledWith(0, 123, "abc");
+        expect(overloadMethodSpy).toHaveBeenNthCalledWith(0, "abc");
+        expect(overloadMethodSpy).toHaveBeenNthCalledWith(0, 123);
+        expect(overloadMethodSpy).toHaveBeenNthCalledWith(0, "abc", 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).toHaveBeenNthCalledWith(0, true);
 
         expect(jest.fn()).toHaveBeenLastCalledWith();
         expect(jest.fn()).toHaveBeenLastCalledWith('jest');
@@ -1204,6 +1239,11 @@ describe('', () => {
         expect(spy).toHaveBeenLastCalledWith("abc", 123);
         // @ts-expect-error
         expect(spy).toHaveBeenLastCalledWith(123, "abc");
+        expect(overloadMethodSpy).toHaveBeenLastCalledWith("abc");
+        expect(overloadMethodSpy).toHaveBeenLastCalledWith(123);
+        expect(overloadMethodSpy).toHaveBeenLastCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).toHaveBeenLastCalledWith(true);
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
@@ -1211,6 +1251,10 @@ describe('', () => {
         expect(spy).toHaveLastReturnedWith("abc");
         // @ts-expect-error
         expect(spy).toHaveLastReturnedWith(123);
+        expect(overloadMethodSpy).toHaveLastReturnedWith("abc");
+        expect(overloadMethodSpy).toHaveLastReturnedWith(123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).toHaveLastReturnedWith(true);
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
@@ -1221,6 +1265,10 @@ describe('', () => {
         expect(spy).toHaveNthReturnedWith(0, "abc");
         // @ts-expect-error
         expect(spy).toHaveNthReturnedWith(0, 123);
+        expect(overloadMethodSpy).toHaveNthReturnedWith(0, "abc");
+        expect(overloadMethodSpy).toHaveNthReturnedWith(0, 123);
+        // @ts-expect-error
+        expect(overloadMethodSpy).toHaveNthReturnedWith(0, true);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
