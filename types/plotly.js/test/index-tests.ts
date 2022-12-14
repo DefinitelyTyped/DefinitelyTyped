@@ -1007,7 +1007,9 @@ function rand() {
                     family: 'monospace'
                 },
                 showlabels: true,
-            }
+            },
+            autocontour: true,
+            ncontours: 6,
         },
     ];
     const layout: Partial<Plotly.Layout> = {
