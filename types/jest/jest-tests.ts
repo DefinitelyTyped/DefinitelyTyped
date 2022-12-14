@@ -1070,6 +1070,11 @@ expect.extend({
 
 describe('', () => {
     it('', () => {
+        const spiedObj = {
+            method: (arg1: string, arg2: number) => "abc"
+        }
+        const spy = jest.spyOn(spiedObj, "method");
+
         /* Corrections of previous typings */
         // @ts-expect-error
         expect('').not.not;
@@ -1083,17 +1088,29 @@ describe('', () => {
         expect(jest.fn()).lastCalledWith();
         expect(jest.fn()).lastCalledWith('jest');
         expect(jest.fn()).lastCalledWith({}, {});
+        expect(spy).lastCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(spy).lastCalledWith(123, "abc");
 
         expect(jest.fn()).lastReturnedWith('jest');
         expect(jest.fn()).lastReturnedWith({});
         expect(jest.fn()).lastReturnedWith();
+        expect(spy).lastReturnedWith("abc");
+        // @ts-expect-error
+        expect(spy).lastReturnedWith(123);
 
         expect(jest.fn()).nthCalledWith(1, 'jest');
         expect(jest.fn()).nthCalledWith(2, {});
+        expect(spy).nthCalledWith(0, "abc", 123);
+        // @ts-expect-error
+        expect(spy).nthCalledWith(0, 123, "abc");
 
         expect(jest.fn()).nthReturnedWith(1, 'jest');
         expect(jest.fn()).nthReturnedWith(2, {});
         expect(jest.fn()).nthReturnedWith(3);
+        expect(spy).nthReturnedWith(0, "abc");
+        // @ts-expect-error
+        expect(spy).nthReturnedWith(0, 123);
 
         expect({}).toBe({});
         expect([]).toBe([]);
@@ -1106,6 +1123,9 @@ describe('', () => {
         expect(jest.fn()).toBeCalledWith();
         expect(jest.fn()).toBeCalledWith('jest');
         expect(jest.fn()).toBeCalledWith({}, {});
+        expect(spy).toBeCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(spy).toBeCalledWith(123, "abc");
 
         // @ts-expect-error
         expect(jest.fn()).toBeCalledWith<[string, number]>(1, 'two');
@@ -1167,18 +1187,30 @@ describe('', () => {
         expect(jest.fn()).toHaveBeenCalledWith();
         expect(jest.fn()).toHaveBeenCalledWith('jest');
         expect(jest.fn()).toHaveBeenCalledWith({}, {});
+        expect(spy).toHaveBeenCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(spy).toHaveBeenCalledWith(123, "abc");
 
-        expect(jest.fn()).toHaveBeenCalledWith(0);
-        expect(jest.fn()).toHaveBeenCalledWith(1, 'jest');
-        expect(jest.fn()).toHaveBeenCalledWith(2, {}, {});
+        expect(jest.fn()).toHaveBeenNthCalledWith(0);
+        expect(jest.fn()).toHaveBeenNthCalledWith(1, 'jest');
+        expect(jest.fn()).toHaveBeenNthCalledWith(2, {}, {});
+        expect(spy).toHaveBeenNthCalledWith(0, "abc", 123);
+        // @ts-expect-error
+        expect(spy).toHaveBeenNthCalledWith(0, 123, "abc");
 
         expect(jest.fn()).toHaveBeenLastCalledWith();
         expect(jest.fn()).toHaveBeenLastCalledWith('jest');
         expect(jest.fn()).toHaveBeenLastCalledWith({}, {});
+        expect(spy).toHaveBeenLastCalledWith("abc", 123);
+        // @ts-expect-error
+        expect(spy).toHaveBeenLastCalledWith(123, "abc");
 
         expect(jest.fn()).toHaveLastReturnedWith('jest');
         expect(jest.fn()).toHaveLastReturnedWith({});
         expect(jest.fn()).toHaveLastReturnedWith();
+        expect(spy).toHaveLastReturnedWith("abc");
+        // @ts-expect-error
+        expect(spy).toHaveLastReturnedWith(123);
 
         expect([]).toHaveLength(0);
         expect('').toHaveLength(1);
@@ -1186,6 +1218,9 @@ describe('', () => {
         expect(jest.fn()).toHaveNthReturnedWith(1, 'jest');
         expect(jest.fn()).toHaveNthReturnedWith(2, {});
         expect(jest.fn()).toHaveNthReturnedWith(3);
+        expect(spy).toHaveNthReturnedWith(0, "abc");
+        // @ts-expect-error
+        expect(spy).toHaveNthReturnedWith(0, 123);
 
         expect({}).toHaveProperty('property');
         expect({}).toHaveProperty('property', {});
