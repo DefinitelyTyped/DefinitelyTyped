@@ -12,7 +12,7 @@ interface VirtualScrollEvent {
 }
 type VirtualScrollCallback = (e: VirtualScrollEvent) => void;
 
-interface Options {
+interface VirtualScrollOptions {
     el: Window | HTMLElement; // the target element for mobile touch events. Defaults to window.
     mouseMultiplier: number; // General multiplier for all mousewheel (including Firefox). Default to 1.
     touchMultiplier: number; // Mutiply the touch action by this modifier to make scroll faster than finger movement. Defaults to 2.
@@ -26,7 +26,7 @@ interface Options {
 }
 
 declare class VirtualScroll {
-    constructor(options?: Partial<Options>);
+    constructor(options?: Partial<VirtualScrollOptions>);
     destroy(): void;
     on(cb: VirtualScrollCallback): void;
     off(cb: VirtualScrollCallback): void;
