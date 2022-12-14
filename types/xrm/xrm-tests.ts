@@ -600,3 +600,8 @@ Xrm.Navigation.navigateTo({
         console.log(error.message);
     },
 );
+
+const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
+
+// $ExpectType MultiSelectOptionSetAttribute
+multiSelectOptionSetControl.getAttribute();
