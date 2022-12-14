@@ -1072,7 +1072,7 @@ describe('', () => {
     it('', () => {
         const spiedObj = {
             method: (arg1: string, arg2: number) => "abc"
-        }
+        };
         const spy = jest.spyOn(spiedObj, "method");
 
         /* Corrections of previous typings */
