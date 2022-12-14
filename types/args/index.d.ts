@@ -3,10 +3,10 @@
 // Definitions by: Slessi <https://github.com/Slessi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare const c: args< { }>;
+declare const c: args<unknown>;
 export = c;
 
-interface args <TOptions extends Record<string, any>> {
+interface args <TOptions extends unknown | Record<string, any>> {
     /**
      * This property exposes all sub arguments that have been parsed by mri.
      * This is useful when trying to get the value after the command.
@@ -19,7 +19,7 @@ interface args <TOptions extends Record<string, any>> {
      *
      * https://github.com/leo/args#optionname-description-default-init
      */
-    option<TName extends string | [string, string]>(name: TName, description: string, defaultValue?: any, init?: OptionInitFunction): args<TOptions & {[key in UnwrapOptionName<TName>]: any}>;
+    option<TName extends string>(name: TName | [TName, TName], description: string, defaultValue?: any, init?: OptionInitFunction): args<TOptions & {[key in UnwrapOptionName<TName>]: any}>;
     /**
      * Takes in an array of objects that are each defining an option that shall be registered.
      * This is basically a minimalistic way to register a huge list of options at once.
@@ -32,7 +32,7 @@ interface args <TOptions extends Record<string, any>> {
      *
      * https://github.com/leo/args#commandname-description-init-aliases
      */
-    command(name: string, description: string, init?: (name: string, sub: string[], options: TOptions) => void, aliases?: string[]): args<TOptions>;
+    command(name: string, description: string, init?: (name: string, sub: string[], options: CastUnknownResultToAny<TOptions>) => void, aliases?: string[]): args<TOptions>;
     /**
      * Register an example which will be shown when calling `help`.
      *
@@ -53,7 +53,7 @@ interface args <TOptions extends Record<string, any>> {
      *
      * https://github.com/leo/args#parseargv-options
      */
-    parse(argv: string[], options?: ConfigurationOptions): TOptions;
+    parse(argv: string[], options?: ConfigurationOptions): CastUnknownResultToAny<TOptions>;
     /**
      * Outputs the usage information based on the options and comments you've registered
      * so far and exits, if configured to do so.
@@ -131,3 +131,7 @@ type UnwrapOptionName<TOptionName extends string | [string, string]> = TOptionNa
     : TOptionName extends [string, string]
         ? TOptionName[0] | TOptionName[1]
         : never;
+
+// To avoid breaking changes when calling `args.parse()` without chaining
+// the return type of `args.parse()` is `any` if `TOptions` is `unknown`
+type CastUnknownResultToAny<T> = T extends Record<any, any> ? T : any;

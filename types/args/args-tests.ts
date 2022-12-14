@@ -1,8 +1,9 @@
 import * as args from "args";
 
 const result = args
-    .option("opt1", "desc")
+    .option(["opt1", "op2"], "desc")
     .option("opt2", "desc", false, (value: any): any => value)
+    .example("opt2", "desc")
     .options([
         {
             name: 'opt3',
@@ -17,10 +18,20 @@ const result = args
     ])
     .options([
         {
-            name: ['o', 'opt5'],
+            name: ['o5', 'opt5'],
             description: 'desc',
             defaultValue: 1,
             init: (value: any) => { },
+        },
+        {
+            name: ['opt6', "o6"],
+            description: 'desc',
+            defaultValue: 1,
+        },
+        {
+            name: 'opt7',
+            description: 'desc',
+            defaultValue: 1,
         },
     ])
     .command("cm1", "desc")
@@ -46,7 +57,7 @@ const result = args
 const {opt1, opt2, opt3, opt4} = result.parse([]);
 
 // @ts-expect-error
-const {opt6} = result.parse([]);
+const {opt99} = result.parse([]);
 
 args.parse(['~/bin/node', '~/dir', 'arg', '--param'], {
     help: true,
@@ -95,3 +106,8 @@ args.showHelp();
 args.showVersion();
 
 const x: string = args.sub[0];
+
+args.parse([]).foo;
+args.command("direct", "direct call demo", (name, sub, options) => {
+    const z = options.bar;
+});
