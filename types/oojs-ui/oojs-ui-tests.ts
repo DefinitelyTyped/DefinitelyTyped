@@ -1,0 +1,2071 @@
+/* tslint:disable:object-literal-key-quotes only-arrow-functions space-before-function-paren */
+// #region OO.ui
+{
+    {
+        OO.ui.Keys.UNDEFINED; // $ExpectType Keys.UNDEFINED
+        OO.ui.Keys.BACKSPACE; // $ExpectType Keys.BACKSPACE
+        OO.ui.Keys.DELETE; // $ExpectType Keys.DELETE
+        OO.ui.Keys.LEFT; // $ExpectType Keys.LEFT
+        OO.ui.Keys.RIGHT; // $ExpectType Keys.RIGHT
+        OO.ui.Keys.UP; // $ExpectType Keys.UP
+        OO.ui.Keys.DOWN; // $ExpectType Keys.DOWN
+        OO.ui.Keys.ENTER; // $ExpectType Keys.ENTER
+        OO.ui.Keys.END; // $ExpectType Keys.END
+        OO.ui.Keys.HOME; // $ExpectType Keys.HOME
+        OO.ui.Keys.TAB; // $ExpectType Keys.TAB
+        OO.ui.Keys.PAGEUP; // $ExpectType Keys.PAGEUP
+        OO.ui.Keys.PAGEDOWN; // $ExpectType Keys.PAGEDOWN
+        OO.ui.Keys.ESCAPE; // $ExpectType Keys.ESCAPE
+        OO.ui.Keys.SHIFT; // $ExpectType Keys.SHIFT
+        OO.ui.Keys.SPACE; // $ExpectType Keys.SPACE
+    }
+
+    {
+        OO.ui.MouseButtons.LEFT; // $ExpectType MouseButtons.LEFT
+        OO.ui.MouseButtons.MIDDLE; // $ExpectType MouseButtons.MIDDLE
+        OO.ui.MouseButtons.RIGHT; // $ExpectType MouseButtons.RIGHT
+    }
+
+    OO.ui.generateElementId(); // $ExpectType string
+
+    const $element = $('div');
+
+    OO.ui.isFocusableElement($element); // $ExpectType boolean
+
+    OO.ui.findFocusable($element, true); // $ExpectType JQuery<HTMLElement>
+
+    OO.ui.getUserLanguages(); // $ExpectType string[]
+
+    {
+        const getLocalValueTestObject = {
+            'en': 'foo',
+            'fr': 'bar',
+            'zh': 1234,
+        };
+
+        // $ExpectType string | number | undefined
+        OO.ui.getLocalValue(getLocalValueTestObject);
+
+        // $ExpectType string
+        OO.ui.getLocalValue(getLocalValueTestObject, null, 'en');
+
+        // $ExpectType string
+        OO.ui.getLocalValue(getLocalValueTestObject, 'en');
+
+        // $ExpectType string
+        OO.ui.getLocalValue(getLocalValueTestObject, 'en', 'zh');
+
+        // $ExpectType number
+        OO.ui.getLocalValue(getLocalValueTestObject, 'pt', 'zh');
+    }
+
+    {
+        const htmlElement = document.createElement('div');
+
+        // $ExpectType boolean
+        OO.ui.contains(htmlElement, htmlElement, true);
+
+        // $ExpectType boolean
+        OO.ui.contains([htmlElement], htmlElement);
+    }
+
+    // $ExpectType (foo: string) => number
+    OO.ui.debounce((foo: string) => 1, 100, true);
+
+    // $ExpectType void
+    OO.ui.warnDeprecation('Deprecated!');
+
+    // $ExpectType (foo: string) => number
+    OO.ui.throttle((foo: string) => 1, 100);
+
+    {
+        const jq = $('<div>');
+        const el = document.createElement('div');
+
+        // $ExpectType Element
+        OO.ui.infuse(jq);
+
+        // $ExpectType Element
+        OO.ui.infuse(el);
+
+        // $ExpectType Element
+        OO.ui.infuse('div');
+    }
+
+    // $ExpectType string
+    OO.ui.msg('key', 1, 2, 3, 'foo');
+
+    // $ExpectType () => string
+    OO.ui.deferMsg('key', 1, 2, 3, 'foo');
+
+    {
+        // $ExpectType string
+        OO.ui.resolveMsg(() => 'foo!');
+
+        // $ExpectType "foo!"
+        OO.ui.resolveMsg('foo!');
+
+        // $ExpectType 1
+        OO.ui.resolveMsg(1);
+    }
+
+    // $ExpectType boolean
+    OO.ui.isSafeUrl('https://example.com');
+
+    // $ExpectType boolean
+    OO.ui.isMobile();
+
+    // $ExpectType Rectangle
+    OO.ui.getViewportSpacing();
+
+    // $ExpectType JQuery<HTMLDivElement>
+    OO.ui.getDefaultOverlay();
+
+    {
+        OO.ui.alert('Server crashed!').then(() => { });
+
+        OO.ui.alert('Server crashed!', {
+            title: 'Error',
+            size: 'full',
+        }).then(() => { });
+    }
+
+    {
+        OO.ui.confirm('Server crashed!').then(() => { });
+
+        OO.ui.confirm('Server crashed!', {
+            title: 'Error',
+            size: 'full',
+        }).then(() => { });
+    }
+
+    {
+        OO.ui.prompt('Input sth').then(() => { });
+
+        OO.ui.prompt('Input sth', {
+            title: 'Title',
+            size: 'full',
+            textInput: {
+                placeholder: 'Placeholder'
+            }
+        }).then(() => { });
+    }
+}
+
+// #endregion
+
+// #region OO.ui.mixin.AccessKeyedElement
+{
+    const instance = new OO.ui.mixin.AccessKeyedElement({
+        $accessKeyed: $('div'),
+        accessKey: 'a'
+    });
+
+    // $ExpectType string
+    instance.getAccessKey();
+
+    // $ExpectType AccessKeyedElement
+    instance.setAccessKey('c');
+
+    // $ExpectType void
+    instance.setAccessKeyedElement($('div'));
+
+    // $ExpectType string
+    instance.formatTitleWithAccessKey('foo');
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$accessKeyed;
+
+    // $ExpectType Deferrable<string> | null
+    OO.ui.mixin.AccessKeyedElement.static.accessKey;
+
+    // @ts-expect-error
+    OO.ui.mixin.AccessKeyedElement.prototype.$accessKeyed;
+}
+// #endregion
+
+// #region OO.ui.mixin.ButtonElement
+{
+    const instance = new OO.ui.mixin.ButtonElement({
+        $button: $('<a>'),
+        framed: false
+    });
+
+    // $ExpectType boolean
+    instance.isFramed();
+
+    // $ExpectType void
+    instance.setButtonElement($('<a>'));
+
+    // $ExpectType ButtonElement
+    instance.toggleFramed();
+
+    // $ExpectType ButtonElement
+    instance.toggleFramed(true);
+
+    // $ExpectType ButtonElement
+    instance.setActive(true);
+
+    // $ExpectType boolean
+    instance.isActive();
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$button;
+
+    // $ExpectType boolean
+    OO.ui.mixin.ButtonElement.static.cancelButtonMouseDownEvents;
+
+    // @ts-expect-error
+    OO.ui.mixin.ButtonElement.prototype.$button;
+}
+// #endregion
+
+// #region OO.ui.mixin.ClippableElement
+{
+    const instance = new OO.ui.mixin.ClippableElement({
+        $clippable: $('<div>'),
+        $clippableContainer: $('<div>')
+    });
+
+    // $ExpectType ClippableElement
+    instance.clip();
+
+    // $ExpectType "left" | "right"
+    instance.getHorizontalAnchorEdge();
+
+    // $ExpectType "top" | "bottom"
+    instance.getVerticalAnchorEdge();
+
+    // $ExpectType boolean
+    instance.isClipped();
+
+    // $ExpectType boolean
+    instance.isClippedHorizontally();
+
+    // $ExpectType boolean
+    instance.isClippedVertically();
+
+    // $ExpectType boolean
+    instance.isClipping();
+
+    // $ExpectType void
+    instance.setClippableContainer($('<div>'));
+
+    // $ExpectType void
+    instance.setClippableContainer(null);
+
+    // $ExpectType void
+    instance.setClippableElement($('<div>'));
+
+    // $ExpectType void
+    instance.setIdealSize(1, 2);
+
+    // $ExpectType void
+    instance.setIdealSize('1px', '2px');
+
+    // $ExpectType ClippableElement
+    instance.toggleClipping();
+
+    // $ExpectType ClippableElement
+    instance.toggleClipping(true);
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$clippable;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$clippableContainer;
+
+    // @ts-expect-error
+    OO.ui.mixin.ClippableElement.prototype.$clippable;
+
+    // @ts-expect-error
+    OO.ui.mixin.ClippableElement.prototype.$clippableContainer;
+}
+// #endregion
+
+// #region OO.ui.mixin.DraggableElement
+{
+    const instance = new OO.ui.mixin.DraggableElement({
+        $handle: $('<div>'),
+        draggable: true
+    });
+
+    // $ExpectType boolean
+    instance.isDraggable();
+
+    // $ExpectType void
+    instance.toggleDraggable(true);
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$handle;
+
+    // $ExpectType boolean
+    OO.ui.mixin.DraggableElement.static.cancelButtonMouseDownEvents;
+
+    // @ts-expect-error
+    OO.ui.mixin.DraggableElement.prototype.$handle;
+}
+// #endregion
+
+// #region OO.ui.mixin.DraggableGroupElement
+{
+    const instance = new OO.ui.mixin.DraggableGroupElement({
+        $group: $('<div>'),
+        draggable: true,
+        items: [],
+        orientation: 'horizontal'
+    });
+    const elem = new OO.ui.mixin.DraggableElement();
+
+    // $ExpectType void
+    instance.toggleDraggable(true);
+
+    // $ExpectType boolean
+    instance.isDraggable();
+
+    // $ExpectType void
+    instance.updateIndexes();
+
+    // $ExpectType void
+    instance.reorder(elem, 1);
+
+    // $ExpectType void
+    instance.setDragItem(elem);
+
+    // $ExpectType void
+    instance.unsetDragItem();
+
+    // $ExpectType DraggableElement | null
+    instance.getDragItem();
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$group;
+}
+// #endregion
+
+// #region OO.ui.mixin.FlaggedElement
+{
+    const instance = new OO.ui.mixin.FlaggedElement({
+        $flagged: $('<div>'),
+        flags: ['1', '2']
+    });
+
+    // $ExpectType FlaggedElement
+    instance.clearFlags();
+
+    // $ExpectType string[]
+    instance.getFlags();
+
+    // $ExpectType boolean
+    instance.hasFlag('1');
+
+    // $ExpectType void
+    instance.setFlaggedElement($('<div>'));
+
+    // $ExpectType FlaggedElement
+    instance.setFlags('3');
+
+    // $ExpectType FlaggedElement
+    instance.setFlags(['3', '4']);
+
+    // $ExpectType FlaggedElement
+    instance.setFlags({
+        '3': false,
+        '4': true
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$flagged;
+
+    // $ExpectType string | string[] | Record<string, boolean>
+    OO.ui.mixin.FlaggedElement.static.flags;
+
+    // @ts-expect-error
+    OO.ui.mixin.FlaggedElement.prototype.$flagged;
+}
+// #endregion
+
+// #region OO.ui.mixin.FloatableElement
+{
+    const instance = new OO.ui.mixin.FloatableElement({
+        $floatable: $('<div>'),
+        $floatableContainer: $('<div>'),
+        hideWhenOutOfView: true,
+        verticalPosition: 'above',
+        horizontalPosition: 'after'
+    });
+
+    {
+        const pos = instance.computePosition();
+        pos.bottom; // $ExpectType number | ""
+        pos.left; // $ExpectType number | ""
+        pos.right; // $ExpectType number | ""
+        pos.top; // $ExpectType number | ""
+    }
+
+    // $ExpectType boolean
+    instance.isFloatableOutOfView();
+
+    // $ExpectType FloatableElement
+    instance.position();
+
+    // $ExpectType void
+    instance.setFloatableContainer($('<div>'));
+
+    // $ExpectType void
+    instance.setFloatableContainer(null);
+
+    // $ExpectType void
+    instance.setFloatableElement($('<div>'));
+
+    // $ExpectType void
+    instance.setHorizontalPosition('before');
+
+    // $ExpectType void
+    instance.setVerticalPosition('below');
+
+    // $ExpectType FloatableElement
+    instance.togglePositioning();
+
+    // $ExpectType FloatableElement
+    instance.togglePositioning(true);
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$floatable;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$floatableContainer;
+
+    // @ts-expect-error
+    OO.ui.mixin.FloatableElement.$floatable;
+
+    // @ts-expect-error
+    OO.ui.mixin.FloatableElement.$floatableContainer;
+}
+// #endregion
+
+// #region OO.ui.mixin.GroupElement
+{
+    const instance = new OO.ui.mixin.GroupElement({
+        $group: $('<div>')
+    });
+    const elem = new OO.ui.Element();
+    const jq = $('<div>');
+
+    // $ExpectType void
+    instance.setGroupElement(jq);
+
+    // $ExpectType Element | null
+    instance.findItemFromData(1);
+
+    // $ExpectType Element[]
+    instance.findItemsFromData(1);
+
+    // $ExpectType GroupElement
+    instance.addItems([elem], 1);
+
+    // $ExpectType GroupElement
+    instance.addItems([elem]);
+
+    // $ExpectType GroupElement
+    instance.removeItems([elem]);
+
+    // $ExpectType GroupElement
+    instance.clearItems();
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$group;
+
+    // @ts-expect-error
+    OO.ui.mixin.GroupElement.prototype.$group;
+}
+// #endregion
+
+// #region OO.ui.mixin.IconElement
+{
+    // $ExpectType string | Record<string, string> | null
+    OO.ui.mixin.IconElement.static.icon;
+
+    // $ExpectType Deferrable<string> | null
+    OO.ui.mixin.IconElement.static.iconTitle;
+
+    const instance = new OO.ui.mixin.IconElement({
+        $icon: $('<span>'),
+        icon: { default: 'bold-a', en: 'bold-b', de: 'bold-f' }
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$icon;
+
+    // $ExpectType string
+    instance.getIcon();
+
+    // $ExpectType IconElement
+    instance.setIcon('bold-a');
+
+    // $ExpectType IconElement
+    instance.setIcon(null);
+
+    // $ExpectType void
+    instance.setIconElement($('<span>'));
+
+    // @ts-expect-error
+    OO.ui.mixin.IconElement.prototype.$icon;
+}
+// #endregion
+
+// #region OO.ui.mixin.IndicatorElement
+{
+    const instance = new OO.ui.mixin.IndicatorElement({
+        $indicator: $('<span>'),
+        indicator: 'down'
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$indicator;
+
+    // $ExpectType string | null
+    instance.getIndicator();
+
+    // $ExpectType void
+    instance.setIndicatorElement($('<span>'));
+
+    // $ExpectType IndicatorElement
+    instance.setIndicator('clear');
+
+    // @ts-expect-error
+    OO.ui.mixin.IndicatorElement.prototype.$indicator;
+
+    // $ExpectType string | null
+    OO.ui.mixin.IndicatorElement.static.indicator;
+
+    // $ExpectType Deferrable<string> | null
+    OO.ui.mixin.IndicatorElement.static.indicatorTitle;
+}
+// #endregion
+
+// #region OO.ui.mixin.LabelElement
+{
+    // $ExpectType Deferrable<string> | null
+    OO.ui.mixin.LabelElement.static.label;
+
+    // $ExpectType JQuery<HTMLElement>
+    OO.ui.mixin.LabelElement.static.highlightQuery('foobar', 'foo');
+
+    const instance = new OO.ui.mixin.LabelElement({
+        $label: $('<span>'),
+        label: 'foobar',
+        invisibleLabel: true
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$label;
+
+    // $ExpectType string | JQuery<HTMLElement> | null
+    instance.getLabel();
+
+    // $ExpectType LabelElement
+    instance.setHighlightedQuery('foobar', 'foo');
+
+    // $ExpectType LabelElement
+    instance.setInvisibleLabel(false);
+
+    // $ExpectType LabelElement
+    instance.setLabel('foo baz');
+
+    // $ExpectType void
+    instance.setLabelElement($('<span>'));
+
+    // $ExpectType LabelElement
+    instance.setLabelId('id');
+
+    // @ts-expect-error
+    OO.ui.mixin.LabelElement.prototype.$label;
+}
+// #endregion
+
+// #region OO.ui.mixin.LookupElement
+{
+    const jq = $();
+
+    const instance = new OO.ui.mixin.LookupElement({
+        $container: jq,
+        $overlay: jq,
+        allowSuggestionsWhenEmpty: true,
+        highlightFirst: true,
+        menu: {}, // FIXME Fix tests
+        showPendingRequest: true,
+        showSuggestionsOnFocus: true
+    });
+
+    // $ExpectType void
+    instance.setLookupsDisabled(false);
+
+    // $ExpectType LookupElement
+    instance.setReadOnly(true);
+}
+// #endregion
+
+// #region OO.ui.mixin.PendingElement
+{
+    const instance = new OO.ui.mixin.PendingElement({
+        $pending: $()
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$pending;
+
+    // $ExpectType boolean
+    instance.isPending();
+
+    // $ExpectType PendingElement
+    instance.popPending();
+
+    // $ExpectType PendingElement
+    instance.pushPending();
+
+    // $ExpectType void
+    instance.setPendingElement($());
+
+    // @ts-expect-error
+    OO.ui.mixin.PendingElement.prototype.$pending;
+}
+// #endregion
+
+// #region OO.ui.mixin.PopupElement
+{
+    // $ExpectType {}
+    OO.ui.mixin.PopupElement.static;
+
+    const instance = new OO.ui.mixin.PopupElement({
+        popup: {
+            $content: $('<p>Hi there!</p>'),
+            padded: true,
+            width: 300
+        }
+    });
+
+    // $ExpectType PopupWidget
+    instance.getPopup();
+}
+// #endregion
+
+// #region OO.ui.mixin.RequestManager
+{
+    const instance = new OO.ui.mixin.RequestManager({
+        showPendingRequest: true
+    });
+
+    instance.getRequestData().then((data) => {
+        data; // $ExpectType unknown
+    });
+}
+// #endregion
+
+// #region OO.ui.mixin.RequiredElement
+{
+    const instance = new OO.ui.mixin.RequiredElement({
+        $required: $(),
+        indicatorElement: new OO.ui.Element(),
+        required: false
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$required;
+
+    // $ExpectType boolean
+    instance.isRequired();
+
+    // $ExpectType RequiredElement
+    instance.setRequired(true);
+
+    // $ExpectType void
+    instance.setRequiredElement($());
+
+    // @ts-expect-error
+    OO.ui.mixin.RequiredElement.prototype.$required;
+}
+// #endregion
+
+// #region OO.ui.mixin.TabIndexedElement
+{
+    const instance = new OO.ui.mixin.TabIndexedElement({
+        $tabIndexed: $(),
+        tabIndex: '123'
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$tabIndexed;
+
+    // $ExpectType TabIndexedElement
+    instance.blur();
+
+    // $ExpectType TabIndexedElement
+    instance.focus();
+
+    // $ExpectType string | null
+    instance.getInputId();
+
+    // $ExpectType number | null
+    instance.getTabIndex();
+
+    // $ExpectType TabIndexedElement
+    instance.setTabIndex(234);
+
+    // $ExpectType TabIndexedElement
+    instance.setTabIndexedElement($());
+
+    // @ts-expect-error
+    OO.ui.mixin.TabIndexedElement.prototype.$tabIndexed;
+}
+// #endregion
+
+// #region OO.ui.mixin.TitledElement
+{
+    const instance = new OO.ui.mixin.TitledElement({
+        $titled: $(),
+        title: () => 'title'
+    });
+
+    // $ExpectType string | null
+    instance.getTitle();
+
+    // $ExpectType TitledElement
+    instance.setTitle('new title');
+
+    // $ExpectType void
+    instance.setTitledElement($());
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$titled;
+
+    // @ts-expect-error
+    OO.ui.mixin.TitledElement.$titled;
+}
+// #endregion
+
+// #region OO.ui.ActionSet
+{
+    // $ExpectType string[]
+    OO.ui.ActionSet.static.specialFlags;
+
+    const instance = new OO.ui.ActionSet();
+
+    const widget = new OO.ui.ActionWidget();
+
+    // $ExpectType boolean
+    instance.isSpecial(widget);
+
+    {
+        // $ExpectType ActionWidget[]
+        instance.get();
+
+        instance.get({
+            actions: ['continue'],
+            disabled: true,
+            flags: ['safe'],
+            modes: ['edit'],
+            visible: false
+        });
+
+        instance.get({
+            actions: 'continue',
+            flags: 'safe',
+            modes: 'edit',
+        });
+    }
+
+    // $ExpectType ActionWidget[] | null
+    instance.getSpecial();
+
+    // $ExpectType ActionWidget[]
+    instance.getOthers();
+
+    // $ExpectType ActionSet
+    instance.setMode('view');
+
+    // $ExpectType ActionSet
+    instance.setAbilities({
+        continue: false
+    });
+
+    {
+        // $ExpectType ActionSet
+        instance.forEach({
+            actions: ['continue'],
+            disabled: true,
+            flags: ['safe'],
+            modes: ['edit'],
+            visible: false
+        }, (action, index, list) => {
+            action; // $ExpectType ActionWidget
+            index; // $ExpectType number
+            list; // $ExpectType ActionWidget[]
+        });
+
+        instance.forEach(null, () => { });
+    }
+
+    // $ExpectType ActionSet
+    instance.add([widget]);
+
+    // $ExpectType ActionSet
+    instance.remove([widget]);
+
+    instance.on('add', (added) => {
+        added; // $ExpectType ActionWidget[]
+    }).on;
+
+    instance.on('change', () => { });
+
+    instance.on('click', (action) => {
+        action; // $ExpectType ActionWidget
+    });
+
+    instance.on('remove', (removed) => {
+        removed; // $ExpectType ActionWidget[]
+    });
+}
+// #endregion
+
+// #region OO.ui.ActionWidget
+{
+    // $ExpectType ButtonWidget
+    new OO.ui.ActionWidget.super();
+
+    const instance = new OO.ui.ActionWidget({
+        action: 'continue',
+        modes: ['edit'],
+        label: 'Continue',
+        flags: ['primary', 'progressive']
+    });
+
+    // $ExpectType boolean
+    instance.hasMode('edit');
+
+    // $ExpectType string
+    instance.getAction();
+
+    // $ExpectType string[]
+    instance.getModes();
+}
+// #endregion
+
+// #region OO.ui.ButtonWidget
+{
+    // $ExpectType Widget
+    new OO.ui.ButtonWidget.super();
+
+    // $ExpectType Deferrable<string> | null
+    OO.ui.ButtonWidget.static.accessKey;
+
+    // $ExpectType boolean
+    OO.ui.ButtonWidget.static.cancelButtonMouseDownEvents;
+
+    // $ExpectType string | Record<string, string> | null
+    OO.ui.ButtonWidget.static.icon;
+
+    const instance = new OO.ui.ButtonWidget({
+        label: 'Button with Icon',
+        icon: 'trash',
+        title: 'Remove',
+        flags: 'progressive'
+    });
+
+    // $ExpectType string | null
+    instance.getHref();
+
+    // $ExpectType string | null
+    instance.getTarget();
+
+    // $ExpectType boolean
+    instance.getNoFollow();
+
+    // $ExpectType string[]
+    instance.getRel();
+
+    // $ExpectType ButtonWidget
+    instance.setHref('/index.php');
+
+    // $ExpectType ButtonWidget
+    instance.setHref(null);
+
+    // $ExpectType ButtonWidget
+    instance.setTarget('_blank');
+
+    // $ExpectType ButtonWidget
+    instance.setTarget(null);
+
+    // $ExpectType ButtonWidget
+    instance.setNoFollow(true);
+
+    // $ExpectType ButtonWidget
+    instance.setRel();
+
+    // $ExpectType ButtonWidget
+    instance.setRel('canonical');
+
+    // $ExpectType ButtonWidget
+    instance.setRel(['canonical', 'nofollow']);
+
+    // $ExpectType ButtonWidget
+    instance.on('click', () => { });
+
+    instance.on('disable', (disabled) => {
+        disabled; // $ExpectType boolean
+    });
+
+    instance.on('flag', (changes) => {
+        changes; // $ExpectType Record<string, boolean>
+    });
+
+    instance.on('labelChange', () => { });
+
+    instance.on('toggle', (visible) => {
+        visible; // $ExpectType boolean
+    });
+
+    // $ExpectType ButtonWidget
+    instance.connect(instance, {
+        click() {
+            this; // $ExpectType ButtonWidget
+        },
+        toggle: (disabled) => {
+            disabled; // $ExpectType boolean
+        },
+        nonExist: (arg) => {
+            arg; // $ExpectType any
+        }
+    });
+}
+// #endregion
+
+// #region OO.ui.Dialog
+{
+    // $ExpectType Window
+    new OO.ui.Dialog.super();
+
+    // $ExpectType string
+    OO.ui.Dialog.static.name;
+
+    // $ExpectType JQuery<HTMLElement> | Deferrable<string> | null
+    OO.ui.Dialog.static.title;
+
+    // $ExpectType ConfigOptions[]
+    OO.ui.Dialog.static.actions;
+
+    // $ExpectType boolean
+    OO.ui.Dialog.static.escapable;
+
+    const instance = new OO.ui.Dialog();
+
+    // $ExpectType ActionSet
+    instance.getActions();
+
+    // $ExpectType Process
+    instance.getActionProcess('continue');
+
+    {
+        // $ExpectType Process
+        instance.getSetupProcess({
+            title: 'Dialog title',
+            actions: [
+                {
+                    action: 'continue',
+                    flags: ['primary', 'progressive']
+                }
+            ],
+            extraProperty: 1
+        });
+
+        // $ExpectType Process
+        instance.getSetupProcess(1);
+
+        // @ts-expect-error
+        instance.getSetupProcess({
+            title: 123
+        });
+    }
+
+    // $ExpectType ActionWidget[]
+    instance.getActionWidgets([{
+        title: 'Continue',
+        action: 'continue'
+    }]);
+
+    // $ExpectType ActionWidget
+    instance.getActionWidget({
+        title: 'Continue',
+        action: 'continue'
+    });
+
+    // $ExpectType ConfigOptions
+    instance.getActionWidgetConfig({
+        title: 'Continue',
+        action: 'continue'
+    });
+
+    instance.executeAction('continue').then(() => { }, (err) => {
+        err; // $ExpectType [] | [Error]
+    });
+}
+// #endregion
+
+// #region OO.ui.Element
+{
+    const el = document.createElement('div');
+    const jq = $('<div>');
+
+    {
+        // $ExpectType number
+        OO.ui.Element.static.computeNativeScrollLeft(1, el);
+
+        // $ExpectType number
+        OO.ui.Element.static.computeNativeScrollLeft(1, window);
+    }
+
+    {
+        // $ExpectType number
+        OO.ui.Element.static.computeNormalizedScrollLeft(1, el);
+
+        // $ExpectType number
+        OO.ui.Element.static.computeNormalizedScrollLeft(1, window);
+    }
+
+    {
+        // $ExpectType Rectangle
+        OO.ui.Element.static.getBorders(el);
+    }
+
+    {
+        // $ExpectType HTMLElement
+        OO.ui.Element.static.getClosestScrollableContainer(el);
+
+        // $ExpectType HTMLElement
+        OO.ui.Element.static.getClosestScrollableContainer(el, 'x');
+    }
+
+    {
+        // $ExpectType Dimension
+        OO.ui.Element.static.getDimensions(el);
+
+        const result = OO.ui.Element.static.getDimensions(window);
+
+        result.border.bottom; // $ExpectType number
+        result.border.left; // $ExpectType number
+        result.border.right; // $ExpectType number
+        result.border.top; // $ExpectType number
+
+        result.rect.bottom; // $ExpectType number
+        result.rect.left; // $ExpectType number
+        result.rect.right; // $ExpectType number
+        result.rect.top; // $ExpectType number
+
+        result.scroll.left; // $ExpectType number
+        result.scroll.top; // $ExpectType number
+        result.scrollbar.bottom; // $ExpectType number
+        result.scrollbar.right; // $ExpectType number
+    }
+
+    {
+        // $ExpectType Direction
+        OO.ui.Element.static.getDir(document);
+
+        // $ExpectType Direction
+        OO.ui.Element.static.getDir(window);
+
+        // $ExpectType Direction
+        OO.ui.Element.static.getDir(jq);
+
+        // $ExpectType Direction
+        OO.ui.Element.static.getDir(el);
+    }
+
+    {
+        // $ExpectType Document | null
+        OO.ui.Element.static.getDocument(document);
+
+        // $ExpectType Document | null
+        OO.ui.Element.static.getDocument(window);
+
+        // $ExpectType Document | null
+        OO.ui.Element.static.getDocument(jq);
+
+        // $ExpectType Document | null
+        OO.ui.Element.static.getDocument(el);
+    }
+
+    {
+        // $ExpectType Coordinate
+        OO.ui.Element.static.getFrameOffset(window);
+
+        // $ExpectType Coordinate
+        OO.ui.Element.static.getFrameOffset(window, window);
+    }
+
+    {
+        // $ExpectType Coordinate
+        OO.ui.Element.static.getRelativePosition(jq, jq);
+    }
+
+    {
+        // $ExpectType HTMLBodyElement | HTMLHtmlElement
+        OO.ui.Element.static.getRootScrollableElement(el);
+    }
+
+    {
+        // $ExpectType number
+        OO.ui.Element.static.getScrollLeft(el);
+
+        // $ExpectType number
+        OO.ui.Element.static.getScrollLeft(window);
+    }
+
+    {
+        // $ExpectType Window
+        OO.ui.Element.static.getWindow(document);
+
+        // $ExpectType Window
+        OO.ui.Element.static.getWindow(window);
+
+        // $ExpectType Window
+        OO.ui.Element.static.getWindow(jq);
+
+        // $ExpectType Window
+        OO.ui.Element.static.getWindow(el);
+    }
+
+    {
+        // $ExpectType Element
+        OO.ui.Element.static.infuse(el);
+
+        // $ExpectType Element
+        OO.ui.Element.static.infuse(jq);
+
+        // $ExpectType Element
+        OO.ui.Element.static.infuse(el, {});
+    }
+
+    {
+        // $ExpectType void
+        OO.ui.Element.static.reconsiderScrollbars(el);
+    }
+
+    {
+        // $ExpectType Promise<void, any, any>
+        OO.ui.Element.static.scrollIntoView(el);
+
+        OO.ui.Element.static.scrollIntoView(
+            { top: 0, right: 0, bottom: 0, left: 0 },
+            {
+                alignToTop: false,
+                animate: true,
+                direction: 'x',
+                duration: 'fast',
+                padding: { top: 0, right: 0, bottom: 0, left: 0 },
+                scrollContainer: el
+            }
+        ).then(function () { });
+    }
+
+    {
+        // $ExpectType void
+        OO.ui.Element.static.setScrollLeft(el, 1);
+
+        // $ExpectType void
+        OO.ui.Element.static.setScrollLeft(window, 1);
+    }
+
+    {
+        // $ExpectType string
+        OO.ui.Element.static.tagName;
+    }
+
+    {
+        const instance = new OO.ui.Element({
+            $element: $('<div>'),
+            $content: $('<div>'),
+            classes: ['class1', 'class2'],
+            content: [
+                '<div>Escaped!</div>',
+                new OO.ui.HtmlSnippet('<div>HTML!</div>'),
+                new OO.ui.Element()
+            ],
+            data: 123,
+            id: 'header',
+            text: 'Some nice words'
+        });
+
+        instance.$element; // $ExpectType JQuery<HTMLElement>
+
+        {
+            instance.toggle(true); // $ExpectType Element
+
+            instance.toggle(); // $ExpectType Element
+        }
+
+        instance.isVisible(); // $ExpectType boolean
+
+        instance.getData(); // $ExpectType unknown
+
+        instance.setData(1); // $ExpectType Element
+
+        instance.setElementId('newId'); // $ExpectType Element
+
+        instance.getElementId(); // $ExpectType string
+
+        {
+            instance.supports('supports'); // $ExpectType boolean
+
+            instance.supports(['supports', 'unsupported']); // $ExpectType boolean
+        }
+
+        instance.updateThemeClasses(); // $ExpectType void
+
+        instance.getTagName(); // $ExpectType string
+
+        instance.isElementAttached(); // $ExpectType boolean
+
+        instance.getElementDocument(); // $ExpectType Document
+
+        instance.getElementWindow(); // $ExpectType Window
+
+        instance.getClosestScrollableElementContainer(); // $ExpectType HTMLElement
+
+        instance.getElementGroup(); // $ExpectType GroupElement | null
+
+        instance.setElementGroup(null); // $ExpectType Element
+
+        instance.setElementGroup(new OO.ui.mixin.GroupElement()); // $ExpectType Element
+
+        {
+            instance.scrollElementIntoView(); // $ExpectType Promise<void, any, any>
+
+            instance.scrollElementIntoView({
+                alignToTop: false,
+                animate: true,
+                direction: 'x',
+                duration: 'fast',
+                padding: { top: 0, right: 0, bottom: 0, left: 0 },
+                scrollContainer: el
+            }).then(function () { });
+        }
+    }
+
+    // @ts-expect-error
+    OO.ui.Element.prototype.$element;
+}
+// #endregion
+
+// #region OO.ui.Error
+{
+    const instance = new OO.ui.Error('Server crashed!');
+
+    const instance1 = new OO.ui.Error('Server crashed!', {
+        recoverable: false,
+        warning: false
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.getMessage();
+
+    // $ExpectType string
+    instance.getMessageText();
+
+    // $ExpectType boolean
+    instance.isRecoverable();
+
+    // $ExpectType boolean
+    instance.isWarning();
+}
+// #endregion
+
+// #region OO.ui.HtmlSnippet
+{
+    const instance = new OO.ui.HtmlSnippet('<div>Hello world!</div>');
+
+    // $ExpectType string
+    instance.toString();
+}
+// #endregion
+
+// #region OO.ui.InputWidget
+{
+    // $ExpectType Widget
+    new OO.ui.InputWidget.super();
+
+    const instance = new OO.ui.InputWidget({
+        name: 'input',
+        value: 'initial value',
+        dir: 'ltr',
+        inputId: 'input1',
+        inputFilter: (value) => `value: ${value}`
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$input;
+
+    // $ExpectType string
+    instance.getValue();
+
+    // $ExpectType InputWidget
+    instance.setDir('auto');
+
+    // $ExpectType InputWidget
+    instance.setValue('new value');
+
+    // $ExpectType InputWidget
+    instance.setInputId('input2');
+
+    instance.on('change', (value) => {
+        value; // $ExpectType string
+    });
+
+    instance.on('disable', (disabled) => {
+        disabled; // $ExpectType boolean
+    });
+
+    instance.on('toggle', (visible) => {
+        visible; // $ExpectType boolean
+    });
+
+    // @ts-expect-error
+    OO.ui.InputWidget.prototype.$input;
+}
+// #endregion
+
+// #region OO.ui.Layout
+{
+    // $ExpectType Static
+    OO.ui.Layout.static;
+
+    // $ExpectType Element
+    new OO.ui.Layout.super();
+
+    const instance = new OO.ui.Layout();
+
+    // $ExpectType Layout
+    instance.resetScroll();
+}
+// #endregion
+
+// #region OO.ui.MessageDialog
+{
+    const instance = new OO.ui.MessageDialog();
+
+    // $ExpectType Process
+    instance.getSetupProcess(1);
+
+    // $ExpectType Process
+    instance.getSetupProcess({
+        message: 'Message!',
+        size: 'medium',
+        title: 'Title',
+        actions: [
+            {
+                action: 'continue',
+                flags: 'progressive'
+            }
+        ],
+        other: 12345
+    });
+
+    // $ExpectType Process
+    instance.getSetupProcess({
+        message() {
+            return 'Message!';
+        },
+        size: 'medium',
+        title() {
+            return 'Title';
+        },
+        actions: [
+            {
+                action: 'continue',
+                flags: ['progressive'],
+                modes: ['edit']
+            }
+        ],
+        other: 12345
+    });
+}
+// #endregion
+
+// #region OO.ui.OptionWidget
+{
+    // $ExpectType Widget
+    new OO.ui.OptionWidget.super();
+
+    // $ExpectType boolean
+    OO.ui.OptionWidget.static.selectable;
+
+    // $ExpectType boolean
+    OO.ui.OptionWidget.static.highlightable;
+
+    // $ExpectType boolean
+    OO.ui.OptionWidget.static.pressable;
+
+    // $ExpectType boolean
+    OO.ui.OptionWidget.static.scrollIntoViewOnSelect;
+
+    const instance = new OO.ui.OptionWidget();
+
+    // $ExpectType boolean
+    instance.isSelectable();
+
+    // $ExpectType boolean
+    instance.isHighlightable();
+
+    // $ExpectType boolean
+    instance.isPressable();
+
+    // $ExpectType boolean
+    instance.isSelected();
+
+    // $ExpectType boolean
+    instance.isHighlighted();
+
+    // $ExpectType boolean
+    instance.isPressed();
+
+    // $ExpectType OptionWidget
+    instance.setSelected();
+
+    // $ExpectType OptionWidget
+    instance.setSelected(true);
+
+    // $ExpectType OptionWidget
+    instance.setHighlighted();
+
+    // $ExpectType OptionWidget
+    instance.setHighlighted(true);
+
+    // $ExpectType OptionWidget
+    instance.setPressed();
+
+    // $ExpectType OptionWidget
+    instance.setPressed(true);
+
+    // $ExpectType string | boolean
+    instance.getMatchText();
+}
+// #endregion
+
+// #region OO.ui.PopupWidget
+{
+    // $ExpectType Widget
+    new OO.ui.PopupWidget.super();
+
+    const instance = new OO.ui.PopupWidget({
+        $content: $('<p>Hi there!</p>'),
+        padded: true,
+        width: 300
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$body;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$popup;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$anchor;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$container;
+
+    // $ExpectType void
+    instance.toggleAnchor();
+
+    // $ExpectType void
+    instance.toggleAnchor(true);
+
+    // $ExpectType void
+    instance.setAnchorEdge('end');
+
+    // $ExpectType boolean
+    instance.hasAnchor();
+
+    // $ExpectType PopupWidget
+    instance.toggle();
+
+    // $ExpectType PopupWidget
+    instance.toggle(true);
+
+    // $ExpectType void
+    instance.setSize(100, 200, true);
+
+    // $ExpectType void
+    instance.updateDimensions(false);
+
+    // $ExpectType void
+    instance.setPosition('above');
+
+    // $ExpectType Position
+    instance.getPosition();
+
+    // $ExpectType void
+    instance.setAutoFlip(true);
+
+    // $ExpectType void
+    instance.setAutoCloseIgnore($());
+
+    // $ExpectType string
+    instance.getBodyId();
+
+    instance.on('ready', () => { });
+
+    instance.on('closing', () => { });
+
+    instance.on('labelChange', () => { });
+
+    instance.on('disable', (disabled) => {
+        disabled; // $ExpectType boolean
+    });
+
+    instance.on('toggle', (visible) => {
+        visible; // $ExpectType boolean
+    });
+
+    // @ts-expect-error
+    OO.ui.PopupWidget.prototype.$body;
+
+    // @ts-expect-error
+    OO.ui.PopupWidget.prototype.$popup;
+
+    // @ts-expect-error
+    OO.ui.PopupWidget.prototype.$anchor;
+
+    // @ts-expect-error
+    OO.ui.PopupWidget.prototype.$container;
+}
+// #endregion
+
+// #region OO.ui.Process
+{
+    const instance = new OO.ui.Process(1);
+    const instance1 = new OO.ui.Process($.Deferred().promise());
+    const instance2 = new OO.ui.Process(function () {
+        this; // $ExpectType number
+        return 1;
+    }, 1);
+    const instance3 = new OO.ui.Process(function () {
+        this; // $ExpectType number
+        return false;
+    }, 1);
+    const instance4 = new OO.ui.Process(function () {
+        this; // $ExpectType number
+        return $.Deferred().promise();
+    }, 1);
+    const instance5 = new OO.ui.Process(function () {
+        this; // $ExpectType number
+        return error;
+    }, 1);
+    const instance6 = new OO.ui.Process(function () {
+        this; // $ExpectType number
+        return [error];
+    }, 1);
+    const instance7 = new OO.ui.Process(function () {
+        this; // $ExpectType number
+    }, 1);
+
+    const error = new OO.ui.Error('Error!');
+
+    instance.execute().then((val) => {
+        val; // $ExpectType void
+    }, (reason) => {
+        reason; // $ExpectType [] | [Error]
+    });
+
+    {
+        // $ExpectType Process
+        instance.first(function () {
+            this; // $ExpectType number
+            return false;
+        }, 1);
+
+        instance.first(function () {
+            this; // $ExpectType number
+            return $.Deferred().promise();
+        }, 1);
+
+        instance.first(function () {
+            this; // $ExpectType number
+            return 1000;
+        }, 1);
+
+        instance.first(function () {
+            this; // $ExpectType number
+            return error;
+        }, 1);
+
+        instance.first(function () {
+            this; // $ExpectType number
+            return [error];
+        }, 1);
+
+        instance.first(function () {
+            this; // $ExpectType number
+        }, 1);
+    }
+
+    {
+        instance.next(function () {
+            this; // $ExpectType number
+            return false;
+        }, 1);
+
+        instance.next(function () {
+            this; // $ExpectType number
+            return $.Deferred().promise();
+        }, 1);
+
+        instance.next(function () {
+            this; // $ExpectType number
+            return 1000;
+        }, 1);
+
+        instance.next(function () {
+            this; // $ExpectType number
+            return error;
+        }, 1);
+
+        instance.next(function () {
+            this; // $ExpectType number
+            return [error];
+        }, 1);
+
+        instance.next(function () {
+            this; // $ExpectType number
+        }, 1);
+    }
+}
+// #endregion
+
+// #region OO.ui.TextInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.TextInputWidget.super();
+
+    // $ExpectType Record<string, RegExp>
+    OO.ui.TextInputWidget.static.validationPatterns;
+
+    const instance = new OO.ui.TextInputWidget({
+        value: 'Text input',
+        type: 'text',
+        placeholder: 'Placeholder',
+        autofocus: false,
+        readOnly: false,
+        maxLength: 114514,
+        minLength: 20,
+        labelPosition: 'before',
+        autocomplete: 'on',
+        spellcheck: true,
+        validate: () => true
+    });
+
+    // $ExpectType boolean
+    instance.isReadOnly();
+
+    // $ExpectType TextInputWidget
+    instance.setReadOnly(true);
+
+    // $ExpectType void
+    instance.installParentChangeDetector();
+
+    // $ExpectType TextInputWidget
+    instance.selectRange(1, 5);
+
+    // $ExpectType TextInputWidget
+    instance.selectRange(1);
+
+    // $ExpectType Range
+    instance.getRange();
+
+    // $ExpectType number
+    instance.getInputLength();
+
+    // $ExpectType TextInputWidget
+    instance.select();
+
+    // $ExpectType TextInputWidget
+    instance.moveCursorToStart();
+
+    // $ExpectType TextInputWidget
+    instance.moveCursorToEnd();
+
+    // $ExpectType TextInputWidget
+    instance.insertContent('content');
+
+    // $ExpectType TextInputWidget
+    instance.encapsulateContent('before', 'after');
+
+    // $ExpectType void
+    instance.setValidation(/./g);
+
+    // $ExpectType void
+    instance.setValidityFlag();
+
+    // $ExpectType void
+    instance.setValidityFlag(false);
+
+    // $ExpectType Promise<void, any, any>
+    instance.getValidity();
+
+    // $ExpectType TextInputWidget
+    instance.setLabelPosition('after');
+
+    // $ExpectType TextInputWidget
+    instance.updatePosition();
+
+    // $ExpectType TextInputWidget
+    instance.on('enter', () => { });
+}
+// #endregion
+
+// #region OO.ui.Widget
+{
+    const instance = new OO.ui.Widget({
+        data: 1,
+        disabled: false
+    });
+
+    // $ExpectType boolean
+    instance.isDisabled();
+
+    // $ExpectType Widget
+    instance.setDisabled(true);
+
+    // $ExpectType Widget
+    instance.updateDisabled();
+
+    // $ExpectType string | null
+    instance.getInputId();
+
+    // $ExpectType void
+    instance.simulateLabelClick();
+
+    // $ExpectType void
+    instance.setLabelledBy('aa');
+
+    // $ExpectType void
+    instance.setLabelledBy(null);
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$element;
+
+    // $ExpectType unknown
+    instance.getData();
+
+    // $ExpectType Element
+    new OO.ui.Widget.super();
+
+    instance.on('disable', function (disabled) {
+        disabled; // $ExpectType boolean
+    });
+
+    instance.on('toggle', function (visible) {
+        visible; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.Window
+{
+    // $ExpectType Size
+    OO.ui.Window.static.size;
+
+    const instance = new OO.ui.Window({
+        size: 'full'
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$frame;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$overlay;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$content;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$focusTrapBefore;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$focusTrapAfter;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$focusTraps;
+
+    // $ExpectType boolean
+    instance.isInitialized();
+
+    // $ExpectType boolean
+    instance.isVisible();
+
+    // $ExpectType boolean
+    instance.isOpening();
+
+    // $ExpectType boolean
+    instance.isClosing();
+
+    // $ExpectType boolean
+    instance.isOpened();
+
+    // $ExpectType WindowManager
+    instance.getManager();
+
+    // $ExpectType Size
+    instance.getSize();
+
+    {
+        const dim = instance.getSizeProperties();
+        dim.height; // $ExpectType string | number | undefined
+        dim.maxHeight; // $ExpectType string | number | undefined
+        dim.maxWidth; // $ExpectType string | number | undefined
+        dim.minHeight; // $ExpectType string | number | undefined
+        dim.minWidth; // $ExpectType string | number | undefined
+        dim.width; // $ExpectType string | number | undefined
+    }
+
+    // $ExpectType number
+    instance.getContentHeight();
+
+    // $ExpectType Direction
+    instance.getDir();
+
+    // $ExpectType Process
+    instance.getSetupProcess(123);
+
+    // $ExpectType Process
+    instance.getReadyProcess(456);
+
+    // $ExpectType Process
+    instance.getHoldProcess(789);
+
+    // $ExpectType Process
+    instance.getTeardownProcess('foo');
+
+    // $ExpectType Window
+    instance.setManager(new OO.ui.WindowManager());
+
+    // $ExpectType Window
+    instance.setSize('medium');
+
+    // $ExpectType Window
+    instance.updateSize();
+
+    // $ExpectType Window
+    instance.setDimensions({
+        height: 100,
+        minHeight: 1,
+        maxHeight: 10000,
+        width: 100,
+        minWidth: 1,
+        maxWidth: 1000
+    });
+
+    // $ExpectType Window
+    instance.initialize();
+
+    // $ExpectType void
+    instance.onFocusTrapFocused($.Event('focus'));
+
+    // $ExpectType Window
+    instance.focus(true);
+
+    // $ExpectType WindowInstance
+    instance.open(123);
+
+    // $ExpectType WindowInstance
+    instance.close(123);
+
+    // $ExpectType Promise<void, any, any>
+    instance.setup(123);
+
+    // $ExpectType Promise<void, any, any>
+    instance.ready('123');
+
+    // $ExpectType Promise<void, any, any>
+    instance.hold('123');
+
+    // $ExpectType Promise<void, any, any>
+    instance.teardown(null);
+}
+// #endregion
+
+// #region OO.ui.WindowInstance
+{
+    const instance = new OO.ui.WindowInstance();
+
+    instance.opened; // $ExpectType Promise<void, any, any>
+
+    instance.opening; // $ExpectType Promise<void, any, any>
+
+    instance.closed; // $ExpectType Promise<void, any, any>
+
+    instance.closing; // $ExpectType Promise<void, any, any>
+
+    instance.isOpening(); // $ExpectType boolean
+
+    instance.isOpened(); // $ExpectType boolean
+
+    instance.isClosing(); // $ExpectType boolean
+
+    instance.isClosed(); // $ExpectType boolean
+
+    // @ts-expect-error
+    OO.ui.WindowInstance.prototype.opened;
+}
+// #endregion
+
+// #region OO.ui.WindowManager
+{
+    // $ExpectType Record<string, Dimension>
+    OO.ui.WindowManager.static.sizes;
+
+    OO.ui.WindowManager.static.defaultSize; // $ExpectType string
+
+    const instance = new OO.ui.WindowManager({
+        factory: new OO.Factory(),
+        modal: false,
+        forceTrapFocus: true,
+        $content: $()
+    });
+
+    const window = new OO.ui.Window();
+
+    // $ExpectType JQuery<HTMLElement> | null
+    instance.$ariaHidden;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$element;
+
+    // $ExpectType JQuery<HTMLElement> | null
+    instance.$inert;
+
+    // $ExpectType JQuery<HTMLElement> | null
+    instance.$returnFocusTo;
+
+    // $ExpectType boolean
+    instance.isModal();
+
+    // $ExpectType boolean
+    instance.isOpening(window);
+
+    // $ExpectType boolean
+    instance.isClosing(window);
+
+    // $ExpectType boolean
+    instance.isOpened(window);
+
+    // $ExpectType boolean
+    instance.hasWindow(window);
+
+    // $ExpectType number
+    instance.getSetupDelay(window, 1);
+
+    // $ExpectType number
+    instance.getReadyDelay(window, 1);
+
+    // $ExpectType number
+    instance.getHoldDelay(window, 1);
+
+    // $ExpectType number
+    instance.getTeardownDelay(window, 1);
+
+    instance.getWindow('window').then((window) => {
+        window; // $ExpectType Window
+    }, (err) => {
+        err; // $ExpectType Error
+    });
+
+    // $ExpectType Window | null
+    instance.getCurrentWindow();
+
+    {
+        // $ExpectType WindowInstance & DeprecatedPromise<Promise<void, any, any>, Error | undefined, WindowOpeningState, unknown, never, never>
+        instance.openWindow('window', 123);
+
+        // $ExpectType WindowInstance & DeprecatedPromise<Promise<void, any, any>, Error | undefined, WindowOpeningState, unknown, never, never>
+        instance.openWindow(window, '123');
+
+        // $ExpectType WindowInstance & DeprecatedPromise<Promise<void, any, any>, Error | undefined, WindowOpeningState, unknown, never, never>
+        instance.openWindow(window, {
+            $returnFocusTo: $(),
+            extraProperty: 1
+        });
+
+        // @ts-expect-error
+        instance.openWindow(window, {
+            $returnFocusTo: 1
+        });
+
+        instance.openWindow('window', 1).then((promise, data) => {
+            promise; // $ExpectType Promise<void, any, any>
+            data; // $ExpectType unknown
+        }, (err) => {
+            err; // $ExpectType Error | undefined
+        }, (state) => {
+            state; // $ExpectType WindowOpeningState
+        });
+    }
+
+    {
+        // $ExpectType WindowInstance & DeprecatedPromise<unknown, Error, WindowClosingState, never, never, never>
+        instance.closeWindow('window', 123);
+
+        // $ExpectType WindowInstance & DeprecatedPromise<unknown, Error, WindowClosingState, never, never, never>
+        instance.closeWindow(window, '123');
+
+        instance.closeWindow('window', 1).then((data) => {
+            data; // $ExpectType unknown
+        }, (err) => {
+            err; // $ExpectType Error
+        }, (state) => {
+            state; // $ExpectType WindowClosingState
+        });
+    }
+
+    {
+        // $ExpectType void
+        instance.addWindows([window, window, window]);
+
+        // $ExpectType void
+        instance.addWindows({ a: window, b: window, c: window });
+    }
+
+    instance.removeWindows(['window1', 'window2']).then(() => { });
+
+    instance.clearWindows().then(() => { });
+
+    // $ExpectType WindowManager
+    instance.updateWindowSize(window);
+
+    // $ExpectType void
+    instance.destroy();
+
+    instance.once('opening', function (win, opened, data) {
+        win; // $ExpectType Window
+        // $ExpectType Promise2<Promise<void, any, any>, Error | undefined, WindowOpeningState, unknown, never, never>
+        opened;
+        data; // $ExpectType unknown
+        this; // $ExpectType null
+    });
+
+    instance.on('closing', function (win, closed, data) {
+        win; // $ExpectType Window
+        closed; // $ExpectType Promise<unknown, Error, WindowClosingState>
+        data; // $ExpectType unknown
+        this; // $ExpectType null
+    });
+
+    instance.off('resize', function (win) {
+        win; // $ExpectType Window
+        this; // $ExpectType null
+    });
+
+    // @ts-expect-error
+    OO.ui.WindowManager.prototype.$ariaHidden;
+}
+// #endregion
