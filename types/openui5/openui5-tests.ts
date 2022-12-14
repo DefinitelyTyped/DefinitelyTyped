@@ -26,6 +26,7 @@ import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisp
 import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
+import PlanningCalendar from "sap/m/PlanningCalendar";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -178,3 +179,6 @@ const integer = NumberFormat.getIntegerInstance({
 });
 
 const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();
+
+const pc = new PlanningCalendar();
+pc.getSecondaryCalendarType();
