@@ -1,6 +1,6 @@
-import VirtualScroll = require('virtual-scroll');
+import VirtualScroll, { VirtualScrollCallback, VirtualScrollEvent, VirtualScrollOptions } from 'virtual-scroll';
 
-const scroll = new VirtualScroll({
+const scrollOptions: VirtualScrollOptions = {
     el: document.body,
     firefoxMultiplier: 16,
     keyStep: 130,
@@ -11,10 +11,11 @@ const scroll = new VirtualScroll({
     touchMultiplier: 1.8,
     useKeyboard: false,
     useTouch: false,
-});
+}
 
-const callback: Parameters<VirtualScroll['on']>[0] = event => {
-    const { deltaX, deltaY, originalEvent, x, y } = event;
+const scroll = new VirtualScroll(scrollOptions);
+
+const callback: VirtualScrollCallback = ({ deltaX, deltaY, originalEvent, x, y }: VirtualScrollEvent) => {
     scroll.off(callback);
     scroll.destroy();
 };
