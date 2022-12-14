@@ -80,56 +80,6 @@ declare namespace OO {
          * Clear all items.
          */
         clearItems(): this;
-
-        // #region EventEmitter overloads
-        on<K extends keyof EmitterListEventMap, A extends ArgTuple = [], C = null>(
-            event: K,
-            method: EventHandler<C, (this: C, ...args: [...A, ...EmitterListEventMap[K]]) => void>,
-            args?: A,
-            context?: C,
-        ): this;
-        on<K extends string, C = null>(
-            event: K extends keyof EmitterListEventMap ? never : K,
-            method: EventHandler<C>,
-            args?: any[],
-            context?: C,
-        ): this;
-
-        once<K extends keyof EmitterListEventMap>(
-            event: K,
-            listener: (this: null, ...args: EmitterListEventMap[K]) => void,
-        ): this;
-        once<K extends string>(
-            event: K extends keyof EmitterListEventMap ? never : K,
-            listener: (this: null, ...args: any[]) => void,
-        ): this;
-
-        off<K extends keyof EmitterListEventMap, C = null>(
-            event: K,
-            method?: EventHandler<C, (this: C, ...args: EmitterListEventMap[K]) => void>,
-            context?: C,
-        ): this;
-        off<K extends string, C = null>(
-            event: K extends keyof EmitterListEventMap ? never : K,
-            method?: EventHandler<C>,
-            context?: C,
-        ): this;
-
-        emit<K extends keyof EmitterListEventMap>(event: K, ...args: EmitterListEventMap[K]): boolean;
-        emit<K extends string>(event: K extends keyof EmitterListEventMap ? never : K, ...args: any[]): boolean;
-
-        emitThrow<K extends keyof EmitterListEventMap>(event: K, ...args: EmitterListEventMap[K]): boolean;
-        emitThrow<K extends string>(event: K extends keyof EmitterListEventMap ? never : K, ...args: any[]): boolean;
-
-        connect<T extends Partial<Record<keyof EmitterListEventMap, any>>, C>(
-            context: C,
-            methods: EventConnectionMap<T, C, EmitterListEventMap>, // tslint:disable-line:no-unnecessary-generics
-        ): this;
-        disconnect<T extends Partial<Record<keyof EmitterListEventMap, any>>, C>(
-            context: C,
-            methods?: EventConnectionMap<T, C, EmitterListEventMap>, // tslint:disable-line:no-unnecessary-generics
-        ): this;
-        // #endregion
     }
 
     interface EmitterListConstructor {

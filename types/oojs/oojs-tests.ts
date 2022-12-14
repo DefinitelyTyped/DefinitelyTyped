@@ -330,30 +330,6 @@ emitterList.isEmpty();
     // $ExpectType EmitterList
     emitterList.removeItems([eventEmitter]);
 }
-
-{
-    emitterList.on('add', function (item, index) {
-        this; // $ExpectType null
-        item; // $ExpectType EventEmitter
-        index; // $ExpectType number
-    });
-
-    emitterList.on('clear', function () {
-        this; // $ExpectType null
-    });
-
-    emitterList.on('move', function (item, index, oldIndex) {
-        this; // $ExpectType null
-        index; // $ExpectType number
-        oldIndex; // $ExpectType number
-    });
-
-    emitterList.on('remove', function (item, index) {
-        this; // $ExpectType null
-        item; // $ExpectType EventEmitter
-        index; // $ExpectType number
-    });
-}
 // #endregion
 
 // #region Factory
