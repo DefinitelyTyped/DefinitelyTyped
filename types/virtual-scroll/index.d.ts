@@ -8,7 +8,7 @@ export = VirtualScroll;
 export as namespace VirtualScroll;
 
 declare namespace VirtualScroll {
-    interface VirtualScrollEvent {
+    export interface VirtualScrollEvent {
         x: number; // total distance scrolled on the x axis
         y: number; // total distance scrolled on the y axis
         deltaX: number; // distance scrolled since the last event on the x axis
@@ -16,9 +16,9 @@ declare namespace VirtualScroll {
         originalEvent: Event; // the native event triggered by the pointer device or keyboard
     }
 
-    type VirtualScrollCallback = (e: VirtualScrollEvent) => void;
+    export type VirtualScrollCallback = (e: VirtualScrollEvent) => void;
 
-    interface VirtualScrollOptions {
+    export interface VirtualScrollOptions {
         el: Window | HTMLElement; // the target element for mobile touch events. Defaults to window.
         mouseMultiplier: number; // General multiplier for all mousewheel (including Firefox). Default to 1.
         touchMultiplier: number; // Mutiply the touch action by this modifier to make scroll faster than finger movement. Defaults to 2.
