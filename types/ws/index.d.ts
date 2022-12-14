@@ -28,7 +28,7 @@ import { URL } from "url";
 import { ZlibOptions } from "zlib";
 import { Buffer } from 'buffer';
 
-type FirstArgument<F extends Function> = F extends (...args: infer A) => any ? A : never;
+type FirstArgument<F extends typeof Buffer.from> = F extends (data: infer A) => any ? A : never;
 
 type BufferLike =
     | string
@@ -36,7 +36,6 @@ type BufferLike =
     | ArrayBuffer
     | ArrayBufferView
     | FirstArgument<typeof Buffer.from>
-    | { [Symbol.toPrimitive](): string }
     | { valueOf(): string };
 
 // WebSocket socket.
