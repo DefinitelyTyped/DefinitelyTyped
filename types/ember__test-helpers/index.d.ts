@@ -53,7 +53,8 @@ export { visit, currentRouteName, currentURL } from '@ember/test-helpers/setup-a
 
 // Rendering Helpers
 
-export { render, rerender, clearRender } from '@ember/test-helpers/setup-rendering-context';
+export { render, clearRender } from '@ember/test-helpers/setup-rendering-context';
+export { default as rerender } from '@ember/test-helpers/rerender';
 
 // Wait Helpers
 
