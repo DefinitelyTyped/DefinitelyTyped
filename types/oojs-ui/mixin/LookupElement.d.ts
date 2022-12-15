@@ -50,11 +50,10 @@ declare namespace OO.ui.mixin {
              */
             $container?: JQuery;
 
-            // FIXME: Fix type
             /**
              * Configuration options to pass to {@link OO.ui.MenuSelectWidget menu select widget}
              */
-            menu?: object;
+            menu?: MenuSelectWidget.ConfigOptions;
 
             /**
              * Request and display a lookup menu when the text input is empty.

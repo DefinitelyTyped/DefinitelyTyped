@@ -593,7 +593,9 @@
         $overlay: jq,
         allowSuggestionsWhenEmpty: true,
         highlightFirst: true,
-        menu: {}, // FIXME Fix tests
+        menu: {
+            autoHide: false
+        },
         showPendingRequest: true,
         showSuggestionsOnFocus: true
     });
@@ -741,6 +743,33 @@
 
     // @ts-expect-error
     OO.ui.mixin.TitledElement.$titled;
+}
+// #endregion
+
+// #region OO.ui.ActionFieldLayout
+{
+    // $ExpectType FieldLayout<Widget>
+    new OO.ui.ActionFieldLayout.super(new OO.ui.Widget());
+
+    const instance = new OO.ui.ActionFieldLayout(
+        new OO.ui.TextInputWidget({
+            placeholder: 'Field widget'
+        }),
+        new OO.ui.ButtonWidget({
+            label: 'Button'
+        }),
+        {
+            label: 'An ActionFieldLayout. This label is aligned top',
+            align: 'top',
+            help: 'This is help text'
+        }
+    );
+
+    // $ExpectType TextInputWidget
+    instance.getField();
+
+    // $ExpectType Widget
+    OO.ui.ActionFieldLayout.prototype.getField();
 }
 // #endregion
 
@@ -937,6 +966,15 @@
             arg; // $ExpectType any
         }
     });
+}
+// #endregion
+
+// #region OO.ui.DecoratedOptionWidget
+{
+    // $ExpectType OptionWidget
+    new OO.ui.DecoratedOptionWidget.super();
+
+    const instance = new OO.ui.DecoratedOptionWidget();
 }
 // #endregion
 
@@ -1280,6 +1318,78 @@
 }
 // #endregion
 
+// #region OO.ui.FieldLayout
+{
+    // $ExpectType Layout
+    new OO.ui.FieldLayout.super();
+
+    const instance = new OO.ui.FieldLayout(new OO.ui.ButtonWidget(), {
+        align: 'inline',
+        errors: ['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')],
+        warnings: ['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')],
+        successMessages: ['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')],
+        notices: ['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')],
+        help: new OO.ui.HtmlSnippet('<div>Text</div>'),
+        helpInline: false,
+        $overlay: OO.ui.getDefaultOverlay()
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$field;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$messages;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$header;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$body;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$help;
+
+    // $ExpectType Event
+    instance.onLabelClick();
+
+    // $ExpectType ButtonWidget
+    instance.getField();
+
+    // $ExpectType boolean
+    instance.isFieldInline();
+
+    // $ExpectType FieldLayout<ButtonWidget>
+    instance.setErrors(['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')]);
+
+    // $ExpectType FieldLayout<ButtonWidget>
+    instance.setWarnings(['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')]);
+
+    // $ExpectType FieldLayout<ButtonWidget>
+    instance.setSuccess(['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')]);
+
+    // $ExpectType FieldLayout<ButtonWidget>
+    instance.setNotices(['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')]);
+
+    // @ts-expect-error
+    OO.ui.FieldLayout.prototype.$field;
+
+    // @ts-expect-error
+    OO.ui.FieldLayout.prototype.$messages;
+
+    // @ts-expect-error
+    OO.ui.FieldLayout.prototype.$header;
+
+    // @ts-expect-error
+    OO.ui.FieldLayout.prototype.$body;
+
+    // @ts-expect-error
+    OO.ui.FieldLayout.prototype.$help;
+
+    // $ExpectType Widget
+    OO.ui.FieldLayout.prototype.getField();
+}
+// #endregion
+
 // #region OO.ui.HtmlSnippet
 {
     const instance = new OO.ui.HtmlSnippet('<div>Hello world!</div>');
@@ -1349,9 +1459,64 @@
 }
 // #endregion
 
+// #region OO.ui.MenuOptionWidget
+{
+    // $ExpectType DecoratedOptionWidget
+    new OO.ui.MenuOptionWidget.super();
+
+    const instance = new OO.ui.MenuOptionWidget();
+}
+// #endregion
+
 // #region OO.ui.MenuSelectWidget
 {
-    // TODO: Test
+    // $ExpectType SelectWidget
+    new OO.ui.MenuSelectWidget.super();
+
+    // $ExpectType Record<string, string>
+    OO.ui.MenuSelectWidget.static.flippedPositions;
+
+    const instance = new OO.ui.MenuSelectWidget({
+        input: new OO.ui.TextInputWidget(),
+        $input: $(),
+        widget: new OO.ui.Widget(),
+        autoHide: true,
+        $autoCloseIgnore: $(),
+        hideOnChoose: false,
+        filterFromInput: false,
+        highlightOnFilter: false,
+        filterMode: 'substring',
+        width: 100
+    });
+
+    // $ExpectType JQuery<HTMLElement> | null
+    instance.$input;
+
+    // $ExpectType JQuery<HTMLElement> | null
+    instance.$widget;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$autoCloseIgnore;
+
+    // $ExpectType MenuOptionWidget[]
+    instance.getVisibleItems();
+
+    // $ExpectType void
+    instance.toggleScreenReaderMode(false);
+
+    // $ExpectType void
+    instance.scrollToTop();
+
+    instance.on('ready', () => { });
+
+    // @ts-expect-error
+    OO.ui.MenuSelectWidget.prototype.$input;
+
+    // @ts-expect-error
+    OO.ui.MenuSelectWidget.prototype.$widget;
+
+    // @ts-expect-error
+    OO.ui.MenuSelectWidget.prototype.$autoCloseIgnore;
 }
 // #endregion
 
@@ -1645,6 +1810,15 @@
             this; // $ExpectType number
         }, 1);
     }
+}
+// #endregion
+
+// #region OO.ui.ProcessDialog
+{
+    // $ExpectType Dialog
+    new OO.ui.ProcessDialog.super();
+
+    const instance = new OO.ui.ProcessDialog();
 }
 // #endregion
 

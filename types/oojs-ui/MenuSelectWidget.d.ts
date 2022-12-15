@@ -18,7 +18,8 @@ declare namespace OO.ui {
      * - Down-arrow key: highlight the next menu option
      * - Escape key: hide the menu
      *
-     * Unlike most widgets, MenuSelectWidget is initially hidden and must be shown by calling #toggle.
+     * Unlike most widgets, MenuSelectWidget is initially hidden and must be shown by calling
+     * {@link toggle}.
      *
      * Please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Selects_and_Options)
      * for more information.
@@ -120,11 +121,61 @@ declare namespace OO.ui {
              */
             toggleScreenReaderMode(screenReaderMode: boolean): void;
 
-
             /**
              * Scroll to the top of the menu
              */
             scrollToTop(): void;
+
+            // #region EventEmitter overloads
+            on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
+                event: K,
+                method: EventHandler<C, (this: C, ...args: [...A, ...EventMap[K]]) => void>,
+                args?: A,
+                context?: C,
+            ): this;
+            on<K extends string, C = null>(
+                event: K extends keyof EventMap ? never : K,
+                method: EventHandler<C>,
+                args?: any[],
+                context?: C,
+            ): this;
+
+            once<K extends keyof EventMap>(
+                event: K,
+                listener: (this: null, ...args: EventMap[K]) => void,
+            ): this;
+            once<K extends string>(
+                event: K extends keyof EventMap ? never : K,
+                listener: (this: null, ...args: any[]) => void,
+            ): this;
+
+            off<K extends keyof EventMap, C = null>(
+                event: K,
+                method?: EventHandler<C, (this: C, ...args: EventMap[K]) => void>,
+                context?: C,
+            ): this;
+            off<K extends string, C = null>(
+                event: K extends keyof EventMap ? never : K,
+                method?: EventHandler<C>,
+                context?: C,
+            ): this;
+
+            emit<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
+            emit<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
+
+            emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
+            emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
+
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+                context: C,
+                methods: EventConnectionMap<T, C, EventMap>, // tslint:disable-line:no-unnecessary-generics
+            ): this;
+
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+                context: C,
+                methods?: EventConnectionMap<T, C, EventMap>, // tslint:disable-line:no-unnecessary-generics
+            ): this;
+            // #endregion
         }
 
         interface Constructor {
