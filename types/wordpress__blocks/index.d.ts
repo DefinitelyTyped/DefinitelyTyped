@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/blocks 11.0
+// Type definitions for @wordpress/blocks 11.1
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -585,7 +585,7 @@ export interface TransformBlock<T extends Record<string, any>> {
     type: 'block';
     priority?: number | undefined;
     blocks: string[];
-    isMatch?(attributes: T): boolean;
+    isMatch?(attributes: T, block: string|string[]): boolean;
     isMultiBlock?: boolean | undefined;
     transform(attributes: T): BlockInstance<Partial<T>>;
 }
