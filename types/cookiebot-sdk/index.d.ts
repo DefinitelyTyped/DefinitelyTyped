@@ -1,4 +1,4 @@
-// Type definitions for Cookiebot SDK
+// Type definitions for non-npm package Cookiebot SDK 2.43
 // Project: https://www.cookiebot.com/en/developer/
 // Definitions by: Liam Martens <https://github.com/LiamMartens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
