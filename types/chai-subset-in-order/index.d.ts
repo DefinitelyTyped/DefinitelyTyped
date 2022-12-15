@@ -3,6 +3,8 @@
 // Definitions by: Mario Ramundo <https://github.com/ramundomario>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="chai" />
+
 declare global {
     namespace Chai {
         interface Assertion {
