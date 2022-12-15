@@ -1349,6 +1349,12 @@
 }
 // #endregion
 
+// #region OO.ui.MenuSelectWidget
+{
+    // TODO: Test
+}
+// #endregion
+
 // #region OO.ui.MessageDialog
 {
     const instance = new OO.ui.MessageDialog();
@@ -1639,6 +1645,144 @@
             this; // $ExpectType number
         }, 1);
     }
+}
+// #endregion
+
+// #region OO.ui.SelectWidget
+{
+    // $ExpectType Widget
+    new OO.ui.SelectWidget.super();
+
+    // $ExpectType boolean
+    OO.ui.SelectWidget.static.handleNavigationKeys;
+
+    // $ExpectType boolean
+    OO.ui.SelectWidget.static.listWrapsAround;
+
+    // $ExpectType string
+    OO.ui.SelectWidget.static.normalizeForMatching('text');
+
+    const option1 = new OO.ui.OptionWidget({
+        data: 'a',
+        label: 'Option One',
+    });
+    const option2 = new OO.ui.OptionWidget({
+        data: 'b',
+        label: 'Option Two',
+    });
+    const option3 = new OO.ui.OptionWidget({
+        data: 'c',
+        label: 'Option Three',
+    });
+
+    const instance = new OO.ui.SelectWidget({
+        items: [option1, option2, option3],
+        multiselect: true
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$focusOwner;
+
+    // $ExpectType void
+    instance.scrollItemIntoView(option1);
+
+    // $ExpectType OptionWidget | null
+    instance.findFirstSelectedItem();
+
+    // $ExpectType OptionWidget | OptionWidget[] | null
+    instance.findSelectedItems();
+
+    // $ExpectType OptionWidget | OptionWidget[] | null
+    instance.findSelectedItem();
+
+    // $ExpectType OptionWidget | null
+    instance.findHighlightedItem();
+
+    // $ExpectType void
+    instance.togglePressed(false);
+
+    // $ExpectType SelectWidget
+    instance.highlightItem(option1);
+
+    // $ExpectType Element | null
+    instance.getItemFromLabel('Option One');
+
+    // $ExpectType Element | null
+    instance.getItemFromLabel('Option One', true);
+
+    // $ExpectType SelectWidget
+    instance.selectItemByLabel('Option One');
+
+    // $ExpectType SelectWidget
+    instance.selectItemByLabel('Option One', true);
+
+    // $ExpectType SelectWidget
+    instance.selectItemByData('a');
+
+    // $ExpectType SelectWidget
+    instance.unselectItem();
+
+    // $ExpectType SelectWidget
+    instance.unselectItem(option1);
+
+    // $ExpectType SelectWidget
+    instance.selectItem();
+
+    // $ExpectType SelectWidget
+    instance.selectItem(option1);
+
+    // $ExpectType SelectWidget
+    instance.pressItem();
+
+    // $ExpectType SelectWidget
+    instance.pressItem(option1);
+
+    // $ExpectType SelectWidget
+    instance.chooseItem(option1);
+
+    // $ExpectType OptionWidget | null
+    instance.findRelativeSelectableItem(null, 1);
+
+    // $ExpectType OptionWidget | null
+    instance.findRelativeSelectableItem(option1, 1, (item) => true, true);
+
+    // $ExpectType OptionWidget | null
+    instance.findFirstSelectableItem();
+
+    // $ExpectType SelectWidget
+    instance.addItems([option1], 1);
+
+    // $ExpectType SelectWidget
+    instance.removeItems([option1]);
+
+    // $ExpectType SelectWidget
+    instance.clearItems();
+
+    instance.on('highlight', (item) => {
+        item; // $ExpectType OptionWidget | null
+    }).on('press', (item) => {
+        item; // $ExpectType OptionWidget | null
+    }).on('select', (items) => {
+        items; // $ExpectType OptionWidget | OptionWidget[] | null
+    }).once('choose', (item, selected) => {
+        item; // $ExpectType OptionWidget
+        selected; // $ExpectType boolean
+    }).once('add', (items, index) => {
+        items; // $ExpectType OptionWidget | OptionWidget[]
+        index; // $ExpectType number
+    }).once('remove', (items, index) => {
+        items; // $ExpectType OptionWidget | OptionWidget[]
+        index; // $ExpectType number
+    }).off('change', (items) => {
+        items; // $ExpectType Element[]
+    }).off('clear', () => { }).off('move', (item, index, oldIndex) => {
+        item; // $ExpectType EventEmitter
+        index; // $ExpectType number
+        oldIndex; // $ExpectType number
+    });
+
+    // @ts-expect-error
+    OO.ui.SelectWidget.prototype.$focusOwner;
 }
 // #endregion
 

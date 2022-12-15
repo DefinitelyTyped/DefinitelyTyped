@@ -97,11 +97,10 @@ declare namespace OO.ui {
              */
             isPressed(): boolean;
 
-            // FIXME: link broken
             /**
              * Set the option’s selected state. In general, all modifications to the selection
              * should be handled by the SelectWidget’s
-             * {@link OO.ui.SelectWidget#selectItem selectItem( [item] )} method instead of this method.
+             * {@link OO.ui.SelectWidget.selectItem selectItem( [item] )} method instead of this method.
              *
              * @param state Select option
              * @return The widget, for chaining
@@ -111,7 +110,7 @@ declare namespace OO.ui {
             /**
              * Set the option’s highlighted state. In general, all programmatic
              * modifications to the highlight should be handled by the
-             * SelectWidget’s {@link OO.ui.SelectWidget#highlightItem highlightItem( [item] )}
+             * SelectWidget’s {@link OO.ui.SelectWidget.highlightItem highlightItem( [item] )}
              * method instead of this method.
              *
              * @param state Highlight option
@@ -122,7 +121,7 @@ declare namespace OO.ui {
             /**
              * Set the option’s pressed state. In general, all
              * programmatic modifications to the pressed state should be handled by the
-             * SelectWidget’s {@link OO.ui.SelectWidget#pressItem pressItem( [item] )}
+             * SelectWidget’s {@link OO.ui.SelectWidget.pressItem pressItem( [item] )}
              * method instead of this method.
              *
              * @param state Press option
