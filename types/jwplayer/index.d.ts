@@ -14,7 +14,7 @@
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
-export namespace jwplayer {
+declare namespace jwplayer {
     interface Version {
         version: string;
         major: number;
@@ -410,4 +410,4 @@ export namespace jwplayer {
     }
 }
 
-export const jwplayer: jwplayer.JWPlayerStatic;
+declare const jwplayer: jwplayer.JWPlayerStatic;
