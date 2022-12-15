@@ -151,6 +151,9 @@ declare namespace Gtag {
   interface ConsentParams {
     ad_storage?: 'granted' | 'denied' | undefined;
     analytics_storage?: 'granted' | 'denied' | undefined;
+    functionality_storage?: 'granted' | 'denied' | undefined;
+    personalization_storage?: 'granted' | 'denied' | undefined;
+    security_storage?: 'granted' | 'denied' | undefined;
     wait_for_update?: number | undefined;
     region?: string[] | undefined;
   }
