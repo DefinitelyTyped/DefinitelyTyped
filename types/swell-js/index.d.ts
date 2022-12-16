@@ -464,13 +464,13 @@ export type OrderDiscount = Discount;
 export interface ShipmentRatingCamelCase {
     dateCreated: string;
     fingerprint: string;
-    services: ShippingRatesCamelCase[];
+    services: ShippingService[];
 }
 
 export interface ShipmentRatingSnakeCase {
     date_created: string;
     fingerprint: string;
-    services: ShippingRatesCamelCase[];
+    services: ShippingService[];
 }
 
 export type ShipmentRating = ShipmentRatingCamelCase | ShipmentRatingSnakeCase;
@@ -795,6 +795,7 @@ export function init(storeId: string, publicKey: string, options?: InitOptions):
 export function get(url: string, query: object): Promise<unknown>;
 export function put(url: string, query: object): Promise<unknown>;
 export function post(url: string, query: object): Promise<unknown>;
+export function request(url: string, query: object): Promise<unknown>;
 
 export namespace account {
     function create(input: CreateAccountInput): Promise<unknown>;
