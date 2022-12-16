@@ -878,7 +878,7 @@ const kbshortcuts = {
 //
 // toggle-control
 //
-<C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} />;
+<C.ToggleControl label="Controlled" checked={true} onChange={isChecked => console.log(isChecked)} disabled={false} />;
 <C.ToggleControl label="Uncontrolled" />;
 
 //
