@@ -28,5 +28,6 @@ declare namespace OO.ui {
             parent: DecoratedOptionWidget.Constructor;
         }
     }
+
     const MenuOptionWidget: MenuOptionWidget.Constructor;
 }

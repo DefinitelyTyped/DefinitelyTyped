@@ -30,7 +30,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.FieldLayout
      */
-    interface FieldLayout<T extends Widget> extends FieldLayout.Props, FieldLayout.Prototype<T> { }
+    interface FieldLayout<T extends Widget = Widget> extends FieldLayout.Props, FieldLayout.Prototype<T> { }
 
     namespace FieldLayout {
         type EventMap = mixin.LabelElement.EventMap;
@@ -63,10 +63,11 @@ declare namespace OO.ui {
             notices?: Array<string | HtmlSnippet>;
 
             /**
-             * Help text. When help text is specified
-             * and `helpInline` is `false`, a "help" icon will appear in the upper-right
-             * corner of the rendered field; clicking it will display the text in a popup.
-             * If `helpInline` is `true`, then a subtle description will be shown after the
+             * Help text.
+             *
+             * When help text is specified and `helpInline` is `false`, a "help" icon will appear in
+             * the upper-right corner of the rendered field; clicking it will display the text in a
+             * popup. If `helpInline` is `true`, then a subtle description will be shown after the
              * label.
              */
             help?: string | HtmlSnippet;
@@ -157,6 +158,57 @@ declare namespace OO.ui {
              * @return The layout, for chaining
              */
             setNotices(notices: Array<string | HtmlSnippet>): this;
+
+            // #region EventEmitter overloads
+            on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
+                event: K,
+                method: EventHandler<C, (this: C, ...args: [...A, ...EventMap[K]]) => void>,
+                args?: A,
+                context?: C,
+            ): this;
+            on<K extends string, C = null>(
+                event: K extends keyof EventMap ? never : K,
+                method: EventHandler<C>,
+                args?: any[],
+                context?: C,
+            ): this;
+
+            once<K extends keyof EventMap>(
+                event: K,
+                listener: (this: null, ...args: EventMap[K]) => void,
+            ): this;
+            once<K extends string>(
+                event: K extends keyof EventMap ? never : K,
+                listener: (this: null, ...args: any[]) => void,
+            ): this;
+
+            off<K extends keyof EventMap, C = null>(
+                event: K,
+                method?: EventHandler<C, (this: C, ...args: EventMap[K]) => void>,
+                context?: C,
+            ): this;
+            off<K extends string, C = null>(
+                event: K extends keyof EventMap ? never : K,
+                method?: EventHandler<C>,
+                context?: C,
+            ): this;
+
+            emit<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
+            emit<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
+
+            emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
+            emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
+
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+                context: C,
+                methods: EventConnectionMap<T, C, EventMap>, // tslint:disable-line:no-unnecessary-generics
+            ): this;
+
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+                context: C,
+                methods?: EventConnectionMap<T, C, EventMap>, // tslint:disable-line:no-unnecessary-generics
+            ): this;
+            // #endregion
         }
 
         interface Constructor {
@@ -173,5 +225,6 @@ declare namespace OO.ui {
             parent: Layout.Constructor;
         }
     }
+
     const FieldLayout: FieldLayout.Constructor;
 }

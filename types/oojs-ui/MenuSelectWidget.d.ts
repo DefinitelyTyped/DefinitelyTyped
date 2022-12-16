@@ -188,5 +188,6 @@ declare namespace OO.ui {
             parent: SelectWidget.Constructor;
         }
     }
+
     const MenuSelectWidget: MenuSelectWidget.Constructor;
 }

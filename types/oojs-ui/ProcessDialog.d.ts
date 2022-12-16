@@ -75,5 +75,6 @@ declare namespace OO.ui {
             parent: Dialog.Constructor;
         }
     }
+
     const ProcessDialog: ProcessDialog.Constructor;
 }

@@ -1370,6 +1370,8 @@
     // $ExpectType FieldLayout<ButtonWidget>
     instance.setNotices(['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')]);
 
+    instance.on('labelChange', () => { });
+
     // @ts-expect-error
     OO.ui.FieldLayout.prototype.$field;
 
@@ -1387,6 +1389,54 @@
 
     // $ExpectType Widget
     OO.ui.FieldLayout.prototype.getField();
+}
+// #endregion
+
+// #region OO.ui.FieldsetLayout
+{
+    // $ExpectType Layout
+    new OO.ui.FieldsetLayout.super();
+
+    const input1 = new OO.ui.TextInputWidget({
+        placeholder: 'A text input field'
+    });
+    const input2 = new OO.ui.TextInputWidget({
+        placeholder: 'A text input field'
+    });
+    const instance = new OO.ui.FieldsetLayout({
+        label: 'Example of a fieldset layout'
+    });
+
+    instance.addItems([
+        new OO.ui.FieldLayout(input1, {
+            label: 'Field One'
+        }),
+        new OO.ui.FieldLayout(input2, {
+            label: 'Field Two'
+        })
+    ]);
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$header;
+
+    instance.once('add', (items, index) => {
+        items; // $ExpectType EventEmitter
+        index; // $ExpectType number
+    }).once('remove', (items, index) => {
+        items; // $ExpectType EventEmitter
+        index; // $ExpectType number
+    }).on('change', (items) => {
+        items; // $ExpectType Element[]
+    }).on('clear', () => {
+    }).on('labelChange', () => {
+    }).on('move', (item, index, oldIndex) => {
+        item; // $ExpectType EventEmitter
+        index; // $ExpectType number
+        oldIndex; // $ExpectType number
+    });
+
+    // @ts-expect-error
+    OO.ui.FieldsetLayout.prototype.$header;
 }
 // #endregion
 
@@ -1456,6 +1506,94 @@
 
     // $ExpectType Layout
     instance.resetScroll();
+}
+// #endregion
+
+// #region OO.ui.MenuLayout
+{
+    // $ExpectType Layout
+    new OO.ui.MenuLayout.super();
+
+    const menuPanel = new OO.ui.PanelLayout({
+        padded: true,
+        expanded: true,
+        scrollable: true
+    });
+    const contentPanel = new OO.ui.PanelLayout({
+        padded: true,
+        expanded: true,
+        scrollable: true
+    });
+    const select = new OO.ui.SelectWidget({
+        items: [
+            new OO.ui.OptionWidget({
+                data: 'before',
+                label: 'Before'
+            }),
+            new OO.ui.OptionWidget({
+                data: 'after',
+                label: 'After'
+            }),
+            new OO.ui.OptionWidget({
+                data: 'top',
+                label: 'Top'
+            }),
+            new OO.ui.OptionWidget({
+                data: 'bottom',
+                label: 'Bottom'
+            })
+        ]
+    });
+    const instance = new OO.ui.MenuLayout({
+        menuPosition: 'top',
+        menuPanel: menuPanel,
+        contentPanel: contentPanel
+    });
+
+    instance.$menu.append(
+        menuPanel.$element.append('<b>Menu panel</b>', select.$element)
+    );
+
+    instance.$content.append(
+        contentPanel.$element.append(
+            '<b>Content panel</b>',
+            '<p>Note that the menu is positioned relative to the content panel: ' +
+            'top, bottom, after, before.</p>'
+        )
+    );
+
+    // $ExpectType MenuLayout
+    instance.toggleMenu();
+
+    // $ExpectType MenuLayout
+    instance.toggleMenu(true);
+
+    // $ExpectType boolean
+    instance.isMenuVisible();
+
+    // $ExpectType MenuLayout
+    instance.setMenuPosition('after');
+
+    // $ExpectType Position
+    instance.getMenuPosition();
+
+    // $ExpectType void
+    instance.setMenuPanel(menuPanel);
+
+    // $ExpectType void
+    instance.setContentPanel(contentPanel);
+
+    // $ExpectType void
+    instance.clearMenuPanel();
+
+    // $ExpectType void
+    instance.clearContentPanel();
+
+    // @ts-expect-error
+    OO.ui.MenuLayout.prototype.$menu;
+
+    // @ts-expect-error
+    OO.ui.MenuLayout.prototype.$content;
 }
 // #endregion
 
@@ -1619,6 +1757,23 @@
 
     // $ExpectType string | boolean
     instance.getMatchText();
+}
+// #endregion
+
+// #region OO.ui.PanelLayout
+{
+    // $ExpectType Layout
+    new OO.ui.PanelLayout.super();
+
+    const instance = new OO.ui.PanelLayout({
+        expanded: false,
+        framed: true,
+        padded: true,
+        $content: $('<p>A panel layout with padding and a frame.</p>')
+    });
+
+    // $ExpectType void
+    instance.focus();
 }
 // #endregion
 
