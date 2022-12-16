@@ -932,6 +932,57 @@
 }
 // #endregion
 
+// #region OO.ui.ButtonGroupWidget
+{
+    // $ExpectType Widget
+    new OO.ui.ButtonGroupWidget.super();
+
+    const button2 = new OO.ui.ButtonWidget({
+        label: 'Add item'
+    });
+
+    const instance = new OO.ui.ButtonGroupWidget({
+        items: [button2]
+    });
+
+    instance.focus(); // $ExpectType ButtonGroupWidget
+
+    instance.on('toggle', (visible) => {
+        visible; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.ButtonMenuSelectWidget
+{
+    // $ExpectType ButtonWidget
+    new OO.ui.ButtonMenuSelectWidget.super();
+
+    const instance = new OO.ui.ButtonMenuSelectWidget({
+        icon: 'menu',
+        menu: {
+            items: [
+                new OO.ui.MenuOptionWidget({
+                    data: 'a',
+                    label: 'First'
+                }),
+                new OO.ui.MenuOptionWidget({
+                    data: 'b',
+                    label: 'Second'
+                }),
+                new OO.ui.MenuOptionWidget({
+                    data: 'c',
+                    label: 'Third'
+                })
+            ]
+        },
+        menuClass: OO.ui.MenuSelectWidget
+    });
+
+    instance.getMenu(); // $ExpectType MenuSelectWidget
+}
+// #endregion
+
 // #region OO.ui.ButtonWidget
 {
     // $ExpectType Widget
@@ -1098,6 +1149,36 @@
     instance.executeAction('continue').then(() => { }, (err) => {
         err; // $ExpectType [] | [Error]
     });
+}
+// #endregion
+
+// #region OO.ui.DropdownWidget
+{
+    // $ExpectType Widget
+    new OO.ui.DropdownWidget.super();
+
+    const instance = new OO.ui.DropdownWidget({
+        label: 'Dropdown menu: Select a menu option',
+        menu: {
+            items: [
+                new OO.ui.MenuOptionWidget({
+                    data: 'a',
+                    label: 'First'
+                }),
+                new OO.ui.MenuOptionWidget({
+                    data: 'b',
+                    label: 'Second'
+                }),
+                new OO.ui.MenuOptionWidget({
+                    data: 'c',
+                    label: 'Third'
+                })
+            ]
+        }
+    });
+
+    // $ExpectType MenuSelectWidget
+    instance.getMenu();
 }
 // #endregion
 
@@ -1489,6 +1570,61 @@
 
     // @ts-expect-error
     OO.ui.FieldsetLayout.prototype.$header;
+}
+// #endregion
+
+// #region OO.ui.FormLayout
+{
+    // $ExpectType Layout
+    new OO.ui.FormLayout.super();
+
+    const input1 = new OO.ui.TextInputWidget({
+        placeholder: 'Username'
+    });
+    const input2 = new OO.ui.TextInputWidget({
+        placeholder: 'Password',
+        type: 'password'
+    });
+    const fieldset = new OO.ui.FieldsetLayout({
+        label: 'A form layout'
+    });
+    fieldset.addItems([
+        new OO.ui.FieldLayout(input1, {
+            label: 'Username',
+            align: 'top'
+        }),
+        new OO.ui.FieldLayout(input2, {
+            label: 'Password',
+            align: 'top'
+        })
+    ]);
+
+    const instance = new OO.ui.FormLayout({
+        items: [fieldset],
+        action: '/api/formhandler',
+        method: 'get',
+        enctype: 'application/x-www-form-urlencoded'
+    });
+
+    instance.on('submit', () => { });
+}
+// #endregion
+
+// #region OO.ui.HorizontalLayout
+{
+    // $ExpectType Layout
+    new OO.ui.HorizontalLayout.super();
+
+    const instance = new OO.ui.HorizontalLayout({
+        items: [
+            new OO.ui.PanelLayout(),
+            new OO.ui.TextInputWidget({ value: 'Text' })
+        ]
+    });
+
+    instance.on('change', (items) => {
+        items; // $ExpectType Element[]
+    });
 }
 // #endregion
 
@@ -1986,6 +2122,23 @@
 
     // $ExpectType void
     instance.focus();
+}
+// #endregion
+
+// #region OO.ui.PopupButtonWidget
+{
+    // $ExpectType ButtonWidget
+    new OO.ui.PopupButtonWidget.super();
+
+    const instance = new OO.ui.PopupButtonWidget({
+        label: 'Popup button with options',
+        icon: 'menu',
+        popup: {
+            $content: $('<p>Additional options here.</p>'),
+            padded: true,
+            align: 'force-left'
+        }
+    });
 }
 // #endregion
 
