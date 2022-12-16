@@ -880,6 +880,58 @@
 }
 // #endregion
 
+// #region OO.ui.BookletLayout
+{
+    // $ExpectType MenuLayout
+    new OO.ui.BookletLayout.super();
+
+    const instance = new OO.ui.BookletLayout({
+        continuous: false,
+        autoFocus: false,
+        outlined: true,
+        editable: false
+    });
+
+    instance.focus(); // $ExpectType
+
+    instance.focus(1); // $ExpectType
+
+    instance.focusFirstFocusable(); // $ExpectType
+
+    instance.isOutlined(); // $ExpectType boolean
+
+    instance.isEditable(); // $ExpectType boolean
+
+    instance.isOutlineVisible(); // $ExpectType boolean
+
+    instance.toggleOutline(); // $ExpectType BookletLayout
+
+    instance.toggleOutline(true); // $ExpectType BookletLayout
+
+    instance.findClosestPage(new OO.ui.PageLayout('123')); // $ExpectType PageLayout | null
+
+    instance.getOutline(); // $ExpectType OutlineSelectWidget | null
+
+    instance.getOutlineControls(); // $ExpectType OutlineControlsWidget | null
+
+    instance.getPage('123'); // $ExpectType PageLayout | undefined
+
+    instance.getCurrentPage(); // $ExpectType PageLayout | undefined
+
+    instance.getCurrentPageName(); // $ExpectType string | null
+
+    instance.addPages([new OO.ui.PageLayout('123')], 1); // $ExpectType BookletLayout
+
+    instance.removePages([new OO.ui.PageLayout('123')]); // $ExpectType BookletLayout
+
+    instance.clearPages(); // $ExpectType BookletLayout
+
+    instance.setPage('123'); // $ExpectType void
+
+    instance.selectFirstSelectablePage(); // $ExpectType BookletLayout
+}
+// #endregion
+
 // #region OO.ui.ButtonWidget
 {
     // $ExpectType Widget
@@ -1546,8 +1598,8 @@
     });
     const instance = new OO.ui.MenuLayout({
         menuPosition: 'top',
-        menuPanel: menuPanel,
-        contentPanel: contentPanel
+        menuPanel,
+        contentPanel
     });
 
     instance.$menu.append(
@@ -1757,6 +1809,111 @@
 
     // $ExpectType string | boolean
     instance.getMatchText();
+}
+// #endregion
+
+// #region OO.ui.OutlineControlsWidget
+{
+    // $ExpectType Widget
+    new OO.ui.OutlineControlsWidget.super();
+
+    const instance = new OO.ui.OutlineControlsWidget({
+        abilities: {
+            move: true,
+            remove: true
+        }
+    });
+
+    // $ExpectType void
+    instance.setAbilities({
+        move: false,
+        remove: false
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$movers;
+
+    instance.on('move', (places) => {
+        places; // $ExpectType number
+    }).on('remove', () => {
+    }).on('change', (items) => {
+        items; // $ExpectType Element[]
+    }).once('add', (items, index) => {
+        items; // $ExpectType EventEmitter
+        index; // $ExpectType number
+    }).off('change', (items) => {
+        items; // $ExpectType Element[]
+    }).off('clear', () => { });
+
+    // @ts-expect-error
+    OO.ui.OutlineControlsWidget.prototype.$movers;
+}
+// #endregion
+
+// #region OO.ui.OutlineOptionWidget
+{
+    // $ExpectType DecoratedOptionWidget
+    new OO.ui.OutlineOptionWidget.super();
+
+    // $ExpectType string
+    OO.ui.OutlineOptionWidget.static.levelClass;
+
+    // $ExpectType number
+    OO.ui.OutlineOptionWidget.static.levels;
+
+    const instance = new OO.ui.OutlineOptionWidget({
+        level: 0,
+        movable: false,
+        removable: false
+    });
+
+    instance.isMovable(); // $ExpectType boolean
+
+    instance.isRemovable(); // $ExpectType boolean
+
+    instance.getLevel(); // $ExpectType number
+
+    instance.setMovable(true); // $ExpectType OutlineOptionWidget
+
+    instance.setRemovable(true); // $ExpectType OutlineOptionWidget
+
+    instance.setLevel(); // $ExpectType OutlineOptionWidget
+
+    instance.setLevel(1); // $ExpectType OutlineOptionWidget
+}
+// #endregion
+
+// #region OO.ui.OutlineSelectWidget
+{
+    // $ExpectType SelectWidget
+    new OO.ui.OutlineSelectWidget.super();
+
+    const instance = new OO.ui.OutlineSelectWidget();
+}
+// #endregion
+
+// #region OO.ui.PageLayout
+{
+    // $ExpectType PanelLayout
+    new OO.ui.PageLayout.super();
+
+    const instance = new OO.ui.PageLayout('page1');
+
+    instance.getName(); // $ExpectType string
+
+    instance.isActive(); // $ExpectType boolean
+
+    instance.getOutlineItem(); // $ExpectType OutlineOptionWidget | null
+
+    instance.setOutlineItem(null); // $ExpectType PageLayout
+
+    instance.setOutlineItem(new OO.ui.OutlineOptionWidget()); // $ExpectType PageLayout
+
+    instance.setActive(true); // $ExpectType void
+
+    instance.on('active', (active) => {
+        active; // $ExpectType boolean
+    });
 }
 // #endregion
 
