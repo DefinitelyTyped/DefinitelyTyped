@@ -1501,6 +1501,61 @@
 }
 // #endregion
 
+// #region OO.ui.IndexLayout
+{
+    // $ExpectType MenuLayout
+    new OO.ui.IndexLayout.super();
+
+    const instance = new OO.ui.IndexLayout({
+        contentPanel: new OO.ui.StackLayout(),
+        continuous: false,
+        autoFocus: false,
+        framed: false
+    });
+
+    instance.focus(); // $ExpectType void
+
+    instance.focus(1); // $ExpectType void
+
+    instance.focusFirstFocusable(); // $ExpectType void
+
+    instance.getClosestTabPanel(new OO.ui.TabPanelLayout('1')); // $ExpectType TabPanelLayout | null
+
+    instance.getTabs(); // $ExpectType TabSelectWidget
+
+    instance.getTabPanel('123'); // $ExpectType TabPanelLayout | undefined
+
+    instance.getCurrentTabPanel(); // $ExpectType TabPanelLayout | undefined
+
+    instance.getCurrentTabPanelName(); // $ExpectType string | null
+
+    // $ExpectType IndexLayout
+    instance.addTabPanels([
+        new OO.ui.TabPanelLayout('aa')
+    ], 1);
+
+    // $ExpectType IndexLayout
+    instance.removeTabPanels([
+        new OO.ui.TabPanelLayout('aa')
+    ]);
+
+    instance.clearTabPanels(); // $ExpectType IndexLayout
+
+    instance.setTabPanel('1'); // $ExpectType void
+
+    instance.selectFirstSelectableTabPanel(); // $ExpectType IndexLayout
+
+    instance.on('add', (tabPanels, index) => {
+        tabPanels; // $ExpectType TabPanelLayout[]
+        index; // $ExpectType number
+    }).once('remove', (tabPanels) => {
+        tabPanels; // $ExpectType TabPanelLayout[]
+    }).off('set', (tabPanel) => {
+        tabPanel; // $ExpectType TabPanelLayout
+    });
+}
+// #endregion
+
 // #region OO.ui.InputWidget
 {
     // $ExpectType Widget
@@ -2269,6 +2324,105 @@
 
     // @ts-expect-error
     OO.ui.SelectWidget.prototype.$focusOwner;
+}
+// #endregion
+
+// #region OO.ui.StackLayout
+{
+    // $ExpectType PanelLayout
+    new OO.ui.StackLayout.super();
+
+    const instance = new OO.ui.StackLayout({
+        items: [
+            new OO.ui.PanelLayout({
+                $content: $('<p>Panel One</p>'),
+                padded: true,
+                framed: true
+            }),
+            new OO.ui.PanelLayout({
+                $content: $('<p>Panel Two</p>'),
+                padded: true,
+                framed: true
+            })
+        ],
+        continuous: true
+    });
+
+    instance.getCurrentItem(); // $ExpectType Layout | null
+
+    instance.addItems([new OO.ui.Layout()], 2); // $ExpectType StackLayout
+
+    instance.removeItems([new OO.ui.Layout()]); // $ExpectType StackLayout
+
+    instance.clearItems(); // $ExpectType StackLayout
+
+    instance.setItem(new OO.ui.Layout()); // $ExpectType StackLayout
+
+    instance.on('set', (item) => {
+        item; // $ExpectType Layout | null
+    });
+}
+// #endregion
+
+// #region OO.ui.TabOptionWidget
+{
+    // $ExpectType OptionWidget
+    new OO.ui.TabOptionWidget.super();
+
+    const instance = new OO.ui.TabOptionWidget({
+        href: '1'
+    });
+}
+// #endregion
+
+// #region OO.ui.TabPanelLayout
+{
+    // $ExpectType PanelLayout
+    new OO.ui.TabPanelLayout.super();
+
+    const instance = new OO.ui.TabPanelLayout('tab', {
+        label: 'Label',
+        tabItemConfig: {
+            href: '123',
+        }
+    });
+
+    instance.getName(); // $ExpectType string
+
+    instance.isActive(); // $ExpectType boolean
+
+    instance.getTabItem(); // $ExpectType TabOptionWidget | null
+
+    instance.getTabItemConfig(); // $ExpectType ConfigOptions
+
+    instance.setTabItem(null); // $ExpectType TabPanelLayout
+
+    instance.setTabItem(new OO.ui.TabOptionWidget()); // $ExpectType TabPanelLayout
+
+    instance.setupTabItem(); // $ExpectType TabPanelLayout
+
+    instance.setActive(true); // $ExpectType void
+
+    instance.on('active', (active) => {
+        active; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.TabSelectWidget
+{
+    // $ExpectType SelectWidget
+    new OO.ui.TabSelectWidget.super();
+
+    const instance = new OO.ui.TabSelectWidget({
+        framed: true
+    });
+
+    instance.isFramed(); // $ExpectType boolean
+
+    instance.toggleFramed(); // $ExpectType TabSelectWidget
+
+    instance.toggleFramed(true); // $ExpectType TabSelectWidget
 }
 // #endregion
 

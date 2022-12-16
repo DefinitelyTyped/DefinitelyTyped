@@ -1,4 +1,3 @@
-// TODO: Finish + tests
 declare namespace OO.ui {
     /**
      * BookletLayouts contain {@link OO.ui.PageLayout page layouts} as well as
