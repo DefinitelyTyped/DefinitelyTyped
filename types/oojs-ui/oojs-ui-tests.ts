@@ -953,6 +953,33 @@
 }
 // #endregion
 
+// #region OO.ui.ButtonInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.ButtonInputWidget.super();
+
+    const instance = new OO.ui.ButtonInputWidget({
+        type: 'submit',
+        useInputTag: false
+    });
+
+    instance.setLabel('123'); // $ExpectType ButtonInputWidget
+
+    instance.setLabel($()); // $ExpectType ButtonInputWidget
+
+    instance.setLabel(() => '123'); // $ExpectType ButtonInputWidget
+
+    // tslint:disable-next-line:no-unnecessary-callback-wrapper
+    instance.setLabel(() => $()); // $ExpectType ButtonInputWidget
+
+    instance.setLabel(null); // $ExpectType ButtonInputWidget
+
+    instance.setValue('value'); // $ExpectType ButtonInputWidget
+
+    instance.on('labelChange', () => { });
+}
+// #endregion
+
 // #region OO.ui.ButtonMenuSelectWidget
 {
     // $ExpectType ButtonWidget
@@ -1069,6 +1096,48 @@
             arg; // $ExpectType any
         }
     });
+}
+// #endregion
+
+// #region OO.ui.CheckboxMultioptionWidget
+{
+    // $ExpectType MultioptionWidget
+    new OO.ui.CheckboxMultioptionWidget.super();
+
+    const instance = new OO.ui.CheckboxMultioptionWidget();
+
+    instance.focus(); // $ExpectType void
+}
+// #endregion
+
+// #region OO.ui.CheckboxMultiselectWidget
+{
+    // $ExpectType MultiselectWidget
+    new OO.ui.CheckboxMultiselectWidget.super();
+
+    const option1 = new OO.ui.CheckboxMultioptionWidget({
+        data: 'a',
+        selected: true,
+        label: 'Selected checkbox'
+    });
+    const option2 = new OO.ui.CheckboxMultioptionWidget({
+        data: 'b',
+        label: 'Unselected checkbox'
+    });
+
+    const instance = new OO.ui.CheckboxMultiselectWidget({
+        items: [option1, option2]
+    });
+
+    // $ExpectType CheckboxMultioptionWidget | null
+    instance.getRelativeFocusableItem(null, 1);
+
+    // $ExpectType CheckboxMultioptionWidget | null
+    instance.getRelativeFocusableItem(option1, -1);
+
+    instance.onClick($.Event('click')); // $ExpectType void
+
+    instance.focus(); // $ExpectType CheckboxMultiselectWidget
 }
 // #endregion
 
@@ -2028,6 +2097,34 @@
     instance.on('change', (selected) => {
         selected; // $ExpectType boolean
     });
+}
+// #endregion
+
+// #region OO.ui.MultiselectWidget
+{
+    // $ExpectType Widget
+    new OO.ui.MultiselectWidget.super();
+
+    const instance = new OO.ui.MultiselectWidget({
+        items: [
+            new OO.ui.MenuOptionWidget()
+        ]
+    });
+
+    instance.findSelectedItems(); // $ExpectType MultioptionWidget[]
+
+    instance.findSelectedItemsData(); // $ExpectType unknown[]
+
+    // $ExpectType MultiselectWidget
+    instance.selectItems([
+        new OO.ui.MultioptionWidget()
+    ]);
+
+    instance.selectItemsByData([1, 2, '3']); // $ExpectType MultiselectWidget
+
+    instance.clearSelection(); // $ExpectType MultiselectWidget
+
+    instance.on('select', () => { });
 }
 // #endregion
 

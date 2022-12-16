@@ -84,8 +84,8 @@ declare namespace OO {
         /**
          * Check if a node is contained within another node.
          *
-         * Similar to {@link JQueryStatic.contains} except a list of containers can be supplied
-         * and a boolean argument allows you to include the container in the match list
+         * Similar to {@link JQueryStatic.contains $.contains} except a list of containers can be
+         * supplied and a boolean argument allows you to include the container in the match list
          *
          * @param containers Container node(s) to search in
          * @param contained Node to find
