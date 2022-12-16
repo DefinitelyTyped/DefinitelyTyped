@@ -1610,6 +1610,18 @@
 }
 // #endregion
 
+// #region OO.ui.HiddenInputWidget
+{
+    // $ExpectType Widget
+    new OO.ui.HiddenInputWidget.super();
+
+    const instance = new OO.ui.HiddenInputWidget({
+        value: '123',
+        name: 'name'
+    });
+}
+// #endregion
+
 // #region OO.ui.HorizontalLayout
 {
     // $ExpectType Layout
@@ -1634,6 +1646,22 @@
 
     // $ExpectType string
     instance.toString();
+}
+// #endregion
+
+// #region OO.ui.IconWidget
+{
+    // $ExpectType Widget
+    new OO.ui.IconWidget.super();
+
+    const instance = new OO.ui.IconWidget({
+        icon: 'help',
+        title: 'Help'
+    });
+
+    instance.on('disable', (disabled) => {
+        disabled; // $ExpectType boolean
+    });
 }
 // #endregion
 
@@ -1689,6 +1717,19 @@
     }).off('set', (tabPanel) => {
         tabPanel; // $ExpectType TabPanelLayout
     });
+}
+// #endregion
+
+// #region OO.ui.IndicatorWidget
+{
+    // $ExpectType Widget
+    new OO.ui.IndicatorWidget.super();
+
+    const instance = new OO.ui.IndicatorWidget({
+        indicator: 'required'
+    });
+
+    instance.on('labelChange', () => { });
 }
 // #endregion
 
@@ -1939,6 +1980,53 @@
             }
         ],
         other: 12345
+    });
+}
+// #endregion
+
+// #region OO.ui.MessageWidget
+{
+    // $ExpectType Widget
+    new OO.ui.MessageWidget.super();
+
+    // $ExpectType Record<string, Icon>
+    OO.ui.MessageWidget.static.iconMap;
+
+    const instance = new OO.ui.MessageWidget({
+        type: 'error',
+        inline: false,
+        showClose: true
+    });
+
+    instance.setInline(true); // $ExpectType void
+
+    instance.setType('warning'); // $ExpectType void
+
+    instance.setType(); // $ExpectType void
+
+    instance.onCloseButtonClick(); // $ExpectType void
+
+    instance.on('close', () => { });
+}
+// #endregion
+
+// #region OO.ui.MultioptionWidget
+{
+    // $ExpectType Widget
+    new OO.ui.MultioptionWidget.super();
+
+    const instance = new OO.ui.MultioptionWidget({
+        selected: false
+    });
+
+    instance.isSelected(); // $ExpectType boolean
+
+    instance.setSelected(); // $ExpectType MultioptionWidget
+
+    instance.setSelected(true); // $ExpectType MultioptionWidget
+
+    instance.on('change', (selected) => {
+        selected; // $ExpectType boolean
     });
 }
 // #endregion
