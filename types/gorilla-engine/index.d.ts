@@ -1,4 +1,6 @@
-// Definitions by Julian Woodward on behalf of UJAM <https://gitlab.ujam.com/jwoodward>
+// Type definitions for Gorilla Engine 1.0
+// Project: https://gorilla-engine.com
+// Definitions by: Julian Woodward <https://gitlab.ujam.com/jwoodward>
 
 /// <reference path = "interfaces/Background.d.ts" />
 /// <reference path = "interfaces/Bounds.d.ts" />
