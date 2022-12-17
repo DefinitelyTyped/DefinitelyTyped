@@ -3193,6 +3193,158 @@
 }
 // #endregion
 
+// #region OO.ui.TagItemWidget
+{
+    // $ExpectType Widget
+    new OO.ui.TagItemWidget.super();
+
+    const instance = new OO.ui.TagItemWidget({
+        valid: true,
+        fixed: true
+    });
+
+    instance.setFixed(); // $ExpectType TagItemWidget
+
+    instance.setFixed(true); // $ExpectType TagItemWidget
+
+    instance.isFixed(); // $ExpectType boolean
+
+    instance.remove(); // $ExpectType void
+
+    instance.onKeyDown($.Event('keydown')); // $ExpectType boolean | void
+
+    instance.select(); // $ExpectType void
+
+    instance.toggleValid(); // $ExpectType void
+
+    instance.toggleValid(true); // $ExpectType void
+
+    instance.isValid(); // $ExpectType boolean
+
+    instance.on('remove', () => {
+    }).on('navigate', (direction) => {
+        direction; // $ExpectType Direction
+    }).on('select', () => {
+    }).on('valid', (isValid) => {
+        isValid; // $ExpectType boolean
+    }).on('fixed', (isFixed) => {
+        isFixed; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.TagMultiselectWidget
+{
+    // $ExpectType Widget
+    new OO.ui.TagMultiselectWidget.super();
+
+    // $ExpectType string[]
+    OO.ui.TagMultiselectWidget.static.allowedInputPositions;
+
+    const instance = new OO.ui.TagMultiselectWidget({
+        input: {
+            value: 'value'
+        },
+        inputPosition: 'outline',
+        allowedValues: ['Option 1', 'Option 2', 'Option 3'],
+        selected: ['Option 1'],
+        allowEditTags: false,
+        allowArbitrary: false,
+        allowDuplicates: false,
+        allowDisplayInvalidTags: false,
+        tagLimit: 20,
+        allowReordering: false
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$content;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$handle;
+
+    instance.onInputFocus(); // $ExpectType void
+
+    instance.onInputBlur(); // $ExpectType void
+
+    instance.doInputEnter($.Event(''), false); // $ExpectType boolean
+
+    instance.doInputBackspace($.Event(''), false); // $ExpectType boolean
+
+    instance.doInputEscape($.Event('')); // $ExpectType void
+
+    instance.doInputArrow($.Event(''), 'backwards', false); // $ExpectType void
+
+    instance.onTagSelect(new OO.ui.TagItemWidget()); // $ExpectType void
+
+    instance.onTagFixed(new OO.ui.TagItemWidget()); // $ExpectType void
+
+    instance.onChangeTags(); // $ExpectType void
+
+    instance.onTagRemove(new OO.ui.TagItemWidget()); // $ExpectType void
+
+    instance.onTagNavigate(new OO.ui.TagItemWidget(), 'forwards'); // $ExpectType void
+
+    instance.getTagInfoFromInput(); // $ExpectType TagInfo
+
+    instance.addTagFromInput(); // $ExpectType void
+
+    instance.clearInput(); // $ExpectType void
+
+    instance.isDuplicateData(1); // $ExpectType boolean
+
+    instance.isAllowedData('1'); // $ExpectType boolean
+
+    instance.getAllowedValues(); // $ExpectType unknown[]
+
+    instance.addAllowedValue('1'); // $ExpectType void
+
+    instance.getValue(); // $ExpectType unknown[]
+
+    {
+        // $ExpectType void
+        instance.setValue({ data: 'foo', label: 'Foo item' });
+
+        // $ExpectType void
+        instance.setValue([
+            { data: 'foo', label: 'Foo item' },
+            { data: 'bar', label: 'Bar item' }
+        ]);
+
+        // $ExpectType void
+        instance.setValue(['foo', 'bar', 'bla']);
+
+        // $ExpectType void
+        instance.setValue('foo');
+    }
+
+    instance.addTag('123', 'label'); // $ExpectType boolean
+
+    instance.addTag('123', $()); // $ExpectType boolean
+
+    instance.isUnderLimit(); // $ExpectType boolean
+
+    instance.removeTagByData('1'); // $ExpectType void
+
+    instance.checkValidity(); // $ExpectType boolean
+
+    instance.toggleValid(); // $ExpectType void
+
+    instance.toggleValid(true); // $ExpectType void
+
+    instance.isValid(); // $ExpectType boolean
+
+    instance.on('disable', (disabled) => {
+        disabled; // $ExpectType boolean
+    });
+
+    // @ts-expect-error
+    OO.ui.TagMultiselectWidget.prototype.$content;
+
+    // @ts-expect-error
+    OO.ui.TagMultiselectWidget.prototype.$handle;
+}
+// #endregion
+
 // #region OO.ui.TextInputWidget
 {
     // $ExpectType InputWidget
@@ -3271,6 +3423,69 @@
 
     // $ExpectType TextInputWidget
     instance.on('enter', () => { });
+}
+// #endregion
+
+// #region OO.ui.ToggleButtonWidget
+{
+    // $ExpectType ToggleWidget
+    new OO.ui.ToggleButtonWidget.super();
+
+    const instance = new OO.ui.ToggleButtonWidget({
+        label: 'Toggle Button off'
+    });
+
+    const instance1 = new OO.ui.ToggleButtonWidget({
+        label: 'Toggle Button on',
+        value: true
+    });
+
+    instance.on('change', (value) => {
+        value; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.ToggleSwitchWidget
+{
+    // $ExpectType ToggleWidget
+    new OO.ui.ToggleSwitchWidget.super();
+
+    const instance = new OO.ui.ToggleSwitchWidget();
+    const instance1 = new OO.ui.ToggleSwitchWidget({
+        value: true
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$glow;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$grip;
+
+    // @ts-expect-error
+    OO.ui.ToggleSwitchWidget.prototype.$glow;
+
+    // @ts-expect-error
+    OO.ui.ToggleSwitchWidget.prototype.$grip;
+}
+// #endregion
+
+// #region OO.ui.ToggleWidget
+{
+    // $ExpectType Widget
+    new OO.ui.ToggleWidget.super();
+
+    const instance = new OO.ui.ToggleWidget({
+        value: true
+    });
+
+    instance.getValue(); // $ExpectType boolean
+
+    instance.setValue(false); // $ExpectType ToggleWidget
+
+    instance.on('change', (value) => {
+        value; // $ExpectType boolean
+    });
 }
 // #endregion
 
