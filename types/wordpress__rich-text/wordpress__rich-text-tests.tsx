@@ -182,3 +182,7 @@ select('core/rich-text').getFormatTypes();
 
 // $ExpectType NamedFormatConfiguration | undefined
 select('core/rich-text').getFormatTypeForBareElement('a');
+
+// useAnchor
+RT.useAnchor({editableContentElement: new HTMLElement(), value: RT.create()});
+RT.useAnchor({editableContentElement: new HTMLElement(), value: RT.create(), settings: RT.create().formats[0]![0]});
