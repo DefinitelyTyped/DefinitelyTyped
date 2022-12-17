@@ -43,6 +43,8 @@ declare namespace OO.ui {
              * with multiple buttons.
              */
             useInputTag?: boolean;
+
+            flags?: LiteralUnion<mixin.ButtonElement.Flag> | Array<LiteralUnion<mixin.ButtonElement.Flag>>;
         }
 
         interface Static extends InputWidget.Static,

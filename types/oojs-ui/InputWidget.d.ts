@@ -1,9 +1,9 @@
 declare namespace OO.ui {
     /**
      * InputWidget is the base class for all input widgets, which
-     * include {@link OO.ui.TextInputWidget text inputs}, {@link OO.ui.CheckboxInputWidget checkbox
-     * inputs}, {@link OO.ui.RadioInputWidget radio inputs}, and
-     * {@link OO.ui.ButtonInputWidget button inputs}.
+     * include {@link OO.ui.TextInputWidget text inputs},
+     * {@link OO.ui.CheckboxInputWidget checkbox inputs}, {@link OO.ui.RadioInputWidget radio inputs},
+     * and {@link OO.ui.ButtonInputWidget button inputs}.
      * See the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Inputs)
      * for more information and examples.
      *

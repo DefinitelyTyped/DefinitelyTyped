@@ -1010,6 +1010,45 @@
 }
 // #endregion
 
+// #region OO.ui.ButtonOptionWidget
+{
+    // $ExpectType OptionWidget
+    new OO.ui.ButtonOptionWidget.super();
+
+    const instance = new OO.ui.ButtonOptionWidget({
+        label: 'Select'
+    });
+
+    instance.on('labelChange', () => { });
+}
+// #endregion
+
+// #region OO.ui.ButtonSelectWidget
+{
+    // $ExpectType SelectWidget
+    new OO.ui.ButtonSelectWidget.super();
+
+    const option1 = new OO.ui.ButtonOptionWidget({
+        data: 1,
+        label: 'Option 1',
+        title: 'Button option 1'
+    });
+    const option2 = new OO.ui.ButtonOptionWidget({
+        data: 2,
+        label: 'Option 2',
+        title: 'Button option 2'
+    });
+    const option3 = new OO.ui.ButtonOptionWidget({
+        data: 3,
+        label: 'Option 3',
+        title: 'Button option 3'
+    });
+    const instance = new OO.ui.ButtonSelectWidget({
+        items: [option1, option2, option3]
+    });
+}
+// #endregion
+
 // #region OO.ui.ButtonWidget
 {
     // $ExpectType Widget
@@ -1983,6 +2022,22 @@
 }
 // #endregion
 
+// #region OO.ui.LabelWidget
+{
+    // $ExpectType Widget
+    new OO.ui.LabelWidget.super();
+
+    const instance = new OO.ui.LabelWidget({
+        label: 'plaintext label'
+    });
+    const instance1 = new OO.ui.LabelWidget({
+        label: $('<a>').attr('href', 'default.html').text('jQuery label')
+    });
+
+    instance.on('labelChange', () => { });
+}
+// #endregion
+
 // #region OO.ui.Layout
 {
     // $ExpectType Static
@@ -2727,6 +2782,35 @@
 }
 // #endregion
 
+// #region OO.ui.ProgressBarWidget
+{
+    // $ExpectType Widget
+    new OO.ui.ProgressBarWidget.super();
+
+    const instance = new OO.ui.ProgressBarWidget({
+        progress: 33
+    });
+
+    const instance1 = new OO.ui.ProgressBarWidget({
+        progress: false
+    });
+
+    const instance2 = new OO.ui.ProgressBarWidget({
+        // @ts-expect-error
+        progress: true
+    });
+
+    instance.getProgress(); // $ExpectType number | false
+
+    instance.setProgress(100); // $ExpectType void
+
+    instance.setProgress(false); // $ExpectType void
+
+    // @ts-expect-error
+    instance.setProgress(true);
+}
+// #endregion
+
 // #region OO.ui.RadioInputWidget
 {
     // $ExpectType InputWidget
@@ -2743,6 +2827,18 @@
 
     // $ExpectType boolean
     instance.isSelected();
+}
+// #endregion
+
+// #region OO.ui.RadioOptionWidget
+{
+    // $ExpectType OptionWidget
+    new OO.ui.RadioOptionWidget.super();
+
+    const instance = new OO.ui.RadioOptionWidget({
+        data: 'a',
+        label: 'Selected radio option'
+    });
 }
 // #endregion
 
@@ -2768,6 +2864,25 @@
 }
 // #endregion
 
+// #region OO.ui.RadioSelectWidget
+{
+    const option1 = new OO.ui.RadioOptionWidget({
+        data: 'a',
+        label: 'Selected radio option'
+    });
+    const option2 = new OO.ui.RadioOptionWidget({
+        data: 'b',
+        label: 'Unselected radio option'
+    });
+    const instance = new OO.ui.RadioSelectWidget({
+        items: [option1, option2]
+    });
+
+    // $ExpectType RadioSelectWidget
+    instance.selectItem(option1);
+}
+// #endregion
+
 // #region OO.ui.SearchInputWidget
 {
     // $ExpectType TextInputWidget
@@ -2780,6 +2895,45 @@
     instance.onIndicatorClick($.Event('click')); // $ExpectType boolean
 
     instance.updateSearchIndicator(); // $ExpectType void
+}
+// #endregion
+
+// #region OO.ui.SearchWidget
+{
+    // $ExpectType Widget
+    new OO.ui.SearchWidget.super();
+
+    // $ExpectType SearchWidget<TextInputWidget>
+    const instance = new OO.ui.SearchWidget({
+        input: new OO.ui.TextInputWidget()
+    });
+
+    // $ExpectType SearchWidget<SearchInputWidget>
+    const instance1 = new OO.ui.SearchWidget({
+        placeholder: 'Placeholder',
+        value: '123'
+    });
+
+    instance.getQuery(); // $ExpectType TextInputWidget
+
+    instance1.getQuery(); // $ExpectType SearchInputWidget
+
+    instance.getResults(); // $ExpectType SelectWidget
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$query;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$results;
+
+    // $ExpectType InputWidget
+    OO.ui.SearchWidget.prototype.getQuery();
+
+    // @ts-expect-error
+    OO.ui.SearchWidget.prototype.$query;
+
+    // @ts-expect-error
+    OO.ui.SearchWidget.prototype.$results;
 }
 // #endregion
 

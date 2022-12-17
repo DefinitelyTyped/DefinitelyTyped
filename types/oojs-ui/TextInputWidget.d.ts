@@ -26,6 +26,11 @@ declare namespace OO.ui {
             to: number | null;
         }
 
+        /**
+         * @see https://www.mediawiki.org/wiki/OOUI/Elements/Flagged#TextInputWidget
+         */
+        type Flag = 'invalid';
+
         interface EventMap extends InputWidget.EventMap,
             mixin.LabelElement.EventMap,
             mixin.FlaggedElement.EventMap {
@@ -93,6 +98,8 @@ declare namespace OO.ui {
              * for it to be considered valid.
              */
             validate?: RegExp | string | ((value: string) => boolean | JQuery.Promise<boolean>);
+
+            flags?: LiteralUnion<Flag> | Array<LiteralUnion<Flag>>;
         }
 
         interface Static extends InputWidget.Static,

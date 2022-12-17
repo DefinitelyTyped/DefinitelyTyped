@@ -1,88 +1,62 @@
 declare namespace OO.ui {
     /**
-     * MessageWidget produces a visual component for sending a notice to the user
-     * with an icon and distinct design noting its purpose. The MessageWidget changes
-     * its visual presentation based on the type chosen, which also denotes its UX
-     * purpose.
+     * LabelWidgets help identify the function of interface elements. Each LabelWidget can
+     * be configured with a `label` option that is set to a string, a label node, or a function:
      *
-     * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MessageWidget
+     * - String: a plaintext string
+     * - jQuery selection: a jQuery selection, used for anything other than a plaintext label, e.g., a
+     *   label that includes a link or special styling, such as a gray color or additional
+     *   graphical elements.
+     * - Function: a function that will produce a string in the future. Functions are used
+     *   in cases where the value of the label is not currently defined.
+     *
+     * In addition, the LabelWidget can be associated with an {@link OO.ui.InputWidget input widget},
+     * which will come into focus when the label is clicked.
+     *
+     *     // Two LabelWidgets.
+     *     var label1 = new OO.ui.LabelWidget( {
+     *             label: 'plaintext label'
+     *         } ),
+     *         label2 = new OO.ui.LabelWidget( {
+     *             label: $( '<a>' ).attr( 'href', 'default.html' ).text( 'jQuery label' )
+     *         } ),
+     *         // Create a fieldset layout with fields for each example.
+     *         fieldset = new OO.ui.FieldsetLayout();
+     *     fieldset.addItems( [
+     *         new OO.ui.FieldLayout( label1 ),
+     *         new OO.ui.FieldLayout( label2 )
+     *     ] );
+     *     $( document.body ).append( fieldset.$element );
+     *
+     * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.LabelWidget
      */
-    interface MessageWidget extends MessageWidget.Props, MessageWidget.Prototype { }
+    interface LabelWidget extends LabelWidget.Props, LabelWidget.Prototype { }
 
-    namespace MessageWidget {
-        type Type = 'notice' | 'error' | 'warning' | 'success';
-
-        /**
-         * @see https://www.mediawiki.org/wiki/OOUI/Elements/Flagged#MessageWidget
-         */
-        type Flag = Type;
-
+    namespace LabelWidget {
         interface EventMap extends Widget.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap {
-            close: [];
-        }
+            mixin.LabelElement.EventMap { }
 
         interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
             mixin.LabelElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions {
+            mixin.TitledElement.ConfigOptions {
             /**
-             * The type of the notice widget. This will also
-             * impact the flags that the widget receives (and hence its CSS design) as well
-             * as the icon that appears. Available types:
-             * 'notice', 'error', 'warning', 'success'
+             * {@link OO.ui.InputWidget Input widget} that uses the label.
+             * Clicking the label will focus the specified input field.
              */
-            type?: Type;
-            /** Set the notice as an inline notice. The default is not inline, or 'boxed' style. */
-            inline?: boolean;
-            /** Show a close button. Can't be used with inline. */
-            showClose?: boolean;
-
-            flags?: LiteralUnion<Flag> | Array<LiteralUnion<Flag>>;
+            input?: InputWidget;
         }
 
         interface Static extends Widget.Static,
-            mixin.IconElement.Static,
             mixin.LabelElement.Static,
-            mixin.TitledElement.Static,
-            mixin.FlaggedElement.Static {
-            /** An object defining the icon name per defined type. */
-            iconMap: Record<string, Icon>;
-        }
+            mixin.TitledElement.Static { }
 
         interface Props extends Widget.Props,
-            mixin.IconElement.Props,
             mixin.LabelElement.Props,
-            mixin.TitledElement.Props,
-            mixin.FlaggedElement.Props { }
+            mixin.TitledElement.Props { }
 
         interface Prototype extends Widget.Prototype,
-            mixin.IconElement.Prototype,
             mixin.LabelElement.Prototype,
-            mixin.TitledElement.Prototype,
-            mixin.FlaggedElement.Prototype {
-            /**
-             * Set the inline state of the widget.
-             *
-             * @param inline Widget is inline
-             */
-            setInline(inline: boolean): void;
-
-            /**
-             * Set the widget type. The given type must belong to the list of
-             * legal types set by OO.ui.MessageWidget.static.iconMap
-             *
-             * @param type
-             */
-            setType(type?: Type): void;
-
-            /**
-             * Handle click events on the close button
-             */
-            onCloseButtonClick(): void;
-
+            mixin.TitledElement.Prototype {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -137,7 +111,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MessageWidget;
+            new(config?: ConfigOptions): LabelWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;
@@ -146,5 +120,5 @@ declare namespace OO.ui {
         }
     }
 
-    const MessageWidget: MessageWidget.Constructor;
+    const LabelWidget: LabelWidget.Constructor;
 }
