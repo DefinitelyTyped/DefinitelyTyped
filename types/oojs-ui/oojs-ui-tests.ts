@@ -3489,6 +3489,226 @@
 }
 // #endregion
 
+// #region OO.ui.Tool
+{
+    // $ExpectType Widget
+    new OO.ui.Tool.super();
+
+    // $ExpectType string
+    OO.ui.Tool.static.name;
+
+    // $ExpectType string
+    OO.ui.Tool.static.group;
+
+    // $ExpectType Deferrable<string>
+    OO.ui.Tool.static.title;
+
+    // $ExpectType boolean
+    OO.ui.Tool.static.displayBothIconAndLabel;
+
+    // $ExpectType boolean
+    OO.ui.Tool.static.autoAddToCatchall;
+
+    // $ExpectType boolean
+    OO.ui.Tool.static.autoAddToGroup;
+
+    // $ExpectType boolean
+    OO.ui.Tool.static.isCompatibleWith('123');
+
+    {
+        const narrowConfig = OO.ui.Tool.static.narrowConfig;
+
+        if (narrowConfig !== null) {
+            // $ExpectType boolean
+            narrowConfig.displayBothIconAndLabel;
+
+            // $ExpectType Deferrable<string>
+            narrowConfig.title;
+
+            // $ExpectType string | Record<string, string> | null
+            narrowConfig.icon;
+        }
+    }
+
+    const instance = new OO.ui.Tool(new OO.ui.ToolGroup(new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory())), {
+        title: () => 'title',
+        displayBothIconAndLabel: false
+    });
+
+    instance.onUpdateState(); // $ExpectType void
+
+    instance.onSelect(); // $ExpectType void
+
+    instance.isActive(); // $ExpectType boolean
+
+    instance.setActive(true); // $ExpectType void
+
+    instance.setTitle('title1'); // $ExpectType Tool
+
+    instance.setDisplayBothIconAndLabel(true); // $ExpectType Tool
+
+    instance.getTitle(); // $ExpectType string
+
+    instance.getName(); // $ExpectType string
+
+    instance.onToolbarResize(); // $ExpectType void
+
+    instance.updateTitle(); // $ExpectType void
+
+    instance.destroy();
+
+    instance.on('flag', (changes) => {
+        changes; // $ExpectType Record<string, boolean>
+    });
+}
+// #endregion
+
+// #region OO.ui.Toolbar
+{
+    // $ExpectType Element
+    new OO.ui.Toolbar.super();
+
+    const instance = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory(), {
+        position: 'top',
+        $overlay: OO.ui.getDefaultOverlay()
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$bar;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$after;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$actions;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$popups;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$overlay;
+
+    instance.getToolFactory(); // $ExpectType ToolFactory
+
+    instance.getToolGroupFactory(); // $ExpectType Factory
+
+    instance.insertItemElements(new OO.ui.Element(), 1); // $ExpectType void
+
+    instance.initialize(); // $ExpectType void
+
+    instance.setup([{
+        name: 'group1',
+        type: 'bar',
+        include: { name: 'tool-name' }
+    }]);
+
+    instance.onToolGroupActive(true); // $ExpectType void
+
+    instance.getToolGroupByName('group1'); // $ExpectType ToolGroup | null
+
+    instance.reset(); // $ExpectType void
+
+    instance.destroy(); // $ExpectType void
+
+    instance.isToolAvailable('unavailable'); // $ExpectType boolean
+
+    instance.reserveTool(new OO.ui.Tool(new OO.ui.ToolGroup(instance))); // $ExpectType void
+
+    instance.releaseTool(new OO.ui.Tool(new OO.ui.ToolGroup(instance))); // $ExpectType void
+
+    instance.getToolAccelerator('tool1'); // $ExpectType string | undefined
+
+    instance.isNarrow(); // $ExpectType boolean
+
+    instance.setNarrow(true); // $ExpectType void
+
+    instance.on('updateState', (data) => {
+        data; // $ExpectType unknown
+    }).on('active', (hasActive) => {
+        hasActive; // $ExpectType boolean
+    }).off('resize', () => { });
+
+    // @ts-expect-error
+    OO.ui.Toolbar.prototype.$bar;
+
+    // @ts-expect-error
+    OO.ui.Toolbar.prototype.$after;
+
+    // @ts-expect-error
+    OO.ui.Toolbar.prototype.$actions;
+
+    // @ts-expect-error
+    OO.ui.Toolbar.prototype.$popups;
+
+    // @ts-expect-error
+    OO.ui.Toolbar.prototype.$overlay;
+}
+// #endregion
+
+// #region OO.ui.ToolFactory
+{
+    // $ExpectType Factory
+    new OO.ui.ToolFactory.super();
+
+    const instance = new OO.ui.ToolFactory();
+
+    // $ExpectType string[]
+    instance.getTools('*', ['tool1'], ['tool1', { name: 'tool-name' }, { group: 'group-name' }], { group: 'group-name' });
+}
+// #endregion
+
+// #region OO.ui.ToolGroup
+{
+    // $ExpectType Widget
+    new OO.ui.ToolGroup.super();
+
+    // $ExpectType boolean
+    OO.ui.ToolGroup.static.titleTooltips;
+
+    // $ExpectType boolean
+    OO.ui.ToolGroup.static.accelTooltips;
+
+    // $ExpectType boolean
+    OO.ui.ToolGroup.static.autoDisable;
+
+    // $ExpectType string
+    OO.ui.ToolGroup.static.name;
+
+    const toolBar = new OO.ui.Toolbar(new OO.ui.ToolFactory(),
+        new OO.ui.ToolGroupFactory());
+
+    const instance = new OO.ui.ToolGroup(toolBar, {
+        include: '*',
+        exclude: { name: 'excluded' },
+        promote: { group: 'group-name' },
+        demote: [{ name: 'excluded' }, { group: 'group-name' }]
+    });
+
+    instance.getToolbar(); // $ExpectType Toolbar
+
+    instance.populate(); // $ExpectType void
+
+    instance.destroy(); // $ExpectType void
+
+    instance.on('update', () => {
+    }).once('active', (visible) => {
+        visible; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.ToolGroupFactory
+{
+    // $ExpectType Factory
+    new OO.ui.ToolGroupFactory.super();
+
+    // $ExpectType (new (...args: any[]) => any)[]
+    OO.ui.ToolGroupFactory.static.getDefaultClasses();
+
+    const instance = new OO.ui.ToolGroupFactory();
+}
+// #endregion
+
 // #region OO.ui.Widget
 {
     const instance = new OO.ui.Widget({
