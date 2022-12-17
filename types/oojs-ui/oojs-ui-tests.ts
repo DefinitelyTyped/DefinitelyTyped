@@ -1099,6 +1099,48 @@
 }
 // #endregion
 
+// #region OO.ui.CheckboxInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.CheckboxInputWidget.super();
+
+    const instance = new OO.ui.CheckboxInputWidget({
+        value: 'a',
+        selected: true
+    });
+    const instance1 = new OO.ui.CheckboxInputWidget({
+        value: 'b'
+    });
+    const instance2 = new OO.ui.CheckboxInputWidget({
+        value: 'c',
+        disabled: true
+    });
+    const fieldset = new OO.ui.FieldsetLayout({
+        label: 'Checkboxes'
+    });
+    fieldset.addItems([
+        new OO.ui.FieldLayout(instance, { label: 'Selected checkbox', align: 'inline' }),
+        new OO.ui.FieldLayout(instance1, { label: 'Unselected checkbox', align: 'inline' }),
+        new OO.ui.FieldLayout(instance2, { label: 'Disabled checkbox', align: 'inline' }),
+    ]);
+
+    // $ExpectType CheckboxInputWidget
+    instance.setSelected(true);
+
+    instance.isSelected(); // $ExpectType boolean
+
+    // $ExpectType CheckboxInputWidget
+    instance.setIndeterminate(true);
+
+    instance.isIndeterminate(); // $ExpectType boolean
+
+    instance.on('change', (selected, indeterminate) => {
+        selected; // $ExpectType string | boolean
+        indeterminate; // $ExpectType boolean | undefined
+    });
+}
+// #endregion
+
 // #region OO.ui.CheckboxMultioptionWidget
 {
     // $ExpectType MultioptionWidget
@@ -1107,6 +1149,31 @@
     const instance = new OO.ui.CheckboxMultioptionWidget();
 
     instance.focus(); // $ExpectType void
+}
+// #endregion
+
+// #region OO.ui.CheckboxMultiselectInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.CheckboxMultiselectInputWidget.super();
+
+    const instance = new OO.ui.CheckboxMultiselectInputWidget({
+        options: [
+            { data: 'a', label: 'First' },
+            { data: 'b', label: 'Second' },
+            { data: 'c', label: 'Third' }
+        ]
+    });
+
+    // $ExpectType string[]
+    instance.cleanUpValue(['']);
+
+    // $ExpectType CheckboxMultiselectInputWidget
+    instance.setOptions([
+        { data: 'a', label: 'First' },
+        { data: 'b', label: 'Second' },
+        { data: 'c', label: 'Third' }
+    ]);
 }
 // #endregion
 
@@ -1138,6 +1205,49 @@
     instance.onClick($.Event('click')); // $ExpectType void
 
     instance.focus(); // $ExpectType CheckboxMultiselectWidget
+}
+// #endregion
+
+// #region OO.ui.ComboBoxInputWidget
+{
+    // $ExpectType TextInputWidget
+    new OO.ui.ComboBoxInputWidget.super();
+
+    const instance = new OO.ui.ComboBoxInputWidget({
+        value: 'Option 1',
+        options: [
+            { data: 'Option 1' },
+            { data: 'Option 2' },
+            { data: 'Option 3' }
+        ],
+        menu: {
+            classes: ['class1']
+        },
+        $overlay: OO.ui.getDefaultOverlay()
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$overlay;
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$field;
+
+    instance.getMenu(); // $ExpectType MenuSelectWidget
+
+    instance.getInput(); // $ExpectType TextInputWidget
+
+    // $ExpectType ComboBoxInputWidget
+    instance.setOptions([
+        { data: 'Option 1' },
+        { data: 'Option 2' },
+        { data: 'Option 3' }
+    ]);
+
+    // @ts-expect-error
+    OO.ui.ComboBoxInputWidget.prototype.$overlay;
+
+    // @ts-expect-error
+    OO.ui.ComboBoxInputWidget.prototype.$field;
 }
 // #endregion
 
@@ -1218,6 +1328,32 @@
     instance.executeAction('continue').then(() => { }, (err) => {
         err; // $ExpectType [] | [Error]
     });
+}
+// #endregion
+
+// #region OO.ui.DropdownInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.DropdownInputWidget.super();
+
+    const instance = new OO.ui.DropdownInputWidget({
+        options: [
+            { data: 'a', label: 'First' },
+            { data: 'b', label: 'Second', disabled: true },
+            { optgroup: 'Group label' },
+            { data: 'c', label: 'First sub-item' }
+        ],
+        dropdown: {
+            icon: 'add'
+        },
+        $overlay: OO.ui.getDefaultOverlay()
+    });
+
+    // $ExpectType DropdownInputWidget
+    instance.setOptions([
+        { optgroup: 'Group label' },
+        { data: 'a', label: 'First' }
+    ]);
 }
 // #endregion
 
@@ -2079,6 +2215,30 @@
 }
 // #endregion
 
+// #region OO.ui.MultilineTextInputWidget
+{
+    // $ExpectType TextInputWidget
+    new OO.ui.MultilineTextInputWidget.super();
+
+    const instance = new OO.ui.MultilineTextInputWidget({
+        value: 'Text input on multiple lines',
+        rows: 2,
+        autosize: false,
+        maxRows: 10
+    });
+
+    // $ExpectType MultilineTextInputWidget
+    instance.adjustSize();
+
+    // $ExpectType MultilineTextInputWidget
+    instance.adjustSize(true);
+
+    instance.isAutosizing(); // $ExpectType boolean
+
+    instance.on('resize', () => { });
+}
+// #endregion
+
 // #region OO.ui.MultioptionWidget
 {
     // $ExpectType Widget
@@ -2125,6 +2285,46 @@
     instance.clearSelection(); // $ExpectType MultiselectWidget
 
     instance.on('select', () => { });
+}
+// #endregion
+
+// #region OO.ui.NumberInputWidget
+{
+    // $ExpectType TextInputWidget
+    new OO.ui.NumberInputWidget.super();
+
+    const instance = new OO.ui.NumberInputWidget({
+        label: 'NumberInputWidget',
+        input: { value: '5' },
+        min: 1,
+        max: 10,
+    });
+
+    instance.setAllowInteger(true); // $ExpectType void
+
+    instance.setIsInteger(true); // $ExpectType void
+
+    instance.getAllowInteger(); // $ExpectType boolean
+
+    instance.getIsInteger(); // $ExpectType boolean
+
+    instance.setRange(1, 1000); // $ExpectType void
+
+    instance.getRange(); // $ExpectType [number, number]
+
+    instance.setStep(); // $ExpectType void
+
+    instance.setStep(1, 10); // $ExpectType void
+
+    instance.setStep(1, 10, null); // $ExpectType void
+
+    instance.setStep(2, 20, 2); // $ExpectType void
+
+    instance.getStep(); // $ExpectType [number, number, number]
+
+    instance.getNumericValue(); // $ExpectType number
+
+    instance.adjustValue(1); // $ExpectType void
 }
 // #endregion
 
@@ -2524,6 +2724,81 @@
     new OO.ui.ProcessDialog.super();
 
     const instance = new OO.ui.ProcessDialog();
+}
+// #endregion
+
+// #region OO.ui.RadioInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.RadioInputWidget.super();
+
+    const instance = new OO.ui.RadioInputWidget({
+        value: 'a',
+        selected: true,
+        disabled: true
+    });
+
+    // $ExpectType RadioInputWidget
+    instance.setSelected(false);
+
+    // $ExpectType boolean
+    instance.isSelected();
+}
+// #endregion
+
+// #region OO.ui.RadioSelectInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.RadioSelectInputWidget.super();
+
+    const instance = new OO.ui.RadioSelectInputWidget({
+        options: [
+            { data: 'a', label: 'First' },
+            { data: 'b', label: 'Second' },
+            { data: 'c', label: 'Third' }
+        ]
+    });
+
+    // $ExpectType RadioSelectInputWidget
+    instance.setOptions([
+        { data: 'a', label: 'First' },
+        { data: 'b', label: 'Second' },
+        { data: 'c', label: 'Third' }
+    ]);
+}
+// #endregion
+
+// #region OO.ui.SearchInputWidget
+{
+    // $ExpectType TextInputWidget
+    new OO.ui.SearchInputWidget.super();
+
+    const instance = new OO.ui.SearchInputWidget();
+
+    instance.onIndicatorKeyDown($.Event('keydown')); // $ExpectType boolean
+
+    instance.onIndicatorClick($.Event('click')); // $ExpectType boolean
+
+    instance.updateSearchIndicator(); // $ExpectType void
+}
+// #endregion
+
+// #region OO.ui.SelectFileInputWidget
+{
+    // $ExpectType InputWidget
+    new OO.ui.SelectFileInputWidget.super();
+
+    const instance = new OO.ui.SelectFileInputWidget({
+        accept: ['text/html'],
+        multiple: true,
+        placeholder: 'Select a file',
+        button: {
+            label: 'Upload!'
+        },
+        icon: 'upload'
+    });
+
+    instance.getFilename(); // $ExpectType string
 }
 // #endregion
 

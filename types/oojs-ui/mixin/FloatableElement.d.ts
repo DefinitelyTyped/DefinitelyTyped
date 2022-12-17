@@ -16,6 +16,10 @@ declare namespace OO.ui.mixin {
     interface FloatableElement extends FloatableElement.Props, FloatableElement.Prototype { }
 
     namespace FloatableElement {
+        type VerticalPosition = 'below' | 'above' | 'top' | 'bottom' | 'center';
+
+        type HorizontalPosition = 'before' | 'after' | 'start' | 'end' | 'center';
+
         interface ConfigOptions {
             /**
              * Node to position, assigned to {@link Props.$floatable $floatable}, omit to use

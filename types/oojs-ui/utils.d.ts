@@ -5,10 +5,6 @@ declare namespace OO.ui {
 
     type Direction = 'ltr' | 'rtl';
 
-    type VerticalPosition = 'below' | 'above' | 'top' | 'bottom' | 'center';
-
-    type HorizontalPosition = 'before' | 'after' | 'start' | 'end' | 'center';
-
     type LiteralUnion<T extends string> = T | (string & {});
 
     interface DeprecatedPromise<
