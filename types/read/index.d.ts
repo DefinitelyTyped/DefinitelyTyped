@@ -1,10 +1,10 @@
-// Type definitions for read
+// Type definitions for read 2.0
 // Project: https://github.com/isaacs/read
 // Definitions by: Tim JK <https://github.com/timjk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare function Read(options: Read.Options, callback: (error: any, result: string, isDefault: boolean) => any): void;
+declare function Read(options: Read.Options): Promise<string>;
 
 declare namespace Read {
     interface Options {

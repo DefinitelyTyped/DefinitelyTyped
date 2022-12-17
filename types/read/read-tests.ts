@@ -1,4 +1,3 @@
-
 import read = require('read');
 
 var opts: read.Options;
@@ -10,8 +9,8 @@ opts = {
     default: 'nothing',
     edit: false,
     terminal: true,
-    input: {x: 'thing'},
-    output: {y: 'thang'}
+    input: { x: 'thing' },
+    output: { y: 'thang' },
 };
 
-read(opts, function (error, result, isDefault) { });
+const value = read(opts).then(value => value.replace('!', ''));
