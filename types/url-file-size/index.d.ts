@@ -3,7 +3,9 @@
 // Definitions by: Shehab Ali Tweel <https://github.com/shahoob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference lib="DOM" />
+/// <reference types="node" />
+
+import { Url } from 'url';
 
 /**
  * Get file size from URL (in bytes) without downloading it.
