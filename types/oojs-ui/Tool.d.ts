@@ -120,7 +120,7 @@ declare namespace OO.ui {
              *
              * Supports `displayBothIconAndLabel`, `title` and `icon` properties.
              */
-            narrowConfig: Pick<this, `displayBothIconAndLabel` | `title` | `icon`> | null;
+            narrowConfig: Partial<Pick<this, `displayBothIconAndLabel` | `title` | `icon`>> | null;
         }
 
         interface Props extends Widget.Props,

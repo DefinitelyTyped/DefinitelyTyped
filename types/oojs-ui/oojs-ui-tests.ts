@@ -1,6 +1,8 @@
 /* tslint:disable:object-literal-key-quotes only-arrow-functions space-before-function-paren */
 // #region OO.ui
 {
+    OO.ui.theme; // $ExpectType Theme
+
     {
         OO.ui.Keys.UNDEFINED; // $ExpectType Keys.UNDEFINED
         OO.ui.Keys.BACKSPACE; // $ExpectType Keys.BACKSPACE
@@ -877,6 +879,35 @@
 
     // $ExpectType string[]
     instance.getModes();
+}
+// #endregion
+
+// #region OO.ui.ApexTheme
+{
+    // $ExpectType Theme
+    new OO.ui.ApexTheme.super();
+
+    const instance = new OO.ui.ApexTheme();
+}
+// #endregion
+
+// #region OO.ui.BarToolGroup
+{
+    const toolbar = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory());
+
+    // $ExpectType ToolGroup
+    new OO.ui.BarToolGroup.super(toolbar);
+
+    const instance = new OO.ui.BarToolGroup(toolbar);
+}
+// #endregion
+
+// #region OO.ui.BlankTheme
+{
+    // $ExpectType Theme
+    new OO.ui.BlankTheme.super();
+
+    const instance = new OO.ui.BlankTheme();
 }
 // #endregion
 
@@ -2053,6 +2084,22 @@
 }
 // #endregion
 
+// #region OO.ui.ListToolGroup
+{
+    const toolbar = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory());
+
+    const instance = new OO.ui.ListToolGroup(toolbar, {
+        allowCollapse: ['1', '2', '3'],
+        forceExpand: ['1', '2'],
+        expanded: false
+    });
+
+    instance.getExpandCollapseTool(); // $ExpectType Tool
+
+    instance.updateCollapsibleState(); // $ExpectType void
+}
+// #endregion
+
 // #region OO.ui.MenuLayout
 {
     // $ExpectType Layout
@@ -2199,6 +2246,17 @@
 
     // @ts-expect-error
     OO.ui.MenuSelectWidget.prototype.$autoCloseIgnore;
+}
+// #endregion
+
+// #region OO.ui.MenuToolGroup
+{
+    const toolbar = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory());
+
+    // $ExpectType PopupToolGroup
+    new OO.ui.MenuToolGroup.super(toolbar);
+
+    const instance = new OO.ui.MenuToolGroup(toolbar);
 }
 // #endregion
 
@@ -2579,6 +2637,67 @@
             align: 'force-left'
         }
     });
+}
+// #endregion
+
+// #region OO.ui.PopupTool
+{
+    const toolGroup = new OO.ui.ToolGroup(new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory()));
+
+    // $ExpectType Tool
+    new OO.ui.PopupTool.super(toolGroup);
+
+    const instance = new OO.ui.PopupTool(toolGroup);
+
+    // $ExpectType void
+    instance.onPopupToggle(true);
+}
+// #endregion
+
+// #region OO.ui.PopupToolGroup
+{
+    const toolbar = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory());
+
+    // $ExpectType ToolGroup
+    new OO.ui.PopupToolGroup.super(toolbar);
+
+    {
+        const narrowConfig = OO.ui.PopupToolGroup.static.narrowConfig;
+
+        if (narrowConfig !== null) {
+            // $ExpectType Icon | Record<string, Icon> | undefined
+            narrowConfig.icon;
+
+            // $ExpectType boolean | undefined
+            narrowConfig.invisibleLabel;
+
+            // $ExpectType JQuery<HTMLElement> | Deferrable<string> | HtmlSnippet | undefined
+            narrowConfig.label;
+        }
+    }
+
+    const instance = new OO.ui.PopupToolGroup(toolbar, {
+        header: 'header',
+        narrowConfig: {
+            invisibleLabel: false,
+            label: 'narrowed label',
+            icon: 'alert'
+        }
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$handle;
+
+    instance.onToolbarResize(); // $ExpectType void
+
+    instance.isActive(); // $ExpectType boolean
+
+    instance.setActive(true); // $ExpectType void
+
+    instance.on('labelChange', () => { });
+
+    // @ts-expect-error
+    OO.ui.PopupToolGroup.prototype.$handle;
 }
 // #endregion
 
@@ -3426,6 +3545,26 @@
 }
 // #endregion
 
+// #region OO.ui.Theme
+{
+    const instance = new OO.ui.Theme();
+
+    {
+        const result = instance.getElementClasses(new OO.ui.Element());
+
+        result.on; // $ExpectType string[]
+
+        result.off; // $ExpectType string[]
+    }
+
+    instance.updateElementClasses(new OO.ui.Element()); // $ExpectType void
+
+    instance.queueUpdateElementClasses(new OO.ui.Element()); // $ExpectType void
+
+    instance.getDialogTransitionDuration(); // $ExpectType number
+}
+// #endregion
+
 // #region OO.ui.ToggleButtonWidget
 {
     // $ExpectType ToggleWidget
@@ -3519,13 +3658,13 @@
         const narrowConfig = OO.ui.Tool.static.narrowConfig;
 
         if (narrowConfig !== null) {
-            // $ExpectType boolean
+            // $ExpectType boolean | undefined
             narrowConfig.displayBothIconAndLabel;
 
-            // $ExpectType Deferrable<string>
+            // $ExpectType Deferrable<string> | undefined
             narrowConfig.title;
 
-            // $ExpectType string | Record<string, string> | null
+            // $ExpectType string | Record<string, string> | null | undefined
             narrowConfig.icon;
         }
     }
@@ -3709,6 +3848,24 @@
 }
 // #endregion
 
+// #region OO.ui.ToolGroupTool
+{
+    const toolGroup = new OO.ui.ToolGroup(new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory()));
+
+    // $ExpectType ConfigOptions
+    OO.ui.ToolGroupTool.static.groupConfig;
+
+    const instance = new OO.ui.ToolGroupTool(toolGroup);
+
+    // $ExpectType ListToolGroup
+    instance.createGroup({
+        label: 'label',
+        icon: 'settings',
+        include: ['setting1', 'setting2']
+    });
+}
+// #endregion
+
 // #region OO.ui.Widget
 {
     const instance = new OO.ui.Widget({
@@ -3753,6 +3910,15 @@
     instance.on('toggle', function (visible) {
         visible; // $ExpectType boolean
     });
+}
+// #endregion
+
+// #region OO.ui.WikimediaUITheme
+{
+    // $ExpectType Theme
+    new OO.ui.WikimediaUITheme.super();
+
+    const instance = new OO.ui.WikimediaUITheme();
 }
 // #endregion
 

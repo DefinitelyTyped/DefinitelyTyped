@@ -5,6 +5,8 @@ declare namespace OO {
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui
      */
     namespace ui {
+        let theme: Theme;
+
         enum Keys {
             UNDEFINED = 0,
             BACKSPACE = 8,
