@@ -268,7 +268,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Toolbar
      */
-    interface Toolbar extends Toolbar.Props, Toolbar.Prototype { }
+    interface Toolbar extends Toolbar.Props, Toolbar.Prototype {}
 
     namespace Toolbar {
         interface ToolGroupSetupMap extends ToolGroup.ConfigOptions {
@@ -288,8 +288,7 @@ declare namespace OO.ui {
             resize: [];
         }
 
-        interface ConfigOptions extends Element.ConfigOptions,
-            mixin.GroupElement.ConfigOptions {
+        interface ConfigOptions extends Element.ConfigOptions, mixin.GroupElement.ConfigOptions {
             /**
              * Add an actions section to the toolbar. Actions are commands that are
              * included in the toolbar, but are not configured as tools. By default, actions are
@@ -311,8 +310,7 @@ declare namespace OO.ui {
 
         type Static = Element.Static;
 
-        interface Props extends Element.Props,
-            mixin.GroupElement.Props {
+        interface Props extends Element.Props, mixin.GroupElement.Props {
             $bar: JQuery;
             $after: JQuery;
             $actions: JQuery;
@@ -449,10 +447,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -493,7 +488,7 @@ declare namespace OO.ui {
              * @param toolGroupFactory Factory for creating toolgroups
              * @param config Configuration options
              */
-            new(toolFactory: ToolFactory, toolGroupFactory: ToolGroupFactory, config?: ConfigOptions): Toolbar;
+            new (toolFactory: ToolFactory, toolGroupFactory: ToolGroupFactory, config?: ConfigOptions): Toolbar;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

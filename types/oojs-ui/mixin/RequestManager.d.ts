@@ -27,7 +27,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): RequestManager;
+            new (config?: ConfigOptions): RequestManager;
             prototype: RequestManager;
             static: {};
         }

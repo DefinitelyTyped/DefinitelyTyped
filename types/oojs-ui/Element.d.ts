@@ -6,7 +6,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Element
      */
-    interface Element extends Element.Props, Element.Prototype { }
+    interface Element extends Element.Props, Element.Prototype {}
 
     namespace Element {
         type ScrollDirection = 'x' | 'y';
@@ -412,7 +412,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): Element;
+            new (config?: ConfigOptions): Element;
             prototype: Prototype;
             static: Static;
         }

@@ -27,11 +27,10 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupTool
      */
-    interface PopupTool extends PopupTool.Props, PopupTool.Prototype { }
+    interface PopupTool extends PopupTool.Props, PopupTool.Prototype {}
 
     namespace PopupTool {
-        interface ConfigOptions extends Tool.ConfigOptions,
-            mixin.PopupElement.ConfigOptions { }
+        interface ConfigOptions extends Tool.ConfigOptions, mixin.PopupElement.ConfigOptions {}
 
         type Static = Tool.Static;
 
@@ -51,7 +50,7 @@ declare namespace OO.ui {
              * @param toolGroup
              * @param config Configuration options
              */
-            new(toolGroup: ToolGroup, config?: ConfigOptions): PopupTool;
+            new (toolGroup: ToolGroup, config?: ConfigOptions): PopupTool;
             prototype: Prototype;
             static: Static;
             super: Tool.Constructor;

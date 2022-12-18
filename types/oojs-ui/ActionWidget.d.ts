@@ -10,7 +10,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ActionWidget
      */
-    interface ActionWidget extends ActionWidget.Props, ActionWidget.Prototype { }
+    interface ActionWidget extends ActionWidget.Props, ActionWidget.Prototype {}
 
     namespace ActionWidget {
         /**
@@ -37,7 +37,7 @@ declare namespace OO.ui {
 
         type Static = ButtonWidget.Static;
 
-        interface Props extends ButtonWidget.Props, mixin.PendingElement.Props { }
+        interface Props extends ButtonWidget.Props, mixin.PendingElement.Props {}
 
         interface Prototype extends ButtonWidget.Prototype, mixin.PendingElement.Prototype {
             /**
@@ -71,7 +71,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ActionWidget;
+            new (config?: ConfigOptions): ActionWidget;
             prototype: Prototype;
             static: Static;
             super: ButtonWidget.Constructor;

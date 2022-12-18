@@ -14,7 +14,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.TitledElement
      */
-    interface TitledElement extends TitledElement.Props, TitledElement.Prototype { }
+    interface TitledElement extends TitledElement.Props, TitledElement.Prototype {}
 
     namespace TitledElement {
         interface ConfigOptions {
@@ -81,7 +81,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): TitledElement;
+            new (config?: ConfigOptions): TitledElement;
             prototype: Prototype;
             static: Static;
         }

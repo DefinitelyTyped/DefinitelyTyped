@@ -31,7 +31,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.TabIndexedElement
      */
-    interface TabIndexedElement extends TabIndexedElement.Props, TabIndexedElement.Prototype { }
+    interface TabIndexedElement extends TabIndexedElement.Props, TabIndexedElement.Prototype {}
 
     namespace TabIndexedElement {
         interface ConfigOptions {
@@ -110,7 +110,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): TabIndexedElement;
+            new (config?: ConfigOptions): TabIndexedElement;
             prototype: Prototype;
             static: {};
         }

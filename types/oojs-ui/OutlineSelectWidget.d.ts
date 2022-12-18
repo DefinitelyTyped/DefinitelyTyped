@@ -9,22 +9,20 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.OutlineSelectWidget
      */
-    interface OutlineSelectWidget extends OutlineSelectWidget.Props, OutlineSelectWidget.Prototype { }
+    interface OutlineSelectWidget extends OutlineSelectWidget.Props, OutlineSelectWidget.Prototype {}
 
     namespace OutlineSelectWidget {
-        interface ConfigOptions extends SelectWidget.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions {
-        }
+        interface ConfigOptions extends SelectWidget.ConfigOptions, mixin.TabIndexedElement.ConfigOptions {}
 
         type Static = SelectWidget.Static;
 
-        interface Props extends SelectWidget.Props, mixin.TabIndexedElement.Props { }
+        interface Props extends SelectWidget.Props, mixin.TabIndexedElement.Props {}
 
-        interface Prototype extends SelectWidget.Prototype, mixin.TabIndexedElement.Prototype { }
+        interface Prototype extends SelectWidget.Prototype, mixin.TabIndexedElement.Prototype {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): OutlineSelectWidget;
+            new (config?: ConfigOptions): OutlineSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

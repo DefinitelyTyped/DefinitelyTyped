@@ -17,17 +17,25 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonWidget
      */
-    interface ButtonWidget extends ButtonWidget.Props, ButtonWidget.Prototype { }
+    interface ButtonWidget extends ButtonWidget.Props, ButtonWidget.Prototype {}
 
     namespace ButtonWidget {
-        interface EventMap extends Widget.EventMap, mixin.ButtonElement.EventMap,
-            mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap { }
+        interface EventMap
+            extends Widget.EventMap,
+                mixin.ButtonElement.EventMap,
+                mixin.LabelElement.EventMap,
+                mixin.FlaggedElement.EventMap {}
 
-        interface ConfigOptions extends Widget.ConfigOptions, mixin.ButtonElement.ConfigOptions,
-            mixin.IconElement.ConfigOptions, mixin.IndicatorElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions, mixin.TitledElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions, mixin.TabIndexedElement.ConfigOptions,
-            mixin.AccessKeyedElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.ButtonElement.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.TabIndexedElement.ConfigOptions,
+                mixin.AccessKeyedElement.ConfigOptions {
             /** Whether button should be shown as active */
             active?: boolean;
             /** Hyperlink to visit when the button is clicked. */
@@ -42,21 +50,37 @@ declare namespace OO.ui {
             flags?: LiteralUnion<mixin.ButtonElement.Flag> | Array<LiteralUnion<mixin.ButtonElement.Flag>>;
         }
 
-        interface Static extends Widget.Static, mixin.ButtonElement.Static,
-            mixin.IconElement.Static, mixin.IndicatorElement.Static, mixin.LabelElement.Static,
-            mixin.TitledElement.Static, mixin.FlaggedElement.Static, mixin.AccessKeyedElement.Static { }
+        interface Static
+            extends Widget.Static,
+                mixin.ButtonElement.Static,
+                mixin.IconElement.Static,
+                mixin.IndicatorElement.Static,
+                mixin.LabelElement.Static,
+                mixin.TitledElement.Static,
+                mixin.FlaggedElement.Static,
+                mixin.AccessKeyedElement.Static {}
 
-        interface Props extends Widget.Props, mixin.ButtonElement.Props,
-            mixin.IconElement.Props, mixin.IndicatorElement.Props,
-            mixin.LabelElement.Props, mixin.TitledElement.Props,
-            mixin.FlaggedElement.Props, mixin.TabIndexedElement.Props,
-            mixin.AccessKeyedElement.Props { }
+        interface Props
+            extends Widget.Props,
+                mixin.ButtonElement.Props,
+                mixin.IconElement.Props,
+                mixin.IndicatorElement.Props,
+                mixin.LabelElement.Props,
+                mixin.TitledElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.TabIndexedElement.Props,
+                mixin.AccessKeyedElement.Props {}
 
-        interface Prototype extends Widget.Prototype, mixin.ButtonElement.Prototype,
-            mixin.IconElement.Prototype, mixin.IndicatorElement.Prototype,
-            mixin.LabelElement.Prototype, mixin.TitledElement.Prototype,
-            mixin.FlaggedElement.Prototype, mixin.TabIndexedElement.Prototype,
-            mixin.AccessKeyedElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.ButtonElement.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.TitledElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.TabIndexedElement.Prototype,
+                mixin.AccessKeyedElement.Prototype {
             /**
              * Get hyperlink location.
              *
@@ -131,10 +155,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -171,7 +192,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ButtonWidget;
+            new (config?: ConfigOptions): ButtonWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

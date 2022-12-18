@@ -18,7 +18,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.TextInputWidget
      */
-    interface TextInputWidget extends TextInputWidget.Props, TextInputWidget.Prototype { }
+    interface TextInputWidget extends TextInputWidget.Props, TextInputWidget.Prototype {}
 
     namespace TextInputWidget {
         interface Range {
@@ -31,19 +31,18 @@ declare namespace OO.ui {
          */
         type Flag = 'invalid';
 
-        interface EventMap extends InputWidget.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap {
+        interface EventMap extends InputWidget.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {
             enter: [];
         }
 
-        interface ConfigOptions extends InputWidget.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions,
-            mixin.PendingElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions,
-            mixin.RequiredElement.ConfigOptions {
+        interface ConfigOptions
+            extends InputWidget.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions,
+                mixin.PendingElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.RequiredElement.ConfigOptions {
             /**
              * The value of the HTML `type` attribute: 'text', 'password' 'email', 'url' or 'number'.
              * Subclasses might support other types.
@@ -102,29 +101,32 @@ declare namespace OO.ui {
             flags?: LiteralUnion<Flag> | Array<LiteralUnion<Flag>>;
         }
 
-        interface Static extends InputWidget.Static,
-            mixin.IconElement.Static,
-            mixin.IndicatorElement.Static,
-            mixin.LabelElement.Static,
-            mixin.FlaggedElement.Static {
+        interface Static
+            extends InputWidget.Static,
+                mixin.IconElement.Static,
+                mixin.IndicatorElement.Static,
+                mixin.LabelElement.Static,
+                mixin.FlaggedElement.Static {
             validationPatterns: Record<string, RegExp>;
         }
 
-        interface Props extends InputWidget.Props,
-            mixin.IconElement.Props,
-            mixin.IndicatorElement.Props,
-            mixin.PendingElement.Props,
-            mixin.LabelElement.Props,
-            mixin.FlaggedElement.Props,
-            mixin.RequiredElement.Props { }
+        interface Props
+            extends InputWidget.Props,
+                mixin.IconElement.Props,
+                mixin.IndicatorElement.Props,
+                mixin.PendingElement.Props,
+                mixin.LabelElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.RequiredElement.Props {}
 
-        interface Prototype extends InputWidget.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.IndicatorElement.Prototype,
-            mixin.PendingElement.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.FlaggedElement.Prototype,
-            mixin.RequiredElement.Prototype {
+        interface Prototype
+            extends InputWidget.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype,
+                mixin.PendingElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.RequiredElement.Prototype {
             /**
              * Check if the input is {@link ConfigOptions.readOnly read-only}.
              *
@@ -221,7 +223,9 @@ declare namespace OO.ui {
              * @param validate Regular expression, function, or the symbolic name of a pattern
              *  (either ‘integer’ or ‘non-empty’) defined by the class.
              */
-            setValidation(validate: null | RegExp | string | ((value: string) => boolean | JQuery.Promise<boolean>)): void;
+            setValidation(
+                validate: null | RegExp | string | ((value: string) => boolean | JQuery.Promise<boolean>),
+            ): void;
 
             /**
              * Sets the 'invalid' flag appropriately.
@@ -274,10 +278,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -314,7 +315,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): TextInputWidget;
+            new (config?: ConfigOptions): TextInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

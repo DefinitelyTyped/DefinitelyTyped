@@ -7,7 +7,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.ButtonElement
      */
-    interface ButtonElement extends ButtonElement.Props, ButtonElement.Prototype { }
+    interface ButtonElement extends ButtonElement.Props, ButtonElement.Prototype {}
 
     namespace ButtonElement {
         /**
@@ -100,7 +100,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ButtonElement;
+            new (config?: ConfigOptions): ButtonElement;
             prototype: Prototype;
             static: Static;
         }

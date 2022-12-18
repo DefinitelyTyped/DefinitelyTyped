@@ -15,7 +15,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.ClippableElement
      */
-    interface ClippableElement extends ClippableElement.Props, ClippableElement.Prototype { }
+    interface ClippableElement extends ClippableElement.Props, ClippableElement.Prototype {}
 
     namespace ClippableElement {
         interface ConfigOptions {
@@ -162,7 +162,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ClippableElement;
+            new (config?: ConfigOptions): ClippableElement;
             prototype: Prototype;
             static: {};
         }

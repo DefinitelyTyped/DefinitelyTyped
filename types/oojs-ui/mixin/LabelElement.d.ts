@@ -7,7 +7,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.LabelElement
      */
-    interface LabelElement extends LabelElement.Props, LabelElement.Prototype { }
+    interface LabelElement extends LabelElement.Props, LabelElement.Prototype {}
 
     namespace LabelElement {
         interface EventMap {
@@ -53,7 +53,12 @@ declare namespace OO.ui.mixin {
              * @param combineMarks Pull combining marks into highlighted text
              * @return Text with the first match of the query sub-string wrapped in highlighted span
              */
-            highlightQuery(text: string, query: string, compare?: (x: string, y: string) => number, combineMarks?: boolean): JQuery;
+            highlightQuery(
+                text: string,
+                query: string,
+                compare?: (x: string, y: string) => number,
+                combineMarks?: boolean,
+            ): JQuery;
         }
 
         interface Props {
@@ -115,7 +120,12 @@ declare namespace OO.ui.mixin {
              * @param combineMarks Pull combining marks into highlighted text
              * @return The element, for chaining
              */
-            setHighlightedQuery(text: string, query: string, compare?: (x: string, y: string) => number, combineMarks?: boolean): this;
+            setHighlightedQuery(
+                text: string,
+                query: string,
+                compare?: (x: string, y: string) => number,
+                combineMarks?: boolean,
+            ): this;
 
             /**
              * Get the label's value as provided via {@link setLabel} or the "{@link ConfigOptions.label label}"
@@ -130,7 +140,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): LabelElement;
+            new (config?: ConfigOptions): LabelElement;
             prototype: Prototype;
             static: Static;
         }

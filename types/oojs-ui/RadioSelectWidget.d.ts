@@ -29,23 +29,20 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.RadioSelectWidget
      */
-    interface RadioSelectWidget extends RadioSelectWidget.Props, RadioSelectWidget.Prototype { }
+    interface RadioSelectWidget extends RadioSelectWidget.Props, RadioSelectWidget.Prototype {}
 
     namespace RadioSelectWidget {
-        interface ConfigOptions extends SelectWidget.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions { }
+        interface ConfigOptions extends SelectWidget.ConfigOptions, mixin.TabIndexedElement.ConfigOptions {}
 
         type Static = SelectWidget.Static;
 
-        interface Props extends SelectWidget.Props,
-            mixin.TabIndexedElement.Props { }
+        interface Props extends SelectWidget.Props, mixin.TabIndexedElement.Props {}
 
-        interface Prototype extends SelectWidget.Prototype,
-            mixin.TabIndexedElement.Prototype { }
+        interface Prototype extends SelectWidget.Prototype, mixin.TabIndexedElement.Prototype {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): RadioSelectWidget;
+            new (config?: ConfigOptions): RadioSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

@@ -36,7 +36,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Window
      */
-    interface Window extends Window.Props, Window.Prototype { }
+    interface Window extends Window.Props, Window.Prototype {}
 
     namespace Window {
         type Size = `small` | `medium` | `large` | `larger` | `full`;
@@ -439,7 +439,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): Window;
+            new (config?: ConfigOptions): Window;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

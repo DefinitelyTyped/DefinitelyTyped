@@ -33,7 +33,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.FlaggedElement
      */
-    interface FlaggedElement extends FlaggedElement.Props, FlaggedElement.Prototype { }
+    interface FlaggedElement extends FlaggedElement.Props, FlaggedElement.Prototype {}
 
     namespace FlaggedElement {
         interface EventMap {
@@ -113,7 +113,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): FlaggedElement;
+            new (config?: ConfigOptions): FlaggedElement;
             prototype: Prototype;
             static: Static;
         }

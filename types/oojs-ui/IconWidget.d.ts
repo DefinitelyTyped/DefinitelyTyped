@@ -18,36 +18,38 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.IconWidget
      */
-    interface IconWidget extends IconWidget.Props, IconWidget.Prototype { }
+    interface IconWidget extends IconWidget.Props, IconWidget.Prototype {}
 
     namespace IconWidget {
-        interface EventMap extends Widget.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap { }
+        interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {}
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions { }
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions {}
 
-        interface Static extends Widget.Static,
-            mixin.IconElement.Static,
-            mixin.TitledElement.Static,
-            mixin.LabelElement.Static,
-            mixin.FlaggedElement.Static { }
+        interface Static
+            extends Widget.Static,
+                mixin.IconElement.Static,
+                mixin.TitledElement.Static,
+                mixin.LabelElement.Static,
+                mixin.FlaggedElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.IconElement.Props,
-            mixin.TitledElement.Props,
-            mixin.LabelElement.Props,
-            mixin.FlaggedElement.Props { }
+        interface Props
+            extends Widget.Props,
+                mixin.IconElement.Props,
+                mixin.TitledElement.Props,
+                mixin.LabelElement.Props,
+                mixin.FlaggedElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.TitledElement.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.FlaggedElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.TitledElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.FlaggedElement.Prototype {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -62,10 +64,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -102,7 +101,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): IconWidget;
+            new (config?: ConfigOptions): IconWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

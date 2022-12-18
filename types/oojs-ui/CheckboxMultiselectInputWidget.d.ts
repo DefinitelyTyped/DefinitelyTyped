@@ -19,7 +19,9 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.CheckboxMultiselectInputWidget
      */
-    interface CheckboxMultiselectInputWidget extends CheckboxMultiselectInputWidget.Props, CheckboxMultiselectInputWidget.Prototype { }
+    interface CheckboxMultiselectInputWidget
+        extends CheckboxMultiselectInputWidget.Props,
+            CheckboxMultiselectInputWidget.Prototype {}
 
     namespace CheckboxMultiselectInputWidget {
         interface ConfigOptions extends InputWidget.ConfigOptions {
@@ -47,12 +49,14 @@ declare namespace OO.ui {
              *  `{ data: …, label: …, disabled: … }`
              * @return The widget, for chaining
              */
-            setOptions(options: Array<Pick<CheckboxMultioptionWidget.ConfigOptions, 'data' | 'label' | 'disabled'>>): this;
+            setOptions(
+                options: Array<Pick<CheckboxMultioptionWidget.ConfigOptions, 'data' | 'label' | 'disabled'>>,
+            ): this;
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): CheckboxMultiselectInputWidget;
+            new (config?: ConfigOptions): CheckboxMultiselectInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

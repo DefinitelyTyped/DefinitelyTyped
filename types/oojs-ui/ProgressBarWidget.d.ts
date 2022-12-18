@@ -34,11 +34,10 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ProgressBarWidget
      */
-    interface ProgressBarWidget extends ProgressBarWidget.Props, ProgressBarWidget.Prototype { }
+    interface ProgressBarWidget extends ProgressBarWidget.Props, ProgressBarWidget.Prototype {}
 
     namespace ProgressBarWidget {
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.PendingElement.ConfigOptions {
+        interface ConfigOptions extends Widget.ConfigOptions, mixin.PendingElement.ConfigOptions {
             /**
              * The type of progress bar (determinate or indeterminate).
              * To create a determinate progress bar, specify a number that reflects the initial
@@ -50,12 +49,9 @@ declare namespace OO.ui {
 
         type Static = Widget.Static;
 
-        interface Props extends Widget.Props,
-            mixin.PendingElement.Props {
-        }
+        interface Props extends Widget.Props, mixin.PendingElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.PendingElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.PendingElement.Prototype {
             /**
              * Get the percent of the progress that has been completed. Indeterminate progresses will
              * return `false`.
@@ -74,7 +70,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ProgressBarWidget;
+            new (config?: ConfigOptions): ProgressBarWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

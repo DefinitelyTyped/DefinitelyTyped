@@ -7,7 +7,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuOptionWidget
      */
-    interface MenuOptionWidget extends MenuOptionWidget.Props, MenuOptionWidget.Prototype { }
+    interface MenuOptionWidget extends MenuOptionWidget.Props, MenuOptionWidget.Prototype {}
 
     namespace MenuOptionWidget {
         type ConfigOptions = DecoratedOptionWidget.ConfigOptions;
@@ -20,7 +20,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MenuOptionWidget;
+            new (config?: ConfigOptions): MenuOptionWidget;
             prototype: Prototype;
             static: Static;
             super: DecoratedOptionWidget.Constructor;

@@ -19,31 +19,34 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.IndicatorWidget
      */
-    interface IndicatorWidget extends IndicatorWidget.Props, IndicatorWidget.Prototype { }
+    interface IndicatorWidget extends IndicatorWidget.Props, IndicatorWidget.Prototype {}
 
     namespace IndicatorWidget {
-        interface EventMap extends Widget.EventMap,
-            mixin.LabelElement.EventMap { }
+        interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {}
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions { }
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions {}
 
-        interface Static extends Widget.Static,
-            mixin.IndicatorElement.Static,
-            mixin.TitledElement.Static,
-            mixin.LabelElement.Static { }
+        interface Static
+            extends Widget.Static,
+                mixin.IndicatorElement.Static,
+                mixin.TitledElement.Static,
+                mixin.LabelElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.IndicatorElement.Props,
-            mixin.TitledElement.Props,
-            mixin.LabelElement.Props { }
+        interface Props
+            extends Widget.Props,
+                mixin.IndicatorElement.Props,
+                mixin.TitledElement.Props,
+                mixin.LabelElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.IndicatorElement.Prototype,
-            mixin.TitledElement.Prototype,
-            mixin.LabelElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.IndicatorElement.Prototype,
+                mixin.TitledElement.Prototype,
+                mixin.LabelElement.Prototype {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -58,10 +61,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -98,7 +98,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): IndicatorWidget;
+            new (config?: ConfigOptions): IndicatorWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

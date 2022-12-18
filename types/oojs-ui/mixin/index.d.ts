@@ -28,5 +28,5 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin
      */
-    namespace mixin { }
+    namespace mixin {}
 }

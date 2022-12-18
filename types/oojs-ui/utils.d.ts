@@ -7,63 +7,33 @@ declare namespace OO.ui {
 
     type LiteralUnion<T extends string> = T | (string & {});
 
-    interface DeprecatedPromise<
-        TR, TJ, TN,
-        UR = never, UJ = never, UN = never
-    > {
+    interface DeprecatedPromise<TR, TJ, TN, UR = never, UJ = never, UN = never> {
         /** @deprecated */
-        state: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['state'];
+        state: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['state'];
 
         /** @deprecated */
-        always: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['always'];
+        always: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['always'];
 
         /** @deprecated */
-        catch: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['catch'];
+        catch: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['catch'];
 
         /** @deprecated */
-        pipe: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['pipe'];
+        pipe: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['pipe'];
 
         /** @deprecated */
-        then: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['then'];
+        then: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['then'];
 
         /** @deprecated */
-        promise: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['promise'];
+        promise: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['promise'];
 
         /** @deprecated */
-        progress: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['progress'];
+        progress: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['progress'];
 
         /** @deprecated */
-        done: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['done'];
+        done: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['done'];
 
         /** @deprecated */
-        fail: JQuery.PromiseBase<TR, TJ, TN,
-            UR, UJ, UN,
-            never, never, never,
-            never, never, never>['fail'];
+        fail: JQuery.PromiseBase<TR, TJ, TN, UR, UJ, UN, never, never, never, never, never, never>['fail'];
     }
 
     // #region Icon

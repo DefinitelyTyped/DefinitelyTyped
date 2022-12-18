@@ -8,7 +8,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.GroupElement
      */
-    interface GroupElement extends GroupElement.Props, GroupElement.Prototype { }
+    interface GroupElement extends GroupElement.Props, GroupElement.Prototype {}
 
     namespace GroupElement {
         interface EventMap extends EmitterListEventMap {
@@ -98,7 +98,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): GroupElement;
+            new (config?: ConfigOptions): GroupElement;
             prototype: Prototype;
             static: {};
         }

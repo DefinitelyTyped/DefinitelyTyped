@@ -24,15 +24,14 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.StackLayout
      */
-    interface StackLayout extends StackLayout.Props, StackLayout.Prototype { }
+    interface StackLayout extends StackLayout.Props, StackLayout.Prototype {}
 
     namespace StackLayout {
         interface EventMap extends mixin.GroupElement.EventMap {
             set: [item: Layout | null];
         }
 
-        interface ConfigOptions extends PanelLayout.ConfigOptions,
-            mixin.GroupElement.ConfigOptions {
+        interface ConfigOptions extends PanelLayout.ConfigOptions, mixin.GroupElement.ConfigOptions {
             /**
              * Show all panels, one after another. By default, only one panel is displayed at a time.
              */
@@ -44,11 +43,9 @@ declare namespace OO.ui {
 
         type Static = PanelLayout.Static;
 
-        interface Props extends PanelLayout.Props,
-            mixin.GroupElement.Props { }
+        interface Props extends PanelLayout.Props, mixin.GroupElement.Props {}
 
-        interface Prototype extends PanelLayout.Prototype,
-            mixin.GroupElement.Prototype {
+        interface Prototype extends PanelLayout.Prototype, mixin.GroupElement.Prototype {
             /**
              * Get the current panel.
              *
@@ -113,10 +110,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -153,7 +147,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): StackLayout;
+            new (config?: ConfigOptions): StackLayout;
             prototype: Prototype;
             static: Static;
             super: PanelLayout.Constructor;

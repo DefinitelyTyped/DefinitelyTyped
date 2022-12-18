@@ -39,7 +39,9 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ActionFieldLayout
      */
-    interface ActionFieldLayout<T extends Widget = Widget> extends ActionFieldLayout.Props, ActionFieldLayout.Prototype<T> { }
+    interface ActionFieldLayout<T extends Widget = Widget>
+        extends ActionFieldLayout.Props,
+            ActionFieldLayout.Prototype<T> {}
 
     namespace ActionFieldLayout {
         type ConfigOptions = FieldLayout.ConfigOptions;
@@ -56,7 +58,11 @@ declare namespace OO.ui {
              * @param buttonWidget Button widget
              * @param config Configuration options
              */
-            new <T extends Widget>(fieldWidget: T, buttonWidget: ButtonWidget, config?: ConfigOptions): ActionFieldLayout<T>;
+            new <T extends Widget>(
+                fieldWidget: T,
+                buttonWidget: ButtonWidget,
+                config?: ConfigOptions,
+            ): ActionFieldLayout<T>;
             prototype: Prototype;
             static: Static;
             super: FieldLayout.Constructor;

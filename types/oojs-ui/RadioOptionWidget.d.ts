@@ -7,7 +7,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.RadioOptionWidget
      */
-    interface RadioOptionWidget extends RadioOptionWidget.Props, RadioOptionWidget.Prototype { }
+    interface RadioOptionWidget extends RadioOptionWidget.Props, RadioOptionWidget.Prototype {}
 
     namespace RadioOptionWidget {
         type ConfigOptions = OptionWidget.ConfigOptions;
@@ -20,7 +20,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): RadioOptionWidget;
+            new (config?: ConfigOptions): RadioOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

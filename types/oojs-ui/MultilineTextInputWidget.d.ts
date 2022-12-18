@@ -17,7 +17,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MultilineTextInputWidget
      */
-    interface MultilineTextInputWidget extends MultilineTextInputWidget.Props, MultilineTextInputWidget.Prototype { }
+    interface MultilineTextInputWidget extends MultilineTextInputWidget.Props, MultilineTextInputWidget.Prototype {}
 
     namespace MultilineTextInputWidget {
         interface EventMap extends TextInputWidget.EventMap {
@@ -80,10 +80,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -120,7 +117,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MultilineTextInputWidget;
+            new (config?: ConfigOptions): MultilineTextInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

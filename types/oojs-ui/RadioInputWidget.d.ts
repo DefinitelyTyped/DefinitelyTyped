@@ -32,22 +32,19 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.RadioInputWidget
      */
-    interface RadioInputWidget extends RadioInputWidget.Props, RadioInputWidget.Prototype { }
+    interface RadioInputWidget extends RadioInputWidget.Props, RadioInputWidget.Prototype {}
 
     namespace RadioInputWidget {
-        interface ConfigOptions extends InputWidget.ConfigOptions,
-            mixin.RequiredElement.ConfigOptions {
+        interface ConfigOptions extends InputWidget.ConfigOptions, mixin.RequiredElement.ConfigOptions {
             /** Select the radio button initially. By default, the radio button is not selected. */
             selected?: boolean;
         }
 
         type Static = InputWidget.Static;
 
-        interface Props extends InputWidget.Props,
-            mixin.RequiredElement.Props { }
+        interface Props extends InputWidget.Props, mixin.RequiredElement.Props {}
 
-        interface Prototype extends InputWidget.Prototype,
-            mixin.RequiredElement.Prototype {
+        interface Prototype extends InputWidget.Prototype, mixin.RequiredElement.Prototype {
             /**
              * Set selection state of this radio button.
              *
@@ -66,7 +63,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): RadioInputWidget;
+            new (config?: ConfigOptions): RadioInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

@@ -9,7 +9,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.OutlineControlsWidget
      */
-    interface OutlineControlsWidget extends OutlineControlsWidget.Props, OutlineControlsWidget.Prototype { }
+    interface OutlineControlsWidget extends OutlineControlsWidget.Props, OutlineControlsWidget.Prototype {}
 
     namespace OutlineControlsWidget {
         interface Abilities {
@@ -30,21 +30,18 @@ declare namespace OO.ui {
             clear: [];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.GroupElement.ConfigOptions {
+        interface ConfigOptions extends Widget.ConfigOptions, mixin.GroupElement.ConfigOptions {
             /** List of abilities */
             abilities?: Abilities;
         }
 
         type Static = Widget.Static;
 
-        interface Props extends Widget.Props,
-            mixin.GroupElement.Props {
+        interface Props extends Widget.Props, mixin.GroupElement.Props {
             $movers: JQuery;
         }
 
-        interface Prototype extends Widget.Prototype,
-            mixin.GroupElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.GroupElement.Prototype {
             /**
              * Set abilities.
              *
@@ -66,10 +63,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -106,7 +100,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): OutlineControlsWidget;
+            new (config?: ConfigOptions): OutlineControlsWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

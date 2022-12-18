@@ -5,27 +5,23 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToggleWidget
      */
-    interface ToggleWidget extends ToggleWidget.Props, ToggleWidget.Prototype { }
+    interface ToggleWidget extends ToggleWidget.Props, ToggleWidget.Prototype {}
 
     namespace ToggleWidget {
         interface EventMap extends Widget.EventMap {
             change: [value: boolean];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.TitledElement.ConfigOptions {
+        interface ConfigOptions extends Widget.ConfigOptions, mixin.TitledElement.ConfigOptions {
             /** The toggle’s initial on/off state. By default, the toggle is in the 'off' state. */
             value?: boolean;
         }
 
-        interface Static extends Widget.Static,
-            mixin.TitledElement.Static { }
+        interface Static extends Widget.Static, mixin.TitledElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.TitledElement.Props { }
+        interface Props extends Widget.Props, mixin.TitledElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.TitledElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.TitledElement.Prototype {
             /**
              * Get the value representing the toggle’s state.
              *
@@ -55,10 +51,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -95,7 +88,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ToggleWidget;
+            new (config?: ConfigOptions): ToggleWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

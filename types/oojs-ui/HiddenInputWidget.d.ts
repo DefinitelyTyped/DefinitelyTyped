@@ -4,7 +4,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.HiddenInputWidget
      */
-    interface HiddenInputWidget extends HiddenInputWidget.Props, HiddenInputWidget.Prototype { }
+    interface HiddenInputWidget extends HiddenInputWidget.Props, HiddenInputWidget.Prototype {}
 
     namespace HiddenInputWidget {
         interface ConfigOptions extends Widget.ConfigOptions {
@@ -22,7 +22,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): HiddenInputWidget;
+            new (config?: ConfigOptions): HiddenInputWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

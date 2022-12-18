@@ -29,7 +29,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.IndexLayout
      */
-    interface IndexLayout extends IndexLayout.Props, IndexLayout.Prototype { }
+    interface IndexLayout extends IndexLayout.Props, IndexLayout.Prototype {}
 
     namespace IndexLayout {
         interface EventMap {
@@ -169,10 +169,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -209,7 +206,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): IndexLayout;
+            new (config?: ConfigOptions): IndexLayout;
             prototype: Prototype;
             static: Static;
             super: MenuLayout.Constructor;

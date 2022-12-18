@@ -160,7 +160,10 @@ declare namespace OO.ui {
          *  three arguments: the action, the action's index, the list of actions being iterated over
          * @return The widget, for chaining
          */
-        forEach(filter: ActionSet.ActionFilter | null, callback: (action: ActionWidget, index: number, list: ActionWidget[]) => void): this;
+        forEach(
+            filter: ActionSet.ActionFilter | null,
+            callback: (action: ActionWidget, index: number, list: ActionWidget[]) => void,
+        ): this;
 
         /**
          * Add action widgets to the action set.
@@ -274,7 +277,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: {}): ActionSet;
+            new (config?: {}): ActionSet;
             prototype: ActionSet;
             static: Static;
         }

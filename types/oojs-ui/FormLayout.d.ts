@@ -52,15 +52,14 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.FormLayout
      */
-    interface FormLayout extends FormLayout.Props, FormLayout.Prototype { }
+    interface FormLayout extends FormLayout.Props, FormLayout.Prototype {}
 
     namespace FormLayout {
         interface EventMap extends mixin.GroupElement.EventMap {
             submit: [];
         }
 
-        interface ConfigOptions extends Layout.ConfigOptions,
-            mixin.GroupElement.ConfigOptions {
+        interface ConfigOptions extends Layout.ConfigOptions, mixin.GroupElement.ConfigOptions {
             /** HTML form `method` attribute */
             method?: string;
             /** HTML form `action` attribute */
@@ -73,7 +72,7 @@ declare namespace OO.ui {
 
         type Static = Layout.Static;
 
-        interface Props extends Layout.Props, mixin.GroupElement.Props { }
+        interface Props extends Layout.Props, mixin.GroupElement.Props {}
 
         interface Prototype extends Layout.Prototype, mixin.GroupElement.Prototype {
             // #region EventEmitter overloads
@@ -90,10 +89,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -130,7 +126,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): FormLayout;
+            new (config?: ConfigOptions): FormLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

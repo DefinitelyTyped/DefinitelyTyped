@@ -11,7 +11,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Layout
      */
-    interface Layout extends Layout.Props, Layout.Prototype { }
+    interface Layout extends Layout.Props, Layout.Prototype {}
 
     namespace Layout {
         type ConfigOptions = Element.ConfigOptions;
@@ -31,7 +31,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): Layout;
+            new (config?: ConfigOptions): Layout;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

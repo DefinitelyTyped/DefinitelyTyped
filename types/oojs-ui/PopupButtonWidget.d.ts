@@ -18,11 +18,10 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupButtonWidget
      */
-    interface PopupButtonWidget extends PopupButtonWidget.Props, PopupButtonWidget.Prototype { }
+    interface PopupButtonWidget extends PopupButtonWidget.Props, PopupButtonWidget.Prototype {}
 
     namespace PopupButtonWidget {
-        interface ConfigOptions extends ButtonWidget.ConfigOptions,
-            mixin.PopupElement.ConfigOptions {
+        interface ConfigOptions extends ButtonWidget.ConfigOptions, mixin.PopupElement.ConfigOptions {
             /**
              * Render the popup into a separate layer. This configuration is useful
              * in cases where the expanded popup is larger than its containing `<div>`. The specified
@@ -39,11 +38,11 @@ declare namespace OO.ui {
             $overlay: JQuery;
         }
 
-        interface Prototype extends ButtonWidget.Prototype, mixin.PopupElement { }
+        interface Prototype extends ButtonWidget.Prototype, mixin.PopupElement {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): PopupButtonWidget;
+            new (config?: ConfigOptions): PopupButtonWidget;
             prototype: Prototype;
             static: Static;
             super: ButtonWidget.Constructor;

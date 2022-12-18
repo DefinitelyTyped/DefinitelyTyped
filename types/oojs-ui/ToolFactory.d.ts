@@ -29,14 +29,14 @@ declare namespace OO.ui {
             include: ToolExtractionCollection[] | ToolExtractionCollection,
             exclude: ToolExtractionCollection[] | ToolExtractionCollection,
             promote: ToolExtractionCollection[] | ToolExtractionCollection,
-            demote: ToolExtractionCollection[] | ToolExtractionCollection
+            demote: ToolExtractionCollection[] | ToolExtractionCollection,
         ): string[];
     }
 
     const ToolFactory: {
-        new(): ToolFactory;
+        new (): ToolFactory;
         prototype: ToolFactory;
-        static: {},
+        static: {};
         super: FactoryConstructor;
         /** @deprecated Use `super` instead */
         parent: FactoryConstructor;

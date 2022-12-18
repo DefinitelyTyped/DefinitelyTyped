@@ -35,7 +35,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Dialog
      */
-    interface Dialog extends Dialog.Props, Dialog.Prototype { }
+    interface Dialog extends Dialog.Props, Dialog.Prototype {}
 
     namespace Dialog {
         interface SetupDataMap {
@@ -86,7 +86,7 @@ declare namespace OO.ui {
             escapable: boolean;
         }
 
-        interface Props extends Window.Props, mixin.PendingElement.Props { }
+        interface Props extends Window.Props, mixin.PendingElement.Props {}
 
         interface Prototype extends Window.Prototype, mixin.PendingElement.Prototype {
             /**
@@ -154,7 +154,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): Dialog;
+            new (config?: ConfigOptions): Dialog;
             prototype: Prototype;
             static: Static;
             super: Window.Constructor;

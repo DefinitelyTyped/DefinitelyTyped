@@ -9,15 +9,18 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.InputWidget
      */
-    interface InputWidget extends InputWidget.Props, InputWidget.Prototype { }
+    interface InputWidget extends InputWidget.Props, InputWidget.Prototype {}
 
     namespace InputWidget {
         interface EventMap extends Widget.EventMap {
             change: [value: string];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions, mixin.TabIndexedElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions, mixin.AccessKeyedElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.TabIndexedElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions,
+                mixin.AccessKeyedElement.ConfigOptions {
             /** The value of the input’s HTML `name` attribute. */
             name?: string;
             /** The value of the input. */
@@ -33,16 +36,21 @@ declare namespace OO.ui {
             inputFilter?: (value: string) => string;
         }
 
-        interface Static extends Widget.Static, mixin.TitledElement.Static,
-            mixin.AccessKeyedElement.Static { }
+        interface Static extends Widget.Static, mixin.TitledElement.Static, mixin.AccessKeyedElement.Static {}
 
-        interface Props extends Widget.Props, mixin.TabIndexedElement.Props,
-            mixin.TitledElement.Props, mixin.AccessKeyedElement.Props {
+        interface Props
+            extends Widget.Props,
+                mixin.TabIndexedElement.Props,
+                mixin.TitledElement.Props,
+                mixin.AccessKeyedElement.Props {
             $input: JQuery;
         }
 
-        interface Prototype extends Widget.Prototype, mixin.TabIndexedElement.Prototype,
-            mixin.TitledElement.Prototype, mixin.AccessKeyedElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.TabIndexedElement.Prototype,
+                mixin.TitledElement.Prototype,
+                mixin.AccessKeyedElement.Prototype {
             /**
              * Get the value of the input.
              *
@@ -88,10 +96,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -128,7 +133,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): InputWidget;
+            new (config?: ConfigOptions): InputWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

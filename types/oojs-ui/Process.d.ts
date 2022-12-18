@@ -64,7 +64,10 @@ declare namespace OO.ui {
     }
 
     namespace Process {
-        type Step<C> = number | JQuery.Promise<void> | ((this: C) => boolean | number | JQuery.Promise<void> | Error | [Error] | void);
+        type Step<C> =
+            | number
+            | JQuery.Promise<void>
+            | ((this: C) => boolean | number | JQuery.Promise<void> | Error | [Error] | void);
 
         interface Constructor {
             /**

@@ -26,7 +26,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.CheckboxMultiselectWidget
      */
-    interface CheckboxMultiselectWidget extends CheckboxMultiselectWidget.Props, CheckboxMultiselectWidget.Prototype { }
+    interface CheckboxMultiselectWidget extends CheckboxMultiselectWidget.Props, CheckboxMultiselectWidget.Prototype {}
 
     namespace CheckboxMultiselectWidget {
         type ConfigOptions = MultiselectWidget.ConfigOptions;
@@ -49,7 +49,10 @@ declare namespace OO.ui {
              * @param direction Direction to move in: -1 to move backward, 1 to move forward
              * @return Item at position, `null` if there are no items in the select.
              */
-            getRelativeFocusableItem(item: CheckboxMultioptionWidget | null, direction: 1 | -1): CheckboxMultioptionWidget | null;
+            getRelativeFocusableItem(
+                item: CheckboxMultioptionWidget | null,
+                direction: 1 | -1,
+            ): CheckboxMultioptionWidget | null;
 
             /**
              * Handle click events on checkboxes.
@@ -68,7 +71,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): CheckboxMultiselectWidget;
+            new (config?: ConfigOptions): CheckboxMultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: MultiselectWidget.Constructor;

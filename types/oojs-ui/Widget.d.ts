@@ -6,7 +6,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Widget
      */
-    interface Widget extends Widget.Props, Widget.Prototype { }
+    interface Widget extends Widget.Props, Widget.Prototype {}
 
     namespace Widget {
         interface EventMap {
@@ -93,10 +93,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -133,7 +130,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): Widget;
+            new (config?: ConfigOptions): Widget;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

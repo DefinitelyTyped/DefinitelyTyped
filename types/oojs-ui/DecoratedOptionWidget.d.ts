@@ -26,28 +26,26 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.DecoratedOptionWidget
      */
-    interface DecoratedOptionWidget extends DecoratedOptionWidget.Props, DecoratedOptionWidget.Prototype { }
+    interface DecoratedOptionWidget extends DecoratedOptionWidget.Props, DecoratedOptionWidget.Prototype {}
 
     namespace DecoratedOptionWidget {
-        interface ConfigOptions extends OptionWidget.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions { }
+        interface ConfigOptions
+            extends OptionWidget.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions {}
 
-        interface Static extends OptionWidget.Static,
-            mixin.IconElement.Static,
-            mixin.IndicatorElement.Static { }
+        interface Static extends OptionWidget.Static, mixin.IconElement.Static, mixin.IndicatorElement.Static {}
 
-        interface Props extends OptionWidget.Props,
-            mixin.IconElement.Props,
-            mixin.IndicatorElement.Props { }
+        interface Props extends OptionWidget.Props, mixin.IconElement.Props, mixin.IndicatorElement.Props {}
 
-        interface Prototype extends OptionWidget.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.IndicatorElement.Prototype { }
+        interface Prototype
+            extends OptionWidget.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): DecoratedOptionWidget;
+            new (config?: ConfigOptions): DecoratedOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

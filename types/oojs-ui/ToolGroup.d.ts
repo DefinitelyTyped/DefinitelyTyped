@@ -16,17 +16,15 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Toolbar
      */
-    interface ToolGroup extends ToolGroup.Props, ToolGroup.Prototype { }
+    interface ToolGroup extends ToolGroup.Props, ToolGroup.Prototype {}
 
     namespace ToolGroup {
-        interface EventMap extends Widget.EventMap,
-            mixin.GroupElement.EventMap {
+        interface EventMap extends Widget.EventMap, mixin.GroupElement.EventMap {
             update: [];
             active: [visible: boolean];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.GroupElement.ConfigOptions {
+        interface ConfigOptions extends Widget.ConfigOptions, mixin.GroupElement.ConfigOptions {
             /** List of tools to include in the toolgroup, see above. */
             include?: ToolExtractionCollection[] | ToolExtractionCollection;
             /** List of tools to exclude from the toolgroup, see above. */
@@ -64,11 +62,9 @@ declare namespace OO.ui {
             name: string;
         }
 
-        interface Props extends Widget.Props,
-            mixin.GroupElement.Props { }
+        interface Props extends Widget.Props, mixin.GroupElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.GroupElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.GroupElement.Prototype {
             /**
              * Get the toolbar that contains the toolgroup.
              *
@@ -100,10 +96,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -143,7 +136,7 @@ declare namespace OO.ui {
              * @param toolbar
              * @param config Configuration options
              */
-            new(toolbar: Toolbar, config?: ConfigOptions): ToolGroup;
+            new (toolbar: Toolbar, config?: ConfigOptions): ToolGroup;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

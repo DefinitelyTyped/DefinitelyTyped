@@ -15,7 +15,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PanelLayout
      */
-    interface PanelLayout extends PanelLayout.Props, PanelLayout.Prototype { }
+    interface PanelLayout extends PanelLayout.Props, PanelLayout.Prototype {}
 
     namespace PanelLayout {
         interface ConfigOptions extends Layout.ConfigOptions {
@@ -44,7 +44,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): PanelLayout;
+            new (config?: ConfigOptions): PanelLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

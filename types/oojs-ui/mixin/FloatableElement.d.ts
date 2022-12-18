@@ -13,7 +13,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.FloatableElement
      */
-    interface FloatableElement extends FloatableElement.Props, FloatableElement.Prototype { }
+    interface FloatableElement extends FloatableElement.Props, FloatableElement.Prototype {}
 
     namespace FloatableElement {
         type VerticalPosition = 'below' | 'above' | 'top' | 'bottom' | 'center';
@@ -134,7 +134,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): FloatableElement;
+            new (config?: ConfigOptions): FloatableElement;
             prototype: Prototype;
             static: {};
         }

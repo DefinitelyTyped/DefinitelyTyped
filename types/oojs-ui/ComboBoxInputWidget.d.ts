@@ -51,7 +51,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ComboBoxInputWidget
      */
-    interface ComboBoxInputWidget extends ComboBoxInputWidget.Props, ComboBoxInputWidget.Prototype { }
+    interface ComboBoxInputWidget extends ComboBoxInputWidget.Props, ComboBoxInputWidget.Prototype {}
 
     namespace ComboBoxInputWidget {
         interface Option {
@@ -107,7 +107,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ComboBoxInputWidget;
+            new (config?: ConfigOptions): ComboBoxInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

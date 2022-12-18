@@ -54,7 +54,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.PendingElement
      */
-    interface PendingElement extends PendingElement.Props, PendingElement.Prototype { }
+    interface PendingElement extends PendingElement.Props, PendingElement.Prototype {}
 
     namespace PendingElement {
         interface ConfigOptions {
@@ -100,7 +100,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): PendingElement;
+            new (config?: ConfigOptions): PendingElement;
             prototype: Prototype;
             static: {};
         }

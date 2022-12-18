@@ -5,13 +5,14 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.TagItemWidget
      */
-    interface TagItemWidget extends TagItemWidget.Props, TagItemWidget.Prototype { }
+    interface TagItemWidget extends TagItemWidget.Props, TagItemWidget.Prototype {}
 
     namespace TagItemWidget {
-        interface EventMap extends Widget.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap,
-            mixin.DraggableElement.EventMap {
+        interface EventMap
+            extends Widget.EventMap,
+                mixin.LabelElement.EventMap,
+                mixin.FlaggedElement.EventMap,
+                mixin.DraggableElement.EventMap {
             remove: [];
             navigate: [direction: TagMultiselectWidget.Direction];
             select: [];
@@ -19,33 +20,37 @@ declare namespace OO.ui {
             fixed: [isFixed: boolean];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions,
-            mixin.DraggableElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.TabIndexedElement.ConfigOptions,
+                mixin.DraggableElement.ConfigOptions {
             /** Item is valid */
             valid?: boolean;
             /** Item is fixed. This means the item is always included in the values and cannot be removed. */
             fixed?: boolean;
         }
 
-        interface Static extends Widget.Static,
-            mixin.LabelElement.Static,
-            mixin.FlaggedElement.Static,
-            mixin.DraggableElement.Static { }
+        interface Static
+            extends Widget.Static,
+                mixin.LabelElement.Static,
+                mixin.FlaggedElement.Static,
+                mixin.DraggableElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.LabelElement.Props,
-            mixin.FlaggedElement.Props,
-            mixin.TabIndexedElement.Props,
-            mixin.DraggableElement.Props { }
+        interface Props
+            extends Widget.Props,
+                mixin.LabelElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.TabIndexedElement.Props,
+                mixin.DraggableElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.FlaggedElement.Prototype,
-            mixin.TabIndexedElement.Prototype,
-            mixin.DraggableElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.TabIndexedElement.Prototype,
+                mixin.DraggableElement.Prototype {
             /**
              * Set this item as fixed, meaning it cannot be removed
              *
@@ -112,10 +117,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -152,7 +154,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): TagItemWidget;
+            new (config?: ConfigOptions): TagItemWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

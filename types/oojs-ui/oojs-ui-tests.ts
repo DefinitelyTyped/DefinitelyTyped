@@ -40,9 +40,9 @@
 
     {
         const getLocalValueTestObject = {
-            'en': 'foo',
-            'fr': 'bar',
-            'zh': 1234,
+            en: 'foo',
+            fr: 'bar',
+            zh: 1234,
         };
 
         // $ExpectType string | number | undefined
@@ -124,33 +124,39 @@
     OO.ui.getDefaultOverlay();
 
     {
-        OO.ui.alert('Server crashed!').then(() => { });
+        OO.ui.alert('Server crashed!').then(() => {});
 
-        OO.ui.alert('Server crashed!', {
-            title: 'Error',
-            size: 'full',
-        }).then(() => { });
+        OO.ui
+            .alert('Server crashed!', {
+                title: 'Error',
+                size: 'full',
+            })
+            .then(() => {});
     }
 
     {
-        OO.ui.confirm('Server crashed!').then(() => { });
+        OO.ui.confirm('Server crashed!').then(() => {});
 
-        OO.ui.confirm('Server crashed!', {
-            title: 'Error',
-            size: 'full',
-        }).then(() => { });
+        OO.ui
+            .confirm('Server crashed!', {
+                title: 'Error',
+                size: 'full',
+            })
+            .then(() => {});
     }
 
     {
-        OO.ui.prompt('Input sth').then(() => { });
+        OO.ui.prompt('Input sth').then(() => {});
 
-        OO.ui.prompt('Input sth', {
-            title: 'Title',
-            size: 'full',
-            textInput: {
-                placeholder: 'Placeholder'
-            }
-        }).then(() => { });
+        OO.ui
+            .prompt('Input sth', {
+                title: 'Title',
+                size: 'full',
+                textInput: {
+                    placeholder: 'Placeholder',
+                },
+            })
+            .then(() => {});
     }
 }
 
@@ -160,7 +166,7 @@
 {
     const instance = new OO.ui.mixin.AccessKeyedElement({
         $accessKeyed: $('div'),
-        accessKey: 'a'
+        accessKey: 'a',
     });
 
     // $ExpectType string
@@ -190,7 +196,7 @@
 {
     const instance = new OO.ui.mixin.ButtonElement({
         $button: $('<a>'),
-        framed: false
+        framed: false,
     });
 
     // $ExpectType boolean
@@ -226,7 +232,7 @@
 {
     const instance = new OO.ui.mixin.ClippableElement({
         $clippable: $('<div>'),
-        $clippableContainer: $('<div>')
+        $clippableContainer: $('<div>'),
     });
 
     // $ExpectType ClippableElement
@@ -289,7 +295,7 @@
 {
     const instance = new OO.ui.mixin.DraggableElement({
         $handle: $('<div>'),
-        draggable: true
+        draggable: true,
     });
 
     // $ExpectType boolean
@@ -315,7 +321,7 @@
         $group: $('<div>'),
         draggable: true,
         items: [],
-        orientation: 'horizontal'
+        orientation: 'horizontal',
     });
     const elem = new OO.ui.mixin.DraggableElement();
 
@@ -349,7 +355,7 @@
 {
     const instance = new OO.ui.mixin.FlaggedElement({
         $flagged: $('<div>'),
-        flags: ['1', '2']
+        flags: ['1', '2'],
     });
 
     // $ExpectType FlaggedElement
@@ -373,7 +379,7 @@
     // $ExpectType FlaggedElement
     instance.setFlags({
         '3': false,
-        '4': true
+        '4': true,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -394,7 +400,7 @@
         $floatableContainer: $('<div>'),
         hideWhenOutOfView: true,
         verticalPosition: 'above',
-        horizontalPosition: 'after'
+        horizontalPosition: 'after',
     });
 
     {
@@ -449,7 +455,7 @@
 // #region OO.ui.mixin.GroupElement
 {
     const instance = new OO.ui.mixin.GroupElement({
-        $group: $('<div>')
+        $group: $('<div>'),
     });
     const elem = new OO.ui.Element();
     const jq = $('<div>');
@@ -493,7 +499,7 @@
 
     const instance = new OO.ui.mixin.IconElement({
         $icon: $('<span>'),
-        icon: { default: 'bold-a', en: 'bold-b', de: 'bold-f' }
+        icon: { default: 'bold-a', en: 'bold-b', de: 'bold-f' },
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -520,7 +526,7 @@
 {
     const instance = new OO.ui.mixin.IndicatorElement({
         $indicator: $('<span>'),
-        indicator: 'down'
+        indicator: 'down',
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -557,7 +563,7 @@
     const instance = new OO.ui.mixin.LabelElement({
         $label: $('<span>'),
         label: 'foobar',
-        invisibleLabel: true
+        invisibleLabel: true,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -596,10 +602,10 @@
         allowSuggestionsWhenEmpty: true,
         highlightFirst: true,
         menu: {
-            autoHide: false
+            autoHide: false,
         },
         showPendingRequest: true,
-        showSuggestionsOnFocus: true
+        showSuggestionsOnFocus: true,
     });
 
     // $ExpectType void
@@ -613,7 +619,7 @@
 // #region OO.ui.mixin.PendingElement
 {
     const instance = new OO.ui.mixin.PendingElement({
-        $pending: $()
+        $pending: $(),
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -645,8 +651,8 @@
         popup: {
             $content: $('<p>Hi there!</p>'),
             padded: true,
-            width: 300
-        }
+            width: 300,
+        },
     });
 
     // $ExpectType PopupWidget
@@ -657,10 +663,10 @@
 // #region OO.ui.mixin.RequestManager
 {
     const instance = new OO.ui.mixin.RequestManager({
-        showPendingRequest: true
+        showPendingRequest: true,
     });
 
-    instance.getRequestData().then((data) => {
+    instance.getRequestData().then(data => {
         data; // $ExpectType unknown
     });
 }
@@ -671,7 +677,7 @@
     const instance = new OO.ui.mixin.RequiredElement({
         $required: $(),
         indicatorElement: new OO.ui.Element(),
-        required: false
+        required: false,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -695,7 +701,7 @@
 {
     const instance = new OO.ui.mixin.TabIndexedElement({
         $tabIndexed: $(),
-        tabIndex: '123'
+        tabIndex: '123',
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -728,7 +734,7 @@
 {
     const instance = new OO.ui.mixin.TitledElement({
         $titled: $(),
-        title: () => 'title'
+        title: () => 'title',
     });
 
     // $ExpectType string | null
@@ -755,16 +761,16 @@
 
     const instance = new OO.ui.ActionFieldLayout(
         new OO.ui.TextInputWidget({
-            placeholder: 'Field widget'
+            placeholder: 'Field widget',
         }),
         new OO.ui.ButtonWidget({
-            label: 'Button'
+            label: 'Button',
         }),
         {
             label: 'An ActionFieldLayout. This label is aligned top',
             align: 'top',
-            help: 'This is help text'
-        }
+            help: 'This is help text',
+        },
     );
 
     // $ExpectType TextInputWidget
@@ -796,7 +802,7 @@
             disabled: true,
             flags: ['safe'],
             modes: ['edit'],
-            visible: false
+            visible: false,
         });
 
         instance.get({
@@ -817,24 +823,27 @@
 
     // $ExpectType ActionSet
     instance.setAbilities({
-        continue: false
+        continue: false,
     });
 
     {
         // $ExpectType ActionSet
-        instance.forEach({
-            actions: ['continue'],
-            disabled: true,
-            flags: ['safe'],
-            modes: ['edit'],
-            visible: false
-        }, (action, index, list) => {
-            action; // $ExpectType ActionWidget
-            index; // $ExpectType number
-            list; // $ExpectType ActionWidget[]
-        });
+        instance.forEach(
+            {
+                actions: ['continue'],
+                disabled: true,
+                flags: ['safe'],
+                modes: ['edit'],
+                visible: false,
+            },
+            (action, index, list) => {
+                action; // $ExpectType ActionWidget
+                index; // $ExpectType number
+                list; // $ExpectType ActionWidget[]
+            },
+        );
 
-        instance.forEach(null, () => { });
+        instance.forEach(null, () => {});
     }
 
     // $ExpectType ActionSet
@@ -843,17 +852,17 @@
     // $ExpectType ActionSet
     instance.remove([widget]);
 
-    instance.on('add', (added) => {
+    instance.on('add', added => {
         added; // $ExpectType ActionWidget[]
     }).on;
 
-    instance.on('change', () => { });
+    instance.on('change', () => {});
 
-    instance.on('click', (action) => {
+    instance.on('click', action => {
         action; // $ExpectType ActionWidget
     });
 
-    instance.on('remove', (removed) => {
+    instance.on('remove', removed => {
         removed; // $ExpectType ActionWidget[]
     });
 }
@@ -868,7 +877,7 @@
         action: 'continue',
         modes: ['edit'],
         label: 'Continue',
-        flags: ['primary', 'progressive']
+        flags: ['primary', 'progressive'],
     });
 
     // $ExpectType boolean
@@ -920,7 +929,7 @@
         continuous: false,
         autoFocus: false,
         outlined: true,
-        editable: false
+        editable: false,
     });
 
     instance.focus(); // $ExpectType
@@ -969,16 +978,16 @@
     new OO.ui.ButtonGroupWidget.super();
 
     const button2 = new OO.ui.ButtonWidget({
-        label: 'Add item'
+        label: 'Add item',
     });
 
     const instance = new OO.ui.ButtonGroupWidget({
-        items: [button2]
+        items: [button2],
     });
 
     instance.focus(); // $ExpectType ButtonGroupWidget
 
-    instance.on('toggle', (visible) => {
+    instance.on('toggle', visible => {
         visible; // $ExpectType boolean
     });
 }
@@ -991,7 +1000,7 @@
 
     const instance = new OO.ui.ButtonInputWidget({
         type: 'submit',
-        useInputTag: false
+        useInputTag: false,
     });
 
     instance.setLabel('123'); // $ExpectType ButtonInputWidget
@@ -1007,7 +1016,7 @@
 
     instance.setValue('value'); // $ExpectType ButtonInputWidget
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 }
 // #endregion
 
@@ -1022,19 +1031,19 @@
             items: [
                 new OO.ui.MenuOptionWidget({
                     data: 'a',
-                    label: 'First'
+                    label: 'First',
                 }),
                 new OO.ui.MenuOptionWidget({
                     data: 'b',
-                    label: 'Second'
+                    label: 'Second',
                 }),
                 new OO.ui.MenuOptionWidget({
                     data: 'c',
-                    label: 'Third'
-                })
-            ]
+                    label: 'Third',
+                }),
+            ],
         },
-        menuClass: OO.ui.MenuSelectWidget
+        menuClass: OO.ui.MenuSelectWidget,
     });
 
     instance.getMenu(); // $ExpectType MenuSelectWidget
@@ -1047,10 +1056,10 @@
     new OO.ui.ButtonOptionWidget.super();
 
     const instance = new OO.ui.ButtonOptionWidget({
-        label: 'Select'
+        label: 'Select',
     });
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 }
 // #endregion
 
@@ -1062,20 +1071,20 @@
     const option1 = new OO.ui.ButtonOptionWidget({
         data: 1,
         label: 'Option 1',
-        title: 'Button option 1'
+        title: 'Button option 1',
     });
     const option2 = new OO.ui.ButtonOptionWidget({
         data: 2,
         label: 'Option 2',
-        title: 'Button option 2'
+        title: 'Button option 2',
     });
     const option3 = new OO.ui.ButtonOptionWidget({
         data: 3,
         label: 'Option 3',
-        title: 'Button option 3'
+        title: 'Button option 3',
     });
     const instance = new OO.ui.ButtonSelectWidget({
-        items: [option1, option2, option3]
+        items: [option1, option2, option3],
     });
 }
 // #endregion
@@ -1098,7 +1107,7 @@
         label: 'Button with Icon',
         icon: 'trash',
         title: 'Remove',
-        flags: 'progressive'
+        flags: 'progressive',
     });
 
     // $ExpectType string | null
@@ -1138,19 +1147,19 @@
     instance.setRel(['canonical', 'nofollow']);
 
     // $ExpectType ButtonWidget
-    instance.on('click', () => { });
+    instance.on('click', () => {});
 
-    instance.on('disable', (disabled) => {
+    instance.on('disable', disabled => {
         disabled; // $ExpectType boolean
     });
 
-    instance.on('flag', (changes) => {
+    instance.on('flag', changes => {
         changes; // $ExpectType Record<string, boolean>
     });
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 
-    instance.on('toggle', (visible) => {
+    instance.on('toggle', visible => {
         visible; // $ExpectType boolean
     });
 
@@ -1159,12 +1168,12 @@
         click() {
             this; // $ExpectType ButtonWidget
         },
-        toggle: (disabled) => {
+        toggle: disabled => {
             disabled; // $ExpectType boolean
         },
-        nonExist: (arg) => {
+        nonExist: arg => {
             arg; // $ExpectType any
-        }
+        },
     });
 }
 // #endregion
@@ -1176,17 +1185,17 @@
 
     const instance = new OO.ui.CheckboxInputWidget({
         value: 'a',
-        selected: true
+        selected: true,
     });
     const instance1 = new OO.ui.CheckboxInputWidget({
-        value: 'b'
+        value: 'b',
     });
     const instance2 = new OO.ui.CheckboxInputWidget({
         value: 'c',
-        disabled: true
+        disabled: true,
     });
     const fieldset = new OO.ui.FieldsetLayout({
-        label: 'Checkboxes'
+        label: 'Checkboxes',
     });
     fieldset.addItems([
         new OO.ui.FieldLayout(instance, { label: 'Selected checkbox', align: 'inline' }),
@@ -1231,8 +1240,8 @@
         options: [
             { data: 'a', label: 'First' },
             { data: 'b', label: 'Second' },
-            { data: 'c', label: 'Third' }
-        ]
+            { data: 'c', label: 'Third' },
+        ],
     });
 
     // $ExpectType string[]
@@ -1242,7 +1251,7 @@
     instance.setOptions([
         { data: 'a', label: 'First' },
         { data: 'b', label: 'Second' },
-        { data: 'c', label: 'Third' }
+        { data: 'c', label: 'Third' },
     ]);
 }
 // #endregion
@@ -1255,15 +1264,15 @@
     const option1 = new OO.ui.CheckboxMultioptionWidget({
         data: 'a',
         selected: true,
-        label: 'Selected checkbox'
+        label: 'Selected checkbox',
     });
     const option2 = new OO.ui.CheckboxMultioptionWidget({
         data: 'b',
-        label: 'Unselected checkbox'
+        label: 'Unselected checkbox',
     });
 
     const instance = new OO.ui.CheckboxMultiselectWidget({
-        items: [option1, option2]
+        items: [option1, option2],
     });
 
     // $ExpectType CheckboxMultioptionWidget | null
@@ -1285,15 +1294,11 @@
 
     const instance = new OO.ui.ComboBoxInputWidget({
         value: 'Option 1',
-        options: [
-            { data: 'Option 1' },
-            { data: 'Option 2' },
-            { data: 'Option 3' }
-        ],
+        options: [{ data: 'Option 1' }, { data: 'Option 2' }, { data: 'Option 3' }],
         menu: {
-            classes: ['class1']
+            classes: ['class1'],
         },
-        $overlay: OO.ui.getDefaultOverlay()
+        $overlay: OO.ui.getDefaultOverlay(),
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -1307,11 +1312,7 @@
     instance.getInput(); // $ExpectType TextInputWidget
 
     // $ExpectType ComboBoxInputWidget
-    instance.setOptions([
-        { data: 'Option 1' },
-        { data: 'Option 2' },
-        { data: 'Option 3' }
-    ]);
+    instance.setOptions([{ data: 'Option 1' }, { data: 'Option 2' }, { data: 'Option 3' }]);
 
     // @ts-expect-error
     OO.ui.ComboBoxInputWidget.prototype.$overlay;
@@ -1362,10 +1363,10 @@
             actions: [
                 {
                     action: 'continue',
-                    flags: ['primary', 'progressive']
-                }
+                    flags: ['primary', 'progressive'],
+                },
             ],
-            extraProperty: 1
+            extraProperty: 1,
         });
 
         // $ExpectType Process
@@ -1373,31 +1374,36 @@
 
         // @ts-expect-error
         instance.getSetupProcess({
-            title: 123
+            title: 123,
         });
     }
 
     // $ExpectType ActionWidget[]
-    instance.getActionWidgets([{
-        title: 'Continue',
-        action: 'continue'
-    }]);
+    instance.getActionWidgets([
+        {
+            title: 'Continue',
+            action: 'continue',
+        },
+    ]);
 
     // $ExpectType ActionWidget
     instance.getActionWidget({
         title: 'Continue',
-        action: 'continue'
+        action: 'continue',
     });
 
     // $ExpectType ConfigOptions
     instance.getActionWidgetConfig({
         title: 'Continue',
-        action: 'continue'
+        action: 'continue',
     });
 
-    instance.executeAction('continue').then(() => { }, (err) => {
-        err; // $ExpectType [] | [Error]
-    });
+    instance.executeAction('continue').then(
+        () => {},
+        err => {
+            err; // $ExpectType [] | [Error]
+        },
+    );
 }
 // #endregion
 
@@ -1411,19 +1417,16 @@
             { data: 'a', label: 'First' },
             { data: 'b', label: 'Second', disabled: true },
             { optgroup: 'Group label' },
-            { data: 'c', label: 'First sub-item' }
+            { data: 'c', label: 'First sub-item' },
         ],
         dropdown: {
-            icon: 'add'
+            icon: 'add',
         },
-        $overlay: OO.ui.getDefaultOverlay()
+        $overlay: OO.ui.getDefaultOverlay(),
     });
 
     // $ExpectType DropdownInputWidget
-    instance.setOptions([
-        { optgroup: 'Group label' },
-        { data: 'a', label: 'First' }
-    ]);
+    instance.setOptions([{ optgroup: 'Group label' }, { data: 'a', label: 'First' }]);
 }
 // #endregion
 
@@ -1438,18 +1441,18 @@
             items: [
                 new OO.ui.MenuOptionWidget({
                     data: 'a',
-                    label: 'First'
+                    label: 'First',
                 }),
                 new OO.ui.MenuOptionWidget({
                     data: 'b',
-                    label: 'Second'
+                    label: 'Second',
                 }),
                 new OO.ui.MenuOptionWidget({
                     data: 'c',
-                    label: 'Third'
-                })
-            ]
-        }
+                    label: 'Third',
+                }),
+            ],
+        },
     });
 
     // $ExpectType MenuSelectWidget
@@ -1601,17 +1604,19 @@
         // $ExpectType Promise<void, any, any>
         OO.ui.Element.static.scrollIntoView(el);
 
-        OO.ui.Element.static.scrollIntoView(
-            { top: 0, right: 0, bottom: 0, left: 0 },
-            {
-                alignToTop: false,
-                animate: true,
-                direction: 'x',
-                duration: 'fast',
-                padding: { top: 0, right: 0, bottom: 0, left: 0 },
-                scrollContainer: el
-            }
-        ).then(function () { });
+        OO.ui.Element.static
+            .scrollIntoView(
+                { top: 0, right: 0, bottom: 0, left: 0 },
+                {
+                    alignToTop: false,
+                    animate: true,
+                    direction: 'x',
+                    duration: 'fast',
+                    padding: { top: 0, right: 0, bottom: 0, left: 0 },
+                    scrollContainer: el,
+                },
+            )
+            .then(function () {});
     }
 
     {
@@ -1632,14 +1637,10 @@
             $element: $('<div>'),
             $content: $('<div>'),
             classes: ['class1', 'class2'],
-            content: [
-                '<div>Escaped!</div>',
-                new OO.ui.HtmlSnippet('<div>HTML!</div>'),
-                new OO.ui.Element()
-            ],
+            content: ['<div>Escaped!</div>', new OO.ui.HtmlSnippet('<div>HTML!</div>'), new OO.ui.Element()],
             data: 123,
             id: 'header',
-            text: 'Some nice words'
+            text: 'Some nice words',
         });
 
         instance.$element; // $ExpectType JQuery<HTMLElement>
@@ -1687,14 +1688,16 @@
         {
             instance.scrollElementIntoView(); // $ExpectType Promise<void, any, any>
 
-            instance.scrollElementIntoView({
-                alignToTop: false,
-                animate: true,
-                direction: 'x',
-                duration: 'fast',
-                padding: { top: 0, right: 0, bottom: 0, left: 0 },
-                scrollContainer: el
-            }).then(function () { });
+            instance
+                .scrollElementIntoView({
+                    alignToTop: false,
+                    animate: true,
+                    direction: 'x',
+                    duration: 'fast',
+                    padding: { top: 0, right: 0, bottom: 0, left: 0 },
+                    scrollContainer: el,
+                })
+                .then(function () {});
         }
     }
 
@@ -1709,7 +1712,7 @@
 
     const instance1 = new OO.ui.Error('Server crashed!', {
         recoverable: false,
-        warning: false
+        warning: false,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -1739,7 +1742,7 @@
         notices: ['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')],
         help: new OO.ui.HtmlSnippet('<div>Text</div>'),
         helpInline: false,
-        $overlay: OO.ui.getDefaultOverlay()
+        $overlay: OO.ui.getDefaultOverlay(),
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -1778,7 +1781,7 @@
     // $ExpectType FieldLayout<ButtonWidget>
     instance.setNotices(['Text 1', new OO.ui.HtmlSnippet('<div>Text 2</div>')]);
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 
     // @ts-expect-error
     OO.ui.FieldLayout.prototype.$field;
@@ -1806,42 +1809,46 @@
     new OO.ui.FieldsetLayout.super();
 
     const input1 = new OO.ui.TextInputWidget({
-        placeholder: 'A text input field'
+        placeholder: 'A text input field',
     });
     const input2 = new OO.ui.TextInputWidget({
-        placeholder: 'A text input field'
+        placeholder: 'A text input field',
     });
     const instance = new OO.ui.FieldsetLayout({
-        label: 'Example of a fieldset layout'
+        label: 'Example of a fieldset layout',
     });
 
     instance.addItems([
         new OO.ui.FieldLayout(input1, {
-            label: 'Field One'
+            label: 'Field One',
         }),
         new OO.ui.FieldLayout(input2, {
-            label: 'Field Two'
-        })
+            label: 'Field Two',
+        }),
     ]);
 
     // $ExpectType JQuery<HTMLElement>
     instance.$header;
 
-    instance.once('add', (items, index) => {
-        items; // $ExpectType EventEmitter
-        index; // $ExpectType number
-    }).once('remove', (items, index) => {
-        items; // $ExpectType EventEmitter
-        index; // $ExpectType number
-    }).on('change', (items) => {
-        items; // $ExpectType Element[]
-    }).on('clear', () => {
-    }).on('labelChange', () => {
-    }).on('move', (item, index, oldIndex) => {
-        item; // $ExpectType EventEmitter
-        index; // $ExpectType number
-        oldIndex; // $ExpectType number
-    });
+    instance
+        .once('add', (items, index) => {
+            items; // $ExpectType EventEmitter
+            index; // $ExpectType number
+        })
+        .once('remove', (items, index) => {
+            items; // $ExpectType EventEmitter
+            index; // $ExpectType number
+        })
+        .on('change', items => {
+            items; // $ExpectType Element[]
+        })
+        .on('clear', () => {})
+        .on('labelChange', () => {})
+        .on('move', (item, index, oldIndex) => {
+            item; // $ExpectType EventEmitter
+            index; // $ExpectType number
+            oldIndex; // $ExpectType number
+        });
 
     // @ts-expect-error
     OO.ui.FieldsetLayout.prototype.$header;
@@ -1854,34 +1861,34 @@
     new OO.ui.FormLayout.super();
 
     const input1 = new OO.ui.TextInputWidget({
-        placeholder: 'Username'
+        placeholder: 'Username',
     });
     const input2 = new OO.ui.TextInputWidget({
         placeholder: 'Password',
-        type: 'password'
+        type: 'password',
     });
     const fieldset = new OO.ui.FieldsetLayout({
-        label: 'A form layout'
+        label: 'A form layout',
     });
     fieldset.addItems([
         new OO.ui.FieldLayout(input1, {
             label: 'Username',
-            align: 'top'
+            align: 'top',
         }),
         new OO.ui.FieldLayout(input2, {
             label: 'Password',
-            align: 'top'
-        })
+            align: 'top',
+        }),
     ]);
 
     const instance = new OO.ui.FormLayout({
         items: [fieldset],
         action: '/api/formhandler',
         method: 'get',
-        enctype: 'application/x-www-form-urlencoded'
+        enctype: 'application/x-www-form-urlencoded',
     });
 
-    instance.on('submit', () => { });
+    instance.on('submit', () => {});
 }
 // #endregion
 
@@ -1892,7 +1899,7 @@
 
     const instance = new OO.ui.HiddenInputWidget({
         value: '123',
-        name: 'name'
+        name: 'name',
     });
 }
 // #endregion
@@ -1903,13 +1910,10 @@
     new OO.ui.HorizontalLayout.super();
 
     const instance = new OO.ui.HorizontalLayout({
-        items: [
-            new OO.ui.PanelLayout(),
-            new OO.ui.TextInputWidget({ value: 'Text' })
-        ]
+        items: [new OO.ui.PanelLayout(), new OO.ui.TextInputWidget({ value: 'Text' })],
     });
 
-    instance.on('change', (items) => {
+    instance.on('change', items => {
         items; // $ExpectType Element[]
     });
 }
@@ -1931,10 +1935,10 @@
 
     const instance = new OO.ui.IconWidget({
         icon: 'help',
-        title: 'Help'
+        title: 'Help',
     });
 
-    instance.on('disable', (disabled) => {
+    instance.on('disable', disabled => {
         disabled; // $ExpectType boolean
     });
 }
@@ -1949,7 +1953,7 @@
         contentPanel: new OO.ui.StackLayout(),
         continuous: false,
         autoFocus: false,
-        framed: false
+        framed: false,
     });
 
     instance.focus(); // $ExpectType void
@@ -1969,14 +1973,10 @@
     instance.getCurrentTabPanelName(); // $ExpectType string | null
 
     // $ExpectType IndexLayout
-    instance.addTabPanels([
-        new OO.ui.TabPanelLayout('aa')
-    ], 1);
+    instance.addTabPanels([new OO.ui.TabPanelLayout('aa')], 1);
 
     // $ExpectType IndexLayout
-    instance.removeTabPanels([
-        new OO.ui.TabPanelLayout('aa')
-    ]);
+    instance.removeTabPanels([new OO.ui.TabPanelLayout('aa')]);
 
     instance.clearTabPanels(); // $ExpectType IndexLayout
 
@@ -1984,14 +1984,17 @@
 
     instance.selectFirstSelectableTabPanel(); // $ExpectType IndexLayout
 
-    instance.on('add', (tabPanels, index) => {
-        tabPanels; // $ExpectType TabPanelLayout[]
-        index; // $ExpectType number
-    }).once('remove', (tabPanels) => {
-        tabPanels; // $ExpectType TabPanelLayout[]
-    }).off('set', (tabPanel) => {
-        tabPanel; // $ExpectType TabPanelLayout
-    });
+    instance
+        .on('add', (tabPanels, index) => {
+            tabPanels; // $ExpectType TabPanelLayout[]
+            index; // $ExpectType number
+        })
+        .once('remove', tabPanels => {
+            tabPanels; // $ExpectType TabPanelLayout[]
+        })
+        .off('set', tabPanel => {
+            tabPanel; // $ExpectType TabPanelLayout
+        });
 }
 // #endregion
 
@@ -2001,10 +2004,10 @@
     new OO.ui.IndicatorWidget.super();
 
     const instance = new OO.ui.IndicatorWidget({
-        indicator: 'required'
+        indicator: 'required',
     });
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 }
 // #endregion
 
@@ -2018,7 +2021,7 @@
         value: 'initial value',
         dir: 'ltr',
         inputId: 'input1',
-        inputFilter: (value) => `value: ${value}`
+        inputFilter: value => `value: ${value}`,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -2036,15 +2039,15 @@
     // $ExpectType InputWidget
     instance.setInputId('input2');
 
-    instance.on('change', (value) => {
+    instance.on('change', value => {
         value; // $ExpectType string
     });
 
-    instance.on('disable', (disabled) => {
+    instance.on('disable', disabled => {
         disabled; // $ExpectType boolean
     });
 
-    instance.on('toggle', (visible) => {
+    instance.on('toggle', visible => {
         visible; // $ExpectType boolean
     });
 
@@ -2059,13 +2062,13 @@
     new OO.ui.LabelWidget.super();
 
     const instance = new OO.ui.LabelWidget({
-        label: 'plaintext label'
+        label: 'plaintext label',
     });
     const instance1 = new OO.ui.LabelWidget({
-        label: $('<a>').attr('href', 'default.html').text('jQuery label')
+        label: $('<a>').attr('href', 'default.html').text('jQuery label'),
     });
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 }
 // #endregion
 
@@ -2091,7 +2094,7 @@
     const instance = new OO.ui.ListToolGroup(toolbar, {
         allowCollapse: ['1', '2', '3'],
         forceExpand: ['1', '2'],
-        expanded: false
+        expanded: false,
     });
 
     instance.getExpandCollapseTool(); // $ExpectType Tool
@@ -2108,49 +2111,46 @@
     const menuPanel = new OO.ui.PanelLayout({
         padded: true,
         expanded: true,
-        scrollable: true
+        scrollable: true,
     });
     const contentPanel = new OO.ui.PanelLayout({
         padded: true,
         expanded: true,
-        scrollable: true
+        scrollable: true,
     });
     const select = new OO.ui.SelectWidget({
         items: [
             new OO.ui.OptionWidget({
                 data: 'before',
-                label: 'Before'
+                label: 'Before',
             }),
             new OO.ui.OptionWidget({
                 data: 'after',
-                label: 'After'
+                label: 'After',
             }),
             new OO.ui.OptionWidget({
                 data: 'top',
-                label: 'Top'
+                label: 'Top',
             }),
             new OO.ui.OptionWidget({
                 data: 'bottom',
-                label: 'Bottom'
-            })
-        ]
+                label: 'Bottom',
+            }),
+        ],
     });
     const instance = new OO.ui.MenuLayout({
         menuPosition: 'top',
         menuPanel,
-        contentPanel
+        contentPanel,
     });
 
-    instance.$menu.append(
-        menuPanel.$element.append('<b>Menu panel</b>', select.$element)
-    );
+    instance.$menu.append(menuPanel.$element.append('<b>Menu panel</b>', select.$element));
 
     instance.$content.append(
         contentPanel.$element.append(
             '<b>Content panel</b>',
-            '<p>Note that the menu is positioned relative to the content panel: ' +
-            'top, bottom, after, before.</p>'
-        )
+            '<p>Note that the menu is positioned relative to the content panel: ' + 'top, bottom, after, before.</p>',
+        ),
     );
 
     // $ExpectType MenuLayout
@@ -2215,7 +2215,7 @@
         filterFromInput: false,
         highlightOnFilter: false,
         filterMode: 'substring',
-        width: 100
+        width: 100,
     });
 
     // $ExpectType JQuery<HTMLElement> | null
@@ -2236,7 +2236,7 @@
     // $ExpectType void
     instance.scrollToTop();
 
-    instance.on('ready', () => { });
+    instance.on('ready', () => {});
 
     // @ts-expect-error
     OO.ui.MenuSelectWidget.prototype.$input;
@@ -2261,7 +2261,7 @@
             { data: 'option2', label: 'Option 2' },
             { data: 'option3', label: 'Option 3' },
         ],
-        selected: ['option1', 'option2']
+        selected: ['option1', 'option2'],
     });
 
     instance.onResize(); // $ExpectType void
@@ -2274,15 +2274,17 @@
 
     // $ExpectType MenuSelectWidget
     instance.createMenuWidget({
-        $input: $()
+        $input: $(),
     });
 
     // $ExpectType void
-    instance.addOptions([{
-        data: 'option4',
-        label: 'Option 4',
-        icon: 'error'
-    }]);
+    instance.addOptions([
+        {
+            data: 'option4',
+            label: 'Option 4',
+            icon: 'error',
+        },
+    ]);
 
     instance.createMenuOptionWidget('option5'); // $ExpectType OptionWidget
 
@@ -2322,10 +2324,10 @@
         actions: [
             {
                 action: 'continue',
-                flags: 'progressive'
-            }
+                flags: 'progressive',
+            },
         ],
-        other: 12345
+        other: 12345,
     });
 
     // $ExpectType Process
@@ -2341,10 +2343,10 @@
             {
                 action: 'continue',
                 flags: ['progressive'],
-                modes: ['edit']
-            }
+                modes: ['edit'],
+            },
         ],
-        other: 12345
+        other: 12345,
     });
 }
 // #endregion
@@ -2360,7 +2362,7 @@
     const instance = new OO.ui.MessageWidget({
         type: 'error',
         inline: false,
-        showClose: true
+        showClose: true,
     });
 
     instance.setInline(true); // $ExpectType void
@@ -2371,7 +2373,7 @@
 
     instance.onCloseButtonClick(); // $ExpectType void
 
-    instance.on('close', () => { });
+    instance.on('close', () => {});
 }
 // #endregion
 
@@ -2384,7 +2386,7 @@
         value: 'Text input on multiple lines',
         rows: 2,
         autosize: false,
-        maxRows: 10
+        maxRows: 10,
     });
 
     // $ExpectType MultilineTextInputWidget
@@ -2395,7 +2397,7 @@
 
     instance.isAutosizing(); // $ExpectType boolean
 
-    instance.on('resize', () => { });
+    instance.on('resize', () => {});
 }
 // #endregion
 
@@ -2405,7 +2407,7 @@
     new OO.ui.MultioptionWidget.super();
 
     const instance = new OO.ui.MultioptionWidget({
-        selected: false
+        selected: false,
     });
 
     instance.isSelected(); // $ExpectType boolean
@@ -2414,7 +2416,7 @@
 
     instance.setSelected(true); // $ExpectType MultioptionWidget
 
-    instance.on('change', (selected) => {
+    instance.on('change', selected => {
         selected; // $ExpectType boolean
     });
 }
@@ -2426,7 +2428,7 @@
     new OO.ui.MenuSectionOptionWidget.super();
 
     const instance = new OO.ui.MenuSectionOptionWidget({
-        label: 'Dogs'
+        label: 'Dogs',
     });
 
     const dropdown = new OO.ui.DropdownWidget({
@@ -2435,21 +2437,21 @@
                 instance,
                 new OO.ui.MenuOptionWidget({
                     data: 'corgi',
-                    label: 'Welsh Corgi'
+                    label: 'Welsh Corgi',
                 }),
                 new OO.ui.MenuOptionWidget({
                     data: 'poodle',
-                    label: 'Standard Poodle'
+                    label: 'Standard Poodle',
                 }),
                 new OO.ui.MenuSectionOptionWidget({
-                    label: 'Cats'
+                    label: 'Cats',
                 }),
                 new OO.ui.MenuOptionWidget({
                     data: 'lion',
-                    label: 'Lion'
-                })
-            ]
-        }
+                    label: 'Lion',
+                }),
+            ],
+        },
     });
 }
 // #endregion
@@ -2460,9 +2462,7 @@
     new OO.ui.MultiselectWidget.super();
 
     const instance = new OO.ui.MultiselectWidget({
-        items: [
-            new OO.ui.MenuOptionWidget()
-        ]
+        items: [new OO.ui.MenuOptionWidget()],
     });
 
     instance.findSelectedItems(); // $ExpectType MultioptionWidget[]
@@ -2470,15 +2470,13 @@
     instance.findSelectedItemsData(); // $ExpectType unknown[]
 
     // $ExpectType MultiselectWidget
-    instance.selectItems([
-        new OO.ui.MultioptionWidget()
-    ]);
+    instance.selectItems([new OO.ui.MultioptionWidget()]);
 
     instance.selectItemsByData([1, 2, '3']); // $ExpectType MultiselectWidget
 
     instance.clearSelection(); // $ExpectType MultiselectWidget
 
-    instance.on('select', () => { });
+    instance.on('select', () => {});
 }
 // #endregion
 
@@ -2590,30 +2588,35 @@
     const instance = new OO.ui.OutlineControlsWidget({
         abilities: {
             move: true,
-            remove: true
-        }
+            remove: true,
+        },
     });
 
     // $ExpectType void
     instance.setAbilities({
         move: false,
-        remove: false
+        remove: false,
     });
 
     // $ExpectType JQuery<HTMLElement>
     instance.$movers;
 
-    instance.on('move', (places) => {
-        places; // $ExpectType number
-    }).on('remove', () => {
-    }).on('change', (items) => {
-        items; // $ExpectType Element[]
-    }).once('add', (items, index) => {
-        items; // $ExpectType EventEmitter
-        index; // $ExpectType number
-    }).off('change', (items) => {
-        items; // $ExpectType Element[]
-    }).off('clear', () => { });
+    instance
+        .on('move', places => {
+            places; // $ExpectType number
+        })
+        .on('remove', () => {})
+        .on('change', items => {
+            items; // $ExpectType Element[]
+        })
+        .once('add', (items, index) => {
+            items; // $ExpectType EventEmitter
+            index; // $ExpectType number
+        })
+        .off('change', items => {
+            items; // $ExpectType Element[]
+        })
+        .off('clear', () => {});
 
     // @ts-expect-error
     OO.ui.OutlineControlsWidget.prototype.$movers;
@@ -2634,7 +2637,7 @@
     const instance = new OO.ui.OutlineOptionWidget({
         level: 0,
         movable: false,
-        removable: false
+        removable: false,
     });
 
     instance.isMovable(); // $ExpectType boolean
@@ -2681,7 +2684,7 @@
 
     instance.setActive(true); // $ExpectType void
 
-    instance.on('active', (active) => {
+    instance.on('active', active => {
         active; // $ExpectType boolean
     });
 }
@@ -2696,7 +2699,7 @@
         expanded: false,
         framed: true,
         padded: true,
-        $content: $('<p>A panel layout with padding and a frame.</p>')
+        $content: $('<p>A panel layout with padding and a frame.</p>'),
     });
 
     // $ExpectType void
@@ -2715,8 +2718,8 @@
         popup: {
             $content: $('<p>Additional options here.</p>'),
             padded: true,
-            align: 'force-left'
-        }
+            align: 'force-left',
+        },
     });
 }
 // #endregion
@@ -2727,8 +2730,8 @@
     const instance = new OO.ui.PopupTagMultiselectWidget({
         popupInput,
         popup: {
-            $content: popupInput.$element
-        }
+            $content: popupInput.$element,
+        },
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -2788,8 +2791,8 @@
         narrowConfig: {
             invisibleLabel: false,
             label: 'narrowed label',
-            icon: 'alert'
-        }
+            icon: 'alert',
+        },
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -2801,7 +2804,7 @@
 
     instance.setActive(true); // $ExpectType void
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 
     // @ts-expect-error
     OO.ui.PopupToolGroup.prototype.$handle;
@@ -2816,7 +2819,7 @@
     const instance = new OO.ui.PopupWidget({
         $content: $('<p>Hi there!</p>'),
         padded: true,
-        width: 300
+        width: 300,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -2870,17 +2873,17 @@
     // $ExpectType string
     instance.getBodyId();
 
-    instance.on('ready', () => { });
+    instance.on('ready', () => {});
 
-    instance.on('closing', () => { });
+    instance.on('closing', () => {});
 
-    instance.on('labelChange', () => { });
+    instance.on('labelChange', () => {});
 
-    instance.on('disable', (disabled) => {
+    instance.on('disable', disabled => {
         disabled; // $ExpectType boolean
     });
 
-    instance.on('toggle', (visible) => {
+    instance.on('toggle', visible => {
         visible; // $ExpectType boolean
     });
 
@@ -2928,11 +2931,14 @@
 
     const error = new OO.ui.Error('Error!');
 
-    instance.execute().then((val) => {
-        val; // $ExpectType void
-    }, (reason) => {
-        reason; // $ExpectType [] | [Error]
-    });
+    instance.execute().then(
+        val => {
+            val; // $ExpectType void
+        },
+        reason => {
+            reason; // $ExpectType [] | [Error]
+        },
+    );
 
     {
         // $ExpectType Process
@@ -3014,16 +3020,16 @@
     new OO.ui.ProgressBarWidget.super();
 
     const instance = new OO.ui.ProgressBarWidget({
-        progress: 33
+        progress: 33,
     });
 
     const instance1 = new OO.ui.ProgressBarWidget({
-        progress: false
+        progress: false,
     });
 
     const instance2 = new OO.ui.ProgressBarWidget({
         // @ts-expect-error
-        progress: true
+        progress: true,
     });
 
     instance.getProgress(); // $ExpectType number | false
@@ -3045,7 +3051,7 @@
     const instance = new OO.ui.RadioInputWidget({
         value: 'a',
         selected: true,
-        disabled: true
+        disabled: true,
     });
 
     // $ExpectType RadioInputWidget
@@ -3063,7 +3069,7 @@
 
     const instance = new OO.ui.RadioOptionWidget({
         data: 'a',
-        label: 'Selected radio option'
+        label: 'Selected radio option',
     });
 }
 // #endregion
@@ -3077,15 +3083,15 @@
         options: [
             { data: 'a', label: 'First' },
             { data: 'b', label: 'Second' },
-            { data: 'c', label: 'Third' }
-        ]
+            { data: 'c', label: 'Third' },
+        ],
     });
 
     // $ExpectType RadioSelectInputWidget
     instance.setOptions([
         { data: 'a', label: 'First' },
         { data: 'b', label: 'Second' },
-        { data: 'c', label: 'Third' }
+        { data: 'c', label: 'Third' },
     ]);
 }
 // #endregion
@@ -3094,14 +3100,14 @@
 {
     const option1 = new OO.ui.RadioOptionWidget({
         data: 'a',
-        label: 'Selected radio option'
+        label: 'Selected radio option',
     });
     const option2 = new OO.ui.RadioOptionWidget({
         data: 'b',
-        label: 'Unselected radio option'
+        label: 'Unselected radio option',
     });
     const instance = new OO.ui.RadioSelectWidget({
-        items: [option1, option2]
+        items: [option1, option2],
     });
 
     // $ExpectType RadioSelectWidget
@@ -3131,13 +3137,13 @@
 
     // $ExpectType SearchWidget<TextInputWidget>
     const instance = new OO.ui.SearchWidget({
-        input: new OO.ui.TextInputWidget()
+        input: new OO.ui.TextInputWidget(),
     });
 
     // $ExpectType SearchWidget<SearchInputWidget>
     const instance1 = new OO.ui.SearchWidget({
         placeholder: 'Placeholder',
-        value: '123'
+        value: '123',
     });
 
     instance.getQuery(); // $ExpectType TextInputWidget
@@ -3173,9 +3179,9 @@
         multiple: true,
         placeholder: 'Select a file',
         button: {
-            label: 'Upload!'
+            label: 'Upload!',
         },
-        icon: 'upload'
+        icon: 'upload',
     });
 
     instance.getFilename(); // $ExpectType string
@@ -3187,8 +3193,8 @@
     // $ExpectType SelectFileInputWidget
     new OO.ui.SelectFileWidget.super();
 
-    const file = new File(["foo"], "foo.txt", {
-        type: "text/plain",
+    const file = new File(['foo'], 'foo.txt', {
+        type: 'text/plain',
     });
 
     const instance = new OO.ui.SelectFileWidget();
@@ -3199,7 +3205,7 @@
 
     instance.setValue(null); // $ExpectType void
 
-    instance.loadAndGetImageUrl(file).then((url) => {
+    instance.loadAndGetImageUrl(file).then(url => {
         url; // $ExpectType string
     });
 }
@@ -3234,7 +3240,7 @@
 
     const instance = new OO.ui.SelectWidget({
         items: [option1, option2, option3],
-        multiselect: true
+        multiselect: true,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -3301,7 +3307,7 @@
     instance.findRelativeSelectableItem(null, 1);
 
     // $ExpectType OptionWidget | null
-    instance.findRelativeSelectableItem(option1, 1, (item) => true, true);
+    instance.findRelativeSelectableItem(option1, 1, item => true, true);
 
     // $ExpectType OptionWidget | null
     instance.findFirstSelectableItem();
@@ -3315,28 +3321,37 @@
     // $ExpectType SelectWidget
     instance.clearItems();
 
-    instance.on('highlight', (item) => {
-        item; // $ExpectType OptionWidget | null
-    }).on('press', (item) => {
-        item; // $ExpectType OptionWidget | null
-    }).on('select', (items) => {
-        items; // $ExpectType OptionWidget | OptionWidget[] | null
-    }).once('choose', (item, selected) => {
-        item; // $ExpectType OptionWidget
-        selected; // $ExpectType boolean
-    }).once('add', (items, index) => {
-        items; // $ExpectType OptionWidget | OptionWidget[]
-        index; // $ExpectType number
-    }).once('remove', (items, index) => {
-        items; // $ExpectType OptionWidget | OptionWidget[]
-        index; // $ExpectType number
-    }).off('change', (items) => {
-        items; // $ExpectType Element[]
-    }).off('clear', () => { }).off('move', (item, index, oldIndex) => {
-        item; // $ExpectType EventEmitter
-        index; // $ExpectType number
-        oldIndex; // $ExpectType number
-    });
+    instance
+        .on('highlight', item => {
+            item; // $ExpectType OptionWidget | null
+        })
+        .on('press', item => {
+            item; // $ExpectType OptionWidget | null
+        })
+        .on('select', items => {
+            items; // $ExpectType OptionWidget | OptionWidget[] | null
+        })
+        .once('choose', (item, selected) => {
+            item; // $ExpectType OptionWidget
+            selected; // $ExpectType boolean
+        })
+        .once('add', (items, index) => {
+            items; // $ExpectType OptionWidget | OptionWidget[]
+            index; // $ExpectType number
+        })
+        .once('remove', (items, index) => {
+            items; // $ExpectType OptionWidget | OptionWidget[]
+            index; // $ExpectType number
+        })
+        .off('change', items => {
+            items; // $ExpectType Element[]
+        })
+        .off('clear', () => {})
+        .off('move', (item, index, oldIndex) => {
+            item; // $ExpectType EventEmitter
+            index; // $ExpectType number
+            oldIndex; // $ExpectType number
+        });
 
     // @ts-expect-error
     OO.ui.SelectWidget.prototype.$focusOwner;
@@ -3353,15 +3368,15 @@
             new OO.ui.PanelLayout({
                 $content: $('<p>Panel One</p>'),
                 padded: true,
-                framed: true
+                framed: true,
             }),
             new OO.ui.PanelLayout({
                 $content: $('<p>Panel Two</p>'),
                 padded: true,
-                framed: true
-            })
+                framed: true,
+            }),
         ],
-        continuous: true
+        continuous: true,
     });
 
     instance.getCurrentItem(); // $ExpectType Layout | null
@@ -3374,7 +3389,7 @@
 
     instance.setItem(new OO.ui.Layout()); // $ExpectType StackLayout
 
-    instance.on('set', (item) => {
+    instance.on('set', item => {
         item; // $ExpectType Layout | null
     });
 }
@@ -3386,7 +3401,7 @@
     new OO.ui.TabOptionWidget.super();
 
     const instance = new OO.ui.TabOptionWidget({
-        href: '1'
+        href: '1',
     });
 }
 // #endregion
@@ -3400,7 +3415,7 @@
         label: 'Label',
         tabItemConfig: {
             href: '123',
-        }
+        },
     });
 
     instance.getName(); // $ExpectType string
@@ -3419,7 +3434,7 @@
 
     instance.setActive(true); // $ExpectType void
 
-    instance.on('active', (active) => {
+    instance.on('active', active => {
         active; // $ExpectType boolean
     });
 }
@@ -3431,7 +3446,7 @@
     new OO.ui.TabSelectWidget.super();
 
     const instance = new OO.ui.TabSelectWidget({
-        framed: true
+        framed: true,
     });
 
     instance.isFramed(); // $ExpectType boolean
@@ -3449,7 +3464,7 @@
 
     const instance = new OO.ui.TagItemWidget({
         valid: true,
-        fixed: true
+        fixed: true,
     });
 
     instance.setFixed(); // $ExpectType TagItemWidget
@@ -3470,15 +3485,18 @@
 
     instance.isValid(); // $ExpectType boolean
 
-    instance.on('remove', () => {
-    }).on('navigate', (direction) => {
-        direction; // $ExpectType Direction
-    }).on('select', () => {
-    }).on('valid', (isValid) => {
-        isValid; // $ExpectType boolean
-    }).on('fixed', (isFixed) => {
-        isFixed; // $ExpectType boolean
-    });
+    instance
+        .on('remove', () => {})
+        .on('navigate', direction => {
+            direction; // $ExpectType Direction
+        })
+        .on('select', () => {})
+        .on('valid', isValid => {
+            isValid; // $ExpectType boolean
+        })
+        .on('fixed', isFixed => {
+            isFixed; // $ExpectType boolean
+        });
 }
 // #endregion
 
@@ -3492,7 +3510,7 @@
 
     const instance = new OO.ui.TagMultiselectWidget({
         input: {
-            value: 'value'
+            value: 'value',
         },
         inputPosition: 'outline',
         allowedValues: ['Option 1', 'Option 2', 'Option 3'],
@@ -3502,7 +3520,7 @@
         allowDuplicates: false,
         allowDisplayInvalidTags: false,
         tagLimit: 20,
-        allowReordering: false
+        allowReordering: false,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -3556,7 +3574,7 @@
         // $ExpectType void
         instance.setValue([
             { data: 'foo', label: 'Foo item' },
-            { data: 'bar', label: 'Bar item' }
+            { data: 'bar', label: 'Bar item' },
         ]);
 
         // $ExpectType void
@@ -3582,7 +3600,7 @@
 
     instance.isValid(); // $ExpectType boolean
 
-    instance.on('disable', (disabled) => {
+    instance.on('disable', disabled => {
         disabled; // $ExpectType boolean
     });
 
@@ -3613,7 +3631,7 @@
         labelPosition: 'before',
         autocomplete: 'on',
         spellcheck: true,
-        validate: () => true
+        validate: () => true,
     });
 
     // $ExpectType boolean
@@ -3671,7 +3689,7 @@
     instance.updatePosition();
 
     // $ExpectType TextInputWidget
-    instance.on('enter', () => { });
+    instance.on('enter', () => {});
 }
 // #endregion
 
@@ -3701,15 +3719,15 @@
     new OO.ui.ToggleButtonWidget.super();
 
     const instance = new OO.ui.ToggleButtonWidget({
-        label: 'Toggle Button off'
+        label: 'Toggle Button off',
     });
 
     const instance1 = new OO.ui.ToggleButtonWidget({
         label: 'Toggle Button on',
-        value: true
+        value: true,
     });
 
-    instance.on('change', (value) => {
+    instance.on('change', value => {
         value; // $ExpectType boolean
     });
 }
@@ -3722,7 +3740,7 @@
 
     const instance = new OO.ui.ToggleSwitchWidget();
     const instance1 = new OO.ui.ToggleSwitchWidget({
-        value: true
+        value: true,
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -3745,14 +3763,14 @@
     new OO.ui.ToggleWidget.super();
 
     const instance = new OO.ui.ToggleWidget({
-        value: true
+        value: true,
     });
 
     instance.getValue(); // $ExpectType boolean
 
     instance.setValue(false); // $ExpectType ToggleWidget
 
-    instance.on('change', (value) => {
+    instance.on('change', value => {
         value; // $ExpectType boolean
     });
 }
@@ -3799,10 +3817,13 @@
         }
     }
 
-    const instance = new OO.ui.Tool(new OO.ui.ToolGroup(new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory())), {
-        title: () => 'title',
-        displayBothIconAndLabel: false
-    });
+    const instance = new OO.ui.Tool(
+        new OO.ui.ToolGroup(new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory())),
+        {
+            title: () => 'title',
+            displayBothIconAndLabel: false,
+        },
+    );
 
     instance.onUpdateState(); // $ExpectType void
 
@@ -3826,7 +3847,7 @@
 
     instance.destroy();
 
-    instance.on('flag', (changes) => {
+    instance.on('flag', changes => {
         changes; // $ExpectType Record<string, boolean>
     });
 }
@@ -3839,7 +3860,7 @@
 
     const instance = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory(), {
         position: 'top',
-        $overlay: OO.ui.getDefaultOverlay()
+        $overlay: OO.ui.getDefaultOverlay(),
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -3865,11 +3886,13 @@
 
     instance.initialize(); // $ExpectType void
 
-    instance.setup([{
-        name: 'group1',
-        type: 'bar',
-        include: { name: 'tool-name' }
-    }]);
+    instance.setup([
+        {
+            name: 'group1',
+            type: 'bar',
+            include: { name: 'tool-name' },
+        },
+    ]);
 
     instance.onToolGroupActive(true); // $ExpectType void
 
@@ -3891,11 +3914,14 @@
 
     instance.setNarrow(true); // $ExpectType void
 
-    instance.on('updateState', (data) => {
-        data; // $ExpectType unknown
-    }).on('active', (hasActive) => {
-        hasActive; // $ExpectType boolean
-    }).off('resize', () => { });
+    instance
+        .on('updateState', data => {
+            data; // $ExpectType unknown
+        })
+        .on('active', hasActive => {
+            hasActive; // $ExpectType boolean
+        })
+        .off('resize', () => {});
 
     // @ts-expect-error
     OO.ui.Toolbar.prototype.$bar;
@@ -3922,7 +3948,9 @@
     const instance = new OO.ui.ToolFactory();
 
     // $ExpectType string[]
-    instance.getTools('*', ['tool1'], ['tool1', { name: 'tool-name' }, { group: 'group-name' }], { group: 'group-name' });
+    instance.getTools('*', ['tool1'], ['tool1', { name: 'tool-name' }, { group: 'group-name' }], {
+        group: 'group-name',
+    });
 }
 // #endregion
 
@@ -3943,14 +3971,13 @@
     // $ExpectType string
     OO.ui.ToolGroup.static.name;
 
-    const toolBar = new OO.ui.Toolbar(new OO.ui.ToolFactory(),
-        new OO.ui.ToolGroupFactory());
+    const toolBar = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory());
 
     const instance = new OO.ui.ToolGroup(toolBar, {
         include: '*',
         exclude: { name: 'excluded' },
         promote: { group: 'group-name' },
-        demote: [{ name: 'excluded' }, { group: 'group-name' }]
+        demote: [{ name: 'excluded' }, { group: 'group-name' }],
     });
 
     instance.getToolbar(); // $ExpectType Toolbar
@@ -3959,10 +3986,11 @@
 
     instance.destroy(); // $ExpectType void
 
-    instance.on('update', () => {
-    }).once('active', (visible) => {
-        visible; // $ExpectType boolean
-    });
+    instance
+        .on('update', () => {})
+        .once('active', visible => {
+            visible; // $ExpectType boolean
+        });
 }
 // #endregion
 
@@ -3991,7 +4019,7 @@
     instance.createGroup({
         label: 'label',
         icon: 'settings',
-        include: ['setting1', 'setting2']
+        include: ['setting1', 'setting2'],
     });
 }
 // #endregion
@@ -4000,7 +4028,7 @@
 {
     const instance = new OO.ui.Widget({
         data: 1,
-        disabled: false
+        disabled: false,
     });
 
     // $ExpectType boolean
@@ -4058,7 +4086,7 @@
     OO.ui.Window.static.size;
 
     const instance = new OO.ui.Window({
-        size: 'full'
+        size: 'full',
     });
 
     // $ExpectType JQuery<HTMLElement>
@@ -4144,7 +4172,7 @@
         maxHeight: 10000,
         width: 100,
         minWidth: 1,
-        maxWidth: 1000
+        maxWidth: 1000,
     });
 
     // $ExpectType Window
@@ -4212,7 +4240,7 @@
         factory: new OO.Factory(),
         modal: false,
         forceTrapFocus: true,
-        $content: $()
+        $content: $(),
     });
 
     const window = new OO.ui.Window();
@@ -4256,11 +4284,14 @@
     // $ExpectType number
     instance.getTeardownDelay(window, 1);
 
-    instance.getWindow('window').then((window) => {
-        window; // $ExpectType Window
-    }, (err) => {
-        err; // $ExpectType Error
-    });
+    instance.getWindow('window').then(
+        window => {
+            window; // $ExpectType Window
+        },
+        err => {
+            err; // $ExpectType Error
+        },
+    );
 
     // $ExpectType Window | null
     instance.getCurrentWindow();
@@ -4275,22 +4306,26 @@
         // $ExpectType WindowInstance & DeprecatedPromise<Promise<void, any, any>, Error | undefined, WindowOpeningState, unknown, never, never>
         instance.openWindow(window, {
             $returnFocusTo: $(),
-            extraProperty: 1
+            extraProperty: 1,
         });
 
         // @ts-expect-error
         instance.openWindow(window, {
-            $returnFocusTo: 1
+            $returnFocusTo: 1,
         });
 
-        instance.openWindow('window', 1).then((promise, data) => {
-            promise; // $ExpectType Promise<void, any, any>
-            data; // $ExpectType unknown
-        }, (err) => {
-            err; // $ExpectType Error | undefined
-        }, (state) => {
-            state; // $ExpectType WindowOpeningState
-        });
+        instance.openWindow('window', 1).then(
+            (promise, data) => {
+                promise; // $ExpectType Promise<void, any, any>
+                data; // $ExpectType unknown
+            },
+            err => {
+                err; // $ExpectType Error | undefined
+            },
+            state => {
+                state; // $ExpectType WindowOpeningState
+            },
+        );
     }
 
     {
@@ -4300,13 +4335,17 @@
         // $ExpectType WindowInstance & DeprecatedPromise<unknown, Error, WindowClosingState, never, never, never>
         instance.closeWindow(window, '123');
 
-        instance.closeWindow('window', 1).then((data) => {
-            data; // $ExpectType unknown
-        }, (err) => {
-            err; // $ExpectType Error
-        }, (state) => {
-            state; // $ExpectType WindowClosingState
-        });
+        instance.closeWindow('window', 1).then(
+            data => {
+                data; // $ExpectType unknown
+            },
+            err => {
+                err; // $ExpectType Error
+            },
+            state => {
+                state; // $ExpectType WindowClosingState
+            },
+        );
     }
 
     {
@@ -4317,9 +4356,9 @@
         instance.addWindows({ a: window, b: window, c: window });
     }
 
-    instance.removeWindows(['window1', 'window2']).then(() => { });
+    instance.removeWindows(['window1', 'window2']).then(() => {});
 
-    instance.clearWindows().then(() => { });
+    instance.clearWindows().then(() => {});
 
     // $ExpectType WindowManager
     instance.updateWindowSize(window);

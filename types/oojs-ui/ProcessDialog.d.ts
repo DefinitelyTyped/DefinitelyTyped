@@ -54,7 +54,7 @@ declare namespace OO.ui {
      *     windowManager.addWindows( [ dialog ] );
      *     windowManager.openWindow( dialog );
      */
-    interface ProcessDialog extends ProcessDialog.Props, ProcessDialog.Prototype { }
+    interface ProcessDialog extends ProcessDialog.Props, ProcessDialog.Prototype {}
 
     namespace ProcessDialog {
         type ConfigOptions = Dialog.ConfigOptions;
@@ -67,7 +67,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ProcessDialog;
+            new (config?: ConfigOptions): ProcessDialog;
             prototype: Prototype;
             static: Static;
             super: Dialog.Constructor;

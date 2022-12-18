@@ -8,7 +8,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.IconElement
      */
-    interface IconElement extends IconElement.Props, IconElement.Prototype { }
+    interface IconElement extends IconElement.Props, IconElement.Prototype {}
 
     namespace IconElement {
         interface ConfigOptions {
@@ -103,7 +103,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): IconElement;
+            new (config?: ConfigOptions): IconElement;
             prototype: Prototype;
             static: Static;
         }

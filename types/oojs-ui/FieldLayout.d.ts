@@ -30,14 +30,15 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.FieldLayout
      */
-    interface FieldLayout<T extends Widget = Widget> extends FieldLayout.Props, FieldLayout.Prototype<T> { }
+    interface FieldLayout<T extends Widget = Widget> extends FieldLayout.Props, FieldLayout.Prototype<T> {}
 
     namespace FieldLayout {
         type EventMap = mixin.LabelElement.EventMap;
 
-        interface ConfigOptions extends Layout.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions {
+        interface ConfigOptions
+            extends Layout.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions {
             /** Alignment of the label: 'left', 'right', 'top' or 'inline' */
             align?: 'left' | 'right' | 'top' | 'inline';
 
@@ -82,13 +83,9 @@ declare namespace OO.ui {
             $overlay?: JQuery;
         }
 
-        interface Static extends Layout.Static,
-            mixin.LabelElement.Static,
-            mixin.TitledElement.Static { }
+        interface Static extends Layout.Static, mixin.LabelElement.Static, mixin.TitledElement.Static {}
 
-        interface Props extends Layout.Props,
-            mixin.LabelElement.Props,
-            mixin.TitledElement.Props {
+        interface Props extends Layout.Props, mixin.LabelElement.Props, mixin.TitledElement.Props {
             $field: JQuery;
             $messages: JQuery;
             $header: JQuery;
@@ -96,9 +93,10 @@ declare namespace OO.ui {
             $help: JQuery;
         }
 
-        interface Prototype<T extends Widget = Widget> extends Layout.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.TitledElement.Prototype {
+        interface Prototype<T extends Widget = Widget>
+            extends Layout.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.TitledElement.Prototype {
             /**
              * Handle click events on the field label, or inline help
              *
@@ -173,10 +171,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,

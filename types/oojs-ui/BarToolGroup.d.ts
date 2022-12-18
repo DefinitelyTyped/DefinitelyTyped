@@ -91,7 +91,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.BarToolGroup
      */
-    interface BarToolGroup extends BarToolGroup.Props, BarToolGroup.Prototype { }
+    interface BarToolGroup extends BarToolGroup.Props, BarToolGroup.Prototype {}
 
     namespace BarToolGroup {
         type ConfigOptions = ToolGroup.ConfigOptions;
@@ -104,7 +104,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): BarToolGroup;
+            new (config?: ConfigOptions): BarToolGroup;
             prototype: Prototype;
             static: Static;
             super: ToolGroup.Constructor;

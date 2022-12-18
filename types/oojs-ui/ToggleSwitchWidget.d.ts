@@ -27,26 +27,23 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToggleSwitchWidget
      */
-    interface ToggleSwitchWidget extends ToggleSwitchWidget.Props, ToggleSwitchWidget.Prototype { }
+    interface ToggleSwitchWidget extends ToggleSwitchWidget.Props, ToggleSwitchWidget.Prototype {}
 
     namespace ToggleSwitchWidget {
-        interface ConfigOptions extends ToggleWidget.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions { }
+        interface ConfigOptions extends ToggleWidget.ConfigOptions, mixin.TabIndexedElement.ConfigOptions {}
 
         type Static = ToggleWidget.Static;
 
-        interface Props extends ToggleWidget.Props,
-            mixin.TabIndexedElement.Props {
+        interface Props extends ToggleWidget.Props, mixin.TabIndexedElement.Props {
             $glow: JQuery;
             $grip: JQuery;
         }
 
-        interface Prototype extends ToggleWidget.Prototype,
-            mixin.TabIndexedElement.Prototype { }
+        interface Prototype extends ToggleWidget.Prototype, mixin.TabIndexedElement.Prototype {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ToggleSwitchWidget;
+            new (config?: ConfigOptions): ToggleSwitchWidget;
             prototype: Prototype;
             static: Static;
             super: ToggleWidget.Constructor;

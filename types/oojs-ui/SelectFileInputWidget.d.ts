@@ -14,11 +14,10 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.SelectFileInputWidget
      */
-    interface SelectFileInputWidget extends SelectFileInputWidget.Props, SelectFileInputWidget.Prototype { }
+    interface SelectFileInputWidget extends SelectFileInputWidget.Props, SelectFileInputWidget.Prototype {}
 
     namespace SelectFileInputWidget {
-        interface ConfigOptions extends InputWidget.ConfigOptions,
-            mixin.RequiredElement.ConfigOptions {
+        interface ConfigOptions extends InputWidget.ConfigOptions, mixin.RequiredElement.ConfigOptions {
             /** MIME types to accept. null accepts all types. */
             accept?: string[] | null;
             /** Allow multiple files to be selected. */
@@ -33,11 +32,9 @@ declare namespace OO.ui {
 
         type Static = InputWidget.Static;
 
-        interface Props extends InputWidget.Props,
-            mixin.RequiredElement.Props { }
+        interface Props extends InputWidget.Props, mixin.RequiredElement.Props {}
 
-        interface Prototype extends InputWidget.Prototype,
-            mixin.RequiredElement.Prototype {
+        interface Prototype extends InputWidget.Prototype, mixin.RequiredElement.Prototype {
             /**
              * Get the filename of the currently selected file.
              *
@@ -48,7 +45,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): SelectFileInputWidget;
+            new (config?: ConfigOptions): SelectFileInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

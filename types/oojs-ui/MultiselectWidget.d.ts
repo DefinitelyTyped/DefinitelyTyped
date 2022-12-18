@@ -7,31 +7,26 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MultiselectWidget
      */
-    interface MultiselectWidget extends MultiselectWidget.Props, MultiselectWidget.Prototype { }
+    interface MultiselectWidget extends MultiselectWidget.Props, MultiselectWidget.Prototype {}
 
     namespace MultiselectWidget {
-        interface EventMap extends Widget.EventMap,
-            mixin.GroupElement.EventMap {
+        interface EventMap extends Widget.EventMap, mixin.GroupElement.EventMap {
             select: [];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.GroupElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.GroupElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions {
             /** An array of options to add to the multiselect. */
             items?: MultioptionWidget[];
         }
 
-        interface Static extends Widget.Static,
-            mixin.TitledElement.Static { }
+        interface Static extends Widget.Static, mixin.TitledElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.GroupElement.Props,
-            mixin.TitledElement.Props { }
+        interface Props extends Widget.Props, mixin.GroupElement.Props, mixin.TitledElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.GroupElement.Prototype,
-            mixin.TitledElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.GroupElement.Prototype, mixin.TitledElement.Prototype {
             /**
              * Find options that are selected.
              *
@@ -83,10 +78,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -123,7 +115,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MultiselectWidget;
+            new (config?: ConfigOptions): MultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

@@ -20,16 +20,16 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Tool
      */
-    interface Tool extends Tool.Props, Tool.Prototype { }
+    interface Tool extends Tool.Props, Tool.Prototype {}
 
     namespace Tool {
-        interface EventMap extends Widget.EventMap,
-            mixin.FlaggedElement.EventMap { }
+        interface EventMap extends Widget.EventMap, mixin.FlaggedElement.EventMap {}
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.TabIndexedElement.ConfigOptions {
             /**
              * Title text or a function that returns text. If this config is omitted, the value of
              * the {@link Static.title static title} property is used.
@@ -53,9 +53,7 @@ declare namespace OO.ui {
             displayBothIconAndLabel?: boolean;
         }
 
-        interface Static extends Widget.Static,
-            mixin.IconElement.Static,
-            mixin.FlaggedElement.Static {
+        interface Static extends Widget.Static, mixin.IconElement.Static, mixin.FlaggedElement.Static {
             /**
              * Symbolic name of tool.
              *
@@ -123,19 +121,21 @@ declare namespace OO.ui {
             narrowConfig: Partial<Pick<this, `displayBothIconAndLabel` | `title` | `icon`>> | null;
         }
 
-        interface Props extends Widget.Props,
-            mixin.IconElement.Props,
-            mixin.FlaggedElement.Props,
-            mixin.TabIndexedElement.Props {
+        interface Props
+            extends Widget.Props,
+                mixin.IconElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.TabIndexedElement.Props {
             $title: JQuery;
             $accel: JQuery;
             $link: JQuery;
         }
 
-        interface Prototype extends Widget.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.FlaggedElement.Prototype,
-            mixin.TabIndexedElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.TabIndexedElement.Prototype {
             /**
              * Handle the toolbar state being updated. This method is called when the
              * {@link OO.ui.Toolbar.EventMap.updateState 'updateState' event} is emitted on the
@@ -239,10 +239,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -282,7 +279,7 @@ declare namespace OO.ui {
              * @param toolGroup
              * @param config Configuration options
              */
-            new(toolGroup: ToolGroup, config?: ConfigOptions): Tool;
+            new (toolGroup: ToolGroup, config?: ConfigOptions): Tool;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

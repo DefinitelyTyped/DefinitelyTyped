@@ -17,7 +17,7 @@ declare namespace OO.ui {
 
     const HtmlSnippet: {
         /** @param content HTML content */
-        new(content: string): HtmlSnippet;
+        new (content: string): HtmlSnippet;
         prototype: HtmlSnippet;
         static: {};
     };

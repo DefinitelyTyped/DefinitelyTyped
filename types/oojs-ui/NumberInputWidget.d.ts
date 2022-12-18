@@ -15,7 +15,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.NumberInputWidget
      */
-    interface NumberInputWidget extends NumberInputWidget.Props, NumberInputWidget.Prototype { }
+    interface NumberInputWidget extends NumberInputWidget.Props, NumberInputWidget.Prototype {}
 
     namespace NumberInputWidget {
         interface ConfigOptions extends TextInputWidget.ConfigOptions {
@@ -113,7 +113,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): NumberInputWidget;
+            new (config?: ConfigOptions): NumberInputWidget;
             prototype: Prototype;
             static: Static;
             super: TextInputWidget.Constructor;

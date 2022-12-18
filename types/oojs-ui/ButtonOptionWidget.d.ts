@@ -8,33 +8,36 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonOptionWidget
      */
-    interface ButtonOptionWidget extends ButtonOptionWidget.Props, ButtonOptionWidget.Prototype { }
+    interface ButtonOptionWidget extends ButtonOptionWidget.Props, ButtonOptionWidget.Prototype {}
 
     namespace ButtonOptionWidget {
-        interface EventMap extends OptionWidget.EventMap,
-            mixin.ButtonElement.EventMap { }
+        interface EventMap extends OptionWidget.EventMap, mixin.ButtonElement.EventMap {}
 
-        interface ConfigOptions extends OptionWidget.ConfigOptions,
-            mixin.ButtonElement.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions {
+        interface ConfigOptions
+            extends OptionWidget.ConfigOptions,
+                mixin.ButtonElement.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions {
             flags?: LiteralUnion<mixin.ButtonElement.Flag> | Array<LiteralUnion<mixin.ButtonElement.Flag>>;
         }
 
-        interface Static extends OptionWidget.Static,
-            mixin.ButtonElement.Static,
-            mixin.IconElement.Static,
-            mixin.IndicatorElement.Static { }
+        interface Static
+            extends OptionWidget.Static,
+                mixin.ButtonElement.Static,
+                mixin.IconElement.Static,
+                mixin.IndicatorElement.Static {}
 
-        interface Props extends OptionWidget.Props,
-            mixin.ButtonElement.Props,
-            mixin.IconElement.Props,
-            mixin.IndicatorElement.Props { }
+        interface Props
+            extends OptionWidget.Props,
+                mixin.ButtonElement.Props,
+                mixin.IconElement.Props,
+                mixin.IndicatorElement.Props {}
 
-        interface Prototype extends OptionWidget.Prototype,
-            mixin.ButtonElement.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.IndicatorElement.Prototype {
+        interface Prototype
+            extends OptionWidget.Prototype,
+                mixin.ButtonElement.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -49,10 +52,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -89,7 +89,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ButtonOptionWidget;
+            new (config?: ConfigOptions): ButtonOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

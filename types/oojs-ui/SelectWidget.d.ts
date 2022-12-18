@@ -30,7 +30,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.SelectWidget
      */
-    interface SelectWidget extends SelectWidget.Props, SelectWidget.Prototype { }
+    interface SelectWidget extends SelectWidget.Props, SelectWidget.Prototype {}
 
     namespace SelectWidget {
         // HACK: Copy properties of mixin.GroupElement.EventMap instead of extending
@@ -91,8 +91,9 @@ declare namespace OO.ui {
         }
 
         // HACK: Address LSP violation
-        interface Prototype extends Widget.Prototype,
-            Omit<mixin.GroupElement.Prototype, 'addItems' | 'removeItems' | 'clearItems'> {
+        interface Prototype
+            extends Widget.Prototype,
+                Omit<mixin.GroupElement.Prototype, 'addItems' | 'removeItems' | 'clearItems'> {
             /**
              * Scroll item into view, preventing spurious mouse highlight actions from happening.
              *
@@ -244,7 +245,12 @@ declare namespace OO.ui {
              * @param wrap Do not wrap around after reaching the last or first item
              * @return Item at position, `null` if there are no items in the select
              */
-            findRelativeSelectableItem(item: OptionWidget | null, offset: number, filter?: (item: OptionWidget) => boolean, wrap?: boolean): OptionWidget | null;
+            findRelativeSelectableItem(
+                item: OptionWidget | null,
+                offset: number,
+                filter?: (item: OptionWidget) => boolean,
+                wrap?: boolean,
+            ): OptionWidget | null;
 
             /**
              * Find the next selectable item or `null` if there are no selectable items.
@@ -297,10 +303,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -337,7 +340,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): SelectWidget;
+            new (config?: ConfigOptions): SelectWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

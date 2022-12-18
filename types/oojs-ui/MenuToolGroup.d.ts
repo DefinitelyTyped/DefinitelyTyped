@@ -98,7 +98,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuToolGroup
      */
-    interface MenuToolGroup extends MenuToolGroup.Props, MenuToolGroup.Prototype { }
+    interface MenuToolGroup extends MenuToolGroup.Props, MenuToolGroup.Prototype {}
 
     namespace MenuToolGroup {
         type ConfigOptions = PopupToolGroup.ConfigOptions;
@@ -114,7 +114,7 @@ declare namespace OO.ui {
              * @param toolbar
              * @param config Configuration options
              */
-            new(toolbar: Toolbar, config?: ConfigOptions): MenuToolGroup;
+            new (toolbar: Toolbar, config?: ConfigOptions): MenuToolGroup;
             prototype: Prototype;
             static: Static;
             super: PopupToolGroup.Constructor;

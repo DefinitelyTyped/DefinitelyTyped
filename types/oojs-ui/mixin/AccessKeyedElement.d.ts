@@ -14,7 +14,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.AccessKeyedElement
      */
-    interface AccessKeyedElement extends AccessKeyedElement.Props, AccessKeyedElement.Prototype { }
+    interface AccessKeyedElement extends AccessKeyedElement.Props, AccessKeyedElement.Prototype {}
 
     namespace AccessKeyedElement {
         interface ConfigOptions {
@@ -83,7 +83,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): AccessKeyedElement;
+            new (config?: ConfigOptions): AccessKeyedElement;
             prototype: Prototype;
             static: Static;
         }

@@ -12,7 +12,7 @@ declare namespace OO.ui {
          * @param element Element for which to get classes
          * @return Categorized class names with `on` and `off` lists
          */
-        getElementClasses(element: Element): { on: string[], off: string[] };
+        getElementClasses(element: Element): { on: string[]; off: string[] };
 
         /**
          * Update CSS classes provided by the theme.
@@ -42,7 +42,7 @@ declare namespace OO.ui {
     }
 
     interface ThemeConstructor {
-        new(): Theme;
+        new (): Theme;
         prototype: Theme;
         static: {};
     }

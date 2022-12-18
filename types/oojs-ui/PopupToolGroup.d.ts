@@ -7,34 +7,34 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupToolGroup
      */
-    interface PopupToolGroup extends PopupToolGroup.Props, PopupToolGroup.Prototype { }
+    interface PopupToolGroup extends PopupToolGroup.Props, PopupToolGroup.Prototype {}
 
     namespace PopupToolGroup {
-        interface EventMap extends ToolGroup.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap { }
+        interface EventMap extends ToolGroup.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {}
 
-        interface ConfigOptions extends ToolGroup.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions,
-            mixin.ClippableElement.ConfigOptions,
-            mixin.FloatableElement.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions {
+        interface ConfigOptions
+            extends ToolGroup.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.ClippableElement.ConfigOptions,
+                mixin.FloatableElement.ConfigOptions,
+                mixin.TabIndexedElement.ConfigOptions {
             /** Text to display at the top of the popup */
             header?: string;
             /** See {@link Static.narrowConfig static.narrowConfig} */
             narrowConfig?: Pick<this, `invisibleLabel` | `label` | `icon`>;
         }
 
-        interface Static extends ToolGroup.Static,
-            mixin.IconElement.Static,
-            mixin.IndicatorElement.Static,
-            mixin.LabelElement.Static,
-            mixin.TitledElement.Static,
-            mixin.FlaggedElement.Static {
+        interface Static
+            extends ToolGroup.Static,
+                mixin.IconElement.Static,
+                mixin.IndicatorElement.Static,
+                mixin.LabelElement.Static,
+                mixin.TitledElement.Static,
+                mixin.FlaggedElement.Static {
             /**
              * Config options to change when toolbar is in narrow mode
              *
@@ -43,27 +43,29 @@ declare namespace OO.ui {
             narrowConfig: Pick<ConfigOptions, `invisibleLabel` | `label` | `icon`> | null;
         }
 
-        interface Props extends ToolGroup.Props,
-            mixin.IconElement.Props,
-            mixin.IndicatorElement.Props,
-            mixin.LabelElement.Props,
-            mixin.TitledElement.Props,
-            mixin.FlaggedElement.Props,
-            mixin.ClippableElement.Props,
-            mixin.FloatableElement.Props,
-            mixin.TabIndexedElement.Props {
+        interface Props
+            extends ToolGroup.Props,
+                mixin.IconElement.Props,
+                mixin.IndicatorElement.Props,
+                mixin.LabelElement.Props,
+                mixin.TitledElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.ClippableElement.Props,
+                mixin.FloatableElement.Props,
+                mixin.TabIndexedElement.Props {
             $handle: JQuery;
         }
 
-        interface Prototype extends ToolGroup.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.IndicatorElement.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.TitledElement.Prototype,
-            mixin.FlaggedElement.Prototype,
-            mixin.ClippableElement.Prototype,
-            mixin.FloatableElement.Prototype,
-            mixin.TabIndexedElement.Prototype {
+        interface Prototype
+            extends ToolGroup.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.TitledElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.ClippableElement.Prototype,
+                mixin.FloatableElement.Prototype,
+                mixin.TabIndexedElement.Prototype {
             /**
              * Handle resize events from the toolbar
              */
@@ -100,10 +102,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -143,7 +142,7 @@ declare namespace OO.ui {
              * @param toolbar
              * @param config Configuration options
              */
-            new(toolbar: Toolbar, config?: ConfigOptions): PopupToolGroup;
+            new (toolbar: Toolbar, config?: ConfigOptions): PopupToolGroup;
             prototype: Prototype;
             static: Static;
             super: ToolGroup.Constructor;

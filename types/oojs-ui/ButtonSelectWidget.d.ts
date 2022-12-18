@@ -30,23 +30,20 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonSelectWidget
      */
-    interface ButtonSelectWidget extends ButtonSelectWidget.Props, ButtonSelectWidget.Prototype { }
+    interface ButtonSelectWidget extends ButtonSelectWidget.Props, ButtonSelectWidget.Prototype {}
 
     namespace ButtonSelectWidget {
-        interface ConfigOptions extends SelectWidget.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions { }
+        interface ConfigOptions extends SelectWidget.ConfigOptions, mixin.TabIndexedElement.ConfigOptions {}
 
         type Static = SelectWidget.Static;
 
-        interface Props extends SelectWidget.Props,
-            mixin.TabIndexedElement.Props { }
+        interface Props extends SelectWidget.Props, mixin.TabIndexedElement.Props {}
 
-        interface Prototype extends SelectWidget.Prototype,
-            mixin.TabIndexedElement.Prototype { }
+        interface Prototype extends SelectWidget.Prototype, mixin.TabIndexedElement.Prototype {}
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ButtonSelectWidget;
+            new (config?: ConfigOptions): ButtonSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

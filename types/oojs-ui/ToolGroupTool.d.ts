@@ -28,7 +28,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToolGroupTool
      */
-    interface ToolGroupTool extends ToolGroupTool.Props, ToolGroupTool.Prototype { }
+    interface ToolGroupTool extends ToolGroupTool.Props, ToolGroupTool.Prototype {}
 
     namespace ToolGroupTool {
         type ConfigOptions = Tool.ConfigOptions;
@@ -63,7 +63,7 @@ declare namespace OO.ui {
              * @param toolGroup
              * @param config Configuration options
              */
-            new(toolGroup: ToolGroup, config?: ConfigOptions): ToolGroupTool;
+            new (toolGroup: ToolGroup, config?: ConfigOptions): ToolGroupTool;
             prototype: Prototype;
             static: Static;
             super: Tool.Constructor;

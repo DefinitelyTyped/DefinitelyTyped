@@ -10,7 +10,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.WindowInstance
      */
-    interface WindowInstance extends WindowInstance.Props, WindowInstance.Prototype { }
+    interface WindowInstance extends WindowInstance.Props, WindowInstance.Prototype {}
 
     namespace WindowInstance {
         interface Props {
@@ -51,7 +51,7 @@ declare namespace OO.ui {
         }
 
         interface Constructor {
-            new(): WindowInstance;
+            new (): WindowInstance;
             prototype: Prototype;
             static: {};
         }

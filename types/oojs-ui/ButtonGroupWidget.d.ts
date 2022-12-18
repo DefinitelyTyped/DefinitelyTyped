@@ -24,28 +24,24 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonGroupWidget
      */
-    interface ButtonGroupWidget extends ButtonGroupWidget.Props, ButtonGroupWidget.Prototype { }
+    interface ButtonGroupWidget extends ButtonGroupWidget.Props, ButtonGroupWidget.Prototype {}
 
     namespace ButtonGroupWidget {
-        interface EventMap extends Widget.EventMap, mixin.GroupElement.EventMap { }
+        interface EventMap extends Widget.EventMap, mixin.GroupElement.EventMap {}
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.GroupElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.GroupElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions {
             /** Buttons to add */
             items?: ButtonWidget[];
         }
 
-        interface Static extends Widget.Static, mixin.TitledElement.Static { }
+        interface Static extends Widget.Static, mixin.TitledElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.GroupElement.Props,
-            mixin.TitledElement.Props {
-        }
+        interface Props extends Widget.Props, mixin.GroupElement.Props, mixin.TitledElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.GroupElement.Prototype,
-            mixin.TitledElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.GroupElement.Prototype, mixin.TitledElement.Prototype {
             /**
              * Focus the widget
              *
@@ -67,10 +63,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -107,7 +100,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ButtonGroupWidget;
+            new (config?: ConfigOptions): ButtonGroupWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

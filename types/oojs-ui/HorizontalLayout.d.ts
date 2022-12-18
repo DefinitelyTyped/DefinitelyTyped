@@ -17,7 +17,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.HorizontalLayout
      */
-    interface HorizontalLayout extends HorizontalLayout.Props, HorizontalLayout.Prototype { }
+    interface HorizontalLayout extends HorizontalLayout.Props, HorizontalLayout.Prototype {}
 
     namespace HorizontalLayout {
         type EventMap = mixin.GroupElement.EventMap;
@@ -29,7 +29,7 @@ declare namespace OO.ui {
 
         type Static = Layout.Static;
 
-        interface Props extends Layout.Props, mixin.GroupElement.Props { }
+        interface Props extends Layout.Props, mixin.GroupElement.Props {}
 
         interface Prototype extends Layout.Prototype, mixin.GroupElement.Prototype {
             // #region EventEmitter overloads
@@ -46,10 +46,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -86,7 +83,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): HorizontalLayout;
+            new (config?: ConfigOptions): HorizontalLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

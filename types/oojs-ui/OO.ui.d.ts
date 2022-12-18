@@ -23,7 +23,7 @@ declare namespace OO {
             PAGEDOWN = 34,
             ESCAPE = 27,
             SHIFT = 16,
-            SPACE = 32
+            SPACE = 32,
         }
 
         /**
@@ -32,7 +32,7 @@ declare namespace OO {
         enum MouseButtons {
             LEFT = 1,
             MIDDLE = 2,
-            RIGHT = 3
+            RIGHT = 3,
         }
 
         /**
@@ -80,8 +80,11 @@ declare namespace OO {
          * @param fallback Fallback code, used if no matching language can be found
          * @return Local value
          */
-        function getLocalValue<T extends Record<string, any>, K1 extends string | null, K2 extends string>(obj: T, lang?: K1, fallback?: K2)
-            : K1 extends keyof T ? T[K1] : K2 extends keyof T ? T[K2] : T[keyof T] | undefined;
+        function getLocalValue<T extends Record<string, any>, K1 extends string | null, K2 extends string>(
+            obj: T,
+            lang?: K1,
+            fallback?: K2,
+        ): K1 extends keyof T ? T[K1] : K2 extends keyof T ? T[K2] : T[keyof T] | undefined;
 
         /**
          * Check if a node is contained within another node.
@@ -95,7 +98,11 @@ declare namespace OO {
          *  otherwise only match descendants
          * @return The node is in the list of target nodes
          */
-        function contains(containers: HTMLElement | HTMLElement[], contained: HTMLElement, matchContainers?: boolean): boolean;
+        function contains(
+            containers: HTMLElement | HTMLElement[],
+            contained: HTMLElement,
+            matchContainers?: boolean,
+        ): boolean;
 
         /**
          * Return a function, that, as long as it continues to be invoked, will not

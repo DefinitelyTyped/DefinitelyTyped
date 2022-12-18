@@ -20,7 +20,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupWidget
      */
-    interface PopupWidget extends PopupWidget.Props, PopupWidget.Prototype { }
+    interface PopupWidget extends PopupWidget.Props, PopupWidget.Prototype {}
 
     namespace PopupWidget {
         type Position = 'above' | 'below' | 'before' | 'after';
@@ -32,10 +32,12 @@ declare namespace OO.ui {
             closing: [];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.IconElement.ConfigOptions, mixin.LabelElement.ConfigOptions,
-            mixin.ClippableElement.ConfigOptions,
-            mixin.FloatableElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.ClippableElement.ConfigOptions,
+                mixin.FloatableElement.ConfigOptions {
             /** Width of popup in pixels. Pass `null` to use automatic width. */
             width?: number | null;
 
@@ -116,23 +118,26 @@ declare namespace OO.ui {
             padded?: boolean;
         }
 
-        interface Static extends Widget.Static, mixin.IconElement.Static,
-            mixin.LabelElement.Static { }
+        interface Static extends Widget.Static, mixin.IconElement.Static, mixin.LabelElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.IconElement.Props, mixin.LabelElement.Props,
-            mixin.ClippableElement.Props,
-            mixin.FloatableElement.Props {
+        interface Props
+            extends Widget.Props,
+                mixin.IconElement.Props,
+                mixin.LabelElement.Props,
+                mixin.ClippableElement.Props,
+                mixin.FloatableElement.Props {
             $body: JQuery;
             $popup: JQuery;
             $anchor: JQuery;
             $container: JQuery;
         }
 
-        interface Prototype extends Widget.Prototype,
-            mixin.IconElement.Prototype, mixin.LabelElement.Prototype,
-            mixin.ClippableElement.Prototype,
-            mixin.FloatableElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.ClippableElement.Prototype,
+                mixin.FloatableElement.Prototype {
             /**
              * Show, hide, or toggle the visibility of the anchor.
              *
@@ -258,10 +263,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -298,7 +300,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): PopupWidget;
+            new (config?: ConfigOptions): PopupWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

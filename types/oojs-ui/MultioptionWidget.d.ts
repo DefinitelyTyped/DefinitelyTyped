@@ -7,32 +7,26 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MultioptionWidget
      */
-    interface MultioptionWidget extends MultioptionWidget.Props, MultioptionWidget.Prototype { }
+    interface MultioptionWidget extends MultioptionWidget.Props, MultioptionWidget.Prototype {}
 
     namespace MultioptionWidget {
-        interface EventMap extends Widget.EventMap,
-            mixin.LabelElement.EventMap {
+        interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {
             change: [selected: boolean];
         }
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions {
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions {
             /** Whether the option is initially selected */
             selected?: boolean;
         }
 
-        interface Static extends Widget.Static,
-            mixin.LabelElement.Static,
-            mixin.TitledElement.Static { }
+        interface Static extends Widget.Static, mixin.LabelElement.Static, mixin.TitledElement.Static {}
 
-        interface Props extends Widget.Props,
-            mixin.LabelElement.Props,
-            mixin.TitledElement.Props { }
+        interface Props extends Widget.Props, mixin.LabelElement.Props, mixin.TitledElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.TitledElement.Prototype {
+        interface Prototype extends Widget.Prototype, mixin.LabelElement.Prototype, mixin.TitledElement.Prototype {
             /**
              * Check if the option is selected.
              *
@@ -65,10 +59,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -105,7 +96,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MultioptionWidget;
+            new (config?: ConfigOptions): MultioptionWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

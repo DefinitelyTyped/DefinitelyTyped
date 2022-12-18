@@ -75,7 +75,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuLayout
      */
-    interface MenuLayout extends MenuLayout.Props, MenuLayout.Prototype { }
+    interface MenuLayout extends MenuLayout.Props, MenuLayout.Prototype {}
 
     namespace MenuLayout {
         type Position = 'top' | 'after' | 'bottom' | 'before';
@@ -160,7 +160,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MenuLayout;
+            new (config?: ConfigOptions): MenuLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

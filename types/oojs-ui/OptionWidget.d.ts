@@ -7,24 +7,24 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.OptionWidget
      */
-    interface OptionWidget extends OptionWidget.Props, OptionWidget.Prototype { }
+    interface OptionWidget extends OptionWidget.Props, OptionWidget.Prototype {}
 
     namespace OptionWidget {
-        interface EventMap extends Widget.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap { }
+        interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap, mixin.FlaggedElement.EventMap {}
 
-        interface ConfigOptions extends Widget.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions,
-            mixin.AccessKeyedElement.ConfigOptions,
-            mixin.TitledElement.ConfigOptions { }
+        interface ConfigOptions
+            extends Widget.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.AccessKeyedElement.ConfigOptions,
+                mixin.TitledElement.ConfigOptions {}
 
-        interface Static extends Widget.Static,
-            mixin.LabelElement.Static,
-            mixin.FlaggedElement.Static,
-            mixin.AccessKeyedElement.Static,
-            mixin.TitledElement.Static {
+        interface Static
+            extends Widget.Static,
+                mixin.LabelElement.Static,
+                mixin.FlaggedElement.Static,
+                mixin.AccessKeyedElement.Static,
+                mixin.TitledElement.Static {
             /** Whether this option can be selected. See {@link Prototype.setSelected setSelected}. */
             selectable: boolean;
 
@@ -38,17 +38,19 @@ declare namespace OO.ui {
             scrollIntoViewOnSelect: boolean;
         }
 
-        interface Props extends Widget.Props,
-            mixin.LabelElement.Props,
-            mixin.FlaggedElement.Props,
-            mixin.AccessKeyedElement.Props,
-            mixin.TitledElement.Props { }
+        interface Props
+            extends Widget.Props,
+                mixin.LabelElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.AccessKeyedElement.Props,
+                mixin.TitledElement.Props {}
 
-        interface Prototype extends Widget.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.FlaggedElement.Prototype,
-            mixin.AccessKeyedElement.Prototype,
-            mixin.TitledElement.Prototype {
+        interface Prototype
+            extends Widget.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.AccessKeyedElement.Prototype,
+                mixin.TitledElement.Prototype {
             /**
              * Check if the option can be selected.
              *
@@ -153,10 +155,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -193,7 +192,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): OptionWidget;
+            new (config?: ConfigOptions): OptionWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

@@ -22,46 +22,51 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToggleButtonWidget
      */
-    interface ToggleButtonWidget extends ToggleButtonWidget.Props, ToggleButtonWidget.Prototype { }
+    interface ToggleButtonWidget extends ToggleButtonWidget.Props, ToggleButtonWidget.Prototype {}
 
     namespace ToggleButtonWidget {
-        interface EventMap extends ToggleWidget.EventMap,
-            mixin.ButtonElement.EventMap,
-            mixin.LabelElement.EventMap,
-            mixin.FlaggedElement.EventMap { }
+        interface EventMap
+            extends ToggleWidget.EventMap,
+                mixin.ButtonElement.EventMap,
+                mixin.LabelElement.EventMap,
+                mixin.FlaggedElement.EventMap {}
 
-        interface ConfigOptions extends ToggleWidget.ConfigOptions,
-            mixin.ButtonElement.ConfigOptions,
-            mixin.IconElement.ConfigOptions,
-            mixin.IndicatorElement.ConfigOptions,
-            mixin.LabelElement.ConfigOptions,
-            mixin.FlaggedElement.ConfigOptions,
-            mixin.TabIndexedElement.ConfigOptions {
+        interface ConfigOptions
+            extends ToggleWidget.ConfigOptions,
+                mixin.ButtonElement.ConfigOptions,
+                mixin.IconElement.ConfigOptions,
+                mixin.IndicatorElement.ConfigOptions,
+                mixin.LabelElement.ConfigOptions,
+                mixin.FlaggedElement.ConfigOptions,
+                mixin.TabIndexedElement.ConfigOptions {
             flags?: LiteralUnion<mixin.ButtonElement.Flag> | Array<LiteralUnion<mixin.ButtonElement.Flag>>;
         }
 
-        interface Static extends ToggleWidget.Static,
-            mixin.ButtonElement.Static,
-            mixin.IconElement.Static,
-            mixin.IndicatorElement.Static,
-            mixin.LabelElement.Static,
-            mixin.FlaggedElement.Static { }
+        interface Static
+            extends ToggleWidget.Static,
+                mixin.ButtonElement.Static,
+                mixin.IconElement.Static,
+                mixin.IndicatorElement.Static,
+                mixin.LabelElement.Static,
+                mixin.FlaggedElement.Static {}
 
-        interface Props extends ToggleWidget.Props,
-            mixin.ButtonElement.Props,
-            mixin.IconElement.Props,
-            mixin.IndicatorElement.Props,
-            mixin.LabelElement.Props,
-            mixin.FlaggedElement.Props,
-            mixin.TabIndexedElement.Props { }
+        interface Props
+            extends ToggleWidget.Props,
+                mixin.ButtonElement.Props,
+                mixin.IconElement.Props,
+                mixin.IndicatorElement.Props,
+                mixin.LabelElement.Props,
+                mixin.FlaggedElement.Props,
+                mixin.TabIndexedElement.Props {}
 
-        interface Prototype extends ToggleWidget.Prototype,
-            mixin.ButtonElement.Prototype,
-            mixin.IconElement.Prototype,
-            mixin.IndicatorElement.Prototype,
-            mixin.LabelElement.Prototype,
-            mixin.FlaggedElement.Prototype,
-            mixin.TabIndexedElement.Prototype {
+        interface Prototype
+            extends ToggleWidget.Prototype,
+                mixin.ButtonElement.Prototype,
+                mixin.IconElement.Prototype,
+                mixin.IndicatorElement.Prototype,
+                mixin.LabelElement.Prototype,
+                mixin.FlaggedElement.Prototype,
+                mixin.TabIndexedElement.Prototype {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -76,10 +81,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -116,7 +118,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): ToggleButtonWidget;
+            new (config?: ConfigOptions): ToggleButtonWidget;
             prototype: Prototype;
             static: Static;
             super: ToggleWidget.Constructor;

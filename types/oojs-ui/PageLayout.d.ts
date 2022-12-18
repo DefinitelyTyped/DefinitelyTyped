@@ -11,7 +11,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PageLayout
      */
-    interface PageLayout extends PageLayout.Props, PageLayout.Prototype { }
+    interface PageLayout extends PageLayout.Props, PageLayout.Prototype {}
 
     namespace PageLayout {
         interface EventMap {
@@ -92,10 +92,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -135,7 +132,7 @@ declare namespace OO.ui {
              * @param name Unique symbolic name of page
              * @param config Configuration options
              */
-            new(name: string, config?: ConfigOptions): PageLayout;
+            new (name: string, config?: ConfigOptions): PageLayout;
             prototype: Prototype;
             static: Static;
             super: PanelLayout.Constructor;

@@ -26,16 +26,17 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuSelectWidget
      */
-    interface MenuSelectWidget extends MenuSelectWidget.Props, MenuSelectWidget.Prototype { }
+    interface MenuSelectWidget extends MenuSelectWidget.Props, MenuSelectWidget.Prototype {}
 
     namespace MenuSelectWidget {
         interface EventMap extends SelectWidget.EventMap {
             ready: [];
         }
 
-        interface ConfigOptions extends SelectWidget.ConfigOptions,
-            mixin.ClippableElement.ConfigOptions,
-            mixin.FloatableElement.ConfigOptions {
+        interface ConfigOptions
+            extends SelectWidget.ConfigOptions,
+                mixin.ClippableElement.ConfigOptions,
+                mixin.FloatableElement.ConfigOptions {
             /**
              * Text input used to implement option highlighting for menu
              * items that match the text the user types. This config is used by
@@ -96,17 +97,16 @@ declare namespace OO.ui {
             flippedPositions: Record<string, string>;
         }
 
-        interface Props extends SelectWidget.Props,
-            mixin.ClippableElement.Props,
-            mixin.FloatableElement.Props {
+        interface Props extends SelectWidget.Props, mixin.ClippableElement.Props, mixin.FloatableElement.Props {
             $input: JQuery | null;
             $widget: JQuery | null;
             $autoCloseIgnore: JQuery;
         }
 
-        interface Prototype extends SelectWidget.Prototype,
-            mixin.ClippableElement.Prototype,
-            mixin.FloatableElement.Prototype {
+        interface Prototype
+            extends SelectWidget.Prototype,
+                mixin.ClippableElement.Prototype,
+                mixin.FloatableElement.Prototype {
             /**
              * Return the visible items in the menu.
              *
@@ -140,10 +140,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -180,7 +177,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): MenuSelectWidget;
+            new (config?: ConfigOptions): MenuSelectWidget;
             prototype: Prototype;
             static: Static;
             super: SelectWidget.Constructor;

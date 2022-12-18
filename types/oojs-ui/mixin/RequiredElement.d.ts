@@ -4,7 +4,7 @@ declare namespace OO.ui.mixin {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.RequiredElement
      */
-    interface RequiredElement extends RequiredElement.Props, RequiredElement.Prototype { }
+    interface RequiredElement extends RequiredElement.Props, RequiredElement.Prototype {}
 
     namespace RequiredElement {
         interface ConfigOptions {
@@ -61,7 +61,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): RequiredElement;
+            new (config?: ConfigOptions): RequiredElement;
             prototype: Prototype;
             static: {};
         }

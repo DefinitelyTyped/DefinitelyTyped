@@ -1,5 +1,5 @@
 declare namespace OO.ui {
-    interface TabOptionWidget extends TabOptionWidget.Props, TabOptionWidget.Prototype { }
+    interface TabOptionWidget extends TabOptionWidget.Props, TabOptionWidget.Prototype {}
 
     namespace TabOptionWidget {
         interface ConfigOptions extends OptionWidget.ConfigOptions {
@@ -15,7 +15,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): TabOptionWidget;
+            new (config?: ConfigOptions): TabOptionWidget;
             prototype: Prototype;
             static: Static;
             super: OptionWidget.Constructor;

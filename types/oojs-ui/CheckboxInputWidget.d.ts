@@ -32,7 +32,7 @@ declare namespace OO.ui {
      *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.CheckboxInputWidget
      */
-    interface CheckboxInputWidget extends CheckboxInputWidget.Props, CheckboxInputWidget.Prototype { }
+    interface CheckboxInputWidget extends CheckboxInputWidget.Props, CheckboxInputWidget.Prototype {}
 
     namespace CheckboxInputWidget {
         // HACK: See SelectWidget.d.ts
@@ -42,8 +42,7 @@ declare namespace OO.ui {
             toggle: [visible: boolean];
         }
 
-        interface ConfigOptions extends InputWidget.ConfigOptions,
-            mixin.RequiredElement.ConfigOptions {
+        interface ConfigOptions extends InputWidget.ConfigOptions, mixin.RequiredElement.ConfigOptions {
             /** Select the checkbox initially. By default, the checkbox is not selected. */
             selected?: boolean;
             /** Whether the checkbox is in the indeterminate state. */
@@ -52,11 +51,9 @@ declare namespace OO.ui {
 
         type Static = InputWidget.Static;
 
-        interface Props extends InputWidget.Props,
-            mixin.RequiredElement.Props { }
+        interface Props extends InputWidget.Props, mixin.RequiredElement.Props {}
 
-        interface Prototype extends InputWidget.Prototype,
-            mixin.RequiredElement.Prototype {
+        interface Prototype extends InputWidget.Prototype, mixin.RequiredElement.Prototype {
             /**
              * Set selection state of this checkbox.
              *
@@ -101,10 +98,7 @@ declare namespace OO.ui {
                 context?: C,
             ): this;
 
-            once<K extends keyof EventMap>(
-                event: K,
-                listener: (this: null, ...args: EventMap[K]) => void,
-            ): this;
+            once<K extends keyof EventMap>(event: K, listener: (this: null, ...args: EventMap[K]) => void): this;
             once<K extends string>(
                 event: K extends keyof EventMap ? never : K,
                 listener: (this: null, ...args: any[]) => void,
@@ -141,7 +135,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new(config?: ConfigOptions): CheckboxInputWidget;
+            new (config?: ConfigOptions): CheckboxInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;
