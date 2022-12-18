@@ -99,7 +99,7 @@ export function moveBlocksUp(clientIds: string | string[], rootClientId: string)
  * @param start - First block of the multi selection.
  * @param end - Last block of the multiselection.
  */
-export function multiSelect(start: string, end: string): void;
+export function multiSelect(start: string, end: string, __experimentalInitialPosition?: number): void;
 
 /**
  * Signals that blocks have been received. Unlike `resetBlocks`, these should be appended to the
