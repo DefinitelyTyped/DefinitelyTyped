@@ -2249,6 +2249,53 @@
 }
 // #endregion
 
+// #region OO.ui.MenuTagMultiselectWidget
+{
+    // $ExpectType TagMultiselectWidget
+    new OO.ui.MenuTagMultiselectWidget.super();
+
+    const instance = new OO.ui.MenuTagMultiselectWidget({
+        inputPosition: 'outline',
+        options: [
+            { data: 'option1', label: 'Option 1', icon: 'tag' },
+            { data: 'option2', label: 'Option 2' },
+            { data: 'option3', label: 'Option 3' },
+        ],
+        selected: ['option1', 'option2']
+    });
+
+    instance.onResize(); // $ExpectType void
+
+    instance.onInputChange(); // $ExpectType void
+
+    instance.onMenuChoose(new OO.ui.OptionWidget(), false); // $ExpectType void
+
+    instance.onMenuToggle(false); // $ExpectType void
+
+    // $ExpectType MenuSelectWidget
+    instance.createMenuWidget({
+        $input: $()
+    });
+
+    // $ExpectType void
+    instance.addOptions([{
+        data: 'option4',
+        label: 'Option 4',
+        icon: 'error'
+    }]);
+
+    instance.createMenuOptionWidget('option5'); // $ExpectType OptionWidget
+
+    instance.createMenuOptionWidget('option6', 'Option 6'); // $ExpectType OptionWidget
+
+    instance.createMenuOptionWidget('option7', 'Option 7', 'add'); // $ExpectType OptionWidget
+
+    instance.getMenu(); // $ExpectType MenuSelectWidget
+
+    instance.getAllowedValues(); // $ExpectType string[]
+}
+// #endregion
+
 // #region OO.ui.MenuToolGroup
 {
     const toolbar = new OO.ui.Toolbar(new OO.ui.ToolFactory(), new OO.ui.ToolGroupFactory());
@@ -2369,6 +2416,40 @@
 
     instance.on('change', (selected) => {
         selected; // $ExpectType boolean
+    });
+}
+// #endregion
+
+// #region OO.ui.MenuSectionOptionWidget
+{
+    // $ExpectType DecoratedOptionWidget
+    new OO.ui.MenuSectionOptionWidget.super();
+
+    const instance = new OO.ui.MenuSectionOptionWidget({
+        label: 'Dogs'
+    });
+
+    const dropdown = new OO.ui.DropdownWidget({
+        menu: {
+            items: [
+                instance,
+                new OO.ui.MenuOptionWidget({
+                    data: 'corgi',
+                    label: 'Welsh Corgi'
+                }),
+                new OO.ui.MenuOptionWidget({
+                    data: 'poodle',
+                    label: 'Standard Poodle'
+                }),
+                new OO.ui.MenuSectionOptionWidget({
+                    label: 'Cats'
+                }),
+                new OO.ui.MenuOptionWidget({
+                    data: 'lion',
+                    label: 'Lion'
+                })
+            ]
+        }
     });
 }
 // #endregion
@@ -2637,6 +2718,32 @@
             align: 'force-left'
         }
     });
+}
+// #endregion
+
+// #region OO.ui.PopupTagMultiselectWidget
+{
+    const popupInput = new OO.ui.TextInputWidget();
+    const instance = new OO.ui.PopupTagMultiselectWidget({
+        popupInput,
+        popup: {
+            $content: popupInput.$element
+        }
+    });
+
+    // $ExpectType JQuery<HTMLElement>
+    instance.$overlay;
+
+    // @ts-expect-error
+    OO.ui.PopupTagMultiselectWidget.prototype.$overlay;
+
+    instance.onPopupToggle(false); // $ExpectType void
+
+    instance.onPopupInputEnter(); // $ExpectType void
+
+    instance.addTagByPopupValue('1'); // $ExpectType void
+
+    instance.addTagByPopupValue('1', '2'); // $ExpectType void
 }
 // #endregion
 
@@ -3072,6 +3179,29 @@
     });
 
     instance.getFilename(); // $ExpectType string
+}
+// #endregion
+
+// #region OO.ui.SelectFileWidget
+{
+    // $ExpectType SelectFileInputWidget
+    new OO.ui.SelectFileWidget.super();
+
+    const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+    });
+
+    const instance = new OO.ui.SelectFileWidget();
+
+    instance.getValue(); // $ExpectType File | File[] | null
+
+    instance.setValue([file]); // $ExpectType void
+
+    instance.setValue(null); // $ExpectType void
+
+    instance.loadAndGetImageUrl(file).then((url) => {
+        url; // $ExpectType string
+    });
 }
 // #endregion
 
