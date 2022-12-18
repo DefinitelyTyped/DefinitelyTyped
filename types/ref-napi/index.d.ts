@@ -176,15 +176,6 @@ export interface Pointer<T> extends Buffer {
     type: Type<T>;
 }
 
-/**
- * A buffer representing a value.
- */
-export interface Value<T> extends Buffer {
-    ref(): Pointer<T>;
-    deref(): never;
-    type: Type<T>;
-}
-
 export interface Type<T = any> {
     /** The size in bytes required to hold this datatype. */
     size: number;
@@ -201,10 +192,10 @@ export interface Type<T = any> {
 }
 
 /** A Buffer that references the C NULL pointer. */
-export declare var NULL: Value<null>;
+export declare var NULL: Pointer<null>;
 
 /** A pointer-sized buffer pointing to NULL. */
-export declare var NULL_POINTER: Pointer<Value<null>>;
+export declare var NULL_POINTER: Pointer<Pointer<null>>;
 
 /** Get the memory address of buffer. */
 export declare function address(buffer: Buffer): number;
@@ -214,22 +205,22 @@ export declare function hexAddress(buffer: Buffer): string;
 
 /** Allocate the memory with the given value written to it. */
 export declare function alloc<TType extends NamedType>(type: TType, value?: UnderlyingType<TType>):
-    [UnderlyingType<TType>] extends [never] | [0] ? Value<any> :
+    [UnderlyingType<TType>] extends [never] | [0] ? Pointer<any> :
     UnderlyingType<TType> extends Buffer ? UnderlyingType<TType> :
-    Value<UnderlyingType<TType>>;
+    Pointer<UnderlyingType<TType>>;
 /** Allocate the memory with the given value written to it. */
 export declare function alloc<TType extends TypeLike>(type: TType, value?: UnderlyingType<TType>):
-    [UnderlyingType<TType>] extends [never] | [0] ? Value<any> :
+    [UnderlyingType<TType>] extends [never] | [0] ? Pointer<any> :
     UnderlyingType<TType> extends Buffer ? UnderlyingType<TType> :
-    Value<UnderlyingType<TType>>;
+    Pointer<UnderlyingType<TType>>;
 
 /**
  * Allocate the memory with the given string written to it with the given
  * encoding (defaults to utf8). The buffer is 1 byte longer than the
  * string itself, and is NULL terminated.
  */
-export declare function allocCString(string: string, encoding?: BufferEncoding): Value<string>;
-export declare function allocCString(string: string | null, encoding?: BufferEncoding): Value<string | null>;
+export declare function allocCString(string: string, encoding?: BufferEncoding): Pointer<string>;
+export declare function allocCString(string: string | null, encoding?: BufferEncoding): Pointer<string | null>;
 
 /** Coerce a type. String are looked up from the ref.types object. */
 export declare function coerceType<T extends NamedType>(type: T): Type<UnderlyingType<T>>;
@@ -253,7 +244,7 @@ export declare function derefType(type: TypeLike): Type;
 export declare var endianness: "LE" | "BE";
 
 /** Check the indirection level and return a dereferenced when necessary. */
-export declare function get<T>(buffer: Pointer<T> | Value<T>, offset?: 0): T;
+export declare function get<T>(buffer: Pointer<T> | Pointer<T>, offset?: 0): T;
 export declare function get<T extends NamedType>(buffer: Buffer, offset: number | undefined, type: T): UnderlyingType<T>;
 export declare function get<T extends TypeLike>(buffer: Buffer, offset: number | undefined, type: T): UnderlyingType<T>;
 export declare function get(buffer: Buffer, offset?: number, type?: TypeLike): any;
@@ -305,7 +296,7 @@ export declare function readUInt64LE(buffer: Buffer, offset?: number): string | 
 
 /** Create pointer to buffer. */
 export declare function ref<T>(buffer: Pointer<T>): Pointer<Pointer<T>>;
-export declare function ref<T>(buffer: Value<T>): Pointer<T>;
+export declare function ref<T>(buffer: Pointer<T>): Pointer<T>;
 export declare function ref(buffer: Buffer): Buffer;
 
 /** Create clone of the type, with incremented indirection level by 1. */
@@ -327,7 +318,7 @@ export declare function reinterpret(buffer: Buffer, size: number, offset?: numbe
 export declare function reinterpretUntilZeros(buffer: Buffer, size: number, offset?: number): Buffer;
 
 /** Write pointer if the indirection is 1, otherwise write value. */
-export declare function set<T>(buffer: Pointer<T> | Value<T>, offset: 0, value: T): void;
+export declare function set<T>(buffer: Pointer<T> | Pointer<T>, offset: 0, value: T): void;
 export declare function set<T extends NamedType>(buffer: Buffer, offset: number, value: UnderlyingType<T>, type: T): void;
 export declare function set<T extends TypeLike>(buffer: Buffer, offset: number, value: UnderlyingType<T>, type: T): void;
 export declare function set(buffer: Buffer, offset: number, value: any, type?: TypeLike): void;
@@ -345,7 +336,7 @@ export declare function writeInt64LE(buffer: Buffer, offset: number, input: stri
  * Write the JS Object. This function "attaches" object to buffer to prevent
  * it from being garbage collected.
  */
-export declare function writeObject<T>(buffer: Value<T>, offset: 0, object: T): void;
+export declare function writeObject<T>(buffer: Pointer<T>, offset: 0, object: T): void;
 export declare function writeObject(buffer: Buffer, offset: number, object: Object): void;
 
 /**
@@ -376,7 +367,7 @@ export declare function _reinterpretUntilZeros(buffer: Buffer, size: number, off
 export declare function _writePointer(buffer: Buffer, offset: number, pointer: Buffer): void;
 
 /** Same as ref.writeObject, except that this version does not attach object. */
-export declare function _writeObject<T>(buffer: Value<T>, offset: 0, object: T): void;
+export declare function _writeObject<T>(buffer: Pointer<T>, offset: 0, object: T): void;
 export declare function _writeObject(buffer: Buffer, offset: number, object: Object): void;
 
 /**
