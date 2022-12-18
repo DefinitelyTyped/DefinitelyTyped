@@ -1,3 +1,5 @@
+import type { Currency } from './currency';
+
 export interface Colors {
     outline: string;
     primary: {
@@ -65,16 +67,6 @@ export interface Typography {
     bodyFontBold: TypographySetting;
     scaleBaseSize: string;
     scaleRatio: number;
-}
-
-export interface Currency {
-    code: string;
-    rate: number;
-    name: string;
-    symbol: string;
-    decimals: number;
-    priced: boolean;
-    type: 'base' | 'priced';
 }
 
 export interface Locale {
