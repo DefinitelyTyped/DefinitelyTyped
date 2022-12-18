@@ -39,10 +39,10 @@ export class WebGLNodeBuilder extends NodeBuilder {
 
     getVarys(shaderStage: string): string;
 
-    addCodeAfterCode(shaderStage: string, snippet: string, code: string): string;
+    addCode(shaderStage: string, source: string, code: string, scope?: this): string;
     addCodeAfterInclude(shaderStage: string, snippet: string, code: string): string;
 
-    replaceCode(shaderStage: string, source: string, target: string): void;
+    replaceCode(shaderStage: string, source: string, target: string, scope?: this): void;
     parseInclude(shaderStage: string, ...includes: string[]): void;
     getTextureEncodingFromMap(map: Texture): TextureEncoding;
 

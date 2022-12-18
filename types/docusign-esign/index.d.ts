@@ -1,4 +1,4 @@
-// Type definitions for docusign-esign 5.6
+// Type definitions for docusign-esign 5.19
 // Project: https://github.com/docusign/docusign-node-client#readme
 // Definitions by: Edwin Quimbo <https://github.com/equimbo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,12 +29,12 @@ export class ApiClient {
         contentTypes: string[],
         accepts: string[],
         returnType: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<any>;
 
     deserialize(response: object, returnType: any): any;
 
-    generateAccessToken(clientId: string, clientSecret: string, code: string, callback?: () => void): Promise<any>;
+    generateAccessToken(clientId: string, clientSecret: string, code: string, callback?: (() => void) | ((error: any, response: any) => void)): Promise<any>;
 
     getAuthorizationUri(
         clientId: string,
@@ -50,7 +50,7 @@ export class ApiClient {
 
     getOAuthBasePath(): string;
 
-    getUserInfo(accessToken: string, callback?: () => void): Promise<any>;
+    getUserInfo(accessToken: string, callback?: (() => void) | ((error: any, response: any) => void)): Promise<any>;
 
     hasNoInvalidScopes(scopes: string[]): boolean;
 
@@ -69,7 +69,7 @@ export class ApiClient {
         scopes: string[],
         rsaPrivateKey: Buffer,
         expiresIn: number,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, response: any) => void),
     ): Promise<any>;
 
     requestJWTUserToken(
@@ -78,7 +78,7 @@ export class ApiClient {
         scopes: string[],
         rsaPrivateKey: Buffer,
         expiresIn: number,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, response: any) => void),
     ): Promise<any>;
 
     setBasePath(basePath: string): void;
@@ -120,318 +120,318 @@ export class Configuration {
 export class AccountsApi {
     constructor(apiClient?: ApiClient);
 
-    _delete(accountId: string, callback?: () => void): Promise<void>;
+    _delete(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    create(optsOrCallback?: any, callback?: () => void): Promise<NewAccountSummary>;
+    create(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NewAccountSummary>;
 
-    createBrand(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BrandsResponse>;
+    createBrand(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BrandsResponse>;
 
-    createCustomField(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<CustomFields>;
+    createCustomField(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<CustomFields>;
 
-    createPermissionProfile(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PermissionProfile>;
+    createPermissionProfile(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<PermissionProfile>;
 
-    deleteBrand(accountId: string, brandId: string, callback?: () => void): Promise<void>;
+    deleteBrand(accountId: string, brandId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deleteBrandLogoByType(accountId: string, brandId: string, logoType: string, callback?: () => void): Promise<void>;
+    deleteBrandLogoByType(accountId: string, brandId: string, logoType: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deleteBrands(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BrandsResponse>;
+    deleteBrands(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BrandsResponse>;
 
     deleteCaptiveRecipient(
         accountId: string,
         recipientPart: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CaptiveRecipientInformation>;
 
     deleteCustomField(
         accountId: string,
         customFieldId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    deleteENoteConfiguration(accountId: string, callback?: () => void): Promise<void>;
+    deleteENoteConfiguration(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     deletePermissionProfile(
         accountId: string,
         permissionProfileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     getAccountIdentityVerification(
         accountId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<AccountIdentityVerificationResponse>;
 
-    getAccountInformation(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<AccountInformation>;
+    getAccountInformation(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountInformation>;
 
-    getAccountTabSettings(accountId: string, callback?: () => void): Promise<TabAccountSettings>;
+    getAccountTabSettings(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<TabAccountSettings>;
 
-    getAllPaymentGatewayAccounts(accountId: string, callback?: () => void): Promise<PaymentGatewayAccountsInfo>;
+    getAllPaymentGatewayAccounts(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<PaymentGatewayAccountsInfo>;
 
-    getBillingCharges(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingChargeResponse>;
+    getBillingCharges(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingChargeResponse>;
 
-    getBrand(accountId: string, brandId: string, optsOrCallback?: any, callback?: () => void): Promise<Brand>;
+    getBrand(accountId: string, brandId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Brand>;
 
-    getBrandExportFile(accountId: string, brandId: string, callback?: () => void): Promise<void>;
+    getBrandExportFile(accountId: string, brandId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getBrandLogoByType(accountId: string, brandId: string, logoType: string, callback?: () => void): Promise<object>;
+    getBrandLogoByType(accountId: string, brandId: string, logoType: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<object>;
 
-    getBrandResources(accountId: string, brandId: string, callback?: () => void): Promise<BrandResourcesList>;
+    getBrandResources(accountId: string, brandId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BrandResourcesList>;
 
     getBrandResourcesByContentType(
         accountId: string,
         brandId: string,
         resourceContentType: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    getConsumerDisclosure(accountId: string, langCode: string, callback?: () => void): Promise<ConsumerDisclosure>;
+    getConsumerDisclosure(accountId: string, langCode: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConsumerDisclosure>;
 
     getConsumerDisclosureDefault(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
-    getENoteConfiguration(accountId: string, callback?: () => void): Promise<ENoteConfiguration>;
+    getENoteConfiguration(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ENoteConfiguration>;
 
-    getEnvelopePurgeConfiguration(accountId: string, callback?: () => void): Promise<EnvelopePurgeConfiguration>;
+    getEnvelopePurgeConfiguration(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopePurgeConfiguration>;
 
-    getFavoriteTemplates(accountId: string, callback?: () => void): Promise<FavoriteTemplatesInfo>;
+    getFavoriteTemplates(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<FavoriteTemplatesInfo>;
 
-    getNotificationDefaults(accountId: string, callback?: () => void): Promise<NotificationDefaults>;
+    getNotificationDefaults(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NotificationDefaults>;
 
-    getPasswordRules(accountId: string, callback?: () => void): Promise<AccountPasswordRules>;
+    getPasswordRules(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountPasswordRules>;
 
-    getPasswordRules_0(callback?: () => void): Promise<UserPasswordRules>;
+    getPasswordRules_0(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserPasswordRules>;
 
     getPermissionProfile(
         accountId: string,
         permissionProfileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PermissionProfile>;
 
-    getProvisioning(callback?: () => void): Promise<ProvisioningInformation>;
+    getProvisioning(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ProvisioningInformation>;
 
-    getSupportedLanguages(accountId: string, callback?: () => void): Promise<SupportedLanguages>;
+    getSupportedLanguages(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SupportedLanguages>;
 
-    getWatermark(accountId: string, callback?: () => void): Promise<Watermark>;
+    getWatermark(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Watermark>;
 
-    getWatermarkPreview(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Watermark>;
+    getWatermarkPreview(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Watermark>;
 
-    listBrands(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BrandsResponse>;
+    listBrands(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BrandsResponse>;
 
-    listCustomFields(accountId: string, callback?: () => void): Promise<CustomFields>;
+    listCustomFields(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<CustomFields>;
 
     listPermissions(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PermissionProfileInformation>;
 
     listRecipientNamesByEmail(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<RecipientNamesResponse>;
 
-    listSettings(accountId: string, callback?: () => void): Promise<AccountSettingsInformation>;
+    listSettings(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountSettingsInformation>;
 
-    listSignatureProviders(accountId: string, callback?: () => void): Promise<AccountSignatureProviders>;
+    listSignatureProviders(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountSignatureProviders>;
 
-    listUnsupportedFileTypes(accountId: string, callback?: () => void): Promise<FileTypeList>;
+    listUnsupportedFileTypes(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<FileTypeList>;
 
-    unFavoriteTemplate(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<FavoriteTemplatesInfo>;
+    unFavoriteTemplate(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<FavoriteTemplatesInfo>;
 
     updateAccountTabSettings(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TabAccountSettings>;
 
-    updateBrand(accountId: string, brandId: string, optsOrCallback?: any, callback?: () => void): Promise<Brand>;
+    updateBrand(accountId: string, brandId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Brand>;
 
     updateBrandLogoByType(
         logoFileBytes: Blob,
         accountId: string,
         brandId: string,
         logoType: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     updateBrandResourcesByContentType(
         accountId: string,
         brandId: string,
         resourceContentType: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BrandResources>;
 
     updateConsumerDisclosure(
         accountId: string,
         langCode: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
     updateCustomField(
         accountId: string,
         customFieldId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     updateENoteConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ENoteConfiguration>;
 
     updateEnvelopePurgeConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopePurgeConfiguration>;
 
     updateFavoriteTemplate(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<FavoriteTemplatesInfo>;
 
     updateNotificationDefaults(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<NotificationDefaults>;
 
-    updatePasswordRules(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<AccountPasswordRules>;
+    updatePasswordRules(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountPasswordRules>;
 
     updatePermissionProfile(
         accountId: string,
         permissionProfileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PermissionProfile>;
 
-    updateSettings(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateSettings(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    updateWatermark(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Watermark>;
+    updateWatermark(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Watermark>;
 }
 
 export class AuthenticationApi {
     constructor(apiClient?: ApiClient);
 
-    deleteSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    deleteSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getOAuthToken(callback?: () => void): Promise<OauthAccess>;
+    getOAuthToken(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<OauthAccess>;
 
-    listSocialLogins(accountId: string, userId: string, callback?: () => void): Promise<UserSocialIdResult>;
+    listSocialLogins(accountId: string, userId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserSocialIdResult>;
 
-    login(optsOrCallback?: any, callback?: () => void): Promise<LoginInformation>;
+    login(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<LoginInformation>;
 
-    revokeOAuthToken(callback?: () => void): Promise<void>;
+    revokeOAuthToken(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    updatePassword(loginPart: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updatePassword(loginPart: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    updateSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateSocialLogin(accountId: string, userId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 }
 
 export class BillingApi {
     constructor(apiClient?: ApiClient);
 
-    getBillingPlan(billingPlanId: string, callback?: () => void): Promise<BillingPlanResponse>;
+    getBillingPlan(billingPlanId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingPlanResponse>;
 
-    getCreditCardInfo(accountId: string, callback?: () => void): Promise<CreditCardInformation>;
+    getCreditCardInfo(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<CreditCardInformation>;
 
     getDowngradeRequestBillingInfo(
         accountId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DowngradRequestBillingInfoResponse>;
 
-    getInvoice(accountId: string, invoiceId: string, callback?: () => void): Promise<BillingInvoice>;
+    getInvoice(accountId: string, invoiceId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingInvoice>;
 
-    getPayment(accountId: string, paymentId: string, callback?: () => void): Promise<BillingPaymentItem>;
+    getPayment(accountId: string, paymentId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingPaymentItem>;
 
-    getPlan(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<AccountBillingPlanResponse>;
+    getPlan(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountBillingPlanResponse>;
 
-    listBillingPlans(callback?: () => void): Promise<BillingPlansResponse>;
+    listBillingPlans(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingPlansResponse>;
 
-    listInvoices(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingInvoicesResponse>;
+    listInvoices(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingInvoicesResponse>;
 
-    listInvoicesPastDue(accountId: string, callback?: () => void): Promise<BillingInvoicesSummary>;
+    listInvoicesPastDue(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingInvoicesSummary>;
 
-    listPayments(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingPaymentsResponse>;
+    listPayments(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingPaymentsResponse>;
 
-    makePayment(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingPaymentResponse>;
+    makePayment(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingPaymentResponse>;
 
-    purchaseEnvelopes(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    purchaseEnvelopes(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     updateDowngradeAccountBillingPlan(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DowngradePlanUpdateResponse>;
 
-    updatePlan(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BillingPlanUpdateResponse>;
+    updatePlan(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BillingPlanUpdateResponse>;
 }
 
 export class BulkEnvelopesApi {
     constructor(apiClient?: ApiClient);
 
-    createBulkSendList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkSendingList>;
+    createBulkSendList(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BulkSendingList>;
 
     createBulkSendRequest(
         accountId: string,
         bulkSendListId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendResponse>;
 
     createBulkSendTestRequest(
         accountId: string,
         bulkSendListId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendTestResponse>;
 
     deleteBulkSendList(
         accountId: string,
         bulkSendListId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendingListSummaries>;
 
     deleteRecipients(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsUpdateResponse>;
 
-    get(accountId: string, batchId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkEnvelopeStatus>;
+    get(accountId: string, batchId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BulkEnvelopeStatus>;
 
-    getBulkSendList(accountId: string, bulkSendListId: string, callback?: () => void): Promise<BulkSendingList>;
+    getBulkSendList(accountId: string, bulkSendListId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BulkSendingList>;
 
-    getBulkSendLists(accountId: string, callback?: () => void): Promise<BulkSendingListSummaries>;
+    getBulkSendLists(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BulkSendingListSummaries>;
 
     getRecipients(
         accountId: string,
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsResponse>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BulkEnvelopesResponse>;
+    list(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BulkEnvelopesResponse>;
 
     updateBulkSendList(
         accountId: string,
         bulkSendListId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkSendingList>;
 
     updateRecipients(
@@ -439,7 +439,7 @@ export class BulkEnvelopesApi {
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsSummaryResponse>;
 }
 
@@ -450,21 +450,21 @@ export class CloudStorageApi {
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     deleteProvider(
         accountId: string,
         userId: string,
         serviceId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     deleteProviders(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     getProvider(
@@ -472,7 +472,7 @@ export class CloudStorageApi {
         userId: string,
         serviceId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 
     list(
@@ -481,7 +481,7 @@ export class CloudStorageApi {
         serviceId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ExternalFolder>;
 
     listFolders(
@@ -489,14 +489,14 @@ export class CloudStorageApi {
         userId: string,
         serviceId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ExternalFolder>;
 
     listProviders(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CloudStorageProviders>;
 }
 
@@ -507,14 +507,14 @@ export class CommentsApi {
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CommentHistoryResult>;
 
     getCommentsTranscript(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<object>;
 }
 
@@ -524,139 +524,139 @@ export class ConnectApi {
     createConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConnectCustomConfiguration>;
 
-    deleteConfiguration(accountId: string, connectId: string, callback?: () => void): Promise<void>;
+    deleteConfiguration(accountId: string, connectId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deleteEventFailureLog(accountId: string, failureId: string, callback?: () => void): Promise<void>;
+    deleteEventFailureLog(accountId: string, failureId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deleteEventLog(accountId: string, logId: string, callback?: () => void): Promise<void>;
+    deleteEventLog(accountId: string, logId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deleteEventLogs(accountId: string, callback?: () => void): Promise<void>;
+    deleteEventLogs(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     deleteMobileNotifiers(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<MobileNotifierConfigurationInformation>;
 
-    getConfiguration(accountId: string, connectId: string, callback?: () => void): Promise<ConnectConfigResults>;
+    getConfiguration(accountId: string, connectId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConnectConfigResults>;
 
-    getEventLog(accountId: string, logId: string, optsOrCallback?: any, callback?: () => void): Promise<ConnectLog>;
+    getEventLog(accountId: string, logId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConnectLog>;
 
-    listConfigurations(accountId: string, callback?: () => void): Promise<ConnectConfigResults>;
+    listConfigurations(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConnectConfigResults>;
 
-    listEventFailureLogs(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ConnectLogs>;
+    listEventFailureLogs(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConnectLogs>;
 
-    listEventLogs(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ConnectLogs>;
+    listEventLogs(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConnectLogs>;
 
-    listMobileNotifiers(accountId: string, callback?: () => void): Promise<MobileNotifierConfigurationInformation>;
+    listMobileNotifiers(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<MobileNotifierConfigurationInformation>;
 
-    listTests(accountId: string, connectId: string, callback?: () => void): Promise<ResourceInformation>;
+    listTests(accountId: string, connectId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ResourceInformation>;
 
     listUsers(
         accountId: string,
         connectId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<IntegratedUserInfoList>;
 
-    retryEventForEnvelope(accountId: string, envelopeId: string, callback?: () => void): Promise<ConnectFailureResults>;
+    retryEventForEnvelope(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ConnectFailureResults>;
 
     retryEventForEnvelopes(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConnectFailureResults>;
 
     updateConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConnectCustomConfiguration>;
 
     updateMobileNotifiers(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<MobileNotifierConfigurationInformation>;
 }
 
 export class CustomTabsApi {
     constructor(apiClient?: ApiClient);
 
-    _delete(accountId: string, customTabId: string, callback?: () => void): Promise<void>;
+    _delete(accountId: string, customTabId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    create(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<TabMetadata>;
+    create(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<TabMetadata>;
 
-    get(accountId: string, customTabId: string, callback?: () => void): Promise<TabMetadata>;
+    get(accountId: string, customTabId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<TabMetadata>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<TabMetadataList>;
+    list(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<TabMetadataList>;
 
-    update(accountId: string, customTabId: string, optsOrCallback?: any, callback?: () => void): Promise<TabMetadata>;
+    update(accountId: string, customTabId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<TabMetadata>;
 }
 
 export class DataFeedApi {
     constructor(apiClient?: ApiClient);
 
-    getDataFeedElement(accountId: string, dataFeedElementId: string, callback?: () => void): Promise<void>;
+    getDataFeedElement(accountId: string, dataFeedElementId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 }
 
 export class DiagnosticsApi {
     constructor(apiClient?: ApiClient);
 
-    deleteRequestLogs(callback?: () => void): Promise<void>;
+    deleteRequestLogs(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getRequestLog(requestLogId: string, callback?: () => void): Promise<object>;
+    getRequestLog(requestLogId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<object>;
 
-    getRequestLogSettings(callback?: () => void): Promise<DiagnosticsSettingsInformation>;
+    getRequestLogSettings(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<DiagnosticsSettingsInformation>;
 
-    getResources(callback?: () => void): Promise<ResourceInformation>;
+    getResources(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ResourceInformation>;
 
-    getService(callback?: () => void): Promise<ServiceInformation>;
+    getService(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ServiceInformation>;
 
-    listRequestLogs(optsOrCallback?: any, callback?: () => void): Promise<ApiRequestLogsResult>;
+    listRequestLogs(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ApiRequestLogsResult>;
 
-    updateRequestLogSettings(optsOrCallback?: any, callback?: () => void): Promise<DiagnosticsSettingsInformation>;
+    updateRequestLogSettings(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<DiagnosticsSettingsInformation>;
 }
 
 export class EmailArchiveApi {
     constructor(apiClient?: ApiClient);
 
-    createBCCEmailArchive(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<BccEmailArchive>;
+    createBCCEmailArchive(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BccEmailArchive>;
 
-    deleteBCCEmailArchive(accountId: string, bccEmailArchiveId: string, callback?: () => void): Promise<void>;
+    deleteBCCEmailArchive(accountId: string, bccEmailArchiveId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     getBCCEmailArchiveHistoryList(
         accountId: string,
         bccEmailArchiveId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BccEmailArchiveHistoryList>;
 
     getBCCEmailArchiveList(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BccEmailArchiveList>;
 }
 
 export class EnvelopeApplianceApi {
     constructor(apiClient?: ApiClient);
 
-    getApplianceInfo(accountId: string, envelopeId: string, callback?: () => void): Promise<DisplayApplianceInfo>;
+    getApplianceInfo(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<DisplayApplianceInfo>;
 }
 
 export class EnvelopePurgeConfigurationApi {
     constructor(apiClient?: ApiClient);
 
-    getEnvelopePurgeConfiguration(accountId: string, callback?: () => void): Promise<EnvelopePurgeConfiguration>;
+    getEnvelopePurgeConfiguration(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopePurgeConfiguration>;
 
     updateEnvelopePurgeConfiguration(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopePurgeConfiguration>;
 }
 
@@ -667,7 +667,7 @@ export class EnvelopesApi {
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentTemplateList>;
 
     applyTemplateToDocument(
@@ -675,25 +675,25 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentTemplateList>;
 
-    createChunkedUpload(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ChunkedUploadResponse>;
+    createChunkedUpload(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ChunkedUploadResponse>;
 
-    createConsoleView(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ViewUrl>;
+    createConsoleView(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ViewUrl>;
 
     createCorrectView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createCustomFields(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     createDocumentFields(
@@ -701,7 +701,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     createDocumentResponsiveHtmlPreview(
@@ -709,7 +709,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     createDocumentTabs(
@@ -717,71 +717,71 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     createEditView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createEmailSettings(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EmailSettings>;
 
-    createEnvelope(accountId: string, options?: any, callback?: () => void): Promise<EnvelopeSummary>;
+    createEnvelope(accountId: string, options?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopeSummary>;
 
     createEnvelopeComments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CommentHistoryResult>;
 
     createEnvelopeRecipientPreview(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createEnvelopeRecipientSharedView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createEnvelopeTransferRules(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRuleInformation>;
 
     createLock(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     createRecipient(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     createRecipientProofFileLink(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ProofServiceViewLink>;
 
     createRecipientProofFileResourceToken(
@@ -789,28 +789,28 @@ export class EnvelopesApi {
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ProofServiceResourceToken>;
 
     createRecipientView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createResponsiveHtmlPreview(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     createSenderView(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createTabs(
@@ -818,27 +818,27 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteAttachments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeAttachmentsResult>;
 
     deleteChunkedUpload(
         accountId: string,
         chunkedUploadId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     deleteCustomFields(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     deleteDocumentFields(
@@ -846,7 +846,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     deleteDocumentPage(
@@ -854,7 +854,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         pageNumber: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     deleteDocumentTabs(
@@ -862,38 +862,38 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteDocuments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocumentsResult>;
 
-    deleteEmailSettings(accountId: string, envelopeId: string, callback?: () => void): Promise<EmailSettings>;
+    deleteEmailSettings(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EmailSettings>;
 
     deleteEnvelopeTransferRules(
         accountId: string,
         envelopeTransferRuleId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    deleteLock(accountId: string, envelopeId: string, callback?: () => void): Promise<LockInformation>;
+    deleteLock(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<LockInformation>;
 
     deleteRecipient(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteRecipients(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteTabs(
@@ -901,7 +901,7 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteTemplatesFromDocument(
@@ -909,25 +909,25 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         templateId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    getAttachment(accountId: string, envelopeId: string, attachmentId: string, callback?: () => void): Promise<void>;
+    getAttachment(accountId: string, envelopeId: string, attachmentId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getAttachments(accountId: string, envelopeId: string, callback?: () => void): Promise<EnvelopeAttachmentsResult>;
+    getAttachments(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopeAttachmentsResult>;
 
     getChunkedUpload(
         accountId: string,
         chunkedUploadId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     getCommentsTranscript(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<object>;
 
     getConsumerDisclosure(
@@ -936,7 +936,7 @@ export class EnvelopesApi {
         recipientId: string,
         langCode: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
     getConsumerDisclosureDefault(
@@ -944,7 +944,7 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ConsumerDisclosure>;
 
     getDocument(
@@ -952,7 +952,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback: DocumentOptions,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentPageImage(
@@ -961,7 +961,7 @@ export class EnvelopesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentTabs(
@@ -969,44 +969,44 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    getEmailSettings(accountId: string, envelopeId: string, callback?: () => void): Promise<EmailSettings>;
+    getEmailSettings(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EmailSettings>;
 
-    getEnvelope(accountId: string, envelopeId: string, optsOrCallback?: any, callback?: () => void): Promise<Envelope>;
+    getEnvelope(accountId: string, envelopeId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Envelope>;
 
     getEnvelopeDocumentHtmlDefinitions(
         accountId: string,
         envelopeId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     getEnvelopeHtmlDefinitions(
         accountId: string,
         envelopeId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     getEnvelopeTransferRules(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRuleInformation>;
 
-    getFormData(accountId: string, envelopeId: string, callback?: () => void): Promise<EnvelopeFormData>;
+    getFormData(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopeFormData>;
 
-    getLock(accountId: string, envelopeId: string, callback?: () => void): Promise<LockInformation>;
+    getLock(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<LockInformation>;
 
-    getNotificationSettings(accountId: string, envelopeId: string, callback?: () => void): Promise<Notification>;
+    getNotificationSettings(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Notification>;
 
     getPageTabs(
         accountId: string,
         envelopeId: string,
         documentId: string,
         pageNumber: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     getPages(
@@ -1014,14 +1014,14 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PageImages>;
 
     getRecipientDocumentVisibility(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
     getRecipientInitialsImage(
@@ -1029,14 +1029,14 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getRecipientSignature(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     getRecipientSignatureImage(
@@ -1044,49 +1044,49 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
-    getTabsBlob(accountId: string, envelopeId: string, callback?: () => void): Promise<void>;
+    getTabsBlob(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     getTemplateRecipientDocumentVisibility(
         accountId: string,
         templateId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
-    listAuditEvents(accountId: string, envelopeId: string, callback?: () => void): Promise<EnvelopeAuditEventResponse>;
+    listAuditEvents(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopeAuditEventResponse>;
 
-    listCustomFields(accountId: string, envelopeId: string, callback?: () => void): Promise<CustomFieldsEnvelope>;
+    listCustomFields(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<CustomFieldsEnvelope>;
 
     listDocumentFields(
         accountId: string,
         envelopeId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     listDocuments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocumentsResult>;
 
     listRecipients(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
-    listStatus(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<EnvelopesInformation>;
+    listStatus(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopesInformation>;
 
     listStatusChanges(
         accountId: string,
         optsOrCallback: EnvelopesFilters,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopesInformation>;
 
     listTabs(
@@ -1094,14 +1094,14 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     listTemplates(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateInformation>;
 
     listTemplatesForDocument(
@@ -1109,7 +1109,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateInformation>;
 
     putAttachment(
@@ -1117,14 +1117,14 @@ export class EnvelopesApi {
         envelopeId: string,
         attachmentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeAttachmentsResult>;
 
     putAttachments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeAttachmentsResult>;
 
     rotateDocumentPage(
@@ -1133,21 +1133,21 @@ export class EnvelopesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     update(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeUpdateSummary>;
 
     updateChunkedUpload(
         accountId: string,
         chunkedUploadId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     updateChunkedUploadPart(
@@ -1155,21 +1155,21 @@ export class EnvelopesApi {
         chunkedUploadId: string,
         chunkedUploadPartSeq: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ChunkedUploadResponse>;
 
     updateCustomFields(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     updateDocument(
         accountId: string,
         envelopeId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocument>;
 
     updateDocumentFields(
@@ -1177,7 +1177,7 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     updateDocumentTabs(
@@ -1185,48 +1185,48 @@ export class EnvelopesApi {
         envelopeId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     updateDocuments(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocumentsResult>;
 
     updateEmailSettings(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EmailSettings>;
 
     updateEnvelopeTransferRule(
         accountId: string,
         envelopeTransferRuleId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRule>;
 
     updateEnvelopeTransferRules(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeTransferRuleInformation>;
 
     updateLock(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     updateNotificationSettings(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Notification>;
 
     updateRecipientDocumentVisibility(
@@ -1234,35 +1234,35 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
     updateRecipientInitialsImage(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     updateRecipientSignatureImage(
         accountId: string,
         envelopeId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     updateRecipients(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<RecipientsUpdateSummary>;
 
     updateRecipientsDocumentVisibility(
         accountId: string,
         envelopeId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentVisibilityList>;
 
     updateTabs(
@@ -1270,24 +1270,24 @@ export class EnvelopesApi {
         envelopeId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    updateTabsBlob(accountId: string, envelopeId: string, callback?: () => void): Promise<void>;
+    updateTabsBlob(accountId: string, envelopeId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     updateTemplateRecipientDocumentVisibility(
         accountId: string,
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentVisibilityList>;
 
     updateTemplateRecipientsDocumentVisibility(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentVisibilityList>;
 }
 
@@ -1316,170 +1316,170 @@ export class FoldersApi {
         accountId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<FoldersResponse>;
 
     search(
         accountId: string,
         searchFolderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<FolderItemResponse>;
 }
 
 export class GroupsApi {
     constructor(apiClient?: ApiClient);
 
-    createGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    createGroups(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<GroupInformation>;
 
     deleteBrands(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BrandsResponse>;
 
     deleteGroupUsers(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UsersResponse>;
 
-    deleteGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    deleteGroups(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<GroupInformation>;
 
-    getBrands(accountId: string, groupId: string, callback?: () => void): Promise<BrandsResponse>;
+    getBrands(accountId: string, groupId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<BrandsResponse>;
 
     listGroupUsers(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UsersResponse>;
 
-    listGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    listGroups(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<GroupInformation>;
 
     updateBrands(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BrandsResponse>;
 
     updateGroupUsers(
         accountId: string,
         groupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UsersResponse>;
 
-    updateGroups(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<GroupInformation>;
+    updateGroups(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<GroupInformation>;
 }
 
 export class NotaryApi {
     constructor(apiClient?: ApiClient);
 
-    createNotary(optsOrCallback?: any, callback?: () => void): Promise<Notary>;
+    createNotary(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Notary>;
 
-    createNotaryJurisdictions(optsOrCallback?: any, callback?: () => void): Promise<NotaryJurisdiction>;
+    createNotaryJurisdictions(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NotaryJurisdiction>;
 
-    deleteNotaryJurisdiction(jurisdictionId: string, callback?: () => void): Promise<void>;
+    deleteNotaryJurisdiction(jurisdictionId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getNotary(optsOrCallback?: any, callback?: () => void): Promise<NotaryResult>;
+    getNotary(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NotaryResult>;
 
-    getNotaryJurisdiction(jurisdictionId: string, callback?: () => void): Promise<NotaryJurisdiction>;
+    getNotaryJurisdiction(jurisdictionId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NotaryJurisdiction>;
 
-    getNotaryJurisdictionSeal(jurisdictionId: string, callback?: () => void): Promise<void>;
+    getNotaryJurisdictionSeal(jurisdictionId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getNotaryJurisdictions(callback?: () => void): Promise<NotaryJurisdictionList>;
+    getNotaryJurisdictions(callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NotaryJurisdictionList>;
 
-    listNotaryJournals(optsOrCallback?: any, callback?: () => void): Promise<NotaryJournalList>;
+    listNotaryJournals(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NotaryJournalList>;
 
-    updateNotary(optsOrCallback?: any, callback?: () => void): Promise<Notary>;
+    updateNotary(optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Notary>;
 
     updateNotaryJurisdiction(
         jurisdictionId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<NotaryJurisdiction>;
 }
 
 export class OrganizationsApi {
     constructor(apiClient?: ApiClient);
 
-    deleteReport(organizationId: string, reportCorrelationId: string, callback?: () => void): Promise<void>;
+    deleteReport(organizationId: string, reportCorrelationId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    getReport(organizationId: string, reportCorrelationId: string, callback?: () => void): Promise<void>;
+    getReport(organizationId: string, reportCorrelationId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 }
 
 export class PowerFormsApi {
     constructor(apiClient?: ApiClient);
 
-    createPowerForm(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerForm>;
+    createPowerForm(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<PowerForm>;
 
-    deletePowerForm(accountId: string, powerFormId: string, callback?: () => void): Promise<void>;
+    deletePowerForm(accountId: string, powerFormId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deletePowerForms(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerFormsResponse>;
+    deletePowerForms(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<PowerFormsResponse>;
 
-    getPowerForm(accountId: string, powerFormId: string, callback?: () => void): Promise<PowerForm>;
+    getPowerForm(accountId: string, powerFormId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<PowerForm>;
 
     getPowerFormData(
         accountId: string,
         powerFormId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PowerFormsFormDataResponse>;
 
     listPowerFormSenders(
         accountId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PowerFormSendersResponse>;
 
-    listPowerForms(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<PowerFormsResponse>;
+    listPowerForms(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<PowerFormsResponse>;
 
     updatePowerForm(
         accountId: string,
         powerFormId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PowerForm>;
 }
 
 export class SigningGroupsApi {
     constructor(apiClient?: ApiClient);
 
-    createList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    createList(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SigningGroupInformation>;
 
-    deleteList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    deleteList(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SigningGroupInformation>;
 
     deleteUsers(
         accountId: string,
         signingGroupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<SigningGroupUsers>;
 
-    get(accountId: string, signingGroupId: string, callback?: () => void): Promise<SigningGroup>;
+    get(accountId: string, signingGroupId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SigningGroup>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    list(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SigningGroupInformation>;
 
-    listUsers(accountId: string, signingGroupId: string, callback?: () => void): Promise<SigningGroupUsers>;
+    listUsers(accountId: string, signingGroupId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SigningGroupUsers>;
 
     update(
         accountId: string,
         signingGroupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<SigningGroup>;
 
-    updateList(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<SigningGroupInformation>;
+    updateList(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<SigningGroupInformation>;
 
     updateUsers(
         accountId: string,
         signingGroupId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<SigningGroupUsers>;
 }
 
@@ -1490,7 +1490,7 @@ export class TemplatesApi {
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     createDocumentFields(
@@ -1498,28 +1498,28 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     createEditView(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createLock(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     createRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     createTabs(
@@ -1527,17 +1527,17 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    createTemplate(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<TemplateSummary>;
+    createTemplate(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<TemplateSummary>;
 
     createTemplateDocumentResponsiveHtmlPreview(
         accountId: string,
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     createTemplateDocumentTabs(
@@ -1545,35 +1545,35 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     createTemplateRecipientPreview(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ViewUrl>;
 
     createTemplateResponsiveHtmlPreview(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitions>;
 
     deleteBulkRecipients(
         accountId: string,
         templateId: string,
         recipientId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsUpdateResponse>;
 
     deleteCustomFields(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     deleteDocumentFields(
@@ -1581,7 +1581,7 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     deleteDocumentPage(
@@ -1590,14 +1590,14 @@ export class TemplatesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     deleteDocuments(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentsResult>;
 
     deleteGroupShare(
@@ -1605,14 +1605,14 @@ export class TemplatesApi {
         templateId: string,
         templatePart: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<GroupInformation>;
 
     deleteLock(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     deleteRecipient(
@@ -1620,14 +1620,14 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     deleteTabs(
@@ -1635,7 +1635,7 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     deleteTemplateDocumentTabs(
@@ -1643,17 +1643,17 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    get(accountId: string, templateId: string, optsOrCallback?: any, callback?: () => void): Promise<EnvelopeTemplate>;
+    get(accountId: string, templateId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopeTemplate>;
 
     getDocument(
         accountId: string,
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentPageImage(
@@ -1662,7 +1662,7 @@ export class TemplatesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
     getDocumentTabs(
@@ -1670,19 +1670,19 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    getLock(accountId: string, templateId: string, callback?: () => void): Promise<LockInformation>;
+    getLock(accountId: string, templateId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<LockInformation>;
 
-    getNotificationSettings(accountId: string, templateId: string, callback?: () => void): Promise<Notification>;
+    getNotificationSettings(accountId: string, templateId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Notification>;
 
     getPageTabs(
         accountId: string,
         templateId: string,
         documentId: string,
         pageNumber: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     getPages(
@@ -1690,20 +1690,20 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PageImages>;
 
     getTemplateDocumentHtmlDefinitions(
         accountId: string,
         templateId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     getTemplateHtmlDefinitions(
         accountId: string,
         templateId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentHtmlDefinitionOriginals>;
 
     listBulkRecipients(
@@ -1711,30 +1711,30 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsResponse>;
 
-    listCustomFields(accountId: string, templateId: string, callback?: () => void): Promise<CustomFields>;
+    listCustomFields(accountId: string, templateId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<CustomFields>;
 
     listDocumentFields(
         accountId: string,
         templateId: string,
         documentId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     listDocuments(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentsResult>;
 
     listRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Recipients>;
 
     listTabs(
@@ -1742,10 +1742,10 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
-    listTemplates(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<EnvelopeTemplateResults>;
+    listTemplates(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<EnvelopeTemplateResults>;
 
     rotateDocumentPage(
         accountId: string,
@@ -1753,14 +1753,14 @@ export class TemplatesApi {
         documentId: string,
         pageNumber: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
     update(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateUpdateSummary>;
 
     updateBulkRecipients(
@@ -1768,14 +1768,14 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<BulkRecipientsSummaryResponse>;
 
     updateCustomFields(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomFields>;
 
     updateDocument(
@@ -1783,7 +1783,7 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<EnvelopeDocument>;
 
     updateDocumentFields(
@@ -1791,14 +1791,14 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<DocumentFieldsInformation>;
 
     updateDocuments(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<TemplateDocumentsResult>;
 
     updateGroupShare(
@@ -1806,28 +1806,28 @@ export class TemplatesApi {
         templateId: string,
         templatePart: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<GroupInformation>;
 
     updateLock(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<LockInformation>;
 
     updateNotificationSettings(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Notification>;
 
     updateRecipients(
         accountId: string,
         templateId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<RecipientsUpdateSummary>;
 
     updateTabs(
@@ -1835,7 +1835,7 @@ export class TemplatesApi {
         templateId: string,
         recipientId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 
     updateTemplateDocumentTabs(
@@ -1843,74 +1843,74 @@ export class TemplatesApi {
         templateId: string,
         documentId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Tabs>;
 }
 
 export class TrustServiceProvidersApi {
     constructor(apiClient?: ApiClient);
 
-    getSealProviders(accountId: string, callback?: () => void): Promise<AccountSeals>;
+    getSealProviders(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<AccountSeals>;
 }
 
 export class UsersApi {
     constructor(apiClient?: ApiClient);
 
-    _delete(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UsersResponse>;
+    _delete(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UsersResponse>;
 
-    create(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<NewUsersSummary>;
+    create(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<NewUsersSummary>;
 
     createSignatures(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignaturesInformation>;
 
-    deleteContactWithId(accountId: string, contactId: string, callback?: () => void): Promise<ContactUpdateResponse>;
+    deleteContactWithId(accountId: string, contactId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ContactUpdateResponse>;
 
-    deleteContacts(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ContactUpdateResponse>;
+    deleteContacts(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ContactUpdateResponse>;
 
     deleteCustomSettings(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomSettingsInformation>;
 
-    deleteProfileImage(accountId: string, userId: string, callback?: () => void): Promise<void>;
+    deleteProfileImage(accountId: string, userId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    deleteSignature(accountId: string, userId: string, signatureId: string, callback?: () => void): Promise<void>;
+    deleteSignature(accountId: string, userId: string, signatureId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     deleteSignatureImage(
         accountId: string,
         userId: string,
         signatureId: string,
         imageType: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     getContactById(
         accountId: string,
         contactId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<ContactGetResponse>;
 
     getInformation(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserInformation>;
 
-    getProfile(accountId: string, userId: string, callback?: () => void): Promise<UserProfile>;
+    getProfile(accountId: string, userId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserProfile>;
 
-    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<string>;
+    getProfileImage(accountId: string, userId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<string>;
 
-    getSettings(accountId: string, userId: string, callback?: () => void): Promise<UserSettingsInformation>;
+    getSettings(accountId: string, userId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserSettingsInformation>;
 
-    getSignature(accountId: string, userId: string, signatureId: string, callback?: () => void): Promise<UserSignature>;
+    getSignature(accountId: string, userId: string, signatureId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserSignature>;
 
     getSignatureImage(
         accountId: string,
@@ -1918,43 +1918,43 @@ export class UsersApi {
         signatureId: string,
         imageType: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<string>;
 
-    list(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UserInformationList>;
+    list(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserInformationList>;
 
-    listCustomSettings(accountId: string, userId: string, callback?: () => void): Promise<CustomSettingsInformation>;
+    listCustomSettings(accountId: string, userId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<CustomSettingsInformation>;
 
     listSignatures(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignaturesInformation>;
 
-    postContacts(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ContactUpdateResponse>;
+    postContacts(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ContactUpdateResponse>;
 
-    putContacts(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<ContactUpdateResponse>;
+    putContacts(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<ContactUpdateResponse>;
 
     updateCustomSettings(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<CustomSettingsInformation>;
 
-    updateProfile(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateProfile(accountId: string, userId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    updateProfileImage(accountId: string, userId: string, callback?: () => void): Promise<void>;
+    updateProfileImage(accountId: string, userId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
-    updateSettings(accountId: string, userId: string, optsOrCallback?: any, callback?: () => void): Promise<void>;
+    updateSettings(accountId: string, userId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<void>;
 
     updateSignature(
         accountId: string,
         userId: string,
         signatureId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     updateSignatureImage(
@@ -1963,49 +1963,49 @@ export class UsersApi {
         signatureId: string,
         imageType: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignature>;
 
     updateSignatures(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserSignaturesInformation>;
 
     updateUser(
         accountId: string,
         userId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<UserInformation>;
 
-    updateUsers(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<UserInformationList>;
+    updateUsers(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<UserInformationList>;
 }
 
 export class WorkspacesApi {
     constructor(apiClient?: ApiClient);
 
-    createWorkspace(accountId: string, optsOrCallback?: any, callback?: () => void): Promise<Workspace>;
+    createWorkspace(accountId: string, optsOrCallback?: any, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Workspace>;
 
     createWorkspaceFile(
         accountId: string,
         workspaceId: string,
         folderId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<WorkspaceItem>;
 
-    deleteWorkspace(accountId: string, workspaceId: string, callback?: () => void): Promise<Workspace>;
+    deleteWorkspace(accountId: string, workspaceId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Workspace>;
 
     deleteWorkspaceFolderItems(
         accountId: string,
         workspaceId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<void>;
 
-    getWorkspace(accountId: string, workspaceId: string, callback?: () => void): Promise<Workspace>;
+    getWorkspace(accountId: string, workspaceId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<Workspace>;
 
     getWorkspaceFile(
         accountId: string,
@@ -2013,7 +2013,7 @@ export class WorkspacesApi {
         folderId: string,
         fileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<null>;
 
     listWorkspaceFilePages(
@@ -2022,7 +2022,7 @@ export class WorkspacesApi {
         folderId: string,
         fileId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<PageImages>;
 
     listWorkspaceFolderItems(
@@ -2030,16 +2030,16 @@ export class WorkspacesApi {
         workspaceId: string,
         folderId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<WorkspaceFolderContents>;
 
-    listWorkspaces(accountId: string, callback?: () => void): Promise<WorkspaceList>;
+    listWorkspaces(accountId: string, callback?: (() => void) | ((error: any, data: any, response: any) => void)): Promise<WorkspaceList>;
 
     updateWorkspace(
         accountId: string,
         workspaceId: string,
         optsOrCallback?: any,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<Workspace>;
 
     updateWorkspaceFile(
@@ -2047,7 +2047,7 @@ export class WorkspacesApi {
         workspaceId: string,
         folderId: string,
         fileId: string,
-        callback?: () => void,
+        callback?: (() => void) | ((error: any, data: any, response: any) => void),
     ): Promise<WorkspaceItem>;
 }
 

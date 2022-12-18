@@ -94,7 +94,7 @@ const environment = new Environment({
             handle(field, record, argValues) {
                 if (
                     record != null &&
-                    record.__typename === ROOT_TYPE &&
+                    record.getType() === ROOT_TYPE &&
                     field.name === 'user' &&
                     argValues.hasOwnProperty('id')
                 ) {
@@ -103,7 +103,7 @@ const environment = new Environment({
                 }
                 if (
                     record != null &&
-                    record.__typename === ROOT_TYPE &&
+                    record.getType() === ROOT_TYPE &&
                     field.name === 'story' &&
                     argValues.hasOwnProperty('story_id')
                 ) {
@@ -162,11 +162,11 @@ function handlerProvider(handle: any) {
 interface UserFragment_updatable$data {
     name: string | null;
     readonly id: string;
-    readonly " $fragmentType": "UserFragment_updatable";
+    readonly ' $fragmentType': 'UserFragment_updatable';
 }
 interface UserFragment_updatable$key {
-    readonly " $data"?: UserFragment_updatable$data;
-    readonly $updatableFragmentSpreads: FragmentRefs<"UserFragment_updatable">;
+    readonly ' $data'?: UserFragment_updatable$data;
+    readonly $updatableFragmentSpreads: FragmentRefs<'UserFragment_updatable'>;
 }
 
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
@@ -185,9 +185,9 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
                 name
             }
         `,
-        dataRef
+        dataRef,
     );
-    updatableData.name = "NewName";
+    updatableData.name = 'NewName';
 }
 
 interface MessageEdge {

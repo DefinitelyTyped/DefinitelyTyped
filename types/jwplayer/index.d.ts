@@ -8,6 +8,7 @@
 //                 Daniel Cassidy <https://github.com/djcsdy>
 //                 Drew Wyatt <https://github.com/drewwyatt>
 //                 Zack Haigh <https://github.com/zetagame>
+//                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -387,7 +388,7 @@ declare namespace jwplayer {
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
-        resize(width: number, height: number): JWPlayer;
+        resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
         setControls(controls: boolean): void;
         setCurrentAudioTrack(index: number): void;

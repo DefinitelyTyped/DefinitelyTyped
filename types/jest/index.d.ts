@@ -26,6 +26,7 @@
 //                 Pawel Fajfer <https://github.com/pawfa>
 //                 Alexandre Germain <https://github.com/gerkindev>
 //                 Adam Jones <https://github.com/domdomegg>
+//                 Tom Mrazauskas <https://github.com/mrazauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
@@ -389,17 +390,20 @@ declare namespace jest {
         : Value extends Func
         ? SpyInstance<ReturnType<Value>, ArgsType<Value>>
         : never;
+    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
+        object: T,
+        method: M,
+    ): ConstructorProperties<Required<T>>[M] extends new (...args: any[]) => any
+        ? SpyInstance<
+              InstanceType<ConstructorProperties<Required<T>>[M]>,
+              ConstructorArgsType<ConstructorProperties<Required<T>>[M]>
+          >
+        : never;
     function spyOn<T extends {}, M extends FunctionPropertyNames<Required<T>>>(
         object: T,
         method: M,
     ): FunctionProperties<Required<T>>[M] extends Func
         ? SpyInstance<ReturnType<FunctionProperties<Required<T>>[M]>, ArgsType<FunctionProperties<Required<T>>[M]>>
-        : never;
-    function spyOn<T extends {}, M extends ConstructorPropertyNames<Required<T>>>(
-        object: T,
-        method: M,
-    ): Required<T>[M] extends new (...args: any[]) => any
-        ? SpyInstance<InstanceType<Required<T>[M]>, ConstructorArgsType<Required<T>[M]>>
         : never;
     /**
      * Indicates that the module system should never return a mocked version of
@@ -463,7 +467,14 @@ declare namespace jest {
         : never;
     type FunctionProperties<T> = { [K in keyof T as T[K] extends (...args: any[]) => any ? K : never]: T[K] };
     type FunctionPropertyNames<T> = keyof FunctionProperties<T>;
-    type ConstructorPropertyNames<T> = { [K in keyof T]: T[K] extends Constructor ? K : never }[keyof T] & string;
+    type RemoveIndex<T> = {
+        // from https://stackoverflow.com/a/66252656/4536543
+        [P in keyof T as string extends P ? never : number extends P ? never : P]: T[P];
+    };
+    type ConstructorProperties<T> = {
+        [K in keyof RemoveIndex<T> as RemoveIndex<T>[K] extends Constructor ? K : never]: RemoveIndex<T>[K];
+    };
+    type ConstructorPropertyNames<T> = RemoveIndex<keyof ConstructorProperties<T>>;
 
     interface DoneCallback {
         (...args: any[]): any;
@@ -1166,9 +1177,38 @@ declare namespace jest {
     interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
 
     /**
-     * Represents a function that has been spied on.
+     * Constructs the type of a spied class.
      */
-    type SpiedFunction<T extends (...args: any[]) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+    type SpiedClass<T extends abstract new (...args: any) => any> = SpyInstance<
+        InstanceType<T>,
+        ConstructorParameters<T>
+    >;
+
+    /**
+     * Constructs the type of a spied function.
+     */
+    type SpiedFunction<T extends (...args: any) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+
+    /**
+     * Constructs the type of a spied getter.
+     */
+    type SpiedGetter<T> = SpyInstance<T, []>;
+
+    /**
+     * Constructs the type of a spied setter.
+     */
+    type SpiedSetter<T> = SpyInstance<void, [T]>;
+
+    /**
+     * Constructs the type of a spied class or function.
+     */
+    type Spied<T extends (abstract new (...args: any) => any) | ((...args: any) => any)> = T extends abstract new (
+        ...args: any
+    ) => any
+        ? SpiedClass<T>
+        : T extends (...args: any) => any
+        ? SpiedFunction<T>
+        : never;
 
     /**
      * Wrap a function with mock definitions

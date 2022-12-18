@@ -27,4 +27,5 @@ export class EffectComposer {
     reset(renderTarget?: WebGLRenderTarget): void;
     setSize(width: number, height: number): void;
     setPixelRatio(pixelRatio: number): void;
+    dispose(): void;
 }

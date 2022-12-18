@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 65.0
+// Type definitions for @nginstack/engine 66.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -50,6 +50,7 @@
 /// <reference path="lib/classdef/FieldChangeEvent.d.ts" />
 /// <reference path="lib/classdef/FieldEvent.d.ts" />
 /// <reference path="lib/classdef/FieldGroup.d.ts" />
+/// <reference path="lib/classdef/FieldGroupSet.d.ts" />
 /// <reference path="lib/classdef/FieldList.d.ts" />
 /// <reference path="lib/classdef/FieldNameList.d.ts" />
 /// <reference path="lib/classdef/FieldOptionsEvent.d.ts" />
@@ -193,7 +194,6 @@
 /// <reference path="lib/encoding/Hex.d.ts" />
 /// <reference path="lib/encoding/numberToHex.d.ts" />
 /// <reference path="lib/engine/Engine.d.ts" />
-/// <reference path="lib/engine/MemoryManager.d.ts" />
 /// <reference path="lib/error/DetailedError.d.ts" />
 /// <reference path="lib/error/DetailedErrorBase.d.ts" />
 /// <reference path="lib/error/FatalError.d.ts" />
@@ -276,6 +276,7 @@
 /// <reference path="lib/math/RoundingMode.d.ts" />
 /// <reference path="lib/math/trunc.d.ts" />
 /// <reference path="lib/mime/isTextualType.d.ts" />
+/// <reference path="lib/monitoring/SystemMonitor.d.ts" />
 /// <reference path="lib/multipart/MultipartFormData.d.ts" />
 /// <reference path="lib/multipart/MultipartFormDataOptions.d.ts" />
 /// <reference path="lib/multipart/MultipartFormDataPart.d.ts" />
@@ -308,6 +309,8 @@
 /// <reference path="lib/oidc/OpenIdClient.d.ts" />
 /// <reference path="lib/oidc/OpenIdProvider.d.ts" />
 /// <reference path="lib/os/OSApplication.d.ts" />
+/// <reference path="lib/otp/HOTP.d.ts" />
+/// <reference path="lib/otp/TOTP.d.ts" />
 /// <reference path="lib/phone/parsePhone.d.ts" />
 /// <reference path="lib/phone/PhoneNumber.d.ts" />
 /// <reference path="lib/print/HtmlToPdf.d.ts" />

@@ -828,6 +828,10 @@
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
         },
+        "cron-converter": {
+            "libraryName": "cron-converter",
+            "asOfVersion": "2.0.0"
+        },
         "cropperjs": {
             "libraryName": "cropperjs",
             "asOfVersion": "1.3.0"
@@ -2985,6 +2989,10 @@
             "libraryName": "meow",
             "asOfVersion": "6.0.0"
         },
+        "mermaid": {
+            "libraryName": "mermaid",
+            "asOfVersion": "9.2.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
@@ -3244,6 +3252,10 @@
         "node-waves": {
             "libraryName": "node-waves",
             "asOfVersion": "0.7.6"
+        },
+        "node-xlsx": {
+            "libraryName": "node-xlsx",
+            "asOfVersion": "0.21.0"
         },
         "nookies": {
             "libraryName": "nookies",
@@ -3687,6 +3699,10 @@
             "libraryName": "pino",
             "asOfVersion": "7.0.0"
         },
+        "pino-pretty": {
+            "libraryName": "pino-pretty",
+            "asOfVersion": "5.0.0"
+        },
         "pino-std-serializers": {
             "libraryName": "pino-std-serializers",
             "asOfVersion": "4.0.0"
@@ -3954,6 +3970,14 @@
         "pupa": {
             "libraryName": "pupa",
             "asOfVersion": "2.0.0"
+        },
+        "puppeteer": {
+            "libraryName": "puppeteer",
+            "asOfVersion": "7.0.4"
+        },
+        "puppeteer-core": {
+            "libraryName": "puppeteer-core",
+            "asOfVersion": "7.0.4"
         },
         "pusher-js": {
             "libraryName": "pusher-js",
@@ -4746,6 +4770,10 @@
         "resumablejs": {
             "libraryName": "resumablejs",
             "asOfVersion": "1.1.0"
+        },
+        "retry-as-promised": {
+            "libraryName": "retry-as-promised",
+            "asOfVersion": "7.0.3"
         },
         "rev-hash": {
             "libraryName": "rev-hash",

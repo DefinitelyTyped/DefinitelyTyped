@@ -13,6 +13,7 @@ declare module 'leaflet' {
           onAdd(map: Map): HTMLElement;
           start(): void;
           stop(): void;
+          stopFollowing(): void;
           setView(): void;
         }
         interface LocateOptions {
@@ -41,12 +42,19 @@ declare module 'leaflet' {
             textElementTag?: string | undefined;
             circlePadding?: number[] | undefined;
             metric?: boolean | undefined;
-            createButtonCallback?: any;
-            onLocationError?: any;
-            onLocationOutsideMapBounds?: any;
+            createButtonCallback?: ((container: HTMLDivElement, options: LocateOptions) => void) | undefined;
+            onLocationError?: ((event: ErrorEvent, control: Locate) => void) | undefined;
+            onLocationOutsideMapBounds?: ((control: Locate) => void) | undefined;
             showPopup?: boolean | undefined;
-            strings?: any;
+            strings?: StringsOptions | undefined;
             locateOptions?: L.LocateOptions | undefined;
+        }
+        interface StringsOptions {
+            title?: string | undefined;
+            metersUnit?: string | undefined;
+            feetUnit?: string | undefined;
+            popup?: string | undefined;
+            outsideMapBoundsMsg?: string | undefined;
         }
     }
 

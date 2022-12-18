@@ -1,4 +1,4 @@
-// For Library Version: 1.107.0
+// For Library Version: 1.109.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -169,7 +169,8 @@ declare module "sap/f/library" {
 
   /**
    * @SINCE 1.63
-   * @EXPERIMENTAL (since 1.63)
+   * @EXPERIMENTAL (since 1.63) - that provides only limited functionality. Also, it can be removed in future
+   * versions.
    *
    * Interface for controls suitable for the `additionalContent` aggregation of `{@link sap.f.ShellBar}`.
    */
@@ -495,7 +496,8 @@ declare module "sap/f/AvatarGroup" {
 
   /**
    * @SINCE 1.73
-   * @EXPERIMENTAL (since 1.73)
+   * @EXPERIMENTAL (since 1.73) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
    *
    * Displays a group of avatars arranged horizontally. It is useful to visually showcase a group of related
    * avatars, such as, project team members or employees.
@@ -945,7 +947,8 @@ declare module "sap/f/AvatarGroupItem" {
 
   /**
    * @SINCE 1.73
-   * @EXPERIMENTAL (since 1.73)
+   * @EXPERIMENTAL (since 1.73) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
    *
    * Represents a single avatar item displayed in the {@link sap.f.AvatarGroup} control.
    *
@@ -1565,7 +1568,7 @@ declare module "sap/f/cards/BaseHeader" {
      */
     destroyToolbar(): this;
     /**
-     * @EXPERIMENTAL (since 1.89)
+     * @EXPERIMENTAL (since 1.89) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getDataTimestamp dataTimestamp}.
      *
@@ -1608,7 +1611,7 @@ declare module "sap/f/cards/BaseHeader" {
 
   export interface $BaseHeaderSettings extends $ControlSettings {
     /**
-     * @EXPERIMENTAL (since 1.89)
+     * @EXPERIMENTAL (since 1.89) - this feature is experimental and the API may change.
      *
      * Defines the timestamp of the oldest data in the card. Use this to show to the end user how fresh the
      * information in the card is.
@@ -1812,7 +1815,7 @@ declare module "sap/f/cards/Header" {
       mParameters?: object
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getIconAlt iconAlt}.
      *
@@ -1824,7 +1827,7 @@ declare module "sap/f/cards/Header" {
      */
     getIconAlt(): string;
     /**
-     * @EXPERIMENTAL (since 1.83)
+     * @EXPERIMENTAL (since 1.83) - this feature is experimental and the API may change.
      *
      * Gets current value of property {@link #getIconBackgroundColor iconBackgroundColor}.
      *
@@ -1865,6 +1868,18 @@ declare module "sap/f/cards/Header" {
      * @returns Value of property `iconSrc`
      */
     getIconSrc(): URI;
+    /**
+     * @EXPERIMENTAL (since 1.83) - this feature is experimental and the API may change.
+     *
+     * Gets current value of property {@link #getIconVisible iconVisible}.
+     *
+     * Defines whether the card icon is visible.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `iconVisible`
+     */
+    getIconVisible(): boolean;
     /**
      * Gets current value of property {@link #getStatusText statusText}.
      *
@@ -1920,7 +1935,7 @@ declare module "sap/f/cards/Header" {
      */
     getTitleMaxLines(): int;
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - this feature is experimental and the API may change.
      *
      * Sets a new value for property {@link #getIconAlt iconAlt}.
      *
@@ -1939,7 +1954,7 @@ declare module "sap/f/cards/Header" {
       sIconAlt?: string
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.83)
+     * @EXPERIMENTAL (since 1.83) - this feature is experimental and the API may change.
      *
      * Sets a new value for property {@link #getIconBackgroundColor iconBackgroundColor}.
      *
@@ -2007,6 +2022,25 @@ declare module "sap/f/cards/Header" {
        * New value for property `iconSrc`
        */
       sIconSrc?: URI
+    ): this;
+    /**
+     * @EXPERIMENTAL (since 1.83) - this feature is experimental and the API may change.
+     *
+     * Sets a new value for property {@link #getIconVisible iconVisible}.
+     *
+     * Defines whether the card icon is visible.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconVisible(
+      /**
+       * New value for property `iconVisible`
+       */
+      bIconVisible?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getStatusText statusText}.
@@ -2148,14 +2182,14 @@ declare module "sap/f/cards/Header" {
     iconInitials?: string | PropertyBindingInfo;
 
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - this feature is experimental and the API may change.
      *
      * Defines an alt text for the avatar or icon.
      */
     iconAlt?: string | PropertyBindingInfo;
 
     /**
-     * @EXPERIMENTAL (since 1.83)
+     * @EXPERIMENTAL (since 1.83) - this feature is experimental and the API may change.
      *
      * Defines a background color for the avatar or icon.
      */
@@ -2163,6 +2197,13 @@ declare module "sap/f/cards/Header" {
       | (AvatarColor | keyof typeof AvatarColor)
       | PropertyBindingInfo
       | `{${string}}`;
+
+    /**
+     * @EXPERIMENTAL (since 1.83) - this feature is experimental and the API may change.
+     *
+     * Defines whether the card icon is visible.
+     */
+    iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Fires when the user presses the control.
@@ -2406,6 +2447,18 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getNumber(): string;
     /**
+     * @SINCE 1.109
+     *
+     * Gets current value of property {@link #getNumberVisible numberVisible}.
+     *
+     * Whether the main numeric indicator is visible or not
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `numberVisible`
+     */
+    getNumberVisible(): boolean;
+    /**
      * Gets current value of property {@link #getScale scale}.
      *
      * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
@@ -2435,7 +2488,8 @@ declare module "sap/f/cards/NumericHeader" {
       | cards.NumericHeaderSideIndicatorsAlignment
       | keyof typeof cards.NumericHeaderSideIndicatorsAlignment;
     /**
-     * @EXPERIMENTAL (since 1.64)
+     * @EXPERIMENTAL (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getState state}.
      *
@@ -2613,6 +2667,25 @@ declare module "sap/f/cards/NumericHeader" {
       sNumber: string
     ): this;
     /**
+     * @SINCE 1.109
+     *
+     * Sets a new value for property {@link #getNumberVisible numberVisible}.
+     *
+     * Whether the main numeric indicator is visible or not
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNumberVisible(
+      /**
+       * New value for property `numberVisible`
+       */
+      bNumberVisible?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getScale scale}.
      *
      * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
@@ -2649,7 +2722,8 @@ declare module "sap/f/cards/NumericHeader" {
         | keyof typeof cards.NumericHeaderSideIndicatorsAlignment
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.64)
+     * @EXPERIMENTAL (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getState state}.
      *
@@ -2828,6 +2902,13 @@ declare module "sap/f/cards/NumericHeader" {
     number?: string | PropertyBindingInfo;
 
     /**
+     * @SINCE 1.109
+     *
+     * Whether the main numeric indicator is visible or not
+     */
+    numberVisible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Defines the unit of measurement (scaling prefix) for the main indicator. Financial characters can be
      * used for currencies and counters. The International System of Units (SI) prefixes can be used. If the
      * unit contains more than three characters, only the first three characters are displayed.
@@ -2843,7 +2924,8 @@ declare module "sap/f/cards/NumericHeader" {
       | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.64)
+     * @EXPERIMENTAL (since 1.64) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * The semantic color which represents the state of the main number indicator.
      */
@@ -2976,7 +3058,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
      */
     getNumber(): string;
     /**
-     * @EXPERIMENTAL (since 1.95)
+     * @EXPERIMENTAL (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getState state}.
      *
@@ -3015,7 +3098,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
       sValue: string
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.95)
+     * @EXPERIMENTAL (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getState state}.
      *
@@ -3074,7 +3158,8 @@ declare module "sap/f/cards/NumericSideIndicator" {
     unit?: string | PropertyBindingInfo;
 
     /**
-     * @EXPERIMENTAL (since 1.95)
+     * @EXPERIMENTAL (since 1.95) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * The semantic color which represents the state of the side indicator.
      */
@@ -3099,7 +3184,7 @@ declare module "sap/f/dnd/GridDropInfo" {
 
   /**
    * @SINCE 1.68
-   * @EXPERIMENTAL (since 1.68)
+   * @EXPERIMENTAL (since 1.68) - This class is experimental. The API may change.
    *
    * Provides enhanced configuration for drop operations inside grid-based controls.
    *
@@ -9262,7 +9347,8 @@ declare module "sap/f/GridContainer" {
      */
     destroyLayoutXL(): this;
     /**
-     * @EXPERIMENTAL (since 1.71)
+     * @EXPERIMENTAL (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Destroys the layoutXS in the aggregation {@link #getLayoutXS layoutXS}.
      *
@@ -9383,7 +9469,7 @@ declare module "sap/f/GridContainer" {
       }
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - Behavior might change.
      *
      * Focuses the item on the given index. Should be called after successful drop operation.
      *
@@ -9396,7 +9482,7 @@ declare module "sap/f/GridContainer" {
       iIndex: int
     ): void;
     /**
-     * @EXPERIMENTAL (since 1.85)
+     * @EXPERIMENTAL (since 1.85) - Behavior might change.
      *
      * Focuses an item in the given direction - up, down, left or right, from the starting position specified
      * by row and column.
@@ -9430,7 +9516,8 @@ declare module "sap/f/GridContainer" {
      */
     getActiveLayoutSettings(): GridContainerSettings;
     /**
-     * @EXPERIMENTAL (since 1.66)
+     * @EXPERIMENTAL (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getAllowDenseFill allowDenseFill}.
      *
@@ -9466,7 +9553,8 @@ declare module "sap/f/GridContainer" {
      */
     getContainerQuery(): boolean;
     /**
-     * @EXPERIMENTAL (since 1.66)
+     * @EXPERIMENTAL (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Gets current value of property {@link #getInlineBlockLayout inlineBlockLayout}.
      *
@@ -9524,7 +9612,8 @@ declare module "sap/f/GridContainer" {
      */
     getLayoutXL(): GridContainerSettings;
     /**
-     * @EXPERIMENTAL (since 1.71)
+     * @EXPERIMENTAL (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Gets content of aggregation {@link #getLayoutXS layoutXS}.
      *
@@ -9532,7 +9621,8 @@ declare module "sap/f/GridContainer" {
      */
     getLayoutXS(): GridContainerSettings;
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
      *
      * Gets current value of property {@link #getMinHeight minHeight}.
      *
@@ -9650,7 +9740,8 @@ declare module "sap/f/GridContainer" {
       vItem: int | string | Item
     ): Control | null;
     /**
-     * @EXPERIMENTAL (since 1.66)
+     * @EXPERIMENTAL (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getAllowDenseFill allowDenseFill}.
      *
@@ -9690,7 +9781,8 @@ declare module "sap/f/GridContainer" {
       bContainerQuery?: boolean
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.66)
+     * @EXPERIMENTAL (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Sets a new value for property {@link #getInlineBlockLayout inlineBlockLayout}.
      *
@@ -9768,7 +9860,8 @@ declare module "sap/f/GridContainer" {
       oLayoutXL: GridContainerSettings
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.71)
+     * @EXPERIMENTAL (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Sets the aggregated {@link #getLayoutXS layoutXS}.
      *
@@ -9781,7 +9874,8 @@ declare module "sap/f/GridContainer" {
       oLayoutXS: GridContainerSettings
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
      *
      * Sets a new value for property {@link #getMinHeight minHeight}.
      *
@@ -9846,7 +9940,8 @@ declare module "sap/f/GridContainer" {
     width?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.81)
+     * @EXPERIMENTAL (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
      *
      * Defines the minimum height of the grid.
      *
@@ -9868,7 +9963,8 @@ declare module "sap/f/GridContainer" {
     snapToRow?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.66)
+     * @EXPERIMENTAL (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Increases the density when arranging the items. Smaller items will take up all of the available space,
      * ignoring their order.
@@ -9878,7 +9974,8 @@ declare module "sap/f/GridContainer" {
     allowDenseFill?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.66)
+     * @EXPERIMENTAL (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * Makes the grid items act like an inline-block elements. They will be arranged in rows with height equal
      * to the highest item in the row.
@@ -9905,7 +10002,8 @@ declare module "sap/f/GridContainer" {
     layout?: GridContainerSettings;
 
     /**
-     * @EXPERIMENTAL (since 1.71)
+     * @EXPERIMENTAL (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release. Use at your own discretion.
      *
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
      */
@@ -9970,7 +10068,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
 
   /**
    * @SINCE 1.65
-   * @EXPERIMENTAL (since 1.65)
+   * @EXPERIMENTAL (since 1.65) - This class is experimental. The API may change.
    *
    * Holds layout data for an item inside a `sap.f.GridContainer`.
    */
@@ -10063,7 +10161,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
      */
     getMinRows(): int;
     /**
-     * @EXPERIMENTAL (since 1.65)
+     * @EXPERIMENTAL (since 1.65) - this property may soon be removed, use minRows instead
      *
      * Gets current value of property {@link #getRows rows}.
      *
@@ -10110,7 +10208,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
       iMinRows: int
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.65)
+     * @EXPERIMENTAL (since 1.65) - this property may soon be removed, use minRows instead
      *
      * Sets a new value for property {@link #getRows rows}.
      *
@@ -10146,7 +10244,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
     minRows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @EXPERIMENTAL (since 1.65)
+     * @EXPERIMENTAL (since 1.65) - this property may soon be removed, use minRows instead
      *
      * Specifies the number of rows, which the item should take.
      */
@@ -10167,7 +10265,7 @@ declare module "sap/f/GridContainerSettings" {
 
   /**
    * @SINCE 1.65
-   * @EXPERIMENTAL (since 1.65)
+   * @EXPERIMENTAL (since 1.65) - This class is experimental. The API may change.
    *
    * Holds a set of settings that define the dimensions of `sap.f.GridContainer`.
    *
@@ -10702,7 +10800,7 @@ declare module "sap/f/GridList" {
       }
     ): this;
     /**
-     * @EXPERIMENTAL (since 1.87)
+     * @EXPERIMENTAL (since 1.87) - Behavior might change.
      *
      * Focuses an item in the given direction - up, down, left or right, from the starting position specified
      * by row and column.
@@ -11197,7 +11295,8 @@ declare module "sap/f/ProductSwitch" {
 
   /**
    * @SINCE 1.72
-   * @EXPERIMENTAL (since 1.72)
+   * @EXPERIMENTAL (since 1.72) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
    *
    * A layout control that provides specific configuration about how the items should be displayed.
    */
@@ -11464,7 +11563,8 @@ declare module "sap/f/ProductSwitchItem" {
 
   /**
    * @SINCE 1.72
-   * @EXPERIMENTAL (since 1.72)
+   * @EXPERIMENTAL (since 1.72) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
    *
    * A control that is used as a child of `ProductSwitch`
    *
@@ -18888,11 +18988,10 @@ declare module "sap/f/SidePanel" {
 
   /**
    * @SINCE 1.107
-   * @EXPERIMENTAL (since 1.107)
    *
    * Overview:
    *
-   * `SidePanel` is a layout control that allows primary and additional content to be displayed by clicking/tapping
+   * `SidePanel` is a layout control that allows primary and additional content to be displayed by choosing
    * the action items from its action bar.
    *
    * Usage:
@@ -18900,8 +18999,8 @@ declare module "sap/f/SidePanel" {
    * Action bar with action items have two states - collapsed and expanded. In collapsed state only icons
    * are displayed, and in expanded state both icons and titles are displayed.
    *
-   * Each action item can have a content and click/tap on action item toggles the display of its content.
-   * The content can be added to the action item's `content` aggregation, or can be added or changed later.
+   * Each action item can have a content and choose an action item toggles the display of its content. The
+   * content can be added to the action item's `content` aggregation, or can be added or changed later.
    *
    * Each click/tap fires an event, and in the event handler specific content can be added/changed to the
    * `content` aggregation of the clicked/tapped action item or data can be retreived from the same aggregation
@@ -18920,21 +19019,21 @@ declare module "sap/f/SidePanel" {
    * an overflow icon is displayed, and it toggles ON/OFF an overflow menu with the rest of the action items
    * that are not visible at the moment.
    *
-   * Screen width > 1440 px
-   *
-   *
-   * 	 - When expanded, the side content shrinks the main content.
-   *
-   * Screen width <= 1440 px
-   *
-   *
-   * 	 - When expanded, the side content is placed over the main content.
+   * When expanded, the side content shrinks the main content.
    *
    * **On mobile device**
    *
    * The side panel contains action bar that have action items placed horizontally at the bottom of the display,
    * and when expanded, the side content is displayed above the action bar. If there is not enough room for
    * all action items, the action bar can be swiped to access the rest of the action items.
+   *
+   * Resizing:
+   *
+   * Resizing functionality only affects desktop or tablet devices.
+   *
+   * By setting the `sidePanelResizable` property, the expanded side panel can be resized by mouse (by drag
+   * or by double click on resize splitter), by keyboard or by choosing one of three predefined positions
+   * in the side panel's context menu (min, max and default widths)
    *
    * Keyboard shortcuts:
    *
@@ -18949,6 +19048,22 @@ declare module "sap/f/SidePanel" {
    * 			opened side content panel to the action items
    * 	 - [F6] / [Shift] + [F6] - Navigate back and forth between main content, side panel and side content
    * 			groups [Esc] - Close the opened side content panel and set focus back to main content
+   *
+   * If the side panel's `sidePanelResizable` property is set, there is an action item chosen, and the resize
+   * splitter is focused:
+   *
+   *
+   * 	 - [Home] - set the expanded side panel width to the minimum value defined in `sidePanelMinWidth` property
+   *
+   * 	 - [End] - set the expanded side panel width to the maximum value defined in `sidePanelMaxWidth` property
+   *
+   * 	 - [Enter] - set the expanded side panel width to the default value defined in `sidePanelWidth` property
+   *
+   * 	 - [Shift]+[F10] or [Context menu] - show the resize context menu
+   * 	 - [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with the regular
+   * 			step
+   * 	 - [Shift] + [Arrow Left] / [Arrow Right] - increase/decrease the width of the expanded side panel with
+   * 			the larger step
    */
   export default class SidePanel extends Control {
     /**
@@ -19186,6 +19301,73 @@ declare module "sap/f/SidePanel" {
      */
     getSelectedItem(): ID;
     /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelMaxWidth sidePanelMaxWidth}.
+     *
+     * Determines the maximum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     *
+     * Default value is `"90%"`.
+     *
+     * @returns Value of property `sidePanelMaxWidth`
+     */
+    getSidePanelMaxWidth(): CSSSize;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelMinWidth sidePanelMinWidth}.
+     *
+     * Determines the minimum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     *
+     * Default value is `"15rem"`.
+     *
+     * @returns Value of property `sidePanelMinWidth`
+     */
+    getSidePanelMinWidth(): CSSSize;
+    /**
+     * Gets current value of property {@link #getSidePanelResizable sidePanelResizable}.
+     *
+     * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
+     * desktop or tablet devices.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `sidePanelResizable`
+     */
+    getSidePanelResizable(): boolean;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelResizeLargerStep sidePanelResizeLargerStep}.
+     *
+     * Determines the large step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by large step with `Shift + Left Arrow` and `Shift + Right Arrow` keys when
+     * the resize splitter is focused.
+     *
+     * Default value is `100`.
+     *
+     * @returns Value of property `sidePanelResizeLargerStep`
+     */
+    getSidePanelResizeLargerStep(): int;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSidePanelResizeStep sidePanelResizeStep}.
+     *
+     * Determines the step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by this step with `Left Arrow` and `Right Arrow` keys when the resize splitter
+     * is focused.
+     *
+     * Default value is `10`.
+     *
+     * @returns Value of property `sidePanelResizeStep`
+     */
+    getSidePanelResizeStep(): int;
+    /**
      * Gets current value of property {@link #getSidePanelWidth sidePanelWidth}.
      *
      * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
@@ -19328,23 +19510,106 @@ declare module "sap/f/SidePanel" {
       sAriaLabel?: string
     ): this;
     /**
-     * Sets a new value for property {@link #getSidePanelWidth sidePanelWidth}.
+     * @SINCE 1.109.0
      *
-     * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
-     * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
-     * it's calculated in absolute units.
+     * Sets a new value for property {@link #getSidePanelMaxWidth sidePanelMaxWidth}.
+     *
+     * Determines the maximum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * Default value is `"20rem"`.
+     * Default value is `"90%"`.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
-    setSidePanelWidth(
+    setSidePanelMaxWidth(
       /**
-       * New value for property `sidePanelWidth`
+       * New value for property `sidePanelMaxWidth`
        */
-      sSidePanelWidth?: CSSSize
+      sSidePanelMaxWidth?: CSSSize
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSidePanelMinWidth sidePanelMinWidth}.
+     *
+     * Determines the minimum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"15rem"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelMinWidth(
+      /**
+       * New value for property `sidePanelMinWidth`
+       */
+      sSidePanelMinWidth?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getSidePanelResizable sidePanelResizable}.
+     *
+     * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
+     * desktop or tablet devices.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelResizable(
+      /**
+       * New value for property `sidePanelResizable`
+       */
+      bSidePanelResizable?: boolean
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSidePanelResizeLargerStep sidePanelResizeLargerStep}.
+     *
+     * Determines the large step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by large step with `Shift + Left Arrow` and `Shift + Right Arrow` keys when
+     * the resize splitter is focused.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `100`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelResizeLargerStep(
+      /**
+       * New value for property `sidePanelResizeLargerStep`
+       */
+      iSidePanelResizeLargerStep?: int
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSidePanelResizeStep sidePanelResizeStep}.
+     *
+     * Determines the step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by this step with `Left Arrow` and `Right Arrow` keys when the resize splitter
+     * is focused.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `10`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSidePanelResizeStep(
+      /**
+       * New value for property `sidePanelResizeStep`
+       */
+      iSidePanelResizeStep?: int
     ): this;
   }
 
@@ -19360,11 +19625,53 @@ declare module "sap/f/SidePanel" {
     ariaLabel?: string | PropertyBindingInfo;
 
     /**
+     * Determines whether the side panel is resizable or fixed. **Note:** setting this property only affects
+     * desktop or tablet devices.
+     */
+    sidePanelResizable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Determines the side panel width (Side Content width + Action Bar width). **Note:** if the width is given
      * in percent(%), it is calculated as given percent from the Side Panel parent container width, otherwise
      * it's calculated in absolute units.
      */
     sidePanelWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the minimum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     */
+    sidePanelMinWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the maximum side panel width (Side Content width + Action Bar width). **Note:** if the width
+     * is given in percent(%), it is calculated as given percent from the Side Panel parent container width,
+     * otherwise it's calculated in absolute units.
+     */
+    sidePanelMaxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by this step with `Left Arrow` and `Right Arrow` keys when the resize splitter
+     * is focused.
+     */
+    sidePanelResizeStep?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * Determines the large step (in pixels) when changing the width of the side panel with the keyboard. **Note:**
+     * the width can be changed by large step with `Shift + Left Arrow` and `Shift + Right Arrow` keys when
+     * the resize splitter is focused.
+     */
+    sidePanelResizeLargerStep?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
      * The list of controls for the main content.
@@ -19417,7 +19724,6 @@ declare module "sap/f/SidePanelItem" {
 
   /**
    * @SINCE 1.107
-   * @EXPERIMENTAL (since 1.107)
    *
    * Overview:
    *
