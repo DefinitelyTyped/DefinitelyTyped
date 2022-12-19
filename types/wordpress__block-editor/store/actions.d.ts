@@ -1,5 +1,6 @@
 import { BlockInstance } from '@wordpress/blocks';
 
+import { DropOperation } from "../components/use-on-block-drop";
 import { EditorBlockListSettings, EditorSettings } from '../';
 
 /**
@@ -215,7 +216,7 @@ export function setTemplateValidity(isValid: boolean): void;
  * @param rootClientId - Optional root client ID of block list on which to insert.
  * @param index - Index at which block should be inserted.
  */
-export function showInsertionPoint(rootClientId?: string, index?: number): void;
+export function showInsertionPoint(rootClientId?: string, index?: number, __unstableOptions?: { __unstableWithInserter?: boolean, operation?: DropOperation }): void;
 
 /**
  * Signals that a block multi-selection has started.
