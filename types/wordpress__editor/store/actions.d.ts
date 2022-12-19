@@ -85,7 +85,7 @@ export function redo(): void;
  *
  * @deprecated since 12.2.0.
  */
-export function refreshPost(): {type: 'DO_NOTHING'}
+export function refreshPost(): {type: 'DO_NOTHING'};
 
 /**
  * Signals that the blocks have been updated.

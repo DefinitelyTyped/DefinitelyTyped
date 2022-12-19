@@ -392,8 +392,5 @@ select('core/editor').getPostEdits().author;
 // $ExpectType unknown
 select('core/editor').getPostEdits().foo;
 
-// $ExpectType []
-select('core/editor').getReferenceByDistinctEdits();
-
 // $ExpectType boolean
 select('core/editor').inSomeHistory(state => state.foo === true);
