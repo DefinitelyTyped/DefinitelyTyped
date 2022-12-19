@@ -31,7 +31,7 @@ declare class OpenIDConnectStrategy extends passport.Strategy {
 declare namespace OpenIDConnectStrategy {
     type Profile = passport.Profile;
 
-    export type VerifyCallback = (err?: Error | null, user?: Express.User, info?: any) => void;
+    type VerifyCallback = (err?: Error | null, user?: Express.User, info?: any) => void;
 
     type VerifyFunction = (issuer: string, profile: any, done: VerifyCallback) => void;
 
