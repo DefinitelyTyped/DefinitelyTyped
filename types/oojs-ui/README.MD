@@ -1,3 +1,22 @@
+## Usage
+If you are writing JavaScript/TypeScript code for MediaWiki, make sure all [relevant ResourceLoader modules](https://www.mediawiki.org/wiki/OOUI/Using_OOUI_in_MediaWiki#JavaScript) are loaded, then use `OO.ui` globally.
+
+### Suggestions on icon and indicator names
+[utils.d.ts](utils.d.ts) contains a list of known icon and indicator names. To use them, you must ensure the corresponding modules have been loaded.
+Please refer to the OOUI documentation or the code comments for more details.
+
+## Caveats
+1. Methods and classes marked as private and protected are not included in the definition because interfaces can only define public constraints.
+2. Some OOUI classes are designed in violation of [Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle), which is forbidden in TypeScript. To address this issue we use some hacks, but they also result it additional issues, for instance:
+    ```ts
+    // Error: Type 'NumberInputWidget' is not assignable to type 'TextInputWidget'...
+    let widget: OO.ui.TextInputWidget = new OO.ui.NumberInputWidget();
+
+    // Use type assertion as a fix
+    let widget: OO.ui.TextInputWidget = new OO.ui.NumberInputWidget() as unknown as OO.ui.TextInputWidget;
+    ```
+
+
 ## Credits
 This project uses JSDoc documentations from OOUI which is licensed under the MIT License.
 
