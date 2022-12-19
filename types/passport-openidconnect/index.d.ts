@@ -1,4 +1,4 @@
-// Type definitions for passport-openidconnect 0.1.1
+// Type definitions for passport-openidconnect 0.1
 // Project: https://github.com/jaredhanson/passport-openidconnect#readme
 // Definitions by: Axel Elmarsson <https://github.com/elmaxe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,9 +6,8 @@
 
 import * as passport from 'passport';
 import { OAuth2 } from 'oauth';
-import { OutgoingHttpHeaders } from 'http';
+import { OutgoingHttpHeaders, Agent } from 'http';
 import { Request } from 'express';
-import { Agent } from 'http';
 
 declare class OpenIDConnectStrategy extends passport.Strategy {
     name: string;
@@ -38,11 +37,11 @@ declare namespace OpenIDConnectStrategy {
 
     type VerifyFunctionWithRequest = (req: Request, issuer: string, profile: any, done: VerifyCallback) => void;
 
-    type SessionStoreContext = {
+    interface SessionStoreContext {
         maxAge?: number | undefined;
         issued?: Date | undefined;
         nonce?: string;
-    };
+    }
     type SessionStoreStoreCallback = (err: Error | null, handle: string) => void;
     type SessionStoreVerifyCallback = (err: Error | null, ctx: SessionStoreContext, state: any) => void;
 

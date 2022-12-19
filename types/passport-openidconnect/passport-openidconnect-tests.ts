@@ -2,7 +2,6 @@ import OpenIDConnectStrategy = require('passport-openidconnect');
 import {
     Strategy,
     StrategyOptions,
-    StrategyOptionsWithRequest,
     VerifyCallback,
     AuthorizationError,
     TokenError,
@@ -23,20 +22,20 @@ const strategyOptions1: StrategyOptions = {
     userInfoURL: 'https://example.com/userinfo',
 };
 
-const verifyFunction1: VerifyFunction = function (_issuer, _profile: any, verifyCallback: VerifyCallback) {
+function verifyFunction1(_issuer: string, _profile: any, verifyCallback: VerifyCallback) {
     verifyCallback(new Error('not implemented'));
-};
+}
 
-const verifyFunction2: VerifyFunction = function (_issuer, _profile: Profile, verifyCallback: VerifyCallback) {
+function verifyFunction2(_issuer: string, _profile: Profile, verifyCallback: VerifyCallback) {
     verifyCallback(new Error('not implemented'));
-};
+}
 
 const strategy1: OpenIDConnectStrategy = new OpenIDConnectStrategy(strategyOptions1, verifyFunction1);
 const strategy2: Strategy = new OpenIDConnectStrategy(strategyOptions1, verifyFunction2);
 
-const verifyFunction3: VerifyFunction = (issuer: string, profile: any, verifyCallback: VerifyCallback) => {
+function verifyFunction3(issuer: string, profile: any, verifyCallback: VerifyCallback) {
     verifyCallback(null, { userId: '1' });
-};
+}
 
 const err1 = new AuthorizationError('Description', 'invalid_request');
 const err2 = new AuthorizationError('Description', 'invalid_request', undefined);
