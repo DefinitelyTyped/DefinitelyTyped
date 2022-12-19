@@ -448,6 +448,7 @@ dispatch('core/block-editor').moveBlockToPosition(undefined, undefined, undefine
 
 // $ExpectType void
 dispatch('core/block-editor').multiSelect('foo', 'bar');
+dispatch('core/block-editor').multiSelect('foo', 'bar', 42);
 
 // $ExpectType void
 dispatch('core/block-editor').receiveBlocks([BLOCK_INSTANCE]);
@@ -501,6 +502,10 @@ dispatch('core/block-editor').setTemplateValidity(false);
 dispatch('core/block-editor').showInsertionPoint();
 dispatch('core/block-editor').showInsertionPoint('foo');
 dispatch('core/block-editor').showInsertionPoint('foo', 5);
+dispatch('core/block-editor').showInsertionPoint('foo', 5, {});
+dispatch('core/block-editor').showInsertionPoint('foo', 5, {__unstableWithInserter: true});
+dispatch('core/block-editor').showInsertionPoint('foo', 5, {operation: "insert"});
+dispatch('core/block-editor').showInsertionPoint('foo', 5, {__unstableWithInserter: true, operation: "insert"});
 
 // $ExpectType void
 dispatch('core/block-editor').toggleBlockMode('foo');
