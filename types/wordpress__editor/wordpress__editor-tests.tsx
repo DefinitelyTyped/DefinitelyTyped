@@ -239,6 +239,16 @@ declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
 <e.PostTaxonomiesCheck>Hello world</e.PostTaxonomiesCheck>;
 
 //
+// PostTaxonomiesFlatTermSelector
+//
+<e.PostTaxonomiesFlatTermSelector>Hello world</e.PostTaxonomiesFlatTermSelector>;
+
+//
+// PostTaxonomiesHierarchicalTermSelector
+//
+<e.PostTaxonomiesHierarchicalTermSelector>Hello world</e.PostTaxonomiesHierarchicalTermSelector>;
+
+//
 // PostTextEditor
 //
 <e.PostTextEditor />;
