@@ -10239,6 +10239,9 @@ declare namespace chrome.topSites {
 
     /** Gets a list of top sites. */
     export function get(callback: (data: MostVisitedURL[]) => void): void;
+
+    /** Gets a list of top sites. */
+    export function get(): Promise<MostVisitedURL[]>;
 }
 
 ////////////////////
