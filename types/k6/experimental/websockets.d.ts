@@ -44,7 +44,7 @@ export class WebSocket {
      * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/
      *
      * @param url - The URL to which to connect; this should be the URL to which the WebSocket server will respond.
-     * @param protocols - Either a single protocol string or an array of protocol strings. The param reserved for future use, currently ignored.
+     * @param protocols - Either a single protocol string or an array of protocol strings. The param is reserved for future use and will be presently ignored.
      * @param params - Used for setting various WebSocket connection parameters such as headers, cookie jar, compression, etc.
      */
     constructor(url: string, protocols?: null, params?: Params | null);
@@ -129,7 +129,7 @@ export class WebSocket {
  */
 export interface Params {
     /** Request headers. */
-    headers?: { [name: string]: string };
+    headers?: Record<string, string>;
 
     /**
      * Compression algorithm. The only supported algorithm is `deflate`.
@@ -137,8 +137,8 @@ export interface Params {
      */
     compression?: string;
 
-    /** Response time metric tags. */
-    tags?: { [name: string]: string };
+    /** The custom metric tags. */
+    tags?: Record<string, number | string | boolean>;
 
     /**
      * The cookie jar that will be used when making the initial HTTP request to establish the WebSocket connection.
@@ -176,7 +176,12 @@ export enum ReadyState {
  * Type alias describe the types of binary data that can be
  * transmitted over a Websocket connection.
  */
-export type BinaryType = 'ArrayBuffer';
+export enum BinaryType  {
+    /**
+     * Binary data is returned in ArrayBuffer form. k6 supports only this type.
+     */
+    ArrayBuffer = 'ArrayBuffer'
+}
 
 /**
  * EventName describes the possible events that can be emitted
