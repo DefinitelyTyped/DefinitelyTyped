@@ -3,6 +3,7 @@
 // Definitions by: na-- <https://github.com/na-->
 //                 Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
+//                 Ivan Mirić <https://github.com/imiric>
 //                 Théo Crevon <https://github.com/oleiade>
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
