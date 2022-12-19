@@ -118,4 +118,4 @@ declare namespace OpenIDConnectStrategy {
     }
 }
 
-export = OpenIDConnectStrategy;
+export { OpenIDConnectStrategy };
