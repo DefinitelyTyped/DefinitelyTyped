@@ -83,15 +83,6 @@ export function didPostSaveRequestSucceed(): boolean;
 export function getActivePostLock(): string | undefined;
 
 /**
- * Returns the current autosave, or an empty object if one is not set (i.e. if the post has yet to
- * be autosaved, or has been saved or published since the last autosave).
- *
- * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )`
- *                selector from the '@wordpress/core-data' package.
- */
-export function getAutosave(): Autosave | {};
-
-/**
  * Returns an attribute value of the current autosave revision for a post, or an empty object if
  * there is no autosave for the post.
  *
@@ -102,14 +93,6 @@ export function getAutosave(): Autosave | {};
  * @param attributeName - Autosave attribute name.
  */
 export function getAutosaveAttribute<T extends keyof Autosave>(attributeName: T): Autosave[T] | {};
-
-/**
- * Returns a set of blocks which are to be used in consideration of the post's generated save
- * content.
- *
- * @returns Filtered set of blocks for save.
- */
-export function getBlocksForSerialization(): BlockInstance[];
 
 /**
  * Returns the post currently being edited in its last known saved state, not including unsaved
@@ -245,14 +228,6 @@ export function getStateBeforeOptimisticTransaction(transactionId: object): any;
  * format cannot be determined.
  */
 export function getSuggestedPostFormat(): string | null;
-
-/**
- * Returns the true if there is an existing autosave, otherwise false.
- *
- * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
- *             from the '@wordpress/core-data' package and check for a truthy value.
- */
-export function hasAutosave(): boolean;
 
 /**
  * Returns `true` if content includes unsaved changes, or `false` otherwise.
