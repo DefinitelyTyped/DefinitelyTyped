@@ -90,10 +90,7 @@ declare namespace OO.ui {
             $focusOwner: JQuery;
         }
 
-        // HACK: Address LSP violation
-        interface Prototype
-            extends Widget.Prototype,
-                Omit<mixin.GroupElement.Prototype, 'addItems' | 'removeItems' | 'clearItems'> {
+        interface Prototype extends Widget.Prototype, mixin.GroupElement.Prototype {
             /**
              * Scroll item into view, preventing spurious mouse highlight actions from happening.
              *
@@ -268,7 +265,7 @@ declare namespace OO.ui {
              * @param index Index to insert items aft
              * @return The widget, for chaining
              */
-            addItems(items?: OptionWidget[], index?: number): this;
+            addItems(items: OptionWidget[], index?: number): this;
 
             /**
              * Remove the specified array of options from the select. Options will be detached
