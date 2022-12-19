@@ -56,7 +56,7 @@ const BLOCK_INSTANCE: blocks.BlockInstance<{ foo: string }> = {
         </div>
     );
     const Enhanced = blocks.withBlockContentContext(OriginalComponent);
-    <Enhanced foo="bar" />;
+    <Enhanced foo="bar" BlockContent="cont" />;
 })();
 
 //

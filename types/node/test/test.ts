@@ -17,6 +17,7 @@ run({
     files: ['test-file-name.js'],
     signal: new AbortController().signal,
     timeout: 100,
+    inspectPort: () => 8081,
 });
 
 // TapStream should be a NodeJS.ReadableStream
@@ -71,6 +72,10 @@ test(undefined, undefined, t => {
     t.todo('todo reason');
     // $ExpectType void
     t.todo();
+    // $ExpectType void
+    t.afterEach(() => {});
+    // $ExpectType void
+    t.beforeEach(() => {});
 });
 
 // Test the subtest approach.
@@ -120,6 +125,32 @@ describe('options with booleans', {
 it('options with booleans', {
     skip: true,
     todo: false,
+});
+
+describe.skip('skip shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.skip('todo shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+describe.todo('skip shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.todo('todo shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
 });
 
 // Test callback mode

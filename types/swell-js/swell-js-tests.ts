@@ -81,12 +81,12 @@ Swell.categories.get(); // $ExpectType Promise<ListResult<Category>>
 Swell.categories.list({}); // $ExpectType Promise<ListResult<Category>>
 
 Swell.currency.format(1, {}); // $ExpectType string
-Swell.currency.list(); // $ExpectType Promise<ListResult<unknown>>
-Swell.currency.select(''); // $ExpectType Promise<unknown>
-Swell.currency.selected(); // $ExpectType Promise<string>
+Swell.currency.list(); // $ExpectType Promise<Currency[]>
+Swell.currency.select(''); // $ExpectType Promise<CurrencySelect>
+Swell.currency.selected(); // $ExpectType string
 
-Swell.locale.selected(); // $ExpectType Promise<string>
-Swell.locale.select(''); // $ExpectType Promise<unknown>
+Swell.locale.selected(); // $ExpectType string
+Swell.locale.select(''); // $ExpectType Promise<Locale>
 
 Swell.payment.createElements({}); // $ExpectType Promise<unknown>
 Swell.payment.tokenize({}); // $ExpectType void

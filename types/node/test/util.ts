@@ -18,6 +18,8 @@ util.inspect(["This is nice"], {
         return b.localeCompare(a);
     },
     getters: false,
+    showHidden: true,
+    numericSeparator: true,
 });
 util.inspect(["This is nice"], {
     colors: true,
@@ -29,6 +31,8 @@ util.inspect(["This is nice"], {
     compact: false,
     sorted: true,
     getters: 'set',
+    showHidden: false,
+    numericSeparator: false,
 });
 util.inspect(["This is nice"], {
     compact: 42,
@@ -41,6 +45,10 @@ util.inspect.replDefaults = {
 
 util.inspect({
     [util.inspect.custom]: <util.CustomInspectFunction> ((depth, opts) => opts.stylize('woop', 'module')),
+});
+
+util.inspect({
+    [util.inspect.custom]: <util.CustomInspectFunction> (() => ({ bar: 'baz' })),
 });
 
 (options?: util.InspectOptions) => util.inspect({ }, options);
@@ -218,6 +226,8 @@ access('file/that/does/not/exist', (err) => {
             bar: { type: 'boolean', multiple: true },
         },
     } as const;
+
+    util.parseArgs();
 
     // $ExpectType { values: { foo: string | undefined; bar: boolean[] | undefined; }; positionals: string[]; }
     util.parseArgs(config);

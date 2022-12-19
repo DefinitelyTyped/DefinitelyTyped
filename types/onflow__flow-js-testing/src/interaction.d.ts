@@ -50,9 +50,9 @@ export interface TransactionStatus {
     events: TransactionEvent[];
 }
 
-export type TransactionResponse = [TransactionStatus | null, Error | null];
+export type TransactionResponse = [TransactionStatus | null, string | Error | null];
 
-export type ScriptResponse = [any, Error | null];
+export type ScriptResponse = [any, string | Error | null];
 
 export function sendTransaction(props: TransactionProps): Promise<TransactionResponse>;
 

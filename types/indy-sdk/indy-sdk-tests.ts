@@ -78,6 +78,18 @@ const proofReq: indy.IndyProofRequest = {
     },
     non_revoked: { from: 80, to: 100 },
 };
+const proofRequestWithNamesArray: indy.IndyProofRequest = {
+    nonce: 'nonce',
+    name: 'proof_req_1',
+    version: '0.1',
+    requested_attributes: {
+        attr1_referent: { names: ['name', 'address'] },
+    },
+    requested_predicates: {
+        predicate1_referent: { name: 'age', p_type: '>=', p_value: 18 },
+    },
+    non_revoked: { from: 80, to: 100 },
+};
 const ledgerRejectResponse: indy.LedgerRejectResponse = {
     op: 'REJECT',
     reqId: 1615465027340221000,
@@ -287,6 +299,7 @@ indy.generateWalletKey({ seed: 'seed' });
 indy.buildAttribRequest('myDid', 'myDid', null, { endpoint: 'value' }, null);
 indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
+indy.proverGetCredentialsForProofReq(10, proofRequestWithNamesArray);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, 'attr1_referent', 100);
 indy.proverCloseCredentialsSearchForProofReq(10);
