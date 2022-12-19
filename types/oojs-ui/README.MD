@@ -15,6 +15,13 @@ Please refer to the OOUI documentation or the code comments for more details.
     // Use type assertion as a fix
     let widget: OO.ui.TextInputWidget = new OO.ui.NumberInputWidget() as unknown as OO.ui.TextInputWidget;
     ```
+    Known problematic classes:
+    - [`OO.ui.mixin.GroupElement`](mixin/GroupElement.d.ts) (Changes method signatures of `OO.EmitterList`)
+    - [`OO.ui.CheckboxInputWidget`](CheckboxInputWidget.d.ts) (Inconsistency in `change` event)
+    - [`OO.ui.NumberInputWidget`](NumberInputWidget.d.ts) (Changes method signatures of `OO.ui.TextInputWidget`)
+    - [`OO.ui.OutlineControlsWidget`](OutlineControlsWidget.d.ts) (Inconsistency in `move` and `remove` event)
+    - [`OO.ui.SelectFileWidget`](SelectFileWidget.d.ts) (Inconsistency in `change` event, changes method signatures of `SelectFileInputWidget`)
+    - [`OO.ui.SelectWidget`](SelectWidget.d.ts) (Inconsistency in `move` and `remove` event)
 
 
 ## Credits
