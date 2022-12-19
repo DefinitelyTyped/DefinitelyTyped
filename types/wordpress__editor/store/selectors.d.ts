@@ -349,6 +349,11 @@ export function isPublishSidebarEnabled(): boolean;
 export function isPublishingPost(): boolean;
 
 /**
+ * Returns true if the post is currently being deleted, or false otherwise.
+ */
+export function isDeletingPost(): boolean;
+
+/**
  * Returns `true` if the post is currently being saved, or `false` otherwise.
  */
 export function isSavingPost(): boolean;
