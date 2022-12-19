@@ -434,7 +434,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                 <thead>
                     {
                     headerGroups.map((headerGroup: HeaderGroup<Data>) => {
-                        const {key, ...restHeaderGroup} = headerGroup.getHeaderGroupProps()
+                        const {key, ...restHeaderGroup} = headerGroup.getHeaderGroupProps();
                         return (
                         <tr key = {key} {...restHeaderGroup}>
                             {headerGroup.headers.map(column => {
@@ -481,11 +481,11 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                 <tbody {...getTableBodyProps()}>
                     {page.map((row: Row<Data>) => {
                         prepareRow(row);
-                        const {key, ...restRowProps} = row.getRowProps()
+                        const {key, ...restRowProps} = row.getRowProps();
                         return (
                             <tr key = {key} {...restRowProps}>
                                 {row.cells.map((cell: Cell<Data>) => {
-                                    const {key, ...restCellProps} = cell.getCellProps()
+                                    const {key, ...restCellProps} = cell.getCellProps();
                                     return (
                                         <td key = {key} {...restCellProps}>
                                             {cell.isGrouped ? (
@@ -513,7 +513,7 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                 </tbody>
                 <tfoot>
                     {footerGroups.map((footerGroup) => {
-                        const {key, ...restFooterGroupProps} = footerGroup.getFooterGroupProps()
+                        const {key, ...restFooterGroupProps} = footerGroup.getFooterGroupProps();
                         return (
                         <tr key = {key} {...restFooterGroupProps}>
                             {footerGroup.headers.map((column) => (
