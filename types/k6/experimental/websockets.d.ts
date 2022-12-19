@@ -121,7 +121,6 @@ export class WebSocket {
      * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onpong/
      */
     onpong: () => void;
-
 }
 
 /**
