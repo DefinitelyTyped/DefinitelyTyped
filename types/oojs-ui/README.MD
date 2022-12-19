@@ -7,7 +7,7 @@ Please refer to the OOUI documentation or the code comments for more details.
 
 ## Caveats
 1. Methods and classes marked as private and protected are not included in the definition because interfaces can only define public constraints.
-2. Some OOUI classes are designed in violation of [Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle), which is forbidden in TypeScript. To address this issue we use some hacks, but they also result it additional issues, for instance:
+2. Some OOUI classes are designed in violation of [Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle), which is forbidden in TypeScript. To address this issue we use some hacks, but they also result in additional issues, for instance:
     ```ts
     // Error: Type 'NumberInputWidget' is not assignable to type 'TextInputWidget'...
     let widget: OO.ui.TextInputWidget = new OO.ui.NumberInputWidget();
