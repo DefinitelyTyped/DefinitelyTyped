@@ -46,8 +46,10 @@ export function autosave(options?: Record<string, boolean>): IterableIterator<vo
 
 /**
  * Signals that an undo history record should be created.
+ *
+ * @deprecated since 12.2.0.
  */
-export function createUndoLevel(): void;
+export function createUndoLevel(): {type: 'DO_NOTHING'};
 
 /**
  * Signals that the user has disabled the publish sidebar.
@@ -80,8 +82,10 @@ export function redo(): void;
 
 /**
  * Action generator for handling refreshing the current post.
+ *
+ * @deprecated since 12.2.0.
  */
-export function refreshPost(): IterableIterator<void>;
+export function refreshPost(): {type: 'DO_NOTHING'}
 
 /**
  * Signals that the blocks have been updated.

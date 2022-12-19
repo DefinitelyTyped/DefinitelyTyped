@@ -197,22 +197,6 @@ export function getPostEdits(): Partial<Schema.Decontextualize<Schema.PostOrPage
 export function getPostLockUser(): Schema.User | undefined | null;
 
 /**
- * Returns a new reference when edited values have changed. This is useful in inferring where an
- * edit has been made between states by comparison of the return values using strict equality.
- *
- * @example
- * ```js
- * const hasEditOccurred = (
- *    getReferenceByDistinctEdits( beforeState ) !==
- *    getReferenceByDistinctEdits( afterState )
- * );
- * ```
- *
- * @returns A value whose reference will change only when an edit occurs.
- */
-export function getReferenceByDistinctEdits(): [];
-
-/**
  * Returns state object prior to a specified optimist transaction ID, or `null` if the transaction
  * corresponding to the given ID cannot be found.
  *
