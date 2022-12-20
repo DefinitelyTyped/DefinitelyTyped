@@ -6,14 +6,8 @@
 
 /// <reference types="react"/>
 
+import type { RuntimeCaching, GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
 import type { NextConfig } from 'next';
-
-// match `workbox-build` ^6.5.4 types naming
-import type {
-    RuntimeCachingEntry as RuntimeCaching,
-    GenerateSWConfig as GenerateSWOptions,
-    InjectManifestConfig as InjectManifestOptions,
-} from 'workbox-build';
 
 declare global {
     interface PopStateEventInit extends EventInit {
