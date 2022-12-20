@@ -11,7 +11,7 @@ export interface MockStore<S = any, A extends Redux.Action = Redux.AnyAction> ex
     clearActions(): void;
 }
 
-export type MockStoreEnhanced<S = {}, DispatchExts = {}> = MockStore<S> & {dispatch: DispatchExts};
+export type MockStoreEnhanced<S = {}, DispatchExts = {}> = MockStore<S> & {dispatch: Redux.Dispatch<DispatchExts>};
 
 export type MockStoreCreator<S = {}, DispatchExts = {}> = (state?: S | MockGetState<S>) => MockStoreEnhanced<S, DispatchExts>;
 
