@@ -432,62 +432,64 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
         <>
             <table {...getTableProps()}>
                 <thead>
-                    {
-                    headerGroups.map((headerGroup: HeaderGroup<Data>) => {
-                        const {key, ...restHeaderGroup} = headerGroup.getHeaderGroupProps();
+                    {headerGroups.map((headerGroup: HeaderGroup<Data>) => {
+                        const { key, ...restHeaderGroup } = headerGroup.getHeaderGroupProps();
                         return (
-                        <tr key = {key} {...restHeaderGroup}>
-                            {headerGroup.headers.map(column => {
-                                // $ExpectType TableHeaderProps
-                                const headerProps = column.getHeaderProps();
-                                const {
-                                    key: headerKey,
-                                    className: headerClassName,
-                                    style: headerStyle,
-                                    role: headerRole,
-                                    ...restHeaderProps
-                                } = headerProps;
-                                // $ExpectType TableGroupByToggleProps
-                                const groupByToggleProps = column.getGroupByToggleProps();
-                                const {
-                                    title: groupTitle,
-                                    style: groupStyle,
-                                    onClick: groupOnClick,
-                                } = groupByToggleProps;
-                                // $ExpectType TableSortByToggleProps
-                                const sortByProps = column.getSortByToggleProps();
-                                const { title: sortTitle, style: sortStyle, onClick: sortOnClick } = sortByProps;
-                                return (
-                                    <th key = {headerKey} {...restHeaderProps}>
-                                        <div>
-                                            {column.canGroupBy ? (
-                                                // If the column can be grouped, let's add a toggle
-                                                <span {...groupByToggleProps}>{column.isGrouped ? '🛑 ' : '👊 '}</span>
-                                            ) : null}
-                                            <span {...sortByProps}>
-                                                {column.render('Header')}
-                                                {/* Add a sort direction indicator */}
-                                                {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
-                                            </span>
-                                        </div>
-                                        {/* Render the columns filter UI */}
-                                        <div>{column.canFilter ? column.render('Filter') : null}</div>
-                                    </th>
-                                );
-                            })}
-                        </tr>
-)})}
+                            <tr key={key} {...restHeaderGroup}>
+                                {headerGroup.headers.map(column => {
+                                    // $ExpectType TableHeaderProps
+                                    const headerProps = column.getHeaderProps();
+                                    const {
+                                        key: headerKey,
+                                        className: headerClassName,
+                                        style: headerStyle,
+                                        role: headerRole,
+                                        ...restHeaderProps
+                                    } = headerProps;
+                                    // $ExpectType TableGroupByToggleProps
+                                    const groupByToggleProps = column.getGroupByToggleProps();
+                                    const {
+                                        title: groupTitle,
+                                        style: groupStyle,
+                                        onClick: groupOnClick,
+                                    } = groupByToggleProps;
+                                    // $ExpectType TableSortByToggleProps
+                                    const sortByProps = column.getSortByToggleProps();
+                                    const { title: sortTitle, style: sortStyle, onClick: sortOnClick } = sortByProps;
+                                    return (
+                                        <th key={headerKey} {...restHeaderProps}>
+                                            <div>
+                                                {column.canGroupBy ? (
+                                                    // If the column can be grouped, let's add a toggle
+                                                    <span {...groupByToggleProps}>
+                                                        {column.isGrouped ? '🛑 ' : '👊 '}
+                                                    </span>
+                                                ) : null}
+                                                <span {...sortByProps}>
+                                                    {column.render('Header')}
+                                                    {/* Add a sort direction indicator */}
+                                                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                                                </span>
+                                            </div>
+                                            {/* Render the columns filter UI */}
+                                            <div>{column.canFilter ? column.render('Filter') : null}</div>
+                                        </th>
+                                    );
+                                })}
+                            </tr>
+                        );
+                    })}
                 </thead>
                 <tbody {...getTableBodyProps()}>
                     {page.map((row: Row<Data>) => {
                         prepareRow(row);
-                        const {key, ...restRowProps} = row.getRowProps();
+                        const { key, ...restRowProps } = row.getRowProps();
                         return (
-                            <tr key = {key} {...restRowProps}>
+                            <tr key={key} {...restRowProps}>
                                 {row.cells.map((cell: Cell<Data>) => {
-                                    const {key, ...restCellProps} = cell.getCellProps();
+                                    const { key, ...restCellProps } = cell.getCellProps();
                                     return (
-                                        <td key = {key} {...restCellProps}>
+                                        <td key={key} {...restCellProps}>
                                             {cell.isGrouped ? (
                                                 <>
                                                     <span {...row.getToggleRowExpandedProps()}>
@@ -512,19 +514,16 @@ function Table({ columns, data, updateMyData, skipPageReset = false }: Table<Dat
                     })}
                 </tbody>
                 <tfoot>
-                    {footerGroups.map((footerGroup) => {
-                        const {key, ...restFooterGroupProps} = footerGroup.getFooterGroupProps();
+                    {footerGroups.map(footerGroup => {
+                        const { key, ...restFooterGroupProps } = footerGroup.getFooterGroupProps();
                         return (
-                        <tr key = {key} {...restFooterGroupProps}>
-                            {footerGroup.headers.map((column) => (
-                                <td {...column.getFooterProps()}>
-                                    {column.render('Footer')}
-                                </td>
-                            ))}
-                        </tr>
-                        )
-                    }
-                    )}
+                            <tr key={key} {...restFooterGroupProps}>
+                                {footerGroup.headers.map(column => (
+                                    <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+                                ))}
+                            </tr>
+                        );
+                    })}
                 </tfoot>
             </table>
             {/*
@@ -675,9 +674,9 @@ const Component = (props: {}) => {
                         const v = value; // $ExpectType string
                         return <>{value}</>;
                     },
-                    Footer: ({column}: FooterProps<Data>) => {
+                    Footer: ({ column }: FooterProps<Data>) => {
                         return <>{column.id}</>;
-                    }
+                    },
                 },
                 {
                     Header: 'Last Name',
