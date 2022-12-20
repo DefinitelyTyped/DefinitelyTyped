@@ -400,6 +400,7 @@ export interface DateLocalizerSpec {
     segmentOffset: number;
 }
 
+// As documented in https://jquense.github.io/react-big-calendar/examples/?path=/docs/guides-localizers--page
 export class DateLocalizer {
     formats: Formats;
     propType: Validator<any>;
