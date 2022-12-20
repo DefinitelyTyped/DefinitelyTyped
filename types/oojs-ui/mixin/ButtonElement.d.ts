@@ -5,6 +5,8 @@ declare namespace OO.ui.mixin {
      * See the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Buttons_and_Switches#Buttons)
      * for examples.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.ButtonElement
      */
     interface ButtonElement extends ButtonElement.Props, ButtonElement.Prototype {}

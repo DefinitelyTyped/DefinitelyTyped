@@ -4,6 +4,8 @@ declare namespace OO.ui {
      * that is visible to a user. Unlike {@link OO.ui.Widget widgets}, plain elements usually do not
      * have events connected to them and can't be interacted with.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Element
      */
     interface Element extends Element.Props, Element.Prototype {}

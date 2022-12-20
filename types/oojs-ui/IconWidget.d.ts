@@ -16,6 +16,8 @@ declare namespace OO.ui {
      *          } );
      *      $( document.body ).append( myIcon.$element, iconLabel.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.IconWidget
      */
     interface IconWidget extends IconWidget.Props, IconWidget.Prototype {}

@@ -16,6 +16,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( textInput.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.TextInputWidget
      */
     interface TextInputWidget extends TextInputWidget.Props, TextInputWidget.Prototype {}

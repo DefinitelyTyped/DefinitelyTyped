@@ -5,6 +5,8 @@ declare namespace OO.ui {
      * its visual presentation based on the type chosen, which also denotes its UX
      * purpose.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MessageWidget
      */
     interface MessageWidget extends MessageWidget.Props, MessageWidget.Prototype {}

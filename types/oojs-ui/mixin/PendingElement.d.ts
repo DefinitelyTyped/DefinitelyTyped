@@ -52,6 +52,8 @@ declare namespace OO.ui.mixin {
      *     windowManager.addWindows( [ dialog ] );
      *     windowManager.openWindow( dialog );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.PendingElement
      */
     interface PendingElement extends PendingElement.Props, PendingElement.Prototype {}

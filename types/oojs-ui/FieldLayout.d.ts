@@ -28,6 +28,8 @@ declare namespace OO.ui {
      * Please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Layouts/Fields_and_Fieldsets)
      * for examples and more information.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.FieldLayout
      */
     interface FieldLayout<T extends Widget = Widget> extends FieldLayout.Props, FieldLayout.Prototype<T> {}

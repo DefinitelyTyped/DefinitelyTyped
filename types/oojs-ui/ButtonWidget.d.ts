@@ -15,6 +15,8 @@ declare namespace OO.ui {
      *
      * NOTE: HTML form buttons should use the OO.ui.ButtonInputWidget class.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonWidget
      */
     interface ButtonWidget extends ButtonWidget.Props, ButtonWidget.Prototype {}

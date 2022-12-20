@@ -2,6 +2,8 @@ declare namespace OO.ui {
     /**
      * Data widget intended for creating `<input type="hidden">` inputs.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.HiddenInputWidget
      */
     interface HiddenInputWidget extends HiddenInputWidget.Props, HiddenInputWidget.Prototype {}

@@ -4,6 +4,8 @@ declare namespace OO.ui {
      * to strings. This bypasses the default html-escaping done to string
      * values.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.HtmlSnippet
      */
     interface HtmlSnippet {

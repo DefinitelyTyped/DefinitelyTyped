@@ -4,6 +4,8 @@ declare namespace OO.ui {
      * and interact with. All widgets can be configured and modified via a standard API,
      * and their state can change dynamically according to a model.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Widget
      */
     interface Widget extends Widget.Props, Widget.Prototype {}

@@ -28,6 +28,8 @@ declare namespace OO.ui {
      *     ] );
      *     $( document.body ).append( fieldset.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.FieldsetLayout
      */
     interface FieldsetLayout extends FieldsetLayout.Props, FieldsetLayout.Prototype {}

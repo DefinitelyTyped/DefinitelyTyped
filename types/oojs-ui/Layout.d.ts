@@ -9,6 +9,8 @@ declare namespace OO.ui {
      * {@link OO.ui.HorizontalLayout HorizontalLayout}, and {@link OO.ui.BookletLayout BookletLayout}
      * for more information and examples.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Layout
      */
     interface Layout extends Layout.Props, Layout.Prototype {}

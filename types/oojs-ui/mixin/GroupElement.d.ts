@@ -6,6 +6,8 @@ declare namespace OO.ui.mixin {
      * For more information, please see the
      * [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Elements/Groups).
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.GroupElement
      */
     interface GroupElement extends GroupElement.Props, GroupElement.Prototype {}

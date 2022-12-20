@@ -15,6 +15,8 @@ declare namespace OO.ui.mixin {
      * {@link OO.ui.SearchInputWidget SearchInputWidget} for a working 'clear' or
      * {@link OO.ui.ComboBoxInputWidget ComboBoxInputWidget} for a working 'down' indicator.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.IndicatorElement
      */
     interface IndicatorElement extends IndicatorElement.Props, IndicatorElement.Prototype {}

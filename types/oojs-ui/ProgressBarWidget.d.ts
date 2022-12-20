@@ -32,6 +32,8 @@ declare namespace OO.ui {
      *     ] );
      *     $( document.body ).append( fieldset.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ProgressBarWidget
      */
     interface ProgressBarWidget extends ProgressBarWidget.Props, ProgressBarWidget.Prototype {}

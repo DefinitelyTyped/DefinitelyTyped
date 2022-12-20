@@ -24,6 +24,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( select.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.DecoratedOptionWidget
      */
     interface DecoratedOptionWidget extends DecoratedOptionWidget.Props, DecoratedOptionWidget.Prototype {}

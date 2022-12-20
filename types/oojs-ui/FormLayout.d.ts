@@ -50,6 +50,8 @@ declare namespace OO.ui {
      *     } )
      *     $( document.body ).append( form.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.FormLayout
      */
     interface FormLayout extends FormLayout.Props, FormLayout.Prototype {}

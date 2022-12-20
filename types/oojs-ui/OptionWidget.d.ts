@@ -5,6 +5,8 @@ declare namespace OO.ui {
      * with OO.ui.SelectWidget to create a selection of mutually exclusive options. For more information
      * and examples, please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Selects_and_Options).
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.OptionWidget
      */
     interface OptionWidget extends OptionWidget.Props, OptionWidget.Prototype {}

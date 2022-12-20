@@ -16,6 +16,8 @@ declare namespace OO.ui {
      *     // Append the button to the DOM.
      *     $( document.body ).append( popupButton.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupButtonWidget
      */
     interface PopupButtonWidget extends PopupButtonWidget.Props, PopupButtonWidget.Prototype {}

@@ -1,6 +1,8 @@
 declare namespace OO.ui {
     /**
      * Theme logic.
+     *
+     * ResourceLoader module: `oojs-ui-core`
      */
     interface Theme {
         /**

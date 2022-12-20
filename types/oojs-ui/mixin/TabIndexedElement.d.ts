@@ -29,6 +29,8 @@ declare namespace OO.ui.mixin {
      *         button4.$element
      *      );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.TabIndexedElement
      */
     interface TabIndexedElement extends TabIndexedElement.Props, TabIndexedElement.Prototype {}

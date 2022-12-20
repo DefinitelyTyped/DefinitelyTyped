@@ -12,6 +12,8 @@ declare namespace OO.ui.mixin {
      *     } );
      *     $( document.body ).append( button.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.TitledElement
      */
     interface TitledElement extends TitledElement.Props, TitledElement.Prototype {}

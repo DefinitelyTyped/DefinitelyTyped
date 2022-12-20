@@ -7,6 +7,8 @@ declare namespace OO.ui {
      * See the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Inputs)
      * for more information and examples.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.InputWidget
      */
     interface InputWidget extends InputWidget.Props, InputWidget.Prototype {}

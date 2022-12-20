@@ -6,6 +6,8 @@ declare namespace OO.ui.mixin {
      * [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Icons,_Indicators,_and_Labels#Icons)
      * for a list of icons included in the library.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.IconElement
      */
     interface IconElement extends IconElement.Props, IconElement.Prototype {}

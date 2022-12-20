@@ -22,6 +22,8 @@ declare namespace OO.ui {
      *         } );
      *     $( document.body ).append( buttonGroup.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonGroupWidget
      */
     interface ButtonGroupWidget extends ButtonGroupWidget.Props, ButtonGroupWidget.Prototype {}

@@ -2,6 +2,8 @@ declare namespace OO.ui.mixin {
     /**
      * RequiredElement is mixed into other classes to provide a `required` attribute.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.RequiredElement
      */
     interface RequiredElement extends RequiredElement.Props, RequiredElement.Prototype {}

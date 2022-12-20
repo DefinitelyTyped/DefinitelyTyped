@@ -30,6 +30,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( dropdown.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuSectionOptionWidget
      */
     interface MenuSectionOptionWidget extends MenuSectionOptionWidget.Props, MenuSectionOptionWidget.Prototype {}

@@ -15,6 +15,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( multilineTextInput.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MultilineTextInputWidget
      */
     interface MultilineTextInputWidget extends MultilineTextInputWidget.Props, MultilineTextInputWidget.Prototype {}

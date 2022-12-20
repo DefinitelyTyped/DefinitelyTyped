@@ -5,6 +5,8 @@ declare namespace OO.ui.mixin {
      * See the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Icons,_Indicators,_and_Labels#Labels)
      * for more information.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.LabelElement
      */
     interface LabelElement extends LabelElement.Props, LabelElement.Prototype {}

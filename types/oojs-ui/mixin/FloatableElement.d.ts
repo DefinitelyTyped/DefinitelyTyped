@@ -11,6 +11,8 @@ declare namespace OO.ui.mixin {
      * and visible, it's only done after you call {@link togglePositioning}. You might want to do this inside
      * the toggle method to display a floating popup, for example.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.FloatableElement
      */
     interface FloatableElement extends FloatableElement.Props, FloatableElement.Prototype {}

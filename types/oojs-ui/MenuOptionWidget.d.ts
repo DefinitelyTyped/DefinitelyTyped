@@ -5,6 +5,8 @@ declare namespace OO.ui {
      * the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Selects_and_Options#Menu_selects_and_options)
      * for more information.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuOptionWidget
      */
     interface MenuOptionWidget extends MenuOptionWidget.Props, MenuOptionWidget.Prototype {}

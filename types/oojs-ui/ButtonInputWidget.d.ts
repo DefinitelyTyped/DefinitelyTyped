@@ -15,6 +15,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( button.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonInputWidget
      */
     interface ButtonInputWidget extends ButtonInputWidget.Props, ButtonInputWidget.Prototype {}

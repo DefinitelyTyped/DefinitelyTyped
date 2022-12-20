@@ -5,6 +5,8 @@ declare namespace OO.ui.mixin {
      * popup has an anchor, which is an arrow-like protrusion that points toward the popup’s origin.
      * See {@link OO.ui.PopupWidget PopupWidget} for an example.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.PopupElement
      */
     interface PopupElement {

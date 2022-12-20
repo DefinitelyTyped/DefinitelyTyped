@@ -13,6 +13,8 @@ declare namespace OO.ui.mixin {
      * and $clippableContainer are the same element, but you can build a static footer by setting
      * $clippableContainer to an element that contains $clippable and the footer.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.ClippableElement
      */
     interface ClippableElement extends ClippableElement.Props, ClippableElement.Prototype {}

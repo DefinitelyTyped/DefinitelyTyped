@@ -18,6 +18,8 @@ declare namespace OO.ui {
      *     // To display the popup, toggle the visibility to 'true'.
      *     popup.toggle( true );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupWidget
      */
     interface PopupWidget extends PopupWidget.Props, PopupWidget.Prototype {}

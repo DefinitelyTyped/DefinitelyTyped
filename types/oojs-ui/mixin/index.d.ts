@@ -26,6 +26,8 @@ declare namespace OO.ui {
      * mixed in to an instance of {@link OO.ui.Element}, and {@link OO.ui.mixin.GroupWidget}
      * is intended to be mixed in to an instance of {@link OO.ui.Widget}.
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin
      */
     namespace mixin {}

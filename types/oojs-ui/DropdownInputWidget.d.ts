@@ -22,6 +22,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( dropdownInput.$element );
      *
+     * ResourceLoader module: `oojs-ui-core`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.DropdownInputWidget
      */
     interface DropdownInputWidget extends DropdownInputWidget.Props, DropdownInputWidget.Prototype {}
