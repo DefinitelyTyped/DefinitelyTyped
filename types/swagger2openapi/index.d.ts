@@ -26,7 +26,7 @@ export interface ConvertInputOptions extends ConvertBaseOptions {
     fail: boolean; // Input	Command-line flag used by testRunner
     fatal: boolean; // Input	Treat ENOTFOUND and 404 errors as fatal during resolution, otherwise returns empty objects
     file: string; // Input	Used to pass filename back to testRunner
-    filters: ((data: OpenAPIV2.Document, options: ConvertInputOptions) => OpenAPIV2.Document)[]; // Input	Input filters for the resolver (e.g. to convert JSON schema dialects)
+    filters: Array<(data: OpenAPIV2.Document, options: ConvertInputOptions) => OpenAPIV2.Document>; // Input	Input filters for the resolver (e.g. to convert JSON schema dialects)
     fetch: typeof fetch; // Input	Used to override the internal fetch implementation
     fetchOptions: object; // Input	Additional options to be passed to fetch calls
     handlers: object; // Input	Map of additional protocol/scheme handlers, must be functions which return a Promise
