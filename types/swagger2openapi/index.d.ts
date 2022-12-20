@@ -26,8 +26,8 @@ export interface ConvertInputOptions extends ConvertBaseOptions {
     fail: boolean; // Input	Command-line flag used by testRunner
     fatal: boolean; // Input	Treat ENOTFOUND and 404 errors as fatal during resolution, otherwise returns empty objects
     file: string; // Input	Used to pass filename back to testRunner
-    filters: Function[]; // Input	Input filters for the resolver (e.g. to convert JSON schema dialects)
-    fetch: Function[]; // Input	Used to override the internal fetch implementation
+    filters: ((data: OpenAPIV2.Document, options: ConvertInputOptions) => OpenAPIV2.Document)[]; // Input	Input filters for the resolver (e.g. to convert JSON schema dialects)
+    fetch: typeof fetch; // Input	Used to override the internal fetch implementation
     fetchOptions: object; // Input	Additional options to be passed to fetch calls
     handlers: object; // Input	Map of additional protocol/scheme handlers, must be functions which return a Promise
     ignoreIOErrors: boolean; // Input	Set to true to ignore IO errors when resolving
@@ -36,8 +36,8 @@ export interface ConvertInputOptions extends ConvertBaseOptions {
     laxDefaults: boolean; // Input	Flag to validation step to ignore default/type mismatches
     laxurls: boolean; // Input	Flag to validation step to ignore empty URLs and # ? in paths
     lint: boolean; // Input	Whether to lint the document during validation
-    linter: Function; // Input	A linter plugin to use in place of the default linter
-    linterResults: Function; // Input	A function to return the set of linter warnings
+    linter: any; // Input	A linter plugin to use in place of the default linter
+    linterResults: any; // Input	A function to return the set of linter warnings
     lintLimit: number; // Input	Controls how many linter warnings are logged in verbose mode
     lintSkip: any[]; // Input	A list of lint rule names which will not be tested
     mediatype: boolean; // Input	Flag to validation step to check media-type strings against RFC pattern
@@ -50,7 +50,7 @@ export interface ConvertInputOptions extends ConvertBaseOptions {
     prevalidate: boolean; // Input	Whether to validate each externally $refd file separately
     quiet: boolean; // Input	Command-line flag used by testRunner
     rbname: string; // Input	The name of the vendor extension to use to preserve body parameter names (e.g. x-codegen-request-body-name)
-    refSiblings: string; // Input	Controls handling of $ref which has sibling properties. Valid values are remove (to remove such properties) which is the default outside schema objects, preserve to keep the (incorrect) use of sibling properties, and allOf, to wrap the $ref and the remaining sibling properties in an allOf, which is the default/allowed only within schema objects
+    refSiblings: string; // Input	Controls handling of $ref which has sibling properties.
     resolve: boolean; // Input	Flag to enable resolution of external $refs
     resolveInternal: boolean; // Input	Flag to enable resolution of internal $refs. Also disables deduplication of requestBodies
     stop: boolean; // Input	Command-line flag used by testRunner
@@ -80,7 +80,7 @@ export interface ConvertInternalOptions {
 export interface ConvertOutputOptions extends ConvertBaseOptions, ConvertInternalOptions {
     context: any[]; // Output	The context stack of associated with errors in a validation step, you normally want the last entry only
     externals: any[]; // Output	Information required to unresolve a resolved definition back into its component parts
-    metadata: object; // Output	Used by the validator, if options.text is a string, will have a property lines containing the number of lines in the input document. Has a property count, an object keyed by the object-type within the document having values summarising the number of times that object appears in total.
+    metadata: object; // Output	Used by the validator, if options.text is a string, will have a property lines containing the number of lines in the input document.
     openapi: OpenAPIV3.Document; // Output	The OpenApi 3.x definition returned from a conversion step
     operationIds: string[]; // Output	Used by validation to track uniqueness of operationIds
     original: OpenAPIV2.Document; // Bi-directional	Used by testRunner to round-trip the original definition, set by non-object ConvertXXX methods

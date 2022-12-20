@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "@types/node": "^16.18.10",
+    "@types/node": "^18.11.17",
     "openapi-types": "^12.1.0"
   }
 }
