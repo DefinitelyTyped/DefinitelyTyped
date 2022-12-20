@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Pay API 0.6
+// Type definitions for non-npm package Google Pay API 0.7
 // Project: https://developers.google.com/pay/api/web/
 // Definitions by: Florian Luccioni <https://github.com/Fluccioni>,
 //                 Radu Raicea <https://github.com/Radu-Raicea>,
@@ -7,6 +7,7 @@
 //                 Sergi Ferriz <https://github.com/mumpo>
 //                 Soc Sieng <https://github.com/socsieng>
 //                 Jose L Ugia <https://github.com/JlUgia>
+//                 Dominik Mengelt <https://github.com/dmengelt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.1
 
@@ -1769,7 +1770,7 @@ declare namespace google.payments.api {
 
     /**
      * This object allows you to configure a Google Pay payment button. For
-     * more information about button types, colors, and display requirements,
+     * more information about button types and display requirements,
      * see Google's [Brand
      * guidelines](https://developers.google.com/pay/api/web/guides/brand-guidelines).
      */
@@ -1780,13 +1781,6 @@ declare namespace google.payments.api {
          * to call when a click event is delivered to the `<button>` target.
          */
         onClick: (event: Event) => void;
-
-        /**
-         * Specifies the button color of the Google Pay button.
-         *
-         * @default "default"
-         */
-        buttonColor?: ButtonColor | undefined;
 
         /**
          * Specifies the text to be displayed within the Google Pay button.
@@ -1892,10 +1886,10 @@ declare namespace google.payments.api {
          *
          * Reference our [Brand
          * guidelines](https://developers.google.com/pay/api/web/guides/brand-guidelines)
-         * for more information about how to select the appropriate button color
-         * and button type for your site's design. You might need to alter the
-         * dimensions of a returned Google Pay payment button to match similar
-         * buttons or checkout elements on your page.
+         * for more information about how to select the appropriate button type
+         * for your site's design. You might need to alter the dimensions of a
+         * returned Google Pay payment button to match similar buttons or
+         * checkout elements on your page.
          *
          * @param options An object that contains key-value pairs for a button
          *     configuration.
@@ -2059,23 +2053,6 @@ declare namespace google.payments.api {
          */
         statusMessage: string;
     }
-
-    /**
-     * Supported colors for the Google Pay button.
-     *
-     * Options:
-     *
-     * - `default`:
-     *   A Google-selected default value. Currently black but it may change
-     *   over time.
-     *
-     * - `black`:
-     *   A black button suitable for use on white or light backgrounds.
-     *
-     * - `white`:
-     *   A white button suitable for use on colorful backgrounds.
-     */
-    type ButtonColor = "default" | "black" | "white";
 
     /**
      * Supported methods for presenting the Google Pay button.

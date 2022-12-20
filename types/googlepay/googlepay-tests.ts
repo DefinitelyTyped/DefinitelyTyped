@@ -99,7 +99,6 @@ function onGooglePayLoaded() {
 function addGooglePayButton() {
     const buttonOptions: google.payments.api.ButtonOptions = {
         onClick: onGooglePaymentButtonClick,
-        buttonColor: 'black',
         allowedPaymentMethods: [{
             type: 'CARD',
             parameters: {
