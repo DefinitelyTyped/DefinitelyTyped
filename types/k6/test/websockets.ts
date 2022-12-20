@@ -1,4 +1,4 @@
-import { WebSocket, EventName } from 'k6/experimental/websockets';
+import { WebSocket, EventName, CompressionAlgorithm } from 'k6/experimental/websockets';
 import { CookieJar } from 'k6/http';
 
 //
@@ -14,7 +14,7 @@ new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
     tags: { user: 'zbt' }
 });
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
-    compression: 'deflate'
+    compression: CompressionAlgorithm.Deflate
 });
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
     jar: new CookieJar()
@@ -22,6 +22,14 @@ new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
 new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
     // @ts-expect-error
     lorem: 'ipsum'
+});
+new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
+    // @ts-expect-error
+    compression: "lorem"
+});
+new WebSocket('wss://test-api.k6.io/ws/crocochat/1', null, {
+    // @ts-expect-error
+    compression: null,
 });
 
 const ws = new WebSocket('wss://test-api.k6.io/ws/crocochat/1');

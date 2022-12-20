@@ -132,10 +132,10 @@ export interface Params {
     headers?: Record<string, string>;
 
     /**
-     * Compression algorithm. The only supported algorithm is `deflate`.
-     * If the option is left unset or empty, it defaults to no compression.
+     * Compression algorithm.
+     * If the option is left unset, it defaults to no compression.
      */
-    compression?: string;
+    compression?: CompressionAlgorithm;
 
     /** The custom metric tags. */
     tags?: Record<string, number | string | boolean>;
@@ -173,7 +173,7 @@ export enum ReadyState {
 }
 
 /**
- * Type alias describe the types of binary data that can be
+ * BinaryType describes the possible types of binary data that can be
  * transmitted over a Websocket connection.
  */
 export enum BinaryType  {
@@ -291,4 +291,15 @@ export interface ErrorEvent {
      * The read-only property that returns the time (in milliseconds) at which the event was created.
      */
     timestamp: number;
+}
+
+/**
+ * CompressionAlgorithm describes the possible compression algorithms.
+ */
+export enum CompressionAlgorithm  {
+    /**
+     * Deflate compression algorithm.
+     * k6 supports only this compression algorithm.
+     */
+    Deflate = 'deflate'
 }
