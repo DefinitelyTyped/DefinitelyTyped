@@ -1298,6 +1298,9 @@ function testRuntimeSendMessage() {
     chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log);
     // @ts-expect-error
     chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1));
+
+    chrome.runtime.sendMessage(undefined, 'Hello World!', console.log);
+    chrome.runtime.sendMessage(null, 'Hello World!', console.log);
 }
 
 function testRuntimeSendNativeMessage() {
