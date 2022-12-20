@@ -520,6 +520,23 @@ addAbortSignal(new AbortSignal(), new Readable());
     const readableAborted: boolean = readable.readableAborted;
 }
 
+async function testReadableIteratorMethods() {
+    Readable.from([1, 2, 3]).take(2); // $ExpectType Readable
+    Readable.from([1, 2, 3]).map((item) => item + 1); // $ExpectType Readable
+    Readable.from([1, 2, 3]).filter((item) => item > 1); // $ExpectType Readable
+    await Readable.from([1, 2, 3]).forEach((item) => console.log(item)); // $ExpectType void
+    await Readable.from([1, 2, 3]).toArray(); // $ExpectType []
+    await Readable.from([1, 2, 3]).some((item) => item === 1); // $ExpectType boolean
+    await Readable.from([1, 2, 3]).every((item) => item === 1); // $ExpectType boolean
+    await Readable.from([1, 2, 3]).find((item) => item === 1);
+    Readable.from([1, 2, 3]).flatMap((item) => item + 2); // $ExpectType Readable
+    Readable.from([1, 2, 3]).take(2); // $ExpectType Readable
+    Readable.from([1, 2, 3]).drop(2); // $ExpectType Readable
+    Readable.from([1, 2, 3]).asIndexedPairs(); // $ExpectType Readable
+    await Readable.from([1, 2, 3]).reduce((item, prev) => prev + item, 0); // $ExpectType number
+    await Readable.from(['a', 'b', 'c']).reduce((item, prev) => prev + item, ''); // $ExpectType string
+}
+
 {
     isErrored(new Readable()); // $ExpectType boolean
     isErrored(new Duplex()); // $ExpectType boolean
