@@ -266,6 +266,8 @@ declare namespace OO.ui {
      *     toolbar.initialize();
      *     toolbar.emit( 'updateState' );
      *
+     * ResourceLoader module: `oojs-ui-toolbars`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Toolbar
      */
     interface Toolbar extends Toolbar.Props, Toolbar.Prototype {}

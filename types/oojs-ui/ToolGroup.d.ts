@@ -14,6 +14,8 @@ declare namespace OO.ui {
      * See {@link OO.ui.Toolbar toolbars} for a full example. For more information about toolbars in
      * general, please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Toolbars).
      *
+     * ResourceLoader module: `oojs-ui-toolbars`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Toolbar
      */
     interface ToolGroup extends ToolGroup.Props, ToolGroup.Prototype {}

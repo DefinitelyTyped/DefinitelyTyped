@@ -12,6 +12,10 @@ declare namespace OO.ui {
      *
      * For more information about toolbars in general, please see the
      * [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Toolbars).
+     *
+     * ResourceLoader module: `oojs-ui-toolbars`
+     *
+     * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToolGroupFactory
      */
     type ToolGroupFactory = Factory;
 

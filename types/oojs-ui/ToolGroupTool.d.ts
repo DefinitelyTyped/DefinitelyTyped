@@ -26,6 +26,8 @@ declare namespace OO.ui {
      *
      * Please note that this implementation is subject to change per [T74159](https://phabricator.wikimedia.org/T74159).
      *
+     * ResourceLoader module: `oojs-ui-toolbars`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToolGroupTool
      */
     interface ToolGroupTool extends ToolGroupTool.Props, ToolGroupTool.Prototype {}

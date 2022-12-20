@@ -5,6 +5,8 @@ declare namespace OO.ui {
      * tools with an optional icon and label). This class can be used for other base classes that
      * also use this functionality.
      *
+     * ResourceLoader module: `oojs-ui-toolbars`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PopupToolGroup
      */
     interface PopupToolGroup extends PopupToolGroup.Props, PopupToolGroup.Prototype {}
