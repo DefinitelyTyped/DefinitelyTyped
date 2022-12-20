@@ -9,6 +9,8 @@ declare namespace OO.ui {
      * the tab panel's tab item is customized (with a label) using the {@link setupTabItem} method. See
      * {@link OO.ui.IndexLayout IndexLayout} for an example.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.TabPanelLayout
      */
     interface TabPanelLayout extends TabPanelLayout.Props, TabPanelLayout.Prototype {}

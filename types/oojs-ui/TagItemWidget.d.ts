@@ -3,6 +3,8 @@ declare namespace OO.ui {
      * TagItemWidgets are used within a {@link OO.ui.TagMultiselectWidget TagMultiselectWidget}
      * to display the selected items.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.TagItemWidget
      */
     interface TagItemWidget extends TagItemWidget.Props, TagItemWidget.Prototype {}

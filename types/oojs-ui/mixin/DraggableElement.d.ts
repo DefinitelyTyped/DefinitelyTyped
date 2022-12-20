@@ -5,6 +5,8 @@ declare namespace OO.ui.mixin {
      * in conjunction with {@link OO.ui.mixin.DraggableGroupElement}, which provides a container for
      * the draggable elements.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.DraggableElement
      */
     interface DraggableElement extends DraggableElement.Props, DraggableElement.Prototype {}

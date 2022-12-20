@@ -15,6 +15,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( widget.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuTagMultiselectWidget
      */
     interface MenuTagMultiselectWidget extends MenuTagMultiselectWidget.Props, MenuTagMultiselectWidget.Prototype {}

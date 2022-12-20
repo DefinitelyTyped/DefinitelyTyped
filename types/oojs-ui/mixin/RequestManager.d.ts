@@ -3,6 +3,8 @@ declare namespace OO.ui.mixin {
      * RequestManager is a mixin that manages the lifecycle of a promise-backed request for a widget,
      * such as the {@link OO.ui.mixin.LookupElement}.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.RequestManager
      */
     interface RequestManager {

@@ -13,6 +13,8 @@ declare namespace OO.ui.mixin {
      * See the [OOUI demos](https://doc.wikimedia.org/oojs-ui/master/demos/#LookupElement-try-inputting-an-integer)
      * for an example.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.LookupElement
      */
     interface LookupElement extends RequestManager {

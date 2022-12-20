@@ -23,6 +23,8 @@ declare namespace OO.ui {
      *     } );
      *     $( document.body ).append( myStack.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.StackLayout
      */
     interface StackLayout extends StackLayout.Props, StackLayout.Prototype {}

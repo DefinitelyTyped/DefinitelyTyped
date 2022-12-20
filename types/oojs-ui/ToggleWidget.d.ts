@@ -3,6 +3,8 @@ declare namespace OO.ui {
      * ToggleWidget implements basic behavior of widgets with an on/off state.
      * Please see OO.ui.ToggleButtonWidget and OO.ui.ToggleSwitchWidget for examples.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToggleWidget
      */
     interface ToggleWidget extends ToggleWidget.Props, ToggleWidget.Prototype {}

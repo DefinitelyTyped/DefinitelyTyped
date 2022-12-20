@@ -25,6 +25,8 @@ declare namespace OO.ui {
      *     ] );
      *     $( document.body ).append( fieldset.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToggleSwitchWidget
      */
     interface ToggleSwitchWidget extends ToggleSwitchWidget.Props, ToggleSwitchWidget.Prototype {}

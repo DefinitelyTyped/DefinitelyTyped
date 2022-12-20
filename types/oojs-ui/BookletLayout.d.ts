@@ -39,6 +39,8 @@ declare namespace OO.ui {
      *     booklet.addPages( [ page1, page2 ] );
      *     $( document.body ).append( booklet.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.BookletLayout
      */
     interface BookletLayout extends BookletLayout.Props, BookletLayout.Prototype {}

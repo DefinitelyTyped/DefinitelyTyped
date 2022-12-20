@@ -6,6 +6,8 @@ declare namespace OO.ui {
      * contain {@link OO.ui.PageLayout page layouts}. See {@link OO.ui.BookletLayout BookletLayout}
      * for an example.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.OutlineOptionWidget
      */
     interface OutlineOptionWidget extends OutlineOptionWidget.Props, OutlineOptionWidget.Prototype {}

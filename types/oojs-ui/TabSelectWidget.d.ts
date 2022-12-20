@@ -4,6 +4,8 @@ declare namespace OO.ui {
      *
      * **Currently, this class is only used by {@link OO.ui.IndexLayout index layouts}.**
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.TabSelectWidget
      */
     interface TabSelectWidget extends TabSelectWidget.Props, TabSelectWidget.Prototype {}

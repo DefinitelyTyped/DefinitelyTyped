@@ -13,6 +13,8 @@ declare namespace OO.ui {
      *     var selectFile = new OO.ui.SelectFileWidget();
      *     $( document.body ).append( selectFile.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.SelectFileWidget
      */
     interface SelectFileWidget extends SelectFileWidget.Props, SelectFileWidget.Prototype {}

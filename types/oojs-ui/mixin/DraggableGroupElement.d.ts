@@ -4,6 +4,8 @@ declare namespace OO.ui.mixin {
      * contain draggable elements, which are items that can be clicked and dragged by a mouse.
      * The class is used with {@link OO.ui.mixin.DraggableElement}.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.mixin.DraggableGroupElement
      */
     interface DraggableGroupElement extends DraggableGroupElement.Prototype, DraggableGroupElement.Props {}

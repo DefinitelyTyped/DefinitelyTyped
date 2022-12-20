@@ -27,6 +27,8 @@ declare namespace OO.ui {
      *     index.addTabPanels( [ tabPanel1, tabPanel2 ] );
      *     $( document.body ).append( index.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.IndexLayout
      */
     interface IndexLayout extends IndexLayout.Props, IndexLayout.Prototype {}

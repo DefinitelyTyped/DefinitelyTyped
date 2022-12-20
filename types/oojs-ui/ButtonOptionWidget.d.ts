@@ -6,6 +6,8 @@ declare namespace OO.ui {
      * [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Widgets/Selects_and_Options#Button_selects_and_options)
      * for more information.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonOptionWidget
      */
     interface ButtonOptionWidget extends ButtonOptionWidget.Props, ButtonOptionWidget.Prototype {}

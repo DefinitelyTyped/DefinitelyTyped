@@ -7,6 +7,8 @@ declare namespace OO.ui {
      *
      * **Currently, this class is only used by {@link OO.ui.BookletLayout booklet layouts}.**
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.OutlineSelectWidget
      */
     interface OutlineSelectWidget extends OutlineSelectWidget.Props, OutlineSelectWidget.Prototype {}

@@ -73,6 +73,8 @@ declare namespace OO.ui {
      * }
      * ```
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MenuLayout
      */
     interface MenuLayout extends MenuLayout.Props, MenuLayout.Prototype {}

@@ -33,6 +33,8 @@ declare namespace OO.ui {
      *         console.log( menuOption.getData() );
      *     } );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ButtonMenuSelectWidget
      */
     interface ButtonMenuSelectWidget extends ButtonMenuSelectWidget.Props, ButtonMenuSelectWidget.Prototype {}

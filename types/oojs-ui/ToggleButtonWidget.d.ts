@@ -20,6 +20,8 @@ declare namespace OO.ui {
      *     // Append the buttons to the DOM.
      *     $( document.body ).append( toggleButton1.$element, toggleButton2.$element );
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ToggleButtonWidget
      */
     interface ToggleButtonWidget extends ToggleButtonWidget.Props, ToggleButtonWidget.Prototype {}

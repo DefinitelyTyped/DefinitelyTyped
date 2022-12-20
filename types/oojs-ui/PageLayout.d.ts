@@ -9,6 +9,8 @@ declare namespace OO.ui {
      * the page's outline item is customized (with a label, outline level, etc.) using
      * the setupOutlineItem method. See {@link OO.ui.BookletLayout BookletLayout} for an example.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.PageLayout
      */
     interface PageLayout extends PageLayout.Props, PageLayout.Prototype {}

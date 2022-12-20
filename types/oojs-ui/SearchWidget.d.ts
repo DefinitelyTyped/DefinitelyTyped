@@ -12,6 +12,8 @@ declare namespace OO.ui {
      * the [OOUI demos](https://doc.wikimedia.org/oojs-ui/master/demos/#SearchInputWidget-type-search)
      * for an example.
      *
+     * ResourceLoader module: `oojs-ui-widgets`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.SearchWidget
      */
     interface SearchWidget<T extends InputWidget = SearchInputWidget>
