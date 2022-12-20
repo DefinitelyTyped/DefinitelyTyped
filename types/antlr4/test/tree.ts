@@ -82,7 +82,13 @@ const testTreeInstance = new TestTree();
 
 // Trees
 Trees.toStringTree(testTreeInstance, [''], parserInstance); // $ExpectType string
-Trees.getNodeText(testTreeInstance, [''], parserInstance); // $ExpectType string
+Trees.toStringTree(testTreeInstance, ['']); // $ExpectType string
+Trees.toStringTree(testTreeInstance); // $ExpectType string
+Trees.toStringTree(testTreeInstance, undefined, parserInstance); // $ExpectType string
+Trees.getNodeText(testTreeInstance, [''], parserInstance);  // $ExpectType string
+Trees.getNodeText(testTreeInstance, ['']);  // $ExpectType string
+Trees.getNodeText(testTreeInstance); // $ExpectType string
+Trees.getNodeText(testTreeInstance, undefined, parserInstance);  // $ExpectType string
 Trees.getChildren(testTreeInstance); // $ExpectType Tree[]
 Trees.getAncestors(testTreeInstance); // $ExpectType Tree[]
 Trees.findAllTokenNodes(parseTreeInstance, 0); // $ExpectType ParseTree[]

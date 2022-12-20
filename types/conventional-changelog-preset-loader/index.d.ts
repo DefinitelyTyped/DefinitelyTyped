@@ -2,7 +2,6 @@
 // Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-preset-loader#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 import { Options as CoreOptions } from "conventional-changelog-core";
 import { Commit } from "conventional-commits-parser";

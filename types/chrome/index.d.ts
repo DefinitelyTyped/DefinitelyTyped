@@ -143,6 +143,11 @@ declare namespace chrome.action {
         tabId?: number | undefined;
     }
 
+    export interface UserSettings {
+        /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
+        isOnToolbar: boolean;
+    }
+
     /**
      * Since Chrome 88.
      * Disables the action for a tab.
@@ -237,6 +242,21 @@ declare namespace chrome.action {
      * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
     export function getTitle(details: TabDetails): Promise<string>;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (userSettings: UserSettings) => {...}
+     */
+    export function getUserSettings(callback: (userSettings: UserSettings) => void): void;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @return The `getUserSettings` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getUserSettings(): Promise<UserSettings>;
 
     /**
      * Since Chrome 88.
@@ -4797,11 +4817,12 @@ declare namespace chrome.identity {
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
      * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
      * @param details WebAuth flow options.
-     * @param callback Called with the URL redirected back to your application.
+     * @param callback Optional. Called with the URL redirected back to your application.
      * The callback parameter should be a function that looks like this:
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+    export function launchWebAuthFlow(details: WebAuthFlowOptions): Promise<string | undefined>;
 
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
@@ -7602,6 +7623,8 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
         world?: ExecutionWorld;
+        /* Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
+        injectImmediately?: boolean;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -10935,6 +10958,18 @@ declare namespace chrome.webRequest {
     export interface WebRequestHeadersDetails extends WebRequestDetails {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeader[] | undefined;
+        documentId: string;
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameId: number;
+        initiator?: string | undefined;
+        parentDocumentId?: string | undefined;
+        parentFrameId: number;
+        requestId: string;
+        tabId: number;
+        timeStamp: number;
+        type: ResourceType;
+        url: string;
     }
 
     export interface WebRequestBodyDetails extends WebRequestDetails {

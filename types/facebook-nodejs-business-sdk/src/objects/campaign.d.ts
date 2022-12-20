@@ -17,14 +17,26 @@ export default class Campaign extends AbstractCrudObject {
     static get Operator(): Record<string, any>;
     static get SpecialAdCategory(): Record<string, any>;
     static get StatusOption(): Record<string, any>;
-    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdStudies(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getAdStudies(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
-    getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
-    getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getAdRulesGoverned(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getAdRulesGoverned(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAds(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getAds(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAdSets(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getAdSets(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCopies(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getCopies(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
-    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor;
+    getInsights(fields: string[], params?: Record<string, any>): Promise<Cursor>;
+    getInsights(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getInsightsAsync(
         fields: string[],
         params?: Record<string, any>,

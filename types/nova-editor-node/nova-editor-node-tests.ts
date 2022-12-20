@@ -222,6 +222,8 @@ new IssueCollection().set('fileURI', [issue]);
 
 /// https://novadocs.panic.com/api-reference/notification-request/
 
+const unnamedRequest = new NotificationRequest();
+
 const request = new NotificationRequest('foobar-not-found');
 
 request.title = nova.localize('Foobar Not Found');
@@ -240,6 +242,10 @@ promise.then(
 
 nova.path.join('test');
 nova.path.join('test', 'a', 'b');
+
+// @ts-expect-error
+nova.path.relative('/path/to/folder/one');
+nova.path.relative('/path/to/folder/one', '/path/to/folder/two');
 
 /// https://novadocs.panic.com/api-reference/process/
 

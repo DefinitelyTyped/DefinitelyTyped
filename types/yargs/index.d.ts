@@ -195,9 +195,11 @@ declare namespace yargs {
         completion(cmd: string, func?: AsyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: SyncCompletionFunction): Argv<T>;
         completion(cmd: string, func?: PromiseCompletionFunction): Argv<T>;
+        completion(cmd: string, func?: FallbackCompletionFunction): Argv<T>;
         completion(cmd: string, description?: string | false, func?: AsyncCompletionFunction): Argv<T>;
         completion(cmd: string, description?: string | false, func?: SyncCompletionFunction): Argv<T>;
         completion(cmd: string, description?: string | false, func?: PromiseCompletionFunction): Argv<T>;
+        completion(cmd: string, description?: string | false, func?: FallbackCompletionFunction): Argv<T>;
 
         /**
          * Tells the parser that if the option specified by `key` is passed in, it should be interpreted as a path to a JSON config file.
@@ -835,25 +837,51 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionType<O extends Options | PositionalOptions> =
+        // Handle special cases first
+        O extends (
+            | { coerce: (arg: any) => infer T }
+        ) ? IsRequiredOrHasDefault<O> extends true ? T : T | undefined :
+        O extends (
+            | { type: "count"; default: infer D }
+            | { count: true; default: infer D }
+        ) ? number | Exclude<D, undefined> :
+        O extends (
+            | { type: "count" }
+            | { count: true }
+        ) ? number :
+        // Try to infer type with InferredOptionTypePrimitive
+        IsUnknown<InferredOptionTypePrimitive<O>> extends false ? InferredOptionTypePrimitive<O> :
+        // Use the type of `default` as the last resort
+        O extends (
+            | { default: infer D }
+        ) ? Exclude<D, undefined> : unknown;
+
+    // prettier-ignore
+    type IsRequiredOrHasDefault<O extends Options | PositionalOptions> =
         O extends (
             | { required: string | true }
             | { require: string | true }
             | { demand: string | true }
             | { demandOption: string | true }
-        ) ?
-        Exclude<InferredOptionTypeInner<O>, undefined> :
-        InferredOptionTypeInner<O>;
+            | { default: {} }
+        ) ? true : false;
+
+    type IsAny<T> = 0 extends (1 & T) ? true : false;
+    // prettier-ignore
+    type IsUnknown<T> =
+        IsAny<T> extends true ? false :
+        unknown extends T ? true :
+        false;
+
+    // prettier-ignore
+    type InferredOptionTypePrimitive<O extends Options | PositionalOptions> =
+        O extends { default: infer D } ? InferredOptionTypeInner<O> | D :
+        IsRequiredOrHasDefault<O> extends true ? InferredOptionTypeInner<O> :
+        InferredOptionTypeInner<O> | undefined;
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
-        O extends { default: any, coerce: (arg: any) => infer T } ? T :
-        O extends { default: infer D } ? D :
-        O extends { type: "count" } ? number :
-        O extends { count: true } ? number :
-        RequiredOptionType<O> | undefined;
-
-    // prettier-ignore
-    type RequiredOptionType<O extends Options | PositionalOptions> =
+        O extends { choices: ReadonlyArray<infer C> } ? C :
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
         O extends { type: "array", normalize: true } ? string[] :
@@ -871,8 +899,6 @@ declare namespace yargs {
         O extends { number: true } ? number :
         O extends { string: true } ? string :
         O extends { normalize: true } ? string :
-        O extends { choices: ReadonlyArray<infer C> } ? C :
-        O extends { coerce: (arg: any) => infer T } ? T :
         unknown;
 
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };
@@ -897,9 +923,11 @@ declare namespace yargs {
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
+    type FallbackCompletionFunction = (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completions: string[]) => any) => void;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void | Promise<void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = 'boolean' | 'number' | 'string';
+    type CompletionCallback = (err: Error | null, completions: string[] | undefined) => void;
 }
 
 declare var yargs: yargs.Argv;

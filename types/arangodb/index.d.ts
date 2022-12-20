@@ -91,7 +91,7 @@ declare namespace ArangoDB {
     type EngineType = "mmfiles" | "rocksdb";
     type IndexType = "persistent" | "hash" | "skiplist" | "fulltext" | "geo" | "ttl";
     type ViewType = "arangosearch";
-    type KeyGeneratorType = "traditional" | "autoincrement";
+    type KeyGeneratorType = "traditional" | "autoincrement" | "padded" | "uuid";
     type ErrorName =
         | "ERROR_NO_ERROR"
         | "ERROR_FAILED"

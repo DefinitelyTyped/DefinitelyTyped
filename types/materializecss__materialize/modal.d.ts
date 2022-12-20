@@ -3,27 +3,27 @@
 declare namespace M {
     class Modal extends Component<ModalOptions> implements Openable {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Modal;
 
         /**
-         * Init Modal
+         * Init Modal.
          */
         static init(els: Element, options?: Partial<ModalOptions>): Modal;
 
         /**
-         * Init Modals
+         * Init Modals.
          */
         static init(els: MElements, options?: Partial<ModalOptions>): Modal[];
 
         /**
-         * Open modal
+         * Open modal.
          */
         open(): void;
 
         /**
-         * Close modal
+         * Close modal.
          */
         close(): void;
 
@@ -33,13 +33,13 @@ declare namespace M {
         isOpen: boolean;
 
         /**
-         * ID of the modal element
+         * ID of the modal element.
          */
         id: string;
     }
 
     /**
-     * Options for the Modal
+     * Options for the Modal.
      */
     interface ModalOptions {
         /**
@@ -61,31 +61,31 @@ declare namespace M {
         outDuration: number;
 
         /**
-         * Prevent page from scrolling while modal is open
+         * Prevent page from scrolling while modal is open.
          * @default true
          */
         preventScrolling: boolean;
 
         /**
-         * Callback function called before modal is opened
+         * Callback function called before modal is opened.
          * @default null
          */
         onOpenStart: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function called after modal is opened
+         * Callback function called after modal is opened.
          * @default null
          */
         onOpenEnd: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function called before modal is closed
+         * Callback function called before modal is closed.
          * @default null
          */
         onCloseStart: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function called after modal is closed
+         * Callback function called after modal is closed.
          * @default null
          */
         onCloseEnd: (this: Modal, el: Element) => void;
@@ -97,13 +97,13 @@ declare namespace M {
         dismissible: boolean;
 
         /**
-         * Starting top offset
+         * Starting top offset.
          * @default '4%'
          */
         startingTop: string;
 
         /**
-         * Ending top offset
+         * Ending top offset.
          * @default '10%'
          */
         endingTop: string;

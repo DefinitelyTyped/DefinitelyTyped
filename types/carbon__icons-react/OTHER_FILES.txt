@@ -558,6 +558,7 @@ es/DewPoint.d.ts
 es/DewPointFilled.d.ts
 es/Diagram.d.ts
 es/DiagramReference.d.ts
+es/DiamondFillGlyph.d.ts
 es/watson-health/WatsonHealthDicom_6000.d.ts
 es/watson-health/WatsonHealthDicomOverlay.d.ts
 es/DirectLink.d.ts
@@ -1844,7 +1845,6 @@ es/Q/QU2.d.ts
 es/Q/QU3.d.ts
 es/Umbrella.d.ts
 es/Undefined.d.ts
-es/UndefinedGlyph.d.ts
 es/UndefinedFilled.d.ts
 es/Undo.d.ts
 es/UngroupObjects.d.ts
@@ -2570,6 +2570,7 @@ lib/DewPoint.d.ts
 lib/DewPointFilled.d.ts
 lib/Diagram.d.ts
 lib/DiagramReference.d.ts
+lib/DiamondFillGlyph.d.ts
 lib/watson-health/WatsonHealthDicom_6000.d.ts
 lib/watson-health/WatsonHealthDicomOverlay.d.ts
 lib/DirectLink.d.ts
@@ -3856,7 +3857,6 @@ lib/Q/QU2.d.ts
 lib/Q/QU3.d.ts
 lib/Umbrella.d.ts
 lib/Undefined.d.ts
-lib/UndefinedGlyph.d.ts
 lib/UndefinedFilled.d.ts
 lib/Undo.d.ts
 lib/UngroupObjects.d.ts

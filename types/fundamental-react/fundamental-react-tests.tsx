@@ -2013,7 +2013,7 @@ const sideNavs = (
                 <SideNav.ListItem condensed id="item-1" name="Link Item" url="#" />
                 <SideNav.ListItem condensed id="item-2" name="Link Item" url="#" />
                 <SideNav.ListItem condensed id="item-3" name="Link Item" url="#" />
-                <SideNav.ListItem condensed id="item-4" name="Link Item" url="#" />
+                <SideNav.ListItem condensed id="item-4" name={<p>Link Item</p>} url="#" />
                 <SideNav.ListItem condensed expandSubmenuLabel="subemenuLabel-1" id="item-5" name="Link Item" url="#" />
             </SideNav.List>
         </SideNav>

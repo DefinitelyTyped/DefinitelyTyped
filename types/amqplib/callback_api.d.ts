@@ -12,6 +12,8 @@ export interface Connection extends events.EventEmitter {
 }
 
 export interface Channel extends events.EventEmitter {
+    connection: Connection;
+
     close(callback: (err: any) => void): void;
 
     assertQueue(queue?: string, options?: Options.AssertQueue, callback?: (err: any, ok: Replies.AssertQueue) => void): void;

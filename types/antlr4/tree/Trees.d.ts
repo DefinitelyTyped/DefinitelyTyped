@@ -11,9 +11,9 @@ declare namespace Trees {
      *
      * Detect parse trees and extract data appropriately.
      */
-    function toStringTree(t: Tree, ruleNames: string[], recog: Parser): string;
+    function toStringTree(t: Tree, ruleNames?: string[], recog?: Parser): string;
 
-    function getNodeText(t: Tree, ruleNames: string[], recog: Parser): string;
+    function getNodeText(t: Tree, ruleNames?: string[], recog?: Parser): string;
 
     /**
      * @return ordered list of all children of this node

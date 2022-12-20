@@ -14,6 +14,6 @@ declare namespace ServerSideUtils {
     function normalizeDobm(dobm: string): string;
     function normalizeDoby(doby: string): string;
     function isInternationalPhoneNumber(phone_number: string): boolean;
-    function toSHA256(input: string | null | undefined): any;
+    function toSHA256(input?: string | null): any;
 }
 export default ServerSideUtils;
