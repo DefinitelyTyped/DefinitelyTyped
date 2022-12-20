@@ -320,8 +320,9 @@ function Argv$command() {
             (argv) => {
                 console.dir(argv.url);
             },
-            // middlewares
-            [],
+            [(argv) => {
+                console.log(argv.url);
+            }],
             // deprecated
             'use --newGet'
         )
