@@ -2393,8 +2393,8 @@ export function intersection<T>(list1: readonly T[]): (list2: readonly T[]) => T
  * R.intersperse('a', ['b', 'n', 'n', 's']); //=> ['b', 'a', 'n', 'a', 'n', 'a', 's']
  * ```
  */
-export function intersperse<T>(separator: T, list: readonly T[]): T[];
-export function intersperse<T>(separator: T): (list: readonly T[]) => T[];
+export function intersperse<S, T>(separator: S, list: readonly T[]): Array<S | T>;
+export function intersperse<S, T>(separator: S): (list: readonly T[]) => Array<S | T>;
 
 /**
  * Transforms the items of the list with the transducer
