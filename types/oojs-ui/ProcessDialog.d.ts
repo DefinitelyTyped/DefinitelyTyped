@@ -53,6 +53,10 @@ declare namespace OO.ui {
      *     var dialog = new MyProcessDialog();
      *     windowManager.addWindows( [ dialog ] );
      *     windowManager.openWindow( dialog );
+     *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
+     * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ProcessDialog
      */
     interface ProcessDialog extends ProcessDialog.Props, ProcessDialog.Prototype {}
 

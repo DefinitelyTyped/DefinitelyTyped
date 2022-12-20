@@ -8,6 +8,8 @@ declare namespace OO.ui {
      * Please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Windows/Process_Dialogs#Action_sets)
      * for more information and examples.
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ActionWidget
      */
     interface ActionWidget extends ActionWidget.Props, ActionWidget.Prototype {}

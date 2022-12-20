@@ -15,6 +15,8 @@ declare namespace OO.ui {
      *
      * For an example of error interfaces, please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Windows/Process_Dialogs#Processes_and_errors).
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Error
      */
     interface Error {

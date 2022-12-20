@@ -34,6 +34,8 @@ declare namespace OO.ui {
      *
      * For more information, please see the [OOUI documentation on MediaWiki](https://www.mediawiki.org/wiki/OOUI/Windows).
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Window
      */
     interface Window extends Window.Props, Window.Prototype {}

@@ -309,6 +309,8 @@ declare namespace OO {
          *
          *     OO.ui.alert( 'Something larger happened!', { size: 'large' } );
          *
+         * ResourceLoader module: `oojs-ui-windows`
+         *
          * @param text Message text to display
          * @param options Additional options, see {@link OO.ui.MessageDialog.getSetupProcess}
          * @return Promise resolved when the user closes the dialog
@@ -330,6 +332,8 @@ declare namespace OO {
          *             console.log( 'User clicked "Cancel" or closed the dialog.' );
          *         }
          *     } );
+         *
+         * ResourceLoader module: `oojs-ui-windows`
          *
          * @param text Message text to display
          * @param options Additional options, see {@link OO.ui.MessageDialog.getSetupProcess}
@@ -361,6 +365,8 @@ declare namespace OO {
          *             console.log( 'User clicked "Cancel" or closed the dialog.' );
          *         }
          *     } );
+         *
+         * ResourceLoader module: `oojs-ui-windows`
          *
          * @param text Message text to display
          * @param options Additional options, see {@link OO.ui.MessageDialog.getSetupProcess}

@@ -14,6 +14,8 @@ declare namespace OO.ui {
      * configured, users can dismiss the error and try the process again, or not. If a process is
      * stopped, its remaining steps will not be performed.
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Process
      */
     interface Process {

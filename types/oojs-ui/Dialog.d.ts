@@ -33,6 +33,8 @@ declare namespace OO.ui {
      *     // Open the window!
      *     windowManager.openWindow( myDialog );
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.Dialog
      */
     interface Dialog extends Dialog.Props, Dialog.Prototype {}

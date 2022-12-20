@@ -31,6 +31,8 @@ declare namespace OO.ui {
      *         message: 'This is the message'
      *     } );
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.MessageDialog
      */
     interface MessageDialog extends MessageDialog.Props, MessageDialog.Prototype {}

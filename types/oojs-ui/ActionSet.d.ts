@@ -82,6 +82,8 @@ declare namespace OO.ui {
      *     windowManager.addWindows( [ dialog ] );
      *     windowManager.openWindow( dialog );
      *
+     * ResourceLoader module: `oojs-ui-windows`
+     *
      * @see https://doc.wikimedia.org/oojs-ui/master/js/#!/api/OO.ui.ActionSet
      */
     interface ActionSet extends EventEmitter {
