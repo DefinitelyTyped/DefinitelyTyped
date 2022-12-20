@@ -3,7 +3,7 @@ import { convert } from 'swagger2openapi';
 
 (async () => {
     const r = await convert(null as unknown as OpenAPIV2.Document, {});
-    console.log(r.openapi as OpenAPIV3.Document);
-    console.log(r.original as OpenAPIV2.Document);
-    console.log(r.text as string);
+    const r1: OpenAPIV3.Document = r.openapi;
+    const r2: OpenAPIV2.Document = r.original;
+    const r3: string = r.text;
 })();
