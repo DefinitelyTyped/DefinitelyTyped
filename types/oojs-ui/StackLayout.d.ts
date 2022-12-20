@@ -2,7 +2,8 @@ declare namespace OO.ui {
     /**
      * StackLayouts contain a series of {@link OO.ui.PanelLayout panel layouts}. By default, only one
      * panel is displayed at a time, though the stack layout can also be configured to show all
-     * contained panels, one after another, by setting the #continuous option to 'true'.
+     * contained panels, one after another, by setting the {@link StackLayout.ConfigOptions.continuous continuous}
+     * option to 'true'.
      *
      *     // A stack layout with two panels, configured to be displayed continuously
      *     var myStack = new OO.ui.StackLayout( {

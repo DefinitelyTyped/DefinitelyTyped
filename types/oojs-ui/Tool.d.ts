@@ -158,8 +158,9 @@ declare namespace OO.ui {
             /**
              * Check if the tool is active.
              *
-             * Tools become active when their #onSelect or #onUpdateState handlers change them to appear pressed
-             * with the {@link setActive} method. Additional CSS is applied to the tool to reflect the active state.
+             * Tools become active when their {@link onSelect} or {@link onUpdateState} handlers
+             * change them to appear pressed with the {@link setActive} method. Additional CSS is
+             * applied to the tool to reflect the active state.
              *
              * @return Tool is active
              */
@@ -168,8 +169,8 @@ declare namespace OO.ui {
             /**
              * Make the tool appear active or inactive.
              *
-             * This method should be called within onSelect or onUpdateState event handlers to make the tool
-             * appear pressed or not.
+             * This method should be called within {@link onSelect} or {@link onUpdateState} event
+             * handlers to make the tool appear pressed or not.
              *
              * @param state Make tool appear active
              */
