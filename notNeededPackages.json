@@ -5971,6 +5971,10 @@
             "libraryName": "words-to-numbers",
             "asOfVersion": "1.3.0"
         },
+        "workbox-build": {
+            "libraryName": "workbox-build",
+            "asOfVersion": "5.1.0"
+        },
         "wouter": {
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
