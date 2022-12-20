@@ -14,6 +14,7 @@ import ColorAdjustmentNode from 'three/examples/jsm/nodes/display/ColorAdjustmen
 import ColorSpaceNode from 'three/examples/jsm/nodes/display/ColorSpaceNode';
 import NormalMapNode from 'three/examples/jsm/nodes/display/NormalMapNode';
 import ToneMappingNode from 'three/examples/jsm/nodes/display/ToneMappingNode';
+import ViewportNode from 'three/examples/jsm/nodes/display/ViewportNode';
 
 // lighting
 import LightsNode from 'three/examples/jsm/nodes/lighting/LightsNode';
@@ -70,6 +71,13 @@ export const colorSpace = (node: Node, encoding: TextureEncoding) =>
 export const normalMap = nodeProxy(NormalMapNode);
 export const toneMapping = (mapping: ToneMapping, exposure: Node, color: Node) =>
     nodeObject(new ToneMappingNode(mapping, nodeObject(exposure), nodeObject(color)));
+
+export const viewportCoordinate = nodeImmutable(ViewportNode, ViewportNode.COORDINATE);
+export const viewportResolution = nodeImmutable(ViewportNode, ViewportNode.RESOLUTION);
+export const viewportTopLeft = nodeImmutable(ViewportNode, ViewportNode.TOP_LEFT);
+export const viewportBottomLeft = nodeImmutable(ViewportNode, ViewportNode.BOTTOM_LEFT);
+export const viewportTopRight = nodeImmutable(ViewportNode, ViewportNode.TOP_RIGHT);
+export const viewportBottomRight = nodeImmutable(ViewportNode, ViewportNode.BOTTOM_RIGHT);
 
 // lighting
 

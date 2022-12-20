@@ -35,6 +35,7 @@ import {
     TimerNode,
     ToneMappingNode,
     TriplanarTexturesNode,
+    ViewportNode,
 } from '../Nodes';
 
 //
@@ -98,6 +99,13 @@ export function toneMapping(
 ): Swizzable<ToneMappingNode>;
 
 export function posterize(sourceNode: NodeRepresentation, stepsNode: NodeRepresentation): Swizzable<PosterizeNode>;
+
+export const viewportCoordinate: Swizzable<ViewportNode>;
+export const viewportResolution: Swizzable<ViewportNode>;
+export const viewportTopLeft: Swizzable<ViewportNode>;
+export const viewportBottomLeft: Swizzable<ViewportNode>;
+export const viewportTopRight: Swizzable<ViewportNode>;
+export const viewportBottomRight: Swizzable<ViewportNode>;
 
 // lighting
 
