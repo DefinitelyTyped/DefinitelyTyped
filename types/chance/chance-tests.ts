@@ -86,6 +86,9 @@ weekday = chance.weekday({opt: 'abc'});
 let euro = chance.euro();
 euro = chance.euro({opt: 'abc'});
 
+let profession = chance.profession();
+profession = chance.profession({rank: true});
+
 let coin = chance.coin();
 coin = chance.coin();
 
