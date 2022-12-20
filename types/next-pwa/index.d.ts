@@ -2,7 +2,7 @@
 // Project: https://github.com/shadowwalker/next-pwa#readme
 // Definitions by: Nivaldo Farias <https://github.com/NivaldoFarias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
+// Minimum TypeScript Version: 4.9
 
 /// <reference types="react"/>
 
