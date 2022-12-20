@@ -114,6 +114,7 @@ export class Matrix3 implements Matrix {
      * @param y the amount to translate in the Y axis.
      */
     makeTranslation(x: number, y: number): this;
+    makeTranslation(x: number, y: number): Matrix3;
 
     /**
      * Sets this matrix as a 2D rotational transformation by theta radians. The resulting matrix will be:
@@ -127,6 +128,7 @@ export class Matrix3 implements Matrix {
      * @param theta Rotation angle in radians. Positive values rotate counterclockwise.
      */
     makeRotation(theta: number): this;
+    makeRotation(theta: number): Matrix3;
 
     /**
      * Sets this matrix as a 2D scale transform:
@@ -141,16 +143,11 @@ export class Matrix3 implements Matrix {
      * @param y the amount to scale in the Y axis.
      */
     makeScale(x: number, y: number): this;
+    makeScale(x: number, y: number): Matrix3;
 
     rotate(theta: number): Matrix3;
 
     translate(tx: number, ty: number): Matrix3;
-
-    makeTranslation(x: number, y: number): Matrix3;
-
-    makeRotation(theta: number): Matrix3;
-
-    makeScale(x: number, y: number): Matrix3;
 
     equals(matrix: Matrix3): boolean;
 

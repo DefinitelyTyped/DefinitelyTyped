@@ -31,8 +31,6 @@ export class Scene extends Object3D {
      */
     backgroundBlurriness: number;
 
-    backgroundIntensity: number;
-
     /**
      * Attenuates the color of the background. Only applies to background textures.
      *

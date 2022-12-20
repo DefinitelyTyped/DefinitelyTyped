@@ -28,7 +28,6 @@ function init() {
 
     renderer = new THREE.WebGLRenderer();
     renderer.shadowMap.enabled = true;
-    //renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
@@ -131,7 +130,7 @@ function animate() {
 
     const rendererSize = renderer.getSize(new THREE.Vector2());
     const aspectRatio = rendererSize.x / rendererSize.y;
-    if (camera.left != -aspectRatio || camera.top != 1.0) {
+    if (camera.left !== -aspectRatio || camera.top !== 1.0) {
         // Reset the Camera Frustum if it has been modified
         camera.left = -aspectRatio;
         camera.right = aspectRatio;
