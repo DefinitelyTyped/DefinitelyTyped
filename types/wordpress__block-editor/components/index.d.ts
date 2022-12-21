@@ -61,5 +61,3 @@ export { default as BlockEditorProvider } from './provider';
  * Hooks
  */
 export { useBlockProps } from './use-block-props';
-
-export { DropOperation } from './use-on-block-drop';

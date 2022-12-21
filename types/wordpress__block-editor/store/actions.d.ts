@@ -1,6 +1,5 @@
 import { BlockInstance } from '@wordpress/blocks';
 
-import { DropOperation } from "../components/use-on-block-drop";
 import { EditorBlockListSettings, EditorSettings } from '../';
 
 /**
@@ -100,7 +99,7 @@ export function moveBlocksUp(clientIds: string | string[], rootClientId: string)
  * @param start - First block of the multi selection.
  * @param end - Last block of the multiselection.
  */
-export function multiSelect(start: string, end: string, __experimentalInitialPosition?: number): void;
+export function multiSelect(start: string, end: string): void;
 
 /**
  * Signals that blocks have been received. Unlike `resetBlocks`, these should be appended to the
@@ -216,7 +215,7 @@ export function setTemplateValidity(isValid: boolean): void;
  * @param rootClientId - Optional root client ID of block list on which to insert.
  * @param index - Index at which block should be inserted.
  */
-export function showInsertionPoint(rootClientId?: string, index?: number, __unstableOptions?: { __unstableWithInserter?: boolean, operation?: DropOperation }): void;
+export function showInsertionPoint(rootClientId?: string, index?: number): void;
 
 /**
  * Signals that a block multi-selection has started.
