@@ -199,3 +199,12 @@ const mixedUntypedCallbackTypedHandler: CustomHandler = (
     context: AWSLambda.Context,
     cb: AWSLambda.Callback,
 ) => {};
+
+const promiseBasedHandler: AWSLambda.PromiseBasedHandler = async (event, context) => {};
+const promiseBasedHandlerTest: AWSLambda.Handler = promiseBasedHandler;
+
+const contextBasedHandler: AWSLambda.ContextBasedHandler = async (event, context) => {};
+const contextBasedHandlerTest: AWSLambda.Handler = contextBasedHandler;
+
+const callbackBasedHandler: AWSLambda.CallbackBasedHandler = async (event, context) => {};
+const callbackBasedHandlerTest: AWSLambda.Handler = callbackBasedHandler;
