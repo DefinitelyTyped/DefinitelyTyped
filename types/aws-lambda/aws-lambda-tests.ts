@@ -200,11 +200,11 @@ const mixedUntypedCallbackTypedHandler: CustomHandler = (
     cb: AWSLambda.Callback,
 ) => {};
 
-const promiseBasedHandler: AWSLambda.PromiseBasedHandler = async (event, context) => {};
-const promiseBasedHandlerTest: AWSLambda.Handler = promiseBasedHandler;
+// Test that AsyncHandler is compatible with Handler
+const asyncHandler: AWSLambda.AsyncHandler = async (event, context) => {};
+const asyncHandlerTest: AWSLambda.Handler = asyncHandler;
 
-const contextBasedHandler: AWSLambda.ContextBasedHandler = async (event, context) => {};
-const contextBasedHandlerTest: AWSLambda.Handler = contextBasedHandler;
-
-const callbackBasedHandler: AWSLambda.CallbackBasedHandler = async (event, context) => {};
-const callbackBasedHandlerTest: AWSLambda.Handler = callbackBasedHandler;
+// Test that you cannot pass a callback to AsyncHandler
+// @see https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63474
+// @ts-expect-error
+const asyncHandler4: AWSLambda.AsyncHandler = async (event, context, callback) => { return 1 }

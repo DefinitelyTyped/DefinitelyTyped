@@ -87,21 +87,10 @@ export type Handler<TEvent = any, TResult = any> = (
     callback: Callback<TResult>,
 ) => void | Promise<TResult>;
 
-export type CallbackBasedHandler<TEvent = any, TResult = any> = (
+export type AsyncHandler<TEvent = unknown, TResult = unknown> = (
     event: TEvent,
     context: Context,
-    callback: Callback<TResult>,
-) => void;
-
-export type PromiseBasedHandler<TEvent = any, TResult = any> = (
-    event: TEvent,
-    context: Context
 ) => Promise<TResult>;
-
-export type ContextBasedHandler<TEvent = any, TResult = any> = (
-    event: TEvent,
-    context: Context
-) => void;
 
 /**
  * {@link Handler} context parameter.
