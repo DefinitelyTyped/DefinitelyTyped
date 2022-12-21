@@ -9,6 +9,7 @@ import { BlockIconNormalized } from '@wordpress/blocks';
 import { dispatch, select } from '@wordpress/data';
 
 export * from './components';
+export * from './hooks';
 export * from './utils';
 export { storeConfig } from './store';
 export { SETTINGS_DEFAULTS } from './store/defaults';
