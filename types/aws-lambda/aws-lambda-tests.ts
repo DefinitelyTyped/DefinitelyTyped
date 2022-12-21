@@ -81,7 +81,9 @@ untypedCallback(null, { bar: 123 });
 // @ts-expect-error
 untypedCallback(null, anyObj, anyObj);
 
-interface TestResult { foo: number; }
+interface TestResult {
+    foo: number;
+}
 declare const typedCallback: AWSLambda.Callback<TestResult>;
 typedCallback();
 typedCallback(undefined);
@@ -200,11 +202,44 @@ const mixedUntypedCallbackTypedHandler: CustomHandler = (
     cb: AWSLambda.Callback,
 ) => {};
 
+// Test AsyncHandler default types
+const asyncHandler: AWSLambda.AsyncHandler = async (
+    // $ExpectType unknown
+    event,
+    // $ExpectType Context
+    context,
+) => {};
+
 // Test that AsyncHandler is compatible with Handler
-const asyncHandler: AWSLambda.AsyncHandler = async (event, context) => {};
-const asyncHandlerTest: AWSLambda.Handler = asyncHandler;
+const asyncHandlerToHandler: AWSLambda.Handler = asyncHandler;
+
+// Test correct event type inference
+const asyncHandler2: AWSLambda.AsyncHandler<string, boolean> = async (
+    // $ExpectType string
+    event,
+    // $ExpectType Context
+    context,
+) => {
+    return true;
+};
+
+// Test correct result type checking
+// @ts-expect-error
+const asyncHandler3: AWSLambda.AsyncHandler<string, boolean> = async (event, context) => 'abc';
+
+// Test that you can't assign a Handler to an AsyncHandler
+// @ts-expect-error
+const handler: AWSLambda.AsyncHandler = asyncHandlerToHandler;
 
 // Test that you cannot pass a callback to AsyncHandler
 // @see https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63474
 // @ts-expect-error
-const asyncHandler4: AWSLambda.AsyncHandler = async (event, context, callback) => { return 1 }
+const asyncHandler4: AWSLambda.AsyncHandler = async (event, context, callback) => {};
+
+// Test that you cannot pass some other thing as a callback to AsyncHandler
+// @ts-expect-error
+const asyncHandler7: AWSLambda.AsyncHandler = async (event: unknown, context: unknown, isTest?: boolean) => {};
+
+const handler8 = async (event: unknown, context: unknown, isTest?: boolean) => {};
+// @ts-expect-error
+const asyncHandler8: AWSLambda.AsyncHandler = handler8;

@@ -42,7 +42,7 @@
 //                 Ross Gerbasi <https://github.com/aphex>
 //                 Joey Kilpatrick <https://github.com/joeykilpatrick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
+// TypeScript Version: 4.3
 
 export * from "./handler";
 export * from "./common/api-gateway";
