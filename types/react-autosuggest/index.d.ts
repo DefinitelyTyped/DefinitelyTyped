@@ -208,7 +208,7 @@ declare namespace Autosuggest {
          * Use it, for example, if you want to make multiple selections at the same time. By default it will close every time
          * a suggestion is selected.
          */
-        shouldKeepSuggestionsOnSelect: ShouldKeepSuggestionsOnSelect<TSuggestion>;
+        shouldKeepSuggestionsOnSelect?: ShouldKeepSuggestionsOnSelect<TSuggestion>;
         /**
          * When the input is focused, Autosuggest will consult this function when to render suggestions.
          * Use it, for example, if you want to display suggestions when input value is at least 2 characters long.
