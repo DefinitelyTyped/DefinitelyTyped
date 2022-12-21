@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { dispatch, select } from '@wordpress/data';
 import * as RT from '@wordpress/rich-text';
 
@@ -192,3 +193,7 @@ select('core/rich-text').getFormatTypeForBareElement('a');
 // useAnchor
 RT.useAnchor({editableContentElement: new HTMLElement(), value: RT.create()});
 RT.useAnchor({editableContentElement: new HTMLElement(), value: RT.create(), settings: RT.create().formats[0]![0]});
+
+// useAnchorRef
+RT.useAnchorRef({ref: createRef(), value: VALUE});
+RT.useAnchorRef({ref: createRef(), value: VALUE, settings: select('core/rich-text').getFormatTypeForBareElement('a')!});

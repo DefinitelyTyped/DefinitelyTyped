@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { create, Format, Value } from "./create";
+import { create, Format, Value } from './create';
 import { ComponentType } from 'react';
 import { dispatch, select } from '@wordpress/data';
 
 export { create, Format, Value };
-export { useAnchor } from "./component/use-anchor";
+export * from './component';
 
 declare module '@wordpress/data' {
     function dispatch(key: 'core/rich-text'): typeof import('./store/actions');

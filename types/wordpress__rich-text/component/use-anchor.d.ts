@@ -1,4 +1,4 @@
-import { Format, Value } from "../create";
+import { Format, Value } from '../create';
 
 export interface VirtualAnchorElement {
     getBoundingClientRect(): DOMRect;
