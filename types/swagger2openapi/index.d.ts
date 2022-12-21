@@ -2,7 +2,7 @@
 // Project: https://github.com/Mermade/oas-kit/tree/main/packages/swagger2openapi
 // Definitions by: rxliuli <https://github.com/rxliuli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: rxliuli <https://github.com/rxliuli>
+
 /// <reference types="node" />
 
 import { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
