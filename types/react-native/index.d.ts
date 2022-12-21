@@ -43,6 +43,7 @@
 //                 Mateusz Wit <https://github.com/MateWW>
 //                 Luna Wei <https://github.com/lunaleaps>
 //                 Saad Najmi <https://github.com/saadnajmi>
+//                 Lewis Yearsley <https://github.com/lewisyearsley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -3407,8 +3408,8 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
 /**
  * React Native provides RootTag and RootTagContext as identifiers for a window's root view
  */
- export type RootTag = number;
- export const RootTagContext: React.Context<RootTag>;
+export type RootTag = number;
+export const RootTagContext: React.Context<RootTag>;
 
 export interface SliderPropsAndroid extends ViewProps {
     /**
@@ -3961,12 +3962,12 @@ export class ImageBackground extends ImageBackgroundBase {
     queryCache?(urls: string[]): Promise<{ [url: string]: 'memory' | 'disk' | 'disk/memory' }>;
 }
 
-export interface ViewToken {
-    item: any;
+export interface ViewToken<ItemT = unknown, SectionT = never> {
+    item: ItemT;
     key: string;
     index: number | null;
     isViewable: boolean;
-    section?: any;
+    section?: SectionT;
 }
 
 export interface ViewabilityConfig {
@@ -3998,12 +3999,17 @@ export interface ViewabilityConfig {
     waitForInteraction?: boolean | undefined;
 }
 
-export interface ViewabilityConfigCallbackPair {
+export interface ViewabilityConfigCallbackPair<ItemT, SectionT = never> {
     viewabilityConfig: ViewabilityConfig;
-    onViewableItemsChanged: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null;
+    onViewableItemsChanged:
+        | ((info: {
+              viewableItems: Array<ViewToken<ItemT, SectionT>>;
+              changed: Array<ViewToken<ItemT, SectionT>>;
+          }) => void)
+        | null;
 }
 
-export type ViewabilityConfigCallbackPairs = ViewabilityConfigCallbackPair[];
+export type ViewabilityConfigCallbackPairs<ItemT, SectionT = never> = ViewabilityConfigCallbackPair<ItemT, SectionT>[];
 
 /**
  * @see https://reactnative.dev/docs/flatlist#props
@@ -4154,7 +4160,7 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
     onViewableItemsChanged?:
-        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | ((info: { viewableItems: Array<ViewToken<ItemT>>; changed: Array<ViewToken<ItemT>> }) => void)
         | null
         | undefined;
 
@@ -4459,6 +4465,17 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      * Uses legacy MetroListView instead of default VirtualizedSectionList
      */
     legacyImplementation?: boolean | undefined;
+
+    /**
+     * Called when the viewability of rows changes, as defined by the
+     * `viewabilityConfig` prop.
+     */
+    onViewableItemsChanged?:
+        | ((info: { viewableItems: Array<ViewToken<ItemT, SectionT>>; changed: Array<ViewToken<ItemT, SectionT>> }) => void)
+        | null
+        | undefined;
+
+    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs<ItemT, SectionT> | undefined;
 }
 
 export interface SectionListScrollParams {
@@ -4688,7 +4705,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * `viewabilityConfig` prop.
      */
     onViewableItemsChanged?:
-        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | ((info: { viewableItems: Array<ViewToken<ItemT>>; changed: Array<ViewToken<ItemT>> }) => void)
         | null
         | undefined;
 
@@ -4723,7 +4740,7 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
 
     viewabilityConfig?: ViewabilityConfig | undefined;
 
-    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs | undefined;
+    viewabilityConfigCallbackPairs?: ViewabilityConfigCallbackPairs<ItemT> | undefined;
 
     /**
      * Determines the maximum number of items rendered outside of the visible area, in units of
@@ -8624,7 +8641,7 @@ export interface SwitchPropsIOS extends ViewProps {
 }
 
 export interface SwitchChangeEventData extends TargetedEvent {
-  value: boolean;
+    value: boolean;
 }
 
 export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}

@@ -109,6 +109,7 @@ import {
     View,
     ViewPagerAndroid,
     ViewStyle,
+    ViewToken,
     VirtualizedList,
     YellowBox,
     findNodeHandle,
@@ -789,6 +790,35 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                     ListFooterComponentStyle={null}
                     ListHeaderComponent={null}
                     ListHeaderComponentStyle={null}
+                    onViewableItemsChanged={({ changed, viewableItems }) => {
+                        changed.forEach((change) => {
+                            change; // $ExpectType ViewToken<string, SectionT>
+                            change.item; // $ExpectType string
+                            change.section; // $ExpectType SectionT | undefined
+                        });
+
+                        viewableItems.forEach((change) => {
+                            change; // $ExpectType ViewToken<string, SectionT>
+                            change.item; // $ExpectType string
+                            change.section; // $ExpectType SectionT | undefined
+                        });
+                    }}
+                    viewabilityConfigCallbackPairs={[{
+                        viewabilityConfig: {},
+                        onViewableItemsChanged: ({ changed, viewableItems }) => {
+                            changed.forEach((change) => {
+                                change; // $ExpectType ViewToken<string, SectionT>
+                                change.item // $ExpectType string
+                                change.section // $ExpectType SectionT | undefined
+                            });
+
+                            viewableItems.forEach((change) => {
+                                change; // $ExpectType ViewToken<string, SectionT>
+                                change.item; // $ExpectType string
+                                change.section; // $ExpectType SectionT | undefined
+                            });
+                        }
+                    }]}
                 />
 
                 <SectionList
