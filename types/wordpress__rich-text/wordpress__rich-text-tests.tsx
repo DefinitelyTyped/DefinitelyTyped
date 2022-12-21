@@ -46,6 +46,12 @@ RT.create({
 RT.getActiveFormat(VALUE, 'foo');
 
 //
+// getActiveFormats
+//
+RT.getActiveFormats(VALUE);
+RT.getActiveFormats(VALUE, []);
+
+//
 // getActiveObject
 //
 RT.getActiveObject(VALUE);

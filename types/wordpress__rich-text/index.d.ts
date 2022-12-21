@@ -79,6 +79,16 @@ export function concat(...values: readonly Value[]): Value;
 export function getActiveFormat(value: Value, formatType: string): Format | undefined;
 
 /**
+ * Gets the all format objects at the start of the selection.
+ *
+ * @param value Value to inspect.
+ * @param EMPTY_ACTIVE_FORMATS Array to return if there are no active formats.
+ *
+ * @return Active format objects.
+ */
+export function getActiveFormats(value: Value, EMPTY_ACTIVE_FORMATS?: Format[]): Format[];
+
+/**
  * Gets the active object, if there is any.
  *
  * @param value - `Value` to inspect.
