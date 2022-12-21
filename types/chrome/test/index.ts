@@ -1641,3 +1641,13 @@ async function testIdentityForPromise() {
     // $ExpectType string | undefined
     await chrome.identity.launchWebAuthFlow({ url: 'https://example.com '});
 }
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+function testTopSites() {
+    chrome.topSites.get(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+async function testTopSitesForPromise() {
+    await chrome.topSites.get();
+}
