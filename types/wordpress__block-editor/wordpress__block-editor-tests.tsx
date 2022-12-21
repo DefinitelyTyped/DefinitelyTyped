@@ -573,3 +573,9 @@ be.getTypographyClassesAndStyles({}, {minFontSize: "33"}).className;
 be.getTypographyClassesAndStyles({}, false).style;
 be.getTypographyClassesAndStyles({}, {}).style;
 be.getTypographyClassesAndStyles({}, {minFontSize: "33"}).style;
+
+// $ExpectType "HELLO"
+be.useCachedTruthy("HELLO");
+
+// $ExpectType 42
+be.useCachedTruthy(42);
