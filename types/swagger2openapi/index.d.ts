@@ -142,4 +142,4 @@ declare const converter: {
     convertStream: typeof convertStream;
 };
 
-export default converter;
+export converter;
