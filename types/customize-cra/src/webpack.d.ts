@@ -1,6 +1,6 @@
 import { Configuration as WebpackConfig, RuleSetRule, Options, Plugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { GenerateSWOptions } from 'workbox-webpack-plugin';
+import { GenerateSWConfig } from 'workbox-webpack-plugin';
 import { OverrideFunc } from './core';
 
 /**
@@ -17,7 +17,7 @@ export function addBundleVisualizer(options?: BundleAnalyzerPlugin.Options, behi
 
 export function addWebpackAlias(aliases: Record<string, string>): OverrideFunc;
 
-export function adjustWorkbox(func: (swPluginOptions: GenerateSWOptions) => GenerateSWOptions): OverrideFunc;
+export function adjustWorkbox(func: (swPluginOptions: GenerateSWConfig) => GenerateSWConfig): OverrideFunc;
 
 export function useEslintRc(configFile?: string): OverrideFunc;
 
