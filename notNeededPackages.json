@@ -1837,6 +1837,10 @@
             "libraryName": "@hapi/cryptiles",
             "asOfVersion": "5.0.0"
         },
+        "hapi__hapi": {
+            "libraryName": "@hapi/hapi",
+            "asOfVersion": "21.0.0"
+        },
         "hapi__hoek": {
             "libraryName": "@hapi/hoek",
             "asOfVersion": "9.0.0"
