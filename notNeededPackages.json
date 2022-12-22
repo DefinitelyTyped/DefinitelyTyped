@@ -5983,8 +5983,44 @@
             "libraryName": "workbox-cacheable-response",
             "asOfVersion": "5.0.0"
         },
+        "workbox-core": {
+            "libraryName": "workbox-core",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-expiration": {
+            "libraryName": "workbox-expiration",
+            "asOfVersion": "5.0.0"
+        },
         "workbox-google-analytics": {
             "libraryName": "workbox-google-analytics",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-precaching": {
+            "libraryName": "workbox-precaching",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-range-requests": {
+            "libraryName": "workbox-range-requests",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-routing": {
+            "libraryName": "workbox-routing",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-strategies": {
+            "libraryName": "workbox-strategies",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-streams": {
+            "libraryName": "workbox-streams",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-sw": {
+            "libraryName": "workbox-sw",
+            "asOfVersion": "5.0.0"
+        },
+        "workbox-window": {
+            "libraryName": "workbox-window",
             "asOfVersion": "5.0.0"
         },
         "wouter": {
