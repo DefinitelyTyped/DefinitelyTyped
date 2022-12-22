@@ -2,13 +2,35 @@
 google.accounts.oauth2.initCodeClient({
     client_id: '',
     scope: '',
+    callback: response => {
+        // $ExpectType string
+        response.code;
+        // $ExpectType string
+        response.scope;
+        // $ExpectType string
+        response.state;
+        // $ExpectType string
+        response.error;
+        // $ExpectType string
+        response.error_description;
+        // $ExpectType string
+        response.error_uri;
+    },
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
+        error.type;
+    }
 });
 
 // $ExpectType TokenClient
 google.accounts.oauth2.initTokenClient({
     client_id: '',
     callback: response => {
-        // response.access_token
+        // $ExpectType string
         response.access_token;
         // $ExpectType string
         response.expires_in;
@@ -29,6 +51,14 @@ google.accounts.oauth2.initTokenClient({
         // $ExpectType string
         response.error_uri;
     },
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
+        error.type;
+    }
 });
 
 // $ExpectType boolean

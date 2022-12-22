@@ -1,4 +1,4 @@
-// For Library Version: 1.108.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -5207,6 +5207,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -5435,6 +5446,24 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
       sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
      *
      * If set, a header with the years is shown to visualize what month belongs to what year.
@@ -5532,6 +5561,17 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -5976,6 +6016,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6239,6 +6290,24 @@ declare module "sap/ui/unified/calendar/TimesRow" {
       sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
      *
      * If set, a header with the years is shown to visualize what month belongs to what year.
@@ -6345,6 +6414,17 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -20341,8 +20421,6 @@ declare module "sap/ui/unified/SplitContainer" {
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/unified/Calendar": undefined;
-
-    "sap/ui/unified/calendar/CalendarUtils": undefined;
 
     "sap/ui/unified/calendar/DatesRow": undefined;
 

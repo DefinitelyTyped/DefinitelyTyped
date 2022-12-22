@@ -2819,10 +2819,10 @@ declare namespace Xrm {
         }
 
         /**
-         * Common interface for enumeration attributes (OptionSet and Boolean).
+         * Common interface for enumeration attributes (MultiOptionSet, OptionSet and Boolean).
          * @see {@link Attribute}
          */
-        interface EnumAttribute<T extends number | boolean> extends Attribute<T> {
+        interface EnumAttribute<T extends number[] | number | boolean> extends Attribute<T> {
             /**
              * Gets the initial value of the attribute.
              * @returns The initial value.
@@ -2924,6 +2924,67 @@ declare namespace Xrm {
              *              with this method.
              */
             setValue(value: number | null): void;
+
+            /**
+             * A collection of all the controls on the form that interface with this attribute.
+             * @see {@link https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/clientapi/reference/collections External Link: Collections (Client API reference)}
+             */
+            controls: Collection.ItemCollection<Controls.OptionSetControl>;
+        }
+
+         /**
+         * Interface an OptionSet attribute.
+         * @see {@link EnumAttribute}
+         */
+         interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
+            /**
+             * Gets the attribute format.
+             * @returns The format of the attribute.
+             * Values returned are: language, timezone
+             */
+            getFormat(): OptionSetAttributeFormat;
+
+            /**
+             * Gets the option matching a value.
+             * @param value The enumeration value of the option desired.
+             * @returns The option.
+             */
+            getOption(value: number): OptionSetValue;
+
+            /**
+             * Gets the option matching a label.
+             * @param label The label of the option desired.
+             * @returns The option.
+             */
+            getOption(label: string): OptionSetValue;
+
+            /**
+             * Gets all of the options.
+             * @returns An array of options.
+             */
+            getOptions(): OptionSetValue[];
+
+            /**
+             * Gets selected option.
+             * @returns The selected option.
+             */
+            getSelectedOption(): OptionSetValue[];
+
+            /**
+             * Gets the label of the currently selected option.
+             * @returns The current value's label.
+             */
+            getText(): string[];
+
+            /**
+             * Sets the value.
+             * @param value The value.
+             * @remarks     The getOptions() method returns option values as strings. You must use parseInt
+             *              to convert them to numbers before you can use those values to set the value of an
+             *              OptionSet attribute. Attributes on Quick Create Forms will not save values set
+             *              with this method.
+             */
+            setValue(value: number[] | null): void;
 
             /**
              * A collection of all the controls on the form that interface with this attribute.
@@ -3530,6 +3591,38 @@ declare namespace Xrm {
              * @param value The value.
              */
             removeOption(value: number): void;
+        }
+
+        interface MultiSelectOptionSetControl extends StandardControl {
+             /**
+             * Adds an option.
+             *
+             * @param option The option.
+             * @param index (Optional) zero-based index of the option.
+             *
+             * @remarks This method does not check that the values within the options you add are valid.
+             *          If index is not provided, the new option will be added to the end of the list.
+             */
+             addOption(option: OptionSetValue, index?: number): void;
+
+             /**
+              * Clears all options.
+              */
+             clearOptions(): void;
+
+             /**
+              * Gets the control's bound attribute.
+              *
+              * @returns The attribute.
+              */
+             getAttribute(): Attributes.MultiSelectOptionSetAttribute;
+
+             /**
+              * Removes the option matching the value.
+              *
+              * @param value The value.
+              */
+             removeOption(value: number): void;
         }
 
         /**

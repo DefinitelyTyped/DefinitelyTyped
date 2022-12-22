@@ -1,7 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "joi": "^17.3.0",
+        "@hapi/hapi": "^21.1.0",
+        "joi": "^17.7.0",
         "knex": "^0.16.1",
         "objection": "^1.1.9"
     }

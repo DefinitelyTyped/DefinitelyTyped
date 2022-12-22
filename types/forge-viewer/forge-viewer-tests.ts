@@ -25,7 +25,10 @@ Autodesk.Viewing.Initializer(options, async () => {
 
     await doc.downloadAecModelData();
     const aecModelData = await Autodesk.Viewing.Document.getAecModelData(doc.getRoot());
-    const defaultViewable = doc.getRoot().getDefaultGeometry();
+    const root = doc.getRoot();
+    const defaultViewable = root.getDefaultGeometry();
+    const masterView = root.getDefaultGeometry(true);
+    const largestView = root.getDefaultGeometry(false, true);
     const model = await viewer.loadDocumentNode(doc, defaultViewable);
 
     globalTests();

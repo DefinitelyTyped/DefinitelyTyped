@@ -43,7 +43,7 @@ ordersCreateRequest.requestBody({
 ordersPatchRequest.requestBody([
     {
         from: '',
-        op: paypal.orders.Operation.REPLACE,
+        op: 'replace',
         path: `/purchase_units/@reference_id=='default'/shipping/type`,
         value: 'SHIPPING',
     },

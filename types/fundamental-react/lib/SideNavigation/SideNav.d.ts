@@ -33,7 +33,7 @@ export type SideNavListItemProps = {
     glyph?: IconGlyph | undefined;
     id?: string | undefined;
     isSubItem?: boolean | undefined;
-    name?: string | undefined;
+    name?: React.ReactNode | undefined;
     selected?: boolean | undefined;
     selectedId?: string | undefined;
     url?: string | undefined;

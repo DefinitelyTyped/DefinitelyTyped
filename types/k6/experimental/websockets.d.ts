@@ -1,6 +1,10 @@
+import { CookieJar } from '../http';
+
 /**
  * This module provides an experimental implementation of the WebSocket API
  * for k6.
+ *
+ * https://k6.io/docs/javascript-api/k6-experimental/websockets/
  */
 
 /**
@@ -37,13 +41,17 @@ export class WebSocket {
 
     /**
      * The Websocket constructor returns a newly created WebSocket object.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/
      *
      * @param url - The URL to which to connect; this should be the URL to which the WebSocket server will respond.
+     * @param protocols - Either a single protocol string or an array of protocol strings. The param is reserved for future use and will be presently ignored.
+     * @param params - Used for setting various WebSocket connection parameters such as headers, cookie jar, compression, etc.
      */
-    constructor(url: string);
+    constructor(url: string, protocols?: null, params?: Params | null);
 
     /**
      * Enqueues data to be transmitted to the server over the WebSocket connection.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-send/
      *
      * @param data - the data to send to the server
      */
@@ -52,16 +60,91 @@ export class WebSocket {
     /**
      * Bind event names to event handlers to be executed when their
      * respective event is received by the server.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-addeventlistener/
      *
      * @param event - the event to listen for
      * @param listener - the callback to invoke when the event is emitted
      */
-    addEventListener(event: EventName, listener: (message: MessageEvent) => void): void;
+    addEventListener(event: EventName, listener: (event: MessageEvent | ErrorEvent) => void): void;
 
     /**
      * Closes the WebSocket connection or connection attempt, if any.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-close/
+     *
+     * @param code - An integer WebSocket connection close code value indicating a reason for closure.
+     * @param reason - A human-readable string WebSocket connection close reason. No longer than 123 bytes of UTF-8 text.
      */
-    close(): void;
+    close(code?: number, reason?: string): void;
+
+    /**
+     * Sends a ping message over the WebSocket connection.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-ping/
+     */
+    ping(): void;
+
+    /**
+     * Sets an event handler which is invoked when a message event happens.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onmessage/
+     *
+     * @param event - the message event
+     */
+    onmessage: (event?: MessageEvent) => void;
+
+    /**
+     * Sets an event handler which is invoked when the WebSocket connection's opens.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onopen/
+     */
+    onopen: () => void;
+
+    /**
+     * Sets an event handler which is invoked when the WebSocket connection's closes.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onclose/
+     */
+    onclose: () => void;
+
+    /**
+     * Sets an event handler which is invoked when errors occur.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onerror/
+     *
+     * @param event - the error event
+     */
+    onerror: (event?: ErrorEvent) => void;
+
+    /**
+     * Sets an event handler which is invoked when a ping message is received.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onping/
+     */
+    onping: () => void;
+
+    /**
+     * Sets an event handler which is invoked when a pong message is received.
+     * https://k6.io/docs/javascript-api/k6-experimental/websockets/websocket/websocket-onpong/
+     */
+    onpong: () => void;
+}
+
+/**
+ * k6 specific WebSocket parameters.
+ * https://k6.io/docs/javascript-api/k6-experimental/websockets/params/
+ */
+export interface Params {
+    /** Request headers. */
+    headers?: Record<string, string>;
+
+    /**
+     * Compression algorithm.
+     * If the option is left unset, it defaults to no compression.
+     */
+    compression?: CompressionAlgorithm;
+
+    /** The custom metric tags. */
+    tags?: Record<string, number | string | boolean>;
+
+    /**
+     * The cookie jar that will be used when making the initial HTTP request to establish the WebSocket connection.
+     * If empty, the default VU cookie jar will be used.
+     */
+    jar?: CookieJar;
 }
 
 /**
@@ -90,10 +173,15 @@ export enum ReadyState {
 }
 
 /**
- * Type alias describe the types of binary data that can be
+ * BinaryType describes the possible types of binary data that can be
  * transmitted over a Websocket connection.
  */
-export type BinaryType = 'arrayBuffer';
+export enum BinaryType  {
+    /**
+     * Binary data is returned in ArrayBuffer form. k6 supports only this type.
+     */
+    ArrayBuffer = 'ArrayBuffer'
+}
 
 /**
  * EventName describes the possible events that can be emitted
@@ -101,7 +189,7 @@ export type BinaryType = 'arrayBuffer';
  */
 export enum EventName {
     /**
-     * Event fired when the connection is opened and ready to communcate.
+     * Event fired when the connection is opened and ready to communicate.
      */
     Open = 'open',
 
@@ -119,10 +207,20 @@ export enum EventName {
      * Event fired when a message has been received from the server.
      */
     Message = 'message',
+
+    /**
+     * Event fired when a ping message has been received from the server.
+     */
+    Ping = 'ping',
+
+    /**
+     * Event fired when a pong message has been received from the server.
+     */
+    Pong = 'pong',
 }
 
 /**
- * MessageEvent is a simple class that holds the data of a message received from the server.
+ * MessageEvent is a simple interface that holds the data of a message received from the server.
  */
 export interface MessageEvent {
     /**
@@ -136,9 +234,9 @@ export interface MessageEvent {
     type: MessageType;
 
     /**
-     * The time when the message was received.
+     * The read-only property that returns the time (in milliseconds) at which the event was created.
      */
-    time: number;
+    timestamp: number;
 }
 
 /**
@@ -173,4 +271,35 @@ export enum MessageType {
      * payload is UTF-8 encoded text.
      */
     PongMessage = 10,
+}
+
+/**
+ * ErrorEvent is a simple interface that holds the data of an error event.
+ */
+export interface ErrorEvent {
+    /**
+     * the type of the event.
+     */
+    type: MessageType;
+
+    /**
+     * The read-only property that returns the error message.
+     */
+    error: string;
+
+    /**
+     * The read-only property that returns the time (in milliseconds) at which the event was created.
+     */
+    timestamp: number;
+}
+
+/**
+ * CompressionAlgorithm describes the possible compression algorithms.
+ */
+export enum CompressionAlgorithm  {
+    /**
+     * Deflate compression algorithm.
+     * k6 supports only this compression algorithm.
+     */
+    Deflate = 'deflate'
 }

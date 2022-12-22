@@ -17,8 +17,9 @@
 //                 Jose Fuentes        <https://github.com/j-fuentes>
 //                 Anya Reyes          <https://github.com/darkade>
 //                 Tino                <https://github.com/tino-247>
-//                 BendingBender <https://github.com/BendingBender>
+//                 BendingBender       <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
@@ -341,6 +342,17 @@ declare module 'node-forge' {
 
             function setPublicKey(n: jsbn.BigInteger, e: jsbn.BigInteger): PublicKey;
 
+            function setPrivateKey(
+                n: jsbn.BigInteger,
+                e: jsbn.BigInteger,
+                d: jsbn.BigInteger,
+                p: jsbn.BigInteger,
+                q: jsbn.BigInteger,
+                dP: jsbn.BigInteger,
+                dQ: jsbn.BigInteger,
+                qInv: jsbn.BigInteger,
+            ): PrivateKey;
+
             function generateKeyPair(
                 bits?: number,
                 e?: number,
@@ -418,8 +430,12 @@ declare module 'node-forge' {
         interface Certificate {
             version: number;
             serialNumber: string;
+            signatureOid: string;
             signature: any;
-            siginfo: any;
+            siginfo: {
+                algorithmOid: string;
+                parameters: any;
+            };
             validity: {
                 notBefore: Date;
                 notAfter: Date;
@@ -439,7 +455,9 @@ declare module 'node-forge' {
             extensions: any[];
             privateKey: PrivateKey;
             publicKey: PublicKey;
-            md: any;
+            md: md.MessageDigest;
+            signatureParameters: any;
+            tbsCertificate: asn1.Asn1;
             /**
              * Sets the subject of this certificate.
              *
@@ -509,6 +527,22 @@ declare module 'node-forge' {
              *         certificate's issuer.
              */
             issued(child: Certificate): boolean;
+
+            /**
+             * Generates the subjectKeyIdentifier for this certificate as byte buffer.
+             *
+             * @return the subjectKeyIdentifier for this certificate as byte buffer.
+             */
+            generateSubjectKeyIdentifier(): util.ByteStringBuffer;
+
+            /**
+             * Verifies the subjectKeyIdentifier extension value for this certificate
+             * against its public key. If no extension is found, false will be
+             * returned.
+             *
+             * @return true if verified, false if not.
+             */
+            verifySubjectKeyIdentifier(): boolean;
         }
 
         interface CertificateRequest extends Certificate {
@@ -652,7 +686,9 @@ declare module 'node-forge' {
 
         function publicKeyToRSAPublicKey(publicKey: PublicKey): any;
 
-        type setRsaPublicKey = typeof rsa.setPublicKey;
+        const setRsaPublicKey: typeof pki.rsa.setPublicKey;
+
+        const setRsaPrivateKey: typeof pki.rsa.setPrivateKey;
 
         function wrapRsaPrivateKey(privateKey: asn1.Asn1): asn1.Asn1;
 

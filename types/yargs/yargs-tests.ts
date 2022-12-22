@@ -6,7 +6,7 @@ import yargsSingleton = require('yargs/yargs');
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { Arguments } from 'yargs';
+import { Arguments, CompletionCallback } from 'yargs';
 
 const stringVal = 'string';
 
@@ -491,6 +491,26 @@ function Argv$completion_hide() {
             }, 10);
         });
     }).argv;
+
+    // fallback func
+    yargs.completion('completion', false, (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completion: string[]) => void) => {
+        // if 'apple' present return default completions
+        if (argv._.includes('apple')) {
+            completionFilter();
+        } else {
+            completionFilter((err: Error | null, defaultCompletions: string[] | undefined) => {
+                if (defaultCompletions === undefined) {
+                    done([]);
+                    return;
+                }
+                const filteredCompletions = defaultCompletions.filter(
+                    completion => !completion.includes('banana'),
+                );
+                // else return default completions w/o 'banana'
+                done(filteredCompletions);
+            });
+        }
+    }).argv;
 }
 
 function Argv$completion_sync() {
@@ -528,6 +548,29 @@ function Argv$completion_promise() {
                     resolve(['apple', 'banana']);
                 }, 10);
             });
+        })
+        .argv;
+}
+
+function Argv$completion_fallback() {
+    const argv = yargs
+        .completion('completion', (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completion: string[]) => void) => {
+            // if 'apple' present return default completions
+            if (argv._.includes('apple')) {
+                completionFilter();
+            } else {
+                completionFilter((err: Error | null, defaultCompletions: string[] | undefined) => {
+                    if (defaultCompletions === undefined) {
+                        done([]);
+                        return;
+                    }
+                    const filteredCompletions = defaultCompletions.filter(
+                        completion => !completion.includes('banana'),
+                    );
+                    // else return default completions w/o 'banana'
+                    done(filteredCompletions);
+                });
+            }
         })
         .argv;
 }
@@ -990,6 +1033,17 @@ async function Argv$inferOptionTypes() {
         .option("normalize", { normalize: true })
         .parseSync();
 
+    // $ExpectType { [x: string]: unknown; choices: Color; numberChoices: Stage; coerce: Date; count: number | "no"; _: (string | number)[]; $0: string; }
+    yargs
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("choices", { choices: colors, default: "red" } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("numberChoices", { choices: stages, default: 1 } as const)
+        .option("coerce", { coerce: () => new Date(), default: "abc" })
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("count", { type: "count", default: "no" } as const)
+        .parseSync();
+
     // $ExpectType (string | number)[] | undefined
     (await yargs.array("x").argv).x;
 
@@ -1091,7 +1145,7 @@ function Argv$inferRequiredOptionTypes() {
 
 function Argv$inferMultipleOptionTypes() {
     // tslint:disable-next-line
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; } ||  { [x: string]: unknown; b: boolean; a: string; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .option({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])
@@ -1099,7 +1153,7 @@ function Argv$inferMultipleOptionTypes() {
         .parseSync();
 
     // tslint:disable-next-line
-    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; a: string; b: boolean; c: number; d: number; e: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; d: number; e: number; c: number; _: (string | number)[]; $0: string; } || { [x: string]: unknown; b: boolean; a: string; c: number; d: number; e: number; _: (string | number)[]; $0: string; }
     yargs
         .options({ a: { default: "a" }, b: { default: false } })
         .number(["c", "d", "e"])

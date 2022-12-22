@@ -1,11 +1,10 @@
-// Type definitions for needle 2.5
+// Type definitions for needle 3.2
 // Project: https://github.com/tomas/needle
 // Definitions by: San Chen <https://github.com/bigsan>,
 //                 Niklas Mollenhauer <https://github.com/nikeee>,
 //                 Matanel Sindilevich <https://github.com/sindilevich>,
 //                 Bryan Spears <https://github.com/bryanspears>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -206,35 +205,42 @@ declare namespace core {
         /**
          * Sends the cookies received in the set-cookie header
          * as part of the following request.
-         * false by default.
+         *
+         * @default false
          */
-        follow_set_cookie?: boolean | undefined;
+        follow_set_cookies?: boolean | undefined;
         /**
          * Sets the 'Referer' header to the requested URI
          * when following a redirect.
-         * false by default.
+         *
+         * @default false
          */
         follow_set_referer?: boolean | undefined;
         /**
          * If enabled, resends the request using the original verb
          * instead of being rewritten to get with no data.
-         * false by default.
+         *
+         * @default false
          */
         follow_keep_method?: boolean | undefined;
         /**
          * When true, Needle will only follow redirects that point to the same host
          * as the original request.
-         * false by default.
+         *
+         * @default false
          */
         follow_if_same_host?: boolean | undefined;
         /**
          * When true, Needle will only follow redirects that point to the same protocol
          * as the original request.
-         * false by default.
+         *
+         * @default false
          */
         follow_if_same_protocol?: boolean | undefined;
         /**
-         * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL. false by default.
+         * Unless true, Needle will not follow redirects that point to same location (as set in the response header) as the original request URL.
+         *
+         * @default false
          */
         follow_if_same_location?: boolean | undefined;
     }

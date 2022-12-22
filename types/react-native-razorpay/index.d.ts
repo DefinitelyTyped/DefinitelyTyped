@@ -4,22 +4,24 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface SuccessResponse {
-    status_code: number;
     razorpay_signature: string;
     razorpay_order_id: string;
-    razorpay_payment: string;
+    razorpay_payment_id: string;
 }
 
+// type valid for errors after successful API integration
 export interface ErrorResponse {
     code: number;
     description: string;
-    field?: string;
-    source: string;
-    step: string;
-    reason: string;
-    metadata: {
-        payment_id?: string;
-        order_id: string;
+    error: {
+        field?: string;
+        source: string;
+        step: string;
+        reason: string;
+        metadata: {
+            payment_id?: string;
+            order_id: string;
+        };
     };
 }
 

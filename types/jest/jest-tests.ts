@@ -689,6 +689,10 @@ typedSpy3 = jest.spyOn(spiedTarget2, 'value', 'get');
 let typedSpy4: jest.SpiedSetter<typeof spiedTarget2.value>;
 typedSpy4 = jest.spyOn(spiedTarget2, 'value', 'set');
 
+// Test for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63129
+// $ExpectType SpyInstance<void, [key: string, value: string]>
+jest.spyOn(Storage.prototype, 'setItem');
+
 // $ExpectType MockedObjectDeep<{}>
 jest.mocked({});
 // $ExpectType MockedObjectDeep<{}>
@@ -1242,6 +1246,10 @@ describe('', () => {
             date: new Date(),
             dateTwo: Date,
             list: [1, 2, 3],
+            listOfStrings: ['one', 'two', 'three'],
+            symbolOne: Symbol('one'),
+            functionOne: () => {},
+            bigIntegerOne: BigInt('9007199254740991'),
         }).toMatchInlineSnapshot({
             one: expect.any(Number),
             // leave out two
@@ -1250,6 +1258,10 @@ describe('', () => {
             date: expect.any(Date),
             dateTwo: expect.any(Date),
             list: expect.any(Array),
+            listOfStrings: expect.any(Array),
+            symbolOne: expect.any(Symbol),
+            functionOne: expect.any(Function),
+            bigIntegerOne: expect.any(BigInt),
         });
 
         expect(jest.fn()).toReturn();
