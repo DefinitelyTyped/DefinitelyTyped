@@ -46,10 +46,10 @@ token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm o
 token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
 
 // sign with insecure key size
-token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInsecureKeySizes: true })
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInsecureKeySizes: true });
 
 // sign with invalid asymmetric key type for algorithm
-token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true })
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
 
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
