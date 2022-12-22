@@ -1340,7 +1340,7 @@ function Argv$parsed() {
     const parsedArgs = yargs.parsed;
 }
 
-async function Argv$defaultCommandWithPositional(): Promise<string> {
+async function Argv$defaultCommandWithPositional() {
     const argv = yargs.command(
         "$0 <arg>",
         "default command",
@@ -1350,9 +1350,7 @@ async function Argv$defaultCommandWithPositional(): Promise<string> {
                 describe: "argument",
                 type: "string",
             }),
-        () => { }).argv;
-
-    return (await argv).arg;
+        (argv) => { const arg = argv.arg; }).parseSync();
 }
 
 function Argv$commandsWithAsynchronousBuilders() {
@@ -1366,9 +1364,7 @@ function Argv$commandsWithAsynchronousBuilders() {
                     describe: "argument",
                     type: "string",
                 })),
-        () => { }).parseSync();
-
-    const arg1: string = argv1.arg;
+        (argv) => { const arg1: string = argv.arg; }).parseSync();
 
     const argv2 = yargs.command({
         command: "command <arg>",
@@ -1380,10 +1376,8 @@ function Argv$commandsWithAsynchronousBuilders() {
                     describe: "argument",
                     type: "string",
                 })),
-        handler: () => {}
+        handler: (argv) => { const arg2: string = argv.arg; }
     }).parseSync();
-
-    const arg2: string = argv2.arg;
 }
 
 const wait = (n: number) => new Promise(resolve => setTimeout(resolve, n));
