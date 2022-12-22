@@ -27,13 +27,11 @@ jobs:
 
     displayName: 'npm run test-all'
 
-  - task: DownloadBuildArtifacts@1
+  - task: PublishPipelineArtifact@1
     condition: eq(variables['System.debug'], 'true')
     inputs:
-        buildType: 'current'
-        downloadType: 'specific'
-        downloadPath: '$(System.ArtifactsDirectory)'
-        cleanDestinationFolder: true
+      targetPath: '$(Pipeline.Workspace)'
+      publishLocation: 'pipeline'
 
 trigger:
 - master
