@@ -34,7 +34,7 @@ type BufferLike =
     | Buffer
     | ArrayBuffer
     | ArrayBufferView
-    | FirstArgument<typeof Buffer.from>
+    | Parameters<BufferConstructor['from']>[0]
     | { valueOf(): string }
     | Buffer[];
 
