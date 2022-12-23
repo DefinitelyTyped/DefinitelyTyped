@@ -27,7 +27,8 @@ import { SecureContextOptions } from "tls";
 import { URL } from "url";
 import { ZlibOptions } from "zlib";
 
-// don't know how to get all overload of BufferConstructor, just copy it's first arguments here
+// can not get all overload of BufferConstructor['from'], need to copy all it's first arguments here
+// https://github.com/microsoft/TypeScript/issues/32164
 type BufferLike =
     | string
     | Buffer
@@ -97,8 +98,8 @@ declare class WebSocket extends EventEmitter {
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     // https://github.com/websockets/ws/issues/2076#issuecomment-1250354722
     send(data: BufferLike, cb?: (err?: Error) => void): void;
-    send(
-        data: BufferLike,
+    send<T>(
+        data: BufferConstructor<T>,
         options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined },
         cb?: (err?: Error) => void,
     ): void;
