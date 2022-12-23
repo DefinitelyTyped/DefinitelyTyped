@@ -27,7 +27,7 @@ sharp('input.png')
     .rotate(180)
     .resize(300)
     .flatten({ background: '#ff6600' })
-    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast }])
+    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast, animated: false, failOn: 'warning' }])
     .sharpen()
     .withMetadata()
     .withMetadata({
@@ -342,7 +342,7 @@ sharp(input)
     .avif({ quality: 50, lossless: false, effort: 5, chromaSubsampling: '4:2:0' })
     .heif()
     .heif({})
-    .heif({ quality: 50, compression: 'hevc', lossless: false, effort: 5 })
+    .heif({ quality: 50, compression: 'hevc', lossless: false, effort: 5, chromaSubsampling: '4:2:0' })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);
@@ -404,6 +404,21 @@ sharp({
     .toBuffer()
     .then(largeImage => sharp(input).composite([{ input: largeImage, limitInputPixels: false }]));
 
+// From https://github.com/lovell/sharp/pull/2685
+// Accept premultiplied raw inputs
+sharp('input.png', {
+    raw: {
+        width: 25000,
+        height: 25000,
+        channels: 4,
+        premultiplied: true,
+    },
+})
+    .raw()
+    .toBuffer(err => {
+        if (err) throw err;
+    });
+
 // Taken from API documentation at
 // https://sharp.pixelplumbing.com/api-operation#clahe
 // introducted
@@ -447,6 +462,15 @@ sharp(input)
     .gamma()
     .toColourspace('srgb') // this is the default, but included here for clarity
     .toBuffer();
+
+// From https://github.com/lovell/sharp/pull/1439
+// Second parameter to gamma operation for different output gamma
+sharp(input)
+    .resize(129, 111)
+    .gamma(2.2, 3.0)
+    .toBuffer(err => {
+        if (err) throw err;
+    });
 
 // Support for raw depth specification
 sharp('16bpc.png')
@@ -601,3 +625,29 @@ sharp('input.png').composite([
         },
     },
 ]);
+
+// From https://github.com/lovell/sharp/pull/1835
+sharp('input.png').composite([
+    {
+        input: {
+            text: {
+                text: 'Okay then',
+                font: 'Comic Sans',
+            },
+        },
+        blend: 'color-burn',
+        top: 0,
+        left: 0,
+        premultiplied: true,
+    },
+]);
+
+// https://github.com/lovell/sharp/pull/402
+(['fs', 'zip'] as const).forEach(container => {
+    sharp().tile({ container });
+});
+
+// From https://github.com/lovell/sharp/issues/2238
+sharp('input.png').tile({
+    basename: 'output.dz.tiles',
+});

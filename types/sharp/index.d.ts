@@ -147,11 +147,11 @@ declare namespace sharp {
 
         /**
          * Extract a single channel from a multi-channel image.
-         * @param channel zero-indexed band number to extract, or red, green or blue as alternative to 0, 1 or 2 respectively.
+         * @param channel zero-indexed channel/band number to extract, or red, green, blue or alpha.
          * @throws {Error} Invalid channel
          * @returns A sharp instance that can be used to chain operations
          */
-        extractChannel(channel: number | string): Sharp;
+        extractChannel(channel: 0 | 1 | 2 | 3 | 'red' | 'green' | 'blue' | 'alpha'): Sharp;
 
         /**
          * Join one or more channels to the image. The meaning of the added channels depends on the output colourspace, set with toColourspace().
@@ -174,7 +174,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        bandbool(boolOp: string): Sharp;
+        bandbool(boolOp: keyof BoolEnum): Sharp;
 
         //#endregion
 
@@ -413,11 +413,13 @@ declare namespace sharp {
          * Apply a gamma correction by reducing the encoding (darken) pre-resize at a factor of 1/gamma then increasing the encoding (brighten) post-resize at a factor of gamma.
          * This can improve the perceived brightness of a resized image in non-linear colour spaces.
          * JPEG and WebP input images will not take advantage of the shrink-on-load performance optimisation when applying a gamma correction.
+         * Supply a second argument to use a different output gamma value, otherwise the first value is used in both cases.
          * @param gamma value between 1.0 and 3.0. (optional, default 2.2)
+         * @param gammaOut value between 1.0 and 3.0. (optional, defaults to same as gamma)
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        gamma(gamma?: number): Sharp;
+        gamma(gamma?: number, gammaOut?: number): Sharp;
 
         /**
          * Produce the "negative" of the image.
@@ -477,7 +479,7 @@ declare namespace sharp {
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
          */
-        boolean(operand: string | Buffer, operator: string, options?: { raw: Raw }): Sharp;
+        boolean(operand: string | Buffer, operator: keyof BoolEnum, options?: { raw: Raw }): Sharp;
 
         /**
          * Apply the linear formula a * input + b to the image (levels adjustment)
@@ -581,7 +583,7 @@ declare namespace sharp {
          * @throws {Error} Invalid options
          * @returns A sharp instance that can be used to chain operations
          */
-        jp2: (options?: Jp2Options) => Sharp;
+        jp2(options?: Jp2Options): Sharp;
 
         /**
          * Use these JPEG-XL (JXL) options for output image.
@@ -672,7 +674,9 @@ declare namespace sharp {
                 | WebpOptions
                 | AvifOptions
                 | HeifOptions
+                | JxlOptions
                 | GifOptions
+                | Jp2Options
                 | TiffOptions,
         ): Sharp;
 
@@ -803,7 +807,7 @@ declare namespace sharp {
         unlimited?: boolean | undefined;
         /** Set this to true to use sequential rather than random access where possible. This can reduce memory usage and might improve performance on some systems. (optional, default false) */
         sequentialRead?: boolean | undefined;
-        /** Number representing the DPI for vector images. (optional, default 72) */
+        /** Number representing the DPI for vector images in the range 1 to 100000. (optional, default 72) */
         density?: number | undefined;
         /** Number of pages to extract for multi-page input (GIF, TIFF, PDF), use -1 for all pages */
         pages?: number | undefined;
@@ -816,7 +820,7 @@ declare namespace sharp {
         /** Set to `true` to read all frames/pages of an animated image (equivalent of setting `pages` to `-1`). (optional, default false) */
         animated?: boolean | undefined;
         /** Describes raw pixel input image data. See raw() for pixel ordering. */
-        raw?: Raw | undefined;
+        raw?: CreateRaw | undefined;
         /** Describes a new image to be created. */
         create?: Create | undefined;
         /** Describes a new text image to be created. */
@@ -850,6 +854,11 @@ declare namespace sharp {
         channels: 1 | 2 | 3 | 4;
     }
 
+    interface CreateRaw extends Raw {
+        /** Specifies that the raw input has already been premultiplied, set to true to avoid sharp premultiplying the image. (optional, default false) */
+        premultiplied?: boolean | undefined;
+    }
+
     interface Create {
         /** Number of pixels wide. */
         width: number;
@@ -878,7 +887,7 @@ declare namespace sharp {
          */
         height?: number;
         /** Text alignment ('left', 'centre', 'center', 'right'). (optional, default 'left') */
-        align?: string;
+        align?: TextAlign;
         /** Set this to true to apply justification to the text. (optional, default `false`) */
         justify?: boolean;
         /** The resolution (size) at which to render the text. Does not take effect if `height` is specified. (optional, default `72`) */
@@ -954,6 +963,17 @@ declare namespace sharp {
         compression?: 'av1' | 'hevc';
         /** Default background colour, if present, for PNG (bKGD) and GIF images, either an RGB Object or a single greyscale value */
         background?: { r: number; g: number; b: number } | number;
+        /** Details of each level in a multi-level image provided as an array of objects, requires libvips compiled with support for OpenSlide */
+        levels?: LevelMetadata[] | undefined;
+        /** Number of Sub Image File Directories in an OME-TIFF image */
+        subifds?: number | undefined;
+        /** The unit of resolution (density) */
+        resolutionUnit?: 'inch' | 'cm' | undefined;
+    }
+
+    interface LevelMetadata {
+        width: number;
+        height: number;
     }
 
     interface Stats {
@@ -1089,6 +1109,8 @@ declare namespace sharp {
         lossless?: boolean | undefined;
         /** Level of CPU effort to reduce file size, between 0 (fastest) and 9 (slowest) (optional, default 4) */
         effort?: number | undefined;
+        /** set to '4:2:0' to use chroma subsampling (optional, default '4:4:4') */
+        chromaSubsampling?: string | undefined;
     }
 
     interface GifOptions extends OutputOptions, AnimationOptions {
@@ -1266,7 +1288,7 @@ declare namespace sharp {
         width: number;
         /** height of the region */
         height: number;
-        /** max slope of the cumulative contrast. (optional, default 3) */
+        /** max slope of the cumulative contrast. A value of 0 disables contrast limiting. Valid values are integers in the range 0-100 (inclusive) (optional, default 3) */
         maxSlope?: number | undefined;
     }
 
@@ -1296,6 +1318,13 @@ declare namespace sharp {
         raw?: Raw | undefined;
         /** Set to true to avoid premultipling the image below. Equivalent to the --premultiplied vips option. */
         premultiplied?: boolean | undefined;
+        /** Set to true to read all frames/pages of an animated image. (optional, default false). */
+        animated?: boolean | undefined;
+        /**
+         *  When to abort processing of invalid pixel data, one of (in order of sensitivity):
+         *  'none' (least), 'truncated', 'error' or 'warning' (most), highers level imply lower levels, invalid metadata will always abort. (optional, default 'warning')
+         */
+        failOn?: FailOnOptions | undefined;
         /**
          * Do not process input images where the number of pixels (width x height) exceeds this limit.
          * Assumes image dimensions contained in the input metadata can be trusted.
@@ -1318,7 +1347,7 @@ declare namespace sharp {
         /** Threshold to skip tile generation, a value 0 - 255 for 8-bit images or 0 - 65535 for 16-bit images */
         skipBlanks?: number | undefined;
         /** Tile container, with value fs (filesystem) or zip (compressed file). (optional, default 'fs') */
-        container?: string | undefined;
+        container?: TileContainer | undefined;
         /** Filesystem layout, possible values are dz, iiif, iiif3, zoomify or google. (optional, default 'dz') */
         layout?: TileLayout | undefined;
         /** Centre image in tile. (optional, default false) */
@@ -1327,6 +1356,8 @@ declare namespace sharp {
         center?: boolean | undefined;
         /** When layout is iiif/iiif3, sets the @id/id attribute of info.json (optional, default 'https://example.com/iiif') */
         id?: string | undefined;
+        /** The name of the directory within the zip file when container is `zip`. */
+        basename?: string | undefined;
     }
 
     interface AnimationOptions {
@@ -1424,6 +1455,10 @@ declare namespace sharp {
 
     type FailOnOptions = 'none' | 'truncated' | 'error' | 'warning';
 
+    type TextAlign = 'left' | 'centre' | 'center' | 'right';
+
+    type TileContainer = 'fs' | 'zip';
+
     type TileLayout = 'dz' | 'iiif' | 'iiif3' | 'zoomify' | 'google';
 
     type Blend =
@@ -1484,6 +1519,8 @@ declare namespace sharp {
         input: AvailableFormatInfo;
         jpeg: AvailableFormatInfo;
         jpg: AvailableFormatInfo;
+        jp2: AvailableFormatInfo;
+        jxl: AvailableFormatInfo;
         magick: AvailableFormatInfo;
         openslide: AvailableFormatInfo;
         pdf: AvailableFormatInfo;
