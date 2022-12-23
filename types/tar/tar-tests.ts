@@ -11,24 +11,27 @@ import path = require('path');
 /**
  * Quick Extract
  */
-fs.createReadStream('path/to/file.tar').pipe(tar.Extract('path/to/extract'));
+fs.createReadStream('path/to/file.tar').pipe(tar.extract('path/to/extract'));
 
 /**
  * Use with events
  */
 const readStream = fs.createReadStream('/path/to/file.tar');
-const extract = tar.Extract('/path/to/target');
+const extract = tar.extract('/path/to/target');
 
 readStream.pipe(extract);
 
-extract.on('entry', (entry: any) => undefined);
+extract.on('entry', entry => {
+    // $ExpectType ReadEntry
+    entry;
+});
 
 {
     const fixtures = path.resolve(__dirname, 'fixtures');
     const tars = path.resolve(fixtures, 'tars');
     const files = fs.readdirSync(tars);
 
-    const options: tar.PackOptions = {
+    const options: tar.Pack.Options = {
         cwd: files,
         portable: true,
         // gzip: true,
@@ -37,7 +40,7 @@ extract.on('entry', (entry: any) => undefined);
         filter: (path, stat): boolean => {
             // $ExpectType string
             path;
-            // $ExpectType FileStat
+            // $ExpectType unknown
             stat;
 
             return true;
@@ -47,7 +50,7 @@ extract.on('entry', (entry: any) => undefined);
             c;
             // $ExpectType string
             m;
-            // $ExpectType Buffer
+            // $ExpectType Buffer | undefined
             p;
         },
         strict: false,
@@ -64,10 +67,11 @@ extract.on('entry', (entry: any) => undefined);
         .end('one-byte.txt')
         .on('data', () => {})
         .on('data', c => {
-            // $ExpectType Buffer
+            // $ExpectType string | ReadEntry
             c;
         })
         .on('end', () => {
+            // $ExpectType string | ReadEntry
             new tar.Pack.Sync({
                 ...options,
                 linkCache: pack.linkCache,
@@ -79,67 +83,168 @@ extract.on('entry', (entry: any) => undefined);
                 .read();
         });
 
-    // $ExpectType boolean
-    new tar.Pack(options).write('path');
+    // $ExpectType void
+    pack.warn('code', 'message');
 
-    // $ExpectType typeof PackSync
-    tar.Pack.Sync;
+    // $ExpectType boolean
+    pack.write('path');
 }
 
 /**
  * Examples from tar docs:
  */
 
-tar.c(
-    {
-        gzip: true,
-        file: 'my-tarball.tgz'
-    },
-    ['some', 'files', 'and', 'folders']
-).then(() => undefined);
+{
+    // $ExpectType Promise<undefined>
+    tar.c(
+        {
+            gzip: true,
+            file: 'my-tarball.tgz',
+        },
+        ['some', 'files', 'and', 'folders'],
+    ).then(() => undefined);
 
-tar.c(
-    {
-        gzip: true,
-    },
-    ['some', 'files', 'and', 'folders']
-).pipe(fs.createWriteStream('my-tarball.tgz'));
+    // $ExpectType PackSync
+    tar.c(
+        {
+            gzip: true,
+            sync: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    );
 
-tar.c(
-    {
-        prefix: 'some-prefix',
-    },
-    ['some', 'files', 'and', 'folders']
-).pipe(fs.createWriteStream('my-tarball.tgz'));
+    // $ExpectType undefined
+    tar.c(
+        {
+            gzip: true,
+            file: 'my-tarball.tgz',
+            sync: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    );
 
-tar.x(
-    {
+    // $ExpectType Pack
+    tar.c(
+        {
+            gzip: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    );
+
+    // $ExpectType WriteStream
+    tar.c(
+        {
+            gzip: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    ).pipe(fs.createWriteStream('my-tarball.tgz'));
+
+    // $ExpectType WriteStream
+    tar.c(
+        {
+            prefix: 'some-prefix',
+        },
+        ['some', 'files', 'and', 'folders'],
+    ).pipe(fs.createWriteStream('my-tarball.tgz'));
+}
+
+{
+    // $ExpectType Promise<undefined>
+    tar.x(
+        {
+            strict: true,
+            file: 'my-tarball.tgz',
+        },
+        ['some', 'files', 'and', 'folders'],
+    ).then(() => undefined);
+
+    // $ExpectType UnpackSync
+    tar.x(
+        {
+            strict: true,
+            sync: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    );
+
+    // $ExpectType undefined
+    tar.x(
+        {
+            strict: true,
+            file: 'my-tarball.tgz',
+            sync: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    );
+
+    // $ExpectType Unpack
+    tar.x(
+        {
+            strict: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    );
+
+    // $ExpectType WriteStream
+    tar.x(
+        {
+            strict: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    ).pipe(fs.createWriteStream('my-tarball.tgz'));
+
+    // $ExpectType WriteStream
+    tar.x(
+        {
+            strict: true,
+        },
+        ['some', 'files', 'and', 'folders'],
+    ).pipe(fs.createWriteStream('my-tarball.tgz'));
+
+    // $ExpectType Promise<undefined>
+    tar.x({
         file: 'my-tarball.tgz',
         noChmod: true,
-    }
-).then(() => undefined);
-
-fs.createReadStream('my-tarball.tgz').pipe(
-    tar.x({
-        strip: 1,
-        C: 'some-dir' // alias for cwd:'some-dir', also ok
-    })
-);
+    }).then(() => undefined);
+}
 
 tar.t({
     file: 'my-tarball.tgz',
-    onentry: (entry) => console.log(entry.path, 'was', entry.size),
+    onentry: entry => {
+        // $ExpectType ReadEntry
+        entry;
+        // $ExpectType string
+        entry.path;
+        // $ExpectType number
+        entry.size;
+    },
 });
 
 fs.createReadStream('my-tarball.tgz')
     .pipe(tar.t())
-    .on('entry', entry => console.log(entry.size));
+    .on('entry', entry => {
+        // $ExpectType ReadEntry
+        entry;
+    });
 
 fs.createReadStream('my-tarball.tgz')
     .pipe(new tar.Parse())
-    .on('entry', entry => entry.on('data', data => console.log(data)));
+    .on('entry', entry => {
+        // $ExpectType ReadEntry
+        entry;
+
+        entry.on('data', data => {
+            // $ExpectType Buffer
+            data;
+        });
+    });
 
 tar.list({
-    file: "my-tarball.tgz",
-    onentry: (entry) => entry.path.slice(1),
-}).then(() => console.log("after listing"));
+    file: 'my-tarball.tgz',
+    onentry: entry => {
+        // $ExpectType ReadEntry
+        entry;
+
+        entry.path.slice(1);
+    },
+}).then(() => console.log('after listing'));
