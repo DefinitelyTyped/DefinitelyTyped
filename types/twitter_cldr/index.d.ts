@@ -2,7 +2,6 @@
 // Project: https://github.com/twitter/twitter-cldr-npm/
 // Definitions by: Lionel Rowe <https://github.com/lionel-rowe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 
 export type CldrData = Record<string, any>;
 
