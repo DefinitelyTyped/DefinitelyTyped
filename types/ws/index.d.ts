@@ -27,16 +27,23 @@ import { SecureContextOptions } from "tls";
 import { URL } from "url";
 import { ZlibOptions } from "zlib";
 
-type FirstArgument<F extends typeof Buffer.from> = F extends (data: infer A) => any ? A : never;
-
+// don't know how to get all overload of BufferConstructor, just copy it's first arguments here
 type BufferLike =
     | string
     | Buffer
-    | ArrayBuffer
+    | number
     | ArrayBufferView
-    | Parameters<BufferConstructor['from']>[0]
+    | Uint8Array
+    | ArrayBuffer
+    | SharedArrayBuffer
+    | ReadonlyArray<any>
+    | ReadonlyArray<number>
+    | { valueOf(): ArrayBuffer }
+    | { valueOf(): SharedArrayBuffer }
+    | { valueOf(): Uint8Array }
+    | { valueOf(): ReadonlyArray<number> }
     | { valueOf(): string }
-    | Buffer[];
+    | { [Symbol.toPrimitive](hint: string): string };
 
 // WebSocket socket.
 declare class WebSocket extends EventEmitter {
