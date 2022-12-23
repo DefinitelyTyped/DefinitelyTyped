@@ -98,8 +98,8 @@ declare class WebSocket extends EventEmitter {
     pong(data?: any, mask?: boolean, cb?: (err: Error) => void): void;
     // https://github.com/websockets/ws/issues/2076#issuecomment-1250354722
     send(data: BufferLike, cb?: (err?: Error) => void): void;
-    send<T>(
-        data: BufferConstructor<T>,
+    send(
+        data: BufferLike,
         options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined },
         cb?: (err?: Error) => void,
     ): void;
