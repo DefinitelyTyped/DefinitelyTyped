@@ -2,7 +2,6 @@
 // Project: https://github.com/burgaard/string-algorithms
 // Definitions by: Lionel Rowe <https://github.com/lionel-rowe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
 
 export function search(text: string, term: string): number[];
 
