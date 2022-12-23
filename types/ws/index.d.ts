@@ -32,6 +32,7 @@ import { ZlibOptions } from "zlib";
 type BufferLike =
     | string
     | Buffer
+    | DataView
     | number
     | ArrayBufferView
     | Uint8Array
