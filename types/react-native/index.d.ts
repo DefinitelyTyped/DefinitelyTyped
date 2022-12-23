@@ -3999,7 +3999,7 @@ export interface ViewabilityConfig {
     waitForInteraction?: boolean | undefined;
 }
 
-export interface ViewabilityConfigCallbackPair<ItemT, SectionT = never> {
+export interface ViewabilityConfigCallbackPair<ItemT = unknown, SectionT = never> {
     viewabilityConfig: ViewabilityConfig;
     onViewableItemsChanged:
         | ((info: {
@@ -4009,7 +4009,7 @@ export interface ViewabilityConfigCallbackPair<ItemT, SectionT = never> {
         | null;
 }
 
-export type ViewabilityConfigCallbackPairs<ItemT, SectionT = never> = ViewabilityConfigCallbackPair<ItemT, SectionT>[];
+export type ViewabilityConfigCallbackPairs<ItemT = unknown, SectionT = never> = ViewabilityConfigCallbackPair<ItemT, SectionT>[];
 
 /**
  * @see https://reactnative.dev/docs/flatlist#props
