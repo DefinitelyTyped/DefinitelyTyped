@@ -361,7 +361,7 @@ declare namespace sharp {
          * Sharpen the image.
          * When used without parameters, performs a fast, mild sharpen of the output image.
          * When a sigma is provided, performs a slower, more accurate sharpen of the L channel in the LAB colour space.
-         * Separate control over the level of sharpening in "flat" and "jagged" areas is available.
+         * Fine-grained control over the level of sharpening in "flat" (m1) and "jagged" (m2) areas is available.
          * @param options if present, is an Object with optional attributes
          * @throws {Error} Invalid parameters
          * @returns A sharp instance that can be used to chain operations
@@ -372,7 +372,7 @@ declare namespace sharp {
          * Sharpen the image.
          * When used without parameters, performs a fast, mild sharpen of the output image.
          * When a sigma is provided, performs a slower, more accurate sharpen of the L channel in the LAB colour space.
-         * Separate control over the level of sharpening in "flat" and "jagged" areas is available.
+         * Fine-grained control over the level of sharpening in "flat" (m1) and "jagged" (m2) areas is available.
          * @param sigma the sigma of the Gaussian mask, where sigma = 1 + radius / 2.
          * @param flat the level of sharpening to apply to "flat" areas. (optional, default 1.0)
          * @param jagged the level of sharpening to apply to "jagged" areas. (optional, default 2.0)
@@ -584,6 +584,18 @@ declare namespace sharp {
         jp2: (options?: Jp2Options) => Sharp;
 
         /**
+         * Use these JPEG-XL (JXL) options for output image.
+         * This feature is experimental, please do not use in production systems.
+         * Requires libvips compiled with support for libjxl.
+         * The prebuilt binaries do not include this.
+         * Image metadata (EXIF, XMP) is unsupported.
+         * @param options Output options.
+         * @throws {Error} Invalid options
+         * @returns A sharp instance that can be used to chain operations
+         */
+        jxl(options?: JxlOptions): Sharp;
+
+        /**
          * Use these PNG options for output image.
          * PNG output is always full colour at 8 or 16 bits per pixel.
          * Indexed PNG input at 1, 2 or 4 bits per pixel is converted to 8 bits per pixel.
@@ -769,8 +781,8 @@ declare namespace sharp {
 
     interface SharpOptions {
         /**
-         *  Level of sensitivity to invalid images, one of (in order of sensitivity):
-         *  'none' (least), 'truncated', 'error' or 'warning' (most), highers level imply lower levels. (optional, default 'warning')
+         *  When to abort processing of invalid pixel data, one of (in order of sensitivity):
+         *  'none' (least), 'truncated', 'error' or 'warning' (most), highers level imply lower levels, invalid metadata will always abort. (optional, default 'warning')
          */
         failOn?: FailOnOptions | undefined;
         /**
@@ -1025,6 +1037,19 @@ declare namespace sharp {
         chromaSubsampling?: '4:4:4' | '4:2:0';
     }
 
+    interface JxlOptions extends OutputOptions {
+        /** Maximum encoding error, between 0 (highest quality) and 15 (lowest quality) (optional, default 1.0) */
+        distance?: number;
+        /** Calculate distance based on JPEG-like quality, between 1 and 100, overrides distance if specified */
+        quality?: number;
+        /** Target decode speed tier, between 0 (highest quality) and 4 (lowest quality) (optional, default 0) */
+        decodingTier?: number;
+        /** Use lossless compression (optional, default false) */
+        lossless?: boolean;
+        /** CPU effort, between 3 (fastest) and 9 (slowest) (optional, default 7) */
+        effort?: number | undefined;
+    }
+
     interface WebpOptions extends OutputOptions, AnimationOptions {
         /** Quality, integer 1-100 (optional, default 80) */
         quality?: number | undefined;
@@ -1079,6 +1104,10 @@ declare namespace sharp {
         effort?: number | undefined;
         /** Level of Floyd-Steinberg error diffusion, between 0 (least) and 1 (most) (optional, default 1.0) */
         dither?: number | undefined;
+        /** Maximum inter-frame error for transparency, between 0 (lossless) and 32 (optional, default 0) */
+        interFrameMaxError?: number;
+        /** Maximum inter-palette error for palette reuse, between 0 and 256 (optional, default 3) */
+        interPaletteMaxError?: number;
     }
 
     interface TiffOptions extends OutputOptions {
@@ -1143,9 +1172,9 @@ declare namespace sharp {
     }
 
     interface ResizeOptions {
-        /** Alternative means of specifying width. If both are present this take priority. */
+        /** Alternative means of specifying width. If both are present this takes priority. */
         width?: number | undefined;
-        /** Alternative means of specifying height. If both are present this take priority. */
+        /** Alternative means of specifying height. If both are present this takes priority. */
         height?: number | undefined;
         /** How the image should be resized to fit both provided dimensions, one of cover, contain, fill, inside or outside. (optional, default 'cover') */
         fit?: keyof FitEnum | undefined;
@@ -1308,17 +1337,17 @@ declare namespace sharp {
     }
 
     interface SharpenOptions {
-        /** The sigma of the Gaussian mask, where sigma = 1 + radius / 2. */
+        /** The sigma of the Gaussian mask, where sigma = 1 + radius / 2, between 0.000001 and 10000 */
         sigma: number;
-        /** The level of sharpening to apply to "flat" areas. (optional, default 1.0) */
+        /** The level of sharpening to apply to "flat" areas, between 0 and 1000000 (optional, default 1.0) */
         m1?: number | undefined;
-        /** The level of sharpening to apply to "jagged" areas. (optional, default 2.0) */
+        /** The level of sharpening to apply to "jagged" areas, between 0 and 1000000 (optional, default 2.0) */
         m2?: number | undefined;
-        /** Threshold between "flat" and "jagged" (optional, default 2.0) */
+        /** Threshold between "flat" and "jagged", between 0 and 1000000 (optional, default 2.0) */
         x1?: number | undefined;
-        /** Maximum amount of brightening. (optional, default 10.0) */
+        /** Maximum amount of brightening, between 0 and 1000000 (optional, default 10.0) */
         y2?: number | undefined;
-        /** Maximum amount of darkening. (optional, default 20.0) */
+        /** Maximum amount of darkening, between 0 and 1000000 (optional, default 20.0) */
         y3?: number | undefined;
     }
 
