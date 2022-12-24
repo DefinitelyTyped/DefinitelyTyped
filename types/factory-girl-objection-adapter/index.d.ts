@@ -6,7 +6,7 @@
 export = ObjectionAdapter;
 
 declare class ObjectionAdapter {
-    build<T>(model: any, props: Partial<T>): T;
+    build<T>(Model: any, props: Partial<T>): T;
     save<T>(model: T, Model: any): Promise<T>;
     destroy<T>(model: T, Model: any): Promise<T>;
     get<T>(model: T, attr: string): T;
