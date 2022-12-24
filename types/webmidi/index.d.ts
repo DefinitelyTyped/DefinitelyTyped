@@ -24,13 +24,13 @@ declare namespace WebMidi {
      * This is a maplike interface whose value is a MIDIInput instance and key is its
      * ID.
      */
-    type MIDIInputMap = Map<string, MIDIInput>;
+    type MIDIInputMap = ReadonlyMap<string, MIDIInput>;
 
     /**
      * This is a maplike interface whose value is a MIDIOutput instance and key is its
      * ID.
      */
-    type MIDIOutputMap = Map<string, MIDIOutput>;
+    type MIDIOutputMap = ReadonlyMap<string, MIDIOutput>;
 
     interface MIDIAccess extends EventTarget {
         /**
