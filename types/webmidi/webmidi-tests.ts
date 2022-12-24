@@ -33,6 +33,11 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
         // 'send' only available on outputs
         inputOrOutput.send([12345]);
     }
+
+    // @ts-expect-error MidiInputMap is read-only
+    item.inputs.clear();
+    // @ts-expect-error MidiOutputMap is read-only
+    item.outputs.clear();
 };
 
 const onRejected = (e: Error) => {
