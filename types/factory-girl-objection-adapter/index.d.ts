@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = ObjectionAdapter;
+
 declare class ObjectionAdapter {
-    build(Model: any, props: any): any;
-    save(model: any, Model: any): Promise<any>;
-    destroy(model: any, Model: any): Promise<any>;
-    get(model: any, attr: any): any;
-    set(props: any, model: any): any;
+    build<T>(model: any, props: Partial<T>): T;
+    save<T>(model: T, Model: any): Promise<T>;
+    destroy<T>(model: T, Model: any): Promise<T>;
+    get<T>(model: T, attr: string): T;
+    set<T>(props: Partial<T>, model: T): T;
 }
