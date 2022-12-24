@@ -10,7 +10,10 @@ interface Stats {
     setMode(id: number): void;
 }
 
-declare function Stats(): Stats;
+declare var Stats: {
+    new(): Stats
+    (): Stats
+}
 
 declare namespace Stats {
     interface Panel {
