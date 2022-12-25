@@ -2,7 +2,6 @@
 // Project: https://sap.github.io/fundamental-react
 // Definitions by: Frank Feinbube <https://github.com/Feinbube>
 //                 Milan Proell <https://github.com/milanpro>
-//                 Sam Kvale <https://github.com/skvale>
 //                 Auryn Engel <https://github.com/auryn31>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
