@@ -28,20 +28,20 @@ declare namespace seedrandom {
     }
 }
 
+interface BaseInterface {
+    (seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    new (seed?: string): seedrandom.PRNG;
+}
+
 interface seedrandom {
     (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PRNG;
-    alea(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
-    Alea: new (seed?: string) => seedrandom.PRNG;
-    tychei(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
-    Tychei: new (seed?: string) => seedrandom.PRNG;
-    xor128(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
-    Xor128: new (seed?: string) => seedrandom.PRNG;
-    xor4096(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
-    Xor4096: new (seed?: string) => seedrandom.PRNG;
-    xorshift7(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
-    XorShift7: new (seed?: string) => seedrandom.PRNG;
-    xorwow(seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
-    XorWow: new (seed?: string) => seedrandom.PRNG;
+    alea: BaseInterface;
+    quick: BaseInterface;
+    tychei: BaseInterface;
+    xor128: BaseInterface;
+    xor4096: BaseInterface;
+    xorshift7: BaseInterface;
+    xorwow: BaseInterface;
 }
 
 declare const seedrandom: seedrandom;

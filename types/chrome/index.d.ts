@@ -7447,7 +7447,7 @@ declare namespace chrome.runtime {
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string | undefined | null, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
@@ -7455,7 +7455,7 @@ declare namespace chrome.runtime {
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<Message = any, Response = any>(
-        extensionId: string,
+        extensionId: string | undefined | null,
         message: Message,
         options: MessageOptions,
         responseCallback: (response: Response) => void,
@@ -7478,14 +7478,14 @@ declare namespace chrome.runtime {
      * @since Chrome 26.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M): Promise<R>;
+    export function sendMessage<M = any, R = any>(extensionId: string | undefined | null, message: M): Promise<R>;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      */
     export function sendMessage<Message = any, Response = any>(
-        extensionId: string,
+        extensionId: string | undefined | null,
         message: Message,
         options: MessageOptions,
     ): Promise<Response>;
