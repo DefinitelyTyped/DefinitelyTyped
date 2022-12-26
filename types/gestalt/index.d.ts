@@ -1563,6 +1563,7 @@ export interface SideNaviationProps {
      */
     showBorder?: boolean | undefined;
     title?: string | undefined;
+    dismissButton?: { accessibilityLabel?: string; onDismiss: () => void } | undefined;
 }
 
 export interface SideNavigationSectionProps {
