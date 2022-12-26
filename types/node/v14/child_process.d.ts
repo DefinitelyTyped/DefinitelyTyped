@@ -143,7 +143,7 @@ declare module 'child_process' {
 
     interface CommonOptions extends ProcessEnvOptions {
         /**
-         * @default true
+         * @default false
          */
         windowsHide?: boolean | undefined;
         /**
