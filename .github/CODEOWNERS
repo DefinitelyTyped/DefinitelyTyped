@@ -1827,11 +1827,6 @@
 /types/ember-modal-dialog/                               @dfreeman @chriskrycho @jamescdavis
 /types/ember-modal-dialog/v2/                            @tansongyang @mike-north
 /types/ember-modal-service/                              @elenagolovko
-/types/ember-qunit/                                      @dfreeman @chriskrycho @jamescdavis
-/types/ember-qunit/v4/                                   @dwickern @mike-north @scalvert @dfreeman @chriskrycho @jamescdavis
-/types/ember-qunit/v2/                                   @dwickern @mike-north
-/types/ember-resolver/                                   @dfreeman @chriskrycho @jamescdavis @wagenet
-/types/ember-resolver/v4/                                @dfreeman @mike-north
 /types/ember-task-scheduler/                             @elenagolovko
 /types/ember-test-helpers/                               @dwickern @mike-north @chriskrycho @jamescdavis @dfreeman
 /types/ember-test-helpers/v0/                            @dwickern @mike-north
@@ -1874,8 +1869,6 @@
 /types/ember__template/v3/                               @mike-north @chriskrycho @dfreeman @jamescdavis
 /types/ember__test/                                      @chriskrycho @dfreeman @jamescdavis @wagenet
 /types/ember__test/v3/                                   @mike-north @chriskrycho @dfreeman @jamescdavis
-/types/ember__test-helpers/                              @dfreeman @jamescdavis @wagenet @chriskrycho
-/types/ember__test-helpers/v1/                           @dfreeman @jamescdavis @mike-north @chriskrycho
 /types/ember__utils/                                     @chriskrycho @dfreeman @jamescdavis @wagenet
 /types/ember__utils/v3/                                  @mike-north @chriskrycho @dfreeman @jamescdavis
 /types/emilbayes__capped-array/                          @BendingBender
@@ -3411,7 +3404,6 @@
 /types/hapi__crumb/                                      @lenovouser @SimonSchick
 /types/hapi__glue/                                       @lenovouser @btmorex
 /types/hapi__h2o2/                                       @jasonswearingen @AJamesPhillips @garthk @lenovouser
-/types/hapi__hapi/                                       @rafaelsouzaf @jhsimms @SimonSchick @saboya @lenovouser
 /types/hapi__hawk/                                       @ffflorian
 /types/hapi__inert/                                      @nycdotnet @AJamesPhillips @lenovouser
 /types/hapi__joi/                                        @Bartvds @laurence-myers @cglantschnig @DavidBR-SW @GaelMagnan @ralekna @schfkt @rokoroku @dankraus @wanganjun @rafaelkallis @aconanlai @zaphoyd @thewillg @SimonSchick @afharo @lenovouser @AnandChowdhary @myovchev @RecuencoJones @freisenhauer @legraphista @stevendesu
@@ -3840,7 +3832,7 @@
 /types/iso8601-localizer/                                @avielfedida
 /types/isomorphic-fetch/                                 @toddlucas
 /types/isomorphic-form-data/                             @maxbogus
-/types/isomorphic-git__lightning-fs/                     @Progyan1997
+/types/isomorphic-git__lightning-fs/                     @DefinitelyTyped
 /types/isotope-layout/                                   @avidenic @malinushj @SPWizard01
 /types/isstream/                                         @MasterOdin
 /types/issue-parser/                                     @Leko
@@ -4246,7 +4238,7 @@
 /types/jwt-then/                                         @phenomax
 /types/jxon/                                             @maxbogus
 /types/k-bucket/                                         @tomonari-t
-/types/k6/                                               @na-- @MStoykov @codebien @oleiade @olegbespalov @ppcano @nicolevanderhoeven
+/types/k6/                                               @na-- @MStoykov @codebien @imiric @oleiade @olegbespalov @ppcano @nicolevanderhoeven
 /types/kafka-node-avro/                                  @alfamegaxq
 /types/kahoot.js-updated/                                @MysteryBlokHed
 /types/kakao-js-sdk/                                     @wooogi123
@@ -5795,6 +5787,7 @@
 /types/onscan.js/                                        @DefinitelyTyped
 /types/ontime/                                           @Hirse
 /types/oojs/                                             @diskdance
+/types/oojs-ui/                                          @diskdance
 /types/ooura/                                            @sukumo28
 /types/open-graph/                                       @ffflorian
 /types/open-graph-scraper/                               @ffflorian
@@ -6310,6 +6303,7 @@
 /types/protoo-server/                                    @antoniom
 /types/protractor-beautiful-reporter/                    @akwiatek
 /types/protractor-browser-logs/                          @rokadias
+/types/protractor-console-plugin/                        @akwiatek
 /types/protractor-helpers/                               @johncant
 /types/protractor-http-mock/                             @Crevil @akwiatek
 /types/provinces/                                        @DefinitelyTyped
@@ -6585,7 +6579,7 @@
 /types/react-draft-wysiwyg/                              @imechZhangLY @brunoMaurice @ldanet @MunifTanjim @n-zeplo
 /types/react-dragtastic/                                 @nscarcella
 /types/react-dragula/                                    @AdrianMrn
-/types/react-dual-listbox/                               @wKovacs64
+/types/react-dual-listbox/                               @DefinitelyTyped
 /types/react-dynamic-number/                             @eugrdn
 /types/react-easy-chart/                                 @danzel
 /types/react-edit-text/                                  @bymi15
@@ -8380,6 +8374,7 @@
 /types/twitter-for-web/                                  @chitoku-k @Lucretiel
 /types/twitter-stream-channels/                          @adrianbardan
 /types/twitter-text/                                     @rhysd
+/types/twitter_cldr/                                     @lionel-rowe
 /types/twix/                                             @j3ko
 /types/two.js/                                           @cprecioso @demkonst @leventefabry
 /types/twuni__emojify/                                   @max-programming
@@ -8480,6 +8475,7 @@
 /types/uritemplate/                                      @teyc @rubensworks
 /types/urix/                                             @BendingBender
 /types/url-assembler/                                    @wolfgang42 @alicewriteswrongs
+/types/url-file-size/                                    @shahoob
 /types/url-format-lax/                                   @yoursunny
 /types/url-join/                                         @rogierschouten @devrelm @BendingBender
 /types/url-join/v0/                                      @rogierschouten @devrelm
