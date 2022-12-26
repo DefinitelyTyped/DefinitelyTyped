@@ -17,12 +17,13 @@ export = Reveal;
  *
  * @see {@link https://revealjs.com}
  * @see {@link https://github.com/hakimel/reveal.js/blob/master/js/reveal.js}
+ * @see {@link https://revealjs.com/api/}
  */
 declare const Reveal: {
     new (options?: Reveal.Options): Reveal.Api;
     new (revealElement: Element, options: Reveal.Options): Reveal.Api;
     initialize(options?: Reveal.Options): Promise<Reveal.Api>;
-};
+} & Reveal.Api;
 
 declare namespace Reveal {
     /**
