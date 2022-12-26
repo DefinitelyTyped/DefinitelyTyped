@@ -1729,13 +1729,12 @@ export interface SheetProps {
  *
  */
 export interface SlimBannerProps {
-    dismissButton:
+    dismissButton?:
         | {
               accessibilityLabel: string;
               onDismiss: () => void;
           }
         | undefined;
-
     primaryAction?:
         | {
               accessibilityLabel: string;
