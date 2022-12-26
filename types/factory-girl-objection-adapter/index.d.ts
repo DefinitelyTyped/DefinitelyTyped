@@ -5,10 +5,19 @@
 
 export = ObjectionAdapter;
 
+interface ObjectionModelConstructor<T extends { id: unknown }> {
+    new(): T;
+    query(): ObjectionQueryBuilder<T>;
+}
+
+interface ObjectionQueryBuilder<T extends { id: unknown }> {
+    insert(model: T): PromiseLike<T>;
+    deleteById(id: T['id']): PromiseLike<number>;
+}
+
 declare class ObjectionAdapter {
-    build<T>(Model: any, props: Partial<T>): T;
-    save<T>(model: T, Model: any): Promise<T>;
-    destroy<T>(model: T, Model: any): Promise<T>;
-    get<T>(model: T, attr: string): T;
-    set<T>(props: Partial<T>, model: T): T;
+    build<T extends { id: unknown }>(Model: ObjectionModelConstructor<T>, props: Partial<T>): T;
+    save<T extends { id: unknown }>(model: T, Model: ObjectionModelConstructor<T>): Promise<T>;
+    destroy<T extends { id: unknown }>(model: T, Model: ObjectionModelConstructor<T>): Promise<number>;
+    get<T, K extends keyof T>(model: T, attr: K): T[K];
 }
