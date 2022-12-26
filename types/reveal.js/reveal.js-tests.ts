@@ -617,10 +617,12 @@ deck.toggleAutoSlide();
 
 // $ExpectType boolean
 deck.isFirstSlide();
+// $ExpectType boolean
 Reveal.isFirstSlide();
 
 // $ExpectType boolean
 deck.isLastSlide();
+// $ExpectType boolean
 Reveal.isLastSlide();
 
 // $ExpectType boolean
