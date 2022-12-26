@@ -10,7 +10,6 @@
 //                 Zack Haigh <https://github.com/zetagame>
 //                 Ethan Setnik <https://github.com/esetnik>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 
@@ -336,20 +335,29 @@ declare namespace jwplayer {
     type NoParamEvent =
         | 'adBlock'
         | 'beforeComplete'
-        | 'complete'
         | 'beforePlay'
+        | 'complete'
         | 'displayClick'
         | 'playlistComplete'
+        | 'remove'
         | 'seeked'
-        | 'remove';
+        | 'userActive'
+        | 'userInactive';
+
+    interface SliderCue {
+        begin: number;
+        cueType: string;
+        text: string;
+    }
 
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
-        addCues(cues: Array<{ begin: number; cueType: string; text: string }>): JWPlayer;
+        addCues(cues: SliderCue[]): JWPlayer;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];
         getControls(): boolean;
+        getCues(): SliderCue[];
         getCurrentAudioTrack(): number;
         getCurrentCaptions(): number;
         getCurrentQuality(): number;
@@ -390,24 +398,25 @@ declare namespace jwplayer {
         removeButton(id: string): JWPlayer;
         resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
+        setCaptions(options: CaptionOptions): JWPlayer;
         setControls(controls: boolean): void;
+        setCues(cues: SliderCue[]): JWPlayer;
         setCurrentAudioTrack(index: number): void;
         setCurrentCaptions(index: number): void;
         setCurrentQuality(index: number): void;
-        setPlaybackRate(rate: number): void;
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): JWPlayer;
+        setPlaybackRate(rate: number): void;
         setup(options: any): JWPlayer;
         setVolume(volume: number): JWPlayer;
-        setCaptions(options: CaptionOptions): JWPlayer;
         stop(): JWPlayer;
-    }
-
-    interface JWPlayerStatic {
-        (query?: string | number | Element): JWPlayer;
-        key: string;
-        version: string;
     }
 }
 
-declare const jwplayer: jwplayer.JWPlayerStatic;
+interface JWPlayerStatic {
+    (query?: string | number | Element): jwplayer.JWPlayer;
+    key: string;
+    version: string;
+}
+
+declare const jwplayer: JWPlayerStatic;
