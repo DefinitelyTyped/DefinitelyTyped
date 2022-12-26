@@ -1,6 +1,6 @@
 import { Configuration as WebpackConfig, RuleSetRule, Options, Plugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { GenerateSWConfig } from 'workbox-webpack-plugin';
+import { GenerateSWConfig } from '@types/workbox-webpack-plugin';
 import { OverrideFunc } from './core';
 
 /**

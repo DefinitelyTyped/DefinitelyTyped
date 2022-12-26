@@ -5,18 +5,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import * as WorkboxBackgroundSync from "workbox-background-sync";
-import * as WorkboxBroadcastUpdate from "workbox-broadcast-update";
-import * as WorkboxCacheableResponse from "workbox-cacheable-response";
-import * as WorkboxCore from "workbox-core";
-import * as WorkboxExpiration from "workbox-expiration";
-import * as WorkboxGoogleAnalytics from "workbox-google-analytics";
-import * as WorkboxNavigationPreload from "workbox-navigation-preload";
-import * as WorkboxPrecaching from "workbox-precaching";
-import * as WorkboxRangeRequests from "workbox-range-requests";
-import * as WorkboxRouting from "workbox-routing";
-import * as WorkboxStrategies from "workbox-strategies";
-import * as WorkboxStreams from "workbox-streams";
+import * as WorkboxBackgroundSync from '@types/workbox-background-sync';
+import * as WorkboxBroadcastUpdate from '@types/workbox-broadcast-update';
+import * as WorkboxCacheableResponse from '@types/workbox-cacheable-response';
+import * as WorkboxCore from '@types/workbox-core';
+import * as WorkboxExpiration from '@types/workbox-expiration';
+import * as WorkboxGoogleAnalytics from '@types/workbox-google-analytics';
+import * as WorkboxNavigationPreload from '@types/workbox-navigation-preload';
+import * as WorkboxPrecaching from '@types/workbox-precaching';
+import * as WorkboxRangeRequests from '@types/workbox-range-requests';
+import * as WorkboxRouting from '@types/workbox-routing';
+import * as WorkboxStrategies from '@types/workbox-strategies';
+import * as WorkboxStreams from '@types/workbox-streams';
 
 declare global {
     namespace workbox {

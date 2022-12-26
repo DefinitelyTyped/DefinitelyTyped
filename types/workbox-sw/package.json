@@ -1,17 +1,17 @@
 {
   "private": true,
   "dependencies": {
-    "workbox-core": "^6.5.4",
-    "workbox-build": "^6.5.4",
-    "workbox-expiration": "^6.5.4",
-    "workbox-routing": "^6.5.4",
-    "workbox-streams": "^6.5.4",
-    "workbox-strategies": "^6.5.4",
-    "workbox-range-requests": "^6.5.4",
-    "workbox-google-analytics": "^6.5.4",
-    "workbox-cacheable-response": "^6.5.4",
-    "workbox-broadcast-update": "^6.5.4",
-    "workbox-background-sync": "^6.5.4",
-    "workbox-navigation-preload": "^6.5.4"
+    "@types/workbox-core": "^4.3.1",
+    "@types/workbox-build": "^5.0.1",
+    "@types/workbox-expiration": "^4.3.1",
+    "@types/workbox-routing": "^4.3.1",
+    "@types/workbox-streams": "^4.3.0",
+    "@types/workbox-strategies": "^4.3.1",
+    "@types/workbox-range-requests": "^4.3.0",
+    "@types/workbox-google-analytics": "^4.3.1",
+    "@types/workbox-cacheable-response": "^4.3.1",
+    "@types/workbox-broadcast-update": "^4.3.1",
+    "@types/workbox-background-sync": "^4.3.2",
+    "@types/workbox-navigation-preload": "^4.3.0"
   }
 }

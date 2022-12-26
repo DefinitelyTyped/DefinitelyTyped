@@ -1,6 +1,6 @@
 {
   "private": true,
   "dependencies": {
-    "workbox-webpack-plugin": "^6.5.4"
+    "@types/workbox-webpack-plugin": "^5.1.8"
   }
 }
