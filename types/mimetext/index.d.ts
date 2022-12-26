@@ -105,7 +105,7 @@ export type VideoType =
     | 'video/webm'
     | 'video/x-msvideo';
 
-export type MIMEtype = ApplicationType | AudioType | FontType | ImageType | TextType | VideoType;
+export type MIMEType = ApplicationType | AudioType | FontType | ImageType | TextType | VideoType;
 
 export interface MIMEHeader {
     custom: boolean;
@@ -156,7 +156,7 @@ declare class MimeMessage {
     getRecipients(options?: RecipientOptions): Mailbox[];
     getSender(): Mailbox;
     getSubject(): string | undefined;
-    setAttachment(name: string, type: MIMEtype, attachment: string): MIMEMessageContent;
+    setAttachment(name: string, type: MIMEType, attachment: string): MIMEMessageContent;
     setBcc(bcc: MailLocation | MailLocation[]): Mailbox[];
     setCc(cc: MailLocation | MailLocation[]): Mailbox[];
     setHeader(key: string, value: string): string;
