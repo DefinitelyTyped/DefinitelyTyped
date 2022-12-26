@@ -354,6 +354,7 @@ declare namespace jwplayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
         addCues(cues: SliderCue[]): JWPlayer;
         addPlugin(name: string, pluginInstance: any): void;
+        getAdBlock(): boolean;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];
@@ -393,8 +394,9 @@ declare namespace jwplayer {
         trigger<TEvent extends keyof EventParams>(event: TEvent, args: EventParams[TEvent]): JWPlayer;
         trigger(event: NoParamEvent): JWPlayer;
         pause(state?: boolean): JWPlayer;
+        pauseAd(toggle: boolean): void;
         play(state?: boolean): JWPlayer;
-        playAd(tag: string): void;
+        playAd(tag: string | string[]): void;
         playlistItem(index: number): void;
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
         remove(): JWPlayer;
@@ -413,6 +415,7 @@ declare namespace jwplayer {
         setPlaybackRate(rate: number): void;
         setup(options: any): JWPlayer;
         setVolume(volume: number): JWPlayer;
+        skipAd(): JWPlayer;
         stop(): JWPlayer;
     }
 }

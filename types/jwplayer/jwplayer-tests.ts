@@ -27,6 +27,15 @@ player.getPlugin('pluginName');
 // $ExpectType void
 player.addPlugin('pluginName', {});
 
+// $ExpectType boolean
+player.getAdBlock();
+
+// $ExpectType void
+player.pauseAd(true);
+
+// $ExpectType JWPlayer
+player.skipAd();
+
 // $ExpectType JWPlayer
 player
     .addCues([sliderCue])
