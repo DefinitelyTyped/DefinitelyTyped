@@ -15,6 +15,12 @@ const player = jwplayer('id');
 // $ExpectType SliderCue[]
 player.getCues();
 
+// $ExpectType boolean
+player.getFloating();
+
+// $ExpectType void
+player.setFloating(true);
+
 // $ExpectType JWPlayer
 player
     .addCues([sliderCue])
