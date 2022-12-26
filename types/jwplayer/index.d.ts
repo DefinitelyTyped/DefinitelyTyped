@@ -353,6 +353,7 @@ declare namespace jwplayer {
     interface JWPlayer {
         addButton(icon: string, label: string, handler: () => void, id: string, className?: string): JWPlayer;
         addCues(cues: SliderCue[]): JWPlayer;
+        addPlugin(name: string, pluginInstance: any): void;
         getAudioTracks(): any[];
         getBuffer(): number;
         getCaptionsList(): any[];
@@ -372,6 +373,7 @@ declare namespace jwplayer {
         getPlaylist(): any[];
         getPlaylistIndex(): number;
         getPlaylistItem(index?: number): any;
+        getPlugin(name: string): any;
         getPosition(): number;
         getQualityLevels(): any[];
         getRenderingMode(): string;

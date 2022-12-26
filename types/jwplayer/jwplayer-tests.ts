@@ -21,6 +21,12 @@ player.getFloating();
 // $ExpectType void
 player.setFloating(true);
 
+// $ExpectType any
+player.getPlugin('pluginName');
+
+// $ExpectType void
+player.addPlugin('pluginName', {});
+
 // $ExpectType JWPlayer
 player
     .addCues([sliderCue])
