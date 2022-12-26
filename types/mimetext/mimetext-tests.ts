@@ -5,13 +5,13 @@ import {
     RecipientOptions,
     RecipientType,
     TextFormat,
-    MIMEtype,
+    MIMEType,
 } from 'mimetext';
 
 let textFormat: TextFormat = 'text/html';
 textFormat = 'text/plain';
 
-let mimetype: MIMEtype = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+let mimetype: MIMEType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 mimetype = 'image/png';
 
 const mailLocation: MailLocation = { addr: '' };
