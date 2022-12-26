@@ -813,7 +813,7 @@ class PieChartScreen extends React.Component {
                         rotationEnabled={true}
                         rotationAngle={45}
                         usePercentValues={true}
-                        styledCenterText={{ text: 'Pie center text!', color: processColor('pink'), size: 20 }}
+                        styledCenterText={{ text: 'Pie center text!', color: processColor('pink'), size: 20 , fontFamily: 'San Francisco'}}
                         centerTextRadiusPercent={100}
                         holeRadius={40}
                         holeColor={processColor('#f0f0f0')}
