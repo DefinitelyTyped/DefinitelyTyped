@@ -559,7 +559,7 @@ export interface DropdownProps {
     /**
      * Ref for the element that the Dropdown will attach to, will most likely be a Button
      */
-    anchor?: HTMLElement | undefined;
+    anchor?: HTMLElement | null | undefined;
 
     /**
      * Removes the Layer component around Popover.
@@ -1408,12 +1408,12 @@ export interface RadioButtonProps {
     onChange: AbstractEventHandler<React.SyntheticEvent<HTMLInputElement>, { checked: boolean }>;
     value: string;
     checked?: boolean | undefined;
+    helperText?: string | undefined;
     disabled?: boolean | undefined;
     image?: React.ReactNode | undefined;
     label?: string | undefined;
     name?: string | undefined;
     size?: 'sm' | 'md' | undefined;
-    subtext?: string | undefined;
 }
 
 /**
@@ -1550,18 +1550,19 @@ export interface SideNaviationProps {
      * Open slot available to display other functionality required in the page.
      * See the [Footer variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
      */
-    footer?: React.ReactNode;
+    footer?: React.ReactNode | undefined;
     /**
      * Content to display at the top of SideNavigation.
      * Open slot used for controlling the display of navigation items.
      * See the [Header variant](https://gestalt.pinterest.systems/sidenavigation#Header) to learn more.
      */
-    header?: React.ReactNode;
+    header?: React.ReactNode | undefined;
     /**
      * Displays a border in SideNavigation.
      * See the [Border](https://gestalt.pinterest.systems/sidenavigation#Border) variant for more info.
      */
-    showBorder?: boolean;
+    showBorder?: boolean | undefined;
+    title?: string | undefined;
 }
 
 export interface SideNavigationSectionProps {
@@ -1728,6 +1729,34 @@ export interface SheetProps {
  *
  */
 export interface SlimBannerProps {
+    dismissButton:
+        | {
+              accessibilityLabel: string;
+              onDismiss: () => void;
+          }
+        | undefined;
+
+    primaryAction?:
+        | {
+              accessibilityLabel: string;
+              disabled?: boolean;
+              href?: string;
+              label: string;
+              onClick?:
+                  | AbstractEventHandler<
+                        | React.MouseEvent<HTMLButtonElement>
+                        | React.MouseEvent<HTMLAnchorElement>
+                        | React.MouseEvent<HTMLAnchorElement>
+                        | React.MouseEvent<HTMLButtonElement>,
+                        {
+                            rel?: 'none' | 'nofollow';
+                            target?: null | 'self' | 'blank';
+                        }
+                    >
+                  | undefined;
+          }
+        | undefined;
+
     /**
      * Helper [Link](https://gestalt.pinterest.systems/link) to be placed after the message. See the [helperLink variant](https://gestalt.pinterest.systems/slimbanner#helperLink) to learn more.
      */
