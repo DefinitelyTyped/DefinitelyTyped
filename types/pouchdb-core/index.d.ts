@@ -345,6 +345,26 @@ declare namespace PouchDB {
                 }
             }>;
         }
+        interface AllDocsWithKeysResponse<Content extends {}> {
+            /** The `skip` if provided, or in CouchDB the actual offset */
+            offset: number;
+            total_rows: number;
+            update_seq?: number | string | undefined;
+            rows: Array<{
+                /** Only present if `include_docs` was `true`. null if deleted is true */
+                doc?: ExistingDocument<Content & AllDocsMeta> | null | undefined;
+                id: DocumentId;
+                key: DocumentKey;
+                value: {
+                    rev: RevisionId;
+                    deleted?: boolean | undefined;
+                }
+            } | {
+                /* answer for keys that are not found in the database */
+                key: DocumentKey,
+                error: "not_found"
+            }>;
+        }
 
         interface BulkDocsOptions extends Options {
             new_edits?: boolean | undefined;
@@ -643,8 +663,10 @@ declare namespace PouchDB {
         name: string;
 
         /** Fetch all documents matching the given options. */
-        allDocs<Model>(options?: Core.AllDocsWithKeyOptions | Core.AllDocsWithKeysOptions | Core.AllDocsWithinRangeOptions | Core.AllDocsOptions):
+        allDocs<Model>(options?: Core.AllDocsWithKeyOptions | Core.AllDocsWithinRangeOptions | Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content & Model>>;
+        allDocs<Model>(options: Core.AllDocsWithKeysOptions):
+            Promise<Core.AllDocsWithKeysResponse<Content & Model>>;
 
         /**
          * Create, update or delete multiple documents. The docs argument is an array of documents.
