@@ -5,6 +5,7 @@
 //                 Richard Honor <https://github.com/RMHonor>
 //                 Ata Berk YILMAZ <https://github.com/ataberkylmz>
 //                 Alex Seidmann <https://github.com/aseidma>
+//                 Pedro Américo <https://github.com/ghostebony>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { EventEmitter } from 'events';
 
