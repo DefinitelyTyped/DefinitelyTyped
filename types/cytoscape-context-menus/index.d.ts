@@ -64,8 +64,8 @@ declare namespace contextMenus {
             src: string;
             width: number;
             height: number;
-            y: string;
-            x: string;
+            y: number;
+            x: number;
         };
         /**
          * Display content of the menu item.
@@ -84,7 +84,7 @@ declare namespace contextMenus {
          * Shows the listed menu items as a submenu for this item.
          * An item must have either a submenu or onClickFunction or both.
          */
-        submenu?: boolean;
+        submenu?: MenuItem[];
         /**
          * Whether the core instance will have this item on context menu event.
          */
@@ -92,7 +92,7 @@ declare namespace contextMenus {
         /**
          * The function to be executed when the menu item is clicked.
          */
-        onClickFunction?: any;
+        onClickFunction?: (event: cytoscape.EventObject | cytoscape.EventObjectCore | cytoscape.EventObjectNode | cytoscape.EventObjectEdge) => void;
         /**
          * Whether the menu item will have a trailing divider.
          */
