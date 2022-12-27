@@ -4705,6 +4705,19 @@ declare namespace chrome.identity {
         ANY = 'ANY',
     }
 
+    export interface GetAuthTokenResult {
+        /**
+         * Optional.
+         * A list of OAuth2 scopes granted to the extension.
+         */
+        grantedScopes?: string[]
+        /**
+         * Optional.
+         * The specific token associated with the request.
+         */
+        token?: string
+    }
+
     export interface ProfileDetails {
         /**
          * Optional.
@@ -4786,11 +4799,11 @@ declare namespace chrome.identity {
      * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
      * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
      * @param details Token options.
-     * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error.
-     * If you specify the callback parameter, it should be a function that looks like this:
-     * function(string token) {...};
+     * @param callback The callback parameter looks like:
+     * (token?: string, grantedScopes?: string[]) => void
      */
-    export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+    export function getAuthToken(details: TokenDetails, callback: (token?: string, grantedScopes?: string[]) => void): void;
+    export function getAuthToken(details: TokenDetails): Promise<GetAuthTokenResult>;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
