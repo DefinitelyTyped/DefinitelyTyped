@@ -1,6 +1,6 @@
 /**
  * The `node:test` module provides a standalone testing module.
- * @see [source](https://github.com/nodejs/node/blob/v18.8.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
  */
 declare module 'node:test' {
     /**
@@ -61,6 +61,19 @@ declare module 'node:test' {
     function describe(name?: string, fn?: SuiteFn): void;
     function describe(options?: TestOptions, fn?: SuiteFn): void;
     function describe(fn?: SuiteFn): void;
+    namespace describe {
+        // Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function skip(name?: string, fn?: SuiteFn): void;
+        function skip(options?: TestOptions, fn?: SuiteFn): void;
+        function skip(fn?: SuiteFn): void;
+
+        // Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): void;
+        function todo(name?: string, fn?: SuiteFn): void;
+        function todo(options?: TestOptions, fn?: SuiteFn): void;
+        function todo(fn?: SuiteFn): void;
+    }
 
     /**
      * @since v18.6.0
@@ -74,6 +87,19 @@ declare module 'node:test' {
     function it(name?: string, fn?: ItFn): void;
     function it(options?: TestOptions, fn?: ItFn): void;
     function it(fn?: ItFn): void;
+    namespace it {
+        // Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+        function skip(name?: string, options?: TestOptions, fn?: ItFn): void;
+        function skip(name?: string, fn?: ItFn): void;
+        function skip(options?: TestOptions, fn?: ItFn): void;
+        function skip(fn?: ItFn): void;
+
+        // Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+        function todo(name?: string, options?: TestOptions, fn?: ItFn): void;
+        function todo(name?: string, fn?: ItFn): void;
+        function todo(options?: TestOptions, fn?: ItFn): void;
+        function todo(fn?: ItFn): void;
+    }
 
     /**
      * The type of a function under test. The first argument to this function is a
@@ -96,32 +122,45 @@ declare module 'node:test' {
 
     interface RunOptions {
         /**
-         * @default false
+         * If a number is provided, then that many files would run in parallel.
+         * If truthy, it would run (number of cpu cores - 1) files in parallel.
+         * If falsy, it would only run one file at a time.
+         * If unspecified, subtests inherit this value from their parent.
+         * @default true
          */
-        concurrency?: number | boolean;
+        concurrency?: number | boolean | undefined;
 
         /**
-         * An array containing the list of files to run. If unspecified, the test runner execution model will be used.
+         * An array containing the list of files to run.
+         * If unspecified, the test runner execution model will be used.
          */
-        files?: readonly string[];
+        files?: readonly string[] | undefined;
 
         /**
-         * Allows aborting an in-progress test.
+         * Allows aborting an in-progress test execution.
          * @default undefined
          */
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
 
         /**
-         * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
-         * value from their parent.
+         * A number of milliseconds the test will fail after.
+         * If unspecified, subtests inherit this value from their parent.
          * @default Infinity
          */
-        timeout?: number;
+        timeout?: number | undefined;
+
+        /**
+         * Sets inspector port of test child process.
+         * If a nullish value is provided, each process gets its own port,
+         * incremented from the primary's `process.debugPort`.
+         */
+        inspectPort?: number | (() => number) | undefined;
     }
 
     /**
-     * A successful call of the run() method will return a new TapStream object, streaming a TAP output.
-     * TapStream will emit events in the order of the tests' definitions.
+     * A successful call of the `run()` method will return a new `TapStream` object,
+     * streaming a [TAP](https://testanything.org/) output.
+     * `TapStream` will emit events in the order of the tests' definitions.
      * @since v18.9.0
      */
     interface TapStream extends NodeJS.ReadableStream {
@@ -217,12 +256,36 @@ declare module 'node:test' {
      */
     interface TestContext {
         /**
+         * This function is used to create a hook running before each subtest of the current test.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         *    the second argument. Default: A no-op function.
+         * @param options Configuration options for the hook.
+         * @since v18.8.0
+         */
+        beforeEach: typeof beforeEach;
+
+        /**
+         * This function is used to create a hook running after each subtest of the current test.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         *    the second argument. Default: A no-op function.
+         * @param options Configuration options for the hook.
+         * @since v18.8.0
+         */
+        afterEach: typeof afterEach;
+
+        /**
          * This function is used to write TAP diagnostics to the output. Any diagnostic information is
          * included at the end of the test's results. This function does not return a value.
          * @param message Message to be displayed as a TAP diagnostic.
          * @since v18.0.0
          */
         diagnostic(message: string): void;
+
+        /**
+         * The name of the test.
+         * @since v18.8.0
+         */
+        readonly name: string;
 
         /**
          * If `shouldRunOnlyTests` is truthy, the test context will only run tests that have the `only`
@@ -232,6 +295,12 @@ declare module 'node:test' {
          * @since v18.0.0
          */
         runOnly(shouldRunOnlyTests: boolean): void;
+
+        /**
+         * Can be used to abort test subtasks when the test has been aborted.
+         * @since v18.7.0
+         */
+        readonly signal: AbortSignal;
 
         /**
          * This function causes the test's output to indicate the test as skipped. If `message` is
@@ -268,31 +337,34 @@ declare module 'node:test' {
 
     interface TestOptions {
         /**
-         * The number of tests that can be run at the same time. If unspecified, subtests inherit this
-         * value from their parent.
-         * @default 1
+         * If a number is provided, then that many tests would run in parallel.
+         * If truthy, it would run (number of cpu cores - 1) tests in parallel.
+         * For subtests, it will be `Infinity` tests in parallel.
+         * If falsy, it would only run one test at a time.
+         * If unspecified, subtests inherit this value from their parent.
+         * @default false
          */
-        concurrency?: number;
+        concurrency?: number | boolean | undefined;
 
         /**
          * If truthy, and the test context is configured to run `only` tests, then this test will be
          * run. Otherwise, the test is skipped.
          * @default false
          */
-        only?: boolean;
+        only?: boolean | undefined;
 
         /**
          * Allows aborting an in-progress test.
          * @since v18.8.0
          */
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
 
         /**
          * If truthy, the test is skipped. If a string is provided, that string is displayed in the
          * test results as the reason for skipping the test.
          * @default false
          */
-        skip?: boolean | string;
+        skip?: boolean | string | undefined;
 
         /**
          * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
@@ -300,14 +372,14 @@ declare module 'node:test' {
          * @default Infinity
          * @since v18.7.0
          */
-        timeout?: number;
+        timeout?: number | undefined;
 
         /**
          * If truthy, the test marked as `TODO`. If a string is provided, that string is displayed in
          * the test results as the reason why the test is `TODO`.
          * @default false
          */
-        todo?: boolean | string;
+        todo?: boolean | string | undefined;
     }
 
     /**
@@ -360,14 +432,14 @@ declare module 'node:test' {
         /**
          * Allows aborting an in-progress hook.
          */
-        signal?: AbortSignal;
+        signal?: AbortSignal | undefined;
 
         /**
          * A number of milliseconds the hook will fail after. If unspecified, subtests inherit this
          * value from their parent.
          * @default Infinity
          */
-        timeout?: number;
+        timeout?: number | undefined;
     }
 
     export { test as default, run, test, describe, it, before, after, beforeEach, afterEach };

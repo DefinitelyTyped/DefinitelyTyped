@@ -8,6 +8,7 @@ amqp.connect('amqp://localhost')
     .then(connection => {
         return connection.createChannel()
             .then(channel => {
+                channel.connection;
                 channel.checkQueue('myQueue');
                 return channel;
             })
@@ -27,6 +28,7 @@ amqp.connect('amqp://localhost')
 
         return connection.createChannel()
             .then(channel => {
+                channel.connection;
                 channel.checkQueue('myQueue');
                 return channel;
             })
@@ -61,6 +63,7 @@ amqpcb.connect('amqp://localhost', (err, connection) => {
 
         connection.createChannel((err, channel) => {
             if (!err) {
+                channel.connection;
                 channel.assertQueue('myQueue', {}, (err, ok) => {
                     if (!err) {
                         channel.sendToQueue('myQueue', new Buffer(msg));
@@ -75,6 +78,7 @@ amqpcb.connect('amqp://localhost', (err, connection) => {
     if (!err) {
         connection.createChannel((err, channel) => {
             if (!err) {
+                channel.connection;
                 channel.assertQueue('myQueue', {}, (err, ok) => {
                     if (!err) {
                         channel.consume('myQueue', newMsg => {

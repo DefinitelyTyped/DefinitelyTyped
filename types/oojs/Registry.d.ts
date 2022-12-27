@@ -40,7 +40,7 @@ declare namespace OO {
          */
         lookup(name: string): unknown | undefined;
 
-        // #region Event utils
+        // #region EventEmitter overloads
         on<K extends keyof RegistryEventMap, A extends ArgTuple = [], C = null>(
             event: K,
             method: EventHandler<C, (this: C, ...args: [...A, ...RegistryEventMap[K]]) => void>,
@@ -82,24 +82,12 @@ declare namespace OO {
 
         connect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
             context: C,
-            methods: {
-                [K in keyof T]: EventConnectionMapEntry<
-                    C,
-                    K extends keyof RegistryEventMap ? RegistryEventMap[K] : any[],
-                    T[K]
-                >;
-            },
+            methods: EventConnectionMap<T, C, RegistryEventMap>, // tslint:disable-line:no-unnecessary-generics
         ): this;
 
         disconnect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
             context: C,
-            methods?: {
-                [K in keyof T]: EventConnectionMapEntry<
-                    C,
-                    K extends keyof RegistryEventMap ? RegistryEventMap[K] : any[],
-                    T[K]
-                >;
-            },
+            methods?: EventConnectionMap<T, C, RegistryEventMap>, // tslint:disable-line:no-unnecessary-generics
         ): this;
         // #endregion
     }

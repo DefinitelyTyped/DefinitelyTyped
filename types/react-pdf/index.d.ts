@@ -1,4 +1,4 @@
-// Type definitions for react-pdf 5.7
+// Type definitions for react-pdf 6.2
 // Project: https://github.com/wojtekmaj/react-pdf/
 // Definitions by: CodeDaraW <https://github.com/CodeDaraW>
 //                 Nathan Hardy <https://github.com/nhardy>

@@ -85,14 +85,25 @@ owner.register('type:name', aFactory, { instantiate: false, singleton: false });
 owner.register('non-namespace-string', aFactory);
 owner.register('namespace@type:name', aFactory); // $ExpectType void
 
-owner.factoryFor('type:name'); // $ExpectType FactoryManager<unknown> | undefined
-owner.factoryFor('type:name')?.class; // $ExpectType Factory<unknown> | undefined
-owner.factoryFor('type:name')?.create(); // $ExpectType unknown
-owner.factoryFor('type:name')?.create({}); // $ExpectType unknown
-owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType unknown
+owner.factoryFor('type:name'); // $ExpectType FactoryManager<object> | undefined
+owner.factoryFor('type:name')?.class; // $ExpectType Factory<object> | undefined
+owner.factoryFor('type:name')?.create(); // $ExpectType object | undefined
+owner.factoryFor('type:name')?.create({}); // $ExpectType object | undefined
+owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType object | undefined
 // @ts-expect-error
 owner.factoryFor('non-namespace-string');
-owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<unknown> | undefined
+owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<object> | undefined
+
+// Arbitrary registration patterns work, as here.
+declare module '@ember/owner' {
+    interface DIRegistry {
+        etc: {
+            'my-type-test': ConstructThis;
+        };
+    }
+}
+
+owner.lookup('etc:my-type-test'); // $ExpectType ConstructThis
 
 // Tests deal with the fact that string literals are a special case! `let`
 // bindings will accordingly not "just work" as a result. The separate

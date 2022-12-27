@@ -1083,6 +1083,8 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: true, func: () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: false, func: () => {} }); // $ExpectType InjectionResult<void>[]
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} });
     // @ts-expect-error
@@ -1296,6 +1298,9 @@ function testRuntimeSendMessage() {
     chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log);
     // @ts-expect-error
     chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1));
+
+    chrome.runtime.sendMessage(undefined, 'Hello World!', console.log);
+    chrome.runtime.sendMessage(null, 'Hello World!', console.log);
 }
 
 function testRuntimeSendNativeMessage() {
@@ -1638,4 +1643,14 @@ async function testIdentity() {
 async function testIdentityForPromise() {
     // $ExpectType string | undefined
     await chrome.identity.launchWebAuthFlow({ url: 'https://example.com '});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+function testTopSites() {
+    chrome.topSites.get(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+async function testTopSitesForPromise() {
+    await chrome.topSites.get();
 }

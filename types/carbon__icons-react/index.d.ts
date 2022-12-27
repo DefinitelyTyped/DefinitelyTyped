@@ -1,4 +1,4 @@
-// Type definitions for @carbon/icons-react 11.10
+// Type definitions for @carbon/icons-react 11.12
 // Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
 // Definitions by: Eric Liu <https://github.com/metonym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -582,6 +582,7 @@ export const DewPoint: CarbonIconType;
 export const DewPointFilled: CarbonIconType;
 export const Diagram: CarbonIconType;
 export const DiagramReference: CarbonIconType;
+export const DiamondFillGlyph: CarbonIconType;
 export const WatsonHealthDicom_6000: CarbonIconType;
 export const WatsonHealthDicomOverlay: CarbonIconType;
 export const DirectLink: CarbonIconType;
@@ -1868,7 +1869,6 @@ export const QU2: CarbonIconType;
 export const QU3: CarbonIconType;
 export const Umbrella: CarbonIconType;
 export const Undefined: CarbonIconType;
-export const UndefinedGlyph: CarbonIconType;
 export const UndefinedFilled: CarbonIconType;
 export const Undo: CarbonIconType;
 export const UngroupObjects: CarbonIconType;
