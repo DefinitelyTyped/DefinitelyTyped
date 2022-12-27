@@ -11,8 +11,8 @@ import {
 let textFormat: TextFormat = 'text/html';
 textFormat = 'text/plain';
 
-let mimetype: MIMEType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-mimetype = 'image/png';
+let mimeType: MIMEType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+mimeType = 'image/png';
 
 const mailLocation: MailLocation = { addr: '' };
 mailLocation.name = '';
@@ -51,7 +51,7 @@ mimeMessage.getSender();
 mimeMessage.getSubject();
 
 // $ExpectType MIMEMessageContent
-mimeMessage.setAttachment('', mimetype, '');
+mimeMessage.setAttachment('', mimeType, '');
 
 // $ExpectType Mailbox[]
 mimeMessage.setBcc('');
