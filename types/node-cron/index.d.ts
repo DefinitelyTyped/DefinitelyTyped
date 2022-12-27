@@ -43,7 +43,7 @@ export interface ScheduleOptions {
      */
     name?: string;
     /**
-    * Execute task immediately after creation
-    */
+     * Execute task immediately after creation
+     */
     runOnInit?: boolean;
 }
