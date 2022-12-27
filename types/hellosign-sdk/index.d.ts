@@ -8,24 +8,24 @@
 /// <reference types="node" />
 import type { IncomingMessage } from 'http';
 
-export namespace HelloSign {
+declare namespace HelloSign {
     type GenericObject<T = any> = T & {
         [key: string]: any;
     };
 
     type HelloSignOptions =
         | {
-              key: string;
-          }
+            key: string;
+        }
         | {
-              username: string;
-              password: string;
-          }
+            username: string;
+            password: string;
+        }
         | {
-              key: string;
-              client_id: string;
-              client_secret: string;
-          };
+            key: string;
+            client_id: string;
+            client_secret: string;
+        };
 
     interface BaseResponse {
         resHeaders: IncomingMessage['headers'];
@@ -120,7 +120,7 @@ export namespace HelloSign {
         signing_redirect_url: string;
         custom_fields?:
             | Array<
-                  | {
+                | {
                         name: string;
                         type: 'text';
                         value: string;
@@ -128,7 +128,7 @@ export namespace HelloSign {
                         api_id: string;
                         editor: string;
                     }
-                  | {
+                | {
                         name: string;
                         type: 'checkbox';
                         value: boolean;
@@ -136,7 +136,7 @@ export namespace HelloSign {
                         api_id: string;
                         editor: string;
                     }
-              >
+            >
             | undefined;
         response_data: Array<{
             api_id: string;
@@ -193,19 +193,19 @@ export namespace HelloSign {
         }>;
         attachments?:
             | Array<{
-                  name?: string | undefined;
-                  instructions?: string | undefined;
-                  signer_index?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name?: string | undefined;
+                instructions?: string | undefined;
+                signer_index?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         custom_fields?: any;
         cc_email_addresses?: string[] | undefined;
         ccs?:
             | Array<{
-                  email_address: string;
-                  role_name: string;
-              }>
+                email_address: string;
+                role_name: string;
+            }>
             | undefined;
         use_text_tags?: number | undefined;
         hide_text_tags?: number | undefined;
@@ -215,23 +215,23 @@ export namespace HelloSign {
         form_fields_per_document?: FormField[][] | undefined;
         signing_options?:
             | {
-                  draw?: boolean | undefined;
-                  type?: boolean | undefined;
-                  upload?: boolean | undefined;
-                  phone?: boolean | undefined;
-                  default: string;
-              }
+                draw?: boolean | undefined;
+                type?: boolean | undefined;
+                upload?: boolean | undefined;
+                phone?: boolean | undefined;
+                default: string;
+            }
             | undefined;
         field_options?:
             | {
-                  date_format:
-                      | 'MM / DD / YYYY'
-                      | 'MM - DD - YYYY'
-                      | 'DD / MM / YYYY'
-                      | 'DD - MM - YYYY'
-                      | 'YYYY / MM / DD'
-                      | 'YYYY - MM - DD';
-              }
+                date_format:
+                    | 'MM / DD / YYYY'
+                    | 'MM - DD - YYYY'
+                    | 'DD / MM / YYYY'
+                    | 'DD - MM - YYYY'
+                    | 'YYYY / MM / DD'
+                    | 'YYYY - MM - DD';
+            }
             | undefined;
         signing_redirect_url?: string | undefined;
     }
@@ -301,9 +301,9 @@ export namespace HelloSign {
         force_subject_message?: any;
         editor_options?:
             | {
-                  allow_edit_signers?: boolean | undefined;
-                  allow_edit_documents?: boolean | undefined;
-              }
+                allow_edit_signers?: boolean | undefined;
+                allow_edit_documents?: boolean | undefined;
+            }
             | undefined;
     }
     interface EmbeddedModule {
@@ -489,26 +489,26 @@ export namespace HelloSign {
         message?: string | undefined;
         signers?:
             | Array<{
-                  email_address?: string | undefined;
-                  name?: string | undefined;
-                  order?: number | undefined;
-              }>
+                email_address?: string | undefined;
+                name?: string | undefined;
+                order?: number | undefined;
+            }>
             | undefined;
         attachments?:
             | Array<{
-                  name?: string | undefined;
-                  instructions?: string | undefined;
-                  signer_index?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name?: string | undefined;
+                instructions?: string | undefined;
+                signer_index?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         custom_fields?:
             | Array<{
-                  name: string;
-                  value: string | boolean;
-                  editor?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name: string;
+                value: string | boolean;
+                editor?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
         signing_redirect_url?: string | undefined;
@@ -521,23 +521,23 @@ export namespace HelloSign {
         form_fields_per_document?: FormField[][] | undefined;
         signing_options?:
             | {
-                  draw?: boolean | undefined;
-                  type?: boolean | undefined;
-                  upload?: boolean | undefined;
-                  phone?: boolean | undefined;
-                  default: string;
-              }
+                draw?: boolean | undefined;
+                type?: boolean | undefined;
+                upload?: boolean | undefined;
+                phone?: boolean | undefined;
+                default: string;
+            }
             | undefined;
         field_options?:
             | {
-                  date_format:
-                      | 'MM / DD / YYYY'
-                      | 'MM - DD - YYYY'
-                      | 'DD / MM / YYYY'
-                      | 'DD - MM - YYYY'
-                      | 'YYYY / MM / DD'
-                      | 'YYYY - MM - DD';
-              }
+                date_format:
+                    | 'MM / DD / YYYY'
+                    | 'MM - DD - YYYY'
+                    | 'DD / MM / YYYY'
+                    | 'DD - MM - YYYY'
+                    | 'YYYY / MM / DD'
+                    | 'YYYY - MM - DD';
+            }
             | undefined;
         is_for_embedded_signing?: number | undefined;
     }
@@ -635,15 +635,15 @@ export namespace HelloSign {
         custom_logo_file?: any;
         oauth?:
             | {
-                  callback_url: string;
-                  scopes: string;
-              }
+                callback_url: string;
+                scopes: string;
+            }
             | undefined;
         white_labeling_options?: any[] | undefined;
         options?:
             | {
-                  can_insert_everywhere?: boolean | undefined;
-              }
+                can_insert_everywhere?: boolean | undefined;
+            }
             | undefined;
     }
     interface ApiAppModule {
@@ -680,4 +680,6 @@ export namespace HelloSign {
     }
 }
 
-export default function hellosign(options: HelloSign.HelloSignOptions): HelloSign.HelloSign;
+declare function hellosign(options: HelloSign.HelloSignOptions): HelloSign.HelloSign;
+
+export { hellosign as default, HelloSign };
