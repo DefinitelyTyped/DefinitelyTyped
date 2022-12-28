@@ -1,7 +1,18 @@
-import { createMimeMessage, MailLocation, MIMEHeader, RecipientOptions, RecipientType, TextFormat } from 'mimetext';
+import {
+    createMimeMessage,
+    MailLocation,
+    MIMEHeader,
+    RecipientOptions,
+    RecipientType,
+    TextFormat,
+    MIMEType,
+} from 'mimetext';
 
 let textFormat: TextFormat = 'text/html';
 textFormat = 'text/plain';
+
+let mimeType: MIMEType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+mimeType = 'image/png';
 
 const mailLocation: MailLocation = { addr: '' };
 mailLocation.name = '';
@@ -40,7 +51,7 @@ mimeMessage.getSender();
 mimeMessage.getSubject();
 
 // $ExpectType MIMEMessageContent
-mimeMessage.setAttachment('', textFormat, '');
+mimeMessage.setAttachment('', mimeType, '');
 
 // $ExpectType Mailbox[]
 mimeMessage.setBcc('');
