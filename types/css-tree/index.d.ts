@@ -379,7 +379,7 @@ export interface UnicodeRange extends CssNodeCommon {
 
 export interface Url extends CssNodeCommon {
     type: 'Url';
-    value: StringNode | Raw;
+    value: string;
 }
 
 export interface Value extends CssNodeCommon {
