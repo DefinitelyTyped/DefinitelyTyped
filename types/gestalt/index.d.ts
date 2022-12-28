@@ -504,7 +504,7 @@ export interface DatapointProps {
     tooltipZIndex?: Indexable | undefined;
 }
 
-export type DeviceType = 'desktop' | 'phone' | 'tablet';
+export type DeviceType = 'desktop' | 'mobile';
 
 export interface DeviceTypeProviderProps {
     deviceType: DeviceType;
