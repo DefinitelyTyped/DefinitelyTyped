@@ -5,10 +5,7 @@
         "arrow-return-shorthand": false,
         "ban-types": false,
         "comment-format": false,
-        "file-name-casing": [
-            true,
-            "kebab-case"
-        ],
+        "file-name-casing": [true, "kebab-case"],
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -25,7 +22,6 @@
         "only-arrow-functions": false,
         "prefer-conditional-expression": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,

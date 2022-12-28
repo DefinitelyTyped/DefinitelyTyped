@@ -11,7 +11,6 @@
         "no-void-expression": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-declare-function": false,
         "semicolon": false,
         "space-before-function-paren": false,
         "typedef-whitespace": false,
