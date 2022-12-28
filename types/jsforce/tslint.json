@@ -5,7 +5,6 @@
         "await-promise": false,
         "ban-types": false,
         "eofline": false,
-        "no-any-union": false,
         "no-empty-interface": false,
         "redundant-undefined": false,
         "no-unnecessary-class": false,

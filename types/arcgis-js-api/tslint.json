@@ -6,7 +6,6 @@
         "ban-types": false,
         "interface-name": false,
         "max-line-length": false,
-        "no-any-union": false,
         "no-empty-interface": false,
         "no-irregular-whitespace": false,
         "no-unnecessary-generics": false,

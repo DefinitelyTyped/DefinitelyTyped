@@ -6,7 +6,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "member-access": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,

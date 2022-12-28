@@ -4,7 +4,6 @@
         "array-type": false,
         "interface-name": false,
         "max-line-length": false,
-        "no-any-union": false,
         "no-inferrable-types": false,
         "no-padding": false,
         "no-trailing-whitespace": false,

@@ -4,7 +4,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-any-union": false,
         "no-const-enum": false,
         "no-duplicate-imports": false,
         "no-empty-interface": false,

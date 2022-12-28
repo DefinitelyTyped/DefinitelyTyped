@@ -5,7 +5,6 @@
         "interface-name": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-any-union": false,
         "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-unnecessary-generics": false,
