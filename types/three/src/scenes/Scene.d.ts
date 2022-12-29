@@ -1,3 +1,5 @@
+// https://threejs.org/docs/?q=scene#api/en/scenes/Scene
+
 import { FogBase } from './Fog';
 import { Material } from './../materials/Material';
 import { Object3D } from './../core/Object3D';
@@ -22,7 +24,19 @@ export class Scene extends Object3D {
      */
     fog: FogBase | null;
 
+    /**
+     * Sets the blurriness of the background. Only influences environment maps assigned to Scene.background. Valid input is a float between 0 and 1.
+     *
+     * @default 0
+     */
     backgroundBlurriness: number;
+
+    /**
+     * Attenuates the color of the background. Only applies to background textures.
+     *
+     * @default 1
+     */
+    backgroundIntensity: number;
 
     /**
      * If not null, it will force everything in the scene to be rendered with that material. Default is null.

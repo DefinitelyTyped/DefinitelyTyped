@@ -61,6 +61,7 @@ import FrontFacingNode from './display/FrontFacingNode';
 import NormalMapNode from './display/NormalMapNode';
 import PosterizeNode from './display/PosterizeNode';
 import ToneMappingNode from './display/ToneMappingNode';
+import ViewportNode from './display/ViewportNode';
 
 // math
 import MathNode, { MathNodeMethod1, MathNodeMethod2, MathNodeMethod3, MathNodeMethod } from './math/MathNode';
@@ -186,6 +187,7 @@ export {
     NormalMapNode,
     PosterizeNode,
     ToneMappingNode,
+    ViewportNode,
     // math
     MathNode,
     MathNodeMethod1,
