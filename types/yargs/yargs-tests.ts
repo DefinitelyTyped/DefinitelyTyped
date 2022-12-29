@@ -323,8 +323,6 @@ function Argv$command() {
             },
             [(argv) => {
                 // $ExpectType string | undefined
-                argv.u;
-                // $ExpectType string | undefined
                 argv.url;
             }],
             // deprecated
