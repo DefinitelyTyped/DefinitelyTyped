@@ -3,8 +3,7 @@
 // Definitions by: Second Datke <https://github.com/secondwtq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var factory: NodeRSS.RSSFactory;
-export = factory;
+export = NodeRSS.RSS;
 
 declare namespace NodeRSS {
     interface FeedOptions {
@@ -173,7 +172,15 @@ declare namespace NodeRSS {
         indent?: boolean | string | undefined;
     }
 
-    interface RSS {
+    class RSS {
+        /**
+         * Create an RSS feed with options.
+         * @param {FeedOptions} feedOptions - Options for the RSS feed.
+         * @param {ItemOptions[]} feedItems - Array of items for the RSS feed.
+         * @returns {RSS}
+         */
+        constructor(feedOptions: FeedOptions, feedItems?: ItemOptions[]);
+
         /**
          * Add an item to a feed. An item can be used for a blog
          * entry, project update, log entry, etc.
@@ -194,15 +201,5 @@ declare namespace NodeRSS {
          * @returns {string}
          */
         xml(xmlOptions: XmlOptions): string;
-    }
-
-    interface RSSFactory {
-        /**
-         * Create an RSS feed with options.
-         * @param {FeedOptions} feedOptions - Options for the RSS feed.
-         * @param {ItemOptions[]} feedItems - Array of items for the RSS feed.
-         * @returns {RSS}
-         */
-        new(feedOptions: FeedOptions, feedItems?: ItemOptions[]): RSS;
     }
 }
