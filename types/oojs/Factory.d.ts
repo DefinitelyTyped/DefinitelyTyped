@@ -64,7 +64,7 @@ declare namespace OO {
     }
 
     interface FactoryConstructor {
-        new(): Factory;
+        new (): Factory;
         prototype: Factory;
         super: RegistryConstructor;
         /** @deprecated Use `super` instead */

@@ -1,6 +1,8 @@
 {
     "private": true,
     "dependencies": {
-        "handlebars": "^4.1"
+        "@hapi/hapi": "^21.1.0",
+        "handlebars": "^4.1",
+        "joi": "^17.7.0"
     }
 }

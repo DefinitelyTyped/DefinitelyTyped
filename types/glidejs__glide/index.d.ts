@@ -160,7 +160,7 @@ declare class Glide {
     /**
      * Construct glide.
      */
-    constructor(selector: string, options?: Partial<Options>);
+    constructor(selector: string | HTMLElement, options?: Partial<Options>);
 
     /**
      * Initializes glide.

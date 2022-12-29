@@ -2,6 +2,8 @@ import Glide = require('@glidejs/glide');
 
 // $ExpectType Glide
 new Glide('.glide', { direction: 'rtl' });
+// $ExpectType Glide
+new Glide(new HTMLElement(), { direction: 'rtl' });
 
 // $ExpectType Glide
 const glide = new Glide('.glide');
@@ -60,7 +62,16 @@ const Component: Glide.ComponentFunction<CustomComponent> = (_Glide, _Components
                 Move,
                 // $ExpectType Run
                 Run,
+                // $ExpectType Html
+                Html,
             } = _Components;
+
+            // $ExpectType HTMLElement
+            Html.root;
+            // $ExpectType HTMLElement
+            Html.track;
+            // $ExpectType HTMLElement
+            Html.wrapper;
 
             Build.activeClass();
             Autoplay.start();

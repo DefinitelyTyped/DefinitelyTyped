@@ -1,7 +1,6 @@
 // Type definitions for react-table 7.7
 // Project: https://github.com/tannerlinsley/react-table
 // Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
-//                 Michael Stramel <https://github.com/stramel>
 //                 Rohit Garg <https://github.com/gargroh>
 //                 Jason Clark <https://github.com/riceboyler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

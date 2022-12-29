@@ -5,6 +5,12 @@ import stream = require('stream');
 
 const obj = { any: true };
 
+interface MyInterface {
+    a: string;
+}
+
+const obj2: MyInterface = { a: 'a' };
+
 const options: hash.Options = {
     algorithm: 'md5',
     encoding: 'hex',
@@ -13,6 +19,7 @@ const options: hash.Options = {
 };
 
 hash(obj); // $ExpectType string
+hash(obj2); // $ExpectType string
 // @ts-expect-error
 hash(undefined);
 hash('1'); // $ExpectType string
