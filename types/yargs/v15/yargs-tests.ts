@@ -308,7 +308,7 @@ function Argv$command() {
             },
             [(argv) => {
                 // $ExpectType string | undefined
-                argv.url
+                argv.u;
             }],
             // deprecated
             'use --newGet'

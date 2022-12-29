@@ -307,7 +307,8 @@ function Argv$command() {
                 console.dir(argv.url);
             },
             [(argv) => {
-                console.log(argv.url);
+                // $ExpectType string | undefined
+                argv.u;
             }],
             // deprecated
             'use --newGet'
