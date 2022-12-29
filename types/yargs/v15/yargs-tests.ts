@@ -297,8 +297,8 @@ function Argv$command() {
             'get',
             'make a get HTTP request',
             (yargs) => {
-                return yargs.option('u', {
-                    alias: 'url',
+                return yargs.option('url', {
+                    alias: 'u',
                     type: 'string',
                     describe: 'the URL to make an HTTP request to'
                 });
@@ -308,7 +308,7 @@ function Argv$command() {
             },
             [(argv) => {
                 // $ExpectType string | undefined
-                argv.u;
+                argv.url;
             }],
             // deprecated
             'use --newGet'
