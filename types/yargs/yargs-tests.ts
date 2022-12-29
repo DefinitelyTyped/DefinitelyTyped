@@ -1044,6 +1044,30 @@ async function Argv$inferOptionTypes() {
         .option("count", { type: "count", default: "no" } as const)
         .parseSync();
 
+    // $ExpectType { [x: string]: unknown; p: ("x" | "y")[] | undefined; q: string[] | undefined; r: "x" | "y" | undefined; s: ("x" | "y")[] | undefined; _: (string | number)[]; $0: string; }
+    yargs()
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("p", {
+            array: true,
+            choices: ["x", "y"],
+            type: "string",
+        } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("q", {
+            array: true,
+            type: "string",
+        } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("r", {
+            choices: ["x", "y"],
+            type: "string",
+        } as const)
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("s", {
+            choices: ["x", "y"],
+            type: "array",
+        } as const).parseSync();
+
     // $ExpectType (string | number)[] | undefined
     (await yargs.array("x").argv).x;
 
