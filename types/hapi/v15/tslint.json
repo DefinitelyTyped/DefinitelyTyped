@@ -7,7 +7,6 @@
         "max-line-length": false,
         "no-empty-interface": false,
         "no-inferrable-types": false,
-        "no-unnecessary-generics": false,
         "unified-signatures": false
     }
 }

@@ -3,7 +3,6 @@
     "rules": {
         "npm-naming": false,
         "strict-export-declare-modifiers": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-class": false,
         "ban-types": false,
         "no-empty-interface": false,

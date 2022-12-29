@@ -20,9 +20,9 @@ export = DeferredCtor;
  * deferred.reject(new Error('oh noes'));
  */
 declare const DeferredCtor: {
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     <T>(): DeferredCtor.Deferred<T>;
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     new <T>(): DeferredCtor.Deferred<T>;
 
     Promise: typeof Promise;

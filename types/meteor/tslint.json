@@ -23,7 +23,6 @@
         "no-self-import": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,

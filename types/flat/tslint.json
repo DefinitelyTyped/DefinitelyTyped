@@ -3,7 +3,6 @@
     "rules": {
         "interface-over-type-literal": false,
         "no-namespace": false,
-        "no-unnecessary-generics": false,
         "prefer-const": false
     }
 }

@@ -5,7 +5,6 @@
         "no-declare-current-package": false,
         "no-self-import": false,
         "no-unnecessary-callback-wrapper": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

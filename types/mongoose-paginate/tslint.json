@@ -8,7 +8,6 @@
         "no-inferrable-types": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "only-arrow-functions": false,

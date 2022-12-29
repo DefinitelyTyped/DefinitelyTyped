@@ -7,7 +7,6 @@
         "no-inferrable-types": false,
         "no-single-declare-module": false,
         "no-unnecessary-class": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
         "object-literal-shorthand": false,

@@ -12,7 +12,6 @@
         "no-empty-interface": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "no-void-expression": false,

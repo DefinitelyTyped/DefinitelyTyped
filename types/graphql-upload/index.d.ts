@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.1
 
-/* tslint:disable:no-unnecessary-generics */
+/* eslint-disable no-unnecessary-generics */
 
 import { IncomingMessage, ServerResponse } from "http";
 import { GraphQLScalarType } from "graphql";

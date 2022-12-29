@@ -12,7 +12,6 @@
         "no-misused-new": false,
         "no-self-import": false,
         "no-single-declare-module": false,
-        "no-unnecessary-generics": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false,
         "use-default-type-parameter": false

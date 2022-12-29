@@ -18,7 +18,6 @@
         "no-object-literal-type-assertion": false,
         "no-padding": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,

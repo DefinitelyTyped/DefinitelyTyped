@@ -4,7 +4,6 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

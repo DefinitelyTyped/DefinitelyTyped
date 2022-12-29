@@ -5,7 +5,6 @@
         "no-namespace": false,
         "no-object-literal-type-assertion": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-line": false,
         "prefer-const": false,

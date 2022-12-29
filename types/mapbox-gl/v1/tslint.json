@@ -9,7 +9,6 @@
         "max-line-length": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

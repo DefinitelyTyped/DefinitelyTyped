@@ -82,12 +82,12 @@ declare namespace OO {
 
         connect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
             context: C,
-            methods: EventConnectionMap<T, C, RegistryEventMap>, // tslint:disable-line:no-unnecessary-generics
+            methods: EventConnectionMap<T, C, RegistryEventMap>, // eslint-disable-line no-unnecessary-generics
         ): this;
 
         disconnect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
             context: C,
-            methods?: EventConnectionMap<T, C, RegistryEventMap>, // tslint:disable-line:no-unnecessary-generics
+            methods?: EventConnectionMap<T, C, RegistryEventMap>, // eslint-disable-line no-unnecessary-generics
         ): this;
         // #endregion
     }

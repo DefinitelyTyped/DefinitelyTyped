@@ -3,6 +3,7 @@
         "no-const-enum": "off",
         "dt-header": "off",
         "trim-file": "off",
-        "no-any-union": "off"
+        "no-any-union": "off",
+        "no-unnecessary-generics": "off"
     }
 }

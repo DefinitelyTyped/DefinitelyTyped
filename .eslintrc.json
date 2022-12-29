@@ -3,6 +3,10 @@
     "extends": [
     ],
     "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "warnOnUnsupportedTypeScriptVersion": false,
+        "project": ["./tsconfig.json"]
+    },
     "plugins": [
         "@typescript-eslint"
     ],
@@ -11,6 +15,7 @@
       "export-just-namespace": "error",
       "no-bad-reference": "error",
       "no-dead-reference": "error",
+      "no-unnecessary-generics": "error",
       "no-const-enum": "error",
       "no-useless-files": "error",
       "trim-file": "error"

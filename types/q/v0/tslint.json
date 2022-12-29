@@ -13,7 +13,6 @@
         "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-callback-wrapper": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-line": false,
         "only-arrow-functions": false,

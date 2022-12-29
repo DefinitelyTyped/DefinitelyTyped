@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "interface-name": false,
-        "no-empty-interface": false,
-        "no-unnecessary-generics": false
+        "no-empty-interface": false
     }
 }

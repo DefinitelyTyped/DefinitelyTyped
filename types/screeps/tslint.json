@@ -4,7 +4,6 @@
         "no-empty-interface": false,
         "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
-        "no-redundant-undefined": false,
-        "no-unnecessary-generics": false
+        "no-redundant-undefined": false
     }
 }

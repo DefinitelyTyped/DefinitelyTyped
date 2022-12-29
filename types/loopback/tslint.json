@@ -3,7 +3,6 @@
     "rules": {
         "jsdoc-format": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-class": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-class": false
     }
 }

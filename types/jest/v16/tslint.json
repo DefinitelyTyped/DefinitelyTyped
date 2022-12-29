@@ -6,7 +6,6 @@
         "comment-format": false,
         "jsdoc-format": false,
         "member-access": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "no-void-expression": false,
         "only-arrow-functions": false,
