@@ -6343,7 +6343,7 @@ export interface WebDriverProtocolMobileRelated {
      */
     getOrientation(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
-    ): this;
+    ): Awaitable<this, 'LANDSCAPE' | 'PORTRAIT'>;
 
     /**
      * Sets the browser orientation.
@@ -6353,8 +6353,8 @@ export interface WebDriverProtocolMobileRelated {
      */
     setOrientation(
         orientation: 'LANDSCAPE' | 'PORTRAIT',
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
+    ): Awaitable<this, 'LANDSCAPE' | 'PORTRAIT'>;
 
     /**
      * Get a list of the available contexts.
@@ -6364,7 +6364,9 @@ export interface WebDriverProtocolMobileRelated {
      *
      * Used by Appium when testing hybrid mobile web apps. More info here: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md.
      */
-    contexts(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
+    contexts(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void
+    ): Awaitable<this, string[]>;
 
     /**
      * Get current context.
@@ -6372,7 +6374,9 @@ export interface WebDriverProtocolMobileRelated {
      * @example
      * browser.currentContext();
      */
-    currentContext(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
+    currentContext(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void
+    ): Awaitable<this, string | null>;
 
     /**
      * Sets the context.
@@ -6380,7 +6384,10 @@ export interface WebDriverProtocolMobileRelated {
      * @example
      * browser.setContext(context);
      */
-    setContext(context: string, callback?: () => void): this;
+    setContext(
+        context: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<this, null>;
 }
 
 /**
