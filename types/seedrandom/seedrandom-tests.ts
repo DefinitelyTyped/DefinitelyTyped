@@ -5,9 +5,18 @@ const prng = seedrandom('added entropy.', { entropy: true }); // $ExpectType PRN
 prng.double(); // $ExpectType number
 prng.int32(); // $ExpectType number
 prng.quick(); // $ExpectType number
-prng.state(); // $ExpectType object
+// @ts-expect-error seedrandom only provides internal state when explicitly requested
+prng.state;
 prng(); // $ExpectType number
 
+const prngWithState = seedrandom('added entropy.', { entropy: true, state: true }); // $ExpectType StatefulPRNG
+prngWithState.double(); // $ExpectType number
+prngWithState.int32(); // $ExpectType number
+prngWithState.quick(); // $ExpectType number
+prngWithState.state(); // $ExpectType object
+prngWithState(); // $ExpectType number
+
+seedrandom('hello.', { state: {} }); // $ExpectType StatefulPRNG
 seedrandom('hello.', { global: true }); // $ExpectType PRNG
 seedrandom('hello.'); // $ExpectType PRNG
 seedrandom(); // $ExpectType PRNG
