@@ -519,6 +519,18 @@ namespace MeteorTests {
     Comments.update({ viewNumber: { $exists: false } }, { $set: { viewNumber: 0 } });
     Comments.update({ private: true }, { $unset: { tags: true } });
 
+    for (const comment of Comments.find({})) {
+        // $ExpectType CommentsDAO
+        comment;
+    }
+
+    (async function() {
+        for await (const comment of Comments.find({})) {
+            // $ExpectType CommentsDAO
+            comment;
+        }
+    })();
+
     /**
      * From Sessions, Session.set section
      */
@@ -1144,6 +1156,10 @@ namespace MeteorTests {
     if (Meteor.isDevelopment) {
         Rooms._dropIndex('indexName');
     }
+
+    (async function() {
+        await Rooms.dropIndexAsync('indexName');
+    })();
 
     // Covers https://github.com/meteor-typings/meteor/issues/20
     Rooms.find().count(true);

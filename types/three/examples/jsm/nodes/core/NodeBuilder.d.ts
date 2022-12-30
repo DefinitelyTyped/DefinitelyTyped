@@ -74,6 +74,10 @@ export default abstract class NodeBuilder {
 
     abstract getFrontFacing(): string;
 
+    abstract getFragCoord(): string;
+
+    isFlipY(): boolean;
+
     abstract getTexture(textureProperty: string, uvSnippet: string): string;
 
     abstract getTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
