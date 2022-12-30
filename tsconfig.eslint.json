@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "esnext"
-  },
-  "files": ["file.ts"]
-}
