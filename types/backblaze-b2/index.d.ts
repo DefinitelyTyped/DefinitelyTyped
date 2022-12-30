@@ -109,7 +109,7 @@ interface GetDownloadAuthorizationOpts extends CommonArgs {
      * Authorization validity : 0 to 604800
      */
     validDurationInSeconds: number;
-    b2ContentDisposition: string;
+    b2ContentDisposition?: string;
 }
 
 interface DownloadFileOpts extends CommonArgs {
