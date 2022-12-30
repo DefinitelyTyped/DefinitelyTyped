@@ -55,6 +55,31 @@ Users.find({}).mapAsync(doc => {
     return doc;
 });
 
+const selector: Mongo.Selector<DBUser> = {
+    surname: "My Surname"
+}
+
+// $ExpectType Promise<DBUser | undefined>
+Users.findOneAsync(selector);
+
+const ids = ["abc-123"] as const;
+
+const withReadonlyArray: Mongo.Selector<DBUser> = {    
+    _id: { $in: ids }
+}
+Users.findOneAsync(withReadonlyArray);
+
+const updateModifier: Mongo.Modifier<DBUser> = {
+    $set: { surname: "new-name" }
+}
+Users.updateAsync({_id: "abc-123"}, updateModifier);
+
+const sortSpecifier: Mongo.Options<DBUser>["sort"] = {
+    surname: -1
+};
+
+Users.findOneAsync({}, { sort: sortSpecifier })
+
 Users.deny({
     update: (userId, doc) => {
         // $ExpectType string
@@ -535,6 +560,7 @@ Attachment.find({}, { transform: null }).observe({
         return false;
     },
 });
+
 
 // Test MongoInternals
 

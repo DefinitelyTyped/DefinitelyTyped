@@ -71,13 +71,15 @@ declare module 'meteor/mongo' {
             $comment?: string | undefined;
         };
 
+        /**
+         * @deprecated, use NestedPaths from the Mongo driver types instead
+         */
         type Flatten<T> = T extends any[] ? T[0] : T;
 
-        type Query<T> = { [P in keyof T]?: Flatten<T[P]> | RegExp | FieldExpression<Flatten<T[P]>> } & {
-            $or?: Query<T>[] | undefined;
-            $and?: Query<T>[] | undefined;
-            $nor?: Query<T>[] | undefined;
-        } & Dictionary<any>;
+        /**
+         * Alias for the driver Filter type
+         */
+        type Query<T> = MongoNpmModule.Filter<T>;
 
         type QueryWithModifiers<T> = {
             $query: Query<T>;
@@ -117,30 +119,12 @@ declare module 'meteor/mongo' {
             [P in keyof T]?: OnlyElementsOfArrays<T[P]> | { $each: T[P] };
         };
         type CurrentDateModifier = { $type: 'timestamp' | 'date' } | true;
-        type Modifier<T> =
-            | T
-            | {
-                  $currentDate?:
-                      | (Partial<Record<keyof T, CurrentDateModifier>> & Dictionary<CurrentDateModifier>)
-                      | undefined;
-                  $inc?: (PartialMapTo<T, number> & Dictionary<number>) | undefined;
-                  $min?: (PartialMapTo<T, Date | number> & Dictionary<Date | number>) | undefined;
-                  $max?: (PartialMapTo<T, Date | number> & Dictionary<Date | number>) | undefined;
-                  $mul?: (PartialMapTo<T, number> & Dictionary<number>) | undefined;
-                  $rename?: (PartialMapTo<T, string> & Dictionary<string>) | undefined;
-                  $set?: (Partial<T> & Dictionary<any>) | undefined;
-                  $setOnInsert?: (Partial<T> & Dictionary<any>) | undefined;
-                  $unset?: (PartialMapTo<T, string | boolean | 1 | 0> & Dictionary<any>) | undefined;
-                  $addToSet?: (ArraysOrEach<T> & Dictionary<any>) | undefined;
-                  $push?: (PushModifier<T> & Dictionary<any>) | undefined;
-                  $pull?: (ElementsOf<T> & Dictionary<any>) | undefined;
-                  $pullAll?: (Partial<T> & Dictionary<any>) | undefined;
-                  $pop?: (PartialMapTo<T, 1 | -1> & Dictionary<1 | -1>) | undefined;
-              };
+        type Modifier<T> = MongoNpmModule.UpdateFilter<T>;
 
         type OptionalId<TSchema> = UnionOmit<TSchema, '_id'> & { _id?: any };
 
-        interface SortSpecifier {}
+        type SortSpecifier = MongoNpmModule.Sort;
+        
         interface FieldSpecifier {
             [id: string]: Number;
         }
