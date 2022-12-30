@@ -40,7 +40,7 @@ export interface Font {
     bbox: BBOX;
     /** the font metric table consisting of a set of metrics and other data required for OpenType fonts */
     'OS/2': Os2Table;
-    /** the font's horizontal header table consisting of intformation needed to layout fonts with horizontal characters    */
+    /** the font's horizontal header table consisting of information needed to layout fonts with horizontal characters    */
     hhea: HHEA;
 
     /** the number of glyphs in the font */
