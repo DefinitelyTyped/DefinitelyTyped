@@ -36,7 +36,6 @@ interface BaseInterface {
 interface seedrandom {
     (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PRNG;
     alea: BaseInterface;
-    quick: BaseInterface;
     tychei: BaseInterface;
     xor128: BaseInterface;
     xor4096: BaseInterface;
