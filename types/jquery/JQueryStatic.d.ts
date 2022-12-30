@@ -194,7 +194,7 @@ jQuery(function( $ ) {
 ```
      */
     /* eslint-disable no-unnecessary-generics */
-    // tslint-disable-next-line:unified-signatures
+    // tslint:disable-next-line:unified-signatures
     <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>;
     /* eslint-enable no-unnecessary-generics */
     /**

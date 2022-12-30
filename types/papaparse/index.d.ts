@@ -43,7 +43,7 @@ export function parse<T>(url: string, config: ParseRemoteConfig<T>): void;
  * @returns Doesn't return anything. Results are provided asynchronously to a callback function.
  */
 /* eslint-disable no-unnecessary-generics */
-// tslint-disable-next-line:unified-signatures
+// tslint:disable-next-line:unified-signatures
 export function parse<T>(csvString: string, config: ParseWorkerConfig<T> & { download?: false | undefined }): void;
 /* eslint-enable no-unnecessary-generics */
 /**
