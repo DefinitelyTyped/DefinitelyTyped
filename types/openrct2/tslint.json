@@ -5,7 +5,6 @@
         "interface-name": false,
         "no-empty-interface": false,
         "no-redundant-jsdoc": false,
-        "no-unnecessary-generics": false,
         "unified-signatures": false
     }
 }

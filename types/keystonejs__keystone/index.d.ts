@@ -259,10 +259,10 @@ declare module '@keystonejs/keystone' {
             pinoOptions?: any
         }): Promise<KeystonePrepareResult>;
 
-        // tslint:disable-next-line:no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         createContext<Context = any>(context: { schemaName?: string | undefined, authentication?: AuthenticationContext | undefined, skipAccessControl?: boolean | undefined; }): Context;
         // The return type is actually important info here. I don't believe this generic is unnecessary.
-        // tslint:disable-next-line:no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         executeGraphQL<Output = any>(options: {context?: any; query?: any, variables?: any}): Output;
     }
 }

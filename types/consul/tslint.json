@@ -6,7 +6,6 @@
         "no-empty-interface": false,
         "no-padding": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "prefer-const": false,
         "semicolon": false,
         "unified-signatures": false

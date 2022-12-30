@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-any-union": false,
-        "no-unnecessary-callback-wrapper": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-callback-wrapper": false
     }
 }
