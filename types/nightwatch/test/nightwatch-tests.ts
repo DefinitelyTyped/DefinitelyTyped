@@ -131,6 +131,7 @@ const testGeneral: NightwatchTests = {
     'test user defined globals': () => {
         browser.url(`http://${browser.globals.username}:${browser.globals.password}@example.com`).end();
     },
+
     'Demo test for built-in API commands for working with the Chrome Devtools Protocol': () => {
         // setGeolocation
         browser
@@ -249,6 +250,78 @@ describe('duckduckgo example', function() {
         .assert.textContains('.results--main', 'Nightwatch.js');
     });
 });
+
+//
+// .tests/native/wikipedia.ts
+//
+const wikipediaAppTest: NightwatchTests = {
+    before: (client: NightwatchAPI) => {
+      client.click('xpath', '//XCUIElementTypeButton[@name="Skip"]');
+    },
+
+    'Search for BrowserStack': async (client: NightwatchAPI) => {
+      client
+        .useXpath()
+        .click('//XCUIElementTypeSearchField[@name="Search Wikipedia"]')
+        .getOrientation(function(result) {
+            if (result.status === 0) {
+                isType<'LANDSCAPE' | 'PORTRAIT'>(result.value);
+            }
+            isNightwatchAPI(this);
+        })
+        .setOrientation('LANDSCAPE', function(result) {
+            if (result.status === 0) {
+                isType<'LANDSCAPE' | 'PORTRAIT'>(result.value);
+            }
+            isNightwatchAPI(this);
+        })
+        .sendKeys('//XCUIElementTypeSearchField[@name="Search Wikipedia"]', 'browserstack')
+        .click('//XCUIElementTypeStaticText[@name="BrowserStack"]')
+        .waitUntil(async function() {
+            // wait for webview context to be available
+            const contexts = await client.contexts(function(result) {
+                if (result.status === 0) {
+                    isType<string[]>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+          return contexts.length > 1;
+        }, 50000)
+        .perform(async function() {
+            // switch to webview context
+            const contexts = await client.contexts();
+            const setContextResult = await client.setContext(contexts[1], function(result) {
+                if (result.status === 0) {
+                    isType<null>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+            const currContext = await client.currentContext(function(result) {
+                if (result.status === 0) {
+                    isType<string | null>(result.value);
+                }
+                isNightwatchAPI(this);
+            });
+
+            isType<string[]>(contexts);
+            isType<null>(setContextResult);
+            isType<string | null>(currContext);
+
+            // switch orientation back to portrait
+            const currOrientation = await client.getOrientation();
+            const setOrientationResult = await client.setOrientation('PORTRAIT');
+
+            isType<'LANDSCAPE' | 'PORTRAIT'>(currOrientation);
+            isType<'LANDSCAPE' | 'PORTRAIT'>(setOrientationResult);
+        })
+        .useCss()
+        .assert.textEquals('.pcs-edit-section-title', 'BrowserStack');  // command run in webview context
+
+      client.end();
+    }
+};
 
 //
 // ./pages/google.ts
