@@ -14313,6 +14313,11 @@ export interface EvidenceVariableCharacteristic extends BackboneElement {
    * Used to expressing the type of characteristic.
    */
   type?: CodeableConcept | undefined;
+  /**
+   * Label for internal linking.
+   */
+  linkId?: string | undefined;
+  _linkId?: Element | undefined;
 }
 /**
  * A grouping for ordinal or polychotomous variables.
