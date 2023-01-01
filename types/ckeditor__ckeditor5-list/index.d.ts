@@ -5,6 +5,7 @@
 // Minimum TypeScript Version: 4.3
 
 export { default as DocumentList } from './src/documentlistlist';
+export { default as DocumentListEditing } from './src/documentlist/documentlistediting';
 export { default as DocumentListProperties } from './src/documentlistproperties';
 export { default as List } from './src/list';
 export { default as ListEditing } from './src/list/listediting';
