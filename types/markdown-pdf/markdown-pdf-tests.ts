@@ -8,5 +8,10 @@ mdPdf().concat.from.strings(['lol', 'lol'], {}).to('path', () => { }); // $Expec
 mdPdf().from('path').to.path('path', () => { }); // $ExpectType void
 mdPdf().from('path').to('path'); // $ExpectType void
 
+// $ExpectType void
+mdPdf().from.string('markdown').to.buffer(null, (err, buffer) => {
+    buffer; // $ExpectType ArrayBuffer
+});
+
 // @ts-expect-error
 mdPdf({ paperFormat: 'wrongFormat' });
