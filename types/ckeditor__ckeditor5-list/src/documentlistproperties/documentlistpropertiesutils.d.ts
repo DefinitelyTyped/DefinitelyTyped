@@ -13,8 +13,6 @@ export default class DocumentListPropertiesUtils extends Plugin {
 
     /**
      * Checks whether the given list-style-type is supported by numbered or bulleted list.
-     *
-     * @returns {'bulleted'|'numbered'|null}
      */
     getListTypeFromListStyleType(listStyleType: string): 'bulleted' | 'numbered' | null;
 
