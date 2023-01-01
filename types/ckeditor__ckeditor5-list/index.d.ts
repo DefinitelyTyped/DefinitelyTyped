@@ -7,6 +7,7 @@
 export { default as DocumentList } from './src/documentlistlist';
 export { default as DocumentListEditing } from './src/documentlist/documentlistediting';
 export { default as DocumentListProperties } from './src/documentlistproperties';
+export { default as DocumentListPropertiesEditing } from './src/documentlistproperties/documentlistpropertiesediting';
 export { default as List } from './src/list';
 export { default as ListEditing } from './src/list/listediting';
 export { default as ListProperties } from './src/listproperties';
