@@ -13,8 +13,8 @@
             "../"
         ],
         "paths": {
-            "@hapi/*": [
-                "hapi__*"
+            "@hapi/cookie": [
+                "hapi__cookie"
             ]
         },
         "types": [],
