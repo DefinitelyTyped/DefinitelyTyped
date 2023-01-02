@@ -3,45 +3,45 @@
 declare namespace M {
     class TapTarget extends Component<TapTargetOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): TapTarget;
 
         /**
-         * Init TapTarget
+         * Init TapTarget.
          */
         static init(els: Element, options?: Partial<TapTargetOptions>): TapTarget;
 
         /**
-         * Init TapTargets
+         * Init TapTargets.
          */
         static init(els: MElements, options?: Partial<TapTargetOptions>): TapTarget[];
 
         /**
-         * If the tap target is open
+         * If the tap target is open.
          */
         isOpen: boolean;
 
         /**
-         * Open Tap Target
+         * Open Tap Target.
          */
         open(): void;
 
         /**
-         * Close Tap Target
+         * Close Tap Target.
          */
         close(): void;
     }
 
     interface TapTargetOptions {
         /**
-         * Callback function called when Tap Target is opened
+         * Callback function called when Tap Target is opened.
          * @default null
          */
         onOpen: (this: TapTarget, origin: Element) => void;
 
         /**
-         * Callback function called when Tap Target is closed
+         * Callback function called when Tap Target is closed.
          * @default null
          */
         onClose: (this: TapTarget, origin: Element) => void;

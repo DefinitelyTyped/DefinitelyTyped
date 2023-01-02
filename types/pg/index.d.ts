@@ -23,7 +23,6 @@ export interface ClientConfig {
     keepAlive?: boolean | undefined;
     stream?: stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
-    parseInputDatesAsUTC?: boolean | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     query_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;

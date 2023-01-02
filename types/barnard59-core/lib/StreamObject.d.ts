@@ -9,9 +9,9 @@ export interface Variables {}
 type Keys = keyof Variables extends never ? string : keyof Variables;
 
 interface TypedMap extends Map<Keys, any> {
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<K extends keyof Variables>(key: K): Variables[typeof key];
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     set<K extends keyof Variables>(key: K, value: Variables[typeof key] | undefined): this;
 }
 

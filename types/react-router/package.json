@@ -2,5 +2,9 @@
     "private": true,
     "dependencies": {
         "@types/history": "^4.7.11"
+    },
+    "types": "index",
+    "typesVersions": {
+        "<=4.6": { "*": ["ts4.6/*"] }
     }
 }

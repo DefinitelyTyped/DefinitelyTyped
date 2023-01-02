@@ -1,6 +1,6 @@
 import { WebGLRenderTarget, ShaderMaterial } from '../../../src/Three';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 
 export class AdaptiveToneMappingPass extends Pass {
     constructor(adaptive?: boolean, resolution?: number);
@@ -16,7 +16,7 @@ export class AdaptiveToneMappingPass extends Pass {
     adaptLuminanceShader: object;
     materialAdaptiveLum: ShaderMaterial;
     materialToneMap: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
 
     reset(): void;
     setAdaptive(adaptive: boolean): void;

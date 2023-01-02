@@ -43,13 +43,13 @@ export type FetchFileWithCaching = (url: string) => Promise<string>;
 export type Context = FetchFileWithCaching | null;
 
 export interface DevtoolsProps {
-    bridge: FrontendBridge;
+    bridge?: FrontendBridge;
     browserTheme?: BrowserTheme | undefined;
     canViewElementSourceFunction?: CanViewElementSource | null | undefined;
     defaultTab?: TabID | undefined;
     enabledInspectedElementContextMenu?: boolean | undefined;
     showTabBar?: boolean | undefined;
-    store: Store;
+    store?: Store;
     warnIfLegacyBackendDetected?: boolean | undefined;
     warnIfUnsupportedVersionDetected?: boolean | undefined;
     viewAttributeSourceFunction?: ViewAttributeSource | null | undefined;
@@ -65,6 +65,7 @@ export interface DevtoolsProps {
     profilerPortalContainer?: Element | undefined;
     fetchFileWithCaching?: FetchFileWithCaching | null | undefined;
     hookNamesModuleLoaderFunction?: HookNamesModuleLoaderFunction | null | undefined;
+    viewUrlSourceFunction?: ViewUrlSourceFunction | null | undefined;
 }
 
 export interface SerializedElement {
@@ -205,6 +206,7 @@ export interface ParseHookNamesModule {
 }
 
 export type HookNamesModuleLoaderFunction = () => PromiseLike<ParseHookNamesModule>;
+export type ViewUrlSourceFunction = (url: string, line: number, col: number) => void;
 export type EventParams<T> = T extends any[] ? T : never;
 export class EventEmitter<Events> {
     listenersMap: Map<string, AnyFn[]>;
@@ -1245,6 +1247,8 @@ export interface FiberNode {
     sibling: FiberNode | null;
     /** Parent */
     return: FiberNode | null;
+    /** Alternate */
+    alternate: FiberNode | null;
     /**
      * For custom components: the component class or function.
      * For built-in DOM components: tag name in lower case.
@@ -1260,6 +1264,7 @@ export interface FiberNode {
     pendingProps: Record<string, unknown> | null;
     _debugSource: Source | null;
     key: string | null;
+    deletions: FiberNode[] | null;
 }
 export interface DevToolsHook {
     listeners: Record<string, ListenerHandler[]>;

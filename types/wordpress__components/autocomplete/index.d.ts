@@ -119,7 +119,7 @@ declare namespace Autocomplete {
     }
 }
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 declare function Autocomplete<T = any>(props: Autocomplete.Props<T>): JSX.Element;
 
 export default Autocomplete;

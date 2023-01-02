@@ -17,6 +17,10 @@ googletag.cmd.push(() => {
     googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 });
 
+googletag.cmd.push(function() {
+    console.log(this.googletag);
+});
+
 // DEMO 3
 // Define a custom out-of-page ad slot.
 googletag.defineOutOfPageSlot('/1234567/sports', 'div-1');
@@ -702,7 +706,7 @@ googletag.pubads().addEventListener('rewardedSlotReady', event => {
 });
 
 // Event Types
-const types: googletag.events.EventType[] = [
+const types: Array<keyof googletag.events.EventTypeMap> = [
     'impressionViewable',
     'rewardedSlotClosed',
     'rewardedSlotGranted',

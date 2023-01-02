@@ -197,7 +197,7 @@ export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> =
  * @param options
  */
 export interface Connect<DefaultState = DefaultRootState> {
-    // tslint:disable:no-unnecessary-generics
+    /* eslint-disable no-unnecessary-generics */
     (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
@@ -295,7 +295,7 @@ export interface Connect<DefaultState = DefaultRootState> {
         mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
         options?: Options<State, TStateProps, TOwnProps, TMergedProps>
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
-    // tslint:enable:no-unnecessary-generics
+    /* eslint-enable no-unnecessary-generics */
 }
 
 /**
@@ -393,7 +393,7 @@ export interface Options<State = DefaultRootState, TStateProps = {}, TOwnProps =
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
 export function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
 ): AdvancedComponentDecorator<TProps, TOwnProps>;
@@ -500,7 +500,7 @@ export const ReactReduxContext: Context<ReactReduxContextValue>;
  */
 export function batch(cb: () => void): void;
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 
 /**
  * Compares two arbitrary values for shallow equality. Object values are compared based on their keys, i.e. they must
@@ -642,4 +642,4 @@ export function createDispatchHook<S = RootStateOrAny, A extends Action = AnyAct
     context?: Context<ReactReduxContextValue<S, A>>,
 ): () => Dispatch<A>;
 
-// tslint:enable:no-unnecessary-generics
+/* eslint-enable no-unnecessary-generics */

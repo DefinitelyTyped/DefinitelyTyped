@@ -152,7 +152,7 @@ class CalendarResource {
         />
     );
 
-    const localizer = luxonLocalizer(luxonConfig);
+    const localizer = luxonLocalizer(luxonConfig, { firstDayOfWeek: 0 });
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
@@ -315,6 +315,7 @@ class CalendarResource {
                     min={new Date()}
                     max={new Date()}
                     scrollToTime={new Date()}
+                    enableAutoScroll={false}
                     formats={{
                         dateFormat: 'h a',
                         agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',

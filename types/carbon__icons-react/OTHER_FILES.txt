@@ -558,6 +558,7 @@ es/DewPoint.d.ts
 es/DewPointFilled.d.ts
 es/Diagram.d.ts
 es/DiagramReference.d.ts
+es/DiamondFillGlyph.d.ts
 es/watson-health/WatsonHealthDicom_6000.d.ts
 es/watson-health/WatsonHealthDicomOverlay.d.ts
 es/DirectLink.d.ts
@@ -934,6 +935,9 @@ es/ImageMedical.d.ts
 es/ImageReference.d.ts
 es/ImageSearch.d.ts
 es/ImageSearchAlt.d.ts
+es/watson-health/WatsonHealthImageAvailabilityLocal.d.ts
+es/watson-health/WatsonHealthImageAvailabilityRetrieving.d.ts
+es/watson-health/WatsonHealthImageAvailabilityUnavailable.d.ts
 es/ImageService.d.ts
 es/ImportExport.d.ts
 es/ImproveRelevance.d.ts
@@ -1356,6 +1360,7 @@ es/PillsAdd.d.ts
 es/PillsSubtract.d.ts
 es/Pin.d.ts
 es/PinFilled.d.ts
+es/Plan.d.ts
 es/Plane.d.ts
 es/PlanePrivate.d.ts
 es/PlaneSea.d.ts
@@ -1840,7 +1845,6 @@ es/Q/QU2.d.ts
 es/Q/QU3.d.ts
 es/Umbrella.d.ts
 es/Undefined.d.ts
-es/UndefinedGlyph.d.ts
 es/UndefinedFilled.d.ts
 es/Undo.d.ts
 es/UngroupObjects.d.ts
@@ -2566,6 +2570,7 @@ lib/DewPoint.d.ts
 lib/DewPointFilled.d.ts
 lib/Diagram.d.ts
 lib/DiagramReference.d.ts
+lib/DiamondFillGlyph.d.ts
 lib/watson-health/WatsonHealthDicom_6000.d.ts
 lib/watson-health/WatsonHealthDicomOverlay.d.ts
 lib/DirectLink.d.ts
@@ -2942,6 +2947,9 @@ lib/ImageMedical.d.ts
 lib/ImageReference.d.ts
 lib/ImageSearch.d.ts
 lib/ImageSearchAlt.d.ts
+lib/watson-health/WatsonHealthImageAvailabilityLocal.d.ts
+lib/watson-health/WatsonHealthImageAvailabilityRetrieving.d.ts
+lib/watson-health/WatsonHealthImageAvailabilityUnavailable.d.ts
 lib/ImageService.d.ts
 lib/ImportExport.d.ts
 lib/ImproveRelevance.d.ts
@@ -3364,6 +3372,7 @@ lib/PillsAdd.d.ts
 lib/PillsSubtract.d.ts
 lib/Pin.d.ts
 lib/PinFilled.d.ts
+lib/Plan.d.ts
 lib/Plane.d.ts
 lib/PlanePrivate.d.ts
 lib/PlaneSea.d.ts
@@ -3848,7 +3857,6 @@ lib/Q/QU2.d.ts
 lib/Q/QU3.d.ts
 lib/Umbrella.d.ts
 lib/Undefined.d.ts
-lib/UndefinedGlyph.d.ts
 lib/UndefinedFilled.d.ts
 lib/Undo.d.ts
 lib/UngroupObjects.d.ts

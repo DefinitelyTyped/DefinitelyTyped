@@ -7,12 +7,10 @@
         "max-line-length": false,
         "no-duplicate-imports": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "semicolon": false,
-        "trim-file": false,
         "void-return": false,
         "whitespace": false
     }

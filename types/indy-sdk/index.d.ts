@@ -593,7 +593,7 @@ export interface IndyProofRequest {
     requested_attributes: {
         [key: string]: {
             name?: string | undefined;
-            names?: string | undefined;
+            names?: string[] | undefined;
             restrictions?: WalletQuery[] | undefined;
             non_revoked?: NonRevokedInterval | undefined;
         };

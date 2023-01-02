@@ -1,3 +1,5 @@
+// https://threejs.org/docs/?q=buffergeome#examples/en/utils/BufferGeometryUtils
+
 import {
     BufferAttribute,
     BufferGeometry,
@@ -8,6 +10,7 @@ import {
     Points,
 } from '../../../src/Three';
 
+export function deepCloneAttribute(attribute: BufferAttribute): BufferAttribute;
 export function mergeBufferGeometries(geometries: BufferGeometry[], useGroups?: boolean): BufferGeometry;
 export function mergeBufferAttributes(attributes: BufferAttribute[]): BufferAttribute;
 export function interleaveAttributes(attributes: BufferAttribute[]): InterleavedBufferAttribute;
@@ -23,3 +26,11 @@ export function computeMikkTSpaceTangents(
 export function mergeGroups(geometry: BufferGeometry): BufferGeometry;
 export function deinterleaveAttribute(geometry: BufferGeometry): void;
 export function deinterleaveGeometry(geometry: BufferGeometry): void;
+
+/**
+ * Creates a new, non-indexed geometry with smooth normals everywhere except faces that meet at an angle greater than the crease angle.
+ *
+ * @param geometry The input geometry.
+ * @param creaseAngle The crease angle.
+ */
+export function toCreasedNormals(geometry: BufferGeometry, creaseAngle?: number): BufferGeometry;

@@ -1,6 +1,6 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import ListPropertiesEditing from './listpropertiesediting';
-import ListPropertiesUI from './listpropertiesui';
+import ListPropertiesEditing from './listproperties/listpropertiesediting';
+import ListPropertiesUI from './listproperties/listpropertiesui';
 
 export default class ListProperties extends Plugin {
     static readonly pluginName: 'ListProperties';

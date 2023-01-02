@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable no-unnecessary-generics */
 // prettier-ignore
 declare function createHigherOrderComponent<EP = {}>(
     mapComponentToEnhancedComponent: (component: ComponentType<any>) => ComponentType<any>,

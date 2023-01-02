@@ -6,7 +6,6 @@
         "no-consecutive-blank-lines": false,
         "npm-naming": false,
         "one-line": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

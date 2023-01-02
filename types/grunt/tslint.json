@@ -10,7 +10,6 @@
         "no-padding": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "one-line": false,
@@ -19,7 +18,6 @@
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "unified-signatures": false,
         "whitespace": false

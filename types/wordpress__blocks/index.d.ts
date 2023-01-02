@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/blocks 11.0
+// Type definitions for @wordpress/blocks 12.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                 Jon Surrell <https://github.com/sirreal>
@@ -10,6 +10,7 @@
 // TypeScript Version: 3.6
 
 import { Dashicon } from '@wordpress/components';
+import { ShortcodeMatch } from '@wordpress/shortcode';
 import { ComponentType, ReactElement } from 'react';
 
 export * from './api';
@@ -27,7 +28,6 @@ export type CSSDirection = 'top' | 'right' | 'bottom' | 'left';
 export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
-    readonly className: string;
     readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
@@ -43,6 +43,7 @@ export interface BlockIconNormalized {
 export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;
 
 export interface BlockSaveProps<T extends Record<string, any>> {
+    readonly className: string;
     readonly attributes: Readonly<T>;
 }
 
@@ -206,8 +207,17 @@ export interface Block<T extends Record<string, any> = {}> {
     /**
      * Setting `parent` lets a block require that it is only available when
      * nested within the specified blocks.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#parent}
      */
     readonly parent?: readonly string[] | undefined;
+    /**
+     * Setting `ancestor` lets a block require that it is only available when
+     * nested within the specified blocks.
+     *
+     * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#ancestor}
+     */
+    readonly ancestor?: readonly string[] | undefined;
     /**
      * Context provided for available access by descendants of blocks of this
      * type, in the form of an object which maps a context name to one of the
@@ -576,7 +586,7 @@ export interface TransformBlock<T extends Record<string, any>> {
     type: 'block';
     priority?: number | undefined;
     blocks: string[];
-    isMatch?(attributes: T): boolean;
+    isMatch?(attributes: T, block: string|string[]): boolean;
     isMultiBlock?: boolean | undefined;
     transform(attributes: T): BlockInstance<Partial<T>>;
 }
@@ -620,6 +630,7 @@ export interface TransformShortcode<T extends Record<string, any>> {
     type: 'shortcode';
     priority?: number | undefined;
     tag: string;
+    transform?(attributes: any, match: ShortcodeMatch): BlockInstance<T>;
     attributes?: any; // TODO: add stronger types here.
 }
 

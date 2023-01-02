@@ -1,4 +1,4 @@
-import { describe, it, run, test } from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach } from 'node:test';
 
 // run without options
 // $ExpectType TapStream
@@ -17,6 +17,7 @@ run({
     files: ['test-file-name.js'],
     signal: new AbortController().signal,
     timeout: 100,
+    inspectPort: () => 8081,
 });
 
 // TapStream should be a NodeJS.ReadableStream
@@ -71,6 +72,10 @@ test(undefined, undefined, t => {
     t.todo('todo reason');
     // $ExpectType void
     t.todo();
+    // $ExpectType void
+    t.afterEach(() => {});
+    // $ExpectType void
+    t.beforeEach(() => {});
 });
 
 // Test the subtest approach.
@@ -122,6 +127,32 @@ it('options with booleans', {
     todo: false,
 });
 
+describe.skip('skip shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.skip('todo shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+describe.todo('skip shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.todo('todo shorthand', {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
 // Test callback mode
 describe(cb => {
     // $ExpectType (result?: any) => void
@@ -143,3 +174,46 @@ describe(1, () => {});
 
 // @ts-expect-error
 it(1, () => {});
+
+// Hooks
+// - without callback
+before(() => {});
+beforeEach(() => {});
+after(() => {});
+beforeEach(() => {});
+// - with callback
+before(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+beforeEach(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+after(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+afterEach(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+beforeEach(cb => {
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: 'anything' });
+});
+// - with options
+before(() => {}, { signal: new AbortController().signal, timeout: Infinity });
+beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity });
+after(() => {}, { signal: new AbortController().signal, timeout: Infinity });
+beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity });

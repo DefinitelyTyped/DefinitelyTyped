@@ -20,15 +20,17 @@ declare global {
      * @deprecated The Patcher used in this call contains deprecated option types
      * @see LegacyPatcher
      */
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: LegacyPatcher<S, L>): void;
     /**
      * Function for registering a patcher with UPF
      *
      * Generics are needed for inference within Patcher interface to work
      */
-    // tslint:disable-next-line no-unnecessary-generics unified-signatures
+    /* eslint-disable no-unnecessary-generics */
+    // tslint:disable-next-line:unified-signatures
     function registerPatcher<L extends {} = {}, S extends {} = {}>(patcher: Patcher<S, L>): void;
+    /* eslint-enable no-unnecessary-generics */
 
     /**
      * @see FileHelpers

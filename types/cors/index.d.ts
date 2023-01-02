@@ -5,6 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="node" />
+
 import { IncomingHttpHeaders } from 'http';
 
 type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[];
