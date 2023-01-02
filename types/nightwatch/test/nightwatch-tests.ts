@@ -133,7 +133,7 @@ const testGeneral: NightwatchTests = {
           });
     },
 
-    'can GET count of sold inventory': async ({
+    'Can API test with express app': async ({
         supertest,
       }: {
         supertest: ApiTest;
