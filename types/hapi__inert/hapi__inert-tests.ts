@@ -1,5 +1,4 @@
 import { Server, Lifecycle } from '@hapi/hapi';
-
 import * as path from 'path';
 import * as inert from '@hapi/inert';
 

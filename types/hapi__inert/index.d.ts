@@ -4,7 +4,6 @@
 //                 Alexander James Phillips <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import { Plugin, Request } from '@hapi/hapi';
 
@@ -148,12 +147,14 @@ declare module '@hapi/hapi' {
          * @see {@link https://github.com/hapijs/inert#the-directory-handler}
          */
         directory?: inert.DirectoryHandlerRouteObject | undefined;
-        files?: {
-            /**
-             * Set the relative path
-             */
-            relativeTo: string;
-        } | undefined;
+        files?:
+            | {
+                  /**
+                   * Set the relative path
+                   */
+                  relativeTo: string;
+              }
+            | undefined;
     }
 
     interface ResponseToolkit {
