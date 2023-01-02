@@ -14,16 +14,6 @@ const server = new Server({
 const provision = async () => {
     await server.register(inert);
 
-    await server.register({
-        plugin: inert,
-        options: { etagsCacheMaxSize: 400 },
-    });
-
-    await server.register({
-        plugin: inert,
-        once: true,
-    });
-
     server.route({
         method: 'GET',
         path: '/{param*}',

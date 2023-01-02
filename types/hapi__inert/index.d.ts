@@ -118,7 +118,7 @@ declare namespace inert {
     }
 }
 
-declare const inert: Plugin<inert.OptionalRegistrationOptions>;
+declare const inert: { plugin: Plugin<inert.OptionalRegistrationOptions> };
 
 export = inert;
 
