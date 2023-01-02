@@ -316,7 +316,7 @@ export class Auth0ContextInterface {
     user: any;
     error: any;
     authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
-    clearSession(): Promise<void>;
+    clearSession(parameters?: ClearSessionParams): Promise<void>;
     getCredentials(scope?: string, minTtl?: number, parameters?: any): Promise<Credentials>;
     clearCredentials(): Promise<void>;
     requireLocalAuthentication(
