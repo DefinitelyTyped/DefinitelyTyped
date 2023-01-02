@@ -20,6 +20,9 @@
 import { WebElement, By, RelativeBy, Actions } from 'selenium-webdriver';
 import { Protocol } from 'devtools-protocol';
 import { Expect } from './expect';
+import { SuperTest } from 'supertest';
+import supertest = require('supertest');
+import express = require('express');
 
 export * from './globals';
 export * from './expect';
@@ -30,6 +33,10 @@ export interface ElementResult { [ELEMENT_KEY]: string; }
 
 export interface JSON_WEB_OBJECT extends ElementResult {
     getId: () => string;
+}
+
+export interface ApiTest extends SuperTest<supertest.Test> {
+    request: (app: express.Application | string) => this;
 }
 
 export type Definition = string | ElementProperties | Element | RelativeBy;
