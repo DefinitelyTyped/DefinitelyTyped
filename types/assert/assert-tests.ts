@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 
 assert(true, "it's working");
+assert(true, new Error("it keeps working"));
 
 assert.ok(true, 'inner functions work as well');
 
