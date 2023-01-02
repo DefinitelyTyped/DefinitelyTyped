@@ -1,6 +1,6 @@
 /* tslint:disable:comment-format no-namespace */
 
-"use strict";
+'use strict';
 
 //==============================================================================
 // workbox.loadModule
@@ -8,9 +8,13 @@
 
 export namespace LoadModuleTest {
     declare const name: string;
+    declare const shouldBeString: boolean;
 
     // $ExpectType void
     workbox.loadModule(name);
+
+    // @ts-expect-error
+    workbox.loadModule(shouldBeString);
 }
 
 //==============================================================================

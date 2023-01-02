@@ -6,11 +6,16 @@ const withPWA = nextPWA({
     dest: 'public',
 });
 
+// $ExpectType NextConfig & PWAConfig
+const outputConfig = withPWA({});
+
 const errorWithPWA = nextPWA({
     dest: 'public',
     // @ts-expect-error
     register: 'error',
 });
 
-// $ExpectType NextConfig & PWAConfig
-const outputConfig = withPWA({});
+const webpackConfigOptions: nextPWA.WebpackConfigOptions = {
+    // @ts-expect-error
+    swDest: true,
+};
