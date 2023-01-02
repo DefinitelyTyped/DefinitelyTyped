@@ -1,6 +1,5 @@
+import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
 import { flatMap, mapDefined } from "@definitelytyped/utils";
-import fsExtra from "fs-extra";
-const { writeFileSync, readFileSync, readdirSync, existsSync } = fsExtra;
 import hp from "@definitelytyped/header-parser";
 import { Octokit } from "@octokit/core";
 

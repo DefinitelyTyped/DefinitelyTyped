@@ -18,7 +18,12 @@ export interface TaskInfoObject {
 }
 export type TaskInfo = string | TaskInfoObject;
 
-export type BeginHandler = (expectedBytes: number) => any;
+export interface BeginHandlerObject {
+    expectedBytes: number;
+    headers: { [key: string]: string };
+}
+
+export type BeginHandler = ({ expectedBytes, headers }: BeginHandlerObject) => any;
 export type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
 export type DoneHandler = () => any;
 export type ErrorHandler = (error: any, errorCode: any) => any;

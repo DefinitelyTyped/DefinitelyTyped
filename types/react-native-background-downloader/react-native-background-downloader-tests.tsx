@@ -14,7 +14,7 @@ const task = RNBackgroundDownloader.download({
       'x-custom-3': 'a-third-header',
     },
 })
-    .begin(expectedBytes => {
+    .begin(({ expectedBytes }) => {
         console.log(`Going to download ${expectedBytes} bytes!`);
     })
     .progress(percent => {

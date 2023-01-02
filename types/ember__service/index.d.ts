@@ -30,4 +30,10 @@ export function service<K extends keyof Registry>(name: K): ComputedProperty<Reg
 // A type registry for Ember `Service`s. Meant to be declaration-merged so
 // string lookups resolve to the correct type.
 // tslint:disable-next-line no-empty-interface strict-export-declare-modifiers
-interface Registry {}
+interface Registry extends Record<string, Service> {}
+
+declare module '@ember/owner' {
+    interface DIRegistry {
+        service: Registry;
+    }
+}

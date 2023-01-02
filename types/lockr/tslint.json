@@ -9,7 +9,6 @@
         "no-padding": false,
         "no-single-declare-module": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "object-literal-key-quotes": false
     }
 }

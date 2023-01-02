@@ -1,10 +1,14 @@
-// Type definitions for swell-js 3.17
+// Type definitions for swell-js 3.18
 // Project: https://github.com/swellstores/swell-js#readme
 // Definitions by: Gus Fune <https://github.com/gusfune>
 //                 Markus <https://github.com/markus-gx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference path="currency.d.ts" />
+/// <reference path="locale.d.ts" />
 /// <reference path="settings.d.ts" />
 
+import type { Locale } from './locale';
+import type { Currency, CurrencySelect } from './currency';
 import type { Settings } from './settings';
 
 export as namespace Swell;
@@ -187,13 +191,14 @@ export interface ProductOptionValueSnakeCase {
 }
 
 export interface ProductOptionSnakeCase {
-    id: string;
-    values: ProductOptionValueSnakeCase[];
     active: true;
+    attribute_id?: string | null;
     description: null;
+    id: string;
     input_type: string;
     name: string;
     required: boolean;
+    values: ProductOptionValueSnakeCase[];
     variant: boolean;
 }
 
@@ -206,13 +211,14 @@ export interface ProductOptionValueCamelCase {
 }
 
 export interface ProductOptionCamelCase {
-    id: string;
-    values: ProductOptionValueCamelCase[];
     active: boolean;
+    attributeId?: string | null;
     description: string | null;
+    id: string;
     inputType: string;
     name: string;
     required: boolean;
+    values: ProductOptionValueCamelCase[];
     variant: boolean;
 }
 
@@ -329,12 +335,14 @@ export type Product = ProductCamelCase | ProductSnakeCase;
 export interface CartItemCamelCase {
     delivery?: string | null;
     discountEach: number;
-    discountTotal: number;
     discounts: unknown[];
+    discountTotal: number;
     id: string;
     origPrice: number;
+    options?: CartOption[];
     price: number;
     priceTotal: number;
+    product: Product;
     productId: string;
     productName: string;
     quantity: number;
@@ -342,9 +350,8 @@ export interface CartItemCamelCase {
     stockTracking: boolean;
     taxEach: number;
     taxTotal: number;
-    variantId: string;
     variant: ProductVariantCamelCase | null;
-    product: Product;
+    variantId: string;
 }
 
 export interface CartItemSnakeCase {
@@ -354,10 +361,12 @@ export interface CartItemSnakeCase {
     discounts: unknown[];
     id: string;
     orig_price: number;
-    price: number;
+    options?: CartOption[];
     price_total: number;
+    price: number;
     product_id: string;
     product_name: string;
+    product: Product;
     quantity: number;
     shipment_weight: number;
     stock_tracking: boolean;
@@ -365,7 +374,6 @@ export interface CartItemSnakeCase {
     tax_total: number;
     variant_id: string;
     variant: ProductVariantSnakeCase | null;
-    product: Product;
 }
 
 export type CartItem = CartItemCamelCase | CartItemSnakeCase;
@@ -458,13 +466,13 @@ export type OrderDiscount = Discount;
 export interface ShipmentRatingCamelCase {
     dateCreated: string;
     fingerprint: string;
-    services: ShippingRatesCamelCase[];
+    services: ShippingService[];
 }
 
 export interface ShipmentRatingSnakeCase {
     date_created: string;
     fingerprint: string;
-    services: ShippingRatesCamelCase[];
+    services: ShippingService[];
 }
 
 export type ShipmentRating = ShipmentRatingCamelCase | ShipmentRatingSnakeCase;
@@ -789,6 +797,7 @@ export function init(storeId: string, publicKey: string, options?: InitOptions):
 export function get(url: string, query: object): Promise<unknown>;
 export function put(url: string, query: object): Promise<unknown>;
 export function post(url: string, query: object): Promise<unknown>;
+export function request(url: string, query: object): Promise<unknown>;
 
 export namespace account {
     function create(input: CreateAccountInput): Promise<unknown>;
@@ -847,14 +856,14 @@ export namespace categories {
 
 export namespace currency {
     function format(input: number, format: object): string;
-    function list(): Promise<ListResult<unknown>>;
-    function select(input: string): Promise<unknown>;
-    function selected(): Promise<string>;
+    function list(): Promise<Currency[]>;
+    function select(input: string): Promise<CurrencySelect>;
+    function selected(): string;
 }
 
 export namespace locale {
-    function selected(): Promise<string>;
-    function select(locale: string): Promise<unknown>;
+    function selected(): string;
+    function select(locale: string): Promise<Locale>;
 }
 
 export namespace payment {

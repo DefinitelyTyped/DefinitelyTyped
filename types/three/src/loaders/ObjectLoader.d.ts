@@ -12,7 +12,7 @@ export class ObjectLoader extends Loader {
 
     load(
         url: string,
-        // tslint:disable-next-line:no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         onLoad?: <ObjectType extends Object3D>(object: ObjectType) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: Error | ErrorEvent) => void,
@@ -20,11 +20,11 @@ export class ObjectLoader extends Loader {
     loadAsync<ObjectType extends Object3D>(
         url: string,
         onProgress?: (event: ProgressEvent) => void,
-    ): // tslint:disable-next-line:no-unnecessary-generics
+    ): // eslint-disable-next-line no-unnecessary-generics
     Promise<ObjectType>;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     parse<T extends Object3D>(json: any, onLoad?: (object: Object3D) => void): T;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     parseAsync<T extends Object3D>(json: any): Promise<T>;
     parseGeometries(json: any): { [key: string]: InstancedBufferGeometry | BufferGeometry }; // Array of BufferGeometry or Geometry or Geometry2.
     parseMaterials(json: any, textures: Texture[]): Material[]; // Array of Classes that inherits from Matrial.
@@ -37,6 +37,6 @@ export class ObjectLoader extends Loader {
         geometries: any[],
         materials: Material[],
         animations: AnimationClip[],
-    ): // tslint:disable-next-line:no-unnecessary-generics
+    ): // eslint-disable-next-line no-unnecessary-generics
     T;
 }

@@ -27,5 +27,11 @@ jobs:
 
     displayName: 'npm run test-all'
 
+  - task: PublishPipelineArtifact@1
+    condition: eq(variables['System.debug'], 'true')
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      publishLocation: 'pipeline'
+
 trigger:
 - master

@@ -6,7 +6,6 @@
         "no-empty-interface": false,
         "no-padding": false,
         "no-single-declare-module": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "semicolon": false
     }

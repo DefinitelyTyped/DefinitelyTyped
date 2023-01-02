@@ -7,7 +7,16 @@ export default class Content {
     _category: string;
     _brand: string;
     _delivery_category: string;
-    constructor(id: string, quantity: number, item_price: number, title: string, description: string, brand: string, category: string, delivery_category: string);
+    constructor(
+        id?: string,
+        quantity?: number,
+        item_price?: number,
+        title?: string,
+        description?: string,
+        brand?: string,
+        category?: string,
+        delivery_category?: string
+    );
     get id(): string;
     set id(id: string);
     setId(id: string): Content;

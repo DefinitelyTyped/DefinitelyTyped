@@ -5,7 +5,6 @@
         "interface-name": false,
         "no-empty-interface": false,
         "no-object-literal-type-assertion": false,
-        "no-unnecessary-generics": false,
         "only-arrow-functions": false,
         "space-before-function-paren": false,
         "unified-signatures": false

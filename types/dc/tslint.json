@@ -5,7 +5,6 @@
         "ban-types": false,
         "comment-format": false,
         "interface-name": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,

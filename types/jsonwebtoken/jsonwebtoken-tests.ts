@@ -45,6 +45,12 @@ const secret = { key: privKey.toString(), passphrase: "keypwd" };
 token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm option is mandatory in this case
 token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
 
+// sign with insecure key size
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInsecureKeySizes: true });
+
+// sign with invalid asymmetric key type for algorithm
+token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
+
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
     err: Error | null,
@@ -84,6 +90,13 @@ jwt.verify(token, "wrong-secret", (err, decoded) => {
 
 // verify with encrypted RSA SHA256 private key
 jwt.verify(token, secret, (err, decoded) => {
+    const result = decoded as TestObject;
+
+    console.log(result.foo); // bar
+});
+
+// verify with invalid asymmetric key type for algorithm
+jwt.verify(token, secret, { allowInvalidAsymmetricKeyTypes: true }, (err, decoded) => {
     const result = decoded as TestObject;
 
     console.log(result.foo); // bar
