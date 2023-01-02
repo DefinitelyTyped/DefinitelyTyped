@@ -1849,6 +1849,10 @@
             "libraryName": "@hapi/iron",
             "asOfVersion": "6.0.0"
         },
+        "hapi__joi": {
+            "libraryName": "@hapi/joi",
+            "asOfVersion": "17.1.0"
+        },
         "hapi__lab": {
             "libraryName": "@hapi/lab",
             "asOfVersion": "22.0.0"
