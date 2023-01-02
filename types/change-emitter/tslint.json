@@ -5,7 +5,6 @@
         "no-declare-current-package": false,
         "no-padding": false,
         "no-single-declare-module": false,
-        "no-unnecessary-generics": false,
         "semicolon": false,
         "strict-export-declare-modifiers": false
     }

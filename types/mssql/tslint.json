@@ -10,7 +10,6 @@
         "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "one-line": false,
         "only-arrow-functions": false,

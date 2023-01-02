@@ -1,5 +1,5 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import ListEditing from './listediting';
+import ListEditing from '../list/listediting';
 
 export default class TodoListEditing extends Plugin {
     static readonly pluginName: 'TodoListEditing';

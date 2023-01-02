@@ -24,19 +24,25 @@ declare namespace seedrandom {
         double(): number;
         int32(): number;
         quick(): number;
+    }
+
+    interface StatefulPRNG extends PRNG {
         state(): State;
     }
 }
 
+type ReturnedPRNG<O extends seedrandom.Options = {}> = O extends { state: true | seedrandom.State }
+    ? seedrandom.StatefulPRNG
+    : seedrandom.PRNG;
+
 interface BaseInterface {
-    (seed?: string, options?: seedrandom.Options): seedrandom.PRNG;
+    <O extends seedrandom.Options>(seed?: string, options?: O): ReturnedPRNG<O>;
     new (seed?: string): seedrandom.PRNG;
 }
 
 interface seedrandom {
-    (seed?: string, options?: seedrandom.Options, callback?: seedrandom.Callback): seedrandom.PRNG;
+    <O extends seedrandom.Options>(seed?: string, options?: O, callback?: seedrandom.Callback): ReturnedPRNG<O>;
     alea: BaseInterface;
-    quick: BaseInterface;
     tychei: BaseInterface;
     xor128: BaseInterface;
     xor4096: BaseInterface;

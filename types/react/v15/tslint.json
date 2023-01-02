@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-any-union": false,
         "no-object-literal-type-assertion": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false
     }
 }

@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-empty-interface": false,
-        "no-unnecessary-class": false,
-        "no-unnecessary-generics": false
+        "no-unnecessary-class": false
     }
 }

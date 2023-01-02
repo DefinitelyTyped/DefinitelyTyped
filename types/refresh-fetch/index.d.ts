@@ -13,7 +13,7 @@ export function configureRefreshFetch<T>(
   }): T;
 
 export function fetchJSON<ResponseBody>(url: string | Request | URL, options?: RequestInit): Promise<{
-  /* tslint:disable-next-line no-unnecessary-generics */
+  /* eslint-disable-next-line no-unnecessary-generics */
   body: ResponseBody;
   response: Response;
 }>;
