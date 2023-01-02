@@ -85,6 +85,6 @@ declare namespace hapiAuthCookie {
     }
 }
 
-declare const hapiAuthCookie: Plugin<void>;
+declare const hapiAuthCookie: { plugin: Plugin<void> };
 
 export = hapiAuthCookie;

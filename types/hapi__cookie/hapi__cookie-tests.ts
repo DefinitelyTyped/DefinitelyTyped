@@ -12,8 +12,6 @@ const server = new hapi.Server({
 
 server.register(auth);
 
-server.register({ plugin: auth });
-
 server.state('data', {
     ttl: null,
     isSecure: true,
