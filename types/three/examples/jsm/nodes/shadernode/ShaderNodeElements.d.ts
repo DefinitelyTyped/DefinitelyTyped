@@ -20,10 +20,10 @@ import {
     EquirectUVNode,
     FogNode,
     FogRangeNode,
+    FogExp2Node,
     InstanceNode,
     LightsNode,
     MatcapUVNode,
-    MaxMipLevelNode,
     NormalMapNode,
     OscNode,
     PosterizeNode,
@@ -35,6 +35,7 @@ import {
     TimerNode,
     ToneMappingNode,
     TriplanarTexturesNode,
+    SpecularMIPLevelNode,
     ViewportNode,
 } from '../Nodes';
 
@@ -117,7 +118,7 @@ export function lightingContext(node: Node, lightingModelNode?: LightingModelNod
 export const matcapUV: Swizzable<MatcapUVNode>;
 export const equirectUV: Swizzable<EquirectUVNode>;
 
-export function maxMipLevel(texture: Texture): Swizzable<MaxMipLevelNode>;
+export function specularMIPLevel(): Swizzable<SpecularMIPLevelNode>;
 
 export function oscSine(timeNode?: NodeRepresentation): Swizzable<OscNode>;
 export function oscSquare(timeNode?: NodeRepresentation): Swizzable<OscNode>;
@@ -164,3 +165,4 @@ export function checker(uvNode?: NodeRepresentation): Swizzable<CheckerNode>;
 
 export function fog(colorNode: NodeRepresentation, factorNode: NodeRepresentation): Swizzable<FogNode>;
 export function rangeFog(colorNode: Node, nearNode: Node, farNode: Node): Swizzable<FogRangeNode>;
+export function exp2Fog(colorNode: Node, densityNode: Node): Swizzable<FogExp2Node>;
