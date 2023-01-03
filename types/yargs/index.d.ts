@@ -148,7 +148,7 @@ declare namespace yargs {
             description: string,
             builder?: BuilderCallback<T, U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
         ): Argv<U>;
         command<O extends { [key: string]: Options }>(
@@ -156,7 +156,7 @@ declare namespace yargs {
             description: string,
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
         command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
@@ -165,7 +165,7 @@ declare namespace yargs {
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
         ): Argv<T>;
         command<O extends { [key: string]: Options }>(
@@ -926,7 +926,7 @@ declare namespace yargs {
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type FallbackCompletionFunction = (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completions: string[]) => any) => void;
-    type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void | Promise<void>;
+    type MiddlewareFunction<T = {}> = (args: ArgumentsCamelCase<T>) => void | Promise<void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = 'boolean' | 'number' | 'string';
     type CompletionCallback = (err: Error | null, completions: string[] | undefined) => void;
