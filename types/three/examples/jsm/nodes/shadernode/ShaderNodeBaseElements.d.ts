@@ -115,17 +115,17 @@ export type Fn<P extends FunctionNodeArguments> = P extends readonly [...unknown
     ? ProxiedTuple<P>
     : readonly [ProxiedObject<P>];
 
-// tslint:disable:no-unnecessary-generics
 export function func<P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
+    // eslint-disable-next-line no-unnecessary-generics
 ): { call: (...params: Fn<P>) => Swizzable };
 
 export function fn<P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
+    // eslint-disable-next-line no-unnecessary-generics
 ): (...params: Fn<P>) => Swizzable;
-// tslint:enable:no-unnecessary-generics
 
 export const instanceIndex: Swizzable<InstanceIndexNode>;
 export function label(node: NodeRepresentation, name?: string): Swizzable<VarNode>;

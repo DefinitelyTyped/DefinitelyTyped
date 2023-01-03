@@ -13,8 +13,7 @@ export class ObjectLoader extends Loader {
 
     load(
         url: string,
-        // tslint:disable-next-line:no-unnecessary-generics
-        onLoad?: <ObjectType extends Object3D>(object: ObjectType) => void,
+        onLoad?: (object: Object3D) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: Error | ErrorEvent) => void,
     ): void;
