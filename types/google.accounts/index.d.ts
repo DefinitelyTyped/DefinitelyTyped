@@ -638,6 +638,12 @@ declare namespace google.accounts {
              * is used.
              */
             locale?: string;
+
+            /**
+             * You can define a JavaScript function to be called when the
+             * Sign in with Google button is clicked.
+             */
+            click_listener?: () => void;
         }
     }
 }
