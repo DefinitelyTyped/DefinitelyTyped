@@ -2,7 +2,7 @@ import { KeyframeTrack } from './../KeyframeTrack';
 import { InterpolationModes } from '../../constants';
 
 export class QuaternionKeyframeTrack extends KeyframeTrack {
-    constructor(name: string, times: any[], values: any[], interpolation?: InterpolationModes);
+    constructor(name: string, times: ArrayLike<number>, values: ArrayLike<number>, interpolation?: InterpolationModes);
 
     /**
      * @default 'quaternion'
