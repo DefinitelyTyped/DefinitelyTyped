@@ -3,7 +3,6 @@
     "rules": {
         "interface-name": false,
         "jsdoc-format": false,
-        "no-padding": false,
-        "no-unnecessary-generics": false
+        "no-padding": false
     }
 }

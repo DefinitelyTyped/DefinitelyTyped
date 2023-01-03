@@ -5,5 +5,5 @@ import type { NavigationProp } from './types';
  *
  * @returns Navigation prop of the parent screen.
  */
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export default function useNavigation<T extends NavigationProp<ParamListBase>>(): T;

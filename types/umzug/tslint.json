@@ -6,7 +6,6 @@
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "object-literal-shorthand": false,
         "typedef-whitespace": false,
         "unified-signatures": false,

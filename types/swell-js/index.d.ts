@@ -335,12 +335,14 @@ export type Product = ProductCamelCase | ProductSnakeCase;
 export interface CartItemCamelCase {
     delivery?: string | null;
     discountEach: number;
-    discountTotal: number;
     discounts: unknown[];
+    discountTotal: number;
     id: string;
     origPrice: number;
+    options?: CartOption[];
     price: number;
     priceTotal: number;
+    product: Product;
     productId: string;
     productName: string;
     quantity: number;
@@ -348,9 +350,8 @@ export interface CartItemCamelCase {
     stockTracking: boolean;
     taxEach: number;
     taxTotal: number;
-    variantId: string;
     variant: ProductVariantCamelCase | null;
-    product: Product;
+    variantId: string;
 }
 
 export interface CartItemSnakeCase {
@@ -360,10 +361,12 @@ export interface CartItemSnakeCase {
     discounts: unknown[];
     id: string;
     orig_price: number;
-    price: number;
+    options?: CartOption[];
     price_total: number;
+    price: number;
     product_id: string;
     product_name: string;
+    product: Product;
     quantity: number;
     shipment_weight: number;
     stock_tracking: boolean;
@@ -371,7 +374,6 @@ export interface CartItemSnakeCase {
     tax_total: number;
     variant_id: string;
     variant: ProductVariantSnakeCase | null;
-    product: Product;
 }
 
 export type CartItem = CartItemCamelCase | CartItemSnakeCase;

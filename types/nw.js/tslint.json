@@ -5,7 +5,6 @@
         "comment-format": false,
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-any-union": false,
         "no-duplicate-variable": false,
         "no-internal-module": false,
         "no-padding": false,

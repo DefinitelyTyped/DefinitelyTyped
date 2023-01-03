@@ -4,6 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+declare var _: string;
+export = _;
+
 import * as angular from 'angular';
 
 declare module 'angular' {
