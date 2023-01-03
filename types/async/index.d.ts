@@ -9,7 +9,6 @@
 //                 Lifeng Zhu <https://github.com/Juliiii>
 //                 Tümay Çeber <https://github.com/brendtumi>
 //                 Andrew Pensinger <https://github.com/apnsngr>
-//                 Nathan Walters <https://github.com/nwalters512>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -344,7 +343,8 @@ export const groupBySeries: typeof groupBy;
 // Control Flow
 export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultArrayCallback<T, E>): void;
 export function series<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback: AsyncResultObjectCallback<T, E>): void;
-export function series<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>): Promise<R>;
+export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Promise<T[]>;
+export function series<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>): Promise<Dictionary<T>>;
 export function parallel<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultArrayCallback<T, E>): void;
 export function parallel<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback: AsyncResultObjectCallback<T, E>): void;
 export function parallel<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>): Promise<R>;
