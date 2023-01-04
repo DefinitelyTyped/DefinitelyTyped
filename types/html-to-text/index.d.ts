@@ -1,4 +1,4 @@
-// Type definitions for html-to-text 8.1
+// Type definitions for html-to-text 9.0
 // Project: https://github.com/html-to-text/node-html-to-text
 // Definitions by: Eryk Warren <https://github.com/erykwarren>
 //                 Carson Full <https://github.com/CarsonF>
@@ -8,6 +8,7 @@
 import { BlockTextBuilder } from './lib/block-text-builder';
 
 export type compiledFunction = (str: string) => string;
+export type metaData = any;
 
 /**
  * Preprocess options, compile selectors into a decision tree,
@@ -25,14 +26,9 @@ export type compiledFunction = (str: string) => string;
  * });
  * console.log(text); // HELLO WORLD
  */
-export function htmlToText(html: string, options?: HtmlToTextOptions): string;
+export function htmlToText(html: string, options?: HtmlToTextOptions,
+    metadata?: metaData): string;
 export { htmlToText as convert };
-
-/**
- * @deprecated Import/require `{ htmlToText }` function instead!
- * @see htmlToText
- */
-export function fromString(html: string, options?: HtmlToTextOptions): string;
 
 export interface HtmlToTextOptions {
     /**
@@ -40,11 +36,15 @@ export interface HtmlToTextOptions {
      */
     baseElements?: BaseElementsOptions | undefined;
     /**
-     * Text decoding options given to `he.decode`.
-     *
-     * For more informations see the [he](https://github.com/mathiasbynens/he) module.
+     * Decode HTML entities found in the input HTML if true.
+     * Otherwise preserve in output text.
      */
-    decodeOptions?: DecodeOptions | undefined;
+    decodeEntities?: boolean | undefined;
+    /**
+     * A dictionary with characters that should be replaced in the output
+     * text and corresponding escape sequences.
+     */
+    encodeCharacters?: Record<string, string> | undefined;
     /**
      * A dictionary with custom formatting functions for specific kinds of elements.
      *
@@ -81,7 +81,7 @@ export interface HtmlToTextOptions {
      *
      * Set to `null` or `false` to disable word-wrapping.
      */
-    wordwrap?: number | boolean | null | undefined;
+    wordwrap?: number | false | null | undefined;
 
     /**
      * The following are deprecated options.  See the documentation.
@@ -91,39 +91,6 @@ export interface HtmlToTextOptions {
      * @deprecated. Use baseElements.selectors instead.
      */
     baseElement?: string | string[] | undefined;
-
-    /**
-     *  @deprecated See the documentation.
-     */
-    hideLinkHrefIfSameAsText?: boolean | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    linkHrefBaseUrl?: string | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    ignoreHref?: boolean | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    ignoreImage?: boolean | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    noLinkBrackets?: boolean | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    uppercaseHeadings?: boolean | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    singleNewLineParagraphs?: boolean | undefined;
-    /**
-     *  @deprecated See the documentation.
-     */
-    unorderedListItemPrefix?: string | undefined;
     /**
      * @deprecated. Use baseElements instead.
      */
@@ -163,22 +130,6 @@ export interface HtmlToTextOptions {
 }
 
 /**
- * Text decoding options given to `he.decode`.
- *
- * For more informations see the [he](https://github.com/mathiasbynens/he) module.
- */
-export interface DecodeOptions {
-    /**
-     * TLDR: If set to `true` - leave attribute values raw, don't parse them as text content.
-     */
-    isAttributeValue?: boolean | undefined;
-    /**
-     * TLDR: If set to `true` - throw an error on invalid HTML input.
-     */
-    strict?: boolean | undefined;
-}
-
-/**
  * Options for handling complex documents and limiting the output size.
  */
 export interface LimitsOptions {
@@ -188,13 +139,14 @@ export interface LimitsOptions {
      */
     ellipsis?: string | undefined;
     /**
-     * Process only this many child nodes of any element.
+     * Stop looking for more base elements after reaching this amount.
      *
-     * Remaining nodes, if any, will be replaced with ellipsis.
-     *
-     * Text nodes are counted along with tags.
-     *
-     * No limit if undefined.
+     * Unlimited if undefined.
+     */
+    maxBaseElements?: number | undefined;
+    /**
+     * Maximum number of child nodes of a single node to be added to the
+     * output. Unlimited if undefined.
      */
     maxChildNodes?: number | undefined;
     /**
@@ -293,6 +245,11 @@ export interface FormatOptions {
      */
     linkBrackets?: [string, string] | false | undefined;
     /**
+     * (Only for: `anchor` and `image` formatters.) A function to rewrite link
+     * href attributes and image src attributes. Applied before baseUrl.
+     */
+    pathRewrite?: ((path: string, meta: metaData) => string) | undefined;
+    /**
      * (Only for: `anchor` formatter.) By default links are translated in the following way:
      *
      * `<a href='link'>text</a>` => becomes => `text [link]`.
@@ -309,11 +266,6 @@ export interface FormatOptions {
      * (Only for: `anchor` formatter.) Ignore anchor links (where `href='#...'`).
      */
     noAnchorUrl?: boolean | undefined;
-    /**
-     * @deprecated. Use linkBrackets instead.
-     * (Only for: `anchor` formatter.) Don't print brackets around links.
-     */
-    noLinkBrackets?: boolean | undefined;
     /**
      * (Only for: `unorderedList` formatter.) String prefix for each list item.
      */
@@ -358,9 +310,26 @@ export interface FormatOptions {
      */
     rowSpacing?: number | undefined;
     /**
+     * (Only for: `blockString`, `inlineString` formatters.) A string to be inserted in place of a tag.
+     */
+    string?: string | undefined;
+    /**
+     * (Only for: `inlineSurround` formatter.) String prefix to be inserted before inline tag contents.
+     */
+     prefix?: string | undefined;
+    /**
+     * (Only for: `inlineSurround` formatter.) String suffix to be inserted after inline tag contents.
+     */
+     suffix?: string | undefined;
+    /**
      * User defined values are supported.
      */
     [key: string]: any;
+    /**
+     * @deprecated. Use linkBrackets instead.
+     * (Only for: `anchor` formatter.) Don't print brackets around links.
+     */
+     noLinkBrackets?: boolean | undefined;
 }
 
 /**
