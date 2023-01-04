@@ -1,4 +1,4 @@
-// Type definitions for @wordpress/edit-post 4.0
+// Type definitions for @wordpress/edit-post 7.0
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

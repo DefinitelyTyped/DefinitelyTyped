@@ -8,14 +8,12 @@
         "member-access": false,
         "no-consecutive-blank-lines": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "triple-equals": false,
         "unified-signatures": false
     }

@@ -1,7 +1,262 @@
-import * as antlr4 from 'antlr4';
+import './test/action';
+import './test/atn';
+import './test/context';
+import './test/dfa';
+import './test/error';
+import './test/misc';
+import './test/state';
+import './test/transition';
+import './test/tree';
+import './test/utils';
 
-import { TerminalNode } from 'antlr4/tree/Tree';
+import antlr4 from 'antlr4';
 
+import ParserRuleContext from 'antlr4/context/ParserRuleContext';
+import RuleContext from 'antlr4/context/RuleContext';
+import ErrorListener from 'antlr4/error/ErrorListener';
+import RecognitionException from 'antlr4/error/RecognitionException';
+import IntervalSet from 'antlr4/misc/IntervalSet';
+import ParseTreeListener from 'antlr4/tree/ParseTreeListener';
+import TerminalNode from 'antlr4/tree/TerminalNode';
+import BufferedTokenStream from 'antlr4/BufferedTokenStream';
+import CharStreams from 'antlr4/CharStreams';
+import CommonToken from 'antlr4/CommonToken';
+import CommonTokenFactory from 'antlr4/CommonTokenFactory';
+import CommonTokenStream from 'antlr4/CommonTokenStream';
+import FileStream from 'antlr4/FileStream';
+import InputStream from 'antlr4/InputStream';
+import Lexer from 'antlr4/Lexer';
+import Parser from 'antlr4/Parser';
+import Recognizer from 'antlr4/Recognizer';
+import Token from 'antlr4/Token';
+import TokenSource from 'antlr4/TokenSource';
+import TokenStream from 'antlr4/TokenStream';
+
+const errorListenerInstance = new ErrorListener();
+const intervalSetInstance = new IntervalSet();
+const inputStreamInstance = new InputStream('');
+const lexerInstance = new Lexer(inputStreamInstance);
+const parserRuleContextInstance = new ParserRuleContext();
+const parseTreeListenerInstance = new ParseTreeListener();
+const recognizerInstance = new Recognizer();
+const ruleContextInstance = new RuleContext();
+const recognitionExceptionInstance = new RecognitionException({
+    message: '',
+    recognizer: recognizerInstance,
+    input: inputStreamInstance,
+    ctx: ruleContextInstance,
+});
+class TestTokenSource extends TokenSource {}
+const testTokenSourceInstance = new TestTokenSource();
+const tokenInstance = new Token();
+
+// BufferedTokenStream
+const bufferedTokenStreamInstance = new BufferedTokenStream(testTokenSourceInstance);
+bufferedTokenStreamInstance.mark(); // $ExpectType number
+bufferedTokenStreamInstance.release(0); // $ExpectType number
+bufferedTokenStreamInstance.reset(); // $ExpectType void
+bufferedTokenStreamInstance.seek(0); // $ExpectType void
+bufferedTokenStreamInstance.get(0); // $ExpectType Token
+bufferedTokenStreamInstance.consume(); // $ExpectType void
+bufferedTokenStreamInstance.sync(0); // $ExpectType boolean
+bufferedTokenStreamInstance.fetch(0); // $ExpectType number
+bufferedTokenStreamInstance.getTokens(0, 0, {}); // $ExpectType Token[]
+bufferedTokenStreamInstance.LA(0); // $ExpectType number
+bufferedTokenStreamInstance.LB(0); // $ExpectType Token
+bufferedTokenStreamInstance.LT(0); // $ExpectType Token
+bufferedTokenStreamInstance.adjustSeekIndex(0); // $ExpectType number
+bufferedTokenStreamInstance.lazyInit(); // $ExpectType void
+bufferedTokenStreamInstance.setup(); // $ExpectType void
+bufferedTokenStreamInstance.setTokenSource(testTokenSourceInstance); // $ExpectType void
+bufferedTokenStreamInstance.nextTokenOnChannel(0); // $ExpectType number
+bufferedTokenStreamInstance.nextTokenOnChannel(0, 0); // $ExpectType number
+bufferedTokenStreamInstance.previousTokenOnChannel(0, 0); // $ExpectType number
+bufferedTokenStreamInstance.getHiddenTokensToRight(0, 0); // $ExpectType Token[]
+bufferedTokenStreamInstance.filterForChannel(0, 0, 0); // $ExpectType Token[] | null
+bufferedTokenStreamInstance.getText(intervalSetInstance); // $ExpectType string
+bufferedTokenStreamInstance.fill(); // $ExpectType void
+
+// CharStreams
+CharStreams.fromString(''); // $ExpectType InputStream
+// $ExpectType void
+CharStreams.fromBlob(
+    {},
+    '',
+    (_is: InputStream) => undefined,
+    (_ev: any) => undefined,
+);
+CharStreams.fromBuffer('', ''); // $ExpectType InputStream
+CharStreams.fromPath('', '', (_err: any, _is: InputStream) => undefined); // $ExpectType void
+CharStreams.fromPathSync('', ''); // $ExpectType InputStream
+
+// CommonToken
+CommonToken.EMPTY_SOURCE; // $ExpectType [null, null]
+new CommonToken([lexerInstance, inputStreamInstance]);
+new CommonToken([null, null]);
+new CommonToken(undefined, 0);
+new CommonToken(undefined, undefined, 0);
+new CommonToken(undefined, undefined, undefined, 0);
+new CommonToken(undefined, undefined, undefined, undefined, 0);
+const commonTokenInstance = new CommonToken();
+commonTokenInstance.clone(); // $ExpectType CommonToken
+
+// CommonTokenFactory
+CommonTokenFactory.DEFAULT; // $ExpectType CommonTokenFactory
+const commonTokenFactoryInstance = new CommonTokenFactory(true);
+commonTokenFactoryInstance.create([lexerInstance, inputStreamInstance], undefined, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
+commonTokenFactoryInstance.create([null, null], undefined, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
+commonTokenFactoryInstance.create(undefined, undefined, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
+commonTokenFactoryInstance.create(undefined, 0, null, 0, 0, 0, 0, 0); // $ExpectType CommonToken
+commonTokenFactoryInstance.create(undefined, undefined, '', 0, 0, 0, 0, 0); // $ExpectType CommonToken
+commonTokenFactoryInstance.createThin(0, ''); // $ExpectType CommonToken
+
+// CommonTokenStream
+new CommonTokenStream(lexerInstance, 0);
+const commonTokenStreamInstance = new CommonTokenStream(lexerInstance);
+commonTokenStreamInstance.adjustSeekIndex(0); // $ExpectType number
+commonTokenStreamInstance.getNumberOfOnChannelTokens(); // $ExpectType number
+
+// FileStream
+new FileStream('');
+new FileStream('', true);
+
+// InputStream
+inputStreamInstance; // $ExpectType InputStream
+inputStreamInstance.reset(); // $ExpectType void
+inputStreamInstance.consume(); // $ExpectType void
+inputStreamInstance.LA(0); // $ExpectType number
+inputStreamInstance.LT(0); // $ExpectType number
+inputStreamInstance.mark(); // $ExpectType -1
+inputStreamInstance.release(0); // $ExpectType void
+inputStreamInstance.seek(0); // $ExpectType void
+inputStreamInstance.getText(0, 0); // $ExpectType string
+inputStreamInstance.toString(); // $ExpectType string
+inputStreamInstance.index; // $ExpectType number
+inputStreamInstance.size; // $ExpectType number
+
+// Lexer
+Lexer.DEFAULT_MODE; // $ExpectType 0
+Lexer.MORE; // $ExpectType -2
+Lexer.SKIP; // $ExpectType -3
+Lexer.DEFAULT_TOKEN_CHANNEL; // $ExpectType 0
+Lexer.HIDDEN; // $ExpectType 1
+Lexer.MIN_CHAR_VALUE; // $ExpectType 0
+Lexer.MAX_CHAR_VALUE; // $ExpectType 1114111
+new Lexer(null);
+lexerInstance; // $ExpectType Lexer
+lexerInstance.reset(); // $ExpectType void
+lexerInstance.nextToken(); // $ExpectType Token
+lexerInstance.skip(); // $ExpectType void
+lexerInstance.more(); // $ExpectType void
+lexerInstance.mode(0); // $ExpectType void
+lexerInstance.pushMode(0); // $ExpectType void
+lexerInstance.popMode(); // $ExpectType number
+lexerInstance.emitToken(tokenInstance); // $ExpectType void
+lexerInstance.emit(); // $ExpectType CommonToken
+lexerInstance.emitEOF(); // $ExpectType CommonToken
+lexerInstance.charIndex(); // $ExpectType number
+lexerInstance.getAllTokens(); // $ExpectType Token[]
+lexerInstance.notifyListeners(recognitionExceptionInstance); // $ExpectType void
+lexerInstance.getErrorDisplay(''); // $ExpectType string
+lexerInstance.getErrorDisplayForChar(''); // $ExpectType string
+lexerInstance.getCharErrorDisplay(''); // $ExpectType string
+lexerInstance.recover(recognitionExceptionInstance); // $ExpectType void
+lexerInstance.inputStream; // $ExpectType InputStream
+lexerInstance.type; // $ExpectType number
+lexerInstance.line; // $ExpectType number
+lexerInstance.column; // $ExpectType number
+lexerInstance.text; // $ExpectType string
+
+// Parser
+const parserInstance = new Parser(commonTokenStreamInstance);
+parserInstance.buildParseTrees; // $ExpectType boolean
+parserInstance._errHandler; // $ExpectType ErrorStrategy
+parserInstance.reset(); // $ExpectType void
+parserInstance.match(); // $ExpectType Token
+parserInstance.matchWildcard(); // $ExpectType Token
+parserInstance.getParseListeners(); // $ExpectType ParseTreeListener[]
+parserInstance.addParseListener(parseTreeListenerInstance); // $ExpectType void
+parserInstance.removeParseListener(parseTreeListenerInstance); // $ExpectType void
+parserInstance.removeParseListeners(); // $ExpectType void
+parserInstance.triggerEnterRuleEvent(); // $ExpectType void
+parserInstance.triggerExitRuleEvent(); // $ExpectType void
+parserInstance.getTokenFactory(); // $ExpectType CommonTokenFactory
+parserInstance.setTokenFactory(commonTokenFactoryInstance); // $ExpectType void
+parserInstance.getATNWithBypassAlts(); // $ExpectType ATN
+parserInstance.getInputStream(); // $ExpectType CommonTokenStream
+parserInstance.setInputStream(commonTokenStreamInstance); // $ExpectType void
+parserInstance.getTokenStream(); // $ExpectType CommonTokenStream
+parserInstance.setTokenStream(commonTokenStreamInstance); // $ExpectType void
+parserInstance.getCurrentToken(); // $ExpectType Token
+parserInstance.notifyErrorListeners('', tokenInstance); // $ExpectType void
+parserInstance.notifyErrorListeners('', tokenInstance, recognitionExceptionInstance); // $ExpectType void
+parserInstance.consume(); // $ExpectType Token
+parserInstance.addContextToParseTree(); // $ExpectType void
+parserInstance.enterRule(parserRuleContextInstance, 0); // $ExpectType void
+parserInstance.enterRule(parserRuleContextInstance, 0, 0); // $ExpectType void
+parserInstance.exitRule(); // $ExpectType void
+parserInstance.enterOuterAlt(); // $ExpectType void
+parserInstance.getPrecedence(); // $ExpectType number
+parserInstance.enterRecursionRule(parserRuleContextInstance, 0, undefined, 0); // $ExpectType void
+parserInstance.enterRecursionRule(parserRuleContextInstance, 0, 0, 0); // $ExpectType void
+parserInstance.pushNewRecursionContext(parserRuleContextInstance, 0); // $ExpectType void
+parserInstance.pushNewRecursionContext(parserRuleContextInstance, 0, 0); // $ExpectType void
+parserInstance.unrollRecursionContexts(parserRuleContextInstance); // $ExpectType void
+parserInstance.getInvokingContext(0); // $ExpectType ParserRuleContext
+parserInstance.inContext(parserRuleContextInstance); // $ExpectType boolean
+parserInstance.isExpectedToken(tokenInstance); // $ExpectType boolean
+parserInstance.getExpectedTokens(); // $ExpectType Token[]
+parserInstance.getExpectedTokensWithinCurrentRule(); // $ExpectType Token[]
+parserInstance.getRuleIndex(''); // $ExpectType number
+parserInstance.getRuleInvocationStack(); // $ExpectType string[]
+parserInstance.getRuleInvocationStack(parserRuleContextInstance); // $ExpectType string[]
+parserInstance.getDFAStrings(); // $ExpectType string
+parserInstance.dumpDFA(); // $ExpectType void
+parserInstance.getSourceName(); // $ExpectType string
+parserInstance.setTrace(true); // $ExpectType void
+
+// Recognizer
+recognizerInstance; // $ExpectType Recognizer
+recognizerInstance.checkVersion(0); // $ExpectType void
+recognizerInstance.addErrorListener(errorListenerInstance); // $ExpectType void
+recognizerInstance.removeErrorListeners(); // $ExpectType void
+recognizerInstance.getLiteralNames(); // $ExpectType (string | null)[]
+recognizerInstance.getSymbolicNames(); // $ExpectType (string | null)[]
+recognizerInstance.getTokenNames(); // $ExpectType string[]
+recognizerInstance.getTokenTypeMap(); // $ExpectType Record<string, number>
+recognizerInstance.getRuleIndexMap(); // $ExpectType Record<string, number>
+recognizerInstance.getTokenType(''); // $ExpectType number
+recognizerInstance.getErrorHeader(recognitionExceptionInstance); // $ExpectType string
+recognizerInstance.getTokenErrorDisplay(tokenInstance); // $ExpectType string
+recognizerInstance.getErrorListenerDispatch(); // $ExpectType ProxyErrorListener
+recognizerInstance.sempred(parserRuleContextInstance, 0, 0); // $ExpectType boolean
+recognizerInstance.precpred(parserRuleContextInstance, 0); // $ExpectType boolean
+recognizerInstance.state; // $ExpectType number
+
+// Token
+Token.INVALID_TYPE; // $ExpectType 0
+Token.EPSILON; // $ExpectType -2
+Token.MIN_USER_TOKEN_TYPE; // $ExpectType 1
+Token.EOF; // $ExpectType -1
+Token.DEFAULT_CHANNEL; // $ExpectType 0
+Token.HIDDEN_CHANNEL; // $ExpectType 1
+tokenInstance; // $ExpectType Token
+tokenInstance.source; // $ExpectType TokenSourceTuple
+tokenInstance.type; // $ExpectType number
+tokenInstance.channel; // $ExpectType number
+tokenInstance.start; // $ExpectType number
+tokenInstance.stop; // $ExpectType number
+tokenInstance.tokenIndex; // $ExpectType number
+tokenInstance.line; // $ExpectType number
+tokenInstance.column; // $ExpectType number
+tokenInstance.getTokenSource(); // $ExpectType TokenSourceTuple
+tokenInstance.getInputStream(); // $ExpectType InputStream
+tokenInstance.text; // $ExpectType string
+
+// TokenStream
+const tokenStreamInstance = new TokenStream();
+
+// Tests from the 4.8 types implementation
 export declare class CLexer extends antlr4.Lexer {
     readonly channelNames: string[];
     readonly modeNames: string[];

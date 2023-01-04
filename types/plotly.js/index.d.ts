@@ -484,13 +484,22 @@ export interface Layout {
 }
 
 export interface Legend extends Label {
-    traceorder: 'grouped' | 'normal' | 'reversed';
-    x: number;
-    y: number;
     borderwidth: number;
+    groupclick: 'toggleitem' | 'togglegroup';
+    grouptitlefont: Partial<Font>;
+    itemclick: 'toggle' | 'toggleothers' | false;
+    itemdoubleclick: 'toggle' | 'toggleothers' | false;
+    itemsizing: 'trace' | 'constant';
+    itemwidth: number;
     orientation: 'v' | 'h';
+    title: Partial<LegendTitle>;
     tracegroupgap: number;
+    traceorder: 'grouped' | 'normal' | 'reversed' | 'reversed+grouped';
+    uirevision: number | string;
+    valign: 'top' | 'middle' | 'bottom';
+    x: number;
     xanchor: 'auto' | 'left' | 'center' | 'right';
+    y: number;
     yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
@@ -866,6 +875,8 @@ export interface ModeBar {
     uirevision: number | string;
 }
 
+export type ModeBarButtonAny = ModeBarDefaultButtons | ModeBarButton;
+
 export type ModeBarDefaultButtons =
     | 'lasso2d'
     | 'select2d'
@@ -894,7 +905,12 @@ export type ModeBarDefaultButtons =
     | 'toggleHover'
     | 'toImage'
     | 'resetViews'
-    | 'toggleSpikelines';
+    | 'toggleSpikelines'
+    | 'togglespikelines'
+    | 'togglehover'
+    | 'hovercompare'
+    | 'hoverclosest'
+    | 'v1hovermode';
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
@@ -1318,6 +1334,21 @@ export interface PlotData {
     reversescale: boolean;
     colorbar: Partial<ColorBar>;
     offset: number;
+    contours: Partial<{
+        coloring: 'fill' | 'heatmap' | 'lines' | 'none';
+        end: number;
+        labelfont: Partial<Font>;
+        labelformat: string;
+        operation: '=' | '<' | '>=' | '>' | '<=' | '[]' | '()' | '[)' | '(]' | '][' | ')(' | '](' | ')[';
+        showlabels: boolean;
+        showlines: boolean;
+        size: number;
+        start: number;
+        type: 'levels' | 'constraint';
+        value: number | [lowerBound: number, upperBound: number];
+    }>;
+    autocontour: boolean;
+    ncontours: number;
 }
 
 /**
@@ -1603,7 +1634,7 @@ export interface Config {
     modeBarButtonsToRemove: ModeBarDefaultButtons[];
 
     /** add mode bar button using config objects (see ./components/modebar/buttons.js for list of arguments) */
-    modeBarButtonsToAdd: ModeBarDefaultButtons[] | ModeBarButton[];
+    modeBarButtonsToAdd: ModeBarButtonAny[];
 
     /**
      * fully custom mode bar buttons as nested array, where the outer
@@ -1611,7 +1642,7 @@ export interface Config {
      * buttons config objects or names of default buttons
      * (see ./components/modebar/buttons.js for more info)
      */
-    modeBarButtons: Array<Array<ModeBarDefaultButtons | ModeBarButton>> | false;
+    modeBarButtons: ModeBarButtonAny[][] | false;
 
     /** add the plotly logo on the end of the mode bar */
     displaylogo: boolean;
@@ -1721,6 +1752,12 @@ export interface Label {
 
     /** Sets the default hover label font used by all traces on the graph. */
     font: Partial<Font>;
+}
+
+export interface LegendTitle {
+    font: Partial<Font>;
+    side: 'top' | 'left' | 'top left';
+    text: string;
 }
 
 export interface HoverLabel extends Label {

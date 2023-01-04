@@ -175,6 +175,10 @@ export interface SendMailOptions {
      * optional transfer encoding for the textual parts (defaults to 'quoted-printable')
      */
     encoding?: string | undefined;
+    /**
+     * optional convert data:images in the HTML content of message to embedded attachments
+     */
+    attachDataUrls?: boolean | undefined;
 }
 
 export interface SentMessageInfo {

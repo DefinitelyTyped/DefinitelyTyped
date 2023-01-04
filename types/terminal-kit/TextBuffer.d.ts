@@ -49,7 +49,7 @@ declare class TextBuffer {
   insert(text: string, attr?: ScreenBuffer.Attributes | number): void;
 
   delete(n?: number): void;
-  bulkDelete(n?: number): void;
+  backDelete(n?: number): void;
 
   newLine(): void;
   joinLine(): void;

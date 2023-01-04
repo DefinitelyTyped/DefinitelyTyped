@@ -25,6 +25,7 @@ export interface LinkProps extends React.HTMLAttributes<HTMLElement> {
     down?: boolean | undefined;
     shouldDispatch?: boolean | undefined;
     target?: string | undefined;
+    children?: React.ReactNode;
 }
 
 export default class Link extends React.Component<LinkProps> {}
@@ -35,6 +36,7 @@ export interface NavLinkProps extends LinkProps {
     ariaCurrent?: string | undefined;
     exact?: boolean | undefined;
     strict?: boolean | undefined;
+    children?: React.ReactNode;
     isActive?(match: Match<object>, location: Location): boolean;
 }
 

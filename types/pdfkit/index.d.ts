@@ -184,7 +184,7 @@ declare namespace PDFKit.Mixins {
         /** Whether to stroke the text */
         stroke?: boolean | undefined;
         /** A URL to link this text to (shortcut to create an annotation) */
-        link?: string | undefined;
+        link?: string | null | undefined;
         /** Whether to underline the text */
         underline?: boolean | undefined;
         /** Whether to strike out the text */

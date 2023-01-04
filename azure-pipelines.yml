@@ -8,6 +8,11 @@ jobs:
   timeoutInMinutes: 360
 
   steps:
+  - task: NodeTool@0
+    displayName: Use Node 16
+    inputs:
+      versionSpec: 16.x
+      checkLatest: true
   - task: Npm@1
     displayName: 'npm install'
     inputs:
@@ -21,6 +26,12 @@ jobs:
 
 
     displayName: 'npm run test-all'
+
+  - task: PublishPipelineArtifact@1
+    condition: eq(variables['System.debug'], 'true')
+    inputs:
+      targetPath: '$(Pipeline.Workspace)'
+      publishLocation: 'pipeline'
 
 trigger:
 - master

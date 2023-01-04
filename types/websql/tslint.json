@@ -9,7 +9,6 @@
         "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "no-void-expression": false,
         "object-literal-shorthand": false,
@@ -20,7 +19,6 @@
         "radix": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "triple-equals": false
     }
 }

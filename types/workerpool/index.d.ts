@@ -43,7 +43,7 @@ export interface WorkerPool {
      * The proxy contains a proxy for all methods available on the worker.
      * All methods return promises resolving the methods result.
      */
-    // tslint:disable-next-line: no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     proxy<T extends {[k: string]: (...args: any[]) => any}>(): Promise<Proxy<T>>;
 
     /** Retrieve statistics on workers, and active and pending tasks. */

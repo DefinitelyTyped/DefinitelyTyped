@@ -15,6 +15,8 @@ export class Pass {
         deltaTime: number,
         maskActive: boolean,
     ): void;
+
+    dispose(): void;
 }
 
 export class FullScreenQuad {

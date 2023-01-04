@@ -220,7 +220,7 @@ const rendererExtension: marked.RendererExtension = {
     },
 };
 
-const tokenizerAndRendererExtension = {
+const tokenizerAndRendererExtension: marked.TokenizerAndRendererExtension = {
     name: 'name',
     level: 'block',
     tokenizer(src: string) {

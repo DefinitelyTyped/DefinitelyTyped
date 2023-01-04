@@ -577,12 +577,34 @@ function onLoadCheckStageChange(eventContext: Xrm.Events.EventContext) {
 }
 
 function onStageChange(context: Xrm.Events.StageChangeEventContext) {
+    // $ExpectType FormContext
     const formContext = context.getFormContext();
+    // $ExpectType Stage
     const currentStage = context.getEventArgs().getStage();
 
     // Get the name of the current stage
+    // $ExpectType string
     const currentStageName = currentStage.getName();
 
     // Prevent defaults
     context.getEventArgs().preventDefault();
 }
+
+// Demonstrate Navigating to a specific tab
+Xrm.Navigation.navigateTo({
+    pageType: "entityrecord",
+    entityName: "account",
+    tabName: "tab"
+}).then(
+    (success) => {
+        console.log("Entity opened");
+    },
+    (error) => {
+        console.log(error.message);
+    },
+);
+
+const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
+
+// $ExpectType MultiSelectOptionSetAttribute
+multiSelectOptionSetControl.getAttribute();

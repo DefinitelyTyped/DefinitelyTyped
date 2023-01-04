@@ -82,6 +82,12 @@ const updateDisplayData: azdata.nb.IUpdateDisplayData = {
     }
 };
 
+const accountSecurityToken: azdata.accounts.AccountSecurityToken = {
+    token: 'mytoken',
+    tokenType: 'Bearer',
+    expiresOn: 3290134
+};
+
 const connectionResult: azdata.ConnectionResult = {
     connected: true
 };

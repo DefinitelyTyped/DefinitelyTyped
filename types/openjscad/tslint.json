@@ -16,7 +16,6 @@
         "npm-naming": false,
         "one-line": false,
         "prefer-const": false,
-        "trim-file": false,
         "triple-equals": false,
         "unified-signatures": false,
         "whitespace": false

@@ -37,13 +37,13 @@
 }
 
 {
-    const cb = new CallbackURL("my-app://");
-    cb.addParameter("foo", "bar");
+    const cb = new CallbackURL('my-app://');
+    cb.addParameter('foo', 'bar');
     // $ExpectType Promise<Record<string, string | number | boolean | null>>
     cb.open();
 
-    const cb2 = new CallbackURL("shortcuts://x-callback-url/");
-    cb2.addParameter("foo", "bar");
+    const cb2 = new CallbackURL('shortcuts://x-callback-url/');
+    cb2.addParameter('foo', 'bar');
     // $ExpectType Promise<{ result: string | number | boolean | null; }>
     cb2.open();
 }
@@ -70,12 +70,14 @@
     // $ExpectType boolean
     config.runsInApp;
     // $ExpectType boolean
+    config.runsInAccessoryWidget;
+    // $ExpectType boolean
     config.runsInNotification;
     // $ExpectType boolean
     config.runsInWidget;
     // $ExpectType boolean
     config.runsWithSiri;
-    // $ExpectType "small" | "medium" | "large" | "extraLarge" | null
+    // $ExpectType "small" | "medium" | "large" | "extraLarge" | "accessoryRectangular" | "accessoryInline" | "accessoryCircular" | null
     config.widgetFamily;
 }
 
@@ -167,6 +169,10 @@
     // @ts-expect-error
     listWidget.backgroundGradient = 'bar';
 
+    listWidget.addAccessoryWidgetBackground = true;
+    // @ts-expect-error
+    listWidget.addAccessoryWidgetBackground = 42;
+
     listWidget.spacing = 5;
     // @ts-expect-error
     listWidget.spacing = '5';
@@ -218,6 +224,12 @@
     listWidget.presentLarge();
     // $ExpectType Promise<void>
     listWidget.presentExtraLarge();
+    // $ExpectType Promise<void>
+    listWidget.presentAccessoryCircular();
+    // $ExpectType Promise<void>
+    listWidget.presentAccessoryInline();
+    // $ExpectType Promise<void>
+    listWidget.presentAccessoryRectangular();
 
     Script.setWidget(listWidget);
 
@@ -526,7 +538,7 @@
     // $ExpectType Promise<GeocodeSummary[]>
     Location.reverseGeocode(0, 0);
     // $ExpectType Promise<GeocodeSummary[]>
-    Location.reverseGeocode(0, 0, "en");
+    Location.reverseGeocode(0, 0, 'en');
 }
 
 {
@@ -574,13 +586,13 @@
 
 {
     // @ts-expect-error
-    ShareSheet.present("foobar");
+    ShareSheet.present('foobar');
     // @ts-expect-error
     ShareSheet.present(42);
     // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([]);
     // $ExpectType Promise<ShareSheetResult>
-    ShareSheet.present(["test"]);
+    ShareSheet.present(['test']);
     // $ExpectType Promise<ShareSheetResult>
     ShareSheet.present([42]);
 }

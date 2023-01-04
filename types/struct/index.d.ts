@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export default function Factory<T>(): Struct<T>;
 
 export type StructBaseTypes =

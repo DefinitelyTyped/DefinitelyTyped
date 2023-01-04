@@ -53,10 +53,10 @@ declare namespace registry {
          */
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // tslint:disable-line:no-unnecessary-generics
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
             opts?: {
                 credentials?: NodeCredentials<TCreds> | undefined;
-                settings?: NodeSettings<TSets> | undefined; // tslint:disable-line:no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
             },
         ): void;
 

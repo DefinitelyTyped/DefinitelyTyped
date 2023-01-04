@@ -548,7 +548,7 @@ declare namespace whale {
          * 자주 가는 사이트에서 해당 url을 삭제합니다.
          * @param url 삭제할 url
          */
-        var _delete: (url: string) => void;
+        function _delete(url: string): void;
         export { _delete as delete };
 
         /**

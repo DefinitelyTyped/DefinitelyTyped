@@ -1,4 +1,4 @@
-// Type definitions for requestretry 1.12
+// Type definitions for requestretry 1.13
 // Project: https://github.com/FGRibreau/node-request-retry
 // Definitions by:     Eric Byers <https://github.com/EricByers>
 //                                    Andrew Throener <https://github.com/trainerbill>
@@ -35,6 +35,7 @@ declare namespace requestretry {
         retryStrategy?: RetryStrategy | undefined;
         delayStrategy?: DelayStrategy | undefined;
         fullResponse?: boolean | undefined;
+        skipHeaderSanitize?: boolean | undefined;
     }
 }
 

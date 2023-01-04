@@ -1,3 +1,5 @@
+// https://threejs.org/docs/?q=texture#api/en/textures/Texture
+
 import { Vector2 } from './../math/Vector2';
 import { Matrix3 } from './../math/Matrix3';
 import { Source } from './Source';
@@ -12,6 +14,10 @@ import {
     TextureEncoding,
 } from '../constants';
 
+/** Shim for OffscreenCanvas. */
+// tslint:disable-next-line:no-empty-interface
+export interface OffscreenCanvas extends EventTarget {}
+
 export class Texture extends EventDispatcher {
     /**
      * @param [image]
@@ -22,11 +28,11 @@ export class Texture extends EventDispatcher {
      * @param [minFilter=THREE.LinearMipmapLinearFilter]
      * @param [format=THREE.RGBAFormat]
      * @param [type=THREE.UnsignedByteType]
-     * @param [anisotropy=1]
+     * @param [anisotropy=THREE.Texture.DEFAULT_ANISOTROPY]
      * @param [encoding=THREE.LinearEncoding]
      */
     constructor(
-        image?: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
+        image?: TexImageSource | OffscreenCanvas,
         mapping?: Mapping,
         wrapS?: Wrapping,
         wrapT?: Wrapping,
@@ -199,6 +205,8 @@ export class Texture extends EventDispatcher {
     readonly isTexture: true;
 
     onUpdate: () => void;
+
+    static DEFAULT_ANISOTROPY: number;
     static DEFAULT_IMAGE: any;
     static DEFAULT_MAPPING: any;
 

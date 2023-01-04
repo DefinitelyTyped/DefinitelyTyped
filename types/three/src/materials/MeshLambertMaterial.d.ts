@@ -67,7 +67,7 @@ export class MeshLambertMaterial extends Material {
     /**
      * @default 1
      */
-    dispalcementScale: number;
+    displacementScale: number;
 
     /**
      * @default 0

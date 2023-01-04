@@ -78,11 +78,11 @@ declare module 'flashpoint-launcher' {
      * Log functions to properly pass messages to the Logs Page.
      */
     namespace log {
-        const trace: (message: string) => void;
-        const debug: (message: string) => void;
-        const info: (message: string) => void;
-        const warn: (message: string) => void;
-        const error: (message: string) => void;
+        function trace(message: string): void;
+        function debug(message: string): void;
+        function info(message: string): void;
+        function warn(message: string): void;
+        function error(message: string): void;
         const onLog: Event<ILogEntry>;
     }
 

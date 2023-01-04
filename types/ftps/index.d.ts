@@ -1,4 +1,4 @@
-// Type definitions for ftps 1.1
+// Type definitions for ftps 1.2
 // Project: https://github.com/Atinux/node-ftps#readme
 // Definitions by: Christos Panagiotakopoulos <https://github.com/chrispanag>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,7 @@ declare namespace FTP {
         protocol?: string | undefined;
         username?: string | undefined;
         password?: string | undefined;
+        bareCredentials?: string | undefined;
         escape?: boolean | undefined;
         retries?: number | undefined;
         timeout?: number | undefined;
@@ -23,6 +24,7 @@ declare namespace FTP {
         additionalLftpCommands?: string | undefined;
         requireSSHKey?: boolean | undefined;
         sshKeyPath?: string | undefined;
+        sshKeyOptions?: string | undefined;
     }
 
     interface MirrorOptions {
@@ -43,7 +45,7 @@ declare namespace FTP {
 }
 
 declare class FTP {
-    constructor(options: FTP.FTPOptions)
+    constructor(options: FTP.FTPOptions);
 
     raw(cmd: string): FTP;
     ls(): FTP;

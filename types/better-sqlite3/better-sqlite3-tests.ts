@@ -55,6 +55,7 @@ vtable.all();
 
 const stmt: Sqlite.Statement = db.prepare('SELECT * FROM test WHERE name == ?;');
 stmt.busy; // $ExpectType boolean
+stmt.readonly; // $ExpectType boolean
 
 stmt.get(['name']);
 stmt.all({ name: 'name' });

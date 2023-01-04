@@ -277,7 +277,31 @@ const graphDiv = '#test';
         orientation: 'h' as 'h' | 'v',
     };
 
-    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar };
+    // Test the legend with practical types.
+    // https://plotly.com/javascript/reference/layout/#layout-legend
+    const legend: Partial<Plotly.Legend> = {
+        bgcolor: '#ffffff',
+        bordercolor: '#444444',
+        borderwidth: 1,
+        font: { size: 15 },
+        groupclick: 'togglegroup',
+        grouptitlefont: { size: 15 },
+        itemclick: 'toggleothers',
+        itemdoubleclick: 'toggle',
+        itemsizing: 'constant',
+        itemwidth: 50,
+        orientation: 'h',
+        title: { font: { size: 15 }, side: 'top', text: 'Legend Title' },
+        tracegroupgap: 15,
+        traceorder: 'reversed+grouped',
+        valign: 'bottom',
+        x: 1,
+        xanchor: 'left',
+        y: 1,
+        yanchor: 'top',
+    };
+
+    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar, legend };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
@@ -300,6 +324,29 @@ const graphDiv = '#test';
                 'zoom2d',
             ],
             ['toImage'],
+        ],
+        // mix strings from ModeBarDefaultButtons and custom button added as ModeBarButton interface
+        modeBarButtonsToAdd: [
+            'togglespikelines',
+            'togglehover',
+            'hovercompare',
+            'hoverclosest',
+            'v1hovermode',
+            {
+                name: 'save',
+                title: 'Download plot data',
+                icon: {
+                    width: 857.1,
+                    height: 1000,
+                    path:
+                        'm214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 ' +
+                        '16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 ' +
+                        '16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z',
+                    ascent: 850,
+                    transform: 'matrix(1 0 0 -1 0 850)',
+                },
+                click: (gd, ev) => console.log('Download data'),
+            }
         ],
         setBackground: 'transparent',
         watermark: false,
@@ -931,4 +978,42 @@ function rand() {
             texttemplate: ['x: %{x}', 'y: %{y}'],
         },
     ]);
+})();
+
+(() => {
+    // should create a circular contour plot drawn with lines
+    const Steps = 50;
+    const Span = 1.0;
+
+    const z: number[][] = [];
+    for (let ydx = 0; ydx < Steps; ydx++) {
+        const _z = new Array<number>(Steps);
+        const y = -Span + ydx * 2 * Span / Steps;
+        for (let xdx = 0; xdx < Steps; xdx++) {
+            const x = -Span + xdx * 2 * Span / Steps;
+            _z[xdx] = Math.sqrt(x * x + y * y);
+        }
+        z.push(_z);
+    }
+
+    const data: Array<Partial<Plotly.PlotData>> = [
+        {
+            z,
+            type: 'contour',
+            contours: {
+                coloring: 'lines',
+                labelfont: {
+                    color: 'black',
+                    family: 'monospace'
+                },
+                showlabels: true,
+            },
+            autocontour: true,
+            ncontours: 6,
+        },
+    ];
+    const layout: Partial<Plotly.Layout> = {
+        autosize: true,
+    };
+    Plotly.newPlot('myDiv', data, layout);
 })();

@@ -5,9 +5,7 @@
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
+        "strict-export-declare-modifiers": false
     }
 }

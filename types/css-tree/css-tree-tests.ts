@@ -432,7 +432,7 @@ switch (ast.type) {
         break;
 
     case 'Url':
-        ast.value; // $ExpectType Raw | StringNode
+        ast.value; // $ExpectType string
         break;
 
     case 'Value':
@@ -611,7 +611,7 @@ switch (toPlain.type) {
         break;
 
     case 'Url':
-        toPlain.value; // $ExpectType Raw | StringNode
+        toPlain.value; // $ExpectType string
         break;
 
     case 'Value':

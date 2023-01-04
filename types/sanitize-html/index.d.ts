@@ -1,4 +1,4 @@
-// Type definitions for sanitize-html 2.6
+// Type definitions for sanitize-html 2.8
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 //                 Afshin Darian <https://github.com/afshin>

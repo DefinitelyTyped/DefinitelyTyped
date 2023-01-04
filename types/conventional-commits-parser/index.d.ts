@@ -2,7 +2,6 @@
 // Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme
 // Definitions by: Jason Kwok <https://github.com/JasonHK>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
 
 /// <reference types="node" />
 

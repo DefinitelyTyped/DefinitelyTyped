@@ -12,7 +12,7 @@ import {
     ColorRepresentation,
 } from '../../../src/Three';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass';
 
 export enum OUTPUT {
     Beauty,
@@ -57,7 +57,7 @@ export class SAOPass extends Pass {
     hBlurMaterial: ShaderMaterial;
     materialCopy: ShaderMaterial;
     depthCopy: ShaderMaterial;
-    fsQuad: object;
+    fsQuad: FullScreenQuad;
     params: SAOPassParams;
 
     static OUTPUT: typeof OUTPUT;

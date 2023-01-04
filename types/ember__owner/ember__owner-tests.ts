@@ -1,4 +1,4 @@
-import Owner, { Factory, FactoryManager, FullName, RegisterOptions } from '@ember/owner';
+import Owner, { Factory, FactoryManager, FullName, RegisterOptions, KnownForTypeResult, Resolver } from '@ember/owner';
 
 // Just a class we can construct in the Factory and FactoryManager tests
 declare class ConstructThis {
@@ -52,6 +52,14 @@ aFactoryManager.create(goodPojo); // $ExpectType ConstructThis
 // @ts-expect-error
 aFactoryManager.create(badPojo);
 
+// ----- Resolver ----- //
+declare let resolver: Resolver;
+resolver.resolve('some-name');
+const knownForFoo = resolver.knownForType?.('foo');
+knownForFoo?.['foo:bar']; // $ExpectType boolean | undefined
+// @ts-expect-error
+knownForFoo?.['blah'];
+
 // This one is last so it can reuse the bits from above!
 // ----- Owner ----- //
 declare let owner: Owner;
@@ -77,14 +85,25 @@ owner.register('type:name', aFactory, { instantiate: false, singleton: false });
 owner.register('non-namespace-string', aFactory);
 owner.register('namespace@type:name', aFactory); // $ExpectType void
 
-owner.factoryFor('type:name'); // $ExpectType FactoryManager<unknown> | undefined
-owner.factoryFor('type:name')?.class; // $ExpectType Factory<unknown> | undefined
-owner.factoryFor('type:name')?.create(); // $ExpectType unknown
-owner.factoryFor('type:name')?.create({}); // $ExpectType unknown
-owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType unknown
+owner.factoryFor('type:name'); // $ExpectType FactoryManager<object> | undefined
+owner.factoryFor('type:name')?.class; // $ExpectType Factory<object> | undefined
+owner.factoryFor('type:name')?.create(); // $ExpectType object | undefined
+owner.factoryFor('type:name')?.create({}); // $ExpectType object | undefined
+owner.factoryFor('type:name')?.create({ anythingGoes: true }); // $ExpectType object | undefined
 // @ts-expect-error
 owner.factoryFor('non-namespace-string');
-owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<unknown> | undefined
+owner.factoryFor('namespace@type:name'); // $ExpectType FactoryManager<object> | undefined
+
+// Arbitrary registration patterns work, as here.
+declare module '@ember/owner' {
+    interface DIRegistry {
+        etc: {
+            'my-type-test': ConstructThis;
+        };
+    }
+}
+
+owner.lookup('etc:my-type-test'); // $ExpectType ConstructThis
 
 // Tests deal with the fact that string literals are a special case! `let`
 // bindings will accordingly not "just work" as a result. The separate

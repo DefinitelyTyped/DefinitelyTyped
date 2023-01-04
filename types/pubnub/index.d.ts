@@ -383,6 +383,7 @@ declare namespace Pubnub {
          * deprecated:
          */
         subscribedChannel: string;
+        userMetadata?: object;
     }
 
     // PubnubData was renamed to MessageEvent, keep old name for backwards compatibility
@@ -446,6 +447,7 @@ declare namespace Pubnub {
             name: string;
             url: string;
         };
+        userMetadata?: object;
     }
 
     interface BaseObjectsEvent {

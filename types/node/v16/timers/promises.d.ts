@@ -62,6 +62,31 @@ declare module 'timers/promises' {
      * @since v15.9.0
      */
     function setInterval<T = void>(delay?: number, value?: T, options?: TimerOptions): AsyncIterable<T>;
+
+    interface Scheduler {
+        /**
+         * ```js
+         * import { scheduler } from 'node:timers/promises';
+         *
+         * await scheduler.wait(1000); // Wait one second before continuing
+         * ```
+         * An experimental API defined by the Scheduling APIs draft specification being developed as a standard Web Platform API.
+         * Calling timersPromises.scheduler.wait(delay, options) is roughly equivalent to calling timersPromises.setTimeout(delay, undefined, options) except that the ref option is not supported.
+         * @since v16.14.0
+         * @experimental
+         * @param [delay=1] The number of milliseconds to wait before fulfilling the promise.
+         */
+        wait: (delay?: number, options?: TimerOptions) => Promise<void>;
+        /**
+         * An experimental API defined by the Scheduling APIs draft specification being developed as a standard Web Platform API.
+         * Calling timersPromises.scheduler.yield() is equivalent to calling timersPromises.setImmediate() with no arguments.
+         * @since v16.14.0
+         * @experimental
+         */
+        yield: () => Promise<void>;
+    }
+
+    const scheduler: Scheduler;
 }
 declare module 'node:timers/promises' {
     export * from 'timers/promises';

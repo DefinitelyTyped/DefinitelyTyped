@@ -130,7 +130,7 @@ declare module "maildev" {
          *
          * @param callback The error callback.
          */
-        end(callback?: (error: Error) => void): void;
+        close(callback?: (error: Error) => void): void;
 
         /**
          * Accepts e-mail identifier, returns email object.

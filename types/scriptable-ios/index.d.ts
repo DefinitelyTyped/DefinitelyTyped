@@ -1,10 +1,10 @@
-// Type definitions for non-npm package scriptable-ios 1.6
+// Type definitions for non-npm package scriptable-ios 1.7
 // Project: https://scriptable.app/
 // Definitions by: schl3ck <https://github.com/schl3ck>
 //                 FuJuntao <https://github.com/FuJuntao>
 //                 FifiTheBulldog <https://github.com/FifiTheBulldog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.7
 
 /**
  * _Presents an alert._
@@ -63,8 +63,8 @@ declare class Alert {
     /**
      * _Adds a text field prompting for user input._
      *
-     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices
-     * for text fields are assigned in the same order as they are added to the alert starting at 0.
+     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices for
+     * text fields are assigned in the same order as they are added to the alert starting at 0.
      *
      * Text fields are not supported when using the sheet presentation.
      * @param placeholder - Optional placeholder that will be displayed when the text field is empty.
@@ -787,9 +787,19 @@ declare var config: {
 
     /**
      * Whether the script is running in a widget.
+     *
+     * This is true both when running in a widget on the Home Screen and when running in a widget on the Lock Screen.
      * @see https://docs.scriptable.app/config/#runsinwidget
      */
     runsInWidget: boolean;
+
+    /**
+     * Whether the script is running in a widget.
+     *
+     * This is true when running in an accessory widget. These widgets can appear on the Lock Screen. Accessory widgets are only available starting from iOS 16.
+     * @see https://docs.scriptable.app/config/#runsinaccessorywidget
+     */
+    runsInAccessoryWidget: boolean;
 
     /**
      * Whether the script is running in a notification.
@@ -806,10 +816,21 @@ declare var config: {
     /**
      * The size of the widget the script is running in.
      *
-     * Possible values are: `small`, `medium`, `large`, `extraLarge` and `null`. The value is `null` when the script is not running in a widget.
+     * Possible values are: `small`, `medium`, `large`, `extraLarge`, `accessoryRectangular`, `accessoryInline`, `accessoryCircular`, and `null`. The value is `null` when the script is
+     * not running in a widget.
+     *
+     * `extraLarge` is only available on iPads running iPadOS 15. `accessoryRectangular`, `accessoryInline`, and `accessoryCircular` are only available starting from iOS 16.
      * @see https://docs.scriptable.app/config/#widgetfamily
      */
-    widgetFamily: "small" | "medium" | "large" | "extraLarge" | null;
+    widgetFamily:
+        | 'small'
+        | 'medium'
+        | 'large'
+        | 'extraLarge'
+        | 'accessoryRectangular'
+        | 'accessoryInline'
+        | 'accessoryCircular'
+        | null;
 };
 
 /**
@@ -3153,6 +3174,8 @@ declare class LinearGradient {
 declare class ListWidget {
     /**
      * _Background color of the widget._
+     *
+     * Defaults to a solid color in widgets placed on the Home Screen and a transparent color placed on the Lock Screen.
      * @see https://docs.scriptable.app/listwidget/#backgroundcolor
      */
     backgroundColor: Color;
@@ -3168,6 +3191,16 @@ declare class ListWidget {
      * @see https://docs.scriptable.app/listwidget/#backgroundgradient
      */
     backgroundGradient: LinearGradient;
+
+    /**
+     * _Whether to use an accessory widget background._
+     *
+     * Enable to add an adaptive background that provides a standard appearance based on the widget's environment. Defaults to false.
+     *
+     * This is only available starting from iOS 16.
+     * @see https://docs.scriptable.app/listwidget/#addaccessorywidgetbackground
+     */
+    addAccessoryWidgetBackground: boolean;
 
     /**
      * _Spacing between elements._
@@ -3273,7 +3306,7 @@ declare class ListWidget {
      *
      * The widget is presented in its small size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      * @see https://docs.scriptable.app/listwidget/#-presentsmall
      */
     presentSmall(): Promise<void>;
@@ -3283,7 +3316,7 @@ declare class ListWidget {
      *
      * The widget is presented in its medium size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      * @see https://docs.scriptable.app/listwidget/#-presentmedium
      */
     presentMedium(): Promise<void>;
@@ -3293,7 +3326,7 @@ declare class ListWidget {
      *
      * The widget is presented in its large size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      * @see https://docs.scriptable.app/listwidget/#-presentlarge
      */
     presentLarge(): Promise<void>;
@@ -3303,12 +3336,58 @@ declare class ListWidget {
      *
      * The widget is presented in its extra large size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      *
-     * Please be aware that extra large widgets are only available on iPads running iOS 15 and newer.
+     * The extra large widget is only available on iPads running iOS 15 and newer.
      * @see https://docs.scriptable.app/listwidget/#-presentextralarge
      */
     presentExtraLarge(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its accessory inline size that is suitable to be displayed above the clock on the Lock Screen.
+     *
+     * The preview is an estimated representation of the widget and is not accurate. Widgets placed on the Lock Screen change appearance based on the wallpaper and tint color of the Lock
+     * Screen, and as such, they cannot be previewed accurately in Scriptable.
+     *
+     * Widgets on the Lock Screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * The accessory inline widget is available on iPhones running iOS 16 and newer and can display a single image and a single text. Any additional elements will be filtered away during
+     * presentation.
+     * @see https://docs.scriptable.app/listwidget/#-presentaccessoryinline
+     */
+    presentAccessoryInline(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its circular accessory size that is suitable to be displayed below the clock on the Lock Screen.
+     *
+     * The preview is an estimated representation of the widget and is not accurate. Widgets placed on the Lock Screen change appearance based on the wallpaper and tint color of the Lock
+     * Screen, and as such, they cannot be previewed accurately in Scriptable.
+     *
+     * Widgets on the Lock Screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * The circular accessory widget is available on iPhones running iOS 16 and newer.
+     * @see https://docs.scriptable.app/listwidget/#-presentaccessorycircular
+     */
+    presentAccessoryCircular(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its rectangular accessory size that is suitable to be displayed below the clock on the Lock Screen.
+     *
+     * The preview is an estimated representation of the widget and is not accurate. Widgets placed on the Lock Screen change appearance based on the wallpaper and tint color of the Lock
+     * Screen, and as such, they cannot be previewed accurately in Scriptable.
+     *
+     * Widgets on the Lock Screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * The rectangular accessory widget is available on iPhones running iOS 16 and newer.
+     * @see https://docs.scriptable.app/listwidget/#-presentaccessoryrectangular
+     */
+    presentAccessoryRectangular(): Promise<void>;
 }
 
 declare namespace Location {
@@ -4454,7 +4533,11 @@ declare namespace RecurrenceRule {
      * @param setPositions - Filters which recurrences to include in the rule's frequency.
      * @see https://docs.scriptable.app/recurrencerule/#complexweekly
      */
-    function complexWeekly(interval: number, daysOfTheWeek: ReadonlyArray<number>, setPositions: ReadonlyArray<number>): RecurrenceRule;
+    function complexWeekly(
+        interval: number,
+        daysOfTheWeek: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
+    ): RecurrenceRule;
 
     /**
      * _Constructs a complex weekly recurrence rule with an end date._
@@ -4991,7 +5074,11 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduebetween
      */
-    static completedDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueBetween(
+        startDate: Date,
+        endDate: Date,
+        calendars?: ReadonlyArray<Calendar>,
+    ): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders._
@@ -5000,7 +5087,11 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduebetween
      */
-    static incompleteDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueBetween(
+        startDate: Date,
+        endDate: Date,
+        calendars?: ReadonlyArray<Calendar>,
+    ): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders._
@@ -5964,7 +6055,7 @@ declare var URLScheme: {
      *
      * Gets the URL for running the current script. When making a request to the returned URL from another app, e.g. Safari, the current script will run.
      *
-     * Get the query parameters using `args.queryParameters`.
+     * Get the query parameters by using `args.queryParameters`.
      * @see https://docs.scriptable.app/urlscheme/#forrunningscript
      */
     forRunningScript(): string;

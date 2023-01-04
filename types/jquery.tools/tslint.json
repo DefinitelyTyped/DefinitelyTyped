@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-unnecessary-generics": false,
         "no-void-expression": false
     }
 }

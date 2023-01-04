@@ -43,6 +43,7 @@ declare module 'http' {
     import * as stream from 'node:stream';
     import { URL } from 'node:url';
     import { TcpSocketConnectOpts, Socket, Server as NetServer, LookupFunction } from 'node:net';
+    import { LookupOptions } from 'node:dns';
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends NodeJS.Dict<string | string[]> {
         accept?: string | undefined;
@@ -113,56 +114,87 @@ declare module 'http' {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {}
     interface ClientRequestArgs {
-        signal?: AbortSignal | undefined;
-        protocol?: string | null | undefined;
-        host?: string | null | undefined;
-        hostname?: string | null | undefined;
-        family?: number | undefined;
-        port?: number | string | null | undefined;
-        defaultPort?: number | string | undefined;
-        localAddress?: string | undefined;
-        socketPath?: string | undefined;
-        /**
-         * @default 8192
-         */
-        maxHeaderSize?: number | undefined;
-        method?: string | undefined;
-        path?: string | null | undefined;
-        headers?: OutgoingHttpHeaders | undefined;
-        auth?: string | null | undefined;
-        agent?: Agent | boolean | undefined;
         _defaultAgent?: Agent | undefined;
-        timeout?: number | undefined;
-        setHost?: boolean | undefined;
+        agent?: Agent | boolean | undefined;
+        auth?: string | null | undefined;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?:
             | ((options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket)
             | undefined;
+        defaultPort?: number | string | undefined;
+        family?: number | undefined;
+        headers?: OutgoingHttpHeaders | undefined;
+        hints?: LookupOptions['hints'];
+        host?: string | null | undefined;
+        hostname?: string | null | undefined;
+        insecureHTTPParser?: boolean | undefined;
+        localAddress?: string | undefined;
+        localPort?: number | undefined;
         lookup?: LookupFunction | undefined;
+        /**
+         * @default 16384
+         */
+        maxHeaderSize?: number | undefined;
+        method?: string | undefined;
+        path?: string | null | undefined;
+        port?: number | string | null | undefined;
+        protocol?: string | null | undefined;
+        setHost?: boolean | undefined;
+        signal?: AbortSignal | undefined;
+        socketPath?: string | undefined;
+        timeout?: number | undefined;
+        uniqueHeaders?: Array<string | string[]> | undefined;
     }
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
     > {
+        /**
+         * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
+         */
         IncomingMessage?: Request | undefined;
+        /**
+         * Specifies the `ServerResponse` class to be used. Useful for extending the original `ServerResponse`.
+         */
         ServerResponse?: Response | undefined;
         /**
-         * Optionally overrides the value of
-         * `--max-http-header-size` for requests received by this server, i.e.
-         * the maximum length of request headers in bytes.
-         * @default 8192
+         * Sets the timeout value in milliseconds for receiving the entire request from the client.
+         * @see Server.requestTimeout for more information.
+         * @default 300000
+         * @since v18.0.0
          */
-        maxHeaderSize?: number | undefined;
+        requestTimeout?: number | undefined;
         /**
-         * Use an insecure HTTP parser that accepts invalid HTTP headers when true.
+         * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
+         * after it has finished writing the last response, before a socket will be destroyed.
+         * @see Server.keepAliveTimeout for more information.
+         * @default 5000
+         * @since v18.0.0
+         */
+        keepAliveTimeout?: number | undefined;
+        /**
+         * Sets the interval value in milliseconds to check for request and headers timeout in incomplete requests.
+         * @default 30000
+         */
+        connectionsCheckingInterval?: number | undefined;
+        /**
+         * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
          * See --insecure-http-parser for more information.
          * @default false
          */
         insecureHTTPParser?: boolean | undefined;
         /**
+         * Optionally overrides the value of
+         * `--max-http-header-size` for requests received by this server, i.e.
+         * the maximum length of request headers in bytes.
+         * @default 16384
+         * @since v13.3.0
+         */
+        maxHeaderSize?: number | undefined;
+        /**
          * If set to `true`, it disables the use of Nagle's algorithm immediately after a new incoming connection is received.
-         * @default false
+         * @default true
          * @since v16.5.0
          */
         noDelay?: boolean | undefined;
@@ -179,6 +211,11 @@ declare module 'http' {
          * @since v16.5.0
          */
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * A list of response headers that should be sent only once.
+         * If the header's value is an array, the items will be joined using `; `.
+         */
+        uniqueHeaders?: Array<string | string[]> | undefined;
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
@@ -1594,6 +1631,13 @@ declare module 'http' {
      * @since v14.3.0
      */
     function validateHeaderValue(name: string, value: string): void;
+
+    /**
+     * Set the maximum number of idle HTTP parsers. Default: 1000.
+     * @param count
+     * @since v18.8.0, v16.18.0
+     */
+    function setMaxIdleHTTPParsers(count: number): void;
 
     let globalAgent: Agent;
     /**

@@ -169,7 +169,7 @@ export const metalness = nodeImmutable(PropertyNode, 'Metalness', 'float');
 export const alphaTest = nodeImmutable(PropertyNode, 'AlphaTest', 'float');
 export const specularColor = nodeImmutable(PropertyNode, 'SpecularColor', 'color');
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export const reference = <T>(name: string, nodeOrType: NodeOrType, object: T) =>
     nodeObject(new ReferenceNode<T>(name, getConstNodeType(nodeOrType)!, object));
 export const materialReference = (name: string, nodeOrType: NodeOrType, material: Material) =>
@@ -181,7 +181,6 @@ export const modelViewProjection = nodeProxy(ModelViewProjectionNode);
 
 export const normalGeometry = nodeImmutable(NormalNode, NormalNode.GEOMETRY);
 export const normalLocal = nodeImmutable(NormalNode, NormalNode.LOCAL);
-export const normalWorld = nodeImmutable(NormalNode, NormalNode.WORLD);
 export const normalView = nodeImmutable(NormalNode, NormalNode.VIEW);
 export const transformedNormalView = nodeImmutable(VarNode, normalView, 'TransformedNormalView');
 
@@ -260,7 +259,6 @@ export const negate = nodeProxy(MathNode, MathNode.NEGATE);
 export const invert = nodeProxy(MathNode, MathNode.INVERT);
 export const dFdx = nodeProxy(MathNode, MathNode.DFDX);
 export const dFdy = nodeProxy(MathNode, MathNode.DFDY);
-export const saturate = nodeProxy(MathNode, MathNode.SATURATE);
 export const round = nodeProxy(MathNode, MathNode.ROUND);
 
 export const atan2 = nodeProxy(MathNode, MathNode.ATAN2);
@@ -279,7 +277,8 @@ export const pow4 = nodeProxy(MathNode, MathNode.POW, 4);
 export const transformDirection = nodeProxy(MathNode, MathNode.TRANSFORM_DIRECTION);
 
 export const mix = nodeProxy(MathNode, MathNode.MIX);
-export const clamp = nodeProxy(MathNode, MathNode.CLAMP);
+export const clamp = (value: NodeRepresentation, low: NodeRepresentation = 1, high: NodeRepresentation = 1) =>
+    nodeObject(new MathNode(MathNode.CLAMP, nodeObject(value), nodeObject(low), nodeObject(high)));
 export const refract = nodeProxy(MathNode, MathNode.REFRACT);
 export const smoothstep = nodeProxy(MathNode, MathNode.SMOOTHSTEP);
 export const faceforward = nodeProxy(MathNode, MathNode.FACEFORWARD);
@@ -297,5 +296,5 @@ export const element = nodeProxy(ArrayElementNode);
 
 // miscellaneous
 
-export const dotNV = saturate(dot(transformedNormalView, positionViewDirection));
+export const dotNV = clamp(dot(transformedNormalView, positionViewDirection));
 export const transformedNormalWorld = normalize(transformDirection(transformedNormalView, cameraViewMatrix));

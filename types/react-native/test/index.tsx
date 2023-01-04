@@ -72,6 +72,7 @@ import {
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
+    RootTagContext,
     ScaledSize,
     ScrollView,
     ScrollViewProps,
@@ -334,6 +335,8 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
 
     testFindNodeHandle() {
         const { rootView, customView } = this.refs;
+
+        const rootTag = React.useContext(RootTagContext);
 
         const nativeComponentHandle = findNodeHandle(rootView);
 
