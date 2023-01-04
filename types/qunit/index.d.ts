@@ -256,7 +256,8 @@ declare global {
          *
          * @param assertionResult The assertion result
          */
-        pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string }): void;
+        // source: https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/test.js#L572
+        pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string; source?: string }): void;
 
         /**
          * Test if the provided promise rejects, and optionally compare the rejection value.

@@ -570,6 +570,15 @@ QUnit.test( "Assert plugin", function ( assert ) {
         actual: actual,
         expected: `between ${from} and ${to} inclusive`
     });
+
+    // with stack
+    assert.pushResult({
+        result: isBetween,
+        actual: actual,
+        expected: `between ${from} and ${to} inclusive`,
+        message: 'message',
+        source: new Error().stack
+    });
 });
 
 QUnit.test( "throws", function( assert ) {
