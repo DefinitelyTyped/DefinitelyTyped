@@ -761,7 +761,7 @@ declare namespace Aws {
 declare class Aws {
     constructor(serverless: Serverless, options: Serverless.Options);
 
-    naming: { [key: string]: () => string };
+    naming: { [key: string]: (param: any) => string };
     getCredentials(): Aws.Credentials;
     getProviderName(): string;
     getRegion(): string;
