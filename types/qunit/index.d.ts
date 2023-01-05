@@ -391,6 +391,8 @@ declare global {
             tooltip?: string | undefined;
             value?: string | string[] | { [key: string]: string } | undefined;
         }[];
+        // timeout: https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/test.js#L752
+        timeout?: ReturnType<typeof setTimeout> | null;
     }
 
     interface GlobalHooks {

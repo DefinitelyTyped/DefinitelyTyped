@@ -837,3 +837,5 @@ QUnit.onUncaughtException = (error: unknown) => {
     console.log(error.message);
   }
 };
+
+const configTimeout: number | null | undefined = QUnit.config.timeout;
