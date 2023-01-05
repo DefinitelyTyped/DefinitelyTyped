@@ -820,6 +820,19 @@ declare class SteamUser extends EventEmitter {
      */
     deactivateSharingAuthorization(): void;
     //#endregion "FAMILY SHARING"
+
+    //#region "APP AUTH"
+    // also see https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63789
+    createEncryptedAppTicket(appid: number, userData: Buffer, callback?: (err: Error | null, encryptedAppTicket: Buffer) => void): Promise<Buffer>;
+    static parseEncryptedAppTicket(ticket: Buffer, encryptionKey: Buffer | string): Record<string, any>;
+    static parseAppTicket(ticket: Buffer | ByteBuffer, allowInvalidSignature?: boolean): Record<string, any> | null;
+    createAuthSessionTicket(appid: number, callback?: (obj: { sessionTicket: Buffer }) => void): Promise<{ sessionTicket: Buffer }>;
+    getAppOwnershipTicket(appid: number, callback?: (err: Error | null, ticket: Buffer) => void): Promise<Buffer>;
+    activateAuthSessionTickets(appid: number, tickets: (Record<string, any> | Buffer)[] | Record<string, any> | Buffer, callback?: (err: Error | null) => void): Promise<void>;
+    cancelAuthSessionTickets(appid: number, gcTokens?: string[] | string | null, callback?: (err: Error | null, obj: { canceledTicketCount: number }) => void): Promise<{ canceledTicketCount: number }>;
+    endAuthSessions(appid: number, steamIDs?: SteamID[] | SteamID | string[] | string | null, callback?: (err: Error | null, obj: { canceledTicketCount: number }) => void): Promise<{ canceledTicketCount: number }>;
+    getActiveAuthSessionTickets(): { appID: number, steamID: SteamID, ticketCrc: number, gcToken: number, validated: boolean }[];
+    //#endregion "APP AUTH"
 }
 
 //#region "Events"
@@ -869,6 +882,16 @@ interface Events {
     nicknameList: [];
     nickname: [steamID: SteamID, newNickname: string | null];
     lobbyInvite: [inviterID: SteamID, lobbyID: SteamID];
+    authTicketStatus: [{
+        steamID: SteamID,
+        appOwnerSteamID: SteamID,
+        appID: number,
+        ticketCrc: ByteBuffer
+        ticketGcToken: number
+        state: number,
+        authSessionResponse: SteamUser.EAuthSessionResponse,
+    }];
+    authTicketValidation: Events["authTicketStatus"];
 }
 //#endregion "Events"
 
