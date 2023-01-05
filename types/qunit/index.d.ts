@@ -507,6 +507,72 @@ declare global {
             name: string;
             module: string;
         }
+
+        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/core/config.js#L84
+        interface Module {
+            name: string;
+            // tests: Array<{ name: string; id: string; skip: boolean }>;
+            // childModules: Module[];
+            // testsRun: number;
+            // testsIgnored: number;
+            // hooks: Hooks;
+            // skip?: boolean;
+            // ignored?: boolean;
+        }
+
+        // https://github.com/qunitjs/qunit/blob/main/src/test.js#L23
+        interface TestBase {
+            testId: string;
+            testName: string;
+            expected: null | number;
+            // assertions: Array<{ result: boolean; message: string }>;
+            module: Module;
+            // steps: unknown[];
+            // timeout: undefined;
+            // data: unknown;
+            // withData: boolean;
+            // pauses: Map<string, unknown>;
+            // nextPauseId: 1;
+            // stackOffset: 0 | 1 | 2 | 3 | 5;
+            // errorForStack: Error;
+            // testReport: unknown;
+            // stack: string;
+            // before: () => unknown;
+            // run: () => unknown;
+            // after: () => void;
+            // queueGlobalHook: (hook: unknown, hookName: unknown) => () => unknown;
+            // queueHook: (
+            //   hook: unknown,
+            //   hookName: unknown,
+            //   hookOwner: unknown
+            // ) => () => unknown;
+            // hooks: (handler: unknown) => unknown;
+            finish: () => unknown;
+            // preserveTestEnvironment: () => unknown;
+            // queue: () => void;
+            // pushResult: (resultInfo: unknown) => void;
+            pushFailure: (message: string, source: string, actual: unknown) => void;
+            skip?: true;
+            // callback: ((assert: Assert) => void) | ((assert: Assert) => Promise<void>);
+            todo?: boolean;
+            async?: boolean;
+        }
+
+        interface AssertionTest extends TestBase {
+            assert: Assert;
+        }
+
+        interface SkipTest extends TestBase {
+            skip: true;
+            async: false;
+        }
+
+        interface TodoTest extends TestBase {
+            todo: true;
+            assert: Assert;
+        }
+
+        type Test = AssertionTest | SkipTest | TodoTest;
     }
 
     interface QUnit {
