@@ -33,8 +33,10 @@ export interface JSON_WEB_OBJECT extends ElementResult {
     getId: () => string;
 }
 
-export interface ApiTest extends SuperTest<Test> {
-    request: (app: Express.Application) => this;
+export interface ApiTest {
+    supertest: {
+        request: (app: any) => SuperTest<Test>;
+    };
 }
 
 export type Definition = string | ElementProperties | Element | RelativeBy;

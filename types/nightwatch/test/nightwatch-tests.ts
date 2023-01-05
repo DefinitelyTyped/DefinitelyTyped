@@ -1,5 +1,4 @@
 import { EventEmitter } from 'events';
-import express = require('express');
 import {
     EnhancedPageObject,
     EnhancedSectionInstance,
@@ -114,15 +113,11 @@ const testGeneral: NightwatchTests = {
                         },
                     },
                 },
-                results => {},
+                results => { },
             );
     },
 
-    'Can API test with URL string': async ({
-        supertest,
-      }: {
-        supertest: ApiTest;
-        }) => {
+    'Can API test with URL string': async ({ supertest }: ApiTest) => {
         await supertest
           .request('https://petstore.swagger.io')
           .get('/v2/store/inventory/')
@@ -131,23 +126,6 @@ const testGeneral: NightwatchTests = {
           .then((response) => {
             expect(response.body.sold).to.be.greaterThan(0);
           });
-    },
-
-    'Can API test with express app': async ({
-        supertest,
-      }: {
-        supertest: ApiTest;
-          }) => {
-        const app = express();
-        app.get('/api/v1/', (req: any, res: any) => {
-            res.status(200).json({});
-        });
-
-        await supertest
-          .request(app)
-          .get('/api/v1/')
-          .expect(200)
-          .expect('Content-Type', /json/);
     },
 
     'step one: navigate to google': () => {
