@@ -3967,10 +3967,10 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: Pa
 export function pick<T, K extends string | number | symbol>(
     names: readonly K[],
     obj: T,
-): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): { [P in keyof T as P extends K ? P : never]: T[P] };
 export function pick<K extends string | number | symbol>(
     names: readonly K[],
-): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): <T>(obj: T) => { [P in keyof T as P extends K ? P : never]: T[P] };
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
