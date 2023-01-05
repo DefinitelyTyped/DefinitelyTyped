@@ -3682,6 +3682,8 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism' {
     export { default as nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl';
     export { default as nord } from 'react-syntax-highlighter/dist/cjs/styles/prism/nord';
     export { default as okaidia } from 'react-syntax-highlighter/dist/cjs/styles/prism/okaidia';
+    export { default as oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark';
+    export { default as oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism/one-light';
     export { default as pojoaque } from 'react-syntax-highlighter/dist/cjs/styles/prism/pojoaque';
     export { default as prism } from 'react-syntax-highlighter/dist/cjs/styles/prism/prism';
     export { default as shadesOfPurple } from 'react-syntax-highlighter/dist/cjs/styles/prism/shades-of-purple';
@@ -3806,8 +3808,8 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism/material-oceanic'
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/night-owl' {
-  const style: { [key: string]: React.CSSProperties };
-  export default style;
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/nord' {
@@ -3816,6 +3818,16 @@ declare module 'react-syntax-highlighter/dist/cjs/styles/prism/nord' {
 }
 
 declare module 'react-syntax-highlighter/dist/cjs/styles/prism/okaidia' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark' {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module 'react-syntax-highlighter/dist/cjs/styles/prism/one-light' {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
