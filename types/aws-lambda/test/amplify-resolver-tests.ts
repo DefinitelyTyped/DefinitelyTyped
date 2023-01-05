@@ -50,7 +50,16 @@ interface CustomArgs {
 interface SourceType {
     source1: number;
 }
+interface Result {
+    result1: string;
+}
 const handlerWithArguments: AmplifyGraphQlResolverHandler<CustomArgs, SourceType> = async (event, context) => {
     str = event.arguments.arg1;
     num = event.source.source1;
+};
+const handlerWithArgumentsAndResult: AmplifyGraphQlResolverHandler<CustomArgs, SourceType, Result> = async (event, context) => {
+    str = event.arguments.arg1;
+    num = event.source.source1;
+
+    return { result1: 'result1' };
 };

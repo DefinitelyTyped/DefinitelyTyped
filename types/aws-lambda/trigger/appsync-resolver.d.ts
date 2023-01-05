@@ -64,6 +64,8 @@ export interface AppSyncResolverEvent<TArguments, TSource = Record<string, any> 
     };
     prev: { result: { [key: string]: any } } | null;
     stash: { [key: string]: any };
+    typeName?: string;
+    fieldName?: string;
 }
 
 export interface AppSyncAuthorizerEvent {
