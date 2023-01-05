@@ -839,3 +839,6 @@ QUnit.onUncaughtException = (error: unknown) => {
 };
 
 const configTimeout: number | null | undefined = QUnit.config.timeout;
+
+const urlParams = QUnit.urlParams;
+urlParams.foo;

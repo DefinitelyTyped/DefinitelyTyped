@@ -813,6 +813,10 @@ declare global {
          * QUnit version
          */
         version: string;
+
+        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/html-reporter/html.js#L256
+        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/test/reporter-urlparams.js#L11
+        urlParams: Record<string, unknown>;
     }
 
     /* QUnit */
