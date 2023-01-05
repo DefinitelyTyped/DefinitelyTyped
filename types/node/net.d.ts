@@ -261,6 +261,13 @@ declare module 'net' {
          * @since v6.1.0
          */
         readonly connecting: boolean;
+        
+        /**
+        * This is `true` if the socket is not connected yet, either because `.connect()` 
+        * has not yet been called or because it is still in the process of connecting (see `socket.connecting`).
+        * @since v10.16.0
+        */
+        readonly pending: boolean;
         /**
          * See `writable.destroyed` for further details.
          */
