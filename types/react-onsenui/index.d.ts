@@ -338,6 +338,7 @@ export class Fab extends Component<{
 }, any> {}
 
 export class Button extends Component<{
+    children?: React.ReactNode,
     modifier?: string | undefined,
     disabled?: boolean | undefined,
     ripple?: boolean | undefined,

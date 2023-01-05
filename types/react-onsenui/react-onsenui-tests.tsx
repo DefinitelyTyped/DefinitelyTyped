@@ -72,7 +72,7 @@ export class App extends React.Component<AppProps, AppState> {
                             <option value="3">Option #3</option>
                         </Select>
                         <Switch className='left' modifier='material' checked={true} inputId='switchId' name='switchTest' />
-                        <Button name='someButton' onClick={this.onClick} />
+                        <Button name='someButton' onClick={this.onClick}>Button label</Button>
                         <SearchInput
                             modifier='material'
                             inputId='searchInputId'
