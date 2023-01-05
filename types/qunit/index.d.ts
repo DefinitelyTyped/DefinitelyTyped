@@ -256,7 +256,7 @@ declare global {
          *
          * @param assertionResult The assertion result
          */
-        pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string; source?: string }): void;
+        pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string | undefined; source?: string | undefined }): void;
 
         /**
          * Test if the provided promise rejects, and optionally compare the rejection value.
