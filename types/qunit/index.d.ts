@@ -384,7 +384,10 @@ declare global {
         scrolltop: boolean;
         seed: string;
         testId: string[];
-        testTimeout: number;
+        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/test.js#L733
+        // ember-qunit sets testTimeout to null in devMode. Code surrounding testTimeout seems to assume it can be
+        // something other than a number
+        testTimeout?: number | null;
         urlConfig: {
             id?: string | undefined;
             label?: string | undefined;
