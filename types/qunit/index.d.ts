@@ -256,7 +256,6 @@ declare global {
          *
          * @param assertionResult The assertion result
          */
-        // source: https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/test.js#L572
         pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string; source?: string }): void;
 
         /**
@@ -384,18 +383,14 @@ declare global {
         scrolltop: boolean;
         seed: string;
         testId: string[];
-        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/test.js#L733
-        // ember-qunit sets testTimeout to null in devMode. Code surrounding testTimeout seems to assume it can be
-        // something other than a number
         testTimeout?: number | null;
+        timeout?: ReturnType<typeof setTimeout> | null;
         urlConfig: {
             id?: string | undefined;
             label?: string | undefined;
             tooltip?: string | undefined;
             value?: string | string[] | { [key: string]: string } | undefined;
         }[];
-        // timeout: https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/test.js#L752
-        timeout?: ReturnType<typeof setTimeout> | null;
     }
 
     interface GlobalHooks {
@@ -508,7 +503,6 @@ declare global {
             module: string;
         }
 
-        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/core/config.js#L84
         interface Module {
             name: string;
             // tests: Array<{ name: string; id: string; skip: boolean }>;
@@ -520,7 +514,6 @@ declare global {
             // ignored?: boolean;
         }
 
-        // https://github.com/qunitjs/qunit/blob/main/src/test.js#L23
         interface TestBase {
             testId: string;
             testName: string;
@@ -883,8 +876,6 @@ declare global {
          */
         version: string;
 
-        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/src/html-reporter/html.js#L256
-        // https://github.com/qunitjs/qunit/blob/fc278e8c0d7e90ec42e47b47eee1cc85c9a9efaf/test/reporter-urlparams.js#L11
         urlParams: Record<string, unknown>;
     }
 
