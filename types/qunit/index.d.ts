@@ -384,7 +384,6 @@ declare global {
         seed: string;
         testId: string[];
         testTimeout?: number | null;
-        timeout?: ReturnType<typeof setTimeout> | null;
         urlConfig: {
             id?: string | undefined;
             label?: string | undefined;
