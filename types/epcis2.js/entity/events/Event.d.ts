@@ -16,40 +16,34 @@ export namespace fieldToFunctions {
     const childEPCs: string[];
     const childQuantityList: string[];
 }
-/**
- * Abstract class Event
- *
- * @class Event
- */
+
 export default class Event extends Entity {
     /** ************     COMMON TO ALL EVENTS    ********************** */
     /**
      * Set the context property
-     * @param {string|Object|Array<string>|Array<Object>} context
-     * @return {Event} - the event instance
+     * @param context
+     * @return the event instance
      */
     setContext(context: any): Event;
     '@context': any;
     /**
      * Getter for the context property
-     * @return {string|Object|Array<string>|Array<Object>} - the context
      */
     getContext(): any;
     /**
      * Getter for the type property
-     * @return {string} - the event type
+     * @return the event type
      */
     getType(): string;
     /**
      * Set the eventID property
-     * @param {string} id
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     setEventID(id: string): Event;
     eventID: string;
     /**
      * Getter for the eventID property
-     * @return {string} - the eventID
+     * @return the eventID
      */
     getEventID(): string;
     /**
@@ -57,461 +51,456 @@ export default class Event extends Entity {
      * This method needs to be called once all your field are set since the hash id is generated
      * according to all your fields
      *
-     * @param {{}} context - the list of context (e.g {
+     * @param context - the list of context (e.g {
      *    "example": "http://ns.example.com/epcis/",
      *    "example2": "http://ns.example2.com/epcis/",
      * })
      * This param needs to contain all the contexts that are used in the event otherwise this function
      * will throw an error (if throwError is set to true)
-     * @param {boolean} throwError - if set to true, it will throw an error if the event misses some
+     * @param throwError - if set to true, it will throw an error if the event misses some
      * fields for example. Otherwise, it won't throw an error and it will still return the
      * generated id
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     generateHashID(context: {}, throwError?: boolean): Event;
     /**
      * Set the eventTime property
-     * @param {string} time - a string corresponding to the time
+     * @param time - a string corresponding to the time
      *      If a timezone offset is provided in the string (e.g '2005-04-03T20:33:31.116-06:00')
      *      and overrideTimeZoneOffset is set to true, the timeZoneOffset field will be set with
      *      the extracted offset (here: '-06:00')
-     * @param {boolean} [overrideTimeZoneOffset = true] - if set to true, the eventTimeZoneOffset
+     * @param [overrideTimeZoneOffset = true] - if set to true, the eventTimeZoneOffset
      * field will be overridden with the offset of the given time. Otherwise, it doesn't update it.
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     setEventTime(time: string, overrideTimeZoneOffset?: boolean): Event;
     eventTime: string;
     /**
      * Getter for the eventTime property
-     * @return {string} - the eventTime
+     * @return the eventTime
      */
     getEventTime(): string;
     /**
-     * @param {number|string} offset - the time zone offset
+     * @param offset - the time zone offset
      * (e.g "+02:30" or "-06:00" if it is a string)
      * (e.g -6 or 2.5 if it is a number)
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     setEventTimeZoneOffset(offset: number | string): Event;
     eventTimeZoneOffset: string;
     /**
      * Getter for the eventTimeZoneOffset property
-     * @return {string} - the eventTimeZoneOffset
+     * @return the eventTimeZoneOffset
      */
     getEventTimeZoneOffset(): string;
     /**
      * Set the recordTime property
-     * @param {string} time - a string corresponding to the time
-     * @return {Event} - the event instance
+     * @param time - a string corresponding to the time
+     * @return the event instance
      */
     setRecordTime(time: string): Event;
     /**
      * Getter for the recordTime property
-     * @return {string} - the recordTime
+     * @return the recordTime
      */
     getRecordTime(): string;
     /**
      * Set the errorDeclaration property
-     * @param {ErrorDeclaration} errorDeclaration
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     setErrorDeclaration(errorDeclaration: ErrorDeclaration): Event;
     /**
      * Getter for the errorDeclaration property
-     * @return {ErrorDeclaration} - the errorDeclaration
      */
     getErrorDeclaration(): ErrorDeclaration;
     /**
      * set the certificationInfo property
-     * @param {string|Array<string>} certificationInfo
-     * @return {Event} - the event instance
+     * @param certificationInfo
+     * @return the event instance
      */
-    setCertificationInfo(certificationInfo: string | Array<string>): Event;
+    setCertificationInfo(certificationInfo: string | string[]): Event;
     /**
      * Getter for the certificationInfo property
-     * @return {string|Array<string>} - the certificationInfo
+     * @return the certificationInfo
      */
-    getCertificationInfo(): string | Array<string>;
+    getCertificationInfo(): string | string[];
     /** ************     NOT COMMON TO ALL EVENTS    ********************** */
     /**
      * Add the epc to the "epcList" field
-     * @param {string} epc - the epc to add (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
-     * @return {Event} - the event instance
+     * @param epc - the epc to add (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
+     * @return the event instance
      */
     addEPC(epc: string): Event;
     /**
      * Add each epc to the "epcList" field
-     * @param {Array<string>} epcList - the epcs to add
+     * @param epcList - the epcs to add
      * (e.g [urn:epc:id:sgtin:xxxxxx.xxxxx.xxx, urn:epc:id:sgtin:xxxxxx.xxxxx.xxy])
-     * @return {Event} - the event instance
+     * @return the event instance
      */
-    addEPCList(epcList: Array<string>): Event;
+    addEPCList(epcList: string[]): Event;
     /**
      * Clear the epc list
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearEPCList(): Event;
     /**
      * Remove an epc from the "epcList" field
-     * @param {string} epc - the epc to remove (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
-     * @return {Event} - the event instance
+     * @param epc - the epc to remove (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
+     * @return the event instance
      */
     removeEPC(epc: string): Event;
     epcList: any;
     /**
      * Remove each epc from the "epcList" field
-     * @param {Array<string>} epcList - the epcs to remove
+     * @param epcList - the epcs to remove
      * (e.g [urn:epc:id:sgtin:xxxxxx.xxxxx.xxx, urn:epc:id:sgtin:xxxxxx.xxxxx.xxy])
-     * @return {Event} - the event instance
+     * @return the event instance
      */
-    removeEPCList(epcList: Array<string>): Event;
+    removeEPCList(epcList: string[]): Event;
     /**
      * Getter for the epcList property
-     * @return {Array<string>} - the epcList
+     * @return - the epcList
      */
-    getEPCList(): Array<string>;
+    getEPCList(): string[];
     /**
      * Add the quantity to the "quantityList" field
-     * @param {QuantityElement} quantity - the quantity to add
-     * @return {Event} - the event instance
+     * @param quantity - the quantity to add
+     * @return the event instance
      */
     addQuantity(quantity: QuantityElement): Event;
     /**
      * Add each quantity to the "quantityList" field
-     * @param {Array<QuantityElement>} quantityList - the quantities to add
-     * @return {Event} - the event instance
+     * @param quantityList - the quantities to add
+     * @return the event instance
      */
-    addQuantityList(quantityList: Array<QuantityElement>): Event;
+    addQuantityList(quantityList: QuantityElement[]): Event;
     /**
      * Clear the quantity list
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearQuantityList(): Event;
     /**
      * Remove a quantity from the "quantityList" field
-     * @param {QuantityElement} quantity - the quantity to remove
-     * @return {Event} - the event instance
+     * @param quantity - the quantity to remove
+     * @return the event instance
      */
     removeQuantity(quantity: QuantityElement): Event;
     quantityList: any;
     /**
      * Remove each quantity from the "quantityList" field
-     * @param {Array<QuantityElement>} quantityList - the quantities to remove
-     * @return {Event} - the event instance
+     * @param quantityList - the quantities to remove
+     * @return the event instance
      */
-    removeQuantityList(quantityList: Array<QuantityElement>): Event;
+    removeQuantityList(quantityList: QuantityElement[]): Event;
     /**
      * Getter for the quantityList property
-     * @return {Array<QuantityElement>} - the quantityList
      */
-    getQuantityList(): Array<QuantityElement>;
+    getQuantityList(): QuantityElement[];
     /**
      * Set the action property
-     * @param {string} action - string from {"OBSERVE", "ADD", "DELETE"}
-     * @return {Event} - the event instance
+     * @param action - string from {"OBSERVE", "ADD", "DELETE"}
+     * @return the event instance
      */
     setAction(action: string): Event;
     /**
      * Getter for the action property
-     * @return {string} - the action
+     * @return the action
      */
     getAction(): string;
     /**
      * Set the bizStep property
-     * @param {string} bizStep - e.g bizsteps.accepting
-     * @return {Event} - the event instance
+     * @param bizStep - e.g bizsteps.accepting
+     * @return the event instance
      */
     setBizStep(bizStep: string): Event;
     /**
      * Getter for the bizStep property
-     * @return {string} - the bizStep
+     * @return the bizStep
      */
     getBizStep(): string;
     /**
      * Set the disposition property
-     * @param {string} disposition - e.g dispositions.in_transit
-     * @return {Event} - the event instance
+     * @param disposition - e.g dispositions.in_transit
+     * @return the event instance
      */
     setDisposition(disposition: string): Event;
     /**
      * Getter for the disposition property
-     * @return {string} - the disposition
+     * @return the disposition
      */
     getDisposition(): string;
     /**
      * Set the persistentDisposition property
-     * @param {PersistentDisposition} persistentDisposition
-     * @return {Event} - the event instance
+     * @param persistentDisposition
+     * @return the event instance
      */
     setPersistentDisposition(persistentDisposition: PersistentDisposition): Event;
     /**
      * Getter for the persistentDisposition property
-     * @return {PersistentDisposition} - the persistentDisposition
+     * @return - the persistentDisposition
      */
     getPersistentDisposition(): PersistentDisposition;
     /**
      * Set the readPoint property
-     * @param {string|ReadPoint} readPoint id or readPoint instance
-     * @return {Event} - the event instance
+     * @param readPoint id or readPoint instance
+     * @return the event instance
      */
     setReadPoint(readPoint: string | ReadPoint): Event;
     readPoint: ReadPoint;
     /**
      * Getter for the readPoint property
-     * @return {ReadPoint} - the readPoint
      */
     getReadPoint(): ReadPoint;
     /**
      * Set the bizLocation property
-     * @param {string|BizLocation} bizLocation instance or bizLocation id
-     * @return {Event} - the event instance
+     * @param bizLocation instance or bizLocation id
+     * @return the event instance
      */
     setBizLocation(bizLocation: string | BizLocation): Event;
     bizLocation: BizLocation;
     /**
      * Getter for the bizLocation property
-     * @return {BizLocation} - the bizLocation
+     * @return the bizLocation
      */
     getBizLocation(): BizLocation;
     /**
      * Add the bizTransaction to the "bizTransactionList" field
-     * @param {BizTransactionElement} bizTransaction - the bizTransaction to add
-     * @return {Event} - the event instance
+     * @param bizTransaction - the bizTransaction to add
+     * @return the event instance
      */
     addBizTransaction(bizTransaction: BizTransactionElement): Event;
     /**
      * Add each bizTransaction to the "bizTransactionList" field
-     * @param {Array<BizTransactionElement>} bizTransactionList - the bizTransactions to add
-     * @return {Event} - the event instance
+     * @param bizTransactionList - the bizTransactions to add
+     * @return the event instance
      */
-    addBizTransactionList(bizTransactionList: Array<BizTransactionElement>): Event;
+    addBizTransactionList(bizTransactionList: BizTransactionElement[]): Event;
     /**
      * Clear the bizTransaction list
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearBizTransactionList(): Event;
     /**
      * Remove a bizTransaction from the "bizTransactionList" field
-     * @param {BizTransactionElement} bizTransaction - the bizTransaction to remove
-     * @return {Event} - the event instance
+     * @param bizTransaction - the bizTransaction to remove
+     * @return the event instance
      */
     removeBizTransaction(bizTransaction: BizTransactionElement): Event;
     bizTransactionList: any;
     /**
      * Remove each bizTransaction from the "bizTransactionList" field
-     * @param {Array<BizTransactionElement>} bizTransactionList - the bizTransactions to remove
-     * @return {Event} - the event instance
+     * @param bizTransactionList - the bizTransactions to remove
+     * @return the event instance
      */
-    removeBizTransactionList(bizTransactionList: Array<BizTransactionElement>): Event;
+    removeBizTransactionList(bizTransactionList: BizTransactionElement[]): Event;
     /**
      * Getter for the bizTransactionList property
-     * @return {Array<BizTransactionElement>} - the bizTransactionList
+     * @return the bizTransactionList
      */
-    getBizTransactionList(): Array<BizTransactionElement>;
+    getBizTransactionList(): BizTransactionElement[];
     /**
      * Add the source to the "sourceList" field
-     * @param {SourceElement} source - the source to add
-     * @return {Event} - the event instance
+     * @param source - the source to add
+     * @return the event instance
      */
     addSource(source: SourceElement): Event;
     /**
      * Add each sourceElement to the "sourceList" field
-     * @param {Array<SourceElement>} sourceList - the sourceElements to add
-     * @return {Event} - the event instance
+     * @param sourceList - the sourceElements to add
+     * @return the event instance
      */
-    addSourceList(sourceList: Array<SourceElement>): Event;
+    addSourceList(sourceList: SourceElement[]): Event;
     /**
      * Clear the source list
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearSourceList(): Event;
     /**
      * Remove a source from the "sourceList" field
-     * @param {SourceElement} source - the source to remove
-     * @return {Event} - the event instance
+     * @param source - the source to remove
+     * @return the event instance
      */
     removeSource(source: SourceElement): Event;
     sourceList: any;
     /**
      * Remove each source from the "sourceList" field
-     * @param {Array<SourceElement>} sourceList - the sources to remove
-     * @return {Event} - the event instance
+     * @param sourceList - the sources to remove
+     * @return the event instance
      */
-    removeSourceList(sourceList: Array<SourceElement>): Event;
+    removeSourceList(sourceList: SourceElement[]): Event;
     /**
      * Getter for the sourceList property
-     * @return {Array<SourceElement>} - the sourceList
+     * @return - the sourceList
      */
-    getSourceList(): Array<SourceElement>;
+    getSourceList(): SourceElement[];
     /**
      * Add the destination to the "destinationList" field
-     * @param {DestinationElement} destination - the destination to add
-     * @return {Event} - the event instance
+     * @param destination - the destination to add
+     * @return the event instance
      */
     addDestination(destination: DestinationElement): Event;
     /**
      * Add each destinationElement to the "destinationList" field
-     * @param {Array<DestinationElement>} destinationList - the destinationElements to add
-     * @return {Event} - the event instance
+     * @param destinationList - the destinationElements to add
+     * @return the event instance
      */
-    addDestinationList(destinationList: Array<DestinationElement>): Event;
+    addDestinationList(destinationList: DestinationElement[]): Event;
     /**
      * Clear the destination list
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearDestinationList(): Event;
     /**
      * Remove a destination from the "destinationList" field
-     * @param {DestinationElement} destination - the destination to remove
-     * @return {Event} - the event instance
+     * @param destination - the destination to remove
+     * @return the event instance
      */
     removeDestination(destination: DestinationElement): Event;
     destinationList: any;
     /**
      * Remove each destination from the "destinationList" field
-     * @param {Array<DestinationElement>} destinationList - the destinations to remove
-     * @return {Event} - the event instance
+     * @param destinationList - the destinations to remove
+     * @return the event instance
      */
-    removeDestinationList(destinationList: Array<DestinationElement>): Event;
+    removeDestinationList(destinationList: DestinationElement[]): Event;
     /**
      * Getter for the destinationList property
-     * @return {Array<DestinationElement>} - the destinationList
+     * @return - the destinationList
      */
-    getDestinationList(): Array<DestinationElement>;
+    getDestinationList(): DestinationElement[];
     /**
      * Add the sensorElement to the "sensorElementList" field
-     * @param {SensorElement} sensorElement - the sensorElement to add
-     * @return {Event} - the event instance
+     * @param sensorElement - the sensorElement to add
+     * @return the event instance
      */
     addSensorElement(sensorElement: SensorElement): Event;
     /**
      * Add each sensorElementElement to the "sensorElementList" field
-     * @param {Array<SensorElement>} sensorElementList - the sensorElementElements to add
-     * @return {Event} - the event instance
+     * @param sensorElementList - the sensorElementElements to add
+     * @return the event instance
      */
-    addSensorElementList(sensorElementList: Array<SensorElement>): Event;
+    addSensorElementList(sensorElementList: SensorElement[]): Event;
     /**
      * Clear the sensorElement list
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearSensorElementList(): Event;
     /**
      * Remove a sensorElement from the "sensorElementList" field
-     * @param {SensorElement} sensorElement - the sensorElement to remove
-     * @return {Event} - the event instance
+     * @param sensorElement - the sensorElement to remove
+     * @return the event instance
      */
     removeSensorElement(sensorElement: SensorElement): Event;
     sensorElementList: any;
     /**
      * Remove each sensorElement from the "sensorElementList" field
-     * @param {Array<SensorElement>} sensorElementList - the sensorElements to remove
-     * @return {Event} - the event instance
+     * @param sensorElementList - the sensorElements to remove
+     * @return the event instance
      */
-    removeSensorElementList(sensorElementList: Array<SensorElement>): Event;
+    removeSensorElementList(sensorElementList: SensorElement[]): Event;
     /**
      * Getter for the sensorElementList property
-     * @return {Array<SensorElement>} - the sensorElementList
+     * @return SensorElement[]- the sensorElementList
      */
-    getSensorElementList(): Array<SensorElement>;
+    getSensorElementList(): SensorElement[];
     /**
      * Set the ilmd property
-     * @param {Ilmd} ilmd object
-     * @return {Event} - the event instance
+     * @param ilmd object
+     * @return the event instance
      */
     setIlmd(ilmd: Ilmd): Event;
     /**
      * Getter for the ilmd property
-     * @return {Ilmd} - the ilmd
+     * @return - the ilmd
      */
     getIlmd(): Ilmd;
     /**
      * Set the parentID property
-     * @param {string} parentID
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     setParentId(parentID: string): Event;
     parentID: string;
     /**
      * Getter for the parentID property
-     * @return {string} - the parentID
+     * @return the parentID
      */
     getParentId(): string;
     /**
      * Add the epc to the "childEPCs" field
-     * @param {string} epc - the epc to add (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
-     * @return {Event} - the event instance
+     * @param epc - the epc to add (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
+     * @return the event instance
      */
     addChildEPC(epc: string): Event;
     /**
      * Add each epc to the "childEPCs" field
-     * @param {Array<string>} epcList - the epcs to add
+     * @param epcList - the epcs to add
      * (e.g [urn:epc:id:sgtin:xxxxxx.xxxxx.xxx, urn:epc:id:sgtin:xxxxxx.xxxxx.xxy])
-     * @return {Event} - the event instance
+     * @return the event instance
      */
-    addChildEPCList(epcList: Array<string>): Event;
+    addChildEPCList(epcList: string[]): Event;
     /**
      * Clear the childEPCs
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearChildEPCList(): Event;
     /**
      * Remove an epc from the "childEPCs" field
-     * @param {string} epc - the epc to remove (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
-     * @return {Event} - the event instance
+     * @param epc - the epc to remove (e.g urn:epc:id:sgtin:xxxxxx.xxxxx.xxx)
+     * @return the event instance
      */
     removeChildEPC(epc: string): Event;
     childEPCs: any;
     /**
      * Remove each epc from the "childEPCs" field
-     * @param {Array<string>} epcList - the epcs to remove
+     * @param epcList - the epcs to remove
      * (e.g [urn:epc:id:sgtin:xxxxxx.xxxxx.xxx, urn:epc:id:sgtin:xxxxxx.xxxxx.xxy])
-     * @return {Event} - the event instance
+     * @return the event instance
      */
-    removeChildEPCList(epcList: Array<string>): Event;
+    removeChildEPCList(epcList: string[]): Event;
     /**
      * Getter for the childEPCs property
-     * @return {Array<string>} - the childEpcList
+     * @return - the childEpcList
      */
-    getChildEPCList(): Array<string>;
+    getChildEPCList(): string[];
     /**
      * Add the quantity to the "childQuantityList" field
-     * @param {QuantityElement} quantity - the quantity to add
-     * @return {Event} - the event instance
+     * @param quantity - the quantity to add
+     * @return the event instance
      */
     addChildQuantity(quantity: QuantityElement): Event;
     /**
      * Add each quantity to the "childQuantityList" field
-     * @param {Array<QuantityElement>} quantityList - the quantities to add
-     * @return {Event} - the event instance
+     * @param quantityList - the quantities to add
+     * @return the event instance
      */
-    addChildQuantityList(quantityList: Array<QuantityElement>): Event;
+    addChildQuantityList(quantityList: QuantityElement[]): Event;
     /**
      * Clear the childQuantityList
-     * @return {Event} - the event instance
+     * @return the event instance
      */
     clearChildQuantityList(): Event;
     /**
      * Remove a quantity from the "childQuantityList" field
-     * @param {QuantityElement} quantity - the quantity to remove
-     * @return {Event} - the event instance
+     * @param quantity - the quantity to remove
+     * @return the event instance
      */
     removeChildQuantity(quantity: QuantityElement): Event;
     childQuantityList: any;
     /**
      * Remove each quantity from the "childQuantityList" field
-     * @param {Array<QuantityElement>} quantityList - the quantities to remove
-     * @return {Event} - the event instance
+     * @param quantityList - the quantities to remove
+     * @return the event instance
      */
-    removeChildQuantityList(quantityList: Array<QuantityElement>): Event;
+    removeChildQuantityList(quantityList: QuantityElement[]): Event;
     /**
      * Getter for the childQuantityList property
-     * @return {Array<QuantityElement>} - the quantityList
+     * @return the quantityList
      */
-    getChildQuantityList(): Array<QuantityElement>;
+    getChildQuantityList(): QuantityElement[];
     /**
      * Check if the EPCIS Event respects the rules of the standard defined in
      * src/schema/${EventType}.schema.json
-     * @return {boolean} - true if the Event is valid
+     * @return - true if the Event is valid
      */
     isValid(): boolean;
 }

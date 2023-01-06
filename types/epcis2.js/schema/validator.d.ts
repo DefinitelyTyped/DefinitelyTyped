@@ -11,7 +11,7 @@ export function checkIfExtensionsAreDefinedInTheContext(extensions: any, authori
     errors: any[];
 };
 export function validateEpcisDocument(epcisDocument: object, throwError?: boolean): ValidatorResult;
-export type ValidatorResult = {
+export interface ValidatorResult {
     /**
      * - true if the validator found no errors.
      */
@@ -19,5 +19,5 @@ export type ValidatorResult = {
     /**
      * - List of errors.
      */
-    errors: Array<string>;
-};
+    errors: string[];
+}

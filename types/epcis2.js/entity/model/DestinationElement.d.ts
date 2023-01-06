@@ -3,24 +3,24 @@ export default class DestinationElement extends Entity {
     removeExtension: () => never;
     /**
      * Set the destination property
-     * @param {string} destination
-     * @return {DestinationElement} - the destination instance
+     * @param destination
+     * @return the destination instance
      */
     setDestination(destination: string): DestinationElement;
     /**
      * Getter for the destination property
-     * @return {string} - the destination
+     * @return - the destination
      */
     getDestination(): string;
     /**
      * Set the type property
-     * @param {string} type
-     * @return {DestinationElement} - the destination instance
+     * @param type
+     * @return the destination instance
      */
     setType(type: string): DestinationElement;
     /**
      * Getter for the type property
-     * @return {string} - the type
+     * @return - the type
      */
     getType(): string;
 }

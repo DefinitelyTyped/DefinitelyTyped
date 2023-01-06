@@ -1,48 +1,45 @@
 export default class SensorElement extends Entity {
     /**
      * Set the sensorMetadata property
-     * @param {SensorMetadata} sensorMetadata
-     * @return {SensorElement} - the sensor instance
+     * @return the sensor instance
      */
     setSensorMetadata(sensorMetadata: SensorMetadata): SensorElement;
     /**
      * Getter for the sensorMetadata property
-     * @return {SensorMetadata} - the sensorMetadata
      */
     getSensorMetadata(): SensorMetadata;
     /**
      * Add the sensorReport to the "sensorReportList" field
-     * @param {SensorReportElement} sensorReport - the sensorReport to add
-     * @return {SensorElement} - the objectEvent instance
+     * @param sensorReport - the sensorReport to add
+     * @return the objectEvent instance
      */
     addSensorReport(sensorReport: SensorReportElement): SensorElement;
     /**
      * Add each sensorReportElement to the "sensorReportList" field
-     * @param {Array<SensorReportElement>} sensorReportList - the sensorReports to add
-     * @return {SensorElement} - the objectEvent instance
+     * @param sensorReportList - the sensorReports to add
+     * @return the objectEvent instance
      */
-    addSensorReportList(sensorReportList: Array<SensorReportElement>): SensorElement;
+    addSensorReportList(sensorReportList: SensorReportElement[]): SensorElement;
     /**
      * Clear the sensorReport list
-     * @return {SensorElement} - the objectEvent instance
+     * @return the objectEvent instance
      */
     clearSensorReportList(): SensorElement;
     /**
      * Remove a sensorReport from the "sensorReportList" field
-     * @param {SensorReportElement} sensorReport - the sensorReport to remove
-     * @return {SensorElement} - the objectEvent instance
+     * @param sensorReport - the sensorReport to remove
+     * @return the objectEvent instance
      */
     removeSensorReport(sensorReport: SensorReportElement): SensorElement;
     sensorReport: any;
     /**
      * Remove each sensorReport from the "sensorReportList" field
-     * @param {Array<SensorReportElement>} sensorReportList - the sensorReports to remove
-     * @return {SensorElement} - the objectEvent instance
+     * @param sensorReportList - the sensorReports to remove
+     * @return the objectEvent instance
      */
-    removeSensorReportList(sensorReportList: Array<SensorReportElement>): SensorElement;
+    removeSensorReportList(sensorReportList: SensorReportElement[]): SensorElement;
     /**
      * Getter for the sensorReport property
-     * @return {SensorReportElement} - the sensorReport
      */
     getSensorReport(): SensorReportElement;
 }

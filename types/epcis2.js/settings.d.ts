@@ -7,32 +7,26 @@
  * Settings can be applied globally or for individual request.
  * Available options are provided below:
  *
- * @typedef {Object} Settings
- * @property {string} apiUrl - Url of the request
- * @property {Object} headers - Headers to send with request
- * @property {string} eventTimeZoneOffset - The default eventTimeZoneOffset that will be set in
- * @property {number} timeout - Timeout for request in ms
- * @property {number} digitalLinkDomain - The digital link domain that should be used in when
+ * property {string} apiUrl - Url of the request
+ * property {Object} headers - Headers to send with request
+ * property {string} eventTimeZoneOffset - The default eventTimeZoneOffset that will be set in
+ * property {number} timeout - Timeout for request in ms
+ * property {number} digitalLinkDomain - The digital link domain that should be used in when
  * building a digital link from an epc
- * @property {boolean} documentValidation - whether the EPCISDocument has to be validated or not
+ * property {boolean} documentValidation - whether the EPCISDocument has to be validated or not
  * before sending it via the capture interface
- * @property {string} EPCISDocumentContext - The default value of the '@context' parameter of an
+ * property {string} EPCISDocumentContext - The default value of the '@context' parameter of an
  * EPCISDocument. Set it to undefined if you don't want the parameter in your EPCISDocument.
- * @property {string} EPCISDocumentSchemaVersion - The default value of the 'schemaVersion'
+ * property {string} EPCISDocumentSchemaVersion - The default value of the 'schemaVersion'
  * parameter of an EPCISDocument. Set it to undefined if you don't want the parameter in your
  * EPCISDocument.
- * @property {string} validationMode - The default value of 'validationMode' for the
+ * property {string} validationMode - The default value of 'validationMode' for the
  * validation of an EPCISDocument or an EPCIS Event against schemas.
  * Possible values are either "full" or "fast".
- * @property {boolean} checkExtensions - set it to true if you want the extension of the
+ * property {boolean} checkExtensions - set it to true if you want the extension of the
  * EPCISDocument to be checked against the EPCIS Document context.
  * Otherwise, the extensions check will be ignored.
  * Please refer to: https://www.npmjs.com/package/ajv-formats/v/0.3.4
- */
-/**
- * Default settings.
- *
- * @type {Settings}
  */
 export const defaultSettings: Settings;
 export default settings;
@@ -40,7 +34,7 @@ export default settings;
  * Settings can be applied globally or for individual request.
  * Available options are provided below:
  */
-export type Settings = {
+export interface Settings {
     /**
      * - Url of the request
      */
@@ -91,7 +85,7 @@ export type Settings = {
      * Please refer to: https://www.npmjs.com/package/ajv-formats/v/0.3.4
      */
     checkExtensions: boolean;
-};
+}
 declare namespace settings {
     const apiUrl: string;
     const headers: any;

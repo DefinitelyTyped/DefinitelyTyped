@@ -1,7 +1,7 @@
 /**
  * Override global settings. Ignore unknown settings.
  *
- * @param {Object} newSettings - Custom settings
- * @returns {Object} new
+ * @param newSettings - Custom settings
+ * @returns The new Object
  */
 export default function setup(newSettings?: any): any;

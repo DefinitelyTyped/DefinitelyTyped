@@ -3,24 +3,24 @@ export default class BizTransactionElement extends Entity {
     removeExtension: () => never;
     /**
      * Set the bizTransaction property
-     * @param {string} bizTransaction
-     * @return {BizTransactionElement} - the bizTransaction instance
+     * @param bizTransaction
+     * @return the bizTransaction instance
      */
     setBizTransaction(bizTransaction: string): BizTransactionElement;
     /**
      * Getter for the type property
-     * @return {string} - the bizTransaction
+     * @return the bizTransaction
      */
     getBizTransaction(): string;
     /**
      * Set the type property
-     * @param {string} type
-     * @return {BizTransactionElement} - the bizTransaction instance
+     * @param type
+     * @return the bizTransaction instance
      */
     setType(type: string): BizTransactionElement;
     /**
      * Getter for the type property
-     * @return {string} - the type
+     * @return the type
      */
     getType(): string;
 }

@@ -1,7 +1,5 @@
 /**
  * return true if the specified object is a JSON object, false otherwise.
- * @param {*} data
- * @returns
  */
 export function isJsonObject(data: any): boolean;
 export function numberToZeroPadString(number: number): string;
