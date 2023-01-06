@@ -1,4 +1,8 @@
 { 
   "extends": "@definitelytyped/dtslint/dt.json",
-  "no-empty-interface": false 
+  "no-empty-interface": [
+    {
+      "allowSingleExtends": true
+    }
+  ]
 }
