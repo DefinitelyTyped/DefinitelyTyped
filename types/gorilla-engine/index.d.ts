@@ -36,7 +36,7 @@
 /// <reference path = "components/Trigger.d.ts" />
 /// <reference path = "components/Waveform.d.ts" />
 
-declare module GorillaEngine {
+declare namespace GorillaEngine {
     /**
      * Instrument parameter session persistence
      */
