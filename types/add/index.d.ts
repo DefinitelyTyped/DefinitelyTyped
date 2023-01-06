@@ -3,8 +3,8 @@
 // Definitions by: Tristan F. <https://github.com/LeoDog896>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function accSum(numbers: number[]): number;
-export function dumbSum(numbers: number[]): number;
+export default function accSum(numbers: ReadonlyArray<number>): number;
+export function dumbSum(numbers: ReadonlyArray<number>): number;
 export function fastTwoSum(a: number, b: number): [number, number, null];
 
 /**
