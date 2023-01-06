@@ -4,7 +4,7 @@ declare namespace GorillaEngine.UI {
         size: number;
         cornerRadius: number;
         value: number;
-        'value&';
+        'value&': any;
         visible: boolean;
         imagePath: string;
         text: string;

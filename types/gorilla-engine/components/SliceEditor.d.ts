@@ -9,20 +9,20 @@ declare namespace GorillaEngine.UI {
 
     interface Modulation {
         color: string;
-        tooltip;
-        centerLine;
-        values;
+        tooltip: string;
+        centerLine: any;
+        values: any;
         centerValue: number;
     }
     interface GridMeasure {
         fractionOfBar: number;
         showLabels: boolean;
         tickHeight: number;
-        font;
+        font: string;
     }
 
     interface SliceEditorProps extends Common, Bounds, Background, Clickable {
-        slices;
+        slices: any;
         audioLengthInSamples: number;
         audioLengthInBeats: number;
         canChangeSlices: boolean;
@@ -30,7 +30,7 @@ declare namespace GorillaEngine.UI {
         canRemoveSlices: boolean;
         snapSlicesToGrid: boolean;
         zoom: { start: number; end: number };
-        addModulation(modulation: Partial<Modulation>);
+        addModulation(modulation: Partial<Modulation>): void;
         grid: Partial<{
             position: string;
             height: number;
@@ -39,7 +39,7 @@ declare namespace GorillaEngine.UI {
             backgroundColor: string;
             backgroundImage: string;
             measures: GridMeasure[];
-            addMeasure(measure: GridMeasure);
+            addMeasure(measure: GridMeasure): void;
         }>;
         sliceStyles: Partial<{
             normal: Partial<SliceStyle>;
@@ -54,11 +54,11 @@ declare namespace GorillaEngine.UI {
                 color: string;
             }>;
         }>;
-        addMarker(marker);
-        addSlice(slice);
-        clearSlices();
-        setZoom: (start, end) => void;
-        mappedSampleChanged();
+        addMarker(marker: any): void;
+        addSlice(slice: any): void;
+        clearSlices(): void;
+        setZoom: (start: number, end: number) => void;
+        mappedSampleChanged(): void;
         modulations: Modulation[];
     }
 

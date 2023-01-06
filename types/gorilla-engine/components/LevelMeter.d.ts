@@ -17,7 +17,7 @@ declare namespace GorillaEngine.UI {
         visibleSectionStart: number;
         visibleSectionEnd: number;
         direction: string;
-        value;
+        value: any;
     }
 
     export interface LevelMeter extends LevelMeterProps {}

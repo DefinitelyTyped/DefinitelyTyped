@@ -5,10 +5,10 @@ declare namespace GorillaEngine.UI {
         externalDragStartAction: string;
         externalDragEndAction: string;
         destinationCanMoveDraggedFiles: boolean;
-        externallyDraggedFiles;
-        onDragging;
-        onExternalDragStart;
-        onExternalDragEnd;
+        externallyDraggedFiles: any;
+        onDragging: string;
+        onExternalDragStart: string;
+        onExternalDragEnd: string;
     }
 
     interface DragContainer extends DragContainerProps {}

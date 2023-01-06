@@ -6,11 +6,11 @@ declare namespace GorillaEngine.UI {
         readonly totalFrames?: number;
         readonly duration?: number;
         readonly currentFrame?: number;
-        play();
-        stop();
-        pause();
-        setFrame(frame: number);
-        setFrameFromLinearTransform(value: number, min: number, max: number);
+        play(): void;
+        stop(): void;
+        pause(): void;
+        setFrame(frame: number): void;
+        setFrameFromLinearTransform(value: number, min: number, max: number): void;
         setProperties(
             selector: string,
             settings: {
@@ -25,7 +25,7 @@ declare namespace GorillaEngine.UI {
                 transformRotation?: number; // Rotate by 180°
                 transformOpacity?: number; // Change opacity to 50%
             },
-        );
+        ): void;
     }
 
     class LottieAnimation extends Component {

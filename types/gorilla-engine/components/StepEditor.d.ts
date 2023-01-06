@@ -1,6 +1,6 @@
 declare namespace GorillaEngine.UI {
     export interface StepEditorProps extends Common, Background, Bounds, Clickable {
-        value;
+        value: any;
         divSize: number;
         min: number;
         max: number;

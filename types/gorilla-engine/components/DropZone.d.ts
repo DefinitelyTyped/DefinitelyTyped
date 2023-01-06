@@ -1,8 +1,8 @@
 declare namespace GorillaEngine.UI {
     interface DropZoneProps extends Common, Bounds, Clickable {
         acceptedFileTypes: string[] | string;
-        onDraggedFiles;
-        onDroppedFile;
+        onDraggedFiles: string;
+        onDroppedFile: string;
     }
 
     interface DropZone extends DropZoneProps {}

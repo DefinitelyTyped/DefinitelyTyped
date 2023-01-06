@@ -1,18 +1,17 @@
 declare namespace GorillaEngine.UI {
-    export interface ListBoxProps extends Common, Bounds, Font, Clickable, Background, Scrollable {
-        //, MIDILearn
-        items?;
+    interface ListBoxProps extends Common, Bounds, Font, Clickable, Background, Scrollable {
+        items?: string[];
         horizontalMargin?: number;
-        cellColor?;
-        cellColorSelected?;
-        textColorSelected?;
-        rowDoubleClickedAction?;
-        returnKeyAction?;
-        rowClickedAction?;
+        cellColor?: string;
+        cellColorSelected?: string;
+        textColorSelected?: string;
+        rowDoubleClickedAction?: string;
+        returnKeyAction?: string;
+        rowClickedAction?: string;
     }
 
-    export interface ListBox extends ListBoxProps {}
-    export class ListBox extends Component {
+    interface ListBox extends ListBoxProps {}
+    class ListBox extends Component {
         constructor(options: Partial<ListBoxProps>);
     }
 }

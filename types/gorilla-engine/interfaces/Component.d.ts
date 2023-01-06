@@ -3,9 +3,9 @@ declare namespace GorillaEngine.UI {
         id: string;
         children: Component[];
         parent: Component;
-        on(event: string, handler);
-        appendChild(child: Component);
-        removeChild(child: Component);
-        insertBefore(child: Component, beforeChild: Component);
+        on(event: string, handler: any): void;
+        appendChild(child: Component): void;
+        removeChild(child: Component): void;
+        insertBefore(child: Component, beforeChild: Component): void;
     }
 }

@@ -1,6 +1,6 @@
 declare namespace GorillaEngine.UI {
     interface BarStepEditorProps extends Common, Bounds, Background, Clickable {
-        value;
+        value: any;
         divSize: number;
         min: number;
         max: number;
