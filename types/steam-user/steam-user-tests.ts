@@ -233,3 +233,39 @@ user.on('ownershipCached', () => {});
 
 // added in v4.23 revision, not necessarily part of that release tho
 user.setOption('ownershipFilter', { excludeExpiring: false });
+
+// APPAUTH METHODS
+user.createEncryptedAppTicket(730, Buffer.alloc(42)).then(ticket => {
+    // $ExpectType Record<string, any>
+    SteamUser.parseEncryptedAppTicket(ticket, 'supersafekey');
+});
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.cancelAuthSessionTickets(730, ['gctoken1', 'gctoken2']);
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.cancelAuthSessionTickets(730, 'gctoken1');
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.cancelAuthSessionTickets(730, null);
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.cancelAuthSessionTickets(730);
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.endAuthSessions(730, '76561197960287930');
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.endAuthSessions(730, ['76561197960287930']);
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.endAuthSessions(730, [new SteamID('76561197960287930')]);
+// $ExpectType Promise<{ canceledTicketCount: number; }>
+user.endAuthSessions(730, new SteamID('76561197960287930'));
+user.createAuthSessionTicket(730).then(res => {
+    return res.sessionTicket;
+});
+user.getAppOwnershipTicket(730).then(ownershipticket => {
+    return ownershipticket;
+});
+// $ExpectType Promise<void>
+user.activateAuthSessionTickets(730, { foo: 42, bar: 'foobar' });
+// $ExpectType Promise<void>
+user.activateAuthSessionTickets(730, [{ foo: 42, bar: 'foobar' }]);
+// $ExpectType Promise<void>
+user.activateAuthSessionTickets(730, [Buffer.alloc(42), Buffer.alloc(43)]);
+// $ExpectType Promise<void>
+user.activateAuthSessionTickets(730, Buffer.alloc(44));
