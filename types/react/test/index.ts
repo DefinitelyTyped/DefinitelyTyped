@@ -374,11 +374,14 @@ interface ForwardingRefComponentProps {
     foo: number;
 }
 
+// $ExpectType ForwardedComponent
 const ForwardingRefComponent = React.forwardRef((props: ForwardingRefComponentProps, ref: React.Ref<RefComponent>) => {
     return React.createElement(RefComponent, { ref });
 });
 
+
 // Declaring forwardRef render function separately (not inline).
+// $ExpectType ForwardedComponent
 const ForwardRefRenderFunction = (props: ForwardingRefComponentProps, ref: React.ForwardedRef<RefComponent>)  => {
     return React.createElement(RefComponent, { ref });
 };
