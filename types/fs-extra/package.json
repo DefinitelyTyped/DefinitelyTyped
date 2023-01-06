@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        },
+        "./esm": {
+            "types": {
+                "import": "./esm.d.mts"
+            }
+        }
+    }
+}
