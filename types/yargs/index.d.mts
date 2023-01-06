@@ -20,6 +20,7 @@ export type {
     ParserConfigurationOptions,
     Argv,
     Arguments,
+    ArgumentsCamelCase,
     RequireDirectoryOptions,
     Options,
     PositionalOptions,
@@ -37,7 +38,9 @@ export type {
     SyncCompletionFunction,
     AsyncCompletionFunction,
     PromiseCompletionFunction,
+    FallbackCompletionFunction,
     MiddlewareFunction,
     Choices,
     PositionalOptionsType,
+    CompletionCallback,
 } from './index.js';
