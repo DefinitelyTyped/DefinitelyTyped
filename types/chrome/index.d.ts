@@ -138,6 +138,11 @@ declare namespace chrome.action {
         imageData?: ImageData | { [index: number]: ImageData } | undefined;
     }
 
+    export interface OpenPopupOptions {
+        /** Optional. The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
+        windowId?: number | undefined;
+    }
+
     export interface TabDetails {
         /** Optional. The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
         tabId?: number | undefined;
@@ -257,6 +262,13 @@ declare namespace chrome.action {
      * @return The `getUserSettings` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
     export function getUserSettings(): Promise<UserSettings>;
+
+    /**
+     * Since Chrome 99+.
+     * Opens the extension's popup.
+     * @return The `openPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function openPopup(options: OpenPopupOptions, callback: () => void): Promise<void>;
 
     /**
      * Since Chrome 88.
