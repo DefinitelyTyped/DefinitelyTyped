@@ -3011,7 +3011,7 @@
         },
         "meteor": {
             "libraryName": "meteor",
-            "asOfVersion": "2.8.2"
+            "asOfVersion": "2.9.0"
         },
         "metismenu": {
             "libraryName": "metismenu",
