@@ -778,6 +778,7 @@ declare namespace React {
         propTypes?: WeakValidationMap<P> | undefined;
     }
     
+    /** Alias to fowardRef return.  */
     type ForwardedComponent = ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
 
     function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardedComponent;
