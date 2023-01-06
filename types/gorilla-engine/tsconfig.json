@@ -11,7 +11,8 @@
     "noImplicitThis": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "types": []
   },
   "files": [
     "index.d.ts",
