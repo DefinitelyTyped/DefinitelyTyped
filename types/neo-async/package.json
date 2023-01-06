@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "neo-async": "^2.6.2"
+    }
+}
