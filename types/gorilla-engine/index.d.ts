@@ -1,6 +1,7 @@
 // Type definitions for Gorilla Engine 1.0
 // Project: https://gorilla-engine.com
 // Definitions by: Julian Woodward <https://gitlab.ujam.com/jwoodward>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path = "interfaces/Background.d.ts" />
 /// <reference path = "interfaces/Bounds.d.ts" />
