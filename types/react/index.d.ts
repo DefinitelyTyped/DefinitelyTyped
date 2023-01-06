@@ -777,8 +777,10 @@ declare namespace React {
         defaultProps?: Partial<P> | undefined;
         propTypes?: WeakValidationMap<P> | undefined;
     }
+    
+    type ForwardedComponent = ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
 
-    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>;
+    function forwardRef<T, P = {}>(render: ForwardRefRenderFunction<T, P>): ForwardedComponent;
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
