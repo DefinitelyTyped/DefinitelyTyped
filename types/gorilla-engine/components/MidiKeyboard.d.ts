@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    export interface MidiKeyboardKeys {
+    interface MidiKeyboardKeys {
         blackColor: string;
         blackHoverColor: string;
         blackPressedColor: string;
@@ -22,16 +22,16 @@ declare namespace GorillaEngine.UI {
         cornerRadius: number;
     }
 
-    export interface MidiKeyboardProps extends Common, Bounds, Background {
+    interface MidiKeyboardProps extends Common, Bounds, Background {
         lowKey: number;
         highKey: number;
         disableNKSColors: boolean;
         keys: Partial<MidiKeyboardKeys>;
     }
 
-    export interface MidiKeyboard extends MidiKeyboardProps {}
+    interface MidiKeyboard extends MidiKeyboardProps {}
 
-    export class MidiKeyboard extends Component {
+    class MidiKeyboard extends Component {
         constructor(props: Partial<MidiKeyboardProps>);
     }
 }

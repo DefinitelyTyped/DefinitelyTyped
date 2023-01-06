@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    export interface WaveformDragZone {
+    interface WaveformDragZone {
         x: number;
         y: number;
         x2: number;
@@ -26,7 +26,7 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
-    export interface WaveformProps extends Common, Bounds, Background, Font, Clickable {
+    interface WaveformProps extends Common, Bounds, Background, Font, Clickable {
         waveformColor: string;
         gradientCenterColor: string;
         gradientEndColor: string;
@@ -41,7 +41,7 @@ declare namespace GorillaEngine.UI {
         dragzone: Partial<WaveformDragZone>;
     }
 
-    export interface Waveform extends WaveformProps {}
+    interface Waveform extends WaveformProps {}
     class Waveform extends Component {
         constructor(options: Partial<WaveformProps>);
     }

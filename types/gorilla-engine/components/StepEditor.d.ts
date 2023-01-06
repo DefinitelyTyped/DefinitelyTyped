@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    export interface StepEditorProps extends Common, Background, Bounds, Clickable {
+    interface StepEditorProps extends Common, Background, Bounds, Clickable {
         value: any;
         divSize: number;
         min: number;
@@ -22,8 +22,8 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
-    export interface StepEditor extends StepEditorProps {}
-    export class StepEditor extends Component {
+    interface StepEditor extends StepEditorProps {}
+    class StepEditor extends Component {
         constructor(options: Partial<StepEditorProps>);
     }
 }

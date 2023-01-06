@@ -6,8 +6,8 @@ declare namespace GorillaEngine.UI {
         value: number;
     }
 
-    export interface Knob extends KnobProps {}
-    export class Knob extends Component {
+    interface Knob extends KnobProps {}
+    class Knob extends Component {
         constructor(options: Partial<KnobProps>);
     }
 }

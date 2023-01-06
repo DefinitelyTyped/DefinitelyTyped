@@ -16,9 +16,9 @@ declare namespace GorillaEngine.UI {
         maxValue: number;
     }
 
-    export interface TextBox extends TextBoxProps {}
+    interface TextBox extends TextBoxProps {}
 
-    export class TextBox extends Component {
+    class TextBox extends Component {
         constructor(props: Partial<TextBoxProps>);
     }
 }

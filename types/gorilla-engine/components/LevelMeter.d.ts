@@ -20,9 +20,9 @@ declare namespace GorillaEngine.UI {
         value: any;
     }
 
-    export interface LevelMeter extends LevelMeterProps {}
+    interface LevelMeter extends LevelMeterProps {}
 
-    export class LevelMeter extends Component {
+    class LevelMeter extends Component {
         constructor(options: Partial<LevelMeterProps>);
     }
 }

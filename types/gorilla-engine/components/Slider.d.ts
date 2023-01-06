@@ -17,7 +17,7 @@ declare namespace GorillaEngine.UI {
      * Use a slider to
      * - enable users to control numeric values by dragging up/down or left/right
      */
-    export class Slider extends Component {
+    class Slider extends Component {
         constructor(options: Partial<SliderProps>);
     }
     interface Slider extends SliderProps {}

@@ -62,9 +62,9 @@ declare namespace GorillaEngine.UI {
         modulations: Modulation[];
     }
 
-    export interface SliceEditor extends SliceEditorProps {}
+    interface SliceEditor extends SliceEditorProps {}
 
-    export class SliceEditor extends Component {
+    class SliceEditor extends Component {
         constructor(options: Partial<SliceEditorProps>);
     }
 }

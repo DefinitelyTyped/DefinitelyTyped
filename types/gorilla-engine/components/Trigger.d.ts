@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    export interface TriggerProps extends Common, Bounds, Font, Clickable, Background, KeyboardFocus {
+    interface TriggerProps extends Common, Bounds, Font, Clickable, Background, KeyboardFocus {
         text: string;
         images: {
             normal?: string;
@@ -9,8 +9,8 @@ declare namespace GorillaEngine.UI {
         animation: LottieAnimation;
     }
 
-    export interface Trigger extends TriggerProps {}
-    export class Trigger extends Component {
+    interface Trigger extends TriggerProps {}
+    class Trigger extends Component {
         constructor(options: Partial<TriggerProps>);
     }
 }

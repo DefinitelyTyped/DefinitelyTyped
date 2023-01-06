@@ -23,8 +23,8 @@ declare namespace GorillaEngine.UI {
         value: boolean;
         animation: LottieAnimation;
     }
-    export interface Toggle extends ToggleProps {}
-    export class Toggle extends Component {
+    interface Toggle extends ToggleProps {}
+    class Toggle extends Component {
         constructor(options: Partial<ToggleProps>);
     }
 }

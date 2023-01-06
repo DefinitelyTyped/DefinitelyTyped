@@ -7,7 +7,7 @@ declare namespace GorillaEngine.UI {
     /**
      * Use a Label to...
      */
-    export class Label extends Component {
+    class Label extends Component {
         constructor(options: Partial<LabelProps>);
     }
     interface Label extends LabelProps {}
