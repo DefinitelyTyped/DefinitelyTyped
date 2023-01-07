@@ -291,7 +291,7 @@ f("one");
 
 linter配置文件 `tslint.json` 应该包含 `{ "extends": "@definitelytyped/dtslint/dt.json" }` ，并且没有其他规则。
 
-如果因为某些原因需要禁用某些规则，则使用 `// tslint:disable-next-line:[ruleName]` [为该特定行禁用](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line） &mdash; 而不是针对整个软件包，这样可以审查禁用情况。(有一些以前的lint配置有额外的内容，但这些不应该发生在新工作中)。
+如果因为某些原因需要禁用某些规则，则使用 `// tslint:disable-next-line:[ruleName]` [为该特定行禁用](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) &mdash; 而不是针对整个软件包，这样可以审查禁用情况。(有一些以前的lint配置有额外的内容，但这些不应该发生在新工作中)。
 
 ##### Linter: `.eslintrc.json`
 
