@@ -207,3 +207,12 @@ geocodeProvider.geocode('Moscow'); // $ExpectType Promise<object>
 
 // @ts-expect-error
 geocodeProvider.geocode([55.751244, 37.618423]);
+
+// $ExpectType Promise<IGeolocationResult>
+ymaps.geolocation.get({
+    autoReverseGeocode: true,
+    mapStateAutoApply: false,
+    provider: 'auto',
+    timeout: 30000,
+    useMapMargin: true
+});
