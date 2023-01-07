@@ -810,7 +810,7 @@ deck.getConfig();
 
 // Helper method, retrieves query string as a key:value map
 
-// $ExpectType any
+// $ExpectType Record<string, string>
 deck.getQueryHash();
 
 // Returns the path to the current slide as represented in the URL
@@ -820,16 +820,16 @@ deck.getSlidePath(el);
 
 // Returns reveal.js DOM elements
 
-// $ExpectType Element
+// $ExpectType Element | null
 deck.getRevealElement();
 
-// $ExpectType Element
+// $ExpectType Element | null
 deck.getSlidesElement();
 
 // $ExpectType HTMLElement | null
 deck.getViewportElement();
 
-// $ExpectType HTMLDivElement
+// $ExpectType HTMLDivElement | undefined
 deck.getBackgroundsElement();
 
 // API for registering and retrieving plugins
