@@ -14,7 +14,12 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@selrond/*": [
+                "selrond__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",
