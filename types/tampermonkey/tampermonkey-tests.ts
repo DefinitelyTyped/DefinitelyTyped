@@ -313,7 +313,7 @@ GM_notification(textNotification);
 GM_notification(highlightNotification);
 GM_notification(textNotification, textNotification.ondone);
 
-GM_notification('Notification text', 'Notification title', 'https://tampermonkey.net/favicon.ico', function () {
+GM_notification('Notification text', 'Notification title', 'https://tampermonkey.net/favicon.ico', function() {
     GM_log(`Notification with id ${this.id} is clicked`);
 });
 
