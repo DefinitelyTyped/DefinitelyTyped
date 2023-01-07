@@ -5,7 +5,9 @@ let title: string = unsafeWindow.document.title;
 // window.onurlchange
 
 if (window.onurlchange === null) {
-    window.addEventListener('urlchange', info => console.log(info));
+    window.addEventListener('urlchange', ({ url }) => console.log(url));
+    // or
+    window.addEventListener('urlchange', info => console.log(info.url));
 }
 
 // GM_addStyle
