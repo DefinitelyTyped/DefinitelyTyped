@@ -494,7 +494,7 @@ declare namespace jest {
         // Exclusively arrays.
         <T extends any[] | [any]>(cases: ReadonlyArray<T>): (
             name: string,
-            fn: (...args: T) => any,
+            fn: (...t: [...args: T, done: DoneCallback]) => any,
             timeout?: number,
         ) => void;
         <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (
@@ -503,7 +503,7 @@ declare namespace jest {
             timeout?: number,
         ) => void;
         // Not arrays.
-        <T>(cases: ReadonlyArray<T>): (name: string, fn: (...args: T[]) => any, timeout?: number) => void;
+        <T>(cases: ReadonlyArray<T>): (name: string, fn: (arg: T, done: DoneCallback) => any, timeout?: number) => void;
         (cases: ReadonlyArray<ReadonlyArray<any>>): (
             name: string,
             fn: (...args: any[]) => any,
@@ -511,7 +511,7 @@ declare namespace jest {
         ) => void;
         (strings: TemplateStringsArray, ...placeholders: any[]): (
             name: string,
-            fn: (arg: any) => any,
+            fn: (arg: any, done: DoneCallback) => any,
             timeout?: number,
         ) => void;
     }

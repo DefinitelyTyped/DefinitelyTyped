@@ -1646,10 +1646,22 @@ describe.each([
     [1, 1, 2],
     [1, 2, 3],
     [2, 1, 3],
-])('.add(%i, %i)', (a: number, b: number, expected: number) => {
+])('.add(%i, %i)', (a: number, b: number, expected: number, done) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
+        done();
     });
+});
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/34617
+
+it.each<number>([1, 2, 3])('dummy: %d', (num, done) => {
+    done();
+});
+
+const casesReadonlyArray = [[1, 2, 3] as ReadonlyArray<number>] as ReadonlyArray<ReadonlyArray<number>>;
+it.each(casesReadonlyArray)('%d', (a, b, c) => {
+    expect(a + b).toBe(c);
 });
 
 interface Case {
@@ -1663,9 +1675,10 @@ describe.each`
     ${1} | ${1} | ${2}
     ${1} | ${2} | ${3}
     ${2} | ${1} | ${3}
-`('$a + $b', ({ a, b, expected }: Case) => {
+`('$a + $b', ({ a, b, expected }: Case, done) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
+        done();
     });
 });
 
@@ -1774,9 +1787,10 @@ test.each`
 test.each([
     [1, '1'],
     [2, '2'],
-])('', (a, b) => {
+])('', (a, b, done) => {
     a; // $ExpectType number
     b; // $ExpectType string
+    done; // $ExpectType DoneCallback
 });
 
 test.only.each([
