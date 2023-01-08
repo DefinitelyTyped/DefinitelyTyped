@@ -13,18 +13,18 @@
 import { Events } from "./events";
 
 export namespace Storage {
-    interface StorageChange<OType = any, NType = OType> {
+    interface StorageChange {
         /**
          * The old value of the item, if there was an old value.
          * Optional.
          */
-        oldValue?: OType;
+        oldValue?: any;
 
         /**
          * The new value of the item, if there is a new value.
          * Optional.
          */
-        newValue?: NType;
+        newValue?: any;
     }
 
     interface StorageArea {
@@ -186,15 +186,15 @@ export namespace Storage {
     /**
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
-    interface StorageAreaOnChangedChangesType<OType = any, NType = OType> {
-        [s: string]: StorageChange<OType, NType>;
+    interface StorageAreaOnChangedChangesType {
+        [s: string]: StorageChange;
     }
 
     /**
      * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
      */
-    interface StorageAreaSyncOnChangedChangesType<OType = any, NType = OType> {
-        [s: string]: StorageChange<OType, NType>;
+    interface StorageAreaSyncOnChangedChangesType {
+        [s: string]: StorageChange;
     }
 
     interface Static {

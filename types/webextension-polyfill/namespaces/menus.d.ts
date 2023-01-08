@@ -133,8 +133,9 @@ export namespace Menus {
 
         /**
          * The id of the bookmark where the context menu was clicked, if it was on a bookmark.
+         * Optional.
          */
-        bookmarkId: string;
+        bookmarkId?: string;
 
         /**
          * An array of keyboard modifiers that were held while the menu item was clicked.
