@@ -235,14 +235,15 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // @ts-expect-error
     React.useState<number>(undefined)[0];
 
-    // Existing behavior would allow this, although it breaks at runtime
-    // $ExpectType () => number
+    // when specifying the generic to a function, don't accept it as direct input
+    // @ts-expect-error
     React.useState<() => number>(() => 0)[0];
 
     const [numFunc, setNumFunc] =  React.useState(() => () => 0);
     // $ExpectType () => number
     numFunc;
-    // this will also break at runtime
+    // Functions can't be directly set, if they are that target type they must be wrapped
+    // @ts-expect-error
     setNumFunc(() => 42);
     // this is the correct way to set a function in state
     setNumFunc(() => () => 42);
