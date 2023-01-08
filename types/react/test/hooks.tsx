@@ -239,7 +239,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // @ts-expect-error
     React.useState<() => number>(() => 0)[0];
 
-    const [numFunc, setNumFunc] =  React.useState(() => () => 0);
+    const [numFunc, setNumFunc] =  React.useState<() => number>(() => () => 0);
     // $ExpectType () => number
     numFunc;
     // Functions can't be directly set, if they are that target type they must be wrapped
@@ -322,7 +322,7 @@ function useExperimentalHooks() {
     // $ExpectType boolean
     const deferredToggle = React.useDeferredValue(toggle);
 
-    const [func] = React.useState(() => () => 0);
+    const [func] = React.useState<() => number>(() => () => 0);
 
     // $ExpectType () => number
     func;
