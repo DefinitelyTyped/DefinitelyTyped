@@ -234,6 +234,28 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // make sure the generic argument does reject actual potentially undefined inputs
     // @ts-expect-error
     React.useState<number>(undefined)[0];
+
+    // Existing behavior would allow this, although it breaks at runtime
+    // $ExpectType () => number
+    React.useState<() => number>(() => 0)[0];
+
+    const [numFunc, setNumFunc] =  React.useState(() => () => 0);
+    // $ExpectType () => number
+    numFunc;
+    // this will also break at runtime
+    setNumFunc(() => 42);
+    // this is the correct way to set a function in state
+    setNumFunc(() => () => 42);
+
+    // when using a function without a generic, infer the return type
+    // $ExpectType number
+    React.useState(() => 0)[0];
+    // When storing a function it must be wrapped
+    React.useState<() => number>(() => () => 0);
+    // When storing a function, even without a generic it must be wrapped
+    // $ExpectType () => 0
+    React.useState(() => () => 0)[0];
+
     // make sure useState does not widen
     const [toggle, setToggle] = React.useState(false);
     // $ExpectType boolean
