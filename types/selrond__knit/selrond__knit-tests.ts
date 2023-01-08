@@ -1,4 +1,4 @@
-import knit = require('@selrond/knit');
+import { knit } from '@selrond/knit';
 
 // $ExpectType number[]
 knit.knit([10, 9, 8], 3);
