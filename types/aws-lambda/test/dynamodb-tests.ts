@@ -120,4 +120,10 @@ const streamHandlerWithResponse: DynamoDBStreamHandler = async (event, context, 
     return result;
 };
 
-const streamHandlerNoResponse: DynamoDBStreamHandler = async (event, context, callback) => {};
+const streamHandlerNoResponse: DynamoDBStreamHandler = async (event, context, callback) => {
+    const records = event.Records;
+
+    const id = records[0].dynamodb?.Keys?.Id.N;
+    const message = records[0].dynamodb?.NewImage?.Message.S;
+    const $unknown = records[0].dynamodb?.NewImage?.Message.$unknown;
+};
