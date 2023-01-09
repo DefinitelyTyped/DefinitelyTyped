@@ -507,7 +507,7 @@ declare namespace passport {
          */
         serializeUser<User extends Express.User = Express.User>(
             user: User,
-            done: (err: any, serializedUser: number | NonNullable<unknown> | undefined) => any,
+            done: (err: any, serializedUser?: number | NonNullable<unknown>) => any,
         ): void;
         /**
          * Registers a function used to deserialize user objects out of the session.
