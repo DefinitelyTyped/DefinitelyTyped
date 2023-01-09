@@ -1147,6 +1147,7 @@ async function testTabsForPromise() {
     await chrome.tabs.getSelected();
     await chrome.tabs.getSelected(0);
     await chrome.tabs.create({});
+    await chrome.tabs.duplicate(0); // $ExpectType Tab | undefined
     await chrome.tabs.move(0, {index: 0});
     await chrome.tabs.move([0], {index: 0});
     await chrome.tabs.update({});
