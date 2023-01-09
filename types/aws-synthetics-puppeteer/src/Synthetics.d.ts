@@ -89,19 +89,26 @@ declare module 'Synthetics' {
         getScreenshotResult(stepName: string): ScreenshotResult[];
         addReport(report: any): void;
         /**
-         * Execute the provided step, wrapping it with start/succeed/fail logging, screen shots, metrics
-         * and eventually events
-         *
-         * Log start, screen shot,
-         * start timer,
-         * execute function,
-         * then end timer (pass or fail),
-         * log pass/fail, screen shot pass/fail,
-         * emit pass/fail metrics, events, and step duration metrics,
-         * then return returnValue on success and throw exception on fail
+         * Executes the provided step, wrapping it with start/pass/fail logging, start/pass/fail screenshots, and pass/fail and duration metrics.
+         * The executeStep function also does the following:
+         * * Logs that the step started.
+         * * Takes a screenshot named <stepName>-starting.
+         * * Starts a timer.
+         * * Executes the provided function.
+         * * If the function returns normally, it counts as passing. If the function throws, it counts as failing.
+         * * Ends the timer.
+         * * Logs whether the step passed or failed
+         * * Takes a screenshot named <stepName>-succeeded or <stepName>-failed.
+         * * Emits the stepName SuccessPercent metric, 100 for pass or 0 for failure.
+         * * Emits the stepName Duration metric, with a value based on the step start and end times.
+         * * Finally, returns what the functionToExecute returned or re-throws what functionToExecute threw.
          * @param stepConfig Optional Step config key-value pairs
          */
-        executeStep(stepName: string, functionToExecute: () => Promise<void>, stepConfig?: any): Promise<any>;
+        executeStep<Return = void>(
+            stepName: string,
+            functionToExecute: () => Promise<Return>,
+            stepConfig?: any,
+        ): Promise<Return>;
         publishStepResult(
             result: any,
             startTime: Date,

@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -204,7 +204,7 @@ declare module "sap/ui/unified/library" {
   }
   /**
    * @SINCE 1.16.0
-   * @EXPERIMENTAL (since 1.16.0)
+   * @EXPERIMENTAL (since 1.16.0) - API is not yet finished and might change completely
    *
    * Predefined animations for the ContentSwitcher
    */
@@ -330,6 +330,8 @@ declare module "sap/ui/unified/Calendar" {
   import DateTypeRange from "sap/ui/unified/DateTypeRange";
 
   import Event from "sap/ui/base/Event";
+
+  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -852,6 +854,19 @@ declare module "sap/ui/unified/Calendar" {
      */
     getAriaLabelledBy(): ID[];
     /**
+     * @SINCE 1.108.0
+     *
+     * Gets current value of property {@link #getCalendarWeekNumbering calendarWeekNumbering}.
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
+     *
+     * @returns Value of property `calendarWeekNumbering`
+     */
+    getCalendarWeekNumbering():
+      | CalendarWeekNumbering
+      | keyof typeof CalendarWeekNumbering;
+    /**
      * @SINCE 1.38.0
      *
      * Gets content of aggregation {@link #getDisabledDates disabledDates}.
@@ -867,8 +882,9 @@ declare module "sap/ui/unified/Calendar" {
      *
      * Gets current value of property {@link #getFirstDayOfWeek firstDayOfWeek}.
      *
-     * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
-     * is set, the default of the used locale is used.
+     * If the property is set, this day marks the start of the displayed week. Valid values are 0 to 6. If no
+     * valid property is set, the current locale's default is applied. Note: This property should not be used
+     * with the calendarWeekNumbering property.
      *
      * Default value is `-1`.
      *
@@ -1204,7 +1220,7 @@ declare module "sap/ui/unified/Calendar" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.38.0
      *
@@ -1217,7 +1233,7 @@ declare module "sap/ui/unified/Calendar" {
        * The disabledDate to remove or its index or id
        */
       vDisabledDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -1228,7 +1244,7 @@ declare module "sap/ui/unified/Calendar" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * @SINCE 1.24.0
      *
@@ -1241,14 +1257,35 @@ declare module "sap/ui/unified/Calendar" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
+    /**
+     * @SINCE 1.108.0
+     *
+     * Sets a new value for property {@link #getCalendarWeekNumbering calendarWeekNumbering}.
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCalendarWeekNumbering(
+      /**
+       * New value for property `calendarWeekNumbering`
+       */
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
+    ): this;
     /**
      * @SINCE 1.28.9
      *
      * Sets a new value for property {@link #getFirstDayOfWeek firstDayOfWeek}.
      *
-     * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
-     * is set, the default of the used locale is used.
+     * If the property is set, this day marks the start of the displayed week. Valid values are 0 to 6. If no
+     * valid property is set, the current locale's default is applied. Note: This property should not be used
+     * with the calendarWeekNumbering property.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -1492,8 +1529,9 @@ declare module "sap/ui/unified/Calendar" {
     /**
      * @SINCE 1.28.9
      *
-     * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
-     * is set, the default of the used locale is used.
+     * If the property is set, this day marks the start of the displayed week. Valid values are 0 to 6. If no
+     * valid property is set, the current locale's default is applied. Note: This property should not be used
+     * with the calendarWeekNumbering property.
      */
     firstDayOfWeek?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -1583,6 +1621,17 @@ declare module "sap/ui/unified/Calendar" {
      * view, the calendar navigates to Day picker view.
      */
     showCurrentDateButton?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.108.0
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
+     */
+    calendarWeekNumbering?:
+      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Dates or date ranges for selected dates.
@@ -2979,6 +3028,8 @@ declare module "sap/ui/unified/calendar/Month" {
 
   import Event from "sap/ui/base/Event";
 
+  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import CalendarType from "sap/ui/core/CalendarType";
@@ -3420,6 +3471,19 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     getAriaLabelledBy(): ID[];
     /**
+     * @SINCE 1.108.0
+     *
+     * Gets current value of property {@link #getCalendarWeekNumbering calendarWeekNumbering}.
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
+     *
+     * @returns Value of property `calendarWeekNumbering`
+     */
+    getCalendarWeekNumbering():
+      | CalendarWeekNumbering
+      | keyof typeof CalendarWeekNumbering;
+    /**
      * Gets current value of property {@link #getDate date}.
      *
      * A date as JavaScript Date object. The month including this date is rendered and this date is focused
@@ -3441,8 +3505,9 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * Gets current value of property {@link #getFirstDayOfWeek firstDayOfWeek}.
      *
-     * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
-     * is set, the default of the used locale is used.
+     * If the property is set, this day marks the start of the displayed week. Valid values are 0 to 6. If no
+     * valid property is set, the current locale's default is applied. Note: This property should not be used
+     * with the calendarWeekNumbering property.
      *
      * Default value is `-1`.
      *
@@ -3692,7 +3757,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.38.0
      *
@@ -3705,7 +3770,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The disabledDate to remove or its index or id
        */
       vDisabledDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -3716,7 +3781,7 @@ declare module "sap/ui/unified/calendar/Month" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -3727,7 +3792,27 @@ declare module "sap/ui/unified/calendar/Month" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
+    /**
+     * @SINCE 1.108.0
+     *
+     * Sets a new value for property {@link #getCalendarWeekNumbering calendarWeekNumbering}.
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCalendarWeekNumbering(
+      /**
+       * New value for property `calendarWeekNumbering`
+       */
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering
+    ): this;
     /**
      * Sets a new value for property {@link #getDate date}.
      *
@@ -3749,8 +3834,9 @@ declare module "sap/ui/unified/calendar/Month" {
      *
      * Sets a new value for property {@link #getFirstDayOfWeek firstDayOfWeek}.
      *
-     * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
-     * is set, the default of the used locale is used.
+     * If the property is set, this day marks the start of the displayed week. Valid values are 0 to 6. If no
+     * valid property is set, the current locale's default is applied. Note: This property should not be used
+     * with the calendarWeekNumbering property.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3949,8 +4035,9 @@ declare module "sap/ui/unified/calendar/Month" {
     /**
      * @SINCE 1.28.9
      *
-     * If set, the first day of the displayed week is this day. Valid values are 0 to 6. If not a valid value
-     * is set, the default of the used locale is used.
+     * If the property is set, this day marks the start of the displayed week. Valid values are 0 to 6. If no
+     * valid property is set, the current locale's default is applied. Note: This property should not be used
+     * with the calendarWeekNumbering property.
      */
     firstDayOfWeek?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4000,6 +4087,17 @@ declare module "sap/ui/unified/calendar/Month" {
      * property.
      */
     showWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.108.0
+     *
+     * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
+     * global configuration is used. Note: This property should not be used with firstDayOfWeek property.
+     */
+    calendarWeekNumbering?:
+      | (CalendarWeekNumbering | keyof typeof CalendarWeekNumbering)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Date Ranges for selected dates of the DatePicker
@@ -4416,6 +4514,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.104.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the months are also displayed in this calendar type If not set, the months are only displayed
+     * in the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * @SINCE 1.74
      *
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
@@ -4498,7 +4607,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * @SINCE 1.74
      *
@@ -4511,7 +4620,7 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * @SINCE 1.30.0
      *
@@ -4620,6 +4729,24 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
        */
       sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
+    /**
+     * @SINCE 1.104.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the months are also displayed in this calendar type If not set, the months are only displayed
+     * in the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
+    ): this;
   }
 
   export interface $MonthPickerSettings extends $ControlSettings {
@@ -4657,6 +4784,17 @@ declare module "sap/ui/unified/calendar/MonthPicker" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.104.0
+     *
+     * If set, the months are also displayed in this calendar type If not set, the months are only displayed
+     * in the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -4706,6 +4844,8 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
   import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import CalendarType from "sap/ui/core/CalendarType";
 
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
@@ -5056,6 +5196,28 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
      */
     getMonths(): int;
     /**
+     * @SINCE 1.108.0
+     *
+     * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
+     *
+     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
+     * is used.
+     *
+     * @returns Value of property `primaryCalendarType`
+     */
+    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -5194,7 +5356,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -5205,7 +5367,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -5216,7 +5378,7 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
@@ -5264,6 +5426,42 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
        * New value for property `months`
        */
       iMonths?: int
+    ): this;
+    /**
+     * @SINCE 1.108.0
+     *
+     * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
+     *
+     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
+     * is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPrimaryCalendarType(
+      /**
+       * New value for property `primaryCalendarType`
+       */
+      sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -5357,6 +5555,28 @@ declare module "sap/ui/unified/calendar/MonthsRow" {
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @SINCE 1.108.0
+     *
+     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
+     * is used.
+     */
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
      *
      * **Note:** Even if only one day is selected, the whole corresponding month is selected.
@@ -5418,6 +5638,8 @@ declare module "sap/ui/unified/calendar/TimesRow" {
   import Event from "sap/ui/base/Event";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import CalendarType from "sap/ui/core/CalendarType";
 
   import CalendarLegend from "sap/ui/unified/CalendarLegend";
 
@@ -5783,6 +6005,28 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      */
     getLegend(): ID;
     /**
+     * @SINCE 1.108.0
+     *
+     * Gets current value of property {@link #getPrimaryCalendarType primaryCalendarType}.
+     *
+     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
+     * is used.
+     *
+     * @returns Value of property `primaryCalendarType`
+     */
+    getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
      *
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -5915,7 +6159,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -5926,7 +6170,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -5937,7 +6181,7 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getDate date}.
      *
@@ -6026,6 +6270,42 @@ declare module "sap/ui/unified/calendar/TimesRow" {
        * may be given
        */
       oLegend: ID | CalendarLegend
+    ): this;
+    /**
+     * @SINCE 1.108.0
+     *
+     * Sets a new value for property {@link #getPrimaryCalendarType primaryCalendarType}.
+     *
+     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
+     * is used.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPrimaryCalendarType(
+      /**
+       * New value for property `primaryCalendarType`
+       */
+      sPrimaryCalendarType?: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
+     * @SINCE 1.109.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType?: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * Sets a new value for property {@link #getShowHeader showHeader}.
@@ -6126,6 +6406,28 @@ declare module "sap/ui/unified/calendar/TimesRow" {
      * If set, a header with the years is shown to visualize what month belongs to what year.
      */
     showHeader?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.108.0
+     *
+     * If set, the calendar type is used for display. If not set, the calendar type of the global configuration
+     * is used.
+     */
+    primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109.0
+     *
+     * If set, the days are also displayed in this calendar type If not set, the dates are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Date ranges for selected dates. If `singleSelection` is set, only the first entry is used.
@@ -6491,6 +6793,17 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      */
     getPrimaryCalendarType(): CalendarType | keyof typeof CalendarType;
     /**
+     * @SINCE 1.104.0
+     *
+     * Gets current value of property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
+     * the primary calendar type
+     *
+     * @returns Value of property `secondaryCalendarType`
+     */
+    getSecondaryCalendarType(): CalendarType | keyof typeof CalendarType;
+    /**
      * @SINCE 1.74
      *
      * Gets content of aggregation {@link #getSelectedDates selectedDates}.
@@ -6589,7 +6902,7 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * @SINCE 1.30.0
      *
@@ -6645,6 +6958,24 @@ declare module "sap/ui/unified/calendar/YearPicker" {
        * New value for property `primaryCalendarType`
        */
       sPrimaryCalendarType: CalendarType | keyof typeof CalendarType
+    ): this;
+    /**
+     * @SINCE 1.104.0
+     *
+     * Sets a new value for property {@link #getSecondaryCalendarType secondaryCalendarType}.
+     *
+     * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
+     * the primary calendar type
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSecondaryCalendarType(
+      /**
+       * New value for property `secondaryCalendarType`
+       */
+      sSecondaryCalendarType: CalendarType | keyof typeof CalendarType
     ): this;
     /**
      * @deprecated (since 1.34.0) - replaced by `date` property
@@ -6730,6 +7061,17 @@ declare module "sap/ui/unified/calendar/YearPicker" {
      * is used.
      */
     primaryCalendarType?:
+      | (CalendarType | keyof typeof CalendarType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.104.0
+     *
+     * If set, the years are also displayed in this calendar type If not set, the years are only displayed in
+     * the primary calendar type
+     */
+    secondaryCalendarType?:
       | (CalendarType | keyof typeof CalendarType)
       | PropertyBindingInfo
       | `{${string}}`;
@@ -6847,7 +7189,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     static getMetadata(): ElementMetadata;
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Adds some customContent to the aggregation {@link #getCustomContent customContent}.
      *
@@ -6861,7 +7204,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     ): this;
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Destroys all the customContent in the aggregation {@link #getCustomContent customContent}.
      *
@@ -6881,7 +7225,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     getColor(): CSSColor;
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Gets content of aggregation {@link #getCustomContent customContent}.
      *
@@ -6963,7 +7308,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     getTitle(): string;
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getCustomContent customContent}.
      * and returns its index if found or -1 otherwise.
@@ -6978,7 +7324,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     ): int;
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Inserts a customContent into the aggregation {@link #getCustomContent customContent}.
      *
@@ -6998,7 +7345,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     ): this;
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Removes all the controls from the aggregation {@link #getCustomContent customContent}.
      *
@@ -7009,7 +7357,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
     removeAllCustomContent(): Control[];
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Removes a customContent from the aggregation {@link #getCustomContent customContent}.
      *
@@ -7020,7 +7369,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
        * The customContent to remove or its index or id
        */
       vCustomContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.46.0
      *
@@ -7204,7 +7553,8 @@ declare module "sap/ui/unified/CalendarAppointment" {
 
     /**
      * @SINCE 1.93.0
-     * @EXPERIMENTAL (since 1.93)
+     * @EXPERIMENTAL (since 1.93) - providing only limited functionality. Also, the API might be changed in
+     * the future.
      *
      * Holds the content of the appointment.
      *
@@ -7653,7 +8003,7 @@ declare module "sap/ui/unified/CalendarLegend" {
        * The item to remove or its index or id
        */
       vItem: int | string | CalendarLegendItem
-    ): CalendarLegendItem;
+    ): CalendarLegendItem | null;
     /**
      * Sets a new value for property {@link #getColumnWidth columnWidth}.
      *
@@ -8513,7 +8863,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -8524,7 +8874,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -8535,7 +8885,7 @@ declare module "sap/ui/unified/CalendarMonthInterval" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getIntervalSelection intervalSelection}.
      *
@@ -9691,7 +10041,7 @@ declare module "sap/ui/unified/CalendarRow" {
        * The appointment to remove or its index or id
        */
       vAppointment: int | string | CalendarAppointment
-    ): CalendarAppointment;
+    ): CalendarAppointment | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -9702,7 +10052,7 @@ declare module "sap/ui/unified/CalendarRow" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a intervalHeader from the aggregation {@link #getIntervalHeaders intervalHeaders}.
      *
@@ -9713,7 +10063,7 @@ declare module "sap/ui/unified/CalendarRow" {
        * The intervalHeader to remove or its index or id
        */
       vIntervalHeader: int | string | CalendarAppointment
-    ): CalendarAppointment;
+    ): CalendarAppointment | null;
     /**
      * @SINCE 1.81.0
      *
@@ -10970,7 +11320,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a selectedDate from the aggregation {@link #getSelectedDates selectedDates}.
      *
@@ -10981,7 +11331,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        * The selectedDate to remove or its index or id
        */
       vSelectedDate: int | string | DateRange
-    ): DateRange;
+    ): DateRange | null;
     /**
      * Removes a specialDate from the aggregation {@link #getSpecialDates specialDates}.
      *
@@ -10992,7 +11342,7 @@ declare module "sap/ui/unified/CalendarTimeInterval" {
        * The specialDate to remove or its index or id
        */
       vSpecialDate: int | string | DateTypeRange
-    ): DateTypeRange;
+    ): DateTypeRange | null;
     /**
      * Sets a new value for property {@link #getIntervalMinutes intervalMinutes}.
      *
@@ -11679,7 +12029,13 @@ declare module "sap/ui/unified/ColorPicker" {
      *
      * @returns Containing current RGB values
      */
-    getRGB(): object;
+    getRGB(): {
+      r: int;
+
+      g: int;
+
+      b: int;
+    };
     /**
      * @SINCE 1.48.0
      *
@@ -12191,8 +12547,8 @@ declare module "sap/ui/unified/ColorPickerPopover" {
        * When this control is displayed on tablet or desktop, the `ColorPickerPopover` is positioned relative
        * to this control
        */
-      openBy: Object
-    ): Object;
+      openBy: Control | HTMLElement
+    ): /* was: sap.m.Popover */ any | /* was: sap.m.Dialog */ any;
     /**
      * @SINCE 1.60.0
      *
@@ -12319,7 +12675,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
   /**
    * @SINCE 1.16.0
    * @deprecated (since 1.44.0)
-   * @EXPERIMENTAL (since 1.16.0)
+   * @EXPERIMENTAL (since 1.16.0) - API is not yet finished and might change completely
    *
    * Switches between two control areas and animates it via CSS transitions
    */
@@ -12537,7 +12893,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
        * The content1 to remove or its index or id
        */
       vContent1: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a content2 from the aggregation {@link #getContent2 content2}.
      *
@@ -12548,7 +12904,7 @@ declare module "sap/ui/unified/ContentSwitcher" {
        * The content2 to remove or its index or id
        */
       vContent2: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets a new value for property {@link #getActiveContent activeContent}.
      *
@@ -14612,6 +14968,18 @@ declare module "sap/ui/unified/FileUploader" {
      */
     getButtonText(): string;
     /**
+     * @SINCE 1.105.0
+     *
+     * Gets current value of property {@link #getDirectory directory}.
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `directory`
+     */
+    getDirectory(): boolean;
+    /**
      * Gets current value of property {@link #getEnabled enabled}.
      *
      * Disabled controls have different colors, depending on customer settings.
@@ -15048,7 +15416,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -15059,7 +15427,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a headerParameter from the aggregation {@link #getHeaderParameters headerParameters}.
      *
@@ -15070,7 +15438,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The headerParameter to remove or its index or id
        */
       vHeaderParameter: int | string | FileUploaderParameter
-    ): FileUploaderParameter;
+    ): FileUploaderParameter | null;
     /**
      * @SINCE 1.12.2
      *
@@ -15083,7 +15451,7 @@ declare module "sap/ui/unified/FileUploader" {
        * The parameter to remove or its index or id
        */
       vParameter: int | string | FileUploaderParameter
-    ): FileUploaderParameter;
+    ): FileUploaderParameter | null;
     /**
      * Sets a new value for property {@link #getAdditionalData additionalData}.
      *
@@ -15133,6 +15501,25 @@ declare module "sap/ui/unified/FileUploader" {
        * New value for property `buttonText`
        */
       sButtonText?: string
+    ): this;
+    /**
+     * @SINCE 1.105.0
+     *
+     * Sets a new value for property {@link #getDirectory directory}.
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDirectory(
+      /**
+       * New value for property `directory`
+       */
+      bDirectory?: boolean
     ): this;
     /**
      * Sets a new value for property {@link #getEnabled enabled}.
@@ -15828,6 +16215,13 @@ declare module "sap/ui/unified/FileUploader" {
      * If set to true, the button is displayed without any text.
      */
     iconOnly?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @SINCE 1.105.0
+     *
+     * Allows users to upload all files from a given directory and its corresponding subdirectories.
+     */
+    directory?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * @SINCE 1.12.2
@@ -16598,7 +16992,7 @@ declare module "sap/ui/unified/Menu" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
@@ -16609,7 +17003,7 @@ declare module "sap/ui/unified/Menu" {
        * The item to remove or its index or id
        */
       vItem: int | string | MenuItemBase
-    ): MenuItemBase;
+    ): MenuItemBase | null;
     /**
      * @deprecated (since 1.27.0) - replaced by `ariaLabelledBy` association
      *
@@ -16885,7 +17279,7 @@ declare module "sap/ui/unified/MenuItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -17960,7 +18354,7 @@ declare module "sap/ui/unified/Shell" {
        * The curtainContent to remove or its index or id
        */
       vCurtainContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a curtainPaneContent from the aggregation {@link #getCurtainPaneContent curtainPaneContent}.
      *
@@ -17971,7 +18365,7 @@ declare module "sap/ui/unified/Shell" {
        * The curtainPaneContent to remove or its index or id
        */
       vCurtainPaneContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a headEndItem from the aggregation {@link #getHeadEndItems headEndItems}.
      *
@@ -17982,7 +18376,7 @@ declare module "sap/ui/unified/Shell" {
        * The headEndItem to remove or its index or id
        */
       vHeadEndItem: int | string | ShellHeadItem
-    ): ShellHeadItem;
+    ): ShellHeadItem | null;
     /**
      * Removes a headItem from the aggregation {@link #getHeadItems headItems}.
      *
@@ -17993,7 +18387,7 @@ declare module "sap/ui/unified/Shell" {
        * The headItem to remove or its index or id
        */
       vHeadItem: int | string | ShellHeadItem
-    ): ShellHeadItem;
+    ): ShellHeadItem | null;
     /**
      * Setter for the aggregated `header`.
      *
@@ -18448,7 +18842,7 @@ declare module "sap/ui/unified/ShellHeadItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getIcon icon}.
      *
@@ -18858,7 +19252,7 @@ declare module "sap/ui/unified/ShellHeadUserItem" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getImage image}.
      *
@@ -19197,7 +19591,7 @@ declare module "sap/ui/unified/ShellLayout" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a paneContent from the aggregation {@link #getPaneContent paneContent}.
      *
@@ -19208,7 +19602,7 @@ declare module "sap/ui/unified/ShellLayout" {
        * The paneContent to remove or its index or id
        */
       vPaneContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getHeader header}.
      *
@@ -19578,7 +19972,7 @@ declare module "sap/ui/unified/ShellOverlay" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes a content from the aggregation {@link #getContent content}.
      *
@@ -19589,7 +19983,7 @@ declare module "sap/ui/unified/ShellOverlay" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Sets the aggregated {@link #getSearch search}.
      *
@@ -19659,7 +20053,7 @@ declare module "sap/ui/unified/SplitContainer" {
   /**
    * @SINCE 1.15.0
    * @deprecated (since 1.44.0)
-   * @EXPERIMENTAL (since 1.15.0)
+   * @EXPERIMENTAL (since 1.15.0) - API is not yet finished and might change completely
    *
    * Provides a main content and a secondary content area
    */
@@ -19896,7 +20290,7 @@ declare module "sap/ui/unified/SplitContainer" {
        * The content to remove or its index or id
        */
       vContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * Removes a secondaryContent from the aggregation {@link #getSecondaryContent secondaryContent}.
      *
@@ -19907,7 +20301,7 @@ declare module "sap/ui/unified/SplitContainer" {
        * The secondaryContent to remove or its index or id
        */
       vSecondaryContent: int | string | Control
-    ): Control;
+    ): Control | null;
     /**
      * @SINCE 1.22.0
      *
@@ -20027,8 +20421,6 @@ declare module "sap/ui/unified/SplitContainer" {
 declare namespace sap {
   interface IUI5DefineDependencyNames {
     "sap/ui/unified/Calendar": undefined;
-
-    "sap/ui/unified/calendar/CalendarUtils": undefined;
 
     "sap/ui/unified/calendar/DatesRow": undefined;
 

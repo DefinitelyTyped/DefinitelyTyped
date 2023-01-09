@@ -173,6 +173,13 @@ export interface HostedFieldsTokenizePayload {
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
+    /**
+     * Provides details about regulatory environment.
+     * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
+     */
+    authenticationInsight?: {
+      regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+    };
 }
 
 export interface HostedFields {

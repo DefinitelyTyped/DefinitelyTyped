@@ -1,4 +1,4 @@
-// Type definitions for jsonwebtoken 8.5
+// Type definitions for jsonwebtoken 9.0
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
@@ -65,6 +65,8 @@ export interface SignOptions {
     noTimestamp?: boolean | undefined;
     header?: JwtHeader | undefined;
     encoding?: string | undefined;
+    allowInsecureKeySizes?: boolean | undefined;
+    allowInvalidAsymmetricKeyTypes?: boolean | undefined;
 }
 
 export interface VerifyOptions {
@@ -85,6 +87,7 @@ export interface VerifyOptions {
     nonce?: string | undefined;
     subject?: string | undefined;
     maxAge?: string | number | undefined;
+    allowInvalidAsymmetricKeyTypes?: boolean | undefined;
 }
 
 export interface DecodeOptions {
@@ -96,12 +99,13 @@ export type VerifyErrors =
     | NotBeforeError
     | TokenExpiredError;
 export type VerifyCallback<T = Jwt | JwtPayload | string> = (
-    err: VerifyErrors | null,
+    error: VerifyErrors | null,
     decoded: T | undefined,
 ) => void;
 
 export type SignCallback = (
-    err: Error | null, encoded: string | undefined
+    error: Error | null,
+    encoded: string | undefined,
 ) => void;
 
 // standard names https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1
@@ -145,8 +149,8 @@ export type Algorithm =
     "none";
 
 export type SigningKeyCallback = (
-    err: any,
-    signingKey?: Secret,
+    error: Error | null,
+    signingKey?: Secret
 ) => void;
 
 export type GetPublicKeyOrSecret = (

@@ -15,7 +15,7 @@ class MapController {
     });
 
     this.map = new Map({
-      basemap: { title: "topo" }
+      basemap: { title: "topo-vector" }
     });
 
     let view = new MapView({
@@ -27,6 +27,5 @@ class MapController {
   }
 }
 
-import esriId = require("esri/identity/IdentityManager");
-esriId.enablePostMessageAuth();
-esriId.disablePostMessageAuth();
+import esriRequest = require("esri/request");
+esriRequest("https://js.arcigs.com/");

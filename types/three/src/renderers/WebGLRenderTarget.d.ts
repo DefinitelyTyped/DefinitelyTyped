@@ -17,10 +17,16 @@ export interface WebGLRenderTargetOptions {
     generateMipmaps?: boolean | undefined; // true;
     depthTexture?: DepthTexture | undefined;
     encoding?: TextureEncoding | undefined;
+
+    /**
+     * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.
+     * @default 0
+     */
+    samples?: number;
 }
 
 export class WebGLRenderTarget extends EventDispatcher {
-    constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
+    constructor(width?: number, height?: number, options?: WebGLRenderTargetOptions);
 
     width: number;
     height: number;

@@ -1,4 +1,4 @@
-// Type definitions for react-edit-text 4.4
+// Type definitions for react-edit-text 5.0
 // Project: https://github.com/bymi15/react-edit-text#readme
 // Definitions by: Brian Min <https://github.com/bymi15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,7 +68,17 @@ export interface SharedProps {
      * onChange is called when the input value changes and
      * returns a string which corresponds to the new input value
      */
-    onChange?: (value: string) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    /**
+     * onEditMode is a callback function triggered when the display
+     * component is clicked and edit mode is toggled on
+     */
+    onEditMode?: () => void;
+    /**
+     * onBlur is a callback function triggered when the focus is blurred
+     * and edit mode is toggled off
+     */
+    onBlur?: () => void;
     /**
      * Sets the css styling for both input and div elements
      */

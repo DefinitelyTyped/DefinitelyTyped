@@ -38,13 +38,13 @@ co.wrap(gen)(42, 'forty-two', [42], { value: 42 }, () => {})
     )
     .catch((err: Error) => {});
 
-// $ExpectError
+// @ts-expect-error
 co(gen, 42, 'forty-two', [42], { value: 42 }, () => {}).then((str: string) => {});
 
-// $ExpectError
+// @ts-expect-error
 co.wrap(gen)();
 
-// $ExpectError
+// @ts-expect-error
 co.wrap(gen)('forty-two');
 
 // example from https://github.com/tj/co/blob/master/Readme.md

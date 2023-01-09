@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -19,7 +20,7 @@ export default class OrderedSet<T = unknown> {
     // `let set: OrderedSet<string> = OrderedSet.create();`. If TS could infer
     // from usage what the type would be, this wouldn't be required, but until
     // it does, this is better than *not* allowing it.
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     static create<T = unknown>(): OrderedSet<T>;
 
     add(value: T): this;

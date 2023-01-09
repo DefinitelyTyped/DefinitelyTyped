@@ -5,7 +5,7 @@
 
 declare namespace humanparser {
     interface NameOutput {
-        firstName: string;
+        firstName?: string | undefined;
         lastName: string;
         fullName: string;
         suffix?: string | undefined;

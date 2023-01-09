@@ -483,6 +483,12 @@ screen1.fill({
     bgColor: 0
   }
 });
+screen1.fill({
+    attr: {
+        color: 'black',
+        bgColor: 'black',
+    },
+});
 
 ScreenBuffer.loadImage(
   path_to_image,
@@ -516,3 +522,21 @@ term.table([
   width: 60,
   fit: true
 });
+
+term.width; // $ExpectType number
+term.height; // $ExpectType number
+
+// See https://github.com/cronvel/terminal-kit/blob/master/doc/high-level.md#ref.spinner
+
+// Example of the classic line spinner:
+term.spinner() ;
+
+// Example of a colorful unboxing spinner with a text appended after it:
+async function test() {
+  const spinner = await term.spinner('unboxing-color') ;
+  term(' Loading... ') ;
+  spinner.animate(2);
+  setTimeout(() => spinner.animate(false) , 5000) ;
+}
+
+test();

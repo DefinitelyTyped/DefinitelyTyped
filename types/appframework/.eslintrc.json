@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "trim-file": "off",
+        "prefer-declare-function": "off"
+    }
+}

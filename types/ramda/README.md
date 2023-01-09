@@ -44,7 +44,7 @@ R.map((n: number) => n.toString(), [1, 2, 3]);
 Use [`$ExpectError`](https://github.com/microsoft/dtslint/blob/43859c39/README.md#write-tests) comments to test that using a function a certain way should result in a compiler error:
 
 ```ts
-// $ExpectError
+// @ts-expect-error
 R.map((n: number) => n.toString(), ['1', '2', '3']);
 ```
 

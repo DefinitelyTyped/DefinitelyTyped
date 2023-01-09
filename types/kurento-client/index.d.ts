@@ -120,8 +120,9 @@ declare namespace kurento {
             },
         ): Promise<PlayerEndpoint>;
         create(type: 'RtpEndpoint', options?: RtpEndpointOptions): Promise<RtpEndpoint>;
+        create(type: 'Composite'): Promise<Composite>;
         create(type: string, options?: Record<string, unknown>): Promise<MediaElement>;
-        // tslint:disable-next-line
+        // eslint-disable-next-line no-unnecessary-generics
         getMediaobjectById<T extends MediaObject = MediaObject>(objectId: string): Promise<T>;
         getServerManager: (callback?: Callback<ServerManager>) => Promise<ServerManager>;
         close(): void;
@@ -824,6 +825,16 @@ declare namespace kurento {
             ) => void,
         ): WebRtcEndpoint;
     }
+
+    // tslint:disable-next-line
+    interface HubPort extends MediaElement {}
+
+    interface Hub extends MediaObject {
+        createHubPort: (callback?: Callback<HubPort>) => Promise<HubPort>;
+    }
+
+    // tslint:disable-next-line
+    interface Composite extends Hub {}
 
     // Ref: https://github.com/Kurento/kurento-client-core-js/tree/master/lib/complexTypes
     type ConnectionState = 'DISCONNECTED' | 'CONNECTED';

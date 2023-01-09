@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import mParticle = require('@mparticle/web-sdk');
+import { Batch } from '@mparticle/event-models';
 
 const instance = mParticle.getInstance('default');
 
@@ -99,10 +98,15 @@ const logger: mParticle.Logger = {
     },
 };
 
+const onCreateBatch: mParticle.onCreateBatch = (batch: Batch) => {
+    return batch;
+};
+
 const config: mParticle.MPConfiguration = {
     isDevelopmentMode: true,
     identifyRequest,
     identityCallback,
+    onCreateBatch,
     dataPlan,
     appVersion: '1.0.0',
     appName: 'testAppName',
@@ -126,6 +130,8 @@ instance.getAppName();
 instance.getAppVersion();
 
 instance.getDeviceId();
+
+instance.getEnvironment();
 
 instance.getVersion();
 
@@ -387,10 +393,10 @@ instance.eCommerce.logProductAction(
     eCommerceCustomFlags,
 );
 
-instance.eCommerce.logProductAction(300, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
+instance.eCommerce.logProductAction(0, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
 
 instance.eCommerce.logProductAction(
-    300,
+    0,
     [product1, product2],
     eCommerceCustomAttributes,
     eCommerceCustomFlags,

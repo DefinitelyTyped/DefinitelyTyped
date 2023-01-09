@@ -252,7 +252,7 @@ declare module 'react-calendar-timeline' {
         resizeDetector?: ((containerResizeDetector: any) => void) | undefined;
         verticalLineClassNamesForTime?: ((start: number, end: number) => string[] | undefined) | undefined;
         horizontalLineClassNamesForGroup?: ((group: CustomGroup) => string[]) | undefined;
-
+        buffer?: number | undefined;
         // Fields that are in propTypes but not documented
         headerRef?: React.Ref<any> | undefined;
     }
@@ -311,7 +311,7 @@ declare module 'react-calendar-timeline' {
     }
     export class SidebarHeader<Data = any> extends React.Component<SidebarHeaderProps<Data>> {}
 
-    export type Unit = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+    export type Unit = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'isoWeek' | 'month' | 'year';
 
     export interface IntervalContext {
         interval: { startTime: number; endTime: number; labelWidth: number; left: number };

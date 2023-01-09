@@ -43,12 +43,12 @@ declare namespace Client {
                 | ((prevResult: { insertId?: any }) => any),
         ): Transaction;
 
-        rollback: (error: Error, status: any) => void;
+        rollback(cb: ((error: Error, status: any) => void)): Transaction;
         commit: () => Promise<void>;
     }
 
     interface iDataAPIClient {
-        /* tslint:disable:no-unnecessary-generics */
+        /* eslint-disable no-unnecessary-generics */
         query<T = any>(sql: string, params?: [] | unknown): Promise<iDataAPIQueryResult<T>>; // params can be [] or {};
         query<T = any>(obj: {
             sql: string;

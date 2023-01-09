@@ -6,5 +6,5 @@ setTZ('UTC');
 // $ExpectType void
 setTZ();
 
-// $ExpectError
+// @ts-expect-error
 setTZ(1);

@@ -1,4 +1,4 @@
-// Type definitions for prettier 2.6
+// Type definitions for prettier 2.7
 // Project: https://prettier.io
 //          https://github.com/prettier/prettier
 // Definitions by: Ika <https://github.com/ikatyang>
@@ -374,7 +374,7 @@ export interface Parser<T = any> {
 }
 
 export interface Printer<T = any> {
-    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc): Doc;
+    print(path: AstPath<T>, options: ParserOptions<T>, print: (path: AstPath<T>) => Doc, args?: unknown): Doc;
     embed?:
         | ((
               path: AstPath<T>,
@@ -536,6 +536,7 @@ export interface SupportLanguage {
     filenames?: string[] | undefined;
     linguistLanguageId?: number | undefined;
     vscodeLanguageIds?: string[] | undefined;
+    interpreters?: string[] | undefined;
 }
 
 export interface SupportOptionRange {
@@ -544,7 +545,7 @@ export interface SupportOptionRange {
     step: number;
 }
 
-export type SupportOptionType = 'int' | 'boolean' | 'choice' | 'path';
+export type SupportOptionType = 'int' | 'string' | 'boolean' | 'choice' | 'path';
 
 export type CoreCategoryType = 'Config' | 'Editor' | 'Format' | 'Other' | 'Output' | 'Global' | 'Special';
 
@@ -588,6 +589,16 @@ export interface IntArraySupportOption extends BaseSupportOption<'int'> {
     array: true;
 }
 
+export interface StringSupportOption extends BaseSupportOption<'string'> {
+    default?: string | undefined;
+    array?: false | undefined;
+}
+
+export interface StringArraySupportOption extends BaseSupportOption<'string'> {
+    default?: Array<{ value: string[] }> | undefined;
+    array: true;
+}
+
 export interface BooleanSupportOption extends BaseSupportOption<'boolean'> {
     default?: boolean | undefined;
     array?: false | undefined;
@@ -623,6 +634,8 @@ export interface PathArraySupportOption extends BaseSupportOption<'path'> {
 export type SupportOption =
     | IntSupportOption
     | IntArraySupportOption
+    | StringSupportOption
+    | StringArraySupportOption
     | BooleanSupportOption
     | BooleanArraySupportOption
     | ChoiceSupportOption

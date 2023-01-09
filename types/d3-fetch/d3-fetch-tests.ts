@@ -45,7 +45,7 @@ arrayPromise = d3Fetch.buffer(url, init);
 
 imagePromise = d3Fetch.image(url);
 imagePromise = d3Fetch.image(url, imageProperties);
-// $ExpectError
+// @ts-expect-error
 imagePromise = d3Fetch.image(url, {width: "500px"}); // fails, string not assignable to number | undefined
 
 anyPromise = d3Fetch.json(url);

@@ -11,6 +11,8 @@ import { Document as DocumentEsmParcel, Page as PageEsmParcel } from 'react-pdf/
 import { Document as DocumentUmdParcel, Page as PageUmdParcel } from 'react-pdf/dist/umd/entry.parcel';
 import { Document as DocumentEsmParcel2, Page as PageEsmParcel2 } from 'react-pdf/dist/esm/entry.parcel2';
 import { Document as DocumentUmdParcel2, Page as PageUmdParcel2 } from 'react-pdf/dist/umd/entry.parcel2';
+import { Document as DocumentEsmVite, Page as PageEsmVite } from 'react-pdf/dist/esm/entry.vite';
+import { Document as DocumentUmdVite, Page as PageUmdVite } from 'react-pdf/dist/umd/entry.vite';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -54,6 +56,7 @@ export class MyApp extends React.Component<{}, State> {
                     file="somefile.pdf"
                     onLoadSuccess={this.onDocumentLoadSuccess}
                     imageResourcesPath="/public"
+                    externalLinkRel="noopener noreferrer nofollow"
                 >
                     <Page
                         pageNumber={pageNumber}
@@ -93,6 +96,14 @@ export class MyApp extends React.Component<{}, State> {
                 <DocumentUmdParcel2 file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>
                     <PageUmdParcel2 pageNumber={pageNumber} onLoadSuccess={this.onPageLoadSuccess} />
                 </DocumentUmdParcel2>
+
+                <DocumentEsmVite file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>
+                    <PageEsmVite pageNumber={pageNumber} onLoadSuccess={this.onPageLoadSuccess} />
+                </DocumentEsmVite>
+
+                <DocumentUmdVite file="somefile.pdf" onLoadSuccess={this.onDocumentLoadSuccess}>
+                    <PageUmdVite pageNumber={pageNumber} onLoadSuccess={this.onPageLoadSuccess} />
+                </DocumentUmdVite>
 
                 <p>
                     Page {pageNumber} of {numPages}

@@ -20,7 +20,8 @@ import { Dictionary } from 'ramda/tools';
     const objB: Dictionary<string> = omitEmptyString({ a: '', b: 'foo' }); // => { b: 'foo' }
     const listB: string[] = omitEmptyString(['', 'foo']); // => ['foo']
 
-    const objC = omitEmptyString({ some: 42 }); // $ExpectError
+    // @ts-expect-error
+    const objC = omitEmptyString({ some: 42 });
 };
 
 () => {
@@ -55,7 +56,7 @@ import { Dictionary } from 'ramda/tools';
         return n % 2 === 0;
     }
 
-    // $ExpectError
+    // @ts-expect-error
     R.filter(isEven, ['foo']);
 };
 
@@ -68,9 +69,9 @@ import { Dictionary } from 'ramda/tools';
 
     numberArray = R.filter(R.is(Number), unknownArray);
     numberArray = filterNumbers(unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     stringArray = R.filter(R.is(Number), unknownArray);
-    // $ExpectError
+    // @ts-expect-error
     stringArray = filterNumbers(unknownArray);
 
     const unknownDictionary: Dictionary<unknown> = {};
@@ -79,8 +80,8 @@ import { Dictionary } from 'ramda/tools';
 
     numberDictionary = R.filter(R.is(Number), unknownDictionary);
     numberDictionary = filterNumbers(unknownDictionary);
-    // $ExpectError
+    // @ts-expect-error
     stringDictionary = R.filter(R.is(Number), unknownDictionary);
-    // $ExpectError
+    // @ts-expect-error
     stringDictionary = filterNumbers(unknownDictionary);
 };

@@ -1,4 +1,4 @@
-// Type definitions for steam-user 4.23
+// Type definitions for steam-user 4.26
 // Project: https://github.com/DoctorMcKay/node-steam-user
 // Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,7 @@
 
 import type SteamID = require('steamid');
 import type ByteBuffer = require('bytebuffer');
+import type FileManager = require('file-manager');
 import EventEmitter = require('events');
 import SteamChatRoomClient = require('./components/chatroom');
 
@@ -19,6 +20,11 @@ export = SteamUser;
 
 declare class SteamUser extends EventEmitter {
     constructor(options?: Options);
+
+    /**
+     * The FileManager instance used by the SteamUser.
+     */
+    storage: FileManager;
 
     /**
      * Formats a currency value and returns a string
@@ -823,7 +829,7 @@ interface Events {
     receivedFromGC: [appid: number, msgType: number, payload: Buffer];
     loggedOn: [details: Record<string, any>, parental: Record<string, any>];
     steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
-    error: [err: Error];
+    error: [err: Error & { eresult: SteamUser.EResult }];
     disconnected: [eresult: SteamUser.EResult, msg?: string];
     sentry: [sentry: Buffer];
     webSession: [sessionID: string, cookies: string[]];
@@ -906,6 +912,7 @@ interface Options {
     localPort?: number | null;
     protocol?: SteamUser.EConnectionProtocol;
 	httpProxy?: string | null;
+    socksProxy?: string | null;
 	localAddress?: string | null;
 	autoRelogin?: boolean;
 	singleSentryfile?: boolean;

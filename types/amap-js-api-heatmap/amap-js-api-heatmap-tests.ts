@@ -1,6 +1,6 @@
 declare const map: AMap.Map;
 
-// $ExpectError
+// @ts-expect-error
 new AMap.Heatmap();
 // $ExpectType Heatmap
 new AMap.Heatmap(map);

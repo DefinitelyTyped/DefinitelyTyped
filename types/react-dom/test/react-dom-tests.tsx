@@ -75,9 +75,9 @@ describe('ReactDOM', () => {
         ReactDOM.flushSync(() => 42, 'not used');
         // $ExpectType number
         ReactDOM.flushSync((a: string) => 42, 'not used');
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42);
-        // $ExpectError
+        // @ts-expect-error
         ReactDOM.flushSync((a: string) => 42, 100);
     });
 });
@@ -199,24 +199,26 @@ describe('React dom test utils', () => {
             it('accepts a callback that is void', () => {
                 ReactTestUtils.act(() => {});
             });
-            it('rejects a callback that returns null', () => {
-                // $ExpectError
-                ReactTestUtils.act(() => null);
+            it('accepts a callback that returns a value', () => {
+                const result = ReactTestUtils.act(() => "value");
+                result.then(x => {});
             });
-            it('returns a type that is not Promise-like', () => {
+            it('returns void', () => {
                 // tslint:disable-next-line no-void-expression
                 const result = ReactTestUtils.act(() => {});
-                // $ExpectError
-                result.then(x => {});
+                // @ts-expect-error
+                result.then;
             });
         });
         describe('with async callback', () => {
             it('accepts a callback that is void', async () => {
                 await ReactTestUtils.act(async () => {});
             });
-            it('rejects a callback that returns a value', async () => {
-                // $ExpectError
+            it('a callback that returns null', async () => {
                 await ReactTestUtils.act(async () => null);
+            });
+            it('a callback that returns a value', async () => {
+                await ReactTestUtils.act(async () => "value");
             });
             it('returns a Promise-like', () => {
                 const result = ReactTestUtils.act(async () => {});
@@ -233,7 +235,7 @@ function createRoot() {
     root.render(false);
 
     // only makes sense for `hydrateRoot`
-    // $ExpectError
+    // @ts-expect-error
     ReactDOMClient.createRoot(document);
 }
 
@@ -247,7 +249,7 @@ function hydrateRoot() {
     hydrateable.render(<div>render update</div>);
     ReactDOMClient.hydrateRoot(document, {
         // Forgot `initialChildren`
-        // $ExpectError
+        // @ts-expect-error
         identifierPrefix: 'react-18-app',
     });
 

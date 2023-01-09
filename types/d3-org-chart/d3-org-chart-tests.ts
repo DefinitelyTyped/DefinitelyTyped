@@ -28,9 +28,9 @@ const chart = new OrgChart<Person>()
         d.data;
         // $ExpectType string
         d.data.firstName;
-        // $ExpectError
+        // @ts-expect-error
         d.data.middleName;
-        // $ExpectError
+        // @ts-expect-error
         d.firstName;
         if (d.depth === 0) return 500;
         return 330;
@@ -84,7 +84,7 @@ chart.backgroundColor();
 
 chart
     .backgroundColor()
-    // $ExpectError
+    // @ts-expect-error
     .render();
 
 // $ExpectType OrgChart<Person>
@@ -92,6 +92,12 @@ chart.backgroundColor('#eee').render();
 
 // $ExpectType OrgChart<Person>
 chart.addNode({ firstName: 'Charlie', lastName: 'Brown' });
+
+// $ExpectType OrgChart<Person>
+chart.expandAll();
+
+// $ExpectType OrgChart<Person>
+chart.collapseAll();
 
 // $ExpectType number
 chart.getChartState().lastTransform.x;

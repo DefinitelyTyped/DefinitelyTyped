@@ -162,7 +162,8 @@ function testWithHandlers() {
         />
     )
 
-    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({ // $ExpectError
+    // @ts-expect-error
+    const handlerNameTypecheckProof = withHandlers<OutterProps, HandlerProps>({
       onChange: () => () => {},
       notAKeyOnHandlerProps: () => () => {},
     });
@@ -294,7 +295,8 @@ function testWithStateHandlers() {
 
     const updateNameTypecheckProof = withStateHandlers<State, Updaters, OutterProps>(
         (props: OutterProps) => ({ counter: props.initialCounter }),
-        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), }, // $ExpectError
+        // @ts-expect-error
+        { notAKeyOfUpdaters: (state, props) => n => ({ ...state, counter: state.counter + n ** props.power }), },
     );
 
     // The inner props should be fully inferrable
@@ -438,12 +440,14 @@ function testSetStatic() {
     SfcResult = hoc1(SfcComp);
     SfcResult = hoc2(SfcComp);
     SfcResult = hoc3(SfcComp);
-    SfcResult = hoc1(ClassComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = hoc1(ClassComp);
 
     ClassResult = hoc1(ClassComp);
     ClassResult = hoc2(ClassComp);
     ClassResult = hoc3(ClassComp);
-    ClassResult = hoc1(SfcComp); // $ExpectError
+    // @ts-expect-error
+    ClassResult = hoc1(SfcComp);
 }
 
 function testSetPropTypes() {
@@ -467,12 +471,15 @@ function testSetPropTypes() {
     const hoc = setPropTypes(validationMap);
 
     SfcResult = hoc(SfcComp);
-    SfcResult = hoc(ClassComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = hoc(ClassComp);
 
     ClassResult = hoc(ClassComp);
-    ClassResult = hoc(SfcComp); // $ExpectError
+    // @ts-expect-error
+    ClassResult = hoc(SfcComp);
 
-    SfcResult = setPropTypes({ bar: PropTypes.string })(SfcComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = setPropTypes({ bar: PropTypes.string })(SfcComp);
 }
 
 function testSetDisplayName() {
@@ -493,10 +500,12 @@ function testSetDisplayName() {
     const hoc = setDisplayName('NewDisplayName');
 
     SfcResult = hoc(SfcComp);
-    SfcResult = hoc(ClassComp); // $ExpectError
+    // @ts-expect-error
+    SfcResult = hoc(ClassComp);
 
     ClassResult = hoc(ClassComp);
-    ClassResult = hoc(SfcComp); // $ExpectError
+    // @ts-expect-error
+    ClassResult = hoc(SfcComp);
 }
 
 function testToRenderProps() {
@@ -561,7 +570,9 @@ function testToClass() {
 
     const MyComponentClass: React.ComponentClass<Props> = toClass(MyComponent);
 
-    <MyComponentClass />; // $ExpectError
-    <MyComponentClass foo={2} />; // $ExpectError
+    // @ts-expect-error
+    <MyComponentClass />;
+    // @ts-expect-error
+    <MyComponentClass foo={2} />;
     <MyComponentClass foo={1} />;
 }

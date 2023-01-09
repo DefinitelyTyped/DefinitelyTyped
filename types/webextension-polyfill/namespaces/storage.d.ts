@@ -13,18 +13,18 @@
 import { Events } from "./events";
 
 export namespace Storage {
-    interface StorageChange {
+    interface StorageChange<OType = any, NType = OType> {
         /**
          * The old value of the item, if there was an old value.
          * Optional.
          */
-        oldValue?: any;
+        oldValue?: OType;
 
         /**
          * The new value of the item, if there is a new value.
          * Optional.
          */
-        newValue?: any;
+        newValue?: NType;
     }
 
     interface StorageArea {
@@ -64,6 +64,13 @@ export namespace Storage {
          * @returns Callback on success, or on failure (in which case $(ref:runtime.lastError) will be set).
          */
         clear(): Promise<void>;
+
+        /**
+         * Fired when one or more items change.
+         *
+         * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+         */
+        onChanged: Events.Event<(changes: StorageAreaOnChangedChangesType) => void>;
     }
 
     interface StorageAreaSync {
@@ -113,6 +120,13 @@ export namespace Storage {
          * @returns Callback on success, or on failure (in which case $(ref:runtime.lastError) will be set).
          */
         clear(): Promise<void>;
+
+        /**
+         * Fired when one or more items change.
+         *
+         * @param changes Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+         */
+        onChanged: Events.Event<(changes: StorageAreaSyncOnChangedChangesType) => void>;
     }
 
     interface SyncStorageAreaSync extends StorageAreaSync {
@@ -167,6 +181,20 @@ export namespace Storage {
          * The maximum size (in bytes) of the managed storage JSON manifest file. Files larger than this limit will fail to load.
          */
         QUOTA_BYTES: 5242880;
+    }
+
+    /**
+     * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+     */
+    interface StorageAreaOnChangedChangesType<OType = any, NType = OType> {
+        [s: string]: StorageChange<OType, NType>;
+    }
+
+    /**
+     * Object mapping each key that changed to its corresponding $(ref:storage.StorageChange) for that item.
+     */
+    interface StorageAreaSyncOnChangedChangesType<OType = any, NType = OType> {
+        [s: string]: StorageChange<OType, NType>;
     }
 
     interface Static {

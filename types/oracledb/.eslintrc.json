@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "export-just-namespace": "off",
+        "no-unnecessary-generics": "off"
+    }
+}

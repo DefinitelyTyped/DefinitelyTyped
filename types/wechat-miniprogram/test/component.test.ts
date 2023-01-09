@@ -285,7 +285,7 @@ Component({
   methods: {
     someMethod() {
       this.setData({
-        // $ExpectError
+        // @ts-expect-error
         a: '',
       })
     },
@@ -430,7 +430,7 @@ Component({
       channel
       channel.emit('test', {})
       channel.on('xxx', () => {})
-      // $ExpectError
+      // @ts-expect-error
       channel.emit(1, 2)
     },
   },
@@ -439,7 +439,7 @@ Component({
 Component<{}, {}, { fn(): void }>({
   methods: {
     fn() {
-      // $ExpectError
+      // @ts-expect-error
       this.notExists
     },
   },
@@ -474,7 +474,7 @@ Component<{}, {}, { fn(): void }>({
       fn() {
         // $ExpectType () => void | Promise<void>
         this.onShow
-        // $ExpectError
+        // @ts-expect-error
         this.notExists
         return 'test'
       },

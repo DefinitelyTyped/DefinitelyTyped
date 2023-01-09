@@ -2,4 +2,5 @@ import remark = require('remark');
 import remarkHint = require('remark-hint');
 
 remark.remark().use(remarkHint);
-remark.remark().use(remarkHint, {}); // $ExpectError
+// @ts-expect-error
+remark.remark().use(remarkHint, {});

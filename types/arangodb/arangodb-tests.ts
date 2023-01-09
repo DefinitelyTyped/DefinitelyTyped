@@ -55,6 +55,19 @@ const bananas = db._createDocumentCollection("bananas", {
         offset: 23
     }
 }) as ArangoDB.Collection<Banana>;
+
+const bananas2 =  db._createDocumentCollection("bananas2", {
+    keyOptions: {
+        type: "padded",
+    }
+}) as ArangoDB.Collection<Banana>;
+
+const bananas3 =  db._createDocumentCollection("bananas3", {
+    keyOptions: {
+        type: "uuid",
+    }
+}) as ArangoDB.Collection<Banana>;
+
 bananas.ensureIndex({
     type: "hash",
     unique: true,

@@ -141,11 +141,11 @@ viewCollection.get(0) === null;
 viewCollection.get(0);
 viewCollection.setParent(htmlelement);
 viewCollection.add(view);
-// $ExpectError
+// @ts-expect-error
 viewCollection.add([view]);
 viewCollection.addMany([view]);
 viewCollection.remove(view);
-// $ExpectError
+// @ts-expect-error
 viewCollection.remove([view]);
 viewCollection.destroy();
 
@@ -217,7 +217,7 @@ class MyModel extends Model {}
 const model = new MyModel();
 model.set({ a: 4 });
 model.a;
-// $ExpectError
+// @ts-expect-error
 model.a = num;
 
 /**
@@ -227,7 +227,7 @@ const listView = new ListView(locale);
 listView.focus();
 listView.destroy();
 let focusTracker: FocusTracker = listView.focusTracker;
-// $ExpectError
+// @ts-expect-error
 listView.focusTracker as ListView;
 
 /**
@@ -363,7 +363,7 @@ viewCollection = boxedEditor.main;
  */
 // $ExpectType boolean
 new InlineEditableUIView(locale, view)._hasExternalElement;
-// $ExpectError
+// @ts-expect-error
 new InlineEditableUIView(locale, view)._hasExternalElement = true;
 
 /**
@@ -546,7 +546,7 @@ new InputView(locale).destroy();
 new InputView(locale).id;
 // $ExpectType string
 new InputView(locale).placeholder;
-// $ExpectError
+// @ts-expect-error
 new InputView(locale).placeholder = '';
 new InputView(locale).destroy();
 new InputView(locale).focus();
@@ -559,7 +559,7 @@ new InputNumberView(locale).destroy();
 new InputNumberView(locale).id;
 // $ExpectType string
 new InputNumberView(locale).placeholder;
-// $ExpectError
+// @ts-expect-error
 new InputNumberView(locale).placeholder = '';
 new InputNumberView(locale).destroy();
 new InputNumberView(locale).focus();

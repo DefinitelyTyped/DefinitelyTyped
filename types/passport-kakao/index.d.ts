@@ -1,4 +1,4 @@
-// Type definitions for passport-kakao 0.2
+// Type definitions for passport-kakao 1.0
 // Project: https://github.com/rotoshine/passport-kakao
 // Definitions by: Park9eon <https://github.com/Park9eon>
 //                 ZeroCho <https://github.com/zerocho>
@@ -18,15 +18,15 @@ export interface Profile extends passport.Profile {
 
 export interface StrategyOption {
     clientID: string;
-    clientSecret: string;
     callbackURL: string;
 
+    clientSecret?: string | undefined;
     scopeSeparator?: string | undefined;
     customHeaders?: string | undefined;
 }
 
 export interface StrategyOptionWithRequest extends StrategyOption {
-    passReqToCallback: boolean;
+    passReqToCallback: true;
 }
 
 export type VerifyFunction =

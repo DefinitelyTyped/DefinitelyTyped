@@ -12,7 +12,7 @@ itemsjs(myitems);
 itemsjs(myitems, {});
 
 // Invalid sort
-// $ExpectError
+// @ts-expect-error
 itemsjs(myitems, { sortings: { foo: {} } });
 
 const items = itemsjs(myitems, {
@@ -29,6 +29,7 @@ const items = itemsjs(myitems, {
     aggregations: {
         anAggregation: {
             title: 'A Number',
+            hide_zero_doc_count: true,
             conjunction: false,
         },
     },
@@ -41,7 +42,7 @@ items.search({ query: 'abc', sort: 'foo' });
 items.search({ query: 'abc', sort: 'bar' });
 
 // Sort 'baz' was never defined
-// $ExpectError
+// @ts-expect-error
 items.search({ query: 'abc', sort: 'baz' });
 
 items.search({
@@ -60,7 +61,7 @@ items.search({
 // Aggregation 'bar' was never defined
 items.search({
     query: 'abc',
-    // $ExpectError
+    // @ts-expect-error
     filters: { bar: [] },
 });
 
@@ -70,7 +71,7 @@ items.search({
 });
 
 // Aggregation 'bar' was never defined
-// $ExpectError
+// @ts-expect-error
 items.aggregation({ name: 'bar' });
 
 items.aggregation({ name: 'anAggregation' });
@@ -82,11 +83,13 @@ const myItemsIds = myitems.map((v, i) => ({ id: i, ...v }));
 const itemsIds = itemsjs(myItemsIds);
 
 // ID 'abc' is invalid
-// $ExpectError
+// @ts-expect-error
 itemsIds.similar('abc', { field: 'name' });
 
 // Missing options & missing field key
-itemsIds.similar(0); // $ExpectError
-itemsIds.similar(0, {}); // $ExpectError
+// @ts-expect-error
+itemsIds.similar(0);
+// @ts-expect-error
+itemsIds.similar(0, {});
 
 itemsIds.similar(0, { field: 'name' });

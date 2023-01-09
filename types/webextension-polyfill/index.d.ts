@@ -1,4 +1,4 @@
-// Type definitions for webextension-polyfill 0.8
+// Type definitions for webextension-polyfill 0.9
 // Project: https://github.com/mozilla/webextension-polyfill
 // Definitions by: Santo Pfingsten <https://github.com/Lusito>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -236,5 +236,5 @@ declare namespace Browser {
     /* tslint:enable:strict-export-declare-modifiers */
 }
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = Browser;

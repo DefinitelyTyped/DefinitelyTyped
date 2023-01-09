@@ -1,6 +1,5 @@
-import RouteInfo from '@ember/routing/-private/route-info';
-import RouteInfoWithAttributes from '@ember/routing/-private/route-info-with-attributes';
-import Transition from '@ember/routing/-private/transition';
+import RouteInfo, { RouteInfoWithAttributes } from '@ember/routing/route-info';
+import Transition from '@ember/routing/transition';
 import Service from '@ember/service';
 
 // tslint:disable-next-line:strict-export-declare-modifiers

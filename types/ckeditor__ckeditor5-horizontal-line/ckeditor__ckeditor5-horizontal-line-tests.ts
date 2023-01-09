@@ -30,7 +30,7 @@ editor.plugins.get('HorizontalLineUI').editor.ui;
 editor.commands.get('horizontalLine');
 
 editor.commands.get('horizontalLine')?.execute();
-// $ExpectError
+// @ts-expect-error
 editor.commands.get('horizontalLine')?.execute(true);
 
 editor.commands.get('horizontalLine')?.on(
@@ -48,5 +48,5 @@ editor.commands.get('horizontalLine')?.off('execute', ev => {
 });
 
 editor.commands.get('horizontalLine')?.fire('execute');
-// $ExpectError
+// @ts-expect-error
 editor.commands.get('horizontalLine')?.fire('execute', true);

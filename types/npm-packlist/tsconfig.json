@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths" : {
+            "@npmcli/*": ["npmcli__*"]
+        }
     },
     "files": [
         "index.d.ts",

@@ -13,11 +13,14 @@ declare namespace prompt {
     type GetCallback<T> = (err: Error | null, result: T) => void;
     type AddCallback = (err: Error | null) => void;
     type AskFunction = () => boolean;
+    type BeforeFunction = (line: string) => string;
 
     type RevalidatorSchema = Partial<Revalidator.ISchema<any>> & {
         ask?: AskFunction | undefined;
+        before?: BeforeFunction | undefined;
         name?: string | undefined;
         raw?: [string, string] | undefined;
+        hidden?: boolean;
     };
 
     interface Properties {

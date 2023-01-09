@@ -92,7 +92,7 @@ declare namespace pica {
 
     interface PicaResizeBufferOptions {
         /** Uint8Array with source data. */
-        src: number[];
+        src: Uint8Array;
         /** src image width. */
         width: number;
         /** src image height. */
@@ -100,7 +100,7 @@ declare namespace pica {
         /** output width, >=0, in pixels. */
         toWidth: number;
         /** output height, >=0, in pixels. */
-        toHeigh: number;
+        toHeight: number;
         /**
          * deprecated use `.filter` instead.
          *
@@ -142,7 +142,7 @@ declare namespace pica {
         /**
          * Optional. Output buffer to write data, if you don't wish pica to create new one.
          */
-        dest?: string | undefined;
+        dest?: Uint8Array | undefined;
     }
 
     interface Pica {
@@ -169,7 +169,7 @@ declare namespace pica {
          * Resize Uint8Array with raw RGBA bitmap (don't confuse with jpeg / png / ... binaries).
          * It does not use tiles & webworkers. Left for special cases when you really need to process raw binary data (for example, if you decode jpeg files "manually").
          */
-        resizeBuffer(options: PicaResizeBufferOptions): Promise<number[]>;
+        resizeBuffer(options: PicaResizeBufferOptions): Promise<Uint8Array>;
     }
 
     interface PicaStatic {

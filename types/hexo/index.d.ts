@@ -449,6 +449,8 @@ declare namespace Hexo {
         safe?: boolean | undefined;
         silent?: boolean | undefined;
         config?: string | undefined;
+        draft?: boolean | undefined;
+        drafts?: boolean | undefined;
     }
 
     interface Locals {

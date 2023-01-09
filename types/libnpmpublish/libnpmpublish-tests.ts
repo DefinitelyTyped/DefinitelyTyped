@@ -1,6 +1,6 @@
+import { PackageJson } from "@npm/types";
 import libnpmpublish = require("libnpmpublish");
 import fetch = require("npm-registry-fetch");
-import { Manifest } from "pacote";
 
 async function test() {
     // declare variables to be used
@@ -19,23 +19,23 @@ async function test() {
         fetchRetryMintimeout: 20000,
         fetchRetryMaxtimeout: 50000,
         agent: undefined,
-        body: "bodyhere"
+        body: "bodyhere",
     };
-    const manifest: Manifest = {
+    const manifest: PackageJson = {
         name: "",
         version: "",
-        dist: {
-            tarball: ""
-        }
     };
     const tarballData: Buffer = Buffer.from("thisisafillerforthebuffertowork");
     // test param requirements and return values
-    await libnpmpublish.publish(); // $ExpectError
-    await libnpmpublish.publish(manifest); // $ExpectError
+    // @ts-expect-error
+    await libnpmpublish.publish();
+    // @ts-expect-error
+    await libnpmpublish.publish(manifest);
     await libnpmpublish.publish(manifest, tarballData); // $ExpectType Response
     await libnpmpublish.publish(manifest, tarballData, options); // $ExpectType Response
 
-    await libnpmpublish.unpublish(); // $ExpectError
+    // @ts-expect-error
+    await libnpmpublish.unpublish();
     await libnpmpublish.unpublish("npmpackage"); // $ExpectType boolean
     await libnpmpublish.unpublish("npmpackage", options); // $ExpectType boolean
 }

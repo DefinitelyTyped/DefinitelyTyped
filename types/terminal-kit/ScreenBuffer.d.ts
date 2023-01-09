@@ -9,6 +9,8 @@ declare class ScreenBuffer extends NextGenEvents {
   readonly x: number;
   readonly y: number;
   readonly blending: boolean | ScreenBufferHD.IsBlending;
+  readonly width: number;
+  readonly height: number;
 
   constructor(options: ScreenBuffer.Options);
 
@@ -108,9 +110,9 @@ declare namespace ScreenBuffer {
   }
 
   interface Attributes {
-    color?: number | undefined;
+    color?: number | string | undefined;
     defaultColor?: boolean | undefined;
-    bgColor?: number | undefined;
+    bgColor?: number | string | undefined;
     bgDefaultColor?: boolean | undefined;
     bold?: boolean | undefined;
     dim?: boolean | undefined;

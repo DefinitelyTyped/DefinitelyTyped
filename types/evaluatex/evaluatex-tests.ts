@@ -25,3 +25,23 @@ fn5({ x: 50, HALF_PI: 1000 });
 const fn6 = evaluatex2('\\frac 1{20}3', {}, { latex: true });
 
 fn6();
+
+fn6.ast.children[0].children[0].value;
+
+const fn7 = evaluatex('incr(4)', {
+    incr(x) {
+        return x + 1;
+    },
+});
+
+fn7();
+
+import lexer = require('evaluatex/dist/lexer');
+import parser = require('evaluatex/dist/parser');
+
+const tokens: evaluatex.Token[] = lexer('1+1', { max: Math.max.bind(Math) }, { latex: false });
+
+const ast: evaluatex.AbstractSyntaxTreeNode = parser(tokens).simplify();
+
+ast.evaluate();
+ast.evaluate({});

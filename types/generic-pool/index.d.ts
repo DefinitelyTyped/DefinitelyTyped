@@ -23,7 +23,7 @@ export class Pool<T> extends EventEmitter {
     destroy(resource: T): PromiseLike<void>;
     drain(): PromiseLike<void>;
     clear(): PromiseLike<void>;
-    use<U>(cb: (resource: T) => U | PromiseLike<U>): PromiseLike<U>;
+    use<U>(cb: (resource: T) => PromiseLike<U>): PromiseLike<U>;
     isBorrowedResource(resource: T): boolean;
 }
 

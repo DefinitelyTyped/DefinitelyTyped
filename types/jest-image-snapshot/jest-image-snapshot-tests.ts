@@ -19,6 +19,7 @@ it('should be able to use configureToMatchImageSnapshot in a test', () => {
             threshold: 5,
             includeAA: false,
         },
+        onlyDiff: false,
         failureThreshold: 10,
         failureThresholdType: 'percent',
     });
@@ -38,7 +39,10 @@ it('Should be able to use configuration directly in toMatchImageSnapshot', () =>
             includeAA: false,
         },
         customDiffDir: './diffs',
+        storeReceivedOnFailure: true,
+        customReceivedDir: '/usr/local/__received_output__',
         diffDirection: 'vertical',
+        onlyDiff: false,
         dumpInlineDiffToConsole: true,
         updatePassedSnapshot: true,
         failureThreshold: 10,

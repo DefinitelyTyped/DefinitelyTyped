@@ -91,7 +91,7 @@ export class GLTFExporter {
 export class GLTFWriter {
     constructor();
 
-    setPlugins(plugins: GLTFExporterPlugin[]);
+    setPlugins(plugins: GLTFExporterPlugin[]): void;
 
     /**
      * Parse scenes and generate GLTF output

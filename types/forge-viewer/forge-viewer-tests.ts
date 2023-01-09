@@ -25,7 +25,10 @@ Autodesk.Viewing.Initializer(options, async () => {
 
     await doc.downloadAecModelData();
     const aecModelData = await Autodesk.Viewing.Document.getAecModelData(doc.getRoot());
-    const defaultViewable = doc.getRoot().getDefaultGeometry();
+    const root = doc.getRoot();
+    const defaultViewable = root.getDefaultGeometry();
+    const masterView = root.getDefaultGeometry(true);
+    const largestView = root.getDefaultGeometry(false, true);
     const model = await viewer.loadDocumentNode(doc, defaultViewable);
 
     globalTests();
@@ -42,6 +45,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     preferencesTests(viewer);
     showHideTests(viewer);
     worldUpTests(viewer);
+    selectionTests(viewer);
     await bulkPropertiesTests(model);
     await compGeomTests(viewer);
     await dataVizTests(viewer);
@@ -549,4 +553,81 @@ function loadDocument(urn: string): Promise<Autodesk.Viewing.Document> {
             reject(new Error(errorMsg));
         });
     });
+}
+
+function checkColorEquals() {
+    const color1 = new THREE.Color(255, 127, 39);
+    const color2 = new THREE.Color(255, 127, 39);
+    const color3 = new THREE.Color(128, 128, 255);
+
+    color1.equals(color2); // $ExpectType boolean
+
+    if (!color1.equals(color2))
+        throw new Error("Colors must be equal");
+
+    if (color1.equals(color3))
+        throw new Error("Colors must not be equal");
+}
+
+function checkColorGetHexString() {
+    const color = new THREE.Color(255, 127, 39);
+
+    color.getHexString(); // $ExpectType string
+
+    if (color.getHexString() !== "805827")
+        throw new Error("Failed to get color hex string");
+}
+
+function checkColorAsMaterialCreationParameter() {
+    const color = new THREE.Color(5, 128, 57);
+
+    const materials = [
+        new THREE.MeshBasicMaterial({ color }),
+        new THREE.LineBasicMaterial({ color }),
+        new THREE.LineDashedMaterial({ color }),
+        new THREE.MeshLambertMaterial({ color }),
+        new THREE.MeshPhongMaterial({ color }),
+        new THREE.MeshStandardMaterial({ color })
+    ];
+
+    for (const material of materials) {
+        if (!material.color.equals(color))
+            throw new Error("Failed to instantiate material with color object");
+    }
+}
+
+function checkMeshAllowsBufferGeometry() {
+    const boxGeometry = new THREE.BufferGeometry().fromGeometry(new THREE.BoxGeometry(10, 10, 10));
+    const boxMaterial = new THREE.MeshPhongMaterial({ color: "#ff0000" });
+    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+
+    if (!(boxMesh.geometry instanceof THREE.BufferGeometry))
+        throw new Error("Mesh geometry is not a BufferGeometry!");
+}
+
+function matrixSetPositionTest(): void {
+    const matrix = new THREE.Matrix4();
+
+    matrix.setPosition(new THREE.Vector3(1, 1, 1)); // $ExpectType Matrix4
+}
+
+function selectionTests(viewer: Autodesk.Viewing.GuiViewer3D) {
+    const rootId = viewer.model.getRootId();
+
+    viewer.select(rootId);
+
+    const aggregateSelection = viewer.getAggregateSelection();
+
+    if (aggregateSelection.length !== 1)
+        throw new Error("Should return exactly one object");
+
+    const selection = aggregateSelection[0];
+
+    if (selection.model !== viewer.model)
+        throw new Error("Selection model differs from viewer model");
+
+    if (selection.selection.length !== 1 || selection.selection[0] !== rootId)
+        throw new Error("Something is wron with aggregate selection!");
+
+    viewer.select([]);
 }

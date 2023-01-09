@@ -6,8 +6,8 @@ sliceAnsi('The quick brown \u001b[31mfox jumped over \u001b[39mthe lazy \u001b[3
 // $ExpectType string
 sliceAnsi('test', 1);
 
-// $ExpectError
+// @ts-expect-error
 sliceAnsi();
 
-// $ExpectError
+// @ts-expect-error
 sliceAnsi(5);

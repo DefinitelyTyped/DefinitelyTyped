@@ -53,7 +53,8 @@ const action = async (foo: string, bar: number) => {
     return foo ? bar : bar * 2;
 };
 const typedBreaker = new CircuitBreaker(action);
-typedBreaker.fire(5, 'hello'); // $ExpectError
+// @ts-expect-error
+typedBreaker.fire(5, 'hello');
 typedBreaker.fire('hello world', 42); // $ExpectType Promise<number>
 typedBreaker.on('success', (result, latencyMs) => {
     result; // $ExpectType number

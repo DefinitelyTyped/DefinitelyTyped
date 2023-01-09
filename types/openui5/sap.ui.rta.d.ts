@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -116,5 +116,9 @@ declare namespace sap {
     "sap/ui/rta/service/Property": undefined;
 
     "sap/ui/rta/service/Selection": undefined;
+
+    "sap/ui/rta/service/SupportTools": undefined;
+
+    "sap/ui/rta/util/ReloadManager": undefined;
   }
 }

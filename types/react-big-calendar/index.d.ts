@@ -177,10 +177,10 @@ export interface DateHeaderProps {
     onDrillDown: () => void;
 }
 
-export interface ResourceHeaderProps {
+export interface ResourceHeaderProps<TResource extends object = object> {
     label: React.ReactNode;
     index: number;
-    resource: object;
+    resource: TResource;
 }
 
 export interface DateCellWrapperProps {
@@ -235,7 +235,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
      * component used as a header for each column in the TimeGridHeader
      */
     header?: React.ComponentType<HeaderProps> | undefined;
-    resourceHeader?: React.ComponentType<ResourceHeaderProps> | undefined;
+    resourceHeader?: React.ComponentType<ResourceHeaderProps<TResource>> | undefined;
 }
 
 export interface ToolbarProps<TEvent extends object = Event, TResource extends object = object> {
@@ -402,6 +402,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     min?: Date | undefined;
     max?: Date | undefined;
     scrollToTime?: Date | undefined;
+    enableAutoScroll?: boolean | undefined;
     culture?: Culture | undefined;
     formats?: Formats | undefined;
     components?: Components<TEvent, TResource> | undefined;
@@ -452,7 +453,17 @@ export interface components {
 export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
-export function luxonLocalizer(config: object): DateLocalizer;
+export function luxonLocalizer(
+  luxonDateTime: object,
+  options?: {
+    /**
+     * Luxon uses 1 based values for month and weekday
+     * So we default to Sunday (7)
+     * @default 7
+     */
+    firstDayOfWeek: number;
+  },
+): DateLocalizer;
 
 export const Navigate: {
     PREVIOUS: 'PREV';

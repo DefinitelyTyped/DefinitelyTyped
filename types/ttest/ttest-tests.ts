@@ -4,7 +4,7 @@ import ttest = require('ttest');
 ttest([0, 1, 1, 1], { mu: -1, alpha: 0.06, alternative: 'not equal' }).valid();
 
 // varEqual only available with `left` AND `right`
-// $ExpectError
+// @ts-expect-error
 ttest([0, 1, 1, 1], { varEqual: true }).valid();
 
 // $ExpectType boolean

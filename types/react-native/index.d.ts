@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.67
+// Type definitions for react-native 0.70
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 HuHuanming <https://github.com/huhuanming>
@@ -25,7 +25,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -34,13 +33,16 @@
 //                 David Sheldrick <https://github.com/ds300>
 //                 Natsathorn Yuthakovit <https://github.com/natsathorn>
 //                 ConnectDotz <https://github.com/connectdotz>
-//                 Marcel Lasaj <https://github.com/TheWirv>
 //                 Alexey Molchan <https://github.com/alexeymolchan>
 //                 Alex Brazier <https://github.com/alexbrazier>
 //                 Arafat Zahan <https://github.com/kuasha420>
 //                 Pedro Hernández <https://github.com/phvillegas>
 //                 Sebastian Silbermann <https://github.com/eps1lon>
 //                 Zihan Chen <https://github.com/ZihanChen-MSFT>
+//                 Lorenzo Sciandra <https://github.com/kelset>
+//                 Mateusz Wit <https://github.com/MateWW>
+//                 Luna Wei <https://github.com/lunaleaps>
+//                 Saad Najmi <https://github.com/saadnajmi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -59,6 +61,7 @@
 /// <reference path="globals.d.ts" />
 /// <reference path="legacy-properties.d.ts" />
 /// <reference path="BatchedBridge.d.ts" />
+/// <reference path="Codegen.d.ts" />
 /// <reference path="Devtools.d.ts" />
 /// <reference path="LaunchScreen.d.ts" />
 
@@ -206,13 +209,6 @@ declare class EventEmitter {
     removeAllListeners(eventType?: string): void;
 
     /**
-     * Removes a specific subscription. Called by the `remove()` method of the
-     * subscription itself to ensure any necessary cleanup is performed.
-     * @deprecated Use `remove` on the EventSubscription from `addListener`.
-     */
-    removeSubscription(subscription: EmitterSubscription): void;
-
-    /**
      * Returns the number of listeners that are currently registered for the given
      * event.
      *
@@ -235,21 +231,6 @@ declare class EventEmitter {
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
     emit(eventType: string, ...params: any[]): void;
-
-    /**
-     * Removes the given listener for event of specific type.
-     *
-     * @param eventType - Name of the event to emit
-     * @param listener - Function to invoke when the specified event is
-     *   emitted
-     *
-     * @example
-     *   emitter.removeListener('someEvent', function(message) {
-     *     console.log(message);
-     *   }); // removes the listener if already registered
-     * @deprecated Use `remove` on the EventSubscription from `addListener`.
-     */
-    removeListener(eventType: string, listener: (...args: any[]) => any): void;
 }
 
 /**
@@ -371,7 +352,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, React.ElementRef<HostComponent<unknown>>, React.ElementRef<HostComponent<unknown>>> {}
 
 export interface NativeTouchEvent {
     /**
@@ -407,7 +388,7 @@ export interface NativeTouchEvent {
     /**
      * The node id of the element receiving the touch event
      */
-    target: string;
+    target: NodeHandle;
 
     /**
      * A time identifier for the touch, useful for velocity calculation
@@ -426,10 +407,150 @@ export interface NativeTouchEvent {
     force?: number | undefined;
 }
 
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/UIEvent
+ */
+export interface NativeUIEvent {
+    /**
+     * Returns a long with details about the event, depending on the event type.
+     */
+    readonly detail: number;
+}
+
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent
+ */
+export interface NativeMouseEvent extends NativeUIEvent {
+    /**
+     * The X coordinate of the mouse pointer in global (screen) coordinates.
+     */
+    readonly screenX: number;
+    /**
+     * The Y coordinate of the mouse pointer in global (screen) coordinates.
+     */
+    readonly screenY: number;
+    /**
+     * The X coordinate of the mouse pointer relative to the whole document.
+     */
+    readonly pageX: number;
+    /**
+     * The Y coordinate of the mouse pointer relative to the whole document.
+     */
+    readonly pageY: number;
+    /**
+     * The X coordinate of the mouse pointer in local (DOM content) coordinates.
+     */
+    readonly clientX: number;
+    /**
+     * The Y coordinate of the mouse pointer in local (DOM content) coordinates.
+     */
+    readonly clientY: number;
+    /**
+     * Alias for NativeMouseEvent.clientX
+     */
+    readonly x: number;
+    /**
+     * Alias for NativeMouseEvent.clientY
+     */
+    readonly y: number;
+    /**
+     * Returns true if the control key was down when the mouse event was fired.
+     */
+    readonly ctrlKey: boolean;
+    /**
+     * Returns true if the shift key was down when the mouse event was fired.
+     */
+    readonly shiftKey: boolean;
+    /**
+     * Returns true if the alt key was down when the mouse event was fired.
+     */
+    readonly altKey: boolean;
+    /**
+     * Returns true if the meta key was down when the mouse event was fired.
+     */
+    readonly metaKey: boolean;
+    /**
+     * The button number that was pressed (if applicable) when the mouse event was fired.
+     */
+    readonly button: number;
+    /**
+     * The buttons being depressed (if any) when the mouse event was fired.
+     */
+    readonly buttons: number;
+    /**
+     * The secondary target for the event, if there is one.
+     */
+    readonly relatedTarget: null | number | React.ElementRef<HostComponent<unknown>>;
+    // offset is proposed: https://drafts.csswg.org/cssom-view/#extensions-to-the-mouseevent-interface
+    /**
+     * The X coordinate of the mouse pointer between that event and the padding edge of the target node
+     */
+    readonly offsetX: number;
+    /**
+     * The Y coordinate of the mouse pointer between that event and the padding edge of the target node
+     */
+    readonly offsetY: number;
+}
+
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent
+ */
+export interface NativePointerEvent extends NativeMouseEvent {
+    /**
+     * A unique identifier for the pointer causing the event.
+     */
+    readonly pointerId: number;
+    /**
+     * The width (magnitude on the X axis), in CSS pixels, of the contact geometry of the pointer
+     */
+    readonly width: number;
+    /**
+     * The height (magnitude on the Y axis), in CSS pixels, of the contact geometry of the pointer.
+     */
+    readonly height: number;
+    /**
+     * The normalized pressure of the pointer input in the range 0 to 1, where 0 and 1 represent
+     * the minimum and maximum pressure the hardware is capable of detecting, respectively.
+     */
+    readonly pressure: number;
+    /**
+     * The normalized tangential pressure of the pointer input (also known as barrel pressure or
+     * cylinder stress) in the range -1 to 1, where 0 is the neutral position of the control.
+     */
+    readonly tangentialPressure: number;
+    /**
+     * The plane angle (in degrees, in the range of -90 to 90) between the Y–Z plane and the plane
+     * containing both the pointer (e.g. pen stylus) axis and the Y axis.
+     */
+    readonly tiltX: number;
+    /**
+     * The plane angle (in degrees, in the range of -90 to 90) between the X–Z plane and the plane
+     * containing both the pointer (e.g. pen stylus) axis and the X axis.
+     */
+    readonly tiltY: number;
+    /**
+     * The clockwise rotation of the pointer (e.g. pen stylus) around its major axis in degrees,
+     * with a value in the range 0 to 359.
+     */
+    readonly twist: number;
+    /**
+     * Indicates the device type that caused the event (mouse, pen, touch, etc.)
+     */
+    readonly pointerType: string;
+    /**
+     * Indicates if the pointer represents the primary pointer of this pointer type.
+     */
+    readonly isPrimary: boolean;
+}
+
+export type PointerEvent = NativeSyntheticEvent<NativePointerEvent>;
+
 export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {}
 
+export interface MouseEvent extends NativeSyntheticEvent<NativeMouseEvent> {}
+
 // See https://reactnative.dev/docs/scrollview#contentoffset
-export interface PointPropType {
+export interface PointProp {
     x: number;
     y: number;
 }
@@ -454,6 +575,16 @@ export interface PressableAndroidRippleConfig {
 
 export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'children' | 'style' | 'hitSlop'> {
     /**
+     * Called when the hover is activated to provide visual feedback.
+     */
+    onHoverIn?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
+     * Called when the hover is deactivated to undo visual feedback.
+     */
+    onHoverOut?: null | ((event: MouseEvent) => void) | undefined,
+
+    /**
      * Called when a single tap gesture is detected.
      */
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -475,13 +606,13 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
 
     /**
      * Called after the element loses focus.
-     * @platform windows
+     * @platform macos windows
      */
     onBlur?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
     /**
      * Called after the element is focused.
-     * @platform windows
+     * @platform macos windows
      */
     onFocus?: null | ((event: NativeSyntheticEvent<TargetedEvent>) => void) | undefined;
 
@@ -496,6 +627,18 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
      * scroll event. Defaults to true.
      */
     cancelable?: null | boolean | undefined;
+
+    /**
+     * Duration to wait after hover in before calling `onHoverIn`.
+     * @platform macos windows
+     */
+    delayHoverIn?: number | null | undefined;
+
+    /**
+     * Duration to wait after hover out before calling `onHoverOut`.
+     * @platform macos windows
+     */
+    delayHoverOut?: number | null | undefined;
 
     /**
      * Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
@@ -542,7 +685,7 @@ export interface PressableProps extends AccessibilityProps, Omit<ViewProps, 'chi
     /**
      * Duration (in milliseconds) to wait after press down before calling onPressIn.
      */
-    unstable_pressDelay?: number
+    unstable_pressDelay?: number;
 }
 
 // TODO use React.AbstractComponent when available
@@ -559,10 +702,26 @@ export interface Touchable {
     onTouchCancel?: ((event: GestureResponderEvent) => void) | undefined;
     onTouchEndCapture?: ((event: GestureResponderEvent) => void) | undefined;
 }
+
 export const Touchable: {
     TOUCH_TARGET_DEBUG: boolean;
     renderDebugView: (config: { color: string | number; hitSlop?: Insets | undefined }) => React.ReactElement | null;
 };
+
+export interface PointerEvents {
+    onPointerEnter?: ((event: PointerEvent) => void) | undefined;
+    onPointerEnterCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerLeave?: ((event: PointerEvent) => void) | undefined;
+    onPointerLeaveCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerMove?: ((event: PointerEvent) => void) | undefined;
+    onPointerMoveCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerCancel?: ((event: PointerEvent) => void) | undefined;
+    onPointerCancelCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerDown?: ((event: PointerEvent) => void) | undefined;
+    onPointerDownCapture?: ((event: PointerEvent) => void) | undefined;
+    onPointerUp?: ((event: PointerEvent) => void) | undefined;
+    onPointerUpCapture?: ((event: PointerEvent) => void) | undefined;
+}
 
 export type ComponentProvider = () => React.ComponentType<any>;
 
@@ -608,23 +767,13 @@ export namespace AppRegistry {
     function getRunnable(appKey: string): Runnable | undefined;
 }
 
-export type LayoutAnimationType =
-    | 'spring'
-    | 'linear'
-    | 'easeInEaseOut'
-    | 'easeIn'
-    | 'easeOut'
-    | 'keyboard';
+export type LayoutAnimationType = 'spring' | 'linear' | 'easeInEaseOut' | 'easeIn' | 'easeOut' | 'keyboard';
 
 export type LayoutAnimationTypes = {
     [type in LayoutAnimationType]: type;
 };
 
-export type LayoutAnimationProperty =
-    | 'opacity'
-    | 'scaleX'
-    | 'scaleY'
-    | 'scaleXY';
+export type LayoutAnimationProperty = 'opacity' | 'scaleX' | 'scaleY' | 'scaleXY';
 
 export type LayoutAnimationProperties = {
     [prop in LayoutAnimationProperty]: prop;
@@ -666,7 +815,7 @@ export interface LayoutAnimationStatic {
     create: (
         duration: number,
         type?: LayoutAnimationType,
-        creationProp?: LayoutAnimationProperty
+        creationProp?: LayoutAnimationProperty,
     ) => LayoutAnimationConfig;
     Types: LayoutAnimationTypes;
     Properties: LayoutAnimationProperties;
@@ -685,9 +834,8 @@ type FlexAlignType = 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baselin
 
 /**
  * Flex Prop Types
- * @see https://reactnative.dev/docs/flexbox#proptypes
+ * @see https://reactnative.dev/docs/flexbox
  * @see https://reactnative.dev/docs/layout-props
- * @see https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/LayoutPropTypes.js
  */
 export interface FlexStyle {
     alignContent?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'space-between' | 'space-around' | undefined;
@@ -711,7 +859,14 @@ export interface FlexStyle {
     flexShrink?: number | undefined;
     flexWrap?: 'wrap' | 'nowrap' | 'wrap-reverse' | undefined;
     height?: number | string | undefined;
-    justifyContent?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly' | undefined;
+    justifyContent?:
+        | 'flex-start'
+        | 'flex-end'
+        | 'center'
+        | 'space-between'
+        | 'space-around'
+        | 'space-evenly'
+        | undefined;
     left?: number | string | undefined;
     margin?: number | string | undefined;
     marginBottom?: number | string | undefined;
@@ -831,21 +986,23 @@ interface MatrixTransform {
 }
 
 export interface TransformsStyle {
-    transform?: (
-        | PerpectiveTransform
-        | RotateTransform
-        | RotateXTransform
-        | RotateYTransform
-        | RotateZTransform
-        | ScaleTransform
-        | ScaleXTransform
-        | ScaleYTransform
-        | TranslateXTransform
-        | TranslateYTransform
-        | SkewXTransform
-        | SkewYTransform
-        | MatrixTransform
-    )[] | undefined;
+    transform?:
+        | (
+              | PerpectiveTransform
+              | RotateTransform
+              | RotateXTransform
+              | RotateYTransform
+              | RotateZTransform
+              | ScaleTransform
+              | ScaleXTransform
+              | ScaleYTransform
+              | TranslateXTransform
+              | TranslateYTransform
+              | SkewXTransform
+              | SkewYTransform
+              | MatrixTransform
+          )[]
+        | undefined;
     /**
      * @deprecated Use matrix in transform prop instead.
      */
@@ -885,7 +1042,7 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle, target?: NodeHandle | null }>;
 
 interface TextLayoutLine {
     ascender: number;
@@ -965,6 +1122,11 @@ export interface TextPropsIOS {
 
 export interface TextPropsAndroid {
     /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
+    /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
     selectable?: boolean | undefined;
@@ -989,11 +1151,7 @@ export interface TextPropsAndroid {
     /**
      * Hyphenation strategy
      */
-    android_hyphenationFrequency?:
-        | 'normal'
-        | 'none'
-        | 'full'
-        | undefined;
+    android_hyphenationFrequency?: 'normal' | 'none' | 'full' | undefined;
 }
 
 // https://reactnative.dev/docs/text#props
@@ -1381,6 +1539,14 @@ export interface TextInputAndroidProps {
         | 'username-new'
         | 'off'
         | undefined;
+
+    /**
+     * When provided it will set the color of the cursor (or "caret") in the component.
+     * Unlike the behavior of `selectionColor` the cursor color will be set independently
+     * from the color of the text selection box.
+     * @platform android
+     */
+    cursorColor?: ColorValue | null | undefined;
 
     /**
      * Determines whether the individual fields in your app should be included in a
@@ -1959,7 +2125,6 @@ export interface GestureResponderHandlers {
 
 /**
  * @see https://reactnative.dev/docs/view#style
- * @see https://github.com/facebook/react-native/blob/master/Libraries/Components/View/ViewStylePropTypes.js
  */
 export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     backfaceVisibility?: 'visible' | 'hidden' | undefined;
@@ -2316,6 +2481,12 @@ export type AccessibilityRole =
 
 export interface AccessibilityPropsAndroid {
     /**
+     * Specifies the nativeID of the associated label text. When the assistive technology focuses on the component with this props, the text is read aloud.
+     * @platform android
+     */
+    accessibilityLabelledBy?: string | string[] | undefined;
+
+    /**
      * Indicates to accessibility services whether the user should be notified when this view changes.
      * Works for Android API >= 19 only.
      * See http://developer.android.com/reference/android/view/View.html#attr_android:accessibilityLiveRegion for references.
@@ -2344,6 +2515,14 @@ export interface AccessibilityPropsIOS {
      * @platform ios
      */
     accessibilityElementsHidden?: boolean | undefined;
+
+    /**
+     * Indicates to the accessibility services that the UI component is in
+     * a specific language. The provided string should be formatted following
+     * the BCP 47 specification (https://www.rfc-editor.org/info/bcp47).
+     * @platform ios
+     */
+    accessibilityLanguage?: string | undefined;
 
     /**
      * A Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver.
@@ -2384,6 +2563,7 @@ export interface ViewProps
         ViewPropsIOS,
         GestureResponderHandlers,
         Touchable,
+        PointerEvents,
         AccessibilityProps {
     children?: React.ReactNode;
     /**
@@ -2590,54 +2770,6 @@ export interface KeyboardAvoidingViewProps extends ViewProps {
 }
 
 /**
- * @see https://reactnative.dev/docs/segmentedcontrolios
- * @see SegmentedControlIOS.ios.js
- */
-export interface NativeSegmentedControlIOSChangeEvent extends TargetedEvent {
-    value: string;
-    selectedSegmentIndex: number;
-}
-
-export interface SegmentedControlIOSProps extends ViewProps {
-    /**
-     * If false the user won't be able to interact with the control. Default value is true.
-     */
-    enabled?: boolean | undefined;
-
-    /**
-     * If true, then selecting a segment won't persist visually.
-     * The onValueChange callback will still work as expected.
-     */
-    momentary?: boolean | undefined;
-
-    /**
-     * Callback that is called when the user taps a segment;
-     * passes the event as an argument
-     */
-    onChange?: ((event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void) | undefined;
-
-    /**
-     * Callback that is called when the user taps a segment; passes the segment's value as an argument
-     */
-    onValueChange?: ((value: string) => void) | undefined;
-
-    /**
-     * The index in props.values of the segment to be (pre)selected.
-     */
-    selectedIndex?: number | undefined;
-
-    /**
-     * Accent color of the control.
-     */
-    tintColor?: ColorValue | undefined;
-
-    /**
-     * The labels for the control's segment buttons, in order.
-     */
-    values?: string[] | undefined;
-}
-
-/**
  * Renders nested content and automatically applies paddings reflect the portion of the view
  * that is not covered by navigation bars, tab bars, toolbars, and other ancestor views.
  * Moreover, and most importantly, Safe Area's paddings reflect physical limitation of the screen,
@@ -2668,37 +2800,6 @@ export interface InputAccessoryViewProps {
 
     style?: StyleProp<ViewStyle> | undefined;
 }
-
-/**
- * Use `SegmentedControlIOS` to render a UISegmentedControl iOS.
- *
- * #### Programmatically changing selected index
- *
- * The selected index can be changed on the fly by assigning the
- * selectIndex prop to a state variable, then changing that variable.
- * Note that the state variable would need to be updated as the user
- * selects a value and changes the index, as shown in the example below.
- *
- * ````
- * <SegmentedControlIOS
- *   values={['One', 'Two']}
- *   selectedIndex={this.state.selectedIndex}
- *   onChange={(event) => {
- *     this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
- *   }}
- * />
- * ````
- */
-declare class SegmentedControlIOSComponent extends React.Component<SegmentedControlIOSProps> {}
-declare const SegmentedControlIOSBase: Constructor<NativeMethods> & typeof SegmentedControlIOSComponent;
-
-/**
- * SegmentedControlIOS has been extracted from react-native core and will be removed in a future release.
- * It can now be installed and imported from `@react-native-community/segmented-control` instead of 'react-native'.
- * @see https://github.com/react-native-community/segmented-control
- * @deprecated
- */
-export class SegmentedControlIOS extends SegmentedControlIOSBase {}
 
 export interface NavigatorIOSProps {
     /**
@@ -3288,7 +3389,11 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollTo(y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }, x?: number, animated?: boolean): void;
+    scrollTo(
+        y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+        x?: number,
+        animated?: boolean,
+    ): void;
 
     /**
      * Returns a reference to the underlying scroll responder, which supports
@@ -3298,6 +3403,12 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      */
     getScrollResponder(): JSX.Element;
 }
+
+/**
+ * React Native provides RootTag and RootTagContext as identifiers for a window's root view
+ */
+ export type RootTag = number;
+ export const RootTagContext: React.Context<RootTag>;
 
 export interface SliderPropsAndroid extends ViewProps {
     /**
@@ -3377,7 +3488,7 @@ export interface SliderProps extends SliderPropsIOS, SliderPropsAndroid {
     step?: number | undefined;
 
     /**
-     * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
+     * Used to style and layout the Slider. See StyleSheet.js for more info.
      */
     style?: StyleProp<ViewStyle> | undefined;
 
@@ -3505,7 +3616,6 @@ export interface ShadowStyleIOS {
 /**
  * Image style
  * @see https://reactnative.dev/docs/image#style
- * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageStylePropTypes.js
  */
 export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
     resizeMode?: ImageResizeMode | undefined;
@@ -3525,7 +3635,7 @@ export interface ImageStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
 }
 
 /*
- * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSourcePropType.js
+ * @see https://github.com/facebook/react-native/blob/master/Libraries/Image/ImageSource.js
  */
 export interface ImageURISource {
     /**
@@ -3780,7 +3890,7 @@ export interface ImagePropsBase extends ImagePropsIOS, ImagePropsAndroid, Access
      *
      * The currently supported formats are png, jpg, jpeg, bmp, gif, webp (Android only), psd (iOS only).
      */
-    source: ImageSourcePropType;
+    source?: ImageSourcePropType;
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -3984,10 +4094,9 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: ((
-        data: Array<ItemT> | null | undefined,
-        index: number,
-    ) => { length: number; offset: number; index: number }) | undefined;
+    getItemLayout?:
+        | ((data: Array<ItemT> | null | undefined, index: number) => { length: number; offset: number; index: number })
+        | undefined;
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
@@ -4044,7 +4153,10 @@ export interface FlatListProps<ItemT> extends VirtualizedListProps<ItemT> {
     /**
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
-    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null | undefined;
+    onViewableItemsChanged?:
+        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | null
+        | undefined;
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -4113,7 +4225,11 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: { animated?: boolean | null | undefined; item: ItemT; viewPosition?: number | undefined }) => void;
+    scrollToItem: (params: {
+        animated?: boolean | null | undefined;
+        item: ItemT;
+        viewPosition?: number | undefined;
+    }) => void;
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
@@ -4140,7 +4256,11 @@ export class FlatList<ItemT = any> extends React.Component<FlatListProps<ItemT>>
     /**
      * Provides a reference to the underlying host component
      */
-    getNativeScrollRef: () => React.ElementRef<typeof View> | React.ElementRef<typeof ScrollViewComponent> | null | undefined;
+    getNativeScrollRef: () =>
+        | React.ElementRef<typeof View>
+        | React.ElementRef<typeof ScrollViewComponent>
+        | null
+        | undefined;
 
     getScrollableNode: () => any;
 
@@ -4236,10 +4356,12 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      * )}
      * ```
      */
-    getItemLayout?: ((
-        data: SectionListData<ItemT, SectionT>[] | null,
-        index: number,
-    ) => { length: number; offset: number; index: number }) | undefined;
+    getItemLayout?:
+        | ((
+              data: SectionListData<ItemT, SectionT>[] | null,
+              index: number,
+          ) => { length: number; offset: number; index: number })
+        | undefined;
 
     /**
      * How many items to render in the initial batch
@@ -4282,11 +4404,9 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
      * as possible and then try again after more items have been rendered.
      */
-    onScrollToIndexFailed?: ((info: {
-        index: number;
-        highestMeasuredFrameIndex: number;
-        averageItemLength: number;
-    }) => void) | undefined;
+    onScrollToIndexFailed?:
+        | ((info: { index: number; highestMeasuredFrameIndex: number; averageItemLength: number }) => void)
+        | undefined;
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -4301,12 +4421,16 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null) | undefined;
+    renderSectionHeader?:
+        | ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null)
+        | undefined;
 
     /**
      * Rendered at the bottom of each section.
      */
-    renderSectionFooter?: ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null) | undefined;
+    renderSectionFooter?:
+        | ((info: { section: SectionListData<ItemT, SectionT> }) => React.ReactElement | null)
+        | undefined;
 
     /**
      * An array of objects with data for each section.
@@ -4397,7 +4521,12 @@ export interface SectionListStatic<ItemT, SectionT = DefaultSectionT>
 
 export class VirtualizedList<ItemT> extends React.Component<VirtualizedListProps<ItemT>> {
     scrollToEnd: (params?: { animated?: boolean | undefined }) => void;
-    scrollToIndex: (params: { animated?: boolean | undefined; index: number; viewOffset?: number | undefined; viewPosition?: number | undefined }) => void;
+    scrollToIndex: (params: {
+        animated?: boolean | undefined;
+        index: number;
+        viewOffset?: number | undefined;
+        viewPosition?: number | undefined;
+    }) => void;
     scrollToItem: (params: { animated?: boolean | undefined; item: ItemT; viewPosition?: number | undefined }) => void;
 
     /**
@@ -4421,6 +4550,11 @@ export interface VirtualizedListProps<ItemT> extends VirtualizedListWithoutRende
 
 export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollViewProps {
     /**
+     * Rendered in between each item, but not at the top or bottom
+     */
+    ItemSeparatorComponent?: React.ComponentType<any> | null | undefined;
+
+    /**
      * Rendered when the list is empty. Can be a React Component Class, a render function, or
      * a rendered element.
      */
@@ -4433,10 +4567,20 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
     ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
 
     /**
+     * Styling for internal View for ListFooterComponent
+     */
+    ListFooterComponentStyle?: StyleProp<ViewStyle> | undefined;
+
+    /**
      * Rendered at the top of all the items. Can be a React Component Class, a render function, or
      * a rendered element.
      */
     ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null | undefined;
+
+    /**
+     * Styling for internal View for ListHeaderComponent
+     */
+    ListHeaderComponentStyle?: StyleProp<ViewStyle> | undefined;
 
     /**
      * The default accessor functions assume this is an Array<{key: string}> but you can override
@@ -4474,14 +4618,16 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      */
     getItemCount?: ((data: any) => number) | undefined;
 
-    getItemLayout?: ((
-        data: any,
-        index: number,
-    ) => {
-        length: number;
-        offset: number;
-        index: number;
-    }) | undefined;
+    getItemLayout?:
+        | ((
+              data: any,
+              index: number,
+          ) => {
+              length: number;
+              offset: number;
+              index: number;
+          })
+        | undefined;
 
     horizontal?: boolean | null | undefined;
 
@@ -4533,17 +4679,18 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      * Recommended action is to either compute your own offset and `scrollTo` it, or scroll as far
      * as possible and then try again after more items have been rendered.
      */
-    onScrollToIndexFailed?: ((info: {
-        index: number;
-        highestMeasuredFrameIndex: number;
-        averageItemLength: number;
-    }) => void) | undefined;
+    onScrollToIndexFailed?:
+        | ((info: { index: number; highestMeasuredFrameIndex: number; averageItemLength: number }) => void)
+        | undefined;
 
     /**
      * Called when the viewability of rows changes, as defined by the
      * `viewabilityConfig` prop.
      */
-    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void) | null | undefined;
+    onViewableItemsChanged?:
+        | ((info: { viewableItems: Array<ViewToken>; changed: Array<ViewToken> }) => void)
+        | null
+        | undefined;
 
     /**
      * Set this when offset is needed for the loading indicator to show correctly.
@@ -4624,10 +4771,12 @@ export interface ListViewProps extends ScrollViewProps {
      * that have changed their visibility, with true indicating visible, and
      * false indicating the view has moved out of view.
      */
-    onChangeVisibleRows?: ((
-        visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
-        changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
-    ) => void) | undefined;
+    onChangeVisibleRows?:
+        | ((
+              visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
+              changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>,
+          ) => void)
+        | undefined;
 
     /**
      * Called when all rows have been rendered and the list has been scrolled
@@ -4710,11 +4859,9 @@ export interface ListViewProps extends ScrollViewProps {
      * but not the last row if there is a section header below.
      * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
      */
-    renderSeparator?: ((
-        sectionID: string | number,
-        rowID: string | number,
-        adjacentRowHighlighted?: boolean,
-    ) => React.ReactElement) | undefined;
+    renderSeparator?:
+        | ((sectionID: string | number, rowID: string | number, adjacentRowHighlighted?: boolean) => React.ReactElement)
+        | undefined;
 
     /**
      * How early to start rendering rows before they come on screen, in
@@ -4783,7 +4930,11 @@ export class ListView extends ListViewBase {
      *
      * See `ScrollView#scrollTo`.
      */
-    scrollTo: (y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }, x?: number, animated?: boolean) => void;
+    scrollTo: (
+        y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+        x?: number,
+        animated?: boolean,
+    ) => void;
 }
 
 interface MaskedViewIOSProps extends ViewProps {
@@ -4826,10 +4977,11 @@ export interface ModalBaseProps {
      */
     visible?: boolean | undefined;
     /**
-     * The `onRequestClose` prop allows passing a function that will be called once the modal has been dismissed.
-     * _On the Android platform, this is a required function._
+     * The `onRequestClose` callback is called when the user taps the hardware back button on Android or the menu button on Apple TV.
+     *
+     * This is required on Apple TV and Android.
      */
-    onRequestClose?: (() => void) | undefined;
+    onRequestClose?: ((event: NativeSyntheticEvent<any>) => void) | undefined;
     /**
      * The `onShow` prop allows passing a function that will be called once the modal has been shown.
      */
@@ -4846,9 +4998,9 @@ export interface ModalPropsIOS {
      * The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations.
      * On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field.
      */
-    supportedOrientations?: Array<
-        'portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right'
-    > | undefined;
+    supportedOrientations?:
+        | Array<'portrait' | 'portrait-upside-down' | 'landscape' | 'landscape-left' | 'landscape-right'>
+        | undefined;
 
     /**
      * The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
@@ -4944,7 +5096,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -4974,7 +5126,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -5841,7 +5993,7 @@ interface PlatformIOSStatic extends PlatformStatic {
     };
     OS: 'ios';
     isPad: boolean;
-    isTVOS: boolean;
+    isTV: boolean;
     Version: string;
 }
 
@@ -5976,18 +6128,6 @@ export interface Dimensions {
         type: 'change',
         handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
     ): EmitterSubscription;
-
-    /**
-     * Remove an event listener
-     * @deprecated Use `remove` on the EventSubscription from `addEventListener`.
-     *
-     * @param type the type of event
-     * @param handler the event handler
-     */
-    removeEventListener(
-        type: 'change',
-        handler: ({ window, screen }: { window: ScaledSize; screen: ScaledSize }) => void,
-    ): void;
 }
 
 export function useWindowDimensions(): ScaledSize;
@@ -6026,9 +6166,7 @@ export interface InteractionManagerStatic {
      * Schedule a function to run after all interactions have completed.
      * Returns a cancellable
      */
-    runAfterInteractions(
-        task?: (() => any) | SimpleTask | PromiseTask,
-    ): {
+    runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask): {
         then: (onfulfilled?: () => any, onrejected?: () => any) => Promise<any>;
         done: (...args: any[]) => any;
         cancel: () => void;
@@ -6336,8 +6474,8 @@ export interface ScrollViewPropsIOS {
     automaticallyAdjustContentInsets?: boolean | undefined; // true
 
     /**
-     * Controls whether the ScrollView should automatically adjust it's contentInset
-     * and scrollViewInsets when the Keyboard changes it's size. The default value is false.
+     * Controls whether the ScrollView should automatically adjust its contentInset and
+     * scrollViewInsets when the Keyboard changes its size. The default value is false.
      */
     automaticallyAdjustKeyboardInsets?: boolean | undefined;
 
@@ -6385,7 +6523,7 @@ export interface ScrollViewPropsIOS {
      * Used to manually set the starting scroll offset.
      * The default value is {x: 0, y: 0}
      */
-    contentOffset?: PointPropType | undefined; // zeros
+    contentOffset?: PointProp | undefined; // zeros
 
     /**
      * This property specifies how the safe area insets are used to modify the content area of the scroll view.
@@ -6431,10 +6569,13 @@ export interface ScrollViewPropsIOS {
      * Occlusion, transforms, and other complexity won't be taken into account as to whether
      * content is "visible" or not.
      */
-    maintainVisibleContentPosition?: null | {
-        autoscrollToTopThreshold?: number | null | undefined;
-        minIndexForVisible: number;
-    } | undefined;
+    maintainVisibleContentPosition?:
+        | null
+        | {
+              autoscrollToTopThreshold?: number | null | undefined;
+              minIndexForVisible: number;
+          }
+        | undefined;
     /**
      * The maximum allowed zoom scale. The default value is 1.0.
      */
@@ -6684,7 +6825,7 @@ export interface ScrollViewProps extends ViewProps, ScrollViewPropsIOS, ScrollVi
 
     /**
      * When true, Sticky header is hidden when scrolling down, and dock at the top when scrolling up.
-    */
+     */
     stickyHeaderHiddenOnScroll?: boolean;
 
     /**
@@ -6775,7 +6916,11 @@ export class ScrollView extends ScrollViewBase {
      * the function also accepts separate arguments as an alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollTo(y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined }, x?: number, animated?: boolean): void;
+    scrollTo(
+        y?: number | { x?: number | undefined; y?: number | undefined; animated?: boolean | undefined },
+        x?: number,
+        animated?: boolean,
+    ): void;
 
     /**
      * A helper function that scrolls to the end of the scrollview;
@@ -6943,6 +7088,7 @@ export interface ActionSheetIOSOptions {
     message?: string | undefined;
     anchor?: number | undefined;
     tintColor?: ColorValue | ProcessedColorValue | undefined;
+    cancelButtonTintColor?: ColorValue | ProcessedColorValue | undefined;
     userInterfaceStyle?: 'light' | 'dark' | undefined;
     disabledButtonIndices?: number[] | undefined;
 }
@@ -7134,22 +7280,14 @@ export interface AccessibilityInfoStatic {
      *            The boolean is true when the related event's feature is enabled and false otherwise.
      *
      */
-    addEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): EmitterSubscription;
+    addEventListener(
+        eventName: AccessibilityChangeEventName,
+        handler: AccessibilityChangeEventHandler,
+    ): EmitterSubscription;
     addEventListener(
         eventName: AccessibilityAnnouncementEventName,
         handler: AccessibilityAnnouncementFinishedEventHandler,
     ): EmitterSubscription;
-
-    /**
-     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     *
-     * Remove an event handler
-     */
-    removeEventListener(eventName: AccessibilityChangeEventName, handler: AccessibilityChangeEventHandler): void;
-    removeEventListener(
-        eventName: AccessibilityAnnouncementEventName,
-        handler: AccessibilityAnnouncementFinishedEventHandler,
-    ): void;
 
     /**
      * Set accessibility focus to a react component.
@@ -7182,6 +7320,7 @@ export interface AlertButton {
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean | undefined;
+    userInterfaceStyle?: 'unspecified' | 'light' | 'dark';
     /** @platform android */
     onDismiss?: (() => void) | undefined;
 }
@@ -7273,13 +7412,6 @@ export interface AppStateStatic {
      * type and providing the handler
      */
     addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): NativeEventSubscription;
-
-    /**
-     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     *
-     * Remove a handler by passing the change event type and the handler
-     */
-    removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void;
 }
 
 /**
@@ -7378,18 +7510,18 @@ export interface BackHandlerStatic {
 export interface ButtonProps
     extends Pick<
         TouchableNativeFeedbackProps & TouchableOpacityProps,
-        | "accessibilityLabel"
-        | "accessibilityState"
-        | "hasTVPreferredFocus"
-        | "nextFocusDown"
-        | "nextFocusForward"
-        | "nextFocusLeft"
-        | "nextFocusRight"
-        | "nextFocusUp"
-        | "testID"
-        | "disabled"
-        | "onPress"
-        | "touchSoundDisabled"
+        | 'accessibilityLabel'
+        | 'accessibilityState'
+        | 'hasTVPreferredFocus'
+        | 'nextFocusDown'
+        | 'nextFocusForward'
+        | 'nextFocusLeft'
+        | 'nextFocusRight'
+        | 'nextFocusUp'
+        | 'testID'
+        | 'disabled'
+        | 'onPress'
+        | 'touchSoundDisabled'
     > {
     /**
      * Text to display inside the button. On Android the given title will be converted to the uppercased form.
@@ -7586,12 +7718,6 @@ export interface LinkingStatic extends NativeEventEmitter {
     addEventListener(type: 'url', handler: (event: { url: string }) => void): EmitterSubscription;
 
     /**
-     * Remove a handler by passing the `url` event type and the handler
-     * @deprecated Call remove() on the return value of addEventListener() instead.
-     */
-    removeEventListener(type: 'url', handler: (event: { url: string }) => void): void;
-
-    /**
      * Try to open the given url with any of the installed apps.
      * You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with the installed apps.
      * NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
@@ -7701,20 +7827,32 @@ export interface PanResponderGestureState {
  * @see documentation of GestureResponderHandlers
  */
 export interface PanResponderCallbacks {
-    onMoveShouldSetPanResponder?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
-    onStartShouldSetPanResponder?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
+    onMoveShouldSetPanResponder?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
+    onStartShouldSetPanResponder?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
     onPanResponderGrant?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderMove?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderRelease?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderTerminate?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
 
-    onMoveShouldSetPanResponderCapture?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
-    onStartShouldSetPanResponderCapture?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
+    onMoveShouldSetPanResponderCapture?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
+    onStartShouldSetPanResponderCapture?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
     onPanResponderReject?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderStart?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
     onPanResponderEnd?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => void) | undefined;
-    onPanResponderTerminationRequest?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
-    onShouldBlockNativeResponder?: ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean) | undefined;
+    onPanResponderTerminationRequest?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
+    onShouldBlockNativeResponder?:
+        | ((e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean)
+        | undefined;
 }
 
 export interface PanResponderInstance {
@@ -7780,28 +7918,42 @@ export type Permission =
     | 'android.permission.READ_CONTACTS'
     | 'android.permission.WRITE_CONTACTS'
     | 'android.permission.GET_ACCOUNTS'
+    | 'android.permission.ACCESS_BACKGROUND_LOCATION'
     | 'android.permission.ACCESS_FINE_LOCATION'
     | 'android.permission.ACCESS_COARSE_LOCATION'
-    | 'android.permission.ACCESS_BACKGROUND_LOCATION'
     | 'android.permission.RECORD_AUDIO'
     | 'android.permission.READ_PHONE_STATE'
     | 'android.permission.CALL_PHONE'
     | 'android.permission.READ_CALL_LOG'
     | 'android.permission.WRITE_CALL_LOG'
     | 'com.android.voicemail.permission.ADD_VOICEMAIL'
+    | 'com.android.voicemail.permission.READ_VOICEMAIL'
+    | 'com.android.voicemail.permission.WRITE_VOICEMAIL'
     | 'android.permission.USE_SIP'
     | 'android.permission.PROCESS_OUTGOING_CALLS'
     | 'android.permission.BODY_SENSORS'
+    | 'android.permission.BODY_SENSORS_BACKGROUND'
     | 'android.permission.SEND_SMS'
     | 'android.permission.RECEIVE_SMS'
     | 'android.permission.READ_SMS'
     | 'android.permission.RECEIVE_WAP_PUSH'
     | 'android.permission.RECEIVE_MMS'
     | 'android.permission.READ_EXTERNAL_STORAGE'
+    | 'android.permission.READ_MEDIA_IMAGES'
+    | 'android.permission.READ_MEDIA_VIDEO'
+    | 'android.permission.READ_MEDIA_AUDIO'
     | 'android.permission.WRITE_EXTERNAL_STORAGE'
     | 'android.permission.BLUETOOTH_CONNECT'
     | 'android.permission.BLUETOOTH_SCAN'
-    | 'android.permission.BLUETOOTH_ADVERTISE';
+    | 'android.permission.BLUETOOTH_ADVERTISE'
+    | 'android.permission.ACCESS_MEDIA_LOCATION'
+    | 'android.permission.ACCEPT_HANDOVER'
+    | 'android.permission.ACTIVITY_RECOGNITION'
+    | 'android.permission.ANSWER_PHONE_CALLS'
+    | 'android.permission.READ_PHONE_NUMBERS'
+    | 'android.permission.UWB_RANGING'
+    | 'android.permission.POST_NOTIFICATIONS'
+    | 'android.permission.NEARBY_WIFI_DEVICES';
 
 export type PermissionStatus = 'granted' | 'denied' | 'never_ask_again';
 
@@ -8432,9 +8584,7 @@ export interface UIManagerStatic {
         success: (item: string, index: number | undefined) => void,
     ): void;
 
-    getViewManagerConfig: (
-        name: string,
-    ) => {
+    getViewManagerConfig: (name: string) => {
         Commands: { [key: string]: number };
     };
 
@@ -8473,9 +8623,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean;
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**
@@ -8593,13 +8745,6 @@ export namespace Appearance {
      * Add an event handler that is fired when appearance preferences change.
      */
     export function addChangeListener(listener: AppearanceListener): NativeEventSubscription;
-
-    /**
-     * @deprecated Use the `remove()` method on the event subscription returned by `addEventListener()`.
-     *
-     * Remove a handler by passing the change event type and the handler.
-     */
-    export function removeChangeListener(listener: AppearanceListener): void;
 }
 
 /**
@@ -8678,8 +8823,45 @@ export namespace Animated {
         // Internal class, no public API.
     }
 
-    class AnimatedInterpolation extends AnimatedWithChildren {
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+    type RgbaValue = {
+        readonly r: number;
+        readonly g: number;
+        readonly b: number;
+        readonly a: number;
+    };
+
+    type RgbaAnimatedValue = {
+        readonly r: AnimatedValue;
+        readonly g: AnimatedValue;
+        readonly b: AnimatedValue;
+        readonly a: AnimatedValue;
+    };
+
+    type AnimatedConfig = {
+        readonly useNativeDriver: boolean;
+    };
+
+    class AnimatedColor extends AnimatedWithChildren {
+        r: AnimatedValue;
+        g: AnimatedValue;
+        b: AnimatedValue;
+        a: AnimatedValue;
+
+        constructor(valueIn?: RgbaValue | RgbaAnimatedValue | ColorValue | null, config?: AnimatedConfig | null);
+        nativeColor: unknown; // Unsure what to do here
+        setValue: (value: RgbaValue | ColorValue) => void;
+        setOffset: (offset: RgbaValue) => void;
+        flattenOffset: () => void;
+        extractOffset: () => void;
+        addListener: (callback: (value: ColorValue) => unknown) => string;
+        removeListener: (id: string) => void;
+        removeAllListeners: () => void;
+        stopAnimation: (callback: (value: ColorValue) => unknown) => void;
+        resetAnimation: (callback: (value: ColorValue) => unknown) => void;
+    }
+
+    class AnimatedInterpolation<OutputT extends number | string> extends AnimatedWithChildren {
+        interpolate(config: InterpolationConfigType): AnimatedInterpolation<OutputT>;
     }
 
     type ExtrapolateType = 'extend' | 'identity' | 'clamp';
@@ -8702,7 +8884,7 @@ export namespace Animated {
      * or calling `setValue`) will stop any previous ones.
      */
     export class Value extends AnimatedWithChildren {
-        constructor(value: number);
+        constructor(value: number, config?: AnimatedConfig | null);
 
         /**
          * Directly set the value.  This will stop any animations running on the value
@@ -8751,7 +8933,7 @@ export namespace Animated {
          * Interpolates the value before updating the property, e.g. mapping 0-1 to
          * 0-10.
          */
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+        interpolate<OutputT extends number | string>(config: InterpolationConfigType): AnimatedInterpolation<OutputT>;
     }
 
     type ValueXYListenerCallback = (value: { x: number; y: number }) => void;
@@ -8765,7 +8947,7 @@ export namespace Animated {
         x: AnimatedValue;
         y: AnimatedValue;
 
-        constructor(valueIn?: { x: number | AnimatedValue; y: number | AnimatedValue });
+        constructor(valueIn?: { x: number | AnimatedValue; y: number | AnimatedValue }, config?: AnimatedConfig | null);
 
         setValue(value: { x: number; y: number }): void;
 
@@ -8855,14 +9037,21 @@ export namespace Animated {
     export const timing: (value: AnimatedValue | AnimatedValueXY, config: TimingAnimationConfig) => CompositeAnimation;
 
     interface TimingAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | AnimatedInterpolation;
+        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY | AnimatedInterpolation<number>;
         easing?: ((value: number) => number) | undefined;
         duration?: number | undefined;
         delay?: number | undefined;
     }
 
     interface SpringAnimationConfig extends AnimationConfig {
-        toValue: number | AnimatedValue | { x: number; y: number } | AnimatedValueXY;
+        toValue:
+            | number
+            | AnimatedValue
+            | { x: number; y: number }
+            | AnimatedValueXY
+            | RgbaValue
+            | AnimatedColor
+            | AnimatedInterpolation<number>;
         overshootClamping?: boolean | undefined;
         restDisplacementThreshold?: number | undefined;
         restSpeedThreshold?: number | undefined;
@@ -8889,41 +9078,44 @@ export namespace Animated {
      * Creates a new Animated value composed from two Animated values added
      * together.
      */
-    export function add(a: Animated, b: Animated): AnimatedAddition;
+    export function add<OutputT extends number | string>(a: Animated, b: Animated): AnimatedAddition<OutputT>;
 
-    class AnimatedAddition extends AnimatedInterpolation {}
+    class AnimatedAddition<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed by subtracting the second Animated
      * value from the first Animated value.
      */
-    export function subtract(a: Animated, b: Animated): AnimatedSubtraction;
+    export function subtract<OutputT extends number | string>(a: Animated, b: Animated): AnimatedSubtraction<OutputT>;
 
-    class AnimatedSubtraction extends AnimatedInterpolation {}
+    class AnimatedSubtraction<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed by dividing the first Animated
      * value by the second Animated value.
      */
-    export function divide(a: Animated, b: Animated): AnimatedDivision;
+    export function divide<OutputT extends number | string>(a: Animated, b: Animated): AnimatedDivision<OutputT>;
 
-    class AnimatedDivision extends AnimatedInterpolation {}
+    class AnimatedDivision<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
-    export function multiply(a: Animated, b: Animated): AnimatedMultiplication;
+    export function multiply<OutputT extends number | string>(
+        a: Animated,
+        b: Animated,
+    ): AnimatedMultiplication<OutputT>;
 
-    class AnimatedMultiplication extends AnimatedInterpolation {}
+    class AnimatedMultiplication<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Creates a new Animated value that is the (non-negative) modulo of the
      * provided Animated value
      */
-    export function modulo(a: Animated, modulus: number): AnimatedModulo;
+    export function modulo<OutputT extends number | string>(a: Animated, modulus: number): AnimatedModulo<OutputT>;
 
-    class AnimatedModulo extends AnimatedInterpolation {}
+    class AnimatedModulo<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Create a new Animated value that is limited between 2 values. It uses the
@@ -8934,9 +9126,13 @@ export namespace Animated {
      * This is useful with scroll events, for example, to show the navbar when
      * scrolling up and to hide it when scrolling down.
      */
-    export function diffClamp(a: Animated, min: number, max: number): AnimatedDiffClamp;
+    export function diffClamp<OutputT extends number | string>(
+        a: Animated,
+        min: number,
+        max: number,
+    ): AnimatedDiffClamp<OutputT>;
 
-    class AnimatedDiffClamp extends AnimatedInterpolation {}
+    class AnimatedDiffClamp<OutputT extends number | string> extends AnimatedInterpolation<OutputT> {}
 
     /**
      * Starts an animation after the given delay.
@@ -9023,7 +9219,7 @@ export namespace Animated {
     export type WithAnimatedValue<T> = T extends Builtin | Nullable
         ? T
         : T extends Primitive
-        ? T | Value | AnimatedInterpolation // add `Value` and `AnimatedInterpolation` but also preserve original T
+        ? T | Value | AnimatedInterpolation<number | string> // add `Value` and `AnimatedInterpolation` but also preserve original T
         : T extends Array<infer P>
         ? WithAnimatedArray<P>
         : T extends {}
@@ -9052,7 +9248,10 @@ export namespace Animated {
     /**
      * Make any React component Animatable.  Used to create `Animated.View`, etc.
      */
-    export function createAnimatedComponent<T extends React.ComponentType<any>>(component: T, options?: AnimatedComponentOptions): AnimatedComponent<T>;
+    export function createAnimatedComponent<T extends React.ComponentType<any>>(
+        component: T,
+        options?: AnimatedComponentOptions,
+    ): AnimatedComponent<T>;
 
     /**
      * Animated variants of the basic native views. Accepts Animated.Value for
@@ -9165,13 +9364,13 @@ export interface ImageStoreStatic {
 //
 
 export interface TurboModule {
-    getConstants?(): {}
+    getConstants?(): {};
 }
 
 export const TurboModuleRegistry: {
     get<T extends TurboModule>(name: string): T | null;
     getEnforcing<T extends TurboModule>(name: string): T;
-}
+};
 
 //
 // Interfacing with Native Modules
@@ -9689,16 +9888,6 @@ export namespace addons {
     export type TestModule = TestModuleStatic;
 }
 
-//
-// Prop Types
-//
-export const ColorPropType: React.Validator<string>;
-export const EdgeInsetsPropType: React.Validator<Insets>;
-export const PointPropType: React.Validator<PointPropType>;
-export const ViewPropTypes: React.ValidationMap<ViewProps>;
-export const TextPropTypes: React.ValidationMap<TextProps>;
-export const ImagePropTypes: React.ValidationMap<ImageProps>;
-
 declare global {
     interface NodeRequire {
         (id: string): any;
@@ -9721,10 +9910,6 @@ declare global {
         groupCollapsed(label?: string): void;
         groupEnd(): void;
         group(label?: string): void;
-        /**
-         * @deprecated Use LogBox.ignoreAllLogs(disable) instead
-         */
-        disableYellowBox: boolean;
         /**
          * @deprecated Use LogBox.ignoreLogs(patterns) instead
          */

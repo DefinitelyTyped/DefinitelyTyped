@@ -33,6 +33,23 @@ const gpx = new L.GPX(
                 'Geocache Found': 'img/gpx/geocache.png',
                 Park: 'img/gpx/tree.png'
             },
+            startIcon: L.icon({
+                iconUrl: "images/pin-icon-start.png",
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+            }),
+            endIcon: L.icon({
+                iconUrl: "images/pin-icon-end.png",
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+            }),
+            wptIcons: {
+                Winery: L.icon({
+                    iconUrl: "images/pin-winery.png",
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 40],
+                }),
+            },
         },
     })
     .on('loaded', (e: any) => {

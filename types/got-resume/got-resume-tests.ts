@@ -54,8 +54,8 @@ gotResume({
 });
 gotResume({ url: "http://test.com", transform: zlib.createGzip() }); // $ExpectType TransferStream
 gotResume({ url: "http://test.com", log: console.log }); // $ExpectType TransferStream
-gotResume({ url: "http://test.com", got: { baseUrl: "foo" } }); // $ExpectType TransferStream
-gotResume({}); // $ExpectError
+// @ts-expect-error
+gotResume({});
 
 gotResume("http://test.com"); // $ExpectType TransferStream
 gotResume("http://test.com", { attempts: 0 }); // $ExpectType TransferStream
@@ -90,20 +90,19 @@ gotResume("http://test.com", {
 });
 gotResume("http://test.com", { transform: zlib.createGzip() }); // $ExpectType TransferStream
 gotResume("http://test.com", { log: console.log }); // $ExpectType TransferStream
-gotResume("http://test.com", { got: { baseUrl: "foo" } }); // $ExpectType TransferStream
 gotResume("http://test.com", {}); // $ExpectType TransferStream
-// $ExpectError
+// @ts-expect-error
 gotResume("http://test.com", { url: "foo" });
 
 gotResume.toFile("foo", { url: "http://test.com" }); // $ExpectType Promise<void>
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", {
     url: "http://test.com",
     onProgress(progress) {
         progress; // $ExpectType Progress
     },
 });
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", {
     url: "http://test.com",
     onResponse(response) {
@@ -112,18 +111,19 @@ gotResume.toFile("foo", {
 });
 gotResume.toFile("foo", { url: "http://test.com", Promise }); // $ExpectType Promise<void>
 gotResume.toFile("foo", { url: "http://test.com", length: 10 }); // $ExpectType Promise<void>
-gotResume.toFile("foo", {}); // $ExpectError
+// @ts-expect-error
+gotResume.toFile("foo", {});
 
 // toFile() tests
 
 gotResume.toFile("foo", "http://test.com"); // $ExpectType Promise<void>
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", "http://test.com", {
     onProgress(progress) {
         progress; // $ExpectType Progress
     },
 });
-// $ExpectType Promise<void>
+// $ExpectType Bluebird<void>
 gotResume.toFile("foo", "http://test.com", {
     onResponse(response) {
         response; // $ExpectType IncomingMessage
@@ -132,7 +132,7 @@ gotResume.toFile("foo", "http://test.com", {
 gotResume.toFile("foo", "http://test.com", { Promise }); // $ExpectType Promise<void>
 gotResume.toFile("foo", "http://test.com", { length: 10 }); // $ExpectType Promise<void>
 gotResume.toFile("foo", "http://test.com", {}); // $ExpectType Promise<void>
-// $ExpectError
+// @ts-expect-error
 gotResume.toFile("foo", "http://test.com", { url: "foo" });
 
 gotResume.toFile("foo", "http://test.com").cancel();
@@ -166,7 +166,7 @@ transfer.options; // $ExpectType ToFileOptions & Partial<WithUrl>
 transfer.url; // $ExpectType string | undefined
 transfer.length; // $ExpectType number | undefined
 transfer.log; // $ExpectType (...args: unknown[]) => void
-transfer.gotOptions; // $ExpectType GotOptions<string | null>
+transfer.gotOptions; // $ExpectType Options
 transfer.idleTimeout; // $ExpectType number | undefined
 
 transfer.attempt; // $ExpectType number
@@ -180,7 +180,7 @@ transfer.res; // $ExpectType IncomingMessage | undefined
 transfer.err; // $ExpectType Error | undefined
 transfer.lastMod; // $ExpectType string | undefined
 transfer.etag; // $ExpectType string | undefined
-transfer.prePromise; // $ExpectType Promise<void> | undefined
+transfer.prePromise; // $ExpectType Bluebird<void> | undefined
 transfer.waitTimer; // $ExpectType number | undefined
 transfer.stream; // $ExpectType TransferStream
 

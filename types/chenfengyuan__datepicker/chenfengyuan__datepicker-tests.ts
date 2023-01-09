@@ -79,7 +79,7 @@ $().datepicker({
 });
 
 // $().datepicker({
-//     startView: 3, // $ExpectError
+//     startView: 3, // @ts-expect-error
 // });
 
 $().datepicker({
@@ -87,7 +87,7 @@ $().datepicker({
 });
 
 // $().datepicker({
-//     weekStart: 7, // $ExpectError
+//     weekStart: 7, // @ts-expect-error
 // });
 
 $().datepicker({
@@ -171,7 +171,7 @@ $().datepicker({
 // $().datepicker({
 //     filter: (date, view) => {
 //         // prettier-ignore
-//         if (date.getDay() === 0 && view === 'invalid') { // $ExpectError
+//         if (date.getDay() === 0 && view === 'invalid') { // @ts-expect-error
 //             return false; // Disable all Sundays, but still leave months/years, whose first day is a Sunday, enabled.
 //         }
 //     },

@@ -28,6 +28,6 @@ import * as R from 'ramda';
     const getUser = R.pipeWith((f: (value: any) => any, res: Promise<unknown>) => res.then(f), [db.getUserById]);
 
     // Should pipe at least on function.
-    // $ExpectError
+    // @ts-expect-error
     R.pipeWith((f: (value: any) => any, res: Promise<unknown>) => res.then(f), []);
 };

@@ -1,8 +1,8 @@
 import Sentencer = require('sentencer');
 
-// $ExpectError
+// @ts-expect-error
 Sentencer.make();
-// $ExpectError
+// @ts-expect-error
 Sentencer.make(123);
 // $ExpectType string
 Sentencer.make("");
@@ -11,9 +11,9 @@ Sentencer.make("123");
 // $ExpectType string
 Sentencer.make("123--{{ a_noun }}--123");
 
-// $ExpectError
+// @ts-expect-error
 Sentencer.configure(123);
-// $ExpectError
+// @ts-expect-error
 Sentencer.configure();
 // $ExpectType void
 Sentencer.configure({ actions: { test: () => "123" }});

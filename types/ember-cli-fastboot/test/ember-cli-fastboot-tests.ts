@@ -8,7 +8,7 @@ assertType<_FastBoot | undefined>(FastBoot);
 /** type assertions for fastboot service & other classes */
 const instance = FastBootService.create();
 assertType<FastbootRequest>(instance.request);
-assertType<boolean>(instance.isFastboot);
+assertType<boolean>(instance.isFastBoot);
 assertType<Shoebox>(instance.shoebox);
 instance.deferRendering(new Promise<'foo'>(() => 'foo')); // $ExpectType void
 
@@ -21,3 +21,5 @@ assertType<string>(instance.request.host);
 assertType<Record<string, unknown>>(instance.request.queryParams);
 assertType<string>(instance.request.path);
 assertType<string>(instance.request.protocol);
+assertType<string>(instance.request.method);
+assertType<Record<string, unknown>>(instance.request.body);

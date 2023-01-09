@@ -15,7 +15,8 @@ SafariViewController.show({ url: 'foo', transition: 'curl' }); // $ExpectType vo
 SafariViewController.show({ url: 'foo', transition: 'flip' }); // $ExpectType void
 SafariViewController.show({ url: 'foo', transition: 'fade' }); // $ExpectType void
 SafariViewController.show({ url: 'foo', transition: 'slide' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', transition: 'foo' }); // $ExpectError
+// @ts-expect-error
+SafariViewController.show({ url: 'foo', transition: 'foo' });
 SafariViewController.show({ url: 'foo', enterReaderModeIfAvailable: true }); // $ExpectType void
 SafariViewController.show({ url: 'foo', tintColor: '#ffffff' }); // $ExpectType void
 SafariViewController.show({ url: 'foo', barColor: '#0000ff' }); // $ExpectType void

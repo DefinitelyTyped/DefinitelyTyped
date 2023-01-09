@@ -83,9 +83,9 @@ $el.cheerio;
 $el.attr();
 $el.attr('id');
 $el.attr('id', 'favorite').html();
-// $ExpectError
+// @ts-expect-error
 $el.attr('id', (el, i, attr) => el.tagName + i * 2 + attr).html();
-// $ExpectError
+// @ts-expect-error
 $el.attr('id', el => el.tagName).html();
 $el.attr({ id: 'uniq', class: 'big' }).html();
 
@@ -379,9 +379,9 @@ const doSomething = (element: cheerio.Element): void => {
         element.children;
     }
 
-    // $ExpectError
+    // @ts-expect-error
     let a = element.firstChild;
-    // $ExpectError
+    // @ts-expect-error
     let b = element.lastChild;
 
     if (element.next) {

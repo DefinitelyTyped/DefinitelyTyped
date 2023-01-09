@@ -14,5 +14,5 @@ checksum('package.json', {
     md5: 'asdfasdfasdf',
     sha1: 'asdfasdfasdf'
 }, err => {
-    err; // $ExpectType Error | ChecksumError | undefined
+    err; // $ExpectType Error | ChecksumError | undefined || ChecksumError | Error | undefined
 });

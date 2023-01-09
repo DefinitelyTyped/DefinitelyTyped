@@ -4,14 +4,12 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "comment-format": false,
-        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

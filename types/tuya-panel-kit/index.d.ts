@@ -10994,7 +10994,7 @@ export let Utils: {
         ThemeProvider: React.ElementType<ThemeProviderProps>;
         ThemeConsumer: React.ElementType<ThemeConsumerProps>;
         deepMerge(target: object, ...args: object[]): object;
-        // tslint:disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         withTheme<P extends { theme?: T | undefined }, T>(component: React.ComponentType<P>): React.ComponentType<P>;
         parseToCss: (values: number[], key: string) => { [styleKey: string]: number };
         parseToStyle: (values: number[], key: string) => { [styleKey: string]: number };
@@ -11344,7 +11344,7 @@ export interface NavigationParam {
 export interface NavigationComponentClass<P = {}, S = {}> {
     new (props: P, context?: any): NavigatorLayout<P, S>;
 }
-// tslint:disable-next-line no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps?: Omit<NavigationContainerProps, 'children'>): any;
 
 export type GotoDpAlarmData = Array<{
@@ -11383,7 +11383,7 @@ export let TYSdk: {
      * @param postData api params
      * @param version - api version, default 1.0
      */
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     apiRequest<T>(a: string, postData: Record<string, any>, version?: string): Promise<T>;
     applyNavigator(navigator: DeprecatedNavigator): void;
     devInfo: DevInfo;
@@ -11394,7 +11394,7 @@ export let TYSdk: {
         getBleManagerState(): Promise<boolean>;
         getBluetoothState(): Promise<number>;
         getDeviceInfo(): Promise<DevInfo>;
-        // tslint:disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         getDeviceState<S = Record<string, DpType>>(): Promise<S>;
         getDpCodeById(id: string | number): string;
         getDpCodes(): string[];
@@ -11446,7 +11446,7 @@ export let TYSdk: {
          */
         off(event: string, callback?: AnyFunction): void;
         on(event: string, callback: AnyFunction): void;
-        // tslint:disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line no-unnecessary-generics
         on<T>(event: string, callback: (args: T) => void): void;
         /**
          * @desc

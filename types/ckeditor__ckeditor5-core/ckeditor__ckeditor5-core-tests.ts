@@ -56,7 +56,7 @@ PluginArray.forEach(plugin => typeof plugin !== 'string' && plugin.pluginName);
 
 const editor = new MyEditor(document.createElement('div'));
 const editorState: 'initializing' | 'ready' | 'destroyed' = editor.state;
-// $ExpectError
+// @ts-expect-error
 editor.state = editorState;
 editor.focus();
 editor.destroy().then(() => {});
@@ -65,9 +65,9 @@ editor.initPlugins().then(plugins => plugins.map(plugin => plugin.pluginName));
 MyEditor.defaultConfig = {
     placeholder: 'foo',
 };
-// $ExpectError
+// @ts-expect-error
 MyEditor.defaultConfig = 4;
-// $ExpectError
+// @ts-expect-error
 MyEditor.defaultConfig = { foo: 5 };
 
 /**
@@ -112,10 +112,10 @@ editor.plugins.get(MyPlugin).myMethod();
 editor.plugins.has('foo');
 // $ExpectType boolean
 editor.plugins.has(MyPlugin);
-// $ExpectError
+// @ts-expect-error
 editor.plugins.has(class Foo {});
 
-// $ExpectError
+// @ts-expect-error
 editor.plugins.get(class Foo {});
 editor.plugins.get(class Foo extends Plugin {});
 
@@ -151,11 +151,11 @@ command.on('execute', (ev, ...args) => {
 
 // $ExpectType boolean
 command.value;
-// $ExpectError
+// @ts-expect-error
 command.value = false;
-// $ExpectError
+// @ts-expect-error
 delete command.value;
-// $ExpectError
+// @ts-expect-error
 delete command.isEnabled;
 
 // $ExpectType boolean
@@ -172,7 +172,7 @@ command.editor;
 // $ExpectType boolean
 command.isEnabled;
 
-// $ExpectError
+// @ts-expect-error
 command.isEnabled = false;
 
 command.destroy();
@@ -192,7 +192,7 @@ contextWithConfig.initPlugins().then(plugins => plugins.map(plugin => plugin.plu
  * ContextPlugin
  */
 class CPlugin extends ContextPlugin {}
-// $ExpectError
+// @ts-expect-error
 class CPlugin2 extends ContextPlugin {
     static requires: [MyPlugin];
 }
@@ -232,7 +232,7 @@ editor.plugins.get(MyCPlugin).on('foo', (ev, ...args) => {
  */
 
 DataApiMixin.setData('foo');
-// $ExpectError
+// @ts-expect-error
 DataApiMixin.getData('foo');
 DataApiMixin.getData({ rootName: 'foo' });
 DataApiMixin.getData({ rootName: 'foo', trim: 'none' });
@@ -240,7 +240,7 @@ DataApiMixin.getData({ rootName: 'foo', trim: 'none' });
 /**
  * attachToForm
  */
-// $ExpectError
+// @ts-expect-error
 attachToForm();
 attachToForm(editor);
 
@@ -268,7 +268,7 @@ new EditorUI(editor).set('foo');
 /** Pending Actions */
 // $ExpectType boolean
 new PendingActions(context).hasAny;
-// $ExpectError
+// @ts-expect-error
 new PendingActions(context).hasAny = true;
 new PendingActions(context).remove(new PendingActions(context).add(''));
 
@@ -288,9 +288,9 @@ cc.get('paragraph');
 // $ExpectType void
 cc.execute('paragraph');
 cc.execute('paragraph', { selection: new Selection() });
-// $ExpectError
+// @ts-expect-error
 cc.execute('paragraph', { selection: true });
-// $ExpectError
+// @ts-expect-error
 cc.execute('paragraph', null);
 // $ExpectType string[]
 Array.from(cc.names());

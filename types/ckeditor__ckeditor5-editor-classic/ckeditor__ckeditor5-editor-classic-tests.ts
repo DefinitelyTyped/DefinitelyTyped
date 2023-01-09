@@ -23,7 +23,6 @@ ClassicEditor.ClassicEditor.create('', { placeholder: 'foo' }).then(editor => {
     });
 });
 
-// $ExpectError;
 new ClassicEditor.ClassicEditor();
 
 class MyPlugin extends Plugin {}
@@ -32,11 +31,11 @@ class MyPlugin extends Plugin {}
     let editor = await ClassicEditor.ClassicEditor.create('foo');
     editor = await ClassicEditor.ClassicEditor.create(document.body);
     editor = await ClassicEditor.ClassicEditor.create(document.body, { plugins: [MyPlugin] });
-    // $ExpectError
+    // @ts-expect-error
     editor.create();
     const str: string = editor.getData();
     editor.setData(str);
-    // $ExpectError
+    // @ts-expect-error
     editor.setData();
     // $ExpectType HtmlDataProcessor
     editor.data.processor;
@@ -83,6 +82,6 @@ class MyPlugin extends Plugin {}
     editor.ui.view.render();
     // $ExpectType ToolbarView
     editor.ui.view.toolbar;
-    // $ExpectError Locale | undefined
+    // $ExpectType Locale | undefined
     editor.ui.view.toolbar.locale;
 })();

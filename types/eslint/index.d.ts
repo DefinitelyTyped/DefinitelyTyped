@@ -10,8 +10,8 @@
 
 /// <reference path="helpers.d.ts" />
 
-import { JSONSchema4 } from "json-schema";
 import * as ESTree from "estree";
+import { JSONSchema4 } from "json-schema";
 
 export namespace AST {
     type TokenType =
@@ -85,6 +85,7 @@ export namespace Scope {
 
     interface Variable {
         name: string;
+        scope: Scope;
         identifiers: ESTree.Identifier[];
         references: Reference[];
         defs: Definition[];
@@ -551,23 +552,54 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
-            /** provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
+            /** Provides a short description of the rule. */
             description?: string | undefined;
-            /** specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated no longer used
+             */
             category?: string | undefined;
-            /** is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
+            /** Whether the rule is enabled in the plugin's `recommended` configuration. */
             recommended?: boolean | undefined;
-            /** specifies the URL at which the full documentation can be accessed */
+            /** Specifies the URL at which the full documentation can be accessed (enabling code editors to provide a helpful link on highlighted rule violations). */
             url?: string | undefined;
-            /** specifies whether rules can return suggestions (defaults to false if omitted) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated use `meta.hasSuggestions` instead
+             */
             suggestion?: boolean | undefined;
         } | undefined;
+        /** Violation and suggestion messages. */
         messages?: { [messageId: string]: string } | undefined;
+        /**
+         * Specifies if the `--fix` option on the command line automatically fixes problems reported by the rule.
+         * Mandatory for fixable rules.
+         */
         fixable?: "code" | "whitespace" | undefined;
+        /**
+         * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
+         * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
+         */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+
+        /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /** The name of the rule(s) this rule was replaced by, if it was deprecated. */
+        replacedBy?: readonly string[];
+
+        /**
+         * Indicates the type of rule:
+         * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
+         * - `"suggestion"` means the rule is identifying something that could be done in a better way but no errors will occur if the code isn’t changed.
+         * - `"layout"` means the rule cares primarily about whitespace, semicolons, commas, and parentheses,
+         *   all the parts of the program that determine how the code looks rather than how it executes.
+         *   These rules work on parts of the code that aren’t specified in the AST.
+         */
         type?: "problem" | "suggestion" | "layout" | undefined;
-        /** specifies whether rules can return suggestions (defaults to false if omitted) */
+        /**
+         * Specifies whether the rule can return suggestions (defaults to `false` if omitted).
+         * Mandatory for rules that provide suggestions.
+         */
         hasSuggestions?: boolean | undefined;
     }
 
@@ -691,13 +723,13 @@ export namespace Linter {
         rules?: Partial<Rules> | undefined;
     }
 
-    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends HasRules<Rules> {
         $schema?: string | undefined;
         env?: { [name: string]: boolean } | undefined;
         extends?: string | string[] | undefined;
-        globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" } | undefined;
+        globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
         noInlineConfig?: boolean | undefined;
-        overrides?: ConfigOverride[] | undefined;
+        overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
         parser?: string | undefined;
         parserOptions?: ParserOptions | undefined;
         plugins?: string[] | undefined;
@@ -712,7 +744,7 @@ export namespace Linter {
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends BaseConfig<Rules, OverrideRules> {
         ignorePatterns?: string | string[] | undefined;
         root?: boolean | undefined;
     }
@@ -837,6 +869,20 @@ export class ESLint {
 }
 
 export namespace ESLint {
+    type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
+
+    interface Environment {
+        globals?: { [name: string]: boolean; } | undefined;
+        parserOptions?: Linter.ParserOptions | undefined;
+    }
+
+    interface Plugin {
+        configs?: Record<string, ConfigData> | undefined;
+        environments?: Record<string, Environment> | undefined;
+        processors?: Record<string, Linter.Processor> | undefined;
+        rules?: Record<string, ((...args: any[]) => any) | Rule.RuleModule> | undefined;
+    }
+
     interface Options {
         // File enumeration
         cwd?: string | undefined;
@@ -851,7 +897,7 @@ export namespace ESLint {
         baseConfig?: Linter.Config | undefined;
         overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
-        plugins?: Record<string, any> | undefined;
+        plugins?: Record<string, Plugin> | undefined;
         reportUnusedDisableDirectives?: Linter.RuleLevel | undefined;
         resolvePluginsRelativeTo?: string | undefined;
         rulePaths?: string[] | undefined;

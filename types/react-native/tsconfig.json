@@ -24,6 +24,7 @@
         "test/legacy-properties.tsx",
         "test/stylesheet-create.tsx",
         "test/stylesheet-flatten.tsx",
-        "test/turbo-module-sample.ts"
+        "test/turbo-module-sample.ts",
+        "test/fabric-component-sample.ts"
     ]
 }

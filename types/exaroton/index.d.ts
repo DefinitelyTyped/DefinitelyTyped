@@ -1,4 +1,4 @@
-// Type definitions for exaroton 1.7
+// Type definitions for exaroton 1.8
 // Project: https://github.com/exaroton/node-exaroton-api
 // Definitions by: Maximilian Hofmann <https://github.com/hofmmaxi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,7 @@
 import { EventEmitter } from 'events';
 import { WebSocket } from 'ws';
 import FormData = require('form-data');
+import { ReadableStream, WritableStream } from 'node:stream/web';
 
 // Exported types
 export { Client, Request, Response, Server, Software };
@@ -62,6 +63,13 @@ declare class Client {
     request(request: Request): Promise<Response>;
 
     /**
+     * @param url
+     * @param gotOptions
+     * @param outputStream
+     */
+    streamResponse(url: string, gotOptions: object, outputStream: WritableStream): Promise<unknown>;
+
+    /**
      * Get a list of all servers
      * @throws {RequestError}
      */
@@ -106,12 +114,39 @@ declare class Request {
     /**
      * Post body data
      */
-    readonly data: null | object;
+    readonly data: null | object | string;
 
     /**
      * Response class used to create/parse responses to this request
      */
     readonly responseClass: Response;
+
+    /**
+     * Response type (text|json|buffer)
+     *
+     * @see https://github.com/sindresorhus/got/blob/main/documentation/2-options.md#responsetype
+     */
+    readonly responseType: ResponseType;
+
+    /**
+     * Optional path to write the response body to
+     */
+    outputPath?: string;
+
+    /**
+     * Optional stream tonstream the response body to
+     */
+    outputStream?: WritableStream | null;
+
+    /**
+     * Optional path to read the request body from
+     */
+    inputPath?: string;
+
+    /**
+     * Optional stream to read the request body from
+     */
+    inputStream?: ReadableStream | null;
 
     /**
      * Set a URL parameter
@@ -143,14 +178,57 @@ declare class Request {
     /**
      * Get body for request
      */
-    getBody(): FormData | string;
+    getBody(): FormData | string | ReadableStream;
 
     /**
      * Create a response object for this request
      *
      * @param body
      */
-    createResponse(body: object): Response;
+    createResponse(body: object | string | null): Response;
+
+    expectsJsonResponse(): boolean;
+
+    getOutputStream(): WritableStream | null;
+
+    hasOutputStream(): boolean;
+
+    getInputStream(): WritableStream | null;
+
+    hasInputStream(): boolean;
+
+    /**
+     * Set a file as output file for the response body
+     *
+     * @param outputPath
+     */
+    setOutputPath(outputPath: string): Request;
+
+    /**
+     * Set a stream as input stream for request body
+     *
+     * @param inputStream
+     */
+    setInputStream(inputStream: ReadableStream): Request;
+
+    /**
+     * Set a stream as output stream for the request body
+     *
+     * @param outputStream
+     */
+    setOutputStream(outputStream: WritableStream): Request;
+
+    /**
+     * Set the data to put as string
+     */
+    setData(data: string | object): Request;
+
+    /**
+     * Set a file as input file for the request body
+     *
+     * @param inputPath
+     */
+    setInputPath(inputPath: string): Request;
 }
 
 declare class Response {
@@ -159,7 +237,7 @@ declare class Response {
     /**
      * (raw/parsed) response body
      */
-    body: object;
+    body: object | string;
 
     /**
      * Request constructor
@@ -178,7 +256,118 @@ declare class Response {
      *
      * @param body
      */
-    setBody(body: object): void;
+    setBody(body: object | string): void;
+}
+
+declare class File {
+    /**
+     * File path relative to server root
+     */
+    path: string;
+
+    /**
+     * File name
+     */
+    name: string;
+
+    readonly isTextFile: boolean;
+
+    readonly isConfigFile: boolean;
+
+    readonly isDirectory: boolean;
+
+    readonly isLog: boolean;
+
+    readonly isReadable: boolean;
+
+    readonly isWritable: boolean;
+
+    readonly size: number;
+
+    readonly children: File[] | null;
+
+    private readonly server: Server;
+
+    private readonly client: Client;
+
+    constructor(path: string | null);
+
+    setPath(path: string): void;
+
+    /**
+     * Apply data from the API Response
+     */
+    applyData(object: object): File;
+
+    /**
+     * Set the server
+     *
+     * @param server
+     */
+    setServer(server: Server): File;
+
+    /**
+     * Set the API client
+     */
+    setClient(client: Client): File;
+
+    /**
+     * Get file information from the API
+     */
+    getInfo(): Promise<File>;
+
+    /**
+     * Get the data/content of a file
+     *
+     * If you want to download the file to a local file use File.download() instead
+     */
+    getContent(): Promise<string>;
+
+    /**
+     * Download the data/content of a file to a local file
+     *
+     * If you want to use the content of a file directly use File.getContent() instead
+     */
+    download(outputPath: string): Promise<Response>;
+
+    /**
+     * Download the data/content of a file into a writable stream
+     */
+    downloadToStream(outputStream: WritableStream): Promise<Response>;
+
+    /**
+     * Put the content of a file
+     *
+     * If you want to upload a local file use File.upload() instead
+     */
+    putContent(content: string | object): Promise<Response>;
+
+    /**
+     * Upload a local file
+     *
+     * If you want to upload the content of the file directly as a string use File.putContent() instead
+     */
+    upload(inputPath: string): Promise<Response>;
+
+    /**
+     * Upload from a readable stream
+     */
+    uploadFromStream(inputStream: ReadableStream): Promise<Response>;
+
+    /**
+     * Delete a file
+     */
+    delete(): Promise<Response>;
+
+    /**
+     * Create a directory
+     */
+    createAsDirectory(): Promise<Response>;
+
+    /**
+     * Get the children of a directory
+     */
+    getChildren(): Promise<File[] | null>;
 }
 
 interface Server {
@@ -380,6 +569,16 @@ declare class Server extends EventEmitter {
     getPlayerList(name: PlayerListTypes): PlayerList;
 
     /**
+     * Get a file object for a server file
+     *
+     * This doesn't request file info or content yet.
+     * Use the File.getInfo() and File.getContent() methods for that
+     *
+     * @param path The path of the file relative to the server root
+     */
+    getFile(path: string): File;
+
+    /**
      * Check if the server has one or one of multiple status codes
      *
      * Use this.STATUS.<STATUS> for status codes
@@ -447,6 +646,12 @@ declare class Software {
 }
 
 // Internal types
+declare enum ResponseType {
+    Text = "text",
+    JSON = "json",
+    Buffer = "buffer"
+}
+
 declare class Account {
     private readonly client: Client;
 
@@ -515,6 +720,42 @@ declare class RequestStatusError extends RequestError {
 }
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
+declare class FileRequest extends ServerRequest {
+    /**
+     * FileRequest constructor
+     */
+    constructor(id: string, path: string);
+
+    /**
+     * Set the path parameter and url encode all characters except slashes
+     */
+    setPath(path: string): FileRequest;
+}
+
+declare class FileDataRequest extends FileRequest {
+    endpoint: string;
+}
+
+declare class PutFileDataRequest extends FileDataRequest {
+    method: Method;
+}
+
+declare class CreateDirectoryRequest extends PutFileDataRequest {
+    headers: object;
+}
+
+declare class DeleteFileDataRequest extends FileDataRequest {
+    method: Method;
+}
+
+declare class GetFileDataRequest extends FileDataRequest {
+    responseType: ResponseType.Text;
+}
+
+declare class GetFileInformationRequest extends FileRequest {
+    endpoint: string;
+}
 
 declare class GetServersRequest extends Request {
     readonly endpoint: string;
@@ -609,7 +850,7 @@ declare class DeletePlayerListEntriesRequest extends PlayerListRequest {
     constructor(id: string, name: string, entries: string);
 }
 
-declare class GetPlayerListEntriesRequest extends PlayerListRequest {}
+declare class GetPlayerListEntriesRequest extends PlayerListRequest { }
 
 declare class GetPlayerListRequest extends ServerRequest {
     readonly endpoint: string;

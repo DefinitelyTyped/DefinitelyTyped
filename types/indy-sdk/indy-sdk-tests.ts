@@ -1,6 +1,8 @@
 import indy from 'indy-sdk';
 import { Buffer } from 'buffer/';
 
+indy.setLogger((level, target, message, modulePath, file, line) => {});
+
 indy.openBlobStorageWriter('default', {
     base_dir: 'dir',
     uri_pattern: 'uri_pattern',
@@ -70,6 +72,18 @@ const proofReq: indy.IndyProofRequest = {
     version: '0.1',
     requested_attributes: {
         attr1_referent: { name: 'name' },
+    },
+    requested_predicates: {
+        predicate1_referent: { name: 'age', p_type: '>=', p_value: 18 },
+    },
+    non_revoked: { from: 80, to: 100 },
+};
+const proofRequestWithNamesArray: indy.IndyProofRequest = {
+    nonce: 'nonce',
+    name: 'proof_req_1',
+    version: '0.1',
+    requested_attributes: {
+        attr1_referent: { names: ['name', 'address'] },
     },
     requested_predicates: {
         predicate1_referent: { name: 'age', p_type: '>=', p_value: 18 },
@@ -280,8 +294,12 @@ indy.proverGetCredentials(10, {
 });
 indy.proverDeleteCredential(10, 'credId');
 indy.generateNonce();
+indy.generateWalletKey();
+indy.generateWalletKey({ seed: 'seed' });
+indy.buildAttribRequest('myDid', 'myDid', null, { endpoint: 'value' }, null);
 indy.buildGetAttribRequest(null, 'did', 'endpoint', null, null);
 indy.proverGetCredentialsForProofReq(10, proofReq);
+indy.proverGetCredentialsForProofReq(10, proofRequestWithNamesArray);
 indy.proverSearchCredentialsForProofReq(10, proofReq, {});
 indy.proverFetchCredentialsForProofReq(10, 'attr1_referent', 100);
 indy.proverCloseCredentialsSearchForProofReq(10);
@@ -365,7 +383,6 @@ indy.createRevocationState(
 // indy.refreshPoolLedger(-1)
 // indy.deletePoolLedgerConfig(pool.name)
 // indy.closePoolLedger(poolH)
-// indy.setLogger(logFn)
 // indy.setRuntimeConfig({ crypto_thread_pool_size: 4 })
 // indy.setDefaultLogger('trace')
 // indy.setKeyMetadata(10, 'verkey', 'foobar')

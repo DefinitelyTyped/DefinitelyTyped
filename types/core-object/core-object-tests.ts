@@ -9,7 +9,8 @@ mix1.b; // $ExpectType string
 
 declare const mix2: Mix<{ a: number }, { a: string }>;
 mix2.a; // $ExpectType string
-mix2.b; // $ExpectError
+// @ts-expect-error
+mix2.b;
 
 //////////// MethodNames ////////////
 
@@ -27,7 +28,8 @@ names3; // $ExpectType "a"
 const extendOptions1: CoreObject.ExtendOptions<{}> = { a: 1, b: 'hi' };
 const extendOptions2: CoreObject.ExtendOptions<{ a: number }> = { b: 'hi' };
 const extendOptions3: CoreObject.ExtendOptions<{ a: number }> = { a: 5 };
-const extendOptions4: CoreObject.ExtendOptions<{ a: number }> = { a: 'hi' }; // $ExpectError
+// @ts-expect-error
+const extendOptions4: CoreObject.ExtendOptions<{ a: number }> = { a: 'hi' };
 
 //////////// ExtendThisType ////////////
 
@@ -35,10 +37,12 @@ declare function extendThisType1<T>(options: T & CoreObject.ExtendThisType<{ pro
 extendThisType1({
     otherMethod() {
         this.prop; // $ExpectType string
-        this.random; // $ExpectError
+        // @ts-expect-error
+        this.random;
 
         this._super.method.call(this); // $ExpectType number
-        this._super.random; // $ExpectError
+        // @ts-expect-error
+        this._super.random;
     }
 });
 
@@ -54,7 +58,8 @@ const A = CoreObject.extend({
 
 const a = new A();
 a.foo; // $ExpectType string
-a.bar; // $ExpectError
+// @ts-expect-error
+a.bar;
 a.method(); // $ExpectType string
 
 const B = A.extend({
@@ -83,8 +88,10 @@ class ClassWithMethods extends CoreObject.extend({
 
 const ExtendSubclass = ClassWithMethods.extend({
     anotherMethod() {
-        this._super.extendMethod(1); // $ExpectError
-        this._super.esMethod('hi'); // $ExpectError
+        // @ts-expect-error
+        this._super.extendMethod(1);
+        // @ts-expect-error
+        this._super.esMethod('hi');
 
         this._super.extendMethod.call(this, 1); // $ExpectType string
         this._super.extendMethod.apply(this, [1]); // $ExpectType string
@@ -96,17 +103,22 @@ const ExtendSubclass = ClassWithMethods.extend({
 
 class ESSubclass extends ClassWithMethods {
     anotherMethod() {
-        this._super; // $ExpectError
+        // @ts-expect-error
+        this._super;
 
         super.extendMethod(1); // $ExpectType string
         super.esMethod('hi'); // $ExpectType number
     }
 }
 
-ClassWithMethods.extend({ extendMethod: null }); // $ExpectError
-ClassWithMethods.extend({ extendMethod() {} }); // $ExpectError
-ClassWithMethods.extend({ esMethod: null }); // $ExpectError
-ClassWithMethods.extend({ esMethod() {} }); // $ExpectError
+// @ts-expect-error
+ClassWithMethods.extend({ extendMethod: null });
+// @ts-expect-error
+ClassWithMethods.extend({ extendMethod() {} });
+// @ts-expect-error
+ClassWithMethods.extend({ esMethod: null });
+// @ts-expect-error
+ClassWithMethods.extend({ esMethod() {} });
 
 ClassWithMethods.extend({
     extendMethod(arg: number): string {
@@ -138,23 +150,31 @@ ClassWithManyMethods.extend({
 
         this._super.method1.call(this, 'a'); // $ExpectType 1
         this._super.method1.apply(this, ['a']); // $ExpectType 1
-        this._super.method1.call(this, 'x'); // $ExpectError
-        this._super.method1.apply(this, ['x']); // $ExpectError
+        // @ts-expect-error
+        this._super.method1.call(this, 'x');
+        // @ts-expect-error
+        this._super.method1.apply(this, ['x']);
 
         this._super.method2.call(this, 'a', 'b'); // $ExpectType 2
         this._super.method2.apply(this, ['a', 'b']); // $ExpectType 2
-        this._super.method2.call(this, 'a', 'x'); // $ExpectError
-        this._super.method2.apply(this, ['a', 'x']); // $ExpectError
+        // @ts-expect-error
+        this._super.method2.call(this, 'a', 'x');
+        // @ts-expect-error
+        this._super.method2.apply(this, ['a', 'x']);
 
         this._super.method3.call(this, 'a', 'b', 'c'); // $ExpectType 3
         this._super.method3.apply(this, ['a', 'b', 'c']); // $ExpectType 3
-        this._super.method3.call(this, 'a', 'b', 'x'); // $ExpectError
-        this._super.method3.apply(this, ['a', 'b', 'x']); // $ExpectError
+        // @ts-expect-error
+        this._super.method3.call(this, 'a', 'b', 'x');
+        // @ts-expect-error
+        this._super.method3.apply(this, ['a', 'b', 'x']);
 
         this._super.method4.call(this, 'a', 'b', 'c', 'd'); // $ExpectType 4
         this._super.method4.apply(this, ['a', 'b', 'c', 'd']); // $ExpectType 4
-        this._super.method4.call(this, 'a', 'b', 'c', 'x'); // $ExpectError
-        this._super.method4.apply(this, ['a', 'b', 'c', 'x']); // $ExpectError
+        // @ts-expect-error
+        this._super.method4.call(this, 'a', 'b', 'c', 'x');
+        // @ts-expect-error
+        this._super.method4.apply(this, ['a', 'b', 'c', 'x']);
 
         // Arity 4 is as high as we go for arg checking
         this._super.method5.call(this, 'foo', 'bar', 'baz'); // $ExpectType 5

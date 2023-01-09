@@ -11,12 +11,14 @@
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Matteo Nista <https://github.com/Mattewn99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
 import * as _isEmail from './lib/isEmail';
 import * as _isFQDN from './lib/isFQDN';
 import * as _isIBAN from './lib/isIBAN';
+import * as _isISO31661Alpha2 from './lib/isISO31661Alpha2';
 import * as _isISO4217 from './lib/isISO4217';
 import * as _isURL from './lib/isURL';
 import * as _isTaxID from './lib/isTaxID';
@@ -28,12 +30,23 @@ declare namespace validator {
      *** Validators ***
      ******************/
 
+    interface ContainsOptions {
+        /**
+         * @default false
+         */
+        ignoreCase?: boolean | undefined;
+        /**
+         * @default 1
+         */
+        minOccurrences?: number | undefined;
+    }
+
     /**
      * Check if the string contains the seed.
      *
      * @param seed - Seed
      */
-    function contains(str: string, seed: any): boolean;
+    function contains(str: string, seed: any, options?: ContainsOptions): boolean;
 
     /**
      * Check if the string matches the comparison.
@@ -571,7 +584,7 @@ declare namespace validator {
      */
     function isRgbColor(str: string, includePercentValues?: boolean): boolean;
 
-    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW';
+    type IdentityCardLocale = 'ES' | 'he-IL' | 'zh-TW' | 'zh-CN';
 
     /**
      * Check if the string is a valid identity card code.
@@ -651,10 +664,7 @@ declare namespace validator {
      */
     function isISIN(str: string): boolean;
 
-    /**
-     * Check if the string is a valid [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) officially assigned country code.
-     */
-    function isISO31661Alpha2(str: string): boolean;
+    const isISO31661Alpha2: typeof _isISO31661Alpha2.default;
 
     /**
      * Check if the string is a valid [ISO 3166-1 alpha-3](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) officially assigned country code.
@@ -669,6 +679,12 @@ declare namespace validator {
          * @default false
          */
         strict?: boolean | undefined;
+        /**
+         * If `strictSeparator` is true, date strings with date and time separated
+         * by anything other than a T will be invalid
+         *
+         */
+        strictSeparator?: boolean | undefined;
     }
 
     /**
@@ -950,6 +966,7 @@ declare namespace validator {
          * @default false
          */
         no_symbols?: boolean | undefined;
+        locale?: AlphaLocale | undefined;
     }
 
     /**
@@ -985,6 +1002,7 @@ declare namespace validator {
         | 'BR'
         | 'CA'
         | 'CH'
+        | 'CN'
         | 'CZ'
         | 'DE'
         | 'DK'
@@ -1048,7 +1066,7 @@ declare namespace validator {
      * Check if string is considered a strong password. Allows options to be added
      */
 
-    interface strongPasswordOptions {
+    interface StrongPasswordOptions {
         minLength?: number | undefined;
         minLowercase?: number | undefined;
         minUppercase?: number | undefined;
@@ -1062,7 +1080,13 @@ declare namespace validator {
         pointsForContainingNumber?: number | undefined;
         pointsForContainingSymbol?: number | undefined;
     }
-    function isStrongPassword(str: string, options?: strongPasswordOptions): boolean;
+
+    function isStrongPassword(
+        str: string,
+        options?: StrongPasswordOptions & { returnScore?: false | undefined },
+    ): boolean;
+    function isStrongPassword(str: string, options: StrongPasswordOptions & { returnScore: true }): number;
+
     /**
      * Check if the string contains any surrogate pairs chars.
      */

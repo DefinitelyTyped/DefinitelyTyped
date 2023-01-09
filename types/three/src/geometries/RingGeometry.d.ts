@@ -2,12 +2,12 @@ import { BufferGeometry } from './../core/BufferGeometry';
 
 export class RingGeometry extends BufferGeometry {
     /**
-     * @param [innerRadius=0.5]
-     * @param [outerRadius=1]
-     * @param [thetaSegments=8]
-     * @param [phiSegments=1]
-     * @param [thetaStart=0]
-     * @param [thetaLength=Math.PI * 2]
+     * @param innerRadius - Default is 0.5.
+     * @param outerRadius - Default is 1.
+     * @param thetaSegments - Number of segments. A higher number means the ring will be more round. Minimum is 3. Default is 32.
+     * @param phiSegments - Minimum is 1. Default is 1.
+     * @param thetaStart - Starting angle. Default is 0.
+     * @param thetaLength - Central angle. Default is Math.PI * 2.
      */
     constructor(
         innerRadius?: number,
@@ -34,5 +34,3 @@ export class RingGeometry extends BufferGeometry {
 
     static fromJSON(data: any): RingGeometry;
 }
-
-export { RingGeometry as RingBufferGeometry };

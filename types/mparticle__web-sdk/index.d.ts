@@ -1,9 +1,10 @@
-// Type definitions for mParticle/web-sdk SDK 2.16
+// Type definitions for mParticle/web-sdk SDK 2.18
 // Project: https://github.com/mParticle/mparticle-web-sdk
 // Definitions by: Alex Sapountzis <https://github.com/asap>
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
+import { Batch } from '@mparticle/event-models';
 
 export as namespace mParticle;
 export {};
@@ -19,6 +20,7 @@ export interface MPConfiguration {
     logger?: Logger | undefined;
     sessionTimeout?: number | undefined;
     deviceId?: string | undefined;
+    onCreateBatch?: onCreateBatch | undefined;
     useCookieStorage?: boolean | undefined;
     maxCookieSize?: number | undefined;
     cookieDomain?: string | undefined;
@@ -65,6 +67,10 @@ interface GetAppVersion {
     (): string;
 }
 interface GetDeviceId {
+    (): string;
+}
+
+interface GetEnvironment {
     (): string;
 }
 interface GetVersion {
@@ -302,6 +308,7 @@ export const getAppName: GetAppName;
 export const getAppVersion: GetAppVersion;
 export const getDeviceId: GetDeviceId;
 export const setDeviceId: SetDeviceId;
+export const getEnvironment: GetEnvironment;
 export function getInstance(instanceName?: string): mParticleInstance;
 export const getVersion: GetVersion;
 /**
@@ -628,6 +635,10 @@ export interface errorObject {
     stack: string;
 }
 
+export interface onCreateBatch {
+    (batch: Batch): Batch;
+}
+
 export interface IdentityCallback {
     (result: IdentityResult): void;
 }
@@ -667,6 +678,7 @@ declare class mParticleInstance {
     getAppVersion: GetAppVersion;
     getDeviceId: GetDeviceId;
     setDeviceId: SetDeviceId;
+    getEnvironment: GetEnvironment;
     getVersion: GetVersion;
     init: Init;
     isInitialized: IsInitialized;

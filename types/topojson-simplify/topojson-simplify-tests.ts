@@ -87,10 +87,10 @@ declare let myAtlas: MyAtlas;
 console.log(myAtlas.more);
 
 let s: string;
-// $ExpectError
+// @ts-expect-error
 s = topojson.presimplify(myAtlas).more; // must fail
-// $ExpectError
+// @ts-expect-error
 s = topojson.simplify(myAtlas).more; // must fail
 
-// // $ExpectError
+// // @ts-expect-error
 // area = topojson.planarTriangleArea([[0, 0], [0, 1], [1, 1], [1, 0]]); // must fail in 2.7

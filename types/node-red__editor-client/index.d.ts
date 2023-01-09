@@ -49,6 +49,7 @@ declare namespace editorClient {
      */
     interface NodeProperties {
         name?: string | undefined;
+        inputs?: 0 | 1 | undefined;
     }
 
     /** Reserved name for properties that MUST NOT BE USED. */
@@ -59,7 +60,6 @@ declare namespace editorClient {
         | 'id'
         | 'info'
         | 'inputLabels'
-        | 'inputs'
         | 'outputLabels'
         | 'ports'
         | 'selected'
@@ -383,7 +383,7 @@ declare namespace editorClient {
          */
         registerNodeType<TProps extends NodeProperties, TCreds = undefined, TInstProps extends TProps = TProps>(
             nt: string,
-            def: NodeDef<TProps, TCreds, TInstProps>, // tslint:disable-line:no-unnecessary-generics
+            def: NodeDef<TProps, TCreds, TInstProps>, // eslint-disable-line no-unnecessary-generics
         ): void;
         removeNodeType(nt: string): void;
         getNodeType(nt: string): NodeDef<NodeProperties>;
@@ -1444,7 +1444,7 @@ declare namespace editorClient {
          *
          * More info: https://nodered.org/docs/api/ui/editableList/
          */
-        <T>(opts: WidgetEditableListOptions<T>): this; // tslint:disable-line:no-unnecessary-generics
+        <T>(opts: WidgetEditableListOptions<T>): this; // eslint-disable-line no-unnecessary-generics
         /**
          * Adds an item to the end of the list.         *
          * @param value - An object that will be associated with the item in the list.
