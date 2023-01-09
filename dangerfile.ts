@@ -67,6 +67,8 @@ newDTSFiles.forEach(dts => {
     }
 })
 
+fail("Test warning");
+
 for (const filename of danger.git.modified_files.concat(danger.git.created_files)) {
     danger.git.diffForFile(filename).then(d => {
         if (d.added.indexOf("\t") > -1) { // This is a dumb check for tabs, in lieu of running `prettier` on the diff'd parts
