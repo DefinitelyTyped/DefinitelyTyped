@@ -372,7 +372,23 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      */
     getObjectByName(name: string): Object3D | undefined;
 
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns the first with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
     getObjectByProperty(name: string, value: any): Object3D | undefined;
+
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns all the objects with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectsByProperty(name: string, value: any): Object3D[];
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;

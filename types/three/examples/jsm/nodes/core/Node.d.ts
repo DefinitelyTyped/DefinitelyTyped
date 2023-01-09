@@ -12,11 +12,11 @@ export default abstract class Node {
 
     constructor(nodeType?: NodeTypeOption | null);
 
+    isGlobal(builder: NodeBuilder): boolean;
     getChildren(): Node[];
     getHash(builder: NodeBuilder): string;
     getUpdateType(builder: NodeBuilder): NodeUpdateTypeOption;
     getNodeType(builder: NodeBuilder, output?: string | null): NodeTypeOption | null;
-    getConstructHash(builder: NodeBuilder): string;
     getReference(builder: NodeBuilder): Node;
     construct(builder: NodeBuilder): Node | null;
     analyze(builder: NodeBuilder): void;
