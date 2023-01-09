@@ -9698,6 +9698,13 @@ declare namespace chrome.tabs {
      * Duplicates a tab.
      * @since Chrome 23.
      * @param tabId The ID of the tab which is to be duplicated.
+     * @return The `duplicate` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function duplicate(tabId: number): Promise<Tab | undefined>;
+    /**
+     * Duplicates a tab.
+     * @since Chrome 23.
+     * @param tabId The ID of the tab which is to be duplicated.
      * @param callback Optional.
      * Optional parameter tab: Details about the duplicated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
      */
