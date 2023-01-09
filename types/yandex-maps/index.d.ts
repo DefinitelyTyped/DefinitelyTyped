@@ -7,6 +7,8 @@
 // TypeScript Version: 2.4
 
 declare namespace ymaps {
+    import GeoObjects = ymaps.map.GeoObjects;
+
     interface IClassConstructor<T> {
         new(): T;
     }
@@ -817,11 +819,11 @@ declare namespace ymaps {
 
             events: IEventManager;
 
-            get(path: string, defaultValue: object): object;
+            get(path: string, defaultValue?: any): object;
 
             getAll(): object;
 
-            set(path: object | string, value: object | number | string | null | undefined): this;
+            set(path: object | string, value: object | number | string | boolean | null | undefined): this;
 
             setAll(): this;
 
@@ -1981,6 +1983,10 @@ declare namespace ymaps {
             getMap(): Map;
         }
 
+        class GeoQuery {
+            searchInside(map: Map): GeoObjects;
+        }
+
         class Hint implements IHintManager<Hint>/*, IHintSharingManager*/ {
             constructor(map: Map);
 
@@ -2468,7 +2474,7 @@ declare namespace ymaps {
 
             events: IEventManager;
 
-            get(key: string, defaultValue: object): object;
+            get(key: string, defaultValue?: any): object;
 
             getAll(): object;
 
@@ -2478,7 +2484,7 @@ declare namespace ymaps {
 
             resolve(key: string, name?: string): object;
 
-            set(key: object | string, value?: object | number | string | null): this;
+            set(key: object | string, value?: object | number | string | null | boolean): this;
 
             unset(keys: string[][] | string[] | string): this;
 
@@ -3495,6 +3501,8 @@ declare namespace ymaps {
         setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
 
         setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
+
+        geoQuery(objects: IGeoObject[]): GeoQuery;
     }
 
     class MapEvent<OriginalEvent = {}, TargetGeometry = {}> extends Event<OriginalEvent, TargetGeometry> {
@@ -3765,53 +3773,6 @@ declare namespace ymaps {
         geoObjects: GeoObjectCollection;
     }
 
-    namespace geolocation {
-        /**
-         * Tries to determine the user's location. Returns the promise object, which will either be confirmed by the object with the field geoObjects or rejected with an error message.
-         * The geoObjects field is an instance of GeoObjectCollection. The object that indicates the user's current location will be added to the collection.
-         * @param options Options.
-         */
-        function get(options?: IGeolocationOptions): Promise<IGeolocationResult>;
-
-        interface IGeolocationOptions {
-            /**
-             * If true, geocode the user position automatically; if false, return as it is.
-             * If automatic geocoding is used, the object marking the user's current position has the same structure as the result of executing geocode.
-             */
-            autoReverseGeocode?: boolean;
-
-            /**
-             * If true, the map center and zoom level are adjusted automatically to show the current location of the user; if false, nothing happens.
-             */
-            mapStateAutoApply?: boolean;
-
-            /**
-             * Geolocation provider. Accepted values:
-             *  'yandex' - geolocation according to the Yandex data, based on the user IP-address;
-             *  'browser' - built-in browser geolocation;
-             *  'auto' - try to locate the user by all means available and then choose the best value.
-             */
-            provider?: 'yandex' | 'browser' | 'auto';
-
-            /**
-             * The response time, in milliseconds.
-             */
-            timeout?: number;
-
-            /**
-             * Whether to account for map margins map.margin.Manager when automatically centering and zooming the map.
-             */
-            useMapMargin?: boolean;
-        }
-
-        interface IGeolocationResult {
-            /**
-             * Geolocation results.
-             */
-            geoObjects: GeoObjectCollection;
-        }
-    }
-
     /**
      * Processes requests for search suggestions.
      * Returns a promise object that is either rejected with an error,
@@ -3900,7 +3861,7 @@ declare namespace ymaps {
               projection?: IProjection,
               params?: { inscribe: boolean; margin: number | number[]; preciseZoom: boolean },
             ): {
-              center: number[][];
+              center: number[];
               zoom: number;
             };
             function getIntersections(
@@ -4080,7 +4041,7 @@ declare namespace ymaps {
     }
 
     interface IDataManager extends IEventEmitter {
-        get(path: string, defaultValue: object): object;
+        get(path: string, defaultValue?: object): object;
     }
 
     interface IDomEventEmitter extends IEventEmitter { // tslint:disable-line no-empty-interface
@@ -4094,6 +4055,7 @@ declare namespace ymaps {
         get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
 
         get(name: 'type'): string;
+        get(name: 'child'): IGeoObject;
         get(name: 'objectId'): string | undefined;
         get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
@@ -4121,7 +4083,7 @@ declare namespace ymaps {
             }
             target: {
                 geometry?: TargetGeometry | undefined;
-            };
+            }
         };
     }
 
