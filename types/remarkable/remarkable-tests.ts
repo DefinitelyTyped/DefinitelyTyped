@@ -1,8 +1,19 @@
 // This code does not run, but it is type-checked.
 
-import hljs = require("highlight.js");
 import { Remarkable } from "remarkable";
 import { linkify } from "remarkable/linkify";
+
+const hljs = {
+    getLanguage(lang: string): boolean {
+        return lang === "typescript";
+    },
+    highlight(lang: string, str: string): {value: string} {
+        return {value: str}
+    },
+    highlightAuto(str: string): {value: string} {
+        return {value: str}
+    }
+}
 
 /**
  * Examples from README.
