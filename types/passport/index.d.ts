@@ -93,8 +93,8 @@ declare global {
 import express = require('express');
 
 declare namespace passport {
-    type DoneCallback = (err: any, user?: Express.User | false | null) => void
-    type DeserializeUserFunction = (serializedUser: unknown, req: express.Request, done: DoneCallback) => void
+    type DoneCallback = (err: any, user?: Express.User | false | null) => void;
+    type DeserializeUserFunction = (serializedUser: unknown, req: express.Request, done: DoneCallback) => void;
     /**
      * An optional callback supplied to allow the application to override
      * the default manner in which authentication attempts are handled.  The
@@ -118,8 +118,13 @@ declare namespace passport {
      * responsibility to log-in the user, establish a session, and otherwise perform
      * the desired operations.
      */
-    type AuthenticateCallback = (err: any, user?: Express.User | false | null | undefined, info?: object | string | Array<string | undefined> | undefined, status?: number | undefined | Array<number | undefined>) => any
-    type AuthorizeCallback = AuthenticateCallback
+    type AuthenticateCallback = (
+        err: any,
+        user?: Express.User | false | null,
+        info?: object | string | Array<string | undefined>,
+        status?: number | Array<number | undefined>,
+    ) => any;
+    type AuthorizeCallback = AuthenticateCallback;
 
     interface AuthenticateOptions {
         authInfo?: boolean | undefined;
@@ -134,7 +139,7 @@ declare namespace passport {
          */
         failureFlash?: string | boolean | undefined;
         /**
-         * True to store failure message in `req.session.messages`, 
+         * True to store failure message in `req.session.messages`,
          * or a string to use as override message for failure.
          */
         failureMessage?: boolean | string | undefined;
@@ -175,7 +180,7 @@ declare namespace passport {
          */
         pauseStream?: boolean | undefined;
         /**
-         * Determines what property on `req` 
+         * Determines what property on `req`
          * will be set to the authenticated user object.
          * Default `'user'`.
          */
@@ -186,13 +191,13 @@ declare namespace passport {
 
     interface InitializeOptions {
         /**
-         * Determines what property on `req` 
+         * Determines what property on `req`
          * will be set to the authenticated user object.
          * Default `'user'`.
          */
         userProperty?: string;
         /**
-         * When `true`, enables a compatibility layer 
+         * When `true`, enables a compatibility layer
          * for packages that depend on `passport@0.4.x` or earlier.
          * Default `true`.
          */
@@ -209,7 +214,7 @@ declare namespace passport {
          */
         pauseStream: boolean;
     }
-    
+
     interface SessionStrategyOptions {
         /**
          * Determines what property ("key") on
@@ -224,11 +229,11 @@ declare namespace passport {
         /**
          * Save login state in session, defaults to `true`.
          */
-        session: boolean
+        session: boolean;
     }
 
     interface LogOutOptions {
-        keepSessionInfo?: boolean
+        keepSessionInfo?: boolean;
     }
 
     interface StrategyFailure {
@@ -236,7 +241,12 @@ declare namespace passport {
         [key: string]: any;
     }
 
-    interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
+    interface Authenticator<
+        InitializeRet = express.Handler,
+        AuthenticateRet = any,
+        AuthorizeRet = AuthenticateRet,
+        AuthorizeOptions = AuthenticateOptions,
+    > {
         /**
          * Register a strategy for later use when authenticating requests.  The name
          * with which the strategy is registered is passed to {@link Authenticator.authenticate `authenticate()`}.
@@ -285,20 +295,20 @@ declare namespace passport {
          * Passport monkeypatch Node.js `http.IncomingMessage` in a way that expects
          * certain Passport-specific properties to be available.  This middleware
          * provides a compatibility layer for this situation.
-         * 
+         *
          * Options:
          *  - `userProperty` Determines what property on
          *                   `req` will be set to the authenticated user object.
          *                   Default `'user'`.
-         *  
+         *
          *  - `compat`       When `true`, enables a compatibility
          *                   layer for packages that depend on `passport@0.4.x` or earlier.
          *                   Default `true`.
          *
          * Examples:
-         * 
+         *
          *      app.use(passport.initialize());
-         * 
+         *
          * If sessions are being utilized, applications must set up Passport with
          * functions to serialize a user into and out of a session.  For example, a
          * common pattern is to serialize just the user ID into the session (due to the
@@ -351,7 +361,7 @@ declare namespace passport {
          * request to provide credentials in an Authorization header.
          *
          * Examples:
-         * 
+         *
          *     app.use(connect.cookieParser());
          *     app.use(connect.session({ secret: 'keyboard cat' }));
          *     app.use(passport.initialize());
@@ -365,7 +375,7 @@ declare namespace passport {
          *                        deserializeUser method is asynchronous.
          */
         session(options?: SessionOptions): AuthenticateRet;
-        
+
         /**
          * Authenticates requests.
          *
@@ -421,10 +431,15 @@ declare namespace passport {
          *
          *     passport.authenticate('twitter');
          */
-        authenticate(strategy: string | string[] | Strategy, callback?: AuthenticateCallback): AuthenticateRet;
-        authenticate(strategy: string | string[] | Strategy, callback?: (...args: any[]) => any): AuthenticateRet;
-        authenticate(strategy: string | string[] | Strategy, options: AuthenticateOptions, callback?: AuthenticateCallback): AuthenticateRet;
-        authenticate(strategy: string | string[] | Strategy, options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
+        authenticate(
+            strategy: string | string[] | Strategy,
+            callback?: AuthenticateCallback | ((...args: any[]) => any),
+        ): AuthenticateRet;
+        authenticate(
+            strategy: string | string[] | Strategy,
+            options: AuthenticateOptions,
+            callback?: AuthenticateCallback | ((...args: any[]) => any),
+        ): AuthenticateRet;
         /**
          * Create third-party service authorization middleware.
          *
@@ -447,10 +462,12 @@ declare namespace passport {
          * @example
          * app.get('/oauth/callback/twitter', passport.authorize('twitter'));
          */
-        authorize(strategy: string | string[], callback?: AuthorizeCallback): AuthorizeRet;
-        authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
-        authorize(strategy: string | string[], options: AuthorizeOptions, callback?: AuthorizeCallback): AuthorizeRet;
-        authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
+        authorize(strategy: string | string[], callback?: AuthorizeCallback | ((...args: any[]) => any)): AuthorizeRet;
+        authorize(
+            strategy: string | string[],
+            options: AuthorizeOptions,
+            callback?: AuthorizeCallback | ((...args: any[]) => any),
+        ): AuthorizeRet;
         /**
          * Registers a function used to serialize user objects into the session.
          *
@@ -470,19 +487,28 @@ declare namespace passport {
          *       done(null, user.id);
          *     });
          */
-        serializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: Express.User, done: (err: any, id?: TID) => void) => void): void;
+        serializeUser<TID, TR extends IncomingMessage = express.Request>(
+            fn: (req: TR, user: Express.User, done: (err: any, id?: TID) => void) => void,
+        ): void;
         /**
          * Private implementation that traverses the chain of serializers,
          * attempting to serialize a user.
          */
-        serializeUser<User extends Express.User = Express.User, Request extends IncomingMessage = express.Request>(user: User, req: Request, done: (err: any, serializedUser?: number | NonNullable<unknown> | undefined) => any): void;
+        serializeUser<User extends Express.User = Express.User, Request extends IncomingMessage = express.Request>(
+            user: User,
+            req: Request,
+            done: (err: any, serializedUser?: number | NonNullable<unknown>) => any,
+        ): void;
         /**
          * Private implementation that traverses the chain of serializers,
          * attempting to serialize a user.
-         * 
+         *
          * For backwards compatibility.
          */
-        serializeUser<User extends Express.User = Express.User>(user: User, done: (err: any, serializedUser: number | NonNullable<unknown> | undefined) => any): void;
+        serializeUser<User extends Express.User = Express.User>(
+            user: User,
+            done: (err: any, serializedUser: number | NonNullable<unknown> | undefined) => any,
+        ): void;
         /**
          * Registers a function used to deserialize user objects out of the session.
          *
@@ -506,19 +532,28 @@ declare namespace passport {
          *       });
          *     });
          */
-        deserializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
+        deserializeUser<TID, TR extends IncomingMessage = express.Request>(
+            fn: (req: TR, id: TID, done: (err: any, user?: Express.User | false | null) => void) => void,
+        ): void;
         /**
          * Private implementation that traverses the chain of deserializers,
          * attempting to deserialize a user.
          */
-        deserializeUser<User extends Express.User = Express.User, Request extends IncomingMessage = express.Request>(serializedUser: NonNullable<unknown>, req: Request, done: (err: any, user?: User | false | undefined) => any): void;
+        deserializeUser<User extends Express.User = Express.User, Request extends IncomingMessage = express.Request>(
+            serializedUser: NonNullable<unknown>,
+            req: Request,
+            done: (err: any, user?: User | false) => any,
+        ): void;
         /**
          * Private implementation that traverses the chain of deserializers,
          * attempting to deserialize a user.
-         * 
+         *
          * For backwards compatibility.
          */
-        deserializeUser<User extends Express.User = Express.User>(serializedUser: NonNullable<unknown>, done: (err: any, user?: User | false | undefined) => any): void;
+        deserializeUser<User extends Express.User = Express.User>(
+            serializedUser: NonNullable<unknown>,
+            done: (err: any, user?: User | false) => any,
+        ): void;
         /**
          * Registers a function used to transform auth info.
          *
@@ -559,36 +594,43 @@ declare namespace passport {
         /**
          * Private implementation that traverses the chain of transformers,
          * attempting to transform auth info.
-         * 
+         *
          * If no transformers are registered (or they all pass),
          * the default behavior is to use the un-transformed info as-is.
          */
-        transformAuthInfo<InitialInfo = unknown, Request extends IncomingMessage = express.Request>(info: unknown, req: Request, done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any): void;
+        transformAuthInfo<InitialInfo = unknown, Request extends IncomingMessage = express.Request>(
+            info: unknown,
+            req: Request,
+            done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any,
+        ): void;
         /**
          * Private implementation that traverses the chain of transformers,
          * attempting to transform auth info.
-         * 
+         *
          * If no transformers are registered (or they all pass),
          * the default behavior is to use the un-transformed info as-is.
-         * 
+         *
          * For backwards compatibility.
          */
-        transformAuthInfo<InitialInfo = unknown>(info: unknown, done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any): void;
+        transformAuthInfo<InitialInfo = unknown>(
+            info: unknown,
+            done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any,
+        ): void;
     }
 
     interface PassportStatic extends Authenticator {
         /**
          * Create a new `Authenticator` object.
          */
-        Authenticator: { new(): Authenticator };
+        Authenticator: { new (): Authenticator };
         /**
          * Create a new `Authenticator` object.
          */
-        Passport: PassportStatic["Authenticator"];
+        Passport: PassportStatic['Authenticator'];
         /**
          * Creates an instance of `Strategy`.
          */
-        Strategy: { new(): Strategy & StrategyCreatedStatic };
+        Strategy: { new (): Strategy & StrategyCreatedStatic };
         strategies: {
             /**
              *  Create a new `SessionStrategy` object.
@@ -615,16 +657,19 @@ declare namespace passport {
              * In {@link https://expressjs.com/ Express}-based apps, session support is
              * commonly provided by {@link https://github.com/expressjs/session `express-session`}
              * or {@link https://github.com/expressjs/cookie-session `cookie-session`}.
-             * 
+             *
              * Options:
-             * 
+             *
              *  - `key` Determines what property ("key") on
              *          the session data where login session data is located.  The login
              *          session is stored and read from `req.session[key]`.
              *          Default `'passport'`.
              */
-            SessionStrategy: SessionStrategy
-        }
+            SessionStrategy: {
+                new (deserializeUser: DeserializeUserFunction): SessionStrategy;
+                new (options: SessionStrategyOptions, deserializeUser: DeserializeUserFunction): SessionStrategy;
+            };
+        };
     }
 
     interface Strategy {
@@ -639,12 +684,10 @@ declare namespace passport {
     }
 
     interface SessionStrategy extends Strategy {
-        new(deserializeUser: DeserializeUserFunction): SessionStrategy;
-        new(options: SessionStrategyOptions, deserializeUser: DeserializeUserFunction): SessionStrategy;
-        /** 
+        /**
          * The name of the strategy, set to `'session'`.
          */
-        readonly name: "session";
+        readonly name: 'session';
         /**
          * Authenticate request based on current session data.
          *
@@ -674,46 +717,10 @@ declare namespace passport {
          *
          * @example
          * passport.authenticate('session');
-         * 
-         * @protected
          */
-        authenticate(req: IncomingMessage): void
-        /**
-         * Authenticate request based on current session data.
-         *
-         * When login session data is present in the session, that data will be used to
-         * restore login state across across requests by calling the deserialize user
-         * function.
-         *
-         * If login session data is not present, the request will be passed to the next
-         * middleware, rather than failing authentication - which is the behavior of
-         * most other strategies.  This deviation allows session authentication to be
-         * performed at the application-level, rather than the individual route level,
-         * while allowing both authenticated and unauthenticated requests and rendering
-         * responses accordingly.  Routes that require authentication will need to guard
-         * that condition.
-         *
-         * This function is **protected**, and should _not_ be called directly.  Instead,
-         * use `passport.authenticate()` middleware and specify the {@link SessionStrategy.name `name`}
-         * of this strategy and any options.
-         *
-         * Options:
-         * - `pauseStream` When `true`, data events on
-         *                 the request will be paused, and then resumed after the asynchronous
-         *                 `deserializeUser` function has completed.  This is only necessary in
-         *                 cases where later middleware in the stack are listening for events,
-         *                 and ensures that those events are not missed.
-         *                 Default `false`.
-         *
-         * @example
-         * passport.authenticate('session');
-         * 
-         * @protected
-         */
-        authenticate(req: IncomingMessage, options: Pick<AuthenticateOptions, "pauseStream">): void
+        authenticate(req: IncomingMessage, options?: Pick<AuthenticateOptions, 'pauseStream'>): void;
     }
-    
-    
+
     interface StrategyCreatedStatic {
         /**
          * Authenticate `user`, with optional `info`.
@@ -767,18 +774,24 @@ declare namespace passport {
         id: string;
         displayName: string;
         username?: string | undefined;
-        name?: {
-            familyName: string;
-            givenName: string;
-            middleName?: string | undefined;
-        } | undefined;
-        emails?: Array<{
-            value: string;
-            type?: string | undefined;
-        }> | undefined;
-        photos?: Array<{
-            value: string;
-        }> | undefined;
+        name?:
+            | {
+                  familyName: string;
+                  givenName: string;
+                  middleName?: string | undefined;
+              }
+            | undefined;
+        emails?:
+            | Array<{
+                  value: string;
+                  type?: string | undefined;
+              }>
+            | undefined;
+        photos?:
+            | Array<{
+                  value: string;
+              }>
+            | undefined;
     }
 
     interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
@@ -820,7 +833,10 @@ declare namespace passport {
          *       });
          *     });
          */
-        initialize(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, options?: any): (...args: any[]) => InitializeRet;
+        initialize(
+            passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>,
+            options?: any,
+        ): (...args: any[]) => InitializeRet;
         /**
          * Authenticates requests.
          *
@@ -876,7 +892,12 @@ declare namespace passport {
          *
          *     passport.authenticate('twitter');
          */
-        authenticate(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthenticateRet;
+        authenticate(
+            passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>,
+            name: string,
+            options?: any,
+            callback?: (...args: any[]) => any,
+        ): (...args: any[]) => AuthenticateRet;
         /**
          * Create third-party service authorization middleware.
          *
@@ -899,7 +920,12 @@ declare namespace passport {
          * @example
          * app.get('/oauth/callback/twitter', passport.authorize('twitter'));
          */
-        authorize?(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthorizeRet;
+        authorize?(
+            passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>,
+            name: string,
+            options?: any,
+            callback?: (...args: any[]) => any,
+        ): (...args: any[]) => AuthorizeRet;
     }
 }
 
