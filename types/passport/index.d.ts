@@ -40,11 +40,11 @@ declare global {
              *     });
              */
             login(user: User, done: (err: any) => void): void;
-            login(user: User, options: any, done: (err: any) => void): void;
+            login(user: User, options: passport.LogInOptions, done: (err: any) => void): void;
             /**
              * Initiate a login session for `user`.
              *
-             * Options:IncomingMessage
+             * Options:
              *   - `session`  Save login state in session, defaults to `true`.
              *
              * Examples:
@@ -57,17 +57,17 @@ declare global {
              *     });
              */
             logIn(user: User, done: (err: any) => void): void;
-            logIn(user: User, options: any, done: (err: any) => void): void;
+            logIn(user: User, options: passport.LogInOptions, done: (err: any) => void): void;
 
             /**
              * Terminate an existing login session.
              */
-            logout(options: { keepSessionInfo?: boolean }, done: (err: any) => void): void;
+            logout(options: passport.LogOutOptions, done: (err: any) => void): void;
             logout(done: (err: any) => void): void;
             /**
              * Terminate an existing login session.
              */
-            logOut(options: { keepSessionInfo?: boolean }, done: (err: any) => void): void;
+            logOut(options: passport.LogOutOptions, done: (err: any) => void): void;
             logOut(done: (err: any) => void): void;
 
             /**
@@ -93,6 +93,34 @@ declare global {
 import express = require('express');
 
 declare namespace passport {
+    type DoneCallback = (err: any, user?: Express.User | false | null) => void
+    type DeserializeUserFunction = (serializedUser: unknown, req: express.Request, done: DoneCallback) => void
+    /**
+     * An optional callback supplied to allow the application to override
+     * the default manner in which authentication attempts are handled.  The
+     * callback has the following signature, where `user` will be set to the
+     * authenticated user on a successful authentication attempt, or `false`
+     * otherwise.  An optional `info` argument will be passed, containing additional
+     * details provided by the strategy's verify callback - this could be information about
+     * a successful authentication or a challenge message for a failed authentication.
+     * An optional `status` argument will be passed when authentication fails - this could
+     * be a HTTP response code for a remote authentication failure or similar.
+     *
+     *     app.get('/protected', function(req, res, next) {
+     *       passport.authenticate('local', function callback(err, user, info, status) {
+     *         if (err) { return next(err) }
+     *         if (!user) { return res.redirect('/signin') }
+     *         res.redirect('/account');
+     *       })(req, res, next);
+     *     });
+     *
+     * Note that if a callback is supplied, it becomes the application's
+     * responsibility to log-in the user, establish a session, and otherwise perform
+     * the desired operations.
+     */
+    type AuthenticateCallback = (err: any, user?: Express.User | false | null | undefined, info?: object | string | Array<string | undefined> | undefined, status?: number | undefined | Array<number | undefined>) => any
+    type AuthorizeCallback = AuthenticateCallback
+
     interface AuthenticateOptions {
         authInfo?: boolean | undefined;
         /**
@@ -138,10 +166,74 @@ declare namespace passport {
         successRedirect?: string | undefined;
         successReturnToOrRedirect?: string | undefined;
         state?: string | undefined;
+        /**
+         * Pause the request stream before deserializing the user
+         * object from the session.  Defaults to `false`.  Should
+         * be set to `true` in cases where middleware consuming the
+         * request body is configured after passport and the
+         * deserializeUser method is asynchronous.
+         */
         pauseStream?: boolean | undefined;
+        /**
+         * Determines what property on `req` 
+         * will be set to the authenticated user object.
+         * Default `'user'`.
+         */
         userProperty?: string | undefined;
         passReqToCallback?: boolean | undefined;
         prompt?: string | undefined;
+    }
+
+    interface InitializeOptions {
+        /**
+         * Determines what property on `req` 
+         * will be set to the authenticated user object.
+         * Default `'user'`.
+         */
+        userProperty?: string;
+        /**
+         * When `true`, enables a compatibility layer 
+         * for packages that depend on `passport@0.4.x` or earlier.
+         * Default `true`.
+         */
+        compat?: boolean;
+    }
+
+    interface SessionOptions {
+        /**
+         * Pause the request stream before deserializing the user
+         * object from the session.  Defaults to `false`.  Should
+         * be set to `true` in cases where middleware consuming the
+         * request body is configured after passport and the
+         * deserializeUser method is asynchronous.
+         */
+        pauseStream: boolean;
+    }
+    
+    interface SessionStrategyOptions {
+        /**
+         * Determines what property ("key") on
+         * the session data where login session data is located.
+         * The login session is stored and read from `req.session[key]`.
+         * Default `'passport'`.
+         */
+        key: string;
+    }
+
+    interface LogInOptions extends LogOutOptions {
+        /**
+         * Save login state in session, defaults to `true`.
+         */
+        session: boolean
+    }
+
+    interface LogOutOptions {
+        keepSessionInfo?: boolean
+    }
+
+    interface StrategyFailure {
+        message?: string;
+        [key: string]: any;
     }
 
     interface Authenticator<InitializeRet = express.Handler, AuthenticateRet = any, AuthorizeRet = AuthenticateRet, AuthorizeOptions = AuthenticateOptions> {
@@ -153,9 +245,9 @@ declare namespace passport {
          * passport.use(new GoogleStrategy(...));
          *
          * @example <caption>Register strategy and override name.</caption>
-         * passport.use('password', new LocalStrategy(function(username, password, cb) {
-         *   // ...
-         * }));
+         *      passport.use('password', new LocalStrategy(function(username, password, cb) {
+         *              // ...
+         *      }));
          */
         use(strategy: Strategy): this;
         use(name: string, strategy: Strategy): this;
@@ -197,7 +289,7 @@ declare namespace passport {
          * Options:
          *  - `userProperty` Determines what property on
          *                   `req` will be set to the authenticated user object.
-         *                   Default `'user'`
+         *                   Default `'user'`.
          *  
          *  - `compat`       When `true`, enables a compatibility
          *                   layer for packages that depend on `passport@0.4.x` or earlier.
@@ -239,7 +331,7 @@ declare namespace passport {
          *       });
          *     });
          */
-        initialize(options?: { userProperty: string; compat: boolean; }): InitializeRet;
+        initialize(options?: InitializeOptions): InitializeRet;
         /**
          * Middleware that will restore login state from a session.
          *
@@ -272,7 +364,7 @@ declare namespace passport {
          *                        request body is configured after passport and the
          *                        deserializeUser method is asynchronous.
          */
-        session(options?: { pauseStream: boolean; }): AuthenticateRet;
+        session(options?: SessionOptions): AuthenticateRet;
         
         /**
          * Authenticates requests.
@@ -329,7 +421,9 @@ declare namespace passport {
          *
          *     passport.authenticate('twitter');
          */
+        authenticate(strategy: string | string[] | Strategy, callback?: AuthenticateCallback): AuthenticateRet;
         authenticate(strategy: string | string[] | Strategy, callback?: (...args: any[]) => any): AuthenticateRet;
+        authenticate(strategy: string | string[] | Strategy, options: AuthenticateOptions, callback?: AuthenticateCallback): AuthenticateRet;
         authenticate(strategy: string | string[] | Strategy, options: AuthenticateOptions, callback?: (...args: any[]) => any): AuthenticateRet;
         /**
          * Create third-party service authorization middleware.
@@ -348,12 +442,14 @@ declare namespace passport {
          * the existing local account.
          *
          * All arguments to this function behave identically to those accepted by
-         * `{@link Authenticator.authenticate}`.
+         * {@link Authenticator.authenticate `Authenticator.authenticate`}.
          *
          * @example
          * app.get('/oauth/callback/twitter', passport.authorize('twitter'));
          */
+        authorize(strategy: string | string[], callback?: AuthorizeCallback): AuthorizeRet;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): AuthorizeRet;
+        authorize(strategy: string | string[], options: AuthorizeOptions, callback?: AuthorizeCallback): AuthorizeRet;
         authorize(strategy: string | string[], options: AuthorizeOptions, callback?: (...args: any[]) => any): AuthorizeRet;
         /**
          * Registers a function used to serialize user objects into the session.
@@ -365,7 +461,28 @@ declare namespace passport {
          *     });
          */
         serializeUser<TID>(fn: (user: Express.User, done: (err: any, id?: TID) => void) => void): void;
+        /**
+         * Registers a function used to serialize user objects into the session.
+         *
+         * Examples:
+         *
+         *     passport.serializeUser(function(user, done) {
+         *       done(null, user.id);
+         *     });
+         */
         serializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, user: Express.User, done: (err: any, id?: TID) => void) => void): void;
+        /**
+         * Private implementation that traverses the chain of serializers,
+         * attempting to serialize a user.
+         */
+        serializeUser<User extends Express.User = Express.User, Request extends IncomingMessage = express.Request>(user: User, req: Request, done: (err: any, serializedUser?: number | NonNullable<unknown> | undefined) => any): void;
+        /**
+         * Private implementation that traverses the chain of serializers,
+         * attempting to serialize a user.
+         * 
+         * For backwards compatibility.
+         */
+        serializeUser<User extends Express.User = Express.User>(user: User, done: (err: any, serializedUser: number | NonNullable<unknown> | undefined) => any): void;
         /**
          * Registers a function used to deserialize user objects out of the session.
          *
@@ -378,7 +495,30 @@ declare namespace passport {
          *     });
          */
         deserializeUser<TID>(fn: (id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
+        /**
+         * Registers a function used to deserialize user objects out of the session.
+         *
+         * Examples:
+         *
+         *     passport.deserializeUser(function(id, done) {
+         *       User.findById(id, function (err, user) {
+         *         done(err, user);
+         *       });
+         *     });
+         */
         deserializeUser<TID, TR extends IncomingMessage = express.Request>(fn: (req: TR, id: TID, done: (err: any, user?: Express.User | false | null) => void) => void): void;
+        /**
+         * Private implementation that traverses the chain of deserializers,
+         * attempting to deserialize a user.
+         */
+        deserializeUser<User extends Express.User = Express.User, Request extends IncomingMessage = express.Request>(serializedUser: NonNullable<unknown>, req: Request, done: (err: any, user?: User | false | undefined) => any): void;
+        /**
+         * Private implementation that traverses the chain of deserializers,
+         * attempting to deserialize a user.
+         * 
+         * For backwards compatibility.
+         */
+        deserializeUser<User extends Express.User = Express.User>(serializedUser: NonNullable<unknown>, done: (err: any, user?: User | false | undefined) => any): void;
         /**
          * Registers a function used to transform auth info.
          *
@@ -416,6 +556,24 @@ declare namespace passport {
          *     });
          */
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
+        /**
+         * Private implementation that traverses the chain of transformers,
+         * attempting to transform auth info.
+         * 
+         * If no transformers are registered (or they all pass),
+         * the default behavior is to use the un-transformed info as-is.
+         */
+        transformAuthInfo<InitialInfo = unknown, Request extends IncomingMessage = express.Request>(info: unknown, req: Request, done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any): void;
+        /**
+         * Private implementation that traverses the chain of transformers,
+         * attempting to transform auth info.
+         * 
+         * If no transformers are registered (or they all pass),
+         * the default behavior is to use the un-transformed info as-is.
+         * 
+         * For backwards compatibility.
+         */
+        transformAuthInfo<InitialInfo = unknown>(info: unknown, done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any): void;
     }
 
     interface PassportStatic extends Authenticator {
@@ -468,7 +626,7 @@ declare namespace passport {
             SessionStrategy: SessionStrategy
         }
     }
-    
+
     interface Strategy {
         name?: string | undefined;
         /**
@@ -479,10 +637,10 @@ declare namespace passport {
          */
         authenticate(this: StrategyCreated<this>, req: express.Request, options?: any): any;
     }
-    
+
     interface SessionStrategy extends Strategy {
-        new(deserializeUser: (serializedUser: unknown, req: express.Request, callback: (err: any, user?: Express.User | false | null) => void) => any): SessionStrategy;
-        new(options: { key: string }, deserializeUser: (serializedUser: unknown, req: express.Request, callback: (err: any, user?: Express.User | false | null) => void) => any): SessionStrategy;
+        new(deserializeUser: DeserializeUserFunction): SessionStrategy;
+        new(options: SessionStrategyOptions, deserializeUser: DeserializeUserFunction): SessionStrategy;
         /** 
          * The name of the strategy, set to `'session'`.
          */
@@ -519,8 +677,42 @@ declare namespace passport {
          * 
          * @protected
          */
-        authenticate(req: IncomingMessage, options?: { pauseStream: boolean }): void
+        authenticate(req: IncomingMessage): void
+        /**
+         * Authenticate request based on current session data.
+         *
+         * When login session data is present in the session, that data will be used to
+         * restore login state across across requests by calling the deserialize user
+         * function.
+         *
+         * If login session data is not present, the request will be passed to the next
+         * middleware, rather than failing authentication - which is the behavior of
+         * most other strategies.  This deviation allows session authentication to be
+         * performed at the application-level, rather than the individual route level,
+         * while allowing both authenticated and unauthenticated requests and rendering
+         * responses accordingly.  Routes that require authentication will need to guard
+         * that condition.
+         *
+         * This function is **protected**, and should _not_ be called directly.  Instead,
+         * use `passport.authenticate()` middleware and specify the {@link SessionStrategy.name `name`}
+         * of this strategy and any options.
+         *
+         * Options:
+         * - `pauseStream` When `true`, data events on
+         *                 the request will be paused, and then resumed after the asynchronous
+         *                 `deserializeUser` function has completed.  This is only necessary in
+         *                 cases where later middleware in the stack are listening for events,
+         *                 and ensures that those events are not missed.
+         *                 Default `false`.
+         *
+         * @example
+         * passport.authenticate('session');
+         * 
+         * @protected
+         */
+        authenticate(req: IncomingMessage, options: Pick<AuthenticateOptions, "pauseStream">): void
     }
+    
     
     interface StrategyCreatedStatic {
         /**
@@ -536,11 +728,11 @@ declare namespace passport {
         success(user: Express.User, info?: object): void;
         /**
          * Fail authentication, with optional `challenge` and `status`, defaulting
-         * to 401.
+         * to `401`.
          *
          * Strategies should call this function to fail an authentication attempt.
          */
-        fail(challenge?: {message?: string, [key: string]: any } | string | number, status?: number): void;
+        fail(challenge?: StrategyFailure | string | number, status?: number): void;
         /**
          * Redirect to `url` with optional `status`, defaulting to 302.
          *
@@ -590,8 +782,123 @@ declare namespace passport {
     }
 
     interface Framework<InitializeRet = any, AuthenticateRet = any, AuthorizeRet = AuthenticateRet> {
+        /**
+         * Passport initialization.
+         *
+         * Intializes Passport for incoming requests, allowing authentication strategies
+         * to be applied.
+         *
+         * If sessions are being utilized, applications must set up Passport with
+         * functions to serialize a user into and out of a session.  For example, a
+         * common pattern is to serialize just the user ID into the session (due to the
+         * fact that it is desirable to store the minimum amount of data in a session).
+         * When a subsequent request arrives for the session, the full User object can
+         * be loaded from the database by ID.
+         *
+         * Note that additional middleware is required to persist login state, so we
+         * must use the `connect.session()` middleware _before_ `passport.initialize()`.
+         *
+         * If sessions are being used, this middleware must be in use by the
+         * Connect/Express application for Passport to operate.  If the application is
+         * entirely stateless (not using sessions), this middleware is not necessary,
+         * but its use will not have any adverse impact.
+         *
+         * Examples:
+         *
+         *     app.use(connect.cookieParser());
+         *     app.use(connect.session({ secret: 'keyboard cat' }));
+         *     app.use(passport.initialize());
+         *     app.use(passport.session());
+         *
+         *     passport.serializeUser(function(user, done) {
+         *       done(null, user.id);
+         *     });
+         *
+         *     passport.deserializeUser(function(id, done) {
+         *       User.findById(id, function (err, user) {
+         *         done(err, user);
+         *       });
+         *     });
+         */
         initialize(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, options?: any): (...args: any[]) => InitializeRet;
+        /**
+         * Authenticates requests.
+         *
+         * Applies the `name`ed strategy (or strategies) to the incoming request, in
+         * order to authenticate the request.  If authentication is successful, the user
+         * will be logged in and populated at `req.user` and a session will be
+         * established by default.  If authentication fails, an unauthorized response
+         * will be sent.
+         *
+         * Options:
+         *   - `session`          Save login state in session, defaults to `true`.
+         *   - `successRedirect`  After successful login, redirect to given URL.
+         *   - `successMessage`   True to store success message in
+         *                        `req.session.messages`, or a string to use as override
+         *                        message for success.
+         *   - `successFlash`     True to flash success messages or a string to use as a flash
+         *                        message for success (overrides any from the strategy itself).
+         *   - `failureRedirect`  After failed login, redirect to given URL.
+         *   - `failureMessage`   True to store failure message in
+         *                        `req.session.messages`, or a string to use as override
+         *                        message for failure.
+         *   - `failureFlash`     True to flash failure messages or a string to use as a flash
+         *                        message for failures (overrides any from the strategy itself).
+         *   - `assignProperty`   Assign the object provided by the verify callback to given property.
+         *
+         * An optional `callback` can be supplied to allow the application to override
+         * the default manner in which authentication attempts are handled.  The
+         * callback has the following signature, where `user` will be set to the
+         * authenticated user on a successful authentication attempt, or `false`
+         * otherwise.  An optional `info` argument will be passed, containing additional
+         * details provided by the strategy's verify callback - this could be information about
+         * a successful authentication or a challenge message for a failed authentication.
+         * An optional `status` argument will be passed when authentication fails - this could
+         * be a HTTP response code for a remote authentication failure or similar.
+         *
+         *     app.get('/protected', function(req, res, next) {
+         *       passport.authenticate('local', function(err, user, info, status) {
+         *         if (err) { return next(err) }
+         *         if (!user) { return res.redirect('/signin') }
+         *         res.redirect('/account');
+         *       })(req, res, next);
+         *     });
+         *
+         * Note that if a callback is supplied, it becomes the application's
+         * responsibility to log-in the user, establish a session, and otherwise perform
+         * the desired operations.
+         *
+         * Examples:
+         *
+         *     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' });
+         *
+         *     passport.authenticate('basic', { session: false });
+         *
+         *     passport.authenticate('twitter');
+         */
         authenticate(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthenticateRet;
+        /**
+         * Create third-party service authorization middleware.
+         *
+         * Returns middleware that will authorize a connection to a third-party service.
+         *
+         * This middleware is identical to using {@link Authenticator.authenticate `authenticate()`}
+         * middleware with the `assignProperty` option set to `'account'`.  This is
+         * useful when a user is already authenticated (for example, using a username
+         * and password) and they want to connect their account with a third-party
+         * service.
+         *
+         * In this scenario, the user's third-party account will be set at
+         * `req.account`, and the existing `req.user` and login session data will be
+         * be left unmodified.  A route handler can then link the third-party account to
+         * the existing local account.
+         *
+         * All arguments to this function behave identically to those accepted by
+         * {@link Authenticator.authenticate `Authenticator.authenticate`}.
+         *
+         * @example
+         * app.get('/oauth/callback/twitter', passport.authorize('twitter'));
+         */
         authorize?(passport: Authenticator<InitializeRet, AuthenticateRet, AuthorizeRet>, name: string, options?: any, callback?: (...args: any[]) => any): (...args: any[]) => AuthorizeRet;
     }
 }
