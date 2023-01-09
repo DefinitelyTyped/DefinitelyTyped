@@ -1,6 +1,6 @@
 {
     "private": true,
-    "dependencies": {
+    "devDependencies": {
         "highlight.js": "^9.7.0",
         "@types/highlight.js": "^9.7.0"
     }
