@@ -1,4 +1,4 @@
-import * as fse from './index';
+import * as fse from './index.js';
 
 export {
     copy,
@@ -59,7 +59,7 @@ export {
     JsonReadOptions,
     JsonWriteOptions,
     JsonOutputOptions,
-} from './index';
+} from './index.js';
 
 declare const fsExtra: {
     copy: typeof fse.copy;
