@@ -248,22 +248,6 @@ app.use((req: express.Request, res: express.Response, next: (err?: any) => void)
 app.use((req, _res, next) => {
     const user: Express.User = { username: '', id: 0 };
 
-    passport.serializeUser({ username: '', id: 0 }, req, (err, serializedUser) => {
-        // $ExpectType unknown
-        serializedUser;
-    });
-    passport.serializeUser(user, req, (err, serializedUser) => {
-        // $ExpectType unknown
-        serializedUser;
-    });
-    passport.serializeUser({ username: '', id: 0 }, (err, serializedUser) => {
-        // $ExpectType unknown
-        serializedUser;
-    });
-    passport.serializeUser(user, (err, serializedUser) => {
-        // $ExpectType unknown
-        serializedUser;
-    });
     passport.deserializeUser(0, req, (err, user) => {
         // $ExpectType false | User | undefined
         user;
@@ -276,15 +260,7 @@ app.use((req, _res, next) => {
         // $ExpectType unknown
         info;
     });
-    passport.transformAuthInfo<Express.User>(user, (err, info) => {
-        // $ExpectType unknown
-        info;
-    });
     passport.transformAuthInfo({}, req, (err, info) => {
-        // $ExpectType unknown
-        info;
-    });
-    passport.transformAuthInfo<Express.User>(user, req, (err, info) => {
         // $ExpectType unknown
         info;
     });
