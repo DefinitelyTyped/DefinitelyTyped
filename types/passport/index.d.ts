@@ -601,7 +601,7 @@ declare namespace passport {
         transformAuthInfo<InitialInfo = unknown, Request extends IncomingMessage = express.Request>(
             info: unknown,
             req: Request,
-            done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any,
+            done: (err: any, transformedAuthInfo?: InitialInfo | NonNullable<unknown>) => any,
         ): void;
         /**
          * Private implementation that traverses the chain of transformers,
@@ -614,7 +614,7 @@ declare namespace passport {
          */
         transformAuthInfo<InitialInfo = unknown>(
             info: unknown,
-            done: (err: any, transformedAuthInfo: InitialInfo | NonNullable<unknown> | undefined) => any,
+            done: (err: any, transformedAuthInfo?: InitialInfo | NonNullable<unknown>) => any,
         ): void;
     }
 
