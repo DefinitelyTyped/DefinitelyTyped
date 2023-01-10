@@ -12,7 +12,7 @@ indy.openBlobStorageReader('default', {
 });
 
 const revStates: indy.RevStates = {
-    '1': {
+    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
         1615468964: {
             value: {
                 accum: '10',
