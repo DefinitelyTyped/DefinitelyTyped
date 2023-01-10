@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "fs-extra-tests.ts"
+        "test/fs-extra-tests.ts",
+        "test/fs-extra-tests-module.ts"
     ]
 }
