@@ -1,14 +1,14 @@
 import status = require('statuses');
 
-let s: string = status(403); // => 'Forbidden'
-s = status('403'); // => 'Forbidden'
-s = status(306); // throws
-
-let n: number = status('forbidden'); // => 403
-n = status('Forbidden'); // => 403
-
 declare let input: "418" | string;
 status(input); // $ExpectType string | number
+
+status(403); // $ExpectType string
+status('403'); // $ExpectType string
+status(306); // $ExpectType string
+
+status('forbidden'); // $ExpectType number
+status('Forbidden'); // $ExpectType number
 
 let codes: number[];
 codes = status.codes;
@@ -32,3 +32,5 @@ isEmpty = status.empty[304]; // => true
 let isRetry: boolean | undefined;
 isRetry = status.retry[501]; // => undefined
 isRetry = status.retry[503]; // => true
+
+type R = status.Result<any>;

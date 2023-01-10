@@ -5,19 +5,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-type NonNumericAscii =
-    '\x00' | '\x01' | '\x02' | '\x03' | '\x04' | '\x05' | '\x06' | '\x07' | '\b' | '\t' | '\n' | '\v' | '\f' | '\r' | '\x0E' | '\x0F'
-    | '\x10' | '\x11' | '\x12' | '\x13' | '\x14' | '\x15' | '\x16' | '\x17' | '\x18' | '\x19' | '\x1A' | '\x1B' | '\x1C' | '\x1D' | '\x1E' | '\x1F'
-    | ' ' | '!' | '"' | '#' | '$' | '%' | '&' | '\'' | '(' | ')' | '*' | '+' | ',' | '-' | '.' | '/'
-    | /* digits would be here */ ':' | ';' | '<' | '=' | '>' | '?'
-    | '@' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O'
-    | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' | '[' | '\\' | ']' | '^' | '_'
-    | '`' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o'
-    | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | '{' | '|' | '}' | '~' | '\x7F';
+type NumericAscii = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '0';
+type NonNumericAscii<S> = S extends `${NumericAscii}` ? never : any;
 
 type IsNumericString<S extends string> = S extends `${number}` ? any : never;
 
-type IsNonNumericString<S extends string> = S extends `${NonNumericAscii}${infer _}` ? any : never;
+type IsNonNumericString<S extends string> = S extends `${NonNumericAscii<S>}${infer _}` ? any : never;
 
 type Result<S extends string> =
     S extends IsNumericString<S>
@@ -28,9 +21,9 @@ type Result<S extends string> =
 
 export = status;
 
-declare const status: Status;
+declare const status: status;
 
-interface Status {
+interface status {
     (code: number): string;
     <S extends string>(code: S): Result<S>;
 
@@ -40,4 +33,12 @@ interface Status {
     message: { [code: number]: string | undefined };
     redirect: { [code: number]: boolean | undefined };
     retry: { [code: number]: boolean | undefined };
+}
+
+declare namespace status {
+    type Result<S extends string> = S extends IsNumericString<S>
+        ? string
+        : S extends IsNonNumericString<S>
+        ? number
+        : string | number;
 }
