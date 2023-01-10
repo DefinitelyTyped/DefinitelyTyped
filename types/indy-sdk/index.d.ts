@@ -457,7 +457,11 @@ export interface RevocRegDef {
         maxCredNum: number;
         tailsHash: string;
         tailsLocation: string;
-        publicKeys: string[];
+        publicKeys: {
+            accumKey: {
+                z: string;
+            };
+        };
     };
     ver: string;
 }
@@ -559,8 +563,8 @@ export interface RevocRegDefs {
 }
 
 export interface RevStates {
-    [key: string]: {
-        [key: string]: unknown;
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevocReg;
     };
 }
 

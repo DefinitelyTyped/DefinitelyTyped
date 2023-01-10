@@ -11,6 +11,16 @@ indy.openBlobStorageReader('default', {
     base_dir: 'dir',
 });
 
+const revStates: indy.RevStates = {
+    '1': {
+        1615468964: {
+            value: {
+                accum: '10',
+            },
+            ver: '1.0',
+        },
+    },
+};
 const revRegDef: indy.RevocRegDef = {
     id: '10',
     revocDefType: 'CL_ACCUM',
@@ -21,7 +31,11 @@ const revRegDef: indy.RevocRegDef = {
         maxCredNum: 10,
         tailsHash: 'xxxxx',
         tailsLocation: 'xxxxx',
-        publicKeys: ['pub1', 'pub2'],
+        publicKeys: {
+            accumKey: {
+                z: '1',
+            },
+        },
     },
     ver: '2',
 };
@@ -319,7 +333,7 @@ indy.verifierVerifyProof(
     {},
     {},
     {},
-    {},
+    revStates,
 );
 indy.proverCreateProof(
     10,
@@ -347,7 +361,11 @@ indy.createRevocationState(
             maxCredNum: 0,
             tailsHash: '',
             tailsLocation: '',
-            publicKeys: [],
+            publicKeys: {
+                accumKey: {
+                    z: '12',
+                },
+            },
         },
         ver: '',
     },
