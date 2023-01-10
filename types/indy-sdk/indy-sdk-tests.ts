@@ -11,6 +11,13 @@ indy.openBlobStorageReader('default', {
     base_dir: 'dir',
 });
 
+const credential: indy.Cred = {
+    cred_def_id: 'cred_def_id',
+    schema_id: 'schema_id',
+    signature: 'signature',
+    signature_correctness_proof: 'signature_correctness_proof',
+    values: {},
+};
 const revStates: indy.RevStates = {
     'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
         1615468964: {
@@ -47,7 +54,7 @@ const indyCredentialInfo: indy.IndyCredentialInfo = {
     },
     schema_id: 'schema_id',
     cred_def_id: 'cred_def_id',
-    rev_reg_id: 12,
+    rev_reg_id: '123jaja',
     cred_rev_id: '12408120',
 };
 
