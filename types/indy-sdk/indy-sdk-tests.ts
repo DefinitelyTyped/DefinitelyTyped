@@ -11,6 +11,23 @@ indy.openBlobStorageReader('default', {
     base_dir: 'dir',
 });
 
+const credential: indy.Cred = {
+    cred_def_id: 'cred_def_id',
+    schema_id: 'schema_id',
+    signature: 'signature',
+    signature_correctness_proof: 'signature_correctness_proof',
+    values: {},
+};
+const revStates: indy.RevStates = {
+    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
+        1615468964: {
+            value: {
+                accum: '10',
+            },
+            ver: '1.0',
+        },
+    },
+};
 const revRegDef: indy.RevocRegDef = {
     id: '10',
     revocDefType: 'CL_ACCUM',
@@ -21,7 +38,11 @@ const revRegDef: indy.RevocRegDef = {
         maxCredNum: 10,
         tailsHash: 'xxxxx',
         tailsLocation: 'xxxxx',
-        publicKeys: ['pub1', 'pub2'],
+        publicKeys: {
+            accumKey: {
+                z: '1',
+            },
+        },
     },
     ver: '2',
 };
@@ -33,7 +54,7 @@ const indyCredentialInfo: indy.IndyCredentialInfo = {
     },
     schema_id: 'schema_id',
     cred_def_id: 'cred_def_id',
-    rev_reg_id: 12,
+    rev_reg_id: '123jaja',
     cred_rev_id: '12408120',
 };
 
@@ -319,7 +340,7 @@ indy.verifierVerifyProof(
     {},
     {},
     {},
-    {},
+    revStates,
 );
 indy.proverCreateProof(
     10,
@@ -347,7 +368,11 @@ indy.createRevocationState(
             maxCredNum: 0,
             tailsHash: '',
             tailsLocation: '',
-            publicKeys: [],
+            publicKeys: {
+                accumKey: {
+                    z: '12',
+                },
+            },
         },
         ver: '',
     },
