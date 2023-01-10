@@ -8,6 +8,9 @@ if (window.onurlchange === null) {
     window.addEventListener('urlchange', ({ url }) => console.log(url));
     // or
     window.addEventListener('urlchange', info => console.log(info.url));
+
+    // window.addEventListener('click', (event) => console.log(e.url));
+    // ^ this is not working, because the event is a Click-MouseEvent and not urlchange-Event
 }
 
 // GM_addStyle
