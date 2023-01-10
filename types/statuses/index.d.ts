@@ -12,20 +12,13 @@ type IsNumericString<S extends string> = S extends `${number}` ? any : never;
 
 type IsNonNumericString<S extends string> = S extends `${NonNumericAscii<S>}${infer _}` ? any : never;
 
-type Result<S extends string> =
-    S extends IsNumericString<S>
-    ? string
-    : S extends IsNonNumericString<S>
-    ? number
-    : string|number;
-
 export = status;
 
 declare const status: status;
 
 interface status {
     (code: number): string;
-    <S extends string>(code: S): Result<S>;
+    <S extends string>(code: S): status.Result<S>;
 
     codes: number[];
     code: { [msg: string]: number | undefined };
