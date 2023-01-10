@@ -250,7 +250,7 @@ export function verifierVerifyProof(
     schemas: Schemas,
     credentialDefs: CredentialDefs,
     revRegDefs: RevocRegDefs,
-    revRegs: RevStates,
+    revRegs: RevRegs,
 ): Promise<boolean>;
 
 export function createRevocationState(
@@ -562,9 +562,14 @@ export interface RevocRegDefs {
     [revRegId: string]: RevocRegDef;
 }
 
-export interface RevStates {
+export interface RevRegs {
     [revocationRegistryDefinitionId: string]: {
         [timestamp: number]: RevocReg;
+    };
+}
+export interface RevStates {
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevState;
     };
 }
 
