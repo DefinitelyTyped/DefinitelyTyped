@@ -18,13 +18,29 @@ const credential: indy.Cred = {
     signature_correctness_proof: 'signature_correctness_proof',
     values: {},
 };
-const revStates: indy.RevStates = {
+const revRegs: indy.RevRegs = {
     'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
         1615468964: {
             value: {
                 accum: '10',
             },
             ver: '1.0',
+        },
+    },
+};
+const revStates: indy.RevStates = {
+    'BQ42WeE24jFHeyGg8x9XAz:4:BQ42WeE24jFHeyGg8x9XAz:3:CL:155550:labresult:CL_ACCUM:1-1024': {
+        1615468964: {
+            rev_reg: {
+                value: {
+                    accum: '10',
+                },
+                ver: '1.0',
+            },
+            timestamp: 1234,
+            witness: {
+                some: 'value',
+            },
         },
     },
 };
@@ -340,7 +356,7 @@ indy.verifierVerifyProof(
     {},
     {},
     {},
-    revStates,
+    revRegs,
 );
 indy.proverCreateProof(
     10,
