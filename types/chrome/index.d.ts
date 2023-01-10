@@ -271,7 +271,16 @@ declare namespace chrome.action {
      * () => {...}
      * @return The `openPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function openPopup(options?: OpenPopupOptions, callback?: () => void): Promise<void>;
+    export function openPopup(options?: OpenPopupOptions): Promise<void>;
+
+    /**
+     * Since Chrome 99+.
+     * Opens the extension's popup.
+     * @param options Specifies options for opening the popup.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function openPopup(options?: OpenPopupOptions, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
