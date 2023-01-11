@@ -1,6 +1,9 @@
 {
     "private": true,
     "dependencies": {
-        "devtools-protocol": "^0.0.1025565"
+        "@nightwatch/apitesting": "^0.2.1",
+        "@types/supertest": "^2.0.12",
+        "devtools-protocol": "^0.0.1025565",
+        "supertest": "^6.3.3"
     }
 }

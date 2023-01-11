@@ -33,12 +33,6 @@ export interface JSON_WEB_OBJECT extends ElementResult {
     getId: () => string;
 }
 
-export interface ApiTest {
-    supertest: {
-        request: (app: any) => SuperTest<Test>;
-    };
-}
-
 export type Definition = string | ElementProperties | Element | RelativeBy;
 
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
@@ -1808,8 +1802,11 @@ export interface NightwatchAPI
     launch_url: string;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface NightwatchCustomCommands {}
+export interface NightwatchCustomCommands {
+    supertest: {
+        request: (app: any) => SuperTest<Test>;
+    };
+}
 
 // tslint:disable-next-line:no-empty-interface
 export interface NightwatchCustomAssertions {}

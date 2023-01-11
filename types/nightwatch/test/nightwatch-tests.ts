@@ -11,7 +11,7 @@ import {
     PageObjectModel,
     ELEMENT_KEY,
     JSON_WEB_OBJECT,
-    ApiTest,
+    NightwatchBrowser
 } from 'nightwatch';
 
 import { isNightwatchAPI, isType } from './utils';
@@ -117,7 +117,7 @@ const testGeneral: NightwatchTests = {
             );
     },
 
-    'Can API test with URL string': async ({ supertest }: ApiTest) => {
+    'Can API test with URL string': async ({ supertest }: NightwatchBrowser) => {
         await supertest
           .request('https://petstore.swagger.io')
           .get('/v2/store/inventory/')
