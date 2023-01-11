@@ -5319,6 +5319,10 @@
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
         },
+        "structured-source": {
+            "libraryName": "structured-source",
+            "asOfVersion": "4.0.0"
+        },
         "styled-jsx": {
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
