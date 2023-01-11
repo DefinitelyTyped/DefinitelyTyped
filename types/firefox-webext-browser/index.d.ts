@@ -428,7 +428,7 @@ declare namespace browser._manifest {
         /** Sets the default engine to a built-in engine only. */
         is_default?: boolean | undefined;
         /**
-         * A list of optional search url parameters. This allows the additon of search url parameters based on how the search is performed in Firefox.
+         * A list of optional search url parameters. This allows additional search url parameters based on how the search is performed in Firefox.
          */
         params?: _WebExtensionManifestChromeSettingsOverridesSearchProviderParams[] | undefined;
     }
@@ -1860,7 +1860,7 @@ declare namespace browser.cookies {
          */
         firstPartyDomain?: string | undefined;
         /**
-         * Selects a specific storage partition to look up cookies. Defaults to null, in which case only non-partitioned cookies are retrieved. If an object iis passed, partitioned cookies are also included, and filtered based on the keys present in the given PartitionKey description. An empty object ({}) returns all cookies (partitioned + unpartitioned), a non-empty object (e.g. {topLevelSite: '...'}) only returns cookies whose partition match all given attributes.
+         * Selects a specific storage partition to look up cookies. Defaults to null, in which case only non-partitioned cookies are retrieved. If an object is passed, partitioned cookies are also included, and filtered based on the keys present in the given PartitionKey description. An empty object ({}) returns all cookies (partitioned + unpartitioned), a non-empty object (e.g. {topLevelSite: '...'}) only returns cookies whose partition match all given attributes.
          */
         partitionKey?: PartitionKey | undefined;
     }
@@ -2550,7 +2550,7 @@ declare namespace browser.extension {
     type ViewType = 'tab' | 'popup' | 'sidebar';
 
     /**
-     * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
+     * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
      * @deprecated Please use `runtime.lastError`.
      * Not supported on manifest versions above 2.
      */
@@ -2572,7 +2572,7 @@ declare namespace browser.extension {
 
     /* extension properties */
     /**
-     * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be `undefined`.
+     * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
      * @deprecated Please use `runtime.lastError`.
      * Not supported on manifest versions above 2.
      */
@@ -6684,7 +6684,7 @@ declare namespace browser.contextMenus {
         /** Will be present for elements with a 'src' URL. */
         srcUrl?: string | undefined;
         /**
-         * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+         * The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string | undefined;
         /** The id of the frame of the element where the context menu was clicked. */
@@ -6952,7 +6952,7 @@ declare namespace browser.menus {
         /** Will be present for elements with a 'src' URL. */
         srcUrl?: string | undefined;
         /**
-         * The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.
+         * The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu.
          */
         pageUrl?: string | undefined;
         /** The id of the frame of the element where the context menu was clicked. */
