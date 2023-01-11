@@ -11,7 +11,6 @@ import * as React from 'react';
 import { Checkbox, Radio, ThemeOptions } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-
 interface Props extends Omit<MUIDataTableProps, 'columns'> {
     columns?: MUIDataTableColumn[] | undefined;
 }
@@ -282,7 +281,7 @@ const MuiTheme = createTheme({
             }
         },
     },
-} as ThemeOptions);
+} as unknown as ThemeOptions);
 
 <Popover
     classes={{ icon: 'icon_class' }}

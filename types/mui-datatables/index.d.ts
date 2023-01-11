@@ -1054,7 +1054,7 @@ export interface MUIDataTableJumpToPage {
     count: number;
     page: number;
     rowsPerPage: number;
-    textLabels: Partial<MUIDataTableTextLabels>
+    textLabels: Partial<MUIDataTableTextLabels>;
 }
 
 export interface MUIDataTablePagination {
@@ -1175,116 +1175,115 @@ declare module '@mui/material/styles/components' {
             defaultProps?: ComponentsProps['MUIDataTable'];
             styleOverrides?: ComponentsOverrides['MUIDataTable'];
             variants?: ComponentsVariants['MUIDataTable'];
-        },
+        };
         MUIDataTableBody?: {
             defaultProps?: ComponentsProps['MUIDataTableBody'];
             styleOverrides?: ComponentsOverrides['MUIDataTableBody'];
             variants?: ComponentsVariants['MUIDataTableBody'];
-        },
+        };
         MUIDataTableBodyCell?: {
             defaultProps?: ComponentsProps['MUIDataTableBodyCell'];
             styleOverrides?: ComponentsOverrides['MUIDataTableBodyCell'];
             variants?: ComponentsVariants['MUIDataTableBodyCell'];
-        },
+        };
         MUIDataTableBodyRow?: {
             defaultProps?: ComponentsProps['MUIDataTableBodyRow'];
             styleOverrides?: ComponentsOverrides['MUIDataTableBodyRow'];
             variants?: ComponentsVariants['MUIDataTableBodyRow'];
-        },
+        };
         MUIDataTableFilter?: {
             defaultProps?: ComponentsProps['MUIDataTableFilter'];
             styleOverrides?: ComponentsOverrides['MUIDataTableFilter'];
             variants?: ComponentsVariants['MUIDataTableFilter'];
-        },
+        };
         MUIDataTableFilterList?: {
             defaultProps?: ComponentsProps['MUIDataTableFilterList'];
             styleOverrides?: ComponentsOverrides['MUIDataTableFilterList'];
             variants?: ComponentsVariants['MUIDataTableFilterList'];
-        },
+        };
         MUIDataTableFooter?: {
             defaultProps?: ComponentsProps['MUIDataTableFooter'];
             styleOverrides?: ComponentsOverrides['MUIDataTableFooter'];
             variants?: ComponentsVariants['MUIDataTableFooter'];
-        },
+        };
         MUIDataTableHead?: {
             defaultProps?: ComponentsProps['MUIDataTableHead'];
             styleOverrides?: ComponentsOverrides['MUIDataTableHead'];
             variants?: ComponentsVariants['MUIDataTableHead'];
-        },
+        };
         MUIDataTableHeadCell?: {
             defaultProps?: ComponentsProps['MUIDataTableHeadCell'];
             styleOverrides?: ComponentsOverrides['MUIDataTableHeadCell'];
             variants?: ComponentsVariants['MUIDataTableHeadCell'];
-        },
+        };
         MUIDataTableHeadRow?: {
             defaultProps?: ComponentsProps['MUIDataTableHeadRow'];
             styleOverrides?: ComponentsOverrides['MUIDataTableHeadRow'];
             variants?: ComponentsVariants['MUIDataTableHeadRow'];
-        },
+        };
         MUIDataTableJumpToPage?: {
             defaultProps?: ComponentsProps['MUIDataTableJumpToPage'];
             styleOverrides?: ComponentsOverrides['MUIDataTableJumpToPage'];
             variants?: ComponentsVariants['MUIDataTableJumpToPage'];
-        },
+        };
         MUIDataTablePagination?: {
             defaultProps?: ComponentsProps['MUIDataTablePagination'];
             styleOverrides?: ComponentsOverrides['MUIDataTablePagination'];
             variants?: ComponentsVariants['MUIDataTablePagination'];
-        },
+        };
         MUIDataTableResize?: {
             defaultProps?: ComponentsProps['MUIDataTableResize'];
             styleOverrides?: ComponentsOverrides['MUIDataTableResize'];
             variants?: ComponentsVariants['MUIDataTableResize'];
-        },
+        };
         MUIDataTableSearch?: {
             defaultProps?: ComponentsProps['MUIDataTableSearch'];
             styleOverrides?: ComponentsOverrides['MUIDataTableSearch'];
             variants?: ComponentsVariants['MUIDataTableSearch'];
-        },
+        };
         MUIDataTableSelectCell?: {
             defaultProps?: ComponentsProps['MUIDataTableSelectCell'];
             styleOverrides?: ComponentsOverrides['MUIDataTableSelectCell'];
             variants?: ComponentsVariants['MUIDataTableSelectCell'];
-        },
+        };
         MUIDataTableToolbar?: {
             defaultProps?: ComponentsProps['MUIDataTableToolbar'];
             styleOverrides?: ComponentsOverrides['MUIDataTableToolbar'];
             variants?: ComponentsVariants['MUIDataTableToolbar'];
-        },
+        };
         MUIDataTableToolbarSelect?: {
             defaultProps?: ComponentsProps['MUIDataTableToolbarSelect'];
             styleOverrides?: ComponentsOverrides['MUIDataTableToolbarSelect'];
             variants?: ComponentsVariants['MUIDataTableToolbarSelect'];
-        },
+        };
         MUIDataTableViewCol?: {
             defaultProps?: ComponentsProps['MUIDataTableViewCol'];
             styleOverrides?: ComponentsOverrides['MUIDataTableViewCol'];
             variants?: ComponentsVariants['MUIDataTableViewCol'];
-        },
+        };
     }
 }
 
-
 declare module '@mui/material/styles/props' {
     interface ComponentsPropsList {
-        MUIDataTable: MUIDataTableProps
-        MUIDataTableBody: MUIDataTableBody
-        MUIDataTableBodyCell: MUIDataTableBodyCell
-        MUIDataTableBodyRow: MUIDataTableBodyRow
-        MUIDataTableFilter: MUIDataTableFilter
-        MUIDataTableFilterList: MUIDataTableFilterList
-        MUIDataTableFooter: MUIDataTableFooter
-        MUIDataTableHead: MUIDataTableHead
-        MUIDataTableHeadCell: MUIDataTableHeadCell
-        MUIDataTableHeadRow: MUIDataTableHeadRow
-        MUIDataTableJumpToPage: MUIDataTableJumpToPage
-        MUIDataTablePagination: MUIDataTablePagination
-        MUIDataTableResize: MUIDataTableResize
-        MUIDataTableSearch: MUIDataTableSearch
-        MUIDataTableSelectCell: MUIDataTableSelectCell
-        MUIDataTableToolbar: MUIDataTableToolbar
-        MUIDataTableToolbarSelect: MUIDataTableToolbarSelect
-        MUIDataTableViewCol: MUIDataTableViewCol
+        MUIDataTable: MUIDataTableProps;
+        MUIDataTableBody: MUIDataTableBody;
+        MUIDataTableBodyCell: MUIDataTableBodyCell;
+        MUIDataTableBodyRow: MUIDataTableBodyRow;
+        MUIDataTableFilter: MUIDataTableFilter;
+        MUIDataTableFilterList: MUIDataTableFilterList;
+        MUIDataTableFooter: MUIDataTableFooter;
+        MUIDataTableHead: MUIDataTableHead;
+        MUIDataTableHeadCell: MUIDataTableHeadCell;
+        MUIDataTableHeadRow: MUIDataTableHeadRow;
+        MUIDataTableJumpToPage: MUIDataTableJumpToPage;
+        MUIDataTablePagination: MUIDataTablePagination;
+        MUIDataTableResize: MUIDataTableResize;
+        MUIDataTableSearch: MUIDataTableSearch;
+        MUIDataTableSelectCell: MUIDataTableSelectCell;
+        MUIDataTableToolbar: MUIDataTableToolbar;
+        MUIDataTableToolbarSelect: MUIDataTableToolbarSelect;
+        MUIDataTableViewCol: MUIDataTableViewCol;
     }
 }
 
