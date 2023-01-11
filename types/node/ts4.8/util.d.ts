@@ -1426,6 +1426,91 @@ declare module 'util' {
               tokens?: Token[];
           }
         : PreciseParsedResults<T>;
+
+    /**
+     * @since v18.13.0
+     */
+    export class MIMEType {
+        /**
+         * Creates a new MIMEType object by parsing the input.
+         *
+         * A `TypeError` will be thrown if the `input` is not a valid MIME.
+         * Note that an effort will be made to coerce the given values into strings.
+         * @param input The input MIME to parse.
+         */
+        constructor(input: string | { toString: () => string });
+
+        /**
+         * Gets and sets the type portion of the MIME.
+         */
+        type: string;
+
+        /**
+         * Gets and sets the subtype portion of the MIME.
+         */
+        subtype: string;
+
+        /**
+         * Gets the essence of the MIME.
+         *
+         * Use `mime.type` or `mime.subtype` to alter the MIME.
+         */
+        readonly essence: string;
+
+        /**
+         * Gets the `MIMEParams` object representing the parameters of the MIME.
+         */
+        readonly params: MIMEParams;
+
+        /**
+         * Returns the serialized MIME.
+         *
+         * Because of the need for standard compliance, this method
+         * does not allow users to customize the serialization process of the MIME.
+         */
+        toString(): string;
+    }
+
+    /**
+     * @since v18.13.0
+     */
+    export class MIMEParams {
+        /**
+         * Remove all name-value pairs whose name is `name`.
+         */
+        delete(name: string): void;
+        /**
+         * Returns an iterator over each of the name-value pairs in the parameters.
+         */
+        entries(): IterableIterator<[name: string, value: string]>;
+        /**
+         * Returns the value of the first name-value pair whose name is `name`.
+         * If there are no such pairs, `null` is returned.
+         */
+        get(name: string): string | null;
+        /**
+         * Returns `true` if there is at least one name-value pair whose name is `name`.
+         */
+        has(name: string): boolean;
+        /**
+         * Returns an iterator over the names of each name-value pair.
+         */
+        keys(): IterableIterator<string>;
+        /**
+         * Sets the value in the `MIMEParams` object associated with `name` to `value`.
+         * If there are any pre-existing name-value pairs whose names are `name`,
+         * set the first such pair's value to `value`.
+         */
+        set(name: string, value: string): void;
+        /**
+         * Returns an iterator over the values of each name-value pair.
+         */
+        values(): IterableIterator<string>;
+        /**
+         * Returns an iterator over each of the name-value pairs in the parameters.
+         */
+        [Symbol.iterator]: typeof MIMEParams.prototype.entries;
+    }
 }
 declare module 'util/types' {
     export * from 'util/types';
