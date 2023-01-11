@@ -57,6 +57,7 @@
 /types/activex-wia/                                      @zspitz
 /types/activex-word/                                     @zspitz
 /types/adal-angular/                                     @unindented @aciccarello
+/types/add/                                              @LeoDog896
 /types/add-dom-event-listener/                           @janeluck
 /types/add-zero/                                         @Roaders
 /types/addressparser/                                    @risedphantom
@@ -2337,7 +2338,7 @@
 /types/fromjs/                                           @glenndierckx
 /types/fs-cson/                                          @dex4er
 /types/fs-ext/                                           @OguzhanE @ikokostya
-/types/fs-extra/                                         @alan-agius4 @midknight41 @shiftkey @mees- @jrockwood @sangdth @ffflorian @peterblazejewicz @NotWoods
+/types/fs-extra/                                         @alan-agius4 @midknight41 @shiftkey @mees- @jrockwood @sangdth @ffflorian @peterblazejewicz @NotWoods @BendingBender
 /types/fs-extra/v8/                                      @alan-agius4 @midknight41 @shiftkey @mees- @jrockwood @sangdth @ffflorian @peterblazejewicz
 /types/fs-extra/v4/                                      @alan-agius4 @midknight41 @shiftkey @mees-
 /types/fs-extra-promise/                                 @midknight41 @jasonswearingen @HiromiShikata
@@ -3200,6 +3201,7 @@
 /types/google.script.client-side/                        @clomie
 /types/google.visualization/                             @danludwig @gmoore-sjcorg @danmana @mlcheng @IvanBisultanov @glebm @shrujalshah28 @dckorben @martin-badin
 /types/google__maps/                                     @indrimuska
+/types/googlefc/                                         @johngeorgewright
 /types/googlemaps.infobubble/                            @Dashue
 /types/googlepay/                                        @Fluccioni @Radu-Raicea @fstanis @ozotek @mumpo @socsieng @JlUgia
 /types/googletag/                                        @atwwei
@@ -5533,6 +5535,7 @@
 /types/node-emoji/                                       @jonestristand @styu @rimiti
 /types/node-expat/                                       @winston01
 /types/node-fetch/                                       @torstenwerner @nikcorg @vinaybedre @kyranet @AndrewLeedham @JasonLi914 @southpolesteve @ExE-Boss @alexandrusavin @OmgImAlexis @kbkk @glasser
+/types/node-fetch-cache/                                 @fujikky
 /types/node-fibers/                                      @caryhaynie
 /types/node-forge/                                       @westy92 @flynetworks @a-k-g @rafal2228 @beenotung @joeflateau @timhwang21 @andersk @saschazar21 @rogierschouten @aseevia @wiktor-k @frangello @avezov @j-fuentes @darkade @tino-247 @BendingBender
 /types/node-gcm/                                         @horiuchi @yousky
@@ -5899,6 +5902,7 @@
 /types/parse-conflict-json/                              @peterblazejewicz
 /types/parse-data-url/                                   @jaimeadf
 /types/parse-dds/                                        @4eb0da
+/types/parse-decimal-number/                             @ciaran1344
 /types/parse-env-string/                                 @peterblazejewicz
 /types/parse-filepath/                                   @BendingBender
 /types/parse-full-name/                                  @n8Guy
@@ -6170,7 +6174,9 @@
 /types/postcss-nested-ancestors/                         @MysteryBlokHed
 /types/postcss-normalize/                                @pkuczynski
 /types/postcss-plugins/                                  @peterblazejewicz
+/types/postcss-prefix-keyframe/                          @nsaunders
 /types/postcss-prefix-selector/                          @robertmaier
+/types/postcss-prefixer/                                 @nsaunders
 /types/postcss-preset-env/                               @latipun7
 /types/postcss-reporter/                                 @peterblazejewicz
 /types/postcss-safe-parser/                              @peterblazejewicz @fvanderveen
@@ -7539,6 +7545,7 @@
 /types/selenium-webdriver/v3/                            @BillArmstrong @Kuniwak @cnishina @SupernaviX @bendxn @oddui
 /types/selenium-webdriver/v2/                            @BillArmstrong @Kuniwak @cnishina
 /types/selfsigned/                                       @chimurai
+/types/selrond__knit/                                    @ChocolateLoverRaj
 /types/semantic-release/                                 @lgaticaq @djcsdy @peterblazejewicz
 /types/semantic-release__error/                          @alexandermendes @BendingBender
 /types/semantic-ui/                                      @leonard-thieu
@@ -8092,6 +8099,7 @@
 /types/swagger-ui-dist/                                  @haowen737 @brycematheson1234 @peterblazejewicz
 /types/swagger-ui-express/                               @dmitryrogozhny @ffflorian
 /types/swagger-ui-react/                                 @VictoriaGreen93
+/types/swagger2openapi/                                  @rxliuli
 /types/swaggerize-express/                               @mugeso @nickmorton
 /types/swe-validation/                                   @hjalmers
 /types/sweet-pubsub/                                     @emilioivan12
@@ -8137,7 +8145,7 @@
 /types/tabulator-tables/                                 @jojoshua @mike-lischke
 /types/tadashi__koa-jwt-authz/                           @Shqrp
 /types/tail/                                             @spacejack @devindavies
-/types/tampermonkey/                                     @silverwzw @nikolay-borzov
+/types/tampermonkey/                                     @silverwzw @nikolay-borzov @taozhiyu
 /types/tap/                                              @zkldi
 /types/tapable/                                          @e-cloud @johnnyreilly
 /types/tapable/v1/                                       @e-cloud @johnnyreilly
@@ -8462,6 +8470,7 @@
 /types/unl-core/                                         @u-n-l
 /types/unordered-array-remove/                           @BendingBender
 /types/unorm/                                            @chbrown
+/types/unpaginated/                                      @reediculous456
 /types/until-promise/                                    @Miladiir
 /types/unused-files-webpack-plugin/                      @maxbogus
 /types/unused-webpack-plugin/                            @remcohaszing
@@ -8901,24 +8910,8 @@
 /types/wordpress__wordcount/                             @dsifford
 /types/words-to-time-converter/                          @peterblazejewicz
 /types/wordwrap/                                         @ark120202
-/types/workbox-background-sync/                          @JasonHK
-/types/workbox-broadcast-update/                         @JasonHK
-/types/workbox-build/                                    @prichey
-/types/workbox-cacheable-response/                       @JasonHK
-/types/workbox-core/                                     @JasonHK
-/types/workbox-expiration/                               @JasonHK
-/types/workbox-google-analytics/                         @JasonHK
-/types/workbox-navigation-preload/                       @JasonHK
-/types/workbox-precaching/                               @JasonHK
-/types/workbox-range-requests/                           @JasonHK
-/types/workbox-routing/                                  @JasonHK
-/types/workbox-strategies/                               @JasonHK
-/types/workbox-streams/                                  @JasonHK
 /types/workbox-sw/                                       @wessberg @JasonHK
 /types/workbox-sw/v3/                                    @wessberg
-/types/workbox-webpack-plugin/                           @kgroat @peterblazejewicz
-/types/workbox-webpack-plugin/v3/                        @kgroat
-/types/workbox-window/                                   @ykzts @JasonHK
 /types/worker-plugin/                                    @arturovt @peterblazejewicz
 /types/worker-threads-pool/                              @BendingBender
 /types/workerb-api/                                      @workerb-io @s-garg

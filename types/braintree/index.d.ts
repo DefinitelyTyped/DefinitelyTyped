@@ -1293,7 +1293,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate: Date;
+        paidThroughDate?: Date | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
