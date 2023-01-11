@@ -10,7 +10,7 @@ declare function WordCloud(elements: HTMLElement | HTMLElement[], options: WordC
 
 declare namespace WordCloud {
     const isSupported: boolean;
-    let minFontSize: number;
+    const minFontSize: number;
 
     /** Stop rendering. */
     function stop(): void;

@@ -5,8 +5,7 @@ declare function test(name: string, cb: () => void): void;
 declare const element: HTMLElement | HTMLElement[];
 
 if (!WordCloud.isSupported) console.log('WordCloud is not supported.');
-
-WordCloud.minFontSize = 20;
+console.log(WordCloud.minFontSize);
 
 WordCloud.stop();
 
