@@ -4,6 +4,7 @@ export interface ReactScrollLinkProps {
     to: string;
     containerId?: string | undefined;
     activeClass?: string | undefined;
+    activeStyle?: React.CSSProperties | undefined;
     spy?: boolean | undefined;
     hashSpy?: boolean | undefined;
     horizontal?: boolean | undefined;
