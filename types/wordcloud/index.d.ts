@@ -10,7 +10,7 @@ declare function WordCloud(elements: HTMLElement | HTMLElement[], options: WordC
 
 declare namespace WordCloud {
     const isSupported: boolean;
-    let miniumFontSize: number;
+    let minFontSize: number;
 
     /** Stop rendering. */
     function stop(): void;
@@ -30,13 +30,19 @@ declare namespace WordCloud {
          * specifies  different color for each item in the list. You may also specify colors with built-in
          * keywords: random-dark and random-light.
          */
-        color?: string | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string) | undefined;
+        color?:
+            | string
+            | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string)
+            | undefined;
         /**
          * for DOM clouds, allows the user to define the class of the span elements.Can be a normal class
          * string, applying the same class to every span or a callback(word, weight, fontSize, distance, theta)
          * for per-span class definition. In canvas clouds or if equals null, this option has no effect.
          */
-        classes?: string | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string) | undefined;
+        classes?:
+            | string
+            | ((word: string, weight: string | number, fontSize: number, distance: number, theta: number) => string)
+            | undefined;
         /** minimum font size to draw on the canvas. */
         minSize?: number | undefined;
         /** function to call or number to multiply for size of each word in the list. */
