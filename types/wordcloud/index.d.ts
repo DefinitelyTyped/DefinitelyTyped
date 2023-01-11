@@ -12,12 +12,15 @@ declare namespace WordCloud {
     const isSupported: boolean;
     let miniumFontSize: number;
 
+    /** Stop rendering. */
+    function stop(): void;
+
     interface Options {
         /**
          * List of words/text to paint on the canvas in a 2-d array, in the form of [word, size],
          * e.g. [['foo', 12] , ['bar', 6]].
          */
-        list?: ListEntry[] | any[] | undefined;
+        list?: ListEntry[] | undefined;
         /** font to use. */
         fontFamily?: string | undefined;
         /** font weight to use, e.g. normal, bold or 600 */
@@ -52,6 +55,8 @@ declare namespace WordCloud {
         origin?: [number, number] | undefined;
         /** set to true to allow word being draw partly outside of the canvas. Allow word bigger than the size of the canvas to be drawn. */
         drawOutOfBound?: boolean | undefined;
+        /** set to `true` to shrink the word so it will fit into canvas. Best if `drawOutOfBound` is set to false. This word will now have lower weight. */
+        shrinkToFit?: boolean | undefined;
 
         /** visualize the grid by draw squares to mask the drawn areas. */
         drawMask?: boolean | undefined;
@@ -74,6 +79,8 @@ declare namespace WordCloud {
          * to  keep all text in one angle.
          */
         maxRotation?: number | undefined;
+        /** Force the use of a defined number of angles. Set the value equal to 2 in a -90°/90° range means just -90, 0 or 90 will be used. */
+        rotationSteps?: number | undefined;
 
         /** Shuffle the points to draw so the result will be different each time for the same list and settings. */
         shuffle?: boolean | undefined;
@@ -111,6 +118,6 @@ declare namespace WordCloud {
         h: number;
     }
 
-    type ListEntry = [string, number];
+    type ListEntry = [string, number, ...any[]];
     type EventCallback = (item: ListEntry, dimension: Dimension, event: MouseEvent) => void;
 }
