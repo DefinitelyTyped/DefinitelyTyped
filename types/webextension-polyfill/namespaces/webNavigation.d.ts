@@ -450,14 +450,14 @@ export namespace WebNavigation {
          *
          * @param details Information about the frame to retrieve information about.
          */
-        getFrame(details: GetFrameDetailsType): Promise<GetFrameCallbackDetailsType>;
+        getFrame(details: GetFrameDetailsType): Promise<GetFrameCallbackDetailsType | null>;
 
         /**
          * Retrieves information about all frames of a given tab.
          *
          * @param details Information about the tab to retrieve all frames from.
          */
-        getAllFrames(details: GetAllFramesDetailsType): Promise<GetAllFramesCallbackDetailsItemType[]>;
+        getAllFrames(details: GetAllFramesDetailsType): Promise<GetAllFramesCallbackDetailsItemType[] | null>;
 
         /**
          * Fired when a navigation is about to occur.
