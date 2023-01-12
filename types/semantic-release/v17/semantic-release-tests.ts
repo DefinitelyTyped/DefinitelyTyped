@@ -1,4 +1,5 @@
-import semanticRelease, * as lib from 'semantic-release';
+import * as lib from 'semantic-release';
+import semanticRelease = require('semantic-release');
 
 function analyzeCommits(pluginConfig: any, context: lib.Context) {
     const commits = context.commits;
