@@ -1649,6 +1649,10 @@
             "libraryName": "generate-password",
             "asOfVersion": "1.5.1"
         },
+        "generic-pool": {
+            "libraryName": "generic-pool",
+            "asOfVersion": "3.8.1"
+        },
         "geolib": {
             "libraryName": "geolib",
             "asOfVersion": "2.0.23"

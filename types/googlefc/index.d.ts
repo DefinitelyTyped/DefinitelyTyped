@@ -45,7 +45,7 @@ declare namespace googlefc {
         /** Something failed, in an unknown state. */
         UNKNOWN: 0;
         /** The user was running an extension level ad blocker. */
-        EXTENSION_AD_BLOCKER: 1;
+        EXTENSION_LEVEL_AD_BLOCKER: 1;
         /** The user was running a network level ad blocker. */
         NETWORK_LEVEL_AD_BLOCKER: 2;
         /** The user was not blocking ads. */
