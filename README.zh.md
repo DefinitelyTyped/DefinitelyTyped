@@ -18,15 +18,13 @@
 
 如果这里面的任何内容出现问题或者失败的情况，请在 [the Definitely Typed channel on the TypeScript Community Discord server](https://discord.gg/typescript) 提出问题。
 
-## 什么是声明文件？
+## 什么是声明文件，如何获取它们？
 
-可以查看 [TypeScript 手册](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)。
-
-## 如何去获取它？
+查看 [TypeScript 手册](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)。
 
 ### npm
 
-这是首选方法。它仅适用于 TypeScript 2.0+ 的用户。例如：
+这是首选方法。例如：
 
 ```sh
 npm install --save-dev @types/node
@@ -48,14 +46,23 @@ npm install --save-dev @types/node
 这通常会通过 `package.json` 文件中的 `"types"` 或 `"typings"` 字段提供，
 或者将包中包含类型定义的 ".d.ts" 文件手动通过 `/// <reference path="" />` 引入.
 
-#### 旧版本的 TypeScript（4.0 和更早版本）
+#### 支持窗口
 
-Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。当前已测试 4.1 及更高版本。如果您使用的是 TypeScript 2.0 到 4.0，仍然可以尝试安装 @types 软件包，大多数软件包都不使用 TypeScript 的新特性。但是不能保证它们会起作用，这是支持窗口：
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。
+
+<details>
+<summary>当前已测试 4.1 及更高版本</summary>
+
+如果您使用的是 TypeScript 2.0 到 4.0，仍然可以尝试安装 @types 软件包 &mdash; 大多数软件包都没有使用 TypeScript 的新特性。
+
+但是不能保证它们会起作用，这是支持窗口：
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
-`@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
+`@types` 软件包具有它们明确支持的 TypeScript 版本的标记，因此通常可以获取早于 2 年窗口的较早版本的软件包。
+
+例如，如果运行 `npm dist-tags @types/react`，您能看到 TypeScript 2.5 最高支持 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则最高支持 react@16.4：
 
 | Tag    | Version |
 | ------ | ------- |
@@ -69,13 +76,13 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 #### TypeScript 1.*
 
-这些可以被 TypeScript 1.0 使用。
-
 * 从该仓库的 `master` 分支手动下载并将其放入您的项目中
 * ~~[Typings](https://github.com/typings/typings)~~ (使用首选替代方案，typings 已经被弃用)
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (使用首选替代方案, nuget DT 类型发布已关闭)
 
 你可能需要手动添加 [引用](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html)。
+
+</details>
 
 ## 我该如何贡献？
 
@@ -85,10 +92,25 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 在你向世界分享你的成果前，请务必自己试用一下。
 
+
+Before you share your improvement with the world, use the types yourself by creating a `typename.d.ts` file in your project and filling out its exports:
+
+在你与世界分享你的成果之前，通过在你的项目中创建一个`typename.d.ts`文件并填写导出模块，自己先使用这些 types。
+
+```ts
+declare module "libname" {
+  // Types inside here
+  export function helloWorldMessage(): string
+}
+```
+
 #### 测试编辑现有的包
 
-你可以使用 [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) 添加新功能。
-你也可以直接在 `node_modules/@types/foo/index.d.ts` 编辑类型，或者从那里复制它们并按照以下步骤操作。
+你可以直接在`node_modules/@types/foo/index.d.ts`中编辑类型，以验证你的修改，然后按照下面的步骤把修改带到这个仓库。
+
+此外，你也可以使用 [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation) 扩展已有的DT模块。
+
+或者使用上面的 `declare module` 技术，它将覆盖 `node_modules` 中的版本。
 
 #### 为新创建的库添加测试
 
@@ -99,10 +121,9 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 "typeRoots": ["types"],
 ```
 
-(你也可以使用 `src/types`.)
-创建包含模块 "foo" 声明的 `types/foo/index.d.ts`.
-你现在应该能够在你的代码中从 `"foo"` 导入，它会连接到你上面所定义的新的类型声明。
-然后构建并运行代码确保你的类型定义与实际上发生的情况一致。
+创建包含 `"foo"` 模块声明的 `types/foo/index.d.ts`。
+现在你应该可以在你的代码中导入 `"foo"`，它会连接到你上面所定义的新的类型声明。
+然后构建**并**运行代码以确保你的类型定义与实际运行情况一致。
 
 一旦你的真实代码中的类型定义通过测试，那么可以发起一个 [PR](#发起一个-pull-request)，
 然后按照下面的说明去 [编辑一个现有包](#编辑一个现有包) 或
@@ -112,44 +133,39 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 
 一旦你的包测试通过，你可以在 Definitely Typed 分享它。
 
-首先，[fork](https://guides.github.com/activities/forking/) 这个仓库，然后安装 [node](https://nodejs.org/)，并运行以下命令 `npm install`。如果你使用的 `npm` 版本是 v7，你需要增加 `--legacy-peer-deps` 参数。
+首先，[fork](https://guides.github.com/activities/forking/) 这个仓库，[clone](#部分克隆)后，安装 [node](https://nodejs.org/)，并运行 `npm install`。如果你使用的 `npm` 版本是 v7，你需要在命令行增加 `--legacy-peer-deps` 参数。
 
-我们使用机器人来自动管理大量的库，你可以在 [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/) 查看更多细节。下面是一个简易的示意图，显示了一个 PR 的生命周期：
+我们使用机器人使大量请求到 DefinitelyTyped 的 PR 完全以自助方式处理，你可以在 [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/) 查看更多细节。下面是一个简易的示意图，显示了一个 PR 的生命周期：
 
 <img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
 
-#### 减少克隆代码量
+#### 部分克隆
 
-通常情况下，你会选择[克隆整个项目](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)代码到本地机器进行开发，但是项目现在包含 7000 多个类型定义包，全部下载无疑会花费很多时间，而且也不是很有必要。
+<details>
+<summary>你可以<a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>和以前一样</a>克隆整个仓库, 但本仓库很大，包括一个庞大的类型包目录。</summary>
 
-为了便于管理，是否可以选择只克隆你需要的类型定义包呢？使用 git 的 [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout)，[`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt)，和 [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) 特性能够达成这个目的，能够显著减少克隆代码的时间和提高 git 操作的性能。
+你可以<a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>和以前一样</a>克隆整个仓库, 但本仓库很大，包括一个庞大的类型包目录。这将需要一些时间来克隆，而且可能是不必要也不方便的。
 
->:注意: 该特性需要至少 [git 版本 2.27.0](https://git-scm.com/downloads)，这可能比大部分人安装的版本要更新，旧版本的 git 也有更复杂一点的方式能够实现局部克隆，但本文不涉及。
+为了更容易管理的克隆，即**仅**包含与你相关的类型包，你可以使用 git 的 [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout)，[`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt)，和 [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) 特性，这样能够减少克隆代码的时间和提高 git 操作的性能。
+
+>:warning: 该特性需要至少 [git 2.27.0 版本](https://git-scm.com/downloads)，这可能比大部分人安装的版本要更新，旧版本的 git 也有更复杂一点的方式能够实现局部克隆，但本文不涉及。
 
 1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
-    - `--sparse` 告知 git 使用 sparse-checkout 方式，所以首次克隆的只有根部的文件。
+    - `--sparse`初始化 sparse-checkout 文件，工作目录开始时只有版本库根部的文件。
     - `--filter=blob:none` 将排除文件，只在需要时获取它们。
-    - `--depth=1` 可以通过阶段提交历史来进一步提高克隆速度，不过它可能会导致一些问题，见：[here](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/).
+    - `--depth=1` 可以通过截断提交历史来进一步提高克隆速度，不过它可能会导致一些问题，总结于：[这里](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/)(英文)。
 2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
+
+</details>
 
 #### 编辑一个现有包
 
 * `cd types/<package to edit>`
-* 作出修改之后，[记得新增测试](#my-package-teststs)。
+* 作出修改之后，记得[编辑测试](#my-package-teststs)。
   如果你进行了重大修改，不要忘记 [更新主版本](#如果一个包做了重大的修改而更新了主要版本我应该如何更新它的类型声明包)
-* 你可能还想将自己添加到包头部的 "Definitions by" 部分。
-  - 这会导致一旦有人对该包发起 PR 或者 issue，都会通知你（通过你的 GitHub 用户名）。
-  - 通过将您的名字添加到行尾来执行此操作，比如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-  - 或者如果有多人，它也可以是多行的
-  ```typescript
-  // Definitions by: Alice <https://github.com/alice>
-  //                 Bob <https://github.com/bob>
-  //                 Steve <https://github.com/steve>
-  //                 John <https://github.com/john>
-  ```
 * [运行 `npm test <package to test>`](#验证).
 
-当你对现有的包发起 PR 的时候，请确保 `dt-bot` 会通知以前的作者。
+当你对现有的包发起 PR 的时候，`dt-bot` 应该会通知以前的作者。
 如果没有，你可以在与 PR 关联的评论中手动去 @ 他们。
 
 #### 创建一个新的包
@@ -167,9 +183,9 @@ Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软
 | `index.d.ts` | 这里包含了包的类型声明。 |
 | [`<my-package>-tests.ts`](#my-package-teststs) | 这里包含了测试类型的示例代码，此代码 **不会** 运行，但是它需要通过类型检查。 |
 | [`tsconfig.json`](#tsconfigjson) | 这里允许你在包里运行 `tsc`. |
-| [`tslint.json`](#linter-tslintjson) | 启用 linting. |
+| [`tslint.json`](#linter-tslintjson) | (很少）只需要禁用为eslint编写的lint规则。 |
 
-如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my-package> --template module` 来生成这些文件，否则就运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my-package> --template module`.
+如果你的 npm ≥ 5.2.0，运行 `npx dts-gen --dt --name <my-package> --template module` 来生成这些文件，否则运行 `npm install -g dts-gen` 和 `dts-gen --dt --name <my-package> --template module`.
 可以在 [dts-gen](https://github.com/Microsoft/dts-gen) 查看所有的选项。
 
 如果你除了 `index.d.ts` 以外还有别的 `.d.ts` 文件，请确保它们有在 `index.d.ts` 或测试文件中被引用。
@@ -189,8 +205,8 @@ Definitely Typed 的成员会定期查看新的 PRs，但是请记住当有许�
 
 Definitely Typed 中其他引用了删除包的任何包，都需要去更新去引用新的捆绑类型。
 你可以查看 `npm test` 中的错误来获得此列表。
-添加一个带有 `"dependencies": { "<libraryName>": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，去修复这些错误。
-比如：
+添加一个带有 `"dependencies": { "<libraryName>": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，以修复这些错误。
+例如：
 
 ```json
 {
@@ -207,25 +223,27 @@ Definitely Typed 中其他引用了删除包的任何包，都需要去更新去
 
 #### 验证
 
-通过运行 `npm test <package to test>` 去测试你的改动，其中 `<package to test>` 是你的包名。
+通过运行 `npm test <package to test>` 以测试你的改动，其中 `<package to test>` 是你的包名。
 
 这个脚本使用了 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) 来对你的 dts 文件进行 TypeScript 编译测试.
 
-#### Naming
+一旦你准备好所有的改动，使用 `npm run test-all` 来看看你的改动对其他模块的影响。
+
+#### 命名
 
 如果你要为 npm 包添加类型，请创建具有相同名字的目录。
 如果你要添加类型的包不再 npm 上，请确保为它选择的名字不会与 npm 上面的包名冲突。
 (你可以使用 `npm info <my-package>` 来检查 `<my-package>` 包是否存在。)
 
-If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
+如果一个非npm包与现有的npm包发生冲突，可以尝试在名字后面加上-browser，改为 `<my-package>-browser`。
 
 #### `<my-package>-tests.ts`
 
-`<my-package>-tests.ts` 是你的类型定义项目的测试文件，它应该引入了你所编写的 `*.ts` 文件。
+应该包含一个 `<my-package>-tests.ts` 文件，它与其导入的 `*.ts` 文件都被认为是你的类型定义项目的测试文件。
 
-如果你在项目文件夹下看不到测试文件的话，你应该创建一份并编写测试用例。
+如果你在模块的文件夹中没有看到任何测试文件，创建一个 `<my-package>-tests.ts` 。
 
-测试文件应该对作为 `@types/<my-package>` 被交付的所有 `*.d.ts` 文件中被外部导出的 API 进行验证。
+这些文件以 `@types/<my package>` 形式提供，用来验证从`*.d.ts`文件中导出的 API。
 
 对 `*.d.ts` 的任何修改应该在 `*.ts` 中进行相应的更改，这样别人就不会意外的破坏你所依赖的代码。
 
@@ -255,9 +273,9 @@ const result = twoslash("//")
 
 如果你不知道从何开始，README 中的示例模块是个很好的参考。
 
-你可以在根目录执行 `npm test <package to test>` 来 [validate your changes](#验证) 来验证你的更改。
+你可以在根目录执行 `npm test <package to test>` 来 [验证你的更改](#验证) 。
 
-若要声明的表达式是一个给定类型，请使用 `$ExpectType`. 若要声明的表达式会导致编译错误，请使用 `@ts-expect-error`.
+若要声明的表达式是一个给定类型，请使用 `$ExpectType`. 若要声明的表达式会导致编译错误，请使用 `@ts-expect-error`。例如：
 
 ```js
 // $ExpectType void
@@ -271,15 +289,56 @@ f("one");
 
 #### Linter: `tslint.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
+linter配置文件 `tslint.json` 应该包含 `{ "extends": "@definitelytyped/dtslint/dt.json" }` ，并且没有其他规则。
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+如果因为某些原因需要禁用某些规则，则使用 `// tslint:disable-next-line:[ruleName]` [为该特定行禁用](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) &mdash; 而不是针对整个软件包，这样可以审查禁用情况。(有一些以前的lint配置有额外的内容，但这些不应该发生在新工作中)。
+
+##### Linter: `.eslintrc.json`
+
+Definitely Typed 正在从 linting 转到 eslint。
+
+与 tslint 相比，不同的是，你不需要一个配置文件来启用 linting。
+相同的是，你应该只在特定的行上禁用特定的规则。
+
+
+```ts
+// eslint-disable-next-line no-const-enum
+const enum Const { One }
+const enum Enum { Two } // eslint-disable-line no-const-enum
+```
+
+你仍然可以用 `.eslintrc.json` 来禁用规则，但不应在新的软件包中禁用。
 
 #### `tsconfig.json`
 
-`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+`tsconfig.json` 中应该把 `noImplicitAny`、`noImplicitThis`、`strictNullChecks` 和 `strictFunctionTypes` 设置为 `true`.
 
-你可以编辑 `tsconfig.json` 来增加新文件，增加 `"target": "es6"` (异步函数需要)，去增加 `"lib"`，或者增加 `"jsx"` 编译选项。
+你可以编辑 `tsconfig.json` 以增加新测试文件、增加 `"target": "es6"` (异步函数需要)、`"lib"`，或者是增加 `"jsx"` 编译选项。
+
+##### `esModuleInterop`/`allowSyntheticDefaultImports`
+
+简而言之：在你的`tsconfig.json` 中 `esModuleInterop` 和 `allowSyntheticDefaultImports` 都是**不允许**的。 
+
+> 这些选项模拟了 Node 和一些 JS 捆绑器中 CJS 和 ES 模块之间的内置互操作性,使得为 CJS 导出编写默认导入成为可能:
+>
+> ```tsx
+> // component.d.ts
+> declare class Component {​​​​​}​​​​​
+> // CJS 导出, 模拟 JS 中的 `module.exports = Component`
+> export = Component;
+>
+> // index.d.ts
+> // 默认导入，只允许在 'esModuleInterop' 或 'allowSyntheticDefaultExports' 下进行
+> import Component from "./component";
+> ```
+>
+> 由于 `index.d.ts` 中导入的编译时有效性取决于特定的编译设置，而你的类型的用户并不继承这些设置，在 Definitely Typed 中使用这种模式会迫使用户改变他们自己的编译设置，这对他们的运行时间来说可能是不正确的。相反，你必须为CJS导出编写一个CJS导入，以确保广泛的、独立于配置的兼容性。
+>
+> ```ts
+> // index.d.ts
+> // CJS 导入, 模拟 JS 中的 `const Component = require("./component")`
+> import Component = require("./component");
+> ```
 
 #### `package.json`
 
@@ -290,10 +349,11 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 [Pikaday 是一个好的例子](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
 包含 `package.json` 以便解析依赖。这有个 [示例](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)。
 你还需要将依赖项添加到[允许的包列表](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)。
-即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`.
+即使你编写自己的 `package.json` 文件，也只能指定依赖项。不允许使用其他字段，例如 `"description"`。
 该列表是人为更新，这让我们确保了 `@types` 包不会依赖恶意包。
+
 在极少数情况下，`@types` 包会被删除，而不是源码包中提供的类型，并且你需要依赖旧的已经删除的 `@types` 包，你可以添加对 `@types` 包的依赖。
-再添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
+在添加到允许的包列表中时，请确保作出解释，以便让人工维护者知道发生了什么。
 
 #### `OTHER_FILES.txt`
 
@@ -302,7 +362,7 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
 #### 常见错误
 
 * 首先，请遵循 [手册](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html) 的建议。
-* 格式化：使用 4 个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`. [使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+* 格式化：使用 4 个空格。 该仓库已经设置了 prettier，因此你只需要运行 `npm run prettier -- --write path/to/package/**/*.ts`， 在[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
   ```tsx
   // prettier-ignore
   // @ts-expect-error
@@ -318,23 +378,25 @@ Definitely Typed 包的发布者会为在 Definitely Typed 之外没有依赖的
   这种情况下最好使用真实的类型断言，类似这样，`getMeAT() as number`.
   类型参数可接受的示例：`function id<T>(value: T): T;`.
   类型参数不可接受的示例：`function parseJson<T>(json: string): T;`.
-  有一个例外：`new Map<string, number>()` 是 OK 的。
+  有一个例外：`new Map<string, number>()` 是允许的。
 * 使用 `Function` 和 `Object` 的类型基本上不是一个好方法。在 99% 的情况你可以去指定一个更具体的类型。比如，对于 [Function](https://www.typescriptlang.org/docs/handbook/functions.html#function-types)，可以使用 `(x: number) => number`，对于 `Object` 可以使用 `{ x: number, y: number }`. 对于不确定的类型，你需要使用 [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) 而不是 `Object`. 只有当它类型确定且是某个对象的时候，使用 [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), 而不是 `Object` 或 `{ [key: string]: any }`.
 * `var foo: string | any`:
-  如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分看起来很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
+  如果在联合类型中使用 `any`, 则结果始终为 `any`. 因此，即便类型中的 `string` 部分**看起来**可能很有用，但实际上在类型检查方面与 `any` 没有什么区别。根据你的意图，可以选择 `any`, `string`, 或 `string | object`.
 
-### Definition owners
+### 定义的所有者
 
-DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+> 简而言之：不要修改 `.github/CODEOWNERS` ，始终修改 `index.d.ts` 头中的所有者列表。
 
-* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
-* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+DT 有 "定义拥有者" 的概念，他们是希望保持特定模块类型质量的人。
 
-To Add yourself as a Definition Owner:
+* 将自己添加到列表中会使你在有人提出关于该软件包的拉动请求或问题时得到通知（通过你的GitHub用户名）。
+* 你的 PR 评论对于维护这个仓库的[机器人](https://github.com/DefinitelyTyped/dt-mergebot)来说，会有更高的重要性优先权。
+* DT 维护者将信任寄托在定义所有者身上，以确保生态环境的稳定，请不要轻易添加自己。
 
-* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* Or if there are more people, it can be multiline
+将自己添加为定义所有者：
+
+* 在行末添加你的名字，如：`// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+* 或者如果有更多的人，可以是多行的
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -342,7 +404,7 @@ To Add yourself as a Definition Owner:
   //                 John <https://github.com/john>
   ```
 
-Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
+定义所有者每周会同步到[.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS)文件，这是我们的信息源。
 
 ## FAQ
 
@@ -352,7 +414,21 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 #### 我已经发起了 PR, 它多久会被合并？
 
-这得看情况，但是大多数的 PR 会在一周内被合并。已经由定义包头部中的作者同意的 PR 通常会更快被合并。新定义类型的 PR 需要更多时间，因为它们需要维护人员花更多的时间去审核。每一个 PR 在合并之前都会由 TypeScript 或 Definitely Typed 的团队成员进行审核，所以请耐心等待这些因为人为因素导致的延迟。通过查看 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5)，可以看到维护人员在开放 PRs 的工作进度。
+这得看情况，但是大多数的 PR 会在一周内被合并。
+有些 PR 可能由模块的作者合并，他们可以合并得更快。
+
+基本上是：
+
+> 只改变模块类型的 PR ，并且有相应的测试变化，会被更快地合并。
+
+由定义标题中列出的作者批准的 PR 通常会被更快地合并；新定义的PR会花费更多时间，因为它们需要维护者的更多审查。每个 PR 在合并前都会由 TypeScript 或 Definitely Typed 团队成员审核，所以请耐心等待，因为人为因素可能会导致延迟。请查看 [新的 PR 状态板](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) 以了解维护者在处理开放的 PRs 时的进展。
+
+#### 我想提交对一个非常受欢迎的项目的修改，为什么它们被区别对待？
+
+对于非常受欢迎的模块的改动，例如 Node/Express/Jest ，它们在npm上每周都有数百万的下载量，对贡献的要求要高一些。
+对这些项目的改动会对生态系统产生巨大的影响，因此我们对这些项目的改动要非常谨慎。
+这些模块既需要 DT 维护者的签字，也需要模块所有者的热情支持。这方面的要求很高，而且经常会因为没有人支持而导致 PR 过期。
+如果你发现没有人评论，可以尝试让你的PR有一个较小的焦点。
 
 #### 我的 PR 被合并了，什么时候 `@types` 的 npm 包会被更新？
 
@@ -367,6 +443,11 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 如果我们还没有注意到它们是错误的，你可以通过发起 PR 来修复它们。
 
+
+#### 我可以改变/增强模块的格式化设置吗？
+
+我们曾经探讨过如何使DT的代码格式一致，但由于仓库上的活动太多，所以陷入了僵局。我们通过 [`.editorconfig`](.editorconfig) 和 [`.prettierrc.json`](.prettierrc.json) 导入格式化设置。这些是专门为你的编辑器提供的工具，它们的设置并不冲突，我们也不打算改变它们。我们也不打算在 repo 中强制执行一种特定的风格。我们希望保持低门槛的贡献。
+
 #### 我可以请求类型定义吗？
 
 这里是 [当前在请求的类型定义](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/categories/request-a-new-types-package)。
@@ -377,21 +458,22 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 
 #### 如果一个包不导出模块，那么为了能使用 ES6 风格，我是否应该使用空的命名空间？
 
-有些包，比如 [chai-http](https://github.com/chaijs/chai-http), 导出一个函数。
+比如 [chai-http](https://github.com/chaijs/chai-http) 之类的包, 导出一个函数。
 
 使用 ES6 风格导入此模块的形式为 `import * as foo from "foo";`, 会报下面的错误：
 
 > error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
+> (error TS2497: 模块'foo'被解析为一个非模块实体，不能使用此结构导入)
 
 通过将函数声明和同名的空命名空间合并可以抑制此错误，但不鼓励这种做法。
 关于这个问题这是常被引用的 [Stack Overflow 答案](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this)。
 
 使用 `import foo = require("foo");` 语法导入模块更合适。
 不过，如果你想使用像 `import foo from "foo";` 这样的默认导入，你有两个选择：
-- 你可以使用 [`--allowSyntheticDefaultImports` 的编译器选项](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) 取决于你的模块运行是支持 non-ECMAScript 模块的互操作方案 ，即默认导入是否适用于你的环境（例如 Webpack, SystemJS, esm）。
-- 你可以使用 [`--esModuleInterop` 的编译器选项](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)，如果你想使用 TypeScript 去处理 non-ECMAScript 的操作（从 Typescript 2.7 版本开始）。
+- 如果你的模块运行支持 non-ECMAScript 模块的互操作方案，也就是如果默认导入适用于你的环境（例如 Webpack, SystemJS, esm），你可以使用 [`--allowSyntheticDefaultImports` 的编译器选项](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs) 。
+- 如果你想使用 TypeScript 去处理 non-ECMAScript 的操作（从 Typescript 2.7 版本开始），你可以使用 [`--esModuleInterop` 的编译器选项](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)。
 
-#### 一个包使用了 `export =`, 但是我更喜欢使用默认导入。我可以将 `export =` 改为 `export default` 吗？
+#### 包使用了 `export =`, 但是我更喜欢使用默认导入。我可以将 `export =` 改为 `export default` 吗？
 
 跟之前的问题一样，参考使用 [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)
 或 [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)
@@ -400,39 +482,45 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 请不要更改准确的类型定义。
 对于一个 npm 包，如果使用 `node -p 'require("foo")'` 去导入模块，那么 `export =` 是准确的。如果使用 `node -p 'require("foo").default'` 去导入模块，那么 `export default` 是准确的。
 
-#### 我想使用 TypeScript 3.3 或更高版本的功能。
+#### 我想使用非常新的TypeScript版本的功能。
 
-那么你必须在你的定义头部的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// Minimum TypeScript Version: 3.3`.
-但是，如果你的项目在维护类型时需要在兼容 3.1 版本及以上的同时还要兼容 3.0 及以下的版本，那么你需要使用一个只有在 TypeScript 3.1 及以上版本的新特性 `typesVersions`.
+那你必须在你的定义头部的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// Minimum TypeScript Version: X.Y`。这将设置最低的支持版本。
+
+但是，如果你的项目需要维护与3.7及以上版本兼容的类型，**同时**维护与3.6或以下版本兼容的类型，你将需要使用`typesVersions`功能。
 你可以在 [官方 TypeScript 文档](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions) 中找到此功能的详细说明。
 
-这里是个简短的说明，可以帮助您入门：
+这里是个简短的说明，可以帮助你入门：
 
 1. 你必须在包定义中添加 `package.json` 文件，其中包含以下内容：
 
-```json
-{
-    "private": true,
-    "types": "index",
-    "typesVersions": {
-        ">=3.1.0-0": { "*": ["ts3.1/*"] }
-    }
-}
-```
+   ```json
+   {
+     "private": true,
+     "types": "index",
+     "typesVersions": {
+       "<=3.6": { "*": ["ts3.6/*"] }
+     }
+   }
+   ```
 
-2. 在你的类型目录中创建一个在 `typesVersions` 字段中提到的子目录（在本例中为 `ts3.1/`），并为这个新版本添加特定的类型和测试。你不需要在 `ts3.1/` 目录中任何一个文件添加传统的定义头部。
+2. 在你的类型目录（本例中为 `ts3.6/` ）中创建 `typesVersions` 字段中提到的子目录。`ts3.6/` 将支持TypeScript 3.6及以下版本，所以将现有的类型和测试复制到那里。
 
-3. 将 `ts3.1/tsconfig.json` 中 `baseUrl` 和 `typeRoots` 选项设置成正确的路径，它们应该如下所示：
-```json
-{
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"]
-    }
-}
-```
+   你需要删除`ts3.6/index.d.ts`中的定义头，因为只有根`index.d.ts`应该有这个头。
 
-你可以在 [这里](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) 和 [express](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/95a309dcd7dc2632b4ebab87a75329f17af62dbc/types/express) 查看示例。
+3. 将 `ts3.6/tsconfig.json` 中的 `baseUrl` 和 `typeRoots` 选项设置为正确的路径，看起来应该是这样的。
+   ```json
+   {
+     "compilerOptions": {
+       "baseUrl": "../../",
+       "typeRoots": ["../../"]
+     }
+   }
+   ```
+
+4. 回到包的根目录，添加你想使用的 TypeScript 3.7 功能。
+   当人们安装软件包时，TypeScript 3.6及以下版本将从`ts3.6/index.d.ts`开始，而TypeScript 3.7及以上版本将从`index.d.ts`开始。
+
+   你可以在 [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) 查看示例。
 
 #### 我想去添加默认情况下不存在于 TypeScript 的 DOM API.
 
@@ -441,7 +529,7 @@ npm 包应该会在几分钟内更新。如果已经超过了一小时，请在 
 使用以 `dom-` 开头的名称，并在头部中包含指向标准的链接作为项目的链接。
 当它结束草案模式时，我们可以将它从 Definitely Typed 删除，并弃用相关的 `@types`包。
 
-#### Definitely Typed 包版本号如何与对应库的版本号相关联？
+#### Definitely Typed 包的版本与相应的库的版本有什么关系？
 
 _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.org/)_
 
@@ -459,16 +547,17 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 因为 `10.12` 在第一行的末尾，所以 `@types/node` 包的版本号也是 `10.12.x`.
 注意在 `index.d.ts` 文件的第一行注释中应该只包含 `major.minor` 的版本号（比如 `10.12`），不应该包含补丁版本（例如 `10.12.4`）。
-这是因为只有主要版本号和次要版本号在库包和类型声明包之间相对齐。
-类型声明包的补丁版本号（比如 `10.12.0` 中的 `.0`）是由 Definitely Typed 初始化为 0，每次将新的 `@types/node` 包发布到对应库的同一主/次版本的 npm 是，他都会递增。
+这是因为在库包和类型声明包之间只有主要版本号和次要版本号是一致的。
+类型声明包的补丁版本号（比如 `10.12.0` 中的 `.0`），由 Definitely Typed 初始化为 0，每次将新的 `@types/node` 包发布到对应库的同一主/次版本的 npm 是，他都会递增。
 
 有时候，类型声明包的版本号和库包的版本号可能会不同步。
 以下是一些常见的原因，是按照给库的用户带来不便的顺序排序的。
 只有最后一种情况通常是有问题的。
 
 * 如上所示，类型定义包的补丁版本与库包的补丁版本是无关的。这允许 Definitely Typed 安全地更新同一主/次版本的类型声明。
-* 如果要更新包去获取新的功能，请不要忘记更新版本号以与该版本的库对齐。
-* 类型定义包的更新落后于库的原因通常是因为库用户而不是维护者，他们在发布新特性从而更新了库的版本。因此，在愿意帮忙的社区成员发送 PR 去更新新的库版本对应的类型声明包之前，可能会有几天，几周甚至几个月的滞后。如果你深受此影响，你可以成为你想改变的，你可以去成为乐于助人的社区成员！
+* 如果要更新包去获取新的功能，请不要忘记更新版本号以与该版本的库保持一致。如果用户确保 JavaScript 包和它们各自的 `@types` 包之间的版本一致，那么 `npm update` 通常就可以工作了。
+* 类型声明包的更新滞后于库的更新是很常见的，因为当库的新功能发布时，通常是库的用户来更新 Definitely Typed，而不是维护者。因此，在愿意帮忙的社区成员发送 PR 去更新新的库版本对应的类型声明包之前，可能会有几天，几周甚至几个月的滞后。
+  如果你深受此影响，你可以成为你想在世界上看到的改变，你可以去成为乐于助人的社区成员！
 
 :exclamation: 如果你想更新库的类型声明，请记住始终要在 `index.d.ts` 文件的第一行设置 `major.minor` 的版本号去匹配你正在记录的库版本！ :exclamation:
 
@@ -483,7 +572,7 @@ _注意：本节中的讨论假定你熟悉 [语义版本控制](https://semver.
 
 如果你打算继续更新旧版本库的类型声明，你可以创建一个以当前版本（很快就是旧版本）命名的新的子文件夹（比如 `/v2/`），并将现有版本的文件都拷贝进去。
 
-因为根文件夹始终包含最新版本的类型声明，所以你需要对旧版本子目录中的文件进行一些修改，以确保相对路径的引用指向子目录，而不是根目录。
+因为根文件夹始终包含最新（`"新"`）版本的类型声明，所以你需要对旧版本子目录中的文件进行一些修改，以确保相对路径的引用指向子目录，而不是根目录。
 
 1. 更新 `tsconfig.json` 和 `tslint.json` 中的相对路径。
 2. 添加路径映射规则以确保测试能够针对预期版本运行。
