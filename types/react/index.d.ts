@@ -1940,7 +1940,7 @@ declare namespace React {
         content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
