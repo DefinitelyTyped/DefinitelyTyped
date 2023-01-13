@@ -7276,7 +7276,7 @@ declare namespace browser.contextMenus {
      */
     interface _OnShownInfo {
         /** A list of IDs of the menu items that were shown. */
-        menuIds: number | string[];
+        menuIds: Array<number | string>;
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
         viewType?: extension.ViewType | undefined;
@@ -7543,7 +7543,7 @@ declare namespace browser.menus {
      */
     interface _OnShownInfo {
         /** A list of IDs of the menu items that were shown. */
-        menuIds: number | string[];
+        menuIds: Array<number | string>;
         /** A list of all contexts that apply to the menu. */
         contexts: ContextType[];
         viewType?: extension.ViewType | undefined;
