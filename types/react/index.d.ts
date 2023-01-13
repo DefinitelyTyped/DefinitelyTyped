@@ -2280,7 +2280,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
