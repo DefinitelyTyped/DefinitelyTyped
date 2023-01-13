@@ -467,7 +467,7 @@ declare namespace JQueryUI {
         distance?: number | undefined;
         grid?: number[] | undefined;
         handle?: any;
-        helper?: any;
+        helper?: string | (() => HTMLElement | JQuery) | undefined;
         iframeFix?: any;
         opacity?: number | undefined;
         refreshPositions?: boolean | undefined;
@@ -773,7 +773,7 @@ declare namespace JQueryUI {
         forceHelperSize?: boolean | undefined;
         forcePlaceholderSize?: boolean | undefined;
         grid?: number[] | undefined;
-        helper?: string | ((event: JQueryEventObject, element: Sortable) => Element) | undefined;
+        helper?: string | ((event: JQueryEventObject, element: JQuery) => HTMLElement | JQuery) | undefined;
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number | undefined;
