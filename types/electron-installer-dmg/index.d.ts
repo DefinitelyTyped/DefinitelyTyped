@@ -1,4 +1,4 @@
-// Type definitions for electron-installer-dmg 3.0
+// Type definitions for electron-installer-dmg 4.0
 // Project: https://github.com/electron-userland/electron-installer-dmg
 // Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
