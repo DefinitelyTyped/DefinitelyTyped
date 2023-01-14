@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es5"],
+        "lib": ["dom", "es6"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
+        "baseUrl": "../../../",
         "typeRoots": [
-            "../../"
+            "../../../"
         ],
         "types": [],
         "noEmit": true,
@@ -17,6 +17,6 @@
     },
     "include": [
         "./*.ts",
-        "../global.d.ts"
+        "../../global.d.ts"
     ]
 }
