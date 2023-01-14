@@ -74,16 +74,16 @@ declare module '../../index' {
         readonly TWO_PI: number;
 
         /**
-         *   Constant to be used with angleMode() function, to
-         *   set the mode which p5.js interprets and calculates
-         *   angles (either DEGREES or RADIANS).
+         *   Constant to be used with the angleMode() function,
+         *   to set the mode in which p5.js interprets and
+         *   calculates angles (either DEGREES or RADIANS).
          */
         readonly DEGREES: DEGREES;
 
         /**
-         *   Constant to be used with angleMode() function, to
-         *   set the mode which p5.js interprets and calculates
-         *   angles (either RADIANS or DEGREES).
+         *   Constant to be used with the angleMode() function,
+         *   to set the mode in which p5.js interprets and
+         *   calculates angles (either RADIANS or DEGREES).
          */
         readonly RADIANS: RADIANS;
         readonly CORNER: CORNER;
@@ -194,5 +194,7 @@ declare module '../../index' {
         readonly AXES: AXES;
         readonly LABEL: LABEL;
         readonly FALLBACK: FALLBACK;
+        readonly CONTAIN: CONTAIN;
+        readonly COVER: COVER;
     }
 }

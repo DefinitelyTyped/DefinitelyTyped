@@ -400,7 +400,8 @@ declare module '../../index' {
          *   slider (if step is set to 0, the slider will move
          *   continuously from the minimum to the maximum
          *   value)
-         *   @return pointer to p5.Element holding created node
+         *   @return pointer to p5.Element holding the created
+         *   node
          */
         createSlider(min: number, max: number, value?: number, step?: number): Element;
 
@@ -416,8 +417,8 @@ declare module '../../index' {
 
         /**
          *   Creates a checkbox <input></input> element in the
-         *   DOM. Calling .checked() on a checkbox returns if
-         *   it is checked or not
+         *   DOM. Calling .checked() on a checkbox returns a
+         *   boolean indicating whether it is checked or not.
          *   @param [label] label displayed after checkbox
          *   @param [value] value of the checkbox; checked is
          *   true, unchecked is false
@@ -427,47 +428,58 @@ declare module '../../index' {
 
         /**
          *   Creates a dropdown menu <select></select> element
-         *   in the DOM. It also helps to assign select-box
-         *   methods to p5.Element when selecting existing
-         *   select box. - .option(name, [value]) can be used
-         *   to set options for the select after it is created.
+         *   in the DOM. It also assigns select-related methods
+         *   to p5.Element when selecting an existing select
+         *   box. Options in the menu are unique by name (the
+         *   display text). - .option(name, [value]) can be
+         *   used to add an option with name (the display text)
+         *   and value to the select element. If an option with
+         *   name already exists within the select element,
+         *   this method will change its value to value.
          *   - .value() will return the currently selected
          *   option.
-         *   - .selected() will return current dropdown element
-         *   which is an instance of p5.Element
+         *   - .selected() will return the current dropdown
+         *   element which is an instance of p5.Element.
          *   - .selected(value) can be used to make given
          *   option selected by default when the page first
          *   loads.
-         *   - .disable() marks whole of dropdown element as
+         *   - .disable() marks the whole dropdown element as
          *   disabled.
-         *   - .disable(value) marks given option as disabled
+         *   - .disable(value) marks a given option as
+         *   disabled.
          *   @param [multiple] true if dropdown should support
          *   multiple selections
+         *   @return pointer to p5.Element holding created node
          */
         createSelect(multiple?: boolean): Element;
 
         /**
          *   Creates a dropdown menu <select></select> element
-         *   in the DOM. It also helps to assign select-box
-         *   methods to p5.Element when selecting existing
-         *   select box. - .option(name, [value]) can be used
-         *   to set options for the select after it is created.
+         *   in the DOM. It also assigns select-related methods
+         *   to p5.Element when selecting an existing select
+         *   box. Options in the menu are unique by name (the
+         *   display text). - .option(name, [value]) can be
+         *   used to add an option with name (the display text)
+         *   and value to the select element. If an option with
+         *   name already exists within the select element,
+         *   this method will change its value to value.
          *   - .value() will return the currently selected
          *   option.
-         *   - .selected() will return current dropdown element
-         *   which is an instance of p5.Element
+         *   - .selected() will return the current dropdown
+         *   element which is an instance of p5.Element.
          *   - .selected(value) can be used to make given
          *   option selected by default when the page first
          *   loads.
-         *   - .disable() marks whole of dropdown element as
+         *   - .disable() marks the whole dropdown element as
          *   disabled.
-         *   - .disable(value) marks given option as disabled
+         *   - .disable(value) marks a given option as
+         *   disabled.
          *   @param existing DOM select element
          */
         createSelect(existing: object): Element;
 
         /**
-         *   Creates a radio button element in the DOM.It also
+         *   Creates a radio button element in the DOM. It also
          *   helps existing radio buttons assign methods of
          *   p5.Element. - .option(value, [label]) can be used
          *   to create a new option for the element. If an
@@ -487,8 +499,8 @@ declare module '../../index' {
          *   for value.
          *   - .disable(Boolean) method will enable/disable the
          *   whole radio button element.
-         *   @param containerElement An container HTML Element
-         *   either a div or span inside which all existing
+         *   @param containerElement A container HTML Element,
+         *   either a div or span, inside which all existing
          *   radio inputs will be considered as options.
          *   @param [name] A name parameter for each Input
          *   Element.
@@ -497,7 +509,7 @@ declare module '../../index' {
         createRadio(containerElement: object, name?: string): Element;
 
         /**
-         *   Creates a radio button element in the DOM.It also
+         *   Creates a radio button element in the DOM. It also
          *   helps existing radio buttons assign methods of
          *   p5.Element. - .option(value, [label]) can be used
          *   to create a new option for the element. If an
@@ -524,7 +536,7 @@ declare module '../../index' {
         createRadio(name: string): Element;
 
         /**
-         *   Creates a radio button element in the DOM.It also
+         *   Creates a radio button element in the DOM. It also
          *   helps existing radio buttons assign methods of
          *   p5.Element. - .option(value, [label]) can be used
          *   to create a new option for the element. If an
@@ -672,8 +684,6 @@ declare module '../../index' {
          *   @return pointer to p5.Element holding created node
          */
         createElement(tag: string, content?: string): Element;
-        readonly VIDEO: VIDEO;
-        readonly AUDIO: AUDIO;
     }
     interface Element {
         /**
@@ -691,7 +701,8 @@ declare module '../../index' {
         removeClass(theClass: string): Element;
 
         /**
-         *   Checks if specified class already set to element
+         *   Checks if specified class is already applied to
+         *   element.
          *   @param c class name of class to check
          *   @return a boolean value if element has specified
          *   class
@@ -699,7 +710,7 @@ declare module '../../index' {
         hasClass(c: string): boolean;
 
         /**
-         *   Toggles element class
+         *   Toggles element class.
          *   @param c class name to toggle
          *   @chainable
          */
@@ -726,10 +737,10 @@ declare module '../../index' {
         child(child?: string | Element): Element;
 
         /**
-         *   Centers a p5 Element either vertically,
+         *   Centers a p5.Element either vertically,
          *   horizontally, or both, relative to its parent or
-         *   according to the body if the Element has no
-         *   parent. If no argument is passed the Element is
+         *   according to the body if the p5.Element has no
+         *   parent. If no argument is passed the p5.Element is
          *   aligned both vertically and horizontally.
          *   @param [align] passing 'vertical', 'horizontal'
          *   aligns element accordingly
@@ -739,9 +750,9 @@ declare module '../../index' {
 
         /**
          *   If an argument is given, sets the inner HTML of
-         *   the element, replacing any existing html. If true
-         *   is included as a second argument, html is appended
-         *   instead of replacing existing html. If no
+         *   the element, replacing any existing HTML. If true
+         *   is included as a second argument, HTML is appended
+         *   instead of replacing existing HTML. If no
          *   arguments are given, returns the inner HTML of the
          *   element.
          *   @return the inner HTML of the element
@@ -750,9 +761,9 @@ declare module '../../index' {
 
         /**
          *   If an argument is given, sets the inner HTML of
-         *   the element, replacing any existing html. If true
-         *   is included as a second argument, html is appended
-         *   instead of replacing existing html. If no
+         *   the element, replacing any existing HTML. If true
+         *   is included as a second argument, HTML is appended
+         *   instead of replacing existing HTML. If no
          *   arguments are given, returns the inner HTML of the
          *   element.
          *   @param [html] the HTML to be placed inside the
@@ -768,8 +779,8 @@ declare module '../../index' {
          *   relative to (0, 0) of the window. Essentially,
          *   this sets position:absolute and left and top
          *   properties of style. If an optional third argument
-         *   specifying position type is given, the x and y
-         *   coordinates will be interpreted based on the
+         *   specifying position type is given, the x and
+         *   y-coordinates will be interpreted based on the
          *   positioning scheme. If no arguments given, the
          *   function returns the x and y position of the
          *   element. found documentation on how to be more
@@ -786,8 +797,8 @@ declare module '../../index' {
          *   relative to (0, 0) of the window. Essentially,
          *   this sets position:absolute and left and top
          *   properties of style. If an optional third argument
-         *   specifying position type is given, the x and y
-         *   coordinates will be interpreted based on the
+         *   specifying position type is given, the x and
+         *   y-coordinates will be interpreted based on the
          *   positioning scheme. If no arguments given, the
          *   function returns the x and y position of the
          *   element. found documentation on how to be more
@@ -804,12 +815,12 @@ declare module '../../index' {
         position(x?: number, y?: number, positionType?: string): Element;
 
         /**
-         *   Sets the given style (css) property (1st arg) of
+         *   Sets the given style (CSS) property (1st arg) of
          *   the element with the given value (2nd arg). If a
          *   single argument is given, .style() returns the
-         *   value of the given property; however, if the
-         *   single argument is given in css syntax
-         *   ('text-align:center'), .style() sets the css
+         *   value of the given property; however, if a single
+         *   argument is given in CSS syntax
+         *   ('text-align:center'), .style() sets the CSS
          *   appropriately.
          *   @param property property to be set
          *   @return value of property
@@ -817,12 +828,12 @@ declare module '../../index' {
         style(property: string): string;
 
         /**
-         *   Sets the given style (css) property (1st arg) of
+         *   Sets the given style (CSS) property (1st arg) of
          *   the element with the given value (2nd arg). If a
          *   single argument is given, .style() returns the
-         *   value of the given property; however, if the
-         *   single argument is given in css syntax
-         *   ('text-align:center'), .style() sets the css
+         *   value of the given property; however, if a single
+         *   argument is given in CSS syntax
+         *   ('text-align:center'), .style() sets the CSS
          *   appropriately.
          *   @param property property to be set
          *   @param value value to assign to property
@@ -834,7 +845,7 @@ declare module '../../index' {
          *   Adds a new attribute or changes the value of an
          *   existing attribute on the specified element. If no
          *   value is specified, returns the value of the given
-         *   attribute, or null if attribute is not set.
+         *   attribute, or null if the attribute is not set.
          *   @return value of attribute
          */
         attribute(): string;
@@ -843,7 +854,7 @@ declare module '../../index' {
          *   Adds a new attribute or changes the value of an
          *   existing attribute on the specified element. If no
          *   value is specified, returns the value of the given
-         *   attribute, or null if attribute is not set.
+         *   attribute, or null if the attribute is not set.
          *   @param attr attribute to set
          *   @param value value to assign to attribute
          *   @chainable
@@ -889,8 +900,8 @@ declare module '../../index' {
          *   Sets the width and height of the element. AUTO can
          *   be used to only adjust one dimension at a time. If
          *   no arguments are given, it returns the width and
-         *   height of the element in an object. In case of
-         *   elements which need to be loaded, such as images,
+         *   height of the element in an Object. In the case of
+         *   elements that need to be loaded, such as images,
          *   it is recommended to call the function after the
          *   element has finished loading.
          *   @return the width and height of the element in an
@@ -902,8 +913,8 @@ declare module '../../index' {
          *   Sets the width and height of the element. AUTO can
          *   be used to only adjust one dimension at a time. If
          *   no arguments are given, it returns the width and
-         *   height of the element in an object. In case of
-         *   elements which need to be loaded, such as images,
+         *   height of the element in an Object. In the case of
+         *   elements that need to be loaded, such as images,
          *   it is recommended to call the function after the
          *   element has finished loading.
          *   @param w width of the element, either AUTO, or a

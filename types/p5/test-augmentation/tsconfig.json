@@ -6,17 +6,18 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": ".",
         "typeRoots": [
-            "../"
+            "../../"
         ],
-        "types": [],
+        "paths": {
+          "*": ["../../*"]
+        },
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node"
     },
-    "files": [
-        "index.d.ts",
-        "test/index.ts",
-        "test/unaugmented.ts"
+    "include": [
+        "./*.ts"
     ]
 }

@@ -44,6 +44,8 @@ declare module './index' {
 
     type HORIZ_ALIGN = LEFT | CENTER | RIGHT;
 
+    type IMAGE_FIT = CONTAIN | COVER;
+
     type IMAGE_MODE = CORNER | CORNERS | CENTER;
 
     type RECT_MODE = CORNER | CORNERS | CENTER | RADIUS;
@@ -73,4 +75,8 @@ declare module './index' {
     type WRAP_X = CLAMP | REPEAT | MIRROR;
 
     type WRAP_Y = CLAMP | REPEAT | MIRROR;
+
+    type X_ALIGN = LEFT | RIGHT | CENTER;
+
+    type Y_ALIGN = TOP | BOTTOM | CENTER;
 }

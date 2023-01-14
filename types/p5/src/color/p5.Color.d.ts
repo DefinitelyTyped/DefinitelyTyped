@@ -6,7 +6,7 @@ declare module '../../index' {
     class Color {
         /**
          *   Each color stores the color mode and level maxes
-         *   that was applied at the time of its construction.
+         *   that were applied at the time of its construction.
          *   These are used to interpret the input arguments
          *   (at construction and later for that instance of
          *   color) and to format the output e.g. when
@@ -17,7 +17,7 @@ declare module '../../index' {
          *   levels from 0 to 255) and expose this to the
          *   renderer.
          *
-         *   We also cache normalized, floating point
+         *   We also cache normalized, floating-point
          *   components of the color in various representations
          *   as they are calculated. This is done to prevent
          *   repeating a conversion that has already been
@@ -27,7 +27,7 @@ declare module '../../index' {
         constructor();
 
         /**
-         *   This function returns the color formatted as a
+         *   This method returns the color formatted as a
          *   string. This can be useful for debugging, or for
          *   using p5.js with other libraries.
          *   @param [format] How the color string will be
@@ -44,7 +44,7 @@ declare module '../../index' {
         toString(format?: string): string;
 
         /**
-         *   The setRed function sets the red component of a
+         *   The setRed method sets the red component of a
          *   color. The range depends on your color mode, in
          *   the default RGB mode it's between 0 and 255.
          *   @param red the new red value
@@ -52,15 +52,15 @@ declare module '../../index' {
         setRed(red: number): void;
 
         /**
-         *   The setGreen function sets the green component of
-         *   a color. The range depends on your color mode, in
+         *   The setGreen method sets the green component of a
+         *   color. The range depends on your color mode, in
          *   the default RGB mode it's between 0 and 255.
          *   @param green the new green value
          */
         setGreen(green: number): void;
 
         /**
-         *   The setBlue function sets the blue component of a
+         *   The setBlue method sets the blue component of a
          *   color. The range depends on your color mode, in
          *   the default RGB mode it's between 0 and 255.
          *   @param blue the new blue value
@@ -68,10 +68,10 @@ declare module '../../index' {
         setBlue(blue: number): void;
 
         /**
-         *   The setAlpha function sets the transparency
-         *   (alpha) value of a color. The range depends on
-         *   your color mode, in the default RGB mode it's
-         *   between 0 and 255.
+         *   The setAlpha method sets the transparency (alpha)
+         *   value of a color. The range depends on your color
+         *   mode, in the default RGB mode it's between 0 and
+         *   255.
          *   @param alpha the new alpha value
          */
         setAlpha(alpha: number): void;

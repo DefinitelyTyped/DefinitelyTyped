@@ -9,8 +9,8 @@ declare module '../../index' {
          *   including canvas, graphics buffers, and other HTML
          *   elements. It is not called directly, but
          *   p5.Element objects are created by calling
-         *   createCanvas, createGraphics, createDiv,
-         *   createImg, createInput, etc.
+         *   createCanvas(), createGraphics(), createDiv(),
+         *   createImg(), createInput(), etc.
          *
          *   @param elt DOM node that is wrapped
          *   @param [pInst] pointer to p5 instance
@@ -21,8 +21,8 @@ declare module '../../index' {
          *   Attaches the element to the parent specified. A
          *   way of setting the container for the element.
          *   Accepts either a string ID, DOM node, or
-         *   p5.Element. If no arguments given, parent node is
-         *   returned. For more ways to position the canvas,
+         *   p5.Element. If no arguments are given, parent node
+         *   is returned. For more ways to position the canvas,
          *   see the  positioning the canvas wiki page.
          *   @param parent the ID, DOM node, or p5.Element of
          *   desired parent element
@@ -34,8 +34,8 @@ declare module '../../index' {
          *   Attaches the element to the parent specified. A
          *   way of setting the container for the element.
          *   Accepts either a string ID, DOM node, or
-         *   p5.Element. If no arguments given, parent node is
-         *   returned. For more ways to position the canvas,
+         *   p5.Element. If no arguments are given, parent node
+         *   is returned. For more ways to position the canvas,
          *   see the  positioning the canvas wiki page.
          */
         parent(): Element;
@@ -44,9 +44,9 @@ declare module '../../index' {
          *   Sets the ID of the element. If no ID argument is
          *   passed in, it instead returns the current ID of
          *   the element. Note that only one element can have a
-         *   particular id in a page. The .class() function can
-         *   be used to identify multiple elements with the
-         *   same class name.
+         *   particular id in a page. The class() method can be
+         *   used to identify multiple elements with the same
+         *   class name.
          *   @param id ID of the element
          *   @chainable
          */
@@ -56,9 +56,9 @@ declare module '../../index' {
          *   Sets the ID of the element. If no ID argument is
          *   passed in, it instead returns the current ID of
          *   the element. Note that only one element can have a
-         *   particular id in a page. The .class() function can
-         *   be used to identify multiple elements with the
-         *   same class name.
+         *   particular id in a page. The class() method can be
+         *   used to identify multiple elements with the same
+         *   class name.
          *   @return the id of the element
          */
         id(): string;
@@ -81,12 +81,12 @@ declare module '../../index' {
         class(): string;
 
         /**
-         *   The .mousePressed() function is called once after
+         *   The mousePressed() method is called once after
          *   every time a mouse button is pressed over the
          *   element. Some mobile browsers may also trigger
          *   this event on a touch screen, if the user performs
-         *   a quick tap. This can be used to attach element
-         *   specific event listeners.
+         *   a quick tap. This can be used to attach
+         *   element-specific event listeners.
          *   @param fxn function to be fired when mouse is
          *   pressed over the element. if false is passed
          *   instead, the previously firing function will no
@@ -96,10 +96,10 @@ declare module '../../index' {
         mousePressed(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .doubleClicked() function is called once after
+         *   The doubleClicked() method is called once after
          *   every time a mouse button is pressed twice over
          *   the element. This can be used to attach element
-         *   and action specific event listeners.
+         *   and action-specific event listeners.
          *   @param fxn function to be fired when mouse is
          *   double clicked over the element. if false is
          *   passed instead, the previously firing function
@@ -108,21 +108,21 @@ declare module '../../index' {
         doubleClicked(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The mouseWheel() function is called once after
-         *   every time a mouse wheel is scrolled over the
-         *   element. This can be used to attach element
-         *   specific event listeners. The function accepts a
-         *   callback function as argument which will be
-         *   executed when the wheel event is triggered on the
-         *   element, the callback function is passed one
-         *   argument event. The event.deltaY property returns
-         *   negative values if the mouse wheel is rotated up
-         *   or away from the user and positive in the other
-         *   direction. The event.deltaX does the same as
-         *   event.deltaY except it reads the horizontal wheel
-         *   scroll of the mouse wheel.
+         *   The mouseWheel() method is called once after every
+         *   time a mouse wheel is scrolled over the element.
+         *   This can be used to attach element-specific event
+         *   listeners. The method accepts a callback function
+         *   as argument which will be executed when the wheel
+         *   event is triggered on the element, the callback
+         *   function is passed one argument event. The
+         *   event.deltaY property returns negative values if
+         *   the mouse wheel is rotated up or away from the
+         *   user and positive in the other direction. The
+         *   event.deltaX does the same as event.deltaY except
+         *   it reads the horizontal wheel scroll of the mouse
+         *   wheel.
          *
-         *   On OS X with "natural" scrolling enabled, the
+         *   On macOS with "natural" scrolling enabled, the
          *   event.deltaY values are reversed.
          *   @param fxn function to be fired when mouse is
          *   scrolled over the element. if false is passed
@@ -133,12 +133,12 @@ declare module '../../index' {
         mouseWheel(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The mouseReleased() function is called once after
+         *   The mouseReleased() method is called once after
          *   every time a mouse button is released over the
          *   element. Some mobile browsers may also trigger
          *   this event on a touch screen, if the user performs
-         *   a quick tap. This can be used to attach element
-         *   specific event listeners.
+         *   a quick tap. This can be used to attach
+         *   element-specific event listeners.
          *   @param fxn function to be fired when mouse is
          *   released over the element. if false is passed
          *   instead, the previously firing function will no
@@ -148,12 +148,12 @@ declare module '../../index' {
         mouseReleased(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .mouseClicked() function is called once after
-         *   a mouse button is pressed and released over the
+         *   The mouseClicked() method is called once after a
+         *   mouse button is pressed and released over the
          *   element. Some mobile browsers may also trigger
          *   this event on a touch screen, if the user performs
-         *   a quick tap.This can be used to attach element
-         *   specific event listeners.
+         *   a quick tap. This can be used to attach
+         *   element-specific event listeners.
          *   @param fxn function to be fired when mouse is
          *   clicked over the element. if false is passed
          *   instead, the previously firing function will no
@@ -163,9 +163,9 @@ declare module '../../index' {
         mouseClicked(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .mouseMoved() function is called once every
-         *   time a mouse moves over the element. This can be
-         *   used to attach an element specific event listener.
+         *   The mouseMoved() method is called once every time
+         *   a mouse moves over the element. This can be used
+         *   to attach an element-specific event listener.
          *   @param fxn function to be fired when a mouse moves
          *   over the element. if false is passed instead, the
          *   previously firing function will no longer fire.
@@ -174,10 +174,9 @@ declare module '../../index' {
         mouseMoved(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .mouseOver() function is called once after
-         *   every time a mouse moves onto the element. This
-         *   can be used to attach an element specific event
-         *   listener.
+         *   The mouseOver() method is called once after every
+         *   time a mouse moves onto the element. This can be
+         *   used to attach an element-specific event listener.
          *   @param fxn function to be fired when a mouse moves
          *   onto the element. if false is passed instead, the
          *   previously firing function will no longer fire.
@@ -186,10 +185,9 @@ declare module '../../index' {
         mouseOver(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .mouseOut() function is called once after
-         *   every time a mouse moves off the element. This can
-         *   be used to attach an element specific event
-         *   listener.
+         *   The mouseOut() method is called once after every
+         *   time a mouse moves off the element. This can be
+         *   used to attach an element-specific event listener.
          *   @param fxn function to be fired when a mouse moves
          *   off of an element. if false is passed instead, the
          *   previously firing function will no longer fire.
@@ -198,9 +196,9 @@ declare module '../../index' {
         mouseOut(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .touchStarted() function is called once after
+         *   The touchStarted() method is called once after
          *   every time a touch is registered. This can be used
-         *   to attach element specific event listeners.
+         *   to attach element-specific event listeners.
          *   @param fxn function to be fired when a touch
          *   starts over the element. if false is passed
          *   instead, the previously firing function will no
@@ -210,9 +208,9 @@ declare module '../../index' {
         touchStarted(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .touchMoved() function is called once after
-         *   every time a touch move is registered. This can be
-         *   used to attach element specific event listeners.
+         *   The touchMoved() method is called once after every
+         *   time a touch move is registered. This can be used
+         *   to attach element-specific event listeners.
          *   @param fxn function to be fired when a touch moves
          *   over the element. if false is passed instead, the
          *   previously firing function will no longer fire.
@@ -221,9 +219,9 @@ declare module '../../index' {
         touchMoved(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .touchEnded() function is called once after
-         *   every time a touch is registered. This can be used
-         *   to attach element specific event listeners.
+         *   The touchEnded() method is called once after every
+         *   time a touch is registered. This can be used to
+         *   attach element-specific event listeners.
          *   @param fxn function to be fired when a touch ends
          *   over the element. if false is passed instead, the
          *   previously firing function will no longer fire.
@@ -232,10 +230,10 @@ declare module '../../index' {
         touchEnded(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .dragOver() function is called once after
-         *   every time a file is dragged over the element.
-         *   This can be used to attach an element specific
-         *   event listener.
+         *   The dragOver() method is called once after every
+         *   time a file is dragged over the element. This can
+         *   be used to attach an element-specific event
+         *   listener.
          *   @param fxn function to be fired when a file is
          *   dragged over the element. if false is passed
          *   instead, the previously firing function will no
@@ -245,10 +243,10 @@ declare module '../../index' {
         dragOver(fxn: ((...args: any[]) => any) | boolean): Element;
 
         /**
-         *   The .dragLeave() function is called once after
-         *   every time a dragged file leaves the element area.
-         *   This can be used to attach an element specific
-         *   event listener.
+         *   The dragLeave() method is called once after every
+         *   time a dragged file leaves the element area. This
+         *   can be used to attach an element-specific event
+         *   listener.
          *   @param fxn function to be fired when a file is
          *   dragged off the element. if false is passed
          *   instead, the previously firing function will no

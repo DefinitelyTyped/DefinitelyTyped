@@ -19,7 +19,7 @@ declare module '../../index' {
         /**
          *   Draw a box with given width, height and depth
          *   @param [width] width of the box
-         *   @param [Height] height of the box
+         *   @param [height] height of the box
          *   @param [depth] depth of the box
          *   @param [detailX] Optional number of triangle
          *   subdivisions in x-dimension
@@ -27,7 +27,7 @@ declare module '../../index' {
          *   subdivisions in y-dimension
          *   @chainable
          */
-        box(width?: number, Height?: number, depth?: number, detailX?: number, detailY?: number): p5;
+        box(width?: number, height?: number, depth?: number, detailX?: number, detailY?: number): p5;
 
         /**
          *   Draw a sphere with given radius. DetailX and
