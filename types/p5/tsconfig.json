@@ -16,6 +16,7 @@
     },
     "files": [
         "index.d.ts",
+        "global.d.ts",
         "test/test-augmentation/p5-tests.ts",
         "test/test-global/p5-tests.ts",
         "test/index.ts",
