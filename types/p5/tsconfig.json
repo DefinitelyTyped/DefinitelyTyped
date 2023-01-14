@@ -16,9 +16,8 @@
     },
     "files": [
         "index.d.ts",
-        "test/index.ts",
-        "test/unaugmented.ts",
-        "test-augmentation/index.ts",
-        "test-global/index.ts"
+        "test/*.ts",
+        "test-augmentation/*.ts",
+        "test-global/*.ts"
     ]
 }
