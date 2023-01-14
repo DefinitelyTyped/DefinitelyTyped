@@ -16,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/**/*.ts",
+        "test/**/*.ts"
     ]
 }
