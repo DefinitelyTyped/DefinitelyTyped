@@ -1,4 +1,4 @@
-// Type definitions for euwa-wrapper 1.0.3
+// Type definitions for euwa-wrapper 1.0
 // Project: https://puzzel.pkgs.visualstudio.com/public/_packaging/main/npm/registry/
 // Definitions by: Mannuel Ferreira <https://github.com/mannuelf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -39,10 +39,10 @@ export interface Hooks {
      * Only publish/subscribe interface is available
      * @param event
      * @param callback
-     * @returns
+     * @returns function
      */
     onBeforeLoad: (event: string, callback: () => void) => void;
-    [hook: string]: Function;
+    [hook: string]: () => void;
 }
 
 export interface ApplicationBridge {
@@ -166,11 +166,11 @@ export interface ApplicationAPI {
 
     /**
      * Updates system variables
-     * @param {string} - enteredFormName
-     * @param {string} - enteredChatId
-     * @param {string} - enteredFormIssue
-     * @param {string} - selectedQueueKey
-     * @param {string} - timeId2Map
+     * @param - enteredFormName
+     * @param - enteredChatId
+     * @param - enteredFormIssue
+     * @param - selectedQueueKey
+     * @param - timeId2Map
      * @returns void
      */
     updateSystemVariables: ({ enteredFormName }: SystemVariables) => void;
@@ -184,7 +184,7 @@ export default class EUWA {
 
     /**
      * Get the chat application context
-     * @param {string} id - EUWA.APPS.CHAT
+     * @param id - EUWA.APPS.CHAT
      * @example
      * const chat = await euwa.getApplication(EUWA.APPS.CHAT);
      */
