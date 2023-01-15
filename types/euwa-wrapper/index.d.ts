@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module '@puzzel/euwa-wrapper' {
-    export type Config = {
+    type Config = {
         customerKey: string;
         configId: string;
     };
 
-    export type Options = {
+    type Options = {
         /**
          * Configures how you would like the chat client to behave on start
          * @example
@@ -30,11 +30,11 @@ declare module '@puzzel/euwa-wrapper' {
         hooks?: Hooks;
     };
 
-    export type ApplicationList = {
+    type ApplicationList = {
         [app: string]: string;
     };
 
-    export type Hooks = {
+    type Hooks = {
         /**
          * Only publish/subscribe interface is available
          * @param event
@@ -45,7 +45,7 @@ declare module '@puzzel/euwa-wrapper' {
         [hook: string]: Function;
     };
 
-    export type ApplicationBridge = {
+    type ApplicationBridge = {
         /**
          * Returns object with minimal chat state
          * Similar to clicking the start button
@@ -112,11 +112,11 @@ declare module '@puzzel/euwa-wrapper' {
         subscribe: (event: string, callback: Function) => void;
     };
 
-    export type ApplicationSettings = {
+    type ApplicationSettings = {
         [app: string]: object;
     };
 
-    export type SystemVariables = {
+    type SystemVariables = {
         enteredFormName: string;
         enteredChatId: string;
         enteredFormIssue: string;
@@ -124,13 +124,13 @@ declare module '@puzzel/euwa-wrapper' {
         timeId2Map: string;
     };
 
-    export type ChatState = {
+    type ChatState = {
         isConnected: boolean;
         isEnded: boolean;
         isMinimized: boolean;
     };
 
-    export type ApplicationAPI = {
+    type ApplicationAPI = {
         /**
          * Returns object with minimal chat state
          * Similar to clicking the start button
@@ -177,7 +177,7 @@ declare module '@puzzel/euwa-wrapper' {
         [method: string]: Function;
     };
 
-    export class EUWA {
+    class EUWA {
         static APPS: ApplicationList;
 
         constructor({ customerKey, configId }: Config, { settings, hooks }: Options);
