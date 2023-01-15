@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "puzzel-euwa-wrapper.tests.ts"
+        "euwa-wrapper.tests.ts"
     ]
 }
