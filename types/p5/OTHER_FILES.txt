@@ -1,2 +1,1 @@
 global.d.ts
-test/test-global/tsconfig.json
