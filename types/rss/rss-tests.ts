@@ -73,3 +73,6 @@ const xml = feed.xml(); // $ExpectType string
 // creates an RSS feed with some attributes and items
 const feedWithItems = new RSS(feedOptions, [feedItem]); // $ExpectType RSS
 feedWithItems.xml(); // $ExpectType string
+
+// test type exports
+type Types = typeof RSS | RSS | RSS.FeedOptions | RSS.EnclosureObject | RSS.ItemOptions | RSS.XmlOptions;
