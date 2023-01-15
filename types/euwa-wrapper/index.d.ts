@@ -1,9 +1,10 @@
-// Type definitions for euwa-wrapper 1.0
+// Type definitions for @puzzel/euwa-wrapper 1.0
 // Project: https://puzzel.pkgs.visualstudio.com/public/_packaging/main/npm/registry/
 // Definitions by: Mannuel Ferreira <https://github.com/mannuelf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.8
 
+// https://help.puzzel.com/product-documents/user-guide/puzzel-contact-centre/puzzel-administration-portal/services/chat-configuration/euwa-wrapper-interface
 export interface Config {
     customerKey: string;
     configId: string;
