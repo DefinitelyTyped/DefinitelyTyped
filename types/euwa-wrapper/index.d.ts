@@ -3,12 +3,12 @@
 // Definitions by: Mannuel Ferreira <https://github.com/mannuelf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Config = {
+export interface Config {
     customerKey: string;
     configId: string;
-};
+}
 
-type Options = {
+export interface Options {
     /**
      * Configures how you would like the chat client to behave on start
      * @example
@@ -27,13 +27,13 @@ type Options = {
      * However, since the different application’s API-s are defined by the application itself,
      */
     hooks?: Hooks;
-};
+}
 
-type ApplicationList = {
+export interface ApplicationList {
     [app: string]: string;
-};
+}
 
-type Hooks = {
+export interface Hooks {
     /**
      * Only publish/subscribe interface is available
      * @param event
@@ -42,9 +42,9 @@ type Hooks = {
      */
     onBeforeLoad: (event: string, callback: Function) => void;
     [hook: string]: Function;
-};
+}
 
-type ApplicationBridge = {
+export interface ApplicationBridge {
     /**
      * Returns object with minimal chat state
      * Similar to clicking the start button
@@ -54,7 +54,7 @@ type ApplicationBridge = {
     api: ApplicationAPI;
 
     /**
-     * Publish custom events, use this to buidl custom functions to do other work
+     * Publish custom events, use this to build custom functions to do other work
      * @example
      * import {EUWA} from '@puzzel/euwa-wrapper';
      * const euwa = new EUWA({
@@ -109,27 +109,27 @@ type ApplicationBridge = {
      * }
      */
     subscribe: (event: string, callback: Function) => void;
-};
+}
 
-type ApplicationSettings = {
+export interface ApplicationSettings {
     [app: string]: object;
-};
+}
 
-type SystemVariables = {
+export interface SystemVariables {
     enteredFormName: string;
     enteredChatId: string;
     enteredFormIssue: string;
     selectedQueueKey: string;
     timeId2Map: string;
-};
+}
 
-type ChatState = {
+export interface ChatState {
     isConnected: boolean;
     isEnded: boolean;
     isMinimized: boolean;
-};
+}
 
-type ApplicationAPI = {
+export interface ApplicationAPI {
     /**
      * Returns object with minimal chat state
      * Similar to clicking the start button
@@ -174,7 +174,7 @@ type ApplicationAPI = {
      */
     updateSystemVariables: ({ enteredFormName }: SystemVariables) => void;
     [method: string]: Function;
-};
+}
 
 export default class EUWA {
     static APPS: ApplicationList;
