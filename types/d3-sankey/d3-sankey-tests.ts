@@ -426,6 +426,7 @@ numMaybe = sNode.x0;
 numMaybe = sNode.x1;
 numMaybe = sNode.y0;
 numMaybe = sNode.y1;
+numMaybe = sNode.fixedValue;
 numMaybe = sNode.value;
 numMaybe = sNode.index;
 numMaybe = sNode.depth;
