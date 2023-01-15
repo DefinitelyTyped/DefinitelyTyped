@@ -66,7 +66,7 @@ declare module './index' {
 
     type THE_STYLE = NORMAL | ITALIC | BOLD | BOLDITALIC;
 
-    type TYPE = "VIDEO" | "AUDIO";
+    type TYPE = VIDEO | AUDIO;
 
     type VERT_ALIGN = TOP | BOTTOM | CENTER | BASELINE;
 
