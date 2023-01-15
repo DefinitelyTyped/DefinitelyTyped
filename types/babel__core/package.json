@@ -1,7 +1,7 @@
 {
     "private": true,
     "dependencies": {
-        "@babel/parser": "^7.1.0",
-        "@babel/types": "^7.0.0"
+        "@babel/parser": "^7.20.7",
+        "@babel/types": "^7.20.7"
     }
 }
