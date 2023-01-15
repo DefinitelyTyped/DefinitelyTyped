@@ -211,7 +211,7 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     dropdownAutoWidth?: boolean | undefined;
     dropdownCss?: any;
     dropdownCssClass?: string | undefined;
-    dropdownParent?: JQuery | undefined;
+    dropdownParent?: HTMLElement | JQuery | string | undefined;
     escapeMarkup?: ((markup: string) => string) | undefined;
     initSelection?: ((element: JQuery, callback: (data: any) => void) => void) | undefined;
     language?: string | Translation | undefined;
