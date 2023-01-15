@@ -41,7 +41,7 @@ export interface Hooks {
      * @param callback
      * @returns function
      */
-    onBeforeLoad: (event: string, callback: () => void) => void;
+    onBeforeLoad: () => void;
     [hook: string]: () => void;
 }
 
@@ -162,7 +162,7 @@ export interface ApplicationAPI {
      * @param param
      * @returns void
      */
-    updateVariables: ({ NewVariableOfYourChoice: string }: SystemVariables) => void;
+    updateVariables: () => void;
 
     /**
      * Updates system variables
@@ -173,8 +173,8 @@ export interface ApplicationAPI {
      * @param - timeId2Map
      * @returns void
      */
-    updateSystemVariables: ({ enteredFormName }: SystemVariables) => void;
-    [method: string]: Function;
+    updateSystemVariables: () => void;
+    [method: string]: () => void;
 }
 
 export default class EUWA {
