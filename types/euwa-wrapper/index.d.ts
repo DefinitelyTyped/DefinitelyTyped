@@ -1,7 +1,8 @@
-// Type definitions for Puzzel EUWA Wrapper Interface
+// Type definitions for euwa-wrapper 1.0.3
 // Project: https://puzzel.pkgs.visualstudio.com/public/_packaging/main/npm/registry/
 // Definitions by: Mannuel Ferreira <https://github.com/mannuelf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 4.8
 
 export interface Config {
     customerKey: string;
@@ -40,7 +41,7 @@ export interface Hooks {
      * @param callback
      * @returns
      */
-    onBeforeLoad: (event: string, callback: Function) => void;
+    onBeforeLoad: (event: string, callback: () => void) => void;
     [hook: string]: Function;
 }
 
@@ -108,7 +109,7 @@ export interface ApplicationBridge {
      *    });
      * }
      */
-    subscribe: (event: string, callback: Function) => void;
+    subscribe: (event: string, callback: () => void) => void;
 }
 
 export interface ApplicationSettings {
@@ -142,19 +143,19 @@ export interface ApplicationAPI {
      * Maximizes the chat window
      * @returns void
      */
-    maximize: Function;
+    maximize: () => void;
 
     /**
      * Minimizes the chat window
      * @returns void
      */
-    minimize: Function;
+    minimize: () => void;
 
     /**
      * Starts chat
      * @returns void
      */
-    startChat: Function;
+    startChat: () => void;
 
     /**
      * Updates the chat variables, one may update or set custom variables
