@@ -1243,6 +1243,11 @@ function Argv$inferOptionTypesForAliases() {
         .alias("n", "count")
         .alias("num", ["n", "count"])
         .parseSync();
+
+    // $ExpectType { [x: string]: unknown; u: string | undefined; url: string | undefined; _: (string | number)[]; $0: string; }
+    yargs
+        // tslint:disable-next-line:no-object-literal-type-assertion
+        .option("u", { type: "string", alias: "url" } as const).parseSync();
 }
 
 async function Argv$inferArrayOptionTypes() {
