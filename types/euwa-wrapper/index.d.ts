@@ -1,4 +1,4 @@
-// Type definitions for @puzzel/euwa-wrapper 1.0
+// Type definitions for euwa-wrapper 1.0
 // Project: https://puzzel.pkgs.visualstudio.com/public/_packaging/main/npm/registry/
 // Definitions by: Mannuel Ferreira <https://github.com/mannuelf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
