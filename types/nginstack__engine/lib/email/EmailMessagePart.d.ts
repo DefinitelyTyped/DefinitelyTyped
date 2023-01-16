@@ -1,7 +1,7 @@
-export = MailMessagePart;
-declare function MailMessagePart(): void;
-declare class MailMessagePart {
-    ownerMessagePart: MailMessagePart;
+export = EmailMessagePart;
+declare function EmailMessagePart(): void;
+declare class EmailMessagePart {
+    ownerMessagePart: EmailMessagePart;
     primary: string;
     encoding: string;
     charset: string;

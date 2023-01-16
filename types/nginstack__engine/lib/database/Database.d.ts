@@ -57,11 +57,11 @@ declare class Database {
     ): void;
     discardEndpointInfoCache(): void;
     discardCaches(): void;
-    sendMail(mail: Mail): void;
+    sendEmail(email: Email): void;
     userHasScope(userKey: DBKey | number, scope: string | DBKey | number): boolean;
 }
 declare namespace Database {
-    export { fromConfig, Mail, Session, VersionInfo, DatabaseVersionInfo };
+    export { fromConfig, Email, Session, VersionInfo, DatabaseVersionInfo };
 }
 import Connection = require('../connection/Connection.js');
 interface DatabaseVersionInfo {
@@ -71,7 +71,7 @@ interface DatabaseVersionInfo {
 type Session = import('../session/Session');
 import DataSet = require('../dataset/DataSet.js');
 import DBKey = require('../dbkey/DBKey.js');
-type Mail = import('../mail/Mail');
+type Email = import('../email/Email');
 declare function fromConfig(key: DBKey | number): Database;
 interface VersionInfo {
     major: number;

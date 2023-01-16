@@ -46,6 +46,40 @@ declare namespace Arborist {
         workspacesEnabled?: boolean;
         replaceRegistryHost?: string;
         saveType?: SaveType;
+
+        // Tracker
+        progress?: boolean;
+
+        // IdealTreeBuilder
+        follow?: boolean;
+        force?: boolean;
+        global?: boolean;
+        globalStyle?: boolean;
+        idealTree?: Node | null;
+        includeWorkspaceRoot?: boolean;
+        installLinks?: boolean;
+        legacyPeerDeps?: boolean;
+        packageLock?: boolean;
+        strictPeerDeps?: boolean;
+        workspaces?: string[];
+
+        // ActualLoader
+        actualTree?: Node | null;
+
+        // VirtualLoader
+        virtualTree?: Node | null;
+
+        // Builder
+        ignoreScripts?: boolean;
+        scriptShell?: string;
+        binLinks?: boolean;
+        rebuildBundle?: boolean;
+
+        // Reifier
+        savePrefix?: string;
+        packageLockOnly?: boolean;
+        dryRun?: boolean;
+        formatPackageLock?: boolean;
     }
     interface NormalizedOptions extends Options {
         nodeVersion: NonNullable<Options['nodeVersion']>;

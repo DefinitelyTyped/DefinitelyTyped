@@ -143,6 +143,7 @@ declare namespace hello {
     interface HelloJSOAuthDef {
         version: string | number;
         auth?: string | undefined;
+        base64_state?: boolean | undefined;
     }
 
     interface HelloJSOAuth2Def extends HelloJSOAuthDef {

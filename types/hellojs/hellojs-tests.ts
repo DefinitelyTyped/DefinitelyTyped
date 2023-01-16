@@ -163,6 +163,17 @@ hello.init({
     windows: '000000004403AD10',
 });
 
+hello.init({
+    yahoo: {
+        oauth: {
+            version: 2,
+            auth: 'https://api.login.yahoo.com/oauth2/request_auth',
+            grant: 'https://api.login.yahoo.com/oauth2/get_token',
+            base64_state: true,
+        },
+    }
+});
+
 hello('facebook').login();
 
 hello('facebook').logout();

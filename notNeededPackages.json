@@ -5391,6 +5391,10 @@
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
         },
+        "swell-js": {
+            "libraryName": "swell-js",
+            "asOfVersion": "3.19.3"
+        },
         "swiper": {
             "libraryName": "swiper",
             "asOfVersion": "6.0.0"

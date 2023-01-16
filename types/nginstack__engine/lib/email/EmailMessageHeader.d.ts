@@ -1,6 +1,6 @@
-export = MailMessageHeader;
-declare function MailMessageHeader(): void;
-declare class MailMessageHeader {
+export = EmailMessageHeader;
+declare function EmailMessageHeader(): void;
+declare class EmailMessageHeader {
     from: string;
     to: any[];
     cc: any[];

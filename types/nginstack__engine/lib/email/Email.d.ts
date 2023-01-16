@@ -1,6 +1,6 @@
-export = Mail;
-declare function Mail(): void;
-declare class Mail {
+export = Email;
+declare function Email(): void;
+declare class Email {
     toString(): string;
     addAttachment(name: string, content: string | ArrayBuffer): void;
     addRecipient(nameOrEmail: string, email?: string): void;
@@ -10,7 +10,7 @@ declare class Mail {
     sendLocally(): void;
     write(content: any): void;
     senderName: string;
-    senderMailAddress: string;
+    senderEmailAddress: string;
     userName: string;
     password: string;
     smtpServer: string;
@@ -22,6 +22,6 @@ declare class Mail {
     autoTls: boolean;
     logEnabled: boolean;
 }
-declare namespace Mail {
+declare namespace Email {
     function hasDefaultSMTPSettings(): boolean;
 }
