@@ -28,7 +28,6 @@ declare class Anchor {
     nextProcessKey: number;
     private identifierName;
     private changed;
-    private getParameters;
     private getProcessedParameters;
     label: string;
     hint: string;
