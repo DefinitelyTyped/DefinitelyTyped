@@ -46,6 +46,8 @@ import {
     APIGatewayRequestIAMAuthorizerHandlerV2,
     APIGatewayRequestIAMAuthorizerV2WithContextHandler,
     APIGatewayIAMAuthorizerWithContextResult,
+    APIGatewayProxyHandlerV2WithIAMAuthorizer,
+    APIGatewayEventRequestContextIAMAuthorizer,
 } from "aws-lambda";
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
@@ -344,6 +346,48 @@ const proxyHandlerv2WithJKTAuthorizer: APIGatewayProxyHandlerV2WithJWTAuthorizer
     // And these extra properties are added
     str = authorizer.principalId;
     num = authorizer.integrationLatency;
+
+    const result = createProxyResult();
+
+    callback(new Error());
+    callback(null, result);
+
+    return result;
+};
+
+const proxyHandlerv2WithIAMAuthorizer: APIGatewayProxyHandlerV2WithIAMAuthorizer<CustomAuthorizerContext> = async (
+    event,
+    context,
+    callback,
+) => {
+    // standard fields...
+    strOrUndefined = event.body;
+    strOrUndefined = event.headers['example'];
+
+    // It seems like it would be easy to make this mistake, but it's still a useful type.
+    let requestContextWithAuthorizerDirectly: APIGatewayEventRequestContextIAMAuthorizer;
+    // @ts-expect-error
+    requestContextWithAuthorizerDirectly = event.requestContext;
+
+    // Check assignable to named types
+    let requestContext: APIGatewayEventRequestContextV2WithAuthorizer<APIGatewayEventRequestContextIAMAuthorizer>;
+    requestContext = event.requestContext;
+
+    let authorizer: APIGatewayEventRequestContextIAMAuthorizer;
+    authorizer = requestContext.authorizer;
+
+    // And it can be converted down to the basic type
+    const basicEvent: APIGatewayProxyEventV2 = event;
+    const basicRequestContext: APIGatewayEventRequestContextV2 = event.requestContext;
+
+    // All non-null or undefined types are converted to string.
+    str = authorizer.iam.accessKey;
+    str = authorizer.iam.accountId;
+    str = authorizer.iam.callerId;
+    nullOrUndefined = authorizer.iam.cognitoIdentity;
+    str = authorizer.iam.principalOrgId;
+    str = authorizer.iam.userArn;
+    str = authorizer.iam.userId;
 
     const result = createProxyResult();
 

@@ -3,7 +3,7 @@ import {
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from '../common/api-gateway';
-import {Callback, CognitoIdentity, Handler} from '../handler';
+import { Callback, CognitoIdentity, Handler } from '../handler';
 
 /**
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
@@ -251,13 +251,13 @@ export interface APIGatewayEventRequestContextJWTAuthorizer {
  */
 export interface APIGatewayEventRequestContextIAMAuthorizer {
     iam: {
-        accessKey: string | null;
-        accountId: string | null;
-        callerId: string | null;
-        cognitoIdentity: CognitoIdentity | null;
-        principalOrgId: string | null;
-        userArn: string | null;
-        userId: string | null;
+        accessKey: string;
+        accountId: string;
+        callerId: string;
+        cognitoIdentity: null;
+        principalOrgId: string;
+        userArn: string;
+        userId: string;
     };
 }
 
