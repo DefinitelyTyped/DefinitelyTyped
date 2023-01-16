@@ -39,6 +39,17 @@ export interface Schema {
     shapes?: ShapeDecl[] | undefined; // +
 }
 
+export interface semactsAndAnnotations {
+    /**
+     * List of semantic actions to be executed when evaluating conformance.
+     */
+    semActs?: SemAct[] | undefined; // +;
+    /**
+     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations.
+     */
+    annotations?: Annotation[] | undefined; // +
+}
+
 /**
  * A declaration for a shapeExpr with added inheritance constraints.
  * @see <a href="http://shex.io/shex-semantics/#dfn-shapedecl">ShEx ShapeDecl definition</a>
@@ -149,6 +160,8 @@ export type shapeDeclRef = shapeDeclLabel;
  */
 export type shapeDeclLabel = IRIREF | BNODE;
 
+export type nodeKind = "iri" | "bnode" | "nonliteral" | "literal";
+
 /**
  * A collection of constraints on <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Term</a>s expected for conformance.
  * The identifier is an <a href="https://www.w3.org/TR/json-ld11/#node-identifiers">IRI</a> or a <a href="https://www.w3.org/TR/json-ld11/#identifying-blank-nodes">BlankNode</a>
@@ -163,7 +176,7 @@ export interface NodeConstraint extends xsFacets, semactsAndAnnotations {
      * Type of <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-node">RDF Term</a> expected for a conformant RDF node.
      * @see <a href="http://shex.io/shex-semantics/#nodeKind">ShEx nodeKind definition</a>
      */
-    nodeKind?: "iri" | "bnode" | "nonliteral" | "literal" | undefined;
+    nodeKind?: nodeKind | undefined;
     /**
      * The <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-datatype-iri">RDF Literal datatype IRITerm</a> expected for a conformant RDF node.
      * @see <a href="http://shex.io/shex-semantics/#datatype">ShEx datatype definition</a>
@@ -243,17 +256,6 @@ export interface numericFacets {
     fractiondigits?: INTEGER | undefined;
 }
 
-export interface semactsAndAnnotations {
-    /**
-     * List of semantic actions to be executed when evaluating conformance.
-     */
-    semActs?: SemAct[] | undefined; // +;
-    /**
-     * List of {@link SemAct#predicate}/{@link SemAct#object} annotations.
-     */
-    annotations?: Annotation[] | undefined; // +
-}
-
 /**
  * Union of numeric types in ShEx used in {@link numericFacets}s.
  */
@@ -302,6 +304,9 @@ export interface IriStem {
     stem: IRIREF;
 }
 
+export type iriRangeStem = IRIREF | Wildcard;
+export type iriRangeExclusion = IRIREF | IriStem;
+
 /**
  * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>s through a list of exclusions.
  * The initial match is made on an IRI stem per {@link IriStem} or a {@link Wildcard} to accept any IRI.
@@ -315,11 +320,11 @@ export interface IriStemRange {
     /**
      * substring of IRI to be matched or a {@link Wildcard} matching any IRI.
      */
-    stem: IRIREF | Wildcard;
+    stem: iriRangeStem;
     /**
      * IRIs or {@link IRIStem}s to exclude.
      */
-    exclusions: Array<IRIREF | IriStem>; // +
+    exclusions: iriRangeExclusion[]; // +
 }
 
 /**
@@ -336,6 +341,9 @@ export interface LiteralStem {
     stem: STRING;
 }
 
+export type literalRangeStem = string | Wildcard;
+export type literalRangeExclusion = string | LiteralStem;
+
 /**
  * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-literal">RDF Literal</a>s through a list of exclusions.
  * The initial match is made on an Literal stem per {@link LiteralStem} or a {@link Wildcard} to accept any Literal.
@@ -349,11 +357,11 @@ export interface LiteralStemRange {
     /**
      * substring of Literal to be matched or a {@link Wildcard} matching any Literal.
      */
-    stem: STRING | Wildcard;
+    stem: literalRangeStem;
     /**
      * Literals or {@link LiteralStem}s to exclude.
      */
-    exclusions: Array<STRING | LiteralStem>; // +
+    exclusions: literalRangeExclusion[]; // +
 }
 
 /**
@@ -384,6 +392,9 @@ export interface LanguageStem {
     stem: LANGTAG;
 }
 
+export type languageRangeStem = string | Wildcard;
+export type languageRangeExclusion = string | LanguageStem;
+
 /**
  * Filters a matching <a href="https://www.w3.org/TR/rdf11-concepts/#dfn-langugae-tag">RDF Language Tag</a>s through a list of exclusions.
  * The initial match is made on an Language Tag stem per {@link Language TagStem} or a {@link Wildcard} to accept any Language Tag.
@@ -397,11 +408,11 @@ export interface LanguageStemRange {
     /**
      * substring of Language-Tag to be matched or a {@link Wildcard} matching any Language Tag.
      */
-    stem: LANGTAG | Wildcard;
+    stem: languageRangeStem;
     /**
      * Language Tags or {@link LanguageStem}s to exclude.
      */
-    exclusions: Array<LANGTAG | LanguageStem>; // +
+    exclusions: languageRangeExclusion[]; // +
 }
 
 /**
