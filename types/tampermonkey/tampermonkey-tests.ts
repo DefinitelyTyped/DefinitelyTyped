@@ -13,7 +13,6 @@ if (window.onurlchange === null) {
 // General Listening
 window.addEventListener('click', event => console.log(event));
 
-
 // GM_addStyle
 
 const scriptTag: HTMLStyleElement = GM_addStyle('a { font-wight: bold }');
