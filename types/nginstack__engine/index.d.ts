@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 66.0
+// Type definitions for @nginstack/engine 68.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -25,6 +25,7 @@
 /// <reference path="keys/PermissionApplyModes.d.ts" />
 /// <reference path="keys/Products.d.ts" />
 /// <reference path="keys/Roles.d.ts" />
+/// <reference path="keys/Scripts.d.ts" />
 /// <reference path="keys/Users.d.ts" />
 /// <reference path="keys/UserStatus.d.ts" />
 /// <reference path="lib/array/argumentsToArray.d.ts" />
@@ -104,6 +105,7 @@
 /// <reference path="lib/database/DBTracker.d.ts" />
 /// <reference path="lib/database/DBTrackerPool.d.ts" />
 /// <reference path="lib/database/KeyPrefetcher.d.ts" />
+/// <reference path="lib/database/KeyReplacer.d.ts" />
 /// <reference path="lib/database/KeysUtilities.d.ts" />
 /// <reference path="lib/database/LargeObject.d.ts" />
 /// <reference path="lib/database/Limits.d.ts" />
@@ -187,6 +189,11 @@
 /// <reference path="lib/dom/Notation.d.ts" />
 /// <reference path="lib/dom/ProcessingInstruction.d.ts" />
 /// <reference path="lib/dom/Text.d.ts" />
+/// <reference path="lib/email/Email.d.ts" />
+/// <reference path="lib/email/EmailMessage.d.ts" />
+/// <reference path="lib/email/EmailMessageHeader.d.ts" />
+/// <reference path="lib/email/EmailMessagePart.d.ts" />
+/// <reference path="lib/email/Pop3.d.ts" />
 /// <reference path="lib/encoding/Base32.d.ts" />
 /// <reference path="lib/encoding/Base64.d.ts" />
 /// <reference path="lib/encoding/Base85.d.ts" />

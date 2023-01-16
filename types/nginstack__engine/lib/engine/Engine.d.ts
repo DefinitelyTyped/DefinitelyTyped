@@ -13,6 +13,7 @@ declare class Engine {
     applicationPath: string;
     dataDir: string;
     env: any;
+    args: string[];
     logDir: string;
     programDir: string;
     tempDir: string;

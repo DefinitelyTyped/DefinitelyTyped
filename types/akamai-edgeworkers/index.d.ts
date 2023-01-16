@@ -392,7 +392,7 @@ declare namespace EW {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
     }
 
     // onOriginResponse
