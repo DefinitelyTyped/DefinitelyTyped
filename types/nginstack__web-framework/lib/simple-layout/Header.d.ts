@@ -40,7 +40,7 @@ declare class Header {
             css?: string;
             enterpriseLogo?: number;
             layoutId?: number;
-            mailObject?: Mail;
+            mailObject?: Email;
             filters?: Array<{
                 label: string;
                 group: string;
@@ -60,10 +60,10 @@ declare class Header {
     ): string;
 }
 declare namespace Header {
-    export { groupFilters, Event, Mail, SimpleLayout, Visualization };
+    export { groupFilters, Event, Email, SimpleLayout, Visualization };
 }
 type SimpleLayout = import('./SimpleLayout');
 type Event = import('@nginstack/engine/lib/event/Event');
 type Visualization = import('../dsv/Visualization');
-type Mail = import('@nginstack/engine/lib/mail/Mail');
+type Email = import('@nginstack/engine/lib/email/Email');
 declare function groupFilters(filters: any): any[];
