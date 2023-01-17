@@ -14,10 +14,11 @@ import { nodeObject } from '../Nodes';
 import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants';
 import Node from './Node';
 import NodeAttribute from './NodeAttribute';
+import NodeCache from './NodeCache';
 import NodeParser from './NodeParser';
 import NodeUniform from './NodeUniform';
 import NodeVar from './NodeVar';
-import NodeVary from './NodeVary';
+import NodeVarying from './NodeVarying';
 
 export type BuildStageOption = 'construct' | 'analyze' | 'generate';
 
@@ -52,6 +53,14 @@ export default abstract class NodeBuilder {
     fragmentShader: string;
     computeShader: string;
 
+    cache: NodeCache;
+    globalCache: NodeCache;
+
+    /**
+     * @TODO used to be missing. check the actual type later
+     */
+    flowsData: any;
+
     shaderStage: NodeShaderStageOption | null;
     buildStage: BuildStageOption | null;
     stack: Node[];
@@ -74,6 +83,10 @@ export default abstract class NodeBuilder {
 
     abstract getFrontFacing(): string;
 
+    abstract getFragCoord(): string;
+
+    isFlipY(): boolean;
+
     abstract getTexture(textureProperty: string, uvSnippet: string): string;
 
     abstract getTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
@@ -82,7 +95,7 @@ export default abstract class NodeBuilder {
     abstract getCubeTextureLevel(textureProperty: string, uvSnippet: string, levelSnippet: string): string;
 
     // @TODO: rename to .generateConst()
-    getConst(type: NodeTypeOption, value: unknown): Node;
+    getConst(type: NodeTypeOption, value?: unknown): Node;
     getType(type: NodeTypeOption): NodeTypeOption;
 
     generateMethod(method: string): string;
@@ -105,7 +118,7 @@ export default abstract class NodeBuilder {
     getNodeProperties(node: Node, shaderStage?: NodeShaderStageOption): AnyObject;
     getUniformFromNode(node: Node, shaderStage: NodeShaderStageOption, type: NodeTypeOption): NodeUniform;
     getVarFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): NodeVar;
-    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVary;
+    getVaryFromNode(node: Node, type: NodeTypeOption): NodeVarying;
     getCodeFromNode(node: Node, type: NodeTypeOption, shaderStage?: NodeShaderStageOption): string;
     addFlowCode(code: string): void;
     getFlowData(node: Node, shaderStage: NodeShaderStageOption): FlowData;
@@ -117,6 +130,7 @@ export default abstract class NodeBuilder {
         output?: string | null,
         propertyName?: string,
     ): FlowData;
+    hasGeometryAttribute(name: string): boolean;
     abstract getAttributes(shaderStage: NodeShaderStageOption): string;
     abstract getVarys(shaderStage: NodeShaderStageOption): string;
     getVars(shaderStage: NodeShaderStageOption): string;

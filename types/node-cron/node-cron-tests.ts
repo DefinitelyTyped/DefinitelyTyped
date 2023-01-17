@@ -6,10 +6,12 @@ const log = console.log;
 
 cron.schedule('* * * * *', now => {
     log('running a task every minute');
-    if (now.getTime() === Date.now()) {
-        log('task ran at the predicted time');
-    } else {
-        log('Task ran with a delay');
+    if (now instanceof Date) {
+        if (now.getTime() === Date.now()) {
+            log('task ran at the predicted time');
+        } else {
+            log('Task ran with a delay');
+        }
     }
 });
 
@@ -66,3 +68,19 @@ task5.on('task-done', () => {
     log('Task has been completed');
     task5.stop();
 });
+
+// manual execution
+cron.schedule(
+    '* * * * *',
+    () => {
+        log('will execute immediately and every minute after');
+    },
+).now();
+
+cron.schedule(
+    '* * * * *',
+    () => {
+        log('will execute immediately and every minute after');
+    },
+    { runOnInit: true },
+);

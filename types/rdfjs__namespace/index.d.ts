@@ -13,5 +13,5 @@ export interface BuilderOptions {
     factory?: DataFactory | undefined;
 }
 
-// tslint:disable-next-line: no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export default function namespace<TermNames extends string = string>(baseIRI: string, options?: BuilderOptions): NamespaceBuilder<TermNames>;

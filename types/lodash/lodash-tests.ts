@@ -64,7 +64,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.compact
 {
-    const list: _.List<AbcObject | null | undefined | false | '' | 0> | null | undefined = anything;
+    const list: _.List<AbcObject | null | undefined | false | '' | 0 | 0n> | null | undefined = anything;
 
     _.compact(list); // $ExpectType AbcObject[]
     _(list).compact(); // $ExpectType Collection<AbcObject>
@@ -74,7 +74,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.compact in a pipe with other functions
 {
-    const list: _.List<_.Many<AbcObject | null | undefined> | null | undefined> = anything;
+    const list: _.List<_.Many<AbcObject | null | undefined | false | '' | 0 | 0n> | null | undefined> = anything;
 
     fp.pipe(fp.flatten, fp.compact)(list); // $ExpectType AbcObject[]
 }
@@ -5304,11 +5304,31 @@ fp.now(); // $ExpectType number
 {
     const value: string | undefined = anything;
     const defaultValue: boolean = anything;
+    const objectWithOptionalField: { a?: boolean } = anything;
+
+    const anyNumber: number = anything;
+    const arrayOfNumbers: number[] = anything;
+    const tupleOfNumbers: [1] = anything;
+
+    const dictionary: _.Dictionary<string> = anything;
+    const maybeObject: { a: _.Dictionary<string> } | undefined = anything;
 
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
     _.get("abc", 1); // $ExpectType string
+    _.get({ a: false }, "a"); // $ExpectType boolean
+    _.get(objectWithOptionalField, "a"); // $ExpectType boolean | undefined
+    _.get(objectWithOptionalField, "a" as string); // $ExpectType any
+    _.get({ a: arrayOfNumbers }, 'a.0'); // $ExpectType number
+    _.get({ a: arrayOfNumbers }, 'a[0]'); // $ExpectType number
+    _.get({ a: arrayOfNumbers }, `a[${anyNumber}]`); // $ExpectType number
+    _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
+    _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
+    _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
+    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType undefined
+    _.get({ a: dictionary }, 'a.b'); // $ExpectType string
+    _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
@@ -5318,8 +5338,24 @@ fp.now(); // $ExpectType number
     _.get({ a: undefined }, "a"); // $ExpectType undefined
     _.get({ a: value }, "a", defaultValue); // $ExpectType string | boolean
     _.get({ a: undefined }, "a", defaultValue); // $ExpectType boolean
+    _.get({ a: [{ b: { c: 3 } }] }, "a[0].b.c", 0); // $ExpectType number
+    _.get(objectWithOptionalField, "a", defaultValue); // $ExpectType boolean
+    _.get({}, "a", defaultValue); // $ExpectType boolean
+    _.get({}, "a" as string, defaultValue); // $ExpectType boolean
+    _.get(objectWithOptionalField, "a", undefined); // $ExpectType boolean | undefined
 
     _("abc").get(1); // $ExpectType string
+    _({ a: false }).get("a"); // $ExpectType boolean
+    _(objectWithOptionalField).get("a"); // $ExpectType boolean | undefined
+    _(objectWithOptionalField).get("a" as string); // $ExpectType any
+    _({ a: arrayOfNumbers }).get('a.0'); // $ExpectType number
+    _({ a: arrayOfNumbers }).get('a[0]'); // $ExpectType number
+    _({ a: arrayOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType number
+    _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
+    _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
+    _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
+    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType undefined
+    _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
@@ -5329,8 +5365,23 @@ fp.now(); // $ExpectType number
     _({ a: undefined }).get("a"); // $ExpectType undefined
     _({ a: value }).get("a", defaultValue); // $ExpectType string | boolean
     _({ a: undefined }).get("a", defaultValue); // $ExpectType boolean
+    _({ a: [{ b: { c: 3 } }] }).get("a[0].b.c", 0); // $ExpectType number
+    _(objectWithOptionalField).get("a", defaultValue); // $ExpectType boolean
+    _({}).get("a", defaultValue); // $ExpectType boolean
+    _({}).get("a" as string, defaultValue); // $ExpectType boolean
+    _(objectWithOptionalField).get("a", undefined); // $ExpectType boolean | undefined
 
     _.chain("abc").get(1); // $ExpectType StringChain
+    _.chain({ a: false }).get("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain(objectWithOptionalField).get("a" as string); // $ExpectType LoDashExplicitWrapper<any>
+    _.chain({ a: arrayOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<number>
+    _.chain({ a: arrayOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<number>
+    _.chain({ a: arrayOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<number>
+    _.chain({ a: tupleOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<1>
+    _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
+    _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
+    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType never
+    _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>
@@ -5343,6 +5394,9 @@ fp.now(); // $ExpectType number
     _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain | PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
+    _.chain({ a: [{ b: { c: [3] } }] }).get("a[0].b.c").map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
+    _.chain(objectWithOptionalField).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({}).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
     fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
     fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>

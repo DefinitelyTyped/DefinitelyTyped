@@ -97,7 +97,7 @@ $( "<div/>", {
   .appendTo( "body" );
 ```
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     <TElement extends HTMLElement = HTMLElement>(html: JQuery.htmlString, ownerDocument_attributes?: Document | JQuery.PlainObject): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
@@ -136,7 +136,7 @@ $( "div", xml.responseXML );
 ```
 ​
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     <TElement extends Element = HTMLElement>(selector: JQuery.Selector, context?: Element | Document | JQuery | JQuery.Selector): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
@@ -193,8 +193,10 @@ jQuery(function( $ ) {
 });
 ```
      */
-    // tslint:disable-next-line:no-unnecessary-generics unified-signatures
+    /* eslint-disable no-unnecessary-generics */
+    // tslint:disable-next-line:unified-signatures
     <TElement = HTMLElement>(callback: ((this: Document, $: JQueryStatic) => void)): JQuery<TElement>;
+    /* eslint-enable no-unnecessary-generics */
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
      * @param object A plain object to wrap in a jQuery object.
@@ -207,7 +209,7 @@ jQuery(function( $ ) {
      * @see \`{@link https://api.jquery.com/jQuery/ }\`
      * @since 1.4
      */
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     <TElement = HTMLElement>(): JQuery<TElement>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.

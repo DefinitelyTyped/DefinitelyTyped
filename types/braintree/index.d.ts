@@ -1293,7 +1293,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate: Date;
+        paidThroughDate?: Date | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1351,7 +1351,7 @@ declare namespace braintree {
         trialPeriod?: boolean | undefined;
     }
 
-    export interface SubscriptionUpdateRequest extends SubscriptionRequest {
+    export interface SubscriptionUpdateRequest extends Partial<SubscriptionRequest> {
         options?:
             | {
                   paypal?:
@@ -1361,7 +1361,7 @@ declare namespace braintree {
                       | undefined;
                   prorateCharges?: boolean | undefined;
                   replaceAllAddOnsAndDiscounts?: boolean | undefined;
-                  revertSubscriptionOnProrationFailure: boolean | undefined;
+                  revertSubscriptionOnProrationFailure?: boolean | undefined;
               }
             | undefined;
     }

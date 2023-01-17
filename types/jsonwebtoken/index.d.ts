@@ -1,4 +1,4 @@
-// Type definitions for jsonwebtoken 8.5
+// Type definitions for jsonwebtoken 9.0
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>,
 //                 Daniel Heim <https://github.com/danielheim>,
@@ -15,6 +15,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+
+import { KeyObject } from 'crypto';
 
 export class JsonWebTokenError extends Error {
     inner: Error;
@@ -65,6 +67,8 @@ export interface SignOptions {
     noTimestamp?: boolean | undefined;
     header?: JwtHeader | undefined;
     encoding?: string | undefined;
+    allowInsecureKeySizes?: boolean | undefined;
+    allowInvalidAsymmetricKeyTypes?: boolean | undefined;
 }
 
 export interface VerifyOptions {
@@ -85,6 +89,7 @@ export interface VerifyOptions {
     nonce?: string | undefined;
     subject?: string | undefined;
     maxAge?: string | number | undefined;
+    allowInvalidAsymmetricKeyTypes?: boolean | undefined;
 }
 
 export interface DecodeOptions {
@@ -158,6 +163,7 @@ export type GetPublicKeyOrSecret = (
 export type Secret =
     | string
     | Buffer
+    | KeyObject
     | { key: string | Buffer; passphrase: string };
 
 /**

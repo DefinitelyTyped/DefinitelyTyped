@@ -267,6 +267,11 @@ declare module 'net' {
          */
         readonly localPort?: number;
         /**
+         * The string representation of the local IP family. `'IPv4'` or `'IPv6'`.
+         * @since v18.8.0, v16.18.0
+         */
+        readonly localFamily?: string;
+        /**
          * This property represents the state of the connection as a string.
          * @see {https://nodejs.org/api/net.html#socketreadystate}
          * @since v0.5.0

@@ -5,12 +5,12 @@ import {
     // shape declaration references
     shapeDeclRef, shapeDeclLabel, shapeExprOrRef,
     // node constraints
-    NodeConstraint, xsFacets, stringFacets, numericFacets, numericLiteral,
+    NodeConstraint, nodeKind, xsFacets, stringFacets, numericFacets, numericLiteral,
     // value sets
     valueSetValue, objectValue, ObjectLiteral,
-    IriStem, IriStemRange,
-    LiteralStem, LiteralStemRange,
-    Language, LanguageStem, LanguageStemRange,
+    IriStem, IriStemRange, iriRangeStem, iriRangeExclusion,
+    LiteralStem, LiteralStemRange, literalRangeStem, literalRangeExclusion,
+    Language, LanguageStem, LanguageStemRange, languageRangeStem, languageRangeExclusion,
     Wildcard,
     // shapes and tripleExprs
     Shape, tripleExpr, EachOf, OneOf, TripleConstraint,
@@ -118,6 +118,14 @@ function test_pieces() {
     const wi: Wildcard = { type: "Wildcard" };
     const la1: Language = { type: "Language", languageTag: "en" };
     const las1: LanguageStem = { type: "LanguageStem", stem: lt1 };
+    const languageRangeStems: languageRangeStem[] = [ "en", { type: "Wildcard" } ];
+    // @ts-expect-error
+    const languageRangeStem_ebool: languageRangeStem = true;
+    // @ts-expect-error
+    const languageRangeStem_emild: languageRangeStem = { type: "Mildcard" };
+    const languageRangeExclusions: languageRangeExclusion[] = [ "en", { type: "LanguageStem", stem: "en" } ];
+    // @ts-expect-error
+    const languageRangeExclusion_ebool: languageRangeExclusion = true;
     const lasr1: LanguageStemRange = {
         type: "LanguageStemRange",
         stem: lt1,
@@ -125,6 +133,14 @@ function test_pieces() {
     };
 
     const lis1: LiteralStem = { type: "LiteralStem", stem: "abc" };
+    const literalRangeStems: literalRangeStem[] = [ "abc", { type: "Wildcard" } ];
+    // @ts-expect-error
+    const literalRangeStem_ebool: literalRangeStem = true;
+    // @ts-expect-error
+    const literalRangeStem_emild: literalRangeStem = { type: "Mildcard" };
+    const literalRangeExclusions: literalRangeExclusion[] = [ "abc", { type: "LiteralStem", stem: "abc" } ];
+    // @ts-expect-error
+    const literalRangeExclusion_ebool: literalRangeExclusion = true;
     const lis2: LiteralStemRange = {
         type: "LiteralStemRange",
         stem: "ab",
@@ -132,6 +148,14 @@ function test_pieces() {
     };
 
     const irs1: IriStem = { type: "IriStem", stem: "abc" };
+    const iriRangeStems: iriRangeStem[] = [ "http://a.example/", { type: "Wildcard" } ];
+    // @ts-expect-error
+    const iriRangeStem_ebool: iriRangeStem = true;
+    // @ts-expect-error
+    const iriRangeStem_emild: iriRangeStem = { type: "Mildcard" };
+    const iriRangeExclusions: iriRangeExclusion[] = [ "http://a.example/", { type: "IriStem", stem: "http://a.example/" } ];
+    // @ts-expect-error
+    const iriRangeExclusion_ebool: iriRangeExclusion = true;
     const irs2: IriStemRange = {
         type: "IriStemRange",
         stem: "ab", exclusions:
@@ -160,6 +184,9 @@ function test_pieces() {
         type: "NodeConstraint",
         nodeKind: "iri", ...semAnnot1
     };
+  const nodeKind: nodeKind[] = ["iri", "literal", "bnode", "nonliteral"];
+    // @ts-expect-error
+    const nodeKind_e1: nodeKind = "iri999";
     // @ts-expect-error
     const nc_e1: NodeConstraint = { type: "NodeConstraint", nodeKind: "iri999" };
     const nc2: NodeConstraint = {

@@ -250,7 +250,7 @@ export function verifierVerifyProof(
     schemas: Schemas,
     credentialDefs: CredentialDefs,
     revRegDefs: RevocRegDefs,
-    revRegs: RevStates,
+    revRegs: RevRegs,
 ): Promise<boolean>;
 
 export function createRevocationState(
@@ -457,7 +457,11 @@ export interface RevocRegDef {
         maxCredNum: number;
         tailsHash: string;
         tailsLocation: string;
-        publicKeys: string[];
+        publicKeys: {
+            accumKey: {
+                z: string;
+            };
+        };
     };
     ver: string;
 }
@@ -485,7 +489,7 @@ export interface IndyCredentialInfo {
     };
     schema_id: string;
     cred_def_id: string;
-    rev_reg_id?: number | undefined;
+    rev_reg_id?: string | undefined;
     cred_rev_id?: string | undefined;
 }
 
@@ -558,9 +562,14 @@ export interface RevocRegDefs {
     [revRegId: string]: RevocRegDef;
 }
 
+export interface RevRegs {
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevocReg;
+    };
+}
 export interface RevStates {
-    [key: string]: {
-        [key: string]: unknown;
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevState;
     };
 }
 
@@ -593,7 +602,7 @@ export interface IndyProofRequest {
     requested_attributes: {
         [key: string]: {
             name?: string | undefined;
-            names?: string | undefined;
+            names?: string[] | undefined;
             restrictions?: WalletQuery[] | undefined;
             non_revoked?: NonRevokedInterval | undefined;
         };
@@ -634,7 +643,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_id: string;
+    rev_reg_id?: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;

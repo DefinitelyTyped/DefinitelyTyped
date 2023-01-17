@@ -53,7 +53,7 @@ const testCases = [
     <input type="some-type" />,
     // @ts-expect-error
     <input enterKeyHint="don" />,
-    <video disableRemotePlayback />,
+    <video disableRemotePlayback onResize={() => {}} />,
     <picture>
         <source media="test" srcSet="test" width={50} height={50} />
         <img src="test" width={100} height={100} />
@@ -68,6 +68,8 @@ const testCases = [
             event;
         }}
     ></dialog>,
+    <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <center></center>
 ];
 
 // Needed to check these HTML elements in event callbacks.

@@ -845,6 +845,10 @@ import { promisify } from 'node:util';
         key: 'asd',
         format: 'der',
     });
+    crypto.createPrivateKey({
+        key: 'asd',
+        format: 'jwk',
+    });
 }
 
 {
@@ -1212,6 +1216,7 @@ import { promisify } from 'node:util';
     cert.checkEmail('test@test.com', { subject: 'always' }); // $ExpectType string | undefined
     cert.checkHost('test.com'); // $ExpectType string | undefined
     cert.checkHost('test.com', checkOpts); // $ExpectType string | undefined
+    cert.checkHost('test.com', { subject: 'default' }); // $ExpectType string | undefined
     cert.checkIP('1.1.1.1'); // $ExpectType string | undefined
     cert.checkIssued(new crypto.X509Certificate('dummycert')); // $ExpectType boolean
     cert.checkPrivateKey(crypto.createPrivateKey('dummy')); // $ExpectType boolean
@@ -1431,6 +1436,7 @@ import { promisify } from 'node:util';
     subtle.encrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new TextEncoder().encode('hello')); // $ExpectType Promise<ArrayBuffer>
     subtle.decrypt({ name: 'AES-CBC', iv: new Uint8Array(16) }, key, new ArrayBuffer(8)); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-512', salt: new ArrayBuffer(8), iterations: 1000 }, key, length); // $ExpectType Promise<ArrayBuffer>
+    subtle.deriveBits({ name: 'ECDH', public: key }, key, null); // $ExpectType Promise<ArrayBuffer>
     subtle.deriveKey({
         name: 'PBKDF2',
         hash: 'SHA-512',

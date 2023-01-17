@@ -73,7 +73,7 @@ declare class SimpleLayout {
     private started;
     private textPrinterDriver;
     private layoutTxtGrid;
-    variableGrid: any;
+    variableGrid: Grid;
     filters: Array<{
         label: string;
         group: string;
@@ -107,10 +107,10 @@ declare class SimpleLayout {
     enterpriseName: any;
     autoSanitize: boolean;
     private autoSanitize_;
-    private cssContentForMail_;
+    private cssContentForEmail_;
     private isTreeLayout;
-    writingMail: boolean;
-    private getMailObject;
+    writingEmail: boolean;
+    private getEmailObject;
     private nextColumnWithTotalContent;
     private startOrEndGroup;
     private endRecord;
@@ -139,7 +139,7 @@ declare class SimpleLayout {
     private defaultOnHeader;
     path: string;
     private defaultOnFooter;
-    private _prepareImgTagsToSendMail;
+    private _prepareImgTagsToSendEmail;
     write(content: string, opt_newLine?: boolean): void;
     private setupLayoutTxt;
     private _prepareExport;
@@ -206,13 +206,14 @@ declare class SimpleLayout {
     stats(): SimpleLayoutStats;
 }
 declare namespace SimpleLayout {
-    export { LAYOUT_COUNT, columnsTotalByGroupId, defaults, Event, SimpleLayoutStats };
+    export { LAYOUT_COUNT, columnsTotalByGroupId, defaults, Event, Grid, SimpleLayoutStats };
 }
 import StringList = require('@nginstack/engine/lib/string/StringList.js');
 type Event = import('@nginstack/engine/lib/event/Event');
 import Header = require('./Header.js');
 import Footer = require('./Footer.js');
 import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+type Grid = import('../grid/Grid');
 import Link = require('../anchor/Link.js');
 import Column = require('./Column.js');
 interface SimpleLayoutStats {

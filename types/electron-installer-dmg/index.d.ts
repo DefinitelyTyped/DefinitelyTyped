@@ -1,4 +1,4 @@
-// Type definitions for electron-installer-dmg 3.0
+// Type definitions for electron-installer-dmg 4.0
 // Project: https://github.com/electron-userland/electron-installer-dmg
 // Definitions by: Florian Imdahl <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -31,7 +31,7 @@ declare namespace createDMG {
          * The content that will appear in the window when user opens the .dmg file.
          * [Default: Array of two icons, application and application destination folder].
          */
-        contents?: Content[] | (() => Content[]);
+        contents?: Content[] | ((opts: ContentsOptions) => Content[]);
         /** Enable debug message output. */
         debug?: boolean;
         /** Disk image format. [Default: `UDZO`]. */
@@ -49,6 +49,14 @@ declare namespace createDMG {
         /** The title of the produced DMG, which will be shown when mounted. */
         title?: string;
     }
+
+    /**
+     * Options passed to the `contents` function.
+     */
+    // Note: In the actual implementation, the entire `CreateOptions` object is
+    // passed to the `contents` function, but in the type we omit the `contents`
+    // field to avoid recursion.
+    type ContentsOptions = Omit<CreateOptions, 'contents'>;
 }
 
 declare function createDMG(createOptions: createDMG.CreateOptions): Promise<createDMG.CreateOptions>;

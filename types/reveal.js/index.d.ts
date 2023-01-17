@@ -1,4 +1,4 @@
-// Type definitions for Reveal 4.3
+// Type definitions for Reveal 4.4
 // Project: https://github.com/hakimel/reveal.js/
 // Definitions by: robertop87 <https://github.com/robertop87>,
 //                 Nava2 <https://github.com/Nava2>,
@@ -17,12 +17,13 @@ export = Reveal;
  *
  * @see {@link https://revealjs.com}
  * @see {@link https://github.com/hakimel/reveal.js/blob/master/js/reveal.js}
+ * @see {@link https://revealjs.com/api/}
  */
 declare const Reveal: {
     new (options?: Reveal.Options): Reveal.Api;
     new (revealElement: Element, options: Reveal.Options): Reveal.Api;
     initialize(options?: Reveal.Options): Promise<Reveal.Api>;
-};
+} & Reveal.Api;
 
 declare namespace Reveal {
     /**

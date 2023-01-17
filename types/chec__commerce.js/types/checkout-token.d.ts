@@ -1,5 +1,5 @@
 import { Merchant } from './merchant';
-import { Extrafield } from './extrafield';
+import { Extrafields } from './extrafields';
 import { ShippingMethod } from './shipping-method';
 import { Gateway } from './gateway';
 import { Live } from './live';
@@ -40,7 +40,7 @@ export interface CheckoutToken {
     };
     line_items: CheckoutTokenLineItem[];
     merchant: Merchant;
-    extra_fields: Extrafield[];
+    extra_fields: Extrafields;
     gateways: Gateway[];
     shipping_methods: ShippingMethod[];
     live: Live;

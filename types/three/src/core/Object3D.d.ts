@@ -110,6 +110,13 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     matrixAutoUpdate: boolean;
 
     /**
+     * When this is set, the renderer checks every frame if the object and its children need matrix updates.
+     * Otherwise, you have to maintain all matrices in the object and its children yourself.
+     * @default THREE.Object3D.DefaultMatrixWorldAutoUpdate
+     */
+    matrixWorldAutoUpdate: boolean;
+
+    /**
      * When this is set, it calculates the matrixWorld in that frame and resets this property to false.
      * @default false
      */
@@ -210,6 +217,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
 
     static DefaultUp: Vector3;
     static DefaultMatrixAutoUpdate: boolean;
+    static DefaultMatrixWorldAutoUpdate: boolean;
 
     /**
      * Applies the matrix transform to the object and updates the object's position, rotation and scale.
@@ -364,7 +372,23 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      */
     getObjectByName(name: string): Object3D | undefined;
 
-    getObjectByProperty(name: string, value: string): Object3D | undefined;
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns the first with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectByProperty(name: string, value: any): Object3D | undefined;
+
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns all the objects with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectsByProperty(name: string, value: any): Object3D[];
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;

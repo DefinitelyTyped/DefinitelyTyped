@@ -660,6 +660,15 @@ declare namespace Parse {
             sort?: { [key: string]: 1 | -1 } | undefined;
             // Sample documentation: https://docs.mongodb.com/v3.2/reference/operator/aggregation/sample/
             sample?: { size: number } | undefined;
+            // Unwind documentation: https://www.mongodb.com/docs/v3.2/reference/operator/aggregation/unwind/#pipe._S_unwind
+            unwind?:
+                | {
+                      path: string;
+                      includeArrayIndex?: string;
+                      preserveNullAndEmptyArrays?: boolean;
+                  }
+                | string
+                | undefined;
         }
 
         // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText
@@ -926,11 +935,11 @@ declare namespace Parse {
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
-            Primary = "PRIMARY",
-            PrimaryPreferred = "PRIMARY_PREFERRED",
-            Secondary = "SECONDARY",
-            SecondaryPreferred = "SECONDARY_PREFERRED",
-            Nearest = "NEAREST",
+            Primary = 'PRIMARY',
+            PrimaryPreferred = 'PRIMARY_PREFERRED',
+            Secondary = 'SECONDARY',
+            SecondaryPreferred = 'SECONDARY_PREFERRED',
+            Nearest = 'NEAREST',
         }
 
         interface BeforeFindRequest extends TriggerRequest {
@@ -986,9 +995,11 @@ declare namespace Parse {
             /**
              * The headers for the request.
              */
-            headers?: {
-                [headerName: string]: string | number | boolean;
-            } | undefined;
+            headers?:
+                | {
+                      [headerName: string]: string | number | boolean;
+                  }
+                | undefined;
             /**
              *The method of the request (i.e GET, POST, etc).
              */
@@ -1155,16 +1166,16 @@ declare namespace Parse {
     function setAsyncStorage(AsyncStorage: any): void;
 }
 
-declare module "parse/node" {
+declare module 'parse/node' {
     export = Parse;
 }
 
-declare module "parse" {
-    import * as parse from "parse/node";
+declare module 'parse' {
+    import * as parse from 'parse/node';
     export = parse;
 }
 
-declare module "parse/react-native" {
-    import * as parse from "parse/node";
+declare module 'parse/react-native' {
+    import * as parse from 'parse/node';
     export = parse;
 }

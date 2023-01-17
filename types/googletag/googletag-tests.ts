@@ -17,6 +17,10 @@ googletag.cmd.push(() => {
     googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 });
 
+googletag.cmd.push(function() {
+    console.log(this.googletag);
+});
+
 // DEMO 3
 // Define a custom out-of-page ad slot.
 googletag.defineOutOfPageSlot('/1234567/sports', 'div-1');
@@ -534,13 +538,19 @@ googletag.pubads().addEventListener('slotRenderEnded', event => {
 
     // Log details of the rendered ad.
     console.log('Advertiser ID:', event.advertiserId);
-    console.log('Campaign ID: ', event.campaignId);
-    console.log('Creative ID: ', event.creativeId);
+    console.log('Campaign ID:', event.campaignId);
+    console.log('Company IDs:', event.companyIds);
+    console.log('Creative ID:', event.creativeId);
+    console.log('Creative Template ID:', event.creativeTemplateId);
+    console.log('Is backfill?:', event.isBackfill);
     console.log('Is empty?:', event.isEmpty);
+    console.log('Label IDs:', event.labelIds);
     console.log('Line Item ID:', event.lineItemId);
     console.log('Size:', event.size);
+    console.log('Slot content changed?:', event.slotContentChanged);
     console.log('Source Agnostic Creative ID:', event.sourceAgnosticCreativeId);
     console.log('Source Agnostic Line Item ID:', event.sourceAgnosticLineItemId);
+    console.log('Yield Group IDs:', event.yieldGroupIds);
     console.groupEnd();
 
     if (slot === targetSlot) {
@@ -702,7 +712,7 @@ googletag.pubads().addEventListener('rewardedSlotReady', event => {
 });
 
 // Event Types
-const types: googletag.events.EventType[] = [
+const types: Array<keyof googletag.events.EventTypeMap> = [
     'impressionViewable',
     'rewardedSlotClosed',
     'rewardedSlotGranted',

@@ -1,7 +1,7 @@
 import remark = require('remark');
 import remarkPrism = require('remark-prism');
 
-remark().use(remarkPrism);
+remark.remark().use(remarkPrism);
 
 const options: remarkPrism.Options = {
     transformInlineCode: true,
@@ -17,9 +17,9 @@ const options: remarkPrism.Options = {
         'treeview',
     ],
 };
-remark().use(remarkPrism, options);
+remark.remark().use(remarkPrism, options);
 
 const partialOptions: remarkPrism.Options = {
     plugins: ['show-invisibles', 'autolinker'],
 };
-remark().use(remarkPrism, partialOptions);
+remark.remark().use(remarkPrism, partialOptions);

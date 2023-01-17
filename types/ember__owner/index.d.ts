@@ -3,6 +3,7 @@
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
 //                 Dan Freeman <https://github.com/dfreeman>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
@@ -10,11 +11,71 @@
  * The name for a factory consists of a namespace and the name of a specific
  * type within that namespace, like `'service:session'`.
  */
-export type FullName = `${string}:${string}`;
+export type FullName<Type extends string = string, Name extends string = string> = `${Type}:${Name}`;
 
-// TODO: when migrating into Ember proper, evaluate whether we should introduce
-// a registry which users can provide to resolve known types, so e.g.
-// `owner.lookup('service:session')` can return the right thing.
+/**
+ * A type registry for the DI system, which other participants in the DI system
+ * can register themselves into with declaration merging. The contract for this
+ * type is that its keys are the `Type` from a `FullName`, and each value for a
+ * `Type` is another registry whose keys are the `Name` from a `FullName`. The
+ * mechanic for providing a registry is [declaration merging][handbook].
+ *
+ * [handbook]: https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+ *
+ * For example, Ember's `@ember/service` module includes this set of definitions:
+ *
+ * ```ts
+ * export default class Service extends EmberObject {}
+ *
+ * // For concrete singleton classes to be merged into.
+ * interface Registry extends Record<string, Service> {}
+ *
+ * declare module '@ember/owner' {
+ *   service: Registry;
+ * }
+ * ```
+ *
+ * Declarations of services can then include the registry:
+ *
+ * ```ts
+ * import Service from '@ember/service';
+ *
+ * export default class Session extends Service {
+ *   login(username: string, password: string) {
+ *     // ...
+ *   }
+ * }
+ *
+ * declare module '@ember/service' {
+ *   interface Registry {
+ *     session: Session;
+ *   }
+ * }
+ * ```
+ *
+ * Then users of the `Owner` API will be able to do things like this with strong
+ * type safety guarantees:
+ *
+ * ```ts
+ * getOwner(this)?.lookup('service:session').login("hello", "1234abcd");
+ * ```
+ *
+ * @internal
+ */
+export interface DIRegistry extends Record<string, Record<string, unknown>> {}
+
+type ValidType = keyof DIRegistry & string;
+type ValidName<Type extends ValidType> = keyof DIRegistry[Type] & string;
+
+type ResolveFactoryManager<
+    Type extends string,
+    Name extends string,
+> = DIRegistry[Type][Name] extends infer RegistryEntry
+    ? RegistryEntry extends object
+        ? FactoryManager<RegistryEntry>
+        : FactoryManager<object> | undefined
+    : never;
+
 /**
  * Framework objects in an Ember application (components, services, routes,
  * etc.) are created via a factory and dependency injection system. Each of
@@ -25,7 +86,10 @@ export default interface Owner {
     /**
      * Given a {@linkcode FullName} return a corresponding instance.
      */
-    lookup(fullName: FullName): unknown;
+    lookup<Type extends ValidType, Name extends ValidName<Type>>(
+        fullName: FullName<Type, Name>,
+        options?: RegisterOptions,
+    ): DIRegistry[Type][Name];
 
     /**
      * Registers a factory or value that can be used for dependency injection
@@ -38,7 +102,7 @@ export default interface Owner {
      * - To override the default singleton behavior and instead create multiple
      *   instances, pass the `{ singleton: false }` option.
      */
-    // Dear future maintainer: yes, I know that `Factory<unknown> | object` is
+    // Dear future maintainer: yes, I know that `Factory<object> | object` is
     // an exceedingly weird type here. This is how we type it internally in
     // Ember itself. We actually allow more or less *anything* to be passed
     // here. In the future, we may possibly be able to update this to actually
@@ -47,7 +111,7 @@ export default interface Owner {
     // factory, not needing `create` if `options.instantiate` is `false`, etc.)
     // but doing so will require rationalizing Ember's own internals and may
     // need a full Ember RFC.
-    register(fullName: FullName, factory: Factory<unknown> | object, options?: RegisterOptions): void;
+    register(fullName: FullName, factory: Factory<object> | object, options?: RegisterOptions): void;
 
     /**
      * Given a fullName of the form `'type:name'`, like `'route:application'`,
@@ -57,7 +121,9 @@ export default interface Owner {
      * destroyed manually by the caller of `.create()`. Typically, this is done
      * during the creating objects own `destroy` or `willDestroy` methods.
      */
-    factoryFor(fullName: FullName): FactoryManager<unknown> | undefined;
+    factoryFor<Type extends ValidType, Name extends ValidName<Type>>(
+        fullName: FullName<Type, Name>,
+    ): ResolveFactoryManager<Type, Name>;
 }
 
 export interface RegisterOptions {
@@ -98,6 +164,27 @@ export interface Factory<T> {
 export interface FactoryManager<T> extends Factory<T> {
     /** The registered or resolved class. */
     readonly class: Factory<T>;
+}
+
+/**
+ * A record mapping all known items of a given type: if the item is known it
+ * will be `true`; otherwise it will be `false` or `undefined`.
+ */
+export type KnownForTypeResult<Type extends string> = {
+    [FullName in `${Type}:${string}`]: boolean | undefined;
+};
+
+/**
+ * The contract a custom resolver must implement. Most apps never need to think
+ * about this: the application's resolver is supplied by `ember-resolver` in
+ * the default blueprint.
+ */
+export interface Resolver {
+    resolve: (name: string) => Factory<object> | object | undefined;
+    knownForType?: <Type extends string>(type: Type) => KnownForTypeResult<Type>;
+    lookupDescription?: (fullName: FullName) => string;
+    makeToString?: (factory: Factory<object>, fullName: FullName) => string;
+    normalize?: (fullName: FullName) => string;
 }
 
 // Don't export things unless we *intend* to.

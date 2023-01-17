@@ -41,6 +41,12 @@ export namespace Omnibox {
          * You must escape the five predefined entities to display them as text: stackoverflow.com/a/1091953/89484
          */
         description: string;
+
+        /**
+         * Whether the suggest result can be deleted by the user.
+         * Optional.
+         */
+        deletable?: boolean;
     }
 
     /**
@@ -88,5 +94,12 @@ export namespace Omnibox {
          * User has ended the keyword input session without accepting the input.
          */
         onInputCancelled: Events.Event<() => void>;
+
+        /**
+         * User has deleted a suggested result.
+         *
+         * @param text
+         */
+        onDeleteSuggestion: Events.Event<(text: string) => void>;
     }
 }

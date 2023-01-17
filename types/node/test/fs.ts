@@ -474,6 +474,8 @@ async () => {
     await handle.write(Buffer.from('hurr'), 0, 42, 10);
 
     handle.readableWebStream();
+
+    handle.readLines()[Symbol.asyncIterator](); // $ExpectType AsyncIterableIterator<string>
 };
 
 {

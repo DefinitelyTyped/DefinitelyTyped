@@ -8,6 +8,7 @@ export interface InputGroupAddonProps {
     className?: string | undefined;
     compact?: boolean | undefined;
     isButton?: boolean | undefined;
+    children?: React.ReactNode;
 }
 
 export type InputGroupProps = {

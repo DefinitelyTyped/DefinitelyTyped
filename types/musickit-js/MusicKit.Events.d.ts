@@ -59,7 +59,7 @@ declare namespace MusicKit {
         /**
          * A notification indicating the playback state has changed.
          */
-        playbackStateDidChange: { oldState: PlaybackState; state: PlaybackState };
+        playbackStateDidChange: { oldState: PlaybackStates; state: PlaybackStates };
         /**
          * A notification indicating the playback state is about to be changed.
          */

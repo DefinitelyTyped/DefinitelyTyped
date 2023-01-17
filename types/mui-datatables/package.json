@@ -1,7 +1,9 @@
 {
     "private": true,
     "dependencies": {
-       "@material-ui/core": "^4.11.3",
-       "@material-ui/types": "5.1.0"
+        "@emotion/react": "^11.10.5",
+        "@emotion/styled": "^11.10.5",
+        "@mui/material": "^5.11.4",
+        "csstype": "^3.1.1"
     }
 }

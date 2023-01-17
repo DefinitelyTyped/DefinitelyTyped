@@ -74,6 +74,7 @@ import {
     IfFunctionsArgumentsDoNotOverlap,
     LargestArgumentsList,
     mergeArrWithLeft,
+    Prop,
 } from './tools';
 
 export * from './tools';
@@ -478,7 +479,7 @@ export function applyTo<T>(el: T): <U>(fn: (t: T) => U) => U;
  *
  * @example
  * ```typescript
- * const byAge = R.ascend(R.prop<'age', number>('age'));
+ * const byAge = R.ascend(R.prop<number>('age'));
  * const people = [
  *   { name: 'Emma', age: 70 },
  *   { name: 'Peter', age: 78 },
@@ -504,8 +505,10 @@ export function ascend<T>(fn: (obj: T) => Ord): (a: T, b: T) => Ordering;
  * R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
  * ```
  */
-export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => Record<K, T> & Omit<U, K>;
+export function assoc<T, U>(__: Placeholder, val: T, obj: U): <K extends string>(prop: K) => K extends keyof U ? T extends U[K] ? U : Record<K, T> & Omit<U, K> : Record<K, T> & Omit<U, K>;
+export function assoc<U, K extends keyof U>(prop: K, __: Placeholder, obj: U): <T>(val: T) => T extends U[K] ? U : Record<K, T> & Omit<U, K>;
 export function assoc<U, K extends string>(prop: K, __: Placeholder, obj: U): <T>(val: T) => Record<K, T> & Omit<U, K>;
+export function assoc<K extends keyof U, U>(prop: K, val: U[K], obj: U): U;
 export function assoc<T, U, K extends string>(prop: K, val: T, obj: U): Record<K, T> & Omit<U, K>;
 export function assoc<T, K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & Omit<U, K>;
 export function assoc<K extends string>(prop: K): AssocPartialOne<K>;
@@ -643,6 +646,9 @@ export function call<T extends AnyFunction>(fn: T, ...args: Parameters<T>): Retu
  */
 export function chain<A, B, T = never>(fn: (n: A) => readonly B[], list: readonly A[]): B[];
 export function chain<A, B, T = never>(fn: (n: A) => readonly B[]): (list: readonly A[]) => B[];
+
+export function chain<A, Ma extends { chain: (fn: (a: A) => Mb) => Mb }, Mb>(fn: (a: A) => Mb, monad: Ma): Mb;
+export function chain<A, Ma extends { chain: (fn: (a: A) => Mb) => Mb }, Mb>(fn: (a: A) => Mb): (monad: Ma) => Mb;
 
 export function chain<A, B, R>(aToMb: (a: A, r: R) => B, Ma: (r: R) => A): (r: R) => B;
 export function chain<A, B, R>(aToMb: (a: A, r: R) => B): (Ma: (r: R) => A) => (r: R) => B;
@@ -3847,6 +3853,38 @@ export function partition(fn: (a: string) => boolean): (list: readonly string[])
  * R.path(['a', 'b', -2], {a: {b: [1, 2, 3]}}); //=> 2
  * ```
  */
+export function path<S, K0 extends keyof S = keyof S>(path: [K0], obj: S): S[K0];
+export function path<S, K0 extends keyof S = keyof S, K1 extends keyof S[K0] = keyof S[K0]>(path: [K0, K1], obj: S): S[K0][K1];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1]
+>(path: [K0, K1, K2], obj: S): S[K0][K1][K2];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+>(path: [K0, K1, K2, K3], obj: S): S[K0][K1][K2][K3];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+>(path: [K0, K1, K2, K3, K4], obj: S): S[K0][K1][K2][K3][K4];
+export function path<
+    S,
+    K0 extends keyof S = keyof S,
+    K1 extends keyof S[K0] = keyof S[K0],
+    K2 extends keyof S[K0][K1] = keyof S[K0][K1],
+    K3 extends keyof S[K0][K1][K2] = keyof S[K0][K1][K2],
+    K4 extends keyof S[K0][K1][K2][K3] = keyof S[K0][K1][K2][K3],
+    K5 extends keyof S[K0][K1][K2][K3][K4] = keyof S[K0][K1][K2][K3][K4],
+>(path: [K0, K1, K2, K3, K4, K5], obj: S): S[K0][K1][K2][K3][K4][K5];
 export function path<T>(path: Path, obj: any): T | undefined;
 export function path<T>(path: Path): (obj: any) => T | undefined;
 
@@ -3926,13 +3964,33 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: Pa
  * R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
  * ```
  */
+export function pick<T extends readonly [any, ...any], K extends string | number | symbol>(
+    names: readonly K[],
+    array: T,
+): {
+    [P in K as P extends string | number
+        ? _.N.Greater<`${T['length']}`, `${P}`> extends 1
+            ? P
+            : never
+        : never]: P extends keyof T ? T[P] : T[number];
+};
 export function pick<T, K extends string | number | symbol>(
     names: readonly K[],
     obj: T,
-): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): { [P in keyof T as P extends K ? P : never]: T[P] };
 export function pick<K extends string | number | symbol>(
     names: readonly K[],
-): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): <T extends readonly [any, ...any] | object>(
+    obj: T,
+) => T extends readonly [any, ...any]
+    ? {
+          [P in K as P extends string | number
+              ? _.N.Greater<`${T['length']}`, `${P}`> extends 1
+                  ? P
+                  : never
+              : never]: P extends keyof T ? T[P] : T[number];
+      }
+    : { [P in keyof T as P extends K ? P : never]: T[P] };
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.
@@ -3943,6 +4001,7 @@ export function pick<K extends string | number | symbol>(
  * R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  * ```
  */
+export function pickAll<T, K extends keyof T>(names: readonly K[], obj: T): Pick<T, K>;
 export function pickAll<T, U>(names: readonly string[], obj: T): U;
 export function pickAll(names: readonly string[]): <T, U>(obj: T) => U;
 
@@ -4312,13 +4371,18 @@ export function promap<A, B>(
  * ```typescript
  * R.prop('x', {x: 100}); //=> 100
  * R.prop(0, [100]); //=> 100
- * R.compose(R.inc, R.prop<'x', number>('x'))({ x: 3 }) //=> 4
+ * R.compose(R.inc, R.prop<number>('x'))({ x: 3 }) //=> 4
  * ```
  */
-export function prop<T>(__: Placeholder, obj: T): <P extends keyof T>(p: P) => T[P];
-export function prop<P extends keyof T, T>(p: P, obj: T): T[P];
-export function prop<P extends string>(p: P): <T>(obj: Record<P, T>) => T;
-export function prop<P extends string, T>(p: P): (obj: Record<P, T>) => T;
+export function prop<_, T>(__: Placeholder, value: T): {
+    <P extends keyof Exclude<T, undefined>>(p: P): Prop<T, P>;
+    <P extends keyof never>(p: P): Prop<T, P>;
+};
+export function prop<V>(__: Placeholder, value: unknown): (p: keyof never) => V;
+export function prop<_, P extends keyof never, T>(p: P, value: T): Prop<T, P>;
+export function prop<V>(p: keyof never, value: unknown): V;
+export function prop<_, P extends keyof never>(p: P): <T>(value: T) => Prop<T, P>;
+export function prop<V>(p: keyof never): (value: unknown) => V;
 
 // NOTE: `hair` property was added to `alois` to make example work.
 // A union of two types is a valid usecase but doesn't work with current types
@@ -5094,7 +5158,7 @@ export function symmetricDifference<T>(list: readonly T[]): <T>(list: readonly T
  *
  * @example
  * ```typescript
- * const eqA = R.eqBy(R.prop<'a', number>('a'));
+ * const eqA = R.eqBy(R.prop<number>('a'));
  * const l1 = [{a: 1}, {a: 2}, {a: 3}, {a: 4}];
  * const l2 = [{a: 3}, {a: 4}, {a: 5}, {a: 6}];
  * R.symmetricDifferenceWith(eqA, l1, l2); //=> [{a: 1}, {a: 2}, {a: 5}, {a: 6}]
@@ -5236,6 +5300,8 @@ export function takeWhile<T>(fn: (x: T) => boolean): (list: readonly T[]) => T[]
  * // logs 'x is 100'
  * ```
  */
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R, value: T): R;
+export function tap<T, R extends T = T>(fn: (a: T) => asserts a is R): (value: T) => R;
 export function tap<T>(fn: (a: T) => void, value: T): T;
 export function tap<T>(fn: (a: T) => void): (value: T) => T;
 
@@ -6011,8 +6077,8 @@ export function whereEq<T>(spec: T): <U>(obj: U) => boolean;
  * R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
  * ```
  */
-export function without<T>(list1: readonly T[], list2: readonly T[]): T[];
-export function without<T>(list1: readonly T[]): (list2: readonly T[]) => T[];
+export function without<T>(list1: readonly unknown[], list2: readonly T[]): T[];
+export function without<T>(list1: readonly T[] | readonly unknown[]): (list2: readonly T[]) => T[];
 
 /**
  * Exclusive disjunction logical operation.

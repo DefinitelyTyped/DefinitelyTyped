@@ -3,7 +3,6 @@
     "rules": {
         "member-access": false,
         "new-parens": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-var-keyword": false,
         "object-literal-key-quotes": false,
@@ -12,7 +11,6 @@
         "only-arrow-functions": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "triple-equals": false,
         "whitespace": false
     }

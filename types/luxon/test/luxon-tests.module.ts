@@ -234,6 +234,8 @@ dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.rescale(); // $ExpectType Duration
+dur.shiftToAll(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === 'hours' ? x * 2 : x)); // $ExpectType Duration
 
@@ -259,6 +261,7 @@ i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
 i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
+i.toLocaleString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
 // @ts-expect-error

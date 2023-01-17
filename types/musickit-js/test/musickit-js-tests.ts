@@ -1,12 +1,23 @@
 MusicKit.configure({
     app: {
-        build: "1.0",
-        name: "PLAYER_NAME",
+        build: '1.0',
+        name: 'PLAYER_NAME',
     },
-    developerToken: "devToken",
+    developerToken: 'devToken',
 });
 
 const player = MusicKit.getInstance();
+
+MusicKit.PlaybackStates.completed;
+MusicKit.PlaybackStates.ended;
+MusicKit.PlaybackStates.loading;
+MusicKit.PlaybackStates.none;
+MusicKit.PlaybackStates.paused;
+MusicKit.PlaybackStates.playing;
+MusicKit.PlaybackStates.seeking;
+MusicKit.PlaybackStates.stalled;
+MusicKit.PlaybackStates.stopped;
+MusicKit.PlaybackStates.waiting;
 
 const test = async () => {
     const { attributes } = await player.api.song('');
@@ -99,9 +110,9 @@ const test = async () => {
     } = await player.api.searchHints('james+brown');
 };
 
-player.addEventListener("playbackStateDidChange", ({ oldState, state }) => ({ oldState, state }));
-player.addEventListener("playbackProgressDidChange", ({ progress }) => ({ progress }));
-player.addEventListener("authorizationStatusDidChange", ({ authorizationStatus }) => {
+player.addEventListener('playbackStateDidChange', ({ oldState, state }) => ({ oldState, state }));
+player.addEventListener('playbackProgressDidChange', ({ progress }) => ({ progress }));
+player.addEventListener('authorizationStatusDidChange', ({ authorizationStatus }) => {
     switch (authorizationStatus) {
         case 0:
         case 1:
@@ -110,10 +121,10 @@ player.addEventListener("authorizationStatusDidChange", ({ authorizationStatus }
     }
 });
 
-player.removeEventListener("playbackStateDidChange");
+player.removeEventListener('playbackStateDidChange');
 
 player.pause();
 
 player.setQueue({
-    song: "trackId",
+    song: 'trackId',
 });

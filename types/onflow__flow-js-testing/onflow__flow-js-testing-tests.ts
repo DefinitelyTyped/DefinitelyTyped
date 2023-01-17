@@ -179,19 +179,19 @@ setTimestampOffset(1);
 
 /** Jest Helpers */
 
-// $ExpectType Promise<TransactionResponse>
+// $ExpectType Promise<[TransactionStatus, null]>
 shallPass(sendTransaction('set_greeting', [], ['Hello World']));
 
 // @ts-expect-error
 shallPass(1);
 
-// $ExpectType Promise<TransactionResponse>
+// $ExpectType Promise<[TransactionStatus | null, string | Error]>
 shallRevert(sendTransaction('set_greeting', [], ['Hello World']));
 
 // @ts-expect-error
 shallRevert(1);
 
-// $ExpectType Promise<ScriptResponse>
+// $ExpectType Promise<[any, null]>
 shallResolve(executeScript('get_greeting'));
 
 // @ts-expect-error

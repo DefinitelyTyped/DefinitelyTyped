@@ -137,7 +137,7 @@ export class Client {
      * @param key
      * @param callback
      */
-    get(key: string): Promise<{ value: Buffer; flags: Buffer }>;
+    get(key: string): Promise<{ value: Buffer | null; flags: Buffer | null }>;
     get(
         key: string,
         callback: (err: Error | null, value: Buffer | null, flags: Buffer | null) => void
