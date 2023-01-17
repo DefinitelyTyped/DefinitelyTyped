@@ -1,6 +1,6 @@
 // Type definitions for moment-guess 1.2
 // Project: https://github.com/apoorv-mishra/moment-guess#readme
-// Definitions by: Robin Van den Broeck <https://github.com/DefinitelyTyped>
+// Definitions by: Robin Van den Broeck <https://github.com/RobinVdBroeck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type Date = string;
