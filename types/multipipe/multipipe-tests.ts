@@ -1,7 +1,7 @@
 import stream = require('stream');
 import multipipe = require('multipipe');
 
-let rws: stream.Duplex;
+let rws: NodeJS.ReadWriteStream;
 
 const rs = new stream.Readable();
 const ws = new stream.Writable();
