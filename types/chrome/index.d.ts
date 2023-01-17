@@ -4825,6 +4825,9 @@ declare namespace chrome.identity {
     /** @since Chrome 84. */
     export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
 
+    /** @since Chrome 84. */
+    export function getProfileUserInfo(details: ProfileDetails): Promise<UserInfo>;
+
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
