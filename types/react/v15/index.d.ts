@@ -2674,7 +2674,7 @@ declare namespace React {
         content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
@@ -2898,7 +2898,7 @@ declare namespace React {
         autoFocus?: boolean | undefined;
         capture?: boolean | string | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -2949,7 +2949,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2971,7 +2971,7 @@ declare namespace React {
     interface MediaHTMLAttributes<T> extends HTMLAttributes<T> {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
         muted?: boolean | undefined;
@@ -3050,7 +3050,7 @@ declare namespace React {
     interface ScriptHTMLAttributes<T> extends HTMLAttributes<T> {
         async?: boolean | undefined;
         charSet?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         defer?: boolean | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
