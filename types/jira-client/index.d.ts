@@ -1122,7 +1122,7 @@ declare namespace JiraApi {
 
     interface SearchUserOptions {
         /** (DEPRECATED) A query string used to search username, name or e-mail address */
-        username: string;
+        username?: string | undefined;
         /**
          * A query string that is matched against user attributes
          * (displayName, and emailAddress) to find relevant users. The string can match the prefix of
