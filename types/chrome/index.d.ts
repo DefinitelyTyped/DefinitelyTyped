@@ -2119,7 +2119,7 @@ declare module chrome {
          * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
          * @return The `attach` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
          */
-         export function attach(target: Debuggee, requiredVersion: string): Promise<void>;
+        export function attach(target: Debuggee, requiredVersion: string): Promise<void>;
         /**
          * Attaches debugger to the given target.
          * @param target Debugging target to which you want to attach.
@@ -3046,7 +3046,7 @@ declare namespace chrome.downloads {
 
     export interface DownloadDeterminingFilenameEvent
         extends chrome.events.Event<
-        (downloadItem: DownloadItem, suggest: (suggestion?: DownloadFilenameSuggestion) => void) => void
+            (downloadItem: DownloadItem, suggest: (suggestion?: DownloadFilenameSuggestion) => void) => void
         > { }
 
     /**
@@ -3580,8 +3580,8 @@ declare namespace chrome.extension {
 
     export interface OnRequestEvent
         extends chrome.events.Event<
-        | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
-        | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+            | ((request: any, sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
+            | ((sender: runtime.MessageSender, sendResponse: (response: any) => void) => void)
         > { }
 
     /**
@@ -3954,115 +3954,115 @@ declare namespace chrome.fileSystemProvider {
 
     export interface RequestedEvent
         extends chrome.events.Event<
-        (options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void
+            (options: RequestedEventOptions, successCallback: Function, errorCallback: (error: string) => void) => void
         > { }
 
     export interface MetadataRequestedEvent
         extends chrome.events.Event<
-        (
-            options: MetadataRequestedEventOptions,
-            successCallback: (metadata: EntryMetadata) => void,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: MetadataRequestedEventOptions,
+                successCallback: (metadata: EntryMetadata) => void,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface DirectoryPathRequestedEvent
         extends chrome.events.Event<
-        (
-            options: DirectoryPathRequestedEventOptions,
-            successCallback: (entries: EntryMetadata[], hasMore: boolean) => void,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: DirectoryPathRequestedEventOptions,
+                successCallback: (entries: EntryMetadata[], hasMore: boolean) => void,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface OpenFileRequestedEvent
         extends chrome.events.Event<
-        (
-            options: OpenFileRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: OpenFileRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface OpenedFileRequestedEvent
         extends chrome.events.Event<
-        (
-            options: OpenedFileRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: OpenedFileRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface OpenedFileOffsetRequestedEvent
         extends chrome.events.Event<
-        (
-            options: OpenedFileOffsetRequestedEventOptions,
-            successCallback: (data: ArrayBuffer, hasMore: boolean) => void,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: OpenedFileOffsetRequestedEventOptions,
+                successCallback: (data: ArrayBuffer, hasMore: boolean) => void,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface DirectoryPathRecursiveRequestedEvent
         extends chrome.events.Event<
-        (
-            options: DirectoryPathRecursiveRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: DirectoryPathRecursiveRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface EntryPathRecursiveRequestedEvent
         extends chrome.events.Event<
-        (
-            options: EntryPathRecursiveRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: EntryPathRecursiveRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface FilePathRequestedEvent
         extends chrome.events.Event<
-        (
-            options: FilePathRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: FilePathRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface SourceTargetPathRequestedEvent
         extends chrome.events.Event<
-        (
-            options: SourceTargetPathRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: SourceTargetPathRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface FilePathLengthRequestedEvent
         extends chrome.events.Event<
-        (
-            options: FilePathLengthRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: FilePathLengthRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface OpenedFileIoRequestedEvent
         extends chrome.events.Event<
-        (
-            options: OpenedFileIoRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: OpenedFileIoRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface OperationRequestedEvent
         extends chrome.events.Event<
-        (
-            options: OperationRequestedEventOptions,
-            successCallback: Function,
-            errorCallback: (error: string) => void,
-        ) => void
+            (
+                options: OperationRequestedEventOptions,
+                successCallback: Function,
+                errorCallback: (error: string) => void,
+            ) => void
         > { }
 
     export interface OptionlessRequestedEvent
@@ -4188,12 +4188,12 @@ declare namespace chrome.fontSettings {
     export interface FontDetails {
         /** The generic font family for the font. */
         genericFamily:
-            | 'cursive'
-            | 'fantasy'
-            | 'fixed'
-            | 'sansserif'
-            | 'serif'
-            | 'standard';
+        | 'cursive'
+        | 'fantasy'
+        | 'fixed'
+        | 'sansserif'
+        | 'serif'
+        | 'standard';
         /** Optional. The script for the font. If omitted, the global script font setting is affected.  */
         script?: string | undefined;
     }
@@ -6030,7 +6030,7 @@ declare namespace chrome.offscreen {
         /** The offscreen document needs to interact with the clipboard APIs(e.g. Navigator.clipboard). */
         CLIPBOARD
     }
-    
+
     /** The parameters describing the offscreen document to create. */
     export interface CreateParameters {
         /** The reason(s) the extension is creating the offscreen document. */
@@ -6040,7 +6040,7 @@ declare namespace chrome.offscreen {
         /** A developer-provided string that explains, in more detail, the need for the background context. The user agent _may_ use this in display to the user. */
         justification: string;
     }
-    
+
     /**
      * Creates a new offscreen document for the extension.
      * @param parameters The parameters describing the offscreen document to create.
@@ -6052,7 +6052,7 @@ declare namespace chrome.offscreen {
      * @param callback Invoked when the offscreen document has been closed.
      */
     export function closeDocument(callback: () => void): void;
-    
+
 }
 
 ////////////////////
@@ -6478,7 +6478,7 @@ declare namespace chrome.printerProvider {
 
     export interface CapabilityRequestedEvent
         extends chrome.events.Event<
-        (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
+            (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
         > { }
 
     export interface PrintRequestedEvent
@@ -7105,7 +7105,7 @@ declare namespace chrome.runtime {
 
     export interface ExtensionMessageEvent
         extends chrome.events.Event<
-        (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
+            (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
         > { }
 
     export interface ExtensionConnectEvent extends chrome.events.Event<(port: Port) => void> { }
@@ -7391,12 +7391,12 @@ declare namespace chrome.runtime {
 
         // Optional
         background?:
-            | {
-                  scripts?: string[] | undefined;
-                  page?: string | undefined;
-                  persistent?: boolean | undefined;
-              }
-            | undefined;
+        | {
+            scripts?: string[] | undefined;
+            page?: string | undefined;
+            persistent?: boolean | undefined;
+        }
+        | undefined;
         content_security_policy?: string | undefined;
         optional_permissions?: string[] | undefined;
         permissions?: string[] | undefined;
@@ -7410,11 +7410,11 @@ declare namespace chrome.runtime {
         // Optional
         action?: ManifestAction | undefined;
         background?:
-            | {
-                  service_worker: string;
-                  type?: 'module'; // If the service worker uses ES modules
-              }
-            | undefined;
+        | {
+            service_worker: string;
+            type?: 'module'; // If the service worker uses ES modules
+        }
+        | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;
@@ -7711,7 +7711,7 @@ declare namespace chrome.scripting {
     } | ({
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
         func: () => Result;
-    }  | {
+    } | {
         /* A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of files and function must be specified. */
         func: (...args: Args) => Result;
         /* The arguments to carry into a provided function. This is only valid if the func parameter is specified. These arguments must be JSON-serializable. */
@@ -8106,7 +8106,7 @@ declare namespace chrome.storage {
     }
 
     export interface StorageAreaChangedEvent
-    extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void> { }
+        extends chrome.events.Event<(changes: { [key: string]: StorageChange }) => void> { }
 
     type AreaName = keyof Pick<typeof chrome.storage, 'sync' | 'local' | 'managed' | 'session'>;
     export interface StorageChangedEvent
@@ -10185,7 +10185,7 @@ declare namespace chrome.tabs {
  * Permissions:  "tabGroups"
  * @since Chrome 89. Manifest V3 and above.
  */
- declare namespace chrome.tabGroups {
+declare namespace chrome.tabGroups {
 
     /** An ID that represents the absence of a group. */
     export var TAB_GROUP_ID_NONE: -1;
@@ -10489,7 +10489,7 @@ declare namespace chrome.ttsEngine {
 
     export interface TtsEngineSpeakEvent
         extends chrome.events.Event<
-        (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void
+            (utterance: string, options: SpeakOptions, sendTtsEvent: (event: chrome.tts.TtsEvent) => void) => void
         > { }
 
     /** Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. */
@@ -11169,7 +11169,7 @@ declare namespace chrome.webRequest {
 
     export interface WebAuthenticationChallengeEvent
         extends chrome.events.EventWithRequiredFilterInAddListener<
-        (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
+            (details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void
         > {
         addListener(
             callback: (
@@ -11466,18 +11466,18 @@ declare namespace chrome.windows {
 
     export interface WindowIdEvent
         extends chrome.events.Event<(windowId: number) => void> {
-            addListener(
-                callback: (windowId: number) => void,
-                filters?: WindowEventFilter,
-            ): void;
+        addListener(
+            callback: (windowId: number) => void,
+            filters?: WindowEventFilter,
+        ): void;
     }
 
     export interface WindowReferenceEvent
         extends chrome.events.Event<(window: Window) => void> {
-            addListener(
-                callback: (window: Window) => void,
-                filters?: WindowEventFilter,
-            ): void;
+        addListener(
+            callback: (window: Window) => void,
+            filters?: WindowEventFilter,
+        ): void;
     }
 
     /**
@@ -11989,25 +11989,25 @@ declare namespace chrome.declarativeNetRequest {
          */
         urlFilter?: string | undefined;
     } & (
-        | {
-              /**
-               * List of resource types which the rule won't match.
-               * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
-               * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
-               * If neither of them is specified, all resource types except "main_frame" are blocked.
-               */
-              excludedResourceTypes?: ResourceType[] | undefined;
-          }
-        | {
-              /**
-               * List of resource types which the rule can match.
-               * An empty list is not allowed.
-               *
-               * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
-               */
-              resourceTypes?: ResourceType[] | undefined;
-          }
-    );
+            | {
+                /**
+                 * List of resource types which the rule won't match.
+                 * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
+                 * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
+                 * If neither of them is specified, all resource types except "main_frame" are blocked.
+                 */
+                excludedResourceTypes?: ResourceType[] | undefined;
+            }
+            | {
+                /**
+                 * List of resource types which the rule can match.
+                 * An empty list is not allowed.
+                 *
+                 * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+                 */
+                resourceTypes?: ResourceType[] | undefined;
+            }
+        );
 
     export interface MatchedRule {
         /** A matching rule's ID. */
