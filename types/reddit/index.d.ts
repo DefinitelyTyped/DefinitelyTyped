@@ -3,6 +3,8 @@
 // Definitions by: Noah Frederick <https://github.com/nfrederick023>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Reddit;
+
 /**
  * Simple Reddit API client - Powered by the official Reddit API
  *
@@ -10,7 +12,7 @@
  * @see https://github.com/reddit-archive/reddit/wiki/API
  * @see https://www.reddit.com/dev/api
  */
-export default class Reddit {
+declare class Reddit {
     /**
      * Create a new Reddit API client.
      *
@@ -28,18 +30,18 @@ export default class Reddit {
      * @see https://github.com/reddit-archive/reddit/wiki/OAuth2 for more infromation on OAuth2.
      *
      * @example
-     * import Reddit, { RedditCredentials } from "reddit";
+     * import Reddit from 'reddit';
      *
-     * const redditCredentials: RedditCredentials = {
+     * const credentials: Reddit.Credentials = {
      *  username: "username",
      *  password: "password",
      *  appId: "appId",
      *  appSecret: "appSecret"
      * };
      *
-     * const reddit = new Reddit(redditCredentials);
+     * const reddit = new Reddit(credentials);
      */
-    constructor(opts: RedditCredentials);
+    constructor(opts: Reddit.Credentials);
 
     /**
      * Invoke the Reddit API using the GET HTTP method.
@@ -54,7 +56,7 @@ export default class Reddit {
      * @see https://www.reddit.com/dev/api/ for a complete list of Reddit APIs and their parameters
      *
      * @example
-     * import Reddit from "reddit";
+     * import Reddit from 'reddit';
      *
      * const reddit = new Reddit({...credentials});
      *
@@ -79,7 +81,7 @@ export default class Reddit {
      * @see https://www.reddit.com/dev/api/ for a complete list of Reddit APIs and their parameters
      *
      * @example
-     * import Reddit from "reddit";
+     * import Reddit from 'reddit';
      *
      * const reddit = new Reddit({...credentials});
      * const params: ParamType = {...data};
@@ -101,7 +103,7 @@ export default class Reddit {
      * @see https://www.reddit.com/dev/api/ for a complete list of Reddit APIs and their parameters
      *
      * @example
-     * import Reddit from "reddit";
+     * import Reddit from 'reddit';
      *
      * const reddit = new Reddit({...credentials});
      * const params: ParamType = {...data};
@@ -123,7 +125,7 @@ export default class Reddit {
      * @see https://www.reddit.com/dev/api/ for a complete list of Reddit APIs and their parameters.
      *
      * @example
-     * import Reddit from "reddit";
+     * import Reddit from 'reddit';
      *
      * const reddit = new Reddit({...credentials});
      * const params: ParamType = {...data};
@@ -145,7 +147,7 @@ export default class Reddit {
      * @see https://www.reddit.com/dev/api/ for a complete list of Reddit APIs and their parameters.
      *
      * @example
-     * import Reddit from "reddit";
+     * import Reddit from 'reddit';
      *
      * const reddit = new Reddit({...credentials});
      * const params: ParamType = {...data};
@@ -155,34 +157,36 @@ export default class Reddit {
     delete<T = unknown, D = Record<string, never>>(url: string, data?: D): Promise<T>;
 }
 
-/**
- * Credentials to be passed to `Reddit`
- *
- * Required:
- * - `username` - Username of the reddit user.
- * - `password` - Password of the reddit user.
- * - `appId` - Client ID of the application.
- * - `appSecret` - Client Secret of the application.
- *
- * Optional:
- * - `userAgent` - Optional. Used as the `User-Agent` header in http requests.
- *
- * @see https://www.reddit.com/prefs/apps to find or create the client ID and secret.
- *
- * @example
- * import { RedditCredentials } from "reddit";
- *
- * const redditCredentials: RedditCredentials = {
- *  username: "username",
- *  password: "password",
- *  appId: "appId",
- *  appSecret: "appSecret"
- * };
- */
-export interface RedditCredentials {
-    username: string;
-    password: string;
-    appId: string;
-    appSecret: string;
-    userAgent?: string;
+declare namespace Reddit {
+    /**
+     * Credentials to be passed to `Reddit`
+     *
+     * Required:
+     * - `username` - Username of the reddit user.
+     * - `password` - Password of the reddit user.
+     * - `appId` - Client ID of the application.
+     * - `appSecret` - Client Secret of the application.
+     *
+     * Optional:
+     * - `userAgent` - Optional. Used as the `User-Agent` header in http requests.
+     *
+     * @see https://www.reddit.com/prefs/apps to find or create the client ID and secret.
+     *
+     * @example
+     * import Reddit from 'reddit';
+     *
+     * const credentials: Reddit.Credentials = {
+     *  username: "username",
+     *  password: "password",
+     *  appId: "appId",
+     *  appSecret: "appSecret"
+     * };
+     */
+    interface Credentials {
+        username: string;
+        password: string;
+        appId: string;
+        appSecret: string;
+        userAgent?: string;
+    }
 }

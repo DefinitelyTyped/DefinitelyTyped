@@ -1,4 +1,4 @@
-import Reddit, { RedditCredentials } from "reddit";
+import Reddit = require("reddit");
 
 interface Response {
     status: number;
@@ -11,7 +11,7 @@ interface Request {
 }
 
 async () => {
-    const creds: RedditCredentials = {
+    const creds: Reddit.Credentials = {
         username: 'username',
         password: 'password',
         appId: 'appId',
