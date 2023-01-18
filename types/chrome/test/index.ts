@@ -1656,3 +1656,9 @@ function testTopSites() {
 async function testTopSitesForPromise() {
     await chrome.topSites.get();
 }
+
+// https://developer.chrome.com/docs/extensions/reference/offscreen/
+async function testOffscreenDocument() {
+    chrome.offscreen.createDocument({reasons: [chrome.offscreen.Reason.CLIPBOARD], url: "https://example.com", justification: "Example"}, () => {});
+    chrome.offscreen.closeDocument(() => {});
+}

@@ -5999,6 +5999,63 @@ declare namespace chrome.notifications {
 }
 
 ////////////////////
+// Offscreen
+////////////////////
+/**
+ * Use the offscreen API to create and manage offscreen documents.
+ * Availability: Since Chrome 109. Manifest v3.
+ * Permissions: "offscreen"
+ */
+declare namespace chrome.offscreen {
+    /** The reason(s) the extension is creating the offscreen document. */
+    export enum Reason {
+        /** A reason used for testing purposes only. */
+        TESTING,
+        /** The offscreen document is responsible for playing audio. */
+        AUDIO_PLAYBACK,
+        /** The offscreen document needs to embed and script an iframe in order to modify the iframe's content. */
+        IFRAME_SCRIPTING,
+        /** The offscreen document needs to embed an iframe and scrape its DOM to extract information. */
+        DOM_SCRAPING,
+        /** The offscreen document needs to interact with Blob objects (including URL.createObjectURL()). */
+        BLOBS,
+        /** The offscreen document needs to use the DOMParser API. */
+        DOM_PARSER,
+        /** The offscreen document needs to interact with media streams from user media (e.g. getUserMedia()). */
+        USER_MEDIA,
+        /** The offscreen document needs to interact with media streams from display media (e.g. getDisplayMedia()). */
+        DISPLAY_MEDIA,
+        /** The offscreen document needs to use WebRTC APIs. */
+        WEB_RTC,
+        /** The offscreen document needs to interact with the clipboard APIs(e.g. Navigator.clipboard). */
+        CLIPBOARD
+    }
+    
+    /** The parameters describing the offscreen document to create. */
+    export interface CreateParameters {
+        /** The reason(s) the extension is creating the offscreen document. */
+        reasons: Reason[];
+        /** The (relative) URL to load in the document. */
+        url: string;
+        /** A developer-provided string that explains, in more detail, the need for the background context. The user agent _may_ use this in display to the user. */
+        justification: string;
+    }
+    
+    /**
+     * Creates a new offscreen document for the extension.
+     * @param parameters The parameters describing the offscreen document to create.
+     * @param callback Invoked when the offscreen document is created and has completed its initial page load.
+     */
+    export function createDocument(parameters: CreateParameters, callback: () => void): void;
+    /**
+     * Closes the currently-open offscreen document for the extension.
+     * @param callback Invoked when the offscreen document has been closed.
+     */
+    export function closeDocument(callback: () => void): void;
+    
+}
+
+////////////////////
 // Omnibox
 ////////////////////
 /**
