@@ -118,6 +118,7 @@ declare namespace Task {
         recipientSkipSMSNotifications?: boolean | undefined;
         requirements?: TaskCompletionRequirements | undefined;
         barcodes?: Barcode[] | undefined;
+        serviceTime?: number | undefined;
     }
 
     interface TaskAutoAssign {
