@@ -44,6 +44,7 @@ export interface ConfigureOptions {
     lstripBlocks?: boolean | undefined;
     watch?: boolean | undefined;
     noCache?: boolean | undefined;
+    dev?: boolean | undefined;
     web?:
         | {
               useCache?: boolean | undefined;
