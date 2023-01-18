@@ -64,7 +64,7 @@ export interface Context {
     /**
      * returns an XML writer for the supplied content writer
      */
-    getXmlWriter(contentWriter: ContentWriter): XmlWriter;
+    getXMLWriter(contentWriter: ContentWriter): XmlWriter;
 }
 
 /**
