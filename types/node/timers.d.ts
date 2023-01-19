@@ -62,6 +62,7 @@ declare module 'timers' {
                 [Symbol.toPrimitive](): number;
             }
         }
+        /** Sets a timer which executes a function or specified piece of code once the timer expires. **/
         function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
