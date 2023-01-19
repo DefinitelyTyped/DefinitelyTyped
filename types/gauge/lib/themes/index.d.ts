@@ -1,6 +1,5 @@
 /// <reference types="../../../node" />
 /// <reference types="../../template" />
-/// <reference types="../../helpers" />
 
 export default Themes;
 
@@ -80,7 +79,8 @@ interface Themes {
 }
 
 export type ThemeName = LiteralUnion<
-  'ASCII' | 'colorASCII' | 'brailleSpinner' | 'colorBrailleSpinner'
+  'ASCII' | 'colorASCII' | 'brailleSpinner' | 'colorBrailleSpinner',
+  string
 >;
 
 export type ThemeObject = Record<string, Primitive | ThemeFn> & {

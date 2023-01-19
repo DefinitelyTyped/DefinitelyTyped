@@ -1,5 +1,3 @@
-/// <reference types="./helpers" />
-
 type Status = Partial<Record<TemplateType, Primitive>>;
 
 type Template = Array<string | TemplateObject>;
@@ -54,5 +52,11 @@ interface TemplateObject {
 }
 
 type TemplateType = LiteralUnion<
-  'section' | 'subsection' | 'progressbar' | 'activityIndicator' | 'completed'
+  'section' | 'subsection' | 'progressbar' | 'activityIndicator' | 'completed',
+  string
 >;
+
+type Primitive = string | number | boolean | null | undefined;
+type LiteralUnion<T, BaseType extends Primitive> =
+  | T
+  | (BaseType & Record<never, never>);
