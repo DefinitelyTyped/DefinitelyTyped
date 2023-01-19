@@ -95,7 +95,6 @@ export const HoverPlot = () => {
     );
 };
 
-
 export const WebGLPlot = () => {
     return (
         <Plot
