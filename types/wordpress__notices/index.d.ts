@@ -121,6 +121,6 @@ export interface NoticesStoreDescriptor extends StoreDescriptor {
     name: 'core/notices';
 }
 
-declare module "@wordpress/notices" {
+declare module '@wordpress/notices' {
     const store: NoticesStoreDescriptor;
 }
