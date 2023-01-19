@@ -115,3 +115,11 @@ export interface Options {
      */
     onDismiss(): void;
 }
+
+export interface NoticesStoreDescriptor extends StoreDescriptor {
+    name: 'core/notices';
+}
+
+declare module "@wordpress/notices" {
+    const store: NoticesStoreDescriptor;
+}
