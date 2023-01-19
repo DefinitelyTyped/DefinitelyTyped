@@ -2095,6 +2095,11 @@ declare module 'react-syntax-highlighter/dist/esm/languages/prism/css' {
     export default language;
 }
 
+declare module 'react-syntax-highlighter/dist/esm/languages/prism/csv' {
+    const language: any;
+    export default language;
+}
+
 declare module 'react-syntax-highlighter/dist/esm/languages/prism/cypher' {
     const language: any;
     export default language;
