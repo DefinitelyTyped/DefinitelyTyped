@@ -96,6 +96,8 @@ export interface PlotParams {
     onTransitioning?: (() => void) | undefined;
     onTransitionInterrupted?: (() => void) | undefined;
     onUnhover?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
+    onWebGlContextLost?: (() => void) | undefined;
 }
 
-export default class Plot extends React.PureComponent<PlotParams> {}
+export default class Plot extends React.PureComponent<PlotParams> {
+}
