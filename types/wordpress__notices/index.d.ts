@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
+import { StoreDescriptor } from '@wordpress/data';
 import { MouseEventHandler } from 'react';
 
 declare module '@wordpress/data' {
