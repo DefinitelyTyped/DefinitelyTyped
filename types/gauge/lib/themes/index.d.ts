@@ -1,5 +1,6 @@
 /// <reference types="../../../node" />
-/// <reference types="../../template" />
+
+import { LiteralUnion, Primitive, Status } from '../../template';
 
 export default Themes;
 

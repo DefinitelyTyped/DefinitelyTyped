@@ -1,3 +1,4 @@
+import { Status, Template } from '../../template';
 import { ThemeName, ThemeObject, ThemeOpts } from '../themes';
 
 /**

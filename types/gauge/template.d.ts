@@ -1,8 +1,8 @@
-type Status = Partial<Record<TemplateType, Primitive>>;
+export type Status = Partial<Record<TemplateType, Primitive>>;
 
-type Template = Array<string | TemplateObject>;
+export type Template = Array<string | TemplateObject>;
 
-interface TemplateObject {
+export interface TemplateObject {
   /**
    * Can be any of the following plus any keys you pass into gauge.show plus any
    * keys you have on a custom theme.
@@ -51,12 +51,12 @@ interface TemplateObject {
   default?: Primitive;
 }
 
-type TemplateType = LiteralUnion<
+export type TemplateType = LiteralUnion<
   'section' | 'subsection' | 'progressbar' | 'activityIndicator' | 'completed',
   string
 >;
 
-type Primitive = string | number | boolean | null | undefined;
-type LiteralUnion<T, BaseType extends Primitive> =
+export type Primitive = string | number | boolean | null | undefined;
+export type LiteralUnion<T, BaseType extends Primitive> =
   | T
   | (BaseType & Record<never, never>);

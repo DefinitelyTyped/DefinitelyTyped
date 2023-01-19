@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="./template" />
 
 import { Stream } from 'stream';
 import Plumbing from './lib/plumbing';
+import { Status, Template, TemplateObject } from './template';
 import Themes, { ThemeName, ThemeObject, ThemeOpts } from './lib/themes';
 
 export = Gauge;
