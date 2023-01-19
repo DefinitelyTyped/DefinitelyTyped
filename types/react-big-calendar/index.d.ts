@@ -213,7 +213,7 @@ export interface Components<TEvent extends object = Event, TResource extends obj
     event?: React.ComponentType<EventProps<TEvent>> | undefined;
     eventWrapper?: React.ComponentType<EventWrapperProps<TEvent>> | undefined;
     eventContainerWrapper?: React.ComponentType | undefined;
-    dateCellWrapper?: React.ComponentType | undefined;
+    dateCellWrapper?: React.ComponentType<DateCellWrapperProps> | undefined;
     dayColumnWrapper?: React.ComponentType | undefined;
     timeSlotWrapper?: React.ComponentType | undefined;
     timeGutterHeader?: React.ComponentType | undefined;
