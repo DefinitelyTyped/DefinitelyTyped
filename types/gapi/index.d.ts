@@ -166,6 +166,10 @@ declare namespace gapi.client {
          * The scopes to request, as a space-delimited string.
          */
         scope?: string | undefined,
+        /**
+         * Arbitrary value. If present, allows keys generated after July 29th, 2022 to work with the old (deprecated) api.
+         */
+        plugin_name?: string;
 
         hosted_domain?: string | undefined;
     }): Promise<void>;

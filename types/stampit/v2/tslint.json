@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "jsdoc-format": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
         "no-padding": false,
@@ -16,7 +15,6 @@
         "semicolon": false,
         "space-before-function-paren": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

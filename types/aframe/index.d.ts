@@ -3,7 +3,6 @@
 // Definitions by: Paul Shannon <https://github.com/devpaul>
 //                 Roberto Ritger <https://github.com/bertoritger>
 //                 Trygve Wastvedt <https://github.com/twastvedt>
-//                 Marc Buils <https://github.com/metapins>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 

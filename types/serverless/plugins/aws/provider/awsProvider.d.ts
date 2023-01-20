@@ -44,6 +44,7 @@ declare namespace Aws {
         websocketsApiRouteSelectionExpression?: string | undefined;
         profile?: string | undefined;
         memorySize?: number | string | undefined;
+        ephemeralStorageSize?: number | string | undefined;
         reservedConcurrency?: number | string | undefined;
         timeout?: number | string | undefined;
         logRetentionInDays?: number | string | undefined;
@@ -660,6 +661,7 @@ declare namespace Aws {
         name?: string | undefined;
         description?: string | undefined;
         memorySize?: number | string | undefined;
+        ephemeralStorageSize?: number | string | undefined;
         reservedConcurrency?: number | string | undefined;
         provisionedConcurrency?: number | string | undefined;
         runtime?: string | undefined;

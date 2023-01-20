@@ -38,6 +38,8 @@ export interface Font {
     xHeight: number;
     /** the font’s bounding box, i.e. the box that encloses all glyphs in the font */
     bbox: BBOX;
+    /** the font metric table consisting of a set of metrics and other data required for OpenType fonts */
+    'OS/2': Os2Table;
 
     /** the number of glyphs in the font */
     numGlyphs: number;
@@ -83,7 +85,7 @@ export interface Font {
         features?: string[] | Record<string, boolean>,
         script?: string,
         language?: string,
-        direction?: string
+        direction?: string,
     ): GlyphRun;
 }
 
@@ -260,12 +262,62 @@ export interface BBOX {
     maxY: number;
 }
 
+export interface Os2Table {
+    breakChar: number;
+    capHeight: number;
+    codePageRange: number[];
+    defaultChar: number;
+    fsSelection: {
+        italic: boolean;
+        negative: boolean;
+        outlined: boolean;
+        strikeout: boolean;
+        underscore: boolean;
+        useTypoMetrics: boolean;
+        wws: boolean;
+    };
+    fsType: {
+        bitmapOnly: boolean;
+        editable: boolean;
+        noEmbedding: boolean;
+        noSubsetting: boolean;
+        viewOnly: boolean;
+    };
+    maxContent: number;
+    panose: number[];
+    sFamilyClass: number;
+    typoAscender: number;
+    typoDescender: number;
+    typoLineGap: number;
+    ulCharRange: number[];
+    usFirstCharIndex: number;
+    usLastCharIndex: number;
+    usWeightClass: number;
+    usWidthClass: number;
+    vendorID: string;
+    version: number;
+    winAscent: number;
+    winDescent: number;
+    xAvgCharWidth: number;
+    xHeight: number;
+    yStrikeoutPosition: number;
+    yStrikeoutSize: number;
+    ySubscriptXOffset: number;
+    ySubscriptXSize: number;
+    ySubscriptYOffset: number;
+    ySubscriptYSize: number;
+    ySuperscriptXOffset: number;
+    ySuperscriptXSize: number;
+    ySuperscriptYOffset: number;
+    ySuperscriptYSize: number;
+}
+
 /**
- * Opens a font file asynchronously, and calls the callback with a font object.
+ * Opens a font file asynchronously, returning a promise that resolves with a font object.
  * For collection fonts (such as TrueType collection files),
  * you can pass a postscriptName to get that font out of the collection instead of a collection object.
  */
-export function open(filename: string, postscriptName: string, callback: (err: Error | null, font: Font) => void): void;
+export function open(filename: string, postscriptName?: string): Promise<Font>;
 
 /**
  * Opens a font file synchronously, and returns a font object.

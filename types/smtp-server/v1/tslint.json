@@ -7,7 +7,6 @@
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
         "prefer-const": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

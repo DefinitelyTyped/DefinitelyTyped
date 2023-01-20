@@ -11,5 +11,5 @@ export class PCDLoader extends Loader {
         onError?: (event: ErrorEvent) => void,
     ): void;
     loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Points>;
-    parse(data: ArrayBuffer | string, url: string): Points;
+    parse(data: ArrayBuffer | string): Points;
 }

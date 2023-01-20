@@ -9,7 +9,6 @@
         "npm-naming": false,
         "one-line": false,
         "only-arrow-functions": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

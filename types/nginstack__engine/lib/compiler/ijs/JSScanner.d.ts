@@ -9,5 +9,9 @@ declare class JSScanner {
     position: number;
     token: string;
     source: string;
-    tokenWord: any;
+    tokenWord: JSTokenWord;
 }
+declare namespace JSScanner {
+    export { JSTokenWord };
+}
+type JSTokenWord = import('./JSTokenWord');

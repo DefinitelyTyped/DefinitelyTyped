@@ -4,6 +4,7 @@
 //                 James Lismore <https://github.com/jlismore/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
 import { StringSchema, Extension, Root, Reference } from 'joi';
 
 declare module 'joi' {

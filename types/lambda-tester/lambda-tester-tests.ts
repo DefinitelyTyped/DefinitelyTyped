@@ -10,13 +10,14 @@ import {
     APIGatewayProxyResult,
 } from 'aws-lambda';
 
-const handler: Handler = () => Promise.resolve();
-const context: Context = {} as any;
-const clientContext: ClientContext = {} as any;
-
 interface TResult {
     data: string;
 }
+
+const handler: Handler<any, TResult> = () => Promise.resolve({ data: '123' });
+const context: Context = {} as any;
+const clientContext: ClientContext = {} as any;
+
 interface TError {
     message: string;
 }
@@ -70,3 +71,10 @@ s3Lambda.expectResolve((result: APIGatewayProxyResult) => {});
 s3Lambda.expectReject((error: TError) => {
     const t: string = error.message;
 });
+
+s3Lambda.expectResult();
+s3Lambda.expectResolve();
+s3Lambda.expectReject();
+s3Lambda.expectError();
+s3Lambda.expectFail();
+s3Lambda.expectSucceed();

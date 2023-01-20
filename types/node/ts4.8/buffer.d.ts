@@ -166,7 +166,12 @@ declare module 'buffer' {
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
 
-    import { Blob as _Blob } from 'buffer';
+    import { Blob as NodeBlob } from 'buffer';
+    // This conditional type will be the existing global Blob in a browser, or
+    // the copy below in a Node environment.
+    type __Blob = typeof globalThis extends { onmessage: any, Blob: any }
+        ? {} : NodeBlob;
+
     global {
         // Buffer class
         type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
@@ -2235,6 +2240,7 @@ declare module 'buffer' {
          */
         function btoa(data: string): string;
 
+        interface Blob extends __Blob {}
         /**
          * `Blob` class is a global reference for `require('node:buffer').Blob`
          * https://nodejs.org/api/buffer.html#class-blob
@@ -2245,7 +2251,7 @@ declare module 'buffer' {
             Blob: infer T;
         }
             ? T
-            : typeof _Blob;
+            : typeof NodeBlob;
     }
 }
 declare module 'node:buffer' {

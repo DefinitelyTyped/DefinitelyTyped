@@ -1,5 +1,5 @@
 import NodeBuilder from '../../../nodes/core/NodeBuilder';
-import { Texture, TextureEncoding, Renderer, Object3D } from '../../../../../src/Three';
+import { Renderer, Object3D } from '../../../../../src/Three';
 import Node from '../../../nodes/core/Node';
 import SlotNode from './SlotNode';
 import { NodeShaderStageOption } from '../../../nodes/core/constants';
@@ -39,15 +39,16 @@ export class WebGLNodeBuilder extends NodeBuilder {
 
     getVarys(shaderStage: string): string;
 
-    addCodeAfterCode(shaderStage: string, snippet: string, code: string): string;
+    addCode(shaderStage: string, source: string, code: string, scope?: this): string;
     addCodeAfterInclude(shaderStage: string, snippet: string, code: string): string;
 
-    replaceCode(shaderStage: string, source: string, target: string): void;
+    replaceCode(shaderStage: string, source: string, target: string, scope?: this): void;
     parseInclude(shaderStage: string, ...includes: string[]): void;
-    getTextureEncodingFromMap(map: Texture): TextureEncoding;
 
     getInstanceIndex(): string;
     getFrontFacing(): string;
+    getFragCoord(): 'gl_FragCoord';
+    isFlipY(): true;
 
     buildCode(): void;
     build(): this;

@@ -131,9 +131,11 @@ export interface IRouterMatcher<
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        // (it's used as the default type parameter for P)
+        // eslint-disable-next-line no-unnecessary-generics
         path: Route,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
@@ -144,9 +146,11 @@ export interface IRouterMatcher<
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (it's used as the default type parameter for P)
+        // (it's used as the default type parameter for P)
+        // eslint-disable-next-line no-unnecessary-generics
         path: Path,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
@@ -157,7 +161,8 @@ export interface IRouterMatcher<
         Locals extends Record<string, any> = Record<string, any>
     >(
         path: PathParams,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
@@ -168,7 +173,8 @@ export interface IRouterMatcher<
         Locals extends Record<string, any> = Record<string, any>
     >(
         path: PathParams,
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     (path: PathParams, subApplication: Application): T;
@@ -184,7 +190,8 @@ export interface IRouterHandler<T, Route extends string = string> {
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
         >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+            // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
@@ -194,7 +201,8 @@ export interface IRouterHandler<T, Route extends string = string> {
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
         >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+            // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
@@ -204,7 +212,8 @@ export interface IRouterHandler<T, Route extends string = string> {
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
     <
@@ -214,7 +223,8 @@ export interface IRouterHandler<T, Route extends string = string> {
         ReqQuery = ParsedQs,
         Locals extends Record<string, any> = Record<string, any>
     >(
-        // tslint:disable-next-line no-unnecessary-generics (This generic is meant to be passed explicitly.)
+        // (This generic is meant to be passed explicitly.)
+        // eslint-disable-next-line no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, Locals>>
     ): T;
 }

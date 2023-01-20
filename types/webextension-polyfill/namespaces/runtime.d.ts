@@ -438,16 +438,30 @@ export namespace Runtime {
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessage: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessage: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * Fired when a message is sent from another extension/app. Cannot be used in a content script.
          *
          * @param message Optional. The message sent by the calling script.
          * @param sender
+         * @param sendResponse Function to call (at most once) when you have a response. This is an alternative to returning a
+         * Promise. The argument should be any JSON-ifiable object. If you have more than one <code>onMessage</code>
+         * listener in the same document, then only one may send a response. This function becomes invalid when the event listener
+         * returns, unless you return true from the event listener to indicate you wish to send a response asynchronously (this
+         * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
-        onMessageExternal: Events.Event<(message: any, sender: MessageSender) => Promise<any> | void>;
+        onMessageExternal: Events.Event<
+            (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
+        >;
 
         /**
          * This will be defined during an API method callback if there was an error

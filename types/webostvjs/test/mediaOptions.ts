@@ -19,6 +19,8 @@ const mediaOptions: MediaOptions = {
             maxHeight: 800,
             bps: {
                 start: 100000,
+                minimum: 0,
+                maximum: 1e10,
             },
         },
     },

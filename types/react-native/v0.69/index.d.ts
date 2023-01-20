@@ -373,7 +373,7 @@ type TaskProvider = () => Task;
 type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
-export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, NodeHandle, NodeHandle> {}
+export interface NativeSyntheticEvent<T> extends React.BaseSyntheticEvent<T, React.ElementRef<HostComponent<unknown>>, React.ElementRef<HostComponent<unknown>>> {}
 
 export interface NativeTouchEvent {
     /**
@@ -409,7 +409,7 @@ export interface NativeTouchEvent {
     /**
      * The node id of the element receiving the touch event
      */
-    target: string;
+    target: NodeHandle;
 
     /**
      * A time identifier for the touch, useful for velocity calculation
@@ -916,7 +916,7 @@ export interface LayoutRectangle {
 }
 
 // @see TextProps.onLayout
-export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle }>;
+export type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle, target?: NodeHandle | null }>;
 
 interface TextLayoutLine {
     ascender: number;
@@ -3268,6 +3268,12 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
      */
     getScrollResponder(): JSX.Element;
 }
+
+/**
+ * React Native provides RootTag and RootTagContext as identifiers for a window's root view
+ */
+ export type RootTag = number;
+ export const RootTagContext: React.Context<RootTag>;
 
 export interface SliderPropsAndroid extends ViewProps {
     /**
@@ -8444,9 +8450,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean;
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**

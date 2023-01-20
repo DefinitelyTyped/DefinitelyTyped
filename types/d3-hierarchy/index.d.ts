@@ -237,7 +237,7 @@ export interface StratifyOperator<Datum> {
 /**
  * Constructs a new stratify operator with the default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function stratify<Datum>(): StratifyOperator<Datum>;
 
 // -----------------------------------------------------------------------
@@ -325,7 +325,7 @@ export interface ClusterLayout<Datum> {
 /**
  * Creates a new cluster layout with default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function cluster<Datum>(): ClusterLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -383,7 +383,7 @@ export interface TreeLayout<Datum> {
 /**
  * Creates a new tree layout with default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function tree<Datum>(): TreeLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -611,7 +611,7 @@ export interface TreemapLayout<Datum> {
 /**
  * Creates a new treemap layout with default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function treemap<Datum>(): TreemapLayout<Datum>;
 
 // Tiling functions ------------------------------------------------------
@@ -723,7 +723,7 @@ export interface PartitionLayout<Datum> {
 /**
  * Creates a new partition layout with the default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function partition<Datum>(): PartitionLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -835,7 +835,7 @@ export interface PackLayout<Datum> {
 /**
  * Creates a new pack layout with the default settings.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function pack<Datum>(): PackLayout<Datum>;
 
 // -----------------------------------------------------------------------
@@ -894,5 +894,5 @@ export function packSiblings<Datum extends PackRadius>(circles: Datum[]): Array<
  *
  * @param circles The specified array of circles to pack.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export function packEnclose<Datum extends PackCircle>(circles: Datum[]): PackCircle;

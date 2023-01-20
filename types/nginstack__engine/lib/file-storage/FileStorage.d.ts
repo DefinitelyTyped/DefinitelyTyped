@@ -35,10 +35,10 @@ declare class FileStorage {
     getFileAttributes(fileKey: number): any;
     updateFileAttributes(fileKey: number, attributes: any, originalName?: string): void;
     formatUniqueFileName(originalFileName: string, attributes: any): string;
-    findLinkedFiles(key: number | DBKey, filters?: any): any[];
+    findLinkedFiles(key: number | DBKey, filters?: any): FileInfo[];
     getLinkedFilesSize(key: number | DBKey): number;
     getLinkedFilesCount(key: number | DBKey): number;
-    findFileByName(fileName: string): any;
+    findFileByName(fileName: string): FileInfo;
     relationshipExists(fileKey: number, targetKey: number): boolean;
     linkFile(fileKey: number, recordKey: number): void;
     addFile(
@@ -56,13 +56,14 @@ declare class FileStorage {
     ): void;
 }
 declare namespace FileStorage {
-    export { StorageKind, DBKey };
+    export { StorageKind, FileInfo, DBKey };
 }
 type StorageKind = string;
 declare namespace StorageKind {
     const VFS: string;
     const LOB: string;
 }
-type DBKey = import('../dbkey/DBKey');
+type DBKey = any;
+type FileInfo = import('./FileInfo');
 import File = require('../io/File.js');
 import MemoryStream = require('../io/MemoryStream.js');

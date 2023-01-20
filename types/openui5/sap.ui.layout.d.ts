@@ -1,4 +1,4 @@
-// For Library Version: 1.107.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -13933,7 +13933,7 @@ declare module "sap/ui/layout/SplitterLayoutData" {
 
   /**
    * @SINCE 1.22.0
-   * @EXPERIMENTAL (since 1.22.0)
+   * @EXPERIMENTAL (since 1.22.0) - API is not yet finished and might change completely
    *
    * Holds layout data for the splitter contents. Allowed size values are numeric values ending in "px" and
    * "%" and the special case "auto". (The CSS value "auto" is used internally to recalculate the size of

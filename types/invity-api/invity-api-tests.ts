@@ -5,6 +5,7 @@ import {
     P2pTradeRequest,
     SavingsTradeKYCStatusSuccessfulResponse,
     SellFiatTrade,
+    SavingsTrade,
 } from 'invity-api';
 
 const bt: BuyTrade = {};
@@ -12,6 +13,8 @@ const bt: BuyTrade = {};
 const et: ExchangeTrade = {};
 
 const sft: SellFiatTrade = {};
+
+const svt: SavingsTrade = { exchange: '' };
 
 const p2pQuote: P2pQuote = {
     provider: '',

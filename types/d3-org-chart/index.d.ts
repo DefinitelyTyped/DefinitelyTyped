@@ -6,8 +6,6 @@
 import { HierarchyNode } from 'd3-hierarchy';
 import { Selection } from 'd3-selection';
 
-export as namespace d3;
-
 export type NodeId = string | number;
 export type Connection = any;
 
@@ -106,6 +104,8 @@ export class OrgChart<Datum> {
     svgWidth(value: number): this;
     svgHeight(): number;
     svgHeight(value: number): this;
+    scaleExtent(): [number, number];
+    scaleExtent(value: [number, number]): this;
     container(): string; // CSS selector string, for example "#my-chart"
     container(value: string): this;
     defaultTextFill(): string; // CSS color, for example "#2C3E50"

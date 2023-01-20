@@ -10,6 +10,7 @@
 //                 Joe Flateau <https://github.com/joeflateau>
 //                 KuanYu Chu <https://github.com/ckybonist>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through
@@ -6162,6 +6163,12 @@ declare namespace videojs {
         url: string;
         rawRequest: XMLHttpRequest;
     }
+
+    const Vhs: {
+        xhr: {
+            beforeRequest: (options: XhrOptions) => void;
+        };
+    };
 }
 
 /**
@@ -6554,7 +6561,7 @@ export interface VideoJsPlayer extends videojs.Component {
      */
     defaultPlaybackRate(rate: number): videojs.Player;
 
-    defaultPlaybackRate(): boolean;
+    defaultPlaybackRate(): number;
 
     /**
      * A getter/setter for the `Player`'s width & height.

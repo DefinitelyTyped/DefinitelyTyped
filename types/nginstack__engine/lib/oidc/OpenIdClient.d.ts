@@ -19,15 +19,20 @@ declare class OpenIdClient {
     exchangeClientCredentials(
         scopes?: string | string[]
     ): import('../oauth2/OAuth2Client').TokenResponse;
-    introspect(accessToken: string): any;
+    introspect(accessToken: string): TokenIntrospectionResponse;
     revoke(token: string, tokenType?: string): void;
     getUserInfo(accessToken: string, subject?: string): any;
     getCodeVerifier(): string;
     getCodeChallenge(verifier: string): string;
-    getSigningKey(kid: string): any;
+    getSigningKey(kid: string): CryptoPKey;
 }
 declare namespace OpenIdClient {
-    export { OpenIdClientConstructorOptions, AuthorizationRequestOptions };
+    export {
+        CryptoPKey,
+        TokenIntrospectionResponse,
+        OpenIdClientConstructorOptions,
+        AuthorizationRequestOptions,
+    };
 }
 interface OpenIdClientConstructorOptions {
     clientId?: string;
@@ -54,3 +59,5 @@ interface AuthorizationRequestOptions {
     prompt?: string | string[];
     extraParams?: Record<string, string>;
 }
+type TokenIntrospectionResponse = import('../oauth2/OAuth2Client').TokenIntrospectionResponse;
+type CryptoPKey = import('../crypto/CryptoPKey');

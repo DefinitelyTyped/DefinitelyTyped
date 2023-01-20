@@ -1,5 +1,4 @@
-import * as Glue from "@hapi/glue";
-import * as Hapi from "@hapi/hapi";
+import * as Glue from '@hapi/glue';
 
 const manifest: Glue.Manifest = {
   server: {

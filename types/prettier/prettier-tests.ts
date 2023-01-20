@@ -197,6 +197,21 @@ const plugin: prettier.Plugin<PluginAST> = {
             array: true,
             description: 'This is a number.',
         },
+        testStringOption: {
+            since: '1.0.0',
+            type: 'string',
+            category: 'Test',
+            default: 'default',
+            description: 'This is a string.',
+        },
+        testStringArrOption: {
+            since: '1.0.0',
+            type: 'string',
+            category: 'Test',
+            default: [{ value: ['one', 'two', 'three'] }],
+            array: true,
+            description: 'This is a string.',
+        },
         testChoiceOption: {
             since: '1.0.3',
             type: 'choice',

@@ -3,6 +3,9 @@ Frida.version; // $ExpectType string
 // @ts-expect-error
 SourceMap;
 
+// $ExpectType ScriptRuntime
+Script.runtime;
+
 // $ExpectType any
 Script.evaluate("/true.js", "true");
 

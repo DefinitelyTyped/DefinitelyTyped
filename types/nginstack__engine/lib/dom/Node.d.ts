@@ -1,8 +1,8 @@
 export = Node;
 declare function Node(): void;
 declare class Node {
-    readonly modeName: string;
-    readonly nodeType: any;
+    readonly nodeName: string;
+    readonly nodeType: NodeType | '';
     readonly nodeValue: string;
     readonly parentNode: Node;
     readonly childNodes: NodeList;
@@ -37,8 +37,10 @@ declare namespace Node {
         NOTATION_NODE,
         NodeList,
         Document,
+        NodeType,
     };
 }
+type NodeType = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 type NodeList = import('./NodeList');
 type Document = import('./Document');
 declare var ELEMENT_NODE: number;

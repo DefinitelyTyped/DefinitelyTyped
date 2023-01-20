@@ -460,6 +460,7 @@ async function TestWebDriver() {
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
+    booleanPromise = driver.wait(booleanPromise, 123, 'Message', 10);
     webElementPromise = driver.wait(webElementCondition);
     webElementPromise = driver.wait(webElementCondition, 50, 'Message');
     webElementPromise = driver.wait(webElementCondition, 50, 'Message', 10);

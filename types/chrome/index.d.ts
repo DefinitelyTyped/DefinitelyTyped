@@ -138,9 +138,19 @@ declare namespace chrome.action {
         imageData?: ImageData | { [index: number]: ImageData } | undefined;
     }
 
+    export interface OpenPopupOptions {
+        /** Optional. The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
+        windowId?: number | undefined;
+    }
+
     export interface TabDetails {
         /** Optional. The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
         tabId?: number | undefined;
+    }
+
+    export interface UserSettings {
+        /** Whether the extension's action icon is visible on browser windows' top-level toolbar (i.e., whether the extension has been 'pinned' by the user). */
+        isOnToolbar: boolean;
     }
 
     /**
@@ -237,6 +247,39 @@ declare namespace chrome.action {
      * @return The `getTitle` method provides its result via callback or returned as a `Promise` (MV3 only).
      */
     export function getTitle(details: TabDetails): Promise<string>;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @param callback The callback parameter should be a function that looks like this:
+     * (userSettings: UserSettings) => {...}
+     */
+    export function getUserSettings(callback: (userSettings: UserSettings) => void): void;
+
+    /**
+     * Since Chrome 91.
+     * Returns the user-specified settings relating to an extension's action.
+     * @return The `getUserSettings` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function getUserSettings(): Promise<UserSettings>;
+
+    /**
+     * Since Chrome 99+.
+     * Opens the extension's popup.
+     * @param options Specifies options for opening the popup.
+     * () => {...}
+     * @return The `openPopup` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function openPopup(options?: OpenPopupOptions): Promise<void>;
+
+    /**
+     * Since Chrome 99+.
+     * Opens the extension's popup.
+     * @param options Specifies options for opening the popup.
+     * @param callback The callback parameter should be a function that looks like this:
+     * () => {...}
+     */
+    export function openPopup(options?: OpenPopupOptions, callback?: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -4782,6 +4825,9 @@ declare namespace chrome.identity {
     /** @since Chrome 84. */
     export function getProfileUserInfo(details: ProfileDetails, callback: (userInfo: UserInfo) => void): void;
 
+    /** @since Chrome 84. */
+    export function getProfileUserInfo(details: ProfileDetails): Promise<UserInfo>;
+
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
@@ -4797,11 +4843,12 @@ declare namespace chrome.identity {
      * This method enables auth flows with non-Google identity providers by launching a web view and navigating it to the first URL in the provider's auth flow. When the provider redirects to a URL matching the pattern https://<app-id>.chromiumapp.org/*, the window will close, and the final redirect URL will be passed to the callback function.
      * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
      * @param details WebAuth flow options.
-     * @param callback Called with the URL redirected back to your application.
+     * @param callback Optional. Called with the URL redirected back to your application.
      * The callback parameter should be a function that looks like this:
      * function(string responseUrl) {...};
      */
     export function launchWebAuthFlow(details: WebAuthFlowOptions, callback: (responseUrl?: string) => void): void;
+    export function launchWebAuthFlow(details: WebAuthFlowOptions): Promise<string | undefined>;
 
     /**
      * Generates a redirect URL to be used in launchWebAuthFlow.
@@ -7061,6 +7108,7 @@ declare namespace chrome.runtime {
         | 'geolocation'
         | 'history'
         | 'identity'
+        | 'identity.email'
         | 'idle'
         | 'loginState'
         | 'management'
@@ -7425,7 +7473,7 @@ declare namespace chrome.runtime {
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M, responseCallback: (response: R) => void): void;
+    export function sendMessage<M = any, R = any>(extensionId: string | undefined | null, message: M, responseCallback: (response: R) => void): void;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
@@ -7433,7 +7481,7 @@ declare namespace chrome.runtime {
      * Parameter response: The JSON response object sent by the handler of the message. If an error occurs while connecting to the extension, the callback will be called with no arguments and runtime.lastError will be set to the error message.
      */
     export function sendMessage<Message = any, Response = any>(
-        extensionId: string,
+        extensionId: string | undefined | null,
         message: Message,
         options: MessageOptions,
         responseCallback: (response: Response) => void,
@@ -7456,14 +7504,14 @@ declare namespace chrome.runtime {
      * @since Chrome 26.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      */
-    export function sendMessage<M = any, R = any>(extensionId: string, message: M): Promise<R>;
+    export function sendMessage<M = any, R = any>(extensionId: string | undefined | null, message: M): Promise<R>;
     /**
      * Sends a single message to event listeners within your extension/app or a different extension/app. Similar to runtime.connect but only sends a single message, with an optional response. If sending to your extension, the runtime.onMessage event will be fired in each page, or runtime.onMessageExternal, if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use tabs.sendMessage.
      * @since Chrome 32.
      * @param extensionId The ID of the extension/app to send the message to. If omitted, the message will be sent to your own extension/app. Required if sending messages from a web page for web messaging.
      */
     export function sendMessage<Message = any, Response = any>(
-        extensionId: string,
+        extensionId: string | undefined | null,
         message: Message,
         options: MessageOptions,
     ): Promise<Response>;
@@ -7601,6 +7649,8 @@ declare namespace chrome.scripting {
         target: InjectionTarget;
         /* The JavaScript world for a script to execute within. */
         world?: ExecutionWorld;
+        /* Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
+        injectImmediately?: boolean;
     } & ({
         /* The path of the JS files to inject, relative to the extension's root directory. NOTE: Currently a maximum of one file is supported. Exactly one of files and function must be specified. */
         files: string[];
@@ -7615,6 +7665,26 @@ declare namespace chrome.scripting {
     }))
 
     type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
+
+    interface RegisteredContentScript {
+        id: string;
+        allFrames?: boolean;
+        css?: string[];
+        excludeMatches?: string[];
+        js?: string[];
+        matches?: string[];
+        persistAcrossSessions?: boolean;
+        runAt?: "document_start" | "document_end" | "document_idle";
+        world?: ExecutionWorld;
+    }
+
+    interface ContentScriptFilter {
+        ids?: string[];
+        css?: string;
+        files?: string[];
+        origin?: StyleOrigin;
+        target?: InjectionTarget;
+    }
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7649,6 +7719,71 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the injection.
      */
     export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @return This only returns a Promise when the callback parameter is not specified, and with MV3+.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection): Promise<void>;
+
+    /**
+     * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
+     * @param injection
+     * The details of the styles to remove.
+     * Note that the css, files, and origin properties must exactly match the stylesheet inserted through `insertCSS`.
+     * Attempting to remove a non-existent stylesheet is a no-op.
+     * @param callback
+     * Invoked upon completion of the removal.
+     * @since Chrome 90
+     */
+    export function removeCSS(injection: CSSInjection, callback?: () => void): void;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[]): Promise<void>;
+
+    /**
+     * Registers one or more content scripts.
+     * @param scripts
+     * @param callback
+     */
+    export function registerContentScripts(scripts: RegisteredContentScript[], callback?: () => void): void;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter): Promise<void>;
+
+    /**
+     * Unregister one or more content scripts.
+     * @param filter
+     * @param callback
+     */
+    export function unregisterContentScripts(filter?: ContentScriptFilter, callback?: () => void): void;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter): Promise<RegisteredContentScript[]>;
+
+    /**
+     * Returns all the content scripts registered with scripting.registerContentScripts()
+     * or a subset of the registered scripts when using a filter.
+     * @param filter
+     * @param callback
+     */
+    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback?: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
@@ -9589,6 +9724,13 @@ declare namespace chrome.tabs {
      * Duplicates a tab.
      * @since Chrome 23.
      * @param tabId The ID of the tab which is to be duplicated.
+     * @return The `duplicate` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function duplicate(tabId: number): Promise<Tab | undefined>;
+    /**
+     * Duplicates a tab.
+     * @since Chrome 23.
+     * @param tabId The ID of the tab which is to be duplicated.
      * @param callback Optional.
      * Optional parameter tab: Details about the duplicated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
      */
@@ -10130,6 +10272,12 @@ declare namespace chrome.topSites {
 
     /** Gets a list of top sites. */
     export function get(callback: (data: MostVisitedURL[]) => void): void;
+
+    /**
+     * Gets a list of top sites.
+     * @return The `get` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function get(): Promise<MostVisitedURL[]>;
 }
 
 ////////////////////
@@ -10148,10 +10296,16 @@ declare namespace chrome.tts {
         /** Optional. The error description, if the event type is 'error'. */
         errorMessage?: string | undefined;
         /**
+         * The length of the next part of the utterance.
+         * For example, in a word event, this is the length of the word which will be spoken next.
+         * It will be set to -1 if not set by the speech engine.
+         */
+        length?: number | undefined;
+        /**
          * The type can be 'start' as soon as speech has started, 'word' when a word boundary is reached, 'sentence' when a sentence boundary is reached, 'marker' when an SSML mark element is reached, 'end' when the end of the utterance is reached, 'interrupted' when the utterance is stopped or interrupted before reaching the end, 'cancelled' when it's removed from the queue before ever being synthesized, or 'error' when any other error occurs. When pausing speech, a 'pause' event is fired if a particular utterance is paused in the middle, and 'resume' if an utterance resumes speech. Note that pause and resume events may not fire if speech is paused in-between utterances.
          * One of: "start", "end", "word", "sentence", "marker", "interrupted", "cancelled", "error", "pause", or "resume"
          */
-        type: string;
+        type: "start" | "end" | "word" | "sentence" | "marker" | "interrupted" | "cancelled" | "error" | "pause" | "resume";
     }
 
     /** A description of a voice available for speech synthesis. */
@@ -10222,6 +10376,7 @@ declare namespace chrome.tts {
     /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
     export function stop(): void;
     /** Gets an array of all available voices. */
+    export function getVoices(): Promise<TtsVoice[]>;
     export function getVoices(callback?: (voices: TtsVoice[]) => void): void;
     /**
      * Speaks text using a text-to-speech engine.
@@ -10842,6 +10997,18 @@ declare namespace chrome.webRequest {
     export interface WebRequestHeadersDetails extends WebRequestDetails {
         /** Optional. The HTTP request headers that are going to be sent out with this request. */
         requestHeaders?: HttpHeader[] | undefined;
+        documentId: string;
+        documentLifecycle: "prerender" | "active" | "cached" | "pending_deletion";
+        frameType: "outermost_frame" | "fenced_frame" | "sub_frame";
+        frameId: number;
+        initiator?: string | undefined;
+        parentDocumentId?: string | undefined;
+        parentFrameId: number;
+        requestId: string;
+        tabId: number;
+        timeStamp: number;
+        type: ResourceType;
+        url: string;
     }
 
     export interface WebRequestBodyDetails extends WebRequestDetails {

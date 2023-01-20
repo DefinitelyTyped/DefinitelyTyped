@@ -3,12 +3,10 @@
     "rules": {
         "no-consecutive-blank-lines": false,
         "no-duplicate-variable": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "prefer-const": false,
         "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "trim-file": false
+        "strict-export-declare-modifiers": false
     }
 }

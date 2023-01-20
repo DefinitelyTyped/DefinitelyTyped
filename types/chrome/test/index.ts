@@ -193,6 +193,30 @@ function catBlock() {
 function webRequestAddListenerMandatoryFilters() {
     // @ts-expect-error
     chrome.webRequest.onBeforeRequest.addListener(info => {})
+
+    chrome.webRequest.onSendHeaders.addListener(details => {
+            console.log(
+                (details.requestHeaders ?? [])[0].name,
+                details.documentId,
+                details.documentLifecycle,
+                details.frameType,
+                details.frameId,
+                details.initiator,
+                details.parentDocumentId,
+                details.parentFrameId,
+                details.requestId,
+                details.tabId,
+                details.timeStamp,
+                details.type,
+                details.url
+            );
+        },
+        {
+            urls: ["<all_urls>"],
+        },
+        ["requestHeaders"]
+    );
+
 }
 
 // webNavigation.onBeforeNavigate.addListener example
@@ -771,7 +795,7 @@ function testStorage() {
 }
 
 // https://developer.chrome.com/apps/tts#type-TtsVoice
-function testTtsVoice() {
+async function testTtsVoice() {
     chrome.tts.getVoices(voices =>
         voices.forEach(voice => {
             console.log(voice.voiceName);
@@ -781,6 +805,15 @@ function testTtsVoice() {
             console.log('\teventTypes: ' + voice.eventTypes);
         }),
     );
+
+    const voices = await chrome.tts.getVoices();
+    voices.forEach(voice => {
+        console.log(voice.voiceName);
+        console.log('\tlang: ' + voice.lang);
+        console.log('\tremote: ' + voice.remote);
+        console.log('\textensionId: ' + voice.extensionId);
+        console.log('\teventTypes: ' + voice.eventTypes);
+    });
 }
 
 chrome.runtime.onInstalled.addListener((details) => {
@@ -952,6 +985,8 @@ async function testActionForPromise() {
     await chrome.action.getBadgeText({});
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
+    await chrome.action.getUserSettings();
+    await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({color: 'white'});
     await chrome.action.setBadgeText({text: 'text1'});
     await chrome.action.setPopup({popup: 'popup1'});
@@ -1049,6 +1084,8 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => 0, args: ['', 0] }); // $ExpectType InjectionResult<number>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, func: async (str: string, n: number) => '', args: ['', 0] }); // $ExpectType InjectionResult<string>[]
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'ISOLATED', func: () => {} });
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: true, func: () => {} }); // $ExpectType InjectionResult<void>[]
+    await chrome.scripting.executeScript({ target: { tabId: 0 }, injectImmediately: false, func: () => {} }); // $ExpectType InjectionResult<void>[]
     // @ts-expect-error
     await chrome.scripting.executeScript({ target: { tabId: 0 }, world: 'not-real-world', func: () => {} });
     // @ts-expect-error
@@ -1064,6 +1101,17 @@ async function testScriptingForPromise() {
     await chrome.scripting.executeScript({ target: { tabId: 0 }, files: ['script.js'] }); // $ExpectType InjectionResult<unknown>[]
 
     await chrome.scripting.insertCSS({ target: { tabId: 0 } });
+
+    await chrome.scripting.removeCSS({ target: { tabId: 0 } });
+
+    await chrome.scripting.registerContentScripts([
+        { id: 'id1', js: ['script1.js'] },
+        { id: 'id2', js: ['script2.js'], runAt: 'document_start', allFrames: true, world: 'ISOLATED' },
+        { id: 'id3', css: ['style1.css'], excludeMatches: ['*://*.example.com/*'], runAt: 'document_end', allFrames: true, world: 'MAIN' },
+    ]);
+    await chrome.scripting.unregisterContentScripts({ ids: ['id1', 'id2'] });
+    await chrome.scripting.unregisterContentScripts({ files: ['script1.js', 'style1.css'] });
+    await chrome.scripting.getRegisteredContentScripts();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/system_cpu
@@ -1100,6 +1148,7 @@ async function testTabsForPromise() {
     await chrome.tabs.getSelected();
     await chrome.tabs.getSelected(0);
     await chrome.tabs.create({});
+    await chrome.tabs.duplicate(0); // $ExpectType Tab | undefined
     await chrome.tabs.move(0, {index: 0});
     await chrome.tabs.move([0], {index: 0});
     await chrome.tabs.update({});
@@ -1270,6 +1319,9 @@ function testRuntimeSendMessage() {
     chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log);
     // @ts-expect-error
     chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1));
+
+    chrome.runtime.sendMessage(undefined, 'Hello World!', console.log);
+    chrome.runtime.sendMessage(null, 'Hello World!', console.log);
 }
 
 function testRuntimeSendNativeMessage() {
@@ -1600,4 +1652,26 @@ async function testHistoryForPromise() {
     await chrome.history.deleteAll()
     await chrome.history.deleteUrl({ url: 'https://example.com'})
     await chrome.history.getVisits({ url: 'https://example.com'})
+}
+
+// https://developer.chrome.com/docs/extensions/reference/identity/
+async function testIdentity() {
+    // $ExpectType void
+    chrome.identity.launchWebAuthFlow({ url: 'https://example.com '}, () => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/identity/
+async function testIdentityForPromise() {
+    // $ExpectType string | undefined
+    await chrome.identity.launchWebAuthFlow({ url: 'https://example.com '});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+function testTopSites() {
+    chrome.topSites.get(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+async function testTopSitesForPromise() {
+    await chrome.topSites.get();
 }

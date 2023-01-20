@@ -1,7 +1,11 @@
-declare function _exports(
-    ds: any,
+export = pruneTree;
+declare function pruneTree(
+    ds: DataSet,
     idField: string,
     parentField: string,
-    filterFunc: (arg0: any) => boolean
+    filterFunc: (arg0: DataSet) => boolean
 ): void;
-export = _exports;
+declare namespace pruneTree {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

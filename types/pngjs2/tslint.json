@@ -5,7 +5,6 @@
         "no-consecutive-blank-lines": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

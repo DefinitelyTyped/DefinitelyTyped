@@ -52,6 +52,8 @@ import * as dns from 'node:dns';
     https.get(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
     https.request(new url.URL('http://www.example.com/xyz'), opts, (res: http.IncomingMessage): void => {});
 
+    https.request(new url.URL('https://www.example.com'), { checkServerIdentity: (host: string, cert: tls.PeerCertificate): Error | undefined => new Error('foo') });
+
     https.globalAgent.options.ca = [];
 
     {

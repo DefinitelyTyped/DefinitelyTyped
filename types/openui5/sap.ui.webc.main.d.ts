@@ -1,9 +1,9 @@
-// For Library Version: 1.107.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/webc/main/library" {
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarColorScheme.
    */
@@ -32,7 +32,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarGroupType.
    */
@@ -49,7 +49,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarShape.
    */
@@ -65,7 +65,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of AvatarSize.
    */
@@ -93,7 +93,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Different types of `Breadcrumbs`.
    */
@@ -110,7 +110,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Different types of `Breadcrumbs` separator.
    */
@@ -142,7 +142,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of BusyIndicator.
    */
@@ -162,7 +162,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Button.
    */
@@ -194,7 +194,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different date selection modes for `ui5-calendar`.
    */
@@ -214,7 +214,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Arrow Placement for `ui5-carousel`.
    */
@@ -230,7 +230,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the growing mode of the component.
    */
@@ -250,7 +250,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Different types of HasPopup.
    */
@@ -278,7 +278,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent an avatar and may be slotted in numerous higher-order components
    * such as `ui5-avatar-group`
@@ -289,7 +289,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-breadcrumbs` as options
    */
@@ -299,7 +299,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be used as a button inside numerous higher-order components
    */
@@ -309,7 +309,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be used as dates inside `ui5-calendar`
    */
@@ -319,7 +319,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be used inside a `ui5-color-palette` or `ui5-color-palette-popover`
    */
@@ -329,7 +329,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-combobox`
    */
@@ -339,7 +339,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent an icon, usable in numerous higher-order components
    */
@@ -349,7 +349,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent an input, usable in numerous higher-order components
    */
@@ -359,7 +359,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent a suggestion item, usable in `ui5-input`
    */
@@ -369,7 +369,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-list` as items
    */
@@ -379,7 +379,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.102.0
-   * @EXPERIMENTAL (since 1.102.0)
+   * @EXPERIMENTAL (since 1.102.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-menu` as items
    */
@@ -389,7 +389,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-multi-combobox` as items
    */
@@ -399,7 +399,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines input types
    */
@@ -431,7 +431,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-segmented-button` as items
    */
@@ -441,7 +441,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-select` as options
    */
@@ -451,7 +451,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside `ui5-tabcontainer`
    */
@@ -461,7 +461,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-table-row` as cells
    */
@@ -471,7 +471,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-table` as columns
    */
@@ -481,7 +481,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that may be slotted inside a `ui5-table` as rows
    */
@@ -491,7 +491,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for components that represent a token and are usable in components such as `ui5-multi-input`
    */
@@ -501,7 +501,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Interface for tree items for the purpose of `ui5-tree`
    */
@@ -511,7 +511,7 @@ declare module "sap/ui/webc/main/library" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Button.
    */
@@ -531,7 +531,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the growing mode, used in the `ui5-list`.
    */
@@ -551,7 +551,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of ListItem.
    */
@@ -571,7 +571,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the type of `ui5-list`.
    */
@@ -608,7 +608,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines which separator style will be applied for the list items.
    */
@@ -628,7 +628,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines different types of MessageStrip.
    */
@@ -652,7 +652,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Available Panel Accessible Landmark Roles.
    */
@@ -675,7 +675,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the horizontal alignment of `ui5-popover`
    */
@@ -699,7 +699,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Types for the placement of Popover control.
    */
@@ -723,7 +723,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Types for the placement of message Popover control.
    */
@@ -745,7 +745,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Priority.
    */
@@ -769,7 +769,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the semantic color
    */
@@ -797,7 +797,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines input types
    */
@@ -813,7 +813,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of Tab layouts.
    */
@@ -829,7 +829,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the growing mode, used in the `ui5-table`.
    */
@@ -849,7 +849,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the type of `ui5-table`.
    */
@@ -869,7 +869,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Different types of TableRow.
    */
@@ -885,7 +885,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This API is experimental and might change significantly.
    *
    * Different types of overflow modes.
    */
@@ -901,7 +901,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines the `ui5-title` level
    */
@@ -933,7 +933,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines where the `ui5-toast` will be placed.
    */
@@ -977,7 +977,7 @@ declare module "sap/ui/webc/main/library" {
   }
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This API is experimental and might change significantly.
    *
    * Defines how the text of a component will be displayed when there is not enough space.
    */
@@ -1016,7 +1016,7 @@ declare module "sap/ui/webc/main/Avatar" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -1578,7 +1578,7 @@ declare module "sap/ui/webc/main/AvatarGroup" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2048,7 +2048,7 @@ declare module "sap/ui/webc/main/Badge" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2256,7 +2256,7 @@ declare module "sap/ui/webc/main/Breadcrumbs" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Enables users to navigate between items by providing a list of links to previous steps in the
    * user's navigation path. It helps the user to be aware of their location within the application and allows
@@ -2671,7 +2671,7 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -2928,7 +2928,7 @@ declare module "sap/ui/webc/main/BusyIndicator" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -3339,7 +3339,7 @@ declare module "sap/ui/webc/main/Button" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -4008,7 +4008,7 @@ declare module "sap/ui/webc/main/Calendar" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -4615,7 +4615,7 @@ declare module "sap/ui/webc/main/CalendarDate" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -4740,7 +4740,7 @@ declare module "sap/ui/webc/main/Card" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -5127,7 +5127,7 @@ declare module "sap/ui/webc/main/CardHeader" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -5601,7 +5601,7 @@ declare module "sap/ui/webc/main/Carousel" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Carousel allows the user to browse through a set of items. The component is mostly used
    * for showing a gallery of images, but can hold any other HTML element.
@@ -6157,7 +6157,7 @@ declare module "sap/ui/webc/main/CheckBox" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -6839,7 +6839,7 @@ declare module "sap/ui/webc/main/ColorPalette" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.ColorPalette` provides the users with a range of predefined colors. The
    * colors are fixed and do not change with the theme.
@@ -7095,7 +7095,7 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -7225,7 +7225,7 @@ declare module "sap/ui/webc/main/ColorPalettePopover" {
 
   /**
    * @SINCE 1.97.0
-   * @EXPERIMENTAL (since 1.97.0)
+   * @EXPERIMENTAL (since 1.97.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Represents a predefined range of colors for easier selection.
    *
@@ -7637,7 +7637,7 @@ declare module "sap/ui/webc/main/ColorPicker" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.ColorPicker` allows users to choose any color and provides different
    * input options for selecting colors.
@@ -7851,7 +7851,7 @@ declare module "sap/ui/webc/main/ComboBox" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -8750,7 +8750,7 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.ComboBoxGroupItem` is type of suggestion item, that can be used to split the `sap.ui.webc.main.ComboBox`
    * suggestions into groups.
@@ -8870,7 +8870,7 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.ComboBoxItem` represents the item for a `sap.ui.webc.main.ComboBox`.
    */
@@ -9028,7 +9028,7 @@ declare module "sap/ui/webc/main/CustomListItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * A component to be used as custom list item within the `sap.ui.webc.main.List` the same way as the standard
    * `sap.ui.webc.main.StandardListItem`.
@@ -9392,7 +9392,7 @@ declare module "sap/ui/webc/main/DatePicker" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -10398,7 +10398,7 @@ declare module "sap/ui/webc/main/DateRangePicker" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The DateRangePicker enables the users to enter a localized date range using touch, mouse, keyboard
    * input, or by selecting a date range in the calendar.
@@ -11408,7 +11408,7 @@ declare module "sap/ui/webc/main/DateTimePicker" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `DateTimePicker` component alows users to select both date (day, month and year) and time
    * (hours, minutes and seconds) and for the purpose it consists of input field and Date/Time picker.
@@ -12409,7 +12409,7 @@ declare module "sap/ui/webc/main/Dialog" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Dialog` component is used to temporarily display some information in
    * a size-limited window in front of the regular app screen. It is used to prompt the user for an action
@@ -13491,7 +13491,7 @@ declare module "sap/ui/webc/main/FileUploader" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -14140,7 +14140,7 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.GroupHeaderListItem` is a special list item, used only to separate other list items
    * into logical groups.
@@ -14331,7 +14331,7 @@ declare module "sap/ui/webc/main/Icon" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -14925,7 +14925,7 @@ declare module "sap/ui/webc/main/Input" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -16162,7 +16162,7 @@ declare module "sap/ui/webc/main/Label" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -16466,7 +16466,7 @@ declare module "sap/ui/webc/main/Link" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Link` is a hyperlink component that is used to navigate to other apps
    * and web pages, or to trigger actions. It is a clickable text element, visualized in such a way that it
@@ -17086,7 +17086,7 @@ declare module "sap/ui/webc/main/List" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -18442,7 +18442,7 @@ declare module "sap/ui/webc/main/Menu" {
 
   /**
    * @SINCE 1.102.0
-   * @EXPERIMENTAL (since 1.102.0)
+   * @EXPERIMENTAL (since 1.102.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -18754,7 +18754,7 @@ declare module "sap/ui/webc/main/MenuItem" {
 
   /**
    * @SINCE 1.102.0
-   * @EXPERIMENTAL (since 1.102.0)
+   * @EXPERIMENTAL (since 1.102.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -19073,7 +19073,7 @@ declare module "sap/ui/webc/main/MessageStrip" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -19493,7 +19493,7 @@ declare module "sap/ui/webc/main/MultiComboBox" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -20514,7 +20514,7 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.MultiComboBoxGroupItem` is type of suggestion item, that can be used to split the
    * `sap.ui.webc.main.MultiComboBox` suggestions into groups.
@@ -20635,7 +20635,7 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.MultiComboBoxItem` represents the item for a `sap.ui.webc.main.MultiComboBox`.
    */
@@ -20838,7 +20838,7 @@ declare module "sap/ui/webc/main/MultiInput" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: A `sap.ui.webc.main.MultiInput` field allows the user to enter multiple values, which are displayed
    * as `sap.ui.webc.main.Token`.
@@ -22322,7 +22322,7 @@ declare module "sap/ui/webc/main/Option" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -22613,7 +22613,7 @@ declare module "sap/ui/webc/main/Panel" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -23288,7 +23288,7 @@ declare module "sap/ui/webc/main/Popover" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -24546,7 +24546,7 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Shows the progress of a process in a graphical way. To indicate the progress, the inside of
    * the component is filled with a color.
@@ -24877,7 +24877,7 @@ declare module "sap/ui/webc/main/RadioButton" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -25474,7 +25474,7 @@ declare module "sap/ui/webc/main/RangeSlider" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: Represents a numerical interval and two handles (grips) to select a sub-range within it. The
    * purpose of the component to enable visual selection of sub-ranges within a given interval.
@@ -26135,7 +26135,7 @@ declare module "sap/ui/webc/main/RatingIndicator" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Rating Indicator is used to display a specific number of icons that are used to rate an
    * item. Additionally, it is also used to display the average and overall ratings.
@@ -26544,7 +26544,7 @@ declare module "sap/ui/webc/main/ResponsivePopover" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.ResponsivePopover` acts as a Popover on desktop and tablet, while on
    * phone it acts as a Dialog. The component improves tremendously the user experience on mobile.
@@ -27750,7 +27750,7 @@ declare module "sap/ui/webc/main/SegmentedButton" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -28090,7 +28090,7 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -28679,7 +28679,7 @@ declare module "sap/ui/webc/main/Select" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Select` component is used to create a drop-down list. The items inside
    * the `sap.ui.webc.main.Select` define the available options by using the `sap.ui.webc.main.Option` component.
@@ -29278,7 +29278,7 @@ declare module "sap/ui/webc/main/Slider" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The Slider component represents a numerical range and a handle (grip). The purpose of the component
    * is to enable visual selection of a value in a continuous numerical range by moving an adjustable handle.
@@ -29915,7 +29915,7 @@ declare module "sap/ui/webc/main/SplitButton" {
 
   /**
    * @SINCE 1.99.0
-   * @EXPERIMENTAL (since 1.99.0)
+   * @EXPERIMENTAL (since 1.99.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -30431,7 +30431,7 @@ declare module "sap/ui/webc/main/StandardListItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.StandardListItem` represents the simplest type of item for a `sap.ui.webc.main.List`.
    *
@@ -30961,7 +30961,7 @@ declare module "sap/ui/webc/main/StepInput" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -31692,7 +31692,7 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.SuggestionGroupItem` is type of suggestion item, that can be used to split the
    * `sap.ui.webc.main.Input` suggestions into groups.
@@ -31814,7 +31814,7 @@ declare module "sap/ui/webc/main/SuggestionItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.SuggestionItem` represents the suggestion item of the `sap.ui.webc.main.Input`.
    */
@@ -32192,7 +32192,7 @@ declare module "sap/ui/webc/main/Switch" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Switch` component is used for changing between binary states.
    *  The component can display texts, that will be switched, based on the component state, via the `textOn`
@@ -32688,7 +32688,7 @@ declare module "sap/ui/webc/main/Tab" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.Tab` represents a selectable item inside a `sap.ui.webc.main.TabContainer`. It
    * defines both the item in the tab strip (top part of the `sap.ui.webc.main.TabContainer`) and the content
@@ -33191,7 +33191,7 @@ declare module "sap/ui/webc/main/TabContainer" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -33843,7 +33843,7 @@ declare module "sap/ui/webc/main/Table" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -35026,7 +35026,7 @@ declare module "sap/ui/webc/main/TableCell" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -35202,7 +35202,7 @@ declare module "sap/ui/webc/main/TableColumn" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -35492,7 +35492,7 @@ declare module "sap/ui/webc/main/TableGroupRow" {
 
   /**
    * @SINCE 1.95.0
-   * @EXPERIMENTAL (since 1.95.0)
+   * @EXPERIMENTAL (since 1.95.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -35625,7 +35625,7 @@ declare module "sap/ui/webc/main/TableRow" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -35886,7 +35886,7 @@ declare module "sap/ui/webc/main/TabSeparator" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * The `sap.ui.webc.main.TabSeparator` represents a vertical line to separate tabs inside a `sap.ui.webc.main.TabContainer`.
    */
@@ -35981,7 +35981,7 @@ declare module "sap/ui/webc/main/TextArea" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -36875,7 +36875,7 @@ declare module "sap/ui/webc/main/TimePicker" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.TimePicker` component provides an input field with assigned sliders which
    * are opened on user action. The `sap.ui.webc.main.TimePicker` allows users to select a localized time
@@ -37519,7 +37519,7 @@ declare module "sap/ui/webc/main/Title" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -37747,7 +37747,7 @@ declare module "sap/ui/webc/main/Toast" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -38055,7 +38055,7 @@ declare module "sap/ui/webc/main/ToggleButton" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -38690,7 +38690,7 @@ declare module "sap/ui/webc/main/Token" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview:
    *
@@ -38992,7 +38992,7 @@ declare module "sap/ui/webc/main/Tree" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: The `sap.ui.webc.main.Tree` component provides a tree structure for displaying data in a hierarchy.
    *
@@ -40038,7 +40038,7 @@ declare module "sap/ui/webc/main/TreeItem" {
 
   /**
    * @SINCE 1.92.0
-   * @EXPERIMENTAL (since 1.92.0)
+   * @EXPERIMENTAL (since 1.92.0) - This control is experimental and its API might change significantly.
    *
    * Overview: This is the item to use inside a `sap.ui.webc.main.Tree`. You can represent an arbitrary tree
    * structure by recursively nesting tree items.

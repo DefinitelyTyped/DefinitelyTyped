@@ -7,7 +7,6 @@
         "no-var-keyword": false,
         "npm-naming": false,
         "one-line": false,
-        "only-arrow-functions": false,
-        "trim-file": false
+        "only-arrow-functions": false
     }
 }

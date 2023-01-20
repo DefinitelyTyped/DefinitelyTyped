@@ -1,27 +1,30 @@
-// Type definitions for object-hash 2.2
+// Type definitions for object-hash 3.0
 // Project: https://github.com/puleos/object-hash
 // Definitions by: Michael Zabka <https://github.com/misak113>
 //                 Artur Diniz <https://github.com/artdiniz>
 //                 Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 3.9
 
 declare namespace objectHash {
+    type NotUndefined = object | string | number | boolean | null | NotUndefined[];
+
     /**
      * @see https://github.com/puleos/object-hash#hashsha1value
      */
-    function sha1(object: {} | null): string;
+    function sha1(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashkeysvalue
      */
-    function keys(object: {} | null): string;
+    function keys(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashmd5value
      */
-    function MD5(object: {} | null): string;
+    function MD5(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashkeysmd5value
      */
-    function keysMD5(object: {} | null): string;
+    function keysMD5(object: NotUndefined): string;
     /**
      * @see https://github.com/puleos/object-hash#hashwritetostreamvalue-options-stream
      */
@@ -105,7 +108,7 @@ declare namespace objectHash {
 /**
  * @see https://github.com/puleos/object-hash#hashvalue-options
  */
-declare function objectHash(object: {} | null, options?: objectHash.NormalOption): string;
-declare function objectHash(object: {} | null, options?: objectHash.WithBufferOption): Buffer;
+declare function objectHash(object: objectHash.NotUndefined, options?: objectHash.NormalOption): string;
+declare function objectHash(object: objectHash.NotUndefined, options?: objectHash.WithBufferOption): Buffer;
 
 export = objectHash;

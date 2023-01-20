@@ -8,7 +8,6 @@
         "one-line": false,
         "prefer-const": false,
         "semicolon": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

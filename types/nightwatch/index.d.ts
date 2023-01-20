@@ -36,6 +36,12 @@ export type Definition = string | ElementProperties | Element | RelativeBy;
 
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
 
+export interface AppiumGeolocation {
+    latitude: number;
+    longitude: number;
+    altitude?: number;
+}
+
 export interface ChromePerfLoggingPrefs {
     /**
      * Default: true. Whether or not to collect events from Network domain.
@@ -1777,6 +1783,8 @@ export interface NightwatchAPI
     ensure: Ensure;
     verify: Assert;
 
+    appium: AppiumCommands;
+
     page: NightwatchPage & NightwatchCustomPageObjects;
 
     /**
@@ -1865,7 +1873,7 @@ export class Element {
     message: string;
     timeout: number;
     getId: () => string;
-    findElement: ElementCommands['findElement'];
+    findElement: ElementCommands['findElement'] & {(): Awaitable<NightwatchAPI, WebElement>};
     element: typeof globalElement;
     find: (selector: Definition | WebElement | By) => any;
     get: (selector: Definition | WebElement | By) => any;
@@ -2183,7 +2191,7 @@ export interface Nightwatch {
         enable_global_apis,
         config,
     }: CreateClientParams): this;
-    cliRunner(argv?: {}): this;
+    CliRunner(argv?: {}): this;
     initClient(opts: any): this;
     runner(argv?: {}, done?: () => void, settings?: {}): this;
     runTests(testSource: string | string[], settings?: any, ...args: any[]): any;
@@ -2288,11 +2296,11 @@ export type EnhancedPageObject<
 export interface Cookie {
     name: string;
     value: string;
-    path: string | undefined;
-    domain: string | undefined;
-    secure: boolean | undefined;
-    expiry: Date | number | undefined;
-    httpOnly: boolean | undefined;
+    path?: string;
+    domain?: string;
+    secure?: boolean;
+    expiry?: Date | number;
+    httpOnly?: boolean;
 }
 
 export interface SharedCommands extends ClientCommands, ElementCommands {}
@@ -5191,6 +5199,350 @@ export interface ElementCommands {
     ): Awaitable<this, string>;
 }
 
+export interface AppiumCommands {
+    /**
+     * Get the current device orientation.
+     *
+     * @example
+     * module.exports = {
+     *   'get current device orientation': function (app) {
+     *     app
+     *       .appium.getOrientation(function (result) {
+     *         console.log('current device orientation is:', result.value);
+     *       });
+     *   },
+     *
+     *   'get current device orientation with ES6 async/await': async function (app) {
+     *     const orientation = await app.appium.getOrientation();
+     *     console.log('current device orientation is:', orientation);
+     *   }
+     * };
+     */
+    getOrientation(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
+    ): Awaitable<NightwatchAPI, 'LANDSCAPE' | 'PORTRAIT'>;
+
+    /**
+     * Set the current device orientation.
+     *
+     * @example
+     * module.exports = {
+     *   'set orientation to LANDSCAPE': function (app) {
+     *     app
+     *       .appium.setOrientation('LANDSCAPE');
+     *   }
+     * };
+     */
+    setOrientation(
+        orientation: 'LANDSCAPE' | 'PORTRAIT',
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
+    ): Awaitable<NightwatchAPI, 'LANDSCAPE' | 'PORTRAIT'>;
+
+    /**
+     * Get a list of the available contexts. Used when testing hybrid mobile apps using Appium.
+     *
+     * More info here: https://appium.io/docs/en/commands/context/get-contexts/
+     *
+     * @example
+     * module.exports = {
+     *   'get available contexts': function (app) {
+     *     app
+     *       .appium.getContexts(function (result) {
+     *         console.log('the available contexts are:', result.value);
+     *       });
+     *   },
+     *
+     *   'get available contexts with ES6 async/await': async function (app) {
+     *     const contexts = await app.appium.getContexts();
+     *     console.log('the available contexts are:', contexts);
+     *   }
+     * };
+     */
+    getContexts(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void
+    ): Awaitable<NightwatchAPI, string[]>;
+
+    /**
+     * Get the current context in which Appium is running. Used when testing hybrid mobile apps using Appium.
+     *
+     * More info here: https://appium.io/docs/en/commands/context/get-context/
+     *
+     * @example
+     * module.exports = {
+     *   'get current context': function (app) {
+     *     app
+     *       .appium.getContext(function (result) {
+     *         console.log('the current context is:', result.value);
+     *       });
+     *   },
+     *
+     *   'get current context with ES6 async/await': async function (app) {
+     *     const context = await app.appium.getContext();
+     *     console.log('the current context is:', context);
+     *   }
+     * };
+     */
+    getContext(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void
+    ): Awaitable<NightwatchAPI, string | null>;
+
+    /**
+     * Set the context to be automated. Used when testing hybrid mobile apps using Appium.
+     *
+     * More info here: https://appium.io/docs/en/commands/context/set-context/
+     *
+     * @example
+     * module.exports = {
+     *   'switch to webview context': async function (app) {
+     *     app
+     *       .waitUntil(async function() {
+     *         // wait for webview context to be available
+     *         // initially, this.getContexts() only returns ['NATIVE_APP']
+     *         const contexts = await this.appium.getContexts();
+     *
+     *         return contexts.length > 1;
+     *       })
+     *       .perform(async function() {
+     *         // switch to webview context
+     *         const contexts = await this.appium.getContexts();  // contexts: ['NATIVE_APP', 'WEBVIEW_<id>']
+     *         await this.appium.setContext(contexts[1]);
+     *       });
+     *   },
+     *
+     *   'switch to native context': function (app) {
+     *     app.appium.setContext('NATIVE_APP');
+     *   }
+     * };
+     */
+    setContext(
+        context: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Start an Android activity by providing package name, activity name and other optional parameters.
+     *
+     * More info here: https://appium.io/docs/en/commands/device/activity/start-activity/
+     *
+     * @example
+     * module.exports = {
+     *   'start an android activity': function (app) {
+     *     app
+     *       .appium.startActivity({
+     *         appPackage: 'com.android.chrome',
+     *         appActivity: 'com.google.android.apps.chrome.Main'
+     *       });
+     *   },
+     *
+     *   'start the main Android activity and wait for onboarding activity to start': function (app) {
+     *     app
+     *       .appium.startActivity({
+     *         appPackage: 'org.wikipedia',
+     *         appActivity: 'org.wikipedia.main.MainActivity',
+     *         appWaitActivity: 'org.wikipedia.onboarding.InitialOnboardingActivity'
+     *       });
+     *   }
+     * };
+     */
+    startActivity(
+        opts: {
+            appPackage: string;
+            appActivity: string;
+            appWaitPackage?: string;
+            appWaitActivity?: string;
+            intentAction?: string;
+            intentCategory?: string;
+            intentFlags?: string;
+            optionalIntentArguments?: string;
+            dontStopAppOnReset?: boolean;
+        },
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Get the name of the current Android activity.
+     *
+     * @example
+     * module.exports = {
+     *   'get current activity name': function (app) {
+     *     app
+     *       .appium.getCurrentActivity(function (result) {
+     *         console.log('current android activity is:', result.value);
+     *       });
+     *   },
+     *
+     *   'get current activity name with ES6 async/await': async function (app) {
+     *     const activity = await app.appium.getCurrentActivity();
+     *     console.log('current android activity is:', activity);
+     *   }
+     * };
+     */
+    getCurrentActivity(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
+    ): Awaitable<NightwatchAPI, string>;
+
+    /**
+     * Get the name of the current Android package.
+     *
+     * @example
+     * module.exports = {
+     *   'get current package name': function (app) {
+     *     app
+     *       .appium.getCurrentPackage(function (result) {
+     *         console.log('current android package is:', result.value);
+     *       });
+     *   },
+     *
+     *   'get current package name with ES6 async/await': async function (app) {
+     *     const packageName = await app.appium.getCurrentPackage();
+     *     console.log('current android package is:', packageName);
+     *   }
+     * };
+     */
+    getCurrentPackage(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void
+    ): Awaitable<NightwatchAPI, string>;
+
+    /**
+     * Get the current geolocation of the mobile device.
+     *
+     * @example
+     * module.exports = {
+     *   'get device geolocation': function (app) {
+     *     app
+     *       .appium.getGeolocation(function (result) {
+     *         console.log('current device geolocation is:', result.value);
+     *       });
+     *   },
+     *
+     *   'get device geolocation with ES6 async/await': async function (app) {
+     *     const location = await app.appium.getGeolocation();
+     *     console.log('current device geolocation is:', location);
+     *   }
+     * };
+     */
+    getGeolocation(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<AppiumGeolocation>) => void
+    ): Awaitable<NightwatchAPI, AppiumGeolocation>;
+
+    /**
+     * Set the current geolocation of the mobile device.
+     *
+     * @example
+     * module.exports = {
+     *   'set geolocation to Tokyo, Japan': function (app) {
+     *     app
+     *       .appium.setGeolocation({latitude: 35.689487, longitude: 139.691706, altitude: 5});
+     *   },
+     *
+     *   'set geolocation to Tokyo, Japan with ES6 async/await': async function (app) {
+     *     await app.appium.setGeolocation({latitude: 35.689487, longitude: 139.691706});
+     *   }
+     * };
+     */
+    setGeolocation(
+        coordinates: AppiumGeolocation,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<AppiumGeolocation>) => void
+    ): Awaitable<NightwatchAPI, AppiumGeolocation>;
+
+    /**
+     * Press a particular key on an Android Device.
+     *
+     * See [official Android Developers docs](https://developer.android.com/reference/android/view/KeyEvent.html) for reference of available Android key code values.
+     *
+     * @example
+     * module.exports = {
+     *   'press e with caps lock on (keycode 33 and metastate 1048576)': function (app) {
+     *     app
+     *       .appium.pressKeyCode(33, 1048576);
+     *   },
+     *
+     *   'press g (keycode 35) with ES6 async/await': async function (app) {
+     *     await app.appium.pressKeyCode(35);
+     *   }
+     * };
+     */
+    pressKeyCode(
+        keycode: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<NightwatchAPI, null>;
+    pressKeyCode(
+        keycode: number,
+        metastate?: number,
+        flags?: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Press and hold a particular key on an Android Device.
+     *
+     * See [official Android Developers docs](https://developer.android.com/reference/android/view/KeyEvent.html) for reference of available Android key code values.
+     *
+     * @example
+     * module.exports = {
+     *   'long press e with caps lock on (keycode 33 and metastate 1048576)': function (app) {
+     *     app
+     *       .appium.longPressKeyCode(33, 1048576);
+     *   },
+     *
+     *   'long press g (keycode 35) with ES6 async/await': async function (app) {
+     *     await app.appium.longPressKeyCode(35);
+     *   }
+     * };
+     */
+    longPressKeyCode(
+        keycode: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<NightwatchAPI, null>;
+    longPressKeyCode(
+        keycode: number,
+        metastate?: number,
+        flags?: number,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<NightwatchAPI, null>;
+
+    /**
+     * Hide soft keyboard.
+     *
+     * @example
+     * module.exports = {
+     *   'hide device soft keyboard': function (app) {
+     *     app
+     *       .appium.hideKeyboard();
+     *   },
+     *
+     *   'hide device soft keyboard with ES6 async/await': async function (app) {
+     *     await app.appium.hideKeyboard();
+     *   }
+     * };
+     */
+    hideKeyboard(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
+    ): Awaitable<NightwatchAPI, boolean>;
+
+    /**
+     * Whether or not the soft keyboard is shown.
+     *
+     * @example
+     * module.exports = {
+     *   'whether keyboard is shown': function (app) {
+     *     app
+     *       .appium.isKeyboardShown(function (result) {
+     *         console.log('result value of whether keyboard is shown:', result.value);
+     *       });
+     *   },
+     *
+     *   'whether keyboard is shown with ES6 async/await': async function (app) {
+     *     const result = await app.appium.isKeyboardShown();
+     *     console.log('result value of whether keyboard is shown:', result);
+     *   }
+     * };
+     */
+    isKeyboardShown(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void
+    ): Awaitable<NightwatchAPI, boolean>;
+}
+
 export interface WebDriverProtocol
     extends WebDriverProtocolSessions,
         WebDriverProtocolNavigation,
@@ -5613,15 +5965,22 @@ export interface WebDriverProtocolElements {
      *
      *   'es6 async demo Test': async function(browser) {
      *     const result = await browser.element('css selector', 'body');
-     *     console.log('result value is:', result.value);
+     *     console.log('result value is:', result);
+     *   },
+     *
+     *   'demo Test with page object': function(browser) {
+     *     const loginPage = browser.page.login();
+     *     loginPage.api.element('@resultContainer', function(result) {
+     *       console.log(result.value)
+     *     });
      *   }
      * }
      */
     element(
         using: LocateStrategy,
         value: string,
-        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
+    ): Awaitable<this, { [ELEMENT_KEY]: string }>;
 
     /**
      * Search for multiple elements on the page, starting from the document root. The located elements will be returned as web element JSON objects.
@@ -5644,7 +6003,7 @@ export interface WebDriverProtocolElements {
      *
      *   'es6 async demo Test': async function(browser) {
      *     const result = await browser.elements('css selector', 'ul li');
-     *     console.log('result value is:', result.value);
+     *     console.log('result value is:', result);
      *   },
      *
      *   'page object demo Test': function (browser) {
@@ -5664,8 +6023,8 @@ export interface WebDriverProtocolElements {
     elements(
         using: LocateStrategy,
         value: string,
-        callback: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
+    ): Awaitable<this, Array<{ [ELEMENT_KEY]: string }>>;
 
     /**
      * Search for an element on the page, starting from the identified element. The located element will be returned as a Web Element JSON object.
@@ -6336,7 +6695,7 @@ export interface WebDriverProtocolMobileRelated {
      */
     getOrientation(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
-    ): this;
+    ): Awaitable<this, 'LANDSCAPE' | 'PORTRAIT'>;
 
     /**
      * Sets the browser orientation.
@@ -6346,8 +6705,8 @@ export interface WebDriverProtocolMobileRelated {
      */
     setOrientation(
         orientation: 'LANDSCAPE' | 'PORTRAIT',
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<'LANDSCAPE' | 'PORTRAIT'>) => void,
+    ): Awaitable<this, 'LANDSCAPE' | 'PORTRAIT'>;
 
     /**
      * Get a list of the available contexts.
@@ -6357,7 +6716,9 @@ export interface WebDriverProtocolMobileRelated {
      *
      * Used by Appium when testing hybrid mobile web apps. More info here: https://github.com/appium/appium/blob/master/docs/en/advanced-concepts/hybrid.md.
      */
-    contexts(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
+    contexts(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void
+    ): Awaitable<this, string[]>;
 
     /**
      * Get current context.
@@ -6365,7 +6726,9 @@ export interface WebDriverProtocolMobileRelated {
      * @example
      * browser.currentContext();
      */
-    currentContext(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void): this;
+    currentContext(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void
+    ): Awaitable<this, string | null>;
 
     /**
      * Sets the context.
@@ -6373,7 +6736,10 @@ export interface WebDriverProtocolMobileRelated {
      * @example
      * browser.setContext(context);
      */
-    setContext(context: string, callback?: () => void): this;
+    setContext(
+        context: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void
+    ): Awaitable<this, null>;
 }
 
 /**
@@ -6405,4 +6771,5 @@ export interface PageObjectModel {
     props?: any;
 }
 
-export const Nightwatch: NightwatchClient & Nightwatch;
+declare const _default: Nightwatch;
+export default _default;

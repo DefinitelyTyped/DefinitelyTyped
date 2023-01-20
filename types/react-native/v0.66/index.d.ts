@@ -3298,6 +3298,12 @@ export class RecyclerViewBackedScrollView extends RecyclerViewBackedScrollViewBa
     getScrollResponder(): JSX.Element;
 }
 
+/**
+ * React Native provides RootTag and RootTagContext as identifiers for a window's root view
+ */
+ export type RootTag = number;
+ export const RootTagContext: React.Context<RootTag>;
+
 export interface SliderPropsAndroid extends ViewProps {
     /**
      * Color of the foreground switch grip.
@@ -8475,9 +8481,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean;
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**

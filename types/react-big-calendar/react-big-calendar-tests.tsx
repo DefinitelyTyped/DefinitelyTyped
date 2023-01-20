@@ -152,7 +152,7 @@ class CalendarResource {
         />
     );
 
-    const localizer = luxonLocalizer(luxonConfig);
+    const localizer = luxonLocalizer(luxonConfig, { firstDayOfWeek: 0 });
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }

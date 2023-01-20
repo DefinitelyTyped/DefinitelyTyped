@@ -235,7 +235,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   /**
    * Sets the text selection in the first element of the collection.
    *
-   * <b>Note</b>: This feature is only supported for input element’s type of text, search, url, tel and password.
+   * <b>Note</b>: This feature is only supported for input element's type of text, search, url, tel and password.
    */
   selectText(
     /**
@@ -264,7 +264,7 @@ interface JQuery<TElement = HTMLElement> extends Iterable<TElement> {
   ): jQuery;
 }
 
-// For Library Version: 1.107.0
+// For Library Version: 1.109.0
 
 declare module "sap/base/assert" {
   /**
@@ -415,10 +415,24 @@ declare module "sap/base/i18n/ResourceBundle" {
      * The text is searched in this resource bundle according to the fallback chain described in {@link module:sap/base/i18n/ResourceBundle}.
      * If no text could be found, the key itself is used as text.
      *
-     * If the second parameter `aArgs` is given, then any placeholder of the form "{n}" (with n
-     * being an integer) is replaced by the corresponding value from `aArgs` with index n. Note: This
-     * replacement is applied to the key if no text could be found. For more details on the replacement mechanism
-     * refer to {@link module:sap/base/strings/formatMessage}.
+     * Placeholders:
+     *
+     * A text can contain placeholders that will be replaced with concrete values when `getText` is called.
+     * The replacement is triggered by the `aArgs` parameter.
+     *
+     * Whenever this parameter is given, then the text and the arguments are additionally run through the {@link
+     * module:sap/base/strings/formatMessage} API to replace placeholders in the text with the corresponding
+     * values from the arguments array. The resulting string is returned by `getText`.
+     *
+     * As the `formatMessage` API imposes some requirements on the input text (regarding curly braces and single
+     * apostrophes), text authors need to be aware of the specifics of the `formatMessage` API. Callers of `getText`,
+     * on the other side, should only supply `aArgs` when the text has been created with the `formatMessage`
+     * API in mind. Otherwise, single apostrophes in the text might be removed unintentionally.
+     *
+     * When `getText` is called without `aArgs`, the `formatMessage` API is not applied and the transformation
+     * reg. placeholders and apostrophes does not happen.
+     *
+     * For more details on the replacement mechanism refer to {@link module:sap/base/strings/formatMessage}.
      *
      * @returns The value belonging to the key, if found; otherwise the key itself or `undefined` depending
      * on `bIgnoreKeyFallback`.
@@ -599,9 +613,10 @@ declare module "sap/base/Log" {
        */
       sMessage: string,
       /**
-       * Details about the message, might be omitted
+       * Optional details about the message, might be omitted. Can be an Error object which will be logged with
+       * the stack.
        */
-      sDetails?: string,
+      vDetails?: string | Error,
       /**
        * Name of the component that produced the log entry
        */
@@ -623,9 +638,10 @@ declare module "sap/base/Log" {
        */
       sMessage: string,
       /**
-       * Details about the message, might be omitted
+       * Optional details about the message, might be omitted. Can be an Error object which will be logged together
+       * with its stacktrace.
        */
-      sDetails?: string,
+      vDetails?: string | Error,
       /**
        * Name of the component that produced the log entry
        */
@@ -647,9 +663,10 @@ declare module "sap/base/Log" {
        */
       sMessage: string,
       /**
-       * Details about the message, might be omitted
+       * Optional details about the message, might be omitted. Can be an Error object which will be logged together
+       * with its stacktrace.
        */
-      sDetails?: string,
+      vDetails?: string | Error,
       /**
        * Name of the component that produced the log entry
        */
@@ -717,9 +734,10 @@ declare module "sap/base/Log" {
        */
       sMessage: string,
       /**
-       * Details about the message, might be omitted
+       * Optional details about the message, might be omitted. Can be an Error object which will be logged with
+       * the stack.
        */
-      sDetails?: string,
+      vDetails?: string | Error,
       /**
        * Name of the component that produced the log entry
        */
@@ -760,7 +778,7 @@ declare module "sap/base/Log" {
       oListener: object
     ): void;
     /**
-     * Defines the maximum `sap.base.log.Level` of log entries that will be recorded. Log entries with a higher
+     * Defines the maximum `sap/base/Log.Level` of log entries that will be recorded. Log entries with a higher
      * (less important) log level will be omitted from the log. When a component name is given, the log level
      * will be configured for that component only, otherwise the log level for the default component of this
      * logger is set. For the global logger, the global default level is set.
@@ -787,9 +805,10 @@ declare module "sap/base/Log" {
        */
       sMessage: string,
       /**
-       * Details about the message, might be omitted
+       * Optional details about the message, might be omitted. Can be an Error object which will be logged with
+       * the stack.
        */
-      sDetails?: string,
+      vDetails?: string | Error,
       /**
        * Name of the component that produced the log entry
        */
@@ -811,9 +830,10 @@ declare module "sap/base/Log" {
        */
       sMessage: string,
       /**
-       * Details about the message, might be omitted
+       * Optional details about the message, might be omitted. Can be an Error object which will be logged together
+       * with its stacktrace.
        */
-      sDetails?: string,
+      vDetails?: string | Error,
       /**
        * Name of the component that produced the log entry
        */
@@ -966,6 +986,9 @@ declare module "sap/base/security/URLListValidator" {
      *
      * Note: Adding the first entry to the list of allowed entries will disallow all URLs but the ones matching
      * the newly added entry.
+     *
+     * **Note**: It is strongly recommended to set a path only in combination with an origin (never set a path
+     * alone). There's almost no case where checking only the path of a URL would allow to ensure its validity.
      */
     add(
       /**
@@ -1000,7 +1023,13 @@ declare module "sap/base/security/URLListValidator" {
     /**
      * Validates a URL. Check if it's not a script or other security issue.
      *
-     * Split URL into components and check for allowed characters according to RFC 3986:
+     * **Note**: It is strongly recommended to validate only absolute URLs. There's almost no case where checking
+     * only the path of a URL would allow to ensure its validity. For compatibility reasons, this API cannot
+     * automatically resolve URLs relative to `document.baseURI`, but callers should do so. In that case, and
+     * when the allow list is not empty, an entry for the origin of `document.baseURI` must be added to the
+     * allow list.
+     *
+     * Details: Splits the given URL into components and checks for allowed characters according to RFC 3986:
      *
      *
      * ```javascript
@@ -1568,7 +1597,8 @@ declare module "sap/base/util/extend" {
 declare module "sap/base/util/includes" {
   /**
    * @SINCE 1.58
-   * @deprecated (since 1.90) - Use the `Array.includes` or `String.includes` instead.
+   * @deprecated (since 1.90) - Use the `Array.prototype.includes` or `String.prototype.includes` instead,
+   * but note that `Array.prototype.includes` or `String.prototype.includes` fail when called on null values.
    *
    * Checks if value is included in collection.
    *
@@ -1986,9 +2016,11 @@ declare module "sap/base/util/UriParameters" {
 declare module "sap/base/util/values" {
   /**
    * @SINCE 1.58
-   * @deprecated (since 1.90) - Use the `Object.values` instead.
    *
    * Returns values from an object.
+   *
+   * **Note:**Whenever possible, please try to use the native function `Object.values` instead. Especially,
+   * if you don't need to rely on handling null values as argument.
    *
    * @returns - array of object values, if object does not contain values, an empty array will be returned
    */
@@ -2273,6 +2305,54 @@ declare module "sap/ui/core/ComponentSupport" {
   }
   const ComponentSupport: ComponentSupport;
   export default ComponentSupport;
+}
+
+declare module "sap/ui/core/date/CalendarUtils" {
+  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+
+  import Locale from "sap/ui/core/Locale";
+
+  /**
+   * @SINCE 1.108.0
+   *
+   * Provides calendar-related utilities.
+   */
+  interface CalendarUtils {
+    /**
+     * @SINCE 1.108.0
+     *
+     * Resolves calendar week configuration.
+     *
+     * Returns an object with the following fields:
+     * 	 - `firstDayOfWeek`: specifies the first day of the week starting with `0` (which is Sunday)
+     * 	 - `minimalDaysInFirstWeek`: minimal days at the beginning of the year which define the first calendar
+     * 			week
+     *
+     * @returns The calendar week configuration, or `undefined for an invalid value of sap.ui.core.date.CalendarWeekNumbering`.
+     */
+    getWeekConfigurationValues(
+      /**
+       * The calendar week numbering; if omitted, `Default` is used.
+       */
+      sCalendarWeekNumbering?:
+        | CalendarWeekNumbering
+        | keyof typeof CalendarWeekNumbering,
+      /**
+       * The locale to use; if not provided, this falls back to the format locale from the Configuration; see
+       * {@link sap.ui.core.Configuration.FormatSettings#getFormatLocale}. Is only used when `sCalendarWeekNumbering`
+       * is set to `Default`.
+       */
+      oLocale?: Locale
+    ):
+      | {
+          firstDayOfWeek: int;
+
+          minimalDaysInFirstWeek: int;
+        }
+      | undefined;
+  }
+  const CalendarUtils: CalendarUtils;
+  export default CalendarUtils;
 }
 
 declare module "sap/ui/core/InvisibleRenderer" {
@@ -3728,17 +3808,17 @@ declare module "sap/ui/util/Mobile" {
      * be removed. When at least one home icon is given, all existing home icons will be removed and new home
      * icon tags for all four resolutions will be created.
      *
-     * The home icons must be in PNG format and given in different sizes for iPad/iPhone with and without retina
-     * display. The favicon is used in the browser and for desktop shortcuts and should optimally be in ICO
-     * format: ICO files can contain different image sizes for different usage locations. E.g. a 16x16px version
-     * is used inside browsers.
+     * The home icons must be in PNG format and given in different sizes for iPad/iPhone with low and high pixel
+     * density display. The favicon is used in the browser and for desktop shortcuts and should optimally be
+     * in ICO format: ICO files can contain different image sizes for different usage locations. E.g. a 16x16px
+     * version is used inside browsers.
      *
      * All icons are given in an an object holding icon URLs and other settings. The properties of this object
      * are:
-     * 	 - phone: a 60x60 pixel version for non-retina iPhones
-     * 	 - tablet: a 76x76 pixel version for non-retina iPads
-     * 	 - phone@2: a 120x120 pixel version for retina iPhones
-     * 	 - tablet@2: a 152x152 pixel version for retina iPads
+     * 	 - phone: a 120x120 pixel version for iPhones with low pixel density
+     * 	 - tablet: a 152x152 pixel version for iPads with low pixel density
+     * 	 - phone@2: a 180x180 pixel version for iPhones with high pixel density
+     * 	 - tablet@2: a 167x167 pixel version for iPads with high pixel density
      * 	 - precomposed: whether the home icons already have some glare effect (otherwise iOS will add it) (default:
      * 			false)
      * 	 - favicon: the ICO file to be used inside the browser and for desktop shortcuts
@@ -3747,10 +3827,10 @@ declare module "sap/ui/util/Mobile" {
      * ```javascript
      *
      * {
-     *    'phone':'phone-icon_60x60.png',
-     *    'phone@2':'phone-retina_120x120.png',
-     *    'tablet':'tablet-icon_76x76.png',
-     *    'tablet@2':'tablet-retina_152x152.png',
+     *    'phone':'phone-icon_120x120.png',
+     *    'phone@2':'phone-retina_180x180.png',
+     *    'tablet':'tablet-icon_152x152.png',
+     *    'tablet@2':'tablet-retina_167x167.png',
      *    'precomposed':true,
      *    'favicon':'desktop.ico'
      * }
@@ -3796,27 +3876,34 @@ declare module "sap/ui/util/Storage" {
    * confidential information.
    *
    * Provides a unified interface and methods to store data on the client using the Web Storage API or a custom
-   * implementation. By default, data can be persisted inside localStorage or a sessionStorage.
-   *
-   * You can access the 'default' storage by using {@link module:sap/ui/util/Storage} methods static on the
-   * module export or by creating an own instance of Storage via the constructor.
+   * implementation. By default, data can be persisted inside localStorage or sessionStorage.
    *
    * A typical intended usage of this API is the storage of a string representing the state of a control.
    * In this case, the data is stored in the browser session, and the methods to be used are {@link #put}
    * and {@link #get}. The method {@link #remove} can be used to delete the previously saved state.
    *
-   * For the sake of completeness, the method {@link #clear} is available. However, it should be called only
-   * in very particular situations, when a global erasing of data is required. If only keys with certain prefix
-   * should be deleted, the method {@link #removeAll} should be used.
+   * The `Storage` class allows a simple scoping by prefixing the keys of all `put/get/remove` operations
+   * with a fixed prefix given when constructing a storage instance. By choosing unique prefixes, different
+   * instances can write/read/delete data to the same underlying storage implementation without interfering
+   * with each other.
+   *
+   * For the sake of completeness, the method {@link #clear} is available. However, it does not honor the
+   * scoping and therefore should only be called when a global erasing of data is required. If only keys with
+   * certain prefix should be deleted, the method {@link #removeAll} should be used.
+   *
+   * Besides creating an own storage instance, callers can use the static methods of the `Storage` class to
+   * access a default session storage instance. All calls will use the same scope (same prefix).
    */
   export default class Storage {
     constructor(
       /**
-       * The type this storage should be of or an Object implementing the typical Storage API for direct usage.
+       * The type of native storage implementation that this `Storage` instance should use internally. Alternatively,
+       * this can be a custom implementation of the {@link https://developer.mozilla.org/en-US/docs/Web/API/Storage
+       * Storage Web API).
        */
-      pStorage?: (Type | keyof typeof Type) | Storage,
+      vStorage?: (Type | keyof typeof Type) | Storage,
       /**
-       * The prefix to use in this storage.
+       * The scope prefix to be used by this storage instance
        */
       sStorageKeyPrefix?: string
     );
@@ -3825,28 +3912,104 @@ declare module "sap/ui/util/Storage" {
      * Clears the whole storage (Independent of the current Storage instance!).
      *
      * **CAUTION** This method should be called only in very particular situations, when a global erasing of
-     * data is required. Given that the method deletes the data saved under any ID, it should not be called
+     * data is required. Given that the method deletes the data saved under any key, it should not be called
      * when managing data for specific controls.
      *
-     * @returns true if execution of removal was successful or the data to remove doesn't exist, and false if
-     * the feature is unavailable or a problem occurred
+     * @returns Whether clearing the storage was successful
+     */
+    static clear(): boolean;
+    /**
+     * Retrieves the value for the given key or `null` if the key does not exist in this storage.
+     *
+     * The returned value will be of a type that `JSON.parse` could return, too.
+     *
+     * @returns The key's value or `null` if the key does not exist in the storage.
+     */
+    static get(
+      /**
+       * Key to retrieve the value for; will be prefixed with the prefix given when constructing this `Storage`
+       */
+      sKey: string
+    ): any;
+    /**
+     * Returns the type of this storage.
+     *
+     * @returns Type of this storage or "unknown" when the Storage was created with an unknown type or implementation
+     */
+    static getType(): (Type | keyof typeof Type) | string;
+    /**
+     * Returns whether the given storage is supported.
+     *
+     * @returns true if storage is supported, false otherwise (e.g. due to browser security settings)
+     */
+    static isSupported(): boolean;
+    /**
+     * Stores the given value under the given key in the storage or updates the value if the key already exists.
+     *
+     * This method supports the same types of values as `JSON.stringify`.
+     *
+     * @returns Whether the data was successfully stored
+     */
+    static put(
+      /**
+       * Key to store the given value under; will be prefixed with the prefix given when constructing this `Storage`
+       */
+      sKey: string,
+      /**
+       * Value to store/update under the given key
+       */
+      vValue: any
+    ): boolean;
+    /**
+     * Removes the key and its value from storage, if the key exists.
+     *
+     * @returns Whether the deletion succeeded; if the key didn't exists, the method also reports a success
+     */
+    static remove(
+      /**
+       * Key to remove; will be prefixed with the prefix given when constructing this `Storage`
+       */
+      sKey: string
+    ): boolean;
+    /**
+     * Removes all key/value pairs form the storage where the key starts with the given `sKeyPrefix`.
+     *
+     * @returns Whether the deletion was successful; if no key matches the prefix, this is also a success
+     */
+    static removeAll(
+      /**
+       * Key prefix for the keys/values to delete; will be additionally prefixed with the prefix given when constructing
+       * this `Storage`
+       */
+      sKeyPrefix?: string
+    ): boolean;
+    /**
+     * Clears the whole storage (Independent of the current Storage instance!).
+     *
+     * **CAUTION** This method should be called only in very particular situations, when a global erasing of
+     * data is required. Given that the method deletes the data saved under any key, it should not be called
+     * when managing data for specific controls.
+     *
+     * @returns Whether clearing the storage was successful
      */
     clear(): boolean;
     /**
-     * Retrieves data item for a specific key.
+     * Retrieves the value for the given key or `null` if the key does not exist in this storage.
      *
-     * @returns key's value or `null`
+     * The returned value will be of a type that `JSON.parse` could return, too.
+     *
+     * @returns The key's value or `null` if the key does not exist in the storage.
      */
     get(
       /**
-       * key to retrieve
+       * Key to retrieve the value for; will be prefixed with the prefix given when constructing this `Storage`
        */
       sKey: string
-    ): object | null;
+    ): any;
     /**
-     * Returns the storage type.
+     * Returns the type of this storage.
      *
-     * @returns storage type or "unknown"
+     * @returns Type of this storage or "unknown" when the Storage was created with an unknown type or implementation
      */
     getType(): (Type | keyof typeof Type) | string;
     /**
@@ -3856,43 +4019,44 @@ declare module "sap/ui/util/Storage" {
      */
     isSupported(): boolean;
     /**
-     * Add key to the storage or updates value if the key already exists.
+     * Stores the given value under the given key in the storage or updates the value if the key already exists.
      *
-     * @returns true if the data was successfully stored, otherwise false
+     * This method supports the same types of values as `JSON.stringify`.
+     *
+     * @returns Whether the data was successfully stored
      */
     put(
       /**
-       * key to create
+       * Key to store the given value under; will be prefixed with the prefix given when constructing this `Storage`
        */
       sKey: string,
       /**
-       * value to create/update
+       * Value to store/update under the given key
        */
-      sValue: string
+      vValue: any
     ): boolean;
     /**
-     * Removes key from storage if it exists.
+     * Removes the key and its value from storage, if the key exists.
      *
-     * @returns true if the deletion was successful or the data doesn't exist under the specified key, and false
-     * if the feature is unavailable or a problem occurred
+     * @returns Whether the deletion succeeded; if the key didn't exists, the method also reports a success
      */
     remove(
       /**
-       * key to remove
+       * Key to remove; will be prefixed with the prefix given when constructing this `Storage`
        */
       sKey: string
     ): boolean;
     /**
-     * Removes all stored keys.
+     * Removes all key/value pairs form the storage where the key starts with the given `sKeyPrefix`.
      *
-     * @returns true if the deletion was successful or the data doesn't exist under the specified key, and false
-     * if the feature is unavailable or a problem occurred
+     * @returns Whether the deletion was successful; if no key matches the prefix, this is also a success
      */
     removeAll(
       /**
-       * prefix id for the states to delete
+       * Key prefix for the keys/values to delete; will be additionally prefixed with the prefix given when constructing
+       * this `Storage`
        */
-      sIdPrefix?: string
+      sKeyPrefix?: string
     ): boolean;
   }
   /**
@@ -3962,7 +4126,8 @@ declare module "sap/ui/app/Application" {
 
   /**
    * @deprecated (since 1.15.1) - The Component class is enhanced to take care about the Application code.
-   * @EXPERIMENTAL (since 1.11.1)
+   * @EXPERIMENTAL (since 1.11.1) - The Application class is still under construction, so some implementation
+   * details can be changed in future.
    *
    * Abstract application class. Extend this class to create a central application class.
    */
@@ -4160,7 +4325,8 @@ declare module "sap/ui/app/MockServer" {
 
   /**
    * @deprecated (since 1.15.1) - The mock server code has been moved to sap.ui.core.util - see {@link sap.ui.core.util.MockServer}
-   * @EXPERIMENTAL (since 1.13.0)
+   * @EXPERIMENTAL (since 1.13.0) - The mock server is still under construction, so some implementation details
+   * can be changed in future.
    *
    * Class to mock a server.
    */
@@ -6593,14 +6759,14 @@ declare module "sap/ui/base/ManagedObject" {
      * 	 - string literals `"null"` or `"undefined"`  Omitting the model name (or using the value `undefined`)
      * 			is explicitly allowed and refers to the default model.
      *
-     * @returns oModel
+     * @returns oModel or undefined when there is no such model
      */
     getModel(
       /**
        * name of the model to be retrieved
        */
       sModelName?: string
-    ): Model;
+    ): Model | undefined;
     /**
      * Get the object binding object for a specific model.
      *
@@ -9027,6 +9193,10 @@ declare module "sap/ui/core/library" {
      */
     Medium = "Medium",
     /**
+     * Type: Medium size, specifically if the BusyIndicator is displayed over a page section
+     */
+    Section = "Section",
+    /**
      * Type: small size
      */
     Small = "Small",
@@ -9065,12 +9235,14 @@ declare module "sap/ui/core/library" {
     Legacy = "Legacy",
   }
   /**
-   * A string type that represents CSS color values.
+   * A string type that represents CSS color values (CSS Color Level 3).
    *
-   * Allowed values are CSS hex colors like "#666666" or "#fff", RGB/HSL values like "rgb(0,0,0)" or "hsla(50%,10%,30%,0.5)"
-   * as well as CSS color names like "green" and "darkblue" and special values like "inherit" and "transparent".
-   *
-   * The empty string is also allowed and has the same effect as setting no color.
+   * **Allowed values are:**
+   * 	 - Hex colors like `#666666` or `#fff`,
+   * 	 - HSL/RGB values with or without transparency, like `hsla(90,10%,30%,0.5)` or `rgb(0,0,0)`,
+   * 	 - CSS color names like `darkblue`, or special values like `inherit` and `transparent`,
+   * 	 - an empty string, which has the same effect as setting no color.  For more information about
+   * 			the CSS Level 3 color specification, see {@link https://www.w3.org/TR/css-color-3/#css-system}.
    */
   export type CSSColor = string;
 
@@ -13668,6 +13840,9 @@ declare module "sap/ui/core/Control" {
      *                            // `null` can be provided.
      *      editable: true,       // Boolean which describes whether the control is editable. If not relevant it must not be set or
      *                            // `null` can be provided.
+     *      required: true,       // Boolean which describes whether the control is mandatory. If not relevant it must not be set or
+     *                            // `null` can be provided. The required state might also be handled as part of the description. In this
+     *                            // case this flag should not be used.
      *      children: []          // Aggregations of the given control (e.g. when the control is a layout). Primitive aggregations will be ignored.
      *                            // Note: Children should only be provided when it is helpful to understand the accessibility context
      *                            //       (e.g. a form control must not provide details of its internals (fields, labels, ...) but a
@@ -15081,7 +15256,8 @@ declare module "sap/ui/core/Core" {
      */
     getTemplate(sId: string): Component;
     /**
-     * @deprecated (since 1.107) - use {@link sap.ui.core.UIArea.registry#get UIArea.registry#get} instead!
+     * @deprecated (since 1.107) - use {@link sap.ui.core.UIArea.registry#get UIArea.registry#get} instead,
+     * but note that `UIArea.registry.get` only accepts the ID of the UIArea as argument.
      *
      * Returns the {@link sap.ui.core.UIArea UIArea} with the given ID or that belongs to the given DOM element.
      *
@@ -15825,6 +16001,42 @@ declare module "sap/ui/core/CustomData" {
      */
     writeToDom?: boolean | PropertyBindingInfo | `{${string}}`;
   }
+}
+
+declare module "sap/ui/core/date/CalendarWeekNumbering" {
+  /**
+   * @SINCE 1.108.0
+   *
+   * The `CalendarWeekNumbering` enum defines how to calculate calendar weeks. Each value defines:
+   * 	 - The first day of the week,
+   * 	 - the first week of the year.
+   */
+  enum CalendarWeekNumbering {
+    /**
+     * The default calendar week numbering:
+     *
+     * The framework determines the week numbering scheme; currently it is derived from the active format locale.
+     * Future versions of UI5 might select a different week numbering scheme.
+     */
+    Default = "Default",
+    /**
+     * Official calendar week numbering in most of Europe (ISO 8601 standard):
+     * 	Monday is first day of the week, the week containing January 4th is first week of the year.
+     */
+    ISO_8601 = "ISO_8601",
+    /**
+     * Official calendar week numbering in much of the Middle East (Middle Eastern calendar):
+     * 	Saturday is first day of the week, the week containing January 1st is first week of the year.
+     */
+    MiddleEastern = "MiddleEastern",
+    /**
+     * Official calendar week numbering in the United States, Canada, Brazil, Israel, Japan, and other countries
+     * (Western traditional calendar):
+     * 	Sunday is first day of the week, the week containing January 1st is first week of the year.
+     */
+    WesternTraditional = "WesternTraditional",
+  }
+  export default CalendarWeekNumbering;
 }
 
 declare module "sap/ui/core/DeclarativeSupport" {
@@ -19381,6 +19593,8 @@ declare module "sap/ui/core/ExtensionPoint" {
 }
 
 declare module "sap/ui/core/format/DateFormat" {
+  import CalendarWeekNumbering from "sap/ui/core/date/CalendarWeekNumbering";
+
   import CalendarType from "sap/ui/core/CalendarType";
 
   import Locale from "sap/ui/core/Locale";
@@ -19409,6 +19623,13 @@ declare module "sap/ui/core/format/DateFormat" {
        * Object which defines the format options
        */
       oFormatOptions?: {
+        /**
+         * @since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
+         * and `oFormatOptions.minimalDaysInFirstWeek`.
+         */
+        calendarWeekNumbering?:
+          | CalendarWeekNumbering
+          | keyof typeof CalendarWeekNumbering;
         /**
          * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
@@ -19441,7 +19662,7 @@ declare module "sap/ui/core/format/DateFormat" {
         strictParsing?: boolean;
         /**
          * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
-         * "yesterday", "in 5 days"
+         * "1 day ago", "in 5 days"
          */
         relative?: boolean;
         /**
@@ -19498,6 +19719,13 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oFormatOptions?: {
         /**
+         * @since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
+         * and `oFormatOptions.minimalDaysInFirstWeek`.
+         */
+        calendarWeekNumbering?:
+          | CalendarWeekNumbering
+          | keyof typeof CalendarWeekNumbering;
+        /**
          * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
          */
@@ -19531,7 +19759,7 @@ declare module "sap/ui/core/format/DateFormat" {
         strictParsing?: boolean;
         /**
          * if true, the date is formatted relatively to today's date if it is within the given day range, e.g. "today",
-         * "yesterday", "in 5 days"
+         * "1 day ago", "in 5 days"
          */
         relative?: boolean;
         /**
@@ -19590,6 +19818,13 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oFormatOptions?: {
         /**
+         * @since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
+         * and `oFormatOptions.minimalDaysInFirstWeek`.
+         */
+        calendarWeekNumbering?:
+          | CalendarWeekNumbering
+          | keyof typeof CalendarWeekNumbering;
+        /**
          * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
          */
@@ -19638,7 +19873,7 @@ declare module "sap/ui/core/format/DateFormat" {
         strictParsing?: boolean;
         /**
          * Whether the date is formatted relatively to today's date if it is within the given day range, e.g. "today",
-         * "yesterday", "in 5 days"
+         * "1 day ago", "in 5 days"
          */
         relative?: boolean;
         /**
@@ -19679,6 +19914,13 @@ declare module "sap/ui/core/format/DateFormat" {
        */
       oFormatOptions?: {
         /**
+         * @since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
+         * and `oFormatOptions.minimalDaysInFirstWeek`.
+         */
+        calendarWeekNumbering?:
+          | CalendarWeekNumbering
+          | keyof typeof CalendarWeekNumbering;
+        /**
          * @since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
          * the value taken from the locale is used
          */
@@ -19710,7 +19952,7 @@ declare module "sap/ui/core/format/DateFormat" {
         strictParsing?: boolean;
         /**
          * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
-         * "yesterday", "in 5 days"
+         * "1 day ago", "in 5 days"
          */
         relative?: boolean;
         /**
@@ -25916,7 +26158,7 @@ declare module "sap/ui/core/message/Message" {
      */
     getPersistent(): boolean;
     /**
-     * @deprecated - As a message may have multiple targets, use {@link #getTargets} instead
+     * @deprecated (since 1.79.0) - As a message may have multiple targets, use {@link #getTargets} instead
      *
      * Returns the message target or the first target if the message has multiple targets.
      *
@@ -26023,7 +26265,7 @@ declare module "sap/ui/core/message/Message" {
       bPersistent: boolean
     ): void;
     /**
-     * @deprecated - As a message may have multiple targets, use {@link #setTargets} instead
+     * @deprecated (since 1.79.0) - As a message may have multiple targets, use {@link #setTargets} instead
      *
      * Sets the message target; in case the message has multiple targets, sets the first target of the message.
      * The syntax is MessageProcessor dependent. See the documentation of the respective MessageProcessor.
@@ -26858,6 +27100,13 @@ declare module "sap/ui/core/mvc/HTMLView" {
 
   /**
    * @SINCE 1.9.2
+   * @deprecated (since 1.108) - as there are no more known usages of `HTMLViews`, and as the use of HTML
+   * as syntax does not bring any advantages over XML. The HTML necessary for the `HTMLView` is not re-used
+   * for the HTML of the controls, but is fully replaced.
+   *
+   * Consider using {@link sap.ui.core.mvx.XMLView XMLViews} or "typed views" (view classes written in JavaScript)
+   * instead. For more information, see the documentation on {@link topic:91f27e3e6f4d1014b6dd926db0e91070
+   * View types}.
    *
    * A view defined/constructed by declarative HTML.
    */
@@ -27544,7 +27793,7 @@ declare module "sap/ui/core/mvc/View" {
         viewName?: string;
         /**
          * The view definition. Only supported for XML and HTML views. See also {@link sap.ui.core.mvc.XMLView.create}
-         * and {@link sap.ui.core.mvc.HTMLView.create} for more information
+         * and {@link sap.ui.core.mvc.HTMLView.create} (deprecated) for more information.
          */
         definition?: any;
         /**
@@ -28439,9 +28688,15 @@ declare module "sap/ui/core/mvc/ViewType" {
    * Specifies possible view types.
    *
    * **Note:** Typed views do not rely on a `ViewType`, it must be omitted in the view settings.
+   *
+   * See the {@link topic:91f27e3e6f4d1014b6dd926db0e91070 documentation} for more information on the different
+   * view types.
    */
   enum ViewType {
     /**
+     * @deprecated (since 1.108) - Consider using {@link sap.ui.core.mvx.XMLView XMLViews} or "typed views"
+     * (view classes written in JavaScript) instead.
+     *
      * HTML view
      */
     HTML = "HTML",
@@ -30335,7 +30590,7 @@ declare module "sap/ui/core/RenderManager" {
       /**
        * Value of the style property
        */
-      sValue: string
+      vValue: string | float | int
     ): this;
     /**
      * @SINCE 1.67
@@ -30483,7 +30738,7 @@ declare module "sap/ui/core/RenderManager" {
      * of IDs for the ARIA attributes `aria-describedby` and `aria-labelledby`.
      *
      * Label controls that reference the given element in their `labelFor` relation are automatically added
-     * to the `aria-labelledby` attributes.
+     * to the `aria-labelledby` attribute.
      *
      * Note: This function is only a heuristic of a control property to ARIA attribute mapping. Control developers
      * have to check whether it fulfills their requirements. In case of problems (for example the `RadioButton`
@@ -41016,7 +41271,7 @@ declare module "sap/ui/model/analytics/AnalyticalBinding" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * @EXPERIMENTAL
+   * @EXPERIMENTAL - This module is only for experimental use!
    *
    * Tree binding implementation for OData entity sets with aggregate semantics.
    *
@@ -41713,7 +41968,7 @@ declare module "sap/ui/model/analytics/odata4analytics" {
   import Sorter from "sap/ui/model/Sorter";
 
   /**
-   * @EXPERIMENTAL
+   * @EXPERIMENTAL - This module is only for experimental use!
    *
    * The OData4Analytics API is purely experimental, not yet functionally complete and not meant for productive
    * usage. At present, its only purpose is to demonstrate how easy analytical extensions of OData4SAP can
@@ -44623,6 +44878,16 @@ declare module "sap/ui/model/ClientTreeBinding" {
        */
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
+    /**
+     * @SINCE 1.108.0
+     *
+     * Returns the count of entries in the tree, or `undefined` if it is unknown. If the tree is filtered, the
+     * count of all entries matching the filter conditions is returned. The entries required only for the tree
+     * structure are not counted.
+     *
+     * @returns The count of entries in the tree, or `undefined` if the binding is not resolved
+     */
+    getCount(): number | undefined;
     /**
      * Return node contexts for the tree
      *
@@ -54209,9 +54474,9 @@ declare module "sap/ui/model/odata/UpdateMethod" {
 
 declare module "sap/ui/model/odata/v2/BatchMode" {
   /**
-   * @deprecated - Use {@link sap.ui.model.odata.CountMode} to specify how the count of collections is retrieved.
-   * Use the `useBatch` parameter of the {@link sap.ui.model.odata.v2.ODataModel} constructor to specify whether
-   * requests are sent in $batch.
+   * @deprecated (since 1.74.0) - Use {@link sap.ui.model.odata.CountMode} to specify how the count of collections
+   * is retrieved. Use the `useBatch` parameter of the {@link sap.ui.model.odata.v2.ODataModel} constructor
+   * to specify whether requests are sent in $batch.
    *
    * Different modes for retrieving the count of collections.
    */
@@ -55277,63 +55542,9 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
      *
      * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
      *
-     * @returns The context representing the created entity
-     */
-    create(
-      /**
-       * The initial data for the created entity; see the `mParameters.properties` parameter of {@link sap.ui.model.odata.v2.ODataModel#createEntry}
-       */
-      oInitialData: object,
-      /**
-       * Whether the entity is inserted at the end of the list. The first insertion determines the overall position
-       * of created contexts within the list. Every succeeding insertion is relative to the created contexts within
-       * this list. Note: the order of created contexts in the binding does not necessarily correspond to the
-       * order of the resulting back end creation requests.
-       */
-      bAtEnd: boolean,
-      /**
-       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
-       * the following subset of these is supported.
-       */
-      mParameters: {
-        /**
-         * The ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * The error callback function
-         */
-        error?: Function;
-        /**
-         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
-         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
-         */
-        expand?: string;
-        /**
-         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * Whether the created context is inactive. An inactive context will only be sent to the server after the
-         * first property update. From then on it behaves like any other created context.
-         */
-        inactive?: boolean;
-        /**
-         * The success callback function
-         */
-        success?: Function;
-      }
-    ): Context1;
-    /**
-     * @SINCE 1.98.0
-     *
-     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
-     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
-     * Entities documentation} for comprehensive information on the topic.
-     *
-     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
+     * Since 1.108.0, this method supports deep create, which means it may be called if this binding's context
+     * is transient. The restrictions specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} regarding
+     * deep create apply.
      *
      * @returns The context representing the created entity
      */
@@ -55341,113 +55552,20 @@ declare module "sap/ui/model/odata/v2/ODataListBinding" {
       /**
        * The initial data for the created entity; see the `mParameters.properties` parameter of {@link sap.ui.model.odata.v2.ODataModel#createEntry}
        */
-      oInitialData: object,
-      /**
-       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
-       * the following subset of these is supported.
-       */
-      mParameters: {
-        /**
-         * The ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * The error callback function
-         */
-        error?: Function;
-        /**
-         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
-         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
-         */
-        expand?: string;
-        /**
-         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * Whether the created context is inactive. An inactive context will only be sent to the server after the
-         * first property update. From then on it behaves like any other created context.
-         */
-        inactive?: boolean;
-        /**
-         * The success callback function
-         */
-        success?: Function;
-      }
-    ): Context1;
-    /**
-     * @SINCE 1.98.0
-     *
-     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
-     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
-     * Entities documentation} for comprehensive information on the topic.
-     *
-     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
-     *
-     * @returns The context representing the created entity
-     */
-    create(
+      oInitialData?: object,
       /**
        * Whether the entity is inserted at the end of the list. The first insertion determines the overall position
        * of created contexts within the list. Every succeeding insertion is relative to the created contexts within
        * this list. Note: the order of created contexts in the binding does not necessarily correspond to the
        * order of the resulting back end creation requests.
        */
-      bAtEnd: boolean,
+      bAtEnd?: boolean,
       /**
-       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
-       * the following subset of these is supported.
+       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry}, where only
+       * the subset given below is supported. In case of deep create, **none** of the parameters in `mParameters`
+       * must be set.
        */
-      mParameters: {
-        /**
-         * The ID of the `ChangeSet` that this request should belong to
-         */
-        changeSetId?: string;
-        /**
-         * The error callback function
-         */
-        error?: Function;
-        /**
-         * A comma-separated list of navigation properties to be expanded for the newly created entity; see {@link
-         * sap.ui.model.odata.v2.ODataModel#createEntry}; **Note:** if no expand parameter is given, the expand
-         * parameter of this binding is used; see {@link sap.ui.model.odata.v2.ODataModel#bindList}
-         */
-        expand?: string;
-        /**
-         * The ID of a request group; requests belonging to the same group will be bundled in one batch request
-         */
-        groupId?: string;
-        /**
-         * Whether the created context is inactive. An inactive context will only be sent to the server after the
-         * first property update. From then on it behaves like any other created context.
-         */
-        inactive?: boolean;
-        /**
-         * The success callback function
-         */
-        success?: Function;
-      }
-    ): Context1;
-    /**
-     * @SINCE 1.98.0
-     *
-     * Creates a new entity for this binding's collection via {@link sap.ui.model.odata.v2.ODataModel#createEntry}
-     * using the parameters given in `mParameters` and inserts it at the list position specified by the `bAtEnd`
-     * parameter. See {@link topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating
-     * Entities documentation} for comprehensive information on the topic.
-     *
-     * Note: This method requires that the model metadata has been loaded; see {@link sap.ui.model.odata.v2.ODataModel#metadataLoaded}.
-     *
-     * @returns The context representing the created entity
-     */
-    create(
-      /**
-       * A map of parameters as specified for {@link sap.ui.model.odata.v2.ODataModel#createEntry} where only
-       * the following subset of these is supported.
-       */
-      mParameters: {
+      mParameters?: {
         /**
          * The ID of the `ChangeSet` that this request should belong to
          */
@@ -56693,7 +56811,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * topic:6c47b2b39db9404582994070ec3d57a2#loio4c4cd99af9b14e08bb72470cc7cabff4 Creating Entities documentation}
      * for comprehensive information on the topic.
      *
-     * Please note that deep creates are not supported and may not work.
+     * **Note:** This function does not support a "deep create" scenario. Use {@link #createEntry} or {@link
+     * sap.ui.model.odata.v2.ODataListBinding#create} instead.
      *
      * @returns An object which has an `abort` function to abort the current request.
      */
@@ -56858,9 +56977,14 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * for example if the server requires a unit for an amount. This also applies if this property has a default
      * value.
      *
-     * Note: A deep create (including data defined by navigation properties) is not supported. The dependent
-     * entity has to be created using a second list binding, after this entity has been saved successfully in
-     * the back-end system.
+     * Note: Deep create is only supported since 1.108.0, where "deep create" means creation of a sub-entity
+     * for a navigation property of a transient, not yet persisted root entity. Before 1.108.0, the sub-entity
+     * had to be created after the transient entity had been saved successfully in the back-end system. Since
+     * 1.108.0, a deep create is triggered when the `sPath` parameter is a navigation property for the entity
+     * type associated with the transient context given in `mParameters.context`. The payload of the OData request
+     * to create the root entity then contains its sub-entities. On creation of a sub-entity, only the `sPath`,
+     * `mParameters.context` and `mParameters.properties` method parameters are allowed; the context given in
+     * `mParameters.context` must not be inactive.
      *
      * @returns An OData V2 context object that points to the newly created entry; or `undefined` if the service
      * metadata are not yet loaded or if a `created` callback parameter is given
@@ -59176,20 +59300,26 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Deletes the OData entity this context points to. The context is removed from the binding immediately,
      * even if {@link sap.ui.model.odata.v4.SubmitMode.API} is used, and the request is only sent later when
-     * {@link sap.ui.model.odata.v4.ODataModel#submitBatch} is called. As long as the context is deleted on
-     * the client, but not yet on the server, {@link #isDeleted} returns `true`. The context must not be used,
-     * e.g. as a binding context, while {@link #isDeleted} returns `true`.
+     * {@link sap.ui.model.odata.v4.ODataModel#submitBatch} is called. As soon as the context is deleted on
+     * the client, {@link #isDeleted} returns `true` and the context must not be used anymore (except for status
+     * APIs like {@link #isDeleted}, {@link #isKeepAlive}, {@link #hasPendingChanges}, {@link #resetChanges}),
+     * especially not as a binding context.
      *
      * Since 1.105 such a pending deletion is a pending change. It causes `hasPendingChanges` to return `true`
-     * for the context, the binding containing it, and the model. `resetChanges` in binding or model cancels
-     * the deletion and restores the context.
+     * for the context, the binding containing it, and the model. The `resetChanges` method called on the context
+     * (since 1.109.0), the binding, or the model cancels the deletion and restores the context.
      *
-     * The usage of a group ID with {@link sap.ui.model.odata.v4.SubmitMode.API} is possible since 1.105 - this
-     * is an experimental API.
+     * If the DELETE request succeeds, the context is destroyed and must not be used anymore. If it fails or
+     * is canceled, the context is restored, reinserted into the list, and fully functional again.
      *
-     * The context must not be used anymore after successful deletion.
+     * If the deleted context is used as binding context of a control or view, the application is advised to
+     * unbind it via `{@link sap.ui.base.ManagedObject#setBindingContext setBindingContext(null)}` before calling
+     * `delete`, and to possibly rebind it after reset or failure. The model itself ensures that all bindings
+     * depending on this context become unresolved, but no attempt is made to restore these bindings in case
+     * of reset or failure.
      * See:
      * 	#hasPendingChanges
+     * 	#resetChanges
      * 	sap.ui.model.odata.v4.ODataContextBinding#hasPendingChanges
      * 	sap.ui.model.odata.v4.ODataListBinding#hasPendingChanges
      * 	sap.ui.model.odata.v4.ODataModel#hasPendingChanges
@@ -59212,7 +59342,8 @@ declare module "sap/ui/model/odata/v4/Context" {
        * binding is used, see {@link #getUpdateGroupId}. Since 1.81, if this context is transient (see {@link
        * #isTransient}), no group ID needs to be specified. Since 1.98.0, you can use `null` to prevent the DELETE
        * request in case of a kept-alive context that is not in the collection and of which you know that it does
-       * not exist on the server anymore (for example, a draft after activation).
+       * not exist on the server anymore (for example, a draft after activation). Since 1.108.0 the usage of a
+       * group ID with {@link sap.ui.model.odata.v4.SubmitMode.API} is possible.
        */
       sGroupId?: string,
       /**
@@ -59345,8 +59476,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Returns whether there are pending changes for bindings dependent on this context, or for unresolved bindings
      * (see {@link sap.ui.model.Binding#isResolved}) which were dependent on this context at the time the pending
-     * change was created. This includes the context itself being {@link #isTransient transient} or {@link #isDeleted
-     * deleted}. Since 1.98.0, {@link #isInactive inactive} contexts are ignored.
+     * change was created. This includes the context itself being {@link #isTransient transient} or {@link #delete
+     * deleted} on the client, but not yet on the server. Since 1.98.0, {@link #isInactive inactive} contexts
+     * are ignored.
      *
      * @returns Whether there are pending changes
      */
@@ -59354,8 +59486,10 @@ declare module "sap/ui/model/odata/v4/Context" {
     /**
      * @SINCE 1.105.0
      *
-     * Returns whether this context is deleted on the client, but not on the server yet. The result of this
-     * function can also be accessed via the "@$ui5.context.isDeleted" instance annotation at the entity.
+     * Returns whether this context is deleted. It becomes `true` immediately after calling {@link #delete},
+     * even while the request is waiting for {@link sap.ui.model.odata.v4.ODataModel#submitBatch submitBatch}
+     * or is in process. It becomes `false` again when the DELETE request fails or is canceled. The result of
+     * this function can also be accessed via the "@$ui5.context.isDeleted" instance annotation at the entity.
      * See:
      * 	#delete
      *
@@ -59577,6 +59711,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Use it to set fields affected by side effects to read-only before {@link #requestSideEffects} and make
      * them editable again when the promise resolves; in the error handler, you can repeat the loading of side
      * effects.
+     *  The promise is rejected if the call wants to refresh a whole list binding (via header context or an
+     * absolute path), but the deletion of a row context (see {@link #delete}) is pending with a different group
+     * ID.
      */
     requestSideEffects(
       /**
@@ -59603,6 +59740,20 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       sGroupId?: string
     ): Promise<undefined>;
+    /**
+     * @EXPERIMENTAL (since 1.109.0)
+     *
+     * Resets all pending changes of this context, see {@link #hasPendingChanges}. Resets also invalid user
+     * input. If this context is currently {@link #delete deleted} on the client, but not yet on the server,
+     * this method cancels the deletion and restores the context.
+     *
+     * Note: This is an experimental API. Currently only PATCH and DELETE changes for row contexts of an absolute
+     * {@link sap.ui.model.odata.v4.ODataListBinding} are supported.
+     *
+     * @returns A promise which is resolved without a defined result as soon as all changes in the context itself
+     * are canceled
+     */
+    resetChanges(): Promise<any>;
     /**
      * @SINCE 1.81.0
      *
@@ -60026,11 +60177,10 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     /**
      * @SINCE 1.39.0
      *
-     * Returns `true` if this binding or its dependent bindings have pending property changes or created entities
-     * which have not been sent successfully to the server. This function does not take into account the deletion
-     * of entities (see {@link sap.ui.model.odata.v4.Context#delete}) and the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
-     * inactive} contexts are ignored.
+     * Returns `true` if this binding or its dependent bindings have property changes, created entities, or
+     * entity deletions which have not been sent successfully to the server. This function does not take the
+     * execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}) into account.
+     * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts are ignored.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
      * returns `true` if there are pending changes for the current parent context path of this binding. If this
@@ -60043,10 +60193,11 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
        * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
        * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
-       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} context
-       * of this binding (since 1.97.0). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-       * contexts of a {@link #getRootBinding root binding} are treated as kept-alive by this flag. Since 1.99.0,
-       * the same happens for bindings using the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since
+       * 1.97.0) or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding.
+       * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding
+       * root binding} are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using
+       * the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -60181,7 +60332,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive
      * kept-alive} context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-     * contexts of a {@link #getRootBinding root binding} do not count as pending changes.
+     * contexts of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link
+     * sap.ui.model.odata.v4.Context#delete deleted} contexts do not count as pending changes.
      * See:
      * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
@@ -60452,8 +60604,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       bAtEnd?: boolean,
       /**
        * Create an inactive context. Such a context will only be sent to the server after the first property update.
-       * From then on it behaves like any other created context. Supported since 1.97.0  Since 1.98.0, when
-       * the first property updates happens, the context is no longer {@link sap.ui.model.odata.v4.Context#isInactive
+       * From then on it behaves like any other created context. Supported since 1.97.0
+       *  Since 1.98.0, when the first property updates happens, the context is no longer {@link sap.ui.model.odata.v4.Context#isInactive
        * inactive} and the {@link sap.ui.model.odata.v4.ODataListBinding#event:createActivate createActivate}
        * event is fired. While inactive, it does not count as a {@link #hasPendingChanges pending change} and
        * does not contribute to the {@link #getCount count}.
@@ -60600,6 +60752,14 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
       sFilterType?: FilterType | keyof typeof FilterType
     ): this;
     /**
+     * @SINCE 1.109.0
+     *
+     * Returns the current object holding the information needed for data aggregation, see {@link #setAggregation}.
+     *
+     * @returns The current data aggregation object, incl. some default values
+     */
+    getAggregation(): object;
+    /**
      * @SINCE 1.98.0
      *
      * Returns all current contexts of this list binding in no special order. Just like {@link #getCurrentContexts},
@@ -60652,9 +60812,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      *
      * If known, the value represents the sum of the element count of the collection on the server and the number
      * of {@link sap.ui.model.odata.v4.Context#isInactive active} {@link sap.ui.model.odata.v4.Context#isTransient
-     * transient} entities created on the client. Otherwise, it is `undefined`. The value is a number of type
-     * `Edm.Int64`. Since 1.91.0, in case of data aggregation with group levels, the count is the leaf count
-     * on the server; it is only determined if the `$count` system query option is given.
+     * transient} entities created on the client, minus the {@link #sap.ui.model.data.v4.Context#delete deleted}
+     * entities. Otherwise, it is `undefined`. The value is a number of type `Edm.Int64`. Since 1.91.0, in case
+     * of data aggregation with group levels, the count is the leaf count on the server; it is only determined
+     * if the `$count` system query option is given.
      *
      * The count is known to the binding in the following situations:
      * 	 The server-side count has been requested via the `$count` system query option.  A "short read"
@@ -60676,7 +60837,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      *
      * Returns the contexts that were requested by a control last time. Does not trigger a data request. In
      * the time between the {@link #event:dataRequested} event and the {@link #event:dataReceived} event, the
-     * resulting array contains `undefined` at those indexes where the data is not yet available.
+     * resulting array contains `undefined` at those indexes where the data is not yet available or has been
+     * deleted.
      * See:
      * 	sap.ui.model.ListBinding#getCurrentContexts
      * 	#getAllCurrentContexts
@@ -60813,11 +60975,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     /**
      * @SINCE 1.39.0
      *
-     * Returns `true` if this binding or its dependent bindings have pending property changes or created entities
-     * which have not been sent successfully to the server. This function does not take into account the deletion
-     * of entities (see {@link sap.ui.model.odata.v4.Context#delete}) and the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
-     * inactive} contexts are ignored.
+     * Returns `true` if this binding or its dependent bindings have property changes, created entities, or
+     * entity deletions which have not been sent successfully to the server. This function does not take the
+     * execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}) into account.
+     * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts are ignored.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
      * returns `true` if there are pending changes for the current parent context path of this binding. If this
@@ -60830,10 +60991,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
        * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
        * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
-       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} context
-       * of this binding (since 1.97.0). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-       * contexts of a {@link #getRootBinding root binding} are treated as kept-alive by this flag. Since 1.99.0,
-       * the same happens for bindings using the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since
+       * 1.97.0) or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding.
+       * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding
+       * root binding} are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using
+       * the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -61017,6 +61179,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * @SINCE 1.55.0
      *
      * Sets a new data aggregation object and derives the system query option `$apply` implicitly from it.
+     * See:
+     * 	#getAggregation
      */
     setAggregation(
       /**
@@ -61035,8 +61199,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
         /**
          * A map from aggregatable property names or aliases to objects containing the following details:
          * 	 `grandTotal`: An optional boolean that tells whether a grand total for this aggregatable property is
-         * needed (since 1.59.0); filtering by any aggregatable property is not supported in this case (since 1.89.0)
-         * as is "$search" (since 1.93.0) or the `vGroup` parameter of {@link sap.ui.model.Sorter} (since 1.107.0)
+         * needed (since 1.59.0); not supported in this case are:
+         * 	 filtering by any aggregatable property (since 1.89.0),  "$search" (since 1.93.0),  the `vGroup`
+         * parameter of {@link sap.ui.model.Sorter} (since 1.107.0),  shared requests (since 1.108.0).
          *  `subtotals`: An optional boolean that tells whether subtotals for this aggregatable property are
          * needed  `with`: An optional string that provides the name of the method (for example "sum") used
          * for aggregation of this aggregatable property; see "3.1.2 Keyword with".  `name`: An optional string
@@ -61049,8 +61214,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         aggregate?: object;
         /**
-         * The number of initially expanded levels as a positive integer (@experimental as of version 1.105.0),
-         * supported only if a `hierarchyQualifier` is given.
+         * The number (as a positive integer) of different levels initially available without calling {@link sap.ui.model.odata.v4.Context#expand}
+         * (@experimental as of version 1.105.0), supported only if a `hierarchyQualifier` is given. Root nodes
+         * are on the first level. By default, only root nodes are available; they are not yet expanded.
          */
         expandTo?: number;
         /**
@@ -61068,16 +61234,18 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
         group?: object;
         /**
          * A list of groupable property names used to determine group levels. They may, but don't need to, be repeated
-         * in `oAggregation.group`. Group levels cannot be combined with filtering for aggregated properties or
-         * (since 1.93.0) with "$search" or (since 1.107.0) the `vGroup` parameter of {@link sap.ui.model.Sorter}.
+         * in `oAggregation.group`. Group levels cannot be combined with:
+         * 	 filtering for aggregated properties,  "$search" (since 1.93.0),  the `vGroup` parameter of
+         * {@link sap.ui.model.Sorter} (since 1.107.0),  shared requests (since 1.108.0).
          */
         groupLevels?: string[];
         /**
          * The qualifier for the pair of "Org.OData.Aggregation.V1.RecursiveHierarchy" and "com.sap.vocabularies.Hierarchy.v1.RecursiveHierarchy"
          * annotations at this binding's entity type (@experimental as of version 1.105.0). If present, a recursive
          * hierarchy without data aggregation is defined, and the only other supported properties are `expandTo`
-         * and `search`. A recursive hierarchy cannot be combined with "$search" or (since 1.107.0) the `vGroup`
-         * parameter of {@link sap.ui.model.Sorter}.
+         * and `search`. A recursive hierarchy cannot be combined with:
+         * 	 "$search",  the `vGroup` parameter of {@link sap.ui.model.Sorter} (since 1.107.0),  shared
+         * requests (since 1.108.0).
          */
         hierarchyQualifier?: string;
         /**
@@ -61103,6 +61271,11 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * at this list binding and they are used for each following data request. Since 1.97.0, if sorters are
      * unchanged, no request is sent, regardless of pending changes.
      *
+     * **Note:** To allow proper detection whether sorters are unchanged, care must be taken if a sorter uses
+     * a function (for example via the `vGroup` parameter): it must be the exact same function instance which
+     * was given before, and not a newly created one, for example because `Function.prototype.bind` is called
+     * repeatedly.
+     *
      * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges}
      * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch}
      * to submit the changes or {@link sap.ui.model.odata.v4.ODataModel#resetChanges} to reset the changes before
@@ -61127,7 +61300,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * requests. Call {@link #resume} to resume the binding. Before 1.53.0, this method was not supported and
      * threw an error. Since 1.97.0, pending changes are ignored if they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive
      * kept-alive} context of this binding. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-     * contexts of a {@link #getRootBinding root binding} do not count as pending changes.
+     * contexts of a {@link #getRootBinding root binding} do not count as pending changes. Since 1.108.0 {@link
+     * sap.ui.model.odata.v4.Context#delete deleted} contexts do not count as pending changes.
      * See:
      * 	{@link topic:b0f5c531e5034a27952cc748954cbe39 Suspend and Resume}
      * 	sap.ui.model.Binding#suspend
@@ -61196,12 +61370,14 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
         total?: boolean;
         /**
          * Measures only: Whether the maximum value (ignoring currencies or units of measure) for this measure is
-         * needed (since 1.55.0); filtering and sorting is supported in this case (since 1.58.0)
+         * needed (since 1.55.0); filtering and sorting is supported in this case (since 1.58.0), but shared requests
+         * are not (since 1.108.0)
          */
         max?: boolean;
         /**
          * Measures only: Whether the minimum value (ignoring currencies or units of measure) for this measure is
-         * needed (since 1.55.0); filtering and sorting is supported in this case (since 1.58.0)
+         * needed (since 1.55.0); filtering and sorting is supported in this case (since 1.58.0), but shared requests
+         * are not (since 1.108.0)
          */
         min?: boolean;
         /**
@@ -62448,15 +62624,19 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * Whether multiple bindings for the same resource path share the data, so that it is requested only once;
          * only the value `true` is allowed. This parameter can be inherited from the model's parameter "sharedRequests",
          * see {@link sap.ui.model.odata.v4.ODataModel#constructor}. Supported since 1.80.0 **Note:** These bindings
-         * are read-only, so they may be especially useful for value lists; the following APIs are **not** allowed
-         *
+         * are read-only, so they may be especially useful for value lists; state messages (since 1.108.0) and the
+         * following APIs are **not** allowed
          * 	 for the list binding itself:
-         * 	 {@link sap.ui.model.odata.v4.ODataListBinding#create}   for the {@link sap.ui.model.odata.v4.ODataListBinding#getHeaderContext
-         * header context} of a list binding:
+         * 	 {@link sap.ui.model.odata.v4.ODataListBinding#create}  {@link sap.ui.model.odata.v4.ODataListBinding#getKeepAliveContext}
+         * or {@link #getKeepAliveContext} as far as it affects such a list binding  {@link sap.ui.model.odata.v4.ODataListBinding#resetChanges}
+         *   for the {@link sap.ui.model.odata.v4.ODataListBinding#getHeaderContext header context} of
+         * a list binding:
          * 	 {@link sap.ui.model.odata.v4.Context#requestSideEffects}   for the context of a list binding
          * representing a single entity:
          * 	 {@link sap.ui.model.odata.v4.Context#delete}  {@link sap.ui.model.odata.v4.Context#refresh}
-         * {@link sap.ui.model.odata.v4.Context#requestSideEffects}  {@link sap.ui.model.odata.v4.Context#setProperty}
+         * {@link sap.ui.model.odata.v4.Context#replaceWith}  {@link sap.ui.model.odata.v4.Context#requestSideEffects}
+         *  {@link sap.ui.model.odata.v4.Context#setKeepAlive}  {@link sap.ui.model.odata.v4.Context#setProperty}
+         *  executing a bound operation using `bReplaceWithRVC`, see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}
          *   for a dependent property binding of the list binding:
          * 	 {@link sap.ui.model.odata.v4.ODataPropertyBinding#setValue}
          */
@@ -62914,9 +63094,10 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     /**
      * @SINCE 1.39.0
      *
-     * Returns `true` if there are pending changes, meaning updates or created entities (see {@link sap.ui.model.odata.v4.ODataListBinding#create})
-     * that have not yet been successfully sent to the server. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
-     * inactive} contexts are ignored.
+     * Returns `true` if there are pending changes, which can be updates, created entities (see {@link sap.ui.model.odata.v4.ODataListBinding#create})
+     * or entity deletions (see {@link sap.ui.model.odata.v4.Context#delete}) that have not yet been successfully
+     * sent to the server. Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts
+     * are ignored.
      *
      * @returns `true` if there are pending changes
      */
@@ -62979,7 +63160,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * Requests the metadata for the given meta path and calculates the key predicate by taking the key properties
      * from the given entity instance.
      * See:
-     * 	#getKeyPredicates
+     * 	#getKeyPredicate
      *
      * @returns A promise that gets resolved with the proper URI-encoded key predicate, for example "(Sector='A%2FB%26C',ID='42')"
      * or "('42')", or `undefined` if at least one key property is undefined. It gets rejected if the metadata
@@ -62998,12 +63179,11 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
     /**
      * @SINCE 1.39.0
      *
-     * Resets all property changes and created entities associated with the given group ID which have not been
-     * successfully submitted via {@link #submitBatch}. Resets also invalid user input for the same group ID.
-     * This function does not reset the deletion of entities (see {@link sap.ui.model.odata.v4.Context#delete})
-     * and the execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
+     * Resets all property changes, created entities, and entity deletions associated with the given group ID
+     * which have not been successfully submitted via {@link #submitBatch}. Resets also invalid user input for
+     * the same group ID. This function does not reset the execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}).
      * See:
-     * 	sap.ui.model.odata.v4.ODataModel#constructor.
+     * 	sap.ui.model.odata.v4.ODataModel#constructor
      */
     resetChanges(
       /**
@@ -63187,11 +63367,10 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
     /**
      * @SINCE 1.39.0
      *
-     * Returns `true` if this binding or its dependent bindings have pending property changes or created entities
-     * which have not been sent successfully to the server. This function does not take into account the deletion
-     * of entities (see {@link sap.ui.model.odata.v4.Context#delete}) and the execution of OData operations
-     * (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive
-     * inactive} contexts are ignored.
+     * Returns `true` if this binding or its dependent bindings have property changes, created entities, or
+     * entity deletions which have not been sent successfully to the server. This function does not take the
+     * execution of OData operations (see {@link sap.ui.model.odata.v4.ODataContextBinding#execute}) into account.
+     * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isInactive inactive} contexts are ignored.
      *
      * Note: If this binding is relative, its data is cached separately for each parent context path. This method
      * returns `true` if there are pending changes for the current parent context path of this binding. If this
@@ -63204,10 +63383,11 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
        * Whether to ignore changes which will not be lost by APIs like {@link sap.ui.model.odata.v4.ODataListBinding#changeParameters
        * changeParameters}, {@link sap.ui.model.odata.v4.ODataListBinding#filter filter}, {@link sap.ui.model.odata.v4.ODataListBinding#refresh
        * refresh} (since 1.100.0), {@link sap.ui.model.odata.v4.ODataListBinding#sort sort}, or {@link sap.ui.model.odata.v4.ODataListBinding#suspend
-       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} context
-       * of this binding (since 1.97.0). Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient}
-       * contexts of a {@link #getRootBinding root binding} are treated as kept-alive by this flag. Since 1.99.0,
-       * the same happens for bindings using the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
+       * suspend} because they relate to a {@link sap.ui.model.odata.v4.Context#isKeepAlive kept-alive} (since
+       * 1.97.0) or {@link sap.ui.model.odata.v4.Context#delete deleted} (since 1.108.0) context of this binding.
+       * Since 1.98.0, {@link sap.ui.model.odata.v4.Context#isTransient transient} contexts of a {@link #getRootBinding
+       * root binding} are treated as kept-alive by this flag. Since 1.99.0, the same happens for bindings using
+       * the `$$ownRequest` parameter (see {@link sap.ui.model.odata.v4.ODataModel#bindList}).
        */
       bIgnoreKeptAlive?: boolean
     ): boolean;
@@ -64782,6 +64962,19 @@ declare module "sap/ui/model/TreeBinding" {
       oContext: Object
     ): int;
     /**
+     * @SINCE 1.108.0
+     *
+     * Returns the count of entries in the tree, or `undefined` if it is unknown. If the tree is filtered, the
+     * count of all entries matching the filter conditions is returned. The entries required only for the tree
+     * structure are not counted.
+     *
+     * **Note:** The default implementation returns `undefined` and has to be overwritten by subclasses.
+     *
+     * @returns The count of entries in the tree, or `undefined` if it is unknown, for example because the binding
+     * is not resolved or because this feature is not supported.
+     */
+    getCount(): number | undefined;
+    /**
      * Returns the current value of the bound target
      *
      * @returns the array of child contexts for the given node
@@ -64987,7 +65180,7 @@ declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
   import TreeBinding from "sap/ui/model/TreeBinding";
 
   /**
-   * @deprecated - use {@link sap.ui.model.TreeBindingAdapter} instead
+   * @deprecated (since 1.96.0) - use {@link sap.ui.model.TreeBindingAdapter} instead
    */
   export default class TreeBindingCompatibilityAdapter {
     /**
@@ -74229,7 +74422,11 @@ declare namespace sap {
       /**
        * Dependency (dependencies) to resolve
        */
-      vDependencies: string | string[],
+      vDependencies:
+        | string
+        | Array<
+            keyof IUI5DefineDependencyNames | (string & { IGNORE_ME?: never })
+          >,
       /**
        * Callback function to execute after resolving an array of dependencies
        */
@@ -75083,7 +75280,7 @@ declare namespace sap {
        */
       namespace analytics {
         /**
-         * @EXPERIMENTAL
+         * @EXPERIMENTAL - This module is only for experimental use!
          *
          * If called on an instance of an (v1/v2) ODataModel it will enrich it with analytics capabilities.
          */
@@ -75094,7 +75291,7 @@ declare namespace sap {
        */
       namespace odata {
         /**
-         * @EXPERIMENTAL
+         * @EXPERIMENTAL - This module is only for experimental and internal use!
          *
          * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
          * controls. Only usable with the sap.ui.table.TreeTable control. The functions defined here are only available
@@ -76083,6 +76280,8 @@ declare namespace sap {
 
     "sap/ui/base/SyncPromise": undefined;
 
+    "sap/ui/core/_UrlResolver": undefined;
+
     "sap/ui/core/AppCacheBuster": undefined;
 
     "sap/ui/core/BusyIndicator": undefined;
@@ -76112,6 +76311,10 @@ declare namespace sap {
     "sap/ui/core/Core": undefined;
 
     "sap/ui/core/CustomData": undefined;
+
+    "sap/ui/core/date/CalendarUtils": undefined;
+
+    "sap/ui/core/date/CalendarWeekNumbering": undefined;
 
     "sap/ui/core/date/UniversalDate": undefined;
 
@@ -76427,8 +76630,6 @@ declare namespace sap {
 
     "sap/ui/events/TouchToMouseMapping": undefined;
 
-    "sap/ui/Global": undefined;
-
     "sap/ui/model/analytics/AnalyticalBinding": undefined;
 
     "sap/ui/model/analytics/AnalyticalTreeBindingAdapter": undefined;
@@ -76436,8 +76637,6 @@ declare namespace sap {
     "sap/ui/model/analytics/BatchResponseCollector": undefined;
 
     "sap/ui/model/analytics/odata4analytics": undefined;
-
-    "sap/ui/model/analytics/ODataModelAdapter": undefined;
 
     "sap/ui/model/base/ManagedObjectModel": undefined;
 
@@ -76764,8 +76963,6 @@ declare namespace sap {
     "sap/ui/util/XMLHelper": undefined;
 
     "sap/ui/VersionInfo": undefined;
-
-    ui5loader: undefined;
   }
 
   type ClassInfo<T, C> = T & Partial<C> & ThisType<T & C>;
