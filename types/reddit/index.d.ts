@@ -19,13 +19,13 @@ declare class Reddit {
      * @param opts Credentials required for Reddit's API. Accepts the following properties:
      *
      * Required:
-     * - `username` - Username of the reddit user.
-     * - `password` - Password of the reddit user.
-     * - `appId` - Client ID of the application.
-     * - `appSecret` - Client Secret of the application.
+     * - `username` Username of the reddit user.
+     * - `password` Password of the reddit user.
+     * - `appId` Client ID of the application.
+     * - `appSecret` Client Secret of the application.
      *
      * Optional:
-     * - `userAgent` - Used as the `User-Agent` header in http requests.
+     * - `userAgent` Used as the `User-Agent` header in http requests.
      *
      * @see https://github.com/reddit-archive/reddit/wiki/OAuth2 for more infromation on OAuth2.
      *
@@ -162,13 +162,13 @@ declare namespace Reddit {
      * Credentials to be passed to `Reddit`
      *
      * Required:
-     * - `username` - Username of the reddit user.
-     * - `password` - Password of the reddit user.
-     * - `appId` - Client ID of the application.
-     * - `appSecret` - Client Secret of the application.
+     * - `username` Username of the reddit user.
+     * - `password` Password of the reddit user.
+     * - `appId` Client ID of the application.
+     * - `appSecret` Client Secret of the application.
      *
      * Optional:
-     * - `userAgent` - Used as the `User-Agent` header in http requests.
+     * - `userAgent` Used as the `User-Agent` header in http requests.
      *
      * @see https://www.reddit.com/prefs/apps for the client ID and secret.
      *
