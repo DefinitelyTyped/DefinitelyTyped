@@ -1656,3 +1656,19 @@ function testTopSites() {
 async function testTopSitesForPromise() {
     await chrome.topSites.get();
 }
+
+/**
+ * Test the chrome.offscreen API.
+ * @see https://developer.chrome.com/docs/extensions/reference/offscreen
+ */
+async function testOffscreen() {
+    await chrome.offscreen.createDocument({
+        url: "some-page.html",
+        reasons: [chrome.offscreen.Reason.AUDIO_PLAYBACK],
+        justification: "testing",
+    });
+
+    const hasDocument = await chrome.offscreen.hasDocument();
+
+    await chrome.offscreen.closeDocument();
+}

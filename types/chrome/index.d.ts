@@ -12348,3 +12348,45 @@ declare namespace chrome.declarativeNetRequest {
      * Only available for unpacked extensions with the declarativeNetRequestFeedback permission as this is intended to be used for debugging purposes only. */
     export var onRuleMatchedDebug: RuleMatchedDebugEvent;
 }
+
+/**
+ * @since Chrome 109.
+ * @requires Permissions: 'offscreen'
+ * @description
+ * Use the offscreen API to create and manage offscreen documents.
+ * @link https://developer.chrome.com/docs/extensions/reference/offscreen/
+ */
+declare namespace chrome.offscreen {
+    export enum Reason {
+        AUDIO_PLAYBACK = "AUDIO_PLAYBACK",
+        BLOBS = "BLOBS",
+        CLIPBOARD = "CLIPBOARD",
+        DOM_PARSER = "DOM_PARSER",
+        DOM_SCRAPING = "DOM_SCRAPING",
+        DISPLAY_MEDIA = "DISPLAY_MEDIA",
+        IFRAME_SCRIPTING = "IFRAME_SCRIPTING",
+        TESTING = "TESTING",
+        USER_MEDIA = "USER_MEDIA",
+        WEB_RTC = "WEB_RTC"
+    }
+
+    export interface CreateParameters {
+        /** Explanation of the need for the background context. The user agent may use this in display to the user  */
+        justification: string;
+
+        /** The reason(s) the extension is creating the offscreen document. */
+        reasons: Reason[];
+
+        /** The (relative) URL to load in the document. */
+        url: string;
+    }
+
+    export function hasDocument(): Promise<boolean>;
+    export function hasDocument(callback: (hasDocument: boolean) => void): void;
+
+    export function closeDocument(): Promise<void>;
+    export function closeDocument(callback: () => void): void;
+
+    export function createDocument(parameters: CreateParameters): Promise<void>;
+    export function createDocument(parameters: CreateParameters, callback: () => void): void;
+}
