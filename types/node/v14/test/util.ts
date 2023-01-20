@@ -257,7 +257,7 @@ function testUtilTypes(
         object; // $ExpectType Map<any, any>
 
         if (util.types.isMap(readonlyMapOrRecord)) {
-            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || Map<any, any> | ReadonlyMap<any, any>
+            readonlyMapOrRecord; // $ExpectType ReadonlyMap<any, any> || Map<any, any> | ReadonlyMap<any, any> || ReadonlyMap<any, any> | Map<any, any>
         }
     }
     if (util.types.isNativeError(object)) {
