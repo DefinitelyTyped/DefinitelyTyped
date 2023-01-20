@@ -4,9 +4,9 @@ clevertap.init('ACCOUNT_ID', 'eu1', 'TARGET_DOMAIN'); // Replace with values app
 
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
-clevertap.raiseNotificationClicked = () => {
-    // callback for notification clicked
-};
+// clevertap.raiseNotificationClicked = () => {
+//     // callback for notification clicked
+// };
 
 // event without properties
 clevertap.event.push('Product viewed');
