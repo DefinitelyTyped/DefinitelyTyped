@@ -6003,7 +6003,7 @@ declare namespace chrome.notifications {
 ////////////////////
 /**
  * Use the offscreen API to create and manage offscreen documents.
- * Availability: Since Chrome 109. Manifest v3.
+ * Availability: @since Chrome 109. Manifest v3.
  * Permissions: "offscreen"
  */
 declare namespace chrome.offscreen {
