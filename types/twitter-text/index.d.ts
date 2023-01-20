@@ -44,7 +44,10 @@ export function splitTags(text: string): string[];
 
 export function extractHashtags(text: string): string[];
 export function extractHashtagsWithIndices(text: string): HashtagWithIndices[];
-export function extractUrls(text: string): string[];
+export function extractUrls(
+    text: string,
+    options?: { extractUrlsWithoutProtocol: boolean },
+): string[];
 export function extractUrlsWithIndices(
     text: string,
     options?: { extractUrlsWithoutProtocol: boolean },

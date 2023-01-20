@@ -665,5 +665,5 @@ export interface BlockVariation<Attributes extends BlockAttributes = BlockAttrib
           };
     scope?: BlockVariationScope[];
     keywords?: string[];
-    isActive?: (blockAttributes: Attributes, variationAttributes: Attributes) => boolean | string[];
+    isActive?: ((blockAttributes: Attributes, variationAttributes: Attributes) => boolean) | string[];
 }

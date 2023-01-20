@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "minimatch-tests.ts"
+        "gulp-rewrite-css-tests.ts"
     ]
 }

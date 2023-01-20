@@ -402,7 +402,7 @@ interface Window {
      * }
      */
     onurlchange: null;
-    addEventListener(type: string, listener: (urlObject: { url: string }) => void): void;
+    addEventListener(type: "urlchange", listener: (urlObject: { url: string }) => void): void;
 }
 
 // Styles

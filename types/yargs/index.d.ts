@@ -150,7 +150,7 @@ declare namespace yargs {
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
             middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
-        ): Argv<U>;
+        ): Argv<T>;
         command<O extends { [key: string]: Options }>(
             command: string | ReadonlyArray<string>,
             description: string,
@@ -159,7 +159,7 @@ declare namespace yargs {
             middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
+        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
             showInHelp: false,
@@ -174,8 +174,8 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
-        command<U>(module: CommandModule<T, U>): Argv<U>;
+        command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
+        command(module: CommandModule<T, any>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */
