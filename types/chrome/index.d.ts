@@ -11934,26 +11934,15 @@ declare namespace chrome.declarativeNetRequest {
          * For example, when the request url is http://abc.рф?q=ф, the urlFilter will be matched against the url http://abc.xn--p1ai/?q=%D1%84.
          */
         urlFilter?: string | undefined;
-    } & (
-        | {
-              /**
-               * List of resource types which the rule won't match.
-               * Only one of {@link chrome.declarativeNetRequest.RuleCondition.resourceTypes}
-               * and {@link chrome.declarativeNetRequest.RuleCondition.excludedResourceTypes} should be specified.
-               * If neither of them is specified, all resource types except "main_frame" are blocked.
-               */
-              excludedResourceTypes?: ResourceType[] | undefined;
-          }
-        | {
-              /**
-               * List of resource types which the rule can match.
-               * An empty list is not allowed.
-               *
-               * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
-               */
-              resourceTypes?: ResourceType[] | undefined;
-          }
-    );
+
+        /**
+         * List of resource types which the rule can match.
+         * An empty list is not allowed.
+         *
+         * Note: this must be specified for allowAllRequests rules and may only include the sub_frame and main_frame resource types.
+         */
+        resourceTypes?: ResourceType[] | undefined;
+    }
 
     export interface MatchedRule {
         /** A matching rule's ID. */
