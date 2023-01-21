@@ -847,7 +847,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const powerbanks = room.find<StructurePowerBank>(FIND_STRUCTURES, { filter: s => s.structureType === STRUCTURE_POWER_BANK });
     powerbanks.forEach((p: StructurePowerBank) => {
-        const ticksLeft = p.ticksToDecay
+        const ticksLeft = p.ticksToDecay;
         if (p.power > 0) {
             Game.notify(`Found PowerBank with power ${p.power}`);
         }
@@ -938,6 +938,33 @@ function atackPower(creep: Creep) {
         })
         .reduce((a, b) => a + b);
 }
+
+// Repair test
+
+{
+    const structures = room.find(FIND_STRUCTURES);
+    let totalRepair = 0;
+    for (const struct of structures) {
+        if (struct.structureType === STRUCTURE_CONTAINER || struct.structureType == STRUCTURE_ROAD) {
+            totalRepair += struct.hitsMax - struct.hits;
+            continue;
+        }
+        if (struct.structureType === STRUCTURE_WALL) {
+            totalRepair += 100000 - struct.hits
+            continue;
+        }
+        if (
+            struct.structureType === STRUCTURE_PORTAL ||
+            struct.structureType === STRUCTURE_POWER_BANK ||
+            !struct.my ||
+            struct.structureType == STRUCTURE_CONTROLLER
+        ) {
+            continue;
+        }
+        totalRepair += struct.hitsMax - struct.hits;
+    }
+}
+
 
 // Factories and Commodities
 
