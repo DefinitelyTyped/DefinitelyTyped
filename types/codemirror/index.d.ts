@@ -550,19 +550,11 @@ declare namespace CodeMirror {
             eventName: K,
             handler: (instance: Editor, event: GlobalEventHandlersEventMap[K]) => void,
         ): void;
-        on<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
-            eventName: K,
-            handler: (instance: Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
-        ): void;
 
         off<T extends keyof EditorEventMap>(eventName: T, handler: EditorEventMap[T]): void;
         off<K extends DOMEvent & keyof GlobalEventHandlersEventMap>(
             eventName: K,
             handler: (instance: Editor, event: GlobalEventHandlersEventMap[K]) => void,
-        ): void;
-        off<K extends DOMEvent & keyof DocumentAndElementEventHandlersEventMap>(
-            eventName: K,
-            handler: (instance: Editor, event: DocumentAndElementEventHandlersEventMap[K]) => void,
         ): void;
 
         /** Expose the state object, so that the Editor.state.completionActive property is reachable */
