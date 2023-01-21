@@ -5608,7 +5608,6 @@ type AnyOwnedStructure =
     | StructureLink
     | StructureNuker
     | StructureObserver
-    | StructurePowerBank
     | StructurePowerSpawn
     | StructureRampart
     | StructureSpawn
@@ -5632,7 +5631,7 @@ type AnyStoreStructure =
 /**
  * A discriminated union on Structure.type of all structure types
  */
-type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall | StructurePowerBank;
 
 /**
  * Conditional type for all concrete implementations of Structure.
