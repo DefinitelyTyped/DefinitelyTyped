@@ -12,7 +12,7 @@
 //                 koddsson <https://github.com/koddsson>
 //                 ficristo <https://github.com/ficristo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// TypeScript Version: 5.0
 
 export = CodeMirror;
 export as namespace CodeMirror;
