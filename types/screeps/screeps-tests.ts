@@ -842,6 +842,18 @@ function resources(o: GenericStore): ResourceConstant[] {
     });
 }
 
+// StructurePowerBank
+
+{
+    const powerbanks = room.find<StructurePowerBank>(FIND_STRUCTURES, { filter: s => s.structureType === STRUCTURE_POWER_BANK });
+    powerbanks.forEach((p: StructurePowerBank) => {
+        const ticksLeft = p.ticksToDecay
+        if (p.power > 0) {
+            Game.notify(`Found PowerBank with power ${p.power}`);
+        }
+    });
+}
+
 // ConstructionSite
 
 {
