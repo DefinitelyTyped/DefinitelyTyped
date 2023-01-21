@@ -945,26 +945,25 @@ function atackPower(creep: Creep) {
     const structures = room.find(FIND_STRUCTURES);
     let totalRepair = 0;
     for (const struct of structures) {
-        if (struct.structureType === STRUCTURE_CONTAINER || struct.structureType == STRUCTURE_ROAD) {
+        if (struct.structureType === STRUCTURE_CONTAINER || struct.structureType === STRUCTURE_ROAD) {
             totalRepair += struct.hitsMax - struct.hits;
             continue;
         }
         if (struct.structureType === STRUCTURE_WALL) {
-            totalRepair += 100000 - struct.hits
+            totalRepair += 100000 - struct.hits;
             continue;
         }
         if (
             struct.structureType === STRUCTURE_PORTAL ||
             struct.structureType === STRUCTURE_POWER_BANK ||
             !struct.my ||
-            struct.structureType == STRUCTURE_CONTROLLER
+            struct.structureType === STRUCTURE_CONTROLLER
         ) {
             continue;
         }
         totalRepair += struct.hitsMax - struct.hits;
     }
 }
-
 
 // Factories and Commodities
 
