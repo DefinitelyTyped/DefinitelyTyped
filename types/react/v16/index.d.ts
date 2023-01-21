@@ -877,7 +877,7 @@ declare namespace React {
     // based on the code in https://github.com/facebook/react/pull/13968
 
     // Unlike the class component setState, the updates are not allowed to be partial
-    type SetStateAction<S> = (S extends (...args: any[]) => any ? never : S) | ((prevState: S) => S);
+    type SetStateAction<S> = (S extends ((...args: any) => any) | (abstract new (...args: any) => any) ? never : S) | ((prevState: S) => S);
     // this technically does accept a second argument, but it's already under a deprecation warning
     // and it's not even released so probably better to not define it.
     type Dispatch<A> = (value: A) => void;
@@ -919,7 +919,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usestate
      */
-    function useState<S>(initialState: (S extends (...args: any[]) => any ? never : S) | (() => S)): [S, Dispatch<SetStateAction<S>>];
+    function useState<S>(initialState: (S extends ((...args: any) => any) | (abstract new (...args: any) => any) ? never : S) | (() => S)): [S, Dispatch<SetStateAction<S>>];
     // convenience overload when first argument is omitted
     /**
      * Returns a stateful value, and a function to update it.
