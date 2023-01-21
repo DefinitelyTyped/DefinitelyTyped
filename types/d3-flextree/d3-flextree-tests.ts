@@ -6,6 +6,29 @@
  * are not intended as functional tests.
  */
 
-import { FlextreeFactory } from "d3-flextree";
+import { flextree } from "d3-flextree";
 
-// TODO
+// $ExpectType { <Datum>(options: Partial<FlextreeOptions<Datum>>): FlextreeLayout<Datum>; version: string; }
+flextree;
+
+// $ExpectType string
+flextree.version;
+
+interface Dummy {
+    dummy?: any;
+}
+
+// $ExpectType FlextreeLayout<Dummy>
+const f = flextree<Dummy>({});
+
+// $ExpectType (data: HierarchyNode<Dummy>) => HierarchyNode<Dummy>[] | undefined
+f.children();
+
+// $ExpectType [number, number] | ((node: HierarchyNode<Dummy>) => [number, number])
+f.nodeSize();
+
+// $ExpectType (treeData: unknown, children?: unknown) => unknown
+f.hierarchy;
+
+// $ExpectType (tree: HierarchyNode<Dummy>) => string
+f.dump;

@@ -33,30 +33,26 @@ export interface FlextreeNode<Datum> extends HierarchyNode<Datum> {
     get nodeExtents(): NodeExtents;
 }
 
-export type FlextreeOptionsChildren<Datum> = (data: FlextreeNode<Datum>) => Array<FlextreeNode<Datum>> | undefined;
-export type FlextreeOptionsNodeSize<Datum> = [number, number] | ((node: FlextreeNode<Datum>) => [number, number]);
-export type FlextreeOptionsSpacing<Datum> = number | ((node: FlextreeNode<Datum>, oNode: FlextreeNode<Datum>) => number);
-
 export interface FlextreeOptions<Datum> {
-    children: FlextreeOptionsChildren<Datum>;
-    nodeSize: FlextreeOptionsNodeSize<Datum>;
-    spacing: FlextreeOptionsSpacing<Datum>;
+    children: (data: HierarchyNode<Datum>) => Array<HierarchyNode<Datum>> | undefined;
+    nodeSize: [number, number] | ((node: HierarchyNode<Datum>) => [number, number]);
+    spacing: number | ((node: HierarchyNode<Datum>, oNode: HierarchyNode<Datum>) => number);
 }
 
-export interface FlextreeLayout<Datum> {
-    (tree: unknown): unknown; // TODO
-    nodeSize(): FlextreeOptionsNodeSize<Datum>;
-    nodeSize(arg: FlextreeOptionsNodeSize<Datum>): this;
-    spacing(): FlextreeOptionsSpacing<Datum>;
-    spacing(arg: FlextreeOptionsSpacing<Datum>): this;
-    children(): FlextreeOptionsChildren<Datum>;
-    children(arg: FlextreeOptionsChildren<Datum>): this;
+// Helper type to remove the need to explicitly declare get / set methods
+export type FlextreeOptionsGetSet<Datum, TSelf> =
+    & { [Property in keyof FlextreeOptions<Datum>]: () => FlextreeOptions<Datum>[Property]; }
+    & { [Property in keyof FlextreeOptions<Datum>]: (value: FlextreeOptions<Datum>[Property]) => TSelf; };
+
+export interface FlextreeLayout<Datum> extends FlextreeOptionsGetSet<Datum, FlextreeLayout<Datum>> {
+    (tree: HierarchyNode<Datum>): HierarchyNode<Datum>;
     hierarchy(treeData: unknown, children?: unknown): unknown; // TODO
-    dump(tree: FlextreeNode<Datum>): string;
+    dump(tree: HierarchyNode<Datum>): string;
 }
 
-export interface FlextreeFactory<Datum> {
-    (options: Partial<FlextreeOptions<Datum>>): FlextreeLayout<Datum>;
+declare const flextree: {
+    <Datum>(options: Partial<FlextreeOptions<Datum>>): FlextreeLayout<Datum>;
     version: string;
-    flextree: unknown; // TODO: Function
-}
+};
+
+export { flextree };
