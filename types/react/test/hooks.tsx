@@ -257,6 +257,19 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     // $ExpectType () => 0
     React.useState(() => () => 0)[0];
 
+    // Classes can't be directly used in state, since they also match typeof === "function"
+    // @ts-expect-error
+    React.useState(class {});
+    // this is the correct way to store classes in state
+    // $ExpectType typeof A
+    React.useState(() => class A {})[0];
+
+    const [_, setClass] = React.useState(() => class {});
+    // When updating a class in state, it must be wrapped with a function
+    // @ts-expect-error
+    setClass(class {});
+    setClass(() => class {});
+
     // make sure useState does not widen
     const [toggle, setToggle] = React.useState(false);
     // $ExpectType boolean
