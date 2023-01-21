@@ -6044,15 +6044,37 @@ declare namespace chrome.offscreen {
     /**
      * Creates a new offscreen document for the extension.
      * @param parameters The parameters describing the offscreen document to create.
+     * @return The `createDocument` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function createDocument(parameters: CreateParameters): Promise<void>;
+    /**
+     * Creates a new offscreen document for the extension.
+     * @param parameters The parameters describing the offscreen document to create.
      * @param callback Invoked when the offscreen document is created and has completed its initial page load.
      */
     export function createDocument(parameters: CreateParameters, callback: () => void): void;
+
+    /**
+     * Closes the currently-open offscreen document for the extension.
+     * @return The `closeDocument` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function closeDocument(): Promise<void>;
     /**
      * Closes the currently-open offscreen document for the extension.
      * @param callback Invoked when the offscreen document has been closed.
      */
     export function closeDocument(callback: () => void): void;
 
+    /**
+     * Determines whether the extension has an active document.
+     * @return The `hasDocument` method provides its result via callback or returned as a `Promise` (MV3 only).
+     */
+    export function hasDocument(): Promise<boolean>;
+    /**
+     * Determines whether the extension has an active document.
+     * @param callback Invoked with the result of whether the extension has an active offscreen document.
+     */
+    export function hasDocument(callback: (result: boolean) => void): void;
 }
 
 ////////////////////
