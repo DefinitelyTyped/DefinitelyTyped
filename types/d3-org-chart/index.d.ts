@@ -53,7 +53,7 @@ export interface StatePublic<Datum> {
     neightbourMargin: (node1: HierarchyNode<Datum>, node2: HierarchyNode<Datum>) => number;
     compactMarginPair: (node: HierarchyNode<Datum>) => number;
     compactMarginBetween: (node: HierarchyNode<Datum>) => number;
-    onNodeClick: (node: HierarchyNode<Datum>) => void;
+    onNodeClick: (node: NodeId) => void;
     linkGroupArc: Link<any, DefaultLinkObject, [number, number]>;
     nodeContent: (
         node: HierarchyNode<Datum>,
