@@ -57,6 +57,25 @@ async function testTasks(onfleet: Onfleet) {
         destination: 'fake_destination_id',
     });
 
+    // test tasks.batchCreate
+    const dummyTasks = await onfleet.tasks.batchCreate({
+        tasks: [
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+            {
+                recipients: ['fake_recipient_id'],
+                destination: 'fake_destination_id',
+            },
+        ],
+    });
+
+    // test tasks.autoAssign
+    await onfleet.tasks.autoAssign({
+        tasks: dummyTasks.tasks.map(task => task.id),
+    });
+
     const taskCreated = await onfleet.tasks.create({
         recipients: ['<recipient-id-1>', '<recipient-id-2>'],
         destination: {
