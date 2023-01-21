@@ -1,15 +1,16 @@
 // Type definitions for d3-org-chart 2.6
 // Project: https://github.com/bumbeishvili/org-chart#readme
 // Definitions by: Adam Jones <https://github.com/domdomegg>
-// Definitions by: Matteo Gallesio <https://github.com/m-gallesio>
+//                 Matteo Gallesio <https://github.com/m-gallesio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { HierarchyNode } from 'd3-hierarchy';
-import { Selection } from 'd3-selection';
+import { Selection, ValueFn, BaseType } from 'd3-selection';
+import { Link, DefaultLinkObject } from 'd3-shape';
 import { ZoomBehavior, ZoomTransform } from 'd3-zoom';
 
 export type NodeId = string | number;
-export type Connection = any; // TODO
+export type Connection = any; // TODO, probably comes from d3-flextree
 
 export interface Point {
     x: number;
@@ -41,8 +42,8 @@ export interface StatePublic<Datum> {
     backgroundColor: string; // CSS color, for example "#2C3E50"
     zoomBehavior: ZoomBehavior<Element, Datum>;
     svg: Selection<SVGSVGElement, string, null, undefined>;
-    defs: unknown; // TODO
-    connectionsUpdate: unknown; // TODO
+    defs: (state: State<Datum>, visibleConnections: Connection[]) => string; // string representation of a SVG <defs> element
+    connectionsUpdate: ValueFn<BaseType, Datum, void>;
     linkUpdate: (node: HierarchyNode<Datum>, index: number, nodes: Array<HierarchyNode<Datum>>) => void;
     nodeUpdate: (node: HierarchyNode<Datum>, index: number, nodes: Array<HierarchyNode<Datum>>) => void;
     nodeWidth: (node: HierarchyNode<Datum>) => number;
@@ -53,7 +54,7 @@ export interface StatePublic<Datum> {
     compactMarginPair: (node: HierarchyNode<Datum>) => number;
     compactMarginBetween: (node: HierarchyNode<Datum>) => number;
     onNodeClick: (node: HierarchyNode<Datum>) => void;
-    linkGroupArc: unknown;
+    linkGroupArc: Link<any, DefaultLinkObject, [number, number]>;
     nodeContent: (
         node: HierarchyNode<Datum>,
         index: number,
@@ -118,7 +119,7 @@ export interface LayoutBinding<Datum> {
         node: HierarchyNode<Datum>;
     }) => [number, number];
     zoomTransform: (params: { centerY: number; scale: number; }) => string; // CSS transform
-    diagonal: unknown;
+    diagonal(source: Point, target: Point, m: Point): string;
     swap: (d: Point) => Point; // swaps x and y coordinates
     nodeUpdateTransform: (params: { width: number; height: number; } & Point) => string;
 }
@@ -137,8 +138,8 @@ export interface OrgChart<Datum> extends StateGetSet<Datum, OrgChart<Datum>> {
     render(): this;
     addNode(node: Datum): this;
     removeNode(nodeId: NodeId): this;
-    calculateCompactFlexDimensions(root: unknown): void;
-    calculateCompactFlexPositions(root: unknown): void;
+    calculateCompactFlexDimensions(root: HierarchyNode<Datum>): void;
+    calculateCompactFlexPositions(root: HierarchyNode<Datum>): void;
     update(params: { x0: number; y0: number; width: number; height: number; } & Partial<Point>): void;
     isEdge(): boolean; // Whether the current browser is Microsoft Edge
     hdiagonal(source: Point, target: Point, m: Point): string;
