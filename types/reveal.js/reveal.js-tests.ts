@@ -481,39 +481,63 @@ deck.slide(0, 1, 2, 1);
 
 // $ExpectType void
 deck.left();
+// $ExpectType void
+Reveal.left();
 
 // $ExpectType void
 deck.right();
+// $ExpectType void
+Reveal.right();
 
 // $ExpectType void
 deck.up();
+// $ExpectType void
+Reveal.up();
 
 // $ExpectType void
 deck.down();
+// $ExpectType void
+Reveal.down();
 
 // $ExpectType void
 deck.prev();
+// $ExpectType void
+Reveal.prev();
 
 // $ExpectType void
 deck.next();
+// $ExpectType void
+Reveal.next();
 
 // $ExpectType void
 deck.navigateLeft();
+// $ExpectType void
+Reveal.navigateLeft();
 
 // $ExpectType void
 deck.navigateRight();
+// $ExpectType void
+Reveal.navigateRight();
 
 // $ExpectType void
 deck.navigateUp();
+// $ExpectType void
+Reveal.navigateUp();
 
 // $ExpectType void
 deck.navigateDown();
+// $ExpectType void
+Reveal.navigateDown();
 
 // $ExpectType void
 deck.navigatePrev();
+// $ExpectType void
+Reveal.navigatePrev();
 
 // $ExpectType void
 deck.navigateNext();
+// $ExpectType void
+Reveal.navigateNext();
 
 // ---------------- //
 // fragment methods //
@@ -539,9 +563,17 @@ deck.on('click', el.click, false);
 deck.on('slidetransitionend', event => {
     console.log(event);
 });
+// $ExpectType void
+Reveal.on('slidetransitionend', event => {
+    console.log(event);
+});
+
 
 // $ExpectType void
 deck.off('click', el.click, false);
+// $ExpectType void
+Reveal.off('click', el.click, false);
+
 
 // $ExpectType void
 deck.addEventListener('click', el.click);
@@ -585,9 +617,13 @@ deck.toggleAutoSlide();
 
 // $ExpectType boolean
 deck.isFirstSlide();
+// $ExpectType boolean
+Reveal.isFirstSlide();
 
 // $ExpectType boolean
 deck.isLastSlide();
+// $ExpectType boolean
+Reveal.isLastSlide();
 
 // $ExpectType boolean
 deck.isLastVerticalSlide();

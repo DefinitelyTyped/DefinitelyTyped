@@ -1,4 +1,4 @@
-// For Library Version: 1.108.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -104,6 +104,22 @@ declare module "sap/ui/integration/library" {
      * When in this mode, the card cannot make requests.
      */
     Inactive = "Inactive",
+  }
+  /**
+   * @SINCE 1.109
+   * @EXPERIMENTAL (since 1.109)
+   *
+   * Possible designs for `{@link sap.ui.integration.widgets.Card}`.
+   */
+  export enum CardDesign {
+    /**
+     * When in this mode, the card has a solid background.
+     */
+    Solid = "Solid",
+    /**
+     * When in this mode, the card background is transparent.
+     */
+    Transparent = "Transparent",
   }
   /**
    * @EXPERIMENTAL (since 1.79)
@@ -1271,7 +1287,7 @@ declare module "sap/ui/integration/Extension" {
      */
     loadDependencies(): Promise<any>;
     /**
-     * Called when the card is ready.
+     * Called after the card is initialized.
      */
     onCardReady(): void;
   }
@@ -2012,6 +2028,7 @@ declare module "sap/ui/integration/widgets/Card" {
   import {
     CardActionType,
     CardDataMode,
+    CardDesign,
     CardArea,
   } from "sap/ui/integration/library";
 
@@ -2655,11 +2672,24 @@ declare module "sap/ui/integration/widgets/Card" {
      *
      * Defines the state of the `Card`. When set to `Inactive`, the `Card` doesn't make requests.
      *
-     * Default value is `Active`.
+     * Default value is `Auto`.
      *
      * @returns Value of property `dataMode`
      */
     getDataMode(): CardDataMode | keyof typeof CardDataMode;
+    /**
+     * @SINCE 1.109
+     * @EXPERIMENTAL (since 1.109)
+     *
+     * Gets current value of property {@link #getDesign design}.
+     *
+     * Defines the design of the `Card`.
+     *
+     * Default value is `Solid`.
+     *
+     * @returns Value of property `design`
+     */
+    getDesign(): CardDesign | keyof typeof CardDesign;
     /**
      * Returns the DOM Element that should get the focus.
      *
@@ -2979,6 +3009,26 @@ declare module "sap/ui/integration/widgets/Card" {
        * The mode to set to the Card.
        */
       sMode: CardDataMode | keyof typeof CardDataMode
+    ): this;
+    /**
+     * @SINCE 1.109
+     * @EXPERIMENTAL (since 1.109)
+     *
+     * Sets a new value for property {@link #getDesign design}.
+     *
+     * Defines the design of the `Card`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Solid`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDesign(
+      /**
+       * New value for property `design`
+       */
+      sDesign?: CardDesign | keyof typeof CardDesign
     ): this;
     /**
      * Sets the associated {@link #getHost host}.
@@ -3547,6 +3597,17 @@ declare module "sap/ui/integration/widgets/Card" {
     manifestChanges?: object[] | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @SINCE 1.109
+     * @EXPERIMENTAL (since 1.109)
+     *
+     * Defines the design of the `Card`.
+     */
+    design?:
+      | (CardDesign | keyof typeof CardDesign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * @SINCE 1.85
      * @EXPERIMENTAL (since 1.85) - Disclaimer: this aggregation is in a beta state - incompatible API changes
      * may be done before its official public release. Use at your own discretion.
@@ -3672,8 +3733,6 @@ declare namespace sap {
     "sap/ui/integration/designtime/baseEditor/propertyEditor/groupEditor/GroupEditor": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/iconEditor/IconEditor": undefined;
-
-    "sap/ui/integration/designtime/baseEditor/propertyEditor/iconEditor/IsInIconPool.validator": undefined;
 
     "sap/ui/integration/designtime/baseEditor/propertyEditor/integerEditor/IntegerEditor": undefined;
 

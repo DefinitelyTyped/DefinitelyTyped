@@ -27,7 +27,7 @@ sharp('input.png')
     .rotate(180)
     .resize(300)
     .flatten({ background: '#ff6600' })
-    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast }])
+    .composite([{ input: 'overlay.png', gravity: sharp.gravity.southeast, animated: false, failOn: 'warning' }])
     .sharpen()
     .withMetadata()
     .withMetadata({
@@ -342,7 +342,7 @@ sharp(input)
     .avif({ quality: 50, lossless: false, effort: 5, chromaSubsampling: '4:2:0' })
     .heif()
     .heif({})
-    .heif({ quality: 50, compression: 'hevc', lossless: false, effort: 5 })
+    .heif({ quality: 50, compression: 'hevc', lossless: false, effort: 5, chromaSubsampling: '4:2:0' })
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => {
         console.log(data);
@@ -404,6 +404,21 @@ sharp({
     .toBuffer()
     .then(largeImage => sharp(input).composite([{ input: largeImage, limitInputPixels: false }]));
 
+// From https://github.com/lovell/sharp/pull/2685
+// Accept premultiplied raw inputs
+sharp('input.png', {
+    raw: {
+        width: 25000,
+        height: 25000,
+        channels: 4,
+        premultiplied: true,
+    },
+})
+    .raw()
+    .toBuffer(err => {
+        if (err) throw err;
+    });
+
 // Taken from API documentation at
 // https://sharp.pixelplumbing.com/api-operation#clahe
 // introducted
@@ -448,6 +463,15 @@ sharp(input)
     .toColourspace('srgb') // this is the default, but included here for clarity
     .toBuffer();
 
+// From https://github.com/lovell/sharp/pull/1439
+// Second parameter to gamma operation for different output gamma
+sharp(input)
+    .resize(129, 111)
+    .gamma(2.2, 3.0)
+    .toBuffer(err => {
+        if (err) throw err;
+    });
+
 // Support for raw depth specification
 sharp('16bpc.png')
     .toColourspace('rgb16')
@@ -490,6 +514,12 @@ sharp('input.gif').gif({ colours: 16 }).toFile('out.gif');
 sharp('input.gif').gif({ dither: 0.5 }).toFile('out.gif');
 sharp('input.gif').png({ dither: 0.5 }).toFile('out.png');
 
+// Support for `interFrameMaxError` for gif output
+sharp('input.gif').gif({ interFrameMaxError: 0 }).toFile('out.gif');
+
+// Support for `interPaletteMaxError` for gif output
+sharp('input.gif').gif({ interPaletteMaxError: 0 }).toFile('out.gif');
+
 // Support for `resolutionUnit` for tiff output
 sharp('input.tiff').tiff({ resolutionUnit: 'cm' }).toFile('out.tiff');
 
@@ -499,6 +529,14 @@ sharp('input.tiff').jp2({ quality: 50 }).toFile('out.jp2');
 sharp('input.tiff').jp2({ lossless: true }).toFile('out.jp2');
 sharp('input.tiff').jp2({ tileWidth: 128, tileHeight: 128 }).toFile('out.jp2');
 sharp('input.tiff').jp2({ chromaSubsampling: '4:2:0' }).toFile('out.jp2');
+
+// Support for `jxl` output with different options
+sharp('input.tiff').jxl().toFile('out.jxl');
+sharp('input.tiff').jxl({ distance: 15.0 }).toFile('out.jxl');
+sharp('input.tiff').jxl({ quality: 50 }).toFile('out.jxl');
+sharp('input.tiff').jxl({ decodingTier: 4 }).toFile('out.jxl');
+sharp('input.tiff').jxl({ lossless: true }).toFile('out.jxl');
+sharp('input.tiff').jxl({ effort: 7 }).toFile('out.jxl');
 
 // Support `minSize` and `mixed` webp options
 sharp('input.tiff').webp({ minSize: 1000, mixed: true }).toFile('out.gif');
@@ -587,3 +625,29 @@ sharp('input.png').composite([
         },
     },
 ]);
+
+// From https://github.com/lovell/sharp/pull/1835
+sharp('input.png').composite([
+    {
+        input: {
+            text: {
+                text: 'Okay then',
+                font: 'Comic Sans',
+            },
+        },
+        blend: 'color-burn',
+        top: 0,
+        left: 0,
+        premultiplied: true,
+    },
+]);
+
+// https://github.com/lovell/sharp/pull/402
+(['fs', 'zip'] as const).forEach(container => {
+    sharp().tile({ container });
+});
+
+// From https://github.com/lovell/sharp/issues/2238
+sharp('input.png').tile({
+    basename: 'output.dz.tiles',
+});

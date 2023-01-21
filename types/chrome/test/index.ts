@@ -986,6 +986,7 @@ async function testActionForPromise() {
     await chrome.action.getPopup({});
     await chrome.action.getTitle({});
     await chrome.action.getUserSettings();
+    await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({color: 'white'});
     await chrome.action.setBadgeText({text: 'text1'});
     await chrome.action.setPopup({popup: 'popup1'});
@@ -1147,6 +1148,7 @@ async function testTabsForPromise() {
     await chrome.tabs.getSelected();
     await chrome.tabs.getSelected(0);
     await chrome.tabs.create({});
+    await chrome.tabs.duplicate(0); // $ExpectType Tab | undefined
     await chrome.tabs.move(0, {index: 0});
     await chrome.tabs.move([0], {index: 0});
     await chrome.tabs.update({});
@@ -1298,6 +1300,9 @@ function testRuntimeSendMessage() {
     chrome.runtime.sendMessage<number>('extension-id', 'Hello World!', console.log);
     // @ts-expect-error
     chrome.runtime.sendMessage<string, boolean>('extension-id', 'Hello World!', (num: number) => alert(num+1));
+
+    chrome.runtime.sendMessage(undefined, 'Hello World!', console.log);
+    chrome.runtime.sendMessage(null, 'Hello World!', console.log);
 }
 
 function testRuntimeSendNativeMessage() {
@@ -1640,4 +1645,14 @@ async function testIdentity() {
 async function testIdentityForPromise() {
     // $ExpectType string | undefined
     await chrome.identity.launchWebAuthFlow({ url: 'https://example.com '});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+function testTopSites() {
+    chrome.topSites.get(() => {});
+}
+
+// https://developer.chrome.com/docs/extensions/reference/topSites/
+async function testTopSitesForPromise() {
+    await chrome.topSites.get();
 }

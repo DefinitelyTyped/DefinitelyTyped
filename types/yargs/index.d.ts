@@ -148,24 +148,24 @@ declare namespace yargs {
             description: string,
             builder?: BuilderCallback<T, U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
-        ): Argv<U>;
+        ): Argv<T>;
         command<O extends { [key: string]: Options }>(
             command: string | ReadonlyArray<string>,
             description: string,
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<U>;
+        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
-            middlewares?: MiddlewareFunction[],
+            middlewares?: Array<MiddlewareFunction<U>>,
             deprecated?: boolean | string,
         ): Argv<T>;
         command<O extends { [key: string]: Options }>(
@@ -174,8 +174,8 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command<U>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<U>;
-        command<U>(module: CommandModule<T, U>): Argv<U>;
+        command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
+        command(module: CommandModule<T, any>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */
@@ -881,15 +881,17 @@ declare namespace yargs {
 
     // prettier-ignore
     type InferredOptionTypeInner<O extends Options | PositionalOptions> =
-        O extends { choices: ReadonlyArray<infer C> } ? C :
+        O extends { type: "array", choices: ReadonlyArray<infer C> } ? C[] :
         O extends { type: "array", string: true } ? string[] :
         O extends { type: "array", number: true } ? number[] :
         O extends { type: "array", normalize: true } ? string[] :
-        O extends { type: "string", array: true } ? string[] :
-        O extends { type: "number", array: true } ? number[] :
-        O extends { string: true, array: true } ? string[] :
-        O extends { number: true, array: true } ? number[] :
-        O extends { normalize: true, array: true } ? string[] :
+        O extends { array: true, choices: ReadonlyArray<infer C> } ? C[] :
+        O extends { array: true, type: "string" } ? string[] :
+        O extends { array: true, type: "number" } ? number[] :
+        O extends { array: true, string: true } ? string[] :
+        O extends { array: true, number: true } ? number[] :
+        O extends { array: true, normalize: true } ? string[] :
+        O extends { choices: ReadonlyArray<infer C> } ? C :
         O extends { type: "array" } ? Array<string | number> :
         O extends { type: "boolean" } ? boolean :
         O extends { type: "number" } ? number :
@@ -924,7 +926,7 @@ declare namespace yargs {
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type FallbackCompletionFunction = (current: string, argv: any, completionFilter: (onCompleted?: CompletionCallback) => any, done: (completions: string[]) => any) => void;
-    type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void | Promise<void>;
+    type MiddlewareFunction<T = {}> = (args: ArgumentsCamelCase<T>) => void | Promise<void>;
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = 'boolean' | 'number' | 'string';
     type CompletionCallback = (err: Error | null, completions: string[] | undefined) => void;

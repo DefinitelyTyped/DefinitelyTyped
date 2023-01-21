@@ -1,4 +1,4 @@
-// For Library Version: 1.108.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -191,8 +191,6 @@ declare module "sap/ui/table/AnalyticalColumn" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @EXPERIMENTAL (since 1.21)
-   *
    * This column adds additional properties to the table column which are needed for the analytical binding
    * and table
    */

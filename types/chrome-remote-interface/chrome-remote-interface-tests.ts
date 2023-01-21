@@ -27,9 +27,11 @@ function assertType<T>(value: T): T {
         await Network.setAcceptedEncodings({encodings: []});
         await Page.enable();
         await Page.navigate({ url: 'https://github.com' });
-        const loadEvent = await client['Page.loadEventFired'](); // instead of: await Page.loadEventFired();
+        let loadEvent = await Page.loadEventFired();
+        loadEvent = await client['Page.loadEventFired']();
         loadEvent.timestamp;
-        await client['Page.interstitialHidden'](); // instead of: await Page.interstitialHidden();
+        await Page.interstitialHidden();
+        await client['Page.interstitialHidden']();
         const unsubscribe = Network.requestWillBeSent((params, sessionId) => {
             params.request.url;
             unsubscribe();

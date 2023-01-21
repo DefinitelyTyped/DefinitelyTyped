@@ -392,7 +392,7 @@ declare namespace EW {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
     }
 
     // onOriginResponse
@@ -437,6 +437,16 @@ declare namespace EW {
      *   undefined is returned for that property
      */
     interface UserLocation {
+        /**
+         * The latitude value is a numerical string that specifies the latitude that the IP address maps to.
+         */
+        readonly latitude: string | undefined;
+
+        /**
+         * The longitude value is a numerical string that specifies the longitude that the IP address maps to.
+         */
+        readonly longitude: string | undefined;
+
         /**
          * The continent value is a two-letter code for the continent that
          * the IP address maps to.
@@ -486,6 +496,44 @@ declare namespace EW {
          * See the EdgeScape Users Guide for more details.
          */
         readonly zipCode: string | undefined;
+
+        /**
+         * The dma value is the mapping of major American metropolises to containing and neighbouring states.
+         */
+        readonly dma: string | undefined;
+
+        /**
+         * The timezone value is the timezone that the IP address maps to.
+         */
+        readonly timezone: string | undefined;
+
+        /**
+         * The networkType value specifies the network that the IP address maps to.
+         */
+        readonly networkType: string | undefined;
+
+        /**
+         * The bandwidth value estimates the expected bandwidth for the given IP address.
+         */
+        readonly bandwidth: string | undefined;
+
+        /**
+         * The areaCodes value includes the area codes that the IP address maps to
+         * (multiple values possible).
+         */
+        readonly areaCodes: string[] | undefined;
+
+        /**
+         * The fips value is a 5 digit numerical code to help map counties to states
+         * (multiple values possible).
+         *
+         * FIPS codes are numbers which uniquely identify geographic areas. State-level FIPS
+         * codes have two digits, county-level FIPS codes have five digits of which the
+         * first two are the FIPS code of the state to which the county belongs.
+         *
+         * For the list of FIPS codes mapped to location, go to https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt
+         */
+        readonly fips: string[] | undefined;
     }
 
     /**
@@ -1095,7 +1143,76 @@ declare module "encoding" {
     }
     const base16: Base16;
 
-    export { base64, base64url, base16 };
+    /**
+     * Takes a stream of code points as input and emits a stream of UTF-8 bytes
+     */
+    class TextEncoder {
+        /**
+         * Constructor for a new TextEncoder object
+         */
+        constructor();
+
+        /**
+         * Converts input string into a stream of UTF-8 bytes
+         * @param text is a String to encode
+         */
+        encode(text: string): Uint8Array;
+
+        /**
+         * Containing the name of the encoding algorithm used by the specific encoder
+         */
+        readonly encoding: string;
+    }
+    interface TextDecoderOptions {
+        fatal?: boolean | undefined;
+        ignoreBOM?: boolean | undefined;
+    }
+    type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
+    interface StreamObject {
+        /**
+         * A boolean flag indicating that additional data will follow in subsequent calls to decode().
+         * Set to true if processing the data in chunks, and false for the final chunk or if the data is not chunked.
+         * It defaults to false.
+         */
+        stream: boolean;
+    }
+
+    /**
+     * Represents a decoder for a specific text encoding,
+     * such as UTF-8, ISO-8859-2, KOI8-R, GBK, etc.
+     * A decoder takes a stream of bytes as input and emits a stream of code points.
+     */
+    class TextDecoder {
+        /**
+         * Constructs a new TextDecoder object
+         * @param utfLabel [Optional] a string representing the encoding to be used. Defaults to "utf-8".
+         * @param options [Optional] TextDecoderOption dictionary
+         */
+        constructor(utfLabel?: string, options?: TextDecoderOptions);
+
+        /**
+         * Returns a string containing the text decoded with the method of the specific TextDecoder object
+         * @param buffer [Optional] an ArrayBuffer, a TypedArray or a DataView object containing the text to decode.
+         * @param options [Optional] An object with the stream property
+         */
+        decode(buffer?: ArrayBuffer| TypedArray | DataView, options?: StreamObject): string;
+
+        /**
+         * The fatal  flag passed into the constructor
+         */
+        readonly fatal: boolean;
+        /**
+         * The ignoreBOM  flag passed into the constructor
+         */
+        readonly ignoreBOM: boolean;
+        /**
+         * A string containing the name of the decoder, that is a string describing the method the TextDecoder will use
+         */
+        readonly encoding: string;
+    }
+
+    export { base64, base64url, base16, TextEncoder, TextDecoder };
 }
 
 /**

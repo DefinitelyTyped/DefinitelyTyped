@@ -31,6 +31,7 @@ import {
     Layer,
     Letterbox,
     Link,
+    List,
     Mask,
     Masonry,
     Modal,
@@ -68,7 +69,7 @@ import {
     Upsell,
     useFocusVisible,
     useReducedMotion,
-    Video,
+    Video
 } from 'gestalt';
 import * as React from 'react';
 
@@ -191,8 +192,9 @@ const CheckUseReducedMotion = () => {
 </ColorSchemeProvider>;
 <Column span={1} />;
 <Container />;
-<ScrollBoundaryContainer />;
-<ScrollBoundaryContainer height={1} overflow="scroll" />;
+<ScrollBoundaryContainer height={1} overflow="scroll">
+    <Text>Hello</Text>
+</ScrollBoundaryContainer>;
 <Divider />;
 <Dropdown id="dropdown-example" onDismiss={() => {}}>
     <Dropdown.Section label="View options">
@@ -235,6 +237,23 @@ const CheckUseReducedMotion = () => {
 <Letterbox contentAspectRatio={1} height={1} width={1} />;
 <Link href="#" />;
 <Link href="#" externalLinkIcon={{ color: 'light', size: '100' }} />;
+<List label={<Text weight="bold">Regular spacing</Text>} type="unordered" spacing="regular">
+    <List.Item text="List item text" />
+    <List.Item text="List item text">
+        <List.NestedList>
+            <List.Item text="List item text">
+                <List.NestedList>
+                    <List.Item text="List item text" />
+                    <List.Item text="List item text" />
+                    <List.Item text="List item text" />
+                </List.NestedList>
+            </List.Item>
+            <List.Item text="List item text" />
+            <List.Item text="List item text" />
+        </List.NestedList>
+    </List.Item>
+    <List.Item text="List item text" />
+</List>;
 <Mask />;
 <Masonry Item={MasonryComponent} items={[{}]} />;
 <Modal accessibilityModalLabel="modal" onDismiss={() => {}} heading={<Text>Header</Text>} subHeading="header" />;
@@ -412,7 +431,11 @@ const CheckUseReducedMotion = () => {
                 />
             </SideNavigation.NestedGroup>
         </SideNavigation.Group>
-        <SideNavigation.Group label="Halloween" icon="people" display="static">
+        <SideNavigation.Group
+            label="Halloween"
+            display="static"
+            badge={{ text: 'hell', position: 'middle', type: 'darkWash' }}
+        >
             <SideNavigation.NestedItem href="#" onClick={({ event }) => event.preventDefault()} label="East Coast" />
             <SideNavigation.NestedItem href="#" onClick={({ event }) => event.preventDefault()} label="West Coast" />
         </SideNavigation.Group>
@@ -421,7 +444,7 @@ const CheckUseReducedMotion = () => {
 <SlimBanner
     type="errorBare"
     iconAccessibilityLabel="Info"
-    message="There are issues with your account."
+    message={<Text>hell</Text>}
     helperLink={{
         text: 'Go to account',
         accessibilityLabel: 'Go to your account',
@@ -499,6 +522,11 @@ const CheckUseReducedMotion = () => {
                 <Text>June 25, 1993</Text>
             </Table.Cell>
         </Table.RowExpandable>
+        <Table.RowDrawer drawerContents={<Text>Hello</Text>} id="rowdrawer">
+            <Table.Cell>
+                <Text>Hello</Text>
+            </Table.Cell>
+        </Table.RowDrawer>
     </Table.Body>
     <Table.Footer>The end</Table.Footer>
 </Table>;

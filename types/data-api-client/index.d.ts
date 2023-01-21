@@ -48,7 +48,7 @@ declare namespace Client {
     }
 
     interface iDataAPIClient {
-        /* tslint:disable:no-unnecessary-generics */
+        /* eslint-disable no-unnecessary-generics */
         query<T = any>(sql: string, params?: [] | unknown): Promise<iDataAPIQueryResult<T>>; // params can be [] or {};
         query<T = any>(obj: {
             sql: string;

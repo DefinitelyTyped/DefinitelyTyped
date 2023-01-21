@@ -5,14 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import {
-    Request,
-    ResponseObject,
-    Plugin,
-    ResponseToolkit,
-    AuthCredentials,
-    ServerStateCookieOptions,
-} from '@hapi/hapi';
+import { Request, Plugin, AuthCredentials, ServerStateCookieOptions } from '@hapi/hapi';
 
 declare module '@hapi/hapi' {
     interface ServerAuth {

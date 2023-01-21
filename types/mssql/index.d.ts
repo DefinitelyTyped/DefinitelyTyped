@@ -15,6 +15,7 @@
 
 
 import events = require('events');
+import { Readable, ReadableOptions } from 'stream';
 import tds = require('tedious');
 import { Pool } from 'tarn';
 import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
@@ -342,6 +343,7 @@ export declare class Request extends events.EventEmitter {
     public cancel(): void;
     public pause(): boolean;
     public resume(): boolean;
+    public toReadableStream(streamOptions?: ReadableOptions): Readable;
 }
 
 export declare class RequestError extends MSSQLError {

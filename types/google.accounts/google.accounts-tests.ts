@@ -175,6 +175,7 @@ google.accounts.id.renderButton(
         logo_alignment: 'left',
         width: '',
         locale: '',
+        click_listener: () => {},
     },
 );
 

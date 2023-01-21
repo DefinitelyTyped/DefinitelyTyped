@@ -5,6 +5,7 @@ declare class SimpleLayoutBuffer {
     private file_;
     private pendingStrings_;
     private pendingStringsLength_;
+    private key_;
     getEffectiveLength(): number;
     private flushPendingStrings_;
     push(value: string | any[]): void;

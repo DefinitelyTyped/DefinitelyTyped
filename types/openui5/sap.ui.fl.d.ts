@@ -1,4 +1,4 @@
-// For Library Version: 1.107.0
+// For Library Version: 1.109.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -90,9 +90,9 @@ declare module "sap/ui/fl/transport/TransportDialog" {
 declare module "sap/ui/fl/variants/VariantManagement" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import { IOverflowToolbarContent } from "sap/m/library";
+  import { IShrinkable, ID, TitleLevel, CSSSize } from "sap/ui/core/library";
 
-  import { ID, TitleLevel } from "sap/ui/core/library";
+  import { IOverflowToolbarContent } from "sap/m/library";
 
   import Event from "sap/ui/base/Event";
 
@@ -109,7 +109,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    */
   export default class VariantManagement
     extends Control
-    implements IOverflowToolbarContent {
+    implements IShrinkable, IOverflowToolbarContent {
+    __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
     /**
      * Constructor for a new `VariantManagement`.
@@ -185,7 +186,7 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * The control to add; if empty, nothing is inserted
        */
       vFor: ID | Control
-    ): Object;
+    ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:cancel cancel} event of this `sap.ui.fl.variants.VariantManagement`.
      *
@@ -695,6 +696,18 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      */
     getManualVariantKey(): boolean;
     /**
+     * @SINCE 1.109
+     *
+     * Gets current value of property {@link #getMaxWidth maxWidth}.
+     *
+     * Sets the maximum width of the control.
+     *
+     * Default value is `"100%"`.
+     *
+     * @returns Value of property `maxWidth`
+     */
+    getMaxWidth(): CSSSize;
+    /**
      * Gets current value of property {@link #getModelName modelName}.
      *
      * The name of the model containing the data.
@@ -716,7 +729,11 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      *
      * @returns Configuration information for the `sap.m.IOverflowToolbarContent` interface.
      */
-    getOverflowToolbarConfig(): object;
+    getOverflowToolbarConfig(): {
+      canOverflow: boolean;
+
+      invalidationEvents: string[];
+    };
     /**
      * Gets current value of property {@link #getResetOnContextChange resetOnContextChange}.
      *
@@ -739,6 +756,18 @@ declare module "sap/ui/fl/variants/VariantManagement" {
      * @returns Value of property `showSetAsDefault`
      */
     getShowSetAsDefault(): boolean;
+    /**
+     * @SINCE 1.109
+     *
+     * Gets current value of property {@link #getTitleStyle titleStyle}.
+     *
+     * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Value of property `titleStyle`
+     */
+    getTitleStyle(): TitleLevel | keyof typeof TitleLevel;
     /**
      * Gets current value of property {@link #getUpdateVariantInURL updateVariantInURL}.
      *
@@ -892,6 +921,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bManualVariantKey?: boolean
     ): this;
     /**
+     * @SINCE 1.109
+     *
+     * Sets a new value for property {@link #getMaxWidth maxWidth}.
+     *
+     * Sets the maximum width of the control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"100%"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxWidth(
+      /**
+       * New value for property `maxWidth`
+       */
+      sMaxWidth?: CSSSize
+    ): this;
+    /**
      * Sets a new value for property {@link #getModelName modelName}.
      *
      * The name of the model containing the data.
@@ -943,6 +991,25 @@ declare module "sap/ui/fl/variants/VariantManagement" {
        * New value for property `showSetAsDefault`
        */
       bShowSetAsDefault?: boolean
+    ): this;
+    /**
+     * @SINCE 1.109
+     *
+     * Sets a new value for property {@link #getTitleStyle titleStyle}.
+     *
+     * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Auto`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTitleStyle(
+      /**
+       * New value for property `titleStyle`
+       */
+      sTitleStyle?: TitleLevel | keyof typeof TitleLevel
     ): this;
     /**
      * Sets a new value for property {@link #getUpdateVariantInURL updateVariantInURL}.
@@ -1033,6 +1100,23 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       | (TitleLevel | keyof typeof TitleLevel)
       | PropertyBindingInfo
       | `{${string}}`;
+
+    /**
+     * @SINCE 1.109
+     *
+     * Defines the style of the title. For more information, see {@link sap.m.Title#setTitleStyle}.
+     */
+    titleStyle?:
+      | (TitleLevel | keyof typeof TitleLevel)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @SINCE 1.109
+     *
+     * Sets the maximum width of the control.
+     */
+    maxWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Contains the ids of the controls for which the variant management is responsible.
@@ -1265,8 +1349,6 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/CompVariant": undefined;
 
-    "sap/ui/fl/apply/_internal/flexObjects/CompVariantRevertData": undefined;
-
     "sap/ui/fl/apply/_internal/flexObjects/ControllerExtensionChange": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/FlexObject": undefined;
@@ -1275,7 +1357,7 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexObjects/FlVariant": undefined;
 
-    "sap/ui/fl/apply/_internal/flexObjects/RevertData": undefined;
+    "sap/ui/fl/apply/_internal/flexObjects/UIChange": undefined;
 
     "sap/ui/fl/apply/_internal/flexObjects/UpdatableChange": undefined;
 
@@ -1311,8 +1393,6 @@ declare namespace sap {
 
     "sap/ui/fl/Cache": undefined;
 
-    "sap/ui/fl/Change": undefined;
-
     "sap/ui/fl/changeHandler/Base": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
@@ -1342,8 +1422,6 @@ declare namespace sap {
     "sap/ui/fl/initial/_internal/connectors/Utils": undefined;
 
     "sap/ui/fl/initial/_internal/Storage": undefined;
-
-    "sap/ui/fl/initial/_internal/storageResultDisassemble": undefined;
 
     "sap/ui/fl/initial/_internal/StorageUtils": undefined;
 

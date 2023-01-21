@@ -1,6 +1,6 @@
 // Type definitions for @isomorphic-git/lightning-fs 4.4
 // Project: https://github.com/isomorphic-git/lightning-fs#readme
-// Definitions by: Progyan Bhattacharya <https://github.com/Progyan1997>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module '@isomorphic-git/lightning-fs' {
