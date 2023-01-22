@@ -16,16 +16,16 @@ declare class Reddit {
     /**
      * Create a new Reddit API client.
      *
-     * @param opts is the credentials required for using Reddit's API. The following properties must be provided:
+     * @param opts Credentials required for Reddit's API. Accepts the following properties:
      *
      * Required:
-     * - `username`: Username of the reddit user
-     * - `password`: Password of the reddit user
-     * - `appId`: Client ID of the application. Can be found or created at {@link https://www.reddit.com/prefs/apps authorized applications.}
-     * - `appSecret`: Client Secret of the application. Can be found or created at {@link https://www.reddit.com/prefs/apps authorized applications.}
+     * - `username` Username of the reddit user.
+     * - `password` Password of the reddit user.
+     * - `appId` Client ID of the application.
+     * - `appSecret` Client Secret of the application.
      *
      * Optional:
-     * - `userAgent` - String to use as the `User-Agent` header in http requests
+     * - `userAgent` Used as the `User-Agent` header in http requests.
      *
      * @see https://github.com/reddit-archive/reddit/wiki/OAuth2 for more infromation on OAuth2.
      *
@@ -46,8 +46,8 @@ declare class Reddit {
     /**
      * Invoke the Reddit API using the GET HTTP method.
      *
-     * @param url Specifies which API to invoke. For example, `/api/submit` or `/api/vote`.
-     * @param data Optional and specifies relevant data for the selected API. Defaults to `{}`.
+     * @param url URL path of the API to invoke. For example, `/api/submit` or `/api/vote`.
+     * @param data Optional. Data to provide to the selected API. Defaults to `{}`.
      *
      * @note
      * - `<T>` is the API response type. Defaults to `unknown`.
@@ -71,8 +71,8 @@ declare class Reddit {
     /**
      * Invoke the Reddit API using the POST HTTP method.
      *
-     * @param url Specifies which API to invoke. For example, `/api/submit` or `/api/vote`.
-     * @param data Optional and specifies relevant data for the selected API. Defaults to `{}`.
+     * @param url URL path of the API to invoke. For example, `/api/submit` or `/api/vote`.
+     * @param data Optional. Data to provide to the selected API. Defaults to `{}`.
      *
      * @note
      * - `<T>` is the API response type. Defaults to `unknown`.
@@ -93,8 +93,8 @@ declare class Reddit {
     /**
      * Invoke the Reddit API using the PATCH HTTP method.
      *
-     * @param url Specifies which API to invoke. For example, `/api/submit` or `/api/vote`.
-     * @param data Optional and specifies relevant data for the selected API. Defaults to `{}`.
+     * @param url URL path of the API to invoke. For example, `/api/submit` or `/api/vote`.
+     * @param data Optional. Data to provide to the selected API. Defaults to `{}`.
      *
      * @note
      * - `<T>` is the API response type. Defaults to `unknown`.
@@ -115,8 +115,8 @@ declare class Reddit {
     /**
      * Invoke the Reddit API using the PUT HTTP method.
      *
-     * @param url Specifies which API to invoke. For example, `/api/submit` or `/api/vote`.
-     * @param data Optional and specifies relevant data for the selected API. Defaults to `{}`.
+     * @param url URL path of the API to invoke. For example, `/api/submit` or `/api/vote`.
+     * @param data Optional. Data to provide to the selected API. Defaults to `{}`.
      *
      * @note
      * - `<T>` is the API response type. Defaults to `unknown`.
@@ -137,8 +137,8 @@ declare class Reddit {
     /**
      * Invoke the Reddit API using the DELETE HTTP method.
      *
-     * @param url Specifies which API to invoke. For example, `/api/submit` or `/api/vote`.
-     * @param data Optional and specifies relevant data for the selected API. Defaults to `{}`.
+     * @param url URL path of the API to invoke. For example, `/api/submit` or `/api/vote`.
+     * @param data Optional. Data to provide to the selected API. Defaults to `{}`.
      *
      * @note
      * - `<T>` is the API response type. Defaults to `unknown`.
@@ -162,15 +162,15 @@ declare namespace Reddit {
      * Credentials to be passed to `Reddit`
      *
      * Required:
-     * - `username` - Username of the reddit user.
-     * - `password` - Password of the reddit user.
-     * - `appId` - Client ID of the application.
-     * - `appSecret` - Client Secret of the application.
+     * - `username` Username of the reddit user.
+     * - `password` Password of the reddit user.
+     * - `appId` Client ID of the application.
+     * - `appSecret` Client Secret of the application.
      *
      * Optional:
-     * - `userAgent` - Optional. Used as the `User-Agent` header in http requests.
+     * - `userAgent` Used as the `User-Agent` header in http requests.
      *
-     * @see https://www.reddit.com/prefs/apps to find or create the client ID and secret.
+     * @see https://www.reddit.com/prefs/apps for the client ID and secret.
      *
      * @example
      * import Reddit from 'reddit';

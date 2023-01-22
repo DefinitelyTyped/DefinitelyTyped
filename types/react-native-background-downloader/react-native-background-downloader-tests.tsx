@@ -1,4 +1,4 @@
-import RNBackgroundDownloader, { DownloadTask } from 'react-native-background-downloader';
+import RNBackgroundDownloader, { completeHandler, DownloadTask } from 'react-native-background-downloader';
 
 // Set global headers for downloader
 RNBackgroundDownloader.setHeaders({
@@ -21,6 +21,7 @@ const task = RNBackgroundDownloader.download({
         console.log(`Downloaded: ${percent * 100}%`);
     })
     .done(() => {
+        completeHandler('file123');
         console.log('Download is done!');
     })
     .error(error => {
@@ -48,6 +49,7 @@ const taskFuncTest = (task: DownloadTask) => {
         }
         case 'STOPPED': {
             console.log('Task is in state STOPPED');
+            break;
         }
     }
 
