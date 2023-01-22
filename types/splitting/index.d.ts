@@ -113,3 +113,8 @@ declare namespace Splitting {
         [key: string]: unknown;
     }
 }
+
+// tslint:disable-next-line:no-declare-current-package
+declare module 'splitting/dist/splitting.css';
+// tslint:disable-next-line:no-declare-current-package
+declare module 'splitting/dist/splitting-cells.css';

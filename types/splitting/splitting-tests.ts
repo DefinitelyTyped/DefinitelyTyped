@@ -1,4 +1,6 @@
 import Splitting = require('splitting');
+import 'splitting/dist/splitting.css';
+import 'splitting/dist/splitting-cells.css';
 
 // Base splitting function
 
