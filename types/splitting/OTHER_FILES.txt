@@ -1,3 +1,0 @@
-dist/splitting-lite.d.ts
-dist/splitting-lite.min.d.ts
-dist/splitting.min.d.ts
