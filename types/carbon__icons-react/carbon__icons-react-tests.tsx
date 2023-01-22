@@ -21,6 +21,7 @@ import {
     IbmCloudKubernetesService,
     LogoSvelte,
     Plan,
+    BatchJob,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -49,3 +50,4 @@ import {
 <IbmCloudKubernetesService />; // $ExpectType Element
 <LogoSvelte />; // $ExpectType Element
 <Plan />; // $ExpectType Element
+<BatchJob />; // $ExpectType Element
