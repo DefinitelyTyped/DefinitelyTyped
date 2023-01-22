@@ -50,5 +50,5 @@ builder.build();
 // $ExpectType void
 builder.writeTo('test-report.xml');
 
-// $ExpectType Builder
+// $ExpectType JUnitReportBuilder
 builder.newBuilder();

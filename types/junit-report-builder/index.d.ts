@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace builder {
-    interface Builder {
+    interface JUnitReportBuilder {
         /**
          * Writes report to disk synchronously
          */
@@ -24,7 +24,7 @@ declare namespace builder {
         /**
          * Creates a new builder for a separate report
          */
-        newBuilder(): Builder;
+        newBuilder(): JUnitReportBuilder;
     }
 
     interface TestSuite {
@@ -98,6 +98,6 @@ declare namespace builder {
     }
 }
 
-declare const builder: builder.Builder;
+declare const builder: builder.JUnitReportBuilder;
 
 export = builder;
