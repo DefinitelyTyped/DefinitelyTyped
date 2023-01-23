@@ -4,7 +4,6 @@
 //                 David Schneider <https://github.com/davschne>
 //                 Yui T. <https://github.com/yuit>
 //                 Tom Fenech <https://github.com/fenech>
-//                 Eric Myllyoja <https://github.com/MasterEric>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
