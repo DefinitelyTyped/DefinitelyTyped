@@ -109,5 +109,5 @@ const pointer: GraphPointer<NamedNode> = <any> {};
 let reportFromCtor = new ValidationReport(pointer, { factory: factory1 });
 
 const nonResourcePointer: GraphPointer<Literal> = <any> {};
-// $ExpectError
+// @ts-expect-error
 reportFromCtor = new ValidationReport(nonResourcePointer, { factory: factory1 });
