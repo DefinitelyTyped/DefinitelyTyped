@@ -5,6 +5,9 @@ clevertap.privacy.push({ useIP: false }); // Set the flag to true, if the user a
 clevertap.init('ACCOUNT_ID', 'eu1', 'TARGET_DOMAIN'); // Replace with values applicable to you. Refer below
 clevertap.spa = true;
 clevertap.enablePersonalization = true;
+clevertap.raiseNotificationClicked = () => {
+    // callback for notification clicked
+};
 // event without properties
 clevertap.event.push('Product viewed');
 // event with properties
@@ -17,6 +20,7 @@ clevertap.event.push('Product viewed', {
 const productViewedDetails = clevertap.event.getDetails('Product viewed');
 // each of the below mentioned fields are optional
 // if set, these populate demographic information in the Dashboard
+
 clevertap.profile.push({
     Site: {
         Name: 'Jack Montana', // String
@@ -76,9 +80,6 @@ clevertap.notifications.push({
 });
 clevertap.renderNotificationClicked({
     msgId: "232",
-    evtData: {
-        customData: "this is a random string"
-    },
     kv: 1212,
     msgCTkv: "sdsdsa",
     pivotId: "asdasasd",
@@ -86,9 +87,6 @@ clevertap.renderNotificationClicked({
 });
 clevertap.renderNotificationViewed({
     msgId: "232",
-    evtData: {
-        customData: "this is a random string"
-    },
     kv: 1212,
     msgCTkv: "sdsdsa",
     pivotId: "asdasasd",

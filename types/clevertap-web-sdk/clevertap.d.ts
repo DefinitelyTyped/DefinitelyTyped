@@ -91,7 +91,7 @@ interface CustomNotificationEvent {
     msgId: string;
     pivotId?: string;
     wzrk_slideNo?: number;
-    evtData?: any;
+    // evtData?: any;
     kv?: any;
     msgCTkv?: any;
 }
@@ -121,6 +121,8 @@ declare class CleverTap {
     notificationCallback: (arg: notificationCallbackData) => any;
     removeMultiValueForKey: (key: any, value: string | number) => void;
     removeMultiValuesForKey: (key: any, value: [string | number]) => void;
+    raiseNotificationClicked: () => void;
+
 }
 
 export default CleverTap;
