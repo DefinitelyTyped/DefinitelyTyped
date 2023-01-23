@@ -34,7 +34,7 @@ declare namespace ValidationReport {
         dataset: DatasetOf<F>;
         pointer: GraphPointer<BlankNodeOf<F> | NamedNodeOf<F>, DatasetOf<F>>;
         conforms: boolean;
-        results: Array<ValidationReport.ValidationResult<F>>;
+        results: Array<ValidationResult<F>>;
     }
 }
 
