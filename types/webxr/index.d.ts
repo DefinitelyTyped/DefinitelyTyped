@@ -4,7 +4,7 @@
 //                 Raanan Weber <https://github.com/RaananW>
 //                 Sean T. McBeth <https://github.com/capnmidnight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
+// Minimum TypeScript Version: 4.4
 
 // Most of this was hand written and... more or less copied from the following
 // sites:
@@ -1028,22 +1028,6 @@ declare enum XOVR_multiview2 {
     FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR = 0x9632,
     MAX_VIEWS_OVR = 0x9631,
     FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 0x9633,
-}
-
-interface OVR_multiview2 {
-    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: 38448;
-    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: 38450;
-    readonly MAX_VIEWS_OVR: 38449;
-    readonly FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: 38451;
-
-    framebufferTextureMultiviewOVR(
-        target: GLenum,
-        attachment: GLenum,
-        texture: WebGLTexture,
-        level: number,
-        baseViewIndex: number,
-        numViews: number,
-    ): WebGLRenderbuffer;
 }
 
 declare abstract class OVR_multiview2 implements OVR_multiview2 {}

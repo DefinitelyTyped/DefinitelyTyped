@@ -2,7 +2,7 @@
 // Project: https://github.com/movableink/three-gif-loader
 // Definitions by: Lair Junior <https://github.com/lairjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
+// Minimum TypeScript Version: 4.4
 
 import { LoadingManager } from 'three';
 import { GifReader } from 'omggif';

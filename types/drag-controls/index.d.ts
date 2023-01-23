@@ -2,7 +2,7 @@
 // Project: https://github.com/jbyte/three-dragcontrols#readme
 // Definitions by: Matt Hawes <https://github.com/MGHawes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
+// Minimum TypeScript Version: 4.4
 
 import * as THREE from 'three';
 

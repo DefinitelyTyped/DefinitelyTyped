@@ -3,7 +3,7 @@
 // Definitions by: Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
 //                 Stefan Schönsee <https://github.com/sschoensee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
+// TypeScript Version: 4.4
 
 import * as THREE from 'three';
 

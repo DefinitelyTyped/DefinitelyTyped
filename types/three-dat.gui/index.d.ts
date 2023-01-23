@@ -2,7 +2,7 @@
 // Project: https://github.com/SolalDR/three-dat.gui#readme
 // Definitions by: hkleungai <https://github.com/hkleungai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
+// Minimum TypeScript Version: 4.4
 
 import THREE from 'three';
 
