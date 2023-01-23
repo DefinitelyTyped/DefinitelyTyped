@@ -3964,13 +3964,33 @@ export function pathSatisfies<T, U>(pred: (val: T) => boolean): _.F.Curry<(a: Pa
  * R.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
  * ```
  */
+export function pick<T extends readonly [any, ...any], K extends string | number | symbol>(
+    names: readonly K[],
+    array: T,
+): {
+    [P in K as P extends string | number
+        ? _.N.Greater<`${T['length']}`, `${P}`> extends 1
+            ? P
+            : never
+        : never]: P extends keyof T ? T[P] : T[number];
+};
 export function pick<T, K extends string | number | symbol>(
     names: readonly K[],
     obj: T,
-): Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): { [P in keyof T as P extends K ? P : never]: T[P] };
 export function pick<K extends string | number | symbol>(
     names: readonly K[],
-): <T>(obj: T) => Pick<T, Exclude<keyof T, Exclude<keyof T, K>>>;
+): <T extends readonly [any, ...any] | object>(
+    obj: T,
+) => T extends readonly [any, ...any]
+    ? {
+          [P in K as P extends string | number
+              ? _.N.Greater<`${T['length']}`, `${P}`> extends 1
+                  ? P
+                  : never
+              : never]: P extends keyof T ? T[P] : T[number];
+      }
+    : { [P in keyof T as P extends K ? P : never]: T[P] };
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for properties that don't exist.

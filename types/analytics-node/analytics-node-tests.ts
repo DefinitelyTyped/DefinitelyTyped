@@ -8,6 +8,7 @@ function testConfig(): void {
     host: "http://example.com",
     enable: true,
     timeout: 1000,
+    errorHandler: (err) => console.error(err)
   });
 }
 
@@ -18,6 +19,7 @@ function testConfigWithStringTimeout(): void {
     host: "http://example.com",
     enable: true,
     timeout: '1000',
+    errorHandler: (err) => console.error(err)
   });
 }
 
@@ -29,6 +31,7 @@ function testConfigWithFlushedSet(): void {
     enable: true,
     timeout: 1000,
     flushed: true,
+    errorHandler: (err) => console.error(err)
   });
 }
 
