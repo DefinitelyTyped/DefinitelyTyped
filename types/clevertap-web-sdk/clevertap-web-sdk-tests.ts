@@ -79,18 +79,18 @@ clevertap.notifications.push({
     serviceWorkerPath: '/foo/my_sw.js', // path to your custom service worker file
 });
 clevertap.renderNotificationClicked({
-    msgId: "232",
+    msgId: '232',
     kv: 1212,
-    msgCTkv: "sdsdsa",
-    pivotId: "asdasasd",
-    wzrk_slideNo: 232323
+    msgCTkv: 'sdsdsa',
+    pivotId: 'asdasasd',
+    wzrk_slideNo: 232323,
 });
 clevertap.renderNotificationViewed({
-    msgId: "232",
+    msgId: '232',
     kv: 1212,
-    msgCTkv: "sdsdsa",
-    pivotId: "asdasasd",
-    wzrk_slideNo: 232323
+    msgCTkv: 'sdsdsa',
+    pivotId: 'asdasasd',
+    wzrk_slideNo: 232323,
 });
 clevertap.setOffline(true);
 clevertap.setOffline(false);

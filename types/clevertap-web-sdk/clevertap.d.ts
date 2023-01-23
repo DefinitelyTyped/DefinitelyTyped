@@ -122,7 +122,6 @@ declare class CleverTap {
     removeMultiValueForKey: (key: any, value: string | number) => void;
     removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
-
 }
 
 export default CleverTap;
