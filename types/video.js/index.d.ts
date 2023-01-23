@@ -3901,6 +3901,10 @@ declare namespace videojs {
      * @param [label]
      *        A text label for the modal, primarily for accessibility.
      *
+     * @param [pauseOnOpen=true]
+     *        If `true`, playback will will be paused if playing when
+     *        the modal opens, and resumed when it closes.
+     *
      * @param [temporary=true]
      *        If `true`, the modal can only be opened once; it will be
      *        disposed as soon as it's closed.
@@ -3915,6 +3919,7 @@ declare namespace videojs {
         description?: string | undefined;
         fillAlways?: boolean | undefined;
         label?: string | undefined;
+        pauseOnOpen?: boolean | undefined;
         temporary?: boolean | undefined;
         uncloseable?: boolean | undefined;
     }
