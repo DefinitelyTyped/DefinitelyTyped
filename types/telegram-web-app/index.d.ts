@@ -169,12 +169,12 @@ interface WebApp {
      */
     sendData(data: string): void;
     /**
-     * A method that opens a link in an external browser. 
+     * A method that opens a link in an external browser.
      * The Web App will not be closed.
-     * If the optional options parameter is passed with the field 
+     * If the optional options parameter is passed with the field
      * @param try_instant_view the link will be opened in Instant View mode if possible.
-     * 
-     * Note that this method can be called only in response to user interaction with 
+     *
+     * Note that this method can be called only in response to user interaction with
      * the Web App interface (e.g. a click inside the Web App or on the main button)
      */
     openLink(url: string, try_instant_view?: boolean): void;
@@ -210,23 +210,23 @@ interface WebApp {
      */
     showConfirm(message: string, callback?: (ok?: boolean) => void): void;
     /**
-     * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams. 
-     * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data. 
-     * If an optional callback parameter was passed, the callback function will be called and the text from the QR 
+     * A method that shows a native popup for scanning a QR code described by the params argument of the type ScanQrPopupParams.
+     * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
+     * If an optional callback parameter was passed, the callback function will be called and the text from the QR
      * code will be passed as the first argument. Returning true inside this callback function causes the popup to be closed.
      */
     showScanQrPopup(params: ScanQrPopupParams, callback?: (data: string) => void): void;
     /**
-     * A method that closes the native popup for scanning a QR code opened with the 
+     * A method that closes the native popup for scanning a QR code opened with the
      * showScanQrPopup method. Run it if you received valid data in the event qrTextReceived.
      */
     closeScanQrPopup(): void;
     /**
-     * A method that requests text from the clipboard. The Web App will receive the event clipboardTextReceived. 
-     * If an optional callback parameter was passed, the callback function will be 
+     * A method that requests text from the clipboard. The Web App will receive the event clipboardTextReceived.
+     * If an optional callback parameter was passed, the callback function will be
      * called and the text from the clipboard will be passed as the first argument.
-     * 
-     * Note: this method can be called only for Web Apps launched from the attachment menu and only 
+     *
+     * Note: this method can be called only for Web Apps launched from the attachment menu and only
      * in response to a user interaction with the Web App interface (e.g. a click inside the Web App or on the main button).
      */
     readTextFromClipboard(callback?: (data: string | null) => void): void;
@@ -596,5 +596,6 @@ interface ScanQrPopupParams {
     /**
      * The text to be displayed under the 'Scan QR' heading, 0-64 characters.
      */
-    text?: string
+    text?: string;
 }
+
