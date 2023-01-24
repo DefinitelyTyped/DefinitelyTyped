@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import $ from 'jquery';
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import Store from '@ember-data/store';
+import { ModelSchema } from 'ember-data';
 
 class JsonApi extends JSONAPIAdapter {
     // Application specific overrides go here
@@ -28,7 +29,7 @@ const AuthTokenHeader = JSONAPIAdapter.extend({
 });
 
 const UseAjax = JSONAPIAdapter.extend({
-    query(store: Store, type: string, query: object) {
+    query(store: Store, type: ModelSchema, query: object) {
         const url = 'https://api.example.com/my-api';
         return this.ajax(url, 'POST', {
             param: 'foo',
@@ -37,7 +38,7 @@ const UseAjax = JSONAPIAdapter.extend({
 });
 
 const UseAjaxOptions = JSONAPIAdapter.extend({
-    query(store: Store, type: string, query: object) {
+    query(store: Store, type: ModelSchema, query: object) {
         const url = 'https://api.example.com/my-api';
         const options = this.ajaxOptions(url, 'DELETE', {
             foo: 'bar',
@@ -49,7 +50,7 @@ const UseAjaxOptions = JSONAPIAdapter.extend({
 });
 
 const UseAjaxOptionsWithOptionalThirdParams = JSONAPIAdapter.extend({
-    query(store: Store, type: string, query: object) {
+    query(store: Store, type: ModelSchema, query: object) {
         const url = 'https://api.example.com/my-api';
         const options = this.ajaxOptions(url, 'DELETE');
         return $.ajax(url, {

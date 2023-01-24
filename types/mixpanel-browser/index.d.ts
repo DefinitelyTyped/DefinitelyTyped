@@ -4,7 +4,6 @@
 //                 Ricardo Rodrigues <https://github.com/RicardoRodrigues>
 //                 Kristian Randall <https://github.com/randak>
 //                 Dan Wilt <https://github.com/dwilt>
-//                 Lee Dogeon <https://github.com/moreal>
 //                 Justin Helmer <https://github.com/justinhelmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
