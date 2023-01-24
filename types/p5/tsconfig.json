@@ -16,7 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "test/test-augmentation/p5-tests.ts",
         "test/index.ts",
         "test/unaugmented.ts"
     ]
