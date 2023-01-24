@@ -259,6 +259,17 @@ declare namespace jest {
     // eslint-disable-next-line no-unnecessary-generics
     function genMockFromModule<T>(moduleName: string): T;
     /**
+     * Returns `true` if test environment has been torn down.
+     *
+     * @example
+     *
+     * if (jest.isEnvironmentTornDown()) {
+     *   // The Jest environment has been torn down, so stop doing work
+     *   return;
+     * }
+     */
+    function isEnvironmentTornDown(): boolean;
+    /**
      * Returns whether the given function is a mock function.
      */
     function isMockFunction(fn: any): fn is Mock;
@@ -430,7 +441,8 @@ declare namespace jest {
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
     type ConstructorReturnType<T> = T extends new (...args: any) => infer C ? C : any;
 
-    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
+    interface MockWithArgs<T extends MockableFunction>
+        extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
         new (...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
@@ -1231,7 +1243,8 @@ declare namespace jest {
         ReturnType<T>,
         ArgsType<T>,
         T extends (this: infer C, ...args: any[]) => any ? C : never
-    > & T;
+    > &
+        T;
 
     /**
      * Wrap a class with mock definitions

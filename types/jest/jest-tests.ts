@@ -373,6 +373,9 @@ jest.advanceTimersToNextTimer(2);
 // $ExpectType void
 jest.clearAllTimers();
 
+// $ExpectType boolean
+jest.isEnvironmentTornDown();
+
 // $ExpectType void
 jest.runAllImmediates();
 
@@ -488,9 +491,14 @@ interface TestApi {
 }
 // $ExpectType Mock<string, [number], any> || Mock<string, [x: number], any>
 const mock12 = jest.fn<ReturnType<TestApi['test']>, jest.ArgsType<TestApi['test']>>();
-interface TestMockContext { mock: boolean; test?: number; }
+interface TestMockContext {
+    mock: boolean;
+    test?: number;
+}
 // $ExpectType Mock<0, [string], TestMockContext> || Mock<0, [check: string], TestMockContext>
-const mock13 = jest.fn(function(this: TestMockContext, check: string) { return 0 as const; });
+const mock13 = jest.fn(function (this: TestMockContext, check: string) {
+    return 0 as const;
+});
 // $ExpectType TestMockContext[]
 mock13.mock.contexts;
 
