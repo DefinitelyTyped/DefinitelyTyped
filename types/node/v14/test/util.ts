@@ -289,7 +289,7 @@ function testUtilTypes(
         object; // $ExpectType Set<any>
 
         if (util.types.isSet(readonlySetOrArray)) {
-            readonlySetOrArray; // $ExpectType ReadonlySet<any> || Set<any> | ReadonlySet<any>
+            readonlySetOrArray; // $ExpectType ReadonlySet<any> || Set<any> | ReadonlySet<any> || ReadonlySet<any> | Set<any>
         }
     }
     if (util.types.isSharedArrayBuffer(object)) {
