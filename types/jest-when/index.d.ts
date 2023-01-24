@@ -6,7 +6,7 @@
 //                 Nicholas Hehr <https://github.com/hipsterbrown>
 //                 Bogi Napoleon Wennerström <https://github.com/boginw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 

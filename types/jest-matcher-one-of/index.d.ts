@@ -2,7 +2,7 @@
 // Project: https://github.com/d4nyll/jest-matcher-one-of#readme
 // Definitions by: Joe Mitchard <https://github.com/joemitchard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 declare namespace jest {

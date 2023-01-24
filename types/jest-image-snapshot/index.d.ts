@@ -5,7 +5,7 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Ayc0 <https://github.com/Ayc0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
+// Minimum TypeScript Version: 4.3
 
 /// <reference types="jest" />
 
