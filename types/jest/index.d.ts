@@ -28,7 +28,7 @@
 //                 Adam Jones <https://github.com/domdomegg>
 //                 Tom Mrazauskas <https://github.com/mrazauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
+// Minimum TypeScript Version: 4.5
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
