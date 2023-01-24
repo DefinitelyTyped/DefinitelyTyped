@@ -501,7 +501,7 @@ interface TestMockContext {
     test?: number;
 }
 // $ExpectType Mock<0, [string], TestMockContext> || Mock<0, [check: string], TestMockContext>
-const mock13 = jest.fn(function (this: TestMockContext, check: string) {
+const mock13 = jest.fn(function(this: TestMockContext, check: string) {
     return 0 as const;
 });
 // $ExpectType TestMockContext[]
