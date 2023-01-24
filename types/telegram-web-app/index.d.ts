@@ -177,7 +177,7 @@ interface WebApp {
      * Note that this method can be called only in response to user interaction with
      * the Web App interface (e.g. a click inside the Web App or on the main button)
      */
-    openLink(url: string, try_instant_view?: boolean): void;
+    openLink(url: string, options?: { try_instant_view?: boolean }): void;
     /**
      * A method that opens a telegram link inside Telegram app. The Web App will
      * be closed.
