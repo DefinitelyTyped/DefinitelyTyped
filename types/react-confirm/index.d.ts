@@ -1,4 +1,4 @@
-// Type definitions for react-confirm 0.2.3
+// Type definitions for react-confirm 0.2
 // Project: https://github.com/haradakunihiko/react-confirm
 // Definitions by: santiagodoldan <https://github.com/santiagodoldan>
 //                 Mark Nelissen <https://github.com/marknelissen>
