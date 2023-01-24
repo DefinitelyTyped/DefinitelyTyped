@@ -1,4 +1,4 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach } from 'node:test';
+import { describe, it, run, test, before, beforeEach, after, afterEach, TestContext } from 'node:test';
 
 // run without options
 // $ExpectType TapStream
@@ -23,7 +23,7 @@ run({
 // TapStream should be a NodeJS.ReadableStream
 run().pipe(process.stdout);
 
-test('foo', t => {
+test('foo', (t: TestContext) => {
     // $ExpectType TestContext
     t;
 });
