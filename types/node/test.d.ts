@@ -442,5 +442,5 @@ declare module 'node:test' {
         timeout?: number | undefined;
     }
 
-    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach };
+    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, TestContext, TestOptions, RunOptions, HookOptions };
 }
