@@ -1,10 +1,17 @@
-declare module 'fetch-meta-tags' {
-  export default function fetchMeta(site: string): {
-    url: string
-    title?: string
-    description?: string
-    icon?: string
-    image?: string
-  }
+// Type definitions for fetch-meta-tags 1.0
+// Project: https://github.com/luisivan/fetch-meta-tags#readme
+// Definitions by: Alessandro Rabitti <https://github.com/silversonicaxel>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export interface fetchedMeta {
+    url: string;
+    title?: string;
+    description?: string;
+    icon?: string;
+    image?: string;
 }
 
+/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
+declare module 'fetch-meta-tags' {
+    export default function fetchMeta(site: string): fetchedMeta;
+}
