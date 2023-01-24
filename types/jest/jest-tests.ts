@@ -901,59 +901,6 @@ switch (mockResult.type) {
         break;
 }
 
-/* Replace property */
-
-const replaceObjectA = {
-    method: () => {},
-    property: 1,
-};
-
-// $ExpectType Replaced<number>
-jest.replaceProperty(replaceObjectA, 'property', 2);
-
-let replaced: jest.Replaced<number>;
-replaced = jest.replaceProperty(replaceObjectA, 'property', 2);
-
-// $ExpectType void
-jest.replaceProperty(replaceObjectA, 'property', 2).replaceValue(3).restore();
-
-// @ts-expect-error: property does not exist
-jest.replaceProperty(replaceObjectA, 'invalid', 1);
-// @ts-expect-error: wrong type of the value
-jest.replaceProperty(replaceObjectA, 'property', 'some text');
-// @ts-expect-error: wrong type of the value
-jest.replaceProperty(replaceObjectA, 'property', 1).replaceValue('some text');
-// @ts-expect-error: method cannot be replaced
-jest.replaceProperty(replaceObjectA, 'method', () => {});
-
-interface ReplaceComplexObject {
-    numberOrUndefined: number | undefined;
-    optionalString?: string;
-    multipleTypes: number | string | { foo: number } | null;
-}
-declare const replaceComplexObject: ReplaceComplexObject;
-
-// $ExpectType Replaced<number | undefined>
-jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', undefined);
-
-// $ExpectType Replaced<number | undefined>
-jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 1);
-
-// @ts-expect-error: wrong type of the value
-jest.replaceProperty(replaceComplexObject, 'numberOrUndefined', 'some string');
-
-// $ExpectType Replaced<string | undefined>
-jest.replaceProperty(replaceComplexObject, 'optionalString', 'foo');
-
-// $ExpectType Replaced<string | undefined>
-jest.replaceProperty(replaceComplexObject, 'optionalString', undefined);
-
-// $ExpectType Replaced<string | number | { foo: number; } | null>
-jest.replaceProperty(replaceComplexObject, 'multipleTypes', 1)
-    .replaceValue('foo')
-    .replaceValue({ foo: 1 })
-    .replaceValue(null);
-
 /* getState and setState */
 // @ts-expect-error
 expect.setState(true);
