@@ -285,10 +285,11 @@ declare namespace jest {
      * @remarks
      * For mocking functions, and 'get' or 'set' accessors, use `jest.spyOn()` instead.
      */
-    function replaceProperty<T extends object, K extends NonFunctionPropertyNames<T>, V extends T[K]>(
+    // eslint-disable-next-line no-unnecessary-generics
+    function replaceProperty<T extends object, K extends NonFunctionPropertyNames<T>>(
         object: T,
         propertyKey: K,
-        value: V,
+        value: T[K],
     ): Replaced<T[K]>;
     /**
      * Wraps types of the `source` object and its deep members with type definitions
