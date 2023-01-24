@@ -94,7 +94,13 @@ interface Pivot {
     derivedAttributes?: { [k: string]: (p: string) => string };
 }
 declare class PivotData implements Pivot {
+    constructor(inputProps = {}) {
+    }
     data: TableInput;
+    getColKeys: function;
+    getRowKeys: function;
+    getAggregators: function;
+    
 }
 
 // PivotData is not an "utility" but the underlying implementation of the core entity,
