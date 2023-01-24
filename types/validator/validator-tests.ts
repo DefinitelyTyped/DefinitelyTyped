@@ -50,6 +50,7 @@ import isISO31661Alpha2Func from 'validator/lib/isISO31661Alpha2';
 import isISO31661Alpha3Func from 'validator/lib/isISO31661Alpha3';
 import isISO4217Func from 'validator/lib/isISO4217';
 import isISRCFunc from 'validator/lib/isISRC';
+import isIMEIFunc from 'validator/lib/isIMEI';
 import isInFunc from 'validator/lib/isIn';
 import isIntFunc from 'validator/lib/isInt';
 import isJSONFunc from 'validator/lib/isJSON';
@@ -229,6 +230,9 @@ import isVatFunc from 'validator/lib/isVAT';
 
     let _isISRC = validator.isISRC;
     _isISRC = isISRCFunc;
+
+    let _isIMEI = validator.isIMEI;
+    _isIMEI = isIMEIFunc;
 
     let _isIn = validator.isIn;
     _isIn = isInFunc;
@@ -703,6 +707,10 @@ const any: any = null;
     result = validator.isISRC('sample');
 
     result = validator.isIn('sample', []);
+
+    const isIMEIOptions: validator.IsIMEIOptions = {};
+    result = validator.isIMEI('sample');
+    result = validator.isIMEI('sample', isIMEIOptions);
 
     const isIntOptions: validator.IsIntOptions = {};
     result = validator.isInt('sample');

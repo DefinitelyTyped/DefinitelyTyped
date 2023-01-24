@@ -277,7 +277,7 @@ declare namespace ReactReconciler {
          * Set this to `true` to indicate that your renderer supports `scheduleMicrotask`. We use microtasks as part of our discrete event implementation in React DOM. If you're not sure if your renderer should support this, you probably should. The option to not implement `scheduleMicrotask` exists so that platforms with more control over user events, like React Native, can choose to use a different mechanism.
          */
         // tslint:enable:max-line-length
-        supportsMicrotask?: boolean;
+        supportsMicrotasks?: boolean;
 
         /**
          * Optional. You can proxy this to `queueMicrotask` or its equivalent in your environment.

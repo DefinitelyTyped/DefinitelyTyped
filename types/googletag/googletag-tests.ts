@@ -538,13 +538,19 @@ googletag.pubads().addEventListener('slotRenderEnded', event => {
 
     // Log details of the rendered ad.
     console.log('Advertiser ID:', event.advertiserId);
-    console.log('Campaign ID: ', event.campaignId);
-    console.log('Creative ID: ', event.creativeId);
+    console.log('Campaign ID:', event.campaignId);
+    console.log('Company IDs:', event.companyIds);
+    console.log('Creative ID:', event.creativeId);
+    console.log('Creative Template ID:', event.creativeTemplateId);
+    console.log('Is backfill?:', event.isBackfill);
     console.log('Is empty?:', event.isEmpty);
+    console.log('Label IDs:', event.labelIds);
     console.log('Line Item ID:', event.lineItemId);
     console.log('Size:', event.size);
+    console.log('Slot content changed?:', event.slotContentChanged);
     console.log('Source Agnostic Creative ID:', event.sourceAgnosticCreativeId);
     console.log('Source Agnostic Line Item ID:', event.sourceAgnosticLineItemId);
+    console.log('Yield Group IDs:', event.yieldGroupIds);
     console.groupEnd();
 
     if (slot === targetSlot) {

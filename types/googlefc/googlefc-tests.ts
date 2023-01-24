@@ -27,7 +27,7 @@ googlefc.callbackQueue.push({ CONSENT_DATA_READY: () => googlefc.showRevocationM
 googlefc.callbackQueue.push({
     AD_BLOCK_DATA_READY: () => {
         switch (googlefc.getAdBlockerStatus()) {
-            case googlefc.AdBlockerStatusEnum.EXTENSION_AD_BLOCKER:
+            case googlefc.AdBlockerStatusEnum.EXTENSION_LEVEL_AD_BLOCKER:
             case googlefc.AdBlockerStatusEnum.NETWORK_LEVEL_AD_BLOCKER:
                 // Insert handling for cases where the user is blocking ads.
                 break;

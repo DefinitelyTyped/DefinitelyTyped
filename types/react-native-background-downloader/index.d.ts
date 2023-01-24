@@ -2,6 +2,7 @@
 // Project: https://github.com/EkoLabs/react-native-background-downloader.git
 // Definitions by: Junseong Park <https://github.com/Kweiza>
 //                 Adam Hunter <https://github.com/adamrhunter>
+//                 Philip Su <https://github.com/fivecar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface DownloadHeaders {
@@ -69,6 +70,7 @@ export interface DownloadOption {
 }
 
 export type Download = (options: DownloadOption) => DownloadTask;
+export type CompleteHandler = (id: string) => void;
 
 export interface Directories {
     documents: string;
@@ -88,6 +90,7 @@ export interface Priority {
 export const setHeaders: SetHeaders;
 export const checkForExistingDownloads: CheckForExistingDownloads;
 export const download: Download;
+export const completeHandler: CompleteHandler;
 export const directories: Directories;
 export const Network: Network;
 export const Priority: Priority;
@@ -96,6 +99,7 @@ export interface RNBackgroundDownloader {
     setHeaders: SetHeaders;
     checkForExistingDownloads: CheckForExistingDownloads;
     download: Download;
+    completeHandler: CompleteHandler;
     directories: Directories;
     Network: Network;
     Priority: Priority;

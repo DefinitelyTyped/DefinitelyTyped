@@ -10,6 +10,9 @@ if (window.onurlchange === null) {
     window.addEventListener('urlchange', info => console.log(info.url));
 }
 
+// General Listening
+window.addEventListener('click', event => console.log(event));
+
 // GM_addStyle
 
 const scriptTag: HTMLStyleElement = GM_addStyle('a { font-wight: bold }');
@@ -343,6 +346,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
         description_i18n: {},
         downloadURL: null,
         evilness: 0,
+        enabled: true,
         excludes: [],
         grant: ['GM_setValue', 'GM_getValue', 'GM_deleteValue'],
         header: 'headers',
@@ -360,6 +364,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
             comment: '',
             compat_foreach: false,
             compat_metadata: false,
+            compat_powerful_this: false,
             compat_prototypes: false,
             compat_wrappedjsobject: false,
             compatopts_for_requires: true,
@@ -382,6 +387,9 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
                 use_matches: [],
             },
             run_at: 'document-idle',
+            sandbox: null,
+            tab_types: null,
+            unwrap: null,
         },
         position: 1,
         resources: [
@@ -395,7 +403,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
         'run-at': 'document-idle',
         supportURL: null,
         sync: {
-            imported: false,
+            imported: 9,
         },
         unwrap: false,
         updateURL: null,
@@ -405,12 +413,13 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
     },
     scriptMetaStr: 'metadata',
     scriptSource: 'console.log(GM_info);',
-    scriptUpdateURL: undefined,
+    scriptUpdateURL: null,
     scriptWillUpdate: false,
     version: '4.13.6136',
     scriptHandler: 'Tampermonkey',
     isIncognito: false,
     downloadMode: 'native',
+    sandboxMode: 'raw',
 };
 
 // GM.*

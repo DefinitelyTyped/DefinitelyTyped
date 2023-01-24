@@ -1367,7 +1367,25 @@ function Argv$parsed() {
     const parsedArgs = yargs.parsed;
 }
 
-async function Argv$defaultCommandWithPositional(): Promise<string> {
+function Argv$optionsOfTwoCommandsDoNotCollide() {
+    return yargs
+    .command(
+        ["foo"],
+        "foo command",
+        (yargs) => yargs.option("a", { type: "string", required: true }),
+        (argv) => { const a: string = argv.a; })
+    .command(
+        ["bar"],
+        "bar command",
+        (yargs) => yargs.option("b", { type: "number", required: true }),
+        (argv) => {
+            // @ts-expect-error
+            const a: string = argv.a;
+            const b: number = argv.b;
+        }).parseSync();
+}
+
+function Argv$defaultCommandWithPositional() {
     const argv = yargs.command(
         "$0 <arg>",
         "default command",
@@ -1377,9 +1395,9 @@ async function Argv$defaultCommandWithPositional(): Promise<string> {
                 describe: "argument",
                 type: "string",
             }),
-        () => { }).argv;
-
-    return (await argv).arg;
+        (argv) => { const arg = argv.arg; }).parseSync();
+    // @ts-expect-error
+    const a: string = argv.arg;
 }
 
 function Argv$commandsWithAsynchronousBuilders() {
@@ -1393,8 +1411,8 @@ function Argv$commandsWithAsynchronousBuilders() {
                     describe: "argument",
                     type: "string",
                 })),
-        () => { }).parseSync();
-
+        (argv) => { const arg1: string = argv.arg; }).parseSync();
+    // @ts-expect-error
     const arg1: string = argv1.arg;
 
     const argv2 = yargs.command({
@@ -1407,9 +1425,9 @@ function Argv$commandsWithAsynchronousBuilders() {
                     describe: "argument",
                     type: "string",
                 })),
-        handler: () => {}
+        handler: (argv) => { const arg2: string = argv.arg; }
     }).parseSync();
-
+    // @ts-expect-error
     const arg2: string = argv2.arg;
 }
 

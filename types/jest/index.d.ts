@@ -251,7 +251,7 @@ declare namespace jest {
     /**
      * Creates a mock function. Optionally takes a mock implementation.
      */
-    function fn<T, Y extends any[]>(implementation?: (...args: Y) => T): Mock<T, Y>;
+    function fn<T, Y extends any[], C = any>(implementation?: (this: C, ...args: Y) => T): Mock<T, Y, C>;
     /**
      * (renamed to `createMockFromModule` in Jest 26.0.0+)
      * Use the automatic mocking system to generate a mocked version of the given module.
@@ -428,13 +428,14 @@ declare namespace jest {
     type PropertyKeysOf<T> = { [K in keyof T]: T[K] extends MockableFunction ? never : K }[keyof T];
     type ArgumentsOf<T> = T extends (...args: infer A) => any ? A : never;
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
+    type ConstructorReturnType<T> = T extends new (...args: any) => infer C ? C : any;
 
-    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>> {
+    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
         new (...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
     type MaybeMockedConstructor<T> = T extends new (...args: any[]) => infer R
-        ? MockInstance<R, ConstructorArgumentsOf<T>>
+        ? MockInstance<R, ConstructorArgumentsOf<T>, R>
         : T;
     type MockedFn<T extends MockableFunction> = MockWithArgs<T> & { [K in keyof T]: T[K] };
     type MockedFunctionDeep<T extends MockableFunction> = MockWithArgs<T> & MockedObjectDeep<T>;
@@ -1169,25 +1170,30 @@ declare namespace jest {
         new (...args: any[]): any;
     }
 
-    interface Mock<T = any, Y extends any[] = any> extends Function, MockInstance<T, Y> {
+    interface Mock<T = any, Y extends any[] = any, C = any> extends Function, MockInstance<T, Y, C> {
         new (...args: Y): T;
-        (...args: Y): T;
+        (this: C, ...args: Y): T;
     }
 
-    interface SpyInstance<T = any, Y extends any[] = any> extends MockInstance<T, Y> {}
+    interface SpyInstance<T = any, Y extends any[] = any, C = any> extends MockInstance<T, Y, C> {}
 
     /**
      * Constructs the type of a spied class.
      */
     type SpiedClass<T extends abstract new (...args: any) => any> = SpyInstance<
         InstanceType<T>,
-        ConstructorParameters<T>
+        ConstructorParameters<T>,
+        T extends abstract new (...args: any) => infer C ? C : never
     >;
 
     /**
      * Constructs the type of a spied function.
      */
-    type SpiedFunction<T extends (...args: any) => any> = SpyInstance<ReturnType<T>, ArgsType<T>>;
+    type SpiedFunction<T extends (...args: any) => any> = SpyInstance<
+        ReturnType<T>,
+        ArgsType<T>,
+        T extends (this: infer C, ...args: any) => any ? C : never
+    >;
 
     /**
      * Constructs the type of a spied getter.
@@ -1221,7 +1227,11 @@ declare namespace jest {
      *  const mockMyFunction = myFunction as jest.MockedFunction<typeof myFunction>;
      *  expect(mockMyFunction.mock.calls[0][0]).toBe(42);
      */
-    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<ReturnType<T>, ArgsType<T>> & T;
+    type MockedFunction<T extends (...args: any[]) => any> = MockInstance<
+        ReturnType<T>,
+        ArgsType<T>,
+        T extends (this: infer C, ...args: any[]) => any ? C : never
+    > & T;
 
     /**
      * Wrap a class with mock definitions
@@ -1239,7 +1249,8 @@ declare namespace jest {
 
     type MockedClass<T extends Constructable> = MockInstance<
         InstanceType<T>,
-        T extends new (...args: infer P) => any ? P : never
+        T extends new (...args: infer P) => any ? P : never,
+        T extends new (...args: any[]) => infer C ? C : never
     > & {
         prototype: T extends { prototype: any } ? Mocked<T['prototype']> : never;
     } & T;
@@ -1256,18 +1267,18 @@ declare namespace jest {
      *  api.MyApi.prototype.myApiMethod.mockImplementation(() => "test");
      */
     type Mocked<T> = {
-        [P in keyof T]: T[P] extends (...args: any[]) => any
-            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>>
+        [P in keyof T]: T[P] extends (this: infer C, ...args: any[]) => any
+            ? MockInstance<ReturnType<T[P]>, ArgsType<T[P]>, C>
             : T[P] extends Constructable
             ? MockedClass<T[P]>
             : T[P];
     } & T;
 
-    interface MockInstance<T, Y extends any[]> {
+    interface MockInstance<T, Y extends any[], C = any> {
         /** Returns the mock name string set by calling `mockFn.mockName(value)`. */
         getMockName(): string;
         /** Provides access to the mock's metadata */
-        mock: MockContext<T, Y>;
+        mock: MockContext<T, Y, C>;
         /**
          * Resets all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
          *
@@ -1463,11 +1474,15 @@ declare namespace jest {
 
     type MockResult<T> = MockResultReturn<T> | MockResultThrow | MockResultIncomplete;
 
-    interface MockContext<T, Y extends any[]> {
+    interface MockContext<T, Y extends any[], C = any> {
         /**
          * List of the call arguments of all calls that have been made to the mock.
          */
         calls: Y[];
+        /**
+         * List of the call contexts of all calls that have been made to the mock.
+         */
+        contexts: C[];
         /**
          * List of all the object instances that have been instantiated from the mock.
          */
