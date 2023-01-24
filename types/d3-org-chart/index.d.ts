@@ -10,7 +10,11 @@ import { Link, DefaultLinkObject } from 'd3-shape';
 import { ZoomBehavior, ZoomTransform } from 'd3-zoom';
 
 export type NodeId = string | number;
-export type Connection = any; // TODO, probably comes from d3-flextree
+export interface Connection {
+    from: NodeId;
+    to: NodeId;
+    label: string;
+}
 
 export interface Point {
     x: number;
@@ -24,9 +28,12 @@ export interface StatePublic<Datum> {
     svgWidth: number;
     svgHeight: number;
     scaleExtent: [number, number];
-    container: string; // CSS selector string, for example "#my-chart"
-    defaultTextFill: string; // CSS color, for example "#2C3E50"
-    defaultFont: string; // Font name, for example "Helvetica"
+    /** CSS selector string, for example "#my-chart" */
+    container: string;
+    /** CSS color, for example "#2C3E50" */
+    defaultTextFill: string;
+    /** Font name, for example "Helvetica" */
+    defaultFont: string;
     ctx: CanvasRenderingContext2D;
     data: Datum[] | null;
     duration: number;
@@ -34,15 +41,20 @@ export interface StatePublic<Datum> {
     expandLevel: number;
     compact: boolean;
     rootMargin: number;
-    nodeDefaultBackground: string; // CSS color, for example "#2C3E50"
+    /** CSS color, for example "#2C3E50" */
+    nodeDefaultBackground: string;
     connections: Connection[];
     lastTransform: ZoomTransform;
-    nodeId: (node: HierarchyNode<Datum> | Datum) => NodeId | undefined; // Given a node, returns an id for equality comparisons
-    parentNodeId: (node: HierarchyNode<Datum> | Datum) => NodeId | undefined; // Given a node, returns it's parent id for equality comparisons
-    backgroundColor: string; // CSS color, for example "#2C3E50"
+    /** Given a node, returns an id for equality comparisons */
+    nodeId: (node: HierarchyNode<Datum> | Datum) => NodeId | undefined;
+    /** Given a node, returns its parent id for equality comparisons */
+    parentNodeId: (node: HierarchyNode<Datum> | Datum) => NodeId | undefined;
+    /** CSS color, for example "#2C3E50" */
+    backgroundColor: string;
     zoomBehavior: ZoomBehavior<Element, Datum>;
     svg: Selection<SVGSVGElement, string, null, undefined>;
-    defs: (state: State<Datum>, visibleConnections: Connection[]) => string; // string representation of a SVG <defs> element
+    /** Return type is the string representation of a SVG <defs> element */
+    defs: (state: State<Datum>, visibleConnections: Connection[]) => string;
     connectionsUpdate: ValueFn<BaseType, Datum, void>;
     linkUpdate: (node: HierarchyNode<Datum>, index: number, nodes: Array<HierarchyNode<Datum>>) => void;
     nodeUpdate: (node: HierarchyNode<Datum>, index: number, nodes: Array<HierarchyNode<Datum>>) => void;
@@ -55,12 +67,13 @@ export interface StatePublic<Datum> {
     compactMarginBetween: (node: HierarchyNode<Datum>) => number;
     onNodeClick: (node: NodeId) => void;
     linkGroupArc: Link<any, DefaultLinkObject, [number, number]>;
+    /** Return type is HTML content */
     nodeContent: (
         node: HierarchyNode<Datum>,
         index: number,
         nodes: Array<HierarchyNode<Datum>>,
         state: State<Datum>,
-    ) => string; // Return type is HTML content
+    ) => string;
     layout: Layout;
     buttonContent: (params: { node: HierarchyNode<Datum>; state: State<Datum>; }) => string;
     layoutBindings: Record<Layout, LayoutBinding<Datum>>;
@@ -96,6 +109,7 @@ export interface LayoutBinding<Datum> {
     linkParentY: (node: HierarchyNode<Datum>) => number;
     buttonX: (node: HierarchyNode<Datum>) => number;
     buttonY: (node: HierarchyNode<Datum>) => number;
+    /** Returns a CSS transform */
     centerTransform: (params: {
         root: number;
         rootMargin: number;
@@ -104,7 +118,7 @@ export interface LayoutBinding<Datum> {
         centerX: number;
         chartWidth: number;
         chartHeight: number;
-    }) => string; // CSS transform
+    }) => string;
     compactDimension: {
         sizeColumn: (node: HierarchyNode<Datum>) => number;
         sizeRow: (node: HierarchyNode<Datum>) => number;
@@ -118,9 +132,10 @@ export interface LayoutBinding<Datum> {
         state: State<Datum>;
         node: HierarchyNode<Datum>;
     }) => [number, number];
-    zoomTransform: (params: { centerY: number; scale: number; }) => string; // CSS transform
+    zoomTransform: (params: { centerY: number; scale: number; }) => string;
     diagonal(source: Point, target: Point, m: Point): string;
-    swap: (d: Point) => Point; // swaps x and y coordinates
+    /** Swaps x and y coordinates */
+    swap: (d: Point) => Point;
     nodeUpdateTransform: (params: { width: number; height: number; } & Point) => string;
 }
 
@@ -141,7 +156,8 @@ export interface OrgChart<Datum> extends StateGetSet<Datum, OrgChart<Datum>> {
     calculateCompactFlexDimensions(root: HierarchyNode<Datum>): void;
     calculateCompactFlexPositions(root: HierarchyNode<Datum>): void;
     update(params: { x0: number; y0: number; width: number; height: number; } & Partial<Point>): void;
-    isEdge(): boolean; // Whether the current browser is Microsoft Edge
+    /** Whether the current browser is Microsoft Edge */
+    isEdge(): boolean;
     hdiagonal(source: Point, target: Point, m: Point): string;
     diagonal(source: Point, target: Point, m: Point): string;
     restyleForeignObjectElements(): void;

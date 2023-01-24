@@ -45,7 +45,7 @@ export interface FlextreeNode<Datum> extends HierarchyNode<Datum> {
     get bottom(): number;
     get left(): number;
     get right(): number;
-    /** 
+    /**
      * The minimum `top` and `left`, and the maximum `bottom` and
      * `right` values for all of the nodes in this subtree
      */
@@ -61,14 +61,14 @@ export interface FlextreeNode<Datum> extends HierarchyNode<Datum> {
 export interface FlextreeOptions<Datum> {
     /**
      * The way to access the children of a data node.
-     * 
+     *
      * The default when not specified is:
-```javascript
-data => data.children
-```
-Note that unlike the other accessors, this takes a *data* node
-as an argument. This is used only in the creation of a hierarchy,
-prior to computing the layout, by the `layout.hierarchy` method.
+     * ```javascript
+     * data => data.children
+     * ```
+     * Note that unlike the other accessors, this takes a *data* node
+     * as an argument. This is used only in the creation of a hierarchy,
+     * prior to computing the layout, by the `layout.hierarchy` method.
      */
     children: (data: HierarchyNode<Datum>) => Array<FlextreeNode<Datum>> | undefined;
     /**
@@ -76,19 +76,18 @@ prior to computing the layout, by the `layout.hierarchy` method.
      * It can be specified as:
      * - a **two-element array** `[xSize, ySize]` which is applied as the fixed size for every node.
      * - a **function** which takes the hierarchy node as an argument, and returns a two-element array.
-     * 
+     *
      * The default when not specified is:
-```javascript
-node => node.data.size
-```
+     * ```javascript
+     * node => node.data.size
+     * ```
      */
     nodeSize: [number, number] | ((node: HierarchyNode<Datum>) => [number, number]);
     /**
      * A way to calculate the size of a node.
      * It can be specified as:
      * - a **constant number** which is applied as the fixed spacing between every adjacent node.
-     * - a **function** which takes two nodes, and returns the minimum allowable spacing between those
-nodes.
+     * - a **function** which takes two nodes, and returns the minimum allowable spacing between them.
      *
      * The default when not specified is `0`.
      */

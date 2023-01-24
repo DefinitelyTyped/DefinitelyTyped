@@ -8,7 +8,7 @@
 
 import { flextree } from "d3-flextree";
 
-// $ExpectType { <Datum>(options: Partial<FlextreeOptions<Datum>>): FlextreeLayout<Datum>; version: string; }
+// $ExpectType { <Datum>(options: Partial<FlextreeOptions<Datum>>): FlextreeLayout<Datum>; readonly version: string; }
 flextree;
 
 // $ExpectType string
@@ -21,13 +21,13 @@ interface Dummy {
 // $ExpectType FlextreeLayout<Dummy>
 const f = flextree<Dummy>({});
 
-// $ExpectType (data: HierarchyNode<Dummy>) => HierarchyNode<Dummy>[] | undefined
+// $ExpectType (data: HierarchyNode<Dummy>) => FlextreeNode<Dummy>[] | undefined
 f.children();
 
 // $ExpectType [number, number] | ((node: HierarchyNode<Dummy>) => [number, number])
 f.nodeSize();
 
-// $ExpectType (treeData: unknown, children?: unknown) => unknown
+// $ExpectType (treeData: Dummy, children?: ((d: Dummy) => Iterable<Dummy> | null | undefined) | undefined) => FlextreeNode<Dummy>
 f.hierarchy;
 
 // $ExpectType (tree: HierarchyNode<Dummy>) => string
