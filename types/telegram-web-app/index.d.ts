@@ -598,4 +598,3 @@ interface ScanQrPopupParams {
      */
     text?: string;
 }
-
