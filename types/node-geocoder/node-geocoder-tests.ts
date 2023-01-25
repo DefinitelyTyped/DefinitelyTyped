@@ -1,8 +1,9 @@
+import fetch from 'node-fetch';
 import NodeGeocoder = require('node-geocoder');
 
 const geocoder = NodeGeocoder({
     provider: 'google',
-    httpAdapter: 'https',
+    fetch,
 });
 
 let results: NodeGeocoder.Entry[] | undefined;
