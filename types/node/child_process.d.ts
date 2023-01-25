@@ -791,7 +791,7 @@ declare module 'child_process' {
     function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>): ChildProcessByStdio<null, null, null>;
     function spawn(command: string, args: ReadonlyArray<string>, options: SpawnOptions): ChildProcess;
     interface ExecOptions extends CommonOptions {
-        shell?: string | undefined;
+        shell?: boolean | string | undefined;
         signal?: AbortSignal | undefined;
         maxBuffer?: number | undefined;
         killSignal?: NodeJS.Signals | number | undefined;
@@ -1298,7 +1298,7 @@ declare module 'child_process' {
         encoding?: BufferEncoding | 'buffer' | null | undefined;
     }
     interface ExecSyncOptions extends CommonExecOptions {
-        shell?: string | undefined;
+        shell?: boolean | string | undefined;
     }
     interface ExecSyncOptionsWithStringEncoding extends ExecSyncOptions {
         encoding: BufferEncoding;
