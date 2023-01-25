@@ -27,7 +27,6 @@ server.pre(restify.pre.sanitizePath());
 server.on('someEvent', () => { });
 
 server.use((req: restify.Request, res: restify.Response, next: restify.Next) => { });
-server.use(async (req: restify.Request, res: restify.Response) => { });
 server.use([(req: restify.Request, res: restify.Response, next: restify.Next) => { }, (req: restify.Request, res: restify.Response, next: restify.Next) => { }]);
 server.use((req: restify.Request, res: restify.Response, next: restify.Next) => { }, (req: restify.Request, res: restify.Response, next: restify.Next) => { });
 
@@ -216,6 +215,11 @@ requestCaptureOptions.level = "info";
 requestCaptureOptions.maxRecords = 50;
 requestCaptureOptions.maxRequestIds = 500;
 requestCaptureOptions.dumpDefault = true;
+
+const requestCaptureStream = new restify.bunyan.RequestCaptureStream(requestCaptureOptions);
+requestCaptureStream.write(loggerStream);
+requestCaptureStream.toString();
+const asStream: stream.Stream = requestCaptureStream;
 
 const logger2: Logger = restify.bunyan.createLogger("horse");
 

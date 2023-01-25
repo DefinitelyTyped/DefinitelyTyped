@@ -1,4 +1,4 @@
-// Type definitions for restify 9.0
+// Type definitions for restify 8.5
 // Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
 //                 Steve Hipwell <https://github.com/stevehipwell>
@@ -936,9 +936,7 @@ export interface MountOptions {
 
 export type FindRouteCallback = (err: Error, route?: Route, params?: any) => void;
 
-export type NextRequestHandler = (req: Request, res: Response, next: Next) => any;
-export type AsyncRequestHandler = (req: Request, res: Response) => Promise<void>;
-export type RequestHandler = NextRequestHandler | AsyncRequestHandler;
+export type RequestHandler = (req: Request, res: Response, next: Next) => any;
 export type RequestHandlerType = RequestHandler | RequestHandler[];
 
 export interface ServerUpgradeResponse {
@@ -1013,6 +1011,18 @@ export namespace bunyan {
          * false.
          */
         dumpDefault?: boolean | undefined;
+    }
+
+    /**
+     * A Bunyan stream to capture records in a ring buffer and only pass through
+     * on a higher-level record. E.g. buffer up all records but only dump when
+     * getting a WARN or above.
+     */
+    class RequestCaptureStream extends stream.Stream {
+        constructor(opts: RequestCaptureOptions);
+
+        /** write to the stream */
+        write(record: any): void;
     }
 
     const serializers: Logger.Serializers & {
