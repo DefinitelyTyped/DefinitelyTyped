@@ -1,7 +1,7 @@
 // Type definitions for html-to-pdfmake 2.4
 // Project: https://github.com/Aymkdn/html-to-pdfmake#readme
 // Definitions by: Martin Zloch <https://github.com/me>
-//                 Cecil Wöbker <https:/>/github.com/cwoebker>
+//                 Cecil Wöbker <https://github.com/cwoebker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.5
 
