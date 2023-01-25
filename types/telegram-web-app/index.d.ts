@@ -1,4 +1,4 @@
-// Type definitions for non-npm package telegram-web-app 6.2
+// Type definitions for non-npm package telegram-web-app 6.4
 // Project: https://telegram.org/js/telegram-web-app.js
 // Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>, MKRhere <https://github.com/MKRhere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
