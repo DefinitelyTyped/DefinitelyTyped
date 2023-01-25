@@ -34,7 +34,8 @@ declare function htmlToPdfmake(
          */
         ignoreStyles: string[];
         /**
-         * If you're using html-to-pdfmake in a web browser with images, then you can set this option to true and it will automatically load your images in your PDF using the {images} option of PDFMake.
+         * If you're using html-to-pdfmake in a web browser with images, then you can set this option to true
+         * and it will automatically load your images in your PDF using the {images} option of PDFMake.
          * Using this option will change the output of html-to-pdfmake that will return an object with {content, images}
          */
         imagesByReferences: boolean;

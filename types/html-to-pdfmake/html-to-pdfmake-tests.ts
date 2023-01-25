@@ -41,7 +41,7 @@ export const validExample: Content = htmlToPdfmake(
         },
         removeExtraBlanks: true,
         showhidden: true,
-        ignoreStyles:['font-family'],
+        ignoreStyles: ['font-family'],
         imagesByReferences: true,
         fontSizes: [1, 2, 3, 4, 5, 6, 7],
         replaceText: (text: string) => text.replace(/-/g, "\\u2011"),
