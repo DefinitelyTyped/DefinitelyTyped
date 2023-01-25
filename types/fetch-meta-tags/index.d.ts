@@ -11,7 +11,4 @@ export interface fetchedMeta {
     image?: string;
 }
 
-/* tslint:disable-next-line:no-declare-current-package no-single-declare-module */
-declare module 'fetch-meta-tags' {
-    export default function fetchMeta(site: string): fetchedMeta;
-}
+export default function fetchMeta(site: string): fetchedMeta;
