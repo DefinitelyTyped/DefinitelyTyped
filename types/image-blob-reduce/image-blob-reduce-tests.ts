@@ -1,7 +1,7 @@
-import pica from 'pica';
-import imageBlobReduce, { Options, ResizeOptions } from 'image-blob-reduce';
+import * as pica from 'pica';
+import * as imageBlobReduce from 'image-blob-reduce';
 
-const createOptions: Options = {
+const createOptions: imageBlobReduce.Options = {
     pica,
 };
 
@@ -21,7 +21,7 @@ imageReducer.after('_transform', env => new Promise(resolve => resolve(env)));
 
 const blob = new Blob([''], { type: 'image/png' });
 
-const resizeOptions: ResizeOptions = {
+const resizeOptions: imageBlobReduce.ResizeOptions = {
     max: 100,
     unsharpAmount: 80,
     unsharpRadius: 0.6,

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@types/pica" : "^9.0.1"
-    }
-}
