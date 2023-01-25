@@ -7,6 +7,7 @@
 
 import * as Handlebars from 'handlebars';
 
+
 declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = 'woff2' | 'woff' | 'eot'>(
     options: WebfontsGenerator.WebfontsGeneratorOptions<T>,
     done: (err: Error | undefined, res: Pick<WebfontsGenerator.WebfontsGeneratorResult, T | 'generateCss' | 'generateHtml'>) => void
@@ -178,6 +179,13 @@ declare namespace WebfontsGenerator {
         generateHtml?(urls?: Partial<Record<GeneratedFontTypes, string>>): string;
         generateCss?(urls?: Partial<Record<GeneratedFontTypes, string>>): string;
     }
+
+    interface Templates {
+        css: string;
+        scss: string;
+        html: string;
+    }
+    const templates: Templates;
 }
 
 export = WebfontsGenerator;
