@@ -1,4 +1,4 @@
-import proxymise, { Proxymise } from 'proxymise';
+import proxymise = require('proxymise');
 
 const c = {
     testC: () => Promise.resolve('proxymised'),
@@ -13,5 +13,5 @@ const a = {
 };
 
 (async () => {
-    const result: Proxymise<string> = await proxymise(a).testA().testB().testC(); // $ExpectType Proxymise<string>
+    const result = await proxymise(a).testA().testB().testC(); // $ExpectType Proxymise<string>
 })();
