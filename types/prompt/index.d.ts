@@ -74,6 +74,7 @@ declare class prompt extends EventEmitter {
     ): void;
     static history(name?: string | number): prompt.History | null;
     static start(options?: prompt.StartOptions): void;
+    static stop(): void;
 }
 
 export = prompt;
