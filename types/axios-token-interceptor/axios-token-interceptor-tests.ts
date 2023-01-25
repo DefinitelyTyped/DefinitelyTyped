@@ -1,4 +1,5 @@
 import tokenProvider = require('axios-token-interceptor');
+import { AxiosHeaders, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 
 const getToken = async (): Promise<tokenProvider.Token> => ({
     access_token: 'token1',
@@ -20,7 +21,15 @@ tokenProvider();
 const validOptions1 = {
     getToken: () => 'qwerty',
 };
-tokenProvider(validOptions1); // $ExpectType TokenProvider
+const provider = tokenProvider(validOptions1); // $ExpectType TokenProvider
+const oldConfig: AxiosRequestConfig = {
+    headers: {}
+};
+const newConfig: InternalAxiosRequestConfig = {
+    headers: new AxiosHeaders()
+};
+provider(oldConfig); // $ExpectType Promise<AxiosRequestConfig<any>>
+provider(newConfig); // $ExpectType Promise<InternalAxiosRequestConfig<any>>
 
 const validOptions2 = {
     getToken: () => Promise.resolve('qwerty'),

@@ -3,9 +3,9 @@
 // Definitions by: Vivint Team Innovation <https://github.com/innovation-team>
 //                 Mike Dodge <https://github.com/mgdodge>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 4.7
 
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 
 // Module
 declare function AxiosTokenProvider(Options: AxiosTokenProvider.InterceptorOptions): AxiosTokenProvider.TokenProvider;
@@ -25,7 +25,9 @@ declare namespace AxiosTokenProvider {
         expires_in: number;
     }
 
-    type TokenProvider = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
+    type TokenProviderOld = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
+    type TokenProviderNew = (config: InternalAxiosRequestConfig) => Promise<InternalAxiosRequestConfig>;
+    type TokenProvider = TokenProviderOld & TokenProviderNew;
 
     interface TokenCacheOptions<T = unknown> {
         getMaxAge?: (() => number) | ((el: T) => number) | undefined;
