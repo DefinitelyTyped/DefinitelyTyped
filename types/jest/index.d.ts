@@ -1,4 +1,4 @@
-// Type definitions for Jest 29.2
+// Type definitions for Jest 29.4
 // Project: https://jestjs.io/
 // Definitions by: Asana (https://asana.com)
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -259,6 +259,17 @@ declare namespace jest {
     // eslint-disable-next-line no-unnecessary-generics
     function genMockFromModule<T>(moduleName: string): T;
     /**
+     * Returns `true` if test environment has been torn down.
+     *
+     * @example
+     *
+     * if (jest.isEnvironmentTornDown()) {
+     *   // The Jest environment has been torn down, so stop doing work
+     *   return;
+     * }
+     */
+    function isEnvironmentTornDown(): boolean;
+    /**
      * Returns whether the given function is a mock function.
      */
     function isMockFunction(fn: any): fn is Mock;
@@ -267,7 +278,6 @@ declare namespace jest {
      */
     // eslint-disable-next-line no-unnecessary-generics
     function mock<T = unknown>(moduleName: string, factory?: () => T, options?: MockOptions): typeof jest;
-
     /**
      * Wraps types of the `source` object and its deep members with type definitions
      * of Jest mock function. Pass `{shallow: true}` option to disable the deeply
@@ -296,10 +306,15 @@ declare namespace jest {
      */
     function resetModules(): typeof jest;
     /**
-     * Creates a sandbox registry for the modules that are loaded inside the callback function..
+     * Creates a sandbox registry for the modules that are loaded inside the callback function.
      * This is useful to isolate specific modules for every test so that local module state doesn't conflict between tests.
      */
     function isolateModules(fn: () => void): typeof jest;
+    /**
+     * Equivalent of `jest.isolateModules()` for async functions to be wrapped.
+     * The caller is expected to `await` the completion of `jest.isolateModulesAsync()`.
+     */
+    function isolateModulesAsync(fn: () => Promise<void>): Promise<void>;
     /**
      * Runs failed tests n-times until they pass or until the max number of retries is exhausted.
      * This only works with jest-circus!
@@ -430,7 +445,8 @@ declare namespace jest {
     type ConstructorArgumentsOf<T> = T extends new (...args: infer A) => any ? A : never;
     type ConstructorReturnType<T> = T extends new (...args: any) => infer C ? C : any;
 
-    interface MockWithArgs<T extends MockableFunction> extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
+    interface MockWithArgs<T extends MockableFunction>
+        extends MockInstance<ReturnType<T>, ArgumentsOf<T>, ConstructorReturnType<T>> {
         new (...args: ConstructorArgumentsOf<T>): T;
         (...args: ArgumentsOf<T>): ReturnType<T>;
     }
@@ -1231,7 +1247,8 @@ declare namespace jest {
         ReturnType<T>,
         ArgsType<T>,
         T extends (this: infer C, ...args: any[]) => any ? C : never
-    > & T;
+    > &
+        T;
 
     /**
      * Wrap a class with mock definitions

@@ -28,14 +28,11 @@ es/collectBy.d.ts
 es/comparator.d.ts
 es/complement.d.ts
 es/compose.d.ts
-es/composeK.d.ts
-es/composeP.d.ts
 es/composeWith.d.ts
 es/concat.d.ts
 es/cond.d.ts
 es/construct.d.ts
 es/constructN.d.ts
-es/contains.d.ts
 es/converge.d.ts
 es/count.d.ts
 es/countBy.d.ts
@@ -131,7 +128,6 @@ es/mergeDeepWith.d.ts
 es/mergeDeepWithKey.d.ts
 es/mergeLeft.d.ts
 es/mergeRight.d.ts
-es/merge.d.ts
 es/mergeWith.d.ts
 es/mergeWithKey.d.ts
 es/minBy.d.ts
@@ -169,8 +165,6 @@ es/pickAll.d.ts
 es/pickBy.d.ts
 es/pick.d.ts
 es/pipe.d.ts
-es/pipeK.d.ts
-es/pipeP.d.ts
 es/pipeWith.d.ts
 es/pluck.d.ts
 es/prepend.d.ts
@@ -289,14 +283,11 @@ src/collectBy.d.ts
 src/comparator.d.ts
 src/complement.d.ts
 src/compose.d.ts
-src/composeK.d.ts
-src/composeP.d.ts
 src/composeWith.d.ts
 src/concat.d.ts
 src/cond.d.ts
 src/construct.d.ts
 src/constructN.d.ts
-src/contains.d.ts
 src/converge.d.ts
 src/count.d.ts
 src/countBy.d.ts
@@ -392,7 +383,6 @@ src/mergeDeepWith.d.ts
 src/mergeDeepWithKey.d.ts
 src/mergeLeft.d.ts
 src/mergeRight.d.ts
-src/merge.d.ts
 src/mergeWith.d.ts
 src/mergeWithKey.d.ts
 src/minBy.d.ts
@@ -430,8 +420,6 @@ src/pickAll.d.ts
 src/pickBy.d.ts
 src/pick.d.ts
 src/pipe.d.ts
-src/pipeK.d.ts
-src/pipeP.d.ts
 src/pipeWith.d.ts
 src/pluck.d.ts
 src/prepend.d.ts

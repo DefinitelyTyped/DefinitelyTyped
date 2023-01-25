@@ -1,6 +1,107 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/fl/library" {}
+
+declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
+  import ManagedObject from "sap/ui/base/ManagedObject";
+
+  /**
+   * @SINCE 1.67
+   * @EXPERIMENTAL (since 1.67)
+   *
+   * Provides an API for applications to work with control variants. See also {@link sap.ui.fl.variants.VariantManagement}.
+   */
+  interface ControlVariantApplyAPI {
+    /**
+     * Activates the passed variant applicable to the passed control/component.
+     *
+     * @returns Resolves after the variant is activated or rejects if an error occurs
+     */
+    activateVariant(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Component or control (instance or ID) on which the `variantModel` is set
+         */
+        element: ManagedObject | string;
+        /**
+         * Reference to the variant that needs to be activated
+         */
+        variantReference: string;
+      }
+    ): Promise<any>;
+    /**
+     * Saves a function that will be called after a variant has been applied with the new variant as parameter.
+     * Even if the same variant is selected again the callback is called. The function also performs a sanity
+     * check after the control has been rendered. If the passed variant control ID does not match the responsible
+     * variant management control, the callback will not be saved. Optionally this function is also called after
+     * the initial variant is applied without a sanity check.
+     */
+    attachVariantApplied(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Selector of the control
+         */
+        selector: /* was: sap.ui.fl.Selector */ any;
+        /**
+         * ID of the variant management control
+         */
+        vmControlId: string;
+        /**
+         * Callback that will be called after a variant has been applied
+         */
+        callback: Function;
+        /**
+         * The callback will also be called after the initial variant is applied
+         */
+        callAfterInitialVariant?: boolean;
+      }
+    ): void;
+    /**
+     * Clears URL technical parameter `sap-ui-fl-control-variant-id` for control variants. Use this method in
+     * case you normally want the variant parameter in the URL, but have a few special navigation patterns where
+     * you want to clear it. If you don't want that parameter in general, set the `updateVariantInURL` parameter
+     * on your variant management control to `false`. SAP Fiori elements use this method. If a variant management
+     * control is given as a parameter, only parameters specific to that control are cleared.
+     */
+    clearVariantParameterInURL(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Variant management control for which the URL technical parameter has to be cleared
+         */
+        control: ManagedObject;
+      }
+    ): void;
+    /**
+     * Removes the saved callback for the given control and variant management control.
+     */
+    detachVariantApplied(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Selector of the control
+         */
+        selector: /* was: sap.ui.fl.Selector */ any;
+        /**
+         * ID of the variant management control
+         */
+        vmControlId: string;
+      }
+    ): void;
+  }
+  const ControlVariantApplyAPI: ControlVariantApplyAPI;
+  export default ControlVariantApplyAPI;
+}
 
 declare module "sap/ui/fl/transport/TransportDialog" {
   import { default as Dialog, $DialogSettings } from "sap/m/Dialog";
@@ -109,9 +210,13 @@ declare module "sap/ui/fl/variants/VariantManagement" {
    */
   export default class VariantManagement
     extends Control
-    implements IShrinkable, IOverflowToolbarContent {
+    implements
+      IShrinkable,
+      IOverflowToolbarContent,
+      /* was: sap.m.IToolbarInteractiveControl */ Object {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
+    __implements__sap_m_IToolbarInteractiveControl: boolean;
     /**
      * Constructor for a new `VariantManagement`.
      *
@@ -1373,7 +1478,11 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/flexState/controlVariants/VariantManagementState": undefined;
 
+    "sap/ui/fl/apply/_internal/flexState/DataSelector": undefined;
+
     "sap/ui/fl/apply/_internal/flexState/FlexState": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/InitialPrepareFunctions": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/Loader": undefined;
 
@@ -1382,6 +1491,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
 
     "sap/ui/fl/apply/_internal/preprocessors/EventHistory": undefined;
+
+    "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 
     "sap/ui/fl/apply/api/DelegateMediatorAPI": undefined;
 
