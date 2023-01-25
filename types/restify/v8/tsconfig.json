@@ -8,11 +8,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "paths": {
+            "restify": [
+                "restify/v8"
+            ],
             "formidable": [
                 "formidable/v1"
             ]
