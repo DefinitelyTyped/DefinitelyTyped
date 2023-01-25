@@ -10,6 +10,7 @@ import { Link, DefaultLinkObject } from 'd3-shape';
 import { ZoomBehavior, ZoomTransform } from 'd3-zoom';
 
 export type NodeId = string | number;
+
 export interface Connection {
     from: NodeId;
     to: NodeId;
@@ -21,7 +22,11 @@ export interface Point {
     y: number;
 }
 
-// This corresponds to the attrs in d3-org-chart
+/**
+ * The configuration attributes of an organization charts.
+ * All of these properties are available as get / set pairs
+ * of the organization chart object, per D3 standard.
+ */
 export interface StatePublic<Datum> {
     id: string;
     firstDraw: boolean;
@@ -65,9 +70,10 @@ export interface StatePublic<Datum> {
     neightbourMargin: (node1: HierarchyNode<Datum>, node2: HierarchyNode<Datum>) => number;
     compactMarginPair: (node: HierarchyNode<Datum>) => number;
     compactMarginBetween: (node: HierarchyNode<Datum>) => number;
+    /** A function which is triggered when the node is clicked. */
     onNodeClick: (node: NodeId) => void;
     linkGroupArc: Link<any, DefaultLinkObject, [number, number]>;
-    /** Return type is HTML content */
+    /** A function which renders the given node as HTML content. */
     nodeContent: (
         node: HierarchyNode<Datum>,
         index: number,
@@ -79,7 +85,10 @@ export interface StatePublic<Datum> {
     layoutBindings: Record<Layout, LayoutBinding<Datum>>;
 }
 
-// Other available properties not exposed as get / set pairs
+/**
+ * Properties which are available on the State object, but not as get / set pairs.
+ * These are more internal in scope, but can be used when overriding functions.
+ */
 export interface StateInternal<Datum> {
     readonly root: HierarchyNode<Datum>;
     readonly allNodes: ReadonlyArray<HierarchyNode<Datum>>;
@@ -90,6 +99,7 @@ export interface State<Datum> extends StatePublic<Datum>, StateInternal<Datum> {
 }
 
 export type Layout = 'left' | 'bottom' | 'right' | 'top';
+
 export interface LayoutBinding<Datum> {
     nodeLeftX: (node: HierarchyNode<Datum>) => number;
     nodeRightX: (node: HierarchyNode<Datum>) => number;
@@ -144,7 +154,13 @@ export type StateGetSet<T, TSelf> =
     & { [Property in keyof StatePublic<T>]: () => StatePublic<T>[Property]; }
     & { [Property in keyof StatePublic<T>]: (value: StatePublic<T>[Property]) => TSelf; };
 
+// This is separated from the implementation declaration to not have to replicate the propertied of StateGetSet
 export interface OrgChart<Datum> extends StateGetSet<Datum, OrgChart<Datum>> {
+}
+
+export class OrgChart<Datum> {
+    constructor();
+
     getChartState(): State<Datum>;
 
     initialZoom(zoomLevel: number): this;
@@ -203,7 +219,3 @@ export interface OrgChart<Datum> extends StateGetSet<Datum, OrgChart<Datum>> {
         params: { fontSize?: number; fontWeight?: number; defaultFont?: string; ctx: CanvasRenderingContext2D; },
     ): number;
 }
-
-export const OrgChart: {
-    new <T>(): OrgChart<T>;
-};

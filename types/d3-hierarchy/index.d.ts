@@ -28,7 +28,7 @@ export interface HierarchyLink<Datum> {
 
 export interface HierarchyNode<Datum> {
     new(data: Datum): this;
-    
+
     /**
      * The associated data, as specified to the constructor.
      */
