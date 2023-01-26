@@ -3,7 +3,6 @@ import * as p5 from './index';
 declare module './index' {
     type ADD = 'lighter';
     type ARROW = 'arrow';
-    type AUDIO = 'audio';
     type AUTO = 'auto';
     type AXES = 'axes';
     type BASELINE = 'alphabetic';
@@ -20,8 +19,10 @@ declare module './index' {
     type CHORD = 'chord';
     type CLAMP = 'clamp';
     type CLOSE = 'close';
+    type CONTAIN = 'contain';
     type CORNER = 'corner';
     type CORNERS = 'corners';
+    type COVER = 'cover';
     type CROSS = 'cross';
     type CURVE = 'curve';
     type DARKEST = 'darkest';
@@ -91,8 +92,9 @@ declare module './index' {
     type TRIANGLE_STRIP = 0x0005;
     type TRIANGLES = 0x0004;
     type VERSION = 'version';
-    type VIDEO = 'video';
     type WAIT = 'wait';
     type WEBGL = 'webgl';
     type WORD = 'word';
+    type AUDIO = "audio";
+    type VIDEO = "video";
 }
