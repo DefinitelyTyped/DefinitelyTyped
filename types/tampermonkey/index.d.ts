@@ -383,7 +383,34 @@ declare namespace Tampermonkey {
  * The unsafeWindow object provides full access to the pages javascript
  * functions and variables
  */
-declare var unsafeWindow: Window;
+declare var unsafeWindow: Window &
+    Omit<
+        typeof globalThis,
+        | 'GM_addStyle'
+        | 'GM_addValueChangeListener'
+        | 'GM_deleteValue'
+        | 'GM_download'
+        | 'GM_download'
+        | 'GM_getResourceText'
+        | 'GM_getResourceURL'
+        | 'GM_getTab'
+        | 'GM_getTabs'
+        | 'GM_getValue'
+        | 'GM_info'
+        | 'GM_listValues'
+        | 'GM_log'
+        | 'GM_notification'
+        | 'GM_notification'
+        | 'GM_openInTab'
+        | 'GM_registerMenuCommand'
+        | 'GM_removeValueChangeListener'
+        | 'GM_saveTab'
+        | 'GM_setClipboard'
+        | 'GM_setValue'
+        | 'GM_unregisterMenuCommand'
+        | 'GM_xmlhttpRequest'
+        | 'GM'
+    >;
 
 /**
  *
@@ -488,7 +515,7 @@ declare function GM_getTabs(callback: (tabsMap: { [tabId: number]: any }) => voi
 
 // Utils
 
-declare const GM_info: Tampermonkey.ScriptInfo;
+declare var GM_info: Tampermonkey.ScriptInfo;
 
 /** Log a message to the console */
 declare function GM_log(...message: any[]): void;
@@ -546,7 +573,7 @@ declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType):
 /**
  * `GM` has all the `GM_*` apis in promisified form
  */
-declare const GM: Readonly<{
+declare var GM: Readonly<{
     // Styles
 
     /**

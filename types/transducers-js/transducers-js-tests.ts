@@ -53,7 +53,7 @@ function takeExample() {
 }
 
 function takeWhileExample() {
-  const xf = t.takeWhile(n => n < 3);
+  const xf = t.takeWhile((n: number) => n < 3);
   t.into([], xf, [0, 1, 2, 3, 4, 5]); // [0, 1, 2];
 }
 
@@ -79,7 +79,7 @@ function dropExample() {
 }
 
 function dropWhileExample() {
-  const xf = t.dropWhile(n => n < 3);
+  const xf = t.dropWhile((n: number) => n < 3);
   t.into([], xf, [0, 1, 2, 3, 4, 5]); // [3, 4, 5];
 }
 

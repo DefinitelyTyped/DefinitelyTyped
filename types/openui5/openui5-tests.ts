@@ -162,6 +162,7 @@ oUploadDialog.open();
 
 const messagePage: MessagePage = new MessagePage();
 messagePage.setTitleLevel(TitleLevel.H1);
+const focusable = messagePage.isFocusable();
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
