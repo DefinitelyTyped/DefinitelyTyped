@@ -1645,9 +1645,7 @@ chrome.storage.managed.getBytesInUse((bytesInUse) => {
 
 // EVENT
 chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (changes.length > 0) {
-        return areaName === 'managed';
-    }
+    return areaName === changes.areaName.newValue;
 });
 
 // #endregion

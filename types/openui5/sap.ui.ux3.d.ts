@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -2197,12 +2197,12 @@ declare module "sap/ui/ux3/DataSet" {
       /**
        * View
        */
-      oView: object,
+      oView: /* was: sap.m.Element */ any,
       /**
        * Index of view
        */
       iIndex: int
-    ): object;
+    ): /* was: sap.m.Button */ any;
     /**
      * Destroys all the filter in the aggregation {@link #getFilter filter}.
      *
@@ -10232,6 +10232,8 @@ declare module "sap/ui/ux3/NotificationBar" {
       }
     ): this;
     /**
+     * @SINCE 1.24.5
+     *
      * Gets current value of property {@link #getAlwaysShowToggler alwaysShowToggler}.
      *
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
@@ -10401,6 +10403,8 @@ declare module "sap/ui/ux3/NotificationBar" {
     resizeEnabled?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @SINCE 1.24.5
+     *
      * This property defines if the toggler should be displayed the whole time when the NotificationBar is shown.
      */
     alwaysShowToggler?: boolean | PropertyBindingInfo | `{${string}}`;

@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/support/library" {
   /**
@@ -95,6 +95,31 @@ declare module "sap/ui/support/library" {
     String = "String",
   }
   /**
+   * Support Assistant rule configuration
+   */
+  export type RuleConfiguration = {
+    id: string;
+
+    async: boolean;
+
+    title: string;
+
+    resolution: string;
+
+    minversion: string;
+
+    categories: Array<Categories | keyof typeof Categories>;
+
+    audiences: Array<Audiences | keyof typeof Audiences>;
+
+    description: string;
+
+    resolutionurls: string;
+
+    check: string;
+  };
+
+  /**
    * @SINCE 1.50
    *
    * Defines severity types.
@@ -170,17 +195,14 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
    *
    * Overview:
    *
-   * `ExecutionScope` is the third parameter of a rule check function. It provides access to internal UI5
-   * objects available for inspection. The `getElements` API method allows the user to select a specific subset
-   * of elements valid for their case. It accepts one query object argument.
+   * The ExecutionScope provides access to internal UI5 objects available for inspection. The `getElements`
+   * API method allows the user to select a specific subset of elements valid for their case. It accepts one
+   * query object argument.
    *
-   * Usage:
+   * Usage: The ExecutionScope is passed as third argument to all rule check functions.
    *
-   * When a rule is executed, three parameters are passed: `oIssueManager`, `oCoreFacade` and `oScope`.
-   *
-   * An `ExecutionScope` instance is passed to every call of a rule check function. When you analyze your
-   * application, available objects are collected depending on the settings passed to the Support Assistant
-   * at the moment when you start it.
+   * When you analyze your application, available objects are collected depending on the settings passed to
+   * the Support Assistant at the moment when you start it.
    */
   export default class ExecutionScope {
     constructor();
@@ -246,9 +268,9 @@ declare module "sap/ui/support/supportRules/ExecutionScope" {
 }
 
 declare module "sap/ui/support/RuleAnalyzer" {
-  import { AnalysisResult } from "sap/ui/support/supportRules/History";
+  import { RuleConfiguration, HistoryFormats } from "sap/ui/support/library";
 
-  import { HistoryFormats } from "sap/ui/support/library";
+  import { AnalysisResult } from "sap/ui/support/supportRules/History";
 
   /**
    * The `sap.ui.support.RuleAnalyzer` namespace is the central entry point for the Support Assistant functionality.
@@ -279,7 +301,7 @@ declare module "sap/ui/support/RuleAnalyzer" {
        * Settings for the new rule. For detailed information about its properties see {@link topic:eaeea19a991d46f29e6d8d8827317d0e
        * Rule Property Values}
        */
-      oRule: object
+      oRule: RuleConfiguration
     ): string;
     /**
      * Main method to perform analysis of a given running application.
@@ -361,19 +383,13 @@ declare namespace sap {
      */
     namespace support {
       /**
-       * Overview: The CoreFacade interface gives access to the Metadata, Models, UI areas and Components of the
-       * Core object.
+       * The CoreFacade interface allows rule developers to access the metadata, models, UI areas and components
+       * of the Core.
        *
-       * Usage: The CoreFacade is passed to all rule check functions as an object. This helps rule developers
-       * to access the core state.
+       * Usage: The CoreFacade is passed as second argument to all rule check functions.
        */
       class CoreFacade {
-        constructor(
-          /**
-           * Core object as available in core plugins
-           */
-          oCore: object
-        );
+        constructor();
 
         /**
          * Gets the Components from the Core object.
@@ -393,340 +409,30 @@ declare namespace sap {
         getUIAreas(): void;
       }
       /**
-       * The IssueManager is used to store and export issues to the Support Assistant. Overview: The IssueManager
-       * is used to store and export issues found by the Support Assistant. Usage: The IssueManager can be used
-       * as a static class and add issues using the `addIssue` method of both the IssueManager or the IssueManagerFacade.
+       * The IssueManagerFacade allows rule developers to add new issues.
+       *
+       * Usage: The IssueManagerFacade is passed as first argument to all rule check functions.
        */
-      class IssueManager {
+      class IssueManagerFacade {
         constructor();
 
         /**
-         * Adds an issue to the list of issues found.
+         * Adds issue
          */
-        static addIssue(
+        addIssue(
           /**
-           * The issue to be added in the IssueManager
+           * Issue object to be added
            */
-          oIssue: object
-        ): void;
-        /**
-         * Clears all issues in the IssueManager.
-         */
-        static clearIssues(): void;
-        /**
-         * Converts issues to view model format.
-         *
-         * @returns viewModel Issues in ViewModel format
-         */
-        static convertToViewModel(
-          /**
-           * The issues to convert
-           */
-          oIssues: any[]
-        ): any[];
-        /**
-         * Creates an instance of the IssueManagerFacade.
-         *
-         * @returns New IssueManagerFacade
-         */
-        static createIssueManagerFacade(
-          /**
-           * Given rule
-           */
-          oRule: object
-        ): /* was: sap.ui.support.IssueManagerFacade */ any;
-        /**
-         * Converts the issues inside the IssueManager.
-         *
-         * @returns viewModel Issues in ViewModel format
-         */
-        static getIssuesModel(): object[];
-        /**
-         * Gets issues in TreeTable format.
-         *
-         * @returns All the issues in TreeTable usable model
-         */
-        static getIssuesViewModel(
-          /**
-           * All the issues after they have been grouped with `groupIssues`
-           */
-          issuesModel: object
-        ): object;
-        /**
-         * Gets rules and issues, and converts each rule to a ruleViewModel - parameters should be converted as
-         * specified beforehand.
-         *
-         * @returns rulesViewModel All the rules with issues, selected flag and issueCount properties The issues
-         * are in ViewModel format.
-         */
-        static getRulesViewModel(
-          /**
-           * All the rules from _mRulesets
-           */
-          rules: object,
-          /**
-           * The rule ID's of the selected rules.
-           */
-          selectedRulesIDs: any[],
-          /**
-           * The issues to map to the rulesViewModel The issues passes should be grouped and in ViewModel format.
-           */
-          issues: any[]
-        ): object;
-        /**
-         * Gets rules and converts them into treeTable format.
-         *
-         * @returns TreeTableModel Rules in treeTable usable format The rules are in a TreeTable format.
-         */
-        static getTreeTableViewModel(
-          /**
-           * Deserialized rules found within the current state
-           */
-          oRules: object
-        ): object;
-        /**
-         * Groups all issues by library and rule ID.
-         *
-         * @returns groupedIssues Grouped issues by library and rule id
-         */
-        static groupIssues(
-          /**
-           * The issues to group. Must be in a ViewModel format
-           */
-          oIssues: any[]
-        ): any[];
-        /**
-         * Cycles through issues stored in the IssueManager and executes the given callback function.
-         */
-        static walkIssues(
-          /**
-           * Callback function to be used in the same fashion as Array.prototype.forEach
-           */
-          fnCallback: Function
-        ): void;
-      }
+          oIssue: {
+            severity: import("sap/ui/support/library").Severity;
 
-      class RuleSet {
-        /**
-         * Creates a RuleSet.
-         *
-         * The RuleSet can store multiple rules concerning namespaces. Usage: The RuleSet is an interface used to
-         * create, update and delete rulesets.
-         */
-        constructor(
-          /**
-           * Name of the initiated
-           */
-          oSettings: object
-        );
+            details: string;
 
-        /**
-         * Clears all rulesets inside the RuleSet.
-         */
-        static clearAllRuleSets(): void;
-        /**
-         * Loads the previous selection of the user - which rules are selected to be run by the Rule Analyzer. The
-         * method applies the settings to the currently loaded rules.
-         */
-        static loadSelectionOfRules(
-          /**
-           * The current loaded libraries and their rules
-           */
-          aLibraries: Object[]
+            context: {
+              id: string;
+            };
+          }
         ): void;
-        /**
-         * Stores which rules are selected to be run by the analyzer on the next check
-         */
-        static storeSelectionOfRules(
-          /**
-           * The data for the libraries and their rules
-           */
-          aLibraries: Object[]
-        ): void;
-        /**
-         * Adds rules to RuleSet.
-         *
-         * @returns sRuleVerificationStatus Verification status
-         */
-        addRule(
-          /**
-           * Settings object with rule information
-           */
-          oSettings: object
-        ): string;
-        /**
-         * Gets all rules from the RuleSet.
-         *
-         * @returns All rules within the current RuleSet
-         */
-        getRules(): object;
-        /**
-         * Remove rule from RuleSet.
-         */
-        removeRule(
-          /**
-           * Rule object that will be removed
-           */
-          oRule: object
-        ): void;
-        /**
-         * Updates rules from the RuleSet.
-         *
-         * @returns sRuleVerification Rule Verification status
-         */
-        updateRule(
-          /**
-           * Rule ID
-           */
-          sRuleId: string,
-          /**
-           * Rule settings
-           */
-          ORuleSettings: object
-        ): string;
-      }
-      /**
-       * Overview: Channel constants which can be used to subscribe to the {@link sap.ui.support.WindowCommunicationBus}
-       *
-       * Usage: These channels are used for communication with Main.
-       */
-      enum WCBChannels {
-        /**
-         * Progress of current loading process
-         */
-        CURRENT_LOADING_PROGRESS = "undefined",
-        /**
-         * Posts information about which rule to be deleted.
-         */
-        DELETE_RULE = "undefined",
-        /**
-         * Ensure SupportAssistant iframe is open.
-         */
-        ENSURE_FRAME_OPENED = "undefined",
-        /**
-         * Upload external modules.
-         */
-        EXTERNAL_MODULE_UPLOADED = "undefined",
-        /**
-         * Gets components.
-         */
-        GET_AVAILABLE_COMPONENTS = "undefined",
-        /**
-         * Gets the issues.
-         */
-        GET_ISSUES = "undefined",
-        /**
-         * Get non loaded libraries with rules names
-         */
-        GET_NON_LOADED_RULE_SETS = "undefined",
-        /**
-         * Get rules model.
-         */
-        GET_RULES_MODEL = "undefined",
-        /**
-         * Highlight element in TreeTable.
-         */
-        HIGHLIGHT_ELEMENT = "undefined",
-        /**
-         * Loads all rule sets.
-         */
-        LOAD_RULESETS = "undefined",
-        /**
-         * Notifies after the analysis has finished.
-         */
-        ON_ANALYZE_FINISH = "undefined",
-        /**
-         * Notifies that the analysis has started.
-         */
-        ON_ANALYZE_STARTED = "undefined",
-        /**
-         * State change in the core.
-         */
-        ON_CORE_STATE_CHANGE = "undefined",
-        /**
-         * Downloads a report.
-         */
-        ON_DOWNLOAD_REPORT_REQUEST = "undefined",
-        /**
-         * Notifies when the rulesets have to be loaded.
-         */
-        ON_INIT_ANALYSIS_CTRL = "undefined",
-        /**
-         * Provides the current progress status of the analysis.
-         */
-        ON_PROGRESS_UPDATE = "undefined",
-        /**
-         * Shows a report.
-         */
-        ON_SHOW_REPORT_REQUEST = "undefined",
-        /**
-         * Open given URL.
-         */
-        OPEN_URL = "undefined",
-        /**
-         * Posts information about the application under test.
-         */
-        POST_APPLICATION_INFORMATION = "undefined",
-        /**
-         * Posts components.
-         */
-        POST_AVAILABLE_COMPONENTS = "undefined",
-        /**
-         * Posts available libraries.
-         */
-        POST_AVAILABLE_LIBRARIES = "undefined",
-        /**
-         * Posts a message.
-         */
-        POST_MESSAGE = "undefined",
-        /**
-         * Posts information about the UI and it's iframe.
-         */
-        POST_UI_INFORMATION = "undefined",
-        /**
-         * Request issues.
-         */
-        REQUEST_ISSUES = "undefined",
-        /**
-         * Request rules model.
-         */
-        REQUEST_RULES_MODEL = "undefined",
-        /**
-         * Resize SupportAssistant iframe.
-         */
-        RESIZE_FRAME = "undefined",
-        /**
-         * Hides SupportAssistant iframe.
-         */
-        TOGGLE_FRAME_HIDDEN = "undefined",
-        /**
-         * Notifies onmouseenter event on the TreeTable.
-         */
-        TREE_ELEMENT_MOUSE_ENTER = "undefined",
-        /**
-         * Notifies onmouseout event on the TreeTable.
-         */
-        TREE_ELEMENT_MOUSE_OUT = "undefined",
-        /**
-         * Updates support rules in IssueManager.
-         */
-        UPDATE_SUPPORT_RULES = "undefined",
-        /**
-         * Verifies rule creation.
-         */
-        VERIFY_CREATE_RULE = "undefined",
-        /**
-         * Verifies rule creation after it's finished.
-         */
-        VERIFY_RULE_CREATE_RESULT = "undefined",
-        /**
-         * Verifies rule update after it's finished.
-         */
-        VERIFY_RULE_UPDATE_RESULT = "undefined",
-        /**
-         * Verifies rule update.
-         */
-        VERIFY_UPDATE_RULE = "undefined",
       }
     }
   }
@@ -743,9 +449,5 @@ declare namespace sap {
     "sap/ui/support/supportRules/History": undefined;
 
     "sap/ui/support/supportRules/IssueManager": undefined;
-
-    "sap/ui/support/supportRules/RuleSet": undefined;
-
-    "sap/ui/support/supportRules/WCBChannels": undefined;
   }
 }

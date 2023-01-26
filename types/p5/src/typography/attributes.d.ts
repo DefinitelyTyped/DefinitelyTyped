@@ -17,8 +17,7 @@ declare module '../../index' {
          *   the left edge of your text to the x value you give
          *   in text(). If you write textAlign(RIGHT, TOP), you
          *   are aligning the right edge of your text to the x
-         *   value and the top of edge of the text to the y
-         *   value.
+         *   value and the top edge of the text to the y value.
          *   @param horizAlign horizontal alignment, either
          *   LEFT, CENTER, or RIGHT
          *   @param [vertAlign] vertical alignment, either TOP,
@@ -40,8 +39,7 @@ declare module '../../index' {
          *   the left edge of your text to the x value you give
          *   in text(). If you write textAlign(RIGHT, TOP), you
          *   are aligning the right edge of your text to the x
-         *   value and the top of edge of the text to the y
-         *   value.
+         *   value and the top edge of the text to the y value.
          */
         textAlign(): object;
 
