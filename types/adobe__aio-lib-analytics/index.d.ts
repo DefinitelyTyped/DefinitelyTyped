@@ -6,8 +6,27 @@
 
 export interface Report {
   body: {
-    rows: any[];
-    lastPage: boolean;
+    firstPage?: boolean;
+    lastPage?: boolean;
+    numberOfElements?: number;
+    number?: number;
+    totalElements?: number;
+    message?: string;
+    reportId?: string;
+    rows?: {
+      itemId?: string;
+      value?: string;
+      rowId?: string;
+      data?: (number)[];
+      dataExpected?: (number)[];
+      dataUpperBound?: (number)[];
+      dataLowerBound?: (number)[];
+      dataAnomalyDetected?: (boolean)[];
+      percentChange?: (number)[];
+      latitude?: number;
+      longitude?: number;
+    }[];
+    summaryData?: Record<string, never>;
   };
 }
 
