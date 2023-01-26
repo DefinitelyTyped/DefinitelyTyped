@@ -3,6 +3,7 @@
     "rules": {
         "no-empty-interface": false,
         "no-unnecessary-class": false,
-        "strict-export-declare-modifiers": false
+        "strict-export-declare-modifiers": false,
+        "whitespace": false
     }
 }
