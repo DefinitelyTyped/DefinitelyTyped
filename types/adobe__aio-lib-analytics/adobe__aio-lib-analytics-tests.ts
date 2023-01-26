@@ -25,8 +25,7 @@ import * as adobeAnalytics from '@adobe/aio-lib-analytics';
     },
   });
 
-  const rowsValue = report.body.rows?.map(row=>{
+  const rowsValue = report.body.rows?.map(row => {
     return row.value;
   });
-
 })();
