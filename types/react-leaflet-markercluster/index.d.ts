@@ -179,3 +179,4 @@ interface MarkerClusterGroupProps {
 
 declare const MarkerClusterGroup: ComponentType<MarkerClusterGroupProps>;
 export default MarkerClusterGroup;
+
