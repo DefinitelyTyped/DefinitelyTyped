@@ -98,6 +98,28 @@ export function jalaaliMonthLength(jy: number, jm: number): number;
 export function jalCal(jy: number): JalCalResult;
 
 /**
+ * Convert Jalaali calendar dates to javascript Date object
+ * @param {number} jy jalaali year
+ * @param {number} jm jalaali month
+ * @param {number} jd jalaali day
+ * @param {number} [h] hours
+ * @param {number} [m] minutes
+ * @param {number} [s] seconds
+ * @param {number} [ms] milliseconds
+ * @returns Date object of the jalaali calendar dates
+ */
+export function jalaaliToDateObject(jy: number, jm: number, jd: number, h?: number, m?: number, s?: number, ms?: number): Date;
+
+/**
+ * Return Saturday and Friday day of current week(week start in Saturday)
+ * @param {number} jy jalaali year
+ * @param {number} jm jalaali month
+ * @param {number} jd jalaali day
+ * @returns Saturday and Friday of current week
+ */
+export function jalaaliWeek(jy: number, jm: number, jd: number): { saturday: JalaaliDateObject; friday: JalaaliDateObject };
+
+/**
  * Converts a date of the Jalaali calendar to the Julian Day number.
  * @param jy Jalaali year (1 to 3100)
  * @param jm Jalaali month (1 to 12)
