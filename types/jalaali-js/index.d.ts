@@ -1,6 +1,6 @@
-// Type definitions for jalaali-js 1.1
+// Type definitions for jalaali-js 1.2.6
 // Project: https://github.com/jalaali/jalaali-js
-// Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
+// Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri> and Mostafa Rahmati <https://github.com/MR-Mostafa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
