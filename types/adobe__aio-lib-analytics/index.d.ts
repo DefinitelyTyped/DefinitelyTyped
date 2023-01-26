@@ -1,4 +1,4 @@
-// Type definitions for @adobe/aio-lib-analytics 2.1
+// Type definitions for @adobe/aio-lib-analytics 3.0
 // Project: https://github.com/adobe/aio-lib-analytics
 // Definitions by: Samuel Bodin <https://github.com/bodinsamuel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
