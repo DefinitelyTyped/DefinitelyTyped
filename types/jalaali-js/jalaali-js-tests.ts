@@ -5,6 +5,8 @@ import {
   isLeapJalaaliYear,
   jalaaliMonthLength,
   jalCal,
+  jalaaliToDateObject,
+  jalaaliWeek,
   j2d,
   d2j,
   g2d,
@@ -32,6 +34,10 @@ jalCal(1392); // { leap: 1, gy: 2013, march: 21 }
 jalCal(1393); // { leap: 2, gy: 2014, march: 21 }
 jalCal(1394); // { leap: 3, gy: 2015, march: 21 }
 jalCal(1395); // { leap: 0, gy: 2016, march: 20 }
+
+jalaaliToDateObject(1400, 4, 30) // new Date(2021, 6, 21)
+
+jalaaliWeek(1400, 4, 30) // { saturday: { jy: 1400, jm: 4, jd: 26 }, friday: { jy: 1400, jm: 5, jd: 1 } }
 
 j2d(1395, 1, 23); // 2457490
 
