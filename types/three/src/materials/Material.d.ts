@@ -39,6 +39,7 @@ export interface MaterialParameters {
     polygonOffsetUnits?: number | undefined;
     precision?: 'highp' | 'mediump' | 'lowp' | null | undefined;
     premultipliedAlpha?: boolean | undefined;
+    forceSinglePass?: boolean | undefined;
     dithering?: boolean | undefined;
     side?: Side | undefined;
     shadowSide?: Side | undefined;
@@ -282,6 +283,12 @@ export class Material extends EventDispatcher {
      * @default false
      */
     premultipliedAlpha: boolean;
+
+    /**
+     * Force double-sided, transparent materials to be rendered in a single pass. Default is false.
+     * @default false
+     */
+    forceSinglePass: boolean;
 
     /**
      * Whether to apply dithering to the color to remove the appearance of banding. Default is false.
