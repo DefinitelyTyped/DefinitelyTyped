@@ -84,22 +84,6 @@ export interface PathEvents {
     popupclose: L.PopupEvent;
 }
 
-export interface FeatureGroupEvents {
-    click: L.LeafletMouseEvent;
-    dblclick: L.LeafletMouseEvent;
-    mouseover: L.LeafletMouseEvent;
-    mouseout: L.LeafletMouseEvent;
-    contextmenu: L.LeafletMouseEvent;
-    layeradd: L.LayerEvent;
-    layerremove: L.LayerEvent;
-}
-
-export interface LayersControlEvents {
-    baselayerchange: L.LayersControlEvent;
-    overlayadd: L.LayersControlEvent;
-    overlayremove: L.LayersControlEvent;
-}
-
 type MapEventKeys = Array<keyof MapEvents>;
 type MarkerEventKeys = Array<keyof MarkerEvents>;
 type TileLayerEventKeys = Array<keyof TileLayerEvents>;
