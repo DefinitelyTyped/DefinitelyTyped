@@ -11,7 +11,7 @@
 import { Agent, IncomingMessage } from 'http';
 import { Boom } from '@hapi/boom';
 import Wreck = require('@hapi/wreck');
-import { Plugin, Request, ResponseToolkit, Lifecycle, RouteOptions } from '@hapi/hapi';
+import { Plugin, Request, ResponseToolkit, Lifecycle, RouteOptions, ResponseObject } from '@hapi/hapi';
 
 declare namespace h2o2 {
     /**
