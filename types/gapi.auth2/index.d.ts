@@ -55,10 +55,10 @@ declare namespace gapi.auth2 {
 
   interface Listener {
     /**
-     * Returns true if the listener is currently listening for changes. 
+     * Returns true if the listener is currently listening for changes.
      * Returns false after remove() is called.
      */
-    isActive: boolean
+    isActive: boolean;
 
     /**
      * Stops listening for changes.
