@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/react-leaflet": "^2.8.3",
         "svelte": "^3.48.0"
     }
 }
