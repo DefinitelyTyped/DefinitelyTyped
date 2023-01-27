@@ -13,3 +13,5 @@ a = _match(file, /\.css$/);
 a = _match(file, (file: vinyl) => file.isSymbolic());
 a = _match(file, {isDirectory: true});
 a = _match(file, {isFile: true});
+
+const b: _match.MatchCondition = '*.css';
