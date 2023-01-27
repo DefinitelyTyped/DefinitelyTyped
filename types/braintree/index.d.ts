@@ -146,6 +146,10 @@ declare namespace braintree {
             graphQLServer: string,
             graphQLPort: string,
         );
+
+        baseUrl: string;
+        baseGraphQLUrl: string;
+        uriScheme: string;
     }
 
     export interface CustomConfig {
