@@ -1059,6 +1059,7 @@ export interface MUIDataTableJumpToPage {
 
 export interface MUIDataTablePagination {
     changeRowsPerPage: (...args: any) => any;
+    changePage: (...args: any) => any;
     count: number;
     options: MUIDataTableOptions;
     page: number;
