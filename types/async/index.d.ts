@@ -391,6 +391,7 @@ export function doUntil<T, R, E = Error>(
 export function during<E = Error>(test: (testCallback: AsyncBooleanResultCallback<E>) => void, fn: AsyncVoidFunction<E>, callback: ErrorCallback<E>): void;
 export function doDuring<E = Error>(fn: AsyncVoidFunction<E>, test: (testCallback: AsyncBooleanResultCallback<E>) => void, callback: ErrorCallback<E>): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
+export function waterfall<T>(tasks: Function[]): Promise<T>;
 export function waterfall<T, E = Error>(tasks: Function[], callback?: AsyncResultCallback<T, E>): void;
 export function compose(...fns: Function[]): Function;
 export function seq(...fns: Function[]): Function;
