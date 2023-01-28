@@ -467,6 +467,7 @@ declare global {
              * @returns Promise that is resolved with base64 data
              */
             getData(): Promise<string>;
+            /** url might be undefined if file is not saved */
             url(options?: { forceSecure?: boolean | undefined }): string | undefined;
             metadata(): Record<string, any>;
             tags(): Record<string, any>;
@@ -480,7 +481,7 @@ declare global {
             addMetadata(key: string, value: any): void;
             setTags(tags: Record<string, any>): void;
             addTag(key: string, value: any): void;
-            /** url is undefined until */
+            /** url might be undefined if file is not saved */
             readonly _url?: string;
             readonly _data?: string;
             readonly _source: FileSource;
