@@ -37,11 +37,6 @@ export interface GLTFExporterOptions {
     animations?: AnimationClip[];
 
     /**
-     * Generate indices for non-index geometry and export with them. Default is false.
-     */
-    forceIndices?: boolean;
-
-    /**
      * Export custom glTF extensions defined on an object's userData.gltfExtensions property. Default is false.
      */
     includeCustomExtensions?: boolean;
