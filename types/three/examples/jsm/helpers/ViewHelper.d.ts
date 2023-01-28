@@ -1,7 +1,7 @@
 import {
     Camera,
-	Object3D,
-	Vector3,
+    Object3D,
+    Vector3,
     WebGLRenderer
 } from '../../../src/Three';
 
