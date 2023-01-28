@@ -268,6 +268,12 @@ export const RGBA_ASTC_12x12_Format: CompressedPixelFormat;
 // BPTC compressed texture formats
 export const RGBA_BPTC_Format: CompressedPixelFormat;
 
+// RGTC compressed texture formats
+export const RED_RGTC1_Format: CompressedPixelFormat;
+export const SIGNED_RED_RGTC1_Format: CompressedPixelFormat;
+export const RED_GREEN_RGTC2_Format: CompressedPixelFormat;
+export const SIGNED_RED_GREEN_RGTC2_Format: CompressedPixelFormat;
+
 // Loop styles for AnimationAction
 export enum AnimationActionLoopStyles {}
 export const LoopOnce: AnimationActionLoopStyles;
