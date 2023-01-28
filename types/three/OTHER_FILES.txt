@@ -30,6 +30,7 @@ examples/jsm/helpers/OctreeHelper.d.ts
 examples/jsm/helpers/PositionalAudioHelper.d.ts
 examples/jsm/helpers/VertexNormalsHelper.d.ts
 examples/jsm/helpers/VertexTangentsHelper.d.ts
+examples/jsm/helpers/ViewHelper.d.ts
 examples/jsm/interactive/HTMLMesh.d.ts
 examples/jsm/interactive/InteractiveGroup.d.ts
 examples/jsm/libs/stats.module.d.ts
