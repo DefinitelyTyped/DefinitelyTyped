@@ -6,19 +6,19 @@
 import { ReadableStream } from 'stream/web';
 import { BufferFile } from 'vinyl';
 
-export interface SpritesmithOptions {
+interface SpritesmithOptions {
     engine?: string;
     engineOpts?: Record<string, unknown>;
 }
 
-export type SpritesmithCreateImagesSrc = Array<string | BufferFile>;
-export interface SpritesmithImage {
+type SpritesmithCreateImagesSrc = Array<string | BufferFile>;
+interface SpritesmithImage {
     width: number;
     height: number;
     [key: string]: unknown;
 }
 
-export interface SpritesmithProcessImagesOptions {
+interface SpritesmithProcessImagesOptions {
     padding?: number;
     exportOpts?: {
         format?: 'png' | 'jpg' | 'jpeg' | 'webp';
@@ -32,13 +32,13 @@ export interface SpritesmithProcessImagesOptions {
     };
 }
 
-export interface SpritesmithResult {
+interface SpritesmithResult {
     image: ReadableStream;
     coordinates: Record<string, { x: number; y: number; width: number; height: number }>;
     properties: { width: number; height: number };
 }
 
-export default class Spritesmith {
+declare class Spritesmith {
     constructor(options?: SpritesmithOptions);
     static run(
         options: SpritesmithOptions & SpritesmithProcessImagesOptions & {
@@ -51,3 +51,5 @@ export default class Spritesmith {
         options?: SpritesmithProcessImagesOptions
     ): SpritesmithResult;
 }
+
+export = Spritesmith;
