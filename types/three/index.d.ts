@@ -2,6 +2,7 @@
 // Project: https://threejs.org/
 // Definitions by: Josh Ellis <https://github.com/joshuaellis>
 //                 Nathan Bierema <https://github.com/Methuselah96>
+//                 Ed Preston <https://github.com/epreston>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
