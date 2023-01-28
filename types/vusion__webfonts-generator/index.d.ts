@@ -9,9 +9,9 @@ import * as Handlebars from 'handlebars';
 
 type AddToUnionIfTrue<T extends boolean, TUnion, TValueToAddConditionally> = T extends true ? TUnion | TValueToAddConditionally : TUnion;
 
-declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = 'woff2' | 'woff' | 'eot', TGenerateCss extends boolean = false, TGenerateHtml extends boolean = false>(
-    options: WebfontsGenerator.WebfontsGeneratorOptions<T, TGenerateCss, TGenerateHtml>,
-    done: WebfontsGenerator.WebfontsGeneratorCallback<T, TGenerateCss, TGenerateHtml>,
+declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = 'woff2' | 'woff' | 'eot'>(
+    options: WebfontsGenerator.WebfontsGeneratorOptions<T>,
+    done: (err: Error | undefined, res: Pick<WebfontsGenerator.WebfontsGeneratorResult<T>, T | 'generateCss' | 'generateHtml'>) => void,
 ): void;
 
 declare namespace WebfontsGenerator {
@@ -48,7 +48,7 @@ declare namespace WebfontsGenerator {
         baseClass?: string;
     }
 
-    interface WebfontsGeneratorOptions<T extends GeneratedFontTypes = GeneratedFontTypes, TGenerateCss extends boolean = false, TGenerateHtml extends boolean = false> {
+    interface WebfontsGeneratorOptions<T extends GeneratedFontTypes = GeneratedFontTypes> {
         /** List of SVG files. */
         files: string[];
         /** Directory for generated font files. */
@@ -62,7 +62,7 @@ declare namespace WebfontsGenerator {
          * Whether to generate CSS file.
          * @default true
          */
-        css?: TGenerateCss;
+        css?: boolean;
         /**
          * Path for generated CSS file.
          * @default path.join(options.dest, options.fontName + '.css')
@@ -81,7 +81,7 @@ declare namespace WebfontsGenerator {
          */
         cssTemplate?: string;
         /** Add parameters or helper to your template. */
-        cssContext?(context: CSSTemplateContext, options: WebfontsGeneratorOptions<T, TGenerateCss, TGenerateHtml>, handlebars: typeof Handlebars): void;
+        cssContext?(context: CSSTemplateContext, options: WebfontsGeneratorOptions<T>, handlebars: typeof Handlebars): void;
         /**
          * Fonts path used in CSS file.
          * @default options.destCss
@@ -96,7 +96,7 @@ declare namespace WebfontsGenerator {
          * Whether to generate HTML preview.
          * @default false
          */
-        html?: TGenerateHtml;
+        html?: boolean;
         /**
          * Path for generated HTML file.
          * @default path.join(options.dest, options.fontName + '.html')
@@ -112,7 +112,7 @@ declare namespace WebfontsGenerator {
          */
         htmlTemplate?: string;
         /** Add parameters or helper to your template. */
-        htmlContext?(context: HTMLTemplateContext, options: WebfontsGeneratorOptions<T, TGenerateCss, TGenerateHtml>, handlebars: typeof Handlebars): void;
+        htmlContext?(context: HTMLTemplateContext, options: WebfontsGeneratorOptions<T>, handlebars: typeof Handlebars): void;
         /** Additional options for CSS & HTML templates, that extends default options. */
         templateOptions?: TemplateOptions;
         /**
@@ -181,13 +181,6 @@ declare namespace WebfontsGenerator {
          * @default true
          */
         writeFiles?: boolean;
-    }
-
-    interface WebfontsGeneratorCallback<T extends GeneratedFontTypes = GeneratedFontTypes, TGenerateCss extends boolean = false, TGenerateHtml extends boolean = false> {
-        (
-            err: Error | undefined,
-            res: Pick<WebfontsGeneratorResult<T>, AddToUnionIfTrue<TGenerateCss, AddToUnionIfTrue<TGenerateHtml, T, 'generateHtml'>, 'generateCss'>>,
-        ): void;
     }
 
     interface WebfontsGeneratorResult<T extends GeneratedFontTypes = GeneratedFontTypes> {

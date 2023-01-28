@@ -33,10 +33,6 @@ webfontsGenerator({
     const woff2 = res.woff2;
     // @ts-expect-error
     const ttf = res.ttf;
-    // @ts-expect-error
-    const generateHtml = res.generateHtml;
-    // @ts-expect-error
-    const generateCss = res.generateCss;
 });
 
 // $ExpectType void
@@ -91,10 +87,11 @@ webfontsGenerator({
     order: ['eot'],
     types: ['eot'],
     html: true,
+    css: true,
 }, (err, res) => {
     // $ExpectType (urls?: Record<"eot", string> | undefined) => string
     const generateHtml = res.generateHtml;
-    // @ts-expect-error
+    // $ExpectType (urls?: Record<"eot", string> | undefined) => string
     const generateCss = res.generateCss;
 });
 
@@ -104,9 +101,10 @@ webfontsGenerator({
     files: [''],
     order: ['eot'],
     types: ['eot'],
-    css: true,
+    html: false,
+    css: false,
 }, (err, res) => {
-    // @ts-expect-error
+    // $ExpectType (urls?: Record<"eot", string> | undefined) => string
     const generateHtml = res.generateHtml;
     // $ExpectType (urls?: Record<"eot", string> | undefined) => string
     const generateCss = res.generateCss;
