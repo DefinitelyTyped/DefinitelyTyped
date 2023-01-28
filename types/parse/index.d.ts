@@ -406,6 +406,26 @@ declare global {
         }
 
         /**
+         * FileSource type for Parse.File (taken from flow sourcecode of ParseFile.js)
+         */
+        type FileSource = 
+        | {
+            format: 'file',
+            file: Blob,
+            type: string,
+          }
+        | {
+            format: 'base64',
+            base64: string,
+            type: string,
+          }
+        | {
+            format: 'uri',
+            uri: string,
+            type: string,
+          };
+
+        /**
          * A Parse.File is a local representation of a file that is saved to the Parse
          * cloud.
          * @param name The file's name. This will be prefixed by a unique
@@ -460,7 +480,11 @@ declare global {
             addMetadata(key: string, value: any): void;
             setTags(tags: Record<string, any>): void;
             addTag(key: string, value: any): void;
-            readonly _url: string;
+            readonly _url?: string;
+            readonly _data?: string;
+            readonly _source: FileSource;
+            readonly _metadata?: Record<string, any>;
+            readonly _tags?: Record<string, any>;
         }
 
         /**
