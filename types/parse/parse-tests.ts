@@ -328,6 +328,12 @@ function test_file() {
     const bytes = [0xbe, 0xef, 0xca, 0xfe];
     file = new Parse.File('myfile.txt', bytes);
 
+    file._url;
+    file._metadata;
+    file._source;
+    file._tags;
+    file._data;
+
     file = new Parse.File('myfile.zzz', new Blob(), 'image/png');
 
     const src = file.url();
@@ -341,8 +347,7 @@ function test_file() {
             // The file either could n ot be read, or could not be saved to Parse.
         },
     );
-
-    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
+    Parse.Cloud.httpRequest({ url: file.url()! }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
 
@@ -2131,17 +2136,6 @@ function testEventuallyQueue() {
         Parse.EventuallyQueue.poll(300);
         // @ts-expect-error
         Parse.EventuallyQueue.poll('300');
-    }
-}
-
-function LiveQueryEvents() {
-    function testLiveQueryEvents() {
-        Parse.LiveQuery.on('open', () => {
-        });
-        Parse.LiveQuery.on('close', () => {
-        });
-        Parse.LiveQuery.on('error', (error) => {
-        });
     }
 }
 

@@ -408,7 +408,7 @@ declare global {
         /**
          * FileSource type for Parse.File (taken from flow sourcecode of ParseFile.js)
          */
-        type FileSource = 
+        type FileSource =
         | {
             format: 'file',
             file: Blob,
@@ -467,7 +467,7 @@ declare global {
              * @returns Promise that is resolved with base64 data
              */
             getData(): Promise<string>;
-            url(options?: { forceSecure?: boolean | undefined }): string;
+            url(options?: { forceSecure?: boolean | undefined }): string | undefined;
             metadata(): Record<string, any>;
             tags(): Record<string, any>;
             name(): string;
@@ -480,11 +480,12 @@ declare global {
             addMetadata(key: string, value: any): void;
             setTags(tags: Record<string, any>): void;
             addTag(key: string, value: any): void;
+            /** url is undefined until */
             readonly _url?: string;
             readonly _data?: string;
             readonly _source: FileSource;
-            readonly _metadata?: Record<string, any>;
-            readonly _tags?: Record<string, any>;
+            readonly _metadata: Record<string, any>;
+            readonly _tags: Record<string, any>;
         }
 
         /**
