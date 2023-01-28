@@ -5,19 +5,19 @@ import * as R from 'ramda';
 };
 
 () => {
-    const x: number = R.prop('x', { x: 100 }); // => 100
+    R.prop('x', { x: 100 }); // $ExpectType number
     const obj = {
         str: 'string',
         num: 5,
     };
 
-    const strVal: string = R.prop('str', obj); // => 'string'
-    const numVal: number = R.prop('num', obj); // => 5
+    R.prop('str', obj); // $ExpectType string
+    R.prop('num', obj); // $ExpectType number
 
-    const strValPl: string = R.prop(R.__, obj)('str'); // => 'string'
+    R.prop(R.__, obj)('str'); // $ExpectType string
 
-    const strValCur: string = R.prop('str')(obj); // => 'string'
-    const numValCur: number = R.prop('num')(obj); // => 5
+    R.prop('str')(obj); // $ExpectType string
+    R.prop('num')(obj); // $ExpectType number
 };
 
 () => {
@@ -102,13 +102,16 @@ function maybe<T>(value: T): T | undefined { return value; }
     R.prop(R.__, array)(0); // $ExpectType number | undefined
 };
 
-() => { // pass types
+() => { // without inference
     const obj = { x: 100 };
-    R.prop<'x', { x: number }>('x')(obj); // $ExpectType number
-    R.prop<'x', number>('x')(obj); // $ExpectType number
-    R.prop<'x'>('x')<{ x: number }>(obj); // $ExpectType number
-    R.prop<'x'>('x')<number>(obj); // $ExpectType number
-    R.prop<'x', { x: number }>('x', obj); // $ExpectType number
-    R.prop<'x', { x: number }>(R.__, obj)('x'); // $ExpectType number
-    R.prop<{ x: number }>(R.__, obj)<'x'>('x'); // $ExpectType number
+    R.prop<number>('x', obj); // $ExpectType number
+    R.prop<number>('x')({ x: 'as' }); // $ExpectType number
+    R.prop<number>(R.__, obj)('x'); // $ExpectType number
+};
+
+() => { // community failed tests
+    const objArray = [{ foo: 'bar' }];
+    objArray.map(R.prop('foo')); // $ExpectType string[]
+    R.map(R.prop('foo'), objArray); // $ExpectType string[]
+    Promise.resolve({ foo: "bar" }).then(R.prop('foo')); // $ExpectType Promise<string>
 };

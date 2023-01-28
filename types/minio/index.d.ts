@@ -466,7 +466,10 @@ export class PostPolicy {
     setKeyStartsWith(prefix: string): void;
     setBucket(bucketName: string): void;
     setContentType(type: string): void;
+    setContentTypeStartsWith(prefix: string): void;
     setContentLengthRange(min: number, max: number): void;
+    setContentDisposition(disposition: string): void;
+    setUserMetaData(metadata: Record<string, string>): void;
 }
 
 export class NotificationPoller extends EventEmitter {

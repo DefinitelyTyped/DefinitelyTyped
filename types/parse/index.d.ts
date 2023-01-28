@@ -1,26 +1,25 @@
 // Type definitions for parse 3.0
 // Project: https://parseplatform.org/
 // Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
-//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                  Cedric Kemp <https://github.com/jaeggerr>
-//                  Flavio Negrão <https://github.com/flavionegrao>
-//                  Wes Grimes <https://github.com/wesleygrimes>
-//                  Otherwise SAS <https://github.com/owsas>
-//                  Andrew Goldis <https://github.com/agoldis>
-//                  Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
-//                  Diamond Lewis <https://github.com/dplewis>
-//                  Jong Eun Lee <https://github.com/yomybaby>
-//                  Colin Ulin <https://github.com/pocketcolin>
-//                  Robert Helms <https://github.com/rdhelms>
-//                  Julien Quere <https://github.com/jlnquere>
-//                  Thibault MOCELLIN <https://github.com/tybi>
-//                  Jeff Gu Kang <https://github.com/jeffgukang>
-//                  Bui Tan Loc <https://github.com/buitanloc>
-//                  Jerome De Leon <https://github.com/JeromeDeLeon>
-//                  Kent Robin Haugen <https://github.com/kentrh>
-//                  Asen Lekov <https://github.com/L3K0V>
-//                  Switt Kongdachalert <https://github.com/swittk>
-//                  Dan Syrstad <https://github.com/dsyrstad>
+//                 David Poetzsch-Heffter <https://github.com/dpoetzsch>
+//                 Cedric Kemp <https://github.com/jaeggerr>
+//                 Flavio Negrão <https://github.com/flavionegrao>
+//                 Wes Grimes <https://github.com/wesleygrimes>
+//                 Otherwise SAS <https://github.com/owsas>
+//                 Andrew Goldis <https://github.com/agoldis>
+//                 Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
+//                 Diamond Lewis <https://github.com/dplewis>
+//                 Jong Eun Lee <https://github.com/yomybaby>
+//                 Colin Ulin <https://github.com/pocketcolin>
+//                 Robert Helms <https://github.com/rdhelms>
+//                 Julien Quere <https://github.com/jlnquere>
+//                 Thibault MOCELLIN <https://github.com/tybi>
+//                 Jeff Gu Kang <https://github.com/jeffgukang>
+//                 Bui Tan Loc <https://github.com/buitanloc>
+//                 Jerome De Leon <https://github.com/JeromeDeLeon>
+//                 Kent Robin Haugen <https://github.com/kentrh>
+//                 Switt Kongdachalert <https://github.com/swittk>
+//                 Dan Syrstad <https://github.com/dsyrstad>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.5
 
@@ -45,10 +44,10 @@ declare enum ErrorCode {
      */
     INVALID_QUERY = 102,
     /*
-    * Error code indicating a missing or invalid classname. Classnames are
-    * case-sensitive. They must start with a letter, and a-zA-Z0-9_ are the
-    * only valid characters.
-    */
+     * Error code indicating a missing or invalid classname. Classnames are
+     * case-sensitive. They must start with a letter, and a-zA-Z0-9_ are the
+     * only valid characters.
+     */
     INVALID_CLASS_NAME = 103,
     /** Error code indicating an unspecified object id. */
     MISSING_OBJECT_ID = 104,
@@ -1010,6 +1009,15 @@ declare global {
                     | undefined;
                 // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/
                 facet?: Record<string, Array<Record<string, any>>> | undefined;
+                // Unwind documentation: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/
+                unwind?:
+                    | {
+                          path: string;
+                          includeArrayIndex?: string;
+                          preserveNullAndEmptyArrays?: boolean;
+                      }
+                    | string
+                    | undefined;
             }
 
             // According to https://parseplatform.org/Parse-SDK-JS/api/2.1.0/Parse.Query.html#fullText

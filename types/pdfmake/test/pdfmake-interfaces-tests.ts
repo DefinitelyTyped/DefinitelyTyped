@@ -374,3 +374,11 @@ const unbreakableList: Content = {
     unbreakable: true,
     ul: ['One', 'Two', 'Three']
 };
+
+const singleSideMargins: Content = {
+    text: 'single-side margins',
+    marginTop: 1,
+    marginRight: 2,
+    marginBottom: 3,
+    marginLeft: 4,
+};

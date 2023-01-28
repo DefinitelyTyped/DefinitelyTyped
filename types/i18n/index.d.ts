@@ -177,6 +177,15 @@ declare namespace i18n {
              */
             disable?: boolean | undefined;
         } | undefined;
+
+        /**
+         * Parser can be any object that responds to .parse & .stringify
+         */
+        parser?: ParserOptions | undefined;
+    }
+    interface ParserOptions {
+        parse: (src: string, options?: any) => any;
+        stringify: (value: any, options?: any) => string;
     }
     interface TranslateOptions {
         phrase: string;

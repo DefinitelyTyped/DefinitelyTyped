@@ -6561,7 +6561,7 @@ export interface VideoJsPlayer extends videojs.Component {
      */
     defaultPlaybackRate(rate: number): videojs.Player;
 
-    defaultPlaybackRate(): boolean;
+    defaultPlaybackRate(): number;
 
     /**
      * A getter/setter for the `Player`'s width & height.

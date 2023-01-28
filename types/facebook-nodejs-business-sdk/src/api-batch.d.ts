@@ -21,8 +21,8 @@ declare class FacebookAdsApiBatch {
         failureCallback?: (...args: any[]) => any,
         request?: APIRequest,
     ): {
-        attachedFiles: undefined | string;
-        body: undefined | string;
+        attachedFiles?: string;
+        body?: string;
         method: string;
         name: any;
         relative_url: string;
@@ -32,8 +32,8 @@ declare class FacebookAdsApiBatch {
         successCallback?: (...args: any[]) => any,
         failureCallback?: (...args: any[]) => any,
     ): {
-        attachedFiles: undefined | string;
-        body: undefined | string;
+        attachedFiles?: string;
+        body?: string;
         method: string;
         name: any;
         relative_url: string;

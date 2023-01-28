@@ -415,7 +415,7 @@ declare namespace Meteor {
      */
     function publish(
         name: string | null,
-        func: (this: Subscription, ...args: any[]) => void,
+        func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Mongo.Cursor<any>[] | Promise<void | Mongo.Cursor<any> | Mongo.Cursor<any>[]>,
         options?: { is_auto: boolean },
     ): void;
 

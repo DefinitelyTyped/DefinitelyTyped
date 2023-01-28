@@ -160,7 +160,7 @@ declare module 'leaflet' {
              *
              * @default null
              */
-            edit?: DrawOptions.EditHandlerOptions | false | undefined;
+            edit?: Omit<EditToolbar.EditHandlerOptions, 'featureGroup'> | false | undefined;
 
             /**
              * Delete handler options. Set to false to disable handler.
@@ -446,46 +446,6 @@ declare module 'leaflet' {
             repeatMode?: boolean | undefined;
         }
 
-        interface EditPolyOptions {
-            /**
-             * This is the FeatureGroup that stores all editable shapes
-             * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
-             */
-            featureGroup: FeatureGroup;
-
-            /**
-             * Edit handler options. Set to false to disable handler.
-             */
-            edit: EditHandlerOptions;
-
-            /**
-             * Delete handler options. Set to false to disable handler.
-             */
-            remove: any;
-
-            /**
-             * Set polygon editing options
-             */
-            poly: EditPolyOptions;
-
-            /**
-             * Determines if line segments can cross
-             *
-             * @default true
-             */
-            allowIntersection: boolean;
-        }
-
-        interface EditHandlerOptions {
-            /**
-             * The path options for how the layers will look while in edit mode.
-             * If this is set to null the editable path options will not be set.
-             *
-             * @default { dashArray: '10, 10', fill: true, fillColor: '#fe57a1', fillOpacity: 0.1, maintainColor: false }
-             */
-            selectedPathOptions?: PathOptions | undefined;
-        }
-
         interface DrawErrorOptions {
             color?: string | undefined;
             timeout?: number | undefined;
@@ -547,14 +507,12 @@ declare module 'leaflet' {
                 options:
                     | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
                     | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
-                    | DrawOptions.EditHandlerOptions
             ): void;
 
             setOptions(
                 options:
                     | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
                     | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
-                    | DrawOptions.EditHandlerOptions
             ): void;
         }
 
@@ -800,16 +758,48 @@ declare module 'leaflet' {
     }
 
     namespace EditToolbar {
-        class Edit extends Toolbar {
-            constructor(map: DrawMap, options?: ToolbarOptions);
+        interface EditPolyOptions extends EditOptions.EditPolyVerticesEditOptions {
+            /**
+             * Determines if line segments can cross
+             *
+             * @default true
+             */
+            allowIntersection?: boolean;
+        }
+        interface EditHandlerOptions {
+            /**
+             * This is the FeatureGroup that stores all editable shapes.
+             * THIS IS REQUIRED FOR THE EDIT TOOLBAR TO WORK
+             *
+             * @default null
+             */
+            featureGroup: FeatureGroup;
+
+            /**
+             * The options for the polygon layer in editing mode
+             *
+             * @default null
+             */
+            poly?: EditPolyOptions;
+
+            /**
+             * The path options for how the layers will look while in edit mode.
+             * If this is set to null the editable path options will not be set.
+             *
+             * @default { dashArray: '10, 10', fill: true, fillColor: '#fe57a1', fillOpacity: 0.1, maintainColor: false }
+             */
+            selectedPathOptions?: PathOptions | undefined;
+        }
+        class Edit extends Handler {
+            constructor(map: DrawMap, options?: EditHandlerOptions);
 
             revertLayers(): void;
 
             save(): void;
         }
 
-        class Delete extends Toolbar {
-            constructor(map: DrawMap, options?: ToolbarOptions);
+        class Delete extends Handler {
+            constructor(map: DrawMap, options?: { featureGroup: FeatureGroup });
 
             revertLayers(): void;
 

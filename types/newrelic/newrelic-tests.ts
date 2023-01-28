@@ -31,6 +31,10 @@ newrelic.noticeError(Error('Oh no!'), { foo: 'bar' }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: 42 }); // $ExpectType void
 newrelic.noticeError(Error('Oh no!'), { foo: true }); // $ExpectType void
 
+newrelic.recordLogEvent({ message: '' }); // $ExpectType void
+newrelic.recordLogEvent({ message: '', timestamp: 1 }); // $ExpectType void
+newrelic.recordLogEvent({ message: '', error: new SyntaxError() }); // $ExpectType void
+
 newrelic.addNamingRule('/user/customers/all/.*', '/user/customers/all'); // $ExpectType void
 newrelic.addNamingRule(/\/user\/customers\/.*/, '/user/customers/:customer'); // $ExpectType void
 

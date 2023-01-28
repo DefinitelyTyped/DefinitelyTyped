@@ -324,7 +324,7 @@ export class Writer {
  * @param value
  * The value to escape into a string.
  */
-export const escape: EscapeFunction;
+export let escape: EscapeFunction;
 
 /**
  * Clears all cached templates in this writer.

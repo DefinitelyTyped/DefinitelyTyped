@@ -24,7 +24,15 @@ verovio.module.onRuntimeInitialized = () => {
     const vrvTk = new verovio.toolkit();
     // $ExpectType VerovioOptions
     vrvTk.getOptions();
-    vrvTk.setOptions({ adjustPageHeight: true, barLineWidth: 0.1 });
+    vrvTk.setOptions({
+        adjustPageHeight: true,
+        barLineWidth: 0.1,
+        scaleToPageSize: true,
+        smuflTextFont: 'none',
+        dynamSingleGlyphs: false,
+        extenderLineMinSpace: 10,
+        lyricElision: 'narrow',
+    });
     vrvTk.loadData('<MEIDATA>');
     vrvTk.renderToSVG(1);
     const { groups } = vrvTk.getAvailableOptions();

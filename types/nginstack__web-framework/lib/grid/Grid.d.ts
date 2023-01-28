@@ -446,7 +446,7 @@ declare namespace Grid {
     };
 }
 import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');
-import FieldGroupSet = require('../classdef/FieldGroupSet.js');
+import FieldGroupSet = require('@nginstack/engine/lib/classdef/FieldGroupSet.js');
 import TableViewBuffer = require('./TableViewBuffer.js');
 import FieldList = require('@nginstack/engine/lib/classdef/FieldList.js');
 type Process = import('../process/Process');

@@ -1940,7 +1940,7 @@ declare namespace React {
         content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
@@ -2228,7 +2228,7 @@ declare namespace React {
         autoFocus?: boolean | undefined;
         capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         disabled?: boolean | undefined;
         enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
         form?: string | undefined;
@@ -2280,7 +2280,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2306,7 +2306,7 @@ declare namespace React {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
         controlsList?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
         muted?: boolean | undefined;
@@ -2391,7 +2391,7 @@ declare namespace React {
         async?: boolean | undefined;
         /** @deprecated */
         charSet?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         defer?: boolean | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
@@ -2823,6 +2823,7 @@ declare namespace React {
         button: DetailedHTMLFactory<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
         canvas: DetailedHTMLFactory<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
         caption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        center: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         cite: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
@@ -3160,6 +3161,7 @@ declare global {
             button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
             canvas: React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
             caption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            center: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             cite: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;

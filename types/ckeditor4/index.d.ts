@@ -2485,7 +2485,7 @@ declare namespace CKEDITOR {
                 constructor(dialog: dialog, elementDefinition: definitions.labeledElement, htmlList: any[], contentHtml: () => string);
 
                 getLabel(): string;
-                setlabel(label: string): labeledElement;
+                setLabel(label: string): labeledElement;
             }
 
             class radio extends labeledElement {

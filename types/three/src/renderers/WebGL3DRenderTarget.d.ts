@@ -12,7 +12,7 @@ export class WebGL3DRenderTarget extends WebGLRenderTarget {
      * @param height the height of the render target, in pixels.
      * @param depth the depth of the render target.
      */
-    constructor(width: number, height: number, depth: number);
+    constructor(width?: number, height?: number, depth?: number);
 
     /**
      * The depth of the render target.

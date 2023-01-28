@@ -1,9 +1,8 @@
-import { NightwatchAPI } from "nightwatch";
-import { NightwatchExpectResult } from "nightwatch/expect";
+import { NightwatchExpectResult } from 'nightwatch/expect';
 
-function isNightwatchAPI(v: NightwatchAPI) {}
+import { isNightwatchAPI, isNull } from "./utils";
+
 function isNightwatchExpectResult(result: NightwatchExpectResult) {}
-function isNull(v: null) {}
 function isPromise(v: PromiseLike<any>) {}
 
 // Expect test for language chains

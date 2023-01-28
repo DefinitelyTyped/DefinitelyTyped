@@ -16,7 +16,7 @@ import {
     NormalizationSelectableNode,
     NormalizationSplitOperation,
 } from '../util/NormalizationNode';
-import { ReaderFragment } from '../util/ReaderNode';
+import { ReaderFragment, ReaderLinkedField } from '../util/ReaderNode';
 import { ConcreteRequest, RequestParameters } from '../util/RelayConcreteNode';
 import { CacheConfig, DataID, Disposable, FetchPolicy, RenderPolicy, Variables } from '../util/RelayRuntimeTypes';
 import { InvalidationState } from './RelayModernStore';
@@ -179,7 +179,7 @@ export interface FragmentSpecResolver {
  * A read-only interface for accessing cached graph data.
  */
 export interface RecordSource {
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<T extends object = {}>(dataID: DataID): Record<T> | null | undefined;
     getRecordIDs(): DataID[];
     getStatus(dataID: DataID): RecordState;
@@ -390,7 +390,7 @@ export interface ReadOnlyRecordProxy {
 export interface RecordSourceProxy {
     create(dataID: DataID, typeName: string): RecordProxy;
     delete(dataID: DataID): void;
-    // tslint:disable-next-line:no-unnecessary-generics
+    // eslint-disable-next-line no-unnecessary-generics
     get<T = {}>(dataID: DataID): RecordProxy<T> | null | undefined;
     getRoot(): RecordProxy;
 }
@@ -893,7 +893,7 @@ export type MissingFieldHandler =
           kind: 'scalar';
           handle: (
               field: NormalizationScalarField,
-              record: Record | null | undefined,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => unknown;
@@ -901,8 +901,8 @@ export type MissingFieldHandler =
     | {
           kind: 'linked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => DataID | null | undefined;
@@ -910,8 +910,8 @@ export type MissingFieldHandler =
     | {
           kind: 'pluralLinked';
           handle: (
-              field: NormalizationLinkedField,
-              record: Record | null | undefined,
+              field: NormalizationLinkedField | ReaderLinkedField,
+              parentRecord: ReadOnlyRecordProxy | null | undefined,
               args: Variables,
               store: ReadOnlyRecordSourceProxy,
           ) => Array<DataID | null | undefined> | null | undefined;

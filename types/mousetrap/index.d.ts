@@ -18,7 +18,7 @@ declare namespace Mousetrap {
         stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => boolean;
         bind(
             keys: string | string[],
-            callback: (e: ExtendedKeyboardEvent, combo: string) => void,
+            callback: (e: ExtendedKeyboardEvent, combo: string) => boolean | void,
             action?: string,
         ): MousetrapInstance;
         unbind(keys: string | string[], action?: string): MousetrapInstance;

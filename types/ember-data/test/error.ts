@@ -7,7 +7,7 @@ import { assertType } from './lib/assert';
 const { AdapterError } = DS;
 
 // assert AdapterError extends EmberError
-assertType<typeof EmberError>(AdapterError);
+assertType<EmberError>(new AdapterError('Error'));
 
 // https://emberjs.com/api/ember-data/2.16/classes/DS.AdapterError
 const MaintenanceError = DS.AdapterError.extend({

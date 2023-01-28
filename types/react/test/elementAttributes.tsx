@@ -69,6 +69,7 @@ const testCases = [
         }}
     ></dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
+    <center></center>
 ];
 
 // Needed to check these HTML elements in event callbacks.

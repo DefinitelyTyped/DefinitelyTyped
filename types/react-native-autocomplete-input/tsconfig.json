@@ -12,6 +12,14 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "react-native": [
+                "react-native/v0.70"
+            ],
+            "react-native/*": [
+                "react-native/v0.70/*"
+            ]
+        },
         "jsx": "react",
         "types": [],
         "noEmit": true,

@@ -1,8 +1,6 @@
 import * as http from 'http';
-import * as request from 'request';
 
 import * as Crypto from './crypto';
-import * as Utils from './utils';
 import { Message } from './client';
 
 export type CredentialsFunc = (id: string) => Promise<Credentials> | Credentials;
@@ -64,7 +62,7 @@ export interface Authentication {
 
 export interface HeaderOptions {
     /** Payload content-type (ignored if hash provided) */
-    contentType?: string | undefined;
+    contentType?: string | string[] | undefined;
     /** Application specific data sent via the ext attribute */
     ext?: string | undefined;
     /** Pre-calculated payload hash */

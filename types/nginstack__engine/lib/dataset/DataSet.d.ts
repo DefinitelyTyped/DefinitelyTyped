@@ -97,7 +97,7 @@ declare class DataSet {
     fieldIsNull(fieldNameOrPositionIndex: any): boolean;
     getField(
         fieldId: number | string,
-        opt_options?: GetFieldOptions | number
+        options?: GetFieldOptions | number
     ): string | number | Date | boolean | null;
     setField(fieldId: number | string, value: any, opt_ignoreInvalidFieldId?: boolean): void;
     applyUpdates(opt_waitDBCacheSync?: boolean, opt_logChanges?: boolean): number;

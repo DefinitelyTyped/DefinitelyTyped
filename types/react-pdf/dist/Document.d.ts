@@ -96,7 +96,7 @@ export interface Props {
      * Function called when a password-protected PDF is loaded.
      * Defaults to a function that prompts the user for password.
      */
-    onPassword?: ((callback: (password: string) => void, reason: string) => void) | undefined;
+    onPassword?: ((callback: (password: string) => void, reason: number) => void) | undefined;
 
     /**
      * Function called in case of an error while retrieving document source from `file` prop.

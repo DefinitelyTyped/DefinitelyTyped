@@ -44,9 +44,9 @@ declare module 'karma' {
 
     interface BrowserStackOptions {
         /** BS username, you can also use BROWSERSTACK_USERNAME env variable */
-        username: string;
+        username?: string | undefined;
         /**  BS access key, you can also use BROWSERSTACK_ACCESS_KEY env variable */
-        accessKey: string;
+        accessKey?: string | undefined;
         /** do you wanna establish the BrowserStack tunnel */
         startTunnel?: boolean | undefined;
         /**

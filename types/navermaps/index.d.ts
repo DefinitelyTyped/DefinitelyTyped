@@ -220,6 +220,7 @@ declare namespace naver.maps {
         darktheme?: boolean;
         getTileUrl?: (x: number, y: number, z: number) => string[];
         tileSet?: string | string[];
+        overlayType?: string; // https://navermaps.github.io/maps.js.ncp/docs/tutorial-StyleMap-2-Custom-OverlayType.html
     }
 
     /**

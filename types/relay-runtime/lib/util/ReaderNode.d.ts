@@ -13,6 +13,17 @@ export interface ReaderInlineDataFragmentSpread {
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
+export interface ReaderLinkedField {
+    readonly kind: string; // 'LinkedField';
+    readonly alias?: string | null | undefined;
+    readonly name: string;
+    readonly storageKey?: string | null | undefined;
+    readonly args?: ReadonlyArray<ReaderArgument> | null | undefined;
+    readonly concreteType?: string | null | undefined;
+    readonly plural: boolean;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
 export interface ReaderFragment {
     readonly kind: string; // 'Fragment';
     readonly name: string;

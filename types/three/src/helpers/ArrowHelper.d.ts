@@ -55,4 +55,8 @@ export class ArrowHelper extends Object3D {
      * @param color The desired color.
      */
     setColor(color: ColorRepresentation): void;
+
+    copy(source: this): this;
+
+    dispose(): void;
 }
