@@ -44,7 +44,12 @@ declare class Spritesmith {
         options: SpritesmithOptions & SpritesmithProcessImagesOptions & {
             src: SpritesmithCreateImagesSrc;
         },
-        callback: (err: Error | null, result: SpritesmithResult) => void): void;
+        callback: (
+            err: Error | null,
+            result: SpritesmithResult & {
+                image: Buffer;
+            }
+        ) => void): void;
     createImages(src: SpritesmithCreateImagesSrc, callback: (err: Error | null, images: SpritesmithImage[]) => void): void;
     processImages(
         images: SpritesmithImage[],
