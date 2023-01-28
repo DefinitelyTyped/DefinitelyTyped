@@ -4383,6 +4383,10 @@
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
         },
+        "react-leaflet": {
+            "libraryName": "react-leaflet",
+            "asOfVersion": "3.0.0"
+        },
         "react-loader-spinner": {
             "libraryName": "react-loader-spinner",
             "asOfVersion": "4.0.0"
