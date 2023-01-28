@@ -7,8 +7,6 @@
 
 import * as Handlebars from 'handlebars';
 
-type AddToUnionIfTrue<T extends boolean, TUnion, TValueToAddConditionally> = T extends true ? TUnion | TValueToAddConditionally : TUnion;
-
 declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = 'woff2' | 'woff' | 'eot'>(
     options: WebfontsGenerator.WebfontsGeneratorOptions<T>,
     done: (err: Error | undefined, res: Pick<WebfontsGenerator.WebfontsGeneratorResult<T>, T | 'generateCss' | 'generateHtml'>) => void,
@@ -17,17 +15,17 @@ declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontType
 declare namespace WebfontsGenerator {
     type GeneratedFontTypes = 'eot' | 'svg' | 'ttf' | 'woff' | 'woff2';
 
-    type CSSTemplateContext = WebfontsGeneratorOptions['templateOptions'] & {
+    type CSSTemplateContext = WebfontsGeneratorOptions<any>['templateOptions'] & {
         fontName: string;
         src: string;
         codepoints: { [name: string]: string; };
     };
 
-    type HTMLTemplateContext = WebfontsGeneratorOptions['templateOptions'] & {
+    type HTMLTemplateContext = WebfontsGeneratorOptions<any>['templateOptions'] & {
         names?: string[];
         fontName: string;
         styles: string;
-        codepoints: WebfontsGeneratorOptions['codepoints'];
+        codepoints: WebfontsGeneratorOptions<any>['codepoints'];
     };
 
     interface TemplateOptions {
@@ -48,7 +46,7 @@ declare namespace WebfontsGenerator {
         baseClass?: string;
     }
 
-    interface WebfontsGeneratorOptions<T extends GeneratedFontTypes = GeneratedFontTypes> {
+    interface WebfontsGeneratorOptions<T extends GeneratedFontTypes> {
         /** List of SVG files. */
         files: string[];
         /** Directory for generated font files. */
