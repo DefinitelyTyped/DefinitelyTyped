@@ -1,4 +1,4 @@
-// Type definitions for jsdom 20.0
+// Type definitions for jsdom 21.1
 // Project: https://github.com/jsdom/jsdom
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 //                 Johan Palmfjord <https://github.com/palmfjord>
