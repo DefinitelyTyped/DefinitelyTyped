@@ -1468,7 +1468,7 @@ async function testPermissionsForPromise() {
         let wasAdded: boolean = await chrome.permissions.request(permissions);
     }
 
-    const permissions: chrome.permissions.Permissions = await chrome.permissions.getAll();
+    const existing: chrome.permissions.Permissions = await chrome.permissions.getAll();
 }
 
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
