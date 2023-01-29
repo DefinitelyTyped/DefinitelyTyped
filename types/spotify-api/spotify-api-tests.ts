@@ -18,7 +18,7 @@
  * Get the User's Currently Playing (Track)
  *
  * GET /v1/me/player/currently-playing
- * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-the-users-currently-playing-track
  */
 const playingNowTrack: SpotifyApi.CurrentlyPlayingResponse = {
     timestamp: 1614523995043,
@@ -26,6 +26,7 @@ const playingNowTrack: SpotifyApi.CurrentlyPlayingResponse = {
         id: '123456789',
         is_active: true,
         is_restricted: false,
+        is_private_session: false,
         name: 'Name Test',
         type: 'Computer',
         volume_percent: 48,
@@ -134,7 +135,7 @@ const playingNowTrack: SpotifyApi.CurrentlyPlayingResponse = {
  * Get the User's Currently Playing (Episode)
  *
  * GET /v1/me/player/currently-playing
- * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-the-users-currently-playing-track
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-the-users-currently-playing-track
  */
 const playingNowEpisode: SpotifyApi.CurrentlyPlayingResponse = {
     timestamp: 1614525764500,
@@ -142,6 +143,7 @@ const playingNowEpisode: SpotifyApi.CurrentlyPlayingResponse = {
         id: '123456789',
         is_active: true,
         is_restricted: false,
+        is_private_session: false,
         name: 'Name Test',
         type: 'Computer',
         volume_percent: 48,
