@@ -10591,3 +10591,68 @@ const usersQueue: SpotifyApi.UsersQueueResponse = {
         },
     ],
 };
+
+/**
+ * Get information about a user’s available devices.
+ *
+ * GET /v1/me/player/devices
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-users-available-devices
+ */
+const usersDevices: SpotifyApi.UserDevicesResponse = {
+    devices: [
+        {
+            id: '0123456789abcdef0123456789abcdef01234567',
+            is_active: true,
+            is_private_session: true,
+            is_restricted: false,
+            name: 'iPhone',
+            type: 'Smartphone',
+            volume_percent: 100,
+        },
+        {
+            id: '123456789abcdef0123456789abcdef012345678',
+            is_active: false,
+            is_private_session: false,
+            is_restricted: false,
+            name: 'PS4',
+            type: 'GameConsole',
+            volume_percent: 75,
+        },
+        {
+            id: '23456789abcdef0123456789abcdef0123456789',
+            is_active: false,
+            is_private_session: false,
+            is_restricted: false,
+            name: 'Living Room',
+            type: 'AVR',
+            volume_percent: 44,
+        },
+        {
+            id: '3456789abcdef0123456789abcdef01234567890',
+            is_active: false,
+            is_private_session: false,
+            is_restricted: false,
+            name: 'FireTV',
+            type: 'TV',
+            volume_percent: 0,
+        },
+        {
+            id: '456789abcdef0123456789abcdef01234567890a',
+            is_active: false,
+            is_private_session: false,
+            is_restricted: false,
+            name: 'Bedroom',
+            type: 'Speaker',
+            volume_percent: 42,
+        },
+        {
+            id: '6789abcdef0123456789abcdef01234567890abc',
+            is_active: false,
+            is_private_session: false,
+            is_restricted: false,
+            name: 'Some Computer',
+            type: 'Computer',
+            volume_percent: 100,
+        },
+    ],
+};
