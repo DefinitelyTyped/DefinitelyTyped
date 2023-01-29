@@ -1,4 +1,4 @@
-import reactNativeAsset from 'react-native-asset';
+import reactNativeAsset = require('react-native-asset');
 
 // @ts-expect-error
 reactNativeAsset();

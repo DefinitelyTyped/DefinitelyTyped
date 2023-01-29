@@ -3,7 +3,7 @@
 // Definitions by: Armaan A <https://github.com/Armster15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function (args: {
+declare function ReactNativeAsset(args: {
     /**
      * Root path of where to search for the `assets` folders
      * @default process.cwd()
@@ -26,3 +26,5 @@ export default function (args: {
         };
     };
 }): void;
+
+export = ReactNativeAsset;
