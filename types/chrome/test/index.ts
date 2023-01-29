@@ -1458,7 +1458,7 @@ function testPermissions() {
 }
 
 
-function testPermissionsForPromise() {
+async function testPermissionsForPromise() {
     const permissions: Permissions = {
         origins: ['https://example.com/*']
     };
