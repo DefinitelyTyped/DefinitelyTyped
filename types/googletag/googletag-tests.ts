@@ -17,7 +17,7 @@ googletag.cmd.push(() => {
     googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 });
 
-googletag.cmd.push(function() {
+googletag.cmd.push(function testThis() {
     console.log(this.googletag);
 });
 
@@ -763,3 +763,26 @@ auctionSlot.setConfig({
         },
     ],
 });
+
+// Initialize the secure signal providers array
+window.googletag = window.googletag || { cmd: [], secureSignalProviders: [] };
+// id is provided
+googletag.secureSignalProviders.push({
+    id: 'collector123',
+    collectorFunction: () => {
+        // ...custom signal generation logic...
+        return Promise.resolve('signal');
+    },
+});
+// networkCode is provided
+googletag.secureSignalProviders.push({
+    networkCode: '123456',
+    collectorFunction: () => {
+        // ...custom signal generation logic...
+        return Promise.resolve('signal');
+    },
+});
+// clear all cache
+if (!(googletag.secureSignalProviders instanceof Array)) {
+    googletag.secureSignalProviders.clearAllCache();
+}
