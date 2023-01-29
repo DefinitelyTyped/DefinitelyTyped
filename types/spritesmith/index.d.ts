@@ -6,7 +6,7 @@
 import { ReadableStream } from 'stream/web';
 import { BufferFile } from 'vinyl';
 
-interface SpritesmithOptions {
+interface SpritesmithParams {
     engine?: string;
     engineOpts?: Record<string, unknown>;
 }
@@ -39,9 +39,9 @@ interface SpritesmithResult {
 }
 
 declare class Spritesmith {
-    constructor(options?: SpritesmithOptions);
+    constructor(params?: SpritesmithParams);
     static run(
-        options: SpritesmithOptions & SpritesmithProcessImagesOptions & {
+        params: SpritesmithParams & SpritesmithProcessImagesOptions & {
             src: SpritesmithCreateImagesSrc;
         },
         callback: (
