@@ -1453,7 +1453,6 @@ function testPermissions() {
     chrome.permissions.contains(permissions, (exists: boolean) => {});
     chrome.permissions.remove(permissions, (wasRemoved: boolean) => {});
     chrome.permissions.request(permissions, (wasAdded: boolean) => {});
-    chrome.permissions.getAll(permissions, (wasAdded: boolean) => {});
     chrome.permissions.getAll((permissions: chrome.permissions.Permissions) => {});
 }
 
