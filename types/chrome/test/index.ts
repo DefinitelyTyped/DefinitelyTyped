@@ -1446,6 +1446,31 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, { visible: 1 });
 }
 
+function testPermissions() {
+    const permissions: Permissions = {
+        origins: ['https://example.com/*']
+    };
+    chrome.permissions.contains(permissions, (exists: boolean) => {});
+    chrome.permissions.remove(permissions, (wasRemoved: boolean) => {});
+    chrome.permissions.request(permissions, (wasAdded: boolean) => {});
+    chrome.permissions.getAll(permissions, (wasAdded: boolean) => {});
+    chrome.permissions.getAll((permissions: Permissions) => {});
+}
+
+
+function testPermissionsForPromise() {
+    const permissions: Permissions = {
+        origins: ['https://example.com/*']
+    };
+    if (await chrome.permissions.contains(permissions)) {
+        let wasRemoved: boolean = await chrome.permissions.remove(permissions);
+    } else {
+        let wasAdded: boolean = await chrome.permissions.request(permissions);
+    }
+
+    await chrome.permissions.getAll();
+}
+
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
 function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => { });
