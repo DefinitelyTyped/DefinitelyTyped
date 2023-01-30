@@ -21,6 +21,27 @@
 // TypeScript Version: 2.8
 import { Validator } from 'prop-types';
 import * as React from 'react';
+import {
+    milliseconds,
+    seconds,
+    minutes,
+    hours,
+    month,
+    startOf,
+    endOf,
+    add,
+    eq,
+    neq,
+    gte,
+    gt,
+    lte,
+    lt,
+    inRange,
+    min,
+    max,
+    Unit,
+    StartOfWeek,
+} from 'date-arithmetic';
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -343,17 +364,86 @@ export interface DateLocalizerSpec {
     format: (value: FormatInput, format: string, culture?: Culture) => string;
     formats: Formats;
     propType?: Validator<any> | undefined;
+    startOfWeek: StartOfWeek;
+    merge: (date: Date, time: Date) => Date | null;
+    inRange: typeof inRange;
+    lt: typeof lt;
+    lte: typeof lte;
+    gt: typeof gt;
+    gte: typeof gte;
+    eq: typeof eq;
+    neq: typeof neq;
+    startOf: typeof startOf;
+    endOf: typeof endOf;
+    add: typeof add;
+    range: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
+    ceil: (date: Date, unit: Unit) => Date;
+    min: typeof min;
+    max: typeof max;
+    minutes: typeof minutes;
+    firstVisibleDay: (date: Date, localizer: any) => Date;
+    lastVisibleDay: (date: Date, localizer: any) => Date;
+    visibleDays: (date: Date, localizer: any) => Date[];
+
+    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset: (date: Date) => number;
+    getDstOffset: (date: Date, dateB: Date) => number;
+    getTotalMin: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight: (date: Date) => number;
+    continuesPrior: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents: (eventA: Event, eventB: Event) => boolean;
+    inEventRange: (event: Event, range: DateRange) => boolean;
+    isSameDate: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset: number;
 }
 
+// As documented in https://jquense.github.io/react-big-calendar/examples/?path=/docs/guides-localizers--page
 export class DateLocalizer {
     formats: Formats;
     propType: Validator<any>;
-    startOfWeek: (culture: Culture) => number;
+    startOfWeek: (culture: Culture) => StartOfWeek;
 
     constructor(spec: DateLocalizerSpec);
 
     format(value: FormatInput, format: string, culture?: Culture): string;
     messages: Messages;
+
+    merge: (date: Date, time: Date) => Date | null;
+    inRange: typeof inRange;
+    lt: typeof lt;
+    lte: typeof lte;
+    gt: typeof gt;
+    gte: typeof gte;
+    eq: typeof eq;
+    neq: typeof neq;
+    startOf: typeof startOf;
+    endOf: typeof endOf;
+    add: typeof add;
+    range: (start: Date, end: Date, unit?: Unit) => Date[];
+    diff: (dateA: Date, dateB: Date, unit?: Unit) => number;
+    ceil: (date: Date, unit?: Unit) => Date;
+    min: typeof min;
+    max: typeof max;
+    minutes: typeof minutes;
+    firstVisibleDay: (date: Date, localizer: any) => Date;
+    lastVisibleDay: (date: Date, localizer: any) => Date;
+    visibleDays: (date: Date, localizer: any) => Date[];
+
+    getSlotDate: (date: Date, minutesFromMidnight: number, offset: number) => Date;
+    getTimezoneOffset: (date: Date) => number;
+    getDstOffset: (date: Date, dateB: Date) => number;
+    getTotalMin: (dateA: Date, dateB: Date) => number;
+    getMinutesFromMidnight: (date: Date) => number;
+    continuesPrior: (dateA: Date, dateB: Date) => boolean;
+    continuesAfter: (dateA: Date, dateB: Date, dateC: Date) => boolean;
+    sortEvents: (eventA: Event, eventB: Event) => boolean;
+    inEventRange: (event: Event, range: DateRange) => boolean;
+    isSameDate: (dateA: Date, dateB: Date) => boolean;
+    startAndEndAreDateOnly: (dateA: Date, dateB: Date) => boolean;
+    segmentOffset: number;
 }
 
 export interface CalendarProps<TEvent extends object = Event, TResource extends object = object> {
