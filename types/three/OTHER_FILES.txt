@@ -72,7 +72,6 @@ examples/jsm/math/ConvexHull.d.ts
 examples/jsm/math/Lut.d.ts
 examples/jsm/math/MeshSurfaceSampler.d.ts
 examples/jsm/math/OBB.d.ts
-examples/jsm/math/Octree.d.ts
 examples/jsm/misc/ConvexObjectBreaker.d.ts
 examples/jsm/misc/Gyroscope.d.ts
 examples/jsm/misc/MD2Character.d.ts
