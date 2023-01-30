@@ -1,4 +1,4 @@
-// Type definitions for bwip-js  3.0.1
+// Type definitions for bwip-js  3.2.0
 // Project: https://github.com/metafloor/bwip-js
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 //                 Guillaume VanderEst <https://github.com/gvanderest>
