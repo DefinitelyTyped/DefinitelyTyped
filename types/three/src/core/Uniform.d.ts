@@ -1,14 +1,14 @@
-export class Uniform {
-    constructor(value: any);
+export class Uniform<T = any> {
+    constructor(value: T);
     /**
      * @deprecated
      */
-    constructor(type: string, value: any);
+    constructor(type: string, value: T);
     /**
      * @deprecated
      */
     type: string;
-    value: any;
+    value: T;
     /**
      * @deprecated Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
      */
@@ -17,5 +17,5 @@ export class Uniform {
     /**
      * @deprecated Use {@link Object3D#onBeforeRender object.onBeforeRender()} instead.
      */
-    onUpdate(callback: () => void): Uniform;
+    onUpdate(callback: () => void): Uniform<T>;
 }
