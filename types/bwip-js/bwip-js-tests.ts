@@ -94,9 +94,7 @@ const testRender: bwipjs.DrawingOption<void> = {
     init(width: number, height: number): void {},
     line(x0: number, y0: number, x1: number, y1: number, lw: number, rgb: string): void {},
     polygon(pts: Array<[number, number]>): void {},
-    hexagon(
-        pts: [[number, number], [number, number], [number, number], [number, number], [number, number]],
-    ): void {},
+    hexagon(pts: [[number, number], [number, number], [number, number], [number, number], [number, number]]): void {},
     ellipse(x: number, y: number, rx: number, ry: number, ccw: boolean): void {},
     fill(rgb: string): void {},
     text(

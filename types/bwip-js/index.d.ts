@@ -111,7 +111,7 @@ declare namespace BwipJs {
         ): void;
         end(): T;
     }
-    export function loadFont(fontName: string, sizeMulti: number, fontFile: string): void;
+    export function loadFont(fontName: string, sizeMulti: number, fontFile: string | Uint8Array): void;
     export function toBuffer(opts: RenderOptions, callback: (err: string | Error, png: Buffer) => void): void;
     export function toBuffer(opts: RenderOptions): Promise<Buffer>;
     export function toCanvas(canvas: string | HTMLCanvasElement, opts: RenderOptions): HTMLCanvasElement;
@@ -142,6 +142,43 @@ declare namespace BwipJs {
         | Array<{ bbs: number[]; bhs: number[]; sbs: number[] }>
         | Array<{ pixs: number[]; pixx: number; pixy: number; height: number; width: number }>;
     export function request(req: Request, res: Response, opts?: RenderOptions): void;
+
+    export namespace FontLib {
+        interface PathData
+            extends Array<
+                | { type: 'M'; x: number; y: number }
+                | { type: 'L'; x: number; y: number }
+                | { type: 'Q'; x: number; y: number; cx: number; cy: number }
+                | { type: 'C'; x: number; y: number; cx1: number; cy1: number; cx2: number; cy2: number }
+            > {
+            ascent: number;
+            descent: number;
+            advance: number;
+        }
+        export function lookup(font: string): number;
+        export function monochrome(mono: boolean): void;
+        export function getglyph(
+            fontid: number,
+            charcode: number,
+            width: number,
+            height: number,
+        ): {
+            glyph: number;
+            top: number;
+            left: number;
+            width: number;
+            height: number;
+            advance: number;
+            pixels: Uint8Array;
+            bytes: Uint8Array;
+            cachekey: string;
+            offset: number;
+        };
+        export function getpaths(fontid: number, charcode: number, width: number, height: number): PathData;
+        export function loadFont(name: string, data: string | Uint8Array): void;
+        export function loadFont(name: string, mult: number, data: string | Uint8Array): void;
+        export function loadFont(name: string, multy: number, multx: number, data: string | Uint8Array): void;
+    }
 }
 
 declare function BwipJs(req: Request, res: Response, opts?: BwipJs.RenderOptions): void;
