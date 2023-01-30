@@ -2,7 +2,6 @@
 // Project: https://github.com/mikolalysenko/static-kdtree
 // Definitions by: Zheyang Song <https://github.com/ZheyangSong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
 
 import ndarray = require("ndarray");
 
