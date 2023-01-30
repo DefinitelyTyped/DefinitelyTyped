@@ -89,7 +89,7 @@ declare namespace BwipJs {
     }
     export type ToBufferOptions = RenderOptions;
     export interface DrawingOption<T> {
-        scale(sx: number, sy: number): [number, number];
+        scale(sx: number, sy: number): [number, number] | null;
         measure(
             str: string,
             font: string,
@@ -98,7 +98,7 @@ declare namespace BwipJs {
         ): { width: number; ascent: number; descent: number };
         init(width: number, height: number): void;
         line(x0: number, y0: number, x1: number, y1: number, lw: number, rgb: string): void;
-        polygon(pts: [number, number][]): void;
+        polygon(pts: Array<[number, number]>): void;
         hexagon(pts: [[number, number], [number, number], [number, number], [number, number], [number, number]]): void;
         ellipse(x: number, y: number, rx: number, ry: number, ccw: boolean): void;
         fill(rgb: string): void;
@@ -121,11 +121,26 @@ declare namespace BwipJs {
     ): void;
     export function toDataURL(opts: RenderOptions): Promise<{ width: number; height: number; uri: string }>;
     export function fixupOptions(opts: RenderOptions): RenderOptions;
-    export function loadFont(name: string, size: number, data: Uint8Array | string): void;
     export function render<T>(params: RenderOptions, drawing: DrawingOption<T>): T;
-    export function raw(options: RawOptions): void;
-    export function raw(bcid: string, text: string, opts: string): void;
-    export function raw(bcid: string, text: string, opts?: BwippOptions): void;
+    export function raw(
+        options: RawOptions,
+    ):
+        | Array<{ bbs: number[]; bhs: number[]; sbs: number[] }>
+        | Array<{ pixs: number[]; pixx: number; pixy: number; height: number; width: number }>;
+    export function raw(
+        bcid: string,
+        text: string,
+        opts: string,
+    ):
+        | Array<{ bbs: number[]; bhs: number[]; sbs: number[] }>
+        | Array<{ pixs: number[]; pixx: number; pixy: number; height: number; width: number }>;
+    export function raw(
+        bcid: string,
+        text: string,
+        opts?: BwippOptions,
+    ):
+        | Array<{ bbs: number[]; bhs: number[]; sbs: number[] }>
+        | Array<{ pixs: number[]; pixx: number; pixy: number; height: number; width: number }>;
     export function request(req: Request, res: Response, opts?: RenderOptions): void;
 }
 
