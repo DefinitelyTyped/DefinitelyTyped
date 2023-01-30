@@ -32,7 +32,7 @@ webfontsGenerator({
     // $ExpectType Buffer
     const woff2 = res.woff2;
     // @ts-expect-error
-    const ttd = res.ttf;
+    const ttf = res.ttf;
 });
 
 // $ExpectType void
@@ -79,3 +79,40 @@ webfontsGenerator({
     },
     writeFiles: true,
 }, (err, res) => {});
+
+// $ExpectType void
+webfontsGenerator({
+    dest: '',
+    files: [''],
+    order: ['eot'],
+    types: ['eot'],
+    html: true,
+    css: true,
+}, (err, res) => {
+    // $ExpectType (urls?: Record<"eot", string> | undefined) => string
+    const generateHtml = res.generateHtml;
+    // $ExpectType (urls?: Record<"eot", string> | undefined) => string
+    const generateCss = res.generateCss;
+});
+
+// $ExpectType void
+webfontsGenerator({
+    dest: '',
+    files: [''],
+    order: ['eot'],
+    types: ['eot'],
+    html: false,
+    css: false,
+}, (err, res) => {
+    // $ExpectType (urls?: Record<"eot", string> | undefined) => string
+    const generateHtml = res.generateHtml;
+    // $ExpectType (urls?: Record<"eot", string> | undefined) => string
+    const generateCss = res.generateCss;
+});
+
+// $ExpectType string
+webfontsGenerator.templates.css;
+// $ExpectType string
+webfontsGenerator.templates.scss;
+// $ExpectType string
+webfontsGenerator.templates.html;

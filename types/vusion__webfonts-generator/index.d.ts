@@ -9,7 +9,7 @@ import * as Handlebars from 'handlebars';
 
 declare function WebfontsGenerator<T extends WebfontsGenerator.GeneratedFontTypes = 'woff2' | 'woff' | 'eot'>(
     options: WebfontsGenerator.WebfontsGeneratorOptions<T>,
-    done: (err: Error | undefined, res: Pick<WebfontsGenerator.WebfontsGeneratorResult, T | 'generateCss' | 'generateHtml'>) => void
+    done: (err: Error | undefined, res: Pick<WebfontsGenerator.WebfontsGeneratorResult<T>, T | 'generateCss' | 'generateHtml'>) => void,
 ): void;
 
 declare namespace WebfontsGenerator {
@@ -27,6 +27,24 @@ declare namespace WebfontsGenerator {
         styles: string;
         codepoints: WebfontsGeneratorOptions<any>['codepoints'];
     };
+
+    interface TemplateOptions {
+        /**
+         * CSS class prefix for each of the generated icons.
+         * @default 'icon-'
+         */
+        classPrefix?: string;
+        /**
+         * CSS base selector to which the font will be applied.
+         * @default '.icon'
+         */
+        baseSelector?: string;
+        /**
+         * CSS base class to which the font will be applied.
+         * @deprecated Option is deprecated. Use @see {@link baseSelector} instead.
+         */
+        baseClass?: string;
+    }
 
     interface WebfontsGeneratorOptions<T extends GeneratedFontTypes> {
         /** List of SVG files. */
@@ -68,6 +86,11 @@ declare namespace WebfontsGenerator {
          */
         cssFontsUrl?: string;
         /**
+         * Fonts path used in CSS file.
+         * @deprecated Option is deprecated. Use @see {@link cssFontsUrl} instead.
+         */
+        cssFontsPath?: string;
+        /**
          * Whether to generate HTML preview.
          * @default false
          */
@@ -89,18 +112,7 @@ declare namespace WebfontsGenerator {
         /** Add parameters or helper to your template. */
         htmlContext?(context: HTMLTemplateContext, options: WebfontsGeneratorOptions<T>, handlebars: typeof Handlebars): void;
         /** Additional options for CSS & HTML templates, that extends default options. */
-        templateOptions?: {
-            /**
-             * CSS class prefix for each of the generated icons.
-             * @default 'icon-'
-             */
-            classPrefix?: string;
-            /**
-             * CSS base selector to which the font will be applied.
-             * @default '.icon'
-             */
-            baseSelector?: string;
-        };
+        templateOptions?: TemplateOptions;
         /**
          * Font file types to generate. Possible values: `svg`, `ttf`, `woff`, `woff2`, `eot`.
          * @default ['woff2', 'woff', 'eot']
@@ -169,21 +181,34 @@ declare namespace WebfontsGenerator {
         writeFiles?: boolean;
     }
 
-    interface WebfontsGeneratorResult {
+    interface WebfontsGeneratorResult<T extends GeneratedFontTypes = GeneratedFontTypes> {
         svg: string;
         ttf: Buffer;
         eot: Buffer;
         woff: Buffer;
         woff2: Buffer;
-        generateHtml?(urls?: Partial<Record<GeneratedFontTypes, string>>): string;
-        generateCss?(urls?: Partial<Record<GeneratedFontTypes, string>>): string;
+        generateHtml(urls?: Record<T, string>): string;
+        generateCss(urls?: Record<T, string>): string;
     }
 
     interface Templates {
+        /**
+         * Default CSS template path.
+         * Generates classes with names based on values from `options.templateOptions`.
+         */
         css: string;
+        /**
+         * Default CSS template path.
+         * Generates mixin webfont-icon to add icon styles. It is safe to use multiple generated files with mixins together.
+         */
         scss: string;
+        /**
+         * Default HTML template path.
+         * Generates a HTML file with a preview of all icons in the font.
+         */
         html: string;
     }
+    /** Paths of default templates. */
     const templates: Templates;
 }
 
