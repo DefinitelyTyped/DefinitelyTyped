@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage as Request, ServerResponse as Response } from "http";
+import { IncomingMessage as Request, ServerResponse as Response } from 'http';
 
 declare namespace BwipJs {
     export interface BwippOptions {
@@ -31,8 +31,8 @@ declare namespace BwipJs {
         textgaps?: number | undefined;
         alttext?: string | undefined;
 
-        textxalign?: "offleft" | "left" | "center" | "right" | "offright" | "justify" | undefined;
-        textyalign?: "below" | "center" | "above" | undefined;
+        textxalign?: 'offleft' | 'left' | 'center' | 'right' | 'offright' | 'justify' | undefined;
+        textyalign?: 'below' | 'center' | 'above' | undefined;
         textxoffset?: number | undefined;
         textyoffset?: number | undefined;
 
@@ -69,7 +69,7 @@ declare namespace BwipJs {
         scaleY?: number | undefined;
         scale?: number | undefined;
 
-        rotate?: "N" | "R" | "L" | "I" | undefined;
+        rotate?: 'N' | 'R' | 'L' | 'I' | undefined;
 
         paddingwidth?: number | undefined;
         paddingheight?: number | undefined;
@@ -80,7 +80,7 @@ declare namespace BwipJs {
         paddingbottom?: number | undefined;
 
         monochrome?: boolean | undefined;
-        
+
         sizelimit?: number | undefined;
     }
     export interface RawOptions extends BwippOptions {
@@ -89,25 +89,39 @@ declare namespace BwipJs {
     }
     export type ToBufferOptions = RenderOptions;
     export interface DrawingOption<T> {
-        scale(sx:number, sy:number):[number, number];
-        measure(str:string, font:string, fwidth:number, fheight:number):{ width:number, ascent:number, descent:number };
-        init(width:number, height:number):void;
-        line(x0:number, y0:number, x1:number, y1:number, lw:number, rgb:string):void;
-        polygon(pts:([number, number])[]):void;
-        hexagon(pts:[[number, number], [number, number], [number, number], [number, number], [number, number]]):void;
-        ellipse(x:number, y:number, rx:number, ry:number, ccw:boolean):void;
-        fill(rgb:string):void;
-        text(x:number, y:number, str:string, rgb:string, font:{ name:string, width:number, height: number, dx:number }):void;
-        end():T;
+        scale(sx: number, sy: number): [number, number];
+        measure(
+            str: string,
+            font: string,
+            fwidth: number,
+            fheight: number,
+        ): { width: number; ascent: number; descent: number };
+        init(width: number, height: number): void;
+        line(x0: number, y0: number, x1: number, y1: number, lw: number, rgb: string): void;
+        polygon(pts: [number, number][]): void;
+        hexagon(pts: [[number, number], [number, number], [number, number], [number, number], [number, number]]): void;
+        ellipse(x: number, y: number, rx: number, ry: number, ccw: boolean): void;
+        fill(rgb: string): void;
+        text(
+            x: number,
+            y: number,
+            str: string,
+            rgb: string,
+            font: { name: string; width: number; height: number; dx: number },
+        ): void;
+        end(): T;
     }
     export function loadFont(fontName: string, sizeMulti: number, fontFile: string): void;
     export function toBuffer(opts: RenderOptions, callback: (err: string | Error, png: Buffer) => void): void;
     export function toBuffer(opts: RenderOptions): Promise<Buffer>;
     export function toCanvas(canvas: string | HTMLCanvasElement, opts: RenderOptions): HTMLCanvasElement;
-    export function toDataURL(opts: RenderOptions, callback: (err: string | Error, png: { width: number, height: number, uri: string }) => void): void;
-    export function toDataURL(opts: RenderOptions): Promise<{ width: number, height: number, uri: string }>;
+    export function toDataURL(
+        opts: RenderOptions,
+        callback: (err: string | Error, png: { width: number; height: number; uri: string }) => void,
+    ): void;
+    export function toDataURL(opts: RenderOptions): Promise<{ width: number; height: number; uri: string }>;
     export function fixupOptions(opts: RenderOptions): RenderOptions;
-    export function loadFont(name:string, size:number, data: Uint8Array | string): void;
+    export function loadFont(name: string, size: number, data: Uint8Array | string): void;
     export function render<T>(params: RenderOptions, drawing: DrawingOption<T>): T;
     export function raw(options: RawOptions): void;
     export function raw(bcid: string, text: string, opts: string): void;
