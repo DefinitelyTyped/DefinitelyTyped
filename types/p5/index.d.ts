@@ -1,9 +1,6 @@
-// Type definitions for p5 1.4
+// Type definitions for p5 1.5
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
-//                 Pierre Krafft <https://github.com/Zalastax>
-//                 Rahul V <https://github.com/rahulv4667>
-//                 Gareth Williams <https://github.com/gaweph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -180,7 +177,7 @@ declare class p5 {
      *   disable the parts of the FES that cause
      *   performance slowdown (like argument checking).
      *   Friendly errors that have no performance cost
-     *   (like giving an descriptive error if a file load
+     *   (like giving a descriptive error if a file load
      *   fails, or warning you if you try to override p5.js
      *   functions in the global space), will remain in
      *   place.

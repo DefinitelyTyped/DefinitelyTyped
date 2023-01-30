@@ -2,6 +2,9 @@
 
 let title: string = unsafeWindow.document.title;
 
+// $ExpectType Console
+unsafeWindow.console;
+
 // window.onurlchange
 
 if (window.onurlchange === null) {
@@ -333,6 +336,12 @@ GM_setClipboard('<b>Some text in clipboard</b>', {
 
 // GM_info
 
+// $ExpectType ScriptInfo
+window.GM_info;
+
+// @ts-expect-error
+unsafeWindow.GM_info;
+
 // I created a basic userscript and copied GM_info from there for testing if the real thing fits the types
 // I don't think there's a real way of testing this other than testing if it fits the original
 const exampleInfo: Tampermonkey.ScriptInfo = {
@@ -427,6 +436,11 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
 // GM.info
 
 const exampleInfo1: Tampermonkey.ScriptInfo = GM.info;
+
+const exampleInfo2: Tampermonkey.ScriptInfo = window.GM.info;
+
+// @ts-expect-error
+unsafeWindow.GM;
 
 async () => {
     // GM.addStyle

@@ -3863,6 +3863,10 @@
             "libraryName": "postcss-nested",
             "asOfVersion": "4.2.1"
         },
+        "postcss-preset-env": {
+            "libraryName": "postcss-preset-env",
+            "asOfVersion": "8.0.0"
+        },
         "postmark": {
             "libraryName": "postmark",
             "asOfVersion": "2.0.0"
@@ -4378,6 +4382,10 @@
         "react-jss": {
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
+        },
+        "react-leaflet": {
+            "libraryName": "react-leaflet",
+            "asOfVersion": "3.0.0"
         },
         "react-loader-spinner": {
             "libraryName": "react-loader-spinner",

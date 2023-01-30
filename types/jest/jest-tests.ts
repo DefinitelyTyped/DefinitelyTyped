@@ -373,6 +373,14 @@ jest.advanceTimersToNextTimer(2);
 // $ExpectType void
 jest.clearAllTimers();
 
+// $ExpectType boolean
+jest.isEnvironmentTornDown();
+
+// $ExpectType Promise<void>
+jest.isolateModulesAsync(async () => {});
+// @ts-expect-error: does not allow sync callbacks
+jest.isolateModulesAsync(() => {});
+
 // $ExpectType void
 jest.runAllImmediates();
 

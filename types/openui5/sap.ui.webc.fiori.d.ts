@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -11958,11 +11958,11 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
     /**
      * Gets current value of property {@link #getFile file}.
      *
-     * Holds an instance of `File` associated with this item.
+     * Holds an instance of File associated with this item.
      *
      * @returns Value of property `file`
      */
-    getFile(): object;
+    getFile(): File;
     /**
      * Gets current value of property {@link #getFileName fileName}.
      *
@@ -12101,9 +12101,9 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       bDisableDeleteButton?: boolean
     ): this;
     /**
-     * Sets a new value for property {@link #getFile file}.
+     * Sets a new value for property {@link #setFile file}.
      *
-     * Holds an instance of `File` associated with this item.
+     * Holds an instance of File associated with this item.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -12113,7 +12113,7 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
       /**
        * New value for property `file`
        */
-      oFile?: object
+      oFile?: File
     ): this;
     /**
      * Sets a new value for property {@link #getFileName fileName}.
