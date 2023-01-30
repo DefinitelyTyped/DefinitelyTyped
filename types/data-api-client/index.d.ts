@@ -8,7 +8,7 @@
 // This is added because aws-sdk depends on @types/node
 /// <reference types="node" />
 
-import type { ClientConfiguration, Types } from 'aws-sdk/clients/rdsdataservice';
+import type { ClientConfiguration, Types } from 'aws-sdk2-types/clients/rdsdataservice';
 declare namespace Client {
     type OmittedValues = 'database' | 'resourceArn' | 'secretArn' | 'schema';
 
