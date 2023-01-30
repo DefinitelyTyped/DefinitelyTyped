@@ -5,6 +5,10 @@
 export class GLBufferAttribute {
     constructor(buffer: WebGLBuffer, type: number, itemSize: number, elementSize: 1 | 2 | 4, count: number);
 
+    /**
+     * @default ''
+     */
+    name: string;
     buffer: WebGLBuffer;
     type: number;
     itemSize: number;
