@@ -18,6 +18,8 @@ type ISerialized<D extends number = number> = {
 
 type TVisitor = (id: number) => any;
 
+type TNdarray = ReturnType<typeof ndarray>;
+
 declare class KDTree<D extends number = number> {
   readonly dimension: number;
   readonly length: number;
@@ -32,7 +34,7 @@ declare class KDTree<D extends number = number> {
   dispose(): void;
 }
 
-declare function createKDTree<D extends number = number>(points: ReadonlyArray<TupleOf<number, D>>): KDTree<D>;
+declare function createKDTree<D extends number = number>(points: ReadonlyArray<TupleOf<number, D>> | TNdarray): KDTree<D>;
 declare namespace createKDTree {
   function deserialize<D extends number>(data: ISerialized<D>): KDTree<D>;
 }
