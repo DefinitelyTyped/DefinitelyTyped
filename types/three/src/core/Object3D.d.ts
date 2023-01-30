@@ -52,7 +52,7 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
 
     /**
      * Up direction.
-     * @default THREE.Object3D.DefaultUp.clone()
+     * @default THREE.Object3D.DEFAULT_UP.clone()
      */
     up: Vector3;
 
@@ -105,14 +105,14 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     /**
      * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also
      * recalculates the matrixWorld property.
-     * @default THREE.Object3D.DefaultMatrixAutoUpdate
+     * @default THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE
      */
     matrixAutoUpdate: boolean;
 
     /**
      * When this is set, the renderer checks every frame if the object and its children need matrix updates.
      * Otherwise, you have to maintain all matrices in the object and its children yourself.
-     * @default THREE.Object3D.DefaultMatrixWorldAutoUpdate
+     * @default THREE.Object3D.DEFAULT_MATRIX_WORLD_AUTO_UPDATE
      */
     matrixWorldAutoUpdate: boolean;
 
@@ -215,9 +215,9 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
         group: Group,
     ) => void;
 
-    static DefaultUp: Vector3;
-    static DefaultMatrixAutoUpdate: boolean;
-    static DefaultMatrixWorldAutoUpdate: boolean;
+    static DEFAULT_UP: Vector3;
+    static DEFAULT_MATRIX_AUTO_UPDATE: boolean;
+    static DEFAULT_MATRIX_WORLD_AUTO_UPDATE: boolean;
 
     /**
      * Applies the matrix transform to the object and updates the object's position, rotation and scale.
