@@ -844,7 +844,6 @@ describe('symlink stream', () => {
 
       const stream = vfs.symlink('./out-fixtures/', {
          cwd: __dirname,
-         mode: expectedFileMode,
          dirMode: expectedDirMode
       });
 

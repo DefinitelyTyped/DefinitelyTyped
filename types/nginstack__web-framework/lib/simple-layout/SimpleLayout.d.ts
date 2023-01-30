@@ -107,10 +107,10 @@ declare class SimpleLayout {
     enterpriseName: any;
     autoSanitize: boolean;
     private autoSanitize_;
-    private cssContentForMail_;
+    private cssContentForEmail_;
     private isTreeLayout;
-    writingMail: boolean;
-    private getMailObject;
+    writingEmail: boolean;
+    private getEmailObject;
     private nextColumnWithTotalContent;
     private startOrEndGroup;
     private endRecord;
@@ -139,7 +139,7 @@ declare class SimpleLayout {
     private defaultOnHeader;
     path: string;
     private defaultOnFooter;
-    private _prepareImgTagsToSendMail;
+    private _prepareImgTagsToSendEmail;
     write(content: string, opt_newLine?: boolean): void;
     private setupLayoutTxt;
     private _prepareExport;

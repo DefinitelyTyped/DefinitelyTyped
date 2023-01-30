@@ -2418,6 +2418,12 @@ declare class Tabulator {
     /** Clear the edited flag on all cells in the table or some of them. */
     clearCellEdited: (clear?: CellComponent | CellComponent[]) => void;
 
+    /** Display alert message on the table */
+    alert: (message: string) => void;
+
+    /** clear the alert message from the table */
+    clearAlert: () => void;
+
     /** Destructor. */
     destroy: () => void;
 

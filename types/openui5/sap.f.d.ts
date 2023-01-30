@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1801,7 +1801,11 @@ declare module "sap/f/cards/Header" {
       /**
        * The mapping of "aria-" prefixed attributes
        */
-      mAriaProps: object
+      mAriaProps: {
+        role: string;
+
+        level: string;
+      }
     ): void;
     /**
      * Fires event {@link #event:press press} to attached listeners.
@@ -2404,7 +2408,11 @@ declare module "sap/f/cards/NumericHeader" {
       /**
        * The mapping of "aria-" prefixed attributes
        */
-      mAriaProps: object
+      mAriaProps: {
+        role: string;
+
+        level: string;
+      }
     ): void;
     /**
      * Fires event {@link #event:press press} to attached listeners.
@@ -3178,6 +3186,8 @@ declare module "sap/f/dnd/GridDropInfo" {
 
   import { dnd } from "sap/ui/core/library";
 
+  import Control from "sap/ui/core/Control";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
@@ -3265,36 +3275,41 @@ declare module "sap/f/dnd/GridDropInfo" {
      * Gets current value of property {@link #getDropIndicatorSize dropIndicatorSize}.
      *
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
-     * grid will rearrange after drop.
-     *
-     * Use when custom size needs to be defined. For example when an item is dragged from outside a grid and
-     * is dropped over the grid.
+     * grid will rearrange after drop. Use when custom size needs to be defined. For example, when an item is
+     * dragged from outside a grid and is dropped over the grid.
      *
      * If not specified or if the function returns `null`, the indicator size will be calculated automatically.
      *
-     * This callback will be called when the indicator is displayed, that happens during the drag over movement.
+     * This callback will be called when the indicator is displayed, which happens during the drag over movement.
      *
-     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
-     * columns: }` or `null`.
+     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: int, columns:
+     * int}` or `null`.
      *
      * @returns Value of property `dropIndicatorSize`
      */
-    getDropIndicatorSize(): Function;
+    getDropIndicatorSize():
+      | ((
+          p1: Control
+        ) => {
+          rows: int;
+
+          columns: int;
+        })
+      | null
+      | undefined;
     /**
-     * Sets a new value for property {@link #getDropIndicatorSize dropIndicatorSize}.
+     * Sets a new value for property {@link #setDropIndicatorSize dropIndicatorSize}.
      *
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
-     * grid will rearrange after drop.
-     *
-     * Use when custom size needs to be defined. For example when an item is dragged from outside a grid and
-     * is dropped over the grid.
+     * grid will rearrange after drop. Use when custom size needs to be defined. For example when an item is
+     * dragged from outside a grid and is dropped over the grid.
      *
      * If not specified or if the function returns `null`, the indicator size will be calculated automatically.
      *
-     * This callback will be called when the indicator is displayed, that happens during the drag over movement.
+     * This callback will be called when the indicator is displayed, which happens during the drag over movement.
      *
-     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
-     * columns: }` or `null`.
+     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: int, columns:
+     * int}` or `null`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -3304,7 +3319,15 @@ declare module "sap/f/dnd/GridDropInfo" {
       /**
        * New value for property `dropIndicatorSize`
        */
-      fnDropIndicatorSize: Function
+      fnDropIndicatorSize?:
+        | ((
+            p1: Control
+          ) => {
+            rows: int;
+
+            columns: int;
+          })
+        | null
     ): this;
   }
 
@@ -3318,10 +3341,10 @@ declare module "sap/f/dnd/GridDropInfo" {
      *
      * If not specified or if the function returns `null`, the indicator size will be calculated automatically.
      *
-     * This callback will be called when the indicator is displayed, that happens during the drag over movement.
+     * This callback will be called when the indicator is displayed, which happens during the drag over movement.
      *
-     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: ,
-     * columns: }` or `null`.
+     * The callback receives `draggedControl` as parameter and must return an object of type `{rows: int, columns:
+     * int}` or `null`.
      */
     dropIndicatorSize?: Function | PropertyBindingInfo | `{${string}}`;
   }
@@ -6009,7 +6032,7 @@ declare module "sap/f/FlexibleColumnLayout" {
   /**
    * @SINCE 1.46
    *
-   * Implements the master-detail-detail paradigm by displaying up to three pages in separate columns.
+   * Implements the list-detail-detail paradigm by displaying up to three pages in separate columns.
    *
    * Overview:
    *
@@ -8659,10 +8682,10 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
    * them should lead.
    *
    * Calling `getNextUIState(2)` will return information about the expected layout and action buttons if the
-   * application should display three views (master-detail-detail), based on the current state.
+   * application should display three views (list-detail-detail), based on the current state.
    *
    * Similarly, calling `getNextUIState(0)` will return information about the expected layout and action buttons
-   * if the application should display the initial view only (master), based on the current state.
+   * if the application should display the initial view only (list), based on the current state.
    *
    * For more information, see {@link sap.f.FlexibleColumnLayoutSemanticHelper#getCurrentUIState} and {@link
    * sap.f.FlexibleColumnLayoutSemanticHelper#getNextUIState}
@@ -8778,7 +8801,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
      */
     getNextUIState(
       /**
-       * the view level that should be represented. 0 means initial (master only), 1 - master-detail, 2 - master-detail-detail,
+       * the view level that should be represented. 0 means initial (list only), 1 - list-detail, 2 - list-detail-detail,
        * 3 and above - subsequent views
        */
       iNextLevel: int
@@ -17600,6 +17623,8 @@ declare module "sap/f/ShellBar" {
 
   import Button from "sap/m/Button";
 
+  import { BarContexts } from "sap/m/BarInPageEnabler";
+
   import { URI } from "sap/ui/core/library";
 
   import Menu from "sap/m/Menu";
@@ -18417,7 +18442,7 @@ declare module "sap/f/ShellBar" {
      *
      * @returns with all available contexts
      */
-    getContext(): Object;
+    getContext(): BarContexts;
     /**
      * Gets current value of property {@link #getHomeIcon homeIcon}.
      *

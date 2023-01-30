@@ -1649,6 +1649,10 @@
             "libraryName": "generate-password",
             "asOfVersion": "1.5.1"
         },
+        "generic-pool": {
+            "libraryName": "generic-pool",
+            "asOfVersion": "3.8.1"
+        },
         "geolib": {
             "libraryName": "geolib",
             "asOfVersion": "2.0.23"
@@ -3859,6 +3863,10 @@
             "libraryName": "postcss-nested",
             "asOfVersion": "4.2.1"
         },
+        "postcss-preset-env": {
+            "libraryName": "postcss-preset-env",
+            "asOfVersion": "8.0.0"
+        },
         "postmark": {
             "libraryName": "postmark",
             "asOfVersion": "2.0.0"
@@ -4374,6 +4382,10 @@
         "react-jss": {
             "libraryName": "react-jss",
             "asOfVersion": "10.0.0"
+        },
+        "react-leaflet": {
+            "libraryName": "react-leaflet",
+            "asOfVersion": "3.0.0"
         },
         "react-loader-spinner": {
             "libraryName": "react-loader-spinner",
@@ -5319,6 +5331,10 @@
             "libraryName": "strong-error-handler",
             "asOfVersion": "3.2.0"
         },
+        "structured-source": {
+            "libraryName": "structured-source",
+            "asOfVersion": "4.0.0"
+        },
         "styled-jsx": {
             "libraryName": "styled-jsx",
             "asOfVersion": "3.4.4"
@@ -5382,6 +5398,10 @@
         "sweetalert": {
             "libraryName": "sweetalert",
             "asOfVersion": "2.0.4"
+        },
+        "swell-js": {
+            "libraryName": "swell-js",
+            "asOfVersion": "3.19.3"
         },
         "swiper": {
             "libraryName": "swiper",
