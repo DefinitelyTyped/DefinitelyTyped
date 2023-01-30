@@ -3,50 +3,16 @@
 // Definitions by: haykam821 <https://github.com/haykam821>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Possible SHA variants taken from [jsSHA](https://github.com/Caligatio/jsSHA).
- */
-type TotpAlgorithm =
-    | 'SHA-1'
-    | 'SHA-224'
-    | 'SHA-256'
-    | 'SHA-384'
-    | 'SHA-512'
-    | 'SHA3-224'
-    | 'SHA3-256'
-    | 'SHA3-384'
-    | 'SHA3-512'
-    | 'SHAKE128'
-    | 'SHAKE256';
 interface TotpOptions {
     period?: number | undefined;
     /**
      * The desired SHA variant (SHA-1, SHA-224, SHA-256, SHA-384, SHA-512,
      * SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHAKE128, or SHAKE256).
      */
-    algorithm?: TotpAlgorithm | undefined;
+    algorithm?: string | undefined;
     digits?: number | undefined;
     timestamp?: number | undefined;
 }
-/**
- * Generates a `TOTP token` from a TOTP key.
- *
- * Keys provided must be **base32 strings**, ie. only containing characters matching `(A-Z, 2-7, =)`.
- *
- * The **default** settings are:
- * - SHA1
- * - 30 second period
- * - 6 digits.
- *
- * Settings can be provided as an optional second parameter inside an object.
- * ```ts
- * const token = totp("JBSWY3DPEHPK3PXP", {
- *  digits: 8,
- *  algorithm: "SHA-512",
- *  period: 60,
- *  timestamp: 1465324707000,
- * });
- * ```
- */
+
 declare function getToken(key: string, options?: TotpOptions): string;
 export = getToken;
