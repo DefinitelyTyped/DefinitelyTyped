@@ -10,7 +10,7 @@ interface DataResult<TPoint extends number | number[]> {
     k: number;
     centroids: TPoint[];
     idxs: number[];
-    test: (x: number, distance?: (x: TPoint, y: TPoint) => number) => void;
+    test: (x: TPoint, distance?: (x: TPoint, y: TPoint) => number) => void;
 }
 
 /**

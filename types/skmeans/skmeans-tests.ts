@@ -33,7 +33,7 @@ res.centroids.forEach(i => () => {
 });
 
 const res2 = skmeans(dataMulti, 3, null, 10);
-res2.test(6, distance3d);
+res2.test([6, 1, 3], distance3d);
 res2.centroids.forEach(i => () => {
     i[0] + i[1];
 });
@@ -59,6 +59,6 @@ skmeans(dataUni, 3, null, null, distance3d);
     skmeans(dataMulti, 3).centroids;
 }
 
-// we should NOT be able to use scalar-based distance function in mono-dimensions
+// we should NOT be able to use scalar-based distance function in multi-dimensions
 // @ts-expect-error
 skmeans(dataMulti, 3, null, null, distance1d);
