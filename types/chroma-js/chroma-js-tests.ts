@@ -22,7 +22,9 @@ function test_chroma() {
     chroma.hsl(330, 1, 0.6);
     chroma.hcl(50, 40, 40);
     chroma.lch(80, 40, 130);
+    chroma.oklch(0.8, 0.4, 130);
     chroma(80, 40, 130, 'lch');
+    chroma(0.8, 0.4, 130, 'oklch');
     chroma.cmyk(0.2, 0.8, 0, 0);
     chroma(0.2, 0.8, 0, 0, 'cmyk');
     chroma.gl(0.6, 0, 0.8);
@@ -36,6 +38,7 @@ function test_chroma() {
     chroma.mix('red', 'blue', 0.5, 'rgb');
     chroma.mix('red', 'blue', 0.5, 'hsl');
     chroma.mix('red', 'blue', 0.5, 'lab');
+    chroma.mix('red', 'blue', 0.5, 'oklab');
     chroma.mix('red', 'blue', 0.5, 'lrgb');
     chroma.blend('4CBBFC', 'EEEE22', 'multiply');
     chroma.blend('4CBBFC', 'EEEE22', 'darken');
