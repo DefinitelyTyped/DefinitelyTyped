@@ -1,4 +1,4 @@
-import Spritesmith from "spritesmith";
+import Spritesmith = require('spritesmith');
 
 // Generate our spritesheet
 const sprites = ['fork.png', 'github.png', 'twitter.png'];
