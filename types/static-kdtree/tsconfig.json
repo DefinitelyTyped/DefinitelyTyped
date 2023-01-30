@@ -3,8 +3,7 @@
       "esModuleInterop": true,
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
