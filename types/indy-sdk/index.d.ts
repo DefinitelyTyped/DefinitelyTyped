@@ -712,8 +712,8 @@ export interface GetNymResponse {
 export interface DidWithMeta {
     did: Did;
     verkey: Verkey;
-    metadata: string;
-    tempVerkey: Verkey;
+    metadata?: string | undefined;
+    tempVerkey?: Verkey | undefined;
 }
 
 export type NymRole = 'TRUSTEE' | 'STEWARD' | 'TRUST_ANCHOR' | 'ENDORSER' | 'NETWORK_MONITOR';
