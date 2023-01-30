@@ -106,14 +106,13 @@ declare namespace BwipJs {
     export function toCanvas(canvas: string | HTMLCanvasElement, opts: RenderOptions): HTMLCanvasElement;
     export function toDataURL(opts: RenderOptions, callback: (err: string | Error, png: { width: number, height: number, uri: string }) => void): void;
     export function toDataURL(opts: RenderOptions): Promise<{ width: number, height: number, uri: string }>;
-    export function toCanvas(id: string, opts:RenderOptions): void;
     export function fixupOptions(opts: RenderOptions): RenderOptions;
     export function loadFont(name:string, size:number, data: Uint8Array | string): void;
     export function render<T>(params: RenderOptions, drawing: DrawingOption<T>): T;
     export function raw(options: RawOptions): void;
     export function raw(bcid: string, text: string, opts: string): void;
-    export function raw(bcid: string, text: string, opts: BwippOptions): void;
-    export function request(req: Request, res: Response, opts?: BwipJs.RenderOptions): void;
+    export function raw(bcid: string, text: string, opts?: BwippOptions): void;
+    export function request(req: Request, res: Response, opts?: RenderOptions): void;
 }
 
 declare function BwipJs(req: Request, res: Response, opts?: BwipJs.RenderOptions): void;
