@@ -17,7 +17,7 @@ declare module 'express' {
     }
 }
 
-export * from './lib/Provider/Provider';
+export { default as Provider } from './lib/Provider/Provider';
 export * from './lib/Provider/Services/DeepLinking';
 export * from './lib/Provider/Services/GradeService';
 export * from './lib/Provider/Services/NamesAndRoles';
