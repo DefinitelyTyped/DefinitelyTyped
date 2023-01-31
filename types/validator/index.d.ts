@@ -1039,6 +1039,7 @@ declare namespace validator {
         | 'IT'
         | 'JP'
         | 'KE'
+        | 'KR'
         | 'LI'
         | 'LT'
         | 'LU'

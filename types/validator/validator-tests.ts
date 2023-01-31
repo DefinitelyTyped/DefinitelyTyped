@@ -839,6 +839,7 @@ const any: any = null;
     result = validator.isPostalCode('sample', 'IS');
     result = validator.isPostalCode('sample', 'IT');
     result = validator.isPostalCode('sample', 'JP');
+    result = validator.isPostalCode('sample', 'KR');
     result = validator.isPostalCode('sample', 'KE');
     result = validator.isPostalCode('sample', 'LI');
     result = validator.isPostalCode('sample', 'MX');
