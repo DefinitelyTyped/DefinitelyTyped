@@ -1,3 +1,4 @@
+import { SpritesmithResult } from 'spritesmith';
 import Spritesmith = require('spritesmith');
 
 // Generate our spritesheet
@@ -18,7 +19,7 @@ spritesmith.createImages(sprites, function handleImages(err, images) {
 
     // Create our result
     // $ExpectType SpritesmithResult
-    const result = spritesmith.processImages(images);
+    const result: SpritesmithResult = spritesmith.processImages(images);
     result.image; // Readable stream outputting image
     result.coordinates; // Object mapping filename to {x, y, width, height} of image
     result.properties; // Object with metadata about spritesheet {width, height}
