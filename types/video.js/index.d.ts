@@ -2512,9 +2512,6 @@ declare namespace videojs {
          *
          * @return - True if the element had the class
          *         - False otherwise.
-         *
-         * @throws {Error}
-         *         Throws an error if `classToCheck` has white space.
          */
         hasClass(element: Element, classToCheck: string): boolean;
 
@@ -4089,9 +4086,6 @@ declare namespace videojs {
      * @fires   Player#pluginsetup
      * @fires   Player#pluginsetup:$name
      * @listens Player#dispose
-     * @throws  {Error}
-     *          If attempting to instantiate the base {@link Plugin} class
-     *          directly instead of via a sub-class.
      */
     interface Plugin extends EventedMixin {
         player: Player;
