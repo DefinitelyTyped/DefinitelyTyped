@@ -23,6 +23,9 @@ const mediaOptions: MediaOptions = {
                 maximum: 1e10,
             },
         },
+        htmlMediaOption: {
+            useUMSMediaInfo: true,
+        },
     },
 };
 

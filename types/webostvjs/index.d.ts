@@ -1029,7 +1029,7 @@ export interface MediaOptions {
         /**
          * The object that holds information of media format.
          */
-         mediaFormat?: MediaOptionsMediaFormat | undefined;
+        mediaFormat?: MediaOptionsMediaFormat | undefined;
         /**
          * Object that holds DRM information.
          */
@@ -1078,6 +1078,16 @@ export interface MediaOptions {
             'side_by_side_full_LR' |
             // This format encodes the screen framewise(R to L) and puts two different frames into each frame. for the left and right eyes side by side to create each frame.
             'side_by_side_full_RL';
+
+        /**
+         * Undocumented option.
+         * Usage example:
+         * var video = document.querySelector('video');
+         * video.addEventListener("umsmediainfo", function(e) {
+         *     console.log(JSON.parse(e.detail));
+         * });
+         */
+        htmlMediaOption?: HtmlMediaOption | undefined;
     };
 }
 
@@ -1148,4 +1158,8 @@ export interface MediaOptionsMediaFormat {
      * The string that sets media type. The default value is video.
      */
     type: 'audio' | 'video' | 'video_only' | 'audio_test';
+}
+
+export interface HtmlMediaOption {
+    useUMSMediaInfo?: boolean | undefined;
 }
