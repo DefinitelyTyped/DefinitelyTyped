@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Provider, IdToken } from 'ltijs';
 
-const ltiMinimal = new Provider('EXAMPLEKEY', {
+const ltiMinimal = Provider.setup('EXAMPLEKEY', {
     url: 'mongodb://localhost/database',
 });
 
@@ -29,7 +29,7 @@ const idToken: IdToken = {
     },
 };
 
-const ltiAdvanced = new Provider(
+const ltiAdvanced = Provider.setup(
     'EXAMPLEKEY',
     {
         url: 'mongodb://localhost/database',
