@@ -144,7 +144,7 @@ declare namespace BwipJs {
     export function request(req: Request, res: Response, opts?: RenderOptions): void;
 
     export namespace FontLib {
-        interface PathData
+        export interface PathData
             extends Array<
                 | { type: 'M'; x: number; y: number }
                 | { type: 'L'; x: number; y: number }
