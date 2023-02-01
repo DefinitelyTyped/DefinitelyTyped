@@ -38,7 +38,7 @@ export type DispatcherMap = Record<string, <T = void, DoEnsurePromise extends bo
  * unsubscribe();
  *
  */
-export type Subscriber = (callback: () => void) => () => void;
+export type Subscriber = (callback: () => void, storeNameOrDescriptor?: string | StoreDescriptor) => () => void;
 
 export function dispatch(storeNameOrDescriptor: string|StoreDescriptor): DispatcherMap;
 export function select(storeNameOrDescriptor: string|StoreDescriptor): SelectorMap;
