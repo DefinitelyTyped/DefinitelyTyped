@@ -108,11 +108,6 @@ async function TestFnAccessTokenObject(
         expires_in: "7200",
     };
 
-    const httpOptions: oauth2lib.WreckHttpOptions =  {
-        json: false,
-        redirects: 0
-    };
-
     // Create the access token wrapper
     let accessToken = oauthSubject.createToken(tokenObject);
 
@@ -120,14 +115,6 @@ async function TestFnAccessTokenObject(
     if (accessToken.expired()) {
         try {
             accessToken = await accessToken.refresh();
-
-            accessToken = await accessToken.refresh({ scope: "scope1" });
-
-            accessToken = await accessToken.refresh({ scope: ["<scope1>", "<scope2>"] });
-
-            accessToken = await accessToken.refresh({ scope: ["<scope1>", "<scope2>"] }, httpOptions);
-
-            console.log("Token refreshed");
         } catch (error) {
             console.log("Error refreshing access token: ", error.message);
         }
@@ -138,12 +125,9 @@ async function TestFnAccessTokenObject(
         // Revoke only the access token
         await accessToken.revoke("access_token");
 
-        await accessToken.revoke("access_token", httpOptions);
         // Session ended. But the refresh_token is still valid.
         // Revoke the refresh token
         await accessToken.revoke("refresh_token");
-
-        await accessToken.revoke("refresh_token", httpOptions);
 
         console.log("Token revoked");
     } catch (error) {
@@ -155,8 +139,6 @@ async function TestFnAccessTokenObject(
     try {
         // Revokes both tokens, refresh token is only revoked if the access_token is properly revoked
         await accessToken.revokeAll();
-
-        await accessToken.revokeAll(httpOptions);
     } catch (error) {
         console.log("Error revoking token: ", error.message);
     }
