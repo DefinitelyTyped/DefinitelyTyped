@@ -13,10 +13,7 @@ export interface ApiGatewayEvent {
           };
 }
 
-export function getHttp<T extends object>(
-    event: { http: T | string },
-    functionName: string,
-): { path: string; method: string } | T;
+export function getHttp(event: ApiGatewayEvent, functionName: string): ApiGatewayEvent['http'];
 
 export function getHttpPath(http: { path: string }, functionName: string): string;
 

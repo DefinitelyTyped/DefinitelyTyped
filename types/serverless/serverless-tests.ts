@@ -128,11 +128,27 @@ getHttp(
     {
         http: {
             path: 'myPath',
+            // @ts-expect-error
+            mehtod: 'get',
             method: 'get',
         },
     },
     'myFunction',
 );
+
+// @ts-expect-error - Test missing properties
+getHttp({}, 'myFunction');
+
+// @ts-expect-error - Test invalid properties
+getHttp({}, 'myFunction', { invalid: 'property' });
+
+getHttp({
+    // @ts-expect-error - Test missing properties
+    http: {
+        path: 'myPath'
+    }
+}, 'myFunction');
+
 getHttp(
     {
         http: 'GET mypath',
