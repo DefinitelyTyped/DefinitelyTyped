@@ -4823,6 +4823,10 @@
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
         },
+        "rimraf": {
+            "libraryName": "rimraf",
+            "asOfVersion": "4.0.5"
+        },
         "riot": {
             "libraryName": "riot",
             "asOfVersion": "4.1.0"
