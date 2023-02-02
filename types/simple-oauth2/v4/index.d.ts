@@ -1,68 +1,34 @@
-// Type definitions for simple-oauth2 5.0
+// Type definitions for simple-oauth2 4.1
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: Michael Müller <https://github.com/mad-mike>,
 //                 Troy Lamerton <https://github.com/troy-lamerton>
 //                 Martín Rodriguez <https://github.com/netux>
 //                 Linus Unnebäck <https://github.com/LinusU>
 //                 Do Nam <https://github.com/namdien177>
-//                 Lyubin Pavel <https://github.com/pafik13>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
-
-export enum CredentialsEncodingMode {
-    STRICT = 'strict',
-    LOOSE = 'loose',
-}
-
-export enum AuthorizationMethod {
-    HEADER = 'header',
-    BODY = 'body',
-  }
-
-export enum BodyFormat {
-    FORM = 'form',
-    JSON = 'json',
-}
+// TypeScript Version: 3.8
 
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
-        /** Service registered client id. When required by the spec this value will be automatically encoded. Required. */
+        /** Service registered client id. Required. */
         id: string;
-        /** Service registered client secret. When required by the spec this value will be automatically encoded. Required. */
+        /** Service registered client secret. Required. */
         secret: string;
-        /** Parameter name used to send the client secret. Defaults to client_secret. */
+        /** Parameter name used to send the client secret. Default to client_secret. */
         secretParamName?: string | undefined;
-        /** Parameter name used to send the client id. Defaults to client_id. */
+        /** Parameter name used to send the client id. Default to client_id. */
         idParamName?: ClientIdName | undefined;
     };
     auth: {
-        /** Base URL used to obtain access tokens. Required */
+        /** String used to set the host to request the tokens to. Required. */
         tokenHost: string;
-        /**
-         * URL path to obtain access tokens. Defaults to /oauth/token.
-         *
-         * Note: URL paths are relatively resolved to their corresponding host property using the Node WHATWG URL resolution algorithm
-         */
+        /** String path to request an access token. Default to /oauth/token. */
         tokenPath?: string | undefined;
-        /**
-         * URL path to refresh access tokens. Defaults to auth.tokenPath
-         *
-         * Note: URL paths are relatively resolved to their corresponding host property using the Node WHATWG URL resolution algorithm
-         */
-        refreshPath?: string | undefined;
-        /**
-         * URL path to revoke access tokens. Defaults to /oauth/revoke
-         *
-         * Note: URL paths are relatively resolved to their corresponding host property using the Node WHATWG URL resolution algorithm
-         */
+        /** String path to revoke an access token. Default to /oauth/revoke. */
         revokePath?: string | undefined;
-        /** Base URL used to request an authorization code. Only valid for AuthorizationCode. Defaults to auth.tokenHost */
+        /** String used to set the host to request an "authorization code". Default to the value set on auth.tokenHost. */
         authorizeHost?: string | undefined;
-        /**
-         * URL path to request an authorization code. Only valid for AuthorizationCode. Defaults to /oauth/authorize
-         *
-         * Note: URL paths are relatively resolved to their corresponding host property using the Node WHATWG URL resolution algorithm
-         */
+        /** String path to request an authorization code. Default to /oauth/authorize. */
         authorizePath?: string | undefined;
     };
     /**
@@ -70,52 +36,23 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
      * All options except baseUrl are allowed
      * Defaults to header.Accept = "application/json"
      */
-    http?: Omit<WreckHttpOptions, 'baseUrl' | 'headers' | 'redirects' | 'json'> & {
-        baseUrl?: undefined;
-        headers?: {
-            /**
-             * Acceptable http response content type. Defaults to application/json
-             */
-            accept: string;
-            /**
-             * Always overriden by the library to properly send the required credentials on each scenario
-             */
-            authorization: string;
-            [key: string]: unknown
-        } | undefined;
-        /**
-         * Number or redirects to follow. Defaults to false (no redirects)
-         */
-        redirects?: false | number | undefined;
-        /**
-         * JSON response parsing mode. Defaults to strict
-         */
-        json?: true | "strict" | "force" | undefined;
-     } | undefined;
+    http?: {} | undefined;
     options?: {
-        /** Scope separator character. Some providers may require a different separator. Defaults to empty space */
-        scopeSeparator?: string | undefined;
-        /**
-         * Setup how credentials are encoded when options.authorizationMethod is header.
-         * Use loose if your provider doesn't conform to the OAuth 2.0 specification.
-         * Defaults to strict
-         */
-        credentialsEncodingMode?: CredentialsEncodingMode | undefined;
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: BodyFormat | undefined;
+        bodyFormat?: "json" | "form" | undefined;
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: AuthorizationMethod | undefined;
+        authorizationMethod?: "header" | "body" | undefined;
     } | undefined;
 }
 
 export type TokenType = "access_token" | "refresh_token";
 
 export interface Token {
-    [x: string]: unknown;
+    [x: string]: any;
 }
 
 export interface AccessToken {
@@ -132,57 +69,41 @@ export interface AccessToken {
      */
     expired(expirationWindowSeconds?: number): boolean;
 
-    /**
-     * Refreshes the current access token
-     *
-     * @param params Optional argument for additional API request params.
-     * @param [params.scope] String or array of strings representing the application privileges
-     * @param [httpOptions] Optional http options passed through the underlying http library
-     */
-    refresh(params?: {
-        scope?: string | string[] | undefined;
-    }, httpOptions?: WreckHttpOptions): Promise<AccessToken>;
+    /** Refresh the access token */
+    refresh(params?: {}): Promise<AccessToken>;
 
-    /**
-     * Revokes either the access or refresh token depending on the {tokenType} value
-     *
-     * @param tokenType A string containing the type of token to revoke (access_token or refresh_token)
-     * @param [httpOptions] Optional http options passed through the underlying http library
-     */
-    revoke(tokenType: TokenType, httpOptions?: WreckHttpOptions): Promise<void>;
+    /** Revoke access or refresh token */
+    revoke(tokenType: TokenType): Promise<void>;
 
-    /**
-     * Revokes both the current access and refresh tokens
-     *
-     * @param [httpOptions] Optional http options passed through the underlying http library
-     */
-    revokeAll(httpOptions?: WreckHttpOptions): Promise<void>;
+    /** Revoke both the existing access and refresh tokens */
+    revokeAll(): Promise<void>;
 }
 
 export interface WreckHttpOptions {
     baseUrl?: string | undefined;
     socketPath?: string | undefined;
-    payload?: unknown;
-    headers?: { [key: string]: unknown } | undefined;
-    redirects?: false | number | undefined;
+    payload?: any;
+    headers?: { [key: string]: any } | undefined;
+    redirects?: number | undefined;
     redirect303?: boolean | undefined;
     beforeRedirect?: ((
         redirectMethod: string,
         statusCode: number,
         location: string,
-        resHeaders: { [key: string]: unknown },
-        redirectOptions: unknown,
+        resHeaders: { [key: string]: any },
+        redirectOptions: any,
         next: () => {},
     ) => void) | undefined;
-    redirected?: ((statusCode: number, location: string, req: unknown) => void) | undefined;
+    redirected?: ((statusCode: number, location: string, req: any) => void) | undefined;
     timeout?: number | undefined;
     maxBytes?: number | undefined;
     rejectUnauthorized?: boolean | undefined;
-    agent?: unknown;
+    downstreamRes?: any;
+    agent?: any;
     secureProtocol?: string | undefined;
     ciphers?: string | undefined;
     events?: boolean | undefined;
-    json?: boolean | "strict" | "force" | undefined;
+    json?: true | "strict" | "force" | undefined;
     gunzip?: boolean | "force" | undefined;
 }
 
@@ -220,7 +141,7 @@ export class AuthorizationCode<ClientIdName extends string = "client_id"> {
      * Requests and returns an access token from the authorization server
      *
      * @param params
-     * @param params.code Authorization code (from previous step)
+     * @param params.code Authorization code received by the callback URL
      * @param params.redirectURI String representing the registered application URI where the user is redirected after authentication
      * @param [params.scope] String or array of strings representing the application privileges
      * @param [httpOptions] Optional http options passed through the underlying http library
@@ -228,15 +149,14 @@ export class AuthorizationCode<ClientIdName extends string = "client_id"> {
     getToken(params: AuthorizationTokenConfig, httpOptions?: WreckHttpOptions): Promise<AccessToken>;
 
     /**
-     * Creates a new access token instance from a plain object
-     *
-     * @param token Plain object representation of an access token
+     * Creates a new access token by providing a token object as specified by RFC6750.
+     * @param token
      */
     createToken(token: Token): AccessToken;
 }
 
 export interface AuthorizationTokenConfig {
-    /** Authorization code (from previous step) */
+    /** Authorization code received by the callback URL */
     code: string;
     /** String representing the registered application URI where the user is redirected after authentication */
     redirect_uri: string;
@@ -265,7 +185,7 @@ export class ResourceOwnerPassword<ClientIdName extends string = "client_id"> {
     getToken(params: PasswordTokenConfig, httpOptions?: WreckHttpOptions): Promise<AccessToken>;
 
     /**
-     * Creates a new access token instance from a plain object
+     * Creates a new access token by providing a token object as specified by RFC6750.
      *
      * @param token Plain object representation of an access token
      */
@@ -286,7 +206,7 @@ export interface PasswordTokenConfig {
     /**
      * Additional options will be automatically serialized as params for the token request.
      */
-    [key: string]: unknown;
+    [key: string]: any;
 }
 
 /**
@@ -307,7 +227,7 @@ export class ClientCredentials<ClientIdName extends string = "client_id"> {
     getToken(params: ClientCredentialTokenConfig, httpOptions?: WreckHttpOptions): Promise<AccessToken>;
 
     /**
-     * Creates a new access token instance from a plain object
+     * Creates a new access token by providing a token object as specified by RFC6750.
      *
      * @param token Plain object representation of an access token
      */
@@ -318,5 +238,5 @@ export interface ClientCredentialTokenConfig {
     /** A string that represents the application privileges */
     scope?: string | string[] | undefined;
 
-    [key: string]: unknown;
+    [key: string]: any;
 }
