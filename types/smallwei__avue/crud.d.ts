@@ -63,7 +63,7 @@ export interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
     searchMultiple?: boolean;
     /** 多选时是否将选中值按文字的形式展示 */
     searchTags?: boolean;
-    /** 搜索项标题位置	 */
+    /** 搜索项标题位置 */
     searchLabelPosition?: LabelPosition;
     /** 弹窗编辑文字提示 */
     searchTip?: string;
@@ -133,7 +133,7 @@ export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     maxHeight?: number | string;
     /** 表格的高度，默认为自动高度。如果设置为auto，会自适应窗口高度，配合calcHeight参数去调节范围 */
     calcHeight?: number | string;
-    /** 是否为斑马纹	 */
+    /** 是否为斑马纹 */
     stripe?: boolean;
     /** 是否显示表格序号 */
     index?: boolean;
@@ -185,7 +185,7 @@ export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     fit?: boolean;
     /** 是否显示表格的表头 */
     showHeader?: boolean;
-    /** 是否要高亮当前行	 */
+    /** 是否要高亮当前行 */
     highlightCurrentRow?: boolean;
     /** 行数据的Key的主键，用于其他相关操作 */
     rowKey?: string;
@@ -299,7 +299,7 @@ export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     dialogTop?: string | number;
     /** 表格弹窗方式 */
     dialogType?: 'dialog' | 'drawer';
-    /** 表格抽屉打开方向	 */
+    /** 表格抽屉打开方向 */
     dialogDirection?: 'rtl' | 'ltr' | 'ttb' | 'btt';
     /** 表格弹窗宽度 */
     dialogWidth?: string | number;
@@ -321,7 +321,7 @@ export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     searchGutter?: number;
     /** 搜索框的标题宽度 */
     searchLabelWidth?: number | string;
-    /** 搜索项标题位置	 */
+    /** 搜索项标题位置 */
     searchLabelPosition?: LabelPosition;
     /** 搜索框整体布局大小 */
     searchSize?: Size;
