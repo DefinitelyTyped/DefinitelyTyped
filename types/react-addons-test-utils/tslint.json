@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "strict-export-declare-modifiers": false
     }

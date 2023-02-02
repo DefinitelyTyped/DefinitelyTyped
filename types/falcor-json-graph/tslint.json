@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "export-just-namespace": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -10,7 +9,6 @@
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "space-before-function-paren": false,
-        "trim-file": false
+        "space-before-function-paren": false
     }
 }

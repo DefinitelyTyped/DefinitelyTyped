@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const VerticalTiltShiftShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        v: Uniform;
-        r: Uniform;
+        tDiffuse: IUniform;
+        v: IUniform;
+        r: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

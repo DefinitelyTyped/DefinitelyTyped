@@ -129,6 +129,8 @@ mParticle.getAppVersion();
 
 mParticle.getDeviceId();
 
+mParticle.getEnvironment();
+
 const instance = mParticle.getInstance();
 
 mParticle.getVersion();
@@ -392,10 +394,10 @@ mParticle.eCommerce.logProductAction(
     eCommerceCustomFlags,
 );
 
-mParticle.eCommerce.logProductAction(300, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
+mParticle.eCommerce.logProductAction(0, [product1, product2], eCommerceCustomAttributes, eCommerceCustomFlags);
 
 mParticle.eCommerce.logProductAction(
-    300,
+    0,
     [product1, product2],
     eCommerceCustomAttributes,
     eCommerceCustomFlags,

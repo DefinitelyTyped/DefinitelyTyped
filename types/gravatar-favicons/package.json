@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "@types/favicons": "^6.2.0"
+    }
+}

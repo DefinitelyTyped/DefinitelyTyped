@@ -7,7 +7,7 @@ import {
     MeshLambertMaterial,
     PerspectiveCamera,
     Scene,
-    SphereBufferGeometry,
+    SphereGeometry,
     WebGLRenderer,
 } from 'three';
 
@@ -29,7 +29,7 @@ function init() {
     scene.add(new HemisphereLight(0x45af23, 0x0000af, 0.7));
 
     const spheres = new InstancedMesh(undefined, undefined, count);
-    spheres.geometry = new SphereBufferGeometry(0.1, 32, 32);
+    spheres.geometry = new SphereGeometry(0.1, 32, 32);
     spheres.material = new MeshLambertMaterial();
 
     scene.add(spheres);

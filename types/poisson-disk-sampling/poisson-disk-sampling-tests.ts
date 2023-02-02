@@ -7,4 +7,4 @@ const p = new PoissonDiskSampling({
     tries: 10,
 });
 
-p.fill(); // $ExpectType number[][]
+p.fill(); // $ExpectType Point[]

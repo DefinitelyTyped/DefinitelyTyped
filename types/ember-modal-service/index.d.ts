@@ -1,4 +1,4 @@
-// Type definitions for ember-modal-service 2.0
+// Type definitions for ember-modal-service 2.7
 // Project: https://github.com/BBVAEngineering/ember-modal-service/
 // Definitions by: golovkoe <https://github.com/elenagolovko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -7,49 +7,49 @@
  */
 
 // core
-import AttributeNode from 'three/examples/jsm/nodes/core/AttributeNode.js';
-import BypassNode from 'three/examples/jsm/nodes/core/BypassNode.js';
-import CodeNode from 'three/examples/jsm/nodes/core/CodeNode.js';
-import ContextNode from 'three/examples/jsm/nodes/core/ContextNode.js';
-import ExpressionNode from 'three/examples/jsm/nodes/core/ExpressionNode.js';
-import FunctionCallNode from 'three/examples/jsm/nodes/core/FunctionCallNode.js';
-import FunctionNode from 'three/examples/jsm/nodes/core/FunctionNode.js';
-import InstanceIndexNode from 'three/examples/jsm/nodes/core/InstanceIndexNode.js';
-import PropertyNode from 'three/examples/jsm/nodes/core/PropertyNode.js';
-import UniformNode from 'three/examples/jsm/nodes/core/UniformNode.js';
-import VarNode from 'three/examples/jsm/nodes/core/VarNode.js';
-import VaryNode from 'three/examples/jsm/nodes/core/VaryNode.js';
+import AttributeNode from 'three/examples/jsm/nodes/core/AttributeNode';
+import BypassNode from 'three/examples/jsm/nodes/core/BypassNode';
+import CodeNode from 'three/examples/jsm/nodes/core/CodeNode';
+import ContextNode from 'three/examples/jsm/nodes/core/ContextNode';
+import ExpressionNode from 'three/examples/jsm/nodes/core/ExpressionNode';
+import FunctionCallNode from 'three/examples/jsm/nodes/core/FunctionCallNode';
+import FunctionNode from 'three/examples/jsm/nodes/core/FunctionNode';
+import InstanceIndexNode from 'three/examples/jsm/nodes/core/InstanceIndexNode';
+import PropertyNode from 'three/examples/jsm/nodes/core/PropertyNode';
+import UniformNode from 'three/examples/jsm/nodes/core/UniformNode';
+import VarNode from 'three/examples/jsm/nodes/core/VarNode';
+import VaryNode from 'three/examples/jsm/nodes/core/VaryNode';
 
 // accessors
-import BufferNode from 'three/examples/jsm/nodes/accessors/BufferNode.js';
-import CameraNode from 'three/examples/jsm/nodes/accessors/CameraNode.js';
-import MaterialNode from 'three/examples/jsm/nodes/accessors/MaterialNode.js';
-import MaterialReferenceNode from 'three/examples/jsm/nodes/accessors/MaterialReferenceNode.js';
-import ModelViewProjectionNode from 'three/examples/jsm/nodes/accessors/ModelViewProjectionNode.js';
-import NormalNode from 'three/examples/jsm/nodes/accessors/NormalNode.js';
-import ModelNode from 'three/examples/jsm/nodes/accessors/ModelNode.js';
-import PointUVNode from 'three/examples/jsm/nodes/accessors/PointUVNode.js';
-import PositionNode from 'three/examples/jsm/nodes/accessors/PositionNode.js';
-import ReferenceNode from 'three/examples/jsm/nodes/accessors/ReferenceNode.js';
-import StorageBufferNode from 'three/examples/jsm/nodes/accessors/StorageBufferNode.js';
-import TextureNode from 'three/examples/jsm/nodes/accessors/TextureNode.js';
-import UserDataNode from 'three/examples/jsm/nodes/accessors/UserDataNode.js';
-import UVNode from 'three/examples/jsm/nodes/accessors/UVNode.js';
+import BufferNode from 'three/examples/jsm/nodes/accessors/BufferNode';
+import CameraNode from 'three/examples/jsm/nodes/accessors/CameraNode';
+import MaterialNode from 'three/examples/jsm/nodes/accessors/MaterialNode';
+import MaterialReferenceNode from 'three/examples/jsm/nodes/accessors/MaterialReferenceNode';
+import ModelViewProjectionNode from 'three/examples/jsm/nodes/accessors/ModelViewProjectionNode';
+import NormalNode from 'three/examples/jsm/nodes/accessors/NormalNode';
+import ModelNode from 'three/examples/jsm/nodes/accessors/ModelNode';
+import PointUVNode from 'three/examples/jsm/nodes/accessors/PointUVNode';
+import PositionNode from 'three/examples/jsm/nodes/accessors/PositionNode';
+import ReferenceNode from 'three/examples/jsm/nodes/accessors/ReferenceNode';
+import StorageBufferNode from 'three/examples/jsm/nodes/accessors/StorageBufferNode';
+import TextureNode from 'three/examples/jsm/nodes/accessors/TextureNode';
+import UserDataNode from 'three/examples/jsm/nodes/accessors/UserDataNode';
+import UVNode from 'three/examples/jsm/nodes/accessors/UVNode';
 
 // display
-import FrontFacingNode from 'three/examples/jsm/nodes/display/FrontFacingNode.js';
+import FrontFacingNode from 'three/examples/jsm/nodes/display/FrontFacingNode';
 
 // gpgpu
-import ComputeNode from 'three/examples/jsm/nodes/gpgpu/ComputeNode.js';
+import ComputeNode from 'three/examples/jsm/nodes/gpgpu/ComputeNode';
 
 // math
-import MathNode from 'three/examples/jsm/nodes/math/MathNode.js';
-import OperatorNode from 'three/examples/jsm/nodes/math/OperatorNode.js';
-import CondNode from 'three/examples/jsm/nodes/math/CondNode.js';
+import MathNode from 'three/examples/jsm/nodes/math/MathNode';
+import OperatorNode from 'three/examples/jsm/nodes/math/OperatorNode';
+import CondNode from 'three/examples/jsm/nodes/math/CondNode';
 
 // utils
-import ArrayElementNode from 'three/examples/jsm/nodes/utils/ArrayElementNode.js';
-import ConvertNode from 'three/examples/jsm/nodes/utils/ConvertNode.js';
+import ArrayElementNode from 'three/examples/jsm/nodes/utils/ArrayElementNode';
+import ConvertNode from 'three/examples/jsm/nodes/utils/ConvertNode';
 
 // shader node utils
 import {
@@ -64,7 +64,7 @@ import {
     cacheMaps,
     NodeOrType,
     NodeRepresentation,
-} from 'three/examples/jsm/nodes/shadernode/ShaderNode.js';
+} from 'three/examples/jsm/nodes/shadernode/ShaderNode';
 import { NodeTypeOption, NodeUserData } from 'three/examples/jsm/nodes/Nodes';
 import { Material } from 'three/src/materials/Material';
 
@@ -169,7 +169,7 @@ export const metalness = nodeImmutable(PropertyNode, 'Metalness', 'float');
 export const alphaTest = nodeImmutable(PropertyNode, 'AlphaTest', 'float');
 export const specularColor = nodeImmutable(PropertyNode, 'SpecularColor', 'color');
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export const reference = <T>(name: string, nodeOrType: NodeOrType, object: T) =>
     nodeObject(new ReferenceNode<T>(name, getConstNodeType(nodeOrType)!, object));
 export const materialReference = (name: string, nodeOrType: NodeOrType, material: Material) =>
@@ -181,7 +181,6 @@ export const modelViewProjection = nodeProxy(ModelViewProjectionNode);
 
 export const normalGeometry = nodeImmutable(NormalNode, NormalNode.GEOMETRY);
 export const normalLocal = nodeImmutable(NormalNode, NormalNode.LOCAL);
-export const normalWorld = nodeImmutable(NormalNode, NormalNode.WORLD);
 export const normalView = nodeImmutable(NormalNode, NormalNode.VIEW);
 export const transformedNormalView = nodeImmutable(VarNode, normalView, 'TransformedNormalView');
 
@@ -260,7 +259,6 @@ export const negate = nodeProxy(MathNode, MathNode.NEGATE);
 export const invert = nodeProxy(MathNode, MathNode.INVERT);
 export const dFdx = nodeProxy(MathNode, MathNode.DFDX);
 export const dFdy = nodeProxy(MathNode, MathNode.DFDY);
-export const saturate = nodeProxy(MathNode, MathNode.SATURATE);
 export const round = nodeProxy(MathNode, MathNode.ROUND);
 
 export const atan2 = nodeProxy(MathNode, MathNode.ATAN2);
@@ -279,7 +277,8 @@ export const pow4 = nodeProxy(MathNode, MathNode.POW, 4);
 export const transformDirection = nodeProxy(MathNode, MathNode.TRANSFORM_DIRECTION);
 
 export const mix = nodeProxy(MathNode, MathNode.MIX);
-export const clamp = nodeProxy(MathNode, MathNode.CLAMP);
+export const clamp = (value: NodeRepresentation, low: NodeRepresentation = 1, high: NodeRepresentation = 1) =>
+    nodeObject(new MathNode(MathNode.CLAMP, nodeObject(value), nodeObject(low), nodeObject(high)));
 export const refract = nodeProxy(MathNode, MathNode.REFRACT);
 export const smoothstep = nodeProxy(MathNode, MathNode.SMOOTHSTEP);
 export const faceforward = nodeProxy(MathNode, MathNode.FACEFORWARD);
@@ -297,5 +296,5 @@ export const element = nodeProxy(ArrayElementNode);
 
 // miscellaneous
 
-export const dotNV = saturate(dot(transformedNormalView, positionViewDirection));
+export const dotNV = clamp(dot(transformedNormalView, positionViewDirection));
 export const transformedNormalWorld = normalize(transformDirection(transformedNormalView, cameraViewMatrix));

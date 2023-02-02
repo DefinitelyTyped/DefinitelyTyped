@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { Provider, IdToken } from 'ltijs';
+import { Provider, IdToken, DeploymentOptions } from 'ltijs';
 
-const ltiMinimal = new Provider('EXAMPLEKEY', {
+const ltiMinimal = Provider.setup('EXAMPLEKEY', {
     url: 'mongodb://localhost/database',
 });
 
@@ -29,7 +29,7 @@ const idToken: IdToken = {
     },
 };
 
-const ltiAdvanced = new Provider(
+const ltiAdvanced = Provider.setup(
     'EXAMPLEKEY',
     {
         url: 'mongodb://localhost/database',
@@ -86,8 +86,9 @@ ltiAdvanced.onDeepLinking((connection, request, response) => {
     ltiAdvanced.redirect(response, '/deeplink');
 });
 
+const deploymentOptions: DeploymentOptions = { serverless: true };
 // $ExpectType Promise<true | undefined>
-ltiMinimal.deploy({ serverless: true });
+ltiMinimal.deploy(deploymentOptions);
 
 // $ExpectType Promise<true | undefined>
 ltiAdvanced.deploy({ port: 4040, silent: true });

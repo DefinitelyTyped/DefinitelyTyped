@@ -708,6 +708,23 @@ export class CookieJar {
      * @param options - Optional settings.
      */
     set(url: string, name: string, value: string, options?: CookieOptions | null): void;
+
+    /**
+     * Delete all cookies for the given URL.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-clear
+     * @param url - URL to delete all cookies for.
+     */
+
+    clear(url: string): void;
+
+    /**
+     * Deletes specific cookie by name for the given URL.
+     * https://k6.io/docs/javascript-api/k6-http/cookiejar/cookiejar-delete/
+     * @param url - URL to delete cookie for.
+     * @param name - Cookie name to delete.
+     */
+
+    delete(url: string, name: string): void;
 }
 
 /**

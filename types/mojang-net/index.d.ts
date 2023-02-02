@@ -9,14 +9,15 @@
    ***************************************************************************** */
 /**
  * The `mojang-net` module contains types for executing
- * HTTP-based requests.
+ * HTTP-based requests. This module can only be used on Bedrock
+ * Dedicated Server.
  *
  * Manifest Details
  * ```json
  * {
  *   // mojang-net
  *   "uuid": "777b1798-13a6-401c-9cba-0cf17e31a81b",
- *   "version": [ 0, 1, 0 ]
+ *   "version": "1.0.0-beta"
  * }
  * ```
  *
@@ -95,7 +96,7 @@ export class HttpHeader {
     /**
      * Value of the HTTP header.
      */
-    'value': string;
+    'value': mojangminecraftserveradmin.SecretString | string;
     constructor(key: string, value: mojangminecraftserveradmin.SecretString | string);
 }
 /**
@@ -116,8 +117,8 @@ export class HttpRequest {
      */
     'method': HttpRequestMethod;
     /**
-     * Amount of time, in seconds, before the request times
-     * out and is abandoned.
+     * Amount of time, in seconds, before the request times out and
+     * is abandoned.
      */
     'timeout': number;
     /**
@@ -131,7 +132,7 @@ export class HttpRequest {
      * @param key
      * @param value
      */
-    addHeader(key: string, value: string): HttpRequest;
+    addHeader(key: string, value: mojangminecraftserveradmin.SecretString | string): HttpRequest;
     constructor(uri: string);
     setBody(body: string): HttpRequest;
     /**
@@ -157,7 +158,7 @@ export class HttpResponse {
      */
     readonly 'headers': HttpHeader[];
     /**
-     * The HTTP request that corresponds to the HTTP response
+     * Information that was used to formulate the HTTP response
      * that this object represents.
      */
     readonly 'request': HttpRequest;

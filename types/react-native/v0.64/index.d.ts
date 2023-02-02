@@ -26,7 +26,6 @@
 //                 Xianming Zhong <https://github.com/chinesedfan>
 //                 Valentyn Tolochko <https://github.com/vtolochk>
 //                 Sergey Sychev <https://github.com/SychevSP>
-//                 Kelvin Chu <https://github.com/RageBill>
 //                 Daiki Ihara <https://github.com/sasurau4>
 //                 Abe Dolinger <https://github.com/256hz>
 //                 Dominique Richard <https://github.com/doumart>
@@ -948,6 +947,11 @@ export interface TextPropsIOS {
 }
 
 export interface TextPropsAndroid {
+    /**
+     * Specifies the disabled state of the text view for testing purposes.
+     */
+    disabled?: boolean | undefined;
+
     /**
      * Lets the user select text, to use the native copy and paste functionality.
      */
@@ -5023,7 +5027,7 @@ export interface TouchableWithoutFeedbackPropsAndroid {
      *
      * @platform android
      */
-    touchSoundDisabled?: boolean | null | undefined;
+    touchSoundDisabled?: boolean | undefined;
 }
 
 /**
@@ -5053,7 +5057,7 @@ export interface TouchableWithoutFeedbackProps
     /**
      * If true, disable all interactions for this component.
      */
-    disabled?: boolean | null | undefined;
+    disabled?: boolean | undefined;
 
     /**
      * This defines how far your touch can start away from the button.
@@ -8441,9 +8445,11 @@ export interface SwitchPropsIOS extends ViewProps {
     tintColor?: ColorValue | undefined;
 }
 
-export interface SwitchChangeEvent extends React.SyntheticEvent {
-    value: boolean
+export interface SwitchChangeEventData extends TargetedEvent {
+  value: boolean;
 }
+
+export interface SwitchChangeEvent extends NativeSyntheticEvent<SwitchChangeEventData> {}
 
 export interface SwitchProps extends SwitchPropsIOS {
     /**

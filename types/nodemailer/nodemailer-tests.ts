@@ -66,6 +66,7 @@ function nodemailer_test() {
             subject: 'Hello ✔', // Subject line
             text: 'Hello world?', // plain text body
             html: '<b>Hello world?</b>', // html body
+            attachDataUrls: false,
         };
 
         // send mail with defined transport object

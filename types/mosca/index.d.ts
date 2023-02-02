@@ -2,7 +2,6 @@
 // Project: https://github.com/mcollina/mosca
 // Definitions by: Joao Gabriel Gouveia <https://github.com/GabrielGouv>
 //                 Jerray Fu <https://github.com/jerray>
-//                 Ran <https://github.com/ranto2012>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO add detailed definition.

@@ -72,7 +72,7 @@ const configFilePathInSpecificPath = prettier.resolveConfigFile.sync('/path');
 
 prettier.clearConfigCache();
 
-const currentSupportInfo = prettier.getSupportInfo();
+prettier.getSupportInfo(); // $ExpectType SupportInfo
 
 prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel' });
 // @ts-expect-error
@@ -82,6 +82,7 @@ prettierStandalone.formatWithCursor(' 1', { cursorOffset: 2, parser: 'babel', ra
 
 prettierStandalone.format(' 1', { parser: 'babel' });
 prettierStandalone.check(' console.log(b)');
+prettierStandalone.getSupportInfo(); // $ExpectType SupportInfo
 
 angularParser.parsers.__ng_action.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
 babelParser.parsers.babel.parse; // $ExpectType (text: string, parsers: { [parserName: string]: Parser<any>; }, options: ParserOptions<any>) => any
@@ -195,6 +196,21 @@ const plugin: prettier.Plugin<PluginAST> = {
             default: [{ value: [3, 8, 12] }],
             array: true,
             description: 'This is a number.',
+        },
+        testStringOption: {
+            since: '1.0.0',
+            type: 'string',
+            category: 'Test',
+            default: 'default',
+            description: 'This is a string.',
+        },
+        testStringArrOption: {
+            since: '1.0.0',
+            type: 'string',
+            category: 'Test',
+            default: [{ value: ['one', 'two', 'three'] }],
+            array: true,
+            description: 'This is a string.',
         },
         testChoiceOption: {
             since: '1.0.3',

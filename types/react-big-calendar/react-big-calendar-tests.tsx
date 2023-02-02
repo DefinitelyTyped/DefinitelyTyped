@@ -152,14 +152,14 @@ class CalendarResource {
         />
     );
 
-    const localizer = luxonLocalizer(luxonConfig);
+    const localizer = luxonLocalizer(luxonConfig, { firstDayOfWeek: 0 });
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
 
 // Drag and Drop Example Test
 {
-    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> { }
 
     interface Props {
         localizer: DateLocalizer;
@@ -266,7 +266,7 @@ class CalendarResource {
 }
 
 {
-    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> {}
+    class MyCalendar extends Calendar<CalendarEvent, CalendarResource> { }
 
     // Full API Example Test - based on API Documentation
     // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
@@ -279,15 +279,15 @@ class CalendarResource {
                     getNow={() => new Date()}
                     view={'day'}
                     events={getEvents()}
-                    onNavigate={(newDate: Date, view: View, action: NavigateAction) => {}}
-                    onView={(view: View) => {}}
+                    onNavigate={(newDate: Date, view: View, action: NavigateAction) => { }}
+                    onView={(view: View) => { }}
                     onSelectSlot={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
                         const slots = slotInfo.slots;
                     }}
-                    onSelectEvent={event => {}}
-                    onKeyPressEvent={event => {}}
+                    onSelectEvent={event => { }}
+                    onKeyPressEvent={event => { }}
                     onSelecting={slotInfo => {
                         const start = slotInfo.start;
                         const end = slotInfo.end;
@@ -315,6 +315,7 @@ class CalendarResource {
                     min={new Date()}
                     max={new Date()}
                     scrollToTime={new Date()}
+                    enableAutoScroll={false}
                     formats={{
                         dateFormat: 'h a',
                         agendaDateFormat: (date: Date, culture?: Culture, localizer?: DateLocalizer) => 'some-format',
@@ -662,4 +663,20 @@ class MyDay extends Day {
     const DAYView = () => <Calendar defaultView={Views.DAY} localizer={localizer} />;
 
     const AgendaView = () => <Calendar defaultView={Views.AGENDA} localizer={localizer} />;
+}
+
+// DateLocalizer API
+{
+    const localizer = luxonLocalizer(moment);
+    const date = new Date(2022, 11, 1);
+
+    // $ExpectType StartOfWeek
+    const firstOfWeek = localizer.startOfWeek('en');
+    // $ExpectType Date
+    localizer.startOf(date, 'week', firstOfWeek);
+    // $ExpectType Date
+    localizer.endOf(date, 'week', firstOfWeek);
+
+    // $ExpectType Date[]
+    localizer.range(new Date(2022, 11, 1), new Date(2022, 11, 3));
 }

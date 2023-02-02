@@ -4,6 +4,18 @@ import { assertType } from './lib/assert';
 import RSVP from 'rsvp';
 import { Point } from './transform';
 
+enum MyEnum {
+    hello,
+    there,
+}
+
+class Hello extends DS.Model {
+    @DS.attr('enum', { allowedValues: MyEnum }) declare myEnum: MyEnum;
+}
+
+const hello = Hello.create();
+assertType<MyEnum>(hello.get('myEnum'));
+
 const Person = DS.Model.extend({
     firstName: DS.attr(),
     lastName: DS.attr(),

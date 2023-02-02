@@ -87,7 +87,10 @@ path.extname('index');
 // returns
 //        ['foo', 'bar', 'baz']
 
-process.env["PATH"]; // $ExpectType string | undefined
+// $ExpectType "folder\\file.png" | "folder/file.png"
+const string = `folder${path.sep}file.png` as const; // tslint:disable-line:no-unnecessary-type-assertion
+
+process.env['PATH']; // $ExpectType string | undefined
 
 path.parse('/home/user/dir/file.txt');
 // returns

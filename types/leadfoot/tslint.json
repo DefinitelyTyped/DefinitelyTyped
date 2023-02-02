@@ -10,7 +10,6 @@
         "no-padding": false,
         "no-self-import": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false

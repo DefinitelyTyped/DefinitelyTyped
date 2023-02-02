@@ -3,7 +3,6 @@
     "rules": {
         "no-consecutive-blank-lines": false,
         "npm-naming": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

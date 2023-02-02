@@ -14,7 +14,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

@@ -72,6 +72,6 @@ export interface ResizableBoxState {
     width: number;
 }
 
-export type ResizableBoxProps = ResizableProps;
+export type ResizableBoxProps = ResizableProps & { style?: React.CSSProperties };
 
 export class ResizableBox extends React.Component<ResizableBoxProps, ResizableBoxState> {}

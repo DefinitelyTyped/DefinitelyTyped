@@ -89,6 +89,8 @@ str = e.toString();
 e.translate(n, n);
 
 g.apply({filter: Geometry => {}});
+g = g.buffer(n);
+g = g.buffer(n, n);
 g = g.buffer(n, n, n);
 if (g instanceof jsts.geom.Polygon) {
   poly = g;
@@ -152,6 +154,7 @@ str = g.toString();
 bool = g.touches(g);
 g = g.union(g);
 bool = g.within(g);
+n = g.hashCode();
 
 c = ls.getCoordinateN(n);
 p = ls.getEndPoint();

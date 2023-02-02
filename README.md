@@ -53,9 +53,9 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 4.0 and above are tested...</summary>
+<summary>Currently versions 4.1 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.9, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 4.0, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -370,7 +370,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
   Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
   Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
 * `var foo: string | any`:
   When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.

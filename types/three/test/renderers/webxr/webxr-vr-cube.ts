@@ -23,12 +23,13 @@ async function onSessionStarted(session: XRSession): Promise<void> {
     currentSession = session;
 }
 
-function onSessionEnded(): void {
+async function onSessionEnded(): Promise<void> {
     if (currentSession == null) {
         return;
     }
 
     currentSession.removeEventListener('end', onSessionEnded);
+    await renderer.xr.setSession(null);
     vrButton.innerText = 'Enter VR';
 
     currentSession = null;

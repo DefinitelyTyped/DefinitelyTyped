@@ -47,6 +47,18 @@ class Example extends React.Component {
             Login with Facebook
           </Text>
         </FontAwesomeIcon.Button>
+
+        {/* FA5 Icon button with solid  */}
+        <FontAwesome5Icon.Button
+          backgroundColor="#3b5998"
+          name="facebook"
+          onPress={() => this.handleButton()}
+          solid
+        >
+          <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>
+            Login with Facebook
+          </Text>
+        </FontAwesome5Icon.Button>
       </View>
     );
   }

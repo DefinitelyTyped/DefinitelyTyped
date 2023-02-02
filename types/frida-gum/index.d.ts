@@ -1,9 +1,9 @@
-// Type definitions for non-npm package frida-gum 18.1
+// Type definitions for non-npm package frida-gum 18.3
 // Project: https://github.com/frida/frida
 // Definitions by: Ole André Vadla Ravnås <https://github.com/oleavr>
 //                 Francesco Tamagni <https://github.com/mrmacete>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+// Minimum TypeScript Version: 4.4
 
 /**
  * Returns a hexdump of the provided ArrayBuffer or NativePointerValue target.
@@ -177,6 +177,48 @@ declare namespace Script {
     const runtime: ScriptRuntime;
 
     /**
+     * Evaluates the given JavaScript `source` in the global scope. Useful for
+     * agents that want to support loading user-provided scripts inside their
+     * own script. The two benefits over simply using `eval()` is that the
+     * script filename can be provided, and source maps are supported — both
+     * inline and through `Script.registerSourceMap()`.
+     *
+     * @param name Name used in future stack traces, e.g. `/plugins/tty.js`.
+     * @param source JavaScript source code to be evaluated.
+     * @returns The resulting value of the evaluated code.
+     */
+    function evaluate(name: string, source: string): any;
+
+    /**
+     * Compiles and evaluates the given JavaScript `source` as an ES module.
+     * Useful for agents that want to support loading user-provided scripts
+     * inside their own script. This API offers the same benefits over `eval()`
+     * as `Script.evaluate()`, in addition to encapsulating the user-provided
+     * code in its own ES module. This means values may be exported, and
+     * subsequently imported by other modules. The parent script may also export
+     * values that can be imported from the loaded child script. This requires
+     * that the parent uses the new ES module bundle format used by newer
+     * versions of frida-compile.
+     *
+     * @param name UNIX-style virtual filesystem name visible to other modules,
+     *             e.g. `/plugins/screenshot.js`.
+     * @param source JavaScript source code.
+     * @returns The module's namespace object.
+     */
+    function load(name: string, source: string): Promise<{ [name: string | symbol]: any }>;
+
+    /**
+     * Registers a source map for the specified script `name`. Should ideally
+     * be called before the given script gets loaded, so stack traces created
+     * during load can make use of the source map.
+     *
+     * @param name Name of the script that the source map is for, e.g.
+     *             `/plugins/screenshot.js`.
+     * @param json Source map contents as JSON.
+     */
+    function registerSourceMap(name: string, json: string): void;
+
+    /**
      * Runs `func` on the next tick, i.e. when the current native thread exits
      * the JavaScript runtime. Any additional `params` are passed to it.
      */
@@ -234,7 +276,7 @@ declare namespace Script {
     function setGlobalAccessHandler(handler: GlobalAccessHandler | null): void;
 }
 
-type ScriptRuntime = "DUK" | "V8";
+type ScriptRuntime = "QJS" | "V8";
 
 type WeakRefCallback = () => void;
 
@@ -1817,7 +1859,7 @@ type SchedulingBehavior = "cooperative" | "exclusive";
 
 type ExceptionsBehavior = "steal" | "propagate";
 
-type CodeTraps = "default" | "all";
+type CodeTraps = "default" | "none" | "all";
 
 type CpuContext = PortableCpuContext | Ia32CpuContext | X64CpuContext | ArmCpuContext | Arm64CpuContext | MipsCpuContext;
 
@@ -1862,6 +1904,8 @@ interface X64CpuContext extends PortableCpuContext {
 }
 
 interface ArmCpuContext extends PortableCpuContext {
+    cpsr: number;
+
     r0: NativePointer;
     r1: NativePointer;
     r2: NativePointer;
@@ -1878,9 +1922,94 @@ interface ArmCpuContext extends PortableCpuContext {
     r12: NativePointer;
 
     lr: NativePointer;
+
+    q0: ArrayBuffer;
+    q1: ArrayBuffer;
+    q2: ArrayBuffer;
+    q3: ArrayBuffer;
+    q4: ArrayBuffer;
+    q5: ArrayBuffer;
+    q6: ArrayBuffer;
+    q7: ArrayBuffer;
+    q8: ArrayBuffer;
+    q9: ArrayBuffer;
+    q10: ArrayBuffer;
+    q11: ArrayBuffer;
+    q12: ArrayBuffer;
+    q13: ArrayBuffer;
+    q14: ArrayBuffer;
+    q15: ArrayBuffer;
+
+    d0: number;
+    d1: number;
+    d2: number;
+    d3: number;
+    d4: number;
+    d5: number;
+    d6: number;
+    d7: number;
+    d8: number;
+    d9: number;
+    d10: number;
+    d11: number;
+    d12: number;
+    d13: number;
+    d14: number;
+    d15: number;
+    d16: number;
+    d17: number;
+    d18: number;
+    d19: number;
+    d20: number;
+    d21: number;
+    d22: number;
+    d23: number;
+    d24: number;
+    d25: number;
+    d26: number;
+    d27: number;
+    d28: number;
+    d29: number;
+    d30: number;
+    d31: number;
+
+    s0: number;
+    s1: number;
+    s2: number;
+    s3: number;
+    s4: number;
+    s5: number;
+    s6: number;
+    s7: number;
+    s8: number;
+    s9: number;
+    s10: number;
+    s11: number;
+    s12: number;
+    s13: number;
+    s14: number;
+    s15: number;
+    s16: number;
+    s17: number;
+    s18: number;
+    s19: number;
+    s20: number;
+    s21: number;
+    s22: number;
+    s23: number;
+    s24: number;
+    s25: number;
+    s26: number;
+    s27: number;
+    s28: number;
+    s29: number;
+    s30: number;
+    s31: number;
 }
 
 interface Arm64CpuContext extends PortableCpuContext {
+    nzcv: number;
+
     x0: NativePointer;
     x1: NativePointer;
     x2: NativePointer;
@@ -1913,6 +2042,105 @@ interface Arm64CpuContext extends PortableCpuContext {
 
     fp: NativePointer;
     lr: NativePointer;
+
+    q0: ArrayBuffer;
+    q1: ArrayBuffer;
+    q2: ArrayBuffer;
+    q3: ArrayBuffer;
+    q4: ArrayBuffer;
+    q5: ArrayBuffer;
+    q6: ArrayBuffer;
+    q7: ArrayBuffer;
+    q8: ArrayBuffer;
+    q9: ArrayBuffer;
+    q10: ArrayBuffer;
+    q11: ArrayBuffer;
+    q12: ArrayBuffer;
+    q13: ArrayBuffer;
+    q14: ArrayBuffer;
+    q15: ArrayBuffer;
+    q16: ArrayBuffer;
+    q17: ArrayBuffer;
+    q18: ArrayBuffer;
+    q19: ArrayBuffer;
+    q20: ArrayBuffer;
+    q21: ArrayBuffer;
+    q22: ArrayBuffer;
+    q23: ArrayBuffer;
+    q24: ArrayBuffer;
+    q25: ArrayBuffer;
+    q26: ArrayBuffer;
+    q27: ArrayBuffer;
+    q28: ArrayBuffer;
+    q29: ArrayBuffer;
+    q30: ArrayBuffer;
+    q31: ArrayBuffer;
+
+    d0: number;
+    d1: number;
+    d2: number;
+    d3: number;
+    d4: number;
+    d5: number;
+    d6: number;
+    d7: number;
+    d8: number;
+    d9: number;
+    d10: number;
+    d11: number;
+    d12: number;
+    d13: number;
+    d14: number;
+    d15: number;
+    d16: number;
+    d17: number;
+    d18: number;
+    d19: number;
+    d20: number;
+    d21: number;
+    d22: number;
+    d23: number;
+    d24: number;
+    d25: number;
+    d26: number;
+    d27: number;
+    d28: number;
+    d29: number;
+    d30: number;
+    d31: number;
+
+    s0: number;
+    s1: number;
+    s2: number;
+    s3: number;
+    s4: number;
+    s5: number;
+    s6: number;
+    s7: number;
+    s8: number;
+    s9: number;
+    s10: number;
+    s11: number;
+    s12: number;
+    s13: number;
+    s14: number;
+    s15: number;
+    s16: number;
+    s17: number;
+    s18: number;
+    s19: number;
+    s20: number;
+    s21: number;
+    s22: number;
+    s23: number;
+    s24: number;
+    s25: number;
+    s26: number;
+    s27: number;
+    s28: number;
+    s29: number;
+    s30: number;
+    s31: number;
 }
 
 interface MipsCpuContext extends PortableCpuContext {
@@ -4532,6 +4760,19 @@ declare namespace Java {
      */
     const androidVersion: string;
 
+    const ACC_PUBLIC: number;
+    const ACC_PRIVATE: number;
+    const ACC_PROTECTED: number;
+    const ACC_STATIC: number;
+    const ACC_FINAL: number;
+    const ACC_SYNCHRONIZED: number;
+    const ACC_BRIDGE: number;
+    const ACC_VARARGS: number;
+    const ACC_NATIVE: number;
+    const ACC_ABSTRACT: number;
+    const ACC_STRICT: number;
+    const ACC_SYNTHETIC: number;
+
     /**
      * Calls `func` with the `obj` lock held.
      *
@@ -4634,7 +4875,7 @@ declare namespace Java {
      * @param className Name of class to enumerate instances of.
      * @param callbacks Object with callbacks.
      */
-    function choose(className: string, callbacks: ChooseCallbacks): void;
+    function choose<T extends Members<T> = {}>(className: string, callbacks: ChooseCallbacks<T>): void;
 
     /**
      * Duplicates a JavaScript wrapper for later use outside replacement method.
@@ -4820,6 +5061,11 @@ declare namespace Java {
         signature: string;
 
         /**
+         * Where the code is from, i.e. the filesystem path to the `.dex` on Android.
+         */
+        origin: string;
+
+        /**
          * Class name that method belongs to, e.g. `"android.os.Looper"`.
          */
         className: string;
@@ -4828,6 +5074,11 @@ declare namespace Java {
          * Method name, e.g. `"loopOnce"`.
          */
         methodName: string;
+
+        /**
+         * Method flags. E.g. `Java.ACC_PUBLIC | Java.ACC_STATIC`.
+         */
+        methodFlags: number;
 
         /**
          * Source file name, e.g. `"Looper.java"`.
@@ -5212,7 +5463,7 @@ declare namespace Java {
          * @param className Name of class to enumerate instances of.
          * @param callbacks Object with callbacks.
          */
-        choose(className: string, callbacks: ChooseCallbacks): void;
+        choose<T extends Members<T> = {}>(className: string, callbacks: ChooseCallbacks<T>): void;
 
         /**
          * Duplicates a JavaScript wrapper for later use outside replacement method.

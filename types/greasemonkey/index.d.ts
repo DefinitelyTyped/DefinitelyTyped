@@ -10,12 +10,14 @@
 
 declare namespace GM {
     interface ScriptInfo {
+        /** Possibly empty string. */
         description: string;
         excludes: string[];
         includes: string[];
         matches: string[];
         name: string;
-        namespace?: string | undefined;
+        /** Possibly empty string. */
+        namespace: string;
         /**
          * An object keyed by resource name.
          * Each value is an object with keys `name` and `mimetype` and `url`
@@ -31,6 +33,7 @@ declare namespace GM {
         /** @default 'end' */
         runAt: 'start' | 'end' | 'idle';
         uuid: string;
+         /** Possibly empty string. */
         version: string;
     }
 
@@ -213,10 +216,13 @@ declare var GM: {
      * // For structured data used `JSON.stringify()` to place an object into storage and then `JSON.parse()` to convert it back
      * const storedObject = JSON.parse(await GM.getValue('foo', '{}'));
      */
+    getValue(
+        name: string,
+    ): Promise<GM.Value | undefined>
     getValue<TValue = GM.Value>(
         name: string,
-        defaultValue?: TValue
-    ): Promise<TValue | undefined>
+        defaultValue: TValue
+    ): Promise<TValue>
 
     /**
      * Deletes an existing name / value pair from storage.

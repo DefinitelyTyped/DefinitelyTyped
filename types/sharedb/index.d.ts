@@ -1,4 +1,4 @@
-// Type definitions for sharedb 3.0
+// Type definitions for sharedb 3.2
 // Project: https://github.com/share/sharedb
 // Definitions by: Steve Oney <https://github.com/soney>
 //                 Eric Hwang <https://github.com/ericyhwang>

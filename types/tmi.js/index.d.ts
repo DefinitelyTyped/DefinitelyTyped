@@ -375,7 +375,7 @@ export interface Options {
         port?: number | undefined;
         reconnect?: boolean | undefined;
         maxReconnectAttempts?: number | undefined;
-        maxReconnectInverval?: number | undefined;
+        maxReconnectInterval?: number | undefined;
         reconnectDecay?: number | undefined;
         reconnectInterval?: number | undefined;
         secure?: boolean | undefined;

@@ -121,10 +121,7 @@ export function testThatEntityIsFeatherItem(
     log: (message: string, status?: number) => void,
     targetLocation: mc.Location,
 ) {
-    const query = new mc.EntityQueryOptions();
-    query.type = 'item';
-    query.location = targetLocation;
-    const items = overworld.getEntities(query);
+    const items = overworld.getEntities();
 
     for (const item of items) {
         const itemComp = item.getComponent('item') as any;

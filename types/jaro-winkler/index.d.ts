@@ -1,6 +1,6 @@
 // Type definitions for jaro-winkler 0.2
 // Project: https://github.com/jordanthomas/jaro-winkler
-// Definitions by: akii0008 <https://github.com/akii0008>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

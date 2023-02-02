@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "interface-name": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

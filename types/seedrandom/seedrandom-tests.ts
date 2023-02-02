@@ -1,47 +1,48 @@
 import seedrandom = require('seedrandom');
-import {
-    alea,
-    Alea,
-    tychei,
-    Tychei,
-    xor128,
-    Xor128,
-    xor4096,
-    Xor4096,
-    xorshift7,
-    XorShift7,
-    xorwow,
-    XorWow,
-} from 'seedrandom';
+import { alea, tychei, xor128, xor4096, xorshift7, xorwow } from 'seedrandom';
 
-let prng = seedrandom('added entropy.', { entropy: true }); // $ExpectType PRNG
-prng = seedrandom('hello.', { global: true }); // $ExpectType PRNG
-prng = seedrandom('hello.'); // $ExpectType PRNG
-prng = seedrandom(); // $ExpectType PRNG
-
-prng = seedrandom.alea('hello.'); // $ExpectType PRNG
-prng = seedrandom.tychei('hello.'); // $ExpectType PRNG
-prng = seedrandom.xor128('hello.'); // $ExpectType PRNG
-prng = seedrandom.xor4096('hello.'); // $ExpectType PRNG
-prng = seedrandom.xorshift7('hello.'); // $ExpectType PRNG
-prng = seedrandom.xorwow('hello.'); // $ExpectType PRNG
-
-prng = alea('hello.'); // $ExpectType PRNG
-prng = tychei('hello.'); // $ExpectType PRNG
-prng = xor128('hello.'); // $ExpectType PRNG
-prng = xor4096('hello.'); // $ExpectType PRNG
-prng = xorshift7('hello.'); // $ExpectType PRNG
-prng = xorwow('hello.'); // $ExpectType PRNG
-
+const prng = seedrandom('added entropy.', { entropy: true }); // $ExpectType PRNG
 prng.double(); // $ExpectType number
 prng.int32(); // $ExpectType number
 prng.quick(); // $ExpectType number
-prng.state(); // $ExpectType object
+// @ts-expect-error seedrandom only provides internal state when explicitly requested
+prng.state;
 prng(); // $ExpectType number
 
-new Alea('hello.'); // $ExpectType PRNG
-new Tychei('hello.'); // $ExpectType PRNG
-new Xor128('hello.'); // $ExpectType PRNG
-new Xor4096('hello.'); // $ExpectType PRNG
-new XorShift7('hello.'); // $ExpectType PRNG
-new XorWow('hello.'); // $ExpectType PRNG
+const prngWithState = seedrandom('added entropy.', { entropy: true, state: true }); // $ExpectType StatefulPRNG
+prngWithState.double(); // $ExpectType number
+prngWithState.int32(); // $ExpectType number
+prngWithState.quick(); // $ExpectType number
+prngWithState.state(); // $ExpectType object
+prngWithState(); // $ExpectType number
+
+seedrandom('hello.', { state: {} }); // $ExpectType StatefulPRNG
+seedrandom('hello.', { global: true }); // $ExpectType PRNG
+seedrandom('hello.'); // $ExpectType PRNG
+seedrandom(); // $ExpectType PRNG
+
+new seedrandom.alea('hello.'); // $ExpectType PRNG
+new seedrandom.tychei('hello.'); // $ExpectType PRNG
+new seedrandom.xor128('hello.'); // $ExpectType PRNG
+new seedrandom.xor4096('hello.'); // $ExpectType PRNG
+new seedrandom.xorshift7('hello.'); // $ExpectType PRNG
+new seedrandom.xorwow('hello.'); // $ExpectType PRNG
+seedrandom.alea('hello.', { entropy: true }); // $ExpectType PRNG
+seedrandom.tychei('hello.', { entropy: true }); // $ExpectType PRNG
+seedrandom.xor128('hello.', { entropy: true }); // $ExpectType PRNG
+seedrandom.xor4096('hello.', { entropy: true }); // $ExpectType PRNG
+seedrandom.xorshift7('hello.', { entropy: true }); // $ExpectType PRNG
+seedrandom.xorwow('hello.', { entropy: true }); // $ExpectType PRNG
+
+new alea('hello.'); // $ExpectType PRNG
+new tychei('hello.'); // $ExpectType PRNG
+new xor128('hello.'); // $ExpectType PRNG
+new xor4096('hello.'); // $ExpectType PRNG
+new xorshift7('hello.'); // $ExpectType PRNG
+new xorwow('hello.'); // $ExpectType PRNG
+alea('hello.', { entropy: true }); // $ExpectType PRNG
+tychei('hello.', { entropy: true }); // $ExpectType PRNG
+xor128('hello.', { entropy: true }); // $ExpectType PRNG
+xor4096('hello.', { entropy: true }); // $ExpectType PRNG
+xorshift7('hello.', { entropy: true }); // $ExpectType PRNG
+xorwow('hello.', { entropy: true }); // $ExpectType PRNG

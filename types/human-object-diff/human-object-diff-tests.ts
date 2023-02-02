@@ -37,5 +37,5 @@ diffEngine.sentences; // $ExpectType string[]
 diffEngine.templates; // $ExpectType Record<TemplateType, string>
 if (diffEngine.config.prefilter) {
     const { prefilter } = diffEngine.config;
-    prefilter; // $ExpectType string[] | PathPredicate
+    prefilter; // $ExpectType string[] | PathPredicate || PathPredicate | string[]
 }

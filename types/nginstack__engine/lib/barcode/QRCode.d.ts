@@ -31,11 +31,11 @@ declare function toFile(
     options?: QRCodeOptions
 ): void;
 interface QRCodeOptions {
-    scale: number;
-    margin: number;
-    width: number;
-    errorCorrection: string;
-    lightColor: string;
-    darkColor: string;
-    ignoreContrastCheck: boolean;
+    scale?: number;
+    margin?: number;
+    width?: number;
+    errorCorrection?: string;
+    lightColor?: string;
+    darkColor?: string;
+    ignoreContrastCheck?: boolean;
 }

@@ -15,6 +15,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
+ * Compiles markdown to HTML asynchronously.
+ *
+ * @param src String of markdown source to be compiled
+ * @param options Hash of options, having async: true
+ * @return Promise of string of compiled HTML
+ */
+export function marked(src: string, options: marked.MarkedOptions & {async: true}): Promise<string>;
+
+/**
  * Compiles markdown to HTML synchronously.
  *
  * @param src String of markdown source to be compiled
@@ -24,7 +33,7 @@
 export function marked(src: string, options?: marked.MarkedOptions): string;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param callback Function called when the markdownString has been fully parsed when using async highlighting
@@ -32,7 +41,7 @@ export function marked(src: string, options?: marked.MarkedOptions): string;
 export function marked(src: string, callback: (error: any, parseResult: string) => void): void;
 
 /**
- * Compiles markdown to HTML asynchronously.
+ * Compiles markdown to HTML asynchronously with a callback.
  *
  * @param src String of markdown source to be compiled
  * @param options Hash of options
@@ -67,17 +76,35 @@ export namespace marked {
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, callback: (error: any, parseResult: string) => void): string;
+    function parse(src: string, callback: (error: any, parseResult: string) => void): void;
 
     /**
-     * Compiles markdown to HTML.
+     * Compiles markdown to HTML asynchronously.
      *
      * @param src String of markdown source to be compiled
-     * @param options Hash of options
+     * @param options Hash of options having async: true
+     * @return Promise of string of compiled HTML
+     */
+    function parse(src: string, options: MarkedOptions & {async: true}): Promise<string>;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
+     * @return String of compiled HTML
+     */
+    function parse(src: string, options?: MarkedOptions): string;
+
+    /**
+     * Compiles markdown to HTML synchronously.
+     *
+     * @param src String of markdown source to be compiled
+     * @param options Optional hash of options
      * @param callback Function called when the markdownString has been fully parsed when using async highlighting
      * @return String of compiled HTML
      */
-    function parse(src: string, options?: MarkedOptions, callback?: (error: any, parseResult: string) => void): string;
+    function parse(src: string, options: MarkedOptions, callback: (error: any, parseResult: string) => void): void;
 
     /**
      * @param src Tokenized source as array of tokens
@@ -478,7 +505,14 @@ export namespace marked {
         renderer: (this: RendererThis, token: Tokens.Generic) => string | false;
     }
 
+    type TokenizerAndRendererExtension = TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension);
+
     interface MarkedExtension {
+        /**
+         * True will tell marked to await any walkTokens functions before parsing the tokens and returning an HTML string.
+         */
+        async?: boolean;
+
         /**
          * A prefix URL for any relative link.
          */
@@ -493,7 +527,7 @@ export namespace marked {
          * Add tokenizers and renderers to marked
          */
         extensions?:
-            | Array<TokenizerExtension | RendererExtension | (TokenizerExtension & RendererExtension)>
+            | TokenizerAndRendererExtension[]
             | undefined;
 
         /**

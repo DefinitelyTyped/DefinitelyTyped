@@ -15,7 +15,7 @@
 export as namespace async;
 
 export interface Dictionary<T> { [key: string]: T; }
-export type IterableCollection<T> = T[] | IterableIterator<T> | Dictionary<T>;
+export type IterableCollection<T> = T[] | IterableIterator<T> | AsyncIterable<T> | Dictionary<T>;
 
 export interface ErrorCallback<E = Error> { (err?: E | null): void; }
 export interface AsyncBooleanResultCallback<E = Error> { (err?: E | null, truthValue?: boolean): void; }
@@ -247,12 +247,12 @@ export const eachOf: typeof forEachOf;
 export const eachOfSeries: typeof forEachOf;
 export const eachOfLimit: typeof forEachOfLimit;
 export function map<T, R, E = Error>(
-    arr: T[] | IterableIterator<T> | Dictionary<T>,
+    arr: IterableCollection<T>,
     iterator: (AsyncResultIterator<T, R, E> | AsyncResultIteratorPromise<T, R>),
     callback: AsyncResultArrayCallback<R, E>
     ): void;
 export function map<T, R, E = Error>(
-    arr: T[] | IterableIterator<T> | Dictionary<T>,
+    arr: IterableCollection<T>,
     iterator: (AsyncResultIterator<T, R, E> | AsyncResultIteratorPromise<T, R>)
     ): Promise<R[]>;
 

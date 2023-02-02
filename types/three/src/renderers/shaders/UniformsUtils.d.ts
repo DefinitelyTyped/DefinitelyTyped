@@ -1,4 +1,3 @@
-import { Uniform } from '../../core/Uniform';
 import { UniformsGroup } from '../../core/UniformsGroup';
 
 export function cloneUniforms(uniforms_src: any): any;

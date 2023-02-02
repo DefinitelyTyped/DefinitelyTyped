@@ -182,6 +182,11 @@ declare namespace BootstrapFileInput {
          */
         showUpload?: boolean | undefined;
         /**
+         * Whether to display the file browse button. Defaults to true
+         * @default true
+         */
+         showBrowse?: boolean | undefined;
+        /**
          * Whether to display the file upload cancel button.
          * @default true
          * This will be only enabled and displayed when an AJAX upload is in process.
@@ -878,6 +883,28 @@ declare namespace BootstrapFileInput {
          * @default true
          */
         showAjaxErrorDetails?: boolean | undefined;
+        /**
+         * whether to merge the ajax callback functions set in ajaxSettings with the default plugin callbacks for beforeSend, success, error, complete.
+         * @default false
+         * In addition to boolean false, the following string values can be set:
+         * 'before': when set to 'before', the ajax callbacks set in ajaxSettings will be merged before the default plugin callback.
+         * 'after': when set to 'after', the ajax callbacks set in ajaxSettings will be merged after the default plugin callback.
+         */
+        mergeAjaxCallbacks?: boolean | string;
+        /**
+         * whether to merge the ajax callback functions set in ajaxDeleteSettings with the default plugin callbacks for beforeSend, success, error, complete.
+         * @default false
+         * In addition to boolean false, the following string values can be set:
+         * 'before': when set to 'before', the ajax callbacks set in ajaxDeleteSettings will be merged before the default plugin callback.
+         * 'after': when set to 'after', the ajax callbacks set in ajaxDeleteSettings will be merged after the default plugin callback.
+         */
+         mergeAjaxDeleteCallbacks?: boolean | string;
+         /**
+          * whether the initial preview content set is to be parsed as data instead of raw markup.
+          * @default false
+          * for backward compatibility (prior to v4.3.2).
+          */
+         initialPreviewAsData?: boolean | undefined;
     }
 
     interface PreviewConfig {

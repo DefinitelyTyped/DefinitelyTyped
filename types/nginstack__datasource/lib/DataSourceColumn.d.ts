@@ -45,17 +45,34 @@ declare class DataSourceColumn {
     toString(): string;
 }
 declare namespace DataSourceColumn {
-    const AGGREGATE_NONE: string;
-    const AGGREGATE_SUM: string;
-    const AGGREGATE_COUNT: string;
-    const AGGREGATE_AVG: string;
-    const AGGREGATE_MAX: string;
-    const AGGREGATE_MIN: string;
-    const SORT_NONE: string;
-    const SORT_ASC: string;
-    const SORT_DESC: string;
-    const DIMENSION_SEP: string;
-    function colNameFromField(fld: any, prefix: string): string;
-    function fromField(fld: any, prefix: string): DataSourceColumn;
-    function getRootFromLeafNode(leafNode: number, opt_suggestedRoot: number): number;
+    export {
+        AGGREGATE_NONE,
+        AGGREGATE_SUM,
+        AGGREGATE_COUNT,
+        AGGREGATE_AVG,
+        AGGREGATE_MAX,
+        AGGREGATE_MIN,
+        SORT_NONE,
+        SORT_ASC,
+        SORT_DESC,
+        DIMENSION_SEP,
+        colNameFromField,
+        fromField,
+        getRootFromLeafNode,
+        Field,
+    };
 }
+declare var AGGREGATE_NONE: string;
+declare var AGGREGATE_SUM: string;
+declare var AGGREGATE_COUNT: string;
+declare var AGGREGATE_AVG: string;
+declare var AGGREGATE_MAX: string;
+declare var AGGREGATE_MIN: string;
+declare var SORT_NONE: string;
+declare var SORT_ASC: string;
+declare var SORT_DESC: string;
+declare var DIMENSION_SEP: string;
+declare function colNameFromField(fld: Field, prefix: string): string;
+declare function fromField(fld: Field, prefix: string): DataSourceColumn;
+declare function getRootFromLeafNode(leafNode: number, opt_suggestedRoot: number): number;
+type Field = import('@nginstack/engine/lib/classdef/Field');

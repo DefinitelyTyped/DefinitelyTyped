@@ -70,6 +70,7 @@ export {
     HasUpdatableSpread,
     InvalidationState,
     MissingFieldHandler,
+    RequiredFieldLogger,
     ModuleImportPointer,
     MutableRecordSource,
     NormalizationSelector,

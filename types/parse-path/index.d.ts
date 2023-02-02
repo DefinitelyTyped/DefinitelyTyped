@@ -1,4 +1,4 @@
-// Type definitions for parse-path 6.0
+// Type definitions for parse-path 7.0
 // Project: https://github.com/IonicaBizau/parse-path
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,10 @@ declare namespace parsePath {
          * @default ''
          */
         password: string;
+        /**
+         * Whether the parsing failed or not.
+         */
+        parse_failed: boolean;
         /** The url pathname. */
         pathname: string;
         /**

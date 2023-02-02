@@ -362,7 +362,7 @@ export interface EnergyDerDetailResponse {
      */
     approvedCapacity: number;
     /**
-     * The number of phases available for the installation of DER
+     * The number of phases available for the installation of DER. Acceptable values are 1, 2 or 3.
      */
     availablePhasesCount: number;
     /**
@@ -370,13 +370,13 @@ export interface EnergyDerDetailResponse {
      */
     hasCentralProtectionControl?: boolean | null;
     /**
-     * The number of phases that DER is connected to
+     * The number of phases that DER is connected to. Acceptable values are 1, 2 or 3.
      */
     installedPhasesCount: number;
     /**
      * For identification of small generating units designed with the ability to operate in an islanded mode
      */
-    islandableInstallation: string;
+    islandableInstallation: boolean;
     /**
      * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
      */
@@ -384,7 +384,7 @@ export interface EnergyDerDetailResponse {
       /**
        * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit
        */
-      exportLimitkva?: number | null;
+      exportLimitKva?: number | null;
       /**
        * Rate of change of frequency trip point (Hz/s).
        */
@@ -418,7 +418,7 @@ export interface EnergyDerDetailResponse {
        */
       sustainedOverVoltage?: number | null;
       /**
-       * Trip delay time in seconds.
+       * Sustained Over voltage protection delay in seconds.
        */
       sustainedOverVoltageDelay?: number | null;
       /**
@@ -552,7 +552,7 @@ export interface EnergyDerListResponse {
        */
       approvedCapacity: number;
       /**
-       * The number of phases available for the installation of DER
+       * The number of phases available for the installation of DER. Acceptable values are 1, 2 or 3.
        */
       availablePhasesCount: number;
       /**
@@ -560,13 +560,13 @@ export interface EnergyDerListResponse {
        */
       hasCentralProtectionControl?: boolean | null;
       /**
-       * The number of phases that DER is connected to
+       * The number of phases that DER is connected to. Acceptable values are 1, 2 or 3.
        */
       installedPhasesCount: number;
       /**
        * For identification of small generating units designed with the ability to operate in an islanded mode
        */
-      islandableInstallation: string;
+      islandableInstallation: boolean;
       /**
        * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
        */
@@ -574,7 +574,7 @@ export interface EnergyDerListResponse {
         /**
          * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit
          */
-        exportLimitkva?: number | null;
+        exportLimitKva?: number | null;
         /**
          * Rate of change of frequency trip point (Hz/s).
          */
@@ -608,7 +608,7 @@ export interface EnergyDerListResponse {
          */
         sustainedOverVoltage?: number | null;
         /**
-         * Trip delay time in seconds.
+         * Sustained Over voltage protection delay in seconds.
          */
         sustainedOverVoltageDelay?: number | null;
         /**
@@ -763,7 +763,7 @@ export interface EnergyDerRecord {
    */
   approvedCapacity: number;
   /**
-   * The number of phases available for the installation of DER
+   * The number of phases available for the installation of DER. Acceptable values are 1, 2 or 3.
    */
   availablePhasesCount: number;
   /**
@@ -771,13 +771,13 @@ export interface EnergyDerRecord {
    */
   hasCentralProtectionControl?: boolean | null;
   /**
-   * The number of phases that DER is connected to
+   * The number of phases that DER is connected to. Acceptable values are 1, 2 or 3.
    */
   installedPhasesCount: number;
   /**
    * For identification of small generating units designed with the ability to operate in an islanded mode
    */
-  islandableInstallation: string;
+  islandableInstallation: boolean;
   /**
    * Required only when the hasCentralProtectionAndControl flag is set to true.  One or more of the object fields will be provided to describe the protection modes in place
    */
@@ -785,7 +785,7 @@ export interface EnergyDerRecord {
     /**
      * Maximum amount of power (kVA) that may be exported from a connection point to the grid, as monitored by a control / relay function. An absent value indicates no limit
      */
-    exportLimitkva?: number | null;
+    exportLimitKva?: number | null;
     /**
      * Rate of change of frequency trip point (Hz/s).
      */
@@ -819,7 +819,7 @@ export interface EnergyDerRecord {
      */
     sustainedOverVoltage?: number | null;
     /**
-     * Trip delay time in seconds.
+     * Sustained Over voltage protection delay in seconds.
      */
     sustainedOverVoltageDelay?: number | null;
     /**
@@ -1704,7 +1704,7 @@ export interface EnergyServicePointListResponse {
 export interface EnergyUsageListResponse {
   data: {
     /**
-     * Array of meter reads
+     * Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order
      */
     reads: {
       /**
@@ -1734,35 +1734,43 @@ export interface EnergyUsageListResponse {
          */
         aggregateValue: number;
         /**
-         * Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
+         * Array of Interval read values. If positive then it means consumption, if negative it means export. Required when interval-reads query parameter equals FULL or  MIN_30.<br>Each read value indicates the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
          */
-        intervalReads: {
-          /**
-           * The quality of the read taken.  If absent then assumed to be ACTUAL
-           */
-          quality?: "ACTUAL" | "SUBSTITUTE" | "FINAL_SUBSTITUTE";
-          /**
-           * Interval value.  If positive then it means consumption, if negative it means export
-           */
-          value: number;
-          [k: string]: unknown;
-        }[];
+        intervalReads?: number[] | null;
         /**
-         * Read interval length in minutes
+         * Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30
          */
-        readIntervalLength: number;
+        readIntervalLength?: number | null;
+        /**
+         *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
+         */
+        readQualities?: {
+          /**
+           * End interval for read quality flag
+           */
+          endInterval: number;
+          /**
+           * The quality of the read taken
+           */
+          quality: "SUBSTITUTE" | "FINAL_SUBSTITUTE";
+          /**
+           * Start interval for read quality flag. First read begins at 1
+           */
+          startInterval: number;
+          [k: string]: unknown;
+        } | null;
         [k: string]: unknown;
       } | null;
       /**
        * Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.
        */
-      meterID?: string | null;
+      meterId?: string | null;
       /**
-       * Date time when the meter reads end.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate
+       * Date when the meter reads end in AEST.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate.
        */
       readEndDate?: string | null;
       /**
-       * Date time when the meter reads start
+       * Date when the meter reads start in AEST and assumed to start from 12:00 am AEST.
        */
       readStartDate: string;
       /**
@@ -1855,35 +1863,43 @@ export interface EnergyUsageRead {
      */
     aggregateValue: number;
     /**
-     * Array of reads with each element indicating the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
+     * Array of Interval read values. If positive then it means consumption, if negative it means export. Required when interval-reads query parameter equals FULL or  MIN_30.<br>Each read value indicates the read for the interval specified by readIntervalLength beginning at midnight of readStartDate (for example 00:00 to 00:30 would be the first reading in a 30 minute Interval)
      */
-    intervalReads: {
-      /**
-       * The quality of the read taken.  If absent then assumed to be ACTUAL
-       */
-      quality?: "ACTUAL" | "SUBSTITUTE" | "FINAL_SUBSTITUTE";
-      /**
-       * Interval value.  If positive then it means consumption, if negative it means export
-       */
-      value: number;
-      [k: string]: unknown;
-    }[];
+    intervalReads?: number[] | null;
     /**
-     * Read interval length in minutes
+     * Read interval length in minutes. Required when interval-reads query parameter equals FULL or MIN_30
      */
-    readIntervalLength: number;
+    readIntervalLength?: number | null;
+    /**
+     *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
+     */
+    readQualities?: {
+      /**
+       * End interval for read quality flag
+       */
+      endInterval: number;
+      /**
+       * The quality of the read taken
+       */
+      quality: "SUBSTITUTE" | "FINAL_SUBSTITUTE";
+      /**
+       * Start interval for read quality flag. First read begins at 1
+       */
+      startInterval: number;
+      [k: string]: unknown;
+    } | null;
     [k: string]: unknown;
   } | null;
   /**
    * Meter id/serial number as it appears in customer’s bill. ID permanence rules do not apply.
    */
-  meterID?: string | null;
+  meterId?: string | null;
   /**
-   * Date time when the meter reads end.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate
+   * Date when the meter reads end in AEST.  If absent then assumed to be equal to readStartDate.  In this case the entry represents data for a single date specified by readStartDate.
    */
   readEndDate?: string | null;
   /**
-   * Date time when the meter reads start
+   * Date when the meter reads start in AEST and assumed to start from 12:00 am AEST.
    */
   readStartDate: string;
   /**

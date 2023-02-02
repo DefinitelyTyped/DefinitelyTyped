@@ -309,7 +309,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   fill color.
          *   @param v1 red or hue value relative to the current
          *   color range
@@ -336,7 +336,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   fill color.
          *   @param value a color string
          *   @chainable
@@ -358,7 +358,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   fill color.
          *   @param gray a gray value
          *   @chainable
@@ -380,7 +380,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   fill color.
          *   @param values an array containing the
          *   red,green,blue & and alpha components of the color
@@ -403,7 +403,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   fill color.
          *   @param color the fill color
          *   @chainable
@@ -439,7 +439,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   stroke color.
          *   @param v1 red or hue value relative to the current
          *   color range
@@ -464,7 +464,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   stroke color.
          *   @param value a color string
          *   @chainable
@@ -484,7 +484,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   stroke color.
          *   @param gray a gray value
          *   @chainable
@@ -504,7 +504,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   stroke color.
          *   @param values an array containing the
          *   red,green,blue & and alpha components of the color
@@ -525,7 +525,7 @@ declare module '../../index' {
          *   as a second argument is not supported, the RGBA
          *   form should be used.
          *
-         *   A p5 Color object can also be provided to set the
+         *   A p5.Color object can also be provided to set the
          *   stroke color.
          *   @param color the stroke color
          *   @chainable

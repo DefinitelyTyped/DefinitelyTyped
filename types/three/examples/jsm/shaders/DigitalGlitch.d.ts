@@ -1,18 +1,18 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const DigitalGlitch: {
     uniforms: {
-        tDiffuse: Uniform;
-        tDisp: Uniform;
-        byp: Uniform;
-        amount: Uniform;
-        angle: Uniform;
-        seed: Uniform;
-        seed_x: Uniform;
-        seed_y: Uniform;
-        distortion_x: Uniform;
-        distortion_y: Uniform;
-        col_s: Uniform;
+        tDiffuse: IUniform;
+        tDisp: IUniform;
+        byp: IUniform;
+        amount: IUniform;
+        angle: IUniform;
+        seed: IUniform;
+        seed_x: IUniform;
+        seed_y: IUniform;
+        distortion_x: IUniform;
+        distortion_y: IUniform;
+        col_s: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

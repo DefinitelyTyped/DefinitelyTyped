@@ -40,6 +40,7 @@ interface OvenPlayerConfig {
     hlsConfig?: any;
     dashConfig?: any;
     sources?: OvenPlayerSource[] | OvenPlayerPlayList;
+    image?: string;
 }
 
 interface OvenPlayerWebRTCStream {

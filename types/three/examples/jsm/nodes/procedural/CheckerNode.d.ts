@@ -1,6 +1,6 @@
-import Node from '../core/Node';
+import TempNode from '../core/TempNode';
 
-export default class CheckerNode extends Node {
+export default class CheckerNode extends TempNode {
     uvNode: Node;
     constructor(uvNode?: Node);
 }

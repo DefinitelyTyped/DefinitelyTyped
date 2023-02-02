@@ -131,6 +131,16 @@ if (element) {
     element.addEventListener('glider-refresh', event => {
         // $ExpectType GliderEvent<undefined>
         event;
+
+        // $ExpectType boolean
+        event.bubbles;
+
+        event.target;
+
+        if (event.target) {
+            // $ExpectType Glider<HTMLDivElement> | undefined
+            event.target._glider;
+        }
     });
 
     element.addEventListener('glider-remove', event => {

@@ -166,6 +166,7 @@ export interface CopyResponseObject {
 export interface DownloadObject {
     content: Readable;
     meta: {
+        expectedSize: number;
         contentType: string;
         charset?: string;
         disposition?: string;

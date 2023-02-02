@@ -1,4 +1,3 @@
-
 import express = require('express');
 import cors = require('cors');
 
@@ -127,4 +126,3 @@ app.use(cors((req, cb) => {
 app.use(cors({
     preflightContinue: true,
 }));
-

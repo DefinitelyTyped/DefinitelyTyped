@@ -15,8 +15,5 @@ export class GridHelper extends LineSegments {
      */
     type: string;
 
-    /**
-     * @deprecated Colors should be specified in the constructor.
-     */
-    setColors(color1?: ColorRepresentation, color2?: ColorRepresentation): void;
+    dispose(): void;
 }

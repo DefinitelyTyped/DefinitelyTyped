@@ -25,6 +25,8 @@ import DateTimePicker from "sap/m/DateTimePicker";
 import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
+import CalendarUtils from "sap/ui/core/date/CalendarUtils";
+import PlanningCalendar from "sap/m/PlanningCalendar";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -160,14 +162,24 @@ oUploadDialog.open();
 
 const messagePage: MessagePage = new MessagePage();
 messagePage.setTitleLevel(TitleLevel.H1);
+const focusable = messagePage.isFocusable();
 
 const odataV4ListBinding = new ODataV4ListBinding();
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
 const context = odataV4ListBinding.getKeepAliveContext("x");
-(odataV4ListBinding.getModel() as ODataV4Model).delete("something");
+const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
+odataV4Model.delete("something");
+let eTagMap: Record<string, string | null>;
+eTagMap = odataV4Model.getMetaModel().getETags();
+odataV4Model.getKeyPredicate("some/path", {});
 
 const showTimeZone = DateFormatTimezoneDisplay.Show;
 
 const integer = NumberFormat.getIntegerInstance({
     strictGroupingValidation: true
 });
+
+const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();
+
+const pc = new PlanningCalendar();
+pc.getSecondaryCalendarType();

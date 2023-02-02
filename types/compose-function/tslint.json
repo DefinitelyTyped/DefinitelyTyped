@@ -3,7 +3,6 @@
     "rules": {
         "ban-types": false,
         "no-consecutive-blank-lines": false,
-        "semicolon": false,
-        "trim-file": false
+        "semicolon": false
     }
 }

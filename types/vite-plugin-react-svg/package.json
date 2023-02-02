@@ -1,6 +1,7 @@
 {
     "private": true,
     "dependencies": {
+        "@types/svgo": "2",
         "vite": "^2.3.8"
     }
 }

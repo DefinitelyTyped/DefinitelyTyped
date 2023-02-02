@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const VignetteShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        offset: Uniform;
-        darkness: Uniform;
+        tDiffuse: IUniform;
+        offset: IUniform;
+        darkness: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

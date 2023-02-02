@@ -9,7 +9,6 @@
         "no-var-keyword": false,
         "one-line": false,
         "prefer-const": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

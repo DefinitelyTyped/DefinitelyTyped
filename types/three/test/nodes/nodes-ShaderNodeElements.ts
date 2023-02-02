@@ -4,41 +4,42 @@
  */
 
 // accessors
-import CubeTextureNode from 'three/examples/jsm/nodes/accessors/CubeTextureNode.js';
-import InstanceNode from 'three/examples/jsm/nodes/accessors/InstanceNode.js';
-import ReflectVectorNode from 'three/examples/jsm/nodes/accessors/ReflectVectorNode.js';
-import SkinningNode from 'three/examples/jsm/nodes/accessors/SkinningNode.js';
+import CubeTextureNode from 'three/examples/jsm/nodes/accessors/CubeTextureNode';
+import InstanceNode from 'three/examples/jsm/nodes/accessors/InstanceNode';
+import ReflectVectorNode from 'three/examples/jsm/nodes/accessors/ReflectVectorNode';
+import SkinningNode from 'three/examples/jsm/nodes/accessors/SkinningNode';
 
 // display
-import ColorAdjustmentNode from 'three/examples/jsm/nodes/display/ColorAdjustmentNode.js';
-import ColorSpaceNode from 'three/examples/jsm/nodes/display/ColorSpaceNode.js';
-import NormalMapNode from 'three/examples/jsm/nodes/display/NormalMapNode.js';
-import ToneMappingNode from 'three/examples/jsm/nodes/display/ToneMappingNode.js';
+import ColorAdjustmentNode from 'three/examples/jsm/nodes/display/ColorAdjustmentNode';
+import ColorSpaceNode from 'three/examples/jsm/nodes/display/ColorSpaceNode';
+import NormalMapNode from 'three/examples/jsm/nodes/display/NormalMapNode';
+import ToneMappingNode from 'three/examples/jsm/nodes/display/ToneMappingNode';
+import ViewportNode from 'three/examples/jsm/nodes/display/ViewportNode';
 
 // lighting
-import LightsNode from 'three/examples/jsm/nodes/lighting/LightsNode.js';
-import LightingContextNode from 'three/examples/jsm/nodes/lighting/LightingContextNode.js';
+import LightsNode from 'three/examples/jsm/nodes/lighting/LightsNode';
+import LightingContextNode from 'three/examples/jsm/nodes/lighting/LightingContextNode';
 
 // utils
-import MatcapUVNode from 'three/examples/jsm/nodes/utils/MatcapUVNode.js';
-import MaxMipLevelNode from 'three/examples/jsm/nodes/utils/MaxMipLevelNode.js';
-import OscNode from 'three/examples/jsm/nodes/utils/OscNode.js';
-import RotateUVNode from 'three/examples/jsm/nodes/utils/RotateUVNode.js';
-import SpriteSheetUVNode from 'three/examples/jsm/nodes/utils/SpriteSheetUVNode.js';
-import TimerNode from 'three/examples/jsm/nodes/utils/TimerNode.js';
+import MatcapUVNode from 'three/examples/jsm/nodes/utils/MatcapUVNode';
+import MaxMipLevelNode from 'three/examples/jsm/nodes/utils/MaxMipLevelNode';
+import OscNode from 'three/examples/jsm/nodes/utils/OscNode';
+import RotateUVNode from 'three/examples/jsm/nodes/utils/RotateUVNode';
+import SpriteSheetUVNode from 'three/examples/jsm/nodes/utils/SpriteSheetUVNode';
+import TimerNode from 'three/examples/jsm/nodes/utils/TimerNode';
 
 // geometry
-import RangeNode, { RangeModeBound } from 'three/examples/jsm/nodes/geometry/RangeNode.js';
+import RangeNode, { RangeModeBound } from 'three/examples/jsm/nodes/geometry/RangeNode';
 
 // procedural
-import CheckerNode from 'three/examples/jsm/nodes/procedural/CheckerNode.js';
+import CheckerNode from 'three/examples/jsm/nodes/procedural/CheckerNode';
 
 // fog
-import FogNode from 'three/examples/jsm/nodes/fog/FogNode.js';
-import FogRangeNode from 'three/examples/jsm/nodes/fog/FogRangeNode.js';
+import FogNode from 'three/examples/jsm/nodes/fog/FogNode';
+import FogRangeNode from 'three/examples/jsm/nodes/fog/FogRangeNode';
 
 // shader node utils
-import { nodeObject, nodeProxy, nodeImmutable } from 'three/examples/jsm/nodes/shadernode/ShaderNode.js';
+import { nodeObject, nodeProxy, nodeImmutable } from 'three/examples/jsm/nodes/shadernode/ShaderNode';
 import { Node } from 'three/examples/jsm/nodes/Nodes';
 import { TextureEncoding, ToneMapping } from 'three/src/constants';
 import { Light } from 'three/src/Three';
@@ -70,6 +71,13 @@ export const colorSpace = (node: Node, encoding: TextureEncoding) =>
 export const normalMap = nodeProxy(NormalMapNode);
 export const toneMapping = (mapping: ToneMapping, exposure: Node, color: Node) =>
     nodeObject(new ToneMappingNode(mapping, nodeObject(exposure), nodeObject(color)));
+
+export const viewportCoordinate = nodeImmutable(ViewportNode, ViewportNode.COORDINATE);
+export const viewportResolution = nodeImmutable(ViewportNode, ViewportNode.RESOLUTION);
+export const viewportTopLeft = nodeImmutable(ViewportNode, ViewportNode.TOP_LEFT);
+export const viewportBottomLeft = nodeImmutable(ViewportNode, ViewportNode.BOTTOM_LEFT);
+export const viewportTopRight = nodeImmutable(ViewportNode, ViewportNode.TOP_RIGHT);
+export const viewportBottomRight = nodeImmutable(ViewportNode, ViewportNode.BOTTOM_RIGHT);
 
 // lighting
 

@@ -1,2 +1,6 @@
-declare function _exports(ds: any, fieldNames: string[]): any;
-export = _exports;
+export = getFirstFieldValue;
+declare function getFirstFieldValue(ds: DataSet, fieldNames: string[]): any;
+declare namespace getFirstFieldValue {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

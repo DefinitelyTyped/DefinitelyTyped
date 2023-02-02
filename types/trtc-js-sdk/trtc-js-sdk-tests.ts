@@ -83,7 +83,6 @@ client.setTurnServer({
     url: '192.168.0.110:3478',
     username: 'bob',
     credential: 'bobspassword',
-    credentialType: 'password',
 });
 
 client

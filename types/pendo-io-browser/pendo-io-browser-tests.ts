@@ -45,11 +45,13 @@ pendo.identify({
         id: "PUT_VISITOR_ID_HERE",
         name: "Neo",
         email: "neo@thematrix.io",
-        role: "godlike"
+        role: "godlike",
+        nullField: null,
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
-        name: "CorpSchmorp"
+        name: "CorpSchmorp",
+        nullField: null,
     }
 });
 
@@ -86,6 +88,13 @@ pendo.initialize({
             // Do something when pendo is initialized
         }
     }
+});
+
+pendo.initialize({
+    apiKey: 'YOUR_API_KEY',
+    visitor: { id: "" },
+    account: { id: "" },
+    sanitizeUrl: (url) => url.replace('sensitiveData', '')
 });
 
 pendo.track("User Registered", {

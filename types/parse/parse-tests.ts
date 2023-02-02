@@ -208,6 +208,18 @@ function test_query() {
         },
     });
 
+    query.aggregate({
+        unwind: '$field',
+    });
+
+    query.aggregate({
+        unwind: {
+            path: '$field',
+            includeArrayIndex: 'newIndex',
+            preserveNullAndEmptyArrays: true,
+        },
+    });
+
     // Find objects with distinct key
     query.distinct('name');
 
@@ -606,9 +618,6 @@ async function test_cloud_functions() {
         // result
     });
 
-    const CUSTOM_ERROR_INVALID_CONDITION = 1001;
-    const CUSTOM_ERROR_IMMUTABLE_FIELD = 1002;
-
     interface BeforeSaveObject {
         immutable: boolean;
     }
@@ -620,14 +629,11 @@ async function test_cloud_functions() {
             const original = request.original;
             if (original == null) {
                 // When the object is not new, request.original must be defined
-                throw new Parse.Error(
-                    CUSTOM_ERROR_INVALID_CONDITION,
-                    'Original must me defined for an existing object',
-                );
+                throw new Error('Original must me defined for an existing object');
             }
 
             if (original.get('immutable') !== request.object.get('immutable')) {
-                throw new Parse.Error(CUSTOM_ERROR_IMMUTABLE_FIELD, 'This field cannot be changed');
+                throw new Error('This field cannot be changed');
             }
         }
         if (!request.context) {
@@ -1529,6 +1535,12 @@ function testObject() {
 
         // $ExpectType Object<OptionalObjectAttributes>
         await objTypedOptional.save({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.saveEventually({});
+
+        // $ExpectType Object<OptionalObjectAttributes>
+        await objTypedOptional.destroyEventually({});
     }
 
     function testSet(
@@ -2087,5 +2099,48 @@ function testEncryptingUser() {
 
     function testIsEncryptedUserEnabled() {
         Parse.isEncryptedUserEnabled();
+    }
+}
+
+function testEventuallyQueue() {
+    function test() {
+        const obj = new Parse.Object('TestObject');
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.clear();
+        // $ExpectType Promise<any[]>
+        Parse.EventuallyQueue.getQueue();
+        // $ExpectType boolean
+        Parse.EventuallyQueue.isPolling();
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.save(obj);
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.save(obj, {});
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.destroy(obj);
+        // $ExpectType Promise<void>
+        Parse.EventuallyQueue.destroy(obj, {});
+        // $ExpectType Promise<number>
+        Parse.EventuallyQueue.length();
+        // $ExpectType Promise<boolean>
+        Parse.EventuallyQueue.sendQueue();
+        // $ExpectType void
+        Parse.EventuallyQueue.stopPoll();
+        // $ExpectType void
+        Parse.EventuallyQueue.poll();
+        // $ExpectType void
+        Parse.EventuallyQueue.poll(300);
+        // @ts-expect-error
+        Parse.EventuallyQueue.poll('300');
+    }
+}
+
+function LiveQueryEvents() {
+    function testLiveQueryEvents() {
+        Parse.LiveQuery.on('open', () => {
+        });
+        Parse.LiveQuery.on('close', () => {
+        });
+        Parse.LiveQuery.on('error', (error) => {
+        });
     }
 }

@@ -112,7 +112,7 @@ class ExtendedRenderer extends marked.Renderer {
     paragraph = (text: string): string => super.paragraph(text);
     table = (header: string, body: string): string => super.table(header, body);
     tablerow = (content: string): string => super.tablerow(content);
-    tablecell = (content: string, flags: { header: boolean; align: 'center' | 'left' | 'right' | null; }): string => super.tablecell(content, flags);
+    tablecell = (content: string, flags: { header: boolean; align: 'center' | 'left' | 'right' | null }): string => super.tablecell(content, flags);
     strong = (text: string): string => super.strong(text);
     em = (text: string): string => super.em(text);
     codespan = (code: string): string => super.codespan(code);
@@ -158,11 +158,9 @@ marked.use({
             return false;
         },
         listitem(text, task, checked) {
-            if (task)
-                return `<li class="task-list-item ${checked ? "checked" : ""}">${text}</li>\n`;
-            else
-                return `<li>${text}</li>\n`;
-        }
+            if (task) return `<li class="task-list-item ${checked ? 'checked' : ''}">${text}</li>\n`;
+            else return `<li>${text}</li>\n`;
+        },
     },
     tokenizer: {
         codespan(src) {
@@ -222,7 +220,7 @@ const rendererExtension: marked.RendererExtension = {
     },
 };
 
-const tokenizerAndRendererExtension = {
+const tokenizerAndRendererExtension: marked.TokenizerAndRendererExtension = {
     name: 'name',
     level: 'block',
     tokenizer(src: string) {
@@ -246,6 +244,43 @@ const tokenizerAndRendererExtension = {
 marked.use({
     extensions: [tokenizerExtension, rendererExtension, tokenizerAndRendererExtension],
 });
+
+const asyncExtension: marked.MarkedExtension = {
+    async: true,
+    async walkTokens(token) {
+        if (token.type === 'code') {
+            await Promise.resolve(3);
+            token.text += 'foobar';
+        }
+    },
+};
+
+marked.use(asyncExtension);
+
+(async () => {
+    const md = '# foobar';
+    const asyncMarked: string = await marked(md, { async: true });
+    const promiseMarked: Promise<string> = marked(md, { async: true });
+    const notAsyncMarked: string = marked(md, { async: false });
+    const defaultMarked: string = marked(md);
+    // $ExpectType void
+    marked(md, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: true }, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: false }, (_: any, res: string) => { res; });
+
+    const asyncMarkedParse: string = await marked.parse(md, { async: true });
+    const promiseMarkedParse: Promise<string> = marked.parse(md, { async: true, headerIds: false });
+    const notAsyncMarkedParse: string = marked.parse(md, { async: false });
+    const defaultMarkedParse: string = marked.parse(md);
+    // $ExpectType void
+    marked.parse(md, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: true }, (_: any, res: string) => { res; });
+    // $ExpectType void
+    marked(md, { async: false }, (_: any, res: string) => { res; });
+})();
 
 // Tests for List and ListItem
 // Dumped from markdown list parsed data
@@ -295,13 +330,13 @@ const listAndListItemText: marked.Tokens.List = {
 import { Lexer, Parser, Tokenizer, Renderer, TextRenderer, Slugger } from 'marked';
 
 const lexer2 = new Lexer();
-const tokens4 = lexer2.lex("# test");
+const tokens4 = lexer2.lex('# test');
 const parser2 = new Parser();
 console.log(parser2.parse(tokens4));
 
 const slugger2 = new Slugger();
 console.log(slugger2.slug('Test Slug'));
 
-marked.use({renderer: new Renderer()});
-marked.use({renderer: new TextRenderer()});
-marked.use({tokenizer: new Tokenizer()});
+marked.use({ renderer: new Renderer() });
+marked.use({ renderer: new TextRenderer() });
+marked.use({ tokenizer: new Tokenizer() });

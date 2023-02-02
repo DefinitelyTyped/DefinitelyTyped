@@ -56,7 +56,7 @@ const BLOCK_INSTANCE: blocks.BlockInstance<{ foo: string }> = {
         </div>
     );
     const Enhanced = blocks.withBlockContentContext(OriginalComponent);
-    <Enhanced foo="bar" />;
+    <Enhanced foo="bar" BlockContent="cont" />;
 })();
 
 //
@@ -391,6 +391,7 @@ blocks.registerBlockType({
     title: 'Notice',
     category: 'text',
     parent: ['core/group'],
+    ancestor: ['core/group'],
     icon: 'star-half',
     description: 'Shows warning, error or success notices…',
     keywords: ['alert', 'message'],
@@ -465,6 +466,7 @@ blocks.registerBlockType(
         title: 'Notice',
         category: 'text',
         parent: ['core/group'],
+        ancestor: ['core/group'],
         icon: 'star-half',
         description: 'Shows warning, error or success notices…',
         keywords: ['alert', 'message'],

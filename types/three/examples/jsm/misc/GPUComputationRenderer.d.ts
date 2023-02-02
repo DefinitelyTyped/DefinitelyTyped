@@ -49,4 +49,5 @@ export class GPUComputationRenderer {
     createTexture(): DataTexture;
     renderTexture(input: Texture, output: Texture): void;
     doRenderTarget(material: Material, output: WebGLRenderTarget): void;
+    dispose(): void;
 }

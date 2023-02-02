@@ -1,8 +1,6 @@
 // Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
-//                 Dan Rumney <https://github.com/dancrumb>
-//                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
@@ -12,6 +10,7 @@
 //                 Dan Ursin <https://github.com/danursin>
 //                 Nathan Hardy <https://github.com/nhardy>
 //                 Nicholas Molen <https://github.com/robotastronaut>
+//                 Chris Frewin <https://github.com/princefishthrower>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface ManagementClientOptions {
@@ -23,6 +22,7 @@ export interface ManagementClientOptions {
     scope?: string | undefined;
     tokenProvider?: TokenProvider | undefined;
     retry?: RetryOptions | undefined;
+    telemetry?: boolean | undefined;
 }
 
 export interface TokenProvider {
@@ -463,6 +463,7 @@ export type Strategy =
     | 'oauth1'
     | 'oauth2'
     | 'office365'
+    | 'oidc'
     | 'paypal'
     | 'paypal-sandbox'
     | 'pingfederate'
@@ -616,6 +617,7 @@ export interface AuthenticationClientOptions {
     clientId?: string | undefined;
     clientSecret?: string | undefined;
     domain: string;
+    telemetry?: boolean | undefined;
 }
 
 interface Environment {
@@ -1196,10 +1198,10 @@ export interface Organization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1215,10 +1217,10 @@ export interface CreateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1230,7 +1232,7 @@ export interface UpdateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
               };
@@ -1522,6 +1524,14 @@ export interface LogsQuery {
     sort?: string;
     /** When using the `from` parameter, the number of entries to retrieve. Default 50, max 100. */
     take?: number;
+}
+
+export interface UsersLogsQuery {
+    id: string;
+    per_page?: number;
+    page?: number;
+    sort?: string;
+    include_totals?: boolean;
 }
 
 export interface GetDeviceCredentialsParams {
@@ -1892,6 +1902,10 @@ export class ManagementClient<A = AppMetadata, U = UserMetadata> {
 
     linkUsers(userId: string, params: LinkAccountsParams): Promise<any>;
     linkUsers(userId: string, params: LinkAccountsParams, cb: (err: Error, data: any) => void): void;
+
+    // User Logs
+    getUserLogs(params: UsersLogsQuery): Promise<Array<LogEvent>>;
+    getUserLogs(params: UsersLogsQuery, cb: (err: Error, data: Array<LogEvent>) => void): void;
 
     // User roles
     getUserRoles(params: ObjectWithId): Promise<Role[]>;

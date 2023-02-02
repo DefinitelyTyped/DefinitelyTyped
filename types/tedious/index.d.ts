@@ -257,7 +257,7 @@ export interface ConnectionOptions {
      * The version of TDS to use. If server doesn't support specified version, negotiated version is used instead. (default: 7_4).
      * Take this from tedious.TDS_VERSION.7_4 .
      */
-    tdsVersion?: number | undefined;
+    tdsVersion?: string | undefined;
 
     /**
      * Application name used for identifying a specific application in profiling, logging or tracing tools of SQL Server. (default: Tedious)

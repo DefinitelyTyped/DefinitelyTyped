@@ -54,6 +54,9 @@ export interface Options {
     currencySource?: string | undefined;
     currencyTarget?: string | undefined;
     currencyRates?: CurrencyRates | undefined;
+    factories?: number | undefined;
+    startFactory?: boolean | undefined;
+    attempts?: number | undefined;
 }
 export function set(options: Options): void;
 export function reset(): void;

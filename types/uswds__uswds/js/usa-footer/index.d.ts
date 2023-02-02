@@ -1,9 +1,9 @@
 interface Footer {
     HIDE_MAX_WIDTH: number;
-    init(root: HTMLElement | Document): void;
+    init(): void;
+    teardown(): void;
     on(el: HTMLElement): void;
     off(el: HTMLElement): void;
-    teardown(): void;
 }
 
 declare const footer: Footer;

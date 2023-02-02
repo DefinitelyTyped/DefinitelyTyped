@@ -22,7 +22,10 @@ export class FirstPersonControls {
     mouseDragOn: boolean;
 
     handleResize(): void;
-    lookAt(x: number | Vector3, y: number, z: number): this;
+
+    lookAt(x: Vector3): this;
+    lookAt(x: number, y: number, z: number): this;
+
     update(delta: number): this;
     dispose(): void;
 }

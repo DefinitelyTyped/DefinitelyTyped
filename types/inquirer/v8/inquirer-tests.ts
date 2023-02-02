@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
     promptModule.prompts['']; // $ExpectType PromptConstructor
     promptModule.registerPrompt('', InputPrompt); // $ExpectType PromptModule
     promptModule.restoreDefaultPrompts();
+    inquirer.createPromptModule({ skipTTYChecks: false });
 }
 {
     inquirer.prompt([

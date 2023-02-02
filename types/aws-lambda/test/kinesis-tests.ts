@@ -5,6 +5,7 @@ import {
     KinesisStreamHandler,
     KinesisStreamRecord,
     KinesisStreamRecordPayload,
+    KinesisStreamTumblingWindowHandler,
 } from "aws-lambda";
 
 const handler: KinesisStreamHandler = async (event, context, callback) => {
@@ -30,6 +31,26 @@ const handler: KinesisStreamHandler = async (event, context, callback) => {
 
     callback();
     callback(new Error());
+};
+
+const tumblingWindowHandler: KinesisStreamTumblingWindowHandler = async (event, context, callback) => {
+    bool = event.isFinalInvokeForWindow;
+    bool = event.isWindowTerminatedEarly;
+    str = event.window.start;
+    str = event.window.end;
+
+    anyObj = event.state;
+
+    callback();
+    callback(new Error());
+
+    if (str === str) {
+        // return with state...
+        return { state: { one: 'two' } };
+    } else {
+        // or void
+        return;
+    }
 };
 
 const handlerWithResponse: KinesisStreamHandler = async (event, context, callback) => {

@@ -69,7 +69,7 @@ function renderOutTestEmail() {
                 </MjmlSection>
                 <MjmlSection>
                     <MjmlColumn>
-                        <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/" fontWeight="initial">
+                        <MjmlButton padding="20px" backgroundColor="#346DB7" href="https://www.wix.com/" fontWeight="initial" letterSpacing="normal">
                             I like it!
                         </MjmlButton>
                     </MjmlColumn>

@@ -1,4 +1,4 @@
-// Type definitions for mocha 9.1
+// Type definitions for mocha 10.0
 // Project: https://mochajs.org
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
 //                 otiai10 <https://github.com/otiai10>
@@ -658,6 +658,13 @@ declare namespace Mocha {
     let describe: SuiteFunction;
 
     /**
+     * Describe a pending suite.
+     *
+     * - _Only available when invoked via the mocha CLI._
+     */
+    let xdescribe: PendingSuiteFunction;
+
+    /**
      * Describes a test case.
      *
      * - _Only available when invoked via the mocha CLI._
@@ -1135,6 +1142,7 @@ declare namespace Mocha {
 
         constructor(title: string, fn?: Func | AsyncFunc);
 
+        id: string;
         title: string;
         fn: Func | AsyncFunc | undefined;
         body: string;

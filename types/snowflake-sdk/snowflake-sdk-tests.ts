@@ -16,8 +16,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     if (err) {
         err.code; // $ExpectType ErrorCode | undefined
         err.sqlState; // $ExpectType string | undefined
-        err.data; // $ExpectType object | undefined
-        err.response; // $ExpectType object | undefined
+        err.data; // $ExpectType Record<string, any> | undefined
+        err.response; // $ExpectType Record<string, any> | undefined
         err.responseBody; // $ExpectType string | undefined
         err.cause; // $ExpectType Error | undefined
         err.isFatal; // $ExpectType boolean | undefined
@@ -28,6 +28,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         binds: [1, ''],
         complete(err, stmt, rows) {
             err; // $ExpectType SnowflakeError | undefined
+            err?.data?.line; // $ExpectType any
+            err?.data?.pos; // $ExpectType any
             stmt.cancel((err, stmt) => {
                 //
             });
@@ -55,8 +57,8 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             col1.isVariant(); // $ExpectType boolean
             col1.isObject(); // $ExpectType boolean
             col1.isArray(); // $ExpectType boolean
-
-            const stream = stmt.streamRows();
+            const option: snowflake.StreamOptions = {start: 0, end: 100, fetchAsString: ['Boolean', 'JSON', 'Buffer']};
+            const stream = stmt.streamRows(option);
             stream.on('data', data => {
                 //
             });
@@ -80,8 +82,9 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     const statement = conn.execute({
         sqlText: ''
     });
+    const option: snowflake.StreamOptions = {start: 0, end: 100, fetchAsString: ['Number' , 'Date' , 'JSON', 'Buffer']};
     // $ExpectType Readable
-    const stream = statement.streamRows();
+    const stream = statement.streamRows(option);
     stream.on('data', data => {
         //
     });

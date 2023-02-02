@@ -1,7 +1,6 @@
-// Type definitions for webpack-bundle-analyzer 4.4
+// Type definitions for webpack-bundle-analyzer 4.6
 // Project: https://github.com/webpack-contrib/webpack-bundle-analyzer
 // Definitions by: Michael Strobel <https://github.com/kryops>
-//                 Vladimir Grenaderov <https://github.com/VladimirGrenaderov>
 //                 Max Boguslavskiy <https://github.com/maxbogus>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 //                 Kyle Hensel <https://github.com/k-yle>
@@ -11,6 +10,7 @@
 /// <reference types="node" />
 
 import { Server } from 'http';
+import { AddressInfo } from 'net';
 import { WebpackPluginInstance, Compiler, StatsOptions, Stats as WebpackStats } from 'webpack';
 
 export namespace BundleAnalyzerPlugin {
@@ -57,6 +57,12 @@ export namespace BundleAnalyzerPlugin {
          * @default 8888
          */
         analyzerPort?: number | 'auto' | undefined;
+
+        /**
+         * The URL printed to console with server mode.
+         * @default 'http://${listenHost}:${boundAddress.port}'
+         */
+        analyzerUrl?: (options: { listenPort: string, listenHost: string, boundAddress: AddressInfo }) => string;
 
         /**
          * Path to bundle report file that will be generated in "static" mode.

@@ -8,7 +8,6 @@ let ice1: RTCIceServer = {
     urls: 'stun:stun.l.google.com:19302',
     username: 'john',
     credential: '1234',
-    credentialType: 'password',
 };
 let ice2: RTCIceServer = { urls: ['stun:stunserver.org', 'stun:stun.example.com'] };
 let pc: RTCPeerConnection = new RTCPeerConnection({});

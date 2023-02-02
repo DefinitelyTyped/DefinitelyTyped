@@ -1,6 +1,6 @@
 // Type definitions for Ember.js 1.11.3
 // Project: http://emberjs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

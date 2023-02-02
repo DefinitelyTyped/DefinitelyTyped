@@ -1990,6 +1990,51 @@ declare namespace jsts {
             equals(o: Object): boolean;
 
             /**
+             * Computes a buffer area around this geometry having the given width.
+             * The buffer of a Geometry is the Minkowski sum or difference of the geometry with a disc of radius abs(distance).
+             * Mathematically-exact buffer area boundaries can contain circular arcs.
+             * To represent these arcs using linear geometry they must be approximated with line segments.
+             * The buffer geometry is constructed using 8 segments per quadrant to approximate the circular arcs.
+             * The end cap style is CAP_ROUND.
+             * The buffer operation always returns a polygonal result.
+             * The negative or zero-distance buffer of lines and points is always an empty Polygon.
+             * This is also the result for the buffers of degenerate (zero-area) polygons.
+             *
+             * @param {double} distance the width of the buffer (may be positive, negative or 0)
+             *
+             * @returns a polygonal geometry representing the buffer region (which may be empty)
+             *
+             * @throws {TopologyException} if a robustness error occurs
+             *
+             * @see buffer(double, int)
+             * @see buffer(double, int, int)
+             */
+            buffer(distance: number): Polygon | MultiPolygon;
+
+            /**
+             * Computes a buffer area around this geometry having the given width and
+             * with a specified accuracy of approximation for circular arcs. 
+             * Mathematically-exact buffer area boundaries can contain circular arcs.
+             * To represent these arcs using linear geometry they must be approximated with line segments.
+             * The quadrantSegments argument allows controlling the accuracy of the approximation
+             * by specifying the number of line segments used to represent a quadrant of a circle. 
+             * The buffer operation always returns a polygonal result.
+             * The negative or zero-distance buffer of lines and points is always an empty Polygon.
+             * This is also the result for the buffers of degenerate (zero-area) polygons.
+        
+             * @param {double} distance the width of the buffer (may be positive, negative or 0)
+             * @param {int} quadrantSegments the number of line segments used to represent a quadrant of a circle
+             * 
+             * @returns a polygonal geometry representing the buffer region (which may be empty)
+             * 
+             * @throws {TopologyException} if a robustness error occurs
+             * 
+             * @see #buffer(double)
+             * @see #buffer(double, int, int)
+             */
+            buffer(distance: number, quadrantSegments: number): Polygon | MultiPolygon;
+
+            /**
              * Computes a buffer area around this geometry having the given width and with a
              * specified accuracy of approximation for circular arcs, and using a specified
              * end cap style.
@@ -2372,6 +2417,15 @@ declare namespace jsts {
              * @return {boolean} true if equal.
              */
             equal(a: Coordinate, b: Coordinate, tolerance: number): boolean;
+
+            /**
+             * Gets a hash code for the Geometry.
+             *
+             * @override hashCode in class Object
+             *
+             * @return {int} an integer value suitable for use as a hashcode
+             */
+            hashCode(): number;
 
             /**
              * Returns a WKT representation of this geometry.

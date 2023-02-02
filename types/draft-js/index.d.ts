@@ -377,22 +377,24 @@ declare namespace Draft {
             type DraftDragType = 'internal' | 'external';
 
             /**
-             * The list of default valid block types.
+             * The list of [default valid block types](https://draftjs.org/docs/advanced-topics-custom-block-render-map#draft-default-block-render-map),
+             * according to the [`DefaultDraftBlockRenderMap`](https://github.com/facebook/draft-js/blob/main/src/model/immutable/DefaultDraftBlockRenderMap.js)
              */
             type CoreDraftBlockType =
-                | 'unstyled'
-                | 'paragraph'
                 | 'header-one'
                 | 'header-two'
                 | 'header-three'
                 | 'header-four'
                 | 'header-five'
                 | 'header-six'
+                | 'section'
+                | 'article'
                 | 'unordered-list-item'
                 | 'ordered-list-item'
                 | 'blockquote'
+                | 'atomic'
                 | 'code-block'
-                | 'atomic';
+                | 'unstyled';
 
             type CustomBlockType = string;
 
@@ -422,14 +424,9 @@ declare namespace Draft {
             type DraftInlineStyleType = 'BOLD' | 'CODE' | 'ITALIC' | 'STRIKETHROUGH' | 'UNDERLINE';
 
             /**
-             * Default entity types.
+             * Possible entity types, like 'LINK', 'IMAGE', or custom ones.
              */
-            type ComposedEntityType = 'LINK' | 'TOKEN' | 'PHOTO' | 'IMAGE';
-
-            /**
-             * Possible entity types.
-             */
-            type DraftEntityType = string | ComposedEntityType;
+            type DraftEntityType = string;
 
             /**
              * Possible "mutability" options for an entity. This refers to the behavior

@@ -9,6 +9,8 @@ const utf8Array_4 = new Uint16Array([1, 2, 3]);
 const utf8Array_5 = new Uint32Array([1, 2, 3]);
 const utf8Array_6 = new Int16Array([1, 2, 3]);
 const utf8Array_7 = new Int32Array([1, 2, 3]);
+const utf8Array_8 = new Int8Array([1, 2, 3]);
+const utf8Array_9: ReadonlyArray<number> = [1, 2, 3];
 Encoding.convert(utf8Array_1, 'SJIS', 'UTF8'); // $ExpectType number[]
 Encoding.convert(utf8Array_2, 'UTF16', 'UTF8'); // $ExpectType number[]
 Encoding.convert(utf8Array_3, 'UTF16LE', 'UTF8'); // $ExpectType number[]
@@ -16,6 +18,8 @@ Encoding.convert(utf8Array_4, 'UTF16BE', 'UTF8'); // $ExpectType number[]
 Encoding.convert(utf8Array_5, 'BINARY', 'UTF8'); // $ExpectType number[]
 Encoding.convert(utf8Array_6, 'UTF32', 'UTF8'); // $ExpectType number[]
 Encoding.convert(utf8Array_7, 'AUTO', 'UTF8'); // $ExpectType number[]
+Encoding.convert(utf8Array_8, 'ASCII', 'UTF8'); // $ExpectType number[]
+Encoding.convert(utf8Array_9, 'JIS', 'UTF8'); // $ExpectType number[]
 Encoding.convert('string value', 'UTF16', 'UTF8'); // $ExpectType string
 
 // Convert character encoding by automatic detection (AUTO detect).
@@ -138,3 +142,16 @@ const decoded2 = Encoding.base64Decode(encoded2); // $ExpectType number[]
 
 Encoding.version; // $ExpectType string
 Encoding.orders; // $ExpectType string[]
+
+Encoding.toZenkakuCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toZenkakuCase('abcdef'); // $ExpectType string
+Encoding.toHankakuCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toHankakuCase('ＡＢＣＤＥＦ'); // $ExpectType string
+Encoding.toZenkanaCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toZenkanaCase('ｱｲｳｴｵ'); // $ExpectType string
+Encoding.toHankanaCase([1, 2, 3]); // $ExpectType number[]
+Encoding.toHankanaCase('アイウエオ'); // $ExpectType string
+Encoding.toZenkakuSpace([1, 2, 3]); // $ExpectType number[]
+Encoding.toZenkakuSpace('     '); // $ExpectType string
+Encoding.toHankakuSpace([1, 2, 3]); // $ExpectType number[]
+Encoding.toHankakuSpace('\u{3000}'); // $ExpectType string

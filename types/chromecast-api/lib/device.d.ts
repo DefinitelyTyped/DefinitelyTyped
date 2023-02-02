@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { DeviceStatus } from "./device";
 
 declare namespace Device {
     interface DeviceOptions {
@@ -123,6 +124,10 @@ declare namespace Device {
 declare class Device extends EventEmitter {
     constructor(options: Device.DeviceOptions);
 
+    name: string;
+    friendlyName: string;
+    host: string;
+
     /**
      * Use this function to play any media in the chromecast device. Make sure mediaURL is accessible by the chromecast.
      * Pass an attribute startTime in the opts object to set where to start an audio or video content (in seconds).
@@ -206,6 +211,12 @@ declare class Device extends EventEmitter {
     getCurrentTime(callback?: (error?: Error, time?: number) => void): void;
 
     close(callback?: () => void): void;
+
+    on(event: 'connected' | 'finished', callback: () => void): this;
+    on(event: 'status', callback: (status: DeviceStatus) => void): this;
+
+    _connect(callback: () => void): void;
+    _tryConnect(callback: () => void): void;
 }
 
 export = Device;

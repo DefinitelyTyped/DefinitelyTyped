@@ -130,7 +130,7 @@ declare global {
             T extends ObjectIDs.AdapterScoped ? AdapterScopedObject :
             Read extends "read" ? ioBroker.Object : AnyObject;
 
-        type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'zh-cn';
+        type Languages = 'en' | 'de' | 'ru' | 'pt' | 'nl' | 'fr' | 'it' | 'es' | 'pl' | 'uk' | 'zh-cn';
         type StringOrTranslated = string | {
             // The "en" property is required when an object is used for the languages
             [lang in Languages as lang extends "en" ? lang : never]: string;

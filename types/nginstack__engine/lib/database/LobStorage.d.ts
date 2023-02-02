@@ -5,7 +5,7 @@ declare class LobStorage {
     classKey: number;
     private batchChanges_;
     beginBatch(): void;
-    endBatch(): any;
+    endBatch(): DataSet;
     private compress_;
     private decompress_;
     private encode_;
@@ -39,4 +39,5 @@ declare class LobStorage {
     getLobExtraAttributes(key: number): any;
 }
 import DBKey = require('../dbkey/DBKey.js');
+import DataSet = require('../dataset/DataSet.js');
 import LargeObject = require('./LargeObject.js');

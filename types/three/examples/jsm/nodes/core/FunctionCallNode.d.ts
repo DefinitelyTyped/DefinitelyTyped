@@ -2,12 +2,12 @@ import FunctionNode from './FunctionNode';
 import TempNode from './TempNode';
 import Node from './Node';
 
-export default class FunctionCallNode extends TempNode {
-    functionNode: FunctionNode;
+export default class FunctionCallNode<P extends Node[] | { [name: string]: Node }> extends TempNode {
+    functionNode: FunctionNode<P>;
     parameters: { [name: string]: Node };
 
-    constructor(functionNode?: FunctionNode, parameters?: { [name: string]: Node });
+    constructor(functionNode?: FunctionNode<P>, parameters?: P);
 
-    setParameters(parameters: { [name: string]: Node }): this;
-    getParameters(): { [name: string]: Node };
+    setParameters(parameters: P): this;
+    getParameters(): P;
 }

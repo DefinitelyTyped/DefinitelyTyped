@@ -355,7 +355,7 @@ const objectTypeAnnotation: NodePath<t.ObjectTypeAnnotation> = new NodePath<t.Ob
     {} as any,
 );
 
-objectTypeAnnotation.get('indexers'); // $ExpectType NodePath<null | undefined> | NodePath<ObjectTypeIndexer>[]
+objectTypeAnnotation.get('indexers'); // $ExpectType NodePathResult<ObjectTypeIndexer[] | undefined>
 
 // Test that NodePath can be narrowed from union to single type
 const path: NodePath<t.ExportDefaultDeclaration | t.ExportNamedDeclaration> = new NodePath<t.ExportNamedDeclaration>(
