@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "react-clock": "^4.1.0"
+    }
+}
