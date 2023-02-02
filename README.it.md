@@ -2,7 +2,7 @@
 
 > La repo per le definizioni di tipi Typescript di *alta qualità*.
 
-*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+*Puoi leggere questo README anche in [Spagnolo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.es.md), [Coreano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Russo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [Cinese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Portoghese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md) e [Giapponese](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
 
 *Link per il [manuale dell'amministratore](./docs/admin.md)*
 
@@ -336,7 +336,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 
 * Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write path/to/package/**/*.ts`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
-  
+
   ```tsx
     // prettier-ignore
     // @ts-expect-error
