@@ -2411,7 +2411,7 @@ export interface UpdateMenuButton {
      * used to create a component interface and attach to updatemenu events
      * manually via JavaScript.
      */
-    method: "restyle" | "relayout" | "animate" | "update" | "skip";
+    method: 'restyle' | 'relayout' | 'animate' | 'update' | 'skip';
     /**
      * When used in a template, named items are created in the output figure in
      * addition to any items the figure already has in this array. You can modify
