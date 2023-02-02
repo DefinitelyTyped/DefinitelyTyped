@@ -53,6 +53,7 @@ player.loadVideoById('doesNotExist');
 player.playVideo();
 player.pauseVideo();
 player.setSize(320, 200);
+console.log('player size:',player.getSize());
 (async () => {
     if (await player.isMuted()) {
         player.unMute();
