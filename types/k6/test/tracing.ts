@@ -1,23 +1,5 @@
 import http, {
-    CookieJar,
-    CookieJarCookies,
-    FileData,
     RefinedResponse,
-    Response,
-    ResponseType,
-    del,
-    head,
-    get,
-    options,
-    patch,
-    post,
-    put,
-    request,
-    batch,
-    file,
-    cookieJar,
-    expectedStatuses,
-    setResponseCallback
 } from 'k6/http';
 import tracing from 'k6/experimental/tracing';
 
