@@ -943,7 +943,6 @@ declare namespace http {
         params?: RefinedParams<RT> | null
     ): Promise<RefinedResponse<RT>>;
 
-
     /**
      * Creates a URL with set name tag.
      * https://k6.io/docs/using-k6/http-requests/#url-grouping
