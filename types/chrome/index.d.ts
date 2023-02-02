@@ -6305,11 +6305,21 @@ declare namespace chrome.permissions {
 
     /**
      * Checks if the extension has the specified permissions.
+     * @return A Promise that resolves with boolean: True if the extension has the specified permissions.
+     */
+    export function contains(permissions: Permissions): Promise<boolean>;
+    /**
+     * Checks if the extension has the specified permissions.
      * @param callback The callback parameter should be a function that looks like this:
      * function(boolean result) {...};
      * Parameter result: True if the extension has the specified permissions.
      */
     export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+    /**
+     * Gets the extension's current set of permissions.
+     * @return A Promise that resolves with Permissions object describing the extension's active permissions.
+     */
+    export function getAll(): Promise<Permissions>;
     /**
      * Gets the extension's current set of permissions.
      * @param callback The callback parameter should be a function that looks like this:
@@ -6319,11 +6329,21 @@ declare namespace chrome.permissions {
     export function getAll(callback: (permissions: Permissions) => void): void;
     /**
      * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * @return A Promise that resolves with boolean: True if the user granted the specified permissions.
+     */
+    export function request(permissions: Permissions): Promise<boolean>;
+    /**
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean granted) {...};
      * Parameter granted: True if the user granted the specified permissions.
      */
     export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
+    /**
+     * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
+     * @return A Promise that resolves with boolean: True if the permissions were removed.
+     */
+    export function remove(permissions: Permissions): Promise<boolean>;
     /**
      * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:

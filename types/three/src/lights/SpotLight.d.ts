@@ -25,7 +25,9 @@ export class SpotLight extends Light {
     type: string;
 
     /**
-     * @default THREE.Object3D.DefaultUp
+     * This is set equal to {@link Object3D.DEFAULT_UP} (0, 1, 0), so that the light shines from the top down.
+     *
+     * @default {@link Object3D.DEFAULT_UP}
      */
     position: Vector3;
 

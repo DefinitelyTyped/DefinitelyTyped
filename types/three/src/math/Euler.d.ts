@@ -23,7 +23,7 @@ export class Euler {
     z: number;
 
     /**
-     * @default THREE.Euler.DefaultOrder
+     * @default THREE.Euler.DEFAULT_ORDER
      */
     order: EulerOrder;
     readonly isEuler: true;
@@ -42,8 +42,7 @@ export class Euler {
     toArray(array?: Array<number | string | undefined>, offset?: number): Array<number | string | undefined>;
     _onChange(callback: () => void): this;
 
-    static RotationOrders: EulerOrder[];
-    static DefaultOrder: 'XYZ';
+    static DEFAULT_ORDER: 'XYZ';
 
     [Symbol.iterator](): Generator<string | number, void>;
 }
