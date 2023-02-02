@@ -26,6 +26,13 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
     const oauth2AuthorizationCode = new oauth2lib.AuthorizationCode({
         client: { id: "x", secret: "x", idParamName: "foobar" },
         auth: { tokenHost: "x" },
+        http: {
+            baseUrl: undefined,
+            beforeRedirect(redirectMethod, statusCode, location, resHeaders, redirectOptions, next) {
+                // noop
+            },
+            json: true
+        }
     });
     oauth2AuthorizationCode.authorizeURL({ foobar: "x" });
 }

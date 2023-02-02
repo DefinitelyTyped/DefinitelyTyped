@@ -70,7 +70,7 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
      * All options except baseUrl are allowed
      * Defaults to header.Accept = "application/json"
      */
-    http?: {
+    http?: Omit<WreckHttpOptions, 'baseUrl' | 'headers' | 'redirects' | 'json'> & {
         baseUrl?: undefined;
         headers?: {
             /**
