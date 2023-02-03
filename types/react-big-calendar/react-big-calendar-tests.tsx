@@ -38,6 +38,7 @@ declare const globalize: any;
 declare const moment: any;
 declare const dateFnsConfig: any;
 declare const luxonConfig: any;
+declare const dayjs: any;
 
 declare const allViews: View[];
 
@@ -174,7 +175,7 @@ class CalendarResource {
         />
     );
 
-    const localizer = dayjsLocalizer(luxonConfig, { firstDayOfWeek: 0 });
+    const localizer = dayjsLocalizer(dayjs);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
