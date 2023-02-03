@@ -1114,6 +1114,8 @@ class TextInputTest extends React.Component<{}, {username: string}> {
         <TextInput contextMenuHidden={true} textAlignVertical="top" />
 
         <TextInput textAlign="center" />
+
+        <TextInput inputMode="numeric"/>
       </View>
     );
   }

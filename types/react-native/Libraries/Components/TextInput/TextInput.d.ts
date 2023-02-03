@@ -36,6 +36,16 @@ export type KeyboardTypeOptions =
   | KeyboardTypeAndroid
   | KeyboardTypeIOS;
 
+export type InputModeOptions =
+  | 'none'
+  | 'text'
+  | 'decimal'
+  | 'numeric'
+  | 'tel'
+  | 'search'
+  | 'email'
+  | 'url';
+
 export type ReturnKeyType = 'done' | 'go' | 'next' | 'search' | 'send';
 export type ReturnKeyTypeAndroid = 'none' | 'previous';
 export type ReturnKeyTypeIOS =
@@ -104,7 +114,6 @@ export interface DocumentSelectionState extends EventEmitter {
  */
 export interface TextInputIOSProps {
   /**
-   * enum('never', 'while-editing', 'unless-editing', 'always')
    * When the clear button should appear on the right side of the text view
    */
   clearButtonMode?:
@@ -570,14 +579,17 @@ export interface TextInputProps
   editable?: boolean | undefined;
 
   /**
-   * enum("default", 'numeric', 'email-address', "ascii-capable", 'numbers-and-punctuation', 'url', 'number-pad', 'phone-pad', 'name-phone-pad',
-   * 'decimal-pad', 'twitter', 'web-search', 'visible-password')
    * Determines which keyboard to open, e.g.numeric.
    * The following values work across platforms: - default - numeric - email-address - phone-pad
    * The following values work on iOS: - ascii-capable - numbers-and-punctuation - url - number-pad - name-phone-pad - decimal-pad - twitter - web-search
    * The following values work on Android: - visible-password
    */
   keyboardType?: KeyboardTypeOptions | undefined;
+
+  /**
+   * Works like the inputmode attribute in HTML, it determines which keyboard to open, e.g. numeric and has precedence over keyboardType.
+   */
+  inputMode?: InputModeOptions | undefined;
 
   /**
    * Limits the maximum number of characters that can be entered.
@@ -705,7 +717,6 @@ export interface TextInputProps
   placeholderTextColor?: ColorValue | undefined;
 
   /**
-   * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
    * Determines how the return key should look.
    */
   returnKeyType?: ReturnKeyTypeOptions | undefined;

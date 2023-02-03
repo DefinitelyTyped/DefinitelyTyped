@@ -4875,7 +4875,7 @@ declare namespace Java {
      * @param className Name of class to enumerate instances of.
      * @param callbacks Object with callbacks.
      */
-    function choose(className: string, callbacks: ChooseCallbacks): void;
+    function choose<T extends Members<T> = {}>(className: string, callbacks: ChooseCallbacks<T>): void;
 
     /**
      * Duplicates a JavaScript wrapper for later use outside replacement method.
@@ -5463,7 +5463,7 @@ declare namespace Java {
          * @param className Name of class to enumerate instances of.
          * @param callbacks Object with callbacks.
          */
-        choose(className: string, callbacks: ChooseCallbacks): void;
+        choose<T extends Members<T> = {}>(className: string, callbacks: ChooseCallbacks<T>): void;
 
         /**
          * Duplicates a JavaScript wrapper for later use outside replacement method.

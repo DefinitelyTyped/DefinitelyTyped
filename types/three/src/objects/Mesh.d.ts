@@ -21,10 +21,10 @@ export class Mesh<
     updateMorphTargets(): void;
 
     /**
-     * Get the current position of the indicated vertex in local space,
+     * Get the local-space position of the vertex at the given index,
      * taking into account the current animation state of both morph targets and skinning.
      */
-    getVertexPosition(vert: number, target: Vector3): Vector3;
+    getVertexPosition(index: number, target: Vector3): Vector3;
 
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 }

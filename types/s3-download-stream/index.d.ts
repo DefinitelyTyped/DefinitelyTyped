@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import { Readable } from "stream";
-import { S3 } from "aws-sdk";
+import { S3 } from "aws-sdk2-types";
 
 declare namespace s3Stream {
     interface S3StreamDownloaderOptions {

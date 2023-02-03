@@ -50,6 +50,7 @@ declare namespace AnalyticsNode {
       enable?: boolean | undefined,
       timeout?: number | string | undefined,
       flushed?: boolean | undefined,
+      errorHandler?: (err: Error) => void,
     });
 
     /* The identify method lets you tie a user to their actions and record

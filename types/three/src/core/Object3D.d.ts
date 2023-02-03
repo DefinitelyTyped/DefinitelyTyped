@@ -51,8 +51,11 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     children: Object3D[];
 
     /**
-     * Up direction.
-     * @default THREE.Object3D.DefaultUp.clone()
+     * This is used by the {@link lookAt} method, for example, to determine the orientation of the result.
+     *
+     * Default is {@link Object3D.DEFAULT_UP} - that is, `( 0, 1, 0 )`.
+     *
+     * @default {@link Object3D.DEFAULT_UP}
      */
     up: Vector3;
 
@@ -103,16 +106,15 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     matrixWorld: Matrix4;
 
     /**
-     * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also
-     * recalculates the matrixWorld property.
-     * @default THREE.Object3D.DefaultMatrixAutoUpdate
+     * When this is set, it calculates the matrix of position, (rotation or quaternion) and
+     * scale every frame and also recalculates the matrixWorld property. Default is {@link Object3D.DEFAULT_MATRIX_AUTO_UPDATE} (true).
      */
     matrixAutoUpdate: boolean;
 
     /**
-     * When this is set, the renderer checks every frame if the object and its children need matrix updates.
-     * Otherwise, you have to maintain all matrices in the object and its children yourself.
-     * @default THREE.Object3D.DefaultMatrixWorldAutoUpdate
+     * If set, then the renderer checks every frame if the object and its children need matrix updates.
+     * When it isn't, then you have to maintain all matrices in the object and its children yourself.
+     * Default is {@link Object3D.DEFAULT_MATRIX_WORLD_AUTO_UPDATE} (true).
      */
     matrixWorldAutoUpdate: boolean;
 
@@ -215,9 +217,23 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
         group: Group,
     ) => void;
 
-    static DefaultUp: Vector3;
-    static DefaultMatrixAutoUpdate: boolean;
-    static DefaultMatrixWorldAutoUpdate: boolean;
+    /**
+     * The default {@link up} direction for objects, also used as the default position for {@link DirectionalLight},
+     * {@link HemisphereLight} and {@link Spotlight} (which creates lights shining from the top down).
+     *
+     * Set to ( 0, 1, 0 ) by default.
+     */
+    static DEFAULT_UP: Vector3;
+
+    /**
+     * The default setting for {@link matrixAutoUpdate} for newly created Object3Ds.
+     */
+    static DEFAULT_MATRIX_AUTO_UPDATE: boolean;
+
+    /**
+     * The default setting for {@link matrixWorldAutoUpdate} for newly created Object3Ds.
+     */
+    static DEFAULT_MATRIX_WORLD_AUTO_UPDATE: boolean;
 
     /**
      * Applies the matrix transform to the object and updates the object's position, rotation and scale.

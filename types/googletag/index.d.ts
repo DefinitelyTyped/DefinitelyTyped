@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2023-01-05) 3.0
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2023-01-27) 3.0
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -104,6 +104,23 @@ declare namespace googletag {
      * **Note**: Checking {@link googletag.pubadsReady} is discouraged. Please use {@link googletag.cmd.push} instead.
      */
     const pubadsReady: boolean | undefined;
+
+    /**
+     * Reference to the secure signal providers array.
+     *
+     * The secure signal providers array accepts a sequence of signal-generating functions and invokes them in order.
+     * It is intended to replace a standard array that is used to enqueue signal-generating functions to be invoked once GPT is loaded.
+     *
+     * @example
+     * window.googletag = window.googletag || { cmd: [], secureSignalProviders: [] };
+     * window.googletag.secureSignalProviders.push({
+     *   id: 'collector123',
+     *   collectorFunction: () => { return Promise.resolve('signal'); }
+     * });
+     *
+     * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+     */
+    const secureSignalProviders: secureSignals.SecureSignalProvidersArray | secureSignals.SecureSignalProvider[];
 
     /**
      * Returns a reference to the {@link CompanionAdsService}.
@@ -2003,6 +2020,76 @@ declare namespace googletag {
              * The percentage of the ad's area that is visible. Value is a number between 0 and 100.
              */
             inViewPercentage: number;
+        }
+    }
+
+    /**
+     * This is the namespace that GPT uses for `secureSignals`.
+     */
+    namespace secureSignals {
+        /**
+         * A secure signal for a specific bidder or publisher.
+         *
+         * A secure signal provider consists of 2 parts:
+         * 1. A collector function, which returns a `Promise` that resolves to a secure signal.
+         * 1. An `id` or `networkCode`, which identifies the bidder or publisher associated with the signal, respectively.
+         *
+         * Note that one of `id` or `networkCode` must be provided, but not both.
+         *
+         * @example
+         * // id is provided
+         * googletag.secureSignalProviders.push({
+         *   id: 'collector123',
+         *   collectorFunction: () => {
+         *     // ...custom signal generation logic...
+         *     return Promise.resolve('signal');
+         *   }
+         * });
+         * // networkCode is provided
+         * googletag.secureSignalProviders.push({
+         *   networkCode: '123456',
+         *   collectorFunction: () => {
+         *     // ...custom signal generation logic...
+         *     return Promise.resolve('signal');
+         *   }
+         * });
+         *
+         * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+         */
+        type SecureSignalProvider<
+            T = {
+                /**
+                 * A unique identifier for the collector associated with this secure signal, as registered in Google Ad Manager.
+                 */
+                id: string;
+
+                /**
+                 * The network code (as seen in the ad unit path) for the publisher associated with this secure signal.
+                 */
+                networkCode: string;
+
+                /**
+                 * A function which returns a `Promise` that resolves to a secure signal.
+                 * @returns A [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to a secure signal.
+                 */
+                collectorFunction(): Promise<null | string>;
+            },
+        > = Omit<T, 'id'> | Omit<T, 'networkCode'>;
+
+        /**
+         * An interface for managing secure signals.
+         */
+        interface SecureSignalProvidersArray {
+            /**
+             * Clears all cached signals from local storage.
+             */
+            clearAllCache(): void;
+
+            /**
+             * Adds a new {@link SecureSignalProvider} to the signal provider array and begins the signal generation process.
+             * @param provider The {@link SecureSignalProvider} object to be added to the array.
+             */
+            push(provider: SecureSignalProvider): void;
         }
     }
 }

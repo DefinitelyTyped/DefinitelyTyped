@@ -405,6 +405,8 @@ indy.createRevocationState(
     'credRevId',
 );
 
+indy.listMyDidsWithMeta(10);
+
 // TODO
 // cache + payment
 // indy.updateRevocationState(blobReaderHandle, revState, revocRegDef, revDelta, timestamp, revId)
@@ -431,7 +433,6 @@ indy.createRevocationState(
 // indy.cryptoAuthCrypt(10, 'stewardVerkey', 'trusteeVerkey', Buffer.from('message'))
 // indy.cryptoAuthDecrypt(10, 'trusteeVerkey', Buffer.from('encrypted'))
 // indy.cryptoAnonDecrypt(10, 'trusteeVerkey', Buffer.from('encrypted'))
-// indy.listMyDidsWithMeta(10)
 // indy.keyForDid(10, 10, 'did')
 // indy.replaceKeysStart(10, 'did', {})
 // indy.replaceKeysApply(10, 'did')

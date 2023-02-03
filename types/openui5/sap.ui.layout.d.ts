@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -4535,24 +4535,24 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Adds a control to the main content area. Only the main content part in the aggregation is re-rendered.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     addMainContent(
       /**
        * Object to be added in the aggregation
        */
-      oControl: object
+      oControl: Control
     ): this;
     /**
      * Adds a control to the side content area. Only the side content part in the aggregation is re-rendered.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     addSideContent(
       /**
        * Object to be added in the aggregation
        */
-      oControl: object
+      oControl: Control
     ): this;
     /**
      * @SINCE 1.32
@@ -4701,7 +4701,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
       /**
        * The control instance that requested the scroll helper
        */
-      oControl: object
+      oControl: Control
     ): ScrollEnablement;
     /**
      * Gets current value of property {@link #getShowMainContent showMainContent}.
@@ -4899,7 +4899,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets or unsets the page in equalSplit mode.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setEqualSplit(
       /**
@@ -4910,7 +4910,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets the showMainContent property.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setShowMainContent(
       /**
@@ -4925,7 +4925,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets the showSideContent property.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setShowSideContent(
       /**
@@ -4980,7 +4980,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
     /**
      * Sets the sideContentVisibility property.
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     setSideContentVisibility(
       /**
@@ -4997,7 +4997,7 @@ declare module "sap/ui/layout/DynamicSideContent" {
      * area is visible. This helper method is used to implement a button/switch for changing between the main
      * and side content areas. Only works if the current breakpoint is "S".
      *
-     * @returns this pointer for chaining
+     * @returns Reference to `this` for method chaining
      */
     toggle(): this;
   }
@@ -12070,6 +12070,8 @@ declare module "sap/ui/layout/GridData" {
 declare module "sap/ui/layout/HorizontalLayout" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import { AccessibilityInfo } from "sap/ui/core/library";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -12166,7 +12168,7 @@ declare module "sap/ui/layout/HorizontalLayout" {
      *
      * @returns Current accessibility state of the control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets current value of property {@link #getAllowWrapping allowWrapping}.
      *

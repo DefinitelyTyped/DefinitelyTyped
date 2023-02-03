@@ -5,6 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
+import { StoreDescriptor } from '@wordpress/data';
 import { MouseEventHandler } from 'react';
 
 declare module '@wordpress/data' {
@@ -114,4 +115,12 @@ export interface Options {
      *  Called when the notice is dismissed.
      */
     onDismiss(): void;
+}
+
+export interface NoticesStoreDescriptor extends StoreDescriptor {
+    name: 'core/notices';
+}
+
+declare module '@wordpress/notices' {
+    const store: NoticesStoreDescriptor;
 }

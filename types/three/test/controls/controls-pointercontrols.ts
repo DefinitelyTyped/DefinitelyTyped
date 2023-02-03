@@ -126,14 +126,16 @@ function init() {
 
     let position = floorGeometry.attributes.position;
 
-    for (let i = 0, l = position.count; i < l; i++) {
-        vertex.fromBufferAttribute(position, i);
+    if (!(position instanceof THREE.GLBufferAttribute)) {
+        for (let i = 0, l = position.count; i < l; i++) {
+            vertex.fromBufferAttribute(position, i);
 
-        vertex.x += Math.random() * 20 - 10;
-        vertex.y += Math.random() * 2;
-        vertex.z += Math.random() * 20 - 10;
+            vertex.x += Math.random() * 20 - 10;
+            vertex.y += Math.random() * 2;
+            vertex.z += Math.random() * 20 - 10;
 
-        position.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            position.setXYZ(i, vertex.x, vertex.y, vertex.z);
+        }
     }
 
     const indexedGeometry = floorGeometry.toNonIndexed(); // ensure each face has unique vertices

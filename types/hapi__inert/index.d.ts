@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Plugin, Request } from '@hapi/hapi';
+import { Plugin, Request, ResponseObject } from '@hapi/hapi';
 
 declare namespace inert {
     type RequestHandler<T> = (request: Request) => T;
