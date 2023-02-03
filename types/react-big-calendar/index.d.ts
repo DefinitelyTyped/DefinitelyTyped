@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.38
+// Type definitions for react-big-calendar 1.6
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -537,6 +537,7 @@ export class Calendar<TEvent extends object = Event, TResource extends object = 
 > {}
 
 export interface components {
+    timeSlotWrapper: React.ComponentType;
     dateCellWrapper: React.ComponentType;
     eventWrapper: React.ComponentType<Event>;
 }
@@ -554,6 +555,7 @@ export function luxonLocalizer(
     firstDayOfWeek: number;
   },
 ): DateLocalizer;
+export function dayjsLocalizer(dayjs: object): DateLocalizer;
 
 export const Navigate: {
     PREVIOUS: 'PREV';

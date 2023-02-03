@@ -7,6 +7,7 @@ import {
     globalizeLocalizer,
     dateFnsLocalizer,
     luxonLocalizer,
+    dayjsLocalizer,
     move,
     Views,
     components,
@@ -37,6 +38,7 @@ declare const globalize: any;
 declare const moment: any;
 declare const dateFnsConfig: any;
 declare const luxonConfig: any;
+declare const dayjs: any;
 
 declare const allViews: View[];
 
@@ -153,6 +155,27 @@ class CalendarResource {
     );
 
     const localizer = luxonLocalizer(luxonConfig, { firstDayOfWeek: 0 });
+
+    ReactDOM.render(<Basic localizer={localizer} />, document.body);
+}
+
+// dayjs Example Test
+{
+    interface Props {
+        localizer: DateLocalizer;
+    }
+    const Basic = ({ localizer }: Props) => (
+        <Calendar
+            events={getEvents()}
+            views={allViews}
+            step={60}
+            showMultiDayTimes
+            defaultDate={new Date(2015, 3, 1)}
+            localizer={localizer}
+        />
+    );
+
+    const localizer = dayjsLocalizer(dayjs);
 
     ReactDOM.render(<Basic localizer={localizer} />, document.body);
 }
