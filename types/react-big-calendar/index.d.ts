@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.38
+// Type definitions for react-big-calendar 1.6.3
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
