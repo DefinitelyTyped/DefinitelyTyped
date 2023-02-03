@@ -34,6 +34,7 @@ lock.isBusy('key'); // $ExpectType boolean
 new AsyncLock({ timeout: 5000 });
 new AsyncLock({ maxPending: 5000 });
 new AsyncLock({ maxOccupationTime: 5000 });
+new AsyncLock({ maxExecutionTime: 5000 });
 new AsyncLock({ domainReentrant: true });
 new AsyncLock({ skipQueue: true });
 new AsyncLock({ Promise: null });

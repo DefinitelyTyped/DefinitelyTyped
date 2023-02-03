@@ -29,6 +29,12 @@ declare namespace AsyncLock {
          */
         maxOccupationTime?: number | undefined;
         /**
+         * Max amount of time allowed between acquiring the lock and completing execution.
+         * 
+         * @default 0 (Never)
+         */
+        maxExecutionTime?: number | undefined;
+        /**
          * Make a lock reentrant in the same domain.
          *
          * @default false
@@ -82,6 +88,7 @@ declare namespace AsyncLock {
 declare class AsyncLock {
     static readonly DEFAULT_TIMEOUT: number;
     static readonly DEFAULT_MAX_OCCUPATION_TIME: number;
+    static readonly DEFAULT_MAX_EXECUTION_TIME: number;
     static readonly DEFAULT_MAX_PENDING: number;
 
     constructor(options?: AsyncLock.AsyncLockOptions);
