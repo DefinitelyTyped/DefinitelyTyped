@@ -1,4 +1,4 @@
-// Type definitions for Visual Studio Code 1.74
+// Type definitions for Visual Studio Code 1.75
 // Project: https://github.com/microsoft/vscode
 // Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
