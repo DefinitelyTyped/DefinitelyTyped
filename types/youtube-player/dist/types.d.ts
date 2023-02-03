@@ -42,7 +42,7 @@ export interface IframeApiType {
     Player: {new(elementId: string, options: Options): YouTubePlayer};
 }
 
-export interface sizeType {
+export interface PlayerSize {
     width: number;
     height: number;
 }
@@ -139,7 +139,7 @@ export interface YouTubePlayer {
     setPlaybackQuality(suggestedQuality: string): Promise<void>;
     setPlaybackRate(suggestedRate: number): Promise<void>;
     setShuffle(shufflePlaylist: boolean): Promise<void>;
-    getSize(): Promise<sizeType>;
+    getSize(): Promise<PlayerSize>;
     setSize(width: number, height: number): Promise<object>;
     setVolume(volume: number): Promise<void>;
     stopVideo(): Promise<void>;
