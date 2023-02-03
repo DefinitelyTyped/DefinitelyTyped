@@ -156,5 +156,7 @@ export function responseProvider(request: EW.ResponseProviderRequest) {
 
     // getVariable
     const v = request.getVariable("var") || [];
-    request.arrayBuffer().then(function(ab) => createResponse(202, {}, new Uint8Array(ab).toString()));
+
+    // EW.ResponseProviderRequest.arrayBuffer()
+    const arrayBufferBody = request.arrayBuffer();
 }
