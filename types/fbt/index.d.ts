@@ -1,4 +1,4 @@
-// Type definitions for fbt 1.0.0
+// Type definitions for fbt 1.0
 // Project: https://github.com/facebook/fbt
 // Definitions by: Davyd <https://github.com/retyui>
 //                 Alexander Nanberg <https://github.com/alexandernanberg>
