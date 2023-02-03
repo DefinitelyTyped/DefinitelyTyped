@@ -442,9 +442,9 @@ declare namespace yargs {
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
-        option<K extends keyof T, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
-        option<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
-        option<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
+        option<K extends keyof T, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> } & Alias<O>>;
+        option<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> } & Alias<O>>;
+        option<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O> & Alias<O>>;
 
         /**
          * This method can be used to make yargs aware of options that could exist.
@@ -855,6 +855,9 @@ declare namespace yargs {
         O extends (
             | { default: infer D }
         ) ? Exclude<D, undefined> : unknown;
+
+    type Alias<O extends Options | PositionalOptions> =
+        O extends { alias: infer T } ? T extends Exclude<string, T> ? { [key in T]: InferredOptionType<O> } : {} : {};
 
     // prettier-ignore
     type IsRequiredOrHasDefault<O extends Options | PositionalOptions> =

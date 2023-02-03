@@ -1,5 +1,5 @@
 import dynogels = require("dynogels");
-import { DynamoDB } from "aws-sdk";
+import { DynamoDB } from "aws-sdk2-types";
 import * as Joi from "joi";
 
 // AWS Configs
