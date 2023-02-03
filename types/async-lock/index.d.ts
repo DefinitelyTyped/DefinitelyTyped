@@ -30,7 +30,7 @@ declare namespace AsyncLock {
         maxOccupationTime?: number;
         /**
          * Max amount of time allowed between acquiring the lock and completing execution.
-         * 
+         *
          * @default 0 (Never)
          */
         maxExecutionTime?: number;
