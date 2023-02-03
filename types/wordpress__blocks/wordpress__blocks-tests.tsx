@@ -630,6 +630,13 @@ blocks.synchronizeBlocksWithTemplate(undefined, [
 ]);
 
 //
+// editor interaction
+// ----------------------------------------------------------------------------
+
+// $ExpectType ComponentType<BlockEditProps<{ foo: string; }>> | undefined
+blocks.getBlockType<{ foo: string; }>('my/foo')?.edit;
+
+//
 // utils
 // ----------------------------------------------------------------------------
 
