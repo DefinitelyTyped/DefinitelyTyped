@@ -554,6 +554,7 @@ export function luxonLocalizer(
     firstDayOfWeek: number;
   },
 ): DateLocalizer;
+export function dayjsLocalizer(dayjs: object): DateLocalizer;
 
 export const Navigate: {
     PREVIOUS: 'PREV';
