@@ -537,6 +537,7 @@ export class Calendar<TEvent extends object = Event, TResource extends object = 
 > {}
 
 export interface components {
+    timeSlotWrapper: React.ComponentType;
     dateCellWrapper: React.ComponentType;
     eventWrapper: React.ComponentType<Event>;
 }
