@@ -593,6 +593,15 @@ declare class SpotifyWebApi {
     addToQueue(uri: string, options?: DeviceOptions): Promise<Response<SpotifyApi.AddToQueueResponse>>;
 
     /**
+     * Get the list of objects that make up the user's queue.
+     * @param callback Optional callback method to be called instead of the promise.
+     * @returns A promise that if successful, resolves into an object containing the current playing song
+     *          and the queue, otherwise an error. Not returned if a callback is given.
+     */
+    getMyQueue(callback: Callback<SpotifyApi.UsersQueueResponse>): void;
+    getMyQueue(): Promise<Response<SpotifyApi.UsersQueueResponse>>;
+
+    /**
      * Get the Current User's Connect Devices
      * @param callback Optional callback method to be called instead of the promise.
      * @returns A promise that if successful, resolves into a paging object of tracks,
