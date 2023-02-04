@@ -272,8 +272,9 @@ request
     })
     .end(callback);
 
-//DNS override (tests based on documentation examples)
+// DNS override (tests based on documentation examples)
 request.get("http://example.com").connect("127.0.0.1").end(callback);
+
 request.get("http://redir.example.com:555")
       .connect({
         "redir.example.com": "127.0.0.1", // redir.example.com:555 will use 127.0.0.1:555
