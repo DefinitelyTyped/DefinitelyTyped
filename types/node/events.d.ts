@@ -670,7 +670,7 @@ declare module 'events' {
             }
         }
     }
-    export = EventEmitter;
+    export default EventEmitter;
 }
 declare module 'node:events' {
     import events = require('events');
