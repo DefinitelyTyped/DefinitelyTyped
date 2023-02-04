@@ -1,7 +1,9 @@
 import fetch from '@rdfjs/fetch-lite';
 import { SinkMap } from '@rdfjs/sink-map';
-import { Stream, Dataset, Quad, DatasetCoreFactory } from 'rdf-js';
+import { Stream, Dataset, Quad, DatasetCoreFactory, DatasetCore } from 'rdf-js';
 import { EventEmitter } from 'events';
+import Environment from '@rdfjs/environment/Environment.js';
+import fetchFactory from '@rdfjs/fetch-lite/Factory.js';
 
 const formats: {
     parsers: SinkMap<EventEmitter, Stream>;
@@ -35,4 +37,28 @@ async function fetchDataset(): Promise<DatasetX> {
 async function fetchTypedStream(): Promise<Stream<QuadExt>> {
     const response = await fetch('http://example.com', { formats, factory });
     return response.quadStream();
+}
+
+async function environmentRawFetch(): Promise<Stream> {
+    const environmentTest = new Environment([
+        fetchFactory
+    ]);
+    const res = await environmentTest.fetch('foo', { formats });
+    return res.quadStream();
+}
+
+interface TestDataset extends DatasetCore {
+    foo: 'bar';
+}
+async function environmentDatasetFetch(): Promise<DatasetCore> {
+    const datasetFactory: {
+        dataset(): TestDataset;
+        exports: ['dataset'];
+    } = <any> {};
+    const environmentTest = new Environment([
+        fetchFactory,
+        datasetFactory
+    ]);
+    const res = await environmentTest.fetch('foo', { formats });
+    return res.dataset();
 }

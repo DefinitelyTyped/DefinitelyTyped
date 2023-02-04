@@ -51,3 +51,10 @@ function testClownface() {
     const fromOther = $rdf.clownface(other);
     fromOther.dataset; // $ExpectType DatasetFoo
 }
+
+async function testFetch() {
+    const formats: any = <any> {};
+    const res = await $rdf.fetch('foo', { formats });
+    const stream: RDF.Stream = await res.quadStream();
+    const dataset: RDF.DatasetCore = await res.dataset();
+}

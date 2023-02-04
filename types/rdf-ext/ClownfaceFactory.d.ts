@@ -1,8 +1,6 @@
-import { Term, Literal } from 'rdf-js';
-import DatasetCore from "@rdfjs/dataset/DatasetCore";
+import { Term, Literal, DatasetCore } from 'rdf-js';
 import { ClownfaceInit, ClownfaceInitWithTerms, ClownfaceInitWithValue, ClownfaceInitWithValues, AnyContext, AnyPointer } from "clownface";
 
-type WithoutDataset<Init> = Omit<Init, "dataset">;
 type ExtractDataset<This> = This extends DatasetFactory ? ReturnType<This["dataset"]> : never;
 
 interface DatasetFactory {

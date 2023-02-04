@@ -5,12 +5,13 @@
 // TypeScript Version: 2.8
 
 import { Environment } from '@rdfjs/environment/Environment.js';
+import { FetchFactory } from '@rdfjs/fetch-lite/Factory.js';
 import { ClownfaceFactory } from './ClownfaceFactory';
 import { DataFactoryExt as DataFactory } from './DataFactory';
 import { DatasetFactory } from './DatasetFactory';
 
 declare const defaultEnv: Environment<
-    ClownfaceFactory | DataFactory | DatasetFactory
+    ClownfaceFactory | DataFactory | DatasetFactory | FetchFactory
 >;
 
 export default defaultEnv;
