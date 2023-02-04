@@ -4,6 +4,7 @@ import * as clownface from 'clownface';
 import { DatasetExt } from 'rdf-ext/lib/dataset';
 import NamedNodeExt from "rdf-ext/lib/NamedNode";
 import QuadExt from "rdf-ext/lib/Quad";
+import Traverser from '@rdfjs/traverser/Traverser';
 
 function testDataFactory() {
     const namedNode = $rdf.namedNode('foo'); // $ExpectType NamedNodeExt<"foo">
@@ -79,4 +80,10 @@ function termSetMapFactoryTest() {
 
 function testPrefixMap() {
     const prefixMap = $rdf.prefixMap();
+}
+
+function testTraverser() {
+    const traverser: Traverser<DatasetExt> = $rdf.traverser(({ level }) => {
+        return level === 0;
+    });
 }
