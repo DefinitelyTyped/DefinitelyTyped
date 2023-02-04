@@ -6013,25 +6013,25 @@ declare namespace chrome.offscreen {
     /** The reason(s) the extension is creating the offscreen document. */
     export enum Reason {
         /** A reason used for testing purposes only. */
-        TESTING,
+        TESTING = "TESTING",
         /** The offscreen document is responsible for playing audio. */
-        AUDIO_PLAYBACK,
+        AUDIO_PLAYBACK = "AUDIO_PLAYBACK",
         /** The offscreen document needs to embed and script an iframe in order to modify the iframe's content. */
-        IFRAME_SCRIPTING,
+        IFRAME_SCRIPTING = "IFRAME_SCRIPTING",
         /** The offscreen document needs to embed an iframe and scrape its DOM to extract information. */
-        DOM_SCRAPING,
+        DOM_SCRAPING = "DOM_SCRAPING",
         /** The offscreen document needs to interact with Blob objects (including URL.createObjectURL()). */
-        BLOBS,
+        BLOBS = "BLOBS",
         /** The offscreen document needs to use the DOMParser API. */
-        DOM_PARSER,
+        DOM_PARSER = "DOM_PARSER",
         /** The offscreen document needs to interact with media streams from user media (e.g. getUserMedia()). */
-        USER_MEDIA,
+        USER_MEDIA = "USER_MEDIA",
         /** The offscreen document needs to interact with media streams from display media (e.g. getDisplayMedia()). */
-        DISPLAY_MEDIA,
+        DISPLAY_MEDIA = "DISPLAY_MEDIA",
         /** The offscreen document needs to use WebRTC APIs. */
-        WEB_RTC,
+        WEB_RTC = "WEB_RTC",
         /** The offscreen document needs to interact with the clipboard APIs(e.g. Navigator.clipboard). */
-        CLIPBOARD
+        CLIPBOARD = "CLIPBOARD"
     }
 
     /** The parameters describing the offscreen document to create. */
