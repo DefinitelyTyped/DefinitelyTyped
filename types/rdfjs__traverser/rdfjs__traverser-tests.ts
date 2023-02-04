@@ -1,7 +1,7 @@
 import Traverser from '@rdfjs/traverser/Traverser';
 import { Quad, DatasetCore, NamedNode } from "rdf-js";
 import { GraphPointer } from 'clownface';
-import { DatasetExt } from 'rdf-ext/lib/dataset';
+import { DatasetExt } from 'rdf-ext/lib/Dataset';
 
 function filter(arg: { dataset: DatasetCore; quad: Quad; level: number }): boolean {
     return true;

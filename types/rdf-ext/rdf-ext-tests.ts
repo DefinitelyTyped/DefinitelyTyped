@@ -1,7 +1,7 @@
 import * as RDF from '@rdfjs/types';
 import $rdf from 'rdf-ext';
 import * as clownface from 'clownface';
-import { DatasetExt } from 'rdf-ext/lib/dataset';
+import { DatasetExt } from 'rdf-ext/lib/Dataset';
 import NamedNodeExt from "rdf-ext/lib/NamedNode";
 import QuadExt from "rdf-ext/lib/Quad";
 import Traverser from '@rdfjs/traverser/Traverser';
