@@ -125,3 +125,24 @@ const strategyOptions3: StrategyOptions = {
 };
 
 const strategy5: Strategy = new Strategy(strategyOptions3, verifyFunction2);
+
+interface ProviderSpecificProfile {
+    someProviderProfileField: string;
+}
+interface ProviderSpecificResults {
+    someProviderResultField: string;
+}
+const providerSpecificVerifyFunction: OAuth2Strategy.VerifyFunction<
+    ProviderSpecificProfile,
+    ProviderSpecificResults
+> = (accessToken, refreshToken, results, profile, verified) => {
+    results.someProviderResultField;
+    profile.someProviderProfileField;
+};
+const providerSpecificVerifyFunctionWithRequest: OAuth2Strategy.VerifyFunctionWithRequest<
+    ProviderSpecificProfile,
+    ProviderSpecificResults
+> = (req, accessToken, refreshToken, results, profile, verified) => {
+    results.someProviderResultField;
+    profile.someProviderProfileField;
+};
