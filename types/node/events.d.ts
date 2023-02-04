@@ -77,11 +77,11 @@ declare module 'events' {
         captureRejections?: boolean | undefined;
     }
     // Any EventTarget with a Node-style `once` function
-    interface _NodeEventTarget {
+    export interface _NodeEventTarget {
         once(eventName: string | symbol, listener: (...args: any[]) => void): this;
     }
     // Any EventTarget with a DOM-style `addEventListener`
-    interface _DOMEventTarget {
+    export interface _DOMEventTarget {
         addEventListener(
             eventName: string,
             listener: (...args: any[]) => void,
@@ -90,7 +90,7 @@ declare module 'events' {
             }
         ): any;
     }
-    interface StaticEventEmitterOptions {
+    export interface StaticEventEmitterOptions {
         signal?: AbortSignal | undefined;
     }
     interface EventEmitter extends NodeJS.EventEmitter {}
