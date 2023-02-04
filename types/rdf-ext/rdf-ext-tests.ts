@@ -76,3 +76,7 @@ function termSetMapFactoryTest() {
     const map = $rdf.termMap();
     const set = $rdf.termSet();
 }
+
+function testPrefixMap() {
+    const prefixMap = $rdf.prefixMap();
+}
