@@ -3,7 +3,6 @@ import {
     parse,
     write,
     parseSimulcastStreamList,
-    parseImageAttributes,
 } from 'sdp-transform';
 
 function test_basic() {
