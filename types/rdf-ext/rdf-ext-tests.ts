@@ -71,3 +71,8 @@ function testNamespace() {
     // @ts-expect-error
     const baz = typedNs.baz;
 }
+
+function termSetMapFactoryTest() {
+    const map = $rdf.termMap();
+    const set = $rdf.termSet();
+}

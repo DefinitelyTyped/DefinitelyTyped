@@ -8,12 +8,14 @@ import { Environment } from '@rdfjs/environment/Environment.js';
 import { FormatsFactory } from "@rdfjs/environment/FormatsFactory";
 import { FetchFactory } from '@rdfjs/fetch-lite/Factory.js';
 import { NamespaceFactory } from '@rdfjs/namespace/Factory.js';
+import { TermMapFactory } from '@rdfjs/term-map/Factory.js';
+import { TermSetFactory } from '@rdfjs/term-set/Factory.js';
 import { ClownfaceFactory } from './ClownfaceFactory';
 import { DataFactoryExt as DataFactory } from './DataFactory';
 import { DatasetFactory } from './DatasetFactory';
 
 declare const defaultEnv: Environment<
-    ClownfaceFactory | DataFactory | DatasetFactory | FetchFactory | FormatsFactory | NamespaceFactory
+    ClownfaceFactory | DataFactory | DatasetFactory | FetchFactory | FormatsFactory | NamespaceFactory | TermMapFactory | TermSetFactory
 >;
 
 export default defaultEnv;
