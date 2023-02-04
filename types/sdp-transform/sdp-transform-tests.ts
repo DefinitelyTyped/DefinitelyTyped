@@ -2,6 +2,8 @@ import {
     SessionDescription,
     parse,
     write,
+    parseSimulcastStreamList,
+    parseImageAttributes,
 } from 'sdp-transform';
 
 function test_basic() {
@@ -31,4 +33,20 @@ function test_origin_fields() {
         address: '127.0.0.1'
     };
     const sdp: string = write(session);
+}
+
+function test_parse_simulcast_stream_list() {
+    const session: SessionDescription = parse('');
+    const simulcastList = session.media[0].simulcast?.list1;
+
+    if (!simulcastList) {
+        return;
+    }
+
+    for (const stream of parseSimulcastStreamList(simulcastList)) {
+        for (const format of stream) {
+            format.paused; // $ExpectType boolean
+            format.scid; // $ExpectType string | number
+        }
+    }
 }
