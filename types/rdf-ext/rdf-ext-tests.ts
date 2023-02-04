@@ -62,3 +62,12 @@ async function testFetch() {
 function testFormats() {
     const { parsers, serializers } = $rdf.formats;
 }
+
+function testNamespace() {
+    const schema = $rdf.namespace('http://schema.org/');
+    const typedNs = $rdf.namespace<'foo' | 'bar'>('http://schema.org/');
+
+    const { foo, bar } = typedNs;
+    // @ts-expect-error
+    const baz = typedNs.baz;
+}

@@ -5,3 +5,7 @@ export interface FormatsFactory {
     init(): void;
     clone(original: FormatsFactory): void;
 }
+
+declare const formatsFactory: FormatsFactory;
+
+export default formatsFactory;

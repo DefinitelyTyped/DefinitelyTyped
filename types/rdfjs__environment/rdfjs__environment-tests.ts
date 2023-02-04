@@ -1,4 +1,6 @@
 import Environment from '@rdfjs/environment/Environment';
+import FormatsFactory from '@rdfjs/environment/FormatsFactory';
+import NamespaceFactory from '@rdfjs/environment/NamespaceFactory';
 
 const emptyEnv = new Environment([]);
 const clone = emptyEnv.clone();
@@ -32,3 +34,10 @@ environment.init();
 
 const foo: string = environment.foo('10');
 const bar: number = environment.bar(10);
+
+const envWithDefaults = new Environment([
+    FormatsFactory,
+    NamespaceFactory,
+]);
+
+const { formats, namespace }  = envWithDefaults;
