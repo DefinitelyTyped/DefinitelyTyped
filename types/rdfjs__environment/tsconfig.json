@@ -23,6 +23,6 @@
     },
     "files": [
         "index.d.ts",
-        "rdf-ext-tests.ts"
+        "rdfjs__environment-tests.ts"
     ]
 }
