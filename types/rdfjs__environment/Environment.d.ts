@@ -1,6 +1,6 @@
 interface Factory {
     init?(that: Environment<any>): void;
-    exports: string[];
+    exports?: string[];
 }
 
 type UnionToIntersection<U> =
@@ -11,9 +11,7 @@ export type Environment<TFactories extends Factory> = {
 } & {
     [K in keyof UnionToIntersection<TFactories>]: K extends 'init'
         ? never
-        : UnionToIntersection<TFactories>[K] extends (...arg: any[]) => any
-            ? UnionToIntersection<TFactories>[K]
-            : never
+        : UnionToIntersection<TFactories>[K]
 };
 
 interface EnvironmentCtor {

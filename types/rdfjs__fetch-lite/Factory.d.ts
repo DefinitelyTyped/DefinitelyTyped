@@ -7,7 +7,7 @@ interface RdfFetchResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad exten
 }
 
 export interface FetchFactory {
-    fetch(url: string, options: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
+    fetch(url: string, options?: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
     exports: ['fetch'];
 }
 

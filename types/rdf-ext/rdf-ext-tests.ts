@@ -54,7 +54,11 @@ function testClownface() {
 
 async function testFetch() {
     const formats: any = <any> {};
-    const res = await $rdf.fetch('foo', { formats });
+    const res = await $rdf.fetch('foo');
     const stream: RDF.Stream = await res.quadStream();
     const dataset: RDF.DatasetCore = await res.dataset();
+}
+
+function testFormats() {
+    const { parsers, serializers } = $rdf.formats;
 }
