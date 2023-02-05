@@ -1,6 +1,7 @@
 // Type definitions for rdf-ext 2.0
 // Project: https://github.com/rdf-ext/rdf-ext
 // Definitions by: tpluscode <https://github.com/tpluscode>
+//                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
