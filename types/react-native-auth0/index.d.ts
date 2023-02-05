@@ -348,6 +348,6 @@ export interface Auth0Props {
     children?: any;
 }
 
-export function useAuth0<T = void>(): Auth0ContextInterface<T>;
+export function useAuth0(): Auth0ContextInterface;
 
 export const Auth0Provider: React.FC<Auth0Props>;
