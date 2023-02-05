@@ -38,6 +38,7 @@ new AsyncLock({ maxExecutionTime: 5000 });
 new AsyncLock({ domainReentrant: true });
 new AsyncLock({ skipQueue: true });
 new AsyncLock({ Promise: null });
+new AsyncLock({ timeout: undefined });
 
 AsyncLock.DEFAULT_TIMEOUT; // $ExpectType 0
 AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType 0
