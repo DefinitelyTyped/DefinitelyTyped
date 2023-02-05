@@ -1,5 +1,13 @@
-import TermMapFactory from '@rdfjs/term-map/Factory.js';
-import TermSetFactory from '@rdfjs/term-set/Factory.js';
+import { TermMapFactory } from '@rdfjs/term-map/Factory.js';
+import { TermSetFactory } from '@rdfjs/term-set/Factory.js';
 
-declare const factory: TermSetFactory & TermMapFactory;
-export default factory;
+interface Factory extends TermSetFactory, TermMapFactory {
+}
+
+interface FactoryCtor {
+    new(): Factory;
+}
+
+declare const factoryCtor: FactoryCtor;
+
+export default factoryCtor;

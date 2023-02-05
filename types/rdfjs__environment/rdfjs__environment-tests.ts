@@ -1,32 +1,31 @@
+import { NamedNode } from 'rdf-js';
 import Environment from '@rdfjs/environment/Environment';
 import FormatsFactory from '@rdfjs/environment/FormatsFactory';
 import NamespaceFactory from '@rdfjs/environment/NamespaceFactory';
+import TermMapSetFactory from '@rdfjs/environment/TermMapSetFactory';
 
 const emptyEnv = new Environment([]);
 const clone = emptyEnv.clone();
 
-interface FooFactory {
+declare class FooFactory {
     init(): void;
     foo(foo: string): string;
-    exports: ['foo'];
+    static exports: ['foo'];
 }
 
-interface BarFactory {
+declare class BarFactory {
     bar(bar: number): number;
     baz(): number;
-    exports: ['bar'];
+    static exports: ['bar'];
 }
 
-const fooFactory: FooFactory = <any> {};
-const barFactory: BarFactory = <any> {};
-
 let environment = new Environment([
-    fooFactory,
-    barFactory,
+    FooFactory,
+    BarFactory,
 ]);
 environment = new Environment([
-    fooFactory,
-    barFactory,
+    FooFactory,
+    BarFactory,
 ], { bind: true });
 
 // @ts-expect-error
@@ -41,3 +40,12 @@ const envWithDefaults = new Environment([
 ]);
 
 const { formats, namespace }  = envWithDefaults;
+
+const env = new Environment([TermMapSetFactory]);
+
+const node: NamedNode = <any> {};
+const termMap = env.termMap([ // $ExpectType TermMap<NamedNode<string>, string>
+    [node, 'foo'],
+    [node, 'bar']
+]);
+const termSet = env.termSet([node]); // $ExpectType TermSet<NamedNode<string>>

@@ -25,7 +25,10 @@ export interface DataFactoryExt extends RDF.DataFactory<QuadExt, RDF.Quad> {
     fromTerm: <T extends RDF.Term>(original: T) => ReturnType<FromTerm<T, this>>;
 
     fromQuad: (original: RDF.Quad) => ReturnType<FromTerm<RDF.Quad, this>>;
+}
 
+interface DataFactoryExtCtor {
+    new(): DataFactoryExt;
     exports: [
         'namedNode',
         'blankNode',
@@ -38,4 +41,5 @@ export interface DataFactoryExt extends RDF.DataFactory<QuadExt, RDF.Quad> {
     ];
 }
 
-export default DataFactoryExt;
+declare const dataFactoryExt: DataFactoryExtCtor;
+export default dataFactoryExt;

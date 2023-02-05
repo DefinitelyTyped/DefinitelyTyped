@@ -1,10 +1,14 @@
 import { NamespaceBuilder } from '.';
 
 export interface NamespaceFactory {
-    exports: ['namespace'];
     namespace<TermNames extends string = any>(baseIRI: string): NamespaceBuilder<TermNames>;
 }
 
-declare const namespaceFactory: NamespaceFactory;
+interface NamespaceFactoryCtor {
+    new(): NamespaceFactory;
+    exports: ['namespace'];
+}
+
+declare const namespaceFactory: NamespaceFactoryCtor;
 
 export default namespaceFactory;

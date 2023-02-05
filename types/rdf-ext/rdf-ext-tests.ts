@@ -12,6 +12,10 @@ import { DataFactoryExt } from 'rdf-ext/DataFactory';
 import Traverser from '@rdfjs/traverser/Traverser';
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
+import Environment from '@rdfjs/environment/Environment.js';
+import ClownfaceFactory from 'rdf-ext/ClownfaceFactory.js';
+import DataFactory from 'rdf-ext/DataFactory.js';
+import DatasetFactory from 'rdf-ext/DatasetFactory.js';
 
 function rdfExt_factory() {
     const baseFactory: DatasetCoreFactory = rdf;
@@ -428,4 +432,18 @@ function testTraverser() {
     const traverser: Traverser<DatasetExt> = rdf.traverser(({ level }) => {
         return level === 0;
     });
+}
+
+function testBundledFactories() {
+    const env = new Environment([
+        ClownfaceFactory,
+        DatasetFactory,
+        DataFactory,
+    ]);
+
+    const {
+        dataset,
+        quad,
+        clownface,
+    } = env;
 }

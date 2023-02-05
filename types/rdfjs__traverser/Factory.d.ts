@@ -12,8 +12,13 @@ export interface TraverserFactory {
         filter: TraversePredicate<D>,
         options?: Omit<Options, 'factory'>
     ): Traverser<D>;
+}
+
+interface TraverserFactoryCtor {
+    new(): TraverserFactory;
+
     exports: ['traverser'];
 }
 
-declare const factory: TraverserFactory;
+declare const factory: TraverserFactoryCtor;
 export default factory;

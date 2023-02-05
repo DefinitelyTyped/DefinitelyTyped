@@ -1,21 +1,22 @@
-interface Factory {
-    init?(that: Environment<any>): void;
+interface FactoryConstructor<F = {}> {
+    new (...args: any[]): F;
     exports?: string[];
 }
 
-type UnionToIntersection<U> =
-    (U extends Factory ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+type ReturnFactory<C> = C extends FactoryConstructor<infer X> ? X : never;
+type Distribute<U> = U extends any ? ReturnFactory<U> : never;
 
-export type Environment<TFactories extends Factory> = {
-    clone(): Environment<TFactories>
-} & {
-    [K in keyof UnionToIntersection<TFactories>]: K extends 'init'
-        ? never
-        : UnionToIntersection<TFactories>[K]
-};
+type UnionToIntersection<U> =
+    (U extends {} ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+
+export type Environment<T> = {
+    clone(): Environment<T>
+} & Omit<{
+    [K in keyof UnionToIntersection<T>]: UnionToIntersection<T>[K]
+}, 'init'>;
 
 interface EnvironmentCtor {
-    new<F extends Factory>(factories: F[], options?: { bind: boolean }): Environment<F>;
+    new<F extends FactoryConstructor>(factories: F[], options?: { bind: boolean }): Environment<Distribute<F>>;
 }
 
 declare const environment: EnvironmentCtor;

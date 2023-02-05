@@ -6,6 +6,10 @@ export interface FormatsFactory {
     clone(original: FormatsFactory): void;
 }
 
-declare const formatsFactory: FormatsFactory;
+interface FormatsFactoryCtor {
+    new(): FormatsFactory;
+}
+
+declare const formatsFactory: FormatsFactoryCtor;
 
 export default formatsFactory;

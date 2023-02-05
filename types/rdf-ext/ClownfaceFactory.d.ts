@@ -27,10 +27,13 @@ export interface ClownfaceFactory {
     clownface<T extends AnyContext, D extends DatasetCore = ExtractDataset<this>>(
         other: AnyPointer<T, D>,
     ): AnyPointer<T, D>;
+}
 
+interface ClownfaceFactoryCtor {
+    new (): ClownfaceFactory;
     exports: ['clownface'];
 }
 
-declare const clownfaceFactory: ClownfaceFactory;
+declare const clownfaceFactory: ClownfaceFactoryCtor;
 
 export default clownfaceFactory;
