@@ -12,10 +12,10 @@ import { DataFactoryExt } from 'rdf-ext/DataFactory';
 import Traverser from '@rdfjs/traverser/Traverser';
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
-import Environment from '@rdfjs/environment/Environment.js';
-import ClownfaceFactory from 'rdf-ext/ClownfaceFactory.js';
-import DataFactory from 'rdf-ext/DataFactory.js';
-import DatasetFactory from 'rdf-ext/DatasetFactory.js';
+import Environment from '@rdfjs/environment/Environment';
+import ClownfaceFactory from 'rdf-ext/ClownfaceFactory';
+import DataFactory from 'rdf-ext/DataFactory';
+import DatasetFactory from 'rdf-ext/DatasetFactory';
 
 function rdfExt_factory() {
     const baseFactory: DatasetCoreFactory = rdf;
