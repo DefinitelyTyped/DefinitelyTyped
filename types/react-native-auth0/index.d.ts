@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.14
+// Type definitions for react-native-auth0 2.17
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
@@ -9,9 +9,9 @@
 //                 Mathias Djärv <https://github.com/mdjarv>
 //                 Greg Friedman <https://github.com/gfriedm4>
 //                 Poovamraj T T <https://github.com/poovamraj>
+//                 Wolfleader101 <https://github.com/Wolfleader101>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
-
 import * as React from 'react';
 
 /**
@@ -24,7 +24,7 @@ export interface AuthorizeUrlParams {
     state: string;
 }
 
-export interface CreateUserParams<T> {
+export interface CreateUserParams<T = void> {
     email: string;
     password: string;
     connection: string;
@@ -147,7 +147,7 @@ export interface MultiFactorChallengeResponse {
     bindingMethod?: string;
 }
 
-export type UserInfo<CustomClaims = {}> = {
+export type UserInfo<CustomClaims = void> = {
     email: string;
     emailVerified: boolean;
     familyName: string;
@@ -161,8 +161,7 @@ export type UserInfo<CustomClaims = {}> = {
 
 export class Auth {
     authorizeUrl(params: AuthorizeUrlParams): string;
-    /* eslint-disable-next-line no-unnecessary-generics */
-    createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
+    createUser<T = void>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<Credentials>;
     exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<Credentials>;
     logoutUrl(params: LogoutParams): string;
@@ -170,8 +169,7 @@ export class Auth {
     refreshToken(params: RefreshTokenParams): Promise<Credentials>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    /* eslint-disable-next-line no-unnecessary-generics */
-    userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
+    userInfo<CustomClaims = void>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
     passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
     passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
     loginWithEmail(params: LoginWithEmailParams): Promise<Credentials>;
@@ -182,22 +180,40 @@ export class Auth {
     multifactorChallenge(params: MultiFactorChallengeParams): Promise<MultiFactorChallengeResponse>;
 }
 
+export interface Auth0Connection {
+    user_id: string;
+    provider: string;
+    connection: string;
+    isSocial: boolean;
+}
+
 /**
  * Users
  */
-export interface Auth0User<T> {
+export interface Auth0User<T = void> {
     created_at: string;
-    email: string;
-    emailVerified: boolean;
-    identities: any[];
+    email?: string;
+    email_verified?: boolean;
+    identities: Auth0Connection[];
     last_ip?: string;
     last_login?: string;
     logins_count: number;
-    name: string;
-    nickname: string;
+    name?: string;
+    given_name?: string;
+    family_name?: string;
+    middle_name?: string;
+    nickname?: string;
     picture?: string;
     updated_at: string;
-    userId: string;
+    user_id: string;
+    sub: string;
+    preferred_username?: string;
+    profile?: string;
+    gender?: string;
+    birthdate?: string;
+    zoneinfo?: string;
+    locale?: string;
+    phone_number?: string;
     userMetadata?: T;
 }
 
@@ -205,16 +221,15 @@ export interface GetUserParams {
     id: string;
 }
 
-export interface PatchUserParams<T> {
+export interface PatchUserParams<T = void> {
     id: string;
     metadata: T;
 }
 
 export class Users {
     constructor(options: UsersOptions);
-    /* eslint-disable-next-line no-unnecessary-generics */
-    getUser<T>(parameters: GetUserParams): Promise<Auth0User<T>>;
-    patchUser<T>(parameters: PatchUserParams<T>): Promise<Auth0User<T>>;
+    getUser<T = void>(parameters: GetUserParams): Promise<Auth0User<T>>;
+    patchUser<T = void>(parameters: PatchUserParams<T>): Promise<Auth0User<T>>;
 }
 
 export const users: Users;
@@ -312,8 +327,8 @@ export default class Auth0 {
     users(token: string): Users;
 }
 
-export class Auth0ContextInterface {
-    user: any;
+export interface Auth0ContextInterface<T = void> {
+    user: Auth0User<T>;
     error: any;
     authorize(parameters: AuthorizeParams, options?: AuthorizeOptions): Promise<void>;
     clearSession(): Promise<void>;
@@ -327,12 +342,12 @@ export class Auth0ContextInterface {
     ): Promise<void>;
 }
 
-export class Auth0Props {
+export interface Auth0Props {
     domain: string;
     clientId: string;
     children?: any;
 }
 
-export function useAuth0(): Auth0ContextInterface;
+export function useAuth0<T = void>(): Auth0ContextInterface<T>;
 
 export const Auth0Provider: React.FC<Auth0Props>;
