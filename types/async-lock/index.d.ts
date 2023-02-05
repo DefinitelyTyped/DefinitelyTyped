@@ -15,25 +15,25 @@ declare namespace AsyncLock {
          *
          * @default 0 (Never)
          */
-        timeout?: number;
+        timeout?: number | undefined;
         /**
          * Max number of tasks allowed in the queue at a time.
          *
          * @default 1000
          */
-        maxPending?: number;
+        maxPending?: number | undefined;
         /**
          * Max amount of time allowed between entering the queue and completing execution.
          *
          * @default 0 (Never)
          */
-        maxOccupationTime?: number;
+        maxOccupationTime?: number | undefined;
         /**
          * Max amount of time allowed between acquiring the lock and completing execution.
          *
          * @default 0 (Never)
          */
-        maxExecutionTime?: number;
+        maxExecutionTime?: number | undefined;
         /**
          * Make a lock reentrant in the same domain.
          *
@@ -54,7 +54,7 @@ declare namespace AsyncLock {
          *     });
          * });
          */
-        domainReentrant?: boolean;
+        domainReentrant?: boolean | undefined;
         /**
          * Allows to enqueue a task in the front of the queue, skipping all enqueued tasks.
          *
@@ -69,7 +69,7 @@ declare namespace AsyncLock {
          * lock.acquire(key, fn2, cb); // added to queue
          * lock.acquire(key, priorityFn, cb, { skipQueue: true }); // jumps queue and runs before fn2
          */
-        skipQueue?: boolean;
+        skipQueue?: boolean | undefined;
         /**
          * Use your own promise library instead of the global `Promise` variable.
          *
