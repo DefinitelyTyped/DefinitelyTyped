@@ -3,8 +3,8 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import resource from './resource.js';
-import resourcesToGraph from './resourcesToGraph.js';
+import resource from './resource';
+import resourcesToGraph from './resourcesToGraph';
 
 export {
     resource,
