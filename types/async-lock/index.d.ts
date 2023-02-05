@@ -1,4 +1,4 @@
-// Type definitions for async-lock 1.3
+// Type definitions for async-lock 1.4
 // Project: https://github.com/rain1017/async-lock, https://github.com/rogierschouten/async-lock
 // Definitions by: Alejandro <https://github.com/afharo>
 //                 Anatoly <https://github.com/rhymmor>
