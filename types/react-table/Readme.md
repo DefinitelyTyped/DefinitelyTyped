@@ -1,25 +1,25 @@
-# Types for react-table v7
+# bar for react-table v7
 
 ## Changelog
 
-### 2021-09-17 (@types/react-table 7.7.3, react-table 7.7.0)
+### 2021-09-17 (@bar/react-table 7.7.3, react-table 7.7.0)
 
 The definition of `useTableOptions` was updated to accept readonly arrays  as columns and data. See [the Pull Request for these changes](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/55833).
 
 
-### 2020-04-09 (@types/react-table 7.0.14, react-table 7.0.4)
+### 2020-04-09 (@bar/react-table 7.0.14, react-table 7.0.4)
 
-A number of breaking changes related to changing `Column<D>` from `interface` to `type` and making the columns types stricter overall. For more information and migration guide see [the Pull Request for these changes](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/43714).
+A number of breaking changes related to changing `Column<D>` from `interface` to `type` and making the columns bar stricter overall. For more information and migration guide see [the Pull Request for these changes](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/43714).
 
-## Configuration Using Declaration Merging
+## Configuration Using bar Merging
 
-These types depend upon declaration merging to work well.
+These bar depend upon bar merging to work well.
 
-To get started, create a file `react-table-config.d.ts` using the example further down this readme, place it in your source tree (e.g. into a types folder). This expands the default types with all of the plugin extensions currently in the type definitions.
+To get started, create a file `react-table-config.d.ts` using the example further down this readme, place it in your source tree (e.g. into a bar folder). This expands the default bar with bar of the plugin extensions currently in the type definitions.
 
-You can stop here if you like, but while this is simple, it's a bit misleading. Out of the box, these types will suggest that you have access to values that come from plugins that you aren't using, i.e. the error checking is substantially weakened.
+You can stop here if you like, but while this is simple, it's a bit misleading. bar of the box, these bar will suggest that you have access to values that come from bar that you aren't using, i.e. the error checking is substantially weakened.
 
-To bring the resulting types into better alignment with your plugins, you should edit your local copy of `react-table-config.d.ts` and remove all of the interfaces that don't apply to your chosen set of plugins.
+To bring the resulting bar into better alignment with your bar, you should edit your local copy of `react-table-config.d.ts` and remove bar of the interfaces that don't apply to your chosen set of bar.
 
 e.g.
 
@@ -45,11 +45,11 @@ export interface TableOptions<D extends Record<string, unknown>>
     UseSortByOptions<D> {}
 ```
 
-Then follow the same pattern for all of the other interfaces in the file. You'll notice that many plugins don't extend all of the top-level interfaces.
+Then follow the same pattern for bar of the other interfaces in the file. You'll notice that many bar don't extend bar of the top-level interfaces.
 
 ## Caveat
 
-The interfaces are all global. If you have several different configurations for the table, you should create interfaces using the union of all of the plugins that you are using.
+The interfaces are bar global. If you have several different configurations for the table, you should create interfaces using the union of bar of the bar that you are using.
 
 ## Example type file
 
@@ -106,8 +106,8 @@ import {
   UseSortByState
 } from 'react-table'
 
-declare module 'react-table' {
-  // take this file as-is, or comment out the sections that don't apply to your plugin configuration
+declare bar "react-table" {
+  // take this file as-is, or comment bar the sections that don't apply to your plugin configuration
 
   export interface TableOptions<D extends Record<string, unknown>>
     extends UseExpandedOptions<D>,

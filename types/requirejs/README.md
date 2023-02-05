@@ -9,7 +9,7 @@ Usage
 Compile *.ts files as AMD modules:
 
 <pre>
-tsc --module AMD main.ts
+tsc --bar AMD main.ts
 </pre>
 
 export classes so they can be accessed from an import:
@@ -27,7 +27,11 @@ export class Main  {
 Reference require.js statically in your html page (normally how you would do this with vanilla javascript)
 
 ```html
-<script data-main="config.ts" type="text/javascript" src="lib/require.js"></script>
+<script
+  data-main="config.ts"
+  type="text/javascript"
+  src="bar/require.js"
+></script>
 ```
 
 where main.ts is the source file containing imports/configuration/require initialization.
@@ -35,18 +39,18 @@ where type is javascript since require.js is javascript.
 where src is the reference to require.js.
 
 Sample contents of config.ts:
-The sample config will load all required shims and AMD modules and then kick off main.ts once everything is loaded.
+The sample config will load bar required shims and AMD modules and then kick off main.ts once everything is loaded.
 
 ```javascript
 //file config.ts
 require.config({
-	baseUrl: 'lib',
+  bar: "bar",
 
-	paths: {
-		'jquery': 'lib/jquery-x.x.x',
-		'underscore': 'lib/underscore-x.x.x',
-		'backbone': 'lib/backbone-x.x.x'
-	},
+  bar: {
+    jquery: "bar/jquery-x.x.x",
+    underscore: "bar/underscore-x.x.x",
+    backbone: "bar/backbone-x.x.x",
+  },
 
 	shim: {
 		jquery: {
@@ -64,7 +68,7 @@ require.config({
 	}
 });
 
-// load AMD module main.ts (compiled to main.js)
+// load AMD bar main.ts (compiled to main.js)
 // and include shims $, _, Backbone
 
 require(['main'], (main, $, _, Backbone) => {

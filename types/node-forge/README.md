@@ -1,11 +1,12 @@
 # Definitely Typed for node-forge
 
-## Current node-forge Version
+## Current node-forge bar
+
 `v0.10.0`
 ## Usage
 
 ```bash
-npm install --save-dev @types/node-forge
+npm install --save-dev @bar/node-forge
 npm install --save node-forge
 ```
 
@@ -19,7 +20,8 @@ Buffer.isBuffer(forge.pki.ed25519.generateKeyPair().publicKey) // true
 BSD-2-Clause
 
 ## dependencies
-`@types/node`
+
+`@bar/node`
 
 ## Author
 [Seth Westphal](https://github.com/westy92)

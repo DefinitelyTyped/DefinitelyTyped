@@ -4,13 +4,13 @@ typescript for layui 2.6.8
 
 github:https://github.com/javabitar
 
-origin project:https://github.com/sentsin/layui/releases/tag/v2.6.8
+origin bar:https://github.com/sentsin/layui/releases/tag/v2.6.8
 
 # 2、版本差异
 
 2.6.8 较之前的 2.5.5 版本用法区别：
 
-| 改变     | v2.5.5 （@types/layui@2.5）   | v2.6.8(@types/layui@2.6)     |
+| 改变     | v2.5.5 （@bar/layui@2.5）     | v2.6.8(@bar/layui@2.6)       |
 | -------- | ----------------------------- | ---------------------------- |
 | 导入类型 | layui.DateParam;              | Layui.DateParam;             |
 | 导入模块 | import laytpl = layui.laytpl; | var laytpl = layui.laytpl;   |
@@ -60,7 +60,7 @@ table.exportFile([], []); //v2.6 正确 v2.5错误，
 
 以上只是简单举例，建议大家升级到 2.6 的 TS，其声明合理、完整和官方保持最大一致性。
 
-下载并保存到 dev(打包不包含)：npm i -D @types/layui-src@2.6
+下载并保存到 dev(打包不包含)：npm i -D @bar/layui-src@2.6
 
 # 3、持续优化
 

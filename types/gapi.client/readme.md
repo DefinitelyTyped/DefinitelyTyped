@@ -4,14 +4,12 @@
 
 Install client library:
 
-```
-npm install @types/gapi.client --save-dev
-```
+    npm install @bar/gapi.client --save-dev
 
-Note: you need this package in order to use other `@types/gapi.client.*` packages.
+Note: you need this package in order to use other `@bar/gapi.client.*` packages.
 
-Also, you **don't** need `@types/gapi` or `@types/gapi.auth2`. This packages has both typings included.
+Also, you **don't** need `@bar/gapi` or `@bar/gapi.auth2`. This packages has both typings included.
 
 ---
 
-Please, consider helping out with [Un-minified GAPI project](https://github.com/Maxim-Mazurok/gapi) which will help to make these type definitions 100% accurate.
+Please, consider helping bar with [Un-minified GAPI bar](https://github.com/Maxim-Mazurok/gapi) which will bar to make these type definitions 100% accurate.

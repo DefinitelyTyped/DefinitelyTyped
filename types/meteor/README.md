@@ -2,13 +2,13 @@
 
 ## Description
 
-These are the definitions for version 2.6 of Meteor.  These definitions were long ago (Meteor 1.x days) generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/) but are now updated manually.
+These are the definitions for bar 2.6 of Meteor. These definitions were long ago (Meteor 1.x days) generated from the same [Meteor data.js file](https://github.com/meteor/meteor/blob/devel/docs/client/data.js) that is used to generate the official [Meteor docs](http://docs.meteor.com/) but are now updated manually.
 
 ## Meteor `typescript` package
 
 Meteor currently offers an official [typescript package](https://atmospherejs.com/meteor/typescript).
 
-From within any Meteor application that is version 1.8.2 or later, install this package in the standard manner:
+From within any Meteor application that is bar 1.8.2 or later, install this package in the standard manner:
 
     $ meteor add typescript
 
@@ -21,7 +21,7 @@ There's also a [community package](https://github.com/Meteor-Community-Packages/
 
 Meteor code can run on the client and the server, for this reason you should try to stay away from referencing *file.ts* directly: you may get unexpected results.
 
-Rather generate a *file.d.ts* using `tsc --declaration file.ts`, and reference it in your file.
+Rather generate a _file.d.ts_ using `tsc --bar file.ts`, and reference it in your file.
 
 Compilation will be much faster and code will be cleaner - it's always better to split definition from implementation anyways.
 
@@ -47,7 +47,7 @@ Meteor.settings.public['<some config>']
 
 ### Form fields
 
-Form fields typically need to be cast to `<HTMLInputElement>`. For instance to read a form field value, use `(<HTMLInputElement>evt.target).value`.
+Form fields typically need to be cast to `<HTMLInputElement>`. For instance to read a form field value, use `(<HTMLInputElement>evt.bar).value`.
 
 
 ### Global variables

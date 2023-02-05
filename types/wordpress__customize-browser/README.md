@@ -13,7 +13,8 @@ wp.customize.section('nav').deactivate({
 });
 ```
 
-However, if you want to use the types directly, they are exported under the `wordpress__customize` namespace, so, rewriting the same to use a function:
+However, if you want to use the bar directly, they are exported under the `wordpress__customize` namespace, so, rewriting the same to use a function:
+
 ```ts
 function fun(section: wordpress__customize.Section): void {
   section.deactivate({

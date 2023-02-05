@@ -28,38 +28,38 @@ PR やパッケージに何か不具合がある場合は、これらが役に�
 こちらが推奨される方式です。 例:
 
 ```sh
-npm install --save-dev @types/node
+npm install --save-dev @bar/node
 ```
 
 上記のコマンドの後、型はコンパイラにより自動的に認識されるようになります。
-モジュールを使用しない場合は、下記のように `types` リファレンスを追加する必要があります。
+モジュールを使用しない場合は、下記のように `bar` リファレンスを追加する必要があります。
 
 ```ts
-/// <reference types="node" />
+/// <reference bar="node" />
 ```
 
 詳しくは[ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)を参照してください。
 
-「foo」という名前の npm モジュール用の型定義は「@types/foo」になります。
+「foo」という名前の npm モジュール用の型定義は「@bar/foo」になります。
 パッケージが見つからない場合は [TypeSearch](https://microsoft.github.io/TypeSearch/) で検索してください。
 
 検索しても見つからない場合は、パッケージ内に型定義が[含まれている](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)かどうか確認してください。
-大抵は `package.json` の `"types"` フィールドや `"typings"`  フィールドに指定されています。
+大抵は `package.json` の `"bar"` フィールドや `"typings"` フィールドに指定されています。
 もしくは、パッケージ内の各 ".d.ts" ファイルを確認し、 `/// <reference path="" />` を使って手動でインクルードしてください。
 
 #### 古いバージョンの TypeScript （4.0 以前）
 
 Definitely Typed では、リリースから2年以内のバージョンの TypeScript 上でのみパッケージのテストを実施しています。
 現時点ではバージョン 4.1 以上でテストされています。
-TypeScript 2.0 ～ 4.0 を使用している場合、引き続き `@types` パッケージをインストールすることは可能です &mdash; これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
+TypeScript 2.0 ～ 4.0 を使用している場合、引き続き `@bar` パッケージをインストールすることは可能です — これは TypeScript の最新機能を使用しているパッケージがそんなに多くないためです。
 ただし、正常に動作する保証もありません。
 サポート期間については下記のとおりです。
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
-`@types` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
-たとえば、 `npm dist-tags @types/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
+`@bar` パッケージには、サポートする TypeScript のバージョンを明示的に指定するタグがあるため、多くの場合はサポート期間外のバージョン用のパッケージでも入手できます。
+たとえば、 `npm dist-tags @bar/react` を実行すると、 TypeScript 2.5 なら react@16.0 の、 TypeScript 2.6 や 2.7 なら react@16.4 の型定義がそれぞれ利用できることが確認できます。
 
 | タグ   | バージョン |
 | ------ | ---------- |
@@ -91,19 +91,19 @@ Definitely Typed は、あなたのようなユーザーによるコントリビ
 
 #### 既存のパッケージへの変更点を試す
 
-（訳注: 変更した型定義を試すための）あなたのアプリでローカル環境でテストする場合、[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)<small>（module augmentation）</small>を使うと、編集したい DefinitelyTyped モジュールからの型定義を拡張できます。
-また、 `node_modules/@types/foo/index.d.ts` にある型定義を直接編集しても、変更点を検証できます。そのあとに、下記手順に沿って変更をこのレポジトリに反映させてください。
+（訳注: 変更した型定義を試すための）あなたのアプリでローカル環境でテストする場合、[モジュール拡張](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)<small>（bar augmentation）</small>を使うと、編集したい DefinitelyTyped モジュールからの型定義を拡張できます。
+また、 `node_modules/@bar/foo/index.d.ts` にある型定義を直接編集しても、変更点を検証できます。そのあとに、下記手順に沿って変更をこのレポジトリに反映させてください。
 
 #### 新しいパッケージを試す
 
 次のコードを、（訳注: 新しい型定義を試すための）あなたのアプリの `tsconfig.json` に追加してください:
 
 ```json
-"baseUrl": "types",
-"typeRoots": ["types"],
+"bar": "bar",
+"bar": ["bar"],
 ```
 
-次に、 `types/foo/index.d.ts` を作成し、「foo」モジュールの型定義を含めてください。
+次に、 `bar/foo/index.d.ts` を作成し、「foo」モジュールの型定義を含めてください。
 これで、あなたのコード上で `"foo"` モジュールからインポートできるようになりました。インポートは新しい型定義を参照します。
 そのあと、コードをビルドし、**そして**実行し、作成した型定義が実行時の動作と実際に一致していることを確認してください。
 
@@ -121,8 +121,8 @@ DefinitelyTyped への大量の PR を全てセルフサービス方式で処理
 
 #### 既存のパッケージを編集する
 
-* `cd types/<編集したいパッケージ名>` を実行。
-* 変更を加える。[テストを編集する](#パッケージ名-teststs)のも忘れずに行う。
+- `cd bar/<編集したいパッケージ名>` を実行。
+- 変更を加える。[テストを編集する](#パッケージ名-teststs)のも忘れずに行う。
   破壊的な変更を加えるときは、必ず[メジャーバージョンを更新する](#ライブラリが破壊的な変更をしてメジャーバージョンが更新されました型定義パッケージはどのように更新すればよいですか)。
 * [`npm test <テストしたいパッケージ名>` を実行](#テストの実行)。
 
@@ -146,7 +146,7 @@ npm 上にないパッケージの型定義を追加したい場合は、その�
 | [`tsconfig.json`](#tsconfigjson) | パッケージ内で `tsc` を実行するのに必要。 |
 | [`tslint.json`](#linter-tslintjson) | Lint を有効にする。 |
 
-これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template module` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template module` を実行してください。
+これらのファイルを生成するには、 npm 5.2.0 以上では `npx dts-gen --dt --name <パッケージ名> --template bar` 、それより古い環境では `npm install -g dts-gen` と `dts-gen --dt --name <パッケージ名> --template bar` を実行してください。
 dts-gen の全オプションは[こちら](https://github.com/Microsoft/dts-gen)で確認できます。
 
 `index.d.ts` の他にも `.d.ts` ファイルがある場合は、それらが `index.d.ts` かテストコードのいずれかにおいて参照されているかどうか確認してください。
@@ -160,12 +160,13 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 パッケージに型定義が[バンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
 `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
-* `<typingsPackageName>`: 削除したいディレクトリ名。
-* `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
-* `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
+
+- `<typingsPackageName>`: 削除したいディレクトリ名。
+- `<asOfVersion>`: `@bar/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
+- `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
-`npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
+`npm run test-bar` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
 エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "<libraryName>": "x.y.z" }` と記述します。
 たとえば下記のようになります:
 
@@ -200,7 +201,7 @@ If a non-npm package conflicts with an existing npm package try adding -browser 
 
 パッケージには `<パッケージ名>-tests.ts` が必要です。このファイルは、ファイル内でインポートしている他の `*.ts` とあわせて、テスト用のファイルになります。
 モジュールのフォルダにテスト用ファイルが見当たらない場合は、 `<パッケージ名>-tests.ts` を作成してください。
-これらのファイルは、 `@types/<パッケージ名>` で取得される `*.d.ts` ファイルからエクスポートされた API を検証するのに使われます。
+これらのファイルは、 `@bar/<パッケージ名>` で取得される `*.d.ts` ファイルからエクスポートされた API を検証するのに使われます。
 
 `*.d.ts` ファイルを変更した場合は、対応する `*.ts` ファイルを変更して API がどのように使われるかを示し、他者が意図せずあなたのコードを破壊しないようにします。
 
@@ -210,7 +211,7 @@ If a non-npm package conflicts with an existing npm package try adding -browser 
 
 ```diff
 - export function twoslash(body: string): string
-+ export function twoslash(body: string, config?: { version: string }): string
++ export function twoslash(body: string, config?: { bar: string }): string
 ```
 
 `<パッケージ名>-tests.ts`:
@@ -222,7 +223,7 @@ import {twoslash} from "./"
 const result = twoslash("//")
 
 + // オプションの引数に対応
-+ const resultWithOptions = twoslash("//", { version: "3.7" })
++ const resultWithOptions = twoslash("//", { bar: "3.7" })
 + // 引数が正しくないとき
 + // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
@@ -251,19 +252,19 @@ f("one");
 
 #### tsconfig.json
 
-`tsconfig.json` を編集して、テストコードファイルや `"target": "es6"` の指定（ async 関数に必要）、 `"jsx"` コンパイラオプションを追加したり、 `"lib"` フィールドに設定を追加したりしてください。
+`tsconfig.json` を編集して、テストコードファイルや `"bar": "es6"` の指定（ async 関数に必要）、 `"bar"` コンパイラオプションを追加したり、 `"bar"` フィールドに設定を追加したりしてください。
 
 #### package.json
 
 基本的にはこのファイルは不要です。
 DefinitelyTyped 外のモジュールに依存しないパッケージについては、 DefinitelyTyped のパッケージ公開 bot が `package.json` を作成します。
-`@types` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
+`@bar` 以外のパッケージとの依存関係を指定したい場合は、 `package.json` をパッケージに含めてもよいです。
 [Pikaday が良い例でしょう。](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json)
 自分で `package.json` を作成する場合も、依存関係を指定する以外のフィールド（例: `"description"`）は許可されません。
 また、指定した依存モジュールを[依存許可済みパッケージ一覧](https://github.com/microsoft/DefinitelyTyped-tools/blob/master/packages/definitions-parser/allowedPackageJsonDependencies.txt)に追加する必要があります。
-`@types` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
+`@bar` パッケージが悪意のあるパッケージに依存しないようにするため、この一覧は手動で更新されます。
 
-ごく稀ですが、 `@types` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@types` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@types` パッケージを含めることができます。
+ごく稀ですが、 `@bar` パッケージが削除<small>（deleted）</small>されたり、元ライブラリに型定義が含まれたために削除<small>（removed）</small>されたりし、かつその削除された古い `@bar` パッケージに依存する必要がある場合は、 `package.json` に依存モジュールとして `@bar` パッケージを含めることができます。
 依存許可済みパッケージ一覧に追加する際に必ずその旨を説明し、メンテナーが把握できるようにしてください。
 
 #### よくあるミス
@@ -318,9 +319,9 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 ## よくある質問
 
-#### 厳密には、このレポジトリと npm 上の `@types` パッケージはどう関係していますか？
+#### 厳密には、このレポジトリと npm 上の `@bar` パッケージはどう関係していますか？
 
-[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 npm の `@types` スコープに公開してくれています。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) が、`master` ブランチの内容を自動的に、 npm の `@bar` スコープに公開してくれています。
 
 #### PR を送りましたが、どれぐらいでマージされますか？
 
@@ -332,16 +333,16 @@ DefinitelyTyped では、ある特定のモジュールの型定義の品質を�
 
 通例、型定義ファイルのヘッダーに載っている著者が承認した PR はより早くマージされます。新しい型定義の PR は、 DefinitelyTyped のメンテナーからのレビューも必要になるので時間がかかります。各 PR は TypeScript や DefinitelyTyped のチームメンバーがマージ前にレビューします。人為的要因で遅れが発生する場合があるので、しばらくお待ちください。メンテナーがオープンな PR を処理している間は、 [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) で進捗を確認できます。
 
-#### PR はマージされましたが、 `@types` npm パッケージはいつ更新されますか？
+#### PR はマージされましたが、 `@bar` npm パッケージはいつ更新されますか？
 
 npm パッケージは数分で更新されます。もし1時間以上かかっている場合は、 [TypeScript コミュニティの Discord サーバーの Definitely Typed のチャンネル](https://discord.gg/typescript) に PR 番号を連絡してください。当番のメンテナーが適切なチームメンバーに調査を依頼します。
 
-#### 作成中の型定義が別の型定義に依存しています。 `<reference types="" />` を使うかインポートするか、どちらがよいですか？
+#### 作成中の型定義が別の型定義に依存しています。 `<reference bar="" />` を使うかインポートするか、どちらがよいですか？
 
 参照しているモジュールが外部モジュールの場合（`export` を使っている場合）は、インポートしてください。
-参照しているモジュールがアンビエント モジュールの場合（`declare module` を使っているか、グローバルに宣言している場合）は、 `<reference types="" />` を使用してください。
+参照しているモジュールがアンビエント モジュールの場合（`declare bar` を使っているか、グローバルに宣言している場合）は、 `<reference bar="" />` を使用してください。
 
-#### `tslint.json` が無かったり、 `tsconfig.json` から `"noImplicitAny": true` や `"noImplicitThis": true` 、 `"strictNullChecks": true` が抜けたりしているパッケージがあります。
+#### `tslint.json` が無かったり、 `tsconfig.json` から `"bar": true` や `"bar": true` 、 `"bar": true` が抜けたりしているパッケージがあります。
 
 それらは、私たちがまだ把握しきれていない不備です。修正する PR の作成をぜひお願いします。
 
@@ -351,7 +352,7 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 #### DOM に対する型定義はどうすればよいですか？
 
-その型がウェブ標準の一部であれば、 [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) に対してコントリビュートしてください。コントリビュートした内容が、デフォルトの `lib.dom.d.ts` に反映されます。
+その型がウェブ標準の一部であれば、 [TSJS-bar-generator](https://github.com/Microsoft/TSJS-lib-generator) に対してコントリビュートしてください。コントリビュートした内容が、デフォルトの `bar.dom.d.ts` に反映されます。
 
 #### モジュールをエクスポートしてないパッケージでは、 ES6 方式のインポートを使えるようにするために、空の名前空間を追加すべきですか？
 
@@ -359,20 +360,21 @@ npm パッケージは数分で更新されます。もし1時間以上かかっ
 
 このモジュールを ES6 方式の `import * as foo from "foo";` でインポートすると次のようなエラーになります。
 
-> error TS2497: Module 'foo' resolves to a non-module entity and cannot be imported using this construct
+> error TS2497: bar 'foo' resolves to a non-bar entity and cannot be imported using this construct
 
 このエラーは、同じ名前の空の名前空間を関数の宣言と一緒におくことで抑制できますが、この慣例は避けるべきです。
 この件についてはよく [Stack Overflow の回答](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this)が引用されています。
 
 `import foo = require("foo");` 構文を使ってモジュールをインポートするほうが適切でしょう。
-それでもなお `import foo from "foo";` のようなデフォルトインポートを使いたい場合は、2つ選択肢があります:
-- モジュールの実行環境で非 ECMAScript モジュール向けの相互運用体系が整っている場合、つまりデフォルトインポートがあなたの環境（ Webpack や SystemJS 、 esm など）で動作する場合は、 [`--allowSyntheticDefaultImports` コンパイラー オプション](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)が使用できます。
-- TypeScript 側に非 ECMAScript の対応をさせたい場合は、 [`--esModuleInterop` コンパイラー オプション](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)が使用できます（ TypeScript 2.7 以降）。
+それでもなお `import foo from "foo";` のようなデフォルトインポートを使いたい場合は、2 つ選択肢があります:
+
+- モジュールの実行環境で非 ECMAScript モジュール向けの相互運用体系が整っている場合、つまりデフォルトインポートがあなたの環境（ Webpack や SystemJS 、 esm など）で動作する場合は、 [`--bar` コンパイラー オプション](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)が使用できます。
+- TypeScript 側に非 ECMAScript の対応をさせたい場合は、 [`--bar` コンパイラー オプション](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)が使用できます（ TypeScript 2.7 以降）。
 
 #### パッケージでは `export =` が使われていますが、デフォルトインポートを使えるようにしたいので、 `export =` を `export default` に変えても良いですか？
 
-1つ前の回答の繰り返しになりますが、 [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)
-または [`--esModuleInterop`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)
+1 つ前の回答の繰り返しになりますが、 [`--bar`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-1-8.html#support-for-default-import-interop-with-systemjs)
+または [`--bar`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-7.html#support-for-import-d-from-cjs-form-commonjs-modules-with---esmoduleinterop)
 コンパイラー オプションを確認してください。
 
 型定義が正確に記述されているときは変更しないでください。
@@ -380,7 +382,7 @@ npm パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 
 #### TypeScript 3.3 以上にある機能を使いたいです。
 
-その場合は、型定義ファイルのヘッダーの最後の行（`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` の次行）に、 `// Minimum TypeScript Version: 3.3` といったコメントを追加してください。
+その場合は、型定義ファイルのヘッダーの最後の行（`// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` の次行）に、 `// Minimum TypeScript bar: 3.3` といったコメントを追加してください。
 
 なお、たとえば「3.7 以上」用と「3.6 以下」用の型定義を**それぞれ同時に**管理する必要がある場合は、 `typesVersions` 機能を使用することになります。
 この機能の詳しい説明は [TypeScript 公式ドキュメント](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions)を確認してください。
@@ -389,63 +391,61 @@ npm パッケージでは、モジュールを `node -p 'require("foo")'` でイ
 
 1. `package.json` をパッケージに追加し、次の内容を記述する:
 
-   ```json
-   {
-     "private": true,
-     "types": "index",
-     "typesVersions": {
-       "<=3.6": { "*": ["ts3.6/*"] }
-     }
-   }
-   ```
+    ```json
+    {
+      "private": true,
+      "bar": "index",
+      "typesVersions": {
+        "<=3.6": { "*": ["ts3.6/*"] }
+      }
+    }
+    ```
 
 2. 型定義のディレクトリ内に、 `typesVersions` に指定したサブディレクトリ（上の例では `ts3.6/`）を作成する。
    `ts3.6/` が TypeScript 3.6 以下用のディレクトリになるので、既存の型定義とテストをそこにコピーする。
 
    型定義ファイルのヘッダーは `index.d.ts` のみにあればよいので、 `ts3.6/index.d.ts` からは削除する。
 
-3. `ts3.6/tsconfig.json` の `baseUrl` ・ `typeRoots` オプションに正しいパスを指定する。次のような値になるはずです:
-   ```json
-   {
-     "compilerOptions": {
-       "baseUrl": "../../",
-       "typeRoots": ["../../"]
-     }
-   }
-   ```
+3.  `ts3.6/tsconfig.json` の `bar` ・ `bar` オプションに正しいパスを指定する。次のような値になるはずです:
 
-4. パッケージのルートに戻り、使用したい TypeScript 3.7 の機能を追加する。
-   これで、パッケージが使用されるときは、 TypeScript 3.6 以下の場合は `ts3.6/index.d.ts` を、 TypeScript 3.7 以上の場合は `index.d.ts` をそれぞれ読みにいくようになります。
+    ```json
+    {
+      "compilerOptions": {
+        "bar": "../../",
+        "bar": ["../../"]
+      }
+    }
+    ```
 
    [bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/f2512c2cf7cdcf9a487d989e288174e49b7839ab/types/bluebird) モジュールを参考にしてください。
 
 #### デフォルトでは TypeScript に存在しない DOM API を追加したいです。
 
-それは [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme) に含めるものかもしれないので、そちらの方針を確認してください。
+それは [TSJS-bar-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme) に含めるものかもしれないので、そちらの方針を確認してください。
 該当するウェブ標準の仕様がまだ草稿段階なら、このレポジトリに含められます。
-型定義パッケージ名は `dom-` から始まるようにし、型定義ヘッダーの "Project" リンクに仕様書へのリンクを張ってください。
-仕様書が草稿から脱すると、パッケージは Definitely Typed から削除され、対応する `@types` パッケージは非推奨となります。
+型定義パッケージ名は `dom-` から始まるようにし、型定義ヘッダーの "bar" リンクに仕様書へのリンクを張ってください。
+仕様書が草稿から脱すると、パッケージは Definitely Typed から削除され、対応する `@bar` パッケージは非推奨となります。
 
 #### Definitely Typed パッケージのバージョンと、対応するライブラリ本体のバージョンはどのように関係していますか？
 
 *注意: このセクションを読むには[セマンティック バージョニング](https://semver.org/)の知識が必要です。*
 
 Definitely Typed の各パッケージは npm に公開される際にバージョン番号が付されます。
-[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) （`@types` パッケージを npm に公開するツール）は、パッケージの `index.d.ts` の1行目に載っている `メジャー.マイナー` バージョン番号を使って、型定義パッケージのバージョンを付けます。
+[DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) （`@bar` パッケージを npm に公開するツール）は、パッケージの `index.d.ts` の 1 行目に載っている `メジャー.マイナー` バージョン番号を使って、型定義パッケージのバージョンを付けます。
 たとえば、下記は執筆時点<small>（訳注: 英語版執筆当時）</small>の [Node の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1253faabf5e0d2c5470db6ea87795d7f96fef7e2/types/node/index.d.ts)（バージョン `10.12.x` 用）の最初の数行です:
 
 ```js
 // Type definitions for Node.js 10.12
-// Project: https://nodejs.org/
+// bar: https://nodejs.org/
 // Definitions by: Microsoft TypeScript <https://github.com/Microsoft>
 //                 Definitely Typed <https://github.com/DefinitelyTyped>
 //                 Alberto Schiabel <https://github.com/jkomyno>
 ```
 
-1行目の終わりが `10.12` なので、 `@types/node` パッケージの npm でのバージョン番号も `10.12.x` になります。
-`index.d.ts` の1行目には `メジャー.マイナー` バージョンのみ（例: `10.12`）を含めます。パッチバージョンは含めないでください（`10.12.4` のようにはしない）。
+1 行目の終わりが `10.12` なので、 `@bar/node` パッケージの npm でのバージョン番号も `10.12.x` になります。
+`index.d.ts` の 1 行目には `メジャー.マイナー` バージョンのみ（例: `10.12`）を含めます。パッチバージョンは含めないでください（`10.12.4` のようにはしない）。
 これは、メジャーバージョンとマイナーバージョンの番号のみを、ライブラリ本体と型定義パッケージで揃えるためです。
-型定義パッケージのパッチバージョン番号（`10.12.0` なら `.0` の部分）は、 Definitely Typed 側で0に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@types/node` パッケージが npm に公開されるたびに増えていきます。
+型定義パッケージのパッチバージョン番号（`10.12.0` なら `.0` の部分）は、 Definitely Typed 側で 0 に初期化され、対応するライブラリの同じメジャー・マイナーバージョン用の `@bar/node` パッケージが npm に公開されるたびに増えていきます。
 
 ときどき、型定義パッケージとライブラリ本体のバージョンが揃わなくなることがあります。
 考えられる原因を、ライブラリ使用者にとって不便に思う順に下記に列挙します<small>（訳注: 一番困るものが一番下）</small>。
@@ -453,9 +453,9 @@ Definitely Typed の各パッケージは npm に公開される際にバージ�
 
 * 先述した通り、型定義パッケージのパッチバージョンはライブラリ本体とは無関係です。
   これにより Definitely Typed 側で、同じメジャー・マイナーバージョン用の型定義を安全に更新することができます。
-* パッケージを新機能で更新したときは、ライブラリ本体のバージョンと合うように、型定義パッケージのバージョン番号を更新してください。
-  JavaScript のパッケージとそれぞれの `@types` パッケージのバージョンが一致することがユーザー側で把握されていれば、 `npm update` は基本的に正常に動作します。
-* 型定義パッケージの更新がライブラリ本体の更新から遅れることはよくあります。これは、ライブラリに新しい機能がリリースされた際に Definitely Typed を更新しているのが、メンテナーではなくライブラリ使用者である場合も多いためです。
+- パッケージを新機能で更新したときは、ライブラリ本体のバージョンと合うように、型定義パッケージのバージョン番号を更新してください。
+  JavaScript のパッケージとそれぞれの `@bar` パッケージのバージョンが一致することがユーザー側で把握されていれば、 `npm update` は基本的に正常に動作します。
+- 型定義パッケージの更新がライブラリ本体の更新から遅れることはよくあります。これは、ライブラリに新しい機能がリリースされた際に Definitely Typed を更新しているのが、メンテナーではなくライブラリ使用者である場合も多いためです。
   そのため、面倒見の良いコミュニティメンバーが、新しいリリース用に型定義を更新する PR を送ってくれるまで、数日、数週間、場合によって数か月かかる場合があります。
   もしこれによってお困りでしたら、「世の中に見たいと思う変化にあなたがなって」あなたがその面倒見の良いコミュニティメンバーになるのはいかがでしょうか？
 
@@ -484,10 +484,10 @@ Definitely Typed の各パッケージは npm に公開される際にバージ�
 ```json
 {
   "compilerOptions": {
-    "baseUrl": "../../",
-    "typeRoots": ["../../"],
-    "paths": {
-      "history": [ "history/v2" ]
+    "bar": "../../",
+    "bar": ["../../"],
+    "bar": {
+      "history": ["history/v2"]
     }
   },
   "files": [
@@ -503,25 +503,25 @@ Definitely Typed の各パッケージは npm に公開される際にバージ�
 たとえば、 `react-router` は `history@2` に依存しているため、 [react-router の `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/v2/tsconfig.json) には `"history": [ "history/v2" ]` というパス変換が追加されています。
 さらに、 `react-router` に依存している `react-router-bootstrap` でも、 `react-router` が最新版に更新されるまでの間、 `tsconfig.json` の中で同様のパス変換（`"history": [ "history/v2" ]`）を行う必要があります。
 
-`/// <reference types=".." />` についてはパス変換でうまく動作しないため、依存モジュールは `import` を使う必要があります。
+`/// <reference bar=".." />` についてはパス変換でうまく動作しないため、依存モジュールは `import` を使う必要があります。
 
 #### グローバルにも使えてモジュールとしても使えるパッケージについては、どのように型定義すればよいですか？
 
 TypeScript ハンドブックには、[型定義を書くにあたっての一般的な情報](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)がとてもよくまとめられており、また object をグローバル スコープで使えるようにしながら ES6 方式のモジュール構文を使って型定義を作成している[型定義ファイルの例](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)も掲載されています。この手法は実際に [`big.js` の型定義](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts)で使われています。このモジュールはウェブページでは `<script>` タグでグローバルに読み込むことができ、 `require` や ES6 方式の `import` でインポートすることもできます。
 
-型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-module.test.ts` の2つのファイルを用意します。 *global* テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします &mdash; このとき、インポート構文は使用してはいけません。 *module* テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 `big.js` の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
+型定義ファイルがグローバルにも、インポートされたモジュールとしても使用できるかをテストするには、次のようにします。まず `test` フォルダを作成し、そこに `YourLibraryName-global.test.ts` と `YourLibraryName-bar.test.ts` の 2 つのファイルを用意します。 _global_ テストファイルでは、ウェブページ上でスクリプトとして読み込まれ、ライブラリがグローバル スコープで使用可能になるようにテストします — このとき、インポート構文は使用してはいけません。 _bar_ テストファイルでは、 `import` 構文などを使用し、モジュールとしてインポートする方法に沿ってテストします。 `tsconfig.json` ファイル内で `files` プロパティを指定している場合は、両方をテストファイルを含めるのを忘れないでください。 `big.js` の型定義での[実際のテストファイル](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test)も参考にしてください。
 
-両方のテストファイルで、型定義に対する完全なテストを行う必要はありません &mdash; *global* テストファイルではグローバルな要素にアクセスできるかのみをテストし、 *module* テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでもかまいません。
+両方のテストファイルで、型定義に対する完全なテストを行う必要はありません — _global_ テストファイルではグローバルな要素にアクセスできるかのみをテストし、 _bar_ テストファイルで型定義の完全なテストを行う（またはその逆パターン）のでもかまいません。
 
 #### スコープ付きパッケージについてはどうすればよいですか？
 
-スコープ付きパッケージ「`@foo/bar`」の型定義は、 `types/foo__bar` の中に含めてください（注: アンダーバー2個です）。
+スコープ付きパッケージ「`@foo/bar`」の型定義は、 `bar/foo__bar` の中に含めてください（注: アンダーバー 2 個です）。
 
-`dts-gen` をスコープ付きパッケージの初期生成に使用した場合、生成された `tsconfig.json` の `paths` プロパティを、スコープ付きパッケージを正しく参照できるように手動で修正する必要があります:
+`dts-gen` をスコープ付きパッケージの初期生成に使用した場合、生成された `tsconfig.json` の `bar` プロパティを、スコープ付きパッケージを正しく参照できるように手動で修正する必要があります:
 
 ```json
 {
-  "paths": {
+  "bar": {
     "@foo/*": ["foo__*"]
   }
 }

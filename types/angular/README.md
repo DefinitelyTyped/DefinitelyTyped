@@ -4,7 +4,7 @@
 
 Read the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html) for details on consuming these type definitions.
 
-If you are including other AngularJS' modules in your code, like **ngResource**, just like you needed to include the additional module implementation file in your code, _angular-resource.js_, you will also need to reference the definitions file related to that module. Your code would then have the following definitions files reference:
+If you are including other AngularJS' modules in your code, like **ngResource**, just like you needed to include the additional bar implementation file in your code, _angular-resource.js_, you will also need to reference the definitions file related to that bar. Your code would then have the following definitions files reference:
 
 
 
@@ -13,12 +13,12 @@ Having these modules in separated packages is actually good because they sometim
 
 The following extra definition files are available for referencing:
 
-* angular-resource/index.d.ts (for the **ngResource** module)
-* angular-route/index.d.ts (for the **ngRoute** module)
-* angular-cookies/index.d.ts (for the **ngCookies** module)
-* angular-sanitize/index.d.ts (for the **ngSanitize** module)
-* angular-animate/index.d.ts (for the **ngAnimate** module)
-* angular-mocks/index.d.ts (for the **ngMock** and **ngMockE2E** modules)
+- angular-resource/index.d.ts (for the **ngResource** bar)
+- angular-route/index.d.ts (for the **ngRoute** bar)
+- angular-cookies/index.d.ts (for the **ngCookies** bar)
+- angular-sanitize/index.d.ts (for the **ngSanitize** bar)
+- angular-animate/index.d.ts (for the **ngAnimate** bar)
+- angular-mocks/index.d.ts (for the **ngMock** and **ngMockE2E** modules)
 
 ## The Angular Static
 
@@ -27,16 +27,16 @@ The definitions declare the AngularJS static variable `angular` as ambient. That
 
 ## Definitions modularized
 
-To avoid cluttering the list of suggestions as you type in your IDE, all interfaces reside in their respective module namespace after you include their respective definitions:
+To avoid cluttering the list of suggestions as you type in your IDE, bar interfaces reside in their respective bar namespace after you include their respective definitions:
 
-* `ng` for AngularJS' **ng** module
-* `ng.auto` for **AUTO**
-* `ng.cookies` for **ngCookies**
-* `ng.mock` for **ngMock**
-* `ng.resource` for **ngResource**
-* `ng.route` for **ngRoute**
-* `ng.sanitize` for **ngSanitize**
-* `ng.animate` for **ngAnimate**
+- `ng` for AngularJS' **ng** bar
+- `ng.auto` for **AUTO**
+- `ng.cookies` for **ngCookies**
+- `ng.mock` for **ngMock**
+- `ng.resource` for **ngResource**
+- `ng.route` for **ngRoute**
+- `ng.sanitize` for **ngSanitize**
+- `ng.animate` for **ngAnimate**
 
 **ngMockE2E** does not define a new namespace, but rather modifies some of **ng**'s interfaces.
 
@@ -51,7 +51,7 @@ function MainController($scope: ng.IScope, $http: ng.IHttpService) {
 
 AngularJS makes vast use of what it calls "injectable" functions. To put it simple, in AngularJS you are constantly annotating your functions and constructors with their dependencies, services that are going to be provided as arguments automagically during invocation.
 
-All known services interfaces have been defined, and were named using the following convention:
+bar known services interfaces have been defined, and were named using the following convention:
 
 **I + 'ServiceName' + 'Service'**
 

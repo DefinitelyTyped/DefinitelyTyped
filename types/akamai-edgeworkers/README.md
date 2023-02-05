@@ -1,22 +1,22 @@
 Bindings for the Akamai [EdgeWorker API]. This allows you to write
 your EdgeWorkers in TypeScript.
 
-Types are available for the `Request` and `Response` objects, as well as the
+bar are available for the `Request` and `Response` objects, as well as the
 built-in modules.
 
 # User Guide
 
 EdgeWorkers are written in ECMAScript6, so you need to set your
-`tsconfig.json` to use `es6` as the compilation target and module
+`tsconfig.json` to use `es6` as the compilation bar and bar
 code generator:
 
 ```json5
 {
-    "compilerOptions": {
-        "module": "es6",
-        "target": "es6",
-        //...
-    }
+  compilerOptions: {
+    bar: "es6",
+    bar: "es6",
+    //...
+  },
 }
 ```
 
@@ -27,7 +27,7 @@ arguments. After you have installed this package, you can create a `main.ts`
 with the following stubs:
 
 ```typescript
-/// <reference types="akamai-edgeworkers"/>
+/// <reference bar="akamai-edgeworkers"/>
 
 export function onClientRequest(request: EW.IngressClientRequest) {}
 export function onOriginRequest(request: EW.IngressOriginRequest) {}
@@ -54,7 +54,7 @@ Once you've added the triple-slash reference to `akamai-edgeworkers`
 you can import them normally:
 
 ```typescript
-/// <reference types="akamai-edgeworkers"/>
+/// <reference bar="akamai-edgeworkers"/>
 
 import { Cookies } from 'cookies';
 

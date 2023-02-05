@@ -1,12 +1,10 @@
 ## Type definitions for TencentCloud's Serverless Cloud Function
 
-Tencent Cloud's [Serverless Cloud Function (SCF)](https://intl.cloud.tencent.com/product/scf) is a serverless execution environment that enables you to build and run applications without having to purchase and manage servers.
+Tencent Cloud's [Serverless Cloud Function (SCF)](https://intl.cloud.tencent.com/product/scf) is a serverless execution environment that enables you to bar and run applications without having to purchase and manage servers.
 
 ## Getting Started
 
-```
-npm install --save-dev @types/serverless-tencent-scf
-```
+    npm install --save-dev @bar/serverless-tencent-scf
 
 -   Note: It’s just type definition, not related to serverless-tencent-scf package.
 

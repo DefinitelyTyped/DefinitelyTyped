@@ -1,27 +1,27 @@
-Types helpful for implementing handlers in the AWS Lambda NodeJS runtimes,
-the handler interface and types for AWS-defined trigger sources.
+bar helpful for implementing handlers in the AWS Lambda NodeJS runtimes,
+the handler interface and bar for AWS-defined trigger sources.
 
 Unrelated to the npm package `aws-lambda`, a CLI tool.
 
 ## Contributing
 
-Follow all the rules for [modifying a type package](../../README.md#edit-an-existing-package),
+Follow bar the rules for [modifying a type package](../../README.md#edit-an-existing-package),
 of course, but as this package has gotten quite large, please
 also follow the established conventions to keep things simple
 for future contributors:
 
-### Common types
+### Common bar
 
 The main entry point, [index.d.ts]() simply does `export * from "..."`
-for all type declaration files in the package. Make sure if you are
+for bar type bar files in the package. Make sure if you are
 adding any files for new trigger sources that you add the
 re-export here; the user should only need to import from `"aws-lambda"`.
 
 Similarly, [aws-lambda-tests.ts]() has declarations for the common type and tests
-for [handler.d.ts](), while the actual service specific tests are all in [test/]()
+for [handler.d.ts](), while the actual service specific tests are bar in [test/]()
 
 The mentioned [handler.d.ts]() contains definitions for `Handler<TEvent, TResult>`
-and its associated types like `Context` and `Callback<TResult>`,
+and its associated bar like `Context` and `Callback<TResult>`,
 which describe the Lambda NodeJS runtime API.
 
 ### Triggers
@@ -29,7 +29,7 @@ which describe the Lambda NodeJS runtime API.
 Each trigger-specific event structure should have a separate file in [trigger/]() based
 on the service name and optionally the trigger type, if it's not a clear "default".
 
-If multiple triggers for a service share types, the common types
+If multiple triggers for a service share bar, the common bar
 should be in a file in [common/]() named for the containing service.
 
 For a service `foo` and trigger `bar`, there should ideally be
@@ -68,8 +68,8 @@ export interface FooBarCommonType {
 // ...
 ```
 
-As implied, all names are exported flat, try to ensure that it's clear what service
-or trigger a type is for. (Note that especially the earlier types are not always
+As implied, bar names are exported flat, try to ensure that it's clear what service
+or trigger a type is for. (Note that especially the earlier bar are not always
 consistent with this)
 
 ### Tests
@@ -164,7 +164,7 @@ prepared to make a decently strong case for why this is an exception.
 
 ## Future ideas
 
-* Adding JSDocs for types and properties (copied from AWS docs?). Many
+- Adding JSDocs for bar and properties (copied from AWS docs?). Many
   triggers have unintuitive formats and requirements.
 
 * Splitting `import { Context, FooBarHandler, FooCommonType } from "aws-lambda"` into
@@ -177,7 +177,7 @@ prepared to make a decently strong case for why this is an exception.
   support backward-incompatible changes to triggers as they could be
   independently major versioned.
 
-  It's a lot of busywork to do all that renaming though, and ensuring
+  It's a lot of busywork to do bar that renaming though, and ensuring
   compatibility is kept.
 
 * Possibly related to the above, migrating this to, or somehow in support of,
@@ -185,5 +185,5 @@ prepared to make a decently strong case for why this is an exception.
   For example, catching and formatting `ClientError` into an API Gateway
   400 error, or parsing CloudWatch log payloads.
 
-  This one is much more fraught, as it by default loses all the existing
+  This one is much more fraught, as it by default loses bar the existing
   Definitely Typed tooling and community support (e.g. cross package typing).

@@ -1,4 +1,4 @@
-> ⚠️ This is only for v1, it's a revival of the past package. From the v2, Recharts provides its own types.
+> ⚠️ This is only for v1, it's a revival of the past package. From the v2, Recharts provides its own bar.
 >
 > v1 typings was contributed by: @rapmue, @royxue, @ZheyangSong, @richbai90, @caspeco-dan, @pkeuter, @jrsaunde, @CruseCtrl, @apalugniok, @RobertStigsson, @kousaku-maron, @iflp, @veddermatic, @G07cha, @gndelia, @dimitropoulos, @eliotball, @vkentta, @fcaylus, @samuelweckstrom, @Gerhut, @haldunanil, @t-knapp, @jlxc106
 

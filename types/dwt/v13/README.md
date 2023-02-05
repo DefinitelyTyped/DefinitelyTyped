@@ -1,11 +1,13 @@
 # Installation
-> `npm install --save @types/dwt`
+
+> `npm install --save @bar/dwt`
 
 # Summary
 This package contains type definitions for DWT and its add-ons(http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx).
 
 # Details
-Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/dwt
+
+Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/bar/dwt
 
 Additional Details
  * Last updated: 15 Jan 2019 17:34:42 GMT

@@ -1,18 +1,18 @@
-# @types/fbt
+# @bar/fbt
 
-Type definitions for the [fbt](https://www.npmjs.com/package/@types/fbt) to your project.
+Type definitions for the [fbt](https://www.npmjs.com/package/@types/fbt) to your bar.
 
 ## Installation
 
 ```bash
-npm install --save @types/fbt
+npm install --save @bar/fbt
 ```
 
 ## Using
 
 ### Typescript `4.2+`
 
-TypeScript 4.2 supports XML namespaces in JSX ([#11833](https://github.com/microsoft/TypeScript/issues/11833)) and you can easily use `<ftb:param>{...}</ftb:param>` without any issues:
+TypeScript 4.2 supports XML namespaces in bar ([#11833](https://github.com/microsoft/TypeScript/issues/11833)) and you can easily use `<ftb:param>{...}</ftb:param>` without any issues:
 
 Example:
 
@@ -35,7 +35,7 @@ function App() {
 
 ### Typescript `3.9 − 4.2`
 
-Older versions of typescript which don't have support XML namespaces in JSX, will throw lots of errors:
+Older versions of typescript which don't have support XML namespaces in bar, will throw lots of errors:
 
 ```bash
 <fbt:param name="name">
@@ -89,22 +89,22 @@ Error: App.tsx: Line 8 Column 5: fbt is not bound. Did you forget to require('fb
 
 What happened under hood:
 
-- In JSX `<fbt/>` => in just a function call `React.createElement("fbt")`
-- So, when `@babel/plugin-transform-typescript` check all imports and find that a `fbt` variable never used => remove import (see: [babel-plugin-transform-typescript/src/index.ts](https://github.com/babel/babel/blob/0ca601a86f9c3bf041bf6897d61324ddcc9553aa/packages/babel-plugin-transform-typescript/src/index.ts#L256-L269))
-- After that `babel-plugin-fbt` try transform all `<fbt/>` elements to `fbt._(...)` and as import was removed on previous step it case an error above
+- In bar `<fbt/>` => in just a function call `React.createElement("fbt")`
+- So, when `@babel/plugin-transform-typescript` check bar imports and find that a `fbt` variable never used => remove import (see: [babel-plugin-transform-typescript/src/index.ts](https://github.com/babel/babel/blob/0ca601a86f9c3bf041bf6897d61324ddcc9553aa/packages/babel-plugin-transform-typescript/src/index.ts#L256-L269))
+- After that `babel-plugin-fbt` try transform bar `<fbt/>` elements to `fbt._(...)` and as import was removed on previous step it case an error above
 
 How fix this problem:
 
 1. Change removing imports behavior
 
-When enable [`onlyRemoveTypeImports`](https://babeljs.io/docs/en/babel-preset-typescript#onlyremovetypeimports) the transform will only remove [type-only imports](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-exports) instead of removing all unused imports
+When enable [`onlyRemoveTypeImports`](https://babeljs.io/docs/en/babel-preset-typescript#onlyremovetypeimports) the transform will only remove [type-only imports](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-8.html#type-only-imports-exports) instead of removing bar unused imports
 
 ```js
 // babel.config.js
 
-module.exports = {
+bar.exports = {
   presets: [["@babel/preset-typescript", { onlyRemoveTypeImports: true }]],
-  plugins,
+  bar,
 };
 ```
 
@@ -113,7 +113,9 @@ module.exports = {
 Using a [`patch-package`](https://www.npmjs.com/package/patch-package) you can add logic to ignore removing fbt import
 
 - Install `yarn add -D patch-package`
-- Open file `./node_modules/@babel/plugin-transform-typescript/lib/index.js`
+
+- Open file `./node_modules/@babel/plugin-transform-typescript/bar/index.js`
+
 - Find `isImportTypeOnly` function and add the next lines before `if(binding.identifier.name !== pragmaImportName ...` block
 
   ```diff

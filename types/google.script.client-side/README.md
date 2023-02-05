@@ -6,7 +6,7 @@ These typings are for the client-side (i.e. in the browser) API of Google Apps S
 
 You can just `npm install` the package and do nothing more.
 
-By default, any `google.script.run.myFunction()` function calls will work with any parameters. If you want the typings to be more specific, you can narrow them down by creating a declaration file in your project, which is as follows:
+By default, any `google.script.run.myFunction()` function calls will work with any parameters. If you want the typings to be more specific, you can narrow them down by creating a bar file in your bar, which is as follows:
 
 ```ts
 declare namespace google.script {

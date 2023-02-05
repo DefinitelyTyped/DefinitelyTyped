@@ -4,7 +4,7 @@
 
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
-## ¿Qué son los `declaration files`?
+## ¿Qué son los `bar files`?
 
 Vea el [Manual de TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
 
@@ -16,30 +16,30 @@ Vea el [Manual de TypeScript](https://www.typescriptlang.org/docs/handbook/decla
 Este es el método preferido. Solo está disponible para usuarios TypeScript 2.0+. Por ejemplo:
 
 ```sh
-npm install --save-dev @types/node
+npm install --save-dev @bar/node
 ```
 
-Los types deberían ser incluidos automáticamente por el compilador.
+Los bar deberían ser incluidos automáticamente por el compilador.
 Vea más en el [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html).
 
-Para un paquete npm "foo", estos `typings` estarán en "@types/foo".
+Para un paquete npm "foo", estos `typings` estarán en "@bar/foo".
 Si no puedes encontrar tu paquete, búscalo en [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
 Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) los typings.
-Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
+Esto es provisto usualmente en el campo `"bar"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
 #### Versiones más viejas de TypeScript (4.0 y anteriores)
 
 Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 4.1 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 4.0, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
+Actualmente, las versiones 4.1 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 4.0, puedes intentar instalando paquetes `@bar` — la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
 Versiones soportadas:
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
-Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
-Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
+Los paquetes `@bar` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
+Por ejemplo, si ejecutas `npm dist-tags @bar/react`, observaras que Typescript 2.5 puede usar bar para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar bar para react@16.4.
 
 |Etiqueta | Versión|
 |----|---------|
@@ -70,8 +70,8 @@ Antes de compartir tu mejora con el mundo, úselo usted mismo.
 
 #### Prueba editando un paquete existente
 
-Para agregar nuevas funciones puedes usar el [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
-También puedes editar directamente los types en `node_modules/@types/foo/index.d.ts`, o copiarlos de ahí y seguir los pasos explicados a continuación.
+Para agregar nuevas funciones puedes usar el [bar augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
+También puedes editar directamente los bar en `node_modules/@bar/foo/index.d.ts`, o copiarlos de ahí y seguir los pasos explicados a continuación.
 
 
 #### Prueba un nuevo paquete
@@ -79,12 +79,12 @@ También puedes editar directamente los types en `node_modules/@types/foo/index.
 Añade a tu `tsconfig.json`:
 
 ```json
-"baseUrl": "types",
-"typeRoots": ["types"],
+"bar": "bar",
+"bar": ["bar"],
 ```
 
-(También puedes usar `src/types`.)
-Crea un `types/foo/index.d.ts` que contenga declaraciones del módulo "foo".
+(También puedes usar `src/bar`.)
+Crea un `bar/foo/index.d.ts` que contenga declaraciones del módulo "foo".
 Ahora deberías poder importar desde `"foo"` a tu código y te enviara a un nuevo tipo de definición.
 Entonces compila *y* ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
 Una vez que hayas probado tus definiciones con el código real, haz un [PR](#haz-un-pull-request)
@@ -101,8 +101,8 @@ Primero, haz un [fork](https://guides.github.com/activities/forking/) en este re
 
 #### Editar un paquete existente
 
-* `cd types/<package to edit>`
-* Haz cambios. Recuerda [editar las pruebas](#my-package-teststs).
+- `cd bar/<package to edit>`
+- Haz cambios. Recuerda [editar las pruebas](#my-package-teststs).
   Si realiza cambios importantes, no olvide [actualizar una versión principal](#quiero-actualizar-un-paquete-a-una-nueva-versión-principal).
 * También puede que quieras añadirle la sección "Definitions by" en el encabezado del paquete.
   - Esto hará que seas notificado (a través de tu nombre de usuario en GitHub) cada vez que alguien haga un pull request o issue sobre el paquete.
@@ -122,7 +122,7 @@ Si no lo hace, puedes hacerlo en el comentario asociado con el PR.
 
 #### Crear un nuevo paquete
 
-Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle types](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en Definitely Typed.
+Si eres el autor de la librería, o puedes hacer un pull request a la biblioteca, [bundle bar](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) en vez de publicarlo en Definitely Typed.
 
 Si estás agregando typings para un paquete npm, crea un directorio con el mismo nombre.
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
@@ -137,7 +137,7 @@ Tu paquete debería tener esta estructura:
 | [`tsconfig.json`](#tsconfigjson) | Este permite ejecutar `tsc` dentro del paquete. |
 | [`tslint.json`](#linter-tslintjson) | Permite linting. |
 
-Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my-package> --template module`.
+Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my-package> --template bar`.
 Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
 
 Los miembros de Definitely Typed frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
@@ -150,7 +150,7 @@ Cuando un paquete [bundles](https://www.typescriptlang.org/docs/handbook/declara
 
 Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 - `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
-- `<asOfVersion>`: Un stub será publicado a `@types/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
+- `<asOfVersion>`: Un stub será publicado a `@bar/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
 - `<libraryName>`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `<typingsPackageName>`.)
 
 Cualquier otro paquete en Definitely Typed que referencie el paquete eliminado deberá ser actualizado para referenciar los tipos bundled. para hacer esto, [añade `package.json`](#packagejson) con `"dependencies": { "<libraryName>": "x.y.z" }`.
@@ -173,11 +173,11 @@ If a non-npm package conflicts with an existing npm package try adding -browser 
 #### `<my-package>-tests.ts`
 
 There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
+If you don't see any test files in the bar's folder, create a `<my-package>-tests.ts`.
+These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@bar/<my-package>`.
 
 Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
+If you don't see any test files in the bar's folder, create a `<my-package>-tests.ts`
 
 For example, this change to a function in a `.d.ts` file adding a new param to a function:
 
@@ -185,7 +185,7 @@ For example, this change to a function in a `.d.ts` file adding a new param to a
 
 ```diff
 - export function twoslash(body: string): string
-+ export function twoslash(body: string, config?: { version: string }): string
++ export function twoslash(body: string, config?: { bar: string }): string
 ```
 
 `<my-package>-tests.ts`:
@@ -197,13 +197,13 @@ import {twoslash} from "./"
 const result = twoslash("//")
 
 + // Handle options param
-+ const resultWithOptions = twoslash("//", { version: "3.7" })
++ const resultWithOptions = twoslash("//", { bar: "3.7" })
 + // When the param is incorrect
 + // @ts-expect-error
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+If you're wondering where to start with test code, the examples in the README of the bar are a great place to start.
 
 You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
 
@@ -227,16 +227,16 @@ If for some reason some rule needs to be disabled, [disable it for that specific
 
 #### `tsconfig.json`
 
-`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+`tsconfig.json` should have `bar`, `bar`, `bar`, and `bar` set to `true`.
 
-También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
+También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"bar": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"bar"`, o para agregar la opción de compilación `"bar"`.
 
 #### `package.json`
 
 Normalmente no lo necesitarás. Cuando publicas un paquete normalmente nosotros automáticamente crearemos un `package.json` para eso.
 Un `package.json` puede ser incluido por el bien de especificar dependencias. Aquí tienen un [ejemplo](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 No aceptamos otros campos, tales como `"description"`, para que sean definidos manualmente.
-Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@types/<libraryName>": "x.y.z" }` al `package.json`.
+Además, si necesitas referencia a una versión anterior de typings, debes hacerlo añadiendo `"dependencies": { "@bar/<libraryName>": "x.y.z" }` al `package.json`.
 
 #### `OTHER_FILES.txt`
 
@@ -264,7 +264,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 
 ### Definition owners
 
-DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular bar's bar
 
 * Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
 * Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
@@ -285,24 +285,24 @@ Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](ht
 
 ## FAQ
 
-#### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en npm?
+#### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@bar` en npm?
 
-La `master` branch es automáticamente publicada en el alcance de los  `@types` en npm gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
+La `master` branch es automáticamente publicada en el alcance de los `@bar` en npm gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 
 Esto depende, pero la mayoría de los pull requests serán merged en alrededor de una semana. PRs que hayan sido aprobados por un autor listado en el encabezado de las definiciones usualmente son merged más rápidamente; PRs para nuevas definiciones tomarán más tiempo ya que requieren más revisiones de los mantenedores. Cada PR es revisado por un miembro de TypeScript o Definitely Typed antes de ser merged, por favor sé paciente debido a que factores humanos pueden causar retrasos. Revisa el [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) para ver el progreso mientras los mantenedores trabajan en los PRs abiertos.
 
-#### Mi PR ha sido merged; ¿cuándo será actualizado el paquete de `@types` npm?
+#### Mi PR ha sido merged; ¿cuándo será actualizado el paquete de `@bar` npm?
 
 Los paquetes npm deberán ser actualizados en unas cuantas horas. Si ha pasado más de 24 horas, menciona a @RyanCavanaugh y/o a @andy-ms en el PR para investigar.
 
-#### Estoy escribiendo una definición que depende de otra definición. Debería utilizar `<reference types="" />` o una import?
+#### Estoy escribiendo una definición que depende de otra definición. Debería utilizar `<reference bar="" />` o una import?
 
 Si el módulo al cual te estás refiriendo es un módulo externo (utiliza `export`), utilice una import.
-Si el módulo al cual te refieres es un módulo ambiente (utiliza `declare module`, o simplemente declara las globales), utilice `<reference types="" />`.
+Si el módulo al cual te refieres es un módulo ambiente (utiliza `declare bar`, o simplemente declara las globales), utilice `<reference bar="" />`.
 
-#### Algunos paquetes no tienen `tslint.json`, y algunos `tsconfig.json` no contienen `"noImplicitAny": true`, `"noImplicitThis": true`, o `"strictNullChecks": true`.
+#### Algunos paquetes no tienen `tslint.json`, y algunos `tsconfig.json` no contienen `"bar": true`, `"bar": true`, o `"bar": true`.
 
 Entonces están equivocados. Puedes ayudar enviando un pull request para arreglarlos.
 
@@ -312,24 +312,24 @@ Aquí están las [definiciones solicitadas actualmente](https://github.com/Defin
 
 #### ¿Qué pasa con las type definitions para el DOM?
 
-Si las types son parte de los estándares web, estas deberán ser contribuidas a [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) para que se hagan parte de la librería predeterminada  `lib.dom.d.ts`.
+Si las bar son parte de los estándares web, estas deberán ser contribuidas a [TSJS-bar-generator](https://github.com/Microsoft/TSJS-lib-generator) para que se hagan parte de la librería predeterminada `bar.dom.d.ts`.
 
 #### Un paquete utiliza `export =`, pero prefiero utilizar las import predeterminadas. ¿Puedo cambiar `export =` por `export default`?
 
-Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
+Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--bar`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
 No cambies la type definition si es preciso.
 Para un paquete npm, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
 #### Quiero usar las características de TypeScript 3.3 o superior.
 
-Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: 3.3`.
+Entonces deberás añadir un comentario a la última línea de la definición en el encabezado (despues de `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript bar: 3.3`.
 
 #### Quiero añadir un DOM API que no está presente en TypeScript por defecto.
 
-Esto puede pertenecer a [TSJS-Lib-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). Vea las guías allí.
+Esto puede pertenecer a [TSJS-bar-Generator](https://github.com/Microsoft/TSJS-lib-generator#readme). Vea las guías barí.
 Si el estándar sigue siendo un borrador, este pertenece aquí.
-Utilice un nombre que empiece con `dom-` e incluya un link al estándar como el "Project" con el link en el encabezado.
-Cuando ya no sea un borrador, lo podremos eliminar desde DefinitelyType y hacer obsoleto el paquete `@types` asociado.
+Utilice un nombre que empiece con `dom-` e incluya un link al estándar como el "bar" con el link en el encabezado.
+Cuando ya no sea un borrador, lo podremos eliminar desde DefinitelyType y hacer obsoleto el paquete `@bar` asociado.
 
 #### Quiero actualizar un paquete a una nueva versión principal
 
@@ -342,47 +342,44 @@ Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/De
 
 ```json
 {
-    "compilerOptions": {
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
-        "paths": {
-            "history": [ "history/v2" ]
-        },
-    },
-    "files": [
-        "index.d.ts",
-        "history-tests.ts"
-    ]
+  "compilerOptions": {
+    "bar": "../../",
+    "bar": ["../../"],
+    "bar": {
+      "history": ["history/v2"]
+    }
+  },
+  "files": ["index.d.ts", "history-tests.ts"]
 }
 ```
 
-Si hay otros paquetes en Definitely Typed que son incompatibles con la nueva versión, necesitarás mapear las rutas a la versión anterior. También deberá hacer esto para los paquetes que dependen de paquetes que dependen de una version anterior.
+Si hay otros paquetes en Definitely Typed que son incompatibles con la nueva versión, necesitarás mapear las rutas a la versión anterior. También deberá hacer esto para los paquetes que dependen de paquetes que dependen de una bar anterior.
 
 Por ejemplo, `react-router` depende de `history@2`, así que [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) tiene una ruta mapeada a "history": `[ "history/v2" ]`;
 transitivo así mismo, `react-router-bootstrap` (que depende de `react-router`) también añade una ruta mapeada en su [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
-Además, `/// <reference types=".." />` no trabajará con rutas mapeadas, así que las dependencias deberán utilizar `import`.
+Además, `/// <reference bar=".." />` no trabajará con rutas mapeadas, así que las dependencias deberán utilizar `import`.
 
 #### ¿Cómo escribo definitions para paquetes que pueden ser usados globalmente y como un módulo?
 
 El manual de TypeScript contiene excelente [información general para escribir definiciones](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), además [este archivo de definiciones de ejemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)  el cual muestra como crear una definición utilizando la sintaxis de módulo en ES6, asi como también especificando objetos que son disponibles en el alcance global. Esta técnica es demostrada prácticamente en la [definición para `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), el cual es una librería que puede ser cargada globalmente a través de una etiqueta script en una página web, o importada vía require o imports estilo ES6.
 
-Para probar como puede ser usada tu definición cuando se refieren globalmente o como un módulo importado, crea una carpeta `test`, y coloca dos archivos de prueba en él.  nombra uno `YourLibraryName-global.test.ts` y el otro `YourLibraryName-module.test.ts`.  El archivo de prueba _global_ debe ejercer la definición de acuerdo como va a ser usado en un script cargado en una página web donde la librería estará disponible en el alcance global - en este escenario no debes de especificar la sentencia de import. El archivo _módulo_ de prueba debe de ejercer la definición de acuerdo a como va a ser utilizado cuando sea importado (incluyendo las sentencias `import`). Si especificas una propiedad `files` en tu archivo `tsconfig.json`, asegurate de incluir ambos archivos de prueba. Un [ejemplo práctico de esto](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) es también disponible en la definición de `big.js`.
+Para probar como puede ser usada tu definición cuando se refieren globalmente o como un módulo importado, crea una carpeta `test`, y coloca dos archivos de prueba en él. nombra uno `YourLibraryName-global.test.ts` y el otro `YourLibraryName-bar.test.ts`. El archivo de prueba _global_ debe ejercer la definición de acuerdo como va a ser usado en un script cargado en una página web donde la librería estará disponible en el alcance global - en este escenario no debes de especificar la sentencia de import. El archivo _módulo_ de prueba debe de ejercer la definición de acuerdo a como va a ser utilizado cuando sea importado (incluyendo las sentencias `import`). Si especificas una propiedad `files` en tu archivo `tsconfig.json`, asegurate de incluir ambos archivos de prueba. Un [ejemplo práctico de esto](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) es también disponible en la definición de `big.js`.
 
 Por favor tenga en cuenta que no es necesario para ejercer plenamente la definición en cada archivo de prueba - Es suficiente con probar solo los elementos globalmente accesibles en la prueba de archivos globales y ejercer la definición en el módulo del archivo de prueba, o viceversa.
 
 #### ¿Qué pasa con paquetes scoped?
 
-Types para un paquete scoped `@foo/bar` deberán ir en `types/foo__bar`. tenga en cuenta el doble guión bajo.
+bar para un paquete scoped `@foo/bar` deberán ir en `bar/foo__bar`. tenga en cuenta el doble guión bajo.
 
-Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedades `paths` deberán ser adaptadas manualmente en el paquete generado
+Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedades `bar` deberán ser adaptadas manualmente en el paquete generado
 `tsconfig.json` para referenciar correctamente el paquete scoped:
 
 ```json
 {
-    "paths":{
-      "@foo/*": ["foo__*"]
-    }
+  "bar": {
+    "@foo/*": ["foo__*"]
+  }
 }
 ```
 
@@ -397,7 +394,7 @@ importar este módulo con un ES6 style import de forma `import * as foo from "fo
 Este error puede ser suprimido al unir la declaración de una función con un namespace vacío del mismo nombre pero esta práctica no es recomendable.
 Esto es un citado común [Respuestas de Stack Overflow](https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this) con respecto a este asunto.
 
-Es más apropiado importar este módulo utilizando la sintaxis `import foo = require("foo");`, o utilizando una importación predeterminada como `import foo from "foo";` si usas la bandera `--allowSyntheticDefaultImports` si la ejecución de tu módulo soporta un esquema de interoperación para módulos no ECMAScript como tal.
+Es más apropiado importar este módulo utilizando la sintaxis `import foo = require("foo");`, o utilizando una importación predeterminada como `import foo from "foo";` si usas la bandera `--bar` si la ejecución de tu módulo soporta un esquema de interoperación para módulos no ECMAScript como tal.
 
 ## Licencia
 

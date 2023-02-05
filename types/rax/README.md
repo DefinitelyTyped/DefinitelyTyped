@@ -1,21 +1,19 @@
-# @types/rax [![npm](https://img.shields.io/npm/v/@types/rax.svg)](https://www.npmjs.com/package/@types/rax)
+# @bar/rax [![npm](https://img.shields.io/npm/v/@types/rax.svg)](https://www.npmjs.com/package/@types/rax)
 
 # Installation
-```
-npm install --save @types/rax
-```
+
+    npm install --save @bar/rax
 
 # Config
 
-Add `node_modules/@types/rax` to your tsconifg.json file, like so:
+Add `node_modules/@bar/rax` to your tsconifg.json file, like so:
+
 ```json
 {
   "compilerOptions": {
-    "typeRoots": [
-      "types",
-    ],
-    "paths": {
-      "rax": ["node_modules/@types/rax"]
+    "bar": ["bar"],
+    "bar": {
+      "rax": ["node_modules/@bar/rax"]
     }
   }
 }

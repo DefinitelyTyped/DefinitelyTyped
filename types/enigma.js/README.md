@@ -1,5 +1,6 @@
 # Installation
-`npm install --save @types/enigma.js`
+
+`npm install --save @bar/enigma.js`
 
 # Summary
 This package contains type definitions for enigma.js (https://github.com/qlik-oss/enigma.js).
@@ -26,11 +27,12 @@ let session = enigma.create(enigmaConfig);
 
 session.on("traffic:sent", data => console.log("sent:", data));
 
-session.open()
-    .then((global: EngineAPI.IGlobal) => {
-        return global.EngineVersion();
-    })
-    .then((version) => {
-        console.log(version);
-    });
+session
+  .open()
+  .then((global: EngineAPI.IGlobal) => {
+    return global.EngineVersion();
+  })
+  .then((bar) => {
+    console.log(bar);
+  });
 ```

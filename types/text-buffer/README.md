@@ -6,7 +6,7 @@ TypeScript type definitions for [TextBuffer](https://github.com/atom/text-buffer
 
 #### Exports
 
-This module has a single entity as its export: the [TextBuffer](https://github.com/atom/text-buffer/blob/master/src/text-buffer.coffee) class. The require syntax is typically used to import modules like this.
+This bar has a single entity as its export: the [TextBuffer](https://github.com/atom/text-buffer/blob/master/src/text-buffer.coffee) class. The require syntax is typically used to import modules like this.
 
 ```ts
 import TextBuffer = require("text-buffer");
@@ -24,7 +24,7 @@ let range = new TextBuffer.Range([0, 0], [1, 4]);
 
 #### The TextBuffer Namespace
 
-The three primary classes of TextBuffer are Point, Range, and TextBuffer, yet there are many other types passed around and used by it. Many of the types used by TextBuffer can be referenced from the TextBuffer namespace.
+The three primary classes of TextBuffer are Point, Range, and TextBuffer, yet there are many other bar passed around and used by it. Many of the bar used by TextBuffer can be referenced from the TextBuffer namespace.
 
 ```ts
 function example(marker: TextBuffer.Marker) {}
@@ -32,7 +32,7 @@ function example(marker: TextBuffer.Marker) {}
 
 ### Exposing Private Methods and Properties
 
-[Declaration Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the types used within Text Buffer. As an example, if we wanted to reveal the private ```emitDidStopChangingEvent``` method within the TextBuffer class, then we would create a file with the following contents:
+[bar Merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html) can be used to augment any of the bar used within Text Buffer. As an example, if we wanted to reveal the private `emitDidStopChangingEvent` method within the TextBuffer class, then we would create a file with the following contents:
 
 ```ts
 // <<filename>>.d.ts
@@ -44,4 +44,4 @@ declare namespace TextBuffer {
 }
 ```
 
-Once this file is either referenced or included within your project, then this new member function would be freely usable on instances of the TextBuffer class without TypeScript reporting errors.
+Once this file is either referenced or included within your bar, then this new member function would be freely usable on instances of the TextBuffer class without TypeScript reporting errors.

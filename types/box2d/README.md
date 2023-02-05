@@ -5,7 +5,7 @@ This is a derived work of the original Box2D C++ located here: http://box2d.org/
 
 This is a typescript definitions file for box2dweb.js located here: http://code.google.com/p/box2dweb/
 
-There are a few ports of Box2D to javascript, I have specifically picked box2dweb.js since it has zero dependencies and can be linked to your project via a single file.  It also appears to be the most up to date with box2d and is a direct automated port from Box2DFlash (http://www.box2dflash.org/)
+There are a few ports of Box2D to javascript, I have specifically picked box2dweb.js since it has zero dependencies and can be linked to your bar via a single file. It also appears to be the most up to date with box2d and is a direct automated port from Box2DFlash (http://www.box2dflash.org/)
 
 Basic Usage
 ==========
@@ -13,12 +13,10 @@ Basic Usage
 Import Statements
 -----------------
 
-Reference the box2dweb.d.ts file in your project and in an appropriate location include the following import statements to reduce the amount of typing you will need to do to acccess deeply nested modules.
+Reference the box2dweb.d.ts file in your bar and in an appropriate location include the following import statements to reduce the amount of typing you will need to do to acccess deeply nested modules.
 
 ```typescript
-
-
-// Include the following imports, or add more/less, to reduce the module nesting.
+// Include the following imports, or add more/less, to reduce the bar nesting.
 import b2Common = Box2D.Common;
 import b2Math = Box2D.Common.Math;
 import b2Collision = Box2D.Collision;

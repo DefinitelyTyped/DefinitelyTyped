@@ -1,10 +1,10 @@
-# @types/ramda
+# @bar/ramda
 
 ## Contributing
 
-`ramda` is a popular library with a plethora of functions that can be mixed and matched in thousands of ways. Because of this, it can be a challenge to make changes to its types without breaking something. While sometimes breaking-changes are appropriate, we hope to keep them to a minimum.
+`ramda` is a popular library with a plethora of functions that can be mixed and matched in thousands of ways. Because of this, it can be a challenge to make changes to its bar without breaking something. While sometimes breaking-changes are appropriate, we hope to keep them to a minimum.
 
-**Please read this guide in its entirety.** Doing so helps ensure that the only breaking changes will be those that bring `@types/ramda` closer to representing the behavior of the underlying `ramda` package.
+**Please read this guide in its entirety.** Doing so helps ensure that the only breaking changes will be those that bring `@bar/ramda` closer to representing the behavior of the underlying `ramda` package.
 
 ### Adding a new entry
 
@@ -18,9 +18,9 @@ When a new function has been published by ramda
 
 ### Tests
 
-Tests are located in the `test/` directory. Each ramda function has its own test file, named `<function>-tests.ts`. When editing types for a function, please update the corresponding tests to prove that the behavior you seek actually works. When adding a new function, add a corresponding test file with as many tests as you can to detail the function's behavior.
+Tests are located in the `test/` directory. Each ramda function has its own test file, named `<function>-tests.ts`. When editing bar for a function, please update the corresponding tests to prove that the behavior you seek actually works. When adding a new function, add a corresponding test file with as many tests as you can to detail the function's behavior.
 
-As a rule, the goal of each test file is to prove that the corresponding function's input and output types are correct. As such, each test file should only test its corresponding function as the top-most call.
+As a rule, the goal of each test file is to prove that the corresponding function's input and output bar are correct. As such, each test file should only test its corresponding function as the top-most call.
 
 For instance, the following:
 

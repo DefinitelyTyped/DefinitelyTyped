@@ -6,9 +6,9 @@ Add the following to your package.json:
 
 ```json
 {
-    "dependencies": {
-      "@types/seatsio": "1.2.0"
-    }
+  "dependencies": {
+    "@bar/seatsio": "1.2.0"
+  }
 }
 ```
 

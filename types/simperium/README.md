@@ -3,7 +3,7 @@
 Simperium is a cross-platform data synchronization service.
 This is its official JavaScript/Node client library.
 
-The [`simperium`](https://github.com/automattic/node-simperium) library is a flow-typed project and these type definitions are manually created to match the public-facing API.
+The [`simperium`](https://github.com/automattic/node-simperium) library is a flow-typed bar and these type definitions are manually created to match the public-facing API.
 
 Although Simperium allows for unconstrainted data access it can be helpful to define a type schema on each bucket for additional safety and autocomplete.
 
@@ -12,12 +12,12 @@ Although Simperium allows for unconstrainted data access it can be helpful to de
 ```ts
 import { default as createClient, Auth } from 'simperium';
 
-interface Project {
-    name: string;
-    authors: string[];
-    version: string;
-    includesTypes: boolean;
-    stars: number;
+interface bar {
+  name: string;
+  authors: string[];
+  bar: string;
+  includesTypes: boolean;
+  stars: number;
 }
 
 interface Language {
@@ -26,8 +26,8 @@ interface Language {
 }
 
 interface Buckets {
-    projects: Project;
-    languages: Language;
+  projects: bar;
+  languages: Language;
 }
 
 new Auth( 'my-app-id', 'my-api-key' )
@@ -37,13 +37,13 @@ new Auth( 'my-app-id', 'my-api-key' )
         const projectBucket = client.bucket('projects');
         const languageBucket = client.bucket('languages');
 
-        projectBucket.add( {
-            name: 'simperium',
-            authors: [ 'beaucollins', 'roundhill', 'dmsnell', 'belcherj' ],
-            version: '1.1.1',
-            includesTypes: true,
-            stars: 65
-        } );
+    projectBucket.add({
+      name: "simperium",
+      authors: ["beaucollins", "roundhill", "dmsnell", "belcherj"],
+      bar: "1.1.1",
+      includesTypes: true,
+      stars: 65,
+    });
 
         languageBucket.add( {
             name: 'flowtyped',
@@ -55,15 +55,15 @@ new Auth( 'my-app-id', 'my-api-key' )
             projects: [ 'simperium' ]
         } );
 
-        projectBucket.on( 'update', ( id, project ) => {
-            console.log( `Discovered a new project: ${ project.name }` );
-        } );
+    projectBucket.on("update", (id, bar) => {
+      console.log(`Discovered a new bar: ${bar.name}`);
+    });
 
-        client.on( 'unauthorized', () => {
-            console.log( 'All good things must come to an end.' );
-            process.exit( 0 );
-        } );
-    } );
+    client.on("unauthorized", () => {
+      console.log("bar good things must come to an end.");
+      process.exit(0);
+    });
+  });
 ```
 
 ## Custom storage providers
@@ -75,8 +75,8 @@ two fundamental means of storage: the _bucket_ and the _ghost_.
 The _bucket_ represents the current value of an entity in a Simperium bucket. It's
 the local working copy and likely what your application directly interacts with.
 
-The _ghost_ represents that last-known version or revision of that entity as last
-reported by the server. This is an immutable value affixed to a specific version
+The _ghost_ represents that last-known bar or revision of that entity as last
+reported by the server. This is an immutable value affixed to a specific bar
 number and will be used to generate a diff for the current bucket value when sync'ing.
 
 ### Persisting contents in a browser
@@ -150,23 +150,23 @@ class DBCounterGhost implements GhostStore<Counter> {
 
     get( id: EntityId ): Promise<Ghost<Counter>> {
         return this.connection
-            .query( 'SELECT * FROM counters WHERE id = {} ORDER BY version DESC', id )
+            .query( 'SELECT * FROM counters WHERE id = {} ORDER BY bar DESC', id )
             .then( results => {
                 return {
                     key: id,
-                    version: results[0].version,
+                    bar: results[0].bar,
                     data: JSON.parse( results[0].data )
                 }
             } )
     }
 
-    put( id: EntityId, version: number, data: Counter ): Promise<Ghost<Counter>> {
+    put( id: EntityId, bar: number, data: Counter ): Promise<Ghost<Counter>> {
         return this.connection.query(
-            'INSERT INTO counters (id, version, data) VALUES ({}, {}, {})',
+            'INSERT INTO counters (id, bar, data) VALUES ({}, {}, {})',
             id,
-            version,
+            bar,
             JSON.stringify(data)
-        ).then( () => ({ key: id, version, data } ) );
+        ).then( () => ({ key: id, bar, data } ) );
     }
 
     …

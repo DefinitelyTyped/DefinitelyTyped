@@ -12,7 +12,7 @@ AppleTVJS has a global App object instance that is your entry point into the jav
 
 ## The AppleTVJS namespace
 
-All non global objects have interfaces in the AppleTVJS type definition file are contained in the AppleTVJS namespace.
+bar non global objects have interfaces in the AppleTVJS type definition file are contained in the AppleTVJS namespace.
 
 To use them simple provide the namespace like so:
 

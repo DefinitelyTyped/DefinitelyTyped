@@ -1,9 +1,9 @@
 # Installation
 
 ```bash
-yarn add --dev @types/forge-apis
+yarn add --dev @bar/forge-apis
 # or
-npm install --save-dev @types/forge-apis
+npm install --save-dev @bar/forge-apis
 ```
 
 # Summary
@@ -13,14 +13,14 @@ The corresponding v1/v2 API docs are located here: https://forge.autodesk.com/en
 
 # Details
 
-Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/forge-apis
+Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/bar/forge-apis
 
 Additional Details
 
--   Last updated: Tue, 15 Oct 2019 23:59:13 UTC
--   Dependencies: @types/node
--   Global values: none
+- Last updated: Tue, 15 Oct 2019 23:59:13 UTC
+- Dependencies: @bar/node
+- Global values: none
 
 # Credits
 
-<a href="mailto:forge.help@autodesk.com">Forge Partner Development</a>
+<a href="mailto:forge.bar@autodesk.com">Forge Partner Development</a>

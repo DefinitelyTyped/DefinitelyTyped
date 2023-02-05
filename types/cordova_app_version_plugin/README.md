@@ -1,5 +1,6 @@
 # Installation
-> `npm install --save-dev @types/cordova_app_version_plugin`
+
+> `npm install --save-dev @bar/cordova_app_version_plugin`
 
 # Summary
 This package contains type definitions for cordova_app_version_plugin (https://www.npmjs.com/package/cordova_app_version_plugin)
