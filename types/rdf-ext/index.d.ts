@@ -31,3 +31,16 @@ declare const defaultEnv: Environment<
 >;
 
 export default defaultEnv;
+export {
+    ClownfaceFactory,
+    DataFactory,
+    DatasetFactory,
+    Environment,
+    FetchFactory,
+    FormatsFactory,
+    NamespaceFactory,
+    PrefixMapFactory,
+    TermMapFactory,
+    TermSetFactory,
+    TraverserFactory
+};
