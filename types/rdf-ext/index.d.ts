@@ -13,6 +13,7 @@ import { TermMapFactory } from '@rdfjs/term-map/Factory';
 import { TermSetFactory } from '@rdfjs/term-set/Factory';
 import { PrefixMapFactory } from '@rdfjs/prefix-map/Factory';
 import { TraverserFactory } from "@rdfjs/traverser/Factory";
+import { ScoreFactory } from "@rdfjs/score/Factory";
 import { ClownfaceFactory } from './ClownfaceFactory';
 import { DataFactoryExt as DataFactory } from './DataFactory';
 import { DatasetFactory } from './DatasetFactory';
@@ -25,6 +26,7 @@ export { default as PrefixMapFactory } from '@rdfjs/prefix-map/Factory';
 export { default as TermMapFactory } from '@rdfjs/term-map/Factory';
 export { default as TermSetFactory } from '@rdfjs/term-set/Factory';
 export { default as TraverserFactory } from '@rdfjs/traverser/Factory';
+export { default as ScoreFactory } from '@rdfjs/score/Factory';
 export { default as ClownfaceFactory } from './ClownfaceFactory';
 export { default as DataFactory } from './DataFactory';
 export { default as DatasetFactory } from './DatasetFactory';
@@ -40,6 +42,7 @@ declare const defaultEnv: Environment<
     | TermSetFactory
     | PrefixMapFactory
     | TraverserFactory
+    | ScoreFactory
 >;
 
 export default defaultEnv;

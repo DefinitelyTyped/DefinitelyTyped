@@ -433,6 +433,28 @@ function testTraverser() {
     });
 }
 
+function testScore() {
+    const {
+        combine,
+        concat,
+        count,
+        distinct,
+        exists,
+        fallback,
+        fixed,
+        language,
+        pageRank,
+        pathDepth,
+        prioritized,
+        product,
+        scale,
+        sort,
+        sortObjects,
+        sum,
+        type
+    } = rdf.score;
+}
+
 function testBundledFactories() {
     const env = new Environment([
         ClownfaceFactory,
