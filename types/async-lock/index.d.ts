@@ -86,10 +86,10 @@ declare namespace AsyncLock {
 }
 
 declare class AsyncLock {
-    static readonly DEFAULT_TIMEOUT: number;
-    static readonly DEFAULT_MAX_OCCUPATION_TIME: number;
-    static readonly DEFAULT_MAX_EXECUTION_TIME: number;
-    static readonly DEFAULT_MAX_PENDING: number;
+    static readonly DEFAULT_TIMEOUT: 0;
+    static readonly DEFAULT_MAX_OCCUPATION_TIME: 0;
+    static readonly DEFAULT_MAX_EXECUTION_TIME: 0;
+    static readonly DEFAULT_MAX_PENDING: 1000;
 
     constructor(options?: AsyncLock.AsyncLockOptions);
 
