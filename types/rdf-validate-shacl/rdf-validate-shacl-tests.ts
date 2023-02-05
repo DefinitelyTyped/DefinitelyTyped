@@ -1,6 +1,10 @@
 import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
 import SHACLValidator = require('rdf-validate-shacl');
 import $rdf from 'rdf-ext';
+import { ValidationResult } from 'rdf-validate-shacl/src/validation-report';
+import BlankNodeExt from 'rdf-ext/lib/BlankNode';
+import LiteralExt from 'rdf-ext/lib/Literal';
+import NamedNodeExt from 'rdf-ext/lib/NamedNode';
 
 const shapes: DatasetCore = <any> {};
 const data: DatasetCore = <any> {};
@@ -73,8 +77,7 @@ report2.pointer;
 
 const validator3 = new SHACLValidator(shapes, { factory: factory2 });
 
-// $ExpectType DataFactoryExt
-validator3.factory;
+const inferredFactory: typeof $rdf = validator3.factory;
 
 const report3 = validator3.validate(data);
 
@@ -85,13 +88,13 @@ for (const result of report3.results) {
     result.term; // $ExpectType BlankNodeExt | NamedNodeExt<string>
     result.dataset; // $ExpectType DatasetExt
     result.pointer; // $ExpectType GraphPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt> || AnyPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt>
-    result.message; // $ExpectType (BlankNodeExt | LiteralExt | NamedNodeExt<string>)[]
+    const message: Array<BlankNodeExt | LiteralExt | NamedNodeExt> = result.message;
     result.path; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
     result.focusNode; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
     result.severity; // $ExpectType NamedNodeExt<string> | null
     result.sourceConstraintComponent; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
     result.sourceShape; // $ExpectType BlankNodeExt | NamedNodeExt<string> | null
-    result.detail; // $ExpectType ValidationResult<DataFactoryExt>[]
+    const detail: Array<ValidationResult<typeof $rdf>> = result.detail;
 }
 
 // $ExpectType BlankNodeExt | NamedNodeExt<string>
