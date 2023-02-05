@@ -39,6 +39,7 @@ new AsyncLock({ domainReentrant: true });
 new AsyncLock({ skipQueue: true });
 new AsyncLock({ Promise: null });
 
-AsyncLock.DEFAULT_TIMEOUT; // $ExpectType number
-AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType number
-AsyncLock.DEFAULT_MAX_PENDING; // $ExpectType number
+AsyncLock.DEFAULT_TIMEOUT; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_OCCUPATION_TIME; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_EXECUTION_TIME; // $ExpectType 0
+AsyncLock.DEFAULT_MAX_PENDING; // $ExpectType 1000
