@@ -18,7 +18,7 @@ const fromCtor = new Factory();
 const asFactory: RDF.DataFactory = fromCtor;
 fromCtor.init();
 
-const env = new Environment([Factory]); // $ExpectType Environment<Factory>
+const env = new Environment([Factory]); // $ExpectType Environment<DataFactory>
 
 const myQuad = factory.quad(
   factory.namedNode('http://example.org/subject'),

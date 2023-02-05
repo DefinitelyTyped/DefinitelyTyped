@@ -8,13 +8,12 @@ import NamedNodeExt from 'rdf-ext/lib/NamedNode';
 import VariableExt from 'rdf-ext/lib/Variable';
 import * as clownface from 'clownface';
 import { DatasetExt } from 'rdf-ext/lib/Dataset';
-import { DataFactoryExt } from 'rdf-ext/DataFactory';
+import DataFactory, { DataFactoryExt } from 'rdf-ext/DataFactory';
 import Traverser from '@rdfjs/traverser/Traverser';
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
 import Environment from '@rdfjs/environment/Environment';
 import ClownfaceFactory from 'rdf-ext/ClownfaceFactory';
-import DataFactory from 'rdf-ext/DataFactory';
 import DatasetFactory from 'rdf-ext/DatasetFactory';
 
 function rdfExt_factory() {

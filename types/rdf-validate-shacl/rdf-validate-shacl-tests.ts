@@ -1,11 +1,11 @@
 import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
 import SHACLValidator = require('rdf-validate-shacl');
-import DataFactoryExt = require('rdf-ext/lib/DataFactory');
+import $rdf from 'rdf-ext';
 
 const shapes: DatasetCore = <any> {};
 const data: DatasetCore = <any> {};
 const factory1: DataFactory & DatasetCoreFactory = <any> {};
-const factory2: DataFactoryExt = <any> {};
+const factory2: typeof $rdf = <any> {};
 
 const validator1 = new SHACLValidator(shapes);
 

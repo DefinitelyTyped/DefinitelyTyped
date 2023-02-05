@@ -1,6 +1,7 @@
 import { NamespaceBuilder } from '.';
 
 export interface NamespaceFactory {
+    // eslint-disable-next-line no-unnecessary-generics
     namespace<TermNames extends string = any>(baseIRI: string): NamespaceBuilder<TermNames>;
 }
 
