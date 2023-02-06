@@ -4790,11 +4790,13 @@ declare namespace chrome.identity {
      *  * Removes all OAuth2 access tokens from the token cache
      *  * Removes user's account preferences
      *  * De-authorizes the user from all auth flows
+     * If `callback` is not provided, the function returns a Promise when the state has been cleared.
      * @since Chrome 87.
      * @param callback Called when the state has been cleared.
      * The parameter should be a function that looks like this:
      * () => {...};
      */
+    export function clearAllCachedAuthTokens(): Promise<void>;
     export function clearAllCachedAuthTokens(callback: () => void): void;
 
     /**
@@ -4802,18 +4804,21 @@ declare namespace chrome.identity {
      * getAccounts is only supported on dev channel.
      * Dev channel only.
      */
+    export function getAccounts(): Promise<AccountInfo[]>;
     export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
 
     /**
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
      * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
+     * If `callback` is not provided, the function returns a Promise that resolves with the token.
      * @param details Token options.
      * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string token) {...};
      */
-    export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+    export function getAuthToken(details: TokenDetails): Promise<string>;
+    export function getAuthToken(details: TokenDetails, callback: (token: string) => void): void;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
@@ -4831,12 +4836,14 @@ declare namespace chrome.identity {
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
+     * If `callback` is not provided, the function returns a Promise when the state has been removed from the cache.
      * @param details Token information.
      * @param callback Called when the token has been removed from the cache.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function removeCachedAuthToken(details: TokenInformation, callback?: () => void): void;
+    export function removeCachedAuthToken(details: TokenInformation): Promise<void>;
+    export function removeCachedAuthToken(details: TokenInformation, callback: () => void): void;
 
     /**
      * Starts an auth flow at the specified URL.
