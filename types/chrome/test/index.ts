@@ -1663,12 +1663,22 @@ async function testHistoryForPromise() {
 async function testIdentity() {
     // $ExpectType void
     chrome.identity.launchWebAuthFlow({ url: 'https://example.com ' }, () => { });
+
+    chrome.identity.clearAllCachedAuthTokens(() => {})
+    getAccounts((accounts: chrome.identity.AccountInfo[]) => { })
+    getAuthToken({}, (token: string) => { })
+    removeCachedAuthToken({token: '1234'}, () => { })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/identity/
 async function testIdentityForPromise() {
     // $ExpectType string | undefined
     await chrome.identity.launchWebAuthFlow({ url: 'https://example.com ' });
+
+    await chrome.identity.clearAllCachedAuthTokens()
+    const accounts: chrome.identity.AccountInfo[] = await getAccounts()
+    const token = await getAuthToken({})
+    await removeCachedAuthToken({token: '1234'})
 }
 
 // https://developer.chrome.com/docs/extensions/reference/topSites/
