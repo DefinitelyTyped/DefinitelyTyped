@@ -1665,9 +1665,9 @@ async function testIdentity() {
     chrome.identity.launchWebAuthFlow({ url: 'https://example.com ' }, () => { });
 
     chrome.identity.clearAllCachedAuthTokens(() => {})
-    getAccounts((accounts: chrome.identity.AccountInfo[]) => { })
-    getAuthToken({}, (token: string) => { })
-    removeCachedAuthToken({token: '1234'}, () => { })
+    chrome.identity.getAccounts((accounts: chrome.identity.AccountInfo[]) => { })
+    chrome.identity.getAuthToken({}, (token: string) => { })
+    chrome.identity.removeCachedAuthToken({token: '1234'}, () => { })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/identity/
@@ -1676,9 +1676,9 @@ async function testIdentityForPromise() {
     await chrome.identity.launchWebAuthFlow({ url: 'https://example.com ' });
 
     await chrome.identity.clearAllCachedAuthTokens()
-    const accounts: chrome.identity.AccountInfo[] = await getAccounts()
-    const token = await getAuthToken({})
-    await removeCachedAuthToken({token: '1234'})
+    const accounts: chrome.identity.AccountInfo[] = await chrome.identity.getAccounts()
+    const token = await chrome.identity.getAuthToken({})
+    await chrome.identity.removeCachedAuthToken({token: '1234'})
 }
 
 // https://developer.chrome.com/docs/extensions/reference/topSites/
