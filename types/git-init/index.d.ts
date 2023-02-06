@@ -1,5 +1,9 @@
-// Type definitions for git-init
-// Project: 
+// Type definitions for git-init 1.0.0
+// Project: https://github.com/yoshuawuyts/git-init
+// Definitions by: Santi <https://github.com/santi100a>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 4.2
+
 import { type ExecException, exec } from "node:child_process";
 
 declare type Callback = (error: ExecException | null, stdout: string, stderr: string) => void;
@@ -16,3 +20,5 @@ declare function init(cb: Callback): void;
  * @param cb An {@link exec} compatible callback.
  */
 declare function init(path: string, cb: Callback): void;
+
+export default init;
