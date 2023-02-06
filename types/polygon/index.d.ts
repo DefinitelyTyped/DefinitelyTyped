@@ -93,7 +93,7 @@ declare class Polygon {
     /**
      * Scales this polygon around `origin` (default is `this.center()`) and will return a new polygon if requested with `returnNew`
      */
-    scale(amount: number, origin?: Vec2, returnNew?: boolean): Polygon;
+    scale(amount: number, origin?: Vec2 | null, returnNew?: boolean): Polygon;
 
     /**
      * Returns true if `vec2` is inside the polygon
