@@ -105,6 +105,9 @@ p.rotate(Math.PI, new Vec2(0, 0));
 // $ExpectType Polygon
 p.rotate(Math.PI, new Vec2(0, 0), true);
 
+// $ExpectType Polygon
+p.rotate(Math.PI, null, true);
+
 // $ExpectType boolean
 p.equal(p2);
 

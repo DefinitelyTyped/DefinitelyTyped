@@ -143,7 +143,7 @@ declare class Polygon {
     /**
      * Rotate by origin `vec2` (default `this.center()`) by radians `rads` and return a clone if `returnNew` is specified
      */
-    rotate(rads: number, vec2?: Vec2, returnNew?: boolean): Polygon;
+    rotate(rads: number, vec2?: Vec2 | null, returnNew?: boolean): Polygon;
 
     /**
      * Translate by `vec2` and return a clone if `returnNew` is specified
