@@ -4,5 +4,6 @@
         "strict": true,
         "sourceMap": true,
         "outDir": "./"
-    }
+    },
+    "files": ["index.d.ts"]
 }
