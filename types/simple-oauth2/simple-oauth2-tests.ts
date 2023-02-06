@@ -73,15 +73,29 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
 
 // #Password Credentials Flow
 (async () => {
-    const tokenConfig = {
+    const tokenConfig1 = {
+        username: "username",
+        password: "password",
+    };
+
+    const tokenConfig2 = {
         username: "username",
         password: "password",
         scope: ["<scope1>", "<scope2>"],
     };
 
+    const tokenConfig3 = {
+        username: "username",
+        password: "password",
+        scope: "<scope1>",
+    };
+
     // Save the access token
     try {
-        const result = await oauth2ResourceOwnerPassword.getToken(tokenConfig);
+        let result = await oauth2ResourceOwnerPassword.getToken(tokenConfig1);
+        result = await oauth2ResourceOwnerPassword.getToken(tokenConfig2);
+        result = await oauth2ResourceOwnerPassword.getToken(tokenConfig3);
+
         const accessToken = oauth2ResourceOwnerPassword.createToken(result.token);
     } catch (error) {
         console.log("Access Token Error", error.message);
