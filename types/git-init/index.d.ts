@@ -1,4 +1,5 @@
 // Type definitions for git-init
+// Project: 
 import { type ExecException, exec } from "node:child_process";
 
 declare type Callback = (error: ExecException | null, stdout: string, stderr: string) => void;
