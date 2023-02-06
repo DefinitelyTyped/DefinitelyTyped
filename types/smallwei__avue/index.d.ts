@@ -36,7 +36,7 @@ declare module 'vue' {
         AvueTree: typeof AvueTree;
     }
     interface ComponentCustomProperties {
-        $Clipboard: ({ text: string }) => Promise<void>;
+        $Clipboard: (arg: { text: string }) => Promise<void>;
         $ImagePreview: (list: Array<{ url?: string; thumbUrl?: string }>, index?: number) => void;
         $Print: (selector: string | HTMLElement) => void;
         $Export: {
