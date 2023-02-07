@@ -214,7 +214,7 @@ export interface PermissionPage extends Page {
 
 export type Grant = 'authorization_code' | 'client_credentials' | 'implicit' | 'password' | 'refresh_token';
 
-export type ActionTrigger = 'post_login' | 'credentials_exchange' | 'pre_user_registration' | 'pre_user_registration' | 'post_user_registration' | 'post_change_password' | 'send_phone_message'
+export type ActionTrigger = 'post_login' | 'credentials_exchange' | 'pre_user_registration' | 'pre_user_registration' | 'post_user_registration' | 'post_change_password' | 'send_phone_message';
 
 export interface Client {
     /**
