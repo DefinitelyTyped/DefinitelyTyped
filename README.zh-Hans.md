@@ -47,10 +47,10 @@ npm install --save-dev @types/node
 
 #### 支持周期
 
-Definitely Typed 仅在发布于 2 年前以及更晚的 TypeScript 版本上测试软件包。
+Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。
 
 <details>
-<summary>当前，4.1 及更高版本会进行测试……</summary>
+<summary>当前，已测试 4.1 及更高版本……</summary>
 
 你如果使用 TypeScript 2.0 至 4.0 版本，那么仍可以尝试安装 `@types` 软件包——因为其中大多数都没有使用 TypeScript 的新功能，然而，我们无法保证它们可以正常工作。
 支持周期如下所示：
@@ -58,7 +58,8 @@ Definitely Typed 仅在发布于 2 年前以及更晚的 TypeScript 版本上测
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
-`@types` 软件包在标签种列出了其明确支持的 TypeScript 版本，因此你常常可以取得大于 2 年支持周期的软件包旧版本。例如，若运行 `npm dist-tags @types/react`，你将看到 TypeScript 2.5 可使用 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则可使用 react@16.4：
+`@types` 软件包在标签种列出了其明确支持的 TypeScript 版本，因此你常常可以取得大于 2 年支持周期的软件包旧版本。
+例如，若运行 `npm dist-tags @types/react`，你将看到 TypeScript 2.5 可使用 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则可使用 react@16.4：
 
 | 标签   | 版本    |
 | ------ | ------- |
@@ -130,18 +131,18 @@ declare module "libname" {
 #### 部分克隆
 
 <details>
-<summary>你可<a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>照常</a>克隆此仓库，但此仓库极为庞大，包含海量的类型声明包。</summary>
+<summary>你可<a href='https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository'>照常</a>克隆本仓库，但本仓库极为庞大，包含海量的类型声明包。</summary>
 
-你可[照常](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)克隆此仓库，但此仓库极为庞大，包含海量的类型声明包。因此，克隆操作将会耗费大量时间，显得笨拙且毫无必要。
+你可[照常](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)克隆本仓库，但本仓库极为庞大，包含海量的类型声明包。因此，克隆操作将会耗费大量时间，显得笨拙且毫无必要。
 
 你可以使用 git 的 [`sparse-checkout`](https://git-scm.com/docs/git-sparse-checkout)，[`--filter`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt)，和 [`--depth`](https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt) 功能。这样，仓库克隆只会包含相关的类型软件包，更便于管理、减少了克隆时间且提高了 git 的性能。
 
->:警告: 该特性需要 [git 版本 2.27.0 或更高](https://git-scm.com/downloads)，而大多数设备上的默认版本通常要低于此。旧版本的 git 可以通过更复杂的流程实现类似功能，但本文不涉及。
+>:warning: 该特性需要 [git 版本 2.27.0 或更高](https://git-scm.com/downloads)，而大多数设备上的默认版本通常要低于此。旧版本的 git 可以通过更复杂的流程实现类似功能，但本文不涉及。
 
 1. `git clone --sparse --filter=blob:none --depth=1 <forkedUrl>`
-    - `--sparse` 初始化 sparse-checkout 文件，首次克隆的只有仓库根目录的文件。
+    - `--sparse` 将初始化 sparse-checkout 文件，首次克隆的只有仓库根目录的文件。
     - `--filter=blob:none` 将排除文件，只在需要时获取它们。
-    - `--depth=1` 可以通过截断提交历史来进一步提高克隆速度，不过它可能会导致一些问题，见：[此链接](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/)。
+    - `--depth=1` 可以通过截断提交历史来进一步提高克隆速度，不过它可能会导致一些问题，详情请见[此链接](https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/)。
 2. `git sparse-checkout add types/<type> types/<dependency-type> ...`
 
 </details>
@@ -153,8 +154,8 @@ declare module "libname" {
   如果你作出了破坏性更改，请不要忘记[更新主版本](#如果一个软件包做了重大的修改而更新了主版本我应该如何更新它的类型声明包)。
 * [运行 `npm test <package to test>`](#运行测试)。
 
-当你对现有的软件包发起 PR 的时候，`dt-bot` 应该通知先前的作者。
-如果它没有这么做，你可在与 PR 关联的评论中手动 @ 作者。
+当你对现有的软件包发起 PR 的时候，`dt-bot` 应该会通知先前的作者。
+如果没有，你可在与 PR 关联的评论中手动 @ 作者。
 
 #### 创建新软件包
 
@@ -261,7 +262,7 @@ const result = twoslash("//")
 
 你可以在根目录执行 `npm test <package to test>` 来[验证你的更改](#运行测试)（包括修改的文件）。
 
-若要断言表达式为给定类型，请使用 `$ExpectType`. 若要断言表达式会导致编译错误，请使用 `@ts-expect-error`。
+若要断言表达式为给定类型，请使用 `$ExpectType`. 若要断言表达式会导致编译错误，请使用 `@ts-expect-error`。例如：
 
 ```js
 // $ExpectType void
@@ -275,13 +276,13 @@ f("one");
 
 #### Linter: `tslint.json`
 
-Linter 的配置文件 `tslint.json` 只因包含 `{ "extends": "@definitelytyped/dtslint/dt.json" }`，不含有其他规则。
+Linter 的配置文件 `tslint.json` 只应包含 `{ "extends": "@definitelytyped/dtslint/dt.json" }`，并且不含其他规则。
 
-若出于某些原因，需要禁用规则，请使用 `// tslint:disable-next-line:[ruleName]` [在需要禁用规则的位置禁用它](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line)，而不是在整个软件包内禁用，因此代码审核者可以审核禁用规则的代码。（一些陈旧的配置文件可能包含额外内容，但新增项目不应出现这些内容。）
+若出于某些原因，需要禁用规则，请使用 `// tslint:disable-next-line:[ruleName]` [在需要禁用规则的那一行禁用它](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line)，而不是在整个软件包内禁用，因此代码审核者可以审核禁用规则的代码。（一些陈旧的 Linter 配置文件可能包含额外内容，但这些内容不应该出现在新项目中。）
 
 ##### Linter: `.eslintrc.json`
 
-Definitely Typed 正在从 TSLint 切换至 ESLint。与 TSLint 不同，ESLint 无需配置文件即可启用。你仅应在需要禁用规则的位置禁用规则，与 TSLint 相同：
+Definitely Typed 正在从 TSLint 迁移至 ESLint。与 TSLint 不同，ESLint 无需配置文件即可启用。你仅应在需要禁用规则的那一行处禁用规则，与 TSLint 相同：
 
 ```ts
 // eslint-disable-next-line no-const-enum
@@ -314,7 +315,7 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 > import Component from "./component";
 > ```
 >
-> 鉴于 `index.d.ts` 中的导入在编译时是否有效因不同的编译设置而有所不同，而你的类型声明的用户不一定遵照了你所期待的编译设置。在 Definitely Typed 中使用这些选项将会迫使用户更改其编译设置，而在他们的运行时环境下这么做可能是错误的。相反，在使用 CJS 导出时，你必须使用 CJS 导入语法，以确保在广泛的应用以及不同的编译设置中的兼容性：
+> 鉴于 `index.d.ts` 中的导入在编译时是否有效取决于特定的编译设置，而你的类型声明的用户不一定遵照了这些设置。在 Definitely Typed 中使用这些选项将会迫使用户更改其编译设置，而在他们的运行时环境下这么做可能是错误的。相反，在使用 CJS 导出时，你必须使用 CJS 导入语法，以确保广泛的、独立于配置的兼容性。
 >
 > ```ts
 > // index.d.ts
@@ -375,7 +376,7 @@ Definitely Typed 有“类型定义所有者”的概念——即愿意维护特
 
 若要将你自己添加为类型定义所有者：
 
-* 将自己添加至行末，例如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`。
+* 将你的名字添加至行末，例如 `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`。
 * 或者，如果人数较多，可以分行：
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
@@ -404,7 +405,7 @@ Definitely Typed 有“类型定义所有者”的概念——即愿意维护特
 
 对于针对广泛使用的项目的更改，例如 Node、Express、Jest 这些 npm 每周下载量数百万的项目，提交贡献的要求会稍高一些。
 由于这些项目的更改可能在整个软件生态系统中带来巨大的影响，我们会对这些项目给予特殊关照。
-这些模块的更改需要来自一位 DT 维护者的同意以及来自模块所有者的强烈支持才会被合并。标准线可能非常高，因而许多 PR 因为得不到足够多的支持而被搁置。
+这些模块的更改需要来自一位 DT 维护者的同意以及来自模块所有者的强烈支持才会被合并。标准线可能非常高，因而许多 PR 由于得不到足够多的支持而被搁置。
 如果你发现无人原因支持你的 PR，请尝试缩小你的 PR 的关注点。
 
 #### 我的 PR 已经合并，什么时候 `@types` npm 软件包会更新？
@@ -458,7 +459,7 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 
 #### 我想使用极新的 TypeScript 版本的功能。
 
-你必须在你的类型定义标头的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// Minimum TypeScript Version: X.Y`，来设置受支持的最低 TypeScript 版本。
+那么，你必须在你的类型定义标头的最后一行添加注释（在 `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped` 之后）：`// Minimum TypeScript Version: X.Y`，来设置受支持的最低 TypeScript 版本。
 
 然而，举个例子，如果你的项目需要*同时*维护兼容 3.7 及以上版本和兼容 3.6 及以下的版本的类型，那么你需要使用 `typesVersions` 功能。
 你可以在[官方 TypeScript 文档](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions)中找到此功能的详细说明。
@@ -503,7 +504,7 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 请使用以 `dom-` 开头的名称作为包名，并在标头中包含指向标准的链接作为项目链接。
 当它成为正式标准时，我们可以将它从 Definitely Typed 删除，并弃用相关的 `@types`软件包。
 
-#### Definitely Typed 软件包版本号如何与对应库的版本号相关联？
+#### Definitely Typed 软件包的版本好与相应库的版本号有什么关系？
 
 *注意：本节中的讨论假定你熟悉[语义化版本（Semantic Versioning）](https://semver.org/lang/zh-CN/)*
 
@@ -521,7 +522,7 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 
 因为 `10.12` 在第一行的末尾，所以 `@types/node` 软件包的版本号也是 `10.12.x`。
 注意在 `index.d.ts` 文件的第一行注释中应该只包含 `major.minor` 的版本号（比如 `10.12`），不应该包含补丁版本（例如 `10.12.4`）。
-这是因为只有主要版本号和次要版本号在库包和类型声明包之间相对应。
+这是因为，在库包和类型声明包之间只有主要版本号和次要版本号是一致的。
 类型声明包的补丁版本号（比如 `10.12.0` 中的 `.0`）由 Definitely Typed 初始化为 0，每次将新的 `@types/node` 软件包以同一主/次版本发布到 npm 中对应库时，其都会递增。
 
 有时，类型声明包的版本号和库包的版本号可能会不同步。
@@ -529,8 +530,8 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 只有最后一种情况通常是有问题的。
 
 * 如上所示，类型定义包的补丁版本与库包的补丁版本是无关的。这允许 Definitely Typed 安全地更新同一主/次版本的类型声明。
-* 如果要更改类型声明包以添加新功能，请务必更新版本号以与该版本的库对应。如果用户能确保 JavaScript 库与 `@types` 软件包的类型一一对应，那么 `npm update` 就可以正常使用。
-* 类型定义包的更新落后于库的原因通常是因为库用户而不是维护者，他们在发布新特性从而更新了库的版本。因此，在愿意帮忙的社区成员发送 PR 以更新库的新版本对应的类型声明包之前，可能会有几天、几周甚至几个月的滞后。如果你受此影响，你可以亲自作出贡献，成为乐于助人的社区成员！
+* 如果要更新类型声明包以获取新功能，请务必更新版本号以与该版本的库保持一致。如果用户能确保 JavaScript 软件包与其各自的 `@types` 软件包之间的版本一一对应，那么 `npm update` 通常就可以正常使用。
+* 类型声明包的更新滞后于库的更新是很常见的，这通常是因为当库的新功能发布时，通常是库的用户来更新 Definitely Typed，而不是维护者。因此，在愿意帮忙的社区成员发送 PR 以更新库的新版本对应的类型声明包之前，可能会有几天、几周甚至几个月的滞后。如果你深受此影响，你不妨亲自动手作出喜闻乐见的贡献，成为乐于助人的社区成员！
 
 :exclamation: 如果你想更新库的类型声明，请记住始终要在 `index.d.ts` 文件的第一行设置 `major.minor` 的版本号以匹配你正在描述的库版本！ :exclamation:
 
