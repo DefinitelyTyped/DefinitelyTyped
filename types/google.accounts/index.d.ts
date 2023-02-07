@@ -123,7 +123,7 @@ declare namespace google.accounts {
             /**
              * A space-delimited list of scopes that are approved by the user.
              */
-            scopes: string;
+            scope: string;
 
             /**
              * The string value that your application uses to maintain state

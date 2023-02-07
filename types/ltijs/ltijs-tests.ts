@@ -5,6 +5,17 @@ const ltiMinimal = Provider.setup('EXAMPLEKEY', {
     url: 'mongodb://localhost/database',
 });
 
+const ltiPlugin = Provider.setup('EXAMPLEKEY', {
+    plugin: {},
+});
+
+// @ts-expect-error
+const ltiInvalid = Provider.setup('EXAMPLEKEY', {
+    // Can't specify both DB and plugin.
+    url: 'mongodb://localhost/database',
+    plugin: {},
+});
+
 const idToken: IdToken = {
     iss: '',
     issuerCode: '',

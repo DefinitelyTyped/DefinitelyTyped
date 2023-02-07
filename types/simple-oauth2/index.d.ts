@@ -281,7 +281,7 @@ export interface PasswordTokenConfig {
     /** A string that represents the registered password. */
     password: string;
     /** A string or array of strings that represents the application privileges */
-    scope: string | string[];
+    scope?: string | string[];
 
     /**
      * Additional options will be automatically serialized as params for the token request.
