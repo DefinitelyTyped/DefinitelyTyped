@@ -34,7 +34,7 @@ interface TotpOptions {
  * Keys provided must be **base32 strings**, ie. only containing characters matching `(A-Z, 2-7, =)`.
  *
  * The **default** settings are:
- * - SHA1
+ * - SHA-1
  * - 30 second period
  * - 6 digits
  * - Current time
