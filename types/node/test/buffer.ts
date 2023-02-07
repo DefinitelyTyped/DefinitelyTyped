@@ -3,7 +3,6 @@ import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
     constants,
-    isAscii,
     isUtf8,
     kMaxLength,
     kStringMaxLength,
@@ -38,12 +37,9 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 
 // Module methods
 {
-    const bool1: boolean = isAscii(new Buffer('hello'));
-    const bool2: boolean = isAscii(new ArrayBuffer(0));
-    const bool3: boolean = isAscii(new Uint8Array());
-    const bool4: boolean = isUtf8(new Buffer('hello'));
-    const bool5: boolean = isUtf8(new ArrayBuffer(0));
-    const bool6: boolean = isUtf8(new Uint8Array());
+    const bool1: boolean = isUtf8(new Buffer('hello'));
+    const bool2: boolean = isUtf8(new ArrayBuffer(0));
+    const bool3: boolean = isUtf8(new Uint8Array());
 }
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()

@@ -46,7 +46,6 @@
 declare module 'buffer' {
     import { BinaryLike } from 'node:crypto';
     import { ReadableStream as WebReadableStream } from 'node:stream/web';
-    export function isAscii(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
     export function isUtf8(input: Buffer | ArrayBuffer | NodeJS.TypedArray): boolean;
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
