@@ -147,12 +147,12 @@ declare class Vec2 {
     /**
      * _returns_: `double`
      */
-    dot(): number;
+    dot(vec: Vec2): number;
 
     /**
      * _returns_: `double`
      */
-    perpDot(): number;
+    perpDot(vec: Vec2): number;
 
     /**
      * Returns the angle from this vector to the incoming.
