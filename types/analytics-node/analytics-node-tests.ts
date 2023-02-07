@@ -80,6 +80,8 @@ function testTrack(): void {
     }
   });
 
+  // no userId or anonymousId set
+  // @ts-expect-error
   analytics.track({
     event: 'Purchased an Item',
     properties: {
