@@ -35,26 +35,29 @@ csstree.walk(ast, {
     reverse: false,
 });
 
-csstree.find(ast, (node, item, list) => {
+const findResult = csstree.find(ast, (node, item, list) => {
     node; // $ExpectType CssNode
     item; // $ExpectType ListItem<CssNode>
     list; // $ExpectType List<CssNode>
     return true;
 });
+findResult; // $ExpectType CssNode | null
 
-csstree.findLast(ast, (node, item, list) => {
+const findLastResult = csstree.findLast(ast, (node, item, list) => {
     node; // $ExpectType CssNode
     item; // $ExpectType ListItem<CssNode>
     list; // $ExpectType List<CssNode>
     return true;
 });
+findLastResult; // $ExpectType CssNode | null
 
-csstree.findAll(ast, (node, item, list) => {
+const findAllResult = csstree.findAll(ast, (node, item, list) => {
     node; // $ExpectType CssNode
     item; // $ExpectType ListItem<CssNode>
     list; // $ExpectType List<CssNode>
     return true;
 });
+findAllResult; // $ExpectType CssNode[]
 
 csstree.generate(ast); // $ExpectType string
 
@@ -82,13 +85,9 @@ csstree.generate(ast, {
     }),
 });
 
-const property = csstree.property('*-vendor-property');
-// @ts-expect-error
-property.name = 'test';
+const property = csstree.property('*-vendor-property'); // $ExpectType Property
 
-const keyword = csstree.keyword('-vendor-keyword');
-// @ts-expect-error
-keyword.name = 'test';
+const keyword = csstree.keyword('-vendor-keyword'); // $ExpectType Keyword
 
 csstree.clone(ast); // $ExpectType CssNode
 
@@ -708,3 +707,10 @@ csstree.string.encode('foo'); // $ExpectType string
 csstree.string.encode('foo', true); // $ExpectType string
 csstree.url.decode('foo'); // $ExpectType string
 csstree.url.encode('foo'); // $ExpectType string
+
+csstree.fork({}); // $ExpectType { lexer: Lexer; }
+const { lexer } = csstree.fork({ atrules: {}, properties: {}, types: { foo: '<length>' } });
+lexer; // $ExpectType Lexer
+
+lexer.matchProperty('foo', ast); // $ExpectType LexerMatchResult
+lexer.matchProperty('foo', 'bar'); // $ExpectType LexerMatchResult
