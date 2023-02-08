@@ -13,7 +13,7 @@ declare namespace Glider {
 
     interface GliderEvent<T = undefined> extends Event {
         detail: T;
-        target: (HTMLElement & { _glider: Glider | undefined }) | null;
+        target: (HTMLElement & { _glider: Glider<HTMLElement> | undefined }) | null;
     }
 
     interface GliderEventMap {
@@ -287,10 +287,22 @@ declare global {
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
+
+        removeEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
     }
 
     interface HTMLDivElement {
         addEventListener<K extends keyof Glider.GliderEventMap>(
+            type: K,
+            listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        removeEventListener<K extends keyof Glider.GliderEventMap>(
             type: K,
             listener: (event: Glider.GliderEvent<Glider.GliderEventMap[K]>) => void,
             options?: boolean | AddEventListenerOptions,
