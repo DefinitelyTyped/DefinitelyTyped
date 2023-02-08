@@ -80,7 +80,7 @@ declare class SCServerSocket extends Emitter {
     deauthenticateSelf(): void;
     deauthenticate(callback?: SCServerSocket.EmitCallback): void;
 
-    kickOut(channel?: string, message?: string, callback?: () => void): void;
+    kickOut(channel?: string | string[], message?: string, callback?: () => void): void;
 
     subscriptions(): string[];
     isSubscribed(channel?: string): boolean;
