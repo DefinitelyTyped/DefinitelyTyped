@@ -1666,7 +1666,7 @@ async function testIdentity() {
 
     chrome.identity.clearAllCachedAuthTokens(() => {})
     chrome.identity.getAccounts((accounts: chrome.identity.AccountInfo[]) => { })
-    chrome.identity.getAuthToken({}, (token: string) => { })
+    chrome.identity.getAuthToken({}, (token?: string, grantedScopes?: string[]) => { })
     chrome.identity.removeCachedAuthToken({token: '1234'}, () => { })
 }
 
