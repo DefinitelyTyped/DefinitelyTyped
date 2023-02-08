@@ -1,6 +1,8 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory } from 'rdf-js';
+import { DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Literal } from 'rdf-js';
+import { GraphPointer } from 'clownface';
 import SHACLValidator = require('rdf-validate-shacl');
 import DataFactoryExt = require('rdf-ext/lib/DataFactory');
+import ValidationReport = require('rdf-validate-shacl/src/validation-report');
 
 const shapes: DatasetCore = <any> {};
 const data: DatasetCore = <any> {};
@@ -102,3 +104,10 @@ report3.dataset;
 
 // $ExpectType GraphPointer<BlankNodeExt | NamedNodeExt<string>, DatasetExt>
 report3.pointer;
+
+const pointer: GraphPointer<NamedNode> = <any> {};
+let reportFromCtor = new ValidationReport(pointer, { factory: factory1 });
+
+const nonResourcePointer: GraphPointer<Literal> = <any> {};
+// @ts-expect-error
+reportFromCtor = new ValidationReport(nonResourcePointer, { factory: factory1 });

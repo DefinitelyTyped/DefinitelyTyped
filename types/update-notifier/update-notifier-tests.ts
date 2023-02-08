@@ -1,4 +1,4 @@
-import updateNotifier, { Package } from 'update-notifier';
+import updateNotifier, { Package, UpdateInfo } from 'update-notifier';
 
 declare const packageJson: Package;
 
@@ -42,7 +42,7 @@ if (notifier.update) {
 }
 
 (async () => {
-    const update = await notifier.fetchInfo();
+    const update: UpdateInfo = await notifier.fetchInfo(); // $ExpectType UpdateInfo
     update.current; // $ExpectType string
     update.latest; // $ExpectType string
     update.name; // $ExpectType string

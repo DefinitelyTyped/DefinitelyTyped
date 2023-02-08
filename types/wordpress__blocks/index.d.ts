@@ -31,6 +31,7 @@ export interface BlockEditProps<T extends Record<string, any>> extends BlockSave
     readonly clientId: string;
     readonly isSelected: boolean;
     readonly setAttributes: (attrs: Partial<T>) => void;
+    readonly context: Record<string, unknown>;
 }
 
 export interface BlockIconNormalized {

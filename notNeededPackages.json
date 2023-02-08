@@ -3277,6 +3277,10 @@
             "libraryName": "node-xlsx",
             "asOfVersion": "0.21.0"
         },
+        "nodecredstash": {
+            "libraryName": "nodecredstash",
+            "asOfVersion": "3.0.0"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
@@ -4822,6 +4826,10 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
+        },
+        "rimraf": {
+            "libraryName": "rimraf",
+            "asOfVersion": "4.0.5"
         },
         "riot": {
             "libraryName": "riot",
