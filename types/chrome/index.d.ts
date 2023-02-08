@@ -14,6 +14,7 @@
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
 //                 Ido Salomon <https://github.com/idosal>
+//                 Federico Brigante <https://github.com/fregante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
