@@ -1639,7 +1639,7 @@ declare class TelegramBot extends EventEmitter {
 
     getChatAdministrators(chatId: TelegramBot.ChatId): Promise<TelegramBot.ChatMember[]>;
 
-    getChatMembersCount(chatId: TelegramBot.ChatId): Promise<number>;
+    getChatMemberCount(chatId: TelegramBot.ChatId): Promise<number>;
 
     getChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<TelegramBot.ChatMember>;
 
