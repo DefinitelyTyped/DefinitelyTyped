@@ -4784,6 +4784,19 @@ declare namespace chrome.identity {
 
     export interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
 
+    export interface GetAuthTokenResult {
+        /**
+         * Optional.
+         * A list of OAuth2 scopes granted to the extension.
+         */
+        grantedScopes?: string[]
+        /**
+         * Optional.
+         * The specific token associated with the request.
+         */
+        token?: string
+    }
+
     /**
      * Resets the state of the Identity API:
      *
@@ -4817,8 +4830,8 @@ declare namespace chrome.identity {
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string token) {...};
      */
-    export function getAuthToken(details: TokenDetails): Promise<string>;
-    export function getAuthToken(details: TokenDetails, callback: (token: string) => void): void;
+    export function getAuthToken(details: TokenDetails): Promise<GetAuthTokenResult>;
+    export function getAuthToken(details: TokenDetails, callback: (token?: string, grantedScopes?: string[]) => void): void;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
