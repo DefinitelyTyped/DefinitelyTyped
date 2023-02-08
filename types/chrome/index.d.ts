@@ -167,7 +167,8 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId?: number, callback: () => void): void;
+    export function disable(callback: () => void): void;
+    export function disable(tabId: number, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -183,7 +184,8 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId?: number, callback: () => void): void;
+    export function enable(callback: () => void): void;
+    export function enable(tabId: number, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -279,7 +281,8 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function openPopup(options?: OpenPopupOptions, callback: () => void): void;
+    export function openPopup(callback: () => void): void;
+    export function openPopup(options: OpenPopupOptions, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -433,7 +436,8 @@ declare namespace chrome.alarms {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean wasCleared) {...};
      */
-    export function clear(name?: string, callback: (wasCleared: boolean) => void): void;
+    export function clear(callback: (wasCleared: boolean) => void): void;
+    export function clear(name: string, callback: (wasCleared: boolean) => void): void;
     /**
      * Clears the alarm without a name.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -866,7 +870,8 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function enable(tabId?: number, callback: () => void): void;
+    export function enable(callback: () => void): void;
+    export function enable(tabId: number, callback: () => void): void;
     /**
      * Sets the background color for the badge.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -932,7 +937,8 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function disable(tabId?: number, callback: () => void): void;
+    export function disable(callback: () => void): void;
+    export function disable(tabId: number, callback: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
@@ -4275,7 +4281,8 @@ declare namespace chrome.fontSettings {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
-    export function getDefaultFontSize(details?: Object, callback: (options: FontSizeDetails) => void): void;
+    export function getDefaultFontSize(callback: (options: FontSizeDetails) => void): void;
+    export function getDefaultFontSize(details: Object, callback: (options: FontSizeDetails) => void): void;
     /**
      * Gets the minimum font size.
      * @param details This parameter is currently unused.
@@ -4288,7 +4295,8 @@ declare namespace chrome.fontSettings {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
-    export function getMinimumFontSize(details?: object, callback: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(callback: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(details: object, callback: (options: FontSizeDetails) => void): void;
     /**
      * Sets the minimum font size.
      * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4312,7 +4320,8 @@ declare namespace chrome.fontSettings {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(object details) {...};
      */
-    export function getDefaultFixedFontSize(details?: Object, callback: (details: FontSizeDetails) => void): void;
+    export function getDefaultFixedFontSize(callback: (details: FontSizeDetails) => void): void;
+    export function getDefaultFixedFontSize(details: Object, callback: (details: FontSizeDetails) => void): void;
     /**
      * Clears the default font size set by this extension, if any.
      * @param details This parameter is currently unused.
@@ -4325,7 +4334,8 @@ declare namespace chrome.fontSettings {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function clearDefaultFontSize(details?: Object, callback: Function): void;
+    export function clearDefaultFontSize(callback: Function): void;
+    export function clearDefaultFontSize(details: Object, callback: Function): void;
     /**
      * Sets the default size for fixed width fonts.
      * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4371,7 +4381,8 @@ declare namespace chrome.fontSettings {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function clearMinimumFontSize(details?: Object, callback: Function): void;
+    export function clearMinimumFontSize(callback: Function): void;
+    export function clearMinimumFontSize(details: Object, callback: Function): void;
     /**
      * Gets a list of fonts on the system.
      * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5637,7 +5648,8 @@ declare namespace chrome.management {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function uninstall(id: string, options?: UninstallOptions, callback: () => void): void;
+    export function uninstall(id: string, callback: () => void): void;
+    export function uninstall(id: string, options: UninstallOptions, callback: () => void): void;
     /**
      * Uninstalls a currently installed app or extension.
      * @deprecated since Chrome 21. The options parameter was added to this function.
@@ -5680,7 +5692,8 @@ declare namespace chrome.management {
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
-    export function uninstallSelf(options?: UninstallOptions, callback: () => void): void;
+    export function uninstallSelf(callback: () => void): void;
+    export function uninstallSelf(options: UninstallOptions, callback: () => void): void;
     /**
      * Uninstalls the calling extension.
      * Note: This function can be used without requesting the 'management' permission in the manifest.
@@ -7847,7 +7860,8 @@ declare namespace chrome.scripting {
      * @param filter
      * @param callback
      */
-    export function unregisterContentScripts(filter?: ContentScriptFilter, callback: () => void): void;
+    export function unregisterContentScripts(callback: () => void): void;
+    export function unregisterContentScripts(filter: ContentScriptFilter, callback: () => void): void;
 
     /**
      * Returns all the content scripts registered with scripting.registerContentScripts()
@@ -7862,7 +7876,8 @@ declare namespace chrome.scripting {
      * @param filter
      * @param callback
      */
-    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback: (scripts: RegisteredContentScript[]) => void): void;
+    export function getRegisteredContentScripts(callback: (scripts: RegisteredContentScript[]) => void): void;
+    export function getRegisteredContentScripts(filter: ContentScriptFilter, callback: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
@@ -9776,7 +9791,7 @@ declare namespace chrome.tabs {
      * @since Chrome 16.
      * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
      */
-    export function reload(tabId: number, reloadProperties?: ReloadProperties, callback: () => void): void;
+    export function reload(tabId: number, reloadProperties?: ReloadProperties, callback?: () => void): void;
     /**
      * Reload the selected tab of the current window.
      * @since Chrome 16.
@@ -10057,7 +10072,8 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
      * @param callback Called after the operation is completed.
      */
-    export function discard(tabId?: number, callback: (tab: Tab) => void): void;
+    export function discard(callback: (tab: Tab) => void): void;
+    export function discard(tabId: number, callback: (tab: Tab) => void): void;
     /**
      * Go foward to the next page, if one is available.
      * @since Chrome 72.
