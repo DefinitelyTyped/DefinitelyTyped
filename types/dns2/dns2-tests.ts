@@ -41,7 +41,7 @@ const server = DNS.createServer({
           class: Packet.CLASS.IN,
           ttl: 60,
           data: 'dnslink=/ipfs/123abc'
-        })
+        });
         send(response);
     },
 });
