@@ -16,7 +16,7 @@
         "paths": {
             "socketcluster-server": [
                 "socketcluster-server/v16"
-            ],
+            ]
         },
         "types": [],
         "noEmit": true,
