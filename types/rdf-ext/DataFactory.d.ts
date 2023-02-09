@@ -1,4 +1,4 @@
-import * as RDF from 'rdf-js';
+import * as RDF from '@rdfjs/types';
 import { FromTerm } from '@rdfjs/data-model/lib/fromTerm';
 import { BlankNodeExt } from "./lib/BlankNode";
 import { LiteralExt } from "./lib/Literal";

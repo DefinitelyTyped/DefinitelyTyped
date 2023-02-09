@@ -1,4 +1,4 @@
-import { Variable } from 'rdf-js';
+import { Variable } from '@rdfjs/types';
 import { PropType } from './_PropType';
 
 export interface VariableExt extends Variable {

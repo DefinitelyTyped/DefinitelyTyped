@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
-import { Sink } from 'rdf-js';
+import { Sink } from '@rdfjs/types';
 
 export interface SinkMap<InputStream extends EventEmitter, OutputStream extends EventEmitter> extends Map<string, Sink<InputStream, OutputStream>> {
     import(mediaType: string, input: InputStream, options?: any): OutputStream | null;

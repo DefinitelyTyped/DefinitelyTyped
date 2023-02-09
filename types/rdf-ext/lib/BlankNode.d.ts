@@ -1,4 +1,4 @@
-import { BlankNode, Term } from "rdf-js";
+import { BlankNode, Term } from "@rdfjs/types";
 import { PropType } from './_PropType';
 
 export interface BlankNodeExt extends BlankNode {

@@ -1,5 +1,5 @@
 import Dataset from '@rdfjs/dataset/DatasetCore';
-import { Quad, DatasetCore, Stream } from 'rdf-js';
+import { Quad, DatasetCore, Stream } from '@rdfjs/types';
 import { PropType } from './_PropType';
 import { QuadExt } from './Quad';
 

@@ -1,4 +1,4 @@
-import { Quad, Quad_Graph, Quad_Object, Quad_Predicate, Quad_Subject } from 'rdf-js';
+import { Quad, Quad_Graph, Quad_Object, Quad_Predicate, Quad_Subject } from '@rdfjs/types';
 import { PropType } from './_PropType';
 import { LiteralExt } from './Literal';
 import { BlankNodeExt } from './BlankNode';

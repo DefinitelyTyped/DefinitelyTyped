@@ -1,5 +1,5 @@
 import TermMap from '.';
-import { Term } from 'rdf-js';
+import { Term } from '@rdfjs/types';
 
 export interface TermMapFactory {
     // eslint-disable-next-line no-unnecessary-generics

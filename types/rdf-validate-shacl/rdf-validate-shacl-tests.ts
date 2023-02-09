@@ -1,4 +1,4 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Literal } from 'rdf-js';
+import { DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Literal } from '@rdfjs/types';
 import { GraphPointer } from 'clownface';
 import SHACLValidator = require('rdf-validate-shacl');
 import $rdf from 'rdf-ext';

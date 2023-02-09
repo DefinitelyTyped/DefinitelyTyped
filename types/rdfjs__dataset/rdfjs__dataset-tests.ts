@@ -1,4 +1,4 @@
-import * as RDF from 'rdf-js';
+import * as RDF from '@rdfjs/types';
 import rdf from '@rdfjs/dataset';
 import Factory from '@rdfjs/dataset/Factory';
 import DatasetCore from '@rdfjs/dataset/DatasetCore';

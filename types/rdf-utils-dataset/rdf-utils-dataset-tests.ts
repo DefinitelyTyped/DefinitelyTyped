@@ -2,7 +2,7 @@ import { resource, resourcesToGraph } from 'rdf-utils-dataset';
 import { DatasetIndexed } from 'rdf-dataset-indexed/dataset';
 import DatasetExt from 'rdf-ext/lib/Dataset';
 import QuadExt from 'rdf-ext/lib/Quad';
-import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from 'rdf-js';
+import { BaseQuad, DataFactory, DatasetCore, DatasetCoreFactory, Quad, Term } from '@rdfjs/types';
 
 type Factory<OutQuad extends BaseQuad,
     InQuad extends BaseQuad,

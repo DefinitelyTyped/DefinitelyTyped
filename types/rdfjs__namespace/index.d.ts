@@ -5,7 +5,7 @@
 //                 tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { DataFactory, NamedNode } from 'rdf-js';
+import { DataFactory, NamedNode } from '@rdfjs/types';
 
 export type NamespaceBuilder<TermNames extends string = any> = Record<TermNames, NamedNode> & {
     (property?: TemplateStringsArray | TermNames): NamedNode;

@@ -1,5 +1,5 @@
 import rdf from 'rdf-ext';
-import { Literal, Quad, NamedNode, Stream, Sink, DatasetCore, DatasetCoreFactory, BlankNode, Variable, DefaultGraph } from 'rdf-js';
+import { Literal, Quad, NamedNode, Stream, Sink, DatasetCore, DatasetCoreFactory, BlankNode, Variable, DefaultGraph } from '@rdfjs/types';
 import QuadExt from 'rdf-ext/lib/Quad';
 import BlankNodeExt from 'rdf-ext/lib/BlankNode';
 import DefaultGraphExt from 'rdf-ext/lib/DefaultGraph';

@@ -1,4 +1,4 @@
-import { Quad , NamedNode, DefaultGraph } from 'rdf-js';
+import { Quad , NamedNode, DefaultGraph } from '@rdfjs/types';
 import DatasetExt from './lib/Dataset';
 
 export interface DatasetFactory {

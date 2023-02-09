@@ -1,4 +1,4 @@
-import { NamedNode } from 'rdf-js';
+import { NamedNode } from '@rdfjs/types';
 import Environment from '@rdfjs/environment/Environment';
 import FormatsFactory from '@rdfjs/environment/FormatsFactory';
 import NamespaceFactory from '@rdfjs/environment/NamespaceFactory';

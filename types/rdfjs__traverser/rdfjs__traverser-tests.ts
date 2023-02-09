@@ -1,6 +1,6 @@
 import Traverser from '@rdfjs/traverser/Traverser';
 import TraverserFactory from '@rdfjs/traverser/Factory';
-import { Quad, DatasetCore, NamedNode } from "rdf-js";
+import { Quad, DatasetCore, NamedNode } from "@rdfjs/types";
 import { GraphPointer } from 'clownface';
 import { DatasetExt } from 'rdf-ext/lib/Dataset';
 import Environment from '@rdfjs/environment/Environment.js';

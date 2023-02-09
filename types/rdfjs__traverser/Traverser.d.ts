@@ -1,4 +1,4 @@
-import { Term, DatasetCore, DataFactory, Quad } from 'rdf-js';
+import { Term, DatasetCore, DataFactory, Quad } from '@rdfjs/types';
 
 export interface PointerLike<D extends DatasetCore> {
     term: Term;

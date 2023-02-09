@@ -1,4 +1,4 @@
-import { Term, DatasetCore } from 'rdf-js';
+import { Term, DatasetCore } from '@rdfjs/types';
 import { MultiPointer, GraphPointer } from 'clownface';
 import {
     ScoreCb,

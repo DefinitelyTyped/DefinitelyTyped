@@ -4,7 +4,7 @@
 //                 cristianvasquez <https://github.com/cristianvasquez>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as RDF from 'rdf-js';
+import * as RDF from '@rdfjs/types';
 import { ValidationReport } from './src/validation-report';
 
 type Factory<OutQuad extends RDF.Quad = RDF.Quad,

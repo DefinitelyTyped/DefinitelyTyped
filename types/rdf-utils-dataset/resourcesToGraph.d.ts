@@ -1,4 +1,4 @@
-import * as RDF from 'rdf-js';
+import * as RDF from '@rdfjs/types';
 import QuadExt from 'rdf-ext/lib/Quad';
 import DatasetExt from 'rdf-ext/lib/Dataset';
 

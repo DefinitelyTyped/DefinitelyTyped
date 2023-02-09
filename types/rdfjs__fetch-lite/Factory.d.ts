@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore, Quad, Stream } from 'rdf-js';
+import { BaseQuad, DatasetCore, Quad, Stream } from '@rdfjs/types';
 import { FormatsInit } from '.';
 
 interface RdfFetchResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad extends BaseQuad = Quad, InQuad extends BaseQuad = OutQuad> extends Response {

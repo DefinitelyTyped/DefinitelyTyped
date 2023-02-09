@@ -1,4 +1,4 @@
-import { NamedNode, Term } from "rdf-js";
+import { NamedNode, Term } from "@rdfjs/types";
 import { PropType } from './_PropType';
 
 export interface NamedNodeExt<Iri extends string = string> extends NamedNode<Iri> {

@@ -1,4 +1,4 @@
-import { DefaultGraph } from 'rdf-js';
+import { DefaultGraph } from '@rdfjs/types';
 import { PropType } from './_PropType';
 
 export interface DefaultGraphExt extends DefaultGraph {

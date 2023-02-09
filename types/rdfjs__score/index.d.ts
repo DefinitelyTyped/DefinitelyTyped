@@ -3,7 +3,7 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 //                 Jesse Wright <https://github.com/jeswr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { DatasetCore, Quad_Graph, Term } from 'rdf-js';
+import { DatasetCore, Quad_Graph, Term } from '@rdfjs/types';
 
 export { default as combine } from './combine';
 export { default as concat } from './concat';

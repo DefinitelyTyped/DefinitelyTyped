@@ -1,4 +1,4 @@
-import { DatasetCore } from 'rdf-js';
+import { DatasetCore } from '@rdfjs/types';
 import Traverser, { Options, TraversePredicate } from './Traverser';
 
 interface DatasetFactory {

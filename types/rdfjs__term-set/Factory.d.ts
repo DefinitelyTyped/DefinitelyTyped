@@ -1,5 +1,5 @@
 import TermSet from '.';
-import { Term } from 'rdf-js';
+import { Term } from '@rdfjs/types';
 
 export class TermSetFactory {
     static exports: ['termSet'];

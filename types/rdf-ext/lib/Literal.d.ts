@@ -1,4 +1,4 @@
-import { Literal, NamedNode } from 'rdf-js';
+import { Literal, NamedNode } from '@rdfjs/types';
 import { PropType } from './_PropType';
 
 export interface LiteralExt extends Literal {
