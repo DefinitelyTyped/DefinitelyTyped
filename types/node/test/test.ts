@@ -73,6 +73,8 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.todo();
     // $ExpectType void
+    t.after(() => {});
+    // $ExpectType void
     t.afterEach(() => {});
     // $ExpectType void
     t.beforeEach(() => {});

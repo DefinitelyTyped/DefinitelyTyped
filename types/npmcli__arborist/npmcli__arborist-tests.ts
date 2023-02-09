@@ -12,13 +12,21 @@ const arb = new Arborist({
     '//registry.foo.com:token': 'blahblahblah',
     '//basic.auth.only.foo.com:_auth': 'aXNhYWNzOm5vdCBteSByZWFsIHBhc3N3b3Jk',
     '//registry.foo.com:always-auth': true,
+    progress: true,
+    formatPackageLock: true,
 });
 
-arb.loadActual().then(tree => {});
+arb.loadActual().then(tree => {
+    tree; // $ExpectType Node
+});
 
-arb.loadVirtual().then(tree => {});
+arb.loadVirtual().then(tree => {
+    tree; // $ExpectType Node
+});
 
-arb.buildIdealTree({}).then(() => {});
+arb.buildIdealTree({}).then(tree => {
+    tree; // $ExpectType Node
+});
 
 arb.reify({
     save: true,

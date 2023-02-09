@@ -614,8 +614,10 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 ```json
 {
-  "paths": {
-    "@foo/*": ["foo__*"]
+  "compilerOptions": {
+    "paths": {
+      "@foo/*": ["foo__*"]
+    }
   }
 }
 ```

@@ -16,6 +16,8 @@
 
 /// <reference types="node" />
 
+import { KeyObject } from 'crypto';
+
 export class JsonWebTokenError extends Error {
     inner: Error;
 
@@ -161,6 +163,7 @@ export type GetPublicKeyOrSecret = (
 export type Secret =
     | string
     | Buffer
+    | KeyObject
     | { key: string | Buffer; passphrase: string };
 
 /**

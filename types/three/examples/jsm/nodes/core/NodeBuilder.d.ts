@@ -14,6 +14,7 @@ import { nodeObject } from '../Nodes';
 import { AnyObject, NodeShaderStageOption, NodeTypeOption } from './constants';
 import Node from './Node';
 import NodeAttribute from './NodeAttribute';
+import NodeCache from './NodeCache';
 import NodeParser from './NodeParser';
 import NodeUniform from './NodeUniform';
 import NodeVar from './NodeVar';
@@ -52,6 +53,14 @@ export default abstract class NodeBuilder {
     fragmentShader: string;
     computeShader: string;
 
+    cache: NodeCache;
+    globalCache: NodeCache;
+
+    /**
+     * @TODO used to be missing. check the actual type later
+     */
+    flowsData: any;
+
     shaderStage: NodeShaderStageOption | null;
     buildStage: BuildStageOption | null;
     stack: Node[];
@@ -73,6 +82,10 @@ export default abstract class NodeBuilder {
     abstract getInstanceIndex(): string;
 
     abstract getFrontFacing(): string;
+
+    abstract getFragCoord(): string;
+
+    isFlipY(): boolean;
 
     abstract getTexture(textureProperty: string, uvSnippet: string): string;
 

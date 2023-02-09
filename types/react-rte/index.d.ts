@@ -114,6 +114,7 @@ type CustomControl = ReactNode | CustControlFunc;
 type GroupName =
     | "INLINE_STYLE_BUTTONS"
     | "BLOCK_TYPE_BUTTONS"
+    | "BLOCK_ALIGNMENT_BUTTONS"
     | "LINK_BUTTONS"
     | "BLOCK_TYPE_DROPDOWN"
     | "HISTORY_BUTTONS"
@@ -123,6 +124,7 @@ export interface ToolbarConfig {
     display: GroupName[];
     extraProps?: object | undefined;
     INLINE_STYLE_BUTTONS: StyleConfigList;
+    BLOCK_ALIGNMENT_BUTTONS: StyleConfigList;
     BLOCK_TYPE_DROPDOWN: StyleConfigList;
     BLOCK_TYPE_BUTTONS: StyleConfigList;
 }

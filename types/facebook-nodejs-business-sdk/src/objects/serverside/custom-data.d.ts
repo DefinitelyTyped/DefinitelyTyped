@@ -16,21 +16,21 @@ export default class CustomData {
     _delivery_category: string;
     _custom_properties: Record<string, any>;
     constructor(
-        value: number,
-        currency: string,
-        content_name: string,
-        content_category: string,
-        content_ids: string[],
-        contents: Content[],
-        content_type: string,
-        order_id: string,
-        predicted_ltv: number,
-        num_items: number,
-        search_string: string,
-        status: string,
-        item_number: string,
-        delivery_category: string,
-        custom_properties: Record<string, any>,
+        value?: number,
+        currency?: string,
+        content_name?: string,
+        content_category?: string,
+        content_ids?: string[],
+        contents?: Content[],
+        content_type?: string,
+        order_id?: string,
+        predicted_ltv?: number,
+        num_items?: number,
+        search_string?: string,
+        status?: string,
+        item_number?: string,
+        delivery_category?: string,
+        custom_properties?: Record<string, any>,
     );
     get value(): number;
     set value(value: number);

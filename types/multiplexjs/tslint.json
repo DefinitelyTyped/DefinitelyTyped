@@ -15,7 +15,6 @@
         "no-object-literal-type-assertion": false,
         "no-padding": false,
         "no-single-declare-module": false,
-        "no-unnecessary-generics": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "one-line": false,

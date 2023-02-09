@@ -116,6 +116,8 @@ gapi.client.request({
   processResponse(resp.result);
 });
 
+gapi.client.load('https://youtube.googleapis.com/$discovery/rest?version=v3').then(() => true)
+
 function processResponse(response: any) {
   // Stub
 }

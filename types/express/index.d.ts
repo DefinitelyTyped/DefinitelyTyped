@@ -109,6 +109,7 @@ declare namespace e {
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> {}
     interface MediaType extends core.MediaType {}
     interface NextFunction extends core.NextFunction {}
+    interface Locals extends core.Locals {}
     interface Request<
         P = core.ParamsDictionary,
         ResBody = any,
@@ -124,8 +125,10 @@ declare namespace e {
         Locals extends Record<string, any> = Record<string, any>
     > extends core.RequestHandler<P, ResBody, ReqBody, ReqQuery, Locals> {}
     interface RequestParamHandler extends core.RequestParamHandler {}
-    export interface Response<ResBody = any, Locals extends Record<string, any> = Record<string, any>>
-        extends core.Response<ResBody, Locals> {}
+    interface Response<
+        ResBody = any,
+        Locals extends Record<string, any> = Record<string, any>
+    > extends core.Response<ResBody, Locals> {}
     interface Router extends core.Router {}
     interface Send extends core.Send {}
 }

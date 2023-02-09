@@ -8,4 +8,6 @@ export default class CubeTextureNode extends TextureNode {
     levelNode: Node | null;
 
     constructor(value: CubeTexture, uvNode?: Node | null, levelNode?: Node | null);
+
+    getDefaultUV(): Node;
 }

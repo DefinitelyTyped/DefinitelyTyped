@@ -14,21 +14,100 @@ declare module '../../index' {
          *   follows the naming of the  WHATWG specification
          *   and corresponds to a transformation matrix of the
          *   form:
-         *   @param a numbers which define the 2×3 matrix to be
-         *   multiplied, or an array of numbers
-         *   @param b numbers which define the 2×3 matrix to be
+         *   @param arr an array of numbers - should be 6 or 16
+         *   length (23 or 44 matrix values)
+         *   @chainable
+         */
+        applyMatrix(arr: any[]): p5;
+
+        /**
+         *   Multiplies the current matrix by the one specified
+         *   through the parameters. This is a powerful
+         *   operation that can perform the equivalent of
+         *   translate, scale, shear and rotate all at once.
+         *   You can learn more about transformation matrices
+         *   on  Wikipedia. The naming of the arguments here
+         *   follows the naming of the  WHATWG specification
+         *   and corresponds to a transformation matrix of the
+         *   form:
+         *   @param a numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param b numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param c numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param d numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param e numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param f numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @chainable
+         */
+        applyMatrix(a: number, b: number, c: number, d: number, e: number, f: number): p5;
+
+        /**
+         *   Multiplies the current matrix by the one specified
+         *   through the parameters. This is a powerful
+         *   operation that can perform the equivalent of
+         *   translate, scale, shear and rotate all at once.
+         *   You can learn more about transformation matrices
+         *   on  Wikipedia. The naming of the arguments here
+         *   follows the naming of the  WHATWG specification
+         *   and corresponds to a transformation matrix of the
+         *   form:
+         *   @param a numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param b numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param c numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param d numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param e numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param f numbers which define the 2×3 or 4x4
+         *   matrix to be multiplied
+         *   @param g numbers which define the 4x4 matrix to be
          *   multiplied
-         *   @param c numbers which define the 2×3 matrix to be
+         *   @param h numbers which define the 4x4 matrix to be
          *   multiplied
-         *   @param d numbers which define the 2×3 matrix to be
+         *   @param i numbers which define the 4x4 matrix to be
          *   multiplied
-         *   @param e numbers which define the 2×3 matrix to be
+         *   @param j numbers which define the 4x4 matrix to be
          *   multiplied
-         *   @param f numbers which define the 2×3 matrix to be
+         *   @param k numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param l numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param m numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param n numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param o numbers which define the 4x4 matrix to be
+         *   multiplied
+         *   @param p numbers which define the 4x4 matrix to be
          *   multiplied
          *   @chainable
          */
-        applyMatrix(a: number | any[], b: number, c: number, d: number, e: number, f: number): p5;
+        applyMatrix(
+            a: number,
+            b: number,
+            c: number,
+            d: number,
+            e: number,
+            f: number,
+            g: number,
+            h: number,
+            i: number,
+            j: number,
+            k: number,
+            l: number,
+            m: number,
+            n: number,
+            o: number,
+            p: number
+        ): p5;
 
         /**
          *   Replaces the current matrix with the identity
@@ -46,15 +125,15 @@ declare module '../../index' {
          *   positive numbers rotate objects in a clockwise
          *   direction. Transformations apply to everything
          *   that happens after and subsequent calls to the
-         *   function accumulates the effect. For example,
+         *   function accumulate the effect. For example,
          *   calling rotate(HALF_PI) and then rotate(HALF_PI)
          *   is the same as rotate(PI). All transformations are
          *   reset when draw() begins again.
          *
          *   Technically, rotate() multiplies the current
          *   transformation matrix by a rotation matrix. This
-         *   function can be further controlled by the push()
-         *   and pop().
+         *   function can be further controlled by push() and
+         *   pop().
          *   @param angle the angle of rotation, specified in
          *   radians or degrees, depending on current angleMode
          *   @param [axis] (in 3d) the axis to rotate around
@@ -225,7 +304,7 @@ declare module '../../index' {
          *   further controlled by using push() and pop().
          *   @param x left/right translation
          *   @param y up/down translation
-         *   @param [z] forward/backward translation (webgl
+         *   @param [z] forward/backward translation (WEBGL
          *   only)
          *   @chainable
          */

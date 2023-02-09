@@ -169,7 +169,7 @@ export const metalness = nodeImmutable(PropertyNode, 'Metalness', 'float');
 export const alphaTest = nodeImmutable(PropertyNode, 'AlphaTest', 'float');
 export const specularColor = nodeImmutable(PropertyNode, 'SpecularColor', 'color');
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line no-unnecessary-generics
 export const reference = <T>(name: string, nodeOrType: NodeOrType, object: T) =>
     nodeObject(new ReferenceNode<T>(name, getConstNodeType(nodeOrType)!, object));
 export const materialReference = (name: string, nodeOrType: NodeOrType, material: Material) =>

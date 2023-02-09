@@ -1,6 +1,6 @@
 import { Plugin } from '@ckeditor/ckeditor5-core';
-import TodoListEditing from './todolistediting';
-import TodoListUI from './todolistui';
+import TodoListEditing from './todolist/todolistediting';
+import TodoListUI from './todolist/todolistui';
 
 export default class TodoList extends Plugin {
     static readonly requires: [typeof TodoListEditing, typeof TodoListUI];
