@@ -1,4 +1,4 @@
-// Type definitions for dns2 2.0.5
+// Type definitions for dns2 2.0
 // Project: https://github.com/song940/node-dns#readme
 // Definitions by: Tim Perry <https://github.com/pimterry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -72,7 +72,7 @@ declare namespace DNS {
         ttl: number;
         address?: string;
         domain?: string;
-        data?: string,
+        data?: string;
     }
 
     type DnsHandler = (
