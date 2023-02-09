@@ -8,27 +8,27 @@
 /**
  * Main classes and use
  */
-export namespace NodeWebcam {
-    const version: string;
-    const REVISION: number;
-    const Factory: Factory;
-    const Webcam: Factory;
-    const FSWebcam: FSWebcam;
-    const ImageSnapWebcam: ImageSnapWebcam;
-    const WindowsWebcam: WindowsWebcam;
+export class NodeWebcam {
+    version: string;
+    REVISION: number;
+    Factory: Factory;
+    Webcam: Factory;
+    FSWebcam: FSWebcam;
+    ImageSnapWebcam: ImageSnapWebcam;
+    WindowsWebcam: WindowsWebcam;
     /**
      * Main create
      */
-    function create(options: WebcamOptions & { platform: 'linux' | 'fswebcam' }): FSWebcam;
-    function create(options: WebcamOptions & { platform: 'win32' | 'win64' }): WindowsWebcam;
-    function create(options: WebcamOptions & { platform: 'darwin' }): ImageSnapWebcam;
-    function create(options: WebcamOptions): ImageSnapWebcam | FSWebcam | WindowsWebcam;
+    create(options: WebcamOptions & { platform: 'linux' | 'fswebcam' }): FSWebcam;
+    create(options: WebcamOptions & { platform: 'win32' | 'win64' }): WindowsWebcam;
+    create(options: WebcamOptions & { platform: 'darwin' }): ImageSnapWebcam;
+    create(options: WebcamOptions): ImageSnapWebcam | FSWebcam | WindowsWebcam;
 
     /**
      * Quick capture helper
      *
      */
-    function capture(
+    capture(
         location: string | null,
         options: WebcamOptions,
         callback: (err: Error | null, data: string | Buffer) => void,
@@ -38,12 +38,12 @@ export namespace NodeWebcam {
      * Camera list helper
      *
      */
-    function list(callback?: (cams: string[]) => void): void;
+    list(callback?: (cams: string[]) => void): void;
 
     /**
      * Camera options helper
      */
-    function listControls(device: string, callback: (cameraControl: CameraControl[]) => void): void;
+    listControls(device: string, callback: (cameraControl: CameraControl[]) => void): void;
 }
 
 export type IPlatformType = 'linux' | 'darwin' | 'fswebcam' | 'win32' | 'win64' | string;
