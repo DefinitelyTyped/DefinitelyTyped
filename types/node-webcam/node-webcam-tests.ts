@@ -1,5 +1,4 @@
 // Available in nodejs
-/// <reference types="node" />
 
 import { NodeWebcam, WebcamOptions } from 'node-webcam';
 
