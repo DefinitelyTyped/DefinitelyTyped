@@ -2,6 +2,7 @@ import Auth0, {
     Auth0Provider,
     AuthorizeOptions,
     AuthorizeParams,
+    BaseError,
     ClearSessionParams,
     Credentials,
     LocalAuthenticationStrategy,
@@ -293,7 +294,7 @@ function Test() {
         requireLocalAuthentication,
     }: {
         user: any;
-        error: any;
+        error: BaseError | null;
         authorize: (parameters: AuthorizeParams, options?: AuthorizeOptions) => Promise<void>;
         clearSession: (parameters?: ClearSessionParams) => Promise<void>;
         getCredentials: (scope?: string, minTtl?: number, parameters?: any) => Promise<Credentials>;
