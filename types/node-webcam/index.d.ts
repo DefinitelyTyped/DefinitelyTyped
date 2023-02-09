@@ -8,7 +8,7 @@
 /**
  * Main classes and use
  */
-export class NodeWebcam {
+export const NodeWebcam: {
     version: string;
     REVISION: number;
     Factory: Factory;
