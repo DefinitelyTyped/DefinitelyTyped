@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag 1.20230130
+// Type definitions for non-npm package Google Publisher Tag 1.20230206
 // Project: https://developers.google.com/publisher-tag/
 // Definitions by: Jonathon Imperiosi <https://github.com/jimper>
 //                 Khoi Doan <https://github.com/zombifier>
@@ -1715,16 +1715,16 @@ declare namespace googletag {
      */
     namespace secureSignals {
         /**
-         * Returns a secure signal for a specific bidder or publisher.
+         * Returns a secure signal for a specific bidder.
          *
-         * A secure signal provider consists of 2 parts:
+         * A bidder secure signal provider consists of 2 parts:
          *
          * 1. A collector function, which returns a `Promise` that resolves to a secure
          * signal.
-         * 2. An `id` or `networkCode`, which identifies the bidder or publisher
-         * associated with the signal, respectively.
+         * 2. An `id` which identifies the bidder associated with the signal.
          *
-         * Note that one of `id` or `networkCode` must be provided, but not both.
+         * To return a secure signal for a publisher, use {@link
+         * secureSignals.PublisherSignalProvider} instead.
          *
          * @example
          * // id is provided
@@ -1735,7 +1735,37 @@ declare namespace googletag {
          *     return Promise.resolve('signal');
          *   }
          * });
+         * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+         */
+        interface BidderSignalProvider {
+            /**
+             * A unique identifier for the collector associated with this secure signal,
+             * as registered in Google Ad Manager.
+             */
+            id: string;
+
+            /**
+             * A function which returns a `Promise` that resolves to a secure signal.
+             * @return A
+             * [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+             * that resolves to a secure signal.
+             */
+            collectorFunction: () => Promise<string>;
+        }
+
+        /**
+         * Returns a secure signal for a specific publisher.
          *
+         * A publisher signal provider consists of 2 parts:
+         *
+         * 1. A collector function, which returns a `Promise` that resolves to a secure
+         * signal.
+         * 2. A `networkCode` which identifies the publisher associated with the signal.
+         *
+         * To return a secure signal for a bidder, use {@link
+         * secureSignals.BidderSignalProvider} instead.
+         *
+         * @example
          * // networkCode is provided
          * googletag.secureSignalProviders.push({
          *   networkCode: '123456',
@@ -1746,37 +1776,37 @@ declare namespace googletag {
          * });
          * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
          */
-        interface SecureSignalProvider {
-            /**
-             * A unique identifier for the collector associated with this secure signal,
-             * as registered in Google Ad Manager.
-             */
-            id?: string;
-
+        interface PublisherSignalProvider {
             /**
              * The network code (as seen in the ad unit path) for the publisher associated
              * with this secure signal.
              */
-            networkCode?: string;
+            networkCode: string;
 
             /**
              * A function which returns a `Promise` that resolves to a secure signal.
-             * @return a
+             * @return A
              * [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
              * that resolves to a secure signal.
              */
-            collectorFunction: () => Promise<string | null>;
+            collectorFunction: () => Promise<string>;
         }
+
+        /**
+         * Interface for returning a secure signal for a specific bidder or provider.
+         * One of `id` or `networkCode` must be provided, but not both.
+         */
+        type SecureSignalProvider = BidderSignalProvider | PublisherSignalProvider;
 
         /**
          * An interface for managing secure signals.
          */
         interface SecureSignalProvidersArray {
             /**
-             * Adds a new {@link SecureSignalProvider} to the signal provider array and
-             * begins the signal generation process.
-             * @param provider The {@link SecureSignalProvider} object to be added to the
-             * array.
+             * Adds a new {@link secureSignals.SecureSignalProvider} to the signal
+             * provider array and begins the signal generation process.
+             * @param provider The {@link secureSignals.SecureSignalProvider} object to be
+             * added to the array.
              */
             push(provider: SecureSignalProvider): void;
 
