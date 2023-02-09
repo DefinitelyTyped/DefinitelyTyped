@@ -294,9 +294,15 @@ export class CredentialsManager {
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
+        strategy?: LocalAuthenticationStrategy,
     ): Promise<void>;
     hasValidCredentials(minTtl?: number): Promise<boolean>;
     clearCredentials(): Promise<boolean>;
+}
+
+export enum LocalAuthenticationStrategy {
+    deviceOwnerWithBiometrics = 1,
+    deviceOwner = 2,
 }
 
 /**
@@ -324,6 +330,7 @@ export class Auth0ContextInterface {
         description?: string,
         cancelTitle?: string,
         fallbackTitle?: string,
+        strategy?: LocalAuthenticationStrategy,
     ): Promise<void>;
 }
 
