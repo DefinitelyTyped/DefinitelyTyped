@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "jsonstream-tests.ts"
+        "jsonstream-next-tests.ts"
     ]
 }
