@@ -138,7 +138,7 @@ if (element) {
         event.target;
 
         if (event.target) {
-            // $ExpectType Glider<HTMLDivElement> | undefined
+            // $ExpectType Glider<HTMLElement> | undefined
             event.target._glider;
         }
     });
@@ -156,6 +156,21 @@ if (element) {
     element.addEventListener('glider-slide-visible', event => {
         // $ExpectType GliderEvent<{ slide: number; }>
         event;
+    });
+
+    element.removeEventListener('glider-refresh', event => {
+        // $ExpectType GliderEvent<undefined>
+        event;
+
+        // $ExpectType boolean
+        event.bubbles;
+
+        event.target;
+
+        if (event.target) {
+            // $ExpectType Glider<HTMLElement> | undefined
+            event.target._glider;
+        }
     });
 
     Glider(element).setOption({ draggable: true });
