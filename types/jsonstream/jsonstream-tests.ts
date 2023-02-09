@@ -1,8 +1,7 @@
 
 import json = require('jsonstream');
 
-var read: NodeJS.ReadableStream;
-var write: NodeJS.WritableStream;
+let read: NodeJS.ReadableStream;
 
 read = read.pipe(json.parse('*'));
 read = read.pipe(json.parse(['foo/*', 'bar/*']));
