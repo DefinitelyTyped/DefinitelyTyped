@@ -44,7 +44,7 @@ export const NodeWebcam: {
      * Camera options helper
      */
     listControls(device: string, callback: (cameraControl: CameraControl[]) => void): void;
-}
+};
 
 export type IPlatformType = 'linux' | 'darwin' | 'fswebcam' | 'win32' | 'win64' | string;
 
