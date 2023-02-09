@@ -28,7 +28,7 @@ export function stringify(open: string, sep: string, close: string): NodeJS.Read
 
 /** Creates a writable stream where elements are only seperated by a newline. */
 export function stringify(newlineOnly: NewlineOnlyIndicator): NodeJS.ReadWriteStream;
-type NewlineOnlyIndicator = false;
+export type NewlineOnlyIndicator = false;
 
 export function stringifyObject(): NodeJS.ReadWriteStream;
 export function stringifyObject(open: string, sep: string, close: string): NodeJS.ReadWriteStream;
