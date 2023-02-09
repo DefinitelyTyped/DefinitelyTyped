@@ -5,9 +5,6 @@
 
 // Minimum TypeScript Version: 4.3
 /// <reference types="node" />
-/**
- * Main classes and use
- */
 export const NodeWebcam: {
     version: string;
     REVISION: number;
@@ -19,32 +16,54 @@ export const NodeWebcam: {
     /**
      * Main create
      */
-    create(options: WebcamOptions & { platform: 'linux' | 'fswebcam' }): FSWebcam;
-    create(options: WebcamOptions & { platform: 'win32' | 'win64' }): WindowsWebcam;
-    create(options: WebcamOptions & { platform: 'darwin' }): ImageSnapWebcam;
-    create(options: WebcamOptions): ImageSnapWebcam | FSWebcam | WindowsWebcam;
+    create: typeof create;
 
     /**
      * Quick capture helper
      *
      */
-    capture(
-        location: string | null,
-        options: WebcamOptions,
-        callback: (err: Error | null, data: string | Buffer) => void,
-    ): ImageSnapWebcam | FSWebcam | WindowsWebcam;
+    capture: typeof capture;
 
     /**
      * Camera list helper
      *
      */
-    list(callback?: (cams: string[]) => void): void;
+    list: typeof list;
 
     /**
      * Camera options helper
      */
-    listControls(device: string, callback: (cameraControl: CameraControl[]) => void): void;
+    listControls: typeof listControls;
 };
+
+export const version: string;
+export const REVISION: number;
+
+export function create(options: WebcamOptions & { platform: 'linux' | 'fswebcam' }): FSWebcam;
+export function create(options: WebcamOptions & { platform: 'win32' | 'win64' }): WindowsWebcam;
+export function create(options: WebcamOptions & { platform: 'darwin' }): ImageSnapWebcam;
+export function create(options: WebcamOptions): ImageSnapWebcam | FSWebcam | WindowsWebcam;
+
+/**
+ * Quick capture helper
+ *
+ */
+export function capture(
+    location: string | null,
+    options: WebcamOptions,
+    callback: (err: Error | null, data: string | Buffer) => void,
+): ImageSnapWebcam | FSWebcam | WindowsWebcam;
+
+/**
+ * Camera list helper
+ *
+ */
+export function list(callback?: (cams: string[]) => void): void;
+
+/**
+ * Camera options helper
+ */
+export function listControls(device: string, callback: (cameraControl: CameraControl[]) => void): void;
 
 export type IPlatformType = 'linux' | 'darwin' | 'fswebcam' | 'win32' | 'win64' | string;
 
