@@ -227,7 +227,7 @@ naver.maps.Service.reverseGeocode(
 );
 
 /**
- * Overlay define options Example
+ * Overlay define options and DrawingManager event Example
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-3-drawing-restore.example.html
  */
 
@@ -261,6 +261,10 @@ naver.maps.Event.once(map, 'init', function () {
             strokeColor: '#ffc300',
         }
     });
+
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.ADD, function (e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.REMOVE, function (e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.SELECT, function (e) {});
 });
 
 /*
