@@ -1,12 +1,12 @@
-//Available in nodejs
+// Available in nodejs
 /// <reference types="node" />
 
 import { NodeWebcam, WebcamOptions } from 'node-webcam';
 
-//Default options
+// Default options
 
-var opts: WebcamOptions = {
-    //Picture related
+const opts: WebcamOptions = {
+    // Picture related
 
     width: 1280,
 
@@ -20,47 +20,43 @@ var opts: WebcamOptions = {
 
     frames: 60,
 
-    //Delay in seconds to take shot
-    //if the platform supports miliseconds
-    //use a float (0.1)
-    //Currently only on windows
-
+    // Delay in seconds to take shot
+    // if the platform supports miliseconds
+    // use a float (0.1)
+    // Currently only on windows
     delay: 0,
 
-    //Save shots in memory
-
+    // Save shots in memory
     saveShots: true,
 
     // [jpeg, png] support varies
     // Webcam.OutputTypes
-
     output: 'jpeg',
 
-    //Which camera to use
-    //Use Webcam.list() for results
-    //false for default device
-
+    // Which camera to use
+    // Use Webcam.list() for results
+    // false for default device
     device: false,
 
     // [location, buffer, base64]
     // Webcam.CallbackReturnTypes
-
     callbackReturn: 'base64',
 
-    //Logging
-
+    // Logging
     verbose: false,
 };
 
-//Creates webcam instance
+// Creates webcam instance
 
-var Webcam = NodeWebcam.create(opts);
+const Webcam = NodeWebcam.create(opts);
 
-//Will automatically append location output type
+// Will automatically append location output type
 
-Webcam.capture('test_picture', function (err, data) {});
+Webcam.capture('test_picture', (err, data) => {
+    console.info('data', data);
+});
 
-//Also available for quick use
+// Also available for quick use
 
 NodeWebcam.capture('test_picture', opts, (err, data) => {
     if (!err) {
@@ -68,30 +64,24 @@ NodeWebcam.capture('test_picture', opts, (err, data) => {
     }
 });
 
-//Get list of cameras
+// Get list of cameras
 
-Webcam.list(function (list) {
-    //Use another device
+Webcam.list(list => {
+    // Use another device
 
-    var cam = NodeWebcam.Factory.create({ ...opts, device: list[0] }, 'linux');
-    cam.capture('pictures/picture_' + new Date().getTime(), function (err, data) {
+    const cam = NodeWebcam.Factory.create({ ...opts, device: list[0] }, 'linux');
+    cam.capture('pictures/picture_' + new Date().getTime(), (err, data) => {
         data && console.info('data', data);
         err && console.error('err', err);
     });
 });
 
-//Return type with base 64 image
-
-var opts: WebcamOptions = {
-    callbackReturn: 'base64',
-};
-
 NodeWebcam.list(list => {
-    //Use another device
+    // Use another device
     console.info('list', list);
-    var camera = NodeWebcam.Factory.create({ ...opts, device: list[0] }, 'linux');
+    const camera = NodeWebcam.Factory.create({ ...opts, device: list[0] }, 'linux');
 
-    camera.capture('pictures/picture_' + new Date().getTime(), function (err, data) {
+    camera.capture('pictures/picture_' + new Date().getTime(), (err, data) => {
         data && console.info('data', data);
         err && console.error('err', err);
     });
