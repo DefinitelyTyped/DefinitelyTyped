@@ -157,7 +157,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     killIO(): void;
     killAllStreams(): void;
 
-    disconnect(code?: number, reason?: string): void;
+    disconnect(code?: number, reason?: string): Promise<void>;
     terminate(): void;
 
     send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }): void;
