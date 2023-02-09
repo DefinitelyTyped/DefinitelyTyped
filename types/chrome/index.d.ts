@@ -7200,6 +7200,7 @@ declare namespace chrome.runtime {
         | 'enterprise.networkingAttributes'
         | 'enterprise.platformKeys'
         | 'experimental'
+        | 'favicon'
         | 'fileBrowserHandler'
         | 'fileSystemProvider'
         | 'fontSettings'
