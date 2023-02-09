@@ -1545,12 +1545,12 @@ declare namespace naver.maps {
             drawingControlOptions?: DrawingControlOptions;
             drawingMode?: DrawingMode;
             controlPointOptions?: ControlPointOptions;
-            rectangleOptions?: RectangleOptions;
-            ellipseOptions?: EllipseOptions;
-            polylineOptions?: PolylineOptions;
-            arrowlineOptions?: PolylineOptions;
-            polygonOptions?: PolygonOptions;
-            markerOptions?: MarkerOptions;
+            rectangleOptions?: Partial<RectangleOptions>;
+            ellipseOptions?: Partial<EllipseOptions>;
+            polylineOptions?: Partial<PolylineOptions>;
+            arrowlineOptions?: Partial<PolylineOptions>;
+            polygonOptions?: Partial<PolygonOptions>;
+            markerOptions?: Partial<MarkerOptions>;
         }
 
         interface DrawingControlOptions extends ControlOptions {
