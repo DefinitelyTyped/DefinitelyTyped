@@ -1,4 +1,4 @@
-// Type definitions for react-native-auth0 2.17.0
+// Type definitions for react-native-auth0 2.17
 // Project: https://github.com/auth0/react-native-auth0
 // Definitions by: Andrea Ascari <https://github.com/ascariandrea>
 //                 Mark Nelissen <https://github.com/marknelissen>
