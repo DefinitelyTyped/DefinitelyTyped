@@ -2250,7 +2250,7 @@ export interface EventCallBackMethods {
     rowMoving: (row: RowComponent) => void;
     rowMoved: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
-    rowSelectionChanged: () => void;
+    rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
     rowSelected: (row: RowComponent) => void;
     rowDeselected: (row: RowComponent) => void;
     rowResized: (row: RowComponent) => void;

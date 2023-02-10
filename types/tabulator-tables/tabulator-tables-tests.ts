@@ -1034,6 +1034,7 @@ table.on('dataLoadError', () => {});
 table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
 table.on('rowMoving', () => {});
+table.on('rowSelectionChanged', (selectedData, selectedRows) => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
 table.off('rowMoving', () => {});
