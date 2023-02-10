@@ -2244,8 +2244,8 @@ export interface CellComponent {
 
 export interface EventCallBackMethods {
     validationFailed: (cell: CellComponent, value: any, validators: Validator[]) => void;
-    scrollHorizontal: (left: number) => void;
-    scrollVertical: (top: number) => void;
+    scrollHorizontal: (left: number, leftDir: boolean) => void;
+    scrollVertical: (top: number, topDir: boolean) => void;
     rowAdded: (row: RowComponent) => void;
     rowDeleted: (row: RowComponent) => void;
     rowMoving: (row: RowComponent) => void;

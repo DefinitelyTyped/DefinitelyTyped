@@ -1041,6 +1041,8 @@ table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
 table.off('rowMoving', () => {});
 table.on('cellClick', () => {});
+table.on('scrollHorizontal', (left, leftDir) => {});
+table.on('scrollVertical', (top, topDir) => {});
 table.on('pageSizeChanged', pageSize => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
