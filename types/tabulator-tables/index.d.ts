@@ -1602,7 +1602,7 @@ export type ColumnCalc =
     | 'count'
     | ((values: any[], data: any[], calcParams: {}) => any);
 
-export type ColumnCalcParams = (values: any, data: any) => any;
+export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
 
 export type Formatter =
     | 'plaintext'

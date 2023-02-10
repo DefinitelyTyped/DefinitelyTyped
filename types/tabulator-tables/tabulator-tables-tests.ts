@@ -362,7 +362,27 @@ colDef.bottomCalc = (values, data, calcParams) => {
     return {};
 };
 
+colDef.bottomCalcParams = (values, data) => {
+    return {};
+};
+
+colDef.bottomCalcParams = { precision: 2 };
+
 colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
+    return '';
+};
+
+colDef.topCalc = (values, data, calcParams) => {
+    return {};
+};
+
+colDef.topCalcParams = (values, data) => {
+    return {};
+};
+
+colDef.topCalcParams = { precision: 2 };
+
+colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
     return '';
 };
 
