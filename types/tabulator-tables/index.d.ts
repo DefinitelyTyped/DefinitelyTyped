@@ -2493,7 +2493,7 @@ declare class Tabulator {
     updateData: (data: Array<{}>) => Promise<void>;
 
     /** The addData method returns a promise, this can be used to run any other commands that have to be run after the data has been loaded into the table. By running them in the promise you ensure they are only run after the table has loaded the data. */
-    addData: (data?: Array<{}>, addToTop?: boolean, positionTarget?: RowLookup) => Promise<RowComponent>;
+    addData: (data?: Array<{}>, addToTop?: boolean, positionTarget?: RowLookup) => Promise<RowComponent[]>;
 
     /** If the data you are passing to the table contains a mix of existing rows to be updated and new rows to be added then you can call the updateOrAddData function. This will check each row object provided and update the existing row if available, or else create a new row with the data. */
     updateOrAddData: (data: Array<{}>) => Promise<RowComponent[]>;

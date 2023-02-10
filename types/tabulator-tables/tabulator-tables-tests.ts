@@ -100,6 +100,19 @@ table
         // handle error updating data
     });
 
+table
+    .addData([
+        { id: 5, name: 'jane' },
+        { id: 7, name: 'hayley' },
+    ])
+    .then(rows => {
+        // rows - array of the row components for the rows updated or added
+        // run code after data has been updated
+    })
+    .catch(error => {
+        // handle error updating data
+    });
+
 table.updateData([
     { id: 1, name: 'bob', gender: 'male' },
     { id: 2, name: 'Jenny', gender: 'female' },
