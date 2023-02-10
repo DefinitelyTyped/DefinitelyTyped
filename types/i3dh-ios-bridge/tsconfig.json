@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "linterOptions": {
+        "exclude": [
+          "config/**/*.js",
+          "node_modules/**/*.ts"
+        ]
+      },
+    "files": [
+        "index.d.ts",
+        "i3dh-ios-bridge-tests.ts"
+    ]
+}
