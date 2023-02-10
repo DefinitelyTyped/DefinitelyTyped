@@ -1,4 +1,4 @@
-// Type definitions for gestalt 85.1
+// Type definitions for gestalt 95.0
 // Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
 // Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
 //                 Josh Gachnang <https://github.com/joshgachnang>
@@ -946,7 +946,7 @@ export interface IconButtonProps {
     disabled?: boolean | undefined;
     href?: string | undefined;
     icon?: Icons | undefined;
-    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | undefined;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | 'brandPrimary' | undefined;
     onClick?:
         | AbstractEventHandler<
               | React.MouseEvent<HTMLAnchorElement>
@@ -965,6 +965,28 @@ export interface IconButtonProps {
     target?: null | 'self' | 'blank' | undefined;
     tooltip?: Pick<TooltipProps, 'accessibilityLabel' | 'inline' | 'idealDirection' | 'text' | 'zIndex'> | undefined;
     type?: 'submit' | 'button' | undefined;
+}
+
+/**
+ * IconButtonFloating Props Interface
+ * https://gestalt.netlify.app/IconButtonFloating
+ */
+export interface IconButtonFloatingProps {
+    accessibilityControls?: string | undefined;
+    accessibilityExpanded?: boolean | undefined;
+    accessibilityPopupRole: 'menu' | 'dialog';
+    accessibilityLabel: string;
+    icon: Icons;
+    onClick?:
+        | AbstractEventHandler<
+              | React.MouseEvent<HTMLAnchorElement>
+              | React.KeyboardEvent<HTMLAnchorElement>
+              | React.MouseEvent<HTMLButtonElement>
+              | React.KeyboardEvent<HTMLButtonElement>,
+              { dangerouslyDisableOnNavigation?: (() => void) | undefined }
+          >
+        | undefined;
+    selected?: boolean | undefined;
 }
 
 /**
@@ -1031,7 +1053,8 @@ export interface LinkProps {
     children?: React.ReactNode | undefined;
     hoverStyle?: 'none' | 'underline' | undefined;
     id?: string | undefined;
-    inline?: boolean | undefined;
+    display?: 'inline' | 'inlineBlock' | 'block' | undefined;
+
     /**
      * When supplied, a "visit" icon is shown at the end of Link. See the [externalLinkIcon and rel variant](https://gestalt.pinterest.systems/link#externalLinkIcon-and-rel) to learn more.
      */
@@ -1049,10 +1072,6 @@ export interface LinkProps {
     tapStyle?: 'none' | 'compress' | undefined;
     target?: null | 'self' | 'blank' | undefined;
     underline?: 'auto' | 'none' | 'always' | 'hover' | undefined;
-}
-
-export interface NestedListProps {
-    listType?: 'bare' | 'ordered' | 'unordered' | undefined;
 }
 
 export interface ListItemProps {
@@ -1083,15 +1102,22 @@ export interface MaskProps {
  * Masonry Props Interface
  * https://gestalt.netlify.app/Masonry
  */
+
+export interface MasonryCache<K, V> {
+    get(key: K): V | undefined;
+    has(key: K): boolean;
+    set(key: K, value: V): void;
+    reset(): void;
+}
 export interface MasonryProps<T = any> {
-    Item: React.ComponentType<{ data: T; itemIdx: number; isMeasuring: boolean }>;
-    items: ReadonlyArray<T>;
     columnWidth?: number | undefined;
-    flexible?: boolean | undefined;
     gutterWidth?: number | undefined;
-    layout?: 'basic' | 'basicCentered' | 'flexible' | 'serverRenderedFlexible' | 'uniformRow' | undefined;
+    items: ReadonlyArray<T>;
     loadItems?: false | ((_arg?: { from: number }) => undefined | boolean | {}) | undefined;
-    measurementStore?: any;
+    measurementStore?: MasonryCache<T, any>;
+    layout?: 'basic' | 'basicCentered' | 'flexible' | 'serverRenderedFlexible' | 'uniformRow' | undefined;
+    renderItem: (args: { data: T; itemIdx: number; isMeasuring: boolean }) => React.ReactNode;
+    flexible?: boolean | undefined;
     minCols?: number | undefined;
     scrollContainer?: (() => HTMLElement) | undefined;
     virtualBoundsBottom?: number | undefined;
@@ -1106,32 +1132,20 @@ export interface MasonryProps<T = any> {
  */
 
 export interface ModalProps {
-    /*
+    /**
      * Temporary undocumented prop to disable ScrollBoundaryContainer.
      */
     _dangerouslyDisableScrollBoundaryContainer?: boolean;
     accessibilityModalLabel: string;
-    onDismiss: () => void;
-    /**
-     * Use to specify the alignment of `heading` & `subHeading` strings
-     *
-     * @default "center"
-     */
     align?: 'center' | 'start' | undefined;
     children?: React.ReactNode | undefined;
-    /**
-     * Close the modal when you click outside of it
-     *
-     * @default true
-     */
     closeOnOutsideClick?: boolean | undefined;
     footer?: React.ReactNode | undefined;
     heading?: React.ReactNode | undefined;
+    onDismiss: () => void;
+    pending?: 'defaut' | 'none' | undefined;
     role?: 'alertdialog' | 'dialog' | undefined;
     size?: 'sm' | 'md' | 'lg' | number | undefined;
-    /**
-     * Only renders with `heading` strings
-     */
     subHeading?: string | undefined;
 }
 
@@ -1158,13 +1172,10 @@ export interface ModalAlertActionDataType {
 
 export interface ModalAlertProps {
     accessibilityDismissButtonLabel?: string | undefined;
-
+    accessibilityModalLabel: string;
     heading: string;
-
     onDismiss: () => void;
-
     type?: 'default' | 'warning' | 'error' | undefined;
-
     primaryAction: ModalAlertActionDataType;
     secondaryAction?: ModalAlertActionDataType | undefined;
 }
@@ -1364,7 +1375,7 @@ export interface PogProps {
     focused?: boolean | undefined;
     hovered?: boolean | undefined;
     icon?: Icons | undefined;
-    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | undefined;
+    iconColor?: 'gray' | 'darkGray' | 'red' | 'white' | 'brandPrimary' | undefined;
     padding?: 1 | 2 | 3 | 4 | 5 | undefined;
     selected?: boolean | undefined;
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
@@ -1709,19 +1720,49 @@ export interface SideNavigationNestedGroup {
  * https://gestalt.netlify.app/Sheet
  *
  */
-export type SheetNodeOrRenderProp = ((prop: { onDismissStart: () => void }) => React.ReactNode) | React.ReactNode;
+export type OverlayPanelNodeOrRenderProp =
+    | ((prop: { onDismissStart: () => void }) => React.ReactNode)
+    | React.ReactNode;
 export type OnAnimationEndStateType = 'in' | 'out';
-export interface SheetProps {
-    accessibilityDismissButtonLabel: string;
-    accessibilitySheetLabel: string;
-    onDismiss: () => void;
-    children?: SheetNodeOrRenderProp | undefined;
+export interface OverlayPanel {
+    accessibilityDismissButtonLabel?: string | undefined;
+    accessibilityLabel: string;
+    children?: OverlayPanelNodeOrRenderProp | undefined;
     closeOnOutsideClick?: boolean | undefined;
-    footer?: SheetNodeOrRenderProp | undefined;
+    footer?: OverlayPanelNodeOrRenderProp | undefined;
     heading?: string | undefined;
-    size?: 'sm' | 'md' | 'lg' | undefined;
-    subHeading?: SheetNodeOrRenderProp | undefined;
     onAnimationEnd?: (args: { animationState: OnAnimationEndStateType }) => void;
+    dismissConfirmation?: {
+        message?: string | undefined;
+        subtext?: string | undefined;
+        primaryAction?: {
+            accessibilityLabel?: string | undefined;
+            text?: string | undefined;
+            onClick?:
+                | AbstractEventHandler<
+                      | React.MouseEvent<HTMLButtonElement>
+                      | React.MouseEvent<HTMLAnchorElement>
+                      | React.KeyboardEvent<HTMLAnchorElement>
+                      | React.KeyboardEvent<HTMLButtonElement>
+                  >
+                | undefined;
+        };
+        secondaryAction?: {
+            accessibilityLabel?: string | undefined;
+            text?: string | undefined;
+            onClick?:
+                | AbstractEventHandler<
+                      | React.MouseEvent<HTMLButtonElement>
+                      | React.MouseEvent<HTMLAnchorElement>
+                      | React.KeyboardEvent<HTMLAnchorElement>
+                      | React.KeyboardEvent<HTMLButtonElement>
+                  >
+                | undefined;
+        };
+    };
+    onDismiss: () => void;
+    size?: 'sm' | 'md' | 'lg' | undefined;
+    subHeading?: OverlayPanelNodeOrRenderProp | undefined;
 }
 
 /**
@@ -2165,7 +2206,7 @@ export interface TooltipProps {
  */
 export interface UpsellProps {
     children?: React.ReactElement;
-    message: string;
+    message: string | React.ReactElement<typeof Text>;
     dismissButton?:
         | {
               accessibilityLabel: string;
@@ -2315,6 +2356,7 @@ export const Flex: React.FunctionComponent<FlexProps> & FlexSubCompnents;
 export const Heading: React.FunctionComponent<HeaderProps>;
 export const Icon: React.FunctionComponent<IconProps>;
 export const IconButton: ReactForwardRef<HTMLButtonElement | HTMLAnchorElement, IconButtonProps>;
+export const IconButtonFloating: React.FunctionComponent<IconButtonFloatingProps>;
 export const Image: React.FunctionComponent<ImageProps>;
 export const Label: React.FunctionComponent<LabelProps>;
 export const Layer: React.FunctionComponent<LayerProps>;
@@ -2322,7 +2364,6 @@ export const Letterbox: React.FunctionComponent<LetterboxProps>;
 export const Link: ReactForwardRef<HTMLAnchorElement, LinkProps>;
 export interface ListSubCmoponents {
     Item: React.FunctionComponent<React.PropsWithChildren<ListItemProps>>;
-    NestedList: React.FunctionComponent<React.PropsWithChildren<NestedListProps>>;
 }
 export const List: React.FunctionComponent<React.PropsWithChildren<ListProps>> & ListSubCmoponents;
 export const Mask: React.FunctionComponent<MaskProps>;
@@ -2365,7 +2406,7 @@ export interface SideNavigationSubcomponents {
 }
 export const SideNavigation: React.FunctionComponent<SideNaviationProps> & SideNavigationSubcomponents;
 
-export const Sheet: ReactForwardRef<HTMLDivElement, SheetProps>;
+export const OverlayPanel: ReactForwardRef<HTMLDivElement, OverlayPanel>;
 export const SlimBanner: React.FunctionComponent<SlimBannerProps>;
 export const Spinner: React.FunctionComponent<SpinnerProps>;
 export const Stack: React.FunctionComponent<StackProps>;
