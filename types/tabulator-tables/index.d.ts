@@ -2348,6 +2348,8 @@ export interface EventCallBackMethods {
     popupClosed: (cell: CellComponent) => void;
     menuClosed: (cell: CellComponent) => void;
     menuOpened: (cell: CellComponent) => void;
+    TooltipClosed: (cell: CellComponent) => void;
+    TooltipOpened: (cell: CellComponent) => void;
 }
 
 declare class Tabulator {

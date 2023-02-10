@@ -1194,6 +1194,7 @@ table.on('popupClosed', component => {});
 table.on('popupOpen', component => {});
 table.on('menuOpened', component => {});
 table.on('menuClosed', component => {});
+table.on('TooltipClosed', component => {});
 
 column.popup('test', 'bottom');
 
