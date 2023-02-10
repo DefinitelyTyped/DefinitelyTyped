@@ -1034,11 +1034,13 @@ table.on('dataLoadError', () => {});
 table.on('dataProcessing', () => {});
 table.on('dataProcessed', () => {});
 table.on('rowMoving', () => {});
+table.on('rowMoveCancelled', row => {});
 table.on('rowSelectionChanged', (selectedData, selectedRows) => {});
 table.off('dataProcessed');
 table.off('dataProcessed', dataProcessedEvent);
 table.off('rowMoving', () => {});
 table.on('cellClick', () => {});
+table.on('pageSizeChanged', pageSize => {});
 table = Tabulator.findTable('#example-table')[0];
 table = TabulatorFull.findTable('#example-table')[0];
 

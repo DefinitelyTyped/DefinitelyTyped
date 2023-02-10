@@ -2249,6 +2249,7 @@ export interface EventCallBackMethods {
     rowDeleted: (row: RowComponent) => void;
     rowMoving: (row: RowComponent) => void;
     rowMoved: (row: RowComponent) => void;
+    rowMoveCancelled:(row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
     rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
     rowSelected: (row: RowComponent) => void;
@@ -2277,6 +2278,7 @@ export interface EventCallBackMethods {
     dataTreeRowExpanded: (row: RowComponent, level: number) => void;
     dataTreeRowCollapsed: (row: RowComponent, level: number) => void;
     pageLoaded: (pageNo: number) => void;
+    pageSizeChanged: (pageSize: number) => void;
     headerClick: (event: UIEvent, column: ColumnComponent) => void;
     headerDblClick: (event: UIEvent, column: ColumnComponent) => void;
     headerContext: (event: UIEvent, column: ColumnComponent) => void;
