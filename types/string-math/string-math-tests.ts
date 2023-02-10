@@ -1,4 +1,4 @@
-import stringMath from 'string-math';
+import stringMath = require('string-math');
 
 stringMath(
     "((1 + 2) * 4) / 2",
