@@ -18,12 +18,13 @@ which('cat', { all: true }, (err, paths) => {
 const promise: Promise<string> = which('cat');
 const promise1: Promise<string> = which('cat', { all: false });
 const promise2: Promise<string[]> = which('cat', { all: true });
+const promise3: Promise<string> = which('cat', { nothrow: true });
 
 which('node')
     .then(resolvedPath => {
         resolvedPath; // $ExpectType string
     })
-    .catch(er => {});
+    .catch(er => { });
 
 async () => {
     const path = await which('cat');
