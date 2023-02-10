@@ -2297,9 +2297,12 @@ export interface EventCallBackMethods {
     tableBuilding: () => void;
     tableBuilt: () => void;
     tableDestroyed: () => void;
+    dataChanged: (data: any[]) => void;
     dataLoading: (data: any[]) => void;
     dataLoaded: (data: any[]) => void;
-    dataChanged: (data: any[]) => void;
+    dataLoadError: (error: Error) => void;
+    dataProcessing: (data: any[]) => void;
+    dataProcessed: (data: any[]) => void;
     dataFiltering: (filters: Filter[]) => void;
     dataFiltered: (filters: Filter[], rows: RowComponent[]) => void;
     dataSorting: (sorters: SorterFromTable[]) => void;
@@ -2341,9 +2344,6 @@ export interface EventCallBackMethods {
     cellMouseOver: (event: UIEvent, cell: CellComponent) => void;
     cellMouseOut: (event: UIEvent, cell: CellComponent) => void;
     cellMouseMove: (event: UIEvent, cell: CellComponent) => void;
-    dataLoadError: (error: Error) => void;
-    dataProcessing: () => void;
-    dataProcessed: () => void;
     popupOpen: (cell: CellComponent) => void;
     popupClosed: (cell: CellComponent) => void;
     menuClosed: (cell: CellComponent) => void;
