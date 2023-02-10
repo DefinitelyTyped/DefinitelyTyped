@@ -189,12 +189,12 @@ declare namespace jwplayer {
     }
 
     interface PlaylistParam {
-        playlist: any[];
+        playlist: PlaylistItem[];
     }
 
     interface PlaylistItemParam {
         index: number;
-        item: any;
+        item: PlaylistItem;
     }
 
     interface ReadyParam {
@@ -273,6 +273,31 @@ declare namespace jwplayer {
         reason: 'auto' | 'api' | 'initial choice';
     }
 
+    interface PlaylistItem {
+        description: string;
+        mediaid: string;
+        file: string;
+        image: string;
+        preload: 'metadata' | 'auto' | 'none';
+        title: string;
+        tracks: Track[];
+        sources: [Source];
+        allSources: Source[];
+    }
+
+    interface Source {
+        file: string;
+        label: string;
+        type: string;
+        default: boolean;
+    }
+
+    interface Track {
+        file: string;
+        label?: string;
+        kind: 'captions' | 'chapters' | 'thumbnails';
+    }
+
     interface CastParam {
         available: boolean;
         active: boolean;
@@ -338,6 +363,7 @@ declare namespace jwplayer {
         | 'beforePlay'
         | 'complete'
         | 'displayClick'
+        | 'nextClick'
         | 'playlistComplete'
         | 'remove'
         | 'seeked'
@@ -371,9 +397,10 @@ declare namespace jwplayer {
         getHeight(): number;
         getMute(): boolean;
         getPlaybackRate(): number;
-        getPlaylist(): any[];
+        getPlaylist(): PlaylistItem[];
         getPlaylistIndex(): number;
-        getPlaylistItem(index?: number): any;
+        getPlaylistItem(index?: number): PlaylistItem;
+        getPlaylistItemPromise(index: number): Promise<PlaylistItem>;
         getPlugin(name: string): any;
         getPosition(): number;
         getQualityLevels(): any[];
@@ -383,7 +410,8 @@ declare namespace jwplayer {
         getVisualQuality(): QualityLevel | undefined;
         getVolume(): number;
         getWidth(): number;
-        load(playlist: any[] | string): JWPlayer;
+        load(playlist: PlaylistItem[] | string): JWPlayer;
+        next(): JWPlayer;
         on<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): JWPlayer;
         on(event: NoParamEvent, callback: () => void): JWPlayer;
         once<TEvent extends keyof EventParams>(event: TEvent, callback: EventCallback<EventParams[TEvent]>): JWPlayer;
@@ -397,10 +425,11 @@ declare namespace jwplayer {
         pauseAd(toggle: boolean): void;
         play(state?: boolean): JWPlayer;
         playAd(tag: string | string[]): void;
-        playlistItem(index: number): void;
+        playlistItem(index: number): JWPlayer;
         registerPlugin(id: string, target: string, jsPlugin: () => void, swfURL?: string): void;
         remove(): JWPlayer;
         removeButton(id: string): JWPlayer;
+        removePlaylistItemCallback(): void;
         resize(width: number | string, height: number): JWPlayer;
         seek(position: number): JWPlayer;
         setCaptions(options: CaptionOptions): JWPlayer;
@@ -413,6 +442,9 @@ declare namespace jwplayer {
         setFullscreen(state: boolean): void;
         setMute(state?: boolean): JWPlayer;
         setPlaybackRate(rate: number): void;
+        setPlaylistItemCallback(
+            callback: null | ((item: PlaylistItem, index: number) => void | Promise<PlaylistItem>),
+        ): void;
         setup(options: any): JWPlayer;
         setVolume(volume: number): JWPlayer;
         skipAd(): JWPlayer;
