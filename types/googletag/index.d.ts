@@ -2028,17 +2028,10 @@ declare namespace googletag {
      */
     namespace secureSignals {
         /**
-         * Construct a type with the properties of T, but never in type K.
-         */
-        type Never<T, K extends keyof any> = T & {
-            [P in K]?: never;
-        };
-
-        /**
          * Interface for returning a secure signal for a specific bidder or provider.
          * One of `id` or `networkCode` must be provided, but not both.
          */
-        type SecureSignalProvider = Never<BidderSignalProvider, 'networkCode'> | Never<PublisherSignalProvider, 'id'>;
+        type SecureSignalProvider = (BidderSignalProvider & { networkCode?: never }) | PublisherSignalProvider;
 
         /**
          * Returns a secure signal for a specific bidder.
