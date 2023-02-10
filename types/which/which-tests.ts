@@ -24,7 +24,7 @@ which('node')
     .then(resolvedPath => {
         resolvedPath; // $ExpectType string
     })
-    .catch(er => { });
+    .catch(er => {});
 
 async () => {
     const path = await which('cat');
