@@ -1243,34 +1243,34 @@ table = new Tabulator('#testPagination', {
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
     pagination: true,
-    paginationCounter: "rows"
+    paginationCounter: 'rows',
 });
 table = new Tabulator('#testPagination', {
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
     pagination: true,
-    paginationCounter: "pages"
+    paginationCounter: 'pages',
 });
 table = new Tabulator('#testPagination', {
     data: [],
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
     pagination: true,
     paginationCounter: (pageSize, currentRow, currentPage, totalRows, totalPages) => {
         return `${pageSize}, ${currentRow}, ${currentPage}, ${totalRows}, ${totalPages}`;
-    }
+    },
 });
 
 // Testing data loader element
@@ -1279,8 +1279,8 @@ table = new Tabulator('#testDataLoader', {
     columns: [
         {
             field: 'test_inline',
-            title: 'Test inline'
-        }
+            title: 'Test inline',
+        },
     ],
-    dataLoaderLoading: document.createElement("div") as HTMLElement
+    dataLoaderLoading: document.createElement('div') as HTMLElement,
 });

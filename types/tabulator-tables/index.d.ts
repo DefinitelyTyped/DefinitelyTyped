@@ -281,7 +281,16 @@ export interface OptionsPagination {
      * totalPages - Total pages in table
      * The function must return the contents of the counter, either the text value of the counter, valid HTML or a DOM node
      */
-    paginationCounter?: "rows" | "pages" | ((pageSize: number, currentRow: number, currentPage: number, totalRows: number, totalPages: number) => string|HTMLElement);
+    paginationCounter?:
+        | 'rows'
+        | 'pages'
+        | ((
+              pageSize: number,
+              currentRow: number,
+              currentPage: number,
+              totalRows: number,
+              totalPages: number,
+          ) => string | HTMLElement);
 
     /**
      * By default the counter will be displayed in the left of the table footer. If you would like it displayed in another element pass a DOM node or a CSS selector for that element.
@@ -2250,7 +2259,7 @@ export interface EventCallBackMethods {
     rowDeleted: (row: RowComponent) => void;
     rowMoving: (row: RowComponent) => void;
     rowMoved: (row: RowComponent) => void;
-    rowMoveCancelled:(row: RowComponent) => void;
+    rowMoveCancelled: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
     rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
     rowSelected: (row: RowComponent) => void;
