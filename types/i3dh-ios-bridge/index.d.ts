@@ -1,4 +1,4 @@
-// Type definitions for i3dh-ios-bridge 1.0
+// Type definitions for non-npm package i3dh-ios-bridge 1.0
 // Project: https://git.threedy.io/misc/realitybenchmark_suite/
 // Definitions by: Tim Lâm <https://github.com/TimGeronimoLam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
