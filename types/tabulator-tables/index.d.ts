@@ -507,6 +507,7 @@ export interface OptionsData {
     dataLoader?: boolean;
     dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
+    dataLoaderErrorTimeout?: number;
     sortMode?: SortMode;
     filterMode?: SortMode;
 }

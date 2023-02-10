@@ -999,6 +999,7 @@ table = new Tabulator('#test', {
     renderVerticalBuffer: 300,
     dataLoaderError: 'Error Loading Data',
     dataLoaderLoading: 'Data Loading',
+    dataLoaderErrorTimeout: 50,
     dataLoader: false,
     sortMode: 'remote',
     pagination: true,
@@ -1230,6 +1231,7 @@ table.on('popupClosed', component => {});
 table.on('popupOpen', component => {});
 table.on('menuOpened', component => {});
 table.on('menuClosed', component => {});
+table.on('TooltipOpened', component => {});
 table.on('TooltipClosed', component => {});
 
 column.popup('test', 'bottom');
