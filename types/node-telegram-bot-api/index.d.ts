@@ -336,7 +336,7 @@ declare namespace TelegramBot {
         message_thread_id?: number | undefined;
     }
 
-    interface SetChatPermissions {
+    interface SetChatPermissionsOptions {
         use_independent_chat_permissions?: boolean | undefined;
     }
 
@@ -2204,7 +2204,11 @@ declare class TelegramBot extends EventEmitter {
             | 'error',
     ): number;
 
-    setChatPermissions(chatId: TelegramBot.ChatId, chatPermissions: TelegramBot.ChatPermissions): Promise<boolean>;
+    setChatPermissions(
+        chatId: TelegramBot.ChatId,
+        chatPermissions: TelegramBot.ChatPermissions,
+        options?: TelegramBot.SetChatPermissionsOptions,
+    ): Promise<boolean>;
 
     setChatAdministratorCustomTitle(chatId: TelegramBot.ChatId, userId: string, customTitle: string): Promise<boolean>;
 
