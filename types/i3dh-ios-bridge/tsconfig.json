@@ -16,12 +16,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "linterOptions": {
-        "exclude": [
-          "config/**/*.js",
-          "node_modules/**/*.ts"
-        ]
-      },
     "files": [
         "index.d.ts",
         "i3dh-ios-bridge-tests.ts"
