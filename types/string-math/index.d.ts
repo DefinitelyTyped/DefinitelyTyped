@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
- * Resolves arethmetical equation
+ * Resolves arithmetical equation
  * @param eq - Equation to resolve
  * @param callback - (optional) Callback function for error and result
  */
