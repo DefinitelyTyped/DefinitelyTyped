@@ -170,6 +170,12 @@ declare namespace EW {
          * of parsing the body as JSON.
          */
         json(): Promise<any>;
+
+        /**
+         * A promise that reads the body to completion and resolves to an ArrayBuffer containing the
+         * binary format of the request body.
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
     }
 
     interface Request {

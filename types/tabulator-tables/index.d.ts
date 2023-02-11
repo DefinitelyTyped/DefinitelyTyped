@@ -268,6 +268,26 @@ export interface OptionsPagination {
      */
     paginationAddRow?: 'table' | 'page' | undefined;
 
+    /**
+     * You can choose to display a pagination counter in the bottom left of the footer that shows a summary of the current number of rows shown out of the total.
+     * If you want to have a fully customized counter, then you can pass a function to the paginationCounter option
+     *
+     * The formatter function accepts 5 arguments:
+     *
+     * pageSize - Number of rows shown per page
+     * currentRow - First visible row position
+     * currentPage - Current page
+     * totalRows - Total rows in table
+     * totalPages - Total pages in table
+     * The function must return the contents of the counter, either the text value of the counter, valid HTML or a DOM node
+     */
+    paginationCounter?: "rows" | "pages" | ((pageSize: number, currentRow: number, currentPage: number, totalRows: number, totalPages: number) => string|HTMLElement);
+
+    /**
+     * By default the counter will be displayed in the left of the table footer. If you would like it displayed in another element pass a DOM node or a CSS selector for that element.
+     */
+    paginationCounterElement?: string | HTMLElement | undefined;
+
     /** The number of pagination page buttons shown in the footer using the paginationButtonCount option. By default this has a value of 5. */
     paginationButtonCount?: number | undefined;
 
@@ -485,7 +505,7 @@ export interface OptionsData {
     /** The ajaxError callback is triggered there is an error response to an ajax request. */
     ajaxError?: ((xhr: any, textStatus: any, errorThrown: any) => void) | undefined;
     dataLoader?: boolean;
-    dataLoaderLoading?: string;
+    dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
     sortMode?: SortMode;
     filterMode?: SortMode;
@@ -1629,7 +1649,6 @@ export type Editor =
     | 'range'
     | 'tickCross'
     | 'star'
-    | 'list'
     | 'list'
     | 'date'
     | 'time'

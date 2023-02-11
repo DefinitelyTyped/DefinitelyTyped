@@ -841,6 +841,11 @@ chrome.enterprise.platformKeys.getTokens((tokens) => {
     });
 });
 
+chrome.enterprise.platformKeys.challengeKey(
+    {scope: 'MACHINE', challenge: new Uint8Array(),
+    registerKey: {algorithm: 'ECDSA'}},
+    () => {})
+
 // #endregion chrome.enterprise
 
 // #region chrome.Event

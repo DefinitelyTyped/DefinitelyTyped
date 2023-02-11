@@ -35,6 +35,13 @@ const server = DNS.createServer({
             ttl: 300,
             domain: 'another-name.example.com',
         });
+        response.answers.push({
+          name,
+          type: Packet.TYPE.TXT,
+          class: Packet.CLASS.IN,
+          ttl: 60,
+          data: 'dnslink=/ipfs/123abc'
+        });
         send(response);
     },
 });
