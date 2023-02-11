@@ -1,4 +1,4 @@
-// Type definitions for css-tree 2.0
+// Type definitions for css-tree 2.3
 // Project: https://github.com/csstree/csstree
 // Definitions by: Erik Källén <https://github.com/erik-kallen>
 //                 Jason Kratzer <https://github.com/pyoor>
@@ -593,8 +593,8 @@ export function walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
 
 export type FindFn = (this: WalkContext, node: CssNode, item: ListItem<CssNode>, list: List<CssNode>) => boolean;
 
-export function find(ast: CssNode, fn: FindFn): CssNode;
-export function findLast(ast: CssNode, fn: FindFn): CssNode;
+export function find(ast: CssNode, fn: FindFn): CssNode | null;
+export function findLast(ast: CssNode, fn: FindFn): CssNode | null;
 export function findAll(ast: CssNode, fn: FindFn): CssNode[];
 
 export interface Property {
@@ -830,3 +830,37 @@ export const url: {
     decode(input: string): string;
     encode(input: string): string;
 };
+
+export class SyntaxMatchError extends SyntaxError {
+    rawMessage: string;
+    syntax: string;
+    css: string;
+    mismatchOffset: number;
+    mismatchLength: number;
+    offset: number;
+    line: number;
+    column: number;
+    loc: {
+        source: string;
+        start: { offset: number; line: number; column: number };
+        end: { offset: number; line: number; column: number };
+    };
+}
+
+export class SyntaxReferenceError extends SyntaxError {
+    reference: string;
+}
+
+export interface LexerMatchResult {
+    error: Error | SyntaxMatchError | SyntaxReferenceError | null;
+}
+
+export class Lexer {
+    matchProperty(propertyName: string, value: CssNode | string): LexerMatchResult;
+}
+
+export function fork(extension: {
+    atrules?: Record<string, string> | undefined,
+    properties?: Record<string, string> | undefined,
+    types?: Record<string, string> | undefined,
+}): { lexer: Lexer };

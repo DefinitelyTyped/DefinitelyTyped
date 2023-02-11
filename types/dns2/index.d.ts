@@ -72,6 +72,7 @@ declare namespace DNS {
         ttl: number;
         address?: string;
         domain?: string;
+        data?: string;
     }
 
     type DnsHandler = (

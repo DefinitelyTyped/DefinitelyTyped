@@ -17,7 +17,6 @@
 //                 Marcin Biernat <https://github.com/biern>
 //                 Rayhaneh Banyassady <https://github.com/rayhaneh>
 //                 Ryan McCuaig <https://github.com/rgm>
-//                 Drew Wyatt <https://github.com/drewwyatt>
 //                 John Ottenlips <https://github.com/jottenlips>
 //                 Nitesh Phadatare <https://github.com/minitesh>
 //                 Krantisinh Deshmukh <https://github.com/krantisinh>

@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
+        "jsx": "react",
         "module": "commonjs",
         "lib": [
-            "es2017"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "micro-tests.ts"
+        "react-native-typewriter-tests.tsx"
     ]
 }
