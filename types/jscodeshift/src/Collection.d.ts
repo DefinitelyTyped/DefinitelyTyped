@@ -4,8 +4,10 @@ import recast = require("recast");
 import JSXElement = require("./collections/JSXElement");
 import NodeCollection = require("./collections/Node");
 import VariableDeclarator = require("./collections/VariableDeclarator");
+import Core = require("./core");
 
 type ASTPath<N> = nodePath.NodePath<N, N>;
+type Method<N extends Core.ASTNode> = (this: Collection<N>) => void;
 
 export interface Collection<N>
     extends NodeCollection.TraversalMethods,
@@ -124,7 +126,7 @@ export function fromNodes(...args: any[]): any;
  * @param methods Methods to add to the prototype
  * @param type Optional type to add the methods to
  */
-export function registerMethods(methods: object, type?: types.Type<any>): void;
+export function registerMethods<N extends Core.ASTNode>(methods: Record<string, Method<N>>, type?: types.Type<N>): void;
 
 export function hasConflictingRegistration(...args: any[]): any;
 

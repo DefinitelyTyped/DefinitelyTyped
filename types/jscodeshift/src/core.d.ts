@@ -22,7 +22,7 @@ declare namespace core {
     }
 
     interface Plugin {
-        (core: Core): void;
+        (jscodeshift: JSCodeshift): void;
     }
 
     interface FileInfo {
