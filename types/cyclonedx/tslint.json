@@ -2,7 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "linterOptions": {
         "exclude": [
-            "cyclonedx-tests.ts"
+            "cyclonedx_v*-tests.ts"
         ]
     }
 }

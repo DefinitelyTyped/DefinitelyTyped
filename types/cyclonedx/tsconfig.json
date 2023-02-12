@@ -18,6 +18,9 @@
     },
     "files": [
         "index.d.ts",
-        "cyclonedx-tests.ts"
+        "cyclonedx-tests.ts",
+        "cyclonedx_v1_2-tests.ts",
+        "cyclonedx_v1_3-tests.ts",
+        "cyclonedx_v1_4-tests.ts"
     ]
 }
