@@ -1,4 +1,4 @@
-import { ASTNode, FileInfo, API, Transform, Parser, JSCodeshift, Collection, ImportDeclaration } from 'jscodeshift';
+import { ASTNode, FileInfo, API, Transform, Parser, Plugin, JSCodeshift, Collection, ImportDeclaration } from 'jscodeshift';
 import * as testUtils from 'jscodeshift/src/testUtils';
 import { run } from 'jscodeshift/src/Runner';
 
@@ -33,6 +33,28 @@ const parser: Parser = {
         // return estree compatible AST
         return { type: 'root' };
     },
+};
+
+// Can define a plugin.
+const plugin: Plugin = (jscodeshift) => {
+    // Adding a method to all Identifiers
+    jscodeshift.registerMethods({
+        logNames() {
+            return this.forEach((path) => {
+                // $ExpectType ASTPath<Identifier>
+                path;
+            });
+        }
+    }, jscodeshift.Identifier);
+
+    // Adding a method to all collections
+    jscodeshift.registerMethods({
+        findIdentifiers() {
+            // $ExpectType Collection<ASTNode>
+            this;
+            return this.find(jscodeshift.Identifier);
+        }
+    });
 };
 
 // Can pass options to recast
@@ -153,18 +175,18 @@ testUtils.runTest('dirname', 'transformName', {});
 
 // Can define an inline test with transform passed as module
 testUtils.defineInlineTest(
-    { default: () => {}, parser: 'babel' },
+    { default: () => { }, parser: 'babel' },
     { opt: true },
     "import test from 'test';",
     "import test from './test';",
 );
 
 // Can define an inline test with transform passed as function
-testUtils.defineInlineTest(() => {}, { opt: true }, "import test from 'test';", "import test from './test';");
+testUtils.defineInlineTest(() => { }, { opt: true }, "import test from 'test';", "import test from './test';");
 
 // Can run an inline test with transform passed as module
 testUtils.runInlineTest(
-    { default: () => {}, parser: 'babel' },
+    { default: () => { }, parser: 'babel' },
     { opt: true },
     { source: "import test from 'test';" },
     "import test from './test';",
@@ -173,7 +195,7 @@ testUtils.runInlineTest(
 
 // Can run an inline test with transform passed as function
 testUtils.runInlineTest(
-    () => {},
+    () => { },
     { opt: true },
     { source: "import test from 'test';" },
     "import test from './test';",
