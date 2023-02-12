@@ -1,4 +1,4 @@
-import Cookies = require('js-cookie');
+import Cookies from 'js-cookie';
 
 Cookies.set('name', 'value'); // $ExpectType string | undefined
 Cookies.set('name', 'value', { expires: 7 }); // $ExpectType string | undefined

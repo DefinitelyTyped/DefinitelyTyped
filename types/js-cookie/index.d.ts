@@ -110,5 +110,5 @@ declare const Cookies: Cookies.CookiesStatic & {
     noConflict?(): Cookies.CookiesStatic;
 };
 
-export = Cookies;
+export default Cookies;
 export as namespace Cookies;
