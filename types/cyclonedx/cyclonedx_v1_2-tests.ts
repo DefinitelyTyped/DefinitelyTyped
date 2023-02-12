@@ -2,7 +2,7 @@
 
 import { CycloneDXBomV1_2 } from "cyclonedx";
 
-// https://github.com/CycloneDX/bom-examples/blob/master/SBOM/dropwizard-1.3.15/bom.json
+// https://raw.githubusercontent.com/CycloneDX/bom-examples/master/SBOM/laravel-7.12.0/bom.1.2.json
 export const sbom1_2: CycloneDXBomV1_2 = {
   "bomFormat": "CycloneDX",
   "specVersion": "1.2",
