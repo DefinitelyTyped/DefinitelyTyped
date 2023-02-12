@@ -3328,12 +3328,11 @@ declare namespace chrome.events {
          */
         addRules(
             rules: Rule[],
-            callback: (
+            callback?: (
                 /** Rules that were registered, the optional parameters are filled with values */
                 rules: Rule[]
             ) => void
         ): void;
-        addRules(rules: Rule[], callback?: (rules: Rule[]) => void): void;
         /**
          * Deregisters an event listener callback from an event.
          * @param callback Listener that shall be unregistered.
@@ -5962,7 +5961,7 @@ declare namespace chrome.permissions {
     }
 
     export interface PermissionsAddedEvent {
-        addListener(callback: (/** The newly-acquired permissions*/permissions: Permissions) => void): void;
+        addListener(callback: (/** The newly-acquired permissions*/ permissions: Permissions) => void): void;
     }
 
     /**
