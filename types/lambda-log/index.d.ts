@@ -61,7 +61,7 @@ export interface LambdaLogOptions {
     levelKey?: string | null;
     // Override the key in the JSON log message for the message. Default is "msg".
     messageKey?: string;
-    // Override the key in the JSON log message for the tags. Set to null to remove this key from the JSON output. Default is "_tags".
+    // Override the key in the JSON log message for the tags. Set to null to remove this key from the JSON output. Default is '_tags'.
     tagsKey?: string | null;
 }
 
