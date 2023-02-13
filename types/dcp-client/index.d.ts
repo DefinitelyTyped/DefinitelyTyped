@@ -168,7 +168,7 @@ export namespace compute {
 }
 
 export namespace wallet {
-     interface Wallet {
+    interface Wallet {
         /**
          * [See docs](https://docs.dcp.dev/specs/wallet-api.html#wallet-api)
          * Gets a keystore from the wallet
@@ -212,7 +212,7 @@ export namespace wallet {
 }
 
 export namespace worker {
-     class Worker {
+    class Worker {
         /**
          * @start - Emitted when the worker is started.
          * @stop - Emitted when the worker is stopped.
@@ -225,7 +225,20 @@ export namespace worker {
          * @submit - Emitted when the worker successfully submits a result to the scheduler.
          * @submitError - Emitted when the worker successfully submits a result to the scheduler.
          */
-        on(event: 'start' | 'stop' | 'fetchStart' | 'fetchEnd' | 'fetch' | 'fetchError' | 'submitStart' | 'submitEnd' | 'submit' | 'submitError', listener: () => void): this;
+        on(
+            event:
+                | 'start'
+                | 'stop'
+                | 'fetchStart'
+                | 'fetchEnd'
+                | 'fetch'
+                | 'fetchError'
+                | 'submitStart'
+                | 'submitEnd'
+                | 'submit'
+                | 'submitError',
+            listener: () => void,
+        ): this;
 
         /**
          * Emitted when the worker instantiates a new sandbox. The argument provided to the callback is the Sandbox instance.
@@ -658,7 +671,7 @@ export class Job {
      * @console - Used to collect the console output of the workers.
      * @result - Emitted when a slice completes and returns.
      */
-    on(event: "accepted" | "complete" | "readystatechange" | "console" | "result", listener: (ev?: any) => void): this;
+    on(event: 'accepted' | 'complete' | 'readystatechange' | 'console' | 'result', listener: (ev?: any) => void): this;
 
     /**
      * Deploys the job to the scheduler for work to be done by distributed workers all throughout the DCP network.
@@ -667,7 +680,11 @@ export class Job {
      * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/GPU and I/O.
      * @returns Promise<ResultHandle>
      */
-    exec(slicePaymentOffer?: number | object, paymentAccountKeystore?: Keystore, initialSliceProfile?: object): Promise<ResultHandle>;
+    exec(
+        slicePaymentOffer?: number | object,
+        paymentAccountKeystore?: Keystore,
+        initialSliceProfile?: object,
+    ): Promise<ResultHandle>;
 
     /**
      * Deploys the job for work to be done in locally in the client.
@@ -677,7 +694,12 @@ export class Job {
      * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/CPU and I/O.
      * @returns Promise<ResultHandle>
      */
-    localExec(cores: number, slicePaymentOffer: number | object, paymentAccountKeystore: Keystore, initialSliceProfile: object): Promise<ResultHandle>;
+    localExec(
+        cores: number,
+        slicePaymentOffer: number | object,
+        paymentAccountKeystore: Keystore,
+        initialSliceProfile: object,
+    ): Promise<ResultHandle>;
 
     /**
      * Deploys the job for work to be done in locally in the client.
@@ -722,8 +744,7 @@ export interface DCPClient {
     worker: worker.Worker;
 }
 
-export class Status {
-}
+export class Status {}
 
 export class JobInfo {
     status: string;
@@ -735,11 +756,9 @@ export class JobHistory {
     history: object;
 }
 
-export class WorkValueQuote {
-}
+export class WorkValueQuote {}
 
-export class WorkValue {
-}
+export class WorkValue {}
 
 export class EnoProgressError implements Error {
     name: string;
@@ -766,7 +785,7 @@ export interface LoadOptions {
     /**
      *  Override the default keystore directory search path (Node.js Only). This must be a complete pathname.
      */
-    paths?: string[] | LoadOptions["dir"];
+    paths?: string[] | LoadOptions['dir'];
 }
 
 export class Supervisor {}

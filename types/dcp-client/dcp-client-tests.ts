@@ -1,4 +1,15 @@
-import { init, AuthKeystoreOptions, PaymentParams, Sandbox, Keystore, LoadOptions, RangeObject, MultiRangeObject, SuperRangeObject, ResultHandle } from 'dcp-client';
+import {
+    AuthKeystoreOptions,
+    init,
+    Keystore,
+    LoadOptions,
+    MultiRangeObject,
+    PaymentParams,
+    RangeObject,
+    ResultHandle,
+    Sandbox,
+    SuperRangeObject,
+} from 'dcp-client';
 
 //#region Models
 export const authKeystoreOptions: AuthKeystoreOptions = {
@@ -92,10 +103,14 @@ export const loadOptions: LoadOptions = {
     const rangeObject1 = new RangeObject(1, 1000, 2);
     const rangeObject2 = new RangeObject(0, 1000, 2);
     const multiRange = new MultiRangeObject(rangeObject1, rangeObject2);
-    const computeJob = compute.for(multiRange, async (sliceIndex: number[], data: any) => {
-        progress();
-        return sliceIndex[0] ** 2 + sliceIndex[1] ** 2 + Math.sqrt(data);
-    }, [100]);
+    const computeJob = compute.for(
+        multiRange,
+        async (sliceIndex: number[], data: any) => {
+            progress();
+            return sliceIndex[0] ** 2 + sliceIndex[1] ** 2 + Math.sqrt(data);
+        },
+        [100],
+    );
     //#endregion
 
     //#region Wallet API Tests
