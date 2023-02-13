@@ -1,4 +1,4 @@
-// Types for plotly.js/src/traces/ohcl/attributes.js
+// Types for plotly.js/src/traces/ohlc/attributes.js
 
 export type HoverInfo =
     | 'x'
@@ -45,8 +45,8 @@ export type XCalendar =
     | 'thai'
     | 'ummalqura';
 
-export interface OhclData {
-    type: 'ohcl';
+export interface OhlcData {
+    type: 'ohlc';
     name: string;
     visible: boolean | 'legendonly';
     showlegend: boolean;
