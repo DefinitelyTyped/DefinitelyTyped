@@ -173,6 +173,8 @@ declare namespace jwplayer {
 
     interface LevelsChangedParam {
         currentQuality: number;
+        levels: Level[];
+        type: 'levelsChanged';
     }
 
     interface MuteParam {
@@ -207,10 +209,8 @@ declare namespace jwplayer {
         height: number;
     }
 
-    interface VisualQualityParam {
-        mode: string;
-        label: string;
-        reason: string;
+    interface VisualQualityParam extends VisualQuality {
+        type: 'visualQuality';
     }
 
     interface PlaybackRateChangedParam {
@@ -219,8 +219,9 @@ declare namespace jwplayer {
     }
 
     interface LevelsParam {
-        width: number;
-        levels: any[];
+        currentQuality: number;
+        levels: Level[];
+        type: 'levels';
     }
 
     interface SeekParam {
@@ -261,15 +262,26 @@ declare namespace jwplayer {
     }
 
     interface Level {
-        bitrate: number;
-        height: number;
-        width: number;
+        height?: number;
+        index?: number;
         label: string;
+        width?: number;
+        hlsjsIndex?: number;
+        level_id?: number | string;
+        bitrate?: number;
     }
 
     interface QualityLevel {
+        bitrate: number;
+        height: number;
+        index?: number;
+        label: string;
+        width: number;
+    }
+
+    interface VisualQuality {
+        level: QualityLevel;
         mode: 'auto' | 'manual';
-        level: Level;
         reason: 'auto' | 'api' | 'initial choice';
     }
 
@@ -403,11 +415,11 @@ declare namespace jwplayer {
         getPlaylistItemPromise(index: number): Promise<PlaylistItem>;
         getPlugin(name: string): any;
         getPosition(): number;
-        getQualityLevels(): any[];
+        getQualityLevels(): QualityLevel[];
         getRenderingMode(): string;
         getSafeRegion(): Region;
         getState(): string;
-        getVisualQuality(): QualityLevel | undefined;
+        getVisualQuality(): VisualQuality | undefined;
         getVolume(): number;
         getWidth(): number;
         load(playlist: PlaylistItem[] | string): JWPlayer;
