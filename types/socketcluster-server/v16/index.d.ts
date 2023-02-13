@@ -1,4 +1,4 @@
-// Type definitions for socketcluster-server 17.3
+// Type definitions for socketcluster-server 16.1
 // Project: https://github.com/SocketCluster/socketcluster-server
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 //                 Nathan Bierema <https://github.com/Methuselah96>
