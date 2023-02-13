@@ -3037,6 +3037,10 @@
             "libraryName": "minipass",
             "asOfVersion": "3.3.5"
         },
+        "mkdirp": {
+            "libraryName": "mkdirp",
+            "asOfVersion": "2.0.0"
+        },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
             "asOfVersion": "1.1.0"
