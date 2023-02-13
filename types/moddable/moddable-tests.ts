@@ -1,0 +1,10 @@
+import "./test/base64";
+import "./test/ble";
+import "./test/file";
+import "./test/flash";
+import "./test/http";
+import "./test/net";
+import "./test/pins";
+import "./test/preference";
+import "./test/resource";
+import "./test/wifi";
