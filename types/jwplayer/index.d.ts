@@ -225,8 +225,18 @@ declare namespace jwplayer {
     }
 
     interface SeekParam {
-        position: number;
+        currentTime: number;
+        duration: number;
+        metadata?: {
+            currentTime?: number;
+        };
         offset: number;
+        position: number;
+        seekRange: {
+            end: number;
+            start: number;
+        };
+        type: 'seek';
     }
 
     interface TimeParam {
