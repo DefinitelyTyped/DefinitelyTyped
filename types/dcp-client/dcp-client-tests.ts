@@ -94,7 +94,6 @@ export const loadOptions: LoadOptions = {
     await compute.cancel();
     const startTime = 0;
     const endTime = Date.now();
-    const ev = '';
 
     job.on('result', async (ev: any) => {
         const status = compute.status(startTime, endTime, keystore);
