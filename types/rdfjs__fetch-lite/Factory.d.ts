@@ -6,13 +6,19 @@ interface RdfFetchResponse<D extends DatasetCore<OutQuad, InQuad>, OutQuad exten
     dataset(): Promise<D>;
 }
 
+interface Fetch {
+    (url: string, options?: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
+    config(key: string, value: unknown): void;
+    Headers: Headers;
+}
+
 export interface FetchFactory {
-    fetch(url: string, options?: FormatsInit): Promise<RdfFetchResponse<DatasetCore>>;
+    fetch: Fetch;
+    clone(original: FetchFactory): FetchFactory;
 }
 
 interface FetchFactoryCtor {
     new(): FetchFactory;
-    exports: ['fetch'];
 }
 
 declare const factory: FetchFactoryCtor;

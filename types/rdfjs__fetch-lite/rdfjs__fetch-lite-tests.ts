@@ -43,6 +43,11 @@ async function environmentRawFetch(): Promise<Stream> {
     const environmentTest = new Environment([
         FetchFactory
     ]);
+
+    environmentTest.fetch.config('foo', 'bar');
+    // $ExpectType Headers
+    const headers = environmentTest.fetch.Headers;
+
     const res = await environmentTest.fetch('foo', { formats });
     return res.quadStream();
 }
