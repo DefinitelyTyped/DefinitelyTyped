@@ -131,7 +131,12 @@ async function TestFnAccessTokenObject(
 
     const httpOptions: oauth2lib.WreckHttpOptions =  {
         json: false,
-        redirects: 0
+        redirects: 0,
+        headers: {
+            'some-header': 'value',
+            'other-header': 'other-value',
+            testNum: 123
+        }
     };
 
     // Create the access token wrapper
