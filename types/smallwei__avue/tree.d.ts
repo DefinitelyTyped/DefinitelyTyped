@@ -1,4 +1,6 @@
-interface TreeOption<T = any> {
+import { AvueFormOption } from './form';
+
+export interface AvueTreeOption<T = any> {
     // 是否展开节点
     defaultExpandAll?: boolean;
     // 弹出框宽度
@@ -19,7 +21,7 @@ interface TreeOption<T = any> {
     filter?: boolean;
 }
 
-interface TreeProps {
+export interface TreeProps {
     // 指定节点标签为节点对象的某个属性值
     label?: string;
     // 弹窗添加节点的名称
@@ -30,11 +32,11 @@ interface TreeProps {
     value?: string;
 }
 
-interface AvueTreeProps<T = any> {
+export interface AvueTreeProps<T = any> {
     /** 存放结构体的数据 */
     data?: T[];
     /** 组件配置属性 */
-    option?: TreeOption<T>;
+    option?: AvueTreeOption<T>;
     /** 新增节点回调 */
     onSave?: (parent: any, data: any, done: () => void, loading: () => void) => void;
     /** 修改节点回调 */
@@ -42,15 +44,15 @@ interface AvueTreeProps<T = any> {
     /** 删除节点回调 */
     onDel?: (data: any, done: () => void) => void;
 }
-interface AvueTreeSlots<T = any> {
+export interface AvueTreeSlots<T = any> {
     addBtn: () => VNode[];
-    menu: (arg: { node: { data: T } }) => VNode[];
-    default: (arg: { node: { data: T }; data: T }) => VNode[];
+    menu: (scoped: { node: { data: T } }) => VNode[];
+    default: (scoped: { node: { data: T }; data: T }) => VNode[];
 }
 
-declare const AvueTree: new <T = any>() => {
-    $props: AvueTreeProps<T>;
-    $slots: AvueTreeSlots<T>;
+export const AvueTree: new () => {
+    $props: AvueTreeProps;
+    $slots: AvueTreeSlots;
 };
 
-type AvueTreeInstance = InstanceType<typeof AvueTree>;
+export type AvueTreeInstance = InstanceType<typeof AvueTree>;
