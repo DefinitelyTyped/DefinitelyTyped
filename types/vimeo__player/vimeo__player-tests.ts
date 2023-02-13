@@ -1,4 +1,4 @@
-import Player from '@vimeo/player';
+import Player = require('@vimeo/player');
 
 // based on README.md of @vimeo/player >> https://github.com/vimeo/player.js
 
