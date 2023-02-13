@@ -1,5 +1,5 @@
 
-import json = require('jsonstream');
+import json = require('jsonstream-next');
 
 export function foo(read: NodeJS.ReadableStream) {
     read = read.pipe(json.parse('*'));
