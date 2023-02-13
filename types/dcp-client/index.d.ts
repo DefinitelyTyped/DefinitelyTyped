@@ -688,17 +688,17 @@ export class Job {
 
     /**
      * Deploys the job for work to be done in locally in the client.
-     * @param cores – The number of local cores to be used to execute the job.
-     * @param slicePaymentOffer – The amount of DCC user is willing to pay per slice. However, localExec jobs don’t take DCC.
-     * @param paymentAccountKeystore – Instance of Wallet API Keystore being used as the payment account for executing a job.
-     * @param initialSliceProfile – Object describing the cost the user believes the average slice will incur in terms of CPU/CPU and I/O.
-     * @returns Promise<ResultHandle>
+     * @param cores The number of local cores to be used to execute the job.
+     * @param slicePaymentOffer The amount of DCC user is willing to pay per slice. However, localExec jobs don’t take DCC.
+     * @param paymentAccountKeystore Instance of Wallet API Keystore being used as the payment account for executing a job.
+     * @param initialSliceProfile Object describing the cost the user believes the average slice will incur in terms of CPU/CPU and I/O.
+     * @returns The same result handle returned by `JobHandle.prototype.exec`.
      */
     localExec(
-        cores: number,
-        slicePaymentOffer: number | object,
-        paymentAccountKeystore: Keystore,
-        initialSliceProfile: object,
+        cores?: number,
+        slicePaymentOffer?: number | object,
+        paymentAccountKeystore?: Keystore,
+        initialSliceProfile?: object,
     ): Promise<ResultHandle>;
 
     /**

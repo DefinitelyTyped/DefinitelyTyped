@@ -78,7 +78,9 @@ export const loadOptions: LoadOptions = {
     job.useStrict = true;
 
     await job.exec(1, keystore, initialSliceProfile);
-    await job.localExec(1,  1, keystore, initialSliceProfile);
+    // $ExpectType ResultHandle
+    await job.localExec();
+    await job.localExec(1, 1, keystore, initialSliceProfile);
     await job.cancel('reason');
     await job.resume('reason');
     await job.requires('path');
