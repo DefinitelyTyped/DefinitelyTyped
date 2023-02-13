@@ -813,3 +813,17 @@ export declare class RequestError extends Error {
     public message: string;
     public code: string;
 }
+/**
+ * Error emitted by MSSQL Request event
+ */
+export declare class MSSQLRequestError extends Error {
+    constructor(name?: string, message?: string);
+
+    code: string | undefined;
+    number: number | undefined;
+    state: number | undefined;
+    class: number | undefined;
+    serverName: string | undefined;
+    procName: string | undefined;
+    lineNumber: number | undefined;
+}

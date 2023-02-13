@@ -52,3 +52,11 @@ var connectionError = new tedious.ConnectionError();
 connectionError.message = 'test';
 connectionError.code = "ETIMEOUT";
 connectionError = new tedious.ConnectionError('test', "ETIMEOUT");
+
+var MSSQLRequestError = new tedious.MSSQLRequestError();
+MSSQLRequestError.message = 'Test';
+MSSQLRequestError.code = "ETIMEOUT";
+MSSQLRequestError.number = 4201;
+MSSQLRequestError.state = 10;
+MSSQLRequestError.serverName = "TestSERVER";
+MSSQLRequestError = new tedious.MSSQLRequestError('test', "ETIMEOUT");
