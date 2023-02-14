@@ -406,13 +406,13 @@ declare namespace MapboxDraw {
             isTrue: () => boolean;
         };
 
-        constrainFeatureMovement(geojsonFeatures: Feature[], delta: { lng: number; lat: number }): number;
+        constrainFeatureMovement(geojsonFeatures: DrawFeature[], delta: { lng: number; lat: number }): number;
 
-        createMidPoint(parent: string, startVertex: Feature, endVertex: Feature): GeoJSON;
+        createMidPoint(parent: string, startVertex: DrawFeature, endVertex: DrawFeature): GeoJSON;
 
         createSupplementaryPoints(
-            geojson: GeoJSON,
-            options?: { midpoints: boolean; selectedPaths: string[] },
+            geojson: DrawFeature,
+            options?: { midpoints?: boolean; selectedPaths?: string[] },
             basePath?: string,
         ): GeoJSON[];
 
@@ -429,31 +429,34 @@ declare namespace MapboxDraw {
          */
         createVertex(parentId: string, coordinates: Position, path: string, selected: boolean): GeoJSON;
 
-        doubleClickZoom: {
-            enable: (ctx: DrawCustomModeThis) => void; // ?? ctx
-            disable: (ctx: DrawCustomModeThis) => void; // ?? ctx
-        };
+        // TODO: define a proper type for ctx since is not exposed correctly
+        // https://github.com/mapbox/mapbox-gl-draw/issues/1156
+
+        // doubleClickZoom: {
+        //     enable: (ctx: DrawCustomModeThis) => void; // ?? ctx
+        //     disable: (ctx: DrawCustomModeThis) => void; // ?? ctx
+        // };
+
+        // featuresAt: {
+        //     click: (event: MapMouseEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
+        //     touch: (event: MapTouchEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
+        // };
+
+        // getFeatureAtAndSetCursors(event: MapMouseEvent, ctx: DrawCustomModeThis): Feature;
 
         euclideanDistance(a: { x: number; y: number }, b: { x: number; y: number }): number;
 
-        featuresAt: {
-            click: (event: MapMouseEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
-            touch: (event: MapTouchEvent, bbox: BBox, ctx: DrawCustomModeThis) => Feature[]; // ?? ctx
-        };
-
-        getFeatureAtAndSetCursors(event: MapMouseEvent, ctx: DrawCustomModeThis): Feature;
-
         isClick(
-            start: { point?: number; time?: number },
-            end: { point: number; time: number },
+            start: { point?: { x: number; y: number }; time?: number },
+            end: { point: { x: number; y: number }; time: number },
             options?: { fineTolerance?: number; grossTolerance?: number; interval?: number },
         ): boolean;
 
         isEventAtCoordinates(event: MapMouseEvent, coordinates: Position[]): boolean;
 
         isTap(
-            start: { point?: number; time?: number },
-            end: { point: number; time: number },
+            start: { point?: { x: number; y: number }; time?: number },
+            end: { point: { x: number; y: number }; time: number },
             options?: { tolerance?: number; interval?: number },
         ): boolean;
 
@@ -489,14 +492,14 @@ declare namespace MapboxDraw {
             tap: (event: any) => void;
         };
 
-        moveFeatures(features: Feature[], delta: { lng: number; lat: number }): void;
+        moveFeatures(features: DrawFeature[], delta: { lng: number; lat: number }): void;
 
         /**
          * Sort features in the following order Point: 0, LineString: 1, MultiLineString: 1,
          * Polygon: 2, then sort polygons by area ascending.
          * @param features
          */
-        sortFeatures(features: Feature[]): Feature[];
+        sortFeatures(features: DrawFeature[]): DrawFeature[];
 
         stringSetsAreEqual(a: Array<Pick<Feature, 'id'>>, b: Array<Pick<Feature, 'id'>>): boolean;
 
@@ -507,7 +510,7 @@ declare namespace MapboxDraw {
         /**
          * Derive a dense array (no `undefined`s) from a single value or array.
          */
-        toDenseArray(x: any): any[];
+        toDenseArray(x: any): Array<NonNullable<any>>;
     }
 
     type ThemeLayerId =
