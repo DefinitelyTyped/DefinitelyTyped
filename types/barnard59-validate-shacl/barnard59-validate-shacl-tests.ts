@@ -1,5 +1,6 @@
 import { NamedNode } from '@rdfjs/types';
 import { shacl } from 'barnard59-validate-shacl';
+import { ValidationError } from 'barnard59-validate-shacl/lib/errors';
 import { Duplex, Readable } from "stream";
 
 const shape: Readable = <any> {};
@@ -33,3 +34,12 @@ async function test() {
         }
     });
 }
+
+const validationError: ValidationError = <any> {};
+const error: Error = validationError;
+// $ExpectType ValidationReport<Factory<Quad, Quad, DatasetCore<Quad, Quad>>>
+const report = validationError.report;
+// $ExpectType DatasetCore<Quad, Quad>
+const dataGraph = validationError.dataGraph;
+// $ExpectType DatasetCore<Quad, Quad>
+const shapesGraph = validationError.shapesGraph;
