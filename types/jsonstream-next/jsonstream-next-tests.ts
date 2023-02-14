@@ -1,4 +1,3 @@
-
 import json = require('jsonstream-next');
 
 export function foo(read: NodeJS.ReadableStream) {
