@@ -327,6 +327,11 @@ declare namespace jwplayer {
         type: 'cast';
     }
 
+    interface ViewableParam {
+        viewable: 0 | 1;
+        type: 'viewable';
+    }
+
     interface WarningParam {
         code: number;
         message: string;
@@ -418,6 +423,7 @@ declare namespace jwplayer {
         getFullscreen(): boolean;
         getHeight(): number;
         getMute(): boolean;
+        getPercentViewable(): number | void;
         getPlaybackRate(): number;
         getPlaylist(): PlaylistItem[];
         getPlaylistIndex(): number;
@@ -429,6 +435,7 @@ declare namespace jwplayer {
         getRenderingMode(): string;
         getSafeRegion(): Region;
         getState(): string;
+        getViewable(): 0 | 1;
         getVisualQuality(): VisualQuality | undefined;
         getVolume(): number;
         getWidth(): number;
