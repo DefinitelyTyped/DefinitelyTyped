@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/engine 68.0
+// Type definitions for @nginstack/engine 69.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>
@@ -122,6 +122,7 @@
 /// <reference path="lib/dataset/DataSetManager.d.ts" />
 /// <reference path="lib/dataset/DataSetManagerError.d.ts" />
 /// <reference path="lib/dataset/DataSetStates.d.ts" />
+/// <reference path="lib/dataset/dataSetToJson.d.ts" />
 /// <reference path="lib/dataset/DataSetTransformer.d.ts" />
 /// <reference path="lib/dataset/DeltaDumper.d.ts" />
 /// <reference path="lib/dataset/DeltaInspector.d.ts" />
