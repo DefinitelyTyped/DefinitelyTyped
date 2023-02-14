@@ -356,6 +356,8 @@ If the implementation package uses ESM and specifies `"type": "module"`, then yo
 }
 ```
 
+This also applies if the implementation package has `exports` in its package.json.
+
 #### `OTHER_FILES.txt`
 
 If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
