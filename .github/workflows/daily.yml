@@ -11,4 +11,4 @@ jobs:
     steps:
       - run: 'gh workflow run daily.yml -R DefinitelyTyped/dt-mergebot'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
