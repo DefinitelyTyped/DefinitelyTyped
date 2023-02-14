@@ -54,6 +54,7 @@ export interface ButtonRenderer {
 export interface ButtonsRenderer {
     (
         options: {
+            style?: ButtonStyle | undefined;
             fundingSource?: string | undefined;
             createOrder?: (() => Promise<string>) | undefined;
             createBillingAgreement?: (() => Promise<string>) | undefined;
