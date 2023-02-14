@@ -375,7 +375,7 @@ declare namespace browser._manifest {
         [key: number]: ExtensionFileUrl;
     }
 
-    type _WebExtensionManifestIncognito = 'not_allowed' | 'spanning';
+    type _WebExtensionManifestIncognito = 'not_allowed' | 'spanning' | 'split';
 
     interface _WebExtensionManifestOptionsUi {
         page: ExtensionURL;
