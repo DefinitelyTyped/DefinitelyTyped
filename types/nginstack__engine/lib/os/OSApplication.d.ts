@@ -20,6 +20,6 @@ declare namespace OSApplication {
     const HIDE: string;
     const MAXIMIZE: string;
     const MINIMIZE: string;
-    const INFINITE_TIMEOUT: number;
+    const INFINITE_TIMEOUT: any;
     function startDetached(command: string, parameters: string, workingDirectory: string): number;
 }

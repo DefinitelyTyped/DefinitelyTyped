@@ -83,7 +83,6 @@ function TestBrowser() {
     browser = webdriver.Browser.CHROME;
     browser = webdriver.Browser.EDGE;
     browser = webdriver.Browser.FIREFOX;
-    browser = webdriver.Browser.IE;
     browser = webdriver.Browser.INTERNET_EXPLORER;
     browser = webdriver.Browser.SAFARI;
 }

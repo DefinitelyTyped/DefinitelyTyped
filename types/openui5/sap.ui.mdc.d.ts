@@ -1,4 +1,4 @@
-// For Library Version: 1.109.0
+// For Library Version: 1.110.0
 
 declare module "sap/ui/mdc/filterbar/vh/FilterContainer" {
   import Metadata from "sap/ui/base/Metadata";
@@ -150,17 +150,6 @@ declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
      */
     static getMetadata(): ElementMetadata;
     /**
-     * Sets the personalization state of the panel instance.
-     *
-     * @returns The SortPanel instance
-     */
-    static setP13nData(
-      /**
-       * An array containing the personalization state
-       */
-      aP13nData: FilterItem
-    ): FilterPanel;
-    /**
      * Gets current value of property {@link #getItemFactory itemFactory}.
      *
      * A factory function that will be called whenever the user selects a new entry from the `ComboBox`. The
@@ -171,7 +160,8 @@ declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
      *
      * **Note:**: The Panel will not handle the lifecylce of the provided factory control instance, in case
      * the row is going to be removed, the according consumer needs to decide about destroying or keeping the
-     * control instance.
+     * control instance. In addition, the `getIdForLabel` method can be used to return a focusable children
+     * control to provide the `labelFor` reference.
      *
      * @returns Value of property `itemFactory`
      */
@@ -187,7 +177,8 @@ declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
      *
      * **Note:**: The Panel will not handle the lifecylce of the provided factory control instance, in case
      * the row is going to be removed, the according consumer needs to decide about destroying or keeping the
-     * control instance.
+     * control instance. In addition, the `getIdForLabel` method can be used to return a focusable children
+     * control to provide the `labelFor` reference.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -198,6 +189,17 @@ declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
        * New value for property `itemFactory`
        */
       fnItemFactory: Function
+    ): this;
+    /**
+     * Sets the personalization state of the panel instance.
+     *
+     * @returns The FilterPanel instance
+     */
+    setP13nData(
+      /**
+       * An array containing the personalization state
+       */
+      aP13nData: FilterItem[]
     ): this;
   }
 
@@ -212,7 +214,8 @@ declare module "sap/ui/mdc/p13n/panels/FilterPanel" {
      *
      * **Note:**: The Panel will not handle the lifecylce of the provided factory control instance, in case
      * the row is going to be removed, the according consumer needs to decide about destroying or keeping the
-     * control instance.
+     * control instance. In addition, the `getIdForLabel` method can be used to return a focusable children
+     * control to provide the `labelFor` reference.
      */
     itemFactory?: Function | PropertyBindingInfo | `{${string}}`;
   }
@@ -234,6 +237,8 @@ declare namespace sap {
 
     "sap/ui/mdc/chart/SelectionDetailsActions": undefined;
 
+    "sap/ui/mdc/ChartDelegate": undefined;
+
     "sap/ui/mdc/condition/Condition": undefined;
 
     "sap/ui/mdc/condition/ConditionConverter": undefined;
@@ -241,6 +246,8 @@ declare namespace sap {
     "sap/ui/mdc/condition/ConditionModel": undefined;
 
     "sap/ui/mdc/condition/ConditionModelPropertyBinding": undefined;
+
+    "sap/ui/mdc/condition/ConditionValidateException": undefined;
 
     "sap/ui/mdc/condition/FilterConverter": undefined;
 
@@ -362,6 +369,8 @@ declare namespace sap {
 
     "sap/ui/mdc/Link": undefined;
 
+    "sap/ui/mdc/link/LinkItem": undefined;
+
     "sap/ui/mdc/LinkDelegate": undefined;
 
     "sap/ui/mdc/mixin/AdaptationMixin": undefined;
@@ -384,13 +393,7 @@ declare namespace sap {
 
     "sap/ui/mdc/odata/v4/ValueHelpDelegate": undefined;
 
-    "sap/ui/mdc/p13n/AdaptationProvider": undefined;
-
     "sap/ui/mdc/p13n/Engine": undefined;
-
-    "sap/ui/mdc/p13n/modification/ModificationHandler": undefined;
-
-    "sap/ui/mdc/p13n/modules/DefaultProviderRegistry": undefined;
 
     "sap/ui/mdc/p13n/panels/FilterPanel": undefined;
 
@@ -404,11 +407,15 @@ declare namespace sap {
 
     "sap/ui/mdc/table/Column": undefined;
 
+    "sap/ui/mdc/table/ColumnSettings": undefined;
+
     "sap/ui/mdc/table/CreationRow": undefined;
 
     "sap/ui/mdc/table/GridTableType": undefined;
 
     "sap/ui/mdc/table/PropertyHelper": undefined;
+
+    "sap/ui/mdc/table/ResponsiveColumnSettings": undefined;
 
     "sap/ui/mdc/table/ResponsiveTableType": undefined;
 

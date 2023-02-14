@@ -1,4 +1,4 @@
-// Type definitions for oidc-provider 8.0
+// Type definitions for oidc-provider 8.1
 // Project: https://github.com/panva/node-oidc-provider
 // Definitions by: Filip Skokan <https://github.com/panva>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1065,7 +1065,7 @@ export interface Configuration {
             certificateBoundAccessTokens?: boolean | undefined;
             selfSignedTlsClientAuth?: boolean | undefined;
             tlsClientAuth?: boolean | undefined;
-            getCertificate?: ((ctx: KoaContextWithOIDC) => string) | undefined;
+            getCertificate?: ((ctx: KoaContextWithOIDC) => crypto.X509Certificate | string | undefined) | undefined;
             certificateAuthorized?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
             certificateSubjectMatches?: ((
                 ctx: KoaContextWithOIDC,

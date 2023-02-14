@@ -1,8 +1,8 @@
 export = File;
-declare function File(fileName: string, opt_mode?: string, opt_encoding?: string): void;
+declare function File(fileName: string, mode?: string, encoding?: string): void;
 declare class File {
-    constructor(fileName: string, opt_mode?: string, opt_encoding?: string);
-    write(data: string | ArrayBuffer): void;
+    constructor(fileName: string, mode?: string, encoding?: string);
+    write(data: string | Uint8Array | ArrayBuffer): void;
     writeln(data: string): void;
     read(opt_count?: number): string;
     readln(): string;

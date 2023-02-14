@@ -1,4 +1,4 @@
 import { GraphQLScalarType } from 'graphql';
 
-const GraphQLUpload: GraphQLScalarType;
+declare const GraphQLUpload: GraphQLScalarType;
 export default GraphQLUpload;

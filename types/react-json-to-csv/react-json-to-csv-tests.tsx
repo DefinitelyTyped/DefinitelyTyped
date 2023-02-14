@@ -6,8 +6,16 @@ const testDataArray = [
     { name: 'Jane', age: 28 },
 ];
 
+const TestOnlyRequired = () => <CsvDownload data={testDataArray} />;
+
 const TestComponent = () => (
-    <CsvDownload data={testDataArray} filename="test.csv" className="btn btn-primary">
+    <CsvDownload
+        data={testDataArray}
+        filename="test.csv"
+        delimiter="\t"
+        headers={['foo', 'bar']}
+        className="btn btn-primary"
+    >
         Download CSV
     </CsvDownload>
 );

@@ -300,3 +300,22 @@ access('file/that/does/not/exist', (err) => {
     const controller: AbortController = util.transferableAbortController();
     const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
 }
+
+{
+    let myMIME = new util.MIMEType('text/plain');
+    myMIME = new util.MIMEType({ toString: () => 'text/plain' });
+    myMIME.type = 'application';
+    myMIME.subtype = 'javascript';
+    // $ExpectType string
+    myMIME.essence;
+}
+
+{
+    const params = new util.MIMEParams();
+    params.set('foo', 'def');
+    // $ExpectType string | null
+    params.get('foo');
+    for (const [name, value] of params) {
+        console.log(name, value);
+    }
+}

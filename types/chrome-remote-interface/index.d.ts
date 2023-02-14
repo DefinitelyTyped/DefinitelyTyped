@@ -167,7 +167,7 @@ declare namespace CDP {
         [event in GetEvent<D>]:
             (listener: (params: GetReturnType<D, event>, sessionId?: string) => void) => () => Client
     };
-    type DoEventObj<D> = D extends string ? DoEventPromises<D> & DoEventListeners<D> : Record<keyof any, never>;
+    type DoEventObj<D> = D extends string ? DoEventPromises<D> & DoEventListeners<D> : {};
 
     type IsNullableObj<T> = Record<keyof T, undefined> extends T ? true : false;
     /**

@@ -157,7 +157,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     killIO(): void;
     killAllStreams(): void;
 
-    disconnect(code?: number, reason?: string): void;
+    disconnect(code?: number, reason?: string): Promise<void>;
     terminate(): void;
 
     send(data: any, options: { mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean }): void;
@@ -189,7 +189,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     deauthenticateSelf(): void;
     deauthenticate(options?: { rejectOnFailedDelivery: boolean }): Promise<void>;
 
-    kickOut(channel?: string, message?: string): any;
+    kickOut(channel?: string | string[], message?: string): Promise<any>;
 
     subscriptions(): string[];
     isSubscribed(channel: string): boolean;

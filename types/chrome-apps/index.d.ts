@@ -2748,6 +2748,43 @@ declare namespace chrome {
              */
             subtleCrypto: SubtleCrypto;
         }
+
+        /**
+         * Type of key to generate.
+         */
+        type Algorithm = 'RSA' | 'ECDSA';
+
+        interface RegisterKeyOptions {
+            /**
+             * Which algorithm the registered key should use.
+             */
+            algorithm: Algorithm;
+        }
+
+        /**
+         * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+         */
+        type Scope = 'MACHINE' | 'USER';
+
+        interface ChallengeKeyOptions {
+            /**
+             * A challenge as emitted by the Verified Access Web API.
+             */
+            challenge: ArrayBuffer;
+            /**
+             * Which Enterprise Key to challenge.
+             */
+            scope: Scope;
+            /**
+             * If present, registers the challenged key with the specified
+             * scope's token. The key can then be associated with a certificate
+             * and used like any other signing key. Subsequent calls to this
+             * function will then generate a new Enterprise Key in the specified
+             * scope.
+             */
+            registerKey?: RegisterKeyOptions;
+        }
+
         /**
          * Returns the available Tokens.
          * In a regular user's session the list will always contain the user's token with id 'user'.
@@ -2782,6 +2819,39 @@ declare namespace chrome {
          * @param [callback] Called back when this operation is finished.
          */
         function removeCertificate(tokenId: string, certificate: ArrayBuffer, callback: () => void): void;
+
+        /**
+         * @since Chrome 110.
+         * @description
+         * Similar to challengeMachineKey and challengeUserKey, but allows
+         * specifying the algorithm of a registered key. Challenges a
+         * hardware-backed Enterprise Machine Key and emits the response as part
+         * of a remote attestation protocol. Only useful on Chrome OS and in
+         * conjunction with the Verified Access Web API which both issues
+         * challenges and verifies responses.
+         *
+         * A successful verification by the Verified Access Web API is a strong
+         * signal that the current device is a legitimate Chrome OS device, the
+         * current device is managed by the domain specified during
+         * verification, the current signed-in user is managed by the domain
+         * specified during verification, and the current device state complies
+         * with enterprise device policy. For example, a policy may specify that
+         * the device must not be in developer mode. Any device identity emitted
+         * by the verification is tightly bound to the hardware of the current
+         * device. If "user" Scope is specified, the identity is also tighly
+         * bound to the current signed-in user.
+         *
+         * This function is highly restricted and will fail if the current
+         * device is not managed, the current user is not managed, or if this
+         * operation has not explicitly been enabled for the caller by
+         * enterprise device policy. The challenged key does not reside in the
+         * "system" or "user" token and is not accessible by any other API.
+         *
+         * @param options Object containing the fields defined in ChallengeKeyOptions.
+         * @param callback The callback parameter looks like: (response: ArrayBuffer) => void.
+         */
+        function challengeKey(options: ChallengeKeyOptions, callback: (repsonse: ArrayBuffer) => void): void;
+
         /**
          * @since Chrome 50.
          * @description

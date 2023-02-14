@@ -275,6 +275,7 @@ const wikipediaAppTest: NightwatchTests = {
             }
             isNightwatchAPI(this);
         })
+        .appium.pressKeyCode(13, 44)
         .sendKeys('//XCUIElementTypeSearchField[@name="Search Wikipedia"]', 'browserstack')
         .click('//XCUIElementTypeStaticText[@name="BrowserStack"]')
         .waitUntil(async function() {

@@ -1017,3 +1017,42 @@ function rand() {
     };
     Plotly.newPlot('myDiv', data, layout);
 })();
+
+(() => {
+    // Test creation of plotly updatemenu
+    const button1: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle'
+    };
+
+    const button2: Partial<Plotly.UpdateMenuButton> = {
+        args: ['visible', [true, false]],
+        label: 'Trace 1',
+        method: 'restyle'
+    };
+
+    const layout: Partial<Plotly.Layout> = {
+        updatemenus: [{
+            buttons: [button1, button2],
+            direction: 'down',
+            pad: { r: 10, t: 10 },
+            showactive: true,
+            type: 'dropdown',
+            x: 0.1,
+            xanchor: 'left',
+            y: 1.1,
+            yanchor: 'top'
+        }],
+    };
+
+    const data: Array<Partial<PlotData>> = [
+        {
+            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            y: [-20, 10, -5, 0, 5, -10, 20],
+            type: 'scatter',
+        },
+    ];
+
+    newPlot('myDiv', data, layout);
+})();

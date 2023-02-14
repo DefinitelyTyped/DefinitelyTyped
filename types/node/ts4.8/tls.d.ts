@@ -41,21 +41,100 @@ declare module 'tls' {
         CN: string;
     }
     interface PeerCertificate {
-        subject: Certificate;
-        issuer: Certificate;
-        subjectaltname: string;
-        infoAccess: NodeJS.Dict<string[]>;
-        modulus: string;
-        exponent: string;
-        valid_from: string;
-        valid_to: string;
-        fingerprint: string;
-        fingerprint256: string;
-        ext_key_usage: string[];
-        serialNumber: string;
+        /**
+         * `true` if a Certificate Authority (CA), `false` otherwise.
+         * @since v18.13.0
+         */
+        ca: boolean;
+        /**
+         * The DER encoded X.509 certificate data.
+         */
         raw: Buffer;
+        /**
+         * The certificate subject.
+         */
+        subject: Certificate;
+        /**
+         * The certificate issuer, described in the same terms as the `subject`.
+         */
+        issuer: Certificate;
+        /**
+         * The date-time the certificate is valid from.
+         */
+        valid_from: string;
+        /**
+         * The date-time the certificate is valid to.
+         */
+        valid_to: string;
+        /**
+         * The certificate serial number, as a hex string.
+         */
+        serialNumber: string;
+        /**
+         * The SHA-1 digest of the DER encoded certificate.
+         * It is returned as a `:` separated hexadecimal string.
+         */
+        fingerprint: string;
+        /**
+         * The SHA-256 digest of the DER encoded certificate.
+         * It is returned as a `:` separated hexadecimal string.
+         */
+        fingerprint256: string;
+        /**
+         * The SHA-512 digest of the DER encoded certificate.
+         * It is returned as a `:` separated hexadecimal string.
+         */
+        fingerprint512: string;
+        /**
+         * The extended key usage, a set of OIDs.
+         */
+        ext_key_usage?: string[];
+        /**
+         * A string containing concatenated names for the subject,
+         * an alternative to the `subject` names.
+         */
+        subjectaltname?: string;
+        /**
+         * An array describing the AuthorityInfoAccess, used with OCSP.
+         */
+        infoAccess?: NodeJS.Dict<string[]>;
+        /**
+         * For RSA keys: The RSA bit size.
+         *
+         * For EC keys: The key size in bits.
+         */
+        bits?: number;
+        /**
+         * The RSA exponent, as a string in hexadecimal number notation.
+         */
+        exponent?: string;
+        /**
+         * The RSA modulus, as a hexadecimal string.
+         */
+        modulus?: string;
+        /**
+         * The public key.
+         */
+        pubkey?: Buffer;
+        /**
+         * The ASN.1 name of the OID of the elliptic curve.
+         * Well-known curves are identified by an OID.
+         * While it is unusual, it is possible that the curve
+         * is identified by its mathematical properties,
+         * in which case it will not have an OID.
+         */
+        asn1Curve?: string;
+        /**
+         * The NIST name for the elliptic curve,if it has one
+         * (not all well-known curves have been assigned names by NIST).
+         */
+        nistCurve?: string;
     }
     interface DetailedPeerCertificate extends PeerCertificate {
+        /**
+         * The issuer certificate object.
+         * For self-signed certificates, this may be a circular reference.
+         */
         issuerCertificate: DetailedPeerCertificate;
     }
     interface CipherNameAndProtocol {
