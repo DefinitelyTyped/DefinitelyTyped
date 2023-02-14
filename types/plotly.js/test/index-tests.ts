@@ -1038,7 +1038,7 @@ function rand() {
     };
 
     const config: Partial<Config> = {
-        modeBarButtonsToRemove: ['resetViewMapbox']
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
     };
 
     Plotly.newPlot("myDiv", data, layout);
