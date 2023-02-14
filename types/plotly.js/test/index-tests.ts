@@ -1043,3 +1043,10 @@ function rand() {
 
     Plotly.newPlot("myDiv", data, layout);
 })();
+
+//////////////////////////////////////////////////////////////////////
+// PlotlyIcons
+(()=>{
+    const icon = Plotly.Icons.home
+    const icon2 = Plotly.Icons.undo
+})
