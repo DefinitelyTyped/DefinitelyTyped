@@ -179,10 +179,12 @@ declare namespace jwplayer {
 
     interface MuteParam {
         mute: boolean;
+        type: 'mute';
     }
 
     interface VolumeParam {
         volume: number;
+        type: 'volume';
     }
 
     interface PlayParam {
