@@ -32,27 +32,27 @@ declare class ClassDefManager {
     getModelDef(
         classKey: number,
         opt_options?:
-            | Record<any, any>
             | {
                   ignoredFileKeys: number[];
                   forceStrictMode: boolean;
               }
+            | Record<any, any>
     ): ModelDef;
     getViewDef(
         classKey: number,
         opt_options?:
-            | Record<any, any>
             | {
                   ignoredFileKeys: number[];
               }
+            | Record<any, any>
     ): ModelDef;
     getConfig(
         classKey: number,
         opt_options?:
-            | Record<any, any>
             | {
                   ignoredFileKeys: number[];
               }
+            | Record<any, any>
     ): ConfigDef;
     getClassDef(classKey: number, opt_ignoredClassKeys?: number[]): ModelDef;
     getModelDefBySource(src: string, parent: number, opt_classKey?: number): ModelDef;
