@@ -3013,6 +3013,10 @@
             "libraryName": "mermaid",
             "asOfVersion": "9.2.0"
         },
+        "meteor": {
+            "libraryName": "meteor",
+            "asOfVersion": "2.9.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
