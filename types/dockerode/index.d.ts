@@ -44,9 +44,9 @@ declare namespace Dockerode {
         changes(callback: Callback<any>): void;
         changes(options?: {}): Promise<any>;
 
-        export(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-        export(callback: Callback<NodeJS.ReadableStream>): void;
-        export(options?: {}): Promise<NodeJS.ReadableStream>;
+        export(options: {}, callback: Callback<stream.Readable>): void;
+        export(callback: Callback<stream.Readable>): void;
+        export(options?: {}): Promise<stream.Readable>;
 
         start(options: {}, callback: Callback<any>): void;
         start(callback: Callback<any>): void;
@@ -98,8 +98,8 @@ declare namespace Dockerode {
         /** Deprecated since RAPI v1.20 */
         copy(options?: {}): Promise<any>;
 
-        getArchive(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-        getArchive(options: {}): Promise<NodeJS.ReadableStream>;
+        getArchive(options: {}, callback: Callback<stream.Readable>): void;
+        getArchive(options: {}): Promise<stream.Readable>;
 
         infoArchive(options: {}, callback: Callback<any>): void;
         infoArchive(options: {}): Promise<any>;
@@ -108,24 +108,24 @@ declare namespace Dockerode {
         putArchive(
             file: string | Buffer | NodeJS.ReadableStream,
             options: {},
-            callback: Callback<NodeJS.WritableStream>,
+            callback: Callback<stream.Writable>,
         ): void;
-        putArchive(file: string | Buffer | NodeJS.ReadableStream, options: {}): Promise<NodeJS.ReadWriteStream>;
+        putArchive(file: string | Buffer | NodeJS.ReadableStream, options: {}): Promise<stream.Duplex>;
 
         logs(options: ContainerLogsOptions & { follow?: false }, callback: Callback<Buffer>): void;
-        logs(options: ContainerLogsOptions & { follow: true }, callback: Callback<NodeJS.ReadableStream>): void;
+        logs(options: ContainerLogsOptions & { follow: true }, callback: Callback<stream.Readable>): void;
         logs(callback: Callback<Buffer>): void;
         logs(options?: ContainerLogsOptions & { follow?: false }): Promise<Buffer>;
-        logs(options?: ContainerLogsOptions & { follow: true }): Promise<NodeJS.ReadableStream>;
+        logs(options?: ContainerLogsOptions & { follow: true }): Promise<stream.Readable>;
 
         stats(options: { stream?: false; 'one-shot'?: boolean }, callback: Callback<ContainerStats>): void;
-        stats(options: { stream: true }, callback: Callback<NodeJS.ReadableStream>): void;
+        stats(options: { stream: true }, callback: Callback<stream.Readable>): void;
         stats(callback: Callback<ContainerStats>): void;
         stats(options?: { stream?: false; 'one-shot'?: boolean }): Promise<ContainerStats>;
-        stats(options?: { stream: true }): Promise<NodeJS.ReadableStream>;
+        stats(options?: { stream: true }): Promise<stream.Readable>;
 
-        attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
-        attach(options: {}): Promise<NodeJS.ReadWriteStream>;
+        attach(options: {}, callback: Callback<stream.Duplex>): void;
+        attach(options: {}): Promise<stream.Duplex>;
     }
 
     class Image {
@@ -140,12 +140,12 @@ declare namespace Dockerode {
         history(callback: Callback<any>): void;
         history(): Promise<any>;
 
-        get(callback: Callback<NodeJS.ReadableStream>): void;
-        get(): Promise<NodeJS.ReadableStream>;
+        get(callback: Callback<stream.Readable>): void;
+        get(): Promise<stream.Readable>;
 
-        push(options: ImagePushOptions, callback: Callback<NodeJS.ReadableStream>): void;
-        push(callback: Callback<NodeJS.ReadableStream>): void;
-        push(options?: ImagePushOptions): Promise<NodeJS.ReadableStream>;
+        push(options: ImagePushOptions, callback: Callback<stream.Readable>): void;
+        push(callback: Callback<stream.Readable>): void;
+        push(options?: ImagePushOptions): Promise<stream.Readable>;
 
         tag(options: {}, callback: Callback<any>): void;
         tag(callback: Callback<any>): void;
@@ -192,9 +192,9 @@ declare namespace Dockerode {
         update(options: {}, callback: Callback<any>): void;
         update(options: {}): Promise<any>;
 
-        logs(options: ContainerLogsOptions, callback: Callback<NodeJS.ReadableStream>): void;
-        logs(callback: Callback<NodeJS.ReadableStream>): void;
-        logs(options?: ContainerLogsOptions): Promise<NodeJS.ReadableStream>;
+        logs(options: ContainerLogsOptions, callback: Callback<stream.Readable>): void;
+        logs(callback: Callback<stream.Readable>): void;
+        logs(options?: ContainerLogsOptions): Promise<stream.Readable>;
     }
 
     class Task {
@@ -1848,18 +1848,18 @@ declare class Dockerode {
     createContainer(options: Dockerode.ContainerCreateOptions, callback: Callback<Dockerode.Container>): void;
     createContainer(options: Dockerode.ContainerCreateOptions): Promise<Dockerode.Container>;
 
-    createImage(options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-    createImage(auth: any, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-    createImage(options: {}): Promise<NodeJS.ReadableStream>;
-    createImage(auth: any, options: {}): Promise<NodeJS.ReadableStream>;
+    createImage(options: {}, callback: Callback<stream.Readable>): void;
+    createImage(auth: any, options: {}, callback: Callback<stream.Readable>): void;
+    createImage(options: {}): Promise<stream.Readable>;
+    createImage(auth: any, options: {}): Promise<stream.Readable>;
 
-    loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-    loadImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
-    loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
+    loadImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<stream.Readable>): void;
+    loadImage(file: string | NodeJS.ReadableStream, callback: Callback<stream.Readable>): void;
+    loadImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<stream.Readable>;
 
-    importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<NodeJS.ReadableStream>): void;
-    importImage(file: string | NodeJS.ReadableStream, callback: Callback<NodeJS.ReadableStream>): void;
-    importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<NodeJS.ReadableStream>;
+    importImage(file: string | NodeJS.ReadableStream, options: {}, callback: Callback<stream.Readable>): void;
+    importImage(file: string | NodeJS.ReadableStream, callback: Callback<stream.Readable>): void;
+    importImage(file: string | NodeJS.ReadableStream, options?: {}): Promise<stream.Readable>;
 
     checkAuth(options: any, callback: Callback<any>): void;
     checkAuth(options: any): Promise<any>;
@@ -1867,16 +1867,16 @@ declare class Dockerode {
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
         options: Dockerode.ImageBuildOptions,
-        callback: Callback<NodeJS.ReadableStream>,
+        callback: Callback<stream.Readable>,
     ): void;
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
-        callback: Callback<NodeJS.ReadableStream>,
+        callback: Callback<stream.Readable>,
     ): void;
     buildImage(
         file: string | NodeJS.ReadableStream | Dockerode.ImageBuildContext,
         options?: Dockerode.ImageBuildOptions,
-    ): Promise<NodeJS.ReadableStream>;
+    ): Promise<stream.Readable>;
 
     getContainer(id: string): Dockerode.Container;
 
@@ -2005,9 +2005,9 @@ declare class Dockerode {
     ping(callback: Callback<any>): void;
     ping(): Promise<any>;
 
-    getEvents(options: Dockerode.GetEventsOptions, callback: Callback<NodeJS.ReadableStream>): void;
-    getEvents(callback: Callback<NodeJS.ReadableStream>): void;
-    getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
+    getEvents(options: Dockerode.GetEventsOptions, callback: Callback<stream.Readable>): void;
+    getEvents(callback: Callback<stream.Readable>): void;
+    getEvents(options?: Dockerode.GetEventsOptions): Promise<stream.Readable>;
 
     pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
     pull(repoTag: string, options?: {}): Promise<any>;

@@ -128,7 +128,7 @@ container.logs({}, (err, logs) => {
 });
 
 container.logs({ follow: true }, (err, logs) => {
-    // $ExpectType ReadableStream
+    // $ExpectType Readable
     logs;
 });
 
@@ -143,7 +143,7 @@ container.logs({ since: 0, until: 10, stdout: true, stderr: true });
 // $ExpectType Promise<Buffer>
 container.logs({ since: '12345.987654321', until: '54321.123456789', stdout: true, stderr: true });
 
-// $ExpectType Promise<ReadableStream>
+// $ExpectType Promise<Readable>
 container.logs({ follow: true });
 
 // $ExpectType Promise<Buffer>
@@ -160,7 +160,7 @@ container.stats({}, (err, logs) => {
 });
 
 container.stats({ stream: true }, (err, logs) => {
-    // $ExpectType ReadableStream
+    // $ExpectType Readable
     logs;
 });
 
@@ -178,7 +178,7 @@ container.stats({});
 // $ExpectType Promise<ContainerStats>
 container.stats({ 'one-shot': true });
 
-// $ExpectType Promise<ReadableStream>
+// $ExpectType Promise<Readable>
 container.stats({ stream: true });
 
 // $ExpectType Promise<ContainerStats>
