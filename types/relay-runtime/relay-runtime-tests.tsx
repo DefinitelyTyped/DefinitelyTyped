@@ -23,6 +23,8 @@ import {
     createOperationDescriptor,
     FragmentRefs,
     readInlineData,
+    requestSubscription,
+    fetchQuery,
 } from 'relay-runtime';
 
 import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
@@ -50,7 +52,7 @@ const storeWithOptions = new Store(source, {
 // ~~~~~~~~~~~~~~~~~~~~~
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
-function fetchQuery(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
+function fetchFunction(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
     return fetch('/graphql', {
         method: 'POST',
         body: JSON.stringify({
@@ -63,7 +65,7 @@ function fetchQuery(operation: any, variables: { [key: string]: string }, cacheC
 }
 
 // Create a network layer from the fetch function
-const network = Network.create(fetchQuery);
+const network = Network.create(fetchFunction);
 
 // Create a cache for storing query responses
 const cache = new QueryResponseCache({ size: 250, ttl: 60000 });
@@ -656,3 +658,31 @@ function ArrayOfNullableFragmentResolver(usersKey: ReadonlyArray<UserComponent_u
 
     return data?.map(thing => `${thing.id}: ${thing.name}, ${thing.profile_picture}`);
 }
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// fetchQuery
+// ~~~~~~~~~~~~~~~~~~~~~
+
+fetchQuery(
+    environment,
+    node,
+    { variable: true },
+    {
+        networkCacheConfig: { force: true, poll: 1234 },
+        fetchPolicy: 'network-only',
+    },
+);
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// requestSubscription
+// ~~~~~~~~~~~~~~~~~~~~~
+
+requestSubscription(environment, {
+    cacheConfig: { force: true, poll: 1234 },
+    subscription: node,
+    variables: { variable: true },
+    onCompleted: () => { return; },
+    onError: (_error) => { return; },
+    onNext: (_response) => { return; },
+    updater: (_store, _data) => { return; },
+});
