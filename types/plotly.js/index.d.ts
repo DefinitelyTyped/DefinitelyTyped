@@ -909,6 +909,8 @@ export type ModeBarDefaultButtons =
     | 'toImage'
     | 'resetViews'
     | 'toggleSpikelines'
+    | 'zoomInMapbox'
+    | 'zoomOutMapbox'
     | 'resetViewMapbox'
     | 'togglespikelines'
     | 'togglehover'
