@@ -24,6 +24,50 @@ MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
 MyTelegramBot.processUpdate({ update_id: 1 });
 MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
+MyTelegramBot.sendMessage(1234, 'test-ForceReply-placeholder', {
+    reply_markup: {
+        force_reply: true,
+        input_field_placeholder: 'Placeholder here',
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ForceReply-no-placeholder', {
+    reply_markup: {
+        force_reply: true,
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ReplyKeyboardMarkup-placeholder', {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: `Status: connected`,
+                    request_location: true,
+                },
+                {
+                    text: `Status: idle`,
+                },
+            ],
+        ],
+        is_persistent: true,
+        input_field_placeholder: 'text goes here',
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ReplyKeyboardMarkup-no-placeholder', {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: `Status: connected`,
+                    request_location: true,
+                },
+                {
+                    text: `Status: idle`,
+                },
+            ],
+        ],
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: '1',
     type: 'article',
