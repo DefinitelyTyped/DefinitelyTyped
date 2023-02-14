@@ -70,7 +70,7 @@ export interface MUIDataTableMeta {
     columnIndex: number;
     rowData: any[];
     rowIndex: number;
-    tableData: MUIDataTableData[];
+    tableData: any[];
     tableState: MUIDataTableState;
 }
 
