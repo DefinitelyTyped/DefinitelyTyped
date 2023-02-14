@@ -1,4 +1,4 @@
-// Type definitions for pubnub 7.0
+// Type definitions for pubnub 7.2
 // Project: https://github.com/pubnub/javascript
 // Definitions by:  bitbankinc <https://github.com/bitbankinc>,
 //                  rollymaduk <https://github.com/rollymaduk>,
@@ -329,10 +329,18 @@ declare class Pubnub {
     time(callback: Callback<Pubnub.FetchTimeResponse>): void;
 }
 
+interface UUID {
+    uuid: string;
+}
+
+interface UserId {
+    userId: string;
+}
+type ID = UUID | UserId;
+
 declare namespace Pubnub {
-    interface PubnubConfig {
+    type PubnubConfig = ID & {
         subscribeKey: string;
-        uuid: string;
         publishKey?: string | undefined;
         cipherKey?: string | undefined;
         authKey?: string | undefined;
@@ -357,7 +365,7 @@ declare namespace Pubnub {
         autoNetworkDetection?: boolean | undefined;
         listenToBrowserNetworkEvents?: boolean | undefined;
         useRandomIVs?: boolean | undefined;
-    }
+    };
 
     interface MessageEvent {
         channel: string;
@@ -375,6 +383,7 @@ declare namespace Pubnub {
          * deprecated:
          */
         subscribedChannel: string;
+        userMetadata?: object;
     }
 
     // PubnubData was renamed to MessageEvent, keep old name for backwards compatibility
@@ -438,6 +447,7 @@ declare namespace Pubnub {
             name: string;
             url: string;
         };
+        userMetadata?: object;
     }
 
     interface BaseObjectsEvent {

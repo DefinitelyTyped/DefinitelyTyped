@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="jsdom" />
 /// <reference types="less" />
+
 import { Plugin } from 'rollup';
 
 declare namespace less {

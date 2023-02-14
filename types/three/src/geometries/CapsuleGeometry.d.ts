@@ -23,5 +23,3 @@ export class CapsuleGeometry extends BufferGeometry {
 
     static fromJSON(data: any): CapsuleGeometry;
 }
-
-export { CapsuleGeometry as CapsuleBufferGeometry };

@@ -5,8 +5,10 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from "events";
+import { EventEmitter } from 'events';
 
+export import DN = dn.DN;
+export import RDN = dn.RDN;
 export interface Error {
     code: number;
     name: string;
@@ -37,11 +39,14 @@ export interface ClientOptions {
     timeout?: number | undefined;
     connectTimeout?: number | undefined;
     idleTimeout?: number | undefined;
-    reconnect?: boolean | {
-        initialDelay?: number | undefined,
-        maxDelay?: number | undefined,
-        failAfter?: number | undefined
-    } | undefined;
+    reconnect?:
+        | boolean
+        | {
+              initialDelay?: number | undefined;
+              maxDelay?: number | undefined;
+              failAfter?: number | undefined;
+          }
+        | undefined;
     strictDN?: boolean | undefined;
     queueSize?: number | undefined;
     queueTimeout?: number | undefined;
@@ -52,7 +57,7 @@ export interface ClientOptions {
 
 export interface SearchOptions {
     /** Defaults to base */
-    scope?: "base" | "one" | "sub" | undefined;
+    scope?: 'base' | 'one' | 'sub' | undefined;
     /**  Defaults to (objectclass=*) */
     filter?: string | Filter | undefined;
     /** Defaults to the empty set, which means all attributes */
@@ -63,10 +68,13 @@ export interface SearchOptions {
     timeLimit?: number | undefined;
     derefAliases?: number | undefined;
     typesOnly?: boolean | undefined;
-    paged?: boolean | {
-        pageSize?: number | undefined;
-        pagePause?: boolean | undefined;
-    } | undefined
+    paged?:
+        | boolean
+        | {
+              pageSize?: number | undefined;
+              pagePause?: boolean | undefined;
+          }
+        | undefined;
 }
 
 export interface Change {
@@ -77,17 +85,17 @@ export interface Change {
 }
 
 export var Change: {
-    new(change: Change): Change;
-}
+    new (change: Change): Change;
+};
 
 export type SearchReference = any;
 
 export interface SearchCallbackResponse extends EventEmitter {
-    on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
-    on(event: "searchReference", listener: (referral: SearchReference) => void): this;
-    on(event: "page", listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "end", listener: (res: LDAPResult | null) => void): this;
+    on(event: 'searchEntry', listener: (entry: SearchEntry) => void): this;
+    on(event: 'searchReference', listener: (referral: SearchReference) => void): this;
+    on(event: 'page', listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: 'end', listener: (res: LDAPResult | null) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -98,9 +106,12 @@ export interface SearchCallBack {
 export type Control = any;
 
 export interface Client extends EventEmitter {
-
     connecting: boolean;
     connected: boolean;
+
+    host: string; // URL["hostname"]
+    port: string; // URL["port"]
+    secure: boolean;
 
     /**
      * Performs a simple authentication against the server.
@@ -141,7 +152,13 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     compare(name: string, attr: string, value: string, callback: CompareCallback): void;
-    compare(name: string, attr: string, value: string, controls: Control | Array<Control>, callback: CompareCallback): void;
+    compare(
+        name: string,
+        attr: string,
+        value: string,
+        controls: Control | Array<Control>,
+        callback: CompareCallback,
+    ): void;
 
     /**
      * Deletes an entry from the LDAP server.
@@ -180,7 +197,12 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     modify(name: string, change: Change | Array<Change>, callback: ErrorCallback): void;
-    modify(name: string, change: Change | Array<Change>, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    modify(
+        name: string,
+        change: Change | Array<Change>,
+        controls: Control | Array<Control>,
+        callback: ErrorCallback,
+    ): void;
 
     /**
      * Performs an LDAP modifyDN against the server.
@@ -221,7 +243,13 @@ export interface Client extends EventEmitter {
     search(base: string, options: SearchOptions, callback: SearchCallBack): void;
     search(base: string, options: SearchOptions, callback: SearchCallBack, _bypass: boolean): void;
     search(base: string, options: SearchOptions, controls: Control | Array<Control>, callback: SearchCallBack): void;
-    search(base: string, options: SearchOptions, controls: Control | Array<Control>, callback: SearchCallBack, _bypass: boolean): void;
+    search(
+        base: string,
+        options: SearchOptions,
+        controls: Control | Array<Control>,
+        callback: SearchCallBack,
+        _bypass: boolean,
+    ): void;
 
     /**
      * Attempt to secure connection with StartTLS.
@@ -269,7 +297,6 @@ export interface ServerOptions {
     key?: any;
 }
 export interface Server extends EventEmitter {
-
     /**
      * Set this property to reject connections when the server's connection count gets high.
      */
@@ -331,7 +358,7 @@ export interface Server extends EventEmitter {
 }
 export class SearchRequest {
     baseObject: string;
-    scope: "base"|"one"|"sub";
+    scope: 'base' | 'one' | 'sub';
     derefAliases: number;
     sizeLimit: number;
     timeLimit: number;
@@ -462,39 +489,44 @@ declare class Filter {
 export function parseFilter(filterString: string): Filter;
 
 export class EqualityFilter extends Filter {
-    constructor(options: { attribute: string, value: string | Buffer })
+    constructor(options: { attribute: string; value: string | Buffer });
 }
 
 export class PresenceFilter extends Filter {
-    constructor(options: { attribute: string })
+    constructor(options: { attribute: string });
 }
 
 export class SubstringFilter extends Filter {
-    constructor(options: { attribute: string, initial: string, any?: string[] | undefined, final?: string | undefined })
+    constructor(options: {
+        attribute: string;
+        initial: string;
+        any?: string[] | undefined;
+        final?: string | undefined;
+    });
 }
 
 export class GreaterThanEqualsFilter extends Filter {
-    constructor(options: { attribute: string, value: string })
+    constructor(options: { attribute: string; value: string });
 }
 
 export class LessThanEqualsFilter extends Filter {
-    constructor(options: { attribute: string, value: string })
+    constructor(options: { attribute: string; value: string });
 }
 
 export class AndFilter extends Filter {
-    constructor(options: { filters: Filter[] })
+    constructor(options: { filters: Filter[] });
 }
 
 export class OrFilter extends Filter {
-    constructor(options: { filters: Filter[] })
+    constructor(options: { filters: Filter[] });
 }
 
 export class NotFilter extends Filter {
-    constructor(options: { filter: Filter })
+    constructor(options: { filter: Filter });
 }
 
 export class ApproximateFilter extends Filter {
-    constructor(options: { attribute: string, value: string })
+    constructor(options: { attribute: string; value: string });
 }
 
 export class ExtensibleFilter extends Filter {
@@ -503,7 +535,7 @@ export class ExtensibleFilter extends Filter {
         matchType?: string | undefined;
         value: string;
         dnAttributes?: boolean | undefined;
-    })
+    });
 }
 
 export interface AttributeJson {
@@ -512,10 +544,7 @@ export interface AttributeJson {
 }
 
 export class Attribute {
-    constructor(options?: {
-        type?: string,
-        vals?: any;
-    })
+    constructor(options?: { type?: string; vals?: any });
     readonly type: string;
     readonly buffers: Buffer[];
 
@@ -562,7 +591,7 @@ export abstract class LDAPMessage {
 }
 
 export class LDAPResult extends LDAPMessage {
-    readonly type: "LDAPResult";
+    readonly type: 'LDAPResult';
     /** Result status 0 = success */
     status: number;
     matchedDN: string;
@@ -584,11 +613,11 @@ export interface SearchEntryRaw {
 }
 
 export class SearchEntry extends LDAPMessage {
-    readonly type: "SearchEntry";
+    readonly type: 'SearchEntry';
     objectName: string | null;
     attributes: Attribute[];
 
-    readonly json: LDAPMessageJsonObject & { objectName: string, attributes: AttributeJson[]};
+    readonly json: LDAPMessageJsonObject & { objectName: string; attributes: AttributeJson[] };
 
     /**
      * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property with their value(s)
@@ -601,4 +630,67 @@ export class SearchEntry extends LDAPMessage {
     readonly raw: SearchEntryRaw;
 }
 
-export function parseDN(dn: string): any;
+export function parseDN(dn: string): dn.DN;
+
+/** Options for how a (relative) distinguished name should be textually represented */
+export interface FormatOptions {
+    /** Preserve order of multi-value RDNs */
+    keepOrder?: boolean;
+    /** RDN values which were quoted will remain so */
+    keepQuote?: boolean;
+    /** Leading/trailing space will be preserved */
+    keepSpace?: boolean;
+    /** Attribute name case will be preserved instead of lowercased */
+    keepCase?: boolean;
+    /** RDN names will be uppercased instead of lowercased */
+    upperName?: boolean;
+    /** Disable trailing space after RDN separators */
+    skipSpace?: boolean;
+}
+
+declare namespace dn {
+    /** Represents a relative distinguished name */
+    export class RDN {
+        constructor(obj?: { [index: string]: string });
+        set(name: string, value: string, opts?: { [index: string]: any }): void;
+        /** Check if two RDNs have equal attributes. Order does not affect comparison */
+        equals(rdn: RDN): boolean;
+        /** Convert the RDN to its string representation according to the given options */
+        format(options?: FormatOptions): string;
+    }
+
+    /** Represents a distinguished name */
+    export class DN {
+        constructor(rdns?: RDN[]);
+        readonly length: number;
+        /** Returns the string representation the DN according to the given options */
+        format(options?: FormatOptions): string;
+        /** Set the default string formatting options */
+        setFormat(option: FormatOptions): void;
+        /** Checks whether this DN is the parent of another DN */
+        parentOf(dn: string | DN): boolean;
+        /** Checks whether this DN is the child of another DN */
+        childOf(dn: string | DN): boolean;
+        /** Checks whether this DN is empty */
+        isEmpty(): boolean;
+        /** Checks whether this DN is equivalent to another DN */
+        equals(dn: string | DN): boolean;
+        /** Returns the parent DN */
+        parent(): DN | null;
+        /** Duplicate this DN */
+        clone(): DN;
+        /** Reverse the RDNs of this DN */
+        reverse(): this;
+        /** Pops an RDN from this DN */
+        pop(): RDN;
+        /** Pushes and RDN to this DN */
+        push(rdn: RDN): void;
+        shift(): RDN;
+        unshift(rdn: RDN): void;
+        /** Checks if the given value is a DN */
+        static isDN(dn: any): dn is DN;
+    }
+
+    /** Parses a distinguished name */
+    export function parse(name: string): DN;
+}

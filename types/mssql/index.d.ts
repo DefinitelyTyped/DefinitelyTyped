@@ -1,7 +1,6 @@
-// Type definitions for mssql 8.0.0
+// Type definitions for mssql 8.1
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>
-//                 Jørgen Elgaard Larsen <https://github.com/elhaard>
+// Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
 //                 Peter Keuter <https://github.com/pkeuter>
 //                 Jeff Wooden <https://github.com/woodenconsulting>
 //                 Cahil Foley <https://github.com/cahilfoley>
@@ -10,10 +9,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.0
 
+// @credit COLSA Corporation <http://www.colsa.com/>
+
 /// <reference types="node" />
 
 
 import events = require('events');
+import { Readable, ReadableOptions } from 'stream';
 import tds = require('tedious');
 import { Pool } from 'tarn';
 import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
@@ -162,7 +164,7 @@ export declare var ISOLATION_LEVEL: {
     SNAPSHOT: IIsolationLevel
 }
 
-export interface IOptions extends tds.ConnectionOptions {
+export interface IOptions extends Omit<tds.ConnectionOptions, 'useColumnNames'> {
     beforeConnect?: void | undefined;
     connectionString?: string | undefined;
     trustedConnection?: boolean | undefined;
@@ -341,6 +343,7 @@ export declare class Request extends events.EventEmitter {
     public cancel(): void;
     public pause(): boolean;
     public resume(): boolean;
+    public toReadableStream(streamOptions?: ReadableOptions): Readable;
 }
 
 export declare class RequestError extends MSSQLError {

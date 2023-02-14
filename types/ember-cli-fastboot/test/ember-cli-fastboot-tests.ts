@@ -21,3 +21,5 @@ assertType<string>(instance.request.host);
 assertType<Record<string, unknown>>(instance.request.queryParams);
 assertType<string>(instance.request.path);
 assertType<string>(instance.request.protocol);
+assertType<string>(instance.request.method);
+assertType<Record<string, unknown>>(instance.request.body);

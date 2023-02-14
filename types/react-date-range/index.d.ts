@@ -223,7 +223,7 @@ export interface CalendarProps {
     /** default: `['#3d91ff', '#3ecf8e', '#fed14c']` */
     rangeColors?: string[] | undefined;
     /** default: [] */
-    ranges?: Range[] | undefined;
+    ranges?: Range[];
     /**
      * Custom scroll options for various parts of the display
      *

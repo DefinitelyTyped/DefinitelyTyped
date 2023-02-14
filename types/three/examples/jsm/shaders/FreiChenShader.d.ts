@@ -1,9 +1,9 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const FreiChenShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        aspect: Uniform;
+        tDiffuse: IUniform;
+        aspect: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

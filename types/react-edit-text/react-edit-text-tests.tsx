@@ -15,6 +15,14 @@ const formatDisplayTextTest = (value: string) => {
 
 const TestEditButton = <div>Edit</div>;
 
+const handleEditMode = () => {
+    console.log("edit mode");
+};
+
+const handleBlur = () => {
+    console.log("blurred");
+};
+
 <EditText />;
 <EditText id="firstName" />;
 <EditText name="firstName" />;
@@ -35,6 +43,8 @@ const TestEditButton = <div>Edit</div>;
 <EditText showEditButton editButtonContent={<i className="editIcon" />} />;
 <EditText showEditButton editButtonProps={{ style: { marginTop: 10, padding: 0 }, id: 'test', className: 'test' }} />;
 <EditText showEditButton editButtonContent={TestEditButton} editButtonProps={{ autoFocus: true }} />;
+<EditText onEditMode={handleEditMode} />;
+<EditText onBlur={handleBlur} />;
 
 <EditTextarea />;
 <EditTextarea id="desc" />;
@@ -50,3 +60,5 @@ const TestEditButton = <div>Edit</div>;
 <EditTextarea style={{ padding: 0 }} />;
 <EditTextarea readonly />;
 <EditTextarea value="100" formatDisplayText={formatDisplayTextTest} />;
+<EditTextarea onEditMode={handleEditMode} />;
+<EditTextarea onBlur={handleBlur} />;

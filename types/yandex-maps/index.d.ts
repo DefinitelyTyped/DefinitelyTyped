@@ -627,6 +627,37 @@ declare namespace ymaps {
             state?: {} | undefined;
         }
 
+        class RoutePanel implements IControl, ICustomizable {
+            constructor(parameters?: IRoutePanelParameters);
+
+            events: IEventManager;
+            options: IOptionManager;
+            routePanel: IRoutePanel;
+
+            getParent(): null | IControlParent;
+
+            setParent(parent: IControlParent): this;
+        }
+
+        interface IRoutePanelParameters {
+            options?: {
+                autofocus?: boolean;
+                float?: "none" | "left" | "right";
+                floatIndex?: number;
+                maxWidth?: string;
+                position?: {
+                    bottom?: number | string;
+                    left?: number | string;
+                    right?: number | string;
+                    top?: number | string;
+                } ;
+                showHeader?: boolean;
+                title?: string;
+                visible?: boolean;
+            };
+            state?: {};
+        }
+
         class RulerControl extends Button {
             constructor(parameters?: IRulerControlParameters);
         }
@@ -755,12 +786,17 @@ declare namespace ymaps {
 
         interface IZoomControlParameters {
             options?: {
+                adjustMapMargin?: boolean | undefined,
                 position?: {
                     top?: number | string | 'auto' | undefined;
                     right?: number | string | 'auto' | undefined;
                     bottom?: number | string | 'auto' | undefined;
                     left?: number | string | 'auto' | undefined;
-                } | undefined
+                } | undefined,
+                size?: 'small' | 'large' | 'auto' | undefined,
+                visible?: boolean | undefined,
+                zoomDuration?: number | undefined,
+                zoomStep?: number | undefined
             } | undefined;
         }
 
@@ -3283,6 +3319,28 @@ declare namespace ymaps {
         getMap(): Map;
     }
 
+    class GeocodeResult implements IGeoObject {
+        events: IEventManager;
+        geometry: IGeometry | null;
+        options: IOptionManager;
+        properties: IDataManager;
+        state: IDataManager;
+
+        getAddressLine(): string;
+        getAdministrativeAreas(): ReadonlyArray<string>;
+        getCountry(): string | null;
+        getCountryCode(): string | null;
+        getLocalities(): ReadonlyArray<string>;
+        getMap(): Map;
+        getOverlay(): Promise<IOverlay | null>;
+        getOverlaySync(): IOverlay | null;
+        getParent(): object | null;
+        getPremise(): string | null;
+        getPremiseNumber(): string | null;
+        getThoroughfare(): string | null;
+        setParent(parent: object | null): this;
+    }
+
     interface IGeoObjectFeature {
         geometry?: IGeometry | IGeometryJson | undefined;
         properties?: IDataManager | object | undefined;
@@ -3650,6 +3708,119 @@ declare namespace ymaps {
 
     function ready(successCallback?: () => any | IReadyObject, errorCallback?: () => any, context?: object): Promise<void>;
 
+    /**
+     * Processes geocoding requests. The request result can be provided in JSON format or as a GeoObjectCollection object.
+     * @param request The address for which coordinates need to be obtained (forward geocoding), or the coordinates for which the address needs to be determined (reverse geocoding).
+     * @param options Options.
+     */
+    function geocode(request: string | ReadonlyArray<number>, options?: IGeocodeOptions): Promise<IGeocodeResult>;
+
+    interface IGeocodeOptions {
+        /**
+         * A rectangular area on the map, where the object being searched for is presumably located.
+         */
+        boundedBy?: ReadonlyArray<ReadonlyArray<number>>;
+
+        /**
+         * If true, JSON is passed to the handler function. Otherwise, the handler function is passed an object containing the geoObjects field with the geocoding results as GeoObjectCollection.
+         * When geocoding using the 'yandex#map' geocoder, the collection contains GeocodeResult objects.
+         */
+        json?: boolean;
+
+        /**
+         * Type of toponym (only for reverse geocoding).
+         */
+        kind?: 'house' | 'street' | 'metro' | 'district' | 'locality';
+
+        /**
+         * Geocoding provider
+         */
+        provider?: IGeocodeProvider | 'yandex#map';
+
+        /**
+         * Maximum number of results to be returned.
+         */
+        results?: number;
+
+        /**
+         * Determines how to interpret the coordinates in the request.
+         */
+        searchCoordOrder?: 'longlat' | 'latlong';
+
+        /**
+         * Number of results that must be skipped.
+         */
+        skip?: number;
+
+        /**
+         * Search only inside the area defined by the "boundedBy" option.
+         */
+        strictBounds?: boolean;
+    }
+
+    interface IGeocodeResult {
+        /**
+         *  Geocoding results.
+         */
+        geoObjects: GeoObjectCollection;
+    }
+
+    namespace geolocation {
+        /**
+         * Tries to determine the user's location. Returns the promise object, which will either be confirmed by the object with the field geoObjects or rejected with an error message.
+         * The geoObjects field is an instance of GeoObjectCollection. The object that indicates the user's current location will be added to the collection.
+         * @param options Options.
+         */
+        function get(options?: IGeolocationOptions): Promise<IGeolocationResult>;
+
+        interface IGeolocationOptions {
+            /**
+             * If true, geocode the user position automatically; if false, return as it is.
+             * If automatic geocoding is used, the object marking the user's current position has the same structure as the result of executing geocode.
+             */
+            autoReverseGeocode?: boolean;
+
+            /**
+             * If true, the map center and zoom level are adjusted automatically to show the current location of the user; if false, nothing happens.
+             */
+            mapStateAutoApply?: boolean;
+
+            /**
+             * Geolocation provider. Accepted values:
+             *  'yandex' - geolocation according to the Yandex data, based on the user IP-address;
+             *  'browser' - built-in browser geolocation;
+             *  'auto' - try to locate the user by all means available and then choose the best value.
+             */
+            provider?: 'yandex' | 'browser' | 'auto';
+
+            /**
+             * The response time, in milliseconds.
+             */
+            timeout?: number;
+
+            /**
+             * Whether to account for map margins map.margin.Manager when automatically centering and zooming the map.
+             */
+            useMapMargin?: boolean;
+        }
+
+        interface IGeolocationResult {
+            /**
+             * Geolocation results.
+             */
+            geoObjects: GeoObjectCollection;
+        }
+    }
+
+    /**
+     * Processes requests for search suggestions.
+     * Returns a promise object that is either rejected with an error,
+     * or confirmed by an array of objects in the format { displayName: "Mitishi, Moscow region", value: "Russia, Moscow region, Mitishi " }.
+     * The displayName field represents the toponym in a user-friendly way,
+     * and the value field represents the value which should be inserted into the search field after the user selects the suggestion.
+     * @param request Request string.
+     * @param options Options.
+     */
     function suggest(request: string, options?: ISuggestOptions): Promise<ISuggestResult[]>;
 
     interface ISuggestResult {
@@ -3711,6 +3882,40 @@ declare namespace ymaps {
     }
 
     namespace util {
+        namespace bounds {
+            function areIntersecting(bounds1: number[][], bounds2: number[][], projection?: IProjection): boolean;
+            function containsBounds(outer: number[][], inner: number[][], projection?: IProjection): boolean;
+            function containsPoint(bounds: number[][], point: number[], projection?: IProjection): boolean;
+            function fromBounds(sourceBounds: number[][][], projection?: IProjection): number[][];
+            function fromGlobalPixelBounds(
+              pixelBounds: number[][],
+              zoom: number,
+              projection?: IProjection,
+            ): number[][];
+            function fromPoints(points: number[][], projection?: IProjection): number[][];
+            function getCenter(bounds: number[][], projection?: IProjection): number[];
+            function getCenterAndZoom(
+              bounds: number[][],
+              containerSize: number[],
+              projection?: IProjection,
+              params?: { inscribe: boolean; margin: number | number[]; preciseZoom: boolean },
+            ): {
+              center: number[][];
+              zoom: number;
+            };
+            function getIntersections(
+              bounds1: number[][],
+              bounds2: number[][],
+              projection?: IProjection,
+            ): number[][][];
+            function getSize(bounds: number[][], projection?: IProjection): number[];
+            function toGlobalPixelBounds(
+              geoBounds: number[][],
+              zoom: number,
+              projection?: IProjection,
+            ): number[][];
+          }
+
         namespace cursor {
             class Accessor {
                 constructor(key: string);
@@ -3982,9 +4187,24 @@ declare namespace ymaps {
     }
 
     interface IGeocodeProvider {
-        geocode(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, skip?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        geocode(
+            request: string,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                skip?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
 
-        suggest(request: string, options?: { boundedBy?: number[][] | undefined, results?: number | undefined, strictBounds?: boolean | undefined }): Promise<object>;
+        suggest(
+            request: string,
+            options?: {
+                boundedBy?: number[][] | undefined;
+                results?: number | undefined;
+                strictBounds?: boolean | undefined;
+            }
+        ): Promise<object>;
     }
 
     interface IGeometry extends IBaseGeometry, ICustomizable {
@@ -4505,6 +4725,7 @@ declare namespace ymaps {
         state: IDataManager;
 
         getRoute(): multiRouter.MultiRoute;
+        getRouteAsync(): Promise<multiRouter.MultiRoute>;
 
         switchPoints(): void;
     }
@@ -4695,6 +4916,8 @@ declare namespace ymaps {
             events: IEventManager;
 
             add(object: object): this;
+
+            each(callback: (object: object) => void, context?: object): void;
 
             getById(id: string | null | undefined): object | null;
 

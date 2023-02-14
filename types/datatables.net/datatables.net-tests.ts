@@ -179,7 +179,7 @@ colDef = {
 
 //#region "Callbacks"
 
-const createRowFunc: DataTables.FunctionCreateRow = (row, data, dataIndex) => { };
+const createRowFunc: DataTables.FunctionCreateRow = (row, data, dataIndex, cells) => { };
 const drawCallbackFunc: DataTables.FunctionDrawCallback = (settings) => { };
 const footerCallbackFunc: DataTables.FunctionFooterCallback = (tfoot, data, start, end, display) => { };
 const formatNumberFunc: DataTables.FunctionFormatNumber = (toForm) => { };

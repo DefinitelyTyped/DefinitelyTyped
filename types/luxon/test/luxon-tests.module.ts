@@ -30,6 +30,8 @@ DateTime.utc(2018, 5, 31, 23, { numberingSystem: 'arabext' }); // $ExpectType Da
 // @ts-expect-error
 DateTime.utc(2019, { locale: 'en-GB' }, 5);
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
+DateTime.parseFormatForOpts(DateTime.DATETIME_FULL); // $ExpectType string | null
+DateTime.expandFormat('d', { locale: 'en-US' }); // $ExpectType string
 // @ts-expect-error
 new DateTime();
 
@@ -107,6 +109,7 @@ dt.toBSON(); // $ExpectType Date
 dt.toHTTP(); // $ExpectType string
 dt.toISO(); // $ExpectType string
 dt.toISO({ includeOffset: true, format: 'extended' }); // $ExpectType string
+dt.toISO({ extendedZone: true, format: 'extended' }); // $ExpectType string
 dt.toISODate(); // $ExpectType string
 dt.toISODate({ format: 'basic' }); // $ExpectType string
 dt.toISOTime(); // $ExpectType string
@@ -231,6 +234,8 @@ dur.toObject();
 dur.toISO(); // $ExpectType string
 dur.toISOTime(); // $ExpectType string
 dur.normalize(); // $ExpectType Duration
+dur.rescale(); // $ExpectType Duration
+dur.shiftToAll(); // $ExpectType Duration
 dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === 'hours' ? x * 2 : x)); // $ExpectType Duration
 
@@ -256,6 +261,7 @@ i.toISO(); // $ExpectType string
 i.toISODate(); // $ExpectType string
 i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
+i.toLocaleString(); // $ExpectType string
 i.toDuration('months'); // $ExpectType Duration
 i.toDuration(); // $ExpectType Duration
 // @ts-expect-error

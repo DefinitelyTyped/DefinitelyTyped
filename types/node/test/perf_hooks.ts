@@ -1,19 +1,20 @@
 import {
-    performance,
+    performance as NodePerf,
     monitorEventLoopDelay,
     PerformanceObserverCallback,
     PerformanceObserver,
     PerformanceEntry,
     EntryType,
     constants,
-    EventLoopUtilization,
     IntervalHistogram,
     RecordableHistogram,
     createHistogram,
     NodeGCPerformanceDetail,
+    PerformanceMark,
 } from 'node:perf_hooks';
 
-performance.mark('start');
+// Test module import once, the rest use global
+const startMark: PerformanceMark = NodePerf.mark('start');
 (() => {})();
 performance.mark('end');
 
@@ -22,23 +23,7 @@ performance.mark('test', {
     startTime: 123,
 });
 
-performance.measure('test', {
-    detail: 'something',
-    duration: 123,
-    start: 'startMark',
-    end: 'endMark',
-});
-
-performance.measure('test', {
-    detail: 'something',
-    duration: 123,
-    start: 123,
-    end: 456,
-});
-
-performance.measure('name', 'startMark', 'endMark');
-performance.measure('name', 'startMark');
-performance.measure('name');
+performance.measure('name', startMark.name, 'endMark');
 
 const timeOrigin: number = performance.timeOrigin;
 
@@ -85,9 +70,8 @@ const mean: number = monitor.mean;
 const stddev: number = monitor.stddev;
 const exceeds: number = monitor.exceeds;
 
-const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
-const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
-const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+// @ts-expect-error - Node API isn't available in DOM environment
+performance.eventLoopUtilization();
 
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
@@ -129,3 +113,16 @@ histo3.record(123);
 
 histo1.add(histo2);
 histo1.add(histo3);
+
+performance.clearMarks();
+performance.clearMarks("test");
+
+performance.clearMeasures();
+performance.clearMeasures("test");
+
+performance.getEntries()[0]; // $ExpectType PerformanceEntry
+
+performance.getEntriesByName("test")[0]; // $ExpectType PerformanceEntry
+performance.getEntriesByName("test", "mark")[0]; // $ExpectType PerformanceEntry
+
+performance.getEntriesByType("mark")[0]; // $ExpectType PerformanceEntry

@@ -109,10 +109,10 @@ declare module 'meteor/mdg:validated-method' {
         call: Argument<TRun> extends NoArguments
             ? // methods with no argument can be called with () or just a callback
               ((unusedArg: any, callback: (error: Meteor.Error, result: Return<TRun>) => void) => void) &
-                  ((callback: (error: Meteor.Error, result: Return<TRun>) => void) => void) &
+                  ((callback: (error: Meteor.Error | undefined, result: Return<TRun>) => void) => void) &
                   (() => Return<TRun>)
             : // methods with arguments require those arguments to be called
-              ((arg: Argument<TRun>, callback: (error: Meteor.Error, result: Return<TRun>) => void) => void) &
+              ((arg: Argument<TRun>, callback: (error: Meteor.Error | undefined, result: Return<TRun>) => void) => void) &
                   ((arg: Argument<TRun>) => Return<TRun>);
         _execute: Argument<TRun> extends NoArguments // methods with no argument can be called without an argument
             ? (context: { [key: string]: any }) => Return<TRun>

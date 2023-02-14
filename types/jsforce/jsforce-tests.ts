@@ -10,8 +10,20 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         clientId: '',
         clientSecret: '',
     },
-    refreshFn: (conn: sf.Connection, callback?: sf.Callback<sf.UserInfo>): Promise<sf.UserInfo> => {
-        return conn.login('username', 'password', callback);
+    refreshFn: async (
+        conn: sf.Connection,
+        callback?: (err: Error | null, accessToken: string, res?: unknown) => void,
+    ) => {
+        try {
+            const userInfo = await conn.login('username', 'password');
+            if (callback) {
+                callback(null, conn.accessToken, userInfo);
+            }
+        } catch (err) {
+            if (callback) {
+                callback(err, conn.accessToken);
+            }
+        }
     },
 });
 

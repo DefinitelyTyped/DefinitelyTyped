@@ -17,6 +17,10 @@ googletag.cmd.push(() => {
     googletag.defineSlot('/1234567/sports', [160, 600]).addService(googletag.pubads());
 });
 
+googletag.cmd.push(function testThis() {
+    console.log(this.googletag);
+});
+
 // DEMO 3
 // Define a custom out-of-page ad slot.
 googletag.defineOutOfPageSlot('/1234567/sports', 'div-1');
@@ -228,10 +232,6 @@ googletag.pubads().setPrivacySettings({
 
 // DEMO 29
 googletag.pubads().setPublisherProvidedId('AB123456789');
-
-// DEMO 30
-// Mark ad requests to request non-personalized ads.
-googletag.pubads().setRequestNonPersonalizedAds(1);
 
 // DEMO 31
 googletag.pubads().setForceSafeFrame(true);
@@ -538,13 +538,19 @@ googletag.pubads().addEventListener('slotRenderEnded', event => {
 
     // Log details of the rendered ad.
     console.log('Advertiser ID:', event.advertiserId);
-    console.log('Campaign ID: ', event.campaignId);
-    console.log('Creative ID: ', event.creativeId);
+    console.log('Campaign ID:', event.campaignId);
+    console.log('Company IDs:', event.companyIds);
+    console.log('Creative ID:', event.creativeId);
+    console.log('Creative Template ID:', event.creativeTemplateId);
+    console.log('Is backfill?:', event.isBackfill);
     console.log('Is empty?:', event.isEmpty);
+    console.log('Label IDs:', event.labelIds);
     console.log('Line Item ID:', event.lineItemId);
     console.log('Size:', event.size);
+    console.log('Slot content changed?:', event.slotContentChanged);
     console.log('Source Agnostic Creative ID:', event.sourceAgnosticCreativeId);
     console.log('Source Agnostic Line Item ID:', event.sourceAgnosticLineItemId);
+    console.log('Yield Group IDs:', event.yieldGroupIds);
     console.groupEnd();
 
     if (slot === targetSlot) {
@@ -599,7 +605,6 @@ googletag.pubads().addEventListener('slotVisibilityChanged', event => {
 
 // DEMO 61
 // Test for definitions not declared by GPT Reference
-googletag.pubads().clearTagForChildDirectedTreatment().setTagForChildDirectedTreatment(1).setTagForUnderAgeOfConsent(2);
 googletag.pubads().isSRA();
 let imaContent = {
     vid: 'imaContentId?',
@@ -667,11 +672,6 @@ attributes.forEach((value, key) => {
 });
 googletag.pubads().set('adsense_ad_format', '250x250_as');
 
-// Explicitly binds provided functions to globalThis.
-googletag.cmd.push(function test() {
-    console.log(this.googletag.pubadsReady);
-});
-
 // Rewarded ads for web have launched.
 targetSlot = (
     googletag.defineOutOfPageSlot('/1234567/sports', googletag.enums.OutOfPageFormat.REWARDED) as googletag.Slot
@@ -712,7 +712,7 @@ googletag.pubads().addEventListener('rewardedSlotReady', event => {
 });
 
 // Event Types
-const types: googletag.events.EventType[] = [
+const types: Array<keyof googletag.events.EventTypeMap> = [
     'impressionViewable',
     'rewardedSlotClosed',
     'rewardedSlotGranted',
@@ -728,3 +728,61 @@ types.forEach(type => {
         console.log(event);
     });
 });
+
+// Configuration for the component auction.
+const componentAuctionConfig = {
+    seller: 'https://testSeller.com', // should be https and the same as
+    // decisionLogicUrl's origin
+    decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+    interestGroupBuyers: ['https://example-buyer.com'],
+    auctionSignals: { auction_signals: 'auction_signals' },
+    sellerSignals: { seller_signals: 'seller_signals' },
+    perBuyerSignals: {
+        // listed on interestGroupBuyers
+        'https://example-buyer.com': {
+            per_buyer_signals: 'per_buyer_signals',
+        },
+    },
+};
+const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600]);
+// To add configKey to the component auction:
+auctionSlot.setConfig({
+    componentAuction: [
+        {
+            configKey: 'https://testSeller.com',
+            auctionConfig: componentAuctionConfig,
+        },
+    ],
+});
+// To remove configKey from the component auction:
+auctionSlot.setConfig({
+    componentAuction: [
+        {
+            configKey: 'https://testSeller.com',
+            auctionConfig: null,
+        },
+    ],
+});
+
+// Initialize the secure signal providers array
+window.googletag = window.googletag || { cmd: [], secureSignalProviders: [] };
+// id is provided
+googletag.secureSignalProviders.push({
+    id: 'collector123',
+    collectorFunction: () => {
+        // ...custom signal generation logic...
+        return Promise.resolve('signal');
+    },
+});
+// networkCode is provided, the id is not available
+googletag.secureSignalProviders.push({
+    networkCode: '123456',
+    collectorFunction: () => {
+        // ...custom signal generation logic...
+        return Promise.resolve('signal');
+    },
+});
+// clear all cache
+if (!(googletag.secureSignalProviders instanceof Array)) {
+    googletag.secureSignalProviders.clearAllCache();
+}

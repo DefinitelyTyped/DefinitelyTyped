@@ -209,3 +209,13 @@ const longRunningOperationStatus: MicrosoftGraph.LongRunningOperationStatus = "s
 const album: MicrosoftGraph.Album = {
     coverImageItemId: "test",
 };
+
+const bookingsAvailabilityStatus: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+
+const appliedConditionalAccessPolicyResult: MicrosoftGraph.BookingsAvailabilityStatus = "available";
+
+const bookingStaffRole: MicrosoftGraph.BookingStaffRole = "unknownFutureValue";
+
+const bookingAppointmentStatus: MicrosoftGraph.BookingAppointment = {
+    id: "test",
+};

@@ -1,4 +1,4 @@
-// Type definitions for node-config
+// Type definitions for node-config 3.3
 // Project: https://github.com/lorenwest/node-config
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Forrest Bice <https://github.com/forrestbice>

@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 
 let orbitControls: OrbitControls;
 let camera: THREE.PerspectiveCamera;

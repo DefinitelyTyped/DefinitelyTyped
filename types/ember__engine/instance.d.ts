@@ -6,10 +6,7 @@ import EmberObject from "@ember/object";
  * The `EngineInstance` encapsulates all of the stateful aspects of a
  * running `Engine`.
  */
-export default class EngineInstance extends EmberObject.extend(
-    RegistryProxyMixin,
-    ContainerProxyMixin
-) {
+export default class EngineInstance extends EmberObject {
     /**
      * Unregister a factory.
      */
@@ -21,3 +18,5 @@ export default class EngineInstance extends EmberObject.extend(
      */
     boot(): Promise<EngineInstance>;
 }
+
+export default interface EngineInstance extends RegistryProxyMixin, ContainerProxyMixin {}

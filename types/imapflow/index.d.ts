@@ -166,6 +166,7 @@ export interface CopyResponseObject {
 export interface DownloadObject {
     content: Readable;
     meta: {
+        expectedSize: number;
         contentType: string;
         charset?: string;
         disposition?: string;
@@ -312,7 +313,7 @@ export interface IdInfoObject {
 export interface ListResponse {
     path: string;
     name: string;
-    delimter: string;
+    delimiter: string;
     flags: Set<string>;
     specialUse: string;
     listed: boolean;

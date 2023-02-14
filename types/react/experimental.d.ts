@@ -102,4 +102,7 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
     export const SuspenseList: ExoticComponent<SuspenseListProps>;
+
+    // tslint:disable-next-line ban-types
+    export function experimental_useEvent<T extends Function>(event: T): T;
 }

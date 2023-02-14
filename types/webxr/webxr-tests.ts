@@ -1,3 +1,7 @@
+function assertNever(value: never) {
+    console.assert(true, value, 'NEVER MORE! CAW!');
+}
+
 (async () => {
     const canvas = document.createElement('canvas');
     const ctx: WebGLRenderingContext | null = canvas.getContext('webgl');
@@ -17,10 +21,40 @@
 
     await ctx.makeXRCompatible();
 
-    // const session = new XRSession(); // shouldn't be able to do this.
-    const session = await navigator.xr.requestSession('immersive-vr');
+    // @ts-expect-error
+    const badSession = new XRSession(); // shouldn't be able to do this.
+
+    const root = document.body.querySelector('#screen-space-ui');
+    const session = await navigator.xr.requestSession('immersive-vr', {
+        domOverlay: {
+            root: root!,
+        },
+    });
+
     if (!(session instanceof XRSession)) {
         throw new Error("Can't test instance of XRSession");
+    }
+
+    const button = root?.querySelector('button');
+    button?.addEventListener('beforexrselect', (evt: XRSessionEvent) => {
+        console.assert(evt.session === session);
+    });
+
+    if (session.domOverlayState !== undefined) {
+        switch (session.domOverlayState.type) {
+            case 'floating':
+                console.log('Floating DOM Overlay');
+                break;
+            case 'head-locked':
+                console.log('Head-locked DOM Overlay');
+                break;
+            case 'screen':
+                console.log('Screen DOM Overlay');
+                break;
+            default:
+                assertNever(session.domOverlayState.type);
+                break;
+        }
     }
 
     session.addEventListener('end', evt => console.log('The session has ended.', evt.session));
@@ -136,6 +170,10 @@
             console.log('Layer is an equirectangular layer');
         } else if (layer instanceof XRProjectionLayer) {
             console.log('Layer is a projection layer');
+        } else if (layer instanceof XRCompositionLayer) {
+            console.log('Layer is composition layer');
+        } else {
+            assertNever(layer);
         }
 
         layer.destroy();

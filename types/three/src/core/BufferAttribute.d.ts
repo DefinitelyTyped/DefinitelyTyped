@@ -6,6 +6,24 @@ import { Matrix4 } from './../math/Matrix4';
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js|src/core/BufferAttribute.js}
  */
 export class BufferAttribute {
+    /**
+     * @param array - Must be a TypedArray. Used to instantiate the buffer.
+     * This array should have
+     * ```
+     * itemSize * numVertices
+     * ```
+     * elements, where numVertices is the number of vertices in the associated BufferGeometry.
+     * @param itemSize - the number of values of the array that should be associated with a particular vertex.
+     * For instance, if this attribute is storing a 3-component vector (such as a position, normal, or color),
+     * then itemSize should be 3.
+     * @param normalized - (optional) Applies to integer data only.
+     * Indicates how the underlying data in the buffer maps to the values in the GLSL code.
+     * For instance, if array is an instance of UInt16Array, and normalized is true,
+     * the values 0 - +65535 in the array data will be mapped to 0.0f - +1.0f in the GLSL attribute.
+     * An Int16Array (signed) would map from -32768 - +32767 to -1.0f - +1.0f.
+     * If normalized is false, the values will be converted to floats unmodified,
+     * i.e. 32767 becomes 32767.0f.
+     */
     constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean); // array parameter should be TypedArray.
 
     /**
@@ -51,10 +69,6 @@ export class BufferAttribute {
     copy(source: BufferAttribute): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): this;
     copyArray(array: ArrayLike<number>): this;
-    copyColorsArray(colors: Array<{ r: number; g: number; b: number }>): this;
-    copyVector2sArray(vectors: Array<{ x: number; y: number }>): this;
-    copyVector3sArray(vectors: Array<{ x: number; y: number; z: number }>): this;
-    copyVector4sArray(vectors: Array<{ x: number; y: number; z: number; w: number }>): this;
     applyMatrix3(m: Matrix3): this;
     applyMatrix4(m: Matrix4): this;
     applyNormalMatrix(m: Matrix3): this;

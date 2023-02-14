@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "graphql": "15.4.0 || ^16.5.0"
+    }
+}

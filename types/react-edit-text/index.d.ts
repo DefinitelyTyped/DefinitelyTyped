@@ -70,6 +70,16 @@ export interface SharedProps {
      */
     onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     /**
+     * onEditMode is a callback function triggered when the display
+     * component is clicked and edit mode is toggled on
+     */
+    onEditMode?: () => void;
+    /**
+     * onBlur is a callback function triggered when the focus is blurred
+     * and edit mode is toggled off
+     */
+    onBlur?: () => void;
+    /**
      * Sets the css styling for both input and div elements
      */
     style?: React.CSSProperties;

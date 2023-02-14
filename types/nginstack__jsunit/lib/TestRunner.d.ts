@@ -1,7 +1,7 @@
 export = TestRunner;
-declare function TestRunner(suite: any, opt_trackingId?: string): void;
+declare function TestRunner(suite: TestSuite, opt_trackingId?: string): void;
 declare class TestRunner {
-    constructor(suite: any, opt_trackingId?: string);
+    constructor(suite: TestSuite, opt_trackingId?: string);
     private suite_;
     private isUnitTest_;
     private trackingId_;
@@ -11,4 +11,8 @@ declare class TestRunner {
     private clear_;
     runTest(testName: string): TestResult;
 }
+declare namespace TestRunner {
+    export { TestSuite };
+}
+type TestSuite = import('./TestSuite');
 import TestResult = require('./TestResult.js');

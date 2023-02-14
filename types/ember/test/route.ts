@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import Array from '@ember/array';
 import Ember from 'ember'; // currently needed for Transition
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
 
 // Ensure that Ember.Transition is private
 // @ts-expect-error

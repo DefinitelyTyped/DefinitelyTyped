@@ -107,6 +107,8 @@ export namespace lists {
         opts?: Options,
     ): Promise<MembersSuccessResponse | MemberErrorResponse>;
 
+    function deleteListMember(listId: string, subscriberHash: string): Promise<void>;
+
     function deleteListMemberPermanent(listId: string, subscriberHash: string): Promise<void>;
 
     function updateListMemberTags(listId: string, subscriberHash: string, body: any): Promise<void>;

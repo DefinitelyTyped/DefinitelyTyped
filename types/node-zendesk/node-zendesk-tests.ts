@@ -165,6 +165,20 @@ client.ticketfields.create(
     zendeskCallback,
 );
 
+/** Groups Methods */
+client.groups.list(zendeskCallback);
+client.groups.list().then(zendeskCallback);
+client.groups.assignable(zendeskCallback);
+client.groups.assignable().then(zendeskCallback);
+client.groups.show(123, zendeskCallback);
+client.groups.show(123).then(zendeskCallback);
+client.groups.create({ group: { name: "foo", default: false, description: "bar" } }, zendeskCallback);
+client.groups.create({ group: { name: "foo", default: false, description: "bar" } }).then(zendeskCallback);
+client.groups.update(123, { group: { name: "foo" } }, zendeskCallback);
+client.groups.update(123, { group: { name: "foo" } }).then(zendeskCallback);
+client.groups.delete(123, zendeskCallback);
+client.groups.delete(123).then(zendeskCallback);
+
 /** Users Methods */
 client.users.auth(zendeskCallback);
 client.users.auth().then(zendeskCallback);

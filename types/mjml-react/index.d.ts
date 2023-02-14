@@ -200,7 +200,7 @@ export interface MjmlButtonProps {
     containerBackgroundColor?: React.CSSProperties['backgroundColor'] | undefined;
     fontStyle?: string | undefined;
     fontSize?: string | number | undefined;
-    fontWeight?: number | undefined;
+    fontWeight?: React.CSSProperties['fontWeight'] | undefined;
     fontFamily?: string | undefined;
     color?: React.CSSProperties['color'] | undefined;
     textAlign?: React.CSSProperties['textAlign'] | undefined;
@@ -208,6 +208,7 @@ export interface MjmlButtonProps {
     textTransform?: string | undefined;
     align?: string | undefined;
     verticalAlign?: React.CSSProperties['verticalAlign'] | undefined;
+    letterSpacing?: string | number | undefined;
     lineHeight?: string | number | undefined;
     innerPadding?: string | undefined;
     width?: string | number | undefined;

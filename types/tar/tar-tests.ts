@@ -77,3 +77,8 @@ fs.createReadStream('my-tarball.tgz')
 fs.createReadStream('my-tarball.tgz')
     .pipe(new tar.Parse())
     .on('entry', entry => entry.on('data', data => console.log(data)));
+
+tar.list({
+    file: "my-tarball.tgz",
+    onentry: (entry) => entry.path.slice(1),
+}).then(() => console.log("after listing"));

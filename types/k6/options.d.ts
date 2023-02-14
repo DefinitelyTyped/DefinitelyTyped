@@ -179,10 +179,13 @@ export interface Certificate {
     cert: string;
 
     /** Domains certificate is valid for. */
-    domains: string[];
+    domains?: string[];
 
     /** PEM encoded certificate key. */
     key: string;
+
+    /** PEM passphrase. */
+    password?: string;
 }
 
 export type ExecutorOptions = "shared-iterations" | "per-vu-iterations" | "constant-vus" | "ramping-vus" | "constant-arrival-rate" | "ramping-arrival-rate" | "externally-controlled";

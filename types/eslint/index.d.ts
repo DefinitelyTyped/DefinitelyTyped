@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.4
+// Type definitions for eslint 8.21
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -483,12 +483,15 @@ export namespace Rule {
         NewExpression?: ((node: ESTree.NewExpression & NodeParentExtension) => void) | undefined;
         ObjectExpression?: ((node: ESTree.ObjectExpression & NodeParentExtension) => void) | undefined;
         ObjectPattern?: ((node: ESTree.ObjectPattern & NodeParentExtension) => void) | undefined;
+        PrivateIdentifier?: ((node: ESTree.PrivateIdentifier & NodeParentExtension) => void) | undefined;
         Program?: ((node: ESTree.Program) => void) | undefined;
         Property?: ((node: ESTree.Property & NodeParentExtension) => void) | undefined;
+        PropertyDefinition?: ((node: ESTree.PropertyDefinition & NodeParentExtension) => void) | undefined;
         RestElement?: ((node: ESTree.RestElement & NodeParentExtension) => void) | undefined;
         ReturnStatement?: ((node: ESTree.ReturnStatement & NodeParentExtension) => void) | undefined;
         SequenceExpression?: ((node: ESTree.SequenceExpression & NodeParentExtension) => void) | undefined;
         SpreadElement?: ((node: ESTree.SpreadElement & NodeParentExtension) => void) | undefined;
+        StaticBlock?: ((node: ESTree.StaticBlock & NodeParentExtension) => void) | undefined;
         Super?: ((node: ESTree.Super & NodeParentExtension) => void) | undefined;
         SwitchCase?: ((node: ESTree.SwitchCase & NodeParentExtension) => void) | undefined;
         SwitchStatement?: ((node: ESTree.SwitchStatement & NodeParentExtension) => void) | undefined;
@@ -552,23 +555,54 @@ export namespace Rule {
 
     interface RuleMetaData {
         docs?: {
-            /** Provides the short description of the rule in the [rules index](https://eslint.org/docs/rules/) */
+            /** Provides a short description of the rule. */
             description?: string | undefined;
-            /** Specifies the heading under which the rule is listed in the [rules index](https://eslint.org/docs/rules/) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated no longer used
+             */
             category?: string | undefined;
-            /** Is whether the `"extends": "eslint:recommended"` property in a [configuration file](https://eslint.org/docs/user-guide/configuring#extending-configuration-files) enables the rule */
+            /** Whether the rule is enabled in the plugin's `recommended` configuration. */
             recommended?: boolean | undefined;
-            /** Specifies the URL at which the full documentation can be accessed */
+            /** Specifies the URL at which the full documentation can be accessed (enabling code editors to provide a helpful link on highlighted rule violations). */
             url?: string | undefined;
-            /** Specifies whether rules can return suggestions (defaults to false if omitted) */
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated use `meta.hasSuggestions` instead
+             */
             suggestion?: boolean | undefined;
         } | undefined;
+        /** Violation and suggestion messages. */
         messages?: { [messageId: string]: string } | undefined;
+        /**
+         * Specifies if the `--fix` option on the command line automatically fixes problems reported by the rule.
+         * Mandatory for fixable rules.
+         */
         fixable?: "code" | "whitespace" | undefined;
+        /**
+         * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
+         * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
+         */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+
+        /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /** The name of the rule(s) this rule was replaced by, if it was deprecated. */
+        replacedBy?: readonly string[];
+
+        /**
+         * Indicates the type of rule:
+         * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
+         * - `"suggestion"` means the rule is identifying something that could be done in a better way but no errors will occur if the code isn’t changed.
+         * - `"layout"` means the rule cares primarily about whitespace, semicolons, commas, and parentheses,
+         *   all the parts of the program that determine how the code looks rather than how it executes.
+         *   These rules work on parts of the code that aren’t specified in the AST.
+         */
         type?: "problem" | "suggestion" | "layout" | undefined;
-        /** Specifies whether rules can return suggestions (defaults to false if omitted) */
+        /**
+         * Specifies whether the rule can return suggestions (defaults to `false` if omitted).
+         * Mandatory for rules that provide suggestions.
+         */
         hasSuggestions?: boolean | undefined;
     }
 
@@ -692,13 +726,13 @@ export namespace Linter {
         rules?: Partial<Rules> | undefined;
     }
 
-    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends HasRules<Rules> {
         $schema?: string | undefined;
         env?: { [name: string]: boolean } | undefined;
         extends?: string | string[] | undefined;
-        globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" } | undefined;
+        globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
         noInlineConfig?: boolean | undefined;
-        overrides?: ConfigOverride[] | undefined;
+        overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
         parser?: string | undefined;
         parserOptions?: ParserOptions | undefined;
         plugins?: string[] | undefined;
@@ -713,7 +747,7 @@ export namespace Linter {
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends BaseConfig<Rules, OverrideRules> {
         ignorePatterns?: string | string[] | undefined;
         root?: boolean | undefined;
     }
@@ -808,6 +842,90 @@ export namespace Linter {
         supportsAutofix?: boolean | undefined;
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
+    }
+    interface FlatConfig {
+      /**
+       * An array of glob patterns indicating the files that the configuration
+       * object should apply to. If not specified, the configuration object applies
+       * to all files
+       */
+      files?: string | string[];
+      /**
+       * An array of glob patterns indicating the files that the configuration
+       * object should not apply to. If not specified, the configuration object
+       * applies to all files matched by files
+       */
+      ignores?: string | string[];
+      /**
+       * An object containing settings related to how JavaScript is configured for
+       * linting.
+       */
+      languageOptions?: {
+        /**
+         * The version of ECMAScript to support. May be any year (i.e., 2022) or
+         * version (i.e., 5). Set to "latest" for the most recent supported version.
+         * @default "latest"
+         */
+        ecmaVersion?: ParserOptions["ecmaVersion"],
+        /**
+         * The type of JavaScript source code. Possible values are "script" for
+         * traditional script files, "module" for ECMAScript modules (ESM), and
+         * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
+         * files; "commonjs" for .cjs files)
+         */
+        sourceType?: "script" | "module" | "commonjs",
+        /**
+         * An object specifying additional objects that should be added to the
+         * global scope during linting.
+         */
+        globals?: ESLint.Environment["globals"],
+        /**
+         * Either an object containing a parse() method or a string indicating the
+         * name of a parser inside of a plugin (i.e., "pluginName/parserName").
+         * @default "@/espree"
+         */
+        parser?: string,
+        /**
+         * An object specifying additional options that are passed directly to the
+         * parser() method on the parser. The available options are parser-dependent
+         */
+        parserOptions?: ESLint.Environment["parserOptions"],
+      };
+      /**
+       * An object containing settings related to the linting process
+       */
+      linterOptions?: {
+        /**
+         * A Boolean value indicating if inline configuration is allowed.
+         */
+        noInlineConfig?: boolean,
+        /**
+         * A Boolean value indicating if unused disable directives should be
+         * tracked and reported.
+         */
+        reportUnusedDisableDirectives?: boolean,
+      };
+      /**
+       * Either an object containing preprocess() and postprocess() methods or a
+       * string indicating the name of a processor inside of a plugin
+       * (i.e., "pluginName/processorName").
+       */
+      processor?: string | Processor;
+      /**
+       * An object containing a name-value mapping of plugin names to plugin objects.
+       * When files is specified, these plugins are only available to the matching files.
+       */
+      plugins?: Record<string, ESLint.Plugin>;
+      /**
+       * An object containing the configured rules. When files or ignores are specified,
+       * these rule configurations are only available to the matching files.
+       */
+      rules?: RulesRecord;
+      /**
+       * An object containing name-value pairs of information that should be
+       * available to all rules.
+       */
+      settings?: Record<string, unknown>;
     }
 }
 

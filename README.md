@@ -12,7 +12,7 @@ and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/R
 This section tracks the health of the repository and publishing process.
 It may be helpful for contributors experiencing any issues with their PRs and packages.
 
-* Most recent build [type-checked/linted](https://github.com/Microsoft/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
+* Most recent build [type-checked/linted](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) cleanly: [![Build Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.DefinitelyTyped?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=1&branchName=master)
 * All packages are type-checking/linting cleanly on typescript@next: [![Build status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/Nightly%20dtslint)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=8)
 * All packages are being [published to npm](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) in under an hour and a half: [![Publish Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.types-publisher-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=5&branchName=master)
 * [typescript-bot](https://github.com/typescript-bot) has been active on Definitely Typed [![Activity Status](https://dev.azure.com/definitelytyped/DefinitelyTyped/_apis/build/status/DefinitelyTyped.typescript-bot-watchdog?branchName=master)](https://dev.azure.com/definitelytyped/DefinitelyTyped/_build/latest?definitionId=6&branchName=master)
@@ -53,9 +53,9 @@ or just look for any ".d.ts" files in the package and manually include them with
 Definitely Typed only tests packages on versions of TypeScript that are less than 2 years old.
 
 <details>
-<summary>Currently versions 4.0 and above are tested...</summary>
+<summary>Currently versions 4.1 and above are tested...</summary>
 
-If you're using TypeScript 2.0 to 3.9, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
+If you're using TypeScript 2.0 to 4.0, you can still try installing `@types` packages &mdash; the majority of packages don't use fancy new TypeScript features.
 But there's no guarantee that they'll work.
 Here is the support window:
 
@@ -220,7 +220,7 @@ If a package was never on Definitely Typed, it does not need to be added to `not
 
 Test your changes by running `npm test <package to test>` where `<package to test>` is the name of your package.
 
-This script uses [dtslint](https://github.com/microsoft/dtslint) to run the TypeScript compiler against your dts files.
+This script uses [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) to run the TypeScript compiler against your dts files.
 
 Once you have all your changes ready, use `npm run test-all` to see how your changes affect other modules.
 
@@ -370,7 +370,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
   Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
   Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
   Exception: `new Map<string, number>()` is OK.
-* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-type-expressions) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
 * `var foo: string | any`:
   When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
   Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
@@ -614,8 +614,10 @@ When `dts-gen` is used to scaffold a scoped package, the `paths` property has to
 
 ```json
 {
-  "paths": {
-    "@foo/*": ["foo__*"]
+  "compilerOptions": {
+    "paths": {
+      "@foo/*": ["foo__*"]
+    }
   }
 }
 ```

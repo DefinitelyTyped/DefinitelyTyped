@@ -1,8 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "moment": "^2.29.1",
-        "ethers": "^5.4.5",
-        "web3": "^1.5.2"
-    }
-}

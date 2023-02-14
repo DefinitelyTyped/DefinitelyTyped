@@ -42,6 +42,15 @@ export interface Options {
     dbPath?: string;
 
     /**
+     * If true, starts DynamoDB using docker, e.g.
+     * docker run -d -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -port 8000 -sharedDb -inMemory
+     * The docker executable may be customized using process.env.DOCKER_PATH, and the docker image through
+     * process.env.DOCKER_IMAGE.
+     * Default: false
+     */
+    docker?: boolean;
+
+    /**
      * If true, DynamoDB local will use a single database file and all DynamoDB clients will interact
      * with the same set of tables regardless of their region and credential configuration.
      * If false, it will use separate files for each credential and region.

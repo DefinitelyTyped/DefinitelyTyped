@@ -1,10 +1,10 @@
-// Type definitions for non-npm package webxr 0.4
+// Type definitions for non-npm package webxr 0.5
 // Project: https://www.w3.org/TR/webxr/
 // Definitions by: Rob Rohan <https://github.com/robrohan>
 //                 Raanan Weber <https://github.com/RaananW>
 //                 Sean T. McBeth <https://github.com/capnmidnight>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.4
 
 // Most of this was hand written and... more or less copied from the following
 // sites:
@@ -1030,22 +1030,6 @@ declare enum XOVR_multiview2 {
     FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 0x9633,
 }
 
-interface OVR_multiview2 {
-    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR: number;
-    readonly FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR: number;
-    readonly MAX_VIEWS_OVR: number;
-    readonly FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR: number;
-
-    framebufferTextureMultiviewOVR(
-        target: GLenum,
-        attachment: GLenum,
-        texture: WebGLTexture,
-        level: number,
-        baseViewIndex: number,
-        numViews: number,
-    ): WebGLRenderbuffer;
-}
-
 declare abstract class OVR_multiview2 implements OVR_multiview2 {}
 
 // Oculus extensions
@@ -1084,3 +1068,45 @@ interface OCULUS_multiview extends OVR_multiview2 {
 }
 
 declare abstract class OCULUS_multiview implements OCULUS_multiview {}
+
+/**
+ * BEGIN: WebXR DOM Overlays Module
+ * https://immersive-web.github.io/dom-overlays/
+ */
+
+interface GlobalEventHandlersEventMap {
+    beforexrselect: XRSessionEvent;
+}
+
+interface GlobalEventHandlers {
+    /**
+     * An XRSessionEvent of type beforexrselect is dispatched on the DOM overlay
+     * element before generating a WebXR selectstart input event if the -Z axis
+     * of the input source's targetRaySpace intersects the DOM overlay element
+     * at the time the input device's primary action is triggered.
+     */
+    onbeforexrselect: ((this: GlobalEventHandlers, ev: XRSessionEvent) => any) | null;
+}
+
+interface XRDOMOverlayInit {
+    root: Element;
+}
+
+interface XRSessionInit {
+    domOverlay?: XRDOMOverlayInit | undefined;
+}
+
+type XRDOMOverlayType = 'screen' | 'floating' | 'head-locked';
+
+interface XRDOMOverlayState {
+    type: XRDOMOverlayType;
+}
+
+interface XRSession {
+    readonly domOverlayState?: XRDOMOverlayState | undefined;
+}
+
+/**
+ * END: WebXR DOM Overlays Module
+ * https://immersive-web.github.io/dom-overlays/
+ */

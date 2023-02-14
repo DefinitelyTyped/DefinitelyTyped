@@ -1,4 +1,5 @@
 import * as azdata from 'azdata';
+import * as vscode from 'vscode';
 
 azdata.dataprotocol.registerConnectionProvider({
     providerId: 'MyProvider',
@@ -19,13 +20,21 @@ class StubDisposable {
     public dispose(): void { }
 }
 
-const testContainerBuilder: azdata.ContainerBuilder<azdata.InputBoxComponent, any, any, azdata.InputBoxProperties> = {
+const testComponentBuilder: azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> = {
+    component: () => <any> {},
+    withProperties: (properties: azdata.InputBoxProperties): azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> => { throw new Error('Function not implemented.'); },
+    withProps: (properties: azdata.InputBoxProperties) => { throw new Error('Function not implemented.'); },
+    withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Function not implemented.'); }
+};
+testComponentBuilder.component();
+
+const testContainerBuilder: azdata.ContainerBuilder<azdata.DivContainer, any, any, azdata.DivContainerProperties> = {
     component: () => <any> {},
     withItems: (component: azdata.Component[]) => { throw new Error('Not implemented'); },
     withLayout: (layout: any) => { throw new Error('Not implemented'); },
-    withProperties: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
-    withProps: (properties: azdata.InputBoxProperties) => { throw new Error('Not implemented'); },
-    withValidation: (validation: (component: azdata.InputBoxComponent) => boolean | Thenable<boolean>) => { throw new Error('Not implemented'); }
+    withProperties: (properties: azdata.DivContainerProperties) => { throw new Error('Not implemented'); },
+    withProps: (properties: azdata.DivContainerProperties) => { throw new Error('Not implemented'); },
+    withValidation: (validation: (component: azdata.DivContainer) => boolean | Thenable<boolean>) => { throw new Error('Not implemented'); }
 };
 testContainerBuilder.component();
 
@@ -73,6 +82,24 @@ const updateDisplayData: azdata.nb.IUpdateDisplayData = {
     }
 };
 
+const accountSecurityToken: azdata.accounts.AccountSecurityToken = {
+    token: 'mytoken',
+    tokenType: 'Bearer',
+    expiresOn: 3290134
+};
+
 const connectionResult: azdata.ConnectionResult = {
     connected: true
+};
+
+const disposable: vscode.Disposable = azdata.queryeditor.registerQueryEventListener({
+    onQueryEvent(type: azdata.queryeditor.QueryEventType, document: azdata.queryeditor.QueryDocument, args: azdata.ResultSetSummary | string | undefined) {
+        return;
+    }
+});
+
+const firewallRuleInfo: azdata.FirewallRuleInfo = {
+    serverName: 'mytestserver',
+    firewallRuleName: 'My Firewall Rule',
+    securityTokenMappings: {}
 };

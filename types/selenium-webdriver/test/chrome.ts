@@ -30,6 +30,7 @@ function TestChromeOptions() {
     options = chrome.Options.fromCapabilities(webdriver.Capabilities.chrome());
 
     options = options.addArguments('a', 'b', 'c');
+    options = options.debuggerAddress('127.0.0.1:9223')
     options = options.addExtensions('a', 'b', 'c');
     options = options.excludeSwitches('a', 'b', 'c');
     options = options.detachDriver(true);

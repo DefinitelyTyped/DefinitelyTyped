@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
-        "export-just-namespace": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-consecutive-blank-lines": false,
@@ -19,7 +18,6 @@
         "prefer-template": false,
         "semicolon": false,
         "space-before-function-paren": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "jsdoc-format": false,
         "no-consecutive-blank-lines": false,
         "no-padding": false,
@@ -9,16 +8,10 @@
         "npm-naming": [
             true,
             {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
+                "errors": [["NeedsExportEquals", false]],
                 "mode": "code"
             }
         ],
-        "trim-file": false,
         "whitespace": false
     }
 }

@@ -12,25 +12,26 @@ videojs(videoElement);
 const audioElement = document.createElement('audio');
 
 const playerOptions: VideoJsPlayerOptions = {
+    aspectRatio: '16:9',
     autoplay: 'muted',
     bigPlayButton: false,
-    controls: true,
     controlBar: {
         playToggle: false,
         captionsButton: false,
         chaptersButton: false,
         pictureInPictureToggle: audioElement.tagName !== 'AUDIO',
     },
-    height: 10,
-    loop: true,
-    muted: true,
-    poster: 'https://example.com/poster.png',
-    preload: 'auto',
-    src: 'https://example.com/video.mp4',
-    width: 10,
-    aspectRatio: '16:9',
-    children: [{ name: 'name' }],
+    textTrackSettings: {
+        pauseOnOpen: true,
+        persistTextTrackSettings: false,
+    },
+    controls: true,
+    defaultVolume: 100,
+    fill: false,
     fluid: false,
+    height: 10,
+    html5: {
+    },
     inactivityTimeout: 42,
     language: 'en',
     languages: {
@@ -39,29 +40,63 @@ const playerOptions: VideoJsPlayerOptions = {
         },
     },
     liveui: true,
+    loop: true,
+    muted: true,
     nativeControlsForTouch: true,
     notSupportedMessage: 'Oh no! :(',
     playbackRates: [0.5, 1],
+    playsinline: false,
     noUITitleAttributes: true,
     plugins: {
         myPlugin: {
             myOption: true,
         },
     },
-    fill: false,
+    poster: 'https://example.com/poster.png',
+    preload: 'auto',
     responsive: false,
+    sourceOrder: false,
     sources: [
         {
             src: 'https://example.com/video.mp4',
             type: 'video/mp4',
         },
     ],
+    src: 'https://example.com/video.mp4',
     techOrder: ['html5', 'anotherTech'],
+    tracks: [],
     userActions: {
         click: event => {},
         doubleClick: event => {},
         hotkeys: true,
     },
+    width: 10,
+    children: [{ name: 'name' }],
+    audioOnlyMode: false,
+    audioPosterMode: false,
+    autoSetup: false,
+    breakpoints: {
+        xsmall: 20
+    },
+    fullscreen: {
+        options: {
+            navigationUI: 'hide',
+        }
+    },
+    id: 'some-id',
+    liveTracker: {
+        trackingThreshold: 100,
+        liveTolerance: 100
+    },
+    normalizeAutoplay: false,
+    preferFullWindow: false,
+    restoreEl: false,
+    suppressNotSupportedError: false,
+    techCanOverridePoster: false,
+    "vtt.js": 'https://example.com/vtt.js',
+    disablePictureInPicture: false,
+    enableSourceset: true,
+    retryOnError: true
 };
 
 playerOptions.userActions!.hotkeys = event => {
@@ -169,6 +204,14 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
 
     const readyState: videojs.ReadyState = this.readyState();
 
+    this.playbackRates([1, 1.5, 2]);
+
+    // $ExpectType number[]
+    const playbackRates: number[] = this.playbackRates();
+
+    // $ExpectType number
+    const defaultPlaybackRate: number = this.defaultPlaybackRate();
+
     // $ExpectType string
     const currentBreakPoint = this.currentBreakpoint();
 
@@ -200,6 +243,34 @@ videojs('example_video_1', playerOptions).ready(function playerReady() {
     const fill: boolean = this.fill();
 
     this.fill(false);
+
+    const autoplay: videojs.Autoplay = this.autoplay();
+
+    this.autoplay(false);
+
+    const audioOnlyMode: boolean | Promise<void>  = this.audioOnlyMode();
+
+    this.audioOnlyMode(true);
+
+    const audioPosterMode: boolean | Promise<void> = this.audioPosterMode();
+
+    this.audioPosterMode(true);
+
+    const breakpoints: videojs.Breakpoint = this.breakpoints();
+
+    this.breakpoints({ huge: 1000 });
+
+    const crossOrigin: string = this.crossOrigin();
+
+    this.crossOrigin('anonymous');
+
+    this.debug(true);
+
+    this.disablePictureInPicture(false);
+
+    const isInPictureInPicture: boolean = this.isInPictureInPicture();
+
+    this.isInPictureInPicture(false);
 
     testEvents(this);
 
@@ -400,3 +471,11 @@ function testGetDescendants(player: VideoJsPlayer) {
     // $ExpectType Component | undefined
     player.getDescendant(['string', 'in', 'array'], 'and', 'strings');
 }
+
+videojs.Vhs.xhr.beforeRequest = (options) => {
+    /*
+     * Modifications to requests that will affect every player.
+     */
+
+    return options;
+};

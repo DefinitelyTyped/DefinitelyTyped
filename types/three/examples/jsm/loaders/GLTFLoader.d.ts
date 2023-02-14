@@ -65,7 +65,7 @@ export class GLTFLoader extends Loader {
         onError?: (event: ErrorEvent) => void,
     ): void;
 
-    parseAsync(data: ArrayBuffer | string, path: string): Promise<void>;
+    parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
 export type GLTFReferenceType = 'materials' | 'nodes' | 'textures' | 'meshes';
@@ -143,6 +143,7 @@ export class GLTFParser {
 export interface GLTFLoaderPlugin {
     beforeRoot?: (() => Promise<void> | null) | undefined;
     afterRoot?: ((result: GLTF) => Promise<void> | null) | undefined;
+    loadNode?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;
     loadMesh?: ((meshIndex: number) => Promise<Group | Mesh | SkinnedMesh> | null) | undefined;
     loadBufferView?: ((bufferViewIndex: number) => Promise<ArrayBuffer> | null) | undefined;
     loadMaterial?: ((materialIndex: number) => Promise<Material> | null) | undefined;

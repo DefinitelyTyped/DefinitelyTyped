@@ -69,5 +69,3 @@ export class ExtrudeGeometry extends BufferGeometry {
 
     static fromJSON(data: any): ExtrudeGeometry;
 }
-
-export { ExtrudeGeometry as ExtrudeBufferGeometry };

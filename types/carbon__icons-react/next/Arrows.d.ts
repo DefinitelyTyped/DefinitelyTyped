@@ -1,1 +1,0 @@
-export { Arrows as default } from "./";

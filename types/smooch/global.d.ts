@@ -690,7 +690,7 @@ interface User {
     surname: string;
     email: string;
     avatarUrl: string;
-    metadata: unknown;
+    metadata: Metadata;
     properties: unknown;
 }
 
@@ -701,12 +701,24 @@ interface ConversationParticipant {
     lastRead: number;
 }
 
+type Metadata = Record<string, string | number | boolean>;
+
+type ContentType = 'text'
+    | 'carousel'
+    | 'file'
+    | 'form'
+    | 'formResponse'
+    | 'image'
+    | 'list'
+    | 'location'
+    | 'template';
+
 interface Message {
     role: 'user' | 'business';
     userId: string;
     displayName: string;
     id: string;
-    type: 'text' | 'formResponse' | 'form';
+    type: ContentType;
     received: number;
     text: string;
     source: MessageSource;
@@ -732,7 +744,7 @@ interface Conversation {
     iconUrl: string;
     type: 'sdkGroup' | string;
     participants: ConversationParticipant[];
-    metadata: {};
+    metadata: Metadata;
     messages: Message[];
 }
 

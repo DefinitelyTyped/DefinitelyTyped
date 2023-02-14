@@ -672,10 +672,45 @@ export interface Style {
     /**
      * Margins to apply.
      *
+     * Overrides the single-side `marginXXX` properties, unless this value is inherited
+     * from a style and they are set directly on the content object.
+     *
      * Ignored for content within an inline text array
      * (`{ text: [{ ... }] }`).
      */
     margin?: Margins | undefined;
+
+    /**
+     * Margin in `pt` to apply above the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginTop?: number | undefined;
+
+    /**
+     * Margin in `pt` to apply to the right of the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginRight?: number | undefined;
+
+    /**
+     * Margin in `pt` to apply below the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginBottom?: number | undefined;
+
+    /**
+     * Margin in `pt` to apply to the left of the content.
+     *
+     * If {@link margin} is set, this value is ignored, unless the margin was inherited
+     * from a style and the value is set directly on the content object.
+     */
+    marginLeft?: number | undefined;
 
     /**
      * Controls whether to preserve spaces at the beginning of a paragraph.
@@ -884,13 +919,6 @@ export interface ContentStack extends ContentBase, ForbidOtherElementProperties<
      * For simple stacks without properties, a content array can be used instead.
      */
     stack: Content[];
-
-    /**
-     * Controls whether the contents of the stack should be kept together on the same page.
-     *
-     * Defaults to `false`.
-     */
-    unbreakable?: boolean | undefined;
 }
 
 /**
@@ -1339,6 +1367,13 @@ export interface ContentBase extends Style {
      * can use it to automatically insert page breaks before elements with certain headline levels.
      */
     headlineLevel?: number | undefined;
+
+    /**
+     * Controls whether the element should be kept together on the same page.
+     *
+     * Defaults to `false`.
+     */
+    unbreakable?: boolean | undefined;
 }
 
 /**
@@ -1426,7 +1461,11 @@ export interface TableOfContent {
  * Additional properties of {@link Content} objects that are used as columns.
  */
 export interface ColumnProperties {
-    /** Column width. */
+    /**
+     * Column width.
+     *
+     * Defaults to `*`.
+     */
     width?: Size | undefined;
 }
 

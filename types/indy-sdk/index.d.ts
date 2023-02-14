@@ -21,6 +21,7 @@ export function importWallet(
 export function exportWallet(wh: WalletHandle, exportConfig: WalletExportImportConfig): Promise<void>;
 export function createAndStoreMyDid(wh: WalletHandle, did: DidConfig): Promise<[Did, Verkey]>;
 export function keyForLocalDid(wh: WalletHandle, did: Did): Promise<Verkey>;
+export function listMyDidsWithMeta(wh: WalletHandle): Promise<DidWithMeta[]>;
 export function cryptoAnonCrypt(recipientVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
 export function cryptoSign(wh: WalletHandle, signerVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
 export function cryptoVerify(signerVk: Verkey, messageRaw: Buffer, signatureRaw: Buffer): Promise<boolean>;
@@ -128,7 +129,13 @@ export function appendTxnAuthorAgreementAcceptanceToRequest(
 export function abbreviateVerkey(did: Did, fullVerkey: Verkey): Promise<Verkey>;
 export function generateNonce(): Promise<string>;
 export function generateWalletKey(config?: GenerateWalletKeyConfig): Promise<string>;
-
+export function buildAttribRequest(
+    submitterDid: Did,
+    targetDid: Did,
+    hash: string | null,
+    raw: Record<string, unknown> | null,
+    enc: string | null,
+): Promise<LedgerRequest>;
 export function buildGetAttribRequest(
     submitterDid: Did | null,
     targetDid: Did,
@@ -244,7 +251,7 @@ export function verifierVerifyProof(
     schemas: Schemas,
     credentialDefs: CredentialDefs,
     revRegDefs: RevocRegDefs,
-    revRegs: RevStates,
+    revRegs: RevRegs,
 ): Promise<boolean>;
 
 export function createRevocationState(
@@ -451,7 +458,11 @@ export interface RevocRegDef {
         maxCredNum: number;
         tailsHash: string;
         tailsLocation: string;
-        publicKeys: string[];
+        publicKeys: {
+            accumKey: {
+                z: string;
+            };
+        };
     };
     ver: string;
 }
@@ -479,7 +490,7 @@ export interface IndyCredentialInfo {
     };
     schema_id: string;
     cred_def_id: string;
-    rev_reg_id?: number | undefined;
+    rev_reg_id?: string | undefined;
     cred_rev_id?: string | undefined;
 }
 
@@ -552,9 +563,14 @@ export interface RevocRegDefs {
     [revRegId: string]: RevocRegDef;
 }
 
+export interface RevRegs {
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevocReg;
+    };
+}
 export interface RevStates {
-    [key: string]: {
-        [key: string]: unknown;
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevState;
     };
 }
 
@@ -587,7 +603,7 @@ export interface IndyProofRequest {
     requested_attributes: {
         [key: string]: {
             name?: string | undefined;
-            names?: string | undefined;
+            names?: string[] | undefined;
             restrictions?: WalletQuery[] | undefined;
             non_revoked?: NonRevokedInterval | undefined;
         };
@@ -628,7 +644,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_id: string;
+    rev_reg_id?: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
@@ -691,6 +707,13 @@ export interface GetNymResponse {
     did: Did;
     verkey: Verkey;
     role: NymRole;
+}
+
+export interface DidWithMeta {
+    did: Did;
+    verkey: Verkey;
+    metadata?: string | undefined;
+    tempVerkey?: Verkey | undefined;
 }
 
 export type NymRole = 'TRUSTEE' | 'STEWARD' | 'TRUST_ANCHOR' | 'ENDORSER' | 'NETWORK_MONITOR';

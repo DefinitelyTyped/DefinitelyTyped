@@ -620,12 +620,19 @@ describe("A spy, when configured to fake a promised return value", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
+        getMaybeAsyncBar: (): number | Promise<number> => {
+            return bar;
+        },
     };
 
     it("verifies return value type", () => {
         spyOn(foo, "getAsyncBar").and.resolveTo(745);
         // @ts-expect-error
         spyOn(foo, "getAsyncBar").and.resolveTo("42");
+
+        spyOn(foo, "getMaybeAsyncBar").and.resolveTo(745);
+        // @ts-expect-error
+        spyOn(foo, "getMaybeAsyncBar").and.resolveTo("42");
     });
 
     it("tracks that the spy was called", async () => {
@@ -645,6 +652,9 @@ describe("A spy, when configured to fake a promised rejection", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
+        getMaybeAsyncBar: (): number | Promise<number> => {
+            return bar;
+        },
         getBar: () => {
             return bar;
         },
@@ -652,6 +662,7 @@ describe("A spy, when configured to fake a promised rejection", () => {
 
     it("verifies rejection value type", () => {
         spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+        spyOn(foo, "getMaybeAsyncBar").and.rejectWith("Error message");
         // @ts-expect-error
         spyOn(foo, "getBar").and.rejectWith("42");
     });
@@ -2432,6 +2443,21 @@ describe("setDefaultSpyStrategy", () => {
         expect(() => {
             program.start();
         }).toThrowError("Do Not Call Me");
+    });
+});
+
+describe("spyOnGlobalErrorsAsync", () => {
+    it('demonstrates global error spies', async function() {
+        await jasmine.spyOnGlobalErrorsAsync(async function(globalErrorSpy) {
+            setTimeout(function() {
+                throw new Error('the expected error');
+            });
+            await new Promise(function(resolve) {
+                setTimeout(resolve);
+            });
+            const expected = new Error('the expected error');
+            expect(globalErrorSpy).toHaveBeenCalledWith(expected);
+        });
     });
 });
 

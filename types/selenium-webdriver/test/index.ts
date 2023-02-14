@@ -9,7 +9,7 @@ import { PageLoadStrategy, UserPromptHandler, Platform } from 'selenium-webdrive
 import { Command } from 'selenium-webdriver/lib/command';
 import Symbols from 'selenium-webdriver/lib/symbols';
 import { ShadowRoot, ShadowRootPromise } from 'selenium-webdriver/lib/webdriver';
-import { HttpResponse } from 'selenium-webdriver/networkinterceptor';
+import { HttpResponse } from 'selenium-webdriver/devtools/networkinterceptor';
 
 function TestBuilder() {
     let builder: webdriver.Builder = new webdriver.Builder();
@@ -83,7 +83,6 @@ function TestBrowser() {
     browser = webdriver.Browser.CHROME;
     browser = webdriver.Browser.EDGE;
     browser = webdriver.Browser.FIREFOX;
-    browser = webdriver.Browser.IE;
     browser = webdriver.Browser.INTERNET_EXPLORER;
     browser = webdriver.Browser.SAFARI;
 }
@@ -381,7 +380,7 @@ function TestWebDriverWindow() {
     sizePromise = window.getSize();
     voidPromise = window.maximize();
     voidPromise = window.minimize();
-    voidPromise = window.fullsceen();
+    voidPromise = window.fullscreen();
     voidPromise = window.setPosition(12, 34);
     voidPromise = window.setSize(12, 34);
 }
@@ -460,6 +459,7 @@ async function TestWebDriver() {
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
     booleanPromise = driver.wait(booleanPromise, 123);
     booleanPromise = driver.wait(booleanPromise, 123, 'Message');
+    booleanPromise = driver.wait(booleanPromise, 123, 'Message', 10);
     webElementPromise = driver.wait(webElementCondition);
     webElementPromise = driver.wait(webElementCondition, 50, 'Message');
     webElementPromise = driver.wait(webElementCondition, 50, 'Message', 10);

@@ -6,10 +6,10 @@ import stoppable = require("stoppable");
 type Stoppable = stoppable.StoppableServer;
 type WithStop = stoppable.WithStop;
 
-const httpServer = stoppable(http.createServer()); // $ExpectType Server & WithStop
-const httpsServer = stoppable(https.createServer()); // $ExpectType Server & WithStop
-stoppable(http.createServer(), 10000); // $ExpectType Server & WithStop
-stoppable(https.createServer(), 10000); // $ExpectType Server & WithStop
+const httpServer = stoppable(http.createServer()); // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse> & WithStop
+const httpsServer = stoppable(https.createServer()); // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse> & WithStop
+stoppable(http.createServer(), 10000); // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse> & WithStop
+stoppable(https.createServer(), 10000); // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse> & WithStop
 
 // check return type is actually a http.Server/https.Server
 httpServer.addListener("connection", socket => {

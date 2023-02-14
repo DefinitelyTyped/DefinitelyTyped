@@ -3,24 +3,24 @@
 declare namespace M {
     class Parallax extends Component<ParallaxOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Parallax;
 
         /**
-         * Init Parallax
+         * Init Parallax.
          */
         static init(els: Element, options?: Partial<ParallaxOptions>): Parallax;
 
         /**
-         * Init Parallaxs
+         * Init Parallaxs.
          */
         static init(els: MElements, options?: Partial<ParallaxOptions>): Parallax[];
     }
 
     interface ParallaxOptions {
         /**
-         * The minimum width of the screen, in pixels, where the parallax functionality starts working
+         * The minimum width of the screen, in pixels, where the parallax functionality starts working.
          * @default 0
          */
         responsiveThreshold: number;

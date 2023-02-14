@@ -1,14 +1,14 @@
 // Specifically test buffer module regression.
 import {
+    Blob as NodeBlob,
     Buffer as ImportedBuffer,
-    SlowBuffer as ImportedSlowBuffer,
-    transcode,
-    TranscodeEncoding,
     constants,
     kMaxLength,
     kStringMaxLength,
-    Blob,
     resolveObjectURL,
+    SlowBuffer as ImportedSlowBuffer,
+    transcode,
+    TranscodeEncoding,
 } from 'node:buffer';
 import { Readable, Writable } from 'node:stream';
 
@@ -283,7 +283,7 @@ b.fill('a').fill('b');
 }
 
 async () => {
-    const blob = new Blob(['asd', Buffer.from('test'), new Blob(['dummy'])], {
+    const blob = new NodeBlob(['asd', Buffer.from('test'), new NodeBlob(['dummy'])], {
         type: 'application/javascript',
         encoding: 'base64',
     });
@@ -297,7 +297,20 @@ async () => {
     blob.slice(1); // $ExpectType Blob
     blob.slice(1, 2); // $ExpectType Blob
     blob.slice(1, 2, 'other'); // $ExpectType Blob
+    // ExpectType does not support disambiguating interfaces that have the same
+    // name but wildly different implementations, like Node native ReadableStream
+    // vs W3C ReadableStream, so we have to look at properties.
+    blob.stream().locked; // $ExpectType boolean
+
+    // As above but for global-scoped Blob, which should be an alias for NodeBlob
+    // as long as `lib-dom` is not included.
+    const blob2 = new Blob([]);
+    blob2.stream().locked; // $ExpectType boolean
 };
+
+// Ensure type-side of global Blob exists
+declare const blob3: Blob;
+blob3.stream();
 
 {
     atob(btoa('test')); // $ExpectType string
@@ -409,9 +422,8 @@ buff.writeDoubleBE(123.123);
 buff.writeDoubleBE(123.123, 0);
 
 {
-    // The 'as any' is to make sure the Global DOM Blob does not clash with the
-    //  local "Blob" which comes with node.
-    resolveObjectURL(URL.createObjectURL(new Blob(['']) as any)); // $ExpectType Blob | undefined
+    // $ExpectType Blob | undefined
+    resolveObjectURL(URL.createObjectURL(new Blob([''])));
 }
 
 {

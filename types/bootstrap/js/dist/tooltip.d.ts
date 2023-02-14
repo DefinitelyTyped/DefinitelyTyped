@@ -38,6 +38,8 @@ declare class Tooltip extends BaseComponent {
     static DefaultType: Record<keyof Tooltip.Options, string>;
     constructor(element: string | Element, options?: Partial<Tooltip.Options>);
 
+    static SetContentFunction: Tooltip.SetContentFunction;
+
     /**
      * Reveals an element’s tooltip. Returns to the caller before the
      * tooltip has actually been shown (i.e. before the shown.bs.tooltip
@@ -82,6 +84,11 @@ declare class Tooltip extends BaseComponent {
      * Updates the position of an element’s tooltip.
      */
     update(): void;
+
+    /**
+     * Gives a way to change the tooltip’s content after its initialization.
+     */
+    setContent(content?: Record<string, string | Element | Tooltip.SetContentFunction | null>): void;
 }
 
 declare namespace Tooltip {
@@ -119,6 +126,8 @@ declare namespace Tooltip {
     type Offset = [number, number];
 
     type OffsetFunction = () => Offset;
+
+    type PopoverPlacement = 'auto' | 'top' | 'bottom' | 'left' | 'right';
 
     type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Popper.Options>;
 
@@ -175,7 +184,7 @@ declare namespace Tooltip {
          *
          * @default 'top'
          */
-        placement: 'auto' | 'top' | 'bottom' | 'left' | 'right' | (() => void);
+        placement: PopoverPlacement | (() => PopoverPlacement);
 
         /**
          * If a selector is provided, tooltip objects will be delegated to the
@@ -255,7 +264,7 @@ declare namespace Tooltip {
          * @see {@link https://popper.js.org/docs/v2/modifiers/flip/#fallbackplacements}
          * @default ['top', 'right', 'bottom', 'left']
          */
-        fallbackPlacement: string[];
+        fallbackPlacements: string[];
 
         /**
          * Overflow constraint boundary of the popover. Accepts the values of
@@ -293,7 +302,7 @@ declare namespace Tooltip {
          *
          * @see {@link https://v5.getbootstrap.com/docs/5.0/getting-started/javascript/#sanitizer}
          */
-        allowList: Record<keyof HTMLElementTagNameMap, string[]>;
+        allowList: Record<keyof HTMLElementTagNameMap | '*', Array<string | RegExp>>;
 
         /**
          * Here you can supply your own sanitize function. This can be useful if
@@ -318,6 +327,8 @@ declare namespace Tooltip {
         popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
     }
 
+    type SetContentFunction = () => string | Element | (() => string | Element | null) | null;
+
     type jQueryInterface = (
         config?:
             | Partial<Options>
@@ -328,6 +339,7 @@ declare namespace Tooltip {
             | 'disable'
             | 'toggleEnabled'
             | 'update'
+            | 'setContent'
             | 'dispose',
     ) => JQuery;
 }

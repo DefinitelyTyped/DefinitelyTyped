@@ -1,13 +1,11 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "dt-header": false,
         "interface-over-type-literal": false,
         "no-const-enum": false,
         "no-internal-module": false,
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
         "one-line": false,

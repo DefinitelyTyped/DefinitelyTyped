@@ -3,20 +3,15 @@
     "rules": {
         "ban-types": false,
         "comment-format": false,
-        "file-name-casing": [
-            true,
-            "kebab-case"
-        ],
+        "file-name-casing": [true, "kebab-case"],
         "no-consecutive-blank-lines": false,
         "no-empty-interface": false,
         "no-padding": false,
-        "no-unnecessary-generics": false,
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
         "prefer-const": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "unified-signatures": false,
         "void-return": false
     }

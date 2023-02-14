@@ -19,7 +19,12 @@ export { Action, combineReducers };
 export type ResolveSelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => Promise<T>>;
 export type SelectorMap = Record<string, <T = unknown>(...args: readonly any[]) => T>;
 type EnsurePromise<T> = T extends Promise<any> ? T : Promise<T>;
-export type DispatcherMap = Record<string, <T = void, DoEnsurePromise extends boolean = true>(...args: readonly any[]) => DoEnsurePromise extends true ? EnsurePromise<T> : T>;
+export type DispatcherMap = Record<
+    string,
+    <T = void, DoEnsurePromise extends boolean = true>(
+        ...args: readonly any[]
+    ) => DoEnsurePromise extends true ? EnsurePromise<T> : T
+>;
 
 /**
  * Subscribe to any changes to the store
@@ -38,11 +43,11 @@ export type DispatcherMap = Record<string, <T = void, DoEnsurePromise extends bo
  * unsubscribe();
  *
  */
-export type Subscriber = (callback: () => void) => () => void;
+export type Subscriber = (callback: () => void, storeNameOrDescriptor?: string | StoreDescriptor) => () => void;
 
-export function dispatch(storeNameOrDescriptor: string|StoreDescriptor): DispatcherMap;
-export function select(storeNameOrDescriptor: string|StoreDescriptor): SelectorMap;
-export function resolveSelect(storeNameOrDescriptor: string|StoreDescriptor): ResolveSelectorMap;
+export function dispatch(storeNameOrDescriptor: string | StoreDescriptor): DispatcherMap;
+export function select(storeNameOrDescriptor: string | StoreDescriptor): SelectorMap;
+export function resolveSelect(storeNameOrDescriptor: string | StoreDescriptor): ResolveSelectorMap;
 
 export const subscribe: Subscriber;
 
@@ -57,18 +62,26 @@ export interface GenericStoreConfig {
 
 export interface StoreConfig<S> {
     reducer: Reducer<S>;
-    actions?: {
-        [k: string]: (...args: readonly any[]) => Action | Generator<any>;
-    } | undefined;
-    selectors?: {
-        [k: string]: (state: S, ...args: readonly any[]) => any;
-    } | undefined;
-    resolvers?: {
-        [k: string]: (...args: readonly any[]) => any;
-    } | undefined;
-    controls?: {
-        [k: string]: (action: Action) => any;
-    } | undefined;
+    actions?:
+        | {
+              [k: string]: (...args: readonly any[]) => Action | Generator<any>;
+          }
+        | undefined;
+    selectors?:
+        | {
+              [k: string]: (state: S, ...args: readonly any[]) => any;
+          }
+        | undefined;
+    resolvers?:
+        | {
+              [k: string]: (...args: readonly any[]) => any;
+          }
+        | undefined;
+    controls?:
+        | {
+              [k: string]: (action: Action) => any;
+          }
+        | undefined;
     initialState?: S | undefined;
 
     /**
@@ -159,7 +172,7 @@ export type Plugin<T extends Record<string, any>> = (registry: DataRegistry, opt
 
 export const plugins: {
     persistence: Plugin<{
-        storage?: Pick<Storage, 'getItem' | 'setItem'> & Partial<Storage> | undefined;
+        storage?: (Pick<Storage, 'getItem' | 'setItem'> & Partial<Storage>) | undefined;
         storageKey?: string | undefined;
     }>;
 };

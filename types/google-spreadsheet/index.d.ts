@@ -70,8 +70,8 @@ export type DeveloperMetadataLocationType = 'ROW' | 'COLUMN' | 'SHEET' | 'SPREAD
 // #region OPTIONS / CONFIG
 
 export interface PaginationOptions {
-    limit: number;
-    offset: number;
+    limit?: number | undefined;
+    offset?: number | undefined;
 }
 
 export interface WorksheetGridRange {

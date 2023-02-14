@@ -1,6 +1,7 @@
 
 import SVGSpriter = require('svg-sprite');
 import * as fs from 'fs';
+import File = require('vinyl');
 
 var config: SVGSpriter.Config;
 
@@ -22,6 +23,11 @@ spriter.compile(function(error: any, result: any) {
     /* ... Write `result` files to disk or do whatever with them ... */
 });
 
+// Compile the sprite
+(async function() {
+    const { result, data } = await spriter.compileAsync();
+})();
+
 // General configuration options
 
 config                      = {
@@ -30,7 +36,7 @@ config                      = {
     shape                   : {                         // SVG shape related options
         id                  : {                         // SVG shape ID related options
             separator       : '--',                     // Separator for directory name traversal
-            generator       : function(svg: string) { /*...*/ return ''; },   // SVG shape ID generator callback
+            generator       : function(svg: string, file: File) { /*...*/ return ''; },   // SVG shape ID generator callback
             pseudo          : '~'                       // File name separator for shape states (e.g. ':hover')
         },
         dimension           : {                         // Dimension related options
@@ -153,7 +159,7 @@ config = {
     shape               : {
         id              : {                         // SVG shape ID related options
             separator   : '--',                     // Separator for directory name traversal
-            generator   : function(svg: string) { /*...*/ return ''; },   // SVG shape ID generator callback
+            generator   : function(svg: string, file: File) { /*...*/ return ''; },   // SVG shape ID generator callback
             pseudo      : '~',                      // File name separator for shape states (e.g. ':hover')
             whitespace  : '_'                       // Whitespace replacement for shape IDs
         },

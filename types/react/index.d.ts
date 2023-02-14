@@ -26,6 +26,7 @@
 //                 Victor Magalhães <https://github.com/vhfmag>
 //                 Dale Tan <https://github.com/hellatan>
 //                 Priyanshu Rav <https://github.com/priyanshurav>
+//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
@@ -58,7 +59,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-// tslint:disable-next-line:export-just-namespace
+// eslint-disable-next-line export-just-namespace
 export = React;
 export as namespace React;
 
@@ -97,7 +98,7 @@ declare namespace React {
      * - React stateless functional components that forward a `ref` will give you the `ElementRef` of the forwarded
      *   to component.
      *
-     * `C` must be the type _of_ a React component so you need to use typeof as in React.ElementRef<typeof MyComponent>.
+     * `C` must be the type _of_ a React component so you need to use typeof as in `React.ElementRef<typeof MyComponent>`.
      *
      * @todo In Flow, this works a little different with forwarded refs and the `AbstractComponent` that
      *       `React.forwardRef()` returns.
@@ -781,10 +782,10 @@ declare namespace React {
 
     /** Ensures that the props do not include ref at all */
     type PropsWithoutRef<P> =
-        // Pick would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
+        // Omit would not be sufficient for this. We'd like to avoid unnecessary mapping and need a distributive conditional to support unions.
         // see: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        P extends any ? ('ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P) : P;
+        P extends any ? ('ref' extends keyof P ? Omit<P, 'ref'> : P) : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
@@ -1249,6 +1250,8 @@ declare namespace React {
         target: EventTarget & T;
     }
 
+    export type ModifierKey = "Alt" | "AltGraph" | "CapsLock" | "Control" | "Fn" | "FnLock" | "Hyper" | "Meta" | "NumLock" | "ScrollLock" | "Shift" | "Super" | "Symbol" | "SymbolLock";
+
     interface KeyboardEvent<T = Element> extends UIEvent<T, NativeKeyboardEvent> {
         altKey: boolean;
         /** @deprecated */
@@ -1258,7 +1261,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         /**
          * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
          */
@@ -1272,7 +1275,6 @@ declare namespace React {
         shiftKey: boolean;
         /** @deprecated */
         which: number;
-        target: EventTarget & T;
     }
 
     interface MouseEvent<T = Element, E = NativeMouseEvent> extends UIEvent<T, E> {
@@ -1285,7 +1287,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         movementX: number;
         movementY: number;
@@ -1304,7 +1306,7 @@ declare namespace React {
         /**
          * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
          */
-        getModifierState(key: string): boolean;
+        getModifierState(key: ModifierKey): boolean;
         metaKey: boolean;
         shiftKey: boolean;
         targetTouches: TouchList;
@@ -1459,6 +1461,8 @@ declare namespace React {
         onProgressCapture?: ReactEventHandler<T> | undefined;
         onRateChange?: ReactEventHandler<T> | undefined;
         onRateChangeCapture?: ReactEventHandler<T> | undefined;
+        onResize?: ReactEventHandler<T> | undefined;
+        onResizeCapture?: ReactEventHandler<T> | undefined;
         onSeeked?: ReactEventHandler<T> | undefined;
         onSeekedCapture?: ReactEventHandler<T> | undefined;
         onSeeking?: ReactEventHandler<T> | undefined;
@@ -1858,6 +1862,7 @@ declare namespace React {
         hidden?: boolean | undefined;
         id?: string | undefined;
         lang?: string | undefined;
+        nonce?: string | undefined;
         placeholder?: string | undefined;
         slot?: string | undefined;
         spellCheck?: Booleanish | undefined;
@@ -1935,7 +1940,7 @@ declare namespace React {
         content?: string | undefined;
         controls?: boolean | undefined;
         coords?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         data?: string | undefined;
         dateTime?: string | undefined;
         default?: boolean | undefined;
@@ -1978,7 +1983,6 @@ declare namespace React {
         multiple?: boolean | undefined;
         muted?: boolean | undefined;
         name?: string | undefined;
-        nonce?: string | undefined;
         noValidate?: boolean | undefined;
         open?: boolean | undefined;
         optimum?: number | undefined;
@@ -2143,6 +2147,7 @@ declare namespace React {
         name?: string | undefined;
         noValidate?: boolean | undefined;
         target?: string | undefined;
+        rel?: string | undefined;
     }
 
     interface HtmlHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2223,7 +2228,7 @@ declare namespace React {
         autoFocus?: boolean | undefined;
         capture?: boolean | 'user' | 'environment' | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         disabled?: boolean | undefined;
         enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined;
         form?: string | undefined;
@@ -2275,7 +2280,7 @@ declare namespace React {
 
     interface LinkHTMLAttributes<T> extends HTMLAttributes<T> {
         as?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -2301,7 +2306,7 @@ declare namespace React {
         autoPlay?: boolean | undefined;
         controls?: boolean | undefined;
         controlsList?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         loop?: boolean | undefined;
         mediaGroup?: string | undefined;
         muted?: boolean | undefined;
@@ -2386,11 +2391,10 @@ declare namespace React {
         async?: boolean | undefined;
         /** @deprecated */
         charSet?: string | undefined;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         defer?: boolean | undefined;
         integrity?: string | undefined;
         noModule?: boolean | undefined;
-        nonce?: string | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
         type?: string | undefined;
@@ -2421,7 +2425,6 @@ declare namespace React {
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
         media?: string | undefined;
-        nonce?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
     }
@@ -2820,6 +2823,7 @@ declare namespace React {
         button: DetailedHTMLFactory<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
         canvas: DetailedHTMLFactory<CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
         caption: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
+        center: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         cite: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         code: DetailedHTMLFactory<HTMLAttributes<HTMLElement>, HTMLElement>;
         col: DetailedHTMLFactory<ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;
@@ -3157,6 +3161,7 @@ declare global {
             button: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
             canvas: React.DetailedHTMLProps<React.CanvasHTMLAttributes<HTMLCanvasElement>, HTMLCanvasElement>;
             caption: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            center: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             cite: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             code: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             col: React.DetailedHTMLProps<React.ColHTMLAttributes<HTMLTableColElement>, HTMLTableColElement>;

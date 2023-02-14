@@ -7,7 +7,7 @@ declare class DetailGrid {
     private _masterScrollRequiresDataSet;
     private lastMasterBookmarkSynchronized;
     maxRecordCount: any;
-    masterDeleteAction: any;
+    masterDeleteAction: number;
     onCreateDataSet: Event;
     onMasterInsert: Event;
     onMasterScroll: Event;

@@ -7,5 +7,8 @@ export function fetchQuery<T extends OperationType>(
     environment: Environment,
     taggedNode: GraphQLTaggedNode,
     variables: T['variables'],
-    cacheConfig?: { networkCacheConfig?: CacheConfig | null | undefined, fetchPolicy?: FetchQueryFetchPolicy | null | undefined } | null,
+    cacheConfig?: {
+        networkCacheConfig?: CacheConfig | null | undefined;
+        fetchPolicy?: FetchQueryFetchPolicy | null | undefined;
+    } | null,
 ): RelayObservable<T['response']>;

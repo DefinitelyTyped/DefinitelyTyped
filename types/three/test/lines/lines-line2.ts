@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Line2 } from 'three/examples/jsm/lines/Line2';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry';
-import { GeometryUtils } from 'three/examples/jsm/utils/GeometryUtils';
+import * as GeometryUtils from 'three/examples/jsm/utils/GeometryUtils';
 
 let line: Line2;
 let renderer: THREE.WebGLRenderer;

@@ -1,7 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "aws-sdk": "^2.814.0",
         "joi": "^17.3.0"
     }
 }

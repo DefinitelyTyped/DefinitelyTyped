@@ -1262,7 +1262,7 @@ type GetOpenUserInfoArgs = AsyncCallback<{
     response: string;
 }>;
 
-interface TradePayArgs extends AsyncCallback<string> {
+interface TradePayArgs extends AsyncCallback<{ resultCode: string }> {
     tradeNO?: string | undefined;
     orderStr?: string | undefined;
     paymentUrl?: string | undefined;

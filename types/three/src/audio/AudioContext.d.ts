@@ -4,5 +4,5 @@
 export namespace AudioContext {
     function getContext(): AudioContext;
 
-    function setContext(): void;
+    function setContext(context: AudioContext): void;
 }

@@ -258,7 +258,7 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
         return element.a;
     };
     if (_.isFunction(anyFunctionIteratee)) {
-        anyFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string
+        anyFunctionIteratee(recordDictionary['a'], 'a', recordDictionary); // $ExpectType string || any
     }
 
     // matchers
@@ -308,7 +308,7 @@ explicitDictionaryLiteralItem; // $ExpectType StringRecord
 
     const anyDeepPropertyIteratee: _.Iteratee<any, string> = deepProperty;
     if (_.isArray(anyDeepPropertyIteratee)) {
-        anyDeepPropertyIteratee; // $ExpectType (string | number)[]
+        anyDeepPropertyIteratee; // $ExpectType (string | number)[] || any[] | (string | number)[]
     }
 
     // identity

@@ -1,10 +1,10 @@
-import { Uniform } from '../../../src/Three';
+import { IUniform } from '../../../src/Three';
 
 export const RGBShiftShader: {
     uniforms: {
-        tDiffuse: Uniform;
-        amount: Uniform;
-        angle: Uniform;
+        tDiffuse: IUniform;
+        amount: IUniform;
+        angle: IUniform;
     };
     vertexShader: string;
     fragmentShader: string;

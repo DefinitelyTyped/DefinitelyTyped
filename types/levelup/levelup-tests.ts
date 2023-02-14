@@ -61,7 +61,7 @@ db.isOpen();
 // $ExpectType boolean
 db.isClosed();
 
-// $ExpectType "new" | "opening" | "open" | "closing" | "closed" || "open" | "opening" | "closed" | "new" | "closing"
+// $ExpectType "closed" | "open" | "opening" | "new" | "closing"
 db.status;
 
 // $ExpectType boolean

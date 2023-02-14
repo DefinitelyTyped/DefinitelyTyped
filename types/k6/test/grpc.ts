@@ -7,17 +7,20 @@ client.connect('localhost:8080', { plaintext: true });
 client.connect('localhost:8080', { plaintext: true, reflect: true });
 client.connect('localhost:8080', { timeout: 30 });
 client.connect('localhost:8080', { timeout: '30' });
+client.connect('localhost:8080', { maxReceiveSize: 30, maxSendSize: 30 });
 
 client.close();
 
 client.load(['../googleapis/google'], 'language_service.proto', 'extra_service.proto');
+
+client.loadProtoset('./lib/test.protoset');
 
 const req = {
     latitude: 410248224,
     longitude: -747127767,
 };
 const params = {
-    headers: { 'x-my-header': 'k6test' },
+    metadata: { 'x-my-header': 'k6test' },
     tags: { k6test: 'yes' },
     timeout: 30,
 };
@@ -29,7 +32,7 @@ response.status;
 response.trailers;
 
 const params_with_string_timeout = {
-    headers: { 'x-my-header': 'k6test' },
+    metadata: { 'x-my-header': 'k6test' },
     tags: { k6test: 'yes' },
     timeout: '30',
 };

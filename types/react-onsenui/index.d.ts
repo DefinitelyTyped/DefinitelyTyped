@@ -396,7 +396,9 @@ export class Range extends Component<{
 export class SearchInput extends Component<{
     modifier?: string | undefined,
     disabled?: boolean | undefined,
-    onChange?(e: Event): void,
+    onChange?: ((e: React.ChangeEvent<any>) => void) | undefined,
+    onInput?: ((e: React.ChangeEvent<any>) => void) | undefined,
+    placeholder?: string | undefined,
     value?: string | undefined,
     inputId?: string | undefined,
 }, any> {}

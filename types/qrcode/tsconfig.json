@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "qrcode-tests.ts"
+        "test/qrcode-tests.ts",
+        "test/qrcode-browser-tests.ts"
     ]
 }

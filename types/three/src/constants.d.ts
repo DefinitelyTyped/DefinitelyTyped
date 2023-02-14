@@ -34,15 +34,14 @@ export const VSMShadowMap: ShadowMapType;
 // MATERIAL CONSTANTS
 
 // side
+/**
+ * Defines which side of faces will be rendered - front, back or both.
+ * Default is {@link FrontSide}.
+ */
 export enum Side {}
 export const FrontSide: Side;
 export const BackSide: Side;
 export const DoubleSide: Side;
-
-// shading
-export enum Shading {}
-export const FlatShading: Shading;
-export const SmoothShading: Shading;
 
 // blending modes
 export enum Blending {}
@@ -152,7 +151,6 @@ export const UnsignedInt248Type: TextureDataType;
 // Pixel formats
 export enum PixelFormat {}
 export const AlphaFormat: PixelFormat;
-export const RGBFormat: PixelFormat;
 export const RGBAFormat: PixelFormat;
 export const LuminanceFormat: PixelFormat;
 export const LuminanceAlphaFormat: PixelFormat;
@@ -267,6 +265,12 @@ export const RGBA_ASTC_12x12_Format: CompressedPixelFormat;
 
 // BPTC compressed texture formats
 export const RGBA_BPTC_Format: CompressedPixelFormat;
+
+// RGTC compressed texture formats
+export const RED_RGTC1_Format: CompressedPixelFormat;
+export const SIGNED_RED_RGTC1_Format: CompressedPixelFormat;
+export const RED_GREEN_RGTC2_Format: CompressedPixelFormat;
+export const SIGNED_RED_GREEN_RGTC2_Format: CompressedPixelFormat;
 
 // Loop styles for AnimationAction
 export enum AnimationActionLoopStyles {}

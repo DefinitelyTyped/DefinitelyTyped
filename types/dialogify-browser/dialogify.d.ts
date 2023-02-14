@@ -109,7 +109,7 @@ declare namespace Dialogify {
          * @param this Dialogify instance.
          * @param event Mouse click event
          */
-        click?: (this: Dialogify, event: JQuery.ClickEvent) => void;
+        click?: JQuery.TypeEventHandler<Dialogify, null, Dialogify, Dialogify, 'click'>;
         /** Set `autofocus` property or not, `false` by default. */
         focused?: boolean;
         /** Set button as disabled or not, `false` by default. */
@@ -188,7 +188,10 @@ declare class Dialogify {
      * @param callback Callback function.
      * @returns Dialogify instance for chaining.
      */
-    on(event: Dialogify.DialogifyEvent, callback: (this: Dialogify, event: JQuery.Event) => void): Dialogify;
+    on<TType extends Dialogify.DialogifyEvent>(
+        event: TType,
+        callback: JQuery.TypeEventHandler<Dialogify, undefined, Dialogify, Dialogify, TType>,
+    ): Dialogify;
 
     /**
      * Shows a dialog directly.

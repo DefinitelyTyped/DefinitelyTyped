@@ -223,6 +223,16 @@ const connectionHasPending: boolean = connection.hasPending();
 connection.whenNothingPending(() => console.log('whenNothingPending resolved'));
 connection.send({ a: 'nonExistentAction', some: 'data' });
 
+connection.on('doc', (doc) => {
+    console.log(doc.data);
+});
+connection.on('connected', (reason) => {
+    if (reason === 'foo') console.log(reason);
+});
+
+connection.on('pong', () => {});
+if (connection.canSend) connection.ping();
+
 const doc = connection.get('examples', 'counter');
 
 doc.fetch((err) => {

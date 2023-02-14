@@ -1,4 +1,4 @@
-import { SSM } from 'aws-sdk';
+import { SSM } from 'aws-sdk2-types';
 import {
     ParameterQuery,
     parameterQuery,

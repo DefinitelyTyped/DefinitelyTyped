@@ -2,7 +2,6 @@
 // Project: https://ckeditor.com/ckeditor-4/, http://ckeditor.com
 // Definitions by: Thomas Wittwer <https://github.com/wittwert>
 //                 Stuart Long <https://github.com/stuartlong>
-//                 Viktor Pegy <https://github.com/viktorpegy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
@@ -1670,10 +1669,12 @@ declare namespace CKEDITOR {
         hidpi?: boolean | undefined;
         lang?: string | string[] | undefined;
         requires?: string | string[] | undefined;
+        icons?: string | undefined;
 
         afterInit?(editor: editor): any;
         beforeInit?(editor: editor): any;
         init?(editor: editor): void;
+        isSupportedEnvironment?(editor: editor): boolean;
         onLoad?(): any;
     }
 
@@ -2484,7 +2485,7 @@ declare namespace CKEDITOR {
                 constructor(dialog: dialog, elementDefinition: definitions.labeledElement, htmlList: any[], contentHtml: () => string);
 
                 getLabel(): string;
-                setlabel(label: string): labeledElement;
+                setLabel(label: string): labeledElement;
             }
 
             class radio extends labeledElement {
@@ -2727,7 +2728,7 @@ declare namespace CKEDITOR {
             element: string;
             attributes?: { [key: string]: any } | undefined;
             styles?: { [key: string]: any } | undefined;
-            overrides?: { [key: string]: any } | undefined;
+            overrides?: string | { [key: string]: any } | undefined;
         }
     }
 

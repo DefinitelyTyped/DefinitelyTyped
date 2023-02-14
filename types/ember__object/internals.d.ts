@@ -17,4 +17,4 @@ export function cacheFor<T, K extends keyof T>(
  * `Ember.Object`-based or not, but be aware that it will add a `_guid`
  * property.
  */
-export function guidFor(obj: any): string;
+export function guidFor(obj: unknown): string;

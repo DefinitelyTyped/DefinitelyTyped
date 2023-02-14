@@ -339,6 +339,16 @@ braintree.client.create(
                 currencyCode: 'USD',
                 supportedNetworks: ['visa', 'masterCard'],
                 merchantCapabilities: ['supports3DS'],
+                lineItems: [
+                    {
+                        label: 'First item',
+                        amount: '4.00'
+                    },
+                    {
+                        label: 'Second item',
+                        amount: '6.00'
+                    }
+                ],
                 total: { label: 'Your Label', amount: '10.00' },
             };
 

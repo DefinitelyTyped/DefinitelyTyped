@@ -328,6 +328,12 @@ minio.presignedPutObject('testBucket', 'hello.jpg', 84600);
 const policy = minio.newPostPolicy();
 policy.setBucket('testBucket');
 policy.setKey('hello.jpg');
+policy.setContentLengthRange(0, 100);
+policy.setContentDisposition('testDisposition.jpg');
+policy.setContentType('image/jpeg');
+policy.setContentTypeStartsWith('image/');
+policy.setUserMetaData({ key: 'value' });
+
 minio.presignedPostPolicy(policy, (error: Error|null, data: Minio.PostPolicyResult) => { console.log(error, data); });
 minio.presignedPostPolicy(policy);
 

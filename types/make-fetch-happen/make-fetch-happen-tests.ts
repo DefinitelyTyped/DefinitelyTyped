@@ -3,6 +3,7 @@ import { Integrity } from 'ssri';
 import { URL as NodeURL } from 'url';
 import { Agent } from 'http';
 import { Headers } from 'node-fetch';
+import { CommonConnectionOptions } from 'tls';
 
 // Needs arguments when invoked
 // @ts-expect-error
@@ -66,15 +67,32 @@ fetcher('https://url', { integrity });
 // $ExpectType Promise<Response>
 fetcher('http://url', { retry: { retries: 1, maxTimeout: 1 } });
 
+// $ExpectType Promise<Response>
+fetcher('http://url', {
+    onRetry(cause) {
+        console.log('Retrying', cause);
+    },
+});
+
 // Test both the DOM URL and the Node.js `url` module.
 // $ExpectType Promise<Response>
 fetcher('http://url', { proxy: new URL('http://secure-proxy') });
 // $ExpectType Promise<Response>
 fetcher('http://url', { proxy: new NodeURL('http://secure-proxy') });
 
-// Test the imported `tls` type `rejectUnauthorized` remapped to `strictSSL`.
+// Test strictSSL options
 // $ExpectType Promise<Response>
 fetcher('https://url', { strictSSL: true });
+// $ExpectType Promise<Response>
+fetcher('https://url', { strictSSL: false });
+
+// Test the imported `tls` type `CommonConnectionOptions.rejectUnauthorized` matches the
+// type used in `strictSSL`.
+const options: CommonConnectionOptions = {
+    rejectUnauthorized: true
+};
+// $ExpectType Promise<Response>
+fetcher('https://url', { strictSSL: options.rejectUnauthorized });
 
 // Test the various types of `headers` that can be passed in as options
 // $ExpectType Promise<Response>

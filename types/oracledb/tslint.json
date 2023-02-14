@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "comment-format": false,
-        "export-just-namespace": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-conditional-assignment": false,
@@ -11,7 +10,6 @@
         "no-duplicate-imports": false,
         "no-redundant-jsdoc-2": false,
         "no-trailing-whitespace": false,
-        "no-unnecessary-generics": false,
         "no-void-expression": false,
         "semicolon": false,
         "unified-signatures": false

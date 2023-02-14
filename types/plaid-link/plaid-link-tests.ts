@@ -23,3 +23,10 @@ const newConfig: Plaid.CreateConfig = {
     onEvent: (eventName, metadata) => {},
     receivedRedirectUri: 'https://example.com/',
 };
+
+const mockLinkHandler: Plaid.LinkHandler = {
+    open: institution_id => {},
+    exit: options => {},
+    destroy: () => {},
+    institutions: [],
+};

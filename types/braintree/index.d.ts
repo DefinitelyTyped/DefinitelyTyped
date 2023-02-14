@@ -17,7 +17,7 @@ declare namespace braintree {
      * Braintree Config and Client
      */
 
-    export enum Environment {
+    export enum EnvironmentType {
         Development = 'Development',
         Production = 'Production',
         Qa = 'Qa',
@@ -135,10 +135,32 @@ declare namespace braintree {
         voidedAt: RangeFieldSearchFn<Date>;
     }) => void;
 
-    export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
+    export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig | CustomConfig;
+
+    export class Environment {
+        constructor(
+            server: string,
+            port: string,
+            authUrl: string,
+            ssl: boolean,
+            graphQLServer: string,
+            graphQLPort: string,
+        );
+
+        baseUrl: string;
+        baseGraphQLUrl: string;
+        uriScheme: string;
+    }
+
+    export interface CustomConfig {
+        environment: Environment;
+        merchantId: string;
+        publicKey: string;
+        privateKey: string;
+    }
 
     export interface KeyGatewayConfig {
-        environment: Environment;
+        environment: EnvironmentType;
         merchantId: string;
         publicKey: string;
         privateKey: string;
@@ -177,8 +199,6 @@ declare namespace braintree {
         webhookNotification: WebhookNotificationGateway;
         webhookTesting: WebhookTestingGateway;
     }
-
-    export function connect(config: GatewayConfig): BraintreeGateway;
 
     interface ValidatedResponse<T> {
         success: boolean;
@@ -1295,7 +1315,7 @@ declare namespace braintree {
         nextBillingDate: string;
         nextBillingPeriodAmount: string;
         numberOfBillingCycles?: number | undefined;
-        paidThroughDate: Date;
+        paidThroughDate?: Date | undefined;
         paymentMethodToken: string;
         planId: string;
         price?: string | undefined;
@@ -1353,7 +1373,7 @@ declare namespace braintree {
         trialPeriod?: boolean | undefined;
     }
 
-    export interface SubscriptionUpdateRequest extends SubscriptionRequest {
+    export interface SubscriptionUpdateRequest extends Partial<SubscriptionRequest> {
         options?:
             | {
                   paypal?:
@@ -1363,7 +1383,7 @@ declare namespace braintree {
                       | undefined;
                   prorateCharges?: boolean | undefined;
                   replaceAllAddOnsAndDiscounts?: boolean | undefined;
-                  revertSubscriptionOnProrationFailure: boolean | undefined;
+                  revertSubscriptionOnProrationFailure?: boolean | undefined;
               }
             | undefined;
     }
@@ -2291,13 +2311,14 @@ declare namespace braintree {
 
     export interface AuthenticationError extends Error {}
     export interface AuthorizationError extends Error {}
-    export interface DownForMaintenanceError extends Error {}
+    export interface GatewayTimeoutError extends Error {}
     export interface InvalidChallengeError extends Error {}
     export interface InvalidKeysError extends Error {}
     export interface InvalidSignatureError extends Error {}
-    export interface InvalidTransparentRedirectHashError extends Error {}
     export interface NotFoundError extends Error {}
+    export interface RequestTimeoutError extends Error {}
     export interface ServerError extends Error {}
+    export interface ServiceUnavailableError extends Error {}
     export interface TestOperationPerformedInProductionError extends Error {}
     export interface TooManyRequestsError extends Error {}
     export interface UnexpectedError extends Error {}

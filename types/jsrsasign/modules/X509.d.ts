@@ -160,6 +160,7 @@ declare namespace jsrsasign {
         critical?: boolean;
     }
     interface ExtAuthorityKeyIdentifier {
+        extname: 'authorityKeyIdentifier';
         kid: Hex;
         issuer?: Hex;
         sn?: Hex;
@@ -732,7 +733,7 @@ declare namespace jsrsasign {
          * x.getExtInfo("keyUsage") → { oid: "2.5.29.15", critical: true, vidx: 1714 }
          * x.getExtInfo("unknownExt") → undefined
          */
-        getExtInfo(oidOrName: string): X509Extension[] | undefined;
+        getExtInfo(oidOrName: string): X509Extension | undefined;
 
         /**
          * get BasicConstraints extension value as object in the certificate

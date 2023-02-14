@@ -39,6 +39,7 @@ declare const FUNCTION_NAMES: [
     'getOption',
     'addEventListener',
     'destroy',
+    'getSize',
     'setSize',
     'getIframe'
 ];

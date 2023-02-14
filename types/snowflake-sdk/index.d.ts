@@ -152,8 +152,8 @@ export enum ErrorCode {
 export interface SnowflakeErrorExternal extends Error {
     code?: ErrorCode;
     sqlState?: string;
-    data?: object;
-    response?: object;
+    data?: Record<string, any>;
+    response?: Record<string, any>;
     responseBody?: string;
     cause?: Error;
     isFatal?: boolean;
@@ -161,6 +161,12 @@ export interface SnowflakeErrorExternal extends Error {
 
 export interface SnowflakeError extends SnowflakeErrorExternal {
     externalize?: () => SnowflakeErrorExternal;
+}
+
+export interface StreamOptions {
+    start?: number;
+    end?: number;
+    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
 }
 
 /**
@@ -213,6 +219,11 @@ export interface ConnectionOptions {
      * The default security role to use for the session after connecting.
      */
     role?: string | undefined;
+
+    /**
+     * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
+     */
+    timeout?: number | undefined;
 
     /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
@@ -448,7 +459,13 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): Readable;
+    /**
+     * Streams the rows in this statement's result. If start and end values are
+     * specified, only rows in the specified range are streamed.
+     *
+     * @param StreamOptions options
+     */
+    streamRows(options?: StreamOptions): Readable;
 }
 
 export type Bind = string | number;
@@ -548,7 +565,7 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
+        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
     }): Statement;
 

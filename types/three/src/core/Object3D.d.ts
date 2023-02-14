@@ -51,8 +51,11 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     children: Object3D[];
 
     /**
-     * Up direction.
-     * @default THREE.Object3D.DefaultUp.clone()
+     * This is used by the {@link lookAt} method, for example, to determine the orientation of the result.
+     *
+     * Default is {@link Object3D.DEFAULT_UP} - that is, `( 0, 1, 0 )`.
+     *
+     * @default {@link Object3D.DEFAULT_UP}
      */
     up: Vector3;
 
@@ -103,11 +106,17 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
     matrixWorld: Matrix4;
 
     /**
-     * When this is set, it calculates the matrix of position, (rotation or quaternion) and scale every frame and also
-     * recalculates the matrixWorld property.
-     * @default THREE.Object3D.DefaultMatrixAutoUpdate
+     * When this is set, it calculates the matrix of position, (rotation or quaternion) and
+     * scale every frame and also recalculates the matrixWorld property. Default is {@link Object3D.DEFAULT_MATRIX_AUTO_UPDATE} (true).
      */
     matrixAutoUpdate: boolean;
+
+    /**
+     * If set, then the renderer checks every frame if the object and its children need matrix updates.
+     * When it isn't, then you have to maintain all matrices in the object and its children yourself.
+     * Default is {@link Object3D.DEFAULT_MATRIX_WORLD_AUTO_UPDATE} (true).
+     */
+    matrixWorldAutoUpdate: boolean;
 
     /**
      * When this is set, it calculates the matrixWorld in that frame and resets this property to false.
@@ -208,8 +217,23 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
         group: Group,
     ) => void;
 
-    static DefaultUp: Vector3;
-    static DefaultMatrixAutoUpdate: boolean;
+    /**
+     * The default {@link up} direction for objects, also used as the default position for {@link DirectionalLight},
+     * {@link HemisphereLight} and {@link Spotlight} (which creates lights shining from the top down).
+     *
+     * Set to ( 0, 1, 0 ) by default.
+     */
+    static DEFAULT_UP: Vector3;
+
+    /**
+     * The default setting for {@link matrixAutoUpdate} for newly created Object3Ds.
+     */
+    static DEFAULT_MATRIX_AUTO_UPDATE: boolean;
+
+    /**
+     * The default setting for {@link matrixWorldAutoUpdate} for newly created Object3Ds.
+     */
+    static DEFAULT_MATRIX_WORLD_AUTO_UPDATE: boolean;
 
     /**
      * Applies the matrix transform to the object and updates the object's position, rotation and scale.
@@ -324,7 +348,8 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      * This method does not support objects having non-uniformly-scaled parent(s).
      * @param vector A world vector to look at.
      */
-    lookAt(vector: Vector3 | number, y?: number, z?: number): void;
+    lookAt(vector: Vector3): void;
+    lookAt(x: number, y: number, z: number): void;
 
     /**
      * Adds object as child of this object.
@@ -363,7 +388,23 @@ export class Object3D<E extends BaseEvent = Event> extends EventDispatcher<E> {
      */
     getObjectByName(name: string): Object3D | undefined;
 
-    getObjectByProperty(name: string, value: string): Object3D | undefined;
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns the first with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectByProperty(name: string, value: any): Object3D | undefined;
+
+    /**
+     * Searches through an object and its children, starting with the object itself,
+     * and returns all the objects with a property that matches the value given.
+     *
+     * @param name - the property name to search for.
+     * @param value - value of the given property.
+     */
+    getObjectsByProperty(name: string, value: any): Object3D[];
 
     getWorldPosition(target: Vector3): Vector3;
     getWorldQuaternion(target: Quaternion): Quaternion;

@@ -58,6 +58,7 @@ declare namespace passport {
         failureMessage?: boolean | string | undefined;
         failureRedirect?: string | undefined;
         failWithError?: boolean | undefined;
+        keepSessionInfo?: boolean | undefined;
         session?: boolean | undefined;
         scope?: string | string[] | undefined;
         successFlash?: string | boolean | undefined;
@@ -119,7 +120,7 @@ declare namespace passport {
          *
          * Strategies should call this function to fail an authentication attempt.
          */
-        fail(challenge?: string | number, status?: number): void;
+        fail(challenge?: {message?: string, [key: string]: any } | string | number, status?: number): void;
         /**
          * Redirect to `url` with optional `status`, defaulting to 302.
          *

@@ -13,7 +13,7 @@ declare namespace pendo {
     }
 
     interface Metadata {
-        [key: string]: string | number | boolean | string[];
+        [key: string]: string | number | boolean | string[] | null;
     }
 
     type IdentityMetadata = { id?: string | undefined; } & Metadata;
@@ -32,6 +32,7 @@ declare namespace pendo {
             } | undefined
         } | undefined;
         events?: EventCallbacks | undefined;
+        sanitizeUrl?: (url: string) => string;
     }
 
     interface EventCallbacks {
@@ -62,6 +63,7 @@ declare namespace pendo {
         removeLauncher(): void;
 
         // Troubleshooting
+        setGuidesDisabled(state: boolean): void;
         loadGuides(): void;
         startGuides(): void;
         stopGuides(): void;

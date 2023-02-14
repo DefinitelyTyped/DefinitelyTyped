@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "export-just-namespace": "off",
+        "trim-file": "off",
+        "no-any-union": "off",
+        "no-unnecessary-generics": "off"
+    }
+}
