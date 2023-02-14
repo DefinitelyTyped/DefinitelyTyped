@@ -616,6 +616,20 @@ namespace MeteorTests {
     Accounts.user({ fields: { _id: 1 } });
     Accounts.user({ fields: { profile: 0 } });
 
+    (async () => {
+        await Meteor.userAsync();
+        await Meteor.userAsync({});
+        await Meteor.userAsync({ fields: {} });
+        await Meteor.userAsync({ fields: { _id: 1 } });
+        await Meteor.userAsync({ fields: { profile: 0 } });
+
+        await Accounts.userAsync();
+        await Accounts.userAsync({});
+        await Accounts.userAsync({ fields: {} });
+        await Accounts.userAsync({ fields: { _id: 1 } });
+        await Accounts.userAsync({ fields: { profile: 0 } });
+    })();
+
     /**
      * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
      */
