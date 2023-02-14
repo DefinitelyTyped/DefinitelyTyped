@@ -436,7 +436,7 @@ export interface Layout {
     annotations: Array<Partial<Annotations>>;
     shapes: Array<Partial<Shape>>;
     images: Array<Partial<Image>>;
-    updatemenus: {}; // TODO
+    updatemenus: Array<Partial<UpdateMenu>>;
     sliders: Array<Partial<Slider>>;
     legend: Partial<Legend>;
     font: Partial<Font>;
@@ -2378,6 +2378,151 @@ export interface Pattern {
      * and solidty of 1 shows only the foreground color without pattern.
      */
     solidity?: number;
+}
+
+export interface UpdateMenuButton {
+    /**
+     * Sets the arguments values to be passed to the Plotly method set in `method` on click.
+     */
+    args: any[];
+    /**
+     * Sets a 2nd set of `args`, these arguments values are passed to the Plotly method set in
+     * method` when clicking this button while in the active state. Use this to create
+     * toggle buttons.
+     */
+    args2: any[];
+    /**
+     * When true, the API method is executed. When false, all other behaviors are
+     * the same and command execution is skipped. This may be useful when hooking
+     * into, for example, the `plotly_buttonclicked` method and executing the API
+     * command manually without losing the benefit of the updatemenu automatically
+     * binding to the state of the plot through the specification of `method`
+     * and `args`.
+     */
+    execute: boolean;
+    /**
+     * Sets the text label to appear on the button.
+     */
+    label: string;
+    /**
+     * Sets the Plotly method to be called on click. If the `skip` method is
+     * used, the API updatemenu will function as normal but will perform no
+     * API calls and will not bind automatically to state updates. This may be
+     * used to create a component interface and attach to updatemenu events
+     * manually via JavaScript.
+     */
+    method: 'restyle' | 'relayout' | 'animate' | 'update' | 'skip';
+    /**
+     * When used in a template, named items are created in the output figure in
+     * addition to any items the figure already has in this array. You can modify
+     * these items in the output figure by making your own item with
+     * `templateitemname` matching this `name` alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). Has no effect
+     * outside of a template.
+     */
+    name: string;
+    /**
+     * Used to refer to a named item in this array in the template. Named items
+     * from the template will be created even without a matching item in the
+     * input figure, but you can modify one by making an item with
+     * `templateitemname` matching its `name`, alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). If there is
+     * no template or no matching item, this item will be hidden unless you
+     * explicitly show it with `visible: true`.
+     */
+    templateitemname: string;
+    /**
+     * Determines whether or not this button is visible.
+     */
+    visible: boolean;
+}
+
+export interface UpdateMenu {
+    /**
+     * Determines which button (by index starting from 0) is considered active.
+     */
+    active?: number;
+    /**
+     * Sets the background color of the update menu buttons.
+     */
+    bgcolor?: Color;
+    /**
+     * Sets the color of the border enclosing the update menu.
+     */
+    bordercolor?: Color;
+    /**
+     * Sets the width (in px) of the border enclosing the update menu.
+     */
+    borderwidth: number;
+    /**
+     * array of object where each object has one or more of the keys listed below.
+     */
+    buttons: Array<Partial<UpdateMenuButton>>;
+    /**
+     * Determines the direction in which the buttons are laid out, whether
+     * in a dropdown menu or a row/column of buttons. For `left` and `up`,
+     * the buttons will still appear in left-to-right or top-to-bottom order
+     * respectively.
+     */
+    direction: 'left' | 'up' | 'right' | 'down';
+    /**
+     * Sets the font of the update menu button text.
+     */
+    font: Partial<Font>;
+    /**
+     * When used in a template, named items are created in the output
+     * figure in addition to any items the figure already has in this array.
+     * You can modify these items in the output figure by making your own item
+     * with `templateitemname` matching this `name` alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). Has no
+     * effect outside of a template.
+     */
+    name: string;
+    /**
+     * Sets the padding around the buttons or dropdown menu.
+     */
+    pad: Partial<Padding>;
+    /**
+     * Highlights active dropdown item or active button if true.
+     */
+    showactive: boolean;
+    /**
+     * Used to refer to a named item in this array in the template. Named
+     * items from the template will be created even without a matching item
+     * in the input figure, but you can modify one by making an item with
+     * `templateitemname` matching its `name`, alongside your modifications
+     * (including `visible: false` or `enabled: false` to hide it). If there
+     * is no template or no matching item, this item will be hidden unless
+     * you explicitly show it with `visible: true`.
+     */
+    templateitemname: string;
+    /**
+     * Determines whether the buttons are accessible via a dropdown menu or
+     * whether the buttons are stacked horizontally or vertically
+     */
+    type: 'dropdown' | 'buttons';
+    /**
+     * Determines whether or not the update menu is visible.
+     */
+    visible: boolean;
+    /**
+     * Sets the x position (in normalized coordinates) of the update menu.
+     */
+    x: number;
+    /**
+     * Sets the update menu's horizontal position anchor. This anchor binds
+     * the `x` position to the "left", "center" or "right" of the range selector.
+     */
+    xanchor: 'auto' | 'left' | 'center' | 'right';
+    /**
+     * Sets the y position (in normalized coordinates) of the update menu.
+     */
+    y: number;
+    /**
+     * Sets the update menu's vertical position anchor This anchor binds
+     * the `y` position to the "top", "middle" or "bottom" of the range selector.
+     */
+    yanchor: 'auto' | 'top' | 'middle' | 'bottom';
 }
 
 interface TraceModule {
