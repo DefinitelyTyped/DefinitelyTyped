@@ -681,6 +681,8 @@ declare namespace TelegramBot {
         resize_keyboard?: boolean | undefined;
         one_time_keyboard?: boolean | undefined;
         selective?: boolean | undefined;
+        is_persistent?: boolean | undefined;
+        input_field_placeholder?: string | undefined;
     }
 
     interface KeyboardButton {
@@ -736,6 +738,7 @@ declare namespace TelegramBot {
     interface ForceReply {
         force_reply: boolean;
         selective?: boolean | undefined;
+        input_field_placeholder?: string | undefined;
     }
 
     interface ChatPhoto {
