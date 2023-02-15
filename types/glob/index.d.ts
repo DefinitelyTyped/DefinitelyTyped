@@ -56,6 +56,7 @@ declare namespace G {
         nonegate?: boolean | undefined;
         nocomment?: boolean | undefined;
         absolute?: boolean | undefined;
+        allowWindowsEscape?: boolean | undefined;
         fs?: typeof fs;
     }
 
