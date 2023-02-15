@@ -31,16 +31,6 @@ async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, r
 async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, (err: Error, results: string[]) => { });
 async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, (err: Error, results: string[]) => { });
 
-async.parallel([
-    () => { },
-    () => { }
-], callback);
-
-async.series([
-    () => { },
-    () => { }
-]);
-
 const data: any[] = [];
 function asyncProcess(item: any, callback: (err: Error, result: any) => void) { }
 async.map(data, asyncProcess, (err, results) => { console.log(results); });
@@ -135,6 +125,8 @@ async.series<number>({
     },
     (err, results) => { });
 
+async.series<number, number[]>([async () => 1]); // $ExpectType Promise<number[]>
+
 async.times(5, (n, next) => { next(undefined as any, n); }, (err, results) => { console.log(results); });
 
 async.timesSeries(5, (n, next) => { next(undefined as any, n); }, (err, results) => { console.log(results); });
@@ -163,6 +155,8 @@ async.parallel<number>({
     },
     (err, results) => { });
 
+async.parallel<number, number[]>([async () => 1]); // $ExpectType Promise<number[]>
+
 async.parallelLimit({
         one: callback => { setTimeout(() => { callback(undefined, 1); }, 200); },
         two: callback => { setTimeout(() => { callback(undefined, 2); }, 100); }
@@ -170,6 +164,8 @@ async.parallelLimit({
     2,
     (err, results) => { }
 );
+
+async.parallelLimit<number, number[]>([async () => 1], 1); // $ExpectType Promise<number[]>
 
 function whileFn(callback: (err: any, ...rest: any[]) => void) {
     setTimeout(() => callback(null, ++count), 1000);
@@ -718,6 +714,8 @@ async.some<number>(
     },
     (err: Error, result: boolean) => { console.log("async.some/any: done with result", result); }
 );
+
+async.some([], async (item) => false); // $ExpectType Promise<boolean>
 
 // timeout
 

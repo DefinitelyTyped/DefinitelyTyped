@@ -308,9 +308,9 @@ export const find: typeof detect;
 export const findSeries: typeof detect;
 export const findLimit: typeof detectLimit;
 export function sortBy<T, V, E = Error>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, V, E>, callback: AsyncResultArrayCallback<T, E>): void;
-export function sortBy<T, V, E = Error>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, V, E>):
-Promise<T[]>;
-export function some<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
+export function sortBy<T, V, E = Error>(arr: T[] | IterableIterator<T>, iterator: AsyncResultIterator<T, V, E>): Promise<T[]>;
+export function some<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>, callback: AsyncBooleanResultCallback<E>): void;
+export function some<T, E = Error>(arr: IterableCollection<T>, iterator: AsyncBooleanIterator<T, E>): Promise<boolean>;
 export const someSeries: typeof some;
 export function someLimit<T, E = Error>(arr: IterableCollection<T>, limit: number, iterator: AsyncBooleanIterator<T, E>, callback?: AsyncBooleanResultCallback<E>): void;
 export const any: typeof some;
@@ -341,14 +341,15 @@ export function groupByLimit<T, K, E = Error>(iterable: IterableCollection<T>, l
 export const groupBySeries: typeof groupBy;
 
 // Control Flow
-export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback?: AsyncResultArrayCallback<T, E>): void;
-export function series<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback?: AsyncResultObjectCallback<T, E>): void;
-export function series<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>): Promise<R>;
-export function parallel<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback?: AsyncResultArrayCallback<T, E>): void;
-export function parallel<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback?: AsyncResultObjectCallback<T, E>): void;
+export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultArrayCallback<T, E>): void;
+export function series<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback: AsyncResultObjectCallback<T, E>): void;
+export function series<T, E = Error>(tasks: Array<AsyncFunction<T, E>>): Promise<T[]>;
+export function series<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>): Promise<Dictionary<T>>;
+export function parallel<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultArrayCallback<T, E>): void;
+export function parallel<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, callback: AsyncResultObjectCallback<T, E>): void;
 export function parallel<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>): Promise<R>;
-export function parallelLimit<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultArrayCallback<T, E>): void;
-export function parallelLimit<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, limit: number, callback?: AsyncResultObjectCallback<T, E>): void;
+export function parallelLimit<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, limit: number, callback: AsyncResultArrayCallback<T, E>): void;
+export function parallelLimit<T, E = Error>(tasks: Dictionary<AsyncFunction<T, E>>, limit: number, callback: AsyncResultObjectCallback<T, E>): void;
 export function parallelLimit<T, R, E = Error>(tasks: Array<AsyncFunction<T, E>> | Dictionary<AsyncFunction<T, E>>, limit: number): Promise<R>;
 
 export function whilst<T, E = Error>(
