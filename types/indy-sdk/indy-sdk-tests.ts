@@ -451,7 +451,6 @@ indy.listMyDidsWithMeta(10);
 // indy.buildPoolRestartRequest(myDid, 'start', '0')
 // indy.buildPoolUpgradeRequest(myDid, 'some upgrade action', '2.0.0', 'cancel', 'abc12345', -1, null, null, false, false, null)
 // indy.buildGetDdoRequest(myDid, trusteeDid)
-// indy.buildGetTxnRequest(myDid, null, data[1].seqNo)
 // indy.buildNodeRequest(myDid, myDid, {
 //     node_ip: '10.0.0.100',
 //     node_port: 9710,
@@ -462,6 +461,7 @@ indy.listMyDidsWithMeta(10);
 //     blskey: 'CnEDk9HrMnmiHXEV1WFgbVCRteYnPqsJwrTdcZaNhFVW'
 //   })
 // indy.issuerCreateAndStoreRevocReg(wh, myDid, null, 'tag1', credDefId, { max_cred_num: 5 }, writerH)
+indy.buildGetTxnRequest('myDid', 'DOMAIN', 10);
 indy.buildRevocRegDefRequest('myDid', revRegDef);
 indy.buildGetRevocRegDefRequest('myDid', 'revRegDefId');
 indy.parseGetRevocRegDefResponse(ledgerRejectResponse);

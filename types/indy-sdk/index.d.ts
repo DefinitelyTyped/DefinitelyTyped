@@ -69,6 +69,11 @@ export function buildNymRequest(
     role: NymRole | null,
 ): Promise<LedgerRequest>;
 export function buildGetNymRequest(submitterDid: Did | null, targetDid: Did): Promise<LedgerRequest>;
+export function buildGetTxnRequest(
+    submitterDid: Did | null,
+    ledgerType: 'DOMAIN' | 'POOL' | 'CONFIG',
+    seqNo: number,
+): Promise<LedgerRequest>;
 export function parseGetNymResponse(response: LedgerResponse): Promise<GetNymResponse>;
 export function buildSchemaRequest(submitterDid: Did, schema: Schema): Promise<LedgerRequest>;
 export function buildGetSchemaRequest(submitterDid: Did | null, schemaId: SchemaId): Promise<LedgerRequest>;
