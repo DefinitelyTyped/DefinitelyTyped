@@ -935,6 +935,21 @@ function testSearch() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/search/
+async function testSearchForPromise() {
+    const DISPOSITIONS: chrome.search.Disposition[] = ['CURRENT_TAB', 'NEW_TAB', 'NEW_WINDOW'];
+
+    for (const disposition of DISPOSITIONS) {
+        await chrome.search.query(
+            {
+                disposition,
+                tabId: 1,
+                text: 'text',
+            }
+        );
+    }
+}
+
 // https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
 async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.getDynamicRules(rules => {
