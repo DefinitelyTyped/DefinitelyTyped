@@ -298,6 +298,16 @@ describe('resizeWindow command demo', function() {
 });
 
 //
+// .Screenshot
+//
+describe('screenshot command demo', function() {
+    test('async demo test', async function(browser) {
+        const result = await browser.screenshot(true);
+        isType<string>(result);
+    });
+});
+
+//
 // .saveScreenshot
 //
 describe('saveScreenshot command demo', function() {
