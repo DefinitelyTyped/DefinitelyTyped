@@ -155,7 +155,7 @@ MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
 MyTelegramBot.banChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');
-MyTelegramBot.restrictChatMember(1234, 'myUserID', { can_add_web_page_previews: true, can_send_polls: false });
+MyTelegramBot.restrictChatMember(1234, 'myUserID', { permissions: { can_add_web_page_previews: true, can_send_polls: false } });
 MyTelegramBot.promoteChatMember(1234, 'myUserID', { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
 MyTelegramBot.createChatInviteLink(1234, 'Foo', 1234, 1234, true);
