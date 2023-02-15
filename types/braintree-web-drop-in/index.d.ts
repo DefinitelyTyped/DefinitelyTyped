@@ -1,4 +1,4 @@
-// Type definitions for braintree-web-drop-in 1.33
+// Type definitions for braintree-web-drop-in 1.34
 // Project: https://github.com/braintree/braintree-web-dropin
 // Definitions by: Saoud Rizwan <https://github.com/saoudrizwan>
 //                 Ricard Solé Casas <https://github.com/iamricard>
@@ -125,6 +125,8 @@ export interface PaymentOptionSelectedPayload {
     paymentOption: 'card' | 'paypal' | 'paypalCredit';
 }
 
+export type UpdatableConfigurationOption = 'paypal' | 'paypalCredit' | 'applePay' | 'googlePay' | 'threeDSecure';
+
 export interface Dropin {
     clearSelectedPaymentMethod(): void;
     isPaymentMethodRequestable(): boolean;
@@ -141,6 +143,7 @@ export interface Dropin {
     requestPaymentMethod(options?: PaymentMethodOptions): Promise<PaymentMethodPayload>;
     teardown(callback: (error: object | null | undefined) => void): void;
     teardown(): Promise<void>;
+    updateConfiguration(property: UpdatableConfigurationOption, key: string, value: unknown): void;
 }
 
 export interface PaymentMethodOptions {
