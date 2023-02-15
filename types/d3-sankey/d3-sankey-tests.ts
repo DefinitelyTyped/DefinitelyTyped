@@ -7,7 +7,7 @@
  */
 
 import * as d3Sankey from 'd3-sankey';
-import { select, Selection } from 'd3-selection';
+import { select } from 'd3-selection';
 import { Link } from 'd3-shape';
 
 // ---------------------------------------------------------------------------
