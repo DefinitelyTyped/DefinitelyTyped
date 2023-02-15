@@ -114,6 +114,7 @@ const graphDiv = '#test';
         width: [2],
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -123,6 +124,7 @@ const graphDiv = '#test';
         type: 'histogram',
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
