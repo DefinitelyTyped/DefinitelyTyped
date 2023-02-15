@@ -544,15 +544,15 @@ export function globalizeLocalizer(globalizeInstance: object): DateLocalizer;
 export function momentLocalizer(momentInstance: object): DateLocalizer;
 export function dateFnsLocalizer(config: object): DateLocalizer;
 export function luxonLocalizer(
-  luxonDateTime: object,
-  options?: {
-    /**
-     * Luxon uses 1 based values for month and weekday
-     * So we default to Sunday (7)
-     * @default 7
-     */
-    firstDayOfWeek: number;
-  },
+    luxonDateTime: object,
+    options?: {
+        /**
+         * Luxon uses 1 based values for month and weekday
+         * So we default to Sunday (7)
+         * @default 7
+         */
+        firstDayOfWeek: number;
+    },
 ): DateLocalizer;
 export function dayjsLocalizer(dayjs: object): DateLocalizer;
 
