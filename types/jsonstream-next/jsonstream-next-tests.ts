@@ -16,7 +16,7 @@ export function foo(read: NodeJS.ReadableStream) {
     const transform = json.parse('*');
     const oldFlush = (cb: (e: Error | null | undefined) => void) => transform._flush(cb);
     const newFlush: typeof oldFlush = cb => {
-        return oldFlush(err => {
+        oldFlush(err => {
             if (err) {
                 console.error("Parse error: " + err.message);
             }
