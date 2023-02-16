@@ -433,12 +433,6 @@ declare namespace yargs {
         number<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number | undefined }>;
 
         /**
-         * Method to execute when a command finishes successfully.
-         * @param func Is called with the successful result of the command that finished.
-         */
-        onFinishCommand(func: (result: any) => void): Argv<T>;
-
-        /**
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
