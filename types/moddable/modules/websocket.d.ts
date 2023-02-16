@@ -21,14 +21,14 @@
 declare module "websocket" {
     import type { TCPSocketOptions, ListenerOptions } from "socket";
 
-    export type WebSocketClientOptions = TCPSocketOptions & {
+    type WebSocketClientOptions = TCPSocketOptions & {
         path?: string,
         protocol?: string,
         headers?: string[]
     };
-    export type WebSocketClientCallback = (message: number, value?: any) => void;
+    type WebSocketClientCallback = (message: number, value?: any) => void;
 
-    export class Client {
+    class Client {
         static readonly connect: number;
         static readonly handshake: number;
         static readonly receive: number;
@@ -40,10 +40,10 @@ declare module "websocket" {
         callback: WebSocketClientCallback;
     }
 
-    export type WebSocketServerOptions = ListenerOptions;
-    export type WebSocketServerCallback = (message: number, value?: any) => void;
+    type WebSocketServerOptions = ListenerOptions;
+    type WebSocketServerCallback = (message: number, value?: any) => void;
 
-    export class Server {
+    class Server {
         static readonly connect: number;
         static readonly handshake: number;
         static readonly receive: number;

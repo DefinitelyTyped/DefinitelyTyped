@@ -18,7 +18,6 @@
 *
 */
 
-
 declare module "embedded:io/i2c" {
   import { Buffer, PinSpecifier, PortSpecifier } from "embedded:io/_common";
   class I2C {
@@ -32,7 +31,6 @@ declare module "embedded:io/i2c" {
       target?: any;
     });
     readonly resolution: number;
-    
     write(value: Buffer, stop?: boolean): void;
     read(byteLength: number, stop?: boolean): ArrayBuffer;
     read(buffer: Buffer, stop?: boolean): ArrayBuffer;

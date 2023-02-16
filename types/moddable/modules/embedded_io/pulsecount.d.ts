@@ -21,7 +21,7 @@
 declare module "embedded:io/pulsecount" {
   import { PinSpecifier } from "embedded:io/_common";
   class PulseCount {
-    constructor (options: {
+    constructor(options: {
       signal: PinSpecifier;
       control: PinSpecifier;
       onReadable?: (this: PulseCount) => void;

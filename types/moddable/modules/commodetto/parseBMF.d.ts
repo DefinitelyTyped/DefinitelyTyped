@@ -21,14 +21,14 @@
 declare module "commodetto/parseBMF" {
     import Bitmap from "commodetto/Bitmap";
 
-    type Font = {
-        readonly byteLength: number
-        height: number
-        ascent: number
-        position: number
-        charCount: number,
-        bitmap: Bitmap
-    };
+    interface Font {
+        readonly byteLength: number;
+        height: number;
+        ascent: number;
+        position: number;
+        charCount: number;
+        bitmap: Bitmap;
+    }
 
-    export default function (bmp: BufferLike): Font;
+    export default function(bmp: BufferLike): Font;
 }

@@ -25,10 +25,10 @@ declare module "piu/Sound" {
             offset?: number;
             size?: number;
         });
-        constructor(tones: {
+        constructor(tones: Array<{
             frequency: number,
             samples?: number
-        }[]);
+        }>);
         static callback(index: number): void;
         static readonly bitsPerSample: number;
         static readonly numChannels: number;

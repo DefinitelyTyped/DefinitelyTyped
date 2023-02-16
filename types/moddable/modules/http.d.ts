@@ -29,7 +29,7 @@ declare module "http" {
     type RequestResponseFragment = 4;
     type RequestAllResponse = 5;
 
-    export type RequestStatus = (
+    type RequestStatus = (
         RequestError |
         RequestBodyFragment |
         RequestStatusCode |
@@ -39,21 +39,21 @@ declare module "http" {
         RequestAllResponse
     );
 
-    export type HTTPRequestOptions = TCPSocketOptions | {
+    type HTTPRequestOptions = TCPSocketOptions | {
         host?: string,
         address?: string,
         port?: number,
         path?: string,
         method?: string,
-        headers?: (string | number)[],
+        headers?: Array<string | number>,
         body?: boolean | string | ArrayBuffer,
         response?: typeof String | typeof ArrayBuffer
     };
 
     // TODO: better
-    export type HTTPRequestCallback = (message: RequestStatus, val1?: any, val2?: any) => void | number | boolean | string | ArrayBuffer;
+    type HTTPRequestCallback = (message: RequestStatus, val1?: any, val2?: any) => void | number | boolean | string | ArrayBuffer;
 
-    export class Request {
+    class Request {
         constructor(options: HTTPRequestOptions);
         close(): void;
         read(): number;
@@ -82,7 +82,7 @@ declare module "http" {
     type ServerResponseFragment = 9;
     type ServerResponseComplete = 10;
     type ServerError = -1;
-    export type ServerMessages = (
+    type ServerMessages = (
         ServerConnection |
         ServerStatus |
         ServerHeader |
@@ -94,12 +94,12 @@ declare module "http" {
         ServerResponseComplete |
         ServerError
     );
-    export type HTTPServerOptions = ListenerOptions;
+    type HTTPServerOptions = ListenerOptions;
     // TODO: better
-    export type HTTPServerCallback = (this: Request, message: ServerMessages, val1?: any, val2?: any) => void | number | boolean | string |
+    type HTTPServerCallback = (this: Request, message: ServerMessages, val1?: any, val2?: any) => void | number | boolean | string |
         ArrayBuffer | { status?: number, reason?: string, headers?: string[], body: true | string | ArrayBuffer };
 
-    export class Server {
+    class Server {
         constructor(
             options?: HTTPServerOptions
         );

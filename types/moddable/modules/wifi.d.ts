@@ -19,11 +19,12 @@
 */
 
 declare module "wifi" {
-    export type WiFiOptions = {
-        bssid?: string,
-        ssid: string,
-        password?: string
-    };
+    export interface WiFiOptions {
+        bssid?: string;
+        ssid: string;
+        password?: string;
+    }
+
     export type WiFiCallback = (message: "connect" | "gotIP" | "lostIP" | "disconnect") => void;
     export type WiFiScanCallback = (item: {
         ssid: string,
@@ -33,15 +34,15 @@ declare module "wifi" {
     } | null) => void;
     export type StationMode = 1;
     export type AccessPointMode = 2;
-    export type ScanOptions = { hidden?: boolean, channel?: number };
-    export type AccessPointOptions = {
-        ssid: string,
-        password?: string,
-        channel?: number,
-        hidden?: boolean,
-        interval?: number,
-        max?: number
-    };
+    export interface ScanOptions { hidden?: boolean; channel?: number; }
+    export interface AccessPointOptions {
+        ssid: string;
+        password?: string;
+        channel?: number;
+        hidden?: boolean;
+        interval?: number;
+        max?: number;
+    }
 
     class WiFi {
         static gotIP: "gotIP";

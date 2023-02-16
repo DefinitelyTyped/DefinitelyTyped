@@ -2,6 +2,7 @@ import BLEClient from "bleclient";
 import BLEServer from "bleserver";
 import { uuid } from "btutils";
 import { Characteristic, Client } from "gatt";
+import { SM, IOCapability } from "sm";
 
 class KeyboardService extends BLEServer {
     onReady(): void {
@@ -38,6 +39,7 @@ class Scanner extends BLEClient {
     onConnected(device: Client): void {
         device.discoverPrimaryService(uuid("6E400001B5A3F393E0A9E50E24DCCA9E"));
     }
-
-
 }
+
+SM.deleteAllBondings();
+trace(IOCapability.DisplayOnly);

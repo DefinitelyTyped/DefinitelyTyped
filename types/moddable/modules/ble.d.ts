@@ -18,22 +18,21 @@
 *
 */
 
-type ManufacturerSpec = {
+interface ManufacturerSpec {
     /**
      * The `identifier` property is a number corresponding to the
      * _Company Identifier Code_.
      */
-    identifier: string | number,
+    identifier: string | number;
 
     /**
      * The `data` property is an array of numbers corresponding
      * to additional manufacturer specific data.
      */
-    data: number[],
-};
+    data: number[];
+}
 
 declare module "bleclient" {
-
     import { GAP } from "gap";
     import { Client, Characteristic } from "gatt";
     import { IOCapability } from "sm";
@@ -48,7 +47,6 @@ declare module "bleclient" {
      * The `BLEClient` class provides access to the BLE client features.
      */
     export class BLEClient {
-
         securityParameters: {
             encryption?: boolean,
             bonding?: boolean,
@@ -105,7 +103,6 @@ declare module "bleclient" {
 }
 
 declare module "bleserver" {
-
     import { GAP } from "gap";
     import { Bytes } from "btutils";
     import { Characteristic, Client } from "gatt";
@@ -117,8 +114,7 @@ declare module "bleserver" {
         typeof GAP.ScanFilterPolicy.WHITELIST |
         typeof GAP.ScanFilterPolicy.WHITELIST_NOT_RESOLVED_DIRECTED;
 
-    type AdvertisementData = {
-
+    interface AdvertisementData {
         /**
          * The advertised flags value.
          */
@@ -127,45 +123,45 @@ declare module "bleserver" {
          * Array of UUID objects corresponding to _Incomplete List
          * of 16 bit Service UUIDs_
          */
-        incompleteUUID16List?: Bytes[],
+        incompleteUUID16List?: Bytes[];
 
         /**
          * Array of UUID objects corresponding to _Complete List of
          * 16 bit Service UUIDs_
          */
-        completeUUID16List?: Bytes[],
+        completeUUID16List?: Bytes[];
 
         /**
          * Array of UUID objects corresponding to _Incomplete List of
          * 128 bit Service UUIDs_
          */
-        incompleteUUID128List?: Bytes[],
+        incompleteUUID128List?: Bytes[];
 
         /**
          * Array of UUID objects corresponding to _Complete List of
          * 128 bit Service UUIDs_
          */
-        completeUUID128List?: Bytes[],
+        completeUUID128List?: Bytes[];
 
         /**
          * String corresponding to the _Shortened Local Name_.
          */
-        shortName?: string,
+        shortName?: string;
 
         /**
          * String corresponding to the _Complete Local Name_.
          */
-        completeName?: string,
+        completeName?: string;
 
         /**
          * Object corresponding to the _Manufacturer Specific Data_.
          */
-        manufacturerSpecific?: ManufacturerSpec,
+        manufacturerSpecific?: ManufacturerSpec;
 
         /**
          * Number corresponding to the TX Power Level.
          */
-        txPowerLevel?: number,
+        txPowerLevel?: number;
 
         /**
          * Object corresponding to the _Slave Connection Interval Range_.
@@ -180,19 +176,19 @@ declare module "bleserver" {
              * A number corresponding to the maximum connection interval value.
              */
             intervalMax: number,
-        },
+        };
 
         /**
          * Array of UUID objects corresponding to the _List of 16 bit Service
          * Solicitation UUIDs_.
          */
-        solicitationUUID16List?: Bytes[],
+        solicitationUUID16List?: Bytes[];
 
         /**
          * Array of UUID objects corresponding to the _List of 128 bit Service
          * Solicitation UUIDs_.
          */
-        solicitationUUID128List?: Bytes[],
+        solicitationUUID128List?: Bytes[];
 
         /**
          * Object corresponding to the _Service Data - 16 bit UUID_.
@@ -207,7 +203,7 @@ declare module "bleserver" {
              * An array of numbers corresponding to additional service data.
              */
             data: number[],
-        },
+        };
 
         /**
          * Object corresponding to the _Service Data - 128 bit UUID_.
@@ -222,44 +218,43 @@ declare module "bleserver" {
              * An array of numbers corresponding to additional service data.
              */
             data: number[],
-        },
+        };
 
         /**
          * Number corresponding to the _Appearance_.
          */
-        appearance?: number,
+        appearance?: number;
 
         /**
          * Address object corresponding to the _Public Target Address_.
          */
-        publicAddress?: Bytes,
+        publicAddress?: Bytes;
 
         /**
          * Address object corresponding to the _Random Target Address_.
          */
-        randomAddress?: Bytes,
+        randomAddress?: Bytes;
 
         /**
          * Number corresponding to the _Advertising Interval_.
          */
-        advertisingInterval?: number,
+        advertisingInterval?: number;
 
         /**
          * Number corresponding to the _LE Role_.
          */
-        role?: number,
+        role?: number;
 
         /**
          * String corresponding to the _Uniform Resource Identifier_.
          */
-        uri?: string,
-    };
+        uri?: string;
+    }
 
     /**
      * Provides access to the BLE server features.
      */
     export class BLEServer {
-
         /**
          * Configures the device security requirements and I/O capabilities.
          */
@@ -375,8 +370,7 @@ declare module "bleserver" {
 }
 
 declare module "btutils" {
-
-    export interface Bytes extends ArrayBuffer {
+    interface Bytes extends ArrayBuffer {
         /**
          * The `equals` function returns `true` if the instance
          * ArrayBuffer data equals the data contained in `buffer`.
@@ -393,8 +387,7 @@ declare module "btutils" {
      *
      * @url https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/network/ble/ble.md#class-advertisement
      */
-    export interface Advertisement {
-
+    interface Advertisement {
         /**
          * Contains the raw advertisement data bytes.
          */
@@ -435,23 +428,22 @@ declare module "btutils" {
      * Convert a Bluetooth UUID expressed as a hex string to a `Bytes` instance.
      * @param strings
      */
-    export function uuid(...strings: string[]): Bytes;
+    function uuid(...strings: string[]): Bytes;
 
     /**
      * Convert a Bluetooth address expressed as a hex string to a `Bytes` instance.
      * @param strings
      */
-    export function address(...strings: string[]): Bytes;
+    function address(...strings: string[]): Bytes;
 }
 
 declare module "gatt" {
-
     import { Bytes, Advertisement } from "btutils";
     import { GAP } from "gap";
 
     type getAddressType = (typeof GAP.AddressType);
 
-    export interface Client {
+    interface Client {
         connection: number;
         address: Bytes;
         addressType: getAddressType;
@@ -503,7 +495,7 @@ declare module "gatt" {
     /**
      * A single Peripheral GATT service.
      */
-    export interface Service {
+    interface Service {
         connection: number;
         uuid: Bytes;
         start: number;
@@ -539,7 +531,7 @@ declare module "gatt" {
      *
      * @url https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/network/ble/ble.md#class-characteristic
      */
-    export interface Characteristic {
+    interface Characteristic {
         connection: number;
         uuid: Bytes;
         service: Service;
@@ -574,7 +566,7 @@ declare module "gatt" {
      *
      * @url https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/network/ble/ble.md#class-descriptor
      */
-    export interface Descriptor {
+    interface Descriptor {
         connection: number;
         uuid: string;
         characteristic: Characteristic;
@@ -593,13 +585,12 @@ declare module "gatt" {
 }
 
 declare module "connection" {
-    export class Connection {
+    class Connection {
         disconnect(): void;
     }
 }
 
 declare module "gap" {
-
     enum gapAddressTypes {
         PUBLIC = 0,
         RANDOM = 1,
@@ -689,7 +680,6 @@ declare module "gap" {
 }
 
 declare module "sm" {
-
     import { GAP } from "gap";
 
     type getAddressType = (typeof GAP.AddressType);
@@ -697,7 +687,7 @@ declare module "sm" {
     /**
      * @url https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/network/ble/ble.md#class-sm
      */
-    export enum IOCapability {
+    enum IOCapability {
         NoInputNoOutput = 0,
         DisplayOnly = 1,
         KeyboardOnly = 2,
@@ -709,16 +699,14 @@ declare module "sm" {
      * Provides objects used to configure BLE client and server security requirements
      * and device capabilities.
      */
-    export class SM {
-
-
+    namespace SM {
         /**
          * Delete all bonding information and encryption keys
          * from persistent storage.
          *
          * https://github.com/Moddable-OpenSource/moddable/blob/public/documentation/network/ble/ble.md#deleteallbondings
          */
-        static deleteAllBondings(): void;
+        function deleteAllBondings(): void;
 
         /**
          * Delete stored bonding information for the peer device with the provided
@@ -727,6 +715,8 @@ declare module "sm" {
          * @param address Contains peer device Bluetooth address
          * @param addressType Peer device Bluetooth address type.
          */
-        static deleteBonding(address: ArrayBuffer, addressType: getAddressType): void;
+        function deleteBonding(address: ArrayBuffer, addressType: getAddressType): void;
     }
+
+    export { IOCapability, SM };
 }

@@ -22,11 +22,9 @@ declare module "file" {
     /**
      * The `File` class provides access to files.
      */
-    export class File {
+    class File {
         constructor(path: string, write?: boolean);
-        /**
-         *
-         */
+
         read<T extends (
             typeof ArrayBuffer | typeof String
         )>(
@@ -36,7 +34,7 @@ declare module "file" {
 
         write(
             value: ArrayBufferLike | ArrayBuffer | string,
-            ...moreValues: (ArrayBuffer | string)[]
+            ...moreValues: Array<ArrayBuffer | string>,
         ): void;
 
         close(): void;
@@ -48,8 +46,13 @@ declare module "file" {
         static exists(path: string): boolean;
         static rename(from: string, to: string): boolean;
     }
-    type IteratorDirectoryEntry = { name: string, length: undefined };
-    type IteratorFileEntry = { name: string, length: number };
+
+    interface IteratorDirectoryEntry {
+        name: string; length: undefined;
+    }
+    interface IteratorFileEntry {
+        name: string; length: number;
+    }
     class Iterator {
         constructor(path: string);
         next(): IteratorDirectoryEntry | IteratorFileEntry | undefined;

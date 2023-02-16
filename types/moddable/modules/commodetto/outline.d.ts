@@ -19,7 +19,7 @@
 */
 
 declare module "commodetto/outline" {
-    type CommodettoPath = Array<ArrayBuffer>;
+    type CommodettoPath = ArrayBuffer[];
 
     interface CanvasPath extends CommodettoPath {
         arc(x: number, y: number, radius: number, startAngle: number, endAngle: number, counterclockwise?: boolean): void;
@@ -46,7 +46,7 @@ declare module "commodetto/outline" {
         new(): FreeTypePath;
     }
     interface PolygonPath {
-        (...points: Array<number>): CommodettoPath;
+        (...points: number[]): CommodettoPath;
     }
     interface RoundRectPath {
         (x: number, y: number, w: number, h: number, r: number): CommodettoPath;
@@ -55,7 +55,7 @@ declare module "commodetto/outline" {
         (path: string): CommodettoPath;
     }
 
-    export class Outline {
+    class Outline {
         clone(): Outline;
         rotate(angle: number): Outline;
         rotate(angle: number, cx: number, cy: number): Outline;
@@ -89,6 +89,8 @@ declare module "commodetto/outline" {
         static readonly LINEJOIN_BEVEL: number;
         static readonly LINEJOIN_MITER: number;
     }
+
+    export { Outline };
 }
 
 declare module "commodetto/Poco" {
@@ -96,6 +98,6 @@ declare module "commodetto/Poco" {
 
     interface PocoPrototype {
         blendOutline(color: number, blend: number, outline: Outline, x?: number, y?: number): void;
-        blendPolygon(color: number, blend: number, ...points: Array<number>): void;
+        blendPolygon(color: number, blend: number, ...points: number[]): void;
     }
 }

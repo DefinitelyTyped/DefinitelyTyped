@@ -34,15 +34,15 @@ declare module 'pins/smbus' {
         constructor(port: number[], pin: number, mode: number);
         close(): void;
         read(count: number, buffer?: ArrayBuffer): void;
-        write(first: any, ...valuesOrStop: (number | string | (number | string)[] | TypedArray | boolean)[]): void;
+        write(first: any, ...valuesOrStop: Array<number | string | Array<number | string> | TypedArray | boolean>): void;
         readByte(register: number): number;
         readWord(register: number): number;
         readWord(register: number, bigEndian: boolean): number;
         readBlock(register: number, count: number, buffer?: ArrayBuffer): Uint8Array;
         writeByte(register: number, value: number): void;
         writeWord(register: number, value: number): void;
-        writeBlock(register: number, first: any, ...valuesOrStop: (boolean)[]): void;
-        writeBlock(register: number, first: any, ...valuesOrStop: (any)[]): void;
+        writeBlock(register: number, first: any, ...valuesOrStop: boolean[]): void;
+        writeBlock(register: number, first: any, ...valuesOrStop: any[]): void;
     }
     export { SMBus as default };
 }

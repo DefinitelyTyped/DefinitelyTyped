@@ -53,10 +53,11 @@ declare module "net" {
          *
          * The IP address is provided as a String in dotted IP address notation. If host cannot be resolved, the address parameter is undefined.
          *
-         * The DNS implementation in lwIP supports a limited number of simultaneous DNS look-ups. The number depends on the specific platform deployment. On the ESP8266 it is 4. If the DNS resolve queue is full, resolve throws an exception.
+         * The DNS implementation in lwIP supports a limited number of simultaneous DNS look-ups.
+         * The number depends on the specific platform deployment. On the ESP8266 it is 4. If the DNS resolve queue is full, resolve throws an exception.
          *
          * @example
-           Net.resolve("moddable.tech", (name, address) => trace(`${name} IP address is ${address}\n`);
+         * Net.resolve("moddable.tech", (name, address) => trace(`${name} IP address is ${address}\n`);
          */
         resolve(
             name: string,

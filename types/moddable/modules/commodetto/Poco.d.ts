@@ -18,17 +18,16 @@
 *
 */
 
-
 declare module "commodetto/Poco" {
     import PixelsOut from "commodetto/PixelsOut";
     import Bitmap from "commodetto/Bitmap";
 
-    type Rectangle = {
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-    };
+    interface Rectangle {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
 
     type Font = any;    // @@ share full interface with commodetto/parseBMF
 

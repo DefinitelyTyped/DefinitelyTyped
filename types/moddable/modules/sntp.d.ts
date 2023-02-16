@@ -19,9 +19,9 @@
 */
 
 declare module "sntp" {
-    type SNTPOptions = {
-        host: string
-    };
+    interface SNTPOptions {
+        host: string;
+    }
     type SNTPUnableToRetrieveTime = -1;
     type SNTPTimeRetrieved = 1;
     type SNTPRetry = 2;

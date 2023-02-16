@@ -22,17 +22,16 @@
  * The `console` module uses `cli` modules to implement the terminal commands.
  */
 declare module "console" {
-
     /**
      * The `Console` class implements a serial terminal for debugging and diagnostic purposes.
      */
     export class Console {
-        receive(): void;
-        write(): void;
+        receive(): number;
+        write(...items: string[]): void;
         resume(): void;
         suspend(): void;
         prompt(): void;
-        line(...items: any): void;
+        line(...items: string[]): void;
     }
 
     export { Console as default };

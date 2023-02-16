@@ -19,10 +19,12 @@
 */
 
 declare module "modules" {
-    export default class Modules {
-        static has(name: string): boolean;
-        static importNow(name: string): unknown;
-        static get host(): string[];
-        static get archive(): string[];
+    namespace Modules {
+        function has(name: string): boolean;
+        function importNow(name: string): unknown;
+        const host: string[];
+        const archive: string[];
     }
+
+    export default Modules;
 }

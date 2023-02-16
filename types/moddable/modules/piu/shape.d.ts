@@ -18,7 +18,6 @@
  *
  */
 
-
 declare module "piu/shape" {
     import { Content, ContentDictionary } from "piu/MC";
     import { Outline } from "commodetto/outline";

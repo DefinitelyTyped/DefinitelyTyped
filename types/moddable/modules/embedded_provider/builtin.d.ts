@@ -18,7 +18,6 @@
 *
 */
 
-
 declare module "embedded:provider/builtin" {
   import Digital from "embedded:io/digital";
   import DigitalBank from "embedded:io/digitalbank";

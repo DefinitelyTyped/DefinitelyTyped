@@ -19,31 +19,34 @@
 */
 
 declare module "socket" {
-    type RawSocketOptions = {
-        host?: string,
-        address?: string,
-        port: number,
-        kind: "RAW",
-        protocol?: number,
-    };
-    export type TCPSocketOptions = {
-        kind?: "TCP",
-        host?: string,
-        addresss?: string,
-        port?: number,
-        noDelay?: boolean,
+    interface RawSocketOptions {
+        host?: string;
+        address?: string;
+        port: number;
+        kind: "RAW";
+        protocol?: number;
+    }
+
+    interface TCPSocketOptions {
+        kind?: "TCP";
+        host?: string;
+        addresss?: string;
+        port?: number;
+        noDelay?: boolean;
         keepalive?: {
             idle: number,
             interval: number,
-            count: number
-        }
-    };
-    type UDPSocketOptions = {
-        host?: string,
-        addresss?: string,
-        port: number,
-        kind: "UDP",
-    };
+            count: number,
+        };
+    }
+
+    interface UDPSocketOptions {
+        host?: string;
+        addresss?: string;
+        port: number;
+        kind: "UDP";
+    }
+
     type WriteData = number | string | BufferLike;
 
     type MessageError = -2;
@@ -78,20 +81,21 @@ declare module "socket" {
         write(ip: string, port: number, data: ArrayBuffer): void;
         write(): number;
     }
-    export type ListenerOptions = {
-        port?: number,
-        address?: string
-    };
+    interface ListenerOptions {
+        port?: number;
+        address?: string;
+    }
     class Listener {
         constructor(options: ListenerOptions);
         callback: (this: Listener) => void;
     }
-    var Socket: {
-        new <T extends RawSocketOptions | TCPSocketOptions | UDPSocketOptions>(
-            dictionary: T
-        ): T extends RawSocketOptions ?
+
+    class Socket {
+        new<T extends RawSocketOptions | TCPSocketOptions | UDPSocketOptions>(dictionary: T):
+            T extends RawSocketOptions ?
             RawSocket : T extends TCPSocketOptions ? TCPSocket : UDPSocket;
         new(dictionary: { listener: Listener }): TCPSocket;
-    };
-    export { Socket, Listener };
+    }
+
+    export { Socket, Listener, ListenerOptions, TCPSocketOptions };
 }

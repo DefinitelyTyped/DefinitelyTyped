@@ -19,18 +19,17 @@
 */
 
 declare module "hidclient" {
-
     import { BLEClient } from "bleclient";
     import { Service } from "gatt";
 
-    type BondedInfo = {
+    interface BondedInfo {
         device: {
             address: ArrayBuffer,
             addressType: number,
             services: Service[],
-        },
-        reports: number[],
-    };
+        };
+        reports: number[];
+    }
 
     enum ReportType {
         NONE = 0x00,
@@ -74,21 +73,20 @@ declare module "hidclient" {
         onDeviceReports(value: number[]): void;
 
         onDeviceDisconnected(): void;
-
     }
 
-    export class Bonded {
-        static get(usageID: UsageID): BondedInfo;
+    export namespace Bonded {
+        function get(usageID: UsageID): BondedInfo;
 
-        static set(usageID: UsageID, device: BLEClient, reports: number[]): void;
+        function set(usageID: UsageID, device: BLEClient, reports: number[]): void;
 
-        static readonly PREFERENCE_DOMAIN = "hid";
-        static readonly PREFERENCE_KEY_POINTER = "poin";
-        static readonly PREFERENCE_KEY_MOUSE = "mous";
-        static readonly PREFERENCE_KEY_JOYSTICK = "joys";
-        static readonly PREFERENCE_KEY_GAMEPAD = "gamp";
-        static readonly PREFERENCE_KEY_KEYBOARD = "keyb";
-        static readonly PREFERENCE_KEY_KEYPAD = "keyp";
+        const PREFERENCE_DOMAIN = "hid";
+        const PREFERENCE_KEY_POINTER = "poin";
+        const PREFERENCE_KEY_MOUSE = "mous";
+        const PREFERENCE_KEY_JOYSTICK = "joys";
+        const PREFERENCE_KEY_GAMEPAD = "gamp";
+        const PREFERENCE_KEY_KEYBOARD = "keyb";
+        const PREFERENCE_KEY_KEYPAD = "keyp";
     }
 
     export { BLEHIDClient as default, ReportType, UsageID };

@@ -3,7 +3,6 @@
 // Definitions by: Richard Lea <https://github.com/chigix>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 // Base definitions for all Moddable modules that are not specific to any version of TypeScript:
 /// <reference path="modules/base64.d.ts" />
 /// <reference path="modules/ble.d.ts" />

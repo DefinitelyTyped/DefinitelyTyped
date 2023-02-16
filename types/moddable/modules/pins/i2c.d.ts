@@ -34,7 +34,7 @@ declare module 'pins/i2c' {
         constructor(port: number[], pin: number, mode: number)
         close(): void;
         read(count: number, buffer?: ArrayBuffer): void;
-        write(first: any, ...valuesOrStop: (number | string | (number | string)[] | TypedArray | boolean)[]): void;
+        write(first: any, ...valuesOrStop: Array<number | string | Array<number | string> | TypedArray | boolean>): void;
     }
     export { I2C as default };
 }

@@ -19,12 +19,13 @@
 */
 
 declare module "mdns" {
-    type MDNSService = {
-        name: string,
-        protocol: string,
-        port: number,
-        txt: Record<string, string>
-    };
+    interface MDNSService {
+        name: string;
+        protocol: string;
+        port: number;
+        txt: Record<string, string>;
+    }
+
     class MDNS {
         constructor(
             options: {

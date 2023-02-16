@@ -35,12 +35,13 @@ declare module 'pins/audioout' {
         MixerTone |
         MixerSilence
     );
-    type MixerOptions = {
-        sampleRate?: number,
-        bitsPerSample?: number,
-        numChannels?: number,
-        streams?: number,
-    };
+
+    interface MixerOptions {
+        sampleRate?: number;
+        bitsPerSample?: number;
+        numChannels?: number;
+        streams?: number;
+    }
 
     export class Mixer {
         constructor(options: MixerOptions);

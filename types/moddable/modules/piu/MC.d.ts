@@ -20,53 +20,61 @@
 
 declare module "piu/MC" {
     /* type aliases */
-    type Coordinates = {
+    interface Coordinates {
         top?: number;
         right?: number;
         bottom?: number;
         left?: number;
-    };
-    type Position = {
+    }
+
+    interface Position {
         x?: number;
         y?: number;
-    };
-    type Size = {
+    }
+
+    interface Size {
         width?: number;
         height?: number;
-    };
+    }
+
     type Bounds = Position & Size;
     type Color = string;
-    type ContentState = {
+
+    interface ContentState {
         state?: number;
         variant?: number;
-    };
-    type TimeProperty = {
+    }
+
+    interface TimeProperty {
         time?: number;
         duration?: number;
         fraction?: number;
         interval?: number;
         loop?: boolean;
-    };
-    type TouchProperty = {
+    }
+
+    interface TouchProperty {
         active?: boolean;
         backgroundTouch?: boolean;
         exclusiveTouch?: boolean;
         multipleTouch?: boolean;
-    };
+    }
 
     // TODO: more accurate constructor parameters
-    type TemplateStyle<P, C extends new (...args: any) => any> = {
+    interface TemplateStyle<P, C extends new (...args: any) => any> {
         new(dictionary?: P): InstanceType<C>;
         template: TemplateStyleFactory<C>;
-    };
+    }
+
     type TemplateStyleFactory<T extends new (...args: any) => any> = (
         param: ConstructorParameters<T>[0]
     ) => TemplateStyle<Partial<ConstructorParameters<T>[1]>, T>;
 
-    type TemplateComponent<P, C extends new (...args: any) => any> = {
+    interface TemplateComponent<P, C extends new (...args: any) => any> {
         new(dictionary: P): InstanceType<C>;
         template: TemplateComponentFactory<C>;
-    };
+    }
+
     type TemplateComponentFactory<T extends new (...args: any) => any> = (
         func: (param: any) => ConstructorParameters<T>[1]
     ) => TemplateComponent<Parameters<typeof func>[0], T>;
@@ -397,15 +405,15 @@ declare module "piu/MC" {
             height: number
         ): void;
     }
-    interface PortConstructor extends ContentConstructor {
-    }
+
+    type PortConstructor = ContentConstructor;
 
     interface Text extends Content {
-        blocks: {
+        blocks: Array<{
             behavior: object | null;
             style: Style | null;
             spans: string | string[];
-        }[];
+        }>;
         string: string;
         begin(): void;
         beginBlock(style?: Style, behavior?: object): void;
@@ -416,11 +424,11 @@ declare module "piu/MC" {
         endSpan(): void;
     }
     interface TextDictionary extends ContentDictionary {
-        blocks?: {
+        blocks?: Array<{
             behavior?: Behavior;
             style?: Style;
             spans: string | string[];
-        }[];
+        }>;
         string: string;
     }
     interface TextConstructor extends ContentConstructor {
@@ -446,10 +454,7 @@ declare module "piu/MC" {
         template<T>(this: T, ...args: any[]): T;
     }
 
-    interface Column extends Container {
-    }
-    interface ColumnConstructor extends ContainerConstructor {
-    }
+    type ColumnConstructor = ContainerConstructor;
 
     interface Layout extends Container {
         onFitHorizontally(layout: Layout, width: number): void;
@@ -457,8 +462,8 @@ declare module "piu/MC" {
         onMeasureHorizontally(layout: Layout, width: number): void;
         onMeasureVertically(layout: Layout, height: number): void;
     }
-    interface LayoutConstructor extends ContainerConstructor {
-    }
+
+    type LayoutConstructor = ContainerConstructor;
 
     interface Image extends Content {
         readonly frameCount: never;
@@ -485,13 +490,10 @@ declare module "piu/MC" {
         attach(content: Content): void;
         detach(): void;
     }
-    interface DieConstructor extends LayoutConstructor {
-    }
 
-    interface Row extends Container {
-    }
-    interface RowConstructor extends ContainerConstructor {
-    }
+    type DieConstructor = LayoutConstructor;
+
+    type RowConstructor = ContainerConstructor;
 
     interface Scroller extends Container {
         readonly constraint: Position;
@@ -516,7 +518,6 @@ declare module "piu/MC" {
     interface rgba {
         (r: number, g: number, b: number, a: number): Color;
     }
-
 
     global {
         const Skin: SkinConstructor;

@@ -23,14 +23,14 @@ declare module "embedded:io/system" {
     /**
      * @experimetnal
      */
-    class System {
-        static deepSleep(us: number, mode: number): void;
-        static restart(): void;
-        static resolve(name: string, callback: (name: string, ip: string) => void): void;
-        static setTimeout: typeof Timer.set;
-        static clearTimeout: typeof Timer.clear;
-        static setInterval: typeof Timer.repeat;
-        static clearInterval: typeof Timer.clear;
+    namespace System {
+        function deepSleep(us: number, mode: number): void;
+        function restart(): void;
+        function resolve(name: string, callback: (name: string, ip: string) => void): void;
+        const setTimeout: typeof Timer.set;
+        const clearTimeout: typeof Timer.clear;
+        const setInterval: typeof Timer.repeat;
+        const clearInterval: typeof Timer.clear;
     }
     export default System;
 }

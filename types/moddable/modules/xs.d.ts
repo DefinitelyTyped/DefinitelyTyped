@@ -19,7 +19,7 @@
  */
 
 interface Trace {
-    (...log: (string | number | boolean)[]): void;
+    (...log: Array<string | number | boolean>): void;
     left(log: string | ArrayBufferLike, conversation?: string): void;
     center(log: string | ArrayBufferLike, conversation?: string): void;
     right(log: string | ArrayBufferLike, conversation?: string): void;

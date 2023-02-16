@@ -18,7 +18,6 @@
 *
 */
 
-
 declare module "embedded:io/pwm" {
   import { PinSpecifier } from "embedded:io/_common";
   class PWM {
