@@ -6093,7 +6093,7 @@ declare namespace Xrm {
             /**
              * Defines the level of notification.
              */
-            level: number;
+            level: XrmEnum.AppNotificationLevel;
             /**
              * The message to display in the notification.
              */
@@ -6448,6 +6448,17 @@ declare namespace XrmEnum {
         Error = "ERROR",
         Info = "INFO",
         Warning = "WARNING",
+    }
+
+    /**
+     * Constant Enum: App Notification Levels for {@link App.addGlobalNotification Xrm.App.addGlobalNotification()}.
+     * @see {@link Xrm.AppNotificationLevel}
+     */
+    const enum AppNotificationLevel {
+      Success = 1,
+      Error = 2,
+      Warning = 3,
+      Information = 4,
     }
 
     /**
