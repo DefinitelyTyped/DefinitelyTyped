@@ -1,5 +1,6 @@
-import maxApi, { MESSAGE_TYPES, POST_LEVELS } from 'max-api';
+import maxApi = require('max-api');
 
+const { MESSAGE_TYPES, POST_LEVELS } = maxApi;
 maxApi.outlet('output', 'to', 'outlet');
 maxApi.outletBang();
 maxApi.post('output to max window');
