@@ -6085,7 +6085,7 @@ declare namespace Xrm {
          * Defines the notification object for Xrm.App.addGlobalNotification
          * @see {@link Xmr.App.addGlobalNotification}
          */
-        interface Notifcation {
+        interface Notification {
             /**
              * @see {@link Xrm.App.Action}
              */
@@ -6194,7 +6194,7 @@ declare namespace Xrm {
          * @param notification The notification to add.
          * @returns On success, returns a promise object containing a GUID value to uniquely identify the notification as described earlier in the description of the successCallback parameter.
          */
-        addGlobalNotification(notification: App.Notifcation): Async.PromiseLike<string>;
+        addGlobalNotification(notification: App.Notification): Async.PromiseLike<string>;
 
         /**
          * Clears a notification in the app.
