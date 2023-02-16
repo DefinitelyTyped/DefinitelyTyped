@@ -20,9 +20,13 @@ function test_chroma() {
     chroma([255, 51, 153]);
     chroma(330, 1, 0.6, 'hsl');
     chroma.hsl(330, 1, 0.6);
+    chroma.hsl(330, 1, 0.6, 0.5);
     chroma.hcl(50, 40, 40);
+    // @ts-expect-error
+    chroma.hcl(50, 40, 40, '0');
     chroma.lch(80, 40, 130);
     chroma.oklch(0.8, 0.4, 130);
+    chroma.oklch(0.8, 0.4, 130, 0.5);
     chroma(80, 40, 130, 'lch');
     chroma(0.8, 0.4, 130, 'oklch');
     chroma.cmyk(0.2, 0.8, 0, 0);
