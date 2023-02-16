@@ -1,4 +1,4 @@
-// Type definitions for DOM Purify 2.4
+// Type definitions for DOM Purify 3.0
 // Project: https://github.com/cure53/DOMPurify
 // Definitions by: Dave Taylor https://github.com/davetayls
 //                 Samira Bazuzi <https://github.com/bazuzi>
@@ -61,6 +61,7 @@ declare namespace DOMPurify {
         ALLOW_ARIA_ATTR?: boolean | undefined;
         ALLOW_DATA_ATTR?: boolean | undefined;
         ALLOW_UNKNOWN_PROTOCOLS?: boolean | undefined;
+        ALLOW_SELF_CLOSE_IN_ATTR?: boolean | undefined;
         ALLOWED_ATTR?: string[] | undefined;
         ALLOWED_TAGS?: string[] | undefined;
         ALLOWED_NAMESPACES?: string[] | undefined;
