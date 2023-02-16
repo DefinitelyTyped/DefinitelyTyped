@@ -1,3 +1,8 @@
+// Type definitions for the max-api package exposed by Node for Max environment
+// Project: https://docs.cycling74.com/nodeformax/api/index.html
+// Definitions by: Geof Holbrook <https://github.com/geofholbrook>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module 'max-api' {
     export const MESSAGE_TYPES: Record<string, string>;
     export const POST_LEVELS: Record<string, string>;
