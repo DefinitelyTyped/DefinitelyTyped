@@ -130,6 +130,9 @@ doc.circle(100, 100, 100).clip();
 
 doc.font('Arial', 30).text('The size is 30');
 
+var strOrBuf = Math.random() < 0.5 ? 'Arial' : Buffer.from('bytes');
+doc.font(strOrBuf);
+
 doc.fontSize(25)
     .fillColor('blue')
     .text('This is a link!', 20, 0);
@@ -201,6 +204,8 @@ doc.goTo(0, 0, 0, 0, 'lorem');
 doc.text('Text with destination', {destination: "test-anchor"});
 
 doc.text('Text with goTo', {goTo: 'test-anchor'});
+
+doc.text('Text with null link', { link: null });
 
 doc.image('path/to/image.png', {
     fit: [250, 300],

@@ -20,6 +20,7 @@ declare class IFCLoader extends Loader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<IFCModel>;
 
     parse(buffer: ArrayBuffer): Promise<IFCModel>;
 }

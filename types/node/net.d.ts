@@ -57,6 +57,14 @@ declare module 'net' {
         noDelay?: boolean | undefined;
         keepAlive?: boolean | undefined;
         keepAliveInitialDelay?: number | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamily?: boolean | undefined;
+        /**
+         * @since v18.13.0
+         */
+        autoSelectFamilyAttemptTimeout?: number | undefined;
     }
     interface IpcSocketConnectOpts extends ConnectOpts {
         path: string;

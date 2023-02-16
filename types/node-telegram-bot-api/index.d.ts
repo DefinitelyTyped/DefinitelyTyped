@@ -1,4 +1,4 @@
-// Type definitions for node-telegram-bot-api 0.57
+// Type definitions for node-telegram-bot-api 0.61
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
 //                 Agadar <https://github.com/agadar>
@@ -158,6 +158,7 @@ declare namespace TelegramBot {
     }
 
     interface SendBasicOptions {
+        message_thread_id?: number | undefined;
         disable_notification?: boolean | undefined;
         reply_to_message_id?: number | undefined;
         reply_markup?: InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove | ForceReply | undefined;
@@ -184,6 +185,7 @@ declare namespace TelegramBot {
     }
 
     interface SendPhotoOptions extends SendBasicOptions {
+        has_spoiler?: boolean | undefined;
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
     }
@@ -202,6 +204,7 @@ declare namespace TelegramBot {
     }
 
     interface SendAnimationOptions extends SendBasicOptions {
+        has_spoiler?: boolean | undefined;
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
         duration?: number | undefined;
@@ -238,6 +241,7 @@ declare namespace TelegramBot {
     type SendStickerOptions = SendBasicOptions;
 
     interface SendVideoOptions extends SendBasicOptions {
+        has_spoiler?: boolean | undefined;
         parse_mode?: ParseMode | undefined;
         duration?: number | undefined;
         width?: number | undefined;
@@ -256,7 +260,12 @@ declare namespace TelegramBot {
         length?: number | undefined;
     }
 
-    type SendLocationOptions = SendBasicOptions;
+    interface SendLocationOptions extends SendBasicOptions {
+        live_period?: number | undefined;
+        horizontal_accuracy?: number | undefined;
+        heading?: number | undefined;
+        proximity_alert_radius?: number | undefined;
+    }
 
     type EditMessageLiveLocationOptions = EditMessageCaptionOptions;
 
@@ -294,17 +303,13 @@ declare namespace TelegramBot {
 
     interface RestrictChatMemberOptions {
         until_date?: number | undefined;
-        can_send_messages?: boolean | undefined;
-        can_send_media_messages?: boolean | undefined;
-        can_send_polls?: boolean | undefined;
-        can_send_other_messages?: boolean | undefined;
-        can_add_web_page_previews?: boolean | undefined;
-        can_change_info?: boolean | undefined;
-        can_invite_users?: boolean | undefined;
-        can_pin_messages?: boolean | undefined;
+        permissions: ChatPermissions;
+        use_independent_chat_permissions?: boolean | undefined;
     }
 
     interface PromoteChatMemberOptions {
+        is_anonymous?: boolean | undefined;
+        can_manage_chat?: boolean | undefined;
         can_change_info?: boolean | undefined;
         can_post_messages?: boolean | undefined;
         can_edit_messages?: boolean | undefined;
@@ -314,6 +319,25 @@ declare namespace TelegramBot {
         can_pin_messages?: boolean | undefined;
         can_promote_members?: boolean | undefined;
         can_manage_video_chats?: boolean | undefined;
+        can_manage_topics?: boolean | undefined;
+    }
+
+    interface CreateForumTopicOptions {
+        icon_color?: number | undefined;
+        icon_custom_emoji_id?: string | undefined;
+    }
+
+    interface EditForumTopicOptions {
+        name?: string | undefined;
+        icon_custom_emoji_id?: string | undefined;
+    }
+
+    interface SendChatActionOptions {
+        message_thread_id?: number | undefined;
+    }
+
+    interface SetChatPermissionsOptions {
+        use_independent_chat_permissions?: boolean | undefined;
     }
 
     interface AnswerCallbackQueryOptions {
@@ -457,9 +481,18 @@ declare namespace TelegramBot {
         username?: string | undefined;
         first_name?: string | undefined;
         last_name?: string | undefined;
+        is_forum?: boolean | undefined;
         photo?: ChatPhoto | undefined;
+        active_usernames?: string[] | undefined;
+        emoji_status_custom_emoji_id?: string | undefined;
+        bio?: string | undefined;
+        has_restricted_voice_and_video_messages?: boolean | undefined;
+        join_to_send_messages?: boolean | undefined;
+        join_by_request?: boolean | undefined;
         description?: string | undefined;
         invite_link?: string | undefined;
+        has_aggressive_anti_spam_enabled?: boolean | undefined;
+        has_hidden_members?: boolean | undefined;
         pinned_message?: Message | undefined;
         permissions?: ChatPermissions | undefined;
         can_set_sticker_set?: boolean | undefined;
@@ -469,6 +502,7 @@ declare namespace TelegramBot {
         slow_mode_delay?: number | undefined;
         message_auto_delete_time?: number | undefined;
         linked_chat_id?: number | undefined;
+        location?: ChatLocation | undefined;
         /**
          * @deprecated since version Telegram Bot API 4.4 - July 29, 2019
          */
@@ -477,6 +511,7 @@ declare namespace TelegramBot {
 
     interface Message {
         message_id: number;
+        message_thread_id?: number | undefined;
         from?: User | undefined;
         date: number;
         chat: Chat;
@@ -487,6 +522,7 @@ declare namespace TelegramBot {
         forward_signature?: string | undefined;
         forward_sender_name?: string | undefined;
         forward_date?: number | undefined;
+        is_topic_message?: boolean | undefined;
         reply_to_message?: Message | undefined;
         edit_date?: number | undefined;
         media_group_id?: string | undefined;
@@ -528,6 +564,15 @@ declare namespace TelegramBot {
         is_automatic_forward?: boolean | undefined;
         has_protected_content?: boolean | undefined;
         dice?: Dice | undefined;
+        forum_topic_created?: ForumTopicCreated | undefined;
+        forum_topic_edited?: ForumTopicEdited | undefined;
+        forum_topic_closed?: ForumTopicClosed | undefined;
+        forum_topic_reopened?: ForumTopicReopened | undefined;
+        general_forum_topic_hidden?: GeneralForumTopicHidden | undefined;
+        general_forum_topic_unhidden?: GeneralForumTopicUnhidden | undefined;
+        has_media_spoiler?: boolean | undefined;
+        user_shared?: UserShared | undefined;
+        chat_shared?: ChatShared | undefined;
     }
 
     interface MessageEntity {
@@ -542,6 +587,7 @@ declare namespace TelegramBot {
 
     interface FileBase {
         file_id: string;
+        file_unique_id: string;
         file_size?: number | undefined;
     }
 
@@ -579,6 +625,7 @@ declare namespace TelegramBot {
 
     interface InputMediaBase {
         media: string;
+        has_spoiler?: boolean | undefined;
         caption?: string | undefined;
         parse_mode?: ParseMode | undefined;
     }
@@ -609,6 +656,11 @@ declare namespace TelegramBot {
         last_name?: string | undefined;
         user_id?: number | undefined;
         vcard?: string | undefined;
+    }
+
+    interface ChatLocation {
+        location: Location;
+        address: string;
     }
 
     interface Location {
@@ -656,6 +708,7 @@ declare namespace TelegramBot {
     interface ChatJoinRequest {
         chat: Chat;
         from: User;
+        user_chat_id: number;
         date: number;
         bio?: string | undefined;
         invite_link?: ChatInviteLink | undefined;
@@ -672,13 +725,19 @@ declare namespace TelegramBot {
 
     interface ReplyKeyboardMarkup {
         keyboard: KeyboardButton[][];
+        is_persistent?: boolean | undefined;
         resize_keyboard?: boolean | undefined;
         one_time_keyboard?: boolean | undefined;
+        input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
+        is_persistent?: boolean | undefined;
+        input_field_placeholder?: string | undefined;
     }
 
     interface KeyboardButton {
         text: string;
+        request_user?: KeyboardButtonRequestUser | undefined;
+        request_chat?: KeyboardButtonRequestChat | undefined;
         request_contact?: boolean | undefined;
         request_location?: boolean | undefined;
         request_poll?: KeyboardButtonPollType;
@@ -687,6 +746,23 @@ declare namespace TelegramBot {
 
     interface KeyboardButtonPollType {
         type: PollType;
+    }
+
+    interface KeyboardButtonRequestUser {
+        request_id: number;
+        user_is_bot?: boolean | undefined;
+        user_is_premium?: boolean | undefined;
+    }
+
+    interface KeyboardButtonRequestChat {
+        request_id: number;
+        chat_is_channel: boolean;
+        chat_is_forum?: boolean | undefined;
+        chat_has_username?: boolean | undefined;
+        chat_is_created?: boolean | undefined;
+        user_administrator_rights?: boolean | undefined;
+        bot_administrator_rights?: boolean | undefined;
+        bot_is_member?: boolean | undefined;
     }
 
     interface ReplyKeyboardRemove {
@@ -729,7 +805,9 @@ declare namespace TelegramBot {
 
     interface ForceReply {
         force_reply: boolean;
+        input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
+        input_field_placeholder?: string | undefined;
     }
 
     interface ChatPhoto {
@@ -779,33 +857,89 @@ declare namespace TelegramBot {
 
     interface ChatPermissions {
         can_send_messages?: boolean | undefined;
-        can_send_media_messages?: boolean | undefined;
+        can_send_audios?: boolean | undefined;
+        can_send_documents?: boolean | undefined;
+        can_send_photos?: boolean | undefined;
+        can_send_videos?: boolean | undefined;
+        can_send_video_notes?: boolean | undefined;
+        can_send_voice_notes?: boolean | undefined;
         can_send_polls?: boolean | undefined;
         can_send_other_messages?: boolean | undefined;
         can_add_web_page_previews?: boolean | undefined;
         can_change_info?: boolean | undefined;
         can_invite_users?: boolean | undefined;
         can_pin_messages?: boolean | undefined;
+        can_manage_topics?: boolean | undefined;
     }
 
-    interface Sticker {
-        file_id: string;
-        file_unique_id: string;
+    type StickerType = 'regular' | 'mask' | 'custom_emoji';
+
+    interface Sticker extends FileBase {
+        type: StickerType;
         is_animated: boolean;
+        is_video: boolean;
         width: number;
         height: number;
         thumb?: PhotoSize | undefined;
         emoji?: string | undefined;
         set_name?: string | undefined;
+        premium_animation?: File | undefined;
         mask_position?: MaskPosition | undefined;
-        file_size?: number | undefined;
+        custom_emoji_id?: string | undefined;
     }
 
     interface StickerSet {
         name: string;
         title: string;
-        contains_masks: boolean;
+        sticker_type: StickerType;
+        is_animated: boolean;
+        is_video: boolean;
         stickers: Sticker[];
+        thumb?: PhotoSize | undefined;
+    }
+
+    interface CreateStickerSetOptions {
+        tgs_sticker?: string | Stream | Buffer;
+        webm_sticker?: string | Stream | Buffer;
+        sticker_type?: 'regular' | 'mask';
+        mask_position?: MaskPosition;
+    }
+
+    interface AddStickerToSetOptions {
+        mask_position?: MaskPosition;
+    }
+
+    interface ForumTopicCreated {
+        name: string;
+        icon_color: number;
+        icon_custom_emoji_id: string;
+    }
+
+    // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicclosed)
+    interface ForumTopicClosed {}
+
+    interface ForumTopicEdited {
+        name: string;
+        icon_custom_emoji_id: string;
+    }
+
+    // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicreopened)
+    interface ForumTopicReopened {}
+
+    // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopichidden)
+    interface GeneralForumTopicHidden {}
+
+    // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopicunhidden)
+    interface GeneralForumTopicUnhidden {}
+
+    interface UserShared {
+        request_id: number;
+        user_id: number;
+    }
+
+    interface ChatShared {
+        request_id: number;
+        chat_id: number;
     }
 
     interface MaskPosition {
@@ -1260,6 +1394,7 @@ declare namespace TelegramBot {
         can_post_messages?: boolean;
         can_edit_messages?: boolean;
         can_pin_messages?: boolean;
+        can_manage_topics?: boolean;
     }
 
     interface SentWebAppMessage {
@@ -1386,6 +1521,49 @@ declare class TelegramBot extends EventEmitter {
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<TelegramBot.Message>;
 
+    getStickerSet(name: string, options?: {}): Promise<TelegramBot.StickerSet>;
+
+    getCustomEmojiStickers(customEmojiIds: string[], options?: {}): Promise<TelegramBot.Sticker[]>;
+
+    uploadStickerFile(
+        userId: string,
+        pngSticker: string | Stream | Buffer,
+        options?: {},
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<TelegramBot.File>;
+
+    createNewStickerSet(
+        userId: string,
+        name: string,
+        title: string,
+        pngSticker: string | Stream | Buffer,
+        emojis: string,
+        options?: TelegramBot.CreateStickerSetOptions,
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
+
+    addStickerToSet(
+        userId: string,
+        name: string,
+        sticker: string | Stream | Buffer,
+        emojis: string,
+        stickerType: 'png_sticker' | 'tgs_sticker' | 'webm_sticker',
+        options?: TelegramBot.AddStickerToSetOptions,
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
+
+    setStickerPositionInSet(sticker: string, position: number): Promise<boolean>;
+
+    deleteStickerFromSet(sticker: string, options?: {}): Promise<boolean>;
+
+    setStickerSetThumb(
+        userId: string,
+        name: string,
+        pngThumb: string | Stream | Buffer,
+        options?: {},
+        fileOptions?: TelegramBot.FileOptions,
+    ): Promise<boolean>;
+
     sendVideo(
         chatId: TelegramBot.ChatId,
         video: string | Stream | Buffer,
@@ -1407,11 +1585,20 @@ declare class TelegramBot extends EventEmitter {
         fileOptions?: TelegramBot.FileOptions,
     ): Promise<TelegramBot.Message>;
 
-    sendChatAction(chatId: TelegramBot.ChatId, action: TelegramBot.ChatAction): Promise<boolean>;
+    sendChatAction(
+        chatId: TelegramBot.ChatId,
+        action: TelegramBot.ChatAction,
+        options?: TelegramBot.SendChatActionOptions,
+    ): Promise<boolean>;
 
     kickChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<boolean>;
 
-    banChatMember(chatId: number | string, userId: string, untilDate?: number, revokeMessages?: boolean): Promise<boolean>;
+    banChatMember(
+        chatId: number | string,
+        userId: string,
+        untilDate?: number,
+        revokeMessages?: boolean,
+    ): Promise<boolean>;
 
     unbanChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<boolean>;
 
@@ -1568,7 +1755,7 @@ declare class TelegramBot extends EventEmitter {
 
     getChatAdministrators(chatId: TelegramBot.ChatId): Promise<TelegramBot.ChatMember[]>;
 
-    getChatMembersCount(chatId: TelegramBot.ChatId): Promise<number>;
+    getChatMemberCount(chatId: TelegramBot.ChatId): Promise<number>;
 
     getChatMember(chatId: TelegramBot.ChatId, userId: string): Promise<TelegramBot.ChatMember>;
 
@@ -1577,6 +1764,36 @@ declare class TelegramBot extends EventEmitter {
     setChatStickerSet(chatId: TelegramBot.ChatId, stickerSetName: string): Promise<boolean>;
 
     deleteChatStickerSet(chatId: TelegramBot.ChatId): Promise<boolean>;
+
+    createForumTopic(
+        chatId: TelegramBot.ChatId,
+        name: string,
+        options?: TelegramBot.CreateForumTopicOptions,
+    ): Promise<boolean>;
+
+    editForumTopic(
+        chatId: TelegramBot.ChatId,
+        messageThreadId: number,
+        options?: TelegramBot.EditForumTopicOptions,
+    ): Promise<boolean>;
+
+    closeForumTopic(chatId: TelegramBot.ChatId, messageThreadId: number): Promise<boolean>;
+
+    reopenForumTopic(chatId: TelegramBot.ChatId, messageThreadId: number): Promise<boolean>;
+
+    deleteForumTopic(chatId: TelegramBot.ChatId, messageThreadId: number): Promise<boolean>;
+
+    unpinAllForumTopicMessages(chatId: TelegramBot.ChatId, messageThreadId: number): Promise<boolean>;
+
+    editGeneralForumTopic(chatId: TelegramBot.ChatId, name: string): Promise<boolean>;
+
+    closeGeneralForumTopic(chatId: TelegramBot.ChatId): Promise<boolean>;
+
+    reopenGeneralForumTopic(chatId: TelegramBot.ChatId): Promise<boolean>;
+
+    hideGeneralForumTopic(chatId: TelegramBot.ChatId): Promise<boolean>;
+
+    unhideGeneralForumTopic(chatId: TelegramBot.ChatId): Promise<boolean>;
 
     sendGame(
         chatId: TelegramBot.ChatId,
@@ -1990,7 +2207,11 @@ declare class TelegramBot extends EventEmitter {
             | 'error',
     ): number;
 
-    setChatPermissions(chatId: TelegramBot.ChatId, chatPermissions: TelegramBot.ChatPermissions): Promise<boolean>;
+    setChatPermissions(
+        chatId: TelegramBot.ChatId,
+        chatPermissions: TelegramBot.ChatPermissions,
+        options?: TelegramBot.SetChatPermissionsOptions,
+    ): Promise<boolean>;
 
     setChatAdministratorCustomTitle(chatId: TelegramBot.ChatId, userId: string, customTitle: string): Promise<boolean>;
 

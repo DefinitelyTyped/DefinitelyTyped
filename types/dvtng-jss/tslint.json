@@ -4,7 +4,6 @@
         "no-consecutive-blank-lines": false,
         "npm-naming": false,
         "object-literal-key-quotes": false,
-        "trim-file": false,
         "unified-signatures": false
     }
 }

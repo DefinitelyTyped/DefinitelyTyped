@@ -18,6 +18,7 @@
  */
 declare module 'stream' {
     import { EventEmitter, Abortable } from 'node:events';
+    import { Blob as NodeBlob } from "node:buffer";
     import * as streamPromises from 'node:stream/promises';
     import * as streamConsumers from 'node:stream/consumers';
     import * as streamWeb from 'node:stream/web';
@@ -892,7 +893,7 @@ declare module 'stream' {
              *
              * @since v16.8.0
              */
-            static from(src: Stream | Blob | ArrayBuffer | string | Iterable<any> | AsyncIterable<any> | AsyncGeneratorFunction | Promise<any> | Object): Duplex;
+            static from(src: Stream | NodeBlob | ArrayBuffer | string | Iterable<any> | AsyncIterable<any> | AsyncGeneratorFunction | Promise<any> | Object): Duplex;
             _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void): void;
             _writev?(
                 chunks: Array<{

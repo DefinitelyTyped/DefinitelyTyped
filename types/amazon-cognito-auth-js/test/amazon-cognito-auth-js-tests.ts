@@ -105,7 +105,7 @@ auth.makePOSTRequest({ 'Content-Type': 'application/json' }, { pool: '2' },
     'https://auth.com/signin',
     (data) => console.log(data),
     (error) => console.log(error));
-auth.createCORSRequest('POST', '/myapp/login'); // $ExpectType XMLHttpRequest | XDomainRequest
+auth.createCORSRequest('POST', '/myapp/login'); // $ExpectType XMLHttpRequest | XDomainRequest || XDomainRequest | XMLHttpRequest
 auth.onFailure('request failed'); // $ExpectType void
 auth.onSuccessRefreshToken('{"name":"John", "age":31}'); // $ExpectType void
 auth.onSuccessExchangeForToken('{"name":"Jane", "age":30}'); // $ExpectType void

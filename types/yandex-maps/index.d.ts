@@ -627,6 +627,37 @@ declare namespace ymaps {
             state?: {} | undefined;
         }
 
+        class RoutePanel implements IControl, ICustomizable {
+            constructor(parameters?: IRoutePanelParameters);
+
+            events: IEventManager;
+            options: IOptionManager;
+            routePanel: IRoutePanel;
+
+            getParent(): null | IControlParent;
+
+            setParent(parent: IControlParent): this;
+        }
+
+        interface IRoutePanelParameters {
+            options?: {
+                autofocus?: boolean;
+                float?: "none" | "left" | "right";
+                floatIndex?: number;
+                maxWidth?: string;
+                position?: {
+                    bottom?: number | string;
+                    left?: number | string;
+                    right?: number | string;
+                    top?: number | string;
+                } ;
+                showHeader?: boolean;
+                title?: string;
+                visible?: boolean;
+            };
+            state?: {};
+        }
+
         class RulerControl extends Button {
             constructor(parameters?: IRulerControlParameters);
         }
@@ -3734,6 +3765,53 @@ declare namespace ymaps {
         geoObjects: GeoObjectCollection;
     }
 
+    namespace geolocation {
+        /**
+         * Tries to determine the user's location. Returns the promise object, which will either be confirmed by the object with the field geoObjects or rejected with an error message.
+         * The geoObjects field is an instance of GeoObjectCollection. The object that indicates the user's current location will be added to the collection.
+         * @param options Options.
+         */
+        function get(options?: IGeolocationOptions): Promise<IGeolocationResult>;
+
+        interface IGeolocationOptions {
+            /**
+             * If true, geocode the user position automatically; if false, return as it is.
+             * If automatic geocoding is used, the object marking the user's current position has the same structure as the result of executing geocode.
+             */
+            autoReverseGeocode?: boolean;
+
+            /**
+             * If true, the map center and zoom level are adjusted automatically to show the current location of the user; if false, nothing happens.
+             */
+            mapStateAutoApply?: boolean;
+
+            /**
+             * Geolocation provider. Accepted values:
+             *  'yandex' - geolocation according to the Yandex data, based on the user IP-address;
+             *  'browser' - built-in browser geolocation;
+             *  'auto' - try to locate the user by all means available and then choose the best value.
+             */
+            provider?: 'yandex' | 'browser' | 'auto';
+
+            /**
+             * The response time, in milliseconds.
+             */
+            timeout?: number;
+
+            /**
+             * Whether to account for map margins map.margin.Manager when automatically centering and zooming the map.
+             */
+            useMapMargin?: boolean;
+        }
+
+        interface IGeolocationResult {
+            /**
+             * Geolocation results.
+             */
+            geoObjects: GeoObjectCollection;
+        }
+    }
+
     /**
      * Processes requests for search suggestions.
      * Returns a promise object that is either rejected with an error,
@@ -3804,6 +3882,40 @@ declare namespace ymaps {
     }
 
     namespace util {
+        namespace bounds {
+            function areIntersecting(bounds1: number[][], bounds2: number[][], projection?: IProjection): boolean;
+            function containsBounds(outer: number[][], inner: number[][], projection?: IProjection): boolean;
+            function containsPoint(bounds: number[][], point: number[], projection?: IProjection): boolean;
+            function fromBounds(sourceBounds: number[][][], projection?: IProjection): number[][];
+            function fromGlobalPixelBounds(
+              pixelBounds: number[][],
+              zoom: number,
+              projection?: IProjection,
+            ): number[][];
+            function fromPoints(points: number[][], projection?: IProjection): number[][];
+            function getCenter(bounds: number[][], projection?: IProjection): number[];
+            function getCenterAndZoom(
+              bounds: number[][],
+              containerSize: number[],
+              projection?: IProjection,
+              params?: { inscribe: boolean; margin: number | number[]; preciseZoom: boolean },
+            ): {
+              center: number[][];
+              zoom: number;
+            };
+            function getIntersections(
+              bounds1: number[][],
+              bounds2: number[][],
+              projection?: IProjection,
+            ): number[][][];
+            function getSize(bounds: number[][], projection?: IProjection): number[];
+            function toGlobalPixelBounds(
+              geoBounds: number[][],
+              zoom: number,
+              projection?: IProjection,
+            ): number[][];
+          }
+
         namespace cursor {
             class Accessor {
                 constructor(key: string);
@@ -4613,6 +4725,7 @@ declare namespace ymaps {
         state: IDataManager;
 
         getRoute(): multiRouter.MultiRoute;
+        getRouteAsync(): Promise<multiRouter.MultiRoute>;
 
         switchPoints(): void;
     }

@@ -24,6 +24,50 @@ MyTelegramBot.getWebHookInfo();
 MyTelegramBot.getUpdates({ timeout: 10 });
 MyTelegramBot.processUpdate({ update_id: 1 });
 MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
+MyTelegramBot.sendMessage(1234, 'test-ForceReply-placeholder', {
+    reply_markup: {
+        force_reply: true,
+        input_field_placeholder: 'Placeholder here',
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ForceReply-no-placeholder', {
+    reply_markup: {
+        force_reply: true,
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ReplyKeyboardMarkup-placeholder', {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: `Status: connected`,
+                    request_location: true,
+                },
+                {
+                    text: `Status: idle`,
+                },
+            ],
+        ],
+        is_persistent: true,
+        input_field_placeholder: 'text goes here',
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-ReplyKeyboardMarkup-no-placeholder', {
+    reply_markup: {
+        keyboard: [
+            [
+                {
+                    text: `Status: connected`,
+                    request_location: true,
+                },
+                {
+                    text: `Status: idle`,
+                },
+            ],
+        ],
+    },
+});
+MyTelegramBot.sendMessage(1234, 'test-text', { disable_web_page_preview: true, allow_sending_without_reply: true });
 const res: TelegramBot.InlineQueryResultArticle = {
     id: '1',
     type: 'article',
@@ -111,7 +155,7 @@ MyTelegramBot.sendChatAction(1234, 'typing');
 MyTelegramBot.kickChatMember(1234, 'myUserID');
 MyTelegramBot.banChatMember(1234, 'myUserID');
 MyTelegramBot.unbanChatMember(1234, 'myUserID');
-MyTelegramBot.restrictChatMember(1234, 'myUserID', { can_add_web_page_previews: true, can_send_polls: false });
+MyTelegramBot.restrictChatMember(1234, 'myUserID', { permissions: { can_add_web_page_previews: true, can_send_polls: false } });
 MyTelegramBot.promoteChatMember(1234, 'myUserID', { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
 MyTelegramBot.createChatInviteLink(1234, 'Foo', 1234, 1234, true);
@@ -131,7 +175,10 @@ MyTelegramBot.unpinAllChatMessages(1234);
 MyTelegramBot.answerCallbackQuery('432832');
 MyTelegramBot.answerCallbackQuery({ callback_query_id: '432832' });
 MyTelegramBot.editMessageText('test-text', { disable_web_page_preview: true });
-MyTelegramBot.editMessageCaption('My Witty Caption', { message_id: 1245, caption_entities: [{ type: 'custom_emoji', offset: 0, length: 2, custom_emoji_id: 'test_emoji' }] });
+MyTelegramBot.editMessageCaption('My Witty Caption', {
+    message_id: 1245,
+    caption_entities: [{ type: 'custom_emoji', offset: 0, length: 2, custom_emoji_id: 'test_emoji' }],
+});
 MyTelegramBot.editMessageMedia(
     {
         media: 'photo/path',
@@ -157,7 +204,13 @@ MyTelegramBot.editMessageReplyMarkup(
     { message_id: 1244 },
 );
 MyTelegramBot.getUserProfilePhotos('myUserID', { limit: 10 });
-MyTelegramBot.sendLocation(1234, 100, 200, { reply_to_message_id: 1234 });
+MyTelegramBot.sendLocation(1234, 100, 200, {
+    reply_to_message_id: 1234,
+    live_period: 60,
+    horizontal_accuracy: 10,
+    heading: 10,
+    proximity_alert_radius: 10,
+});
 MyTelegramBot.editMessageLiveLocation(100, 200, { message_id: 1245 });
 MyTelegramBot.stopMessageLiveLocation({ message_id: 1245 });
 MyTelegramBot.sendVenue(1234, 100, 200, 'Venue Title', '123 Fake St.', { reply_to_message_id: 1234 });
@@ -174,7 +227,7 @@ MyTelegramBot.removeReplyListener(5466);
 MyTelegramBot.clearReplyListeners();
 MyTelegramBot.getChat(1234);
 MyTelegramBot.getChatAdministrators(1234);
-MyTelegramBot.getChatMembersCount(1234);
+MyTelegramBot.getChatMemberCount(1234);
 MyTelegramBot.getChatMember(1234, 'myUserID');
 MyTelegramBot.leaveChat(1234);
 MyTelegramBot.setChatStickerSet(1234, 'sticker');
@@ -350,3 +403,11 @@ MyTelegramBot.setMyDefaultAdministratorRights({
 });
 MyTelegramBot.getMyDefaultAdministratorRights({});
 MyTelegramBot.answerWebAppQuery('query_id', res);
+MyTelegramBot.getStickerSet('custom-set-name');
+MyTelegramBot.getCustomEmojiStickers(['123', '986']);
+MyTelegramBot.uploadStickerFile('user_id', 'my_png_sticker_file');
+MyTelegramBot.createNewStickerSet('user_id', 'short_name', 'my sticker set name', 'my_png_sticker_file', 'hello');
+MyTelegramBot.addStickerToSet('user_id', 'custom_sticker', 'sticker_path', 'emoji', 'png_sticker');
+MyTelegramBot.setStickerPositionInSet('sticker_on_position_one', 2);
+MyTelegramBot.deleteStickerFromSet('sticker_on_position_one');
+MyTelegramBot.setStickerSetThumb('user_id', 'my_set_thumb', 'thumb_file');

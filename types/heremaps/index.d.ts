@@ -880,6 +880,15 @@ declare namespace H {
             constructor(opt_latLngAlts?: number[], opt_ctx?: H.geo.AltitudeContext);
 
             /**
+             * Decodes the specified Flexible Polyline and converts it to the LineString.
+             *
+             * @param encodedPolyline {string}
+             * @throws {Error} - if the specified data has an invalid encoding.
+             * @throws {H.lang.InvalidArgumentError} - if the third dimension type is other then ABSENT or ALTITUDE
+             */
+            static fromFlexiblePolyline(encodedPolyline: string): LineString;
+
+            /**
              * This method pushes a lat, lng, alt to the end of this LineString.
              * @param lat {H.geo.Latitude}
              * @param lng {H.geo.Longitude}
@@ -2140,7 +2149,7 @@ declare namespace H {
                 anchor?: H.math.IPoint | undefined;
                 hitArea?: H.map.HitArea | undefined;
                 asCanvas?: H.map.HitArea | undefined;
-                crossOrigin: boolean;
+                crossOrigin?: boolean | undefined | null;
             }
         }
 
@@ -2913,6 +2922,8 @@ declare namespace H {
             fillColor: string;
             lineWidth: number;
             lineCap: H.map.SpatialStyle.LineCap;
+            lineHeadCap?: H.map.SpatialStyle.LineCap | undefined;
+            lineTailCap?: H.map.SpatialStyle.LineCap | undefined;
             lineJoin: H.map.SpatialStyle.LineJoin;
             miterLimit: number;
             lineDash: number[];
@@ -2923,9 +2934,9 @@ declare namespace H {
 
         namespace SpatialStyle {
             /**
-             * The style of the end caps for a line, one of 'butt', 'round' or 'square'.
+             * The style of the end caps for a line, one of 'butt', 'round', 'square', 'arrow-head' or 'arrow-tail'.
              */
-            type LineCap = 'butt' | 'round' | 'square';
+            type LineCap = 'butt' | 'round' | 'square' | 'arrow-head' | 'arrow-tail';
 
             /**
              * The type of corner created, when two lines meet, one of 'round', 'bevel' or 'miter'.
@@ -2949,6 +2960,8 @@ declare namespace H {
                 fillColor?: string | undefined;
                 lineWidth?: number | undefined;
                 lineCap?: H.map.SpatialStyle.LineCap | undefined;
+                lineHeadCap?: H.map.SpatialStyle.LineCap | undefined;
+                lineTailCap?: H.map.SpatialStyle.LineCap | undefined;
                 lineJoin?: H.map.SpatialStyle.LineJoin | undefined;
                 miterLimit?: number | undefined;
                 lineDash?: number[] | undefined;
@@ -5320,9 +5333,10 @@ declare namespace H {
              * @param opt_options {H.service.RoutingService.Options=}
              * @returns {H.service.RoutingService}
              */
-            getRoutingService(opt_options?: H.service.RoutingService.Options): H.service.RoutingService;
+            getRoutingService(opt_options?: H.service.RoutingService.Options, opt_version?: number): H.service.RoutingService;
 
             /**
+             * @deprecated since 3.1.30.12 - This service is no longer being actively developed.
              * This method returns an instance of H.service.GeocodingService to query the Geocoder API
              * @param opt_options {H.service.GeocodingService.Options=} - an optional set of options for the new geocoding service to connect to
              * @returns {H.service.GeocodingService} - a new geocoding service instance
@@ -5406,10 +5420,10 @@ declare namespace H {
              * This method sends a "calculateroute" request to Routing REST API and calls the onResult callback function once the service response was received - providing a
              * H.service.ServiceResult object - or the onError callback if a communication error occured.
              * @param calculateRouteParams {H.service.ServiceParameters} - the service parameters to be sent with the routing request.
-             * @param onResult {function(H.service.ServiceResult)} - this function will be called once the Routing REST API provides a response to the request.
+             * @param onResult {function(H.service.RoutingServiceResult)} - this function will be called once the Routing REST API provides a response to the request.
              * @param onError {function(Error)} - this function will be called if a communication error occurs during the JSON-P request
              */
-            calculateRoute(calculateRouteParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): void;
+            calculateRoute(calculateRouteParams: H.service.ServiceParameters, onResult: (result: H.service.RoutingService.RoutingServiceResult) => void, onError: (error: Error) => void): void;
         }
 
         namespace RoutingService {
@@ -5422,6 +5436,45 @@ declare namespace H {
                 subDomain?: string | undefined;
                 path?: string | undefined;
                 baseUrl?: H.service.Url | undefined;
+            }
+
+            interface RoutingServiceResult extends H.service.ServiceResult {
+                routes: Array<{
+                    id: string,
+                    sections: RoutingServiceSection[],
+                }>;
+            }
+
+            interface RoutingServiceSection {
+                id: string;
+                type: string;
+                transport: {
+                    mode: string,
+                };
+                arrival: {
+                    time: string,
+                    place: RoutingServicePlace,
+                };
+                departure: {
+                    time: string,
+                    place: RoutingServicePlace
+                };
+                summary: {
+                    duration: number
+                    length: number
+                };
+                polyline: string;
+            }
+
+            interface RoutingServiceCoordinates {
+                lat: H.geo.Latitude;
+                lng: H.geo.Longitude;
+            }
+
+            interface RoutingServicePlace {
+                location: RoutingServiceCoordinates;
+                originalLocation?: RoutingServiceCoordinates | undefined;
+                type: string;
             }
         }
 
@@ -5760,6 +5813,25 @@ declare namespace H {
              * @returns {string} - the URL's string representation
              */
             toString(): string;
+        }
+
+        namespace Url {
+            /**
+             * This class represents the set of values to be associated to a key in cases where it is required to be repeated multiple times in a query string.
+             */
+            class MultiValueQueryParameter {
+                /**
+                 * @param values {Array<string|number>} - The list of values to be associated to a key in a query string. The the values order in the list will be preserved in the query string.
+                 * @throws {H.lang.InvalidArgumentError} - in case the argument of the constructor is not an array or its elements have types different from string and number.
+                 */
+                constructor(values: Array<string|number>);
+
+                /**
+                 * Returns the array of values.
+                 * @returns {Array<string|number>}
+                 */
+                getValues(): Array<string|number>;
+            }
         }
 
         namespace metaInfo {
@@ -6418,7 +6490,7 @@ declare namespace H {
         /**
          * This class encapsulates map UI functionality.
          */
-        class UI implements H.util.ICapturable {
+        class UI extends H.util.EventTarget implements H.util.ICapturable {
             /**
              * Constructor
              * @param map {H.Map}

@@ -37,6 +37,7 @@ declare module 'fs/promises' {
         WriteStream,
         WriteVResult,
     } from 'node:fs';
+    import { Interface as ReadlineInterface } from 'node:readline';
 
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
@@ -284,6 +285,23 @@ declare module 'fs/promises' {
                 | BufferEncoding
                 | null
         ): Promise<string | Buffer>;
+        /**
+         * Convenience method to create a `readline` interface and stream over the file. For example:
+         *
+         * ```js
+         * import { open } from 'node:fs/promises';
+         *
+         * const file = await open('./some/file/to/read');
+         *
+         * for await (const line of file.readLines()) {
+         *   console.log(line);
+         * }
+         * ```
+         *
+         * @since v18.11.0
+         * @param options See `filehandle.createReadStream()` for the options.
+         */
+        readLines(options?: CreateReadStreamOptions): ReadlineInterface;
         /**
          * @since v10.0.0
          * @return Fulfills with an {fs.Stats} for the file.

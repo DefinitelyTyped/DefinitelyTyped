@@ -10,12 +10,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "typeRoots": ["../"],
-        "types": [],
-        "paths": {
-            "bluebird": [
-                "bluebird/v2"
-            ]
-        }
+        "types": []
     },
     "files": [
         "got-resume-tests.ts",

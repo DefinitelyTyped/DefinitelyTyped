@@ -18,7 +18,7 @@ export class WebGLMultipleRenderTargets extends EventDispatcher {
      * @param options object that holds texture parameters for an auto-generated target texture and depthBuffer/stencilBuffer booleans.
      * For an explanation of the texture parameters see {@link Texture}.
      */
-    constructor(width: number, height: number, count: number, options?: WebGLRenderTargetOptions);
+    constructor(width?: number, height?: number, count?: number, options?: WebGLRenderTargetOptions);
 
     setSize(width: number, height: number, depth?: number): this;
     copy(source: WebGLMultipleRenderTargets): this;

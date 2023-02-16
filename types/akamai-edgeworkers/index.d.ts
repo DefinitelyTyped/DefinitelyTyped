@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.0
+// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
 // Project: https://developer.akamai.com/akamai-edgeworkers-overview
 // Definitions by: Evan Hughes <https://github.com/evan-hughes>
 //                 Will Bain <https://github.com/wabain>
@@ -170,6 +170,12 @@ declare namespace EW {
          * of parsing the body as JSON.
          */
         json(): Promise<any>;
+
+        /**
+         * A promise that reads the body to completion and resolves to an ArrayBuffer containing the
+         * binary format of the request body.
+         */
+        arrayBuffer(): Promise<ArrayBuffer>;
     }
 
     interface Request {
@@ -346,7 +352,7 @@ declare namespace EW {
 
     const WritableStreamEW: {
         prototype: WritableStreamEW;
-        new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
+        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
     };
 
     interface ReadableStreamEW<R = any> {
@@ -362,7 +368,7 @@ declare namespace EW {
     const ReadableStreamEW: {
         prototype: ReadableStreamEW;
         new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStreamEW<Uint8Array>;
-        new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
+        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
     };
 
     interface ReadableStreamBYOBReader {
@@ -392,7 +398,7 @@ declare namespace EW {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, MutatesVariables {
+    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
     }
 
     // onOriginResponse
@@ -437,6 +443,16 @@ declare namespace EW {
      *   undefined is returned for that property
      */
     interface UserLocation {
+        /**
+         * The latitude value is a numerical string that specifies the latitude that the IP address maps to.
+         */
+        readonly latitude: string | undefined;
+
+        /**
+         * The longitude value is a numerical string that specifies the longitude that the IP address maps to.
+         */
+        readonly longitude: string | undefined;
+
         /**
          * The continent value is a two-letter code for the continent that
          * the IP address maps to.
@@ -486,6 +502,44 @@ declare namespace EW {
          * See the EdgeScape Users Guide for more details.
          */
         readonly zipCode: string | undefined;
+
+        /**
+         * The dma value is the mapping of major American metropolises to containing and neighbouring states.
+         */
+        readonly dma: string | undefined;
+
+        /**
+         * The timezone value is the timezone that the IP address maps to.
+         */
+        readonly timezone: string | undefined;
+
+        /**
+         * The networkType value specifies the network that the IP address maps to.
+         */
+        readonly networkType: string | undefined;
+
+        /**
+         * The bandwidth value estimates the expected bandwidth for the given IP address.
+         */
+        readonly bandwidth: string | undefined;
+
+        /**
+         * The areaCodes value includes the area codes that the IP address maps to
+         * (multiple values possible).
+         */
+        readonly areaCodes: string[] | undefined;
+
+        /**
+         * The fips value is a 5 digit numerical code to help map counties to states
+         * (multiple values possible).
+         *
+         * FIPS codes are numbers which uniquely identify geographic areas. State-level FIPS
+         * codes have two digits, county-level FIPS codes have five digits of which the
+         * first two are the FIPS code of the state to which the county belongs.
+         *
+         * For the list of FIPS codes mapped to location, go to https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt
+         */
+        readonly fips: string[] | undefined;
     }
 
     /**
@@ -804,24 +858,24 @@ declare module "http-request" {
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
 declare module "streams" {
-    interface ReadableStream<R = any> extends  EW.ReadableStreamEW {
+    interface ReadableStream<R = any> extends EW.ReadableStreamEW {
     }
 
     const ReadableStream: {
         prototype: ReadableStream;
         new(underlyingSource: EW.UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
-        new<R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
+        new <R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
 
-    interface WritableStream<R = any> extends  EW.WritableStreamEW {
+    interface WritableStream<R = any> extends EW.WritableStreamEW {
     }
 
     const WritableStream: {
         prototype: WritableStream;
-        new<W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
+        new <W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
     };
 
-    interface ReadableStreamDefaultController<R = any> extends  EW.ReadableStreamDefaultControllerEW {
+    interface ReadableStreamDefaultController<R = any> extends EW.ReadableStreamDefaultControllerEW {
     }
 
     interface TransformStream<I = any, O = any> {
@@ -831,7 +885,7 @@ declare module "streams" {
 
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
+        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
     };
 
     interface Transformer<I = any, O = any> {
@@ -1051,4 +1105,252 @@ declare module "url-search-params" {
          */
         toString(): string;
     }
+}
+
+declare module "encoding" {
+    /**
+     * The atob() function takes a string of base64 encoded data and returns a decoded ASCII binary string.
+     * @param encodedData Input data that needs to be decoded
+     */
+    export function atob(encodedData: string): string;
+
+    /**
+     * btoa() function takes a string, performs a base64 encoding on it and returns an ASCII string.
+     * @param stringToEncode Encoded data that needs to be encoded
+     */
+    export function btoa(stringToEncode: string): string;
+
+    type DecodedValue = string | Uint8Array;
+
+    interface Base64 {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base64: Base64;
+
+    interface Base64url {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base64url: Base64url;
+
+    interface Base16 {
+        /**
+         * @param encodedData Input data that needs to be decoded.
+         * @param outputFormat Optional argument for output format type.
+         */
+        decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+    }
+    const base16: Base16;
+
+    /**
+     * Takes a stream of code points as input and emits a stream of UTF-8 bytes
+     */
+    class TextEncoder {
+        /**
+         * Constructor for a new TextEncoder object
+         */
+        constructor();
+
+        /**
+         * Converts input string into a stream of UTF-8 bytes
+         * @param text is a String to encode
+         */
+        encode(text: string): Uint8Array;
+
+        /**
+         * Containing the name of the encoding algorithm used by the specific encoder
+         */
+        readonly encoding: string;
+    }
+    interface TextDecoderOptions {
+        fatal?: boolean | undefined;
+        ignoreBOM?: boolean | undefined;
+    }
+    type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
+    interface StreamObject {
+        /**
+         * A boolean flag indicating that additional data will follow in subsequent calls to decode().
+         * Set to true if processing the data in chunks, and false for the final chunk or if the data is not chunked.
+         * It defaults to false.
+         */
+        stream: boolean;
+    }
+
+    /**
+     * Represents a decoder for a specific text encoding,
+     * such as UTF-8, ISO-8859-2, KOI8-R, GBK, etc.
+     * A decoder takes a stream of bytes as input and emits a stream of code points.
+     */
+    class TextDecoder {
+        /**
+         * Constructs a new TextDecoder object
+         * @param utfLabel [Optional] a string representing the encoding to be used. Defaults to "utf-8".
+         * @param options [Optional] TextDecoderOption dictionary
+         */
+        constructor(utfLabel?: string, options?: TextDecoderOptions);
+
+        /**
+         * Returns a string containing the text decoded with the method of the specific TextDecoder object
+         * @param buffer [Optional] an ArrayBuffer, a TypedArray or a DataView object containing the text to decode.
+         * @param options [Optional] An object with the stream property
+         */
+        decode(buffer?: ArrayBuffer| TypedArray | DataView, options?: StreamObject): string;
+
+        /**
+         * The fatal  flag passed into the constructor
+         */
+        readonly fatal: boolean;
+        /**
+         * The ignoreBOM  flag passed into the constructor
+         */
+        readonly ignoreBOM: boolean;
+        /**
+         * A string containing the name of the decoder, that is a string describing the method the TextDecoder will use
+         */
+        readonly encoding: string;
+    }
+
+    export { base64, base64url, base16, TextEncoder, TextDecoder };
+}
+
+/**
+ * The crypto module is available to use in your EdgeWorkers code bundles to expose support for a Javascript crypto API based on the Web Crypto API.
+ * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
+ */
+declare module "crypto" {
+    interface Crypto {
+        readonly subtle: SubtleCrypto;
+        /**
+         * A function that allows you to get cryptographically strong random values
+         * @param array: An integer-based TypedArray
+         *
+         * @returns The same array passed as typedArray but with its contents replaced with the newly generated random numbers
+         */
+        getRandomValues(array: Exclude<TypedArray, Float32Array | Float64Array>): TypedArray;
+    }
+
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
+    type TypedArray =
+        | Int8Array
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int16Array
+        | Uint16Array
+        | Int32Array
+        | Uint32Array
+        | Float32Array
+        | Float64Array;
+
+    type Usages = "encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits" | "wrapKey" | "unwrapKey";
+
+    type Format = "raw" | "pkcs8" | "spki" | "jwk";
+
+    interface CryptoKey {
+        readonly type: string;
+        readonly extractable: boolean;
+        readonly algorithm: object;
+        readonly usages: Usages[];
+    }
+
+    /**
+     * The subtleCrypto interface provides several cryptographic functions.
+     * SubtleCrypto features are obtained through the subtle property of the Crypto object you get from the Crypto property.
+     * See: https://techdocs.akamai.com/edgeworkers/docs/crypto
+     */
+    interface SubtleCrypto {
+        /**
+         * Imports the key
+         * @param format string describing the data format of the key to import
+         * @param keyData An ArrayBuffer, a TypedArray, a DataView, or a JSONWebKey object containing the key
+         * @param algorithm A string or object defining the type of key to import
+         * @param extractable A boolean value indicating whether it will be possible to export the key
+         * @param keyUsages An array indicating the operations that can be done with the key
+         *
+         * @returns A promise that fulfills with the imported key as a CryptoKey object.
+         */
+        importKey(
+            format: Format,
+            keyData: BufferSource | TypedArray | object,
+            algorithm: string | object,
+            extractable: boolean,
+            keyUsages: Usages[],
+        ): Promise<CryptoKey>;
+
+        /**
+         * Encrypts data
+         * @param algorithm An object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key to be used for encryption
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be encrypted
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the ciphertext
+         */
+        encrypt(
+            algorithm: object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
+         * Decrypts the encrypted data
+         * @param algorithm An object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key to be used for decryption
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be decrypted
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the plaintext
+         */
+        decrypt(
+            algorithm: object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
+         * Verify a digital signature
+         * @param algorithm A string or object specifying the algorithm to be used
+         * @param key A CryptoKey containing the key that will be used to verify the signature
+         * @param signature ArrayBuffer containing the signature to verify
+         * @param data ArrayBuffer containing the data whose signature is to be verified
+         *
+         * @returns A promise that fulfills with a boolean value: true if the signature is valid, false otherwise
+         */
+        verify(
+            algorithm: string | object,
+            key: CryptoKey,
+            signature: ArrayBuffer,
+            data: ArrayBuffer,
+        ): Promise<boolean>;
+
+        /**
+         * Generate a digest of the given data
+         * @param algorithm A string or an object that includes the name property, the string names the hash functions to use
+         * @param data An ArrayBuffer, a TypedArray or a DataView containing the data to be digested
+         *
+         * @returns A promise that fulfills with an ArrayBuffer containing the digest
+         */
+        digest(
+            algorithm: string | object,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+    }
+
+    /**
+     * Converts a PEM-encoded key string into an ArrayBuffer.
+     * @param pemEncodedKey
+     *
+     * @returns ArrayBuffer
+     */
+    export function pem2ab(pemEncodedKey: string): ArrayBuffer;
+
+    const crypto: Crypto;
+
+    export { crypto };
 }

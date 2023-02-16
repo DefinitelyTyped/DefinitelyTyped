@@ -19,6 +19,8 @@ declare namespace node {
      * @throws {TypeError} If non-element/text node is passed.
      *
      * @param domNode - DOM node to convert.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function fromDOM(domNode: Node): JSX.Element;
 
@@ -28,12 +30,16 @@ declare namespace node {
      *
      * @param node - Block node to test
      * @param type - Node to type to test against.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function isNodeOfType(node: JSX.Element, type: ReactElement['type']): boolean;
 
     /**
      * Given a selector, returns an hpq matcher generating a WPBlockNode value
      * matching the selector result.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     const matcher: typeof children.matcher;
 
@@ -41,6 +47,8 @@ declare namespace node {
      * Given a block node, returns its HTML string representation.
      *
      * @param node - Block node to convert to string.
+     *
+     * @deprecated since 11.17.0. Use the html source instead.
      */
     function toHTML(node: ReactChild): string;
 }

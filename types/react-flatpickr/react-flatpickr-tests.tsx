@@ -48,6 +48,8 @@ const customRender = (
 
 const extraInputPropertiesElement = <DatePicker placeholder="Enter a date..." id="datepicker-1" />;
 
+const reactInputPropertiesElement = <DatePicker onFocus={() => console.log('focused')} />;
+
 const elementWithChildren = (
     <DatePicker>
         <div>Child node</div>

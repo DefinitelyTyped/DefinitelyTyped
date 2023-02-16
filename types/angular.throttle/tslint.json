@@ -10,7 +10,6 @@
         "only-arrow-functions": false,
         "space-before-function-paren": false,
         "space-within-parens": false,
-        "trim-file": false,
         "typedef-whitespace": false,
         "whitespace": false
     }

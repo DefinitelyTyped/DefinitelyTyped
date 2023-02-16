@@ -1,7 +1,6 @@
 // Type definitions for auth0 2.35
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Ian Howe <https://github.com/ianhowe76>
-//                 Peter <https://github.com/pwrnrd>
 //                 Anthony Messerschmidt <https://github.com/CatGuardian>
 //                 Meng Bernie Sung <https://github.com/MengRS>
 //                 Léo Haddad Carneiro <https://github.com/Scoup>
@@ -23,6 +22,7 @@ export interface ManagementClientOptions {
     scope?: string | undefined;
     tokenProvider?: TokenProvider | undefined;
     retry?: RetryOptions | undefined;
+    telemetry?: boolean | undefined;
 }
 
 export interface TokenProvider {
@@ -617,6 +617,7 @@ export interface AuthenticationClientOptions {
     clientId?: string | undefined;
     clientSecret?: string | undefined;
     domain: string;
+    telemetry?: boolean | undefined;
 }
 
 interface Environment {
@@ -1197,10 +1198,10 @@ export interface Organization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1216,10 +1217,10 @@ export interface CreateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
-              };
+              } | undefined;
           }
         | undefined;
     metadata?: any;
@@ -1231,7 +1232,7 @@ export interface UpdateOrganization {
     branding?:
         | {
               logo_url?: string | undefined;
-              colors: {
+              colors?: {
                   primary: string;
                   page_background: string;
               };

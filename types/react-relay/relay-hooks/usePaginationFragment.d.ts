@@ -21,11 +21,11 @@ export interface usePaginationFragmentHookType<
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
-): // tslint:disable-next-line no-unnecessary-generics
+): // eslint-disable-next-line no-unnecessary-generics
 usePaginationFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
 
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
-): // tslint:disable-next-line no-unnecessary-generics
+): // eslint-disable-next-line no-unnecessary-generics
 usePaginationFragmentHookType<TQuery, TKey | null, KeyTypeData<TKey> | null>;

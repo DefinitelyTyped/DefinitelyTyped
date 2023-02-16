@@ -435,7 +435,7 @@ declare namespace chroma {
          * @example
          * chroma.hcl(50, 40, 100)._rgb._unclipped === [322.65,235.24,196.7,1]
          */
-        _rgb: { _unclipped: ColorSpaces['rgb'] };
+        _rgb: { _unclipped: ColorSpaces['rgba'] };
     }
 
     interface Scale<OutType = Color> {

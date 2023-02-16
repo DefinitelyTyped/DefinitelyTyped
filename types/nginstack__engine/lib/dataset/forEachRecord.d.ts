@@ -1,2 +1,6 @@
-declare function _exports(ds: any, f: (arg0: any) => any, opt_obj?: any): void;
-export = _exports;
+export = forEachRecord;
+declare function forEachRecord(ds: DataSet, f: (arg0: DataSet) => any, opt_obj?: any): void;
+declare namespace forEachRecord {
+    export { DataSet };
+}
+type DataSet = import('./DataSet');

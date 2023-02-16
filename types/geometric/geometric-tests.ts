@@ -1,12 +1,24 @@
-import geometric = require("geometric");
-import { Line, LineInterpolator, Point, Polygon } from "geometric";
+import geometric = require('geometric');
+import { Line, LineInterpolator, Point, Polygon } from 'geometric';
 
-const polygon: Polygon = [[0, 0], [10, 0], [0, 20], [10, 20]];
-const polygonB: Polygon = [[1, 1], [2, 8], [10, 0]];
+const polygon: Polygon = [
+    [0, 0],
+    [10, 0],
+    [0, 20],
+    [10, 20],
+];
+const polygonB: Polygon = [
+    [1, 1],
+    [2, 8],
+    [10, 0],
+];
 const point: Point = [1, 2];
-const line: Line = [[1, 2], [3, 4]];
+const line: Line = [
+    [1, 2],
+    [3, 4],
+];
 const interpolator: LineInterpolator = geometric.lineInterpolate(line);
-const t0: Point = interpolator(.5);
+const t0: Point = interpolator(0.5);
 const t1: number = geometric.angleReflect(0, 90);
 const t2: number = geometric.angleToDegrees(75);
 const t3: number = geometric.angleToRadians(1);
@@ -40,6 +52,9 @@ const t30: Polygon = geometric.polygonRegular(5, 1);
 const t31: Polygon = geometric.polygonRegular(5, 1, [0, 0]);
 const t32: Polygon = geometric.polygonRotate(polygon, 45);
 const t33: Polygon = geometric.polygonRotate(polygon, 45, point);
-const t34: Polygon = geometric.polygonScale(polygon, .5);
-const t35: Polygon = geometric.polygonScale(polygon, .5, point);
+const t34: Polygon = geometric.polygonScale(polygon, 0.5);
+const t35: Polygon = geometric.polygonScale(polygon, 0.5, point);
 const t36: Polygon = geometric.polygonTranslate(polygon, 45, 100);
+const t37: Line = geometric.lineRotate(line, 1);
+const t38: Polygon = geometric.polygonScaleX(polygon, 1.2);
+const t39: Polygon = geometric.polygonScaleY(polygon, 1.2);

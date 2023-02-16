@@ -10,7 +10,6 @@
         "prefer-const": false,
         "semicolon": false,
         "space-within-parens": false,
-        "trim-file": false,
         "void-return": false
     }
 }

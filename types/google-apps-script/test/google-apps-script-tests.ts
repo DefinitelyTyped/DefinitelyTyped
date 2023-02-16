@@ -92,9 +92,11 @@ const listAllUsers = () => {
 
 // doPost function
 function doPost(e: GoogleAppsScript.Events.DoPost) {
+    const path: string = e.pathInfo;
     const data: string = e.postData.contents;
     const param: string = e.parameter.param;
     const paramArray: string[] = e.parameters.param;
+    Logger.log(path);
     Logger.log(JSON.parse(data));
     Logger.log(param);
     Logger.log(paramArray);
@@ -102,8 +104,10 @@ function doPost(e: GoogleAppsScript.Events.DoPost) {
 
 // doGet function
 function doGet(e: GoogleAppsScript.Events.DoGet) {
+    const path: string = e.pathInfo;
     const param: string = e.parameter.param;
     const paramArray: string[] = e.parameters.param;
+    Logger.log(path);
     Logger.log(param);
     Logger.log(paramArray);
 }
@@ -647,26 +651,31 @@ SlidesApp.getActivePresentation().getSlides()[0].setSkipped(true);
 // Example of building a text validation
 const formAppTextValidation = FormApp.createTextValidation()
     .requireNumberBetween(1, 100)
+    .setHelpText('Please be between 1 and 100')
     .build();
 
 // Example of building a grid validation
 const formAppGridValidation = FormApp.createGridValidation()
     .requireLimitOneResponsePerColumn()
+    .setHelpText('You did it wrong')
     .build();
 
 // Example of building a grid validation
 const formAppCheckboxGridValidation = FormApp.createCheckboxGridValidation()
     .requireLimitOneResponsePerColumn()
+    .setHelpText('This is not fine')
     .build();
 
 // Example of building a checkbox validation
 const formAppCheckboxValidation = FormApp.createCheckboxValidation()
     .requireSelectAtLeast(1)
+    .setHelpText('Select one pls')
     .build();
 
 // Example of building a paragraph text validation
 const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .requireTextDoesNotContainPattern('string')
+    .setHelpText('Hey! You put a string in your string!')
     .build();
 
 const mimeTypes: string[] = [

@@ -1129,6 +1129,14 @@ export interface MediaOptionsAdaptiveStreaming {
      */
     bps?: {
         /**
+         * Minimum speed of network transmission. (bps)
+         */
+        minimum?: number | undefined;
+        /**
+         * Maximum speed of network transmission. (bps)
+         */
+        maximum?: number | undefined;
+        /**
          * Starting speed of network transmission. (bps)
          */
         start?: number | undefined;

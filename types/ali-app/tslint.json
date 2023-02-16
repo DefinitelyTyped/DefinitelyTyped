@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-mergeable-namespace": false,
-        "no-unnecessary-generics": false
+        "no-mergeable-namespace": false
     }
 }

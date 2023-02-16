@@ -22,6 +22,11 @@ const validAddOptions = {
 
 SyncedCron.add(validAddOptions);
 
+SyncedCron.add({
+    ...validAddOptions,
+    persist: true,
+});
+
 ///////////////////////////////////////////////////////////////////////////////
 // SyncedCron.start()
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,7 +40,8 @@ SyncedCron.start();
 // @ts-expect-error
 SyncedCron.nextScheduledAtDate(); // Expected 1 arguments, but got 0. ts(2554)
 
-const d: Date = SyncedCron.nextScheduledAtDate('Job name');
+// $ExpectType Date
+SyncedCron.nextScheduledAtDate('Job name');
 
 ///////////////////////////////////////////////////////////////////////////////
 // SyncedCron.remove()
@@ -57,3 +63,43 @@ SyncedCron.stop();
 ///////////////////////////////////////////////////////////////////////////////
 
 SyncedCron.pause();
+
+///////////////////////////////////////////////////////////////////////////////
+// SyncedCron.config()
+///////////////////////////////////////////////////////////////////////////////
+
+SyncedCron.config();
+
+SyncedCron.config({});
+
+SyncedCron.config({
+    log: true,
+});
+
+SyncedCron.config({
+    collectionName: 'foo',
+});
+
+SyncedCron.config({
+    utc: true,
+});
+
+SyncedCron.config({
+    collectionTTL: 1000,
+});
+
+SyncedCron.config({
+    collectionTTL: undefined, // Unset to remove expiry
+});
+
+SyncedCron.config({
+    logger: null,
+});
+
+SyncedCron.config({
+    logger(opts) {
+        opts.level;
+        opts.message;
+        opts.tag;
+    },
+});

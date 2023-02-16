@@ -2,7 +2,7 @@
 
 export interface CommonEmailAddress {
   /**
-   * A correctly formatted email address, as defined by the addr_spec format in **[[RFC5322]](#nref-RFC5322)**
+   * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
    */
   address: string;
   /**
@@ -82,69 +82,7 @@ export interface CommonOrganisation {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
-export type CommonOrganisationDetailV2 = {
-  /**
-   * Australian Business Number for the organisation
-   */
-  abn?: string | null;
-  /**
-   * Australian Company Number for the organisation. Required only if an ACN is applicable for the organisation type
-   */
-  acn?: string | null;
-  /**
-   * The first name of the individual providing access on behalf of the organisation. For people with single names this field need not be present.  The single name should be in the lastName field
-   */
-  agentFirstName?: string | null;
-  /**
-   * The last name of the individual providing access on behalf of the organisation. For people with single names the single name should be in this field
-   */
-  agentLastName: string;
-  /**
-   * The role of the individual identified as the agent who is providing authorisation.  Expected to be used for display. Default to Unspecified if the role is not known
-   */
-  agentRole: string;
-  /**
-   * Name of the organisation
-   */
-  businessName: string;
-  /**
-   * The date the organisation described was established
-   */
-  establishmentDate?: string | null;
-  /**
-   * A valid [ANZSIC](http://www.abs.gov.au/ANZSIC) code for the organisation. If the industry code held by the data holder is not one of the supported [ANZSIC](http://www.abs.gov.au/ANZSIC) versions, then it must not be supplied.
-   */
-  industryCode?: string | null;
-  /**
-   * The applicable [ANZSIC](http://www.abs.gov.au/ANZSIC) release version of the industry code provided. Should only be supplied if ``industryCode`` is also supplied. If ``industryCode`` is supplied but ``industryCodeVersion`` is absent, default is ``ANZSIC_1292.0_2006_V2.0``
-   */
-  industryCodeVersion?: ("ANZSIC_1292.0_2006_V1.0" | "ANZSIC_1292.0_2006_V2.0") | null;
-  /**
-   * True if registered with the ACNC.  False if not. Absent or null if not confirmed.
-   */
-  isACNCRegistered?: boolean | null;
-  /**
-   * The date and time that this record was last updated by the customer. If no update has occurred then this date should reflect the initial creation date for the data
-   */
-  lastUpdateTime?: string | null;
-  /**
-   * Legal name, if different to the business name
-   */
-  legalName?: string | null;
-  /**
-   * Legal organisation type
-   */
-  organisationType: "COMPANY" | "GOVERNMENT_ENTITY" | "OTHER" | "PARTNERSHIP" | "SOLE_TRADER" | "TRUST";
-  /**
-   * Enumeration with values from [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country codes.  Assumed to be AUS if absent
-   */
-  registeredCountry?: string | null;
-  /**
-   * Short name used for communication, if different to the business name
-   */
-  shortName?: string | null;
-  [k: string]: unknown;
-} & {
+export interface CommonOrganisationDetailV2 extends CommonOrganisation {
   /**
    * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
    */
@@ -291,7 +229,7 @@ export type CommonOrganisationDetailV2 = {
     [k: string]: unknown;
   })[];
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 /**
@@ -429,43 +367,7 @@ export interface CommonPerson {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
-export type CommonPersonDetailV2 = {
-  /**
-   * For people with single names this field need not be present. The single name should be in the lastName field. Where a data holder cannot determine first and middle names from a collection of given names, a single string representing all given names MAY be provided.
-   */
-  firstName?: string | null;
-  /**
-   * For people with single names the single name should be in this field
-   */
-  lastName: string;
-  /**
-   * The date and time that this record was last updated by the customer.  If no update has occurred then this date should reflect the initial creation date for the data
-   */
-  lastUpdateTime?: string | null;
-  /**
-   * Field is mandatory but array may be empty
-   */
-  middleNames: string[];
-  /**
-   * Value is a valid **[[ANZSCO]](#iref-ANZSCO)** Standard Occupation classification code. If the occupation code held by the data holder is not one of the supported **[[ANZSCO]](#iref-ANZSCO)** versions, then it must not be supplied.
-   */
-  occupationCode?: string | null;
-  /**
-   * The applicable **[[ANZSCO]](#iref-ANZSCO)** release version of the occupation code provided. Mandatory if an ``occupationCode`` is supplied. If ``occupationCode`` is supplied but ``occupationCodeVersion`` is absent, default is ``ANZSCO_1220.0_2013_V1.2``
-   */
-  occupationCodeVersion?:
-    | ("ANZSCO_1220.0_2006_V1.0" | "ANZSCO_1220.0_2006_V1.1" | "ANZSCO_1220.0_2013_V1.2" | "ANZSCO_1220.0_2013_V1.3")
-    | null;
-  /**
-   * Also known as title or salutation.  The prefix to the name (e.g. Mr, Mrs, Ms, Miss, Sir, etc)
-   */
-  prefix?: string | null;
-  /**
-   * Used for a trailing suffix to the name (e.g. Jr)
-   */
-  suffix?: string | null;
-  [k: string]: unknown;
-} & {
+export interface CommonPersonDetailV2 extends CommonPerson {
   /**
    * Array is mandatory but may be empty if no phone numbers are held
    */
@@ -505,7 +407,7 @@ export type CommonPersonDetailV2 = {
    */
   emailAddresses: {
     /**
-     * A correctly formatted email address, as defined by the addr_spec format in **[[RFC5322]](#nref-RFC5322)**
+     * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
      */
     address: string;
     /**
@@ -664,7 +566,7 @@ export type CommonPersonDetailV2 = {
     [k: string]: unknown;
   })[];
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface CommonPhoneNumber {
@@ -838,148 +740,13 @@ export interface CommonPhysicalAddress {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
-export type CommonPhysicalAddressWithPurpose = {
-  /**
-   * The type of address object present
-   */
-  addressUType: "paf" | "simple";
-  /**
-   * Australian address formatted according to the file format defined by the [PAF file format](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf)
-   */
-  paf?: {
-    /**
-     * Building/Property name 1
-     */
-    buildingName1?: string | null;
-    /**
-     * Building/Property name 2
-     */
-    buildingName2?: string | null;
-    /**
-     * Unique identifier for an address as defined by Australia Post.  Also known as Delivery Point Identifier
-     */
-    dpid?: string | null;
-    /**
-     * Unit number (including suffix, if applicable)
-     */
-    flatUnitNumber?: string | null;
-    /**
-     * Type of flat or unit for the address
-     */
-    flatUnitType?: string | null;
-    /**
-     * Floor or level number (including alpha characters)
-     */
-    floorLevelNumber?: string | null;
-    /**
-     * Type of floor or level for the address
-     */
-    floorLevelType?: string | null;
-    /**
-     * Full name of locality
-     */
-    localityName: string;
-    /**
-     * Allotment number for the address
-     */
-    lotNumber?: string | null;
-    /**
-     * Postal delivery number if the address is a postal delivery type
-     */
-    postalDeliveryNumber?: number | null;
-    /**
-     * Postal delivery number prefix related to the postal delivery number
-     */
-    postalDeliveryNumberPrefix?: string | null;
-    /**
-     * Postal delivery number suffix related to the postal delivery number
-     */
-    postalDeliveryNumberSuffix?: string | null;
-    /**
-     * Postal delivery type. (eg. PO BOX). Valid enumeration defined by Australia Post PAF code file
-     */
-    postalDeliveryType?: string | null;
-    /**
-     * Postcode for the locality
-     */
-    postcode: string;
-    /**
-     * State in which the address belongs. Valid enumeration defined by Australia Post PAF code file [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf). NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-     */
-    state: string;
-    /**
-     * The name of the street
-     */
-    streetName?: string | null;
-    /**
-     * The street type suffix. Valid enumeration defined by Australia Post PAF code file
-     */
-    streetSuffix?: string | null;
-    /**
-     * The street type. Valid enumeration defined by Australia Post PAF code file
-     */
-    streetType?: string | null;
-    /**
-     * Thoroughfare number for a property (first number in a property ranged address)
-     */
-    thoroughfareNumber1?: number | null;
-    /**
-     * Suffix for the thoroughfare number. Only relevant is thoroughfareNumber1 is populated
-     */
-    thoroughfareNumber1Suffix?: string | null;
-    /**
-     * Second thoroughfare number (only used if the property has a ranged address eg 23-25)
-     */
-    thoroughfareNumber2?: number | null;
-    /**
-     * Suffix for the second thoroughfare number. Only relevant is thoroughfareNumber2 is populated
-     */
-    thoroughfareNumber2Suffix?: string | null;
-    [k: string]: unknown;
-  };
-  simple?: {
-    /**
-     * First line of the standard address object
-     */
-    addressLine1: string;
-    /**
-     * Second line of the standard address object
-     */
-    addressLine2?: string | null;
-    /**
-     * Third line of the standard address object
-     */
-    addressLine3?: string | null;
-    /**
-     * Name of the city or locality
-     */
-    city: string;
-    /**
-     * A valid [ISO 3166 Alpha-3](https://www.iso.org/iso-3166-country-codes.html) country code. Australia (AUS) is assumed if country is not present.
-     */
-    country?: string | null;
-    /**
-     * Name of the individual or business formatted for inclusion in an address used for physical mail
-     */
-    mailingName?: string | null;
-    /**
-     * Mandatory for Australian addresses
-     */
-    postcode?: string | null;
-    /**
-     * Free text if the country is not Australia. If country is Australia then must be one of the values defined by the [State Type Abbreviation](https://auspost.com.au/content/dam/auspost_corp/media/documents/australia-post-data-guide.pdf) in the PAF file format. NSW, QLD, VIC, NT, WA, SA, TAS, ACT, AAT
-     */
-    state: string;
-    [k: string]: unknown;
-  };
-  [k: string]: unknown;
-} & {
+export interface CommonPhysicalAddressWithPurpose extends CommonPhysicalAddress {
   /**
    * Enumeration of values indicating the purpose of the physical address
    */
   purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
   [k: string]: unknown;
-};
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface CommonSimpleAddress {
@@ -1049,31 +816,6 @@ export interface Links {
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
-export interface LinksPaginated {
-  /**
-   * URI to the first page of this set. Mandatory if this response is not the first page
-   */
-  first?: string;
-  /**
-   * URI to the last page of this set. Mandatory if this response is not the last page
-   */
-  last?: string;
-  /**
-   * URI to the next page of this set. Mandatory if this response is not the last page
-   */
-  next?: string;
-  /**
-   * URI to the previous page of this set. Mandatory if this response is not the first page
-   */
-  prev?: string;
-  /**
-   * Fully qualified link that generated the current response document
-   */
-  self: string;
-  [k: string]: unknown;
-}
-/* These are the schema definitions stipulated by the Data Standards Body for the common api. */
-
 export interface Meta {
   [k: string]: unknown;
 }
@@ -1087,19 +829,6 @@ export interface MetaError {
    * The CDR error code URN which the application-specific error code extends. Mandatory if the error `code` is an application-specific error rather than a standardised error code.
    */
   urn?: string | null;
-  [k: string]: unknown;
-}
-/* These are the schema definitions stipulated by the Data Standards Body for the common api. */
-
-export interface MetaPaginated {
-  /**
-   * The total number of pages in the full set. See [pagination](#pagination).
-   */
-  totalPages: number;
-  /**
-   * The total number of records in the full set. See [pagination](#pagination).
-   */
-  totalRecords: number;
   [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
@@ -1528,7 +1257,7 @@ export interface ResponseCommonCustomerDetailV2 {
        */
       emailAddresses: {
         /**
-         * A correctly formatted email address, as defined by the addr_spec format in **[[RFC5322]](#nref-RFC5322)**
+         * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
          */
         address: string;
         /**

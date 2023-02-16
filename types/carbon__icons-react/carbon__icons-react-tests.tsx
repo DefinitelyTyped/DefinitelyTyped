@@ -20,6 +20,8 @@ import {
     IceVision,
     IbmCloudKubernetesService,
     LogoSvelte,
+    Plan,
+    BatchJob,
 } from "@carbon/icons-react";
 
 <UserAccess />; // $ExpectType Element
@@ -47,3 +49,5 @@ import {
 <CalculationAlt />; // $ExpectType Element
 <IbmCloudKubernetesService />; // $ExpectType Element
 <LogoSvelte />; // $ExpectType Element
+<Plan />; // $ExpectType Element
+<BatchJob />; // $ExpectType Element

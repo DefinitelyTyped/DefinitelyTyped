@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "no-any-union": false,
         "no-consecutive-blank-lines": false,
         "no-declare-current-package": false,
         "no-padding": false,
@@ -12,7 +11,6 @@
         "prefer-const": false,
         "radix": false,
         "strict-export-declare-modifiers": false,
-        "trim-file": false,
         "whitespace": false
     }
 }

@@ -15,7 +15,7 @@ class InstanceUniformNode extends Nodes.Node {
     uniformNode: Nodes.UniformNode;
     constructor() {
         super('vec3');
-        this.updateType = Nodes.NodeUpdateType.Object;
+        this.updateType = Nodes.NodeUpdateType.OBJECT;
         this.uniformNode = new Nodes.UniformNode(new THREE.Color());
     }
 

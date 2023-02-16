@@ -4,9 +4,8 @@
 //                 Alexander James Phillips <https://github.com/AJamesPhillips>
 //                 Silas Rech <https://github.com/lenovouser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
-import { Plugin, Request } from '@hapi/hapi';
+import { Plugin, Request, ResponseObject } from '@hapi/hapi';
 
 declare namespace inert {
     type RequestHandler<T> = (request: Request) => T;
@@ -119,7 +118,7 @@ declare namespace inert {
     }
 }
 
-declare const inert: Plugin<inert.OptionalRegistrationOptions>;
+declare const inert: { plugin: Plugin<inert.OptionalRegistrationOptions> };
 
 export = inert;
 
@@ -148,12 +147,14 @@ declare module '@hapi/hapi' {
          * @see {@link https://github.com/hapijs/inert#the-directory-handler}
          */
         directory?: inert.DirectoryHandlerRouteObject | undefined;
-        files?: {
-            /**
-             * Set the relative path
-             */
-            relativeTo: string;
-        } | undefined;
+        files?:
+            | {
+                  /**
+                   * Set the relative path
+                   */
+                  relativeTo: string;
+              }
+            | undefined;
     }
 
     interface ResponseToolkit {

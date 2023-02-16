@@ -31,7 +31,8 @@ import * as dns from 'node:dns';
     server = http.createServer({
         insecureHTTPParser: true,
         keepAlive: true,
-        keepAliveInitialDelay: 1000
+        keepAliveInitialDelay: 1000,
+        keepAliveTimeout: 100
     }, reqListener);
 
     // test public props
@@ -213,6 +214,28 @@ import * as dns from 'node:dns';
         ['X-foO', 'OxOxOxO']
     ] as ReadonlyArray<[string, string]>);
     res.addTrailers({ 'x-foo': 'bar' });
+
+    // writeContinue
+    res.writeContinue();
+    res.writeContinue(() => {});
+
+    // writeEarlyHints
+    const earlyHintsLink = '</styles.css>; rel=preload; as=style';
+    res.writeEarlyHints({
+        link: earlyHintsLink,
+    });
+    const earlyHintsLinks = [
+        '</styles.css>; rel=preload; as=style',
+        '</scripts.js>; rel=preload; as=script',
+    ];
+    res.writeEarlyHints({
+        link: earlyHintsLinks,
+        'x-trace-id': 'id for diagnostics'
+    });
+    const earlyHintsCallback = () => console.log('early hints message sent');
+    res.writeEarlyHints({
+        link: earlyHintsLinks
+    }, earlyHintsCallback);
 
     // writeHead
     res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n').end().end();
@@ -606,4 +629,6 @@ import * as dns from 'node:dns';
 {
     http.validateHeaderName('Location');
     http.validateHeaderValue('Location', '/');
+
+    http.setMaxIdleHTTPParsers(1337);
 }

@@ -206,6 +206,12 @@ export namespace WebRequest {
         keaGroupName?: string;
 
         /**
+         * The length (in bits) of the secret key.
+         * Optional.
+         */
+        secretKeyLength?: number;
+
+        /**
          * The signature scheme used in this request if state is "secure".
          * Optional.
          */
@@ -218,27 +224,15 @@ export namespace WebRequest {
         certificates: CertificateInfo[];
 
         /**
-         * The domain name does not match the certificate domain.
+         * The type of certificate error that was overridden for this connection, if any.
          * Optional.
          */
-        isDomainMismatch?: boolean;
+        overridableErrorCategory?: SecurityInfoOverridableErrorCategoryEnum;
 
         /**
          * Optional.
          */
         isExtendedValidation?: boolean;
-
-        /**
-         * The certificate is either expired or is not yet valid.  See <code>CertificateInfo.validity</code>
-         * for start and end dates.
-         * Optional.
-         */
-        isNotValidAtThisTime?: boolean;
-
-        /**
-         * Optional.
-         */
-        isUntrusted?: boolean;
 
         /**
          * Certificate transparency compliance per RFC 6962.  See <code>https://www.certificate-transparency.org/what-is-ct</code>
@@ -291,6 +285,8 @@ export namespace WebRequest {
         | "fingerprinting_content"
         | "cryptomining"
         | "cryptomining_content"
+        | "emailtracking"
+        | "emailtracking_content"
         | "tracking"
         | "tracking_ad"
         | "tracking_analytics"
@@ -1449,6 +1445,11 @@ export namespace WebRequest {
      * Protocol version if state is "secure"
      */
     type SecurityInfoProtocolVersionEnum = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
+
+    /**
+     * The type of certificate error that was overridden for this connection, if any.
+     */
+    type SecurityInfoOverridableErrorCategoryEnum = "trust_error" | "domain_mismatch" | "expired_or_not_yet_valid";
 
     /**
      * Contains the HTTP request body data. Only provided if extraInfoSpec contains 'requestBody'.

@@ -1189,4 +1189,57 @@ table = new Tabulator('#test', {
 
 table.on('cellMouseDown', (e, cell) => {});
 
+// Testing popup event and menu event
+table.on('popupClosed', component => {});
+table.on('popupOpen', component => {});
+table.on('menuOpened', component => {});
+table.on('menuClosed', component => {});
+
 column.popup('test', 'bottom');
+
+// 5.4 Testing paginationCounter
+table = new Tabulator('#testPagination', {
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline'
+        }
+    ],
+    pagination: true,
+    paginationCounter: "rows"
+});
+table = new Tabulator('#testPagination', {
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline'
+        }
+    ],
+    pagination: true,
+    paginationCounter: "pages"
+});
+table = new Tabulator('#testPagination', {
+    data: [],
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline'
+        }
+    ],
+    pagination: true,
+    paginationCounter: (pageSize, currentRow, currentPage, totalRows, totalPages) => {
+        return `${pageSize}, ${currentRow}, ${currentPage}, ${totalRows}, ${totalPages}`;
+    }
+});
+
+// Testing data loader element
+table = new Tabulator('#testDataLoader', {
+    data: [],
+    columns: [
+        {
+            field: 'test_inline',
+            title: 'Test inline'
+        }
+    ],
+    dataLoaderLoading: document.createElement("div") as HTMLElement
+});

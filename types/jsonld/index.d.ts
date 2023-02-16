@@ -61,6 +61,7 @@ export namespace Options {
         explicit?: boolean | undefined;
         requireAll?: boolean | undefined;
         omitDefault?: boolean | undefined;
+        omitGraph?: boolean | undefined;
     }
 
     interface Normalize extends Common {

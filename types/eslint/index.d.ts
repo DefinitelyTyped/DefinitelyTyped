@@ -1,4 +1,4 @@
-// Type definitions for eslint 8.4
+// Type definitions for eslint 8.21
 // Project: https://eslint.org
 // Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
 //                 Jed Fox <https://github.com/j-f1>
@@ -483,12 +483,15 @@ export namespace Rule {
         NewExpression?: ((node: ESTree.NewExpression & NodeParentExtension) => void) | undefined;
         ObjectExpression?: ((node: ESTree.ObjectExpression & NodeParentExtension) => void) | undefined;
         ObjectPattern?: ((node: ESTree.ObjectPattern & NodeParentExtension) => void) | undefined;
+        PrivateIdentifier?: ((node: ESTree.PrivateIdentifier & NodeParentExtension) => void) | undefined;
         Program?: ((node: ESTree.Program) => void) | undefined;
         Property?: ((node: ESTree.Property & NodeParentExtension) => void) | undefined;
+        PropertyDefinition?: ((node: ESTree.PropertyDefinition & NodeParentExtension) => void) | undefined;
         RestElement?: ((node: ESTree.RestElement & NodeParentExtension) => void) | undefined;
         ReturnStatement?: ((node: ESTree.ReturnStatement & NodeParentExtension) => void) | undefined;
         SequenceExpression?: ((node: ESTree.SequenceExpression & NodeParentExtension) => void) | undefined;
         SpreadElement?: ((node: ESTree.SpreadElement & NodeParentExtension) => void) | undefined;
+        StaticBlock?: ((node: ESTree.StaticBlock & NodeParentExtension) => void) | undefined;
         Super?: ((node: ESTree.Super & NodeParentExtension) => void) | undefined;
         SwitchCase?: ((node: ESTree.SwitchCase & NodeParentExtension) => void) | undefined;
         SwitchStatement?: ((node: ESTree.SwitchStatement & NodeParentExtension) => void) | undefined;
@@ -581,8 +584,12 @@ export namespace Rule {
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
+
         /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
+        /** The name of the rule(s) this rule was replaced by, if it was deprecated. */
+        replacedBy?: readonly string[];
+
         /**
          * Indicates the type of rule:
          * - `"problem"` means the rule is identifying code that either will cause an error or may cause a confusing behavior. Developers should consider this a high priority to resolve.
@@ -719,13 +726,13 @@ export namespace Linter {
         rules?: Partial<Rules> | undefined;
     }
 
-    interface BaseConfig<Rules extends RulesRecord = RulesRecord> extends HasRules<Rules> {
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends HasRules<Rules> {
         $schema?: string | undefined;
         env?: { [name: string]: boolean } | undefined;
         extends?: string | string[] | undefined;
-        globals?: { [name: string]: boolean | "readonly" | "readable" | "writable" | "writeable" } | undefined;
+        globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
         noInlineConfig?: boolean | undefined;
-        overrides?: ConfigOverride[] | undefined;
+        overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
         parser?: string | undefined;
         parserOptions?: ParserOptions | undefined;
         plugins?: string[] | undefined;
@@ -740,7 +747,7 @@ export namespace Linter {
     }
 
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends BaseConfig<Rules, OverrideRules> {
         ignorePatterns?: string | string[] | undefined;
         root?: boolean | undefined;
     }
@@ -835,6 +842,90 @@ export namespace Linter {
         supportsAutofix?: boolean | undefined;
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
+    }
+    interface FlatConfig {
+      /**
+       * An array of glob patterns indicating the files that the configuration
+       * object should apply to. If not specified, the configuration object applies
+       * to all files
+       */
+      files?: string | string[];
+      /**
+       * An array of glob patterns indicating the files that the configuration
+       * object should not apply to. If not specified, the configuration object
+       * applies to all files matched by files
+       */
+      ignores?: string | string[];
+      /**
+       * An object containing settings related to how JavaScript is configured for
+       * linting.
+       */
+      languageOptions?: {
+        /**
+         * The version of ECMAScript to support. May be any year (i.e., 2022) or
+         * version (i.e., 5). Set to "latest" for the most recent supported version.
+         * @default "latest"
+         */
+        ecmaVersion?: ParserOptions["ecmaVersion"],
+        /**
+         * The type of JavaScript source code. Possible values are "script" for
+         * traditional script files, "module" for ECMAScript modules (ESM), and
+         * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
+         * files; "commonjs" for .cjs files)
+         */
+        sourceType?: "script" | "module" | "commonjs",
+        /**
+         * An object specifying additional objects that should be added to the
+         * global scope during linting.
+         */
+        globals?: ESLint.Environment["globals"],
+        /**
+         * Either an object containing a parse() method or a string indicating the
+         * name of a parser inside of a plugin (i.e., "pluginName/parserName").
+         * @default "@/espree"
+         */
+        parser?: string,
+        /**
+         * An object specifying additional options that are passed directly to the
+         * parser() method on the parser. The available options are parser-dependent
+         */
+        parserOptions?: ESLint.Environment["parserOptions"],
+      };
+      /**
+       * An object containing settings related to the linting process
+       */
+      linterOptions?: {
+        /**
+         * A Boolean value indicating if inline configuration is allowed.
+         */
+        noInlineConfig?: boolean,
+        /**
+         * A Boolean value indicating if unused disable directives should be
+         * tracked and reported.
+         */
+        reportUnusedDisableDirectives?: boolean,
+      };
+      /**
+       * Either an object containing preprocess() and postprocess() methods or a
+       * string indicating the name of a processor inside of a plugin
+       * (i.e., "pluginName/processorName").
+       */
+      processor?: string | Processor;
+      /**
+       * An object containing a name-value mapping of plugin names to plugin objects.
+       * When files is specified, these plugins are only available to the matching files.
+       */
+      plugins?: Record<string, ESLint.Plugin>;
+      /**
+       * An object containing the configured rules. When files or ignores are specified,
+       * these rule configurations are only available to the matching files.
+       */
+      rules?: RulesRecord;
+      /**
+       * An object containing name-value pairs of information that should be
+       * available to all rules.
+       */
+      settings?: Record<string, unknown>;
     }
 }
 

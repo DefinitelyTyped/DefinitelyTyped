@@ -77,8 +77,12 @@ gm(src)
     .antialias(enable)
     .append(src)
     .append(src, ltr)
+    .append([src, src, src], ltr)
+    .append(ltr)
+    .append()
     .authenticate(password)
     .autoOrient()
+    .average()
     .backdrop()
     .background(color)
     .bitdepth(bits)
@@ -265,6 +269,7 @@ gm(src)
     .strip()
     .swirl(angle)
     .textFont(font)
+    .texture(file)
     .threshold(threshold)
     .threshold(threshold, usePercent)
     .thumb(width, height, dest, (err, stdout, stderr, cmd) => {
@@ -273,6 +278,8 @@ gm(src)
     })
     .thumb(width, height, dest, quality, align, (err, stdout, stderr, cmd) => {
     })
+    .thumbnail(width, height)
+    .thumbnail(width, height, options)
     .tile(file)
     .title(name)
     .transform(color)
@@ -377,7 +384,7 @@ readStream = imageMagick(src)
     .adjoin()
     .stream();
 
-const customGm = gm.subClass({ appPath: '' });
+const customGm = gm.subClass({ imageMagick: '7+', appPath: '' });
 readStream = customGm(src).stream();
 
 const stringTimeoutGm = gm.subClass({ timeout: "0" });

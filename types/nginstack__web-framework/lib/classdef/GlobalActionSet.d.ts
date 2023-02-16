@@ -9,7 +9,7 @@ declare class GlobalActionSet {
     clear(): void;
     getAll(): GlobalAction[];
     isEmpty(): boolean;
-    clone(): any;
+    clone(): GlobalActionSet;
 }
 import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
 import GlobalAction = require('./GlobalAction.js');

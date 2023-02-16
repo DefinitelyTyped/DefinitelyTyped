@@ -6,40 +6,83 @@
 
 import type { SvelteComponentTyped } from 'svelte';
 import * as L from 'leaflet';
-import * as ReactLeaflet from 'react-leaflet';
 
-/** Given a string `onX`, this returns `X` */
-type RemoveOn<T> = T extends `on${infer P}` ? P : never;
+export interface MapEvents {
+    click: L.LeafletMouseEvent;
+    dblclick: L.LeafletMouseEvent;
+    mousedown: L.LeafletMouseEvent;
+    mouseup: L.LeafletMouseEvent;
+    mouseover: L.LeafletMouseEvent;
+    mouseout: L.LeafletMouseEvent;
+    mousemove: L.LeafletMouseEvent;
+    contextmenu: L.LeafletMouseEvent;
+    focus: L.LeafletEvent;
+    blur: L.LeafletEvent;
+    preclick: L.LeafletMouseEvent;
+    load: L.LeafletEvent;
+    unload: L.LeafletEvent;
+    viewreset: L.LeafletEvent;
+    move: L.LeafletEvent;
+    movestart: L.LeafletEvent;
+    moveend: L.LeafletEvent;
+    dragstart: L.LeafletEvent;
+    drag: L.LeafletEvent;
+    dragend: L.DragEndEvent;
+    zoomstart: L.LeafletEvent;
+    zoom: L.LeafletEvent;
+    zoomend: L.LeafletEvent;
+    zoomlevelschange: L.LeafletEvent;
+    resize: L.ResizeEvent;
+    autopanstart: L.LeafletEvent;
+    layeradd: L.LayerEvent;
+    layerremove: L.LayerEvent;
+    baselayerchange: L.LayersControlEvent;
+    overlayadd: L.LayersControlEvent;
+    overlayremove: L.LayersControlEvent;
+    locationfound: L.LocationEvent;
+    locationerror: L.ErrorEvent;
+    popupopen: L.PopupEvent;
+    popupclose: L.PopupEvent;
+}
 
-/** This is technically not required since we know every property is a function, but TS doesn't know that */
-type AssertIsFunction<T> = T extends (...args: any) => any ? T : never;
+export interface MarkerEvents {
+    click: L.LeafletMouseEvent;
+    dblclick: L.LeafletMouseEvent;
+    mousedown: L.LeafletMouseEvent;
+    mouseover: L.LeafletMouseEvent;
+    mouseout: L.LeafletMouseEvent;
+    contextmenu: L.LeafletMouseEvent;
+    dragstart: L.LeafletEvent;
+    drag: L.LeafletEvent;
+    dragend: L.DragEndEvent;
+    move: L.LeafletEvent;
+    add: L.LeafletEvent;
+    remove: L.LeafletEvent;
+    popupopen: L.PopupEvent;
+    popupclose: L.PopupEvent;
+}
 
-/**
- * Helper to transform the event maps defined in `@types/react-leaflet`.
- * This makes `@types/react-leaflet` the source of truth for the events in `@types/svelte-leafletjs`.
- *
- * ```ts
- * // original
- * type ReactEventMap = {
- *   onsomething?(e: SomeEvent): void
- * }
- *
- * // converted
- * type SvelteEventMap = {
- *   something: SomeEvent;
- * }
- * ```
- */
-type CreateSvelteEventMap<ReactEventMap> = {
-    [EventName in keyof ReactEventMap as RemoveOn<EventName>]-?: NonNullable<
-        Parameters<AssertIsFunction<NonNullable<ReactEventMap[EventName]>>>[0]
-    >;
-};
+export interface TileLayerEvents {
+    loading: L.LeafletEvent;
+    load: L.LeafletEvent;
+    tileloadstart: L.TileEvent;
+    tileload: L.TileEvent;
+    tileunload: L.TileEvent;
+    tileerror: L.TileEvent;
+}
 
-export type MapEvents = CreateSvelteEventMap<ReactLeaflet.MapEvents>;
-export type MarkerEvents = CreateSvelteEventMap<ReactLeaflet.MarkerEvents>;
-export type TileLayerEvents = CreateSvelteEventMap<ReactLeaflet.TileLayerEvents>;
-export type PathEvents = CreateSvelteEventMap<ReactLeaflet.PathEvents>;
+export interface PathEvents {
+    click: L.LeafletMouseEvent;
+    dblclick: L.LeafletMouseEvent;
+    mousedown: L.LeafletMouseEvent;
+    mouseover: L.LeafletMouseEvent;
+    mouseout: L.LeafletMouseEvent;
+    contextmenu: L.LeafletMouseEvent;
+    add: L.LeafletEvent;
+    remove: L.LeafletEvent;
+    popupopen: L.PopupEvent;
+    popupclose: L.PopupEvent;
+}
 
 type MapEventKeys = Array<keyof MapEvents>;
 type MarkerEventKeys = Array<keyof MarkerEvents>;

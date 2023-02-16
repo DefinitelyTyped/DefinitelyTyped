@@ -197,6 +197,10 @@ namespace MeteorTests {
     Meteor.call('foo', 1, 2, function (error: any, result: any) {});
     var result = Meteor.call('foo', 1, 2);
 
+    (async function() {
+        var result = await Meteor.callAsync('foo', 1, 2);
+    })();
+
     /**
      * From Methods, Meteor.apply section
      */
@@ -515,6 +519,18 @@ namespace MeteorTests {
     Comments.update({ viewNumber: { $exists: false } }, { $set: { viewNumber: 0 } });
     Comments.update({ private: true }, { $unset: { tags: true } });
 
+    for (const comment of Comments.find({})) {
+        // $ExpectType CommentsDAO
+        comment;
+    }
+
+    (async function() {
+        for await (const comment of Comments.find({})) {
+            // $ExpectType CommentsDAO
+            comment;
+        }
+    })();
+
     /**
      * From Sessions, Session.set section
      */
@@ -559,7 +575,7 @@ namespace MeteorTests {
     Meteor.publish(
         null,
         function () {
-            return 3;
+            return;
         },
         { is_auto: true },
     );
@@ -599,6 +615,20 @@ namespace MeteorTests {
     Accounts.user({ fields: {} });
     Accounts.user({ fields: { _id: 1 } });
     Accounts.user({ fields: { profile: 0 } });
+
+    (async () => {
+        await Meteor.userAsync();
+        await Meteor.userAsync({});
+        await Meteor.userAsync({ fields: {} });
+        await Meteor.userAsync({ fields: { _id: 1 } });
+        await Meteor.userAsync({ fields: { profile: 0 } });
+
+        await Accounts.userAsync();
+        await Accounts.userAsync({});
+        await Accounts.userAsync({ fields: {} });
+        await Accounts.userAsync({ fields: { _id: 1 } });
+        await Accounts.userAsync({ fields: { profile: 0 } });
+    })();
 
     /**
      * Fixes this discussion https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/55173
@@ -1140,6 +1170,10 @@ namespace MeteorTests {
     if (Meteor.isDevelopment) {
         Rooms._dropIndex('indexName');
     }
+
+    (async function() {
+        await Rooms.dropIndexAsync('indexName');
+    })();
 
     // Covers https://github.com/meteor-typings/meteor/issues/20
     Rooms.find().count(true);

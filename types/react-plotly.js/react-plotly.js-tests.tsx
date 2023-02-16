@@ -94,3 +94,20 @@ export const HoverPlot = () => {
         />
     );
 };
+
+export const WebGLPlot = () => {
+    return (
+        <Plot
+            data={[
+                {
+                    x: [1, 2, 3],
+                    y: [2, 6, 3],
+                    type: 'scattergl',
+                },
+            ]}
+            layout={{ width: 320, height: 240, title: 'A Fancy Plot' }}
+            onHover={e => console.log(e)}
+            onWebGlContextLost={() => console.log('WebGL context lost')}
+        />
+    );
+};

@@ -1,7 +1,8 @@
-// Type definitions for merge2 1.3
+// Type definitions for merge2 1.4
 // Project: https://github.com/teambition/merge2
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Chigozirim C. <https://github.com/smac89>
+//                 Winston01 <https://github.com/winston01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -22,11 +23,19 @@ import { PassThrough } from 'stream';
  *
  * @return         A merged duplex stream
  */
+declare function merge2(options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, b: Streams, options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, b: Streams, c: Streams, options?: merge2.Options): merge2.Merge2Stream;
 declare function merge2(a: Streams, b: Streams, c: Streams, d: Streams, options?: merge2.Options): merge2.Merge2Stream;
-declare function merge2(a: Streams, b: Streams, c: Streams, d: Streams, e: Streams, options?: merge2.Options): merge2.Merge2Stream;
+declare function merge2(
+    a: Streams,
+    b: Streams,
+    c: Streams,
+    d: Streams,
+    e: Streams,
+    options?: merge2.Options,
+): merge2.Merge2Stream;
 declare function merge2(...args: Streams[]): merge2.Merge2Stream;
 
 type Streams = merge2.StreamType | merge2.StreamType[];
@@ -36,6 +45,7 @@ declare namespace merge2 {
 
     interface Options {
         end?: boolean | undefined;
+        pipeError?: boolean | undefined;
         objectMode?: boolean | undefined;
     }
 

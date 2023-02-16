@@ -59,6 +59,8 @@ declare module 'meteor/meteor' {
 
         function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;
 
+        function userAsync(options?: { fields?: Mongo.FieldSpecifier | undefined }): Promise<User | null>;
+
         function userId(): string | null;
         var users: Mongo.Collection<User>;
         /** User **/
@@ -142,11 +144,18 @@ declare module 'meteor/meteor' {
         function methods(methods: { [key: string]: (this: MethodThisType, ...args: any[]) => any }): void;
 
         /**
-         * Invokes a method passing any number of arguments.
+         * Invokes a method with a sync stub, passing any number of arguments.
          * @param name Name of method to invoke
          * @param args Optional method arguments
          */
         function call(name: string, ...args: any[]): any;
+
+        /**
+         * Invokes a method with an async stub, passing any number of arguments.
+         * @param name Name of method to invoke
+         * @param args Optional method arguments
+         */
+        function callAsync(name: string, ...args: any[]): Promise<any>;
 
         function apply<Result extends EJSONable | EJSONable[] | EJSONableProperty | EJSONableProperty[]>(
             name: string,
@@ -413,7 +422,7 @@ declare module 'meteor/meteor' {
          */
         function publish(
             name: string | null,
-            func: (this: Subscription, ...args: any[]) => void,
+            func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Mongo.Cursor<any>[] | Promise<void | Mongo.Cursor<any> | Mongo.Cursor<any>[]>,
             options?: { is_auto: boolean },
         ): void;
 

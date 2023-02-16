@@ -22,4 +22,6 @@ export class PlaneHelper extends LineSegments {
     size: number;
 
     updateMatrixWorld(force?: boolean): void;
+
+    dispose(): void;
 }
