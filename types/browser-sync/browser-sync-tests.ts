@@ -287,6 +287,21 @@ browserSync({
     proxy: "https://yourlocal.dev"
 });
 
+browserSync({
+    cwd: './',
+    callbacks: {
+        ready: function(err, bs) {
+            console.log(bs.options.get('urls'));
+            bs.addMiddleware("*", function (req, res) {
+                res.writeHead(302, {
+                    location: "404.html"
+                });
+                res.end("Redirecting!");
+            });
+        }
+    }
+});
+
 /**
  * Not testing a bunch because they are either only string or boolean types.
  * ....Also just got lazy and tired of writing the simple ones.
