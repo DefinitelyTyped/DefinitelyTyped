@@ -731,7 +731,6 @@ declare namespace TelegramBot {
         input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
     }
-    type OHNO = ReplyKeyboardMarkup["is_persistent"];
 
     interface KeyboardButton {
         text: string;
