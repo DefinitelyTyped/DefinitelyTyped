@@ -6684,7 +6684,10 @@ export interface WebDriverProtocolScreenCapture {
      * browser.screenshot(true);
      */
     screenshot(
-        log_screenshot_data: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
+    screenshot(
+        log_screenshot_data?: boolean,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
     ): Awaitable<this, string>;
 }

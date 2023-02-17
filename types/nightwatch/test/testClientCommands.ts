@@ -305,6 +305,13 @@ describe('screenshot command demo', function() {
         const result = await browser.screenshot(true);
         isType<string>(result);
     });
+
+    test('demo test', function(browser) {
+        const result = browser.screenshot(function (result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<string>(result);
+        });
+    });
 });
 
 //
