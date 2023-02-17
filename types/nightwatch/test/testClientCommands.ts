@@ -307,7 +307,7 @@ describe('screenshot command demo', function() {
     });
 
     test('demo test', function(browser) {
-        const result = browser.screenshot(function (result) {
+        const result = browser.screenshot(function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<string>(result);
         });
