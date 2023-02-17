@@ -290,15 +290,13 @@ browserSync({
 browserSync({
     cwd: './',
     callbacks: {
-        ready: function(err, bs) {
-            console.log(bs.options.get('urls'));
-            bs.addMiddleware("*", function (req, res) {
-                res.writeHead(302, {
-                    location: "404.html"
-                });
-                res.end("Redirecting!");
-            });
+        ready: function(err: Error, bs: browserSync.BrowserSyncInstance) {
+            console.log(err, bs);
         }
+    },
+    listen: '0.0.0.0',
+    script: {
+        domain: 'localhost'
     }
 });
 
