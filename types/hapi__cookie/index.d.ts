@@ -1,9 +1,8 @@
 // Type definitions for @hapi/cookie 12.0
-// Project: https://github.com/hapijs/hapi-auth-cookie
+// Project: https://github.com/hapijs/cookie
 // Definitions by: Silas Rech <https://github.com/lenovouser>
 //                 Simon Schick <https://github.com/SimonSchick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 
 import { Request, Plugin, AuthCredentials, ServerStateCookieOptions } from '@hapi/hapi';
 
@@ -86,6 +85,6 @@ declare namespace hapiAuthCookie {
     }
 }
 
-declare const hapiAuthCookie: Plugin<void>;
+declare const hapiAuthCookie: { plugin: Plugin<void> };
 
 export = hapiAuthCookie;

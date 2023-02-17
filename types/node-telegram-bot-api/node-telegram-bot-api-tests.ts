@@ -227,7 +227,7 @@ MyTelegramBot.removeReplyListener(5466);
 MyTelegramBot.clearReplyListeners();
 MyTelegramBot.getChat(1234);
 MyTelegramBot.getChatAdministrators(1234);
-MyTelegramBot.getChatMembersCount(1234);
+MyTelegramBot.getChatMemberCount(1234);
 MyTelegramBot.getChatMember(1234, 'myUserID');
 MyTelegramBot.leaveChat(1234);
 MyTelegramBot.setChatStickerSet(1234, 'sticker');

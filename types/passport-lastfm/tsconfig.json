@@ -6,23 +6,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "@hapi/cookie": [
-                "hapi__cookie"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "hapi__cookie-tests.ts"
+        "passport-lastfm-tests.ts"
     ]
 }

@@ -1,4 +1,4 @@
-// Type definitions for find-test-names 1.21
+// Type definitions for find-test-names 1.24
 // Project: https://github.com/bahmutov/find-test-names
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,6 +20,7 @@ export interface ResultsWithStructure extends Results {
 
 export interface Test {
     name: string;
+    requiredTags: string[] | undefined;
     type: 'test';
     tags: Tags;
     pending: boolean;
@@ -32,6 +33,7 @@ export interface TestInfo {
 }
 export interface Suite {
     name: string;
+    requiredTags?: string[] | undefined;
     tags?: Tags | undefined;
     pending: boolean;
     type: 'suite';

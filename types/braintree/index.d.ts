@@ -17,13 +17,6 @@ declare namespace braintree {
      * Braintree Config and Client
      */
 
-    export enum EnvironmentType {
-        Development = 'Development',
-        Production = 'Production',
-        Qa = 'Qa',
-        Sandbox = 'Sandbox',
-    }
-
     export type TextFieldSearchFn = () => {
         is: (input: string) => void;
         isNot: (input: string) => void;
@@ -135,7 +128,7 @@ declare namespace braintree {
         voidedAt: RangeFieldSearchFn<Date>;
     }) => void;
 
-    export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig | CustomConfig;
+    export type GatewayConfig = KeyGatewayConfig | ClientGatewayConfig | AccessTokenGatewayConfig;
 
     export class Environment {
         constructor(
@@ -150,17 +143,15 @@ declare namespace braintree {
         baseUrl: string;
         baseGraphQLUrl: string;
         uriScheme: string;
-    }
 
-    export interface CustomConfig {
-        environment: Environment;
-        merchantId: string;
-        publicKey: string;
-        privateKey: string;
+        static readonly Development: Environment;
+        static readonly Production: Environment;
+        static readonly Qa: Environment;
+        static readonly Sandbox: Environment;
     }
 
     export interface KeyGatewayConfig {
-        environment: EnvironmentType;
+        environment: Environment;
         merchantId: string;
         publicKey: string;
         privateKey: string;
