@@ -730,9 +730,8 @@ declare namespace TelegramBot {
         one_time_keyboard?: boolean | undefined;
         input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
-        is_persistent?: boolean | undefined;
-        input_field_placeholder?: string | undefined;
     }
+    type OHNO = ReplyKeyboardMarkup["is_persistent"];
 
     interface KeyboardButton {
         text: string;
@@ -807,7 +806,6 @@ declare namespace TelegramBot {
         force_reply: boolean;
         input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
-        input_field_placeholder?: string | undefined;
     }
 
     interface ChatPhoto {
