@@ -860,6 +860,9 @@ declare namespace React {
     type Dispatch<A> = (value: A) => void;
     // Since action _can_ be undefined, dispatch may be called without any parameters.
     type DispatchWithoutAction = () => void;
+    // Get the dispatch type from the reducer arguments
+    type ActionDispatch<ReducerRest extends any[]> =
+        ReducerRest extends [any] ? Dispatch<ReducerRest[0]> : DispatchWithoutAction;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
     // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
@@ -867,10 +870,6 @@ declare namespace React {
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
-    type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
-    // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
-    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> =
-        R extends ReducerWithoutAction<infer S> ? S : never;
     type DependencyList = ReadonlyArray<unknown>;
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
@@ -914,83 +913,25 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
-    // overload where dispatch could accept 0 arguments.
-    function useReducer<R extends ReducerWithoutAction<any>, I>(
-        reducer: R,
-        initializerArg: I,
-        initializer: (arg: I) => ReducerStateWithoutAction<R>
-    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
-     */
-    // overload where dispatch could accept 0 arguments.
-    function useReducer<R extends ReducerWithoutAction<any>>(
-        reducer: R,
-        initializerArg: ReducerStateWithoutAction<R>,
-        initializer?: undefined
-    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
-     */
-    // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
-    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be omitted.
-    // the last overload effectively behaves as if the identity function (x => x) is the initializer.
-    function useReducer<R extends Reducer<any, any>, I>(
-        reducer: R,
-        initializerArg: I & ReducerState<R>,
-        initializer: (arg: I & ReducerState<R>) => ReducerState<R>
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
-     */
-    // overload for free "I"; all goes as long as initializer converts it into "ReducerState<R>".
-    function useReducer<R extends Reducer<any, any>, I>(
-        reducer: R,
-        initializerArg: I,
-        initializer: (arg: I) => ReducerState<R>
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
-     */
-
-    // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
-    // supertype between the reducer's return type and the initialState (or the initializer's return type),
-    // which would prevent autocompletion from ever working.
-
-    // NOTE 2: The past concern around autocompletion with the returned state object
-    // seems to no longer be an issue. See https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63607
-    function useReducer<S, A>(
-        reducer: (s: S, a: A) => S,
+    function useReducer<S, A extends any[]>(
+        reducer: (prevState: S, ...args: A) => S,
         initialState: S
-    ): [S, (action: A) => void];
+    ): [S, ActionDispatch<A> ];
+    /**
+     * An alternative to `useState`.
+     *
+     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
+     * multiple sub-values. It also lets you optimize performance for components that trigger deep
+     * updates because you can pass `dispatch` down instead of callbacks.
+     *
+     * @version 16.8.0
+     * @see https://reactjs.org/docs/hooks-reference.html#usereducer
+     */
+    function useReducer<S, I, A extends any[]>(
+        reducer: (prevState: S, ...args: A) => S,
+        initialArg: I,
+        init: (i: I) => S
+    ): [S, ActionDispatch<A>];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.

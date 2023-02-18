@@ -100,14 +100,15 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
     const [reducerState, dispatch] = React.useReducer(reducer, true as true, (arg: true): AppState => arg && initialState);
 
     const [, simpleDispatch] = React.useReducer(v => v + 1, 0);
-    
+
     // Infer reducer state type
     React.useReducer(
         v => {
-            // $ExpectType number
-            return v;
+            // $ExpectType { name: string; }
+            const s = v;
+            return s;
         },
-        0,
+        { name: 'asdf' }
     );
 
     // inline object, to (manually) check if autocomplete works
