@@ -1,1 +1,10 @@
-{ "extends": "@definitelytyped/dtslint/dt.json" }
+{ 
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules":{
+	"no-unnecessary-class":false,
+	"interface-over-type-literal":false,
+	"one-line":false,
+	"semicolon":false,
+	"strict-export-declare-modifiers":false
+    }
+ }
