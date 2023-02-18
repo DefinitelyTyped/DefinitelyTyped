@@ -981,20 +981,16 @@ declare namespace React {
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
 
-    // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
-    // The Flow types do have an overload for 3-ary invocation with undefined initializer.
-
     // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
     // supertype between the reducer's return type and the initialState (or the initializer's return type),
     // which would prevent autocompletion from ever working.
 
-    // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
-    // in older versions, or a regression in newer versions of the typescript completion service.
-    function useReducer<R extends Reducer<any, any>>(
-        reducer: R,
-        initialState: ReducerState<R>,
-        initializer?: undefined
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+    // NOTE 2: The past concern around autocompletion with the returned state object
+    // seems to no longer be an issue. See https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63607
+    function useReducer<S, A>(
+        reducer: (s: S, a: A) => S,
+        initialArg: S
+    ): [S, (action: A) => void];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.
