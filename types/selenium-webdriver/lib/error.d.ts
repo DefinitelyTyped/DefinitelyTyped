@@ -314,7 +314,7 @@ export class UnsupportedOperationError extends WebDriverError {
  * @return {*} responseObj the original response if it does not define an error.
  * @throws {WebDriverError} if the response object defines an error.
  */
-export function checkLegacyResponse(responseObj: any): any;
+export function checkLegacyResponse<T>(responseObj: T): T;
 
 /**
  * @param {*} err The error to encode.
