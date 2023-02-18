@@ -326,7 +326,7 @@ declare namespace chrome.action {
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setIcon(details: TabIconDetails, callback?: () => void): void;
+    export function setIcon(details: TabIconDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
