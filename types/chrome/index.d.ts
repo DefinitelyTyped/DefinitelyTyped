@@ -316,10 +316,18 @@ declare namespace chrome.action {
      * Since Chrome 88.
      * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element,
      * or as dictionary of either one of those. Either the path or the imageData property must be specified.
+     * @return The `setIcon` method provides its result via callback or returned as a `Promise` (MV3 only). Since Chrome 96.
+     */
+    export function setIcon(details: TabIconDetails): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element,
+     * or as dictionary of either one of those. Either the path or the imageData property must be specified.
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setIcon(details: TabIconDetails, callback?: () => void): void;
+    export function setIcon(details: TabIconDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.

@@ -1004,6 +1004,7 @@ async function testActionForPromise() {
     await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({ color: 'white' });
     await chrome.action.setBadgeText({ text: 'text1' });
+    await chrome.action.setIcon({ path: { '16': 'path/to/icon.png' } });
     await chrome.action.setPopup({ popup: 'popup1' });
     await chrome.action.setTitle({ title: 'title1' });
 }
