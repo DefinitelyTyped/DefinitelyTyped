@@ -989,7 +989,7 @@ declare namespace React {
     // seems to no longer be an issue. See https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63607
     function useReducer<S, A>(
         reducer: (s: S, a: A) => S,
-        initialArg: S
+        initialState: S
     ): [S, (action: A) => void];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
