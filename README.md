@@ -346,6 +346,18 @@ This list is updated by a human, which gives us the chance to make sure that `@t
 In the rare case that an `@types` package is deleted and removed in favor of types shipped by the source package AND you need to depend on the old, removed `@types` package, you can add a dependency on an `@types` package.
 Be sure to explain this when adding to the list of allowed packages so that the human maintainer knows what is happening.
 
+The second reason to create your own package.json is to specify ES modules.
+If the implementation package uses ESM and specifies `"type": "module"`, then you should add a package.json with the same:
+
+```json
+{
+    "private": true,
+    "type": "module"
+}
+```
+
+This also applies if the implementation package has `exports` in its package.json.
+
 #### `OTHER_FILES.txt`
 
 If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.

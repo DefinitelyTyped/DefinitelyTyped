@@ -83,15 +83,6 @@ export function didPostSaveRequestSucceed(): boolean;
 export function getActivePostLock(): string | undefined;
 
 /**
- * Returns the current autosave, or an empty object if one is not set (i.e. if the post has yet to
- * be autosaved, or has been saved or published since the last autosave).
- *
- * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )`
- *                selector from the '@wordpress/core-data' package.
- */
-export function getAutosave(): Autosave | {};
-
-/**
  * Returns an attribute value of the current autosave revision for a post, or an empty object if
  * there is no autosave for the post.
  *
@@ -102,14 +93,6 @@ export function getAutosave(): Autosave | {};
  * @param attributeName - Autosave attribute name.
  */
 export function getAutosaveAttribute<T extends keyof Autosave>(attributeName: T): Autosave[T] | {};
-
-/**
- * Returns a set of blocks which are to be used in consideration of the post's generated save
- * content.
- *
- * @returns Filtered set of blocks for save.
- */
-export function getBlocksForSerialization(): BlockInstance[];
 
 /**
  * Returns the post currently being edited in its last known saved state, not including unsaved
@@ -214,22 +197,6 @@ export function getPostEdits(): Partial<Schema.Decontextualize<Schema.PostOrPage
 export function getPostLockUser(): Schema.User | undefined | null;
 
 /**
- * Returns a new reference when edited values have changed. This is useful in inferring where an
- * edit has been made between states by comparison of the return values using strict equality.
- *
- * @example
- * ```js
- * const hasEditOccurred = (
- *    getReferenceByDistinctEdits( beforeState ) !==
- *    getReferenceByDistinctEdits( afterState )
- * );
- * ```
- *
- * @returns A value whose reference will change only when an edit occurs.
- */
-export function getReferenceByDistinctEdits(): [];
-
-/**
  * Returns state object prior to a specified optimist transaction ID, or `null` if the transaction
  * corresponding to the given ID cannot be found.
  *
@@ -245,14 +212,6 @@ export function getStateBeforeOptimisticTransaction(transactionId: object): any;
  * format cannot be determined.
  */
 export function getSuggestedPostFormat(): string | null;
-
-/**
- * Returns the true if there is an existing autosave, otherwise false.
- *
- * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
- *             from the '@wordpress/core-data' package and check for a truthy value.
- */
-export function hasAutosave(): boolean;
 
 /**
  * Returns `true` if content includes unsaved changes, or `false` otherwise.
@@ -388,6 +347,11 @@ export function isPublishSidebarEnabled(): boolean;
  * Returns `true` if the post is being published, or `false` otherwise.
  */
 export function isPublishingPost(): boolean;
+
+/**
+ * Returns true if the post is currently being deleted, or false otherwise.
+ */
+export function isDeletingPost(): boolean;
 
 /**
  * Returns `true` if the post is currently being saved, or `false` otherwise.

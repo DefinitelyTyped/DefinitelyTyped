@@ -1,7 +1,6 @@
 // Type definitions for restify 8.5
 // Project: https://github.com/restify/node-restify, http://restify.com
 // Definitions by: Bret Little <https://github.com/blittle>
-//                 Steve Hipwell <https://github.com/stevehipwell>
 //                 Leandro Almeida <https://github.com/leanazulyoro>
 //                 Mitchell Bundy <https://github.com/mgebundy>
 //                 Alexandre Moraes <https://github.com/alcmoraes>

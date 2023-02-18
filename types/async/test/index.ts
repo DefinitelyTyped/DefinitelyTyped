@@ -182,12 +182,20 @@ async.during(testCallback => { testCallback(new Error(), false); }, callback => 
 async.doDuring(callback => { callback(); }, testCallback => { testCallback(new Error(), false); }, error => { console.log(error); });
 async.forever(errBack => { errBack(new Error("Not going on forever.")); }, error => { console.log(error); });
 
+// $ExpectType void
 async.waterfall([
         (callback: any) => { callback(null, 'one', 'two'); },
         (arg1: any, arg2: any, callback: any) => { callback(null, 'three'); },
         (arg1: any, callback: any) => { callback(null, 'done'); }
     ],
     (err, result) => { });
+
+// $ExpectType Promise<A>
+async.waterfall<A>([
+    (callback: any) => { callback(null, 'one', 'two'); },
+    (arg1: any, arg2: any, callback: any) => { callback(null, 'three'); },
+    (arg1: any, callback: any) => { callback(null, 'done'); }
+]);
 
 const q = async.queue<any>((task: any, callback: (err?: Error, msg?: string) => void) => {
     console.log('hello ' + task.name);
