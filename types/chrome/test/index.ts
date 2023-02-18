@@ -190,6 +190,7 @@ function catBlock() {
     );
 }
 
+// webNavigation.onSendHeaders.addListener example
 function webRequestAddListenerMandatoryFilters() {
     // @ts-expect-error
     chrome.webRequest.onBeforeRequest.addListener(info => { })
