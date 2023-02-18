@@ -25,6 +25,12 @@ new Reveal({
     plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealSearch, RevealMath, RevealZoom],
 });
 
+// math sub-plugins
+// $ExpectType Api
+new Reveal({
+    plugins: [RevealMath.KaTeX, RevealMath.MathJax2, RevealMath.MathJax3],
+});
+
 // with options
 // $ExpectType Api
 new Reveal({ width: 960, height: 700 });
@@ -357,7 +363,7 @@ deck.initialize({
         sanitizer: () => {},
         silent: true,
         smartLists: true,
-        smartpants: true,
+        smartypants: true,
         tokenizer: { key: 'value' },
         walkTokens: () => {},
         xhtml: true,
@@ -568,12 +574,10 @@ Reveal.on('slidetransitionend', event => {
     console.log(event);
 });
 
-
 // $ExpectType void
 deck.off('click', el.click, false);
 // $ExpectType void
 Reveal.off('click', el.click, false);
-
 
 // $ExpectType void
 deck.addEventListener('click', el.click);

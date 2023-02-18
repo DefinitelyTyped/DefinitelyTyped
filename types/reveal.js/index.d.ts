@@ -218,7 +218,6 @@ declare namespace Reveal {
          */
         nextFragment(): boolean;
 
-
         // TODO - These functions are used for handling custom events defined by reveal.js on the `revealElement`.
         // The `dispatchEvent` function can help finding the correct event names, but library users can dispatch any synthetic events.
         /**
@@ -657,7 +656,10 @@ declare namespace Reveal {
          * @param binding
          * @param callback
          */
-        addKeyBinding(binding: string | { keyCode: number; key: string; description: string }, callback: (event: KeyboardEvent) => void): void;
+        addKeyBinding(
+            binding: string | { keyCode: number; key: string; description: string },
+            callback: (event: KeyboardEvent) => void,
+        ): void;
 
         /**
          * Removes the specified custom key binding.
@@ -711,7 +713,7 @@ declare namespace Reveal {
          *
          * @returns a key:value hash of all query params
          */
-        getQueryHash(): Record<string,string>;
+        getQueryHash(): Record<string, string>;
 
         /**
          * Return a hash URL that will resolve to the given slide location.
@@ -1522,7 +1524,7 @@ declare namespace Reveal {
         sanitizer?: (...args: any) => any;
         silent?: boolean;
         smartLists?: boolean;
-        smartpants?: boolean;
+        smartypants?: boolean;
         tokenizer?: object;
         walkTokens?: (...args: any) => any;
         xhtml?: boolean;
@@ -1550,10 +1552,13 @@ declare namespace Reveal {
     // NOTE: it is possible to extend type definitions depend on the plugin
     /**
      * Reveal Plugin
+     *
+     * @see {@link https://revealjs.com/creating-plugins/}
      */
     interface Plugin {
         id: string;
-        init(reveal: Api): Promise<any>;
+        init?(reveal: Api): void | Promise<any>;
+        destroy?(): void;
     }
 
     interface PluginFunction {

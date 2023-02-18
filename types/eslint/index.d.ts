@@ -483,12 +483,15 @@ export namespace Rule {
         NewExpression?: ((node: ESTree.NewExpression & NodeParentExtension) => void) | undefined;
         ObjectExpression?: ((node: ESTree.ObjectExpression & NodeParentExtension) => void) | undefined;
         ObjectPattern?: ((node: ESTree.ObjectPattern & NodeParentExtension) => void) | undefined;
+        PrivateIdentifier?: ((node: ESTree.PrivateIdentifier & NodeParentExtension) => void) | undefined;
         Program?: ((node: ESTree.Program) => void) | undefined;
         Property?: ((node: ESTree.Property & NodeParentExtension) => void) | undefined;
+        PropertyDefinition?: ((node: ESTree.PropertyDefinition & NodeParentExtension) => void) | undefined;
         RestElement?: ((node: ESTree.RestElement & NodeParentExtension) => void) | undefined;
         ReturnStatement?: ((node: ESTree.ReturnStatement & NodeParentExtension) => void) | undefined;
         SequenceExpression?: ((node: ESTree.SequenceExpression & NodeParentExtension) => void) | undefined;
         SpreadElement?: ((node: ESTree.SpreadElement & NodeParentExtension) => void) | undefined;
+        StaticBlock?: ((node: ESTree.StaticBlock & NodeParentExtension) => void) | undefined;
         Super?: ((node: ESTree.Super & NodeParentExtension) => void) | undefined;
         SwitchCase?: ((node: ESTree.SwitchCase & NodeParentExtension) => void) | undefined;
         SwitchStatement?: ((node: ESTree.SwitchStatement & NodeParentExtension) => void) | undefined;

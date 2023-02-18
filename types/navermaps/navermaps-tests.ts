@@ -226,6 +226,47 @@ naver.maps.Service.reverseGeocode(
     },
 );
 
+/**
+ * Overlay define options and DrawingManager event Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-3-drawing-restore.example.html
+ */
+
+naver.maps.Event.once(map, 'init', function () {
+    const drawingManager = new naver.maps.drawing.DrawingManager({
+        map: map,
+        rectangleOptions: {
+            fillColor: '#ff0000',
+            fillOpacity: 0.5,
+            strokeWeight: 3,
+            strokeColor: '#ff0000',
+        },
+        ellipseOptions: {
+            fillColor: '#ff25dc',
+            fillOpacity: 0.5,
+            strokeWeight: 3,
+            strokeColor: '#ff25dc'
+        },
+        polylineOptions: {
+            strokeColor: '#222',
+            strokeWeight: 3,
+        },
+        arrowlineOptions: {
+            endIconSize: 16,
+            strokeWeight: 3,
+        },
+        polygonOptions: {
+            fillColor: '#ffc300',
+            fillOpacity: 0.5,
+            strokeWeight: 3,
+            strokeColor: '#ffc300',
+        }
+    });
+
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.ADD, function (e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.REMOVE, function (e) {});
+    drawingManager.addListener(naver.maps.drawing.DrawingEvents.SELECT, function (e) {});
+});
+
 /*
  * LatLng
  */

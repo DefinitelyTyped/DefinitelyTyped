@@ -43,6 +43,7 @@ declare namespace introJs {
         doneLabel?: string | undefined;
         hidePrev?: boolean | undefined;
         hideNext?: boolean | undefined;
+        nextToDone?: boolean | undefined;
         tooltipPosition?: string | undefined;
         tooltipClass?: string | undefined;
         highlightClass?: string | undefined;

@@ -63,6 +63,7 @@ declare namespace pendo {
         removeLauncher(): void;
 
         // Troubleshooting
+        setGuidesDisabled(state: boolean): void;
         loadGuides(): void;
         startGuides(): void;
         stopGuides(): void;

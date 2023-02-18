@@ -95,3 +95,12 @@ function test_timer() {
   reconnectTimer.scheduleTimeout(); // fires after 5000
   reconnectTimer.reset();
 }
+
+function test_async_callback() {
+  const socket = new Socket('/ws', { params: { userToken: '123' } });
+  socket.connect();
+
+  const channel = socket.channel('room:123', { token: '123' });
+
+  channel.on('new_msg', async msg => console.log('Got message', msg));
+}

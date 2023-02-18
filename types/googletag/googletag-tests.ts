@@ -774,7 +774,7 @@ googletag.secureSignalProviders.push({
         return Promise.resolve('signal');
     },
 });
-// networkCode is provided
+// networkCode is provided, the id is not available
 googletag.secureSignalProviders.push({
     networkCode: '123456',
     collectorFunction: () => {

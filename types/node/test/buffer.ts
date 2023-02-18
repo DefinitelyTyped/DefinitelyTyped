@@ -3,6 +3,7 @@ import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
     constants,
+    isUtf8,
     kMaxLength,
     kStringMaxLength,
     resolveObjectURL,
@@ -32,6 +33,13 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     const value2: number = constants.MAX_STRING_LENGTH;
     const value3: number = kMaxLength;
     const value4: number = kStringMaxLength;
+}
+
+// Module methods
+{
+    const bool1: boolean = isUtf8(new Buffer('hello'));
+    const bool2: boolean = isUtf8(new ArrayBuffer(0));
+    const bool3: boolean = isUtf8(new Uint8Array());
 }
 
 // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
@@ -75,7 +83,7 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
     buf = Buffer.from(arr.buffer, 0, 1);
 
     // @ts-expect-error
-    Buffer.from("this is a test", 1, 1);
+    Buffer.from('this is a test', 1, 1);
     // Ideally passing a normal Buffer would be a type error too, but it's not
     //  since Buffer is assignable to ArrayBuffer currently
 }
@@ -84,21 +92,33 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 {
     const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
     /* tslint:disable-next-line no-construct */
-    Buffer.from(new String("DEADBEEF"), "hex");
+    Buffer.from(new String('DEADBEEF'), 'hex');
     // @ts-expect-error
     Buffer.from(buf2, 'hex');
 }
 
 // Class Method: Buffer.from(object, [, byteOffset[, length]])  (Implicit coercion)
 {
-    const pseudoBuf = { valueOf() { return Buffer.from([1, 2, 3]); } };
+    const pseudoBuf = {
+        valueOf() {
+            return Buffer.from([1, 2, 3]);
+        },
+    };
     let buf: Buffer = Buffer.from(pseudoBuf);
-    const pseudoString = { valueOf() { return "Hello"; }};
+    const pseudoString = {
+        valueOf() {
+            return 'Hello';
+        },
+    };
     buf = Buffer.from(pseudoString);
-    buf = Buffer.from(pseudoString, "utf-8");
+    buf = Buffer.from(pseudoString, 'utf-8');
     // @ts-expect-error
     Buffer.from(pseudoString, 1, 2);
-    const pseudoArrayBuf = { valueOf() { return new Uint16Array(2); } };
+    const pseudoArrayBuf = {
+        valueOf() {
+            return new Uint16Array(2);
+        },
+    };
     buf = Buffer.from(pseudoArrayBuf, 1, 1);
 }
 
@@ -121,20 +141,20 @@ const result2 = Buffer.concat([utf8Buffer, base64Buffer] as ReadonlyArray<Uint8A
 // Class Method byteLenght
 {
     let len: number;
-    len = Buffer.byteLength("foo");
-    len = Buffer.byteLength("foo", "utf8");
+    len = Buffer.byteLength('foo');
+    len = Buffer.byteLength('foo', 'utf8');
 
-    const b = Buffer.from("bar");
+    const b = Buffer.from('bar');
     len = Buffer.byteLength(b);
-    len = Buffer.byteLength(b, "utf16le");
+    len = Buffer.byteLength(b, 'utf16le');
 
     const ab = new ArrayBuffer(15);
     len = Buffer.byteLength(ab);
-    len = Buffer.byteLength(ab, "ascii");
+    len = Buffer.byteLength(ab, 'ascii');
 
     const dv = new DataView(ab);
     len = Buffer.byteLength(dv);
-    len = Buffer.byteLength(dv, "utf16le");
+    len = Buffer.byteLength(dv, 'utf16le');
 }
 
 // Class Method poolSize
@@ -170,9 +190,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let index: number;
-    index = buffer.indexOf("23");
-    index = buffer.indexOf("23", 1);
-    index = buffer.indexOf("23", 1, "utf8");
+    index = buffer.indexOf('23');
+    index = buffer.indexOf('23', 1);
+    index = buffer.indexOf('23', 1, 'utf8');
     index = buffer.indexOf(23);
     index = buffer.indexOf(buffer);
 }
@@ -180,9 +200,9 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let index: number;
-    index = buffer.lastIndexOf("23");
-    index = buffer.lastIndexOf("23", 1);
-    index = buffer.lastIndexOf("23", 1, "utf8");
+    index = buffer.lastIndexOf('23');
+    index = buffer.lastIndexOf('23', 1);
+    index = buffer.lastIndexOf('23', 1, 'utf8');
     index = buffer.lastIndexOf(23);
     index = buffer.lastIndexOf(buffer);
 }
@@ -201,15 +221,15 @@ b.fill('a').fill('b');
 {
     const buffer = new Buffer('123');
     let includes: boolean;
-    includes = buffer.includes("23");
-    includes = buffer.includes("23", 1);
-    includes = buffer.includes("23", 1, "utf8");
+    includes = buffer.includes('23');
+    includes = buffer.includes('23', 1);
+    includes = buffer.includes('23', 1, 'utf8');
     includes = buffer.includes(23);
     includes = buffer.includes(23, 1);
-    includes = buffer.includes(23, 1, "utf8");
+    includes = buffer.includes(23, 1, 'utf8');
     includes = buffer.includes(buffer);
     includes = buffer.includes(buffer, 1);
-    includes = buffer.includes(buffer, 1, "utf8");
+    includes = buffer.includes(buffer, 1, 'utf8');
 }
 
 {
@@ -343,15 +363,15 @@ const c: NodeJS.TypedArray = new Buffer(123);
 }
 
 {
-  const obj = {
-    valueOf() {
-      return 'hello';
-    }
-  };
-  Buffer.from(obj);
+    const obj = {
+        valueOf() {
+            return 'hello';
+        },
+    };
+    Buffer.from(obj);
 }
 
-const buff = Buffer.from("Hello World!");
+const buff = Buffer.from('Hello World!');
 
 // reads
 

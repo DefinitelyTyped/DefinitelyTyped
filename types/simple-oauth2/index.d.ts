@@ -76,11 +76,11 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
             /**
              * Acceptable http response content type. Defaults to application/json
              */
-            accept: string;
+            accept?: string;
             /**
              * Always overriden by the library to properly send the required credentials on each scenario
              */
-            authorization: string;
+            authorization?: string;
             [key: string]: unknown
         } | undefined;
         /**

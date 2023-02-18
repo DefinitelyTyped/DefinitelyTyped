@@ -44,6 +44,10 @@ buttonRenderer.render(
 );
 
 buttonsRenderer({
+    style: {
+        color: paypal.ButtonColorOption.White
+    },
+
     fundingSource: 'paypal',
 
     createOrder: async (): Promise<string> => {
@@ -75,4 +79,10 @@ buttonsRenderer({
     onError: (error: string) => {
         console.error('PayPal JS SDK error', error);
     },
+
+    onInit: (data: paypal.AuthorizationData, actions: object) => {
+        console.error('onInit', data, actions);
+    },
+
+    onClick: () => {}
 }).render('#paypal-button');

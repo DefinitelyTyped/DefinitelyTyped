@@ -49,7 +49,7 @@ const customGateway: BraintreeGateway = new braintree.BraintreeGateway({
  * Gateway
  */
 const gateway: BraintreeGateway = new braintree.BraintreeGateway({
-    environment: braintree.EnvironmentType.Sandbox,
+    environment: braintree.Environment.Sandbox,
     merchantId: 'abc123',
     publicKey: 'def456',
     privateKey: 'xyz789',
@@ -325,7 +325,7 @@ braintree.Subscription.Status.All;
  * Gateway function helper
  */
 const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
-    environment: braintree.EnvironmentType.Sandbox,
+    environment: braintree.Environment.Sandbox,
     merchantId: 'abc123',
     publicKey: 'def456',
     privateKey: 'xyz789',
