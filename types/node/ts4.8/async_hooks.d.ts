@@ -319,6 +319,16 @@ declare module 'async_hooks' {
          */
         triggerAsyncId(): number;
     }
+    interface AsyncLocalStorageOptions<T> {
+        /**
+         * Optional callback invoked before a store is propagated to a new async resource.
+         * Returning `true` allows propagation, returning `false` avoids it. Default is to propagate always.
+         * @param type The type of async event.
+         * @param store The current store.
+         * @since v18.13.0
+         */
+        onPropagate?: ((type: string, store: T) => boolean) | undefined;
+    }
     /**
      * This class creates stores that stay coherent through asynchronous operations.
      *
@@ -368,6 +378,8 @@ declare module 'async_hooks' {
      * @since v13.10.0, v12.17.0
      */
     class AsyncLocalStorage<T> {
+        constructor(options?: AsyncLocalStorageOptions<T>);
+
         /**
          * Disables the instance of `AsyncLocalStorage`. All subsequent calls
          * to `asyncLocalStorage.getStore()` will return `undefined` until`asyncLocalStorage.run()` or `asyncLocalStorage.enterWith()` is called again.

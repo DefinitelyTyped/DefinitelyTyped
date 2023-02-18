@@ -59,6 +59,8 @@ declare module 'meteor/meteor' {
 
         function user(options?: { fields?: Mongo.FieldSpecifier | undefined }): User | null;
 
+        function userAsync(options?: { fields?: Mongo.FieldSpecifier | undefined }): Promise<User | null>;
+
         function userId(): string | null;
         var users: Mongo.Collection<User>;
         /** User **/

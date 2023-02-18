@@ -13,6 +13,10 @@ declare namespace SemanticUI {
          */
         (behavior: 'setup menu'): JQuery;
         /**
+         * Changes dropdown to use new values. values structure: [ {value, text, name} ].
+         */
+        (behavior: 'change values'): JQuery;
+        /**
          * Refreshes all cached selectors and data
          */
         (behavior: 'refresh'): JQuery;

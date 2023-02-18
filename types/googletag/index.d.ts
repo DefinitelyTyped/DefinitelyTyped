@@ -1,4 +1,4 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2023-01-27) 3.0
+// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2023-02-08) 3.0
 // Project: https://developers.google.com/publisher-tag/reference
 // Definitions by: Wei Wang <https://github.com/atwwei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2028,53 +2028,80 @@ declare namespace googletag {
      */
     namespace secureSignals {
         /**
-         * A secure signal for a specific bidder or publisher.
+         * Interface for returning a secure signal for a specific bidder or provider.
+         * One of `id` or `networkCode` must be provided, but not both.
+         */
+        type SecureSignalProvider = (BidderSignalProvider & { networkCode?: never }) | PublisherSignalProvider;
+
+        /**
+         * Returns a secure signal for a specific bidder.
          *
-         * A secure signal provider consists of 2 parts:
+         * A bidder secure signal provider consists of 2 parts:
+         *
          * 1. A collector function, which returns a `Promise` that resolves to a secure signal.
-         * 1. An `id` or `networkCode`, which identifies the bidder or publisher associated with the signal, respectively.
+         * 1. An `id` which identifies the bidder associated with the signal.
          *
-         * Note that one of `id` or `networkCode` must be provided, but not both.
+         * To return a secure signal for a publisher, use {@link secureSignals.PublisherSignalProvider} instead.
          *
          * @example
-         * // id is provided
-         * googletag.secureSignalProviders.push({
-         *   id: 'collector123',
-         *   collectorFunction: () => {
-         *     // ...custom signal generation logic...
-         *     return Promise.resolve('signal');
-         *   }
-         * });
-         * // networkCode is provided
-         * googletag.secureSignalProviders.push({
-         *   networkCode: '123456',
-         *   collectorFunction: () => {
-         *     // ...custom signal generation logic...
-         *     return Promise.resolve('signal');
-         *   }
-         * });
+         *   // id is provided
+         *   googletag.secureSignalProviders.push({
+         *     id: 'collector123',
+         *     collectorFunction: () => {
+         *       // ...custom signal generation logic...
+         *       return Promise.resolve('signal');
+         *     }
+         *   });
          *
          * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
          */
-        type SecureSignalProvider<
-            T = {
-                /**
-                 * A unique identifier for the collector associated with this secure signal, as registered in Google Ad Manager.
-                 */
-                id: string;
+        interface BidderSignalProvider {
+            /**
+             * A unique identifier for the collector associated with this secure signal, as registered in Google Ad Manager.
+             */
+            id: string;
 
-                /**
-                 * The network code (as seen in the ad unit path) for the publisher associated with this secure signal.
-                 */
-                networkCode: string;
+            /**
+             * A function which returns a `Promise` that resolves to a secure signal.
+             * @returns A [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to a secure signal.
+             */
+            collectorFunction(): Promise<string>;
+        }
 
-                /**
-                 * A function which returns a `Promise` that resolves to a secure signal.
-                 * @returns A [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to a secure signal.
-                 */
-                collectorFunction(): Promise<null | string>;
-            },
-        > = Omit<T, 'id'> | Omit<T, 'networkCode'>;
+        /**
+         * Returns a secure signal for a specific publisher.
+         *
+         * A publisher signal provider consists of 2 parts:
+         *
+         * 1. A collector function, which returns a `Promise` that resolves to a secure signal.
+         * 1. A `networkCode` which identifies the publisher associated with the signal.
+         *
+         * To return a secure signal for a bidder, use {@link secureSignals.BidderSignalProvider} instead.
+         *
+         * @example
+         *   // networkCode is provided
+         *   googletag.secureSignalProviders.push({
+         *     networkCode: '123456',
+         *     collectorFunction: () => {
+         *       // ...custom signal generation logic...
+         *       return Promise.resolve('signal');
+         *     }
+         *   });
+         *
+         * @see [Share secure signals with bidders](https://support.google.com/admanager/answer/10488752)
+         */
+        interface PublisherSignalProvider {
+            /**
+             * The network code (as seen in the ad unit path) for the publisher associated with this secure signal.
+             */
+            networkCode: string;
+
+            /**
+             * A function which returns a `Promise` that resolves to a secure signal.
+             * @returns A [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) that resolves to a secure signal.
+             */
+            collectorFunction(): Promise<string>;
+        }
 
         /**
          * An interface for managing secure signals.

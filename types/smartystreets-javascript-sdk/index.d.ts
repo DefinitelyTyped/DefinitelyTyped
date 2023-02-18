@@ -13,7 +13,7 @@ export namespace core {
         lookups: T[];
         add(lookup: T): void;
         lookupsHasRoomForLookup(): boolean;
-        lenght(): number;
+        length(): number;
         getByIndex(index: number): T;
         getByInputId(inputId: string): T[];
         clear(): void;

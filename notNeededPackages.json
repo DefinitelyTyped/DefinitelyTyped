@@ -3017,6 +3017,10 @@
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
         },
+        "micro": {
+            "libraryName": "micro",
+            "asOfVersion": "10.0.0"
+        },
         "microgears": {
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
@@ -3032,6 +3036,10 @@
         "minipass": {
             "libraryName": "minipass",
             "asOfVersion": "3.3.5"
+        },
+        "mkdirp": {
+            "libraryName": "mkdirp",
+            "asOfVersion": "2.0.0"
         },
         "mnemonic-words": {
             "libraryName": "mnemonic-words",
@@ -3277,6 +3285,10 @@
             "libraryName": "node-xlsx",
             "asOfVersion": "0.21.0"
         },
+        "nodecredstash": {
+            "libraryName": "nodecredstash",
+            "asOfVersion": "3.0.0"
+        },
         "nookies": {
             "libraryName": "nookies",
             "asOfVersion": "2.0.3"
@@ -3352,6 +3364,10 @@
         "okta__okta-vue": {
             "libraryName": "@okta/okta-vue",
             "asOfVersion": "3.1.0"
+        },
+        "ol": {
+            "libraryName": "ol",
+            "asOfVersion": "7.0.0"
         },
         "on-change": {
             "libraryName": "on-change",
@@ -4822,6 +4838,10 @@
         "rgb2hex": {
             "libraryName": "rgb2hex",
             "asOfVersion": "0.2.1"
+        },
+        "rimraf": {
+            "libraryName": "rimraf",
+            "asOfVersion": "4.0.5"
         },
         "riot": {
             "libraryName": "riot",

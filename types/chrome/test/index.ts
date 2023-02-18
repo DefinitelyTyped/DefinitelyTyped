@@ -935,6 +935,21 @@ function testSearch() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/search/
+async function testSearchForPromise() {
+    const DISPOSITIONS: chrome.search.Disposition[] = ['CURRENT_TAB', 'NEW_TAB', 'NEW_WINDOW'];
+
+    for (const disposition of DISPOSITIONS) {
+        await chrome.search.query(
+            {
+                disposition,
+                tabId: 1,
+                text: 'text',
+            }
+        );
+    }
+}
+
 // https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/
 async function testDeclarativeNetRequest() {
     chrome.declarativeNetRequest.getDynamicRules(rules => {
@@ -989,6 +1004,7 @@ async function testActionForPromise() {
     await chrome.action.openPopup({ windowId: 1 });
     await chrome.action.setBadgeBackgroundColor({ color: 'white' });
     await chrome.action.setBadgeText({ text: 'text1' });
+    await chrome.action.setIcon({ path: { '16': 'path/to/icon.png' } });
     await chrome.action.setPopup({ popup: 'popup1' });
     await chrome.action.setTitle({ title: 'title1' });
 }
@@ -1447,6 +1463,30 @@ function testContextMenusUpdate() {
     chrome.contextMenus.update(1, { visible: 1 });
 }
 
+function testPermissions() {
+    const permissions: chrome.permissions.Permissions = {
+        origins: ['https://example.com/*']
+    };
+    chrome.permissions.contains(permissions, (exists: boolean) => {});
+    chrome.permissions.remove(permissions, (wasRemoved: boolean) => {});
+    chrome.permissions.request(permissions, (wasAdded: boolean) => {});
+    chrome.permissions.getAll((permissions: chrome.permissions.Permissions) => {});
+}
+
+
+async function testPermissionsForPromise() {
+    const permissions: chrome.permissions.Permissions = {
+        origins: ['https://example.com/*']
+    };
+    if (await chrome.permissions.contains(permissions)) {
+        let wasRemoved: boolean = await chrome.permissions.remove(permissions);
+    } else {
+        let wasAdded: boolean = await chrome.permissions.request(permissions);
+    }
+
+    const existing: chrome.permissions.Permissions = await chrome.permissions.getAll();
+}
+
 // https://developer.chrome.com/docs/extensions/reference/enterprise_deviceAttributes
 function testEnterpriseDeviceAttributes() {
     chrome.enterprise.deviceAttributes.getDirectoryDeviceId((deviceId) => { });
@@ -1640,12 +1680,22 @@ async function testHistoryForPromise() {
 async function testIdentity() {
     // $ExpectType void
     chrome.identity.launchWebAuthFlow({ url: 'https://example.com ' }, () => { });
+
+    chrome.identity.clearAllCachedAuthTokens(() => {})
+    chrome.identity.getAccounts((accounts: chrome.identity.AccountInfo[]) => { })
+    chrome.identity.getAuthToken({}, (token?: string, grantedScopes?: string[]) => { })
+    chrome.identity.removeCachedAuthToken({token: '1234'}, () => { })
 }
 
 // https://developer.chrome.com/docs/extensions/reference/identity/
 async function testIdentityForPromise() {
     // $ExpectType string | undefined
     await chrome.identity.launchWebAuthFlow({ url: 'https://example.com ' });
+
+    await chrome.identity.clearAllCachedAuthTokens()
+    const accounts: chrome.identity.AccountInfo[] = await chrome.identity.getAccounts()
+    const token = await chrome.identity.getAuthToken({})
+    await chrome.identity.removeCachedAuthToken({token: '1234'})
 }
 
 // https://developer.chrome.com/docs/extensions/reference/topSites/

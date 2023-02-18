@@ -14,6 +14,7 @@
 //                 Idan Zeierman <https://github.com/idan315>
 //                 Nicolas Rodriguez <https://github.com/nicolas377>
 //                 Ido Salomon <https://github.com/idosal>
+//                 Federico Brigante <https://github.com/fregante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -318,10 +319,18 @@ declare namespace chrome.action {
      * Since Chrome 88.
      * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element,
      * or as dictionary of either one of those. Either the path or the imageData property must be specified.
+     * @return The `setIcon` method provides its result via callback or returned as a `Promise` (MV3 only). Since Chrome 96.
+     */
+    export function setIcon(details: TabIconDetails): Promise<void>;
+
+    /**
+     * Since Chrome 88.
+     * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element,
+     * or as dictionary of either one of those. Either the path or the imageData property must be specified.
      * @param callback The callback parameter should be a function that looks like this:
      * () => {...}
      */
-    export function setIcon(details: TabIconDetails, callback?: () => void): void;
+    export function setIcon(details: TabIconDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -4795,17 +4804,32 @@ declare namespace chrome.identity {
 
     export interface SignInChangeEvent extends chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void> { }
 
+    export interface GetAuthTokenResult {
+        /**
+         * Optional.
+         * A list of OAuth2 scopes granted to the extension.
+         */
+        grantedScopes?: string[]
+        /**
+         * Optional.
+         * The specific token associated with the request.
+         */
+        token?: string
+    }
+
     /**
      * Resets the state of the Identity API:
      *
      *  * Removes all OAuth2 access tokens from the token cache
      *  * Removes user's account preferences
      *  * De-authorizes the user from all auth flows
+     * If `callback` is not provided, the function returns a Promise when the state has been cleared.
      * @since Chrome 87.
      * @param callback Called when the state has been cleared.
      * The parameter should be a function that looks like this:
      * () => {...};
      */
+    export function clearAllCachedAuthTokens(): Promise<void>;
     export function clearAllCachedAuthTokens(callback: () => void): void;
 
     /**
@@ -4813,18 +4837,21 @@ declare namespace chrome.identity {
      * getAccounts is only supported on dev channel.
      * Dev channel only.
      */
+    export function getAccounts(): Promise<AccountInfo[]>;
     export function getAccounts(callback: (accounts: AccountInfo[]) => void): void;
 
     /**
      * Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.
      * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
      * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
+     * If `callback` is not provided, the function returns a Promise that resolves with the token.
      * @param details Token options.
      * @param callback Called with an OAuth2 access token as specified by the manifest, or undefined if there was an error.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function(string token) {...};
      */
-    export function getAuthToken(details: TokenDetails, callback?: (token: string) => void): void;
+    export function getAuthToken(details: TokenDetails): Promise<GetAuthTokenResult>;
+    export function getAuthToken(details: TokenDetails, callback: (token?: string, grantedScopes?: string[]) => void): void;
 
     /**
      * Retrieves email address and obfuscated gaia id of the user signed into a profile.
@@ -4842,11 +4869,13 @@ declare namespace chrome.identity {
     /**
      * Removes an OAuth2 access token from the Identity API's token cache.
      * If an access token is discovered to be invalid, it should be passed to removeCachedAuthToken to remove it from the cache. The app may then retrieve a fresh token with getAuthToken.
+     * If `callback` is not provided, the function returns a Promise when the state has been removed from the cache.
      * @param details Token information.
      * @param callback Called when the token has been removed from the cache.
      * If you specify the callback parameter, it should be a function that looks like this:
      * function() {...};
      */
+    export function removeCachedAuthToken(details: TokenInformation): Promise<void>;
     export function removeCachedAuthToken(details: TokenInformation, callback: () => void): void;
 
     /**
@@ -6026,25 +6055,25 @@ declare namespace chrome.offscreen {
     /** The reason(s) the extension is creating the offscreen document. */
     export enum Reason {
         /** A reason used for testing purposes only. */
-        TESTING,
+        TESTING = "TESTING",
         /** The offscreen document is responsible for playing audio. */
-        AUDIO_PLAYBACK,
+        AUDIO_PLAYBACK = "AUDIO_PLAYBACK",
         /** The offscreen document needs to embed and script an iframe in order to modify the iframe's content. */
-        IFRAME_SCRIPTING,
+        IFRAME_SCRIPTING = "IFRAME_SCRIPTING",
         /** The offscreen document needs to embed an iframe and scrape its DOM to extract information. */
-        DOM_SCRAPING,
+        DOM_SCRAPING = "DOM_SCRAPING",
         /** The offscreen document needs to interact with Blob objects (including URL.createObjectURL()). */
-        BLOBS,
+        BLOBS = "BLOBS",
         /** The offscreen document needs to use the DOMParser API. */
-        DOM_PARSER,
+        DOM_PARSER = "DOM_PARSER",
         /** The offscreen document needs to interact with media streams from user media (e.g. getUserMedia()). */
-        USER_MEDIA,
+        USER_MEDIA = "USER_MEDIA",
         /** The offscreen document needs to interact with media streams from display media (e.g. getDisplayMedia()). */
-        DISPLAY_MEDIA,
+        DISPLAY_MEDIA = "DISPLAY_MEDIA",
         /** The offscreen document needs to use WebRTC APIs. */
-        WEB_RTC,
+        WEB_RTC = "WEB_RTC",
         /** The offscreen document needs to interact with the clipboard APIs(e.g. Navigator.clipboard). */
-        CLIPBOARD
+        CLIPBOARD = "CLIPBOARD"
     }
 
     /** The parameters describing the offscreen document to create. */
@@ -6318,11 +6347,21 @@ declare namespace chrome.permissions {
 
     /**
      * Checks if the extension has the specified permissions.
+     * @return A Promise that resolves with boolean: True if the extension has the specified permissions.
+     */
+    export function contains(permissions: Permissions): Promise<boolean>;
+    /**
+     * Checks if the extension has the specified permissions.
      * @param callback The callback parameter should be a function that looks like this:
      * function(boolean result) {...};
      * Parameter result: True if the extension has the specified permissions.
      */
     export function contains(permissions: Permissions, callback: (result: boolean) => void): void;
+    /**
+     * Gets the extension's current set of permissions.
+     * @return A Promise that resolves with Permissions object describing the extension's active permissions.
+     */
+    export function getAll(): Promise<Permissions>;
     /**
      * Gets the extension's current set of permissions.
      * @param callback The callback parameter should be a function that looks like this:
@@ -6332,11 +6371,21 @@ declare namespace chrome.permissions {
     export function getAll(callback: (permissions: Permissions) => void): void;
     /**
      * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
+     * @return A Promise that resolves with boolean: True if the user granted the specified permissions.
+     */
+    export function request(permissions: Permissions): Promise<boolean>;
+    /**
+     * Requests access to the specified permissions. These permissions must be defined in the optional_permissions field of the manifest. If there are any problems requesting the permissions, runtime.lastError will be set.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
      * function(boolean granted) {...};
      * Parameter granted: True if the user granted the specified permissions.
      */
     export function request(permissions: Permissions, callback?: (granted: boolean) => void): void;
+    /**
+     * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
+     * @return A Promise that resolves with boolean: True if the permissions were removed.
+     */
+    export function remove(permissions: Permissions): Promise<boolean>;
     /**
      * Removes access to the specified permissions. If there are any problems removing the permissions, runtime.lastError will be set.
      * @param callback If you specify the callback parameter, it should be a function that looks like this:
@@ -6700,6 +6749,13 @@ declare namespace chrome.search {
      * function() => {...}
      */
     export function query(options: QueryInfo, callback: () => void): void;
+
+    /**
+     * Used to query the default search provider. In case of an error, runtime.lastError will be set.
+     * @param options search configuration options.
+     * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function query(options: QueryInfo): Promise<void>;
 }
 
 ////////////////////
@@ -7193,6 +7249,7 @@ declare namespace chrome.runtime {
         | 'enterprise.networkingAttributes'
         | 'enterprise.platformKeys'
         | 'experimental'
+        | 'favicon'
         | 'fileBrowserHandler'
         | 'fileSystemProvider'
         | 'fontSettings'

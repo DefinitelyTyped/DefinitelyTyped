@@ -14,6 +14,7 @@ export default class NodeLoader extends Loader {
         onProgress?: (event: ProgressEvent) => void,
         onError?: (event: ErrorEvent) => void,
     ): void;
+    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<NodeLoaderResult>;
 
     parseNodes(json: AnyJson): NodeLoaderResult;
     parse(json: AnyJson): Node;

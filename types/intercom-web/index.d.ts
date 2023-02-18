@@ -64,6 +64,7 @@ declare namespace Intercom_ {
         startTour: (tourId: number) => void;
         showArticle: (articleId: number) => void;
         startSurvey: (surveyId: number) => void;
+        reattach_activator: () => void;
     }
 
     type IntercomCommand = keyof IntercomCommandSignature;

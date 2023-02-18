@@ -25,4 +25,4 @@ entity.toJSONSchema(); // $ExpectType any
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(67, 68); // $ExpectType boolean
+testMajorVersions(68, 69); // $ExpectType boolean

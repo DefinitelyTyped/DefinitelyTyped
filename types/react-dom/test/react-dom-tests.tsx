@@ -218,7 +218,7 @@ describe('React dom test utils', () => {
                 await ReactTestUtils.act(async () => null);
             });
             it('a callback that returns a value', async () => {
-                await ReactTestUtils.act(async () => "value");
+                await ReactTestUtils.act(async () => 'value');
             });
             it('returns a Promise-like', () => {
                 const result = ReactTestUtils.act(async () => {});
@@ -227,6 +227,15 @@ describe('React dom test utils', () => {
         });
     });
 });
+
+async function batchTests() {
+    // $ExpectType string
+    const output1 = ReactDOM.unstable_batchedUpdates(input => {
+        // $ExpectType number
+        input;
+        return 'hi';
+    }, 1);
+}
 
 function createRoot() {
     const root = ReactDOMClient.createRoot(document.documentElement);
