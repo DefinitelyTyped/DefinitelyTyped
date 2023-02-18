@@ -51,9 +51,10 @@ export  const debug: boolean;
     handleClient(w?: any): void;
     handleServer(w?: any): void;
 }
-type Class<T> = {
+export interface Class<T> {
     new (...args: any[]): T;
 }
+// tslint:disable-next-line:no-unnecessary-class
  export class KickReason {
     static [index: number]: Class<KickReason>;
     static kick: Class<KickReason>;
@@ -73,6 +74,7 @@ type Class<T> = {
     static playerLimit: Class<KickReason>;
     static serverRestarting: Class<KickReason>;
 }
+// tslint:disable-next-line:no-unnecessary-class
  export class TypeIO {
     static writeString(buf: DataStream, string: string): void;
     static readString(buf: DataStream): string | null;
@@ -217,6 +219,7 @@ type Class<T> = {
     readObejct(d: unknown): null | Error | object;
     send(object: any): void;
 }
+// tslint:disable-next-line:no-unnecessary-class
  export class FrameworkMessage {
     static RegisterTCP: Class<unknown>;
     static KeepAlive: Class<unknown>;
@@ -259,7 +262,9 @@ type Class<T> = {
     isDone(): boolean;
     build(): Packet;
 }
+// tslint:disable-next-line:no-unnecessary-class
  export class NetworkIO {}
+// tslint:disable-next-line:no-unnecessary-class
  export class SaveIO {
     static readStringMap(buf: DataStream): Map<string, string>;
 }
