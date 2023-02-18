@@ -3365,6 +3365,10 @@
             "libraryName": "@okta/okta-vue",
             "asOfVersion": "3.1.0"
         },
+        "ol": {
+            "libraryName": "ol",
+            "asOfVersion": "7.0.0"
+        },
         "on-change": {
             "libraryName": "on-change",
             "asOfVersion": "1.1.0"

@@ -148,6 +148,7 @@ interface Props {
     rootStyle?: object | undefined;
     editorStyle?: object | undefined;
     toolbarStyle?: object | undefined;
+    onBlur?: (event: object) => void;
 }
 
 declare class RichTextEditor extends Component<Props, any> {

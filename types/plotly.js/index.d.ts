@@ -1241,6 +1241,7 @@ export interface PlotData {
     hovertext: string | string[];
     xhoverformat: string;
     yhoverformat: string;
+    zhoverformat: string;
     texttemplate: string | string[];
     textinfo:
         | 'label'

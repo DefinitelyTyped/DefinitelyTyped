@@ -54,6 +54,22 @@ const person = {
 const enumVal = 'CAR';
 
 /** BEGIN: `fbt()` / `fbs()` */
+/**
+ * To simplify the use of fbt, we cast return type to string
+ * But in can be used as React element
+ *
+ * const result = fbt('text','desc');
+ *
+ * typeof result;               // object
+ * result.toString()            // "Hello, retyui"
+ * JSON.stringify(result)       // "\"Hello, retyui\""
+ * React.isValidElement(result) // true
+ */
+const shouldBeStringByDefault: string = fbt('Hello', 'simpleExample');
+const castToString: string = fbt('Hello', 'simpleExample').toString();
+const shouldBeStringByDefaultFbs = fbs('Hello', 'simpleExample');
+const castToStringFbs = fbs('Hello', 'simpleExample').toString();
+
 const simpleExample = fbt('Hello', 'simpleExample');
 const simpleExampleFbs = fbs('Hello', 'simpleExample');
 const simpleExampleWithParams = fbt('simpleExampleWithParams', 'Welcome message', {

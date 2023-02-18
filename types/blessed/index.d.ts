@@ -2386,7 +2386,7 @@ export namespace Widgets {
         /**
          * Sets the list items to multiple strings.
          */
-        setItems(items: BlessedElement[]): void;
+        setItems(items: BlessedElement[] | string[]): void;
 
         /**
          * Returns the item index from the list. Child can be an element, index, or string.
