@@ -6728,6 +6728,13 @@ declare namespace chrome.search {
      * function() => {...}
      */
     export function query(options: QueryInfo, callback: () => void): void;
+
+    /**
+     * Used to query the default search provider. In case of an error, runtime.lastError will be set.
+     * @param options search configuration options.
+     * @return The `query` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
+     */
+    export function query(options: QueryInfo): Promise<void>;
 }
 
 ////////////////////
