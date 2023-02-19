@@ -276,7 +276,7 @@ declare namespace validator {
         /**
          * @default undefined
          */
-        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa';
+        provider?: 'amex' | 'dinersclub' | 'discover' | 'jcb' | 'mastercard' | 'unionpay' | 'visa' | '';
     }
 
     /**
