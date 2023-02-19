@@ -60,4 +60,8 @@ const testImported = async (instance: ElementHandle | Page) => {
     await expectPuppeteer(instance).toClick("selector");
     await expect(instance).toClick("selector", { polling: "mutation", text: "text" });
     await expect(instance).toClick("selector", { polling: "raf", timeout: 777 });
+    await expectPuppeteer(instance).toFillForm({ type: 'css', value: 'selector' }, { foo: 'bar', baz: 123 });
+    await expectPuppeteer(instance).toFillForm({ type: 'xpath', value: 'selector' }, { foo: 'bar', baz: 123 });
+    await expectPuppeteer(instance).toFillForm("selector", { foo: 'bar', baz: 123 });
+    await expectPuppeteer(instance).toFillForm("selector", { foo: 'bar', baz: 123 }, { delay: 777 });
 };

@@ -1172,6 +1172,7 @@
 /types/cookie-session/                                    @borislavjivkov
 /types/cookie-signature/                                  @Rokt33r
 /types/cookie_js/                                         @slawiko
+/types/cookiebot-sdk/                                     @LiamMartens
 /types/cookieclicker/                                     @TheGLander @MasterOfBob777
 /types/cookieconsent/                                     @klittlepage
 /types/cookiejar/                                         @paroxp @demurgos
@@ -1642,6 +1643,7 @@
 /types/dom-matches/                                       @AviVahl
 /types/dom-mediacapture-record/                           @elsmr @AppLover69
 /types/dom-mediacapture-transform/                        @dogben
+/types/dom-navigation/                                    @tbondwilkinson
 /types/dom-navigation-preload/                            @frigus02 @mprobst
 /types/dom-parser/                                        @gbidkar
 /types/dom-screen-wake-lock/                              @chrismilson
@@ -5202,7 +5204,6 @@
 /types/metrostations/                                     @peterblazejewicz
 /types/meyda/                                             @eramdam @hughrawlinson
 /types/mfiles/                                            @avonwyss
-/types/micro/                                             @kaoDev
 /types/micro-cors/                                        @CallumDenby @moonchanyong
 /types/micro-events/                                      @AlexanderSychev
 /types/microlight/                                        @ravenclaw900
@@ -5987,7 +5988,7 @@
 /types/passport-local-mongoose/                           @linusbrolin
 /types/passport-microsoft/                                @skrud
 /types/passport-naver/                                    @Park9eon @zerocho
-/types/passport-oauth2/                                   @pasieronen @WangZishi @EduardoAC @ivan94 @daphnesmit
+/types/passport-oauth2/                                   @pasieronen @WangZishi @EduardoAC @ivan94 @daphnesmit @JoelKlint
 /types/passport-oauth2-client-password/                   @akaNightmare
 /types/passport-oauth2-refresh/                           @daphnesmit @btorresgil
 /types/passport-orcid/                                    @thewilkybarkid
@@ -6416,7 +6417,7 @@
 /types/rails__actioncable/                                @martin-badin
 /types/rails__activestorage/                              @imustafin @cbothner
 /types/rails__ujs/                                        @fsubal @abcang
-/types/ramda/                                             @TheHandsomeCoder @donnut @mdekrey @sbking @afharo @teves-castro @hojberg @samsonkeung @angeloocana @raynerd @moshensky @ethanresnick @deftomat @blimusiek @biern @rayhaneh @rgm @drewwyatt @jottenlips @minitesh @krantisinh @nemo108 @jituanlin @Philippe-mills @Saul-Mirone @Nicholaiii @LORDBABUINO @couzic @NEWESTERS @adispring @essenmitsosse
+/types/ramda/                                             @TheHandsomeCoder @donnut @mdekrey @sbking @afharo @teves-castro @hojberg @samsonkeung @angeloocana @raynerd @moshensky @ethanresnick @deftomat @blimusiek @biern @rayhaneh @rgm @jottenlips @minitesh @krantisinh @nemo108 @jituanlin @Philippe-mills @Saul-Mirone @Nicholaiii @LORDBABUINO @couzic @NEWESTERS @adispring @essenmitsosse
 /types/random-boolean/                                    @BendingBender
 /types/random-bytes/                                      @sripberger
 /types/random-gradient/                                   @dm1sh
@@ -6898,6 +6899,7 @@
 /types/react-native-text-input-mask/                      @RodrigoAWeber @hengkx
 /types/react-native-toast-native/                         @bm-software
 /types/react-native-torch/                                @BenLorantfy
+/types/react-native-typewriter/                           @ScreamZ
 /types/react-native-typing-animation/                     @Ankan002
 /types/react-native-uuid-generator/                       @burtek
 /types/react-native-vector-icons/                         @iRoachie @timwangdev @robertying @Naturalclar @indentedspace
@@ -8004,6 +8006,7 @@
 /types/string-algorithms/                                 @lionel-rowe
 /types/string-format/                                     @lal12
 /types/string-hash/                                       @ethanrubio
+/types/string-math/                                       @rouzwelt
 /types/string-natural-compare/                            @aried3r
 /types/string-pixel-width/                                @grahamdyson
 /types/string-placeholder/                                @iTsFILIPOficial
@@ -8304,7 +8307,7 @@
 /types/tldjs/                                             @geoffreak
 /types/tlf-log/                                           @thislooksfun
 /types/tls-keygen/                                        @hongyiweiwu
-/types/tmi.js/                                            @wpapsco @crutchcorn @d-fischer
+/types/tmi.js/                                            @wpapsco @crutchcorn @d-fischer @samildeli
 /types/tmilar__furigana-helper/                           @peterblazejewicz
 /types/tmp/                                               @optical @Perlmint @pluma @silkentrance @bendingbender
 /types/tmpl/                                              @saeedseyfi
@@ -8378,6 +8381,7 @@
 /types/truncate-middle/                                   @garyking
 /types/truncate-utf8-bytes/                               @blimmer
 /types/trunk8/                                            @niemyjski
+/types/trust__keyto/                                      @BendingBender
 /types/trusted-types/                                     @vrana @engelsdamien @siegrift @bjarkler
 /types/try-catch/                                         @coderaiser
 /types/try-to-catch/                                      @coderaiser

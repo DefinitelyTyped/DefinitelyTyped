@@ -4,5 +4,5 @@ declare function _exports(
         comment: string;
         level: number;
     }
-): string;
+): any;
 export = _exports;

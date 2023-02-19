@@ -1531,7 +1531,7 @@ declare namespace naver.maps {
             MARKER,
         }
 
-        enum DrawingEvent {
+        enum DrawingEvents {
             ADD = 'drawing_added',
             REMOVE = 'drawing_removed',
             SELECT = 'drawing_selected',
@@ -1545,12 +1545,12 @@ declare namespace naver.maps {
             drawingControlOptions?: DrawingControlOptions;
             drawingMode?: DrawingMode;
             controlPointOptions?: ControlPointOptions;
-            rectangleOptions?: RectangleOptions;
-            ellipseOptions?: EllipseOptions;
-            polylineOptions?: PolylineOptions;
-            arrowlineOptions?: PolylineOptions;
-            polygonOptions?: PolygonOptions;
-            markerOptions?: MarkerOptions;
+            rectangleOptions?: Partial<RectangleOptions>;
+            ellipseOptions?: Partial<EllipseOptions>;
+            polylineOptions?: Partial<PolylineOptions>;
+            arrowlineOptions?: Partial<PolylineOptions>;
+            polygonOptions?: Partial<PolygonOptions>;
+            markerOptions?: Partial<MarkerOptions>;
         }
 
         interface DrawingControlOptions extends ControlOptions {
@@ -1569,7 +1569,7 @@ declare namespace naver.maps {
         class DrawingManager extends KVO {
             constructor(options?: DrawingOptions);
             addDrawing(overlay: DrawingOverlay, drawingMode: DrawingMode, id?: string): void;
-            addListener(eventName: DrawingEvent, listener: (overlay: DrawingOverlay) => void): MapEventListener;
+            addListener(eventName: DrawingEvents, listener: (overlay: DrawingOverlay) => void): MapEventListener;
             destroy(): void;
             getDrawing(id: string): DrawingOverlay;
             getDrawings(): { [key: string]: DrawingOverlay };
