@@ -7,10 +7,10 @@ interface BlobshapeParameters {
     size?: number;
     growth?: number;
     edges?: number;
-    seed?: null;
+    seed?: string | null;
 }
 
-export default function blobshape({ size, growth, edges, seed }?: BlobshapeParameters): {
+export default function ({ size, growth, edges, seed }?: BlobshapeParameters): {
     path: string;
     seedValue: number;
 };
