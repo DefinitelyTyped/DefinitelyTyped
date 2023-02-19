@@ -7,7 +7,7 @@ nodeTargz.compress(
         level: 6,
         memLevel: 6,
     },
-    err => void 0,
+    err => {},
 );
 
 nodeTargz.decompress(
@@ -15,7 +15,7 @@ nodeTargz.decompress(
         source: 'my-tar.gz',
         destination: './foo/unpacked',
     },
-    err => void 0,
+    err => {},
 );
 
 // Code from project README https://github.com/lafin/node-targz/tree/master
