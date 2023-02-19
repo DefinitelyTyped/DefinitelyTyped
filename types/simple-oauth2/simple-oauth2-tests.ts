@@ -32,6 +32,12 @@ const oauth2ResourceOwnerPassword = new oauth2lib.ResourceOwnerPassword(
                 // noop
             },
             json: true
+        },
+        options: {
+            bodyFormat: 'form',
+            authorizationMethod: 'body',
+            credentialsEncodingMode: 'loose',
+            scopeSeparator: ','
         }
     });
     oauth2AuthorizationCode.authorizeURL({ foobar: "x" });
