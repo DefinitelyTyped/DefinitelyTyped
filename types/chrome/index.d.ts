@@ -168,7 +168,8 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function disable(tabId?: number, callback?: () => void): void;
+    export function disable(callback: () => void): void;
+    export function disable(tabId: number, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -184,7 +185,8 @@ declare namespace chrome.action {
      * @param tabId The id of the tab for which you want to modify the action.
      * @param callback
      */
-    export function enable(tabId?: number, callback?: () => void): void;
+    export function enable(callback: () => void): void;
+    export function enable(tabId: number, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -268,7 +270,8 @@ declare namespace chrome.action {
      * Opens the extension's popup.
      * @param options Specifies options for opening the popup.
      */
-    export function openPopup(options?: OpenPopupOptions, callback?: () => void): void;
+    export function openPopup(callback: () => void): void;
+    export function openPopup(options: OpenPopupOptions, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -281,7 +284,7 @@ declare namespace chrome.action {
      * Since Chrome 88.
      * Sets the background color for the badge.
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -294,7 +297,7 @@ declare namespace chrome.action {
      * Since Chrome 88.
      * Sets the badge text for the action. The badge is displayed on top of the icon.
      */
-    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+    export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -316,7 +319,7 @@ declare namespace chrome.action {
      * Since Chrome 88.
      * Sets the html document to be opened as a popup when the user clicks on the action's icon.
      */
-    export function setPopup(details: PopupDetails, callback?: () => void): void;
+    export function setPopup(details: PopupDetails, callback: () => void): void;
 
     /**
      * Since Chrome 88.
@@ -329,7 +332,7 @@ declare namespace chrome.action {
      * Since Chrome 88.
      * Sets the title of the action. This shows up in the tooltip.
      */
-    export function setTitle(details: TitleDetails, callback?: () => void): void;
+    export function setTitle(details: TitleDetails, callback: () => void): void;
 
     /** Fired when an action icon is clicked. This event will not fire if the action has a popup. */
     export var onClicked: BrowserClickedEvent;
@@ -397,7 +400,7 @@ declare namespace chrome.alarms {
     /**
      * Clears all alarms.
      */
-    export function clearAll(callback?: (wasCleared: boolean) => void): void;
+    export function clearAll(callback: (wasCleared: boolean) => void): void;
     /**
      * Clears the alarm with the given name.
      * @param name The name of the alarm to clear. Defaults to the empty string.
@@ -408,7 +411,8 @@ declare namespace chrome.alarms {
      * Clears the alarm with the given name.
      * @param name The name of the alarm to clear. Defaults to the empty string.
      */
-    export function clear(name?: string, callback?: (wasCleared: boolean) => void): void;
+    export function clear(callback: (wasCleared: boolean) => void): void;
+    export function clear(name: string, callback: (wasCleared: boolean) => void): void;
     /**
      * Clears the alarm without a name.
      */
@@ -651,7 +655,7 @@ declare namespace chrome.bookmarks {
     /**
      * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
      */
-    export function create(bookmark: BookmarkCreateArg, callback?: (result: BookmarkTreeNode) => void): void;
+    export function create(bookmark: BookmarkCreateArg, callback: (result: BookmarkTreeNode) => void): void;
     /**
      * Moves the specified BookmarkTreeNode to the provided location.
      * @return The `move` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -666,7 +670,7 @@ declare namespace chrome.bookmarks {
     export function move(
         id: string,
         destination: BookmarkDestinationArg,
-        callback?: (result: BookmarkTreeNode) => void,
+        callback: (result: BookmarkTreeNode) => void,
     ): void;
     /**
      * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. Note: Currently, only 'title' and 'url' are supported.
@@ -682,7 +686,7 @@ declare namespace chrome.bookmarks {
     export function update(
         id: string,
         changes: BookmarkChangesArg,
-        callback?: (result: BookmarkTreeNode) => void,
+        callback: (result: BookmarkTreeNode) => void,
     ): void;
     /**
      * Removes a bookmark or an empty bookmark folder.
@@ -692,7 +696,7 @@ declare namespace chrome.bookmarks {
     /**
      * Removes a bookmark or an empty bookmark folder.
      */
-    export function remove(id: string, callback?: Function): void;
+    export function remove(id: string, callback: Function): void;
     /**
      * Retrieves the children of the specified BookmarkTreeNode id.
      */
@@ -723,7 +727,7 @@ declare namespace chrome.bookmarks {
     /**
      * Recursively removes a bookmark folder.
      */
-    export function removeTree(id: string, callback?: Function): void;
+    export function removeTree(id: string, callback: Function): void;
 
     /** Fired when a bookmark or folder is removed. When a folder is removed recursively, a single notification is fired for the folder, and none for its contents. */
     export var onRemoved: BookmarkRemovedEvent;
@@ -809,7 +813,8 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function enable(tabId?: number, callback?: () => void): void;
+    export function enable(callback: () => void): void;
+    export function enable(tabId: number, callback: () => void): void;
     /**
      * Sets the background color for the badge.
      * @return The `setBadgeBackgroundColor` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -819,7 +824,7 @@ declare namespace chrome.browserAction {
      * Sets the background color for the badge.
      * @param callback Supported since Chrome 67
      */
-    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback?: () => void): void;
+    export function setBadgeBackgroundColor(details: BadgeBackgroundColorDetails, callback: () => void): void;
     /**
      * Sets the badge text for the browser action. The badge is displayed on top of the icon.
      * @return The `setBadgeText` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -829,7 +834,7 @@ declare namespace chrome.browserAction {
      * Sets the badge text for the browser action. The badge is displayed on top of the icon.
      * @param callback Supported since Chrome 67
      */
-    export function setBadgeText(details: BadgeTextDetails, callback?: () => void): void;
+    export function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
     /**
      * Sets the title of the browser action. This shows up in the tooltip.
      * @return The `setTitle` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -839,7 +844,7 @@ declare namespace chrome.browserAction {
      * Sets the title of the browser action. This shows up in the tooltip.
      * @param callback Supported since Chrome 67
      */
-    export function setTitle(details: TitleDetails, callback?: () => void): void;
+    export function setTitle(details: TitleDetails, callback: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the badge text of the browser action. If no tab is specified, the non-tab-specific badge text is returned.
@@ -861,7 +866,7 @@ declare namespace chrome.browserAction {
      * Sets the html document to be opened as a popup when the user clicks on the browser action's icon.
      * @param callback Supported since Chrome 67
      */
-    export function setPopup(details: PopupDetails, callback?: () => void): void;
+    export function setPopup(details: PopupDetails, callback: () => void): void;
     /**
      * Since Chrome 22.
      * Disables the browser action for a tab.
@@ -875,7 +880,8 @@ declare namespace chrome.browserAction {
      * @param tabId The id of the tab for which you want to modify the browser action.
      * @param callback Supported since Chrome 67
      */
-    export function disable(tabId?: number, callback?: () => void): void;
+    export function disable(callback: () => void): void;
+    export function disable(tabId: number, callback: () => void): void;
     /**
      * Since Chrome 19.
      * Gets the title of the browser action.
@@ -912,7 +918,7 @@ declare namespace chrome.browserAction {
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
      */
-    export function setIcon(details: TabIconDetails, callback?: Function): void;
+    export function setIcon(details: TabIconDetails, callback: Function): void;
 
     /** Fired when a browser action icon is clicked. This event will not fire if the browser action has a popup. */
     export var onClicked: BrowserClickedEvent;
@@ -1045,7 +1051,7 @@ declare namespace chrome.browsingData {
      * Clears plugins' data.
      * @param callback Called when plugins' data has been cleared.
      */
-    export function removePluginData(options: RemovalOptions, callback?: () => void): void;
+    export function removePluginData(options: RemovalOptions, callback: () => void): void;
     /**
      * Since Chrome 72.
      * Clears websites' service workers.
@@ -1057,7 +1063,7 @@ declare namespace chrome.browsingData {
      * Clears websites' service workers.
      * @param callback Called when the browser's service workers have been cleared.
      */
-    export function removeServiceWorkers(options: RemovalOptions, callback?: () => void): void;
+    export function removeServiceWorkers(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears the browser's stored form data (autofill).
      * @return The `removeFormData` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1067,7 +1073,7 @@ declare namespace chrome.browsingData {
      * Clears the browser's stored form data (autofill).
      * @param callback Called when the browser's form data has been cleared.
      */
-    export function removeFormData(options: RemovalOptions, callback?: () => void): void;
+    export function removeFormData(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears websites' file system data.
      * @return The `removeFileSystems` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1077,7 +1083,7 @@ declare namespace chrome.browsingData {
      * Clears websites' file system data.
      * @param callback Called when websites' file systems have been cleared.
      */
-    export function removeFileSystems(options: RemovalOptions, callback?: () => void): void;
+    export function removeFileSystems(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears various types of browsing data stored in a user's profile.
      * @param dataToRemove The set of data types to remove.
@@ -1089,7 +1095,7 @@ declare namespace chrome.browsingData {
      * @param dataToRemove The set of data types to remove.
      * @param callback Called when deletion has completed.
      */
-    export function remove(options: RemovalOptions, dataToRemove: DataTypeSet, callback?: () => void): void;
+    export function remove(options: RemovalOptions, dataToRemove: DataTypeSet, callback: () => void): void;
     /**
      * Clears the browser's stored passwords.
      * @return The `removePasswords` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1099,17 +1105,17 @@ declare namespace chrome.browsingData {
      * Clears the browser's stored passwords.
      * @param callback Called when the browser's passwords have been cleared.
      */
-    export function removePasswords(options: RemovalOptions, callback?: () => void): void;
+    export function removePasswords(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
      * @return The `removeCookies` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
-    export function removeCookies(options: RemovalOptions, callback?: () => void): Promise<void>;
+    export function removeCookies(options: RemovalOptions): Promise<void>;
     /**
      * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
      * @param callback Called when the browser's cookies and server-bound certificates have been cleared.
      */
-    export function removeCookies(options: RemovalOptions, callback?: () => void): void;
+    export function removeCookies(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears websites' WebSQL data.
      * @return The `removeWebSQL` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1119,7 +1125,7 @@ declare namespace chrome.browsingData {
      * Clears websites' WebSQL data.
      * @param callback Called when websites' WebSQL databases have been cleared.
      */
-    export function removeWebSQL(options: RemovalOptions, callback?: () => void): void;
+    export function removeWebSQL(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears websites' appcache data.
      * @return The `removeAppcache` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1129,7 +1135,7 @@ declare namespace chrome.browsingData {
      * Clears websites' appcache data.
      * @param callback Called when websites' appcache data has been cleared.
      */
-    export function removeAppcache(options: RemovalOptions, callback?: () => void): void;
+    export function removeAppcache(options: RemovalOptions, callback: () => void): void;
     /** Clears websites' cache storage data.
      * @return The `removeCacheStorage` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
      */
@@ -1137,7 +1143,7 @@ declare namespace chrome.browsingData {
     /** Clears websites' cache storage data.
      * @param callback Called when websites' appcache data has been cleared.
      */
-    export function removeCacheStorage(options: RemovalOptions, callback?: () => void): void
+    export function removeCacheStorage(options: RemovalOptions, callback: () => void): void
     /**
      * Clears the browser's list of downloaded files (not the downloaded files themselves).
      * @return The `removeDownloads` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1147,7 +1153,7 @@ declare namespace chrome.browsingData {
      * Clears the browser's list of downloaded files (not the downloaded files themselves).
      * @param callback Called when the browser's list of downloaded files has been cleared.
      */
-    export function removeDownloads(options: RemovalOptions, callback?: () => void): void;
+    export function removeDownloads(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears websites' local storage data.
      * @return The `removeLocalStorage` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1157,7 +1163,7 @@ declare namespace chrome.browsingData {
      * Clears websites' local storage data.
      * @param callback Called when websites' local storage has been cleared.
      */
-    export function removeLocalStorage(options: RemovalOptions, callback?: () => void): void;
+    export function removeLocalStorage(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears the browser's cache.
      * @return The `removeCache` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1167,7 +1173,7 @@ declare namespace chrome.browsingData {
      * Clears the browser's cache.
      * @param callback Called when the browser's cache has been cleared.
      */
-    export function removeCache(options: RemovalOptions, callback?: () => void): void;
+    export function removeCache(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears the browser's history.
      * @return The `removeHistory` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1177,7 +1183,7 @@ declare namespace chrome.browsingData {
      * Clears the browser's history.
      * @param callback Called when the browser's history has cleared.
      */
-    export function removeHistory(options: RemovalOptions, callback?: () => void): void;
+    export function removeHistory(options: RemovalOptions, callback: () => void): void;
     /**
      * Clears websites' IndexedDB data.
      * @return The `removeIndexedDB` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -1187,7 +1193,7 @@ declare namespace chrome.browsingData {
      * Clears websites' IndexedDB data.
      * @param callback Called when websites' IndexedDB data has been cleared.
      */
-    export function removeIndexedDB(options: RemovalOptions, callback?: () => void): void;
+    export function removeIndexedDB(options: RemovalOptions, callback: () => void): void;
 }
 
 ////////////////////
@@ -1896,7 +1902,7 @@ declare namespace chrome.cookies {
      * @param details Details about the cookie being set.
      * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
      */
-    export function set(details: SetDetails, callback?: (cookie: Cookie | null) => void): void;
+    export function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
     /**
      * Deletes a cookie by name.
      * @param details Information to identify the cookie to remove.
@@ -2003,7 +2009,7 @@ declare module chrome {
          * @param requiredVersion Required debugging protocol version ("0.1"). One can only attach to the debuggee with matching major version and greater or equal minor version. List of the protocol versions can be obtained in the documentation pages.
          * @param callback Called once the attach operation succeeds or fails. If the attach fails, runtime.lastError will be set to the error message.
          */
-        export function attach(target: Debuggee, requiredVersion: string, callback?: () => void): void;
+        export function attach(target: Debuggee, requiredVersion: string, callback: () => void): void;
         /**
          * Detaches debugger from the given target.
          * @param target Debugging target from which you want to detach.
@@ -2015,7 +2021,7 @@ declare module chrome {
          * @param target Debugging target from which you want to detach.
          * @param callback Called once the detach operation succeeds or fails. If the detach fails, runtime.lastError will be set to the error message.
          */
-        export function detach(target: Debuggee, callback?: () => void): void;
+        export function detach(target: Debuggee, callback: () => void): void;
         /**
          * Sends given command to the debugging target.
          * @param target Debugging target to which you want to send the command.
@@ -2928,7 +2934,7 @@ declare namespace chrome.downloads {
      * @param downloadId The id of the download to pause.
      * @param callback Called when the pause request is completed.
      */
-    export function pause(downloadId: number, callback?: () => void): void;
+    export function pause(downloadId: number, callback: () => void): void;
     /**
      * Retrieve an icon for the specified download. For new downloads, file icons are available after the onCreated event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, runtime.lastError will contain an error message.
      * @param downloadId The identifier for the download.
@@ -2962,7 +2968,7 @@ declare namespace chrome.downloads {
      * @param downloadId The id of the download to resume.
      * @param callback  Called when the resume request is completed.
      */
-    export function resume(downloadId: number, callback?: () => void): void;
+    export function resume(downloadId: number, callback: () => void): void;
     /**
      * Cancel a download. When callback is run, the download is cancelled, completed, interrupted or doesn't exist anymore.
      * @param downloadId The id of the download to cancel.
@@ -2974,7 +2980,7 @@ declare namespace chrome.downloads {
      * @param downloadId The id of the download to cancel.
      * @param callback Called when the cancel request is completed.
      */
-    export function cancel(downloadId: number, callback?: () => void): void;
+    export function cancel(downloadId: number, callback: () => void): void;
     /**
      * Download a URL. If the URL uses the HTTP[S] protocol, then the request will include all cookies currently set for its hostname. If both filename and saveAs are specified, then the Save As dialog will be displayed, pre-populated with the specified filename. If the download started successfully, callback will be called with the new DownloadItem's downloadId. If there was an error starting the download, then callback will be called with downloadId=undefined and runtime.lastError will contain a descriptive string. The error strings are not guaranteed to remain backwards compatible between releases. Extensions must not parse it.
      * @param options What to download and how.
@@ -2986,7 +2992,7 @@ declare namespace chrome.downloads {
      * @param options What to download and how.
      * @param callback Called with the id of the new DownloadItem.
      */
-    export function download(options: DownloadOptions, callback?: (downloadId: number) => void): void;
+    export function download(options: DownloadOptions, callback: (downloadId: number) => void): void;
     /**
      * Open the downloaded file now if the DownloadItem is complete; otherwise returns an error through runtime.lastError. Requires the "downloads.open" permission in addition to the "downloads" permission. An onChanged event will fire when the item is opened for the first time.
      * @param downloadId The identifier for the downloaded file.
@@ -4056,7 +4062,7 @@ declare namespace chrome.fontSettings {
     /**
      * Sets the default font size.
      */
-    export function setDefaultFontSize(details: DefaultFontSizeDetails, callback?: Function): void;
+    export function setDefaultFontSize(details: DefaultFontSizeDetails, callback: Function): void;
     /**
      * Gets the font for a given script and generic font family.
      * @return The `getFont` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -4065,7 +4071,7 @@ declare namespace chrome.fontSettings {
     /**
      * Gets the font for a given script and generic font family.
      */
-    export function getFont(details: FontDetails, callback?: (details: FontDetailsResult) => void): void;
+    export function getFont(details: FontDetails, callback: (details: FontDetailsResult) => void): void;
     /**
      * Gets the default font size.
      * @param details This parameter is currently unused.
@@ -4076,7 +4082,8 @@ declare namespace chrome.fontSettings {
      * Gets the default font size.
      * @param details This parameter is currently unused.
      */
-    export function getDefaultFontSize(details?: Object, callback?: (options: FontSizeDetails) => void): void;
+    export function getDefaultFontSize(callback: (options: FontSizeDetails) => void): void;
+    export function getDefaultFontSize(details: Object, callback: (options: FontSizeDetails) => void): void;
     /**
      * Gets the minimum font size.
      * @param details This parameter is currently unused.
@@ -4087,7 +4094,8 @@ declare namespace chrome.fontSettings {
      * Gets the minimum font size.
      * @param details This parameter is currently unused.
      */
-    export function getMinimumFontSize(details?: object, callback?: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(callback: (options: FontSizeDetails) => void): void;
+    export function getMinimumFontSize(details: object, callback: (options: FontSizeDetails) => void): void;
     /**
      * Sets the minimum font size.
      * @return The `setMinimumFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4096,7 +4104,7 @@ declare namespace chrome.fontSettings {
     /**
      * Sets the minimum font size.
      */
-    export function setMinimumFontSize(details: SetFontSizeDetails, callback?: Function): void;
+    export function setMinimumFontSize(details: SetFontSizeDetails, callback: Function): void;
     /**
      * Gets the default size for fixed width fonts.
      * @param details This parameter is currently unused.
@@ -4107,7 +4115,8 @@ declare namespace chrome.fontSettings {
      * Gets the default size for fixed width fonts.
      * @param details This parameter is currently unused.
      */
-    export function getDefaultFixedFontSize(details?: Object, callback?: (details: FontSizeDetails) => void): void;
+    export function getDefaultFixedFontSize(callback: (details: FontSizeDetails) => void): void;
+    export function getDefaultFixedFontSize(details: Object, callback: (details: FontSizeDetails) => void): void;
     /**
      * Clears the default font size set by this extension, if any.
      * @param details This parameter is currently unused.
@@ -4118,7 +4127,8 @@ declare namespace chrome.fontSettings {
      * Clears the default font size set by this extension, if any.
      * @param details This parameter is currently unused.
      */
-    export function clearDefaultFontSize(details?: Object, callback?: Function): void;
+    export function clearDefaultFontSize(callback: Function): void;
+    export function clearDefaultFontSize(details: Object, callback: Function): void;
     /**
      * Sets the default size for fixed width fonts.
      * @return The `setDefaultFixedFontSize` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4127,7 +4137,7 @@ declare namespace chrome.fontSettings {
     /**
      * Sets the default size for fixed width fonts.
      */
-    export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback?: Function): void;
+    export function setDefaultFixedFontSize(details: SetFontSizeDetails, callback: Function): void;
     /**
      * Clears the font set by this extension, if any.
      * @return The `clearFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4136,7 +4146,7 @@ declare namespace chrome.fontSettings {
     /**
      * Clears the font set by this extension, if any.
      */
-    export function clearFont(details: FontDetails, callback?: Function): void;
+    export function clearFont(details: FontDetails, callback: Function): void;
     /**
      * Sets the font for a given script and generic font family.
      * @return The `setFont` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4145,7 +4155,7 @@ declare namespace chrome.fontSettings {
     /**
      * Sets the font for a given script and generic font family.
      */
-    export function setFont(details: SetFontDetails, callback?: Function): void;
+    export function setFont(details: SetFontDetails, callback: Function): void;
     /**
      * Clears the minimum font size set by this extension, if any.
      * @param details This parameter is currently unused.
@@ -4156,7 +4166,8 @@ declare namespace chrome.fontSettings {
      * Clears the minimum font size set by this extension, if any.
      * @param details This parameter is currently unused.
      */
-    export function clearMinimumFontSize(details?: Object, callback?: Function): void;
+    export function clearMinimumFontSize(callback: Function): void;
+    export function clearMinimumFontSize(details: Object, callback: Function): void;
     /**
      * Gets a list of fonts on the system.
      * @return The `getFontList` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -4165,7 +4176,7 @@ declare namespace chrome.fontSettings {
     /**
      * Gets a list of fonts on the system.
      */
-    export function getFontList(callback?: (results: FontName[]) => void): void;
+    export function getFontList(callback: (results: FontName[]) => void): void;
     /**
      * Clears the default fixed font size set by this extension, if any.
      * @param details This parameter is currently unused.
@@ -4176,7 +4187,7 @@ declare namespace chrome.fontSettings {
      * Clears the default fixed font size set by this extension, if any.
      * @param details This parameter is currently unused.
      */
-    export function clearDefaultFixedFontSize(details: Object, callback?: Function): void;
+    export function clearDefaultFixedFontSize(details: Object, callback: Function): void;
 
     /** Fired when the default fixed font size setting changes. */
     export var onDefaultFixedFontSizeChanged: DefaultFixedFontSizeChangedEvent;
@@ -4351,7 +4362,7 @@ declare namespace chrome.history {
     /**
      * Searches the history for the last visit time of each page matching the query.
      */
-    export function search(query: HistoryQuery, callback?: (results: HistoryItem[]) => void): void;
+    export function search(query: HistoryQuery, callback: (results: HistoryItem[]) => void): void;
     /**
      * Adds a URL to the history at the current time with a transition type of "link".
      * @return The `addUrl` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4360,7 +4371,7 @@ declare namespace chrome.history {
     /**
      * Adds a URL to the history at the current time with a transition type of "link".
      */
-    export function addUrl(details: Url, callback?: () => void): void;
+    export function addUrl(details: Url, callback: () => void): void;
     /**
      * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
      * @return The `deleteRange` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4369,7 +4380,7 @@ declare namespace chrome.history {
     /**
      * Removes all items within the specified date range from the history. Pages will not be removed from the history unless all visits fall within the range.
      */
-    export function deleteRange(range: Range, callback?: () => void): void;
+    export function deleteRange(range: Range, callback: () => void): void;
     /**
      * Deletes all items from the history.
      * @return The `deleteAll` method provides its result via callback or returned as a `Promise` (MV3 only). It has no parameters.
@@ -4396,7 +4407,7 @@ declare namespace chrome.history {
     /**
      * Removes all occurrences of the given URL from the history.
      */
-    export function deleteUrl(details: Url, callback?: () => void): void;
+    export function deleteUrl(details: Url, callback: () => void): void;
 
     /** Fired when a URL is visited, providing the HistoryItem data for that URL. This event fires before the page has loaded. */
     export var onVisited: HistoryVisitedEvent;
@@ -5292,7 +5303,7 @@ declare namespace chrome.management {
      * @param id This should be the id from an item of management.ExtensionInfo.
      * @param enabled Whether this item should be enabled or disabled.
      */
-    export function setEnabled(id: string, enabled: boolean, callback?: () => void): void;
+    export function setEnabled(id: string, enabled: boolean, callback: () => void): void;
     /**
      * Returns a list of permission warnings for the given extension id.
      * @since Chrome 15.
@@ -5305,7 +5316,7 @@ declare namespace chrome.management {
      * @since Chrome 15.
      * @param id The ID of an already installed extension.
      */
-    export function getPermissionWarningsById(id: string, callback?: (permissionWarnings: string[]) => void): void;
+    export function getPermissionWarningsById(id: string, callback: (permissionWarnings: string[]) => void): void;
     /**
      * Returns information about the installed extension, app, or theme that has the given ID.
      * @since Chrome 9.
@@ -5318,7 +5329,7 @@ declare namespace chrome.management {
      * @since Chrome 9.
      * @param id The ID from an item of management.ExtensionInfo.
      */
-    export function get(id: string, callback?: (result: ExtensionInfo) => void): void;
+    export function get(id: string, callback: (result: ExtensionInfo) => void): void;
     /**
      * Returns a list of information about installed extensions and apps.
      * @return The `getAll` method provides its result via callback or returned as a `Promise` (MV3 only).
@@ -5327,7 +5338,7 @@ declare namespace chrome.management {
     /**
      * Returns a list of information about installed extensions and apps.
      */
-    export function getAll(callback?: (result: ExtensionInfo[]) => void): void;
+    export function getAll(callback: (result: ExtensionInfo[]) => void): void;
     /**
      * Returns a list of permission warnings for the given extension manifest string. Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 15.
@@ -5344,7 +5355,7 @@ declare namespace chrome.management {
      */
     export function getPermissionWarningsByManifest(
         manifestStr: string,
-        callback?: (permissionwarnings: string[]) => void,
+        callback: (permissionwarnings: string[]) => void,
     ): void;
     /**
      * Launches an application.
@@ -5356,7 +5367,7 @@ declare namespace chrome.management {
      * Launches an application.
      * @param id The extension id of the application.
      */
-    export function launchApp(id: string, callback?: () => void): void;
+    export function launchApp(id: string, callback: () => void): void;
     /**
      * Uninstalls a currently installed app or extension.
      * @since Chrome 21.
@@ -5369,7 +5380,8 @@ declare namespace chrome.management {
      * @since Chrome 21.
      * @param id This should be the id from an item of management.ExtensionInfo.
      */
-    export function uninstall(id: string, options?: UninstallOptions, callback?: () => void): void;
+    export function uninstall(id: string, callback: () => void): void;
+    export function uninstall(id: string, options: UninstallOptions, callback: () => void): void;
     /**
      * Uninstalls a currently installed app or extension.
      * @deprecated since Chrome 21. The options parameter was added to this function.
@@ -5382,7 +5394,7 @@ declare namespace chrome.management {
      * @deprecated since Chrome 21. The options parameter was added to this function.
      * @param id This should be the id from an item of management.ExtensionInfo.
      */
-    export function uninstall(id: string, callback?: () => void): void;
+    export function uninstall(id: string, callback: () => void): void;
     /**
      * Returns information about the calling extension, app, or theme. Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 39.
@@ -5393,7 +5405,7 @@ declare namespace chrome.management {
      * Returns information about the calling extension, app, or theme. Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 39.
      */
-    export function getSelf(callback?: (result: ExtensionInfo) => void): void;
+    export function getSelf(callback: (result: ExtensionInfo) => void): void;
     /**
      * Uninstalls the calling extension.
      * Note: This function can be used without requesting the 'management' permission in the manifest.
@@ -5406,7 +5418,8 @@ declare namespace chrome.management {
      * Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 26.
      */
-    export function uninstallSelf(options?: UninstallOptions, callback?: () => void): void;
+    export function uninstallSelf(callback: () => void): void;
+    export function uninstallSelf(options: UninstallOptions, callback: () => void): void;
     /**
      * Uninstalls the calling extension.
      * Note: This function can be used without requesting the 'management' permission in the manifest.
@@ -5419,7 +5432,7 @@ declare namespace chrome.management {
      * Note: This function can be used without requesting the 'management' permission in the manifest.
      * @since Chrome 26.
      */
-    export function uninstallSelf(callback?: () => void): void;
+    export function uninstallSelf(callback: () => void): void;
     /**
      * Display options to create shortcuts for an app. On Mac, only packaged app shortcuts can be created.
      * @since Chrome 37.
@@ -5430,7 +5443,7 @@ declare namespace chrome.management {
      * Display options to create shortcuts for an app. On Mac, only packaged app shortcuts can be created.
      * @since Chrome 37.
      */
-    export function createAppShortcut(id: string, callback?: () => void): void;
+    export function createAppShortcut(id: string, callback: () => void): void;
     /**
      * Set the launch type of an app.
      * @since Chrome 37.
@@ -5445,7 +5458,7 @@ declare namespace chrome.management {
      * @param id This should be the id from an app item of management.ExtensionInfo.
      * @param launchType The target launch type. Always check and make sure this launch type is in ExtensionInfo.availableLaunchTypes, because the available launch types vary on different platforms and configurations.
      */
-    export function setLaunchType(id: string, launchType: string, callback?: () => void): void;
+    export function setLaunchType(id: string, launchType: string, callback: () => void): void;
     /**
      * Generate an app for a URL. Returns the generated bookmark app.
      * @since Chrome 37.
@@ -5460,7 +5473,7 @@ declare namespace chrome.management {
      * @param url The URL of a web page. The scheme of the URL can only be "http" or "https".
      * @param title The title of the generated app.
      */
-    export function generateAppForLink(url: string, title: string, callback?: (result: ExtensionInfo) => void): void;
+    export function generateAppForLink(url: string, title: string, callback: (result: ExtensionInfo) => void): void;
 
     /** Fired when an app or extension has been disabled. */
     export var onDisabled: ManagementDisabledEvent;
@@ -7443,7 +7456,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection. The resulting array contains the result of execution for each frame where the injection succeeded.
      */
-    export function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>, callback?: (results: InjectionResult<Awaited<Result>>[]) => void): void;
+    export function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>, callback: (results: InjectionResult<Awaited<Result>>[]) => void): void;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
@@ -7460,7 +7473,7 @@ declare namespace chrome.scripting {
      * @param callback
      * Invoked upon completion of the injection.
      */
-    export function insertCSS(injection: CSSInjection, callback?: () => void): void;
+    export function insertCSS(injection: CSSInjection, callback: () => void): void;
 
     /**
      * Removes a CSS stylesheet that was previously inserted by this extension from a target context.
@@ -7483,7 +7496,7 @@ declare namespace chrome.scripting {
      * Invoked upon completion of the removal.
      * @since Chrome 90
      */
-    export function removeCSS(injection: CSSInjection, callback?: () => void): void;
+    export function removeCSS(injection: CSSInjection, callback: () => void): void;
 
     /**
      * Registers one or more content scripts.
@@ -7496,7 +7509,7 @@ declare namespace chrome.scripting {
      * @param scripts
      * @param callback
      */
-    export function registerContentScripts(scripts: RegisteredContentScript[], callback?: () => void): void;
+    export function registerContentScripts(scripts: RegisteredContentScript[], callback: () => void): void;
 
     /**
      * Unregister one or more content scripts.
@@ -7510,7 +7523,8 @@ declare namespace chrome.scripting {
      * @param filter
      * @param callback
      */
-    export function unregisterContentScripts(filter?: ContentScriptFilter, callback?: () => void): void;
+    export function unregisterContentScripts(callback: () => void): void;
+    export function unregisterContentScripts(filter: ContentScriptFilter, callback: () => void): void;
 
     /**
      * Returns all the content scripts registered with scripting.registerContentScripts()
@@ -7525,7 +7539,8 @@ declare namespace chrome.scripting {
      * @param filter
      * @param callback
      */
-    export function getRegisteredContentScripts(filter?: ContentScriptFilter, callback?: (scripts: RegisteredContentScript[]) => void): void;
+    export function getRegisteredContentScripts(callback: (scripts: RegisteredContentScript[]) => void): void;
+    export function getRegisteredContentScripts(filter: ContentScriptFilter, callback: (scripts: RegisteredContentScript[]) => void): void;
 }
 
 ////////////////////
@@ -7676,7 +7691,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        clear(callback?: () => void): void;
+        clear(callback: () => void): void;
         /**
          * Sets multiple items.
          * @param items An object which gives each key/value pair to update storage with. Any other key/value pairs in storage will not be affected.
@@ -7692,7 +7707,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        set(items: { [key: string]: any }, callback?: () => void): void;
+        set(items: { [key: string]: any }, callback: () => void): void;
         /**
          * Removes one or more items from storage.
          * @param keys A single key or a list of keys for items to remove.
@@ -7707,7 +7722,7 @@ declare namespace chrome.storage {
          * @param callback Optional.
          * Callback on success, or on failure (in which case runtime.lastError will be set).
          */
-        remove(keys: string | string[], callback?: () => void): void;
+        remove(keys: string | string[], callback: () => void): void;
         /**
          * Gets the entire contents of storage.
          * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
@@ -8450,7 +8465,7 @@ declare namespace chrome.system.display {
      * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in |info|.
      * @param [callback] Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
      */
-    export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback?: () => void): void;
+    export function setDisplayProperties(id: string, info: DisplayPropertiesInfo, callback: () => void): void;
 
     /**
      * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
@@ -8476,7 +8491,7 @@ declare namespace chrome.system.display {
      * @param layouts The layout information, required for all displays except the primary display.
      * @param callback Empty function called when the function finishes. To find out whether the function succeeded, runtime.lastError should be queried.
      */
-    export function setDisplayLayout(layouts: DisplayLayout[], callback?: () => void): void;
+    export function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
 
     /**
      * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
@@ -9295,7 +9310,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Parameter tab: Details about the created tab. Will contain the ID of the new tab.
      */
-    export function create(createProperties: CreateProperties, callback?: (tab: Tab) => void): void;
+    export function create(createProperties: CreateProperties, callback: (tab: Tab) => void): void;
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
      * @param tabId The tab to move.
@@ -9308,7 +9323,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Parameter tab: Details about the moved tab.
      */
-    export function move(tabId: number, moveProperties: MoveProperties, callback?: (tab: Tab) => void): void;
+    export function move(tabId: number, moveProperties: MoveProperties, callback: (tab: Tab) => void): void;
     /**
      * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
      * @param tabIds The tabs to move.
@@ -9321,7 +9336,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Parameter tabs: Details about the moved tabs.
      */
-    export function move(tabIds: number[], moveProperties: MoveProperties, callback?: (tabs: Tab[]) => void): void;
+    export function move(tabIds: number[], moveProperties: MoveProperties, callback: (tabs: Tab[]) => void): void;
     /**
      * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
      * @return The `update` method provides its result via callback or returned as a `Promise` (MV3 only). Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
@@ -9332,7 +9347,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
      */
-    export function update(updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
+    export function update(updateProperties: UpdateProperties, callback: (tab?: Tab) => void): void;
     /**
      * Modifies the properties of a tab. Properties that are not specified in updateProperties are not modified.
      * @param tabId Defaults to the selected tab of the current window.
@@ -9345,7 +9360,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Optional parameter tab: Details about the updated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
      */
-    export function update(tabId: number, updateProperties: UpdateProperties, callback?: (tab?: Tab) => void): void;
+    export function update(tabId: number, updateProperties: UpdateProperties, callback: (tab?: Tab) => void): void;
     /**
      * Closes a tab.
      * @param tabId The tab to close.
@@ -9356,7 +9371,7 @@ declare namespace chrome.tabs {
      * Closes a tab.
      * @param tabId The tab to close.
      */
-    export function remove(tabId: number, callback?: Function): void;
+    export function remove(tabId: number, callback: Function): void;
     /**
      * Closes several tabs.
      * @param tabIds The list of tabs to close.
@@ -9367,7 +9382,7 @@ declare namespace chrome.tabs {
      * Closes several tabs.
      * @param tabIds The list of tabs to close.
      */
-    export function remove(tabIds: number[], callback?: Function): void;
+    export function remove(tabIds: number[], callback: Function): void;
     /**
      * Captures the visible area of the currently active tab in the specified window. You must have <all_urls> permission to use this method.
      * @param callback
@@ -9450,7 +9465,7 @@ declare namespace chrome.tabs {
      * Reload the selected tab of the current window.
      * @since Chrome 16.
      */
-    export function reload(reloadProperties: ReloadProperties, callback?: () => void): void;
+    export function reload(reloadProperties: ReloadProperties, callback: () => void): void;
     /**
      * Reload the selected tab of the current window.
      * @since Chrome 16.
@@ -9461,7 +9476,7 @@ declare namespace chrome.tabs {
      * Reload the selected tab of the current window.
      * @since Chrome 16.
      */
-    export function reload(callback?: () => void): void;
+    export function reload(callback: () => void): void;
     /**
      * Duplicates a tab.
      * @since Chrome 23.
@@ -9476,7 +9491,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Optional parameter tab: Details about the duplicated tab. The tabs.Tab object doesn't contain url, title and favIconUrl if the "tabs" permission has not been requested.
      */
-    export function duplicate(tabId: number, callback?: (tab?: Tab) => void): void;
+    export function duplicate(tabId: number, callback: (tab?: Tab) => void): void;
     /**
      * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The runtime.onMessage event is fired in each content script running in the specified tab for the current extension.
      * @since Chrome 20.
@@ -9528,7 +9543,7 @@ declare namespace chrome.tabs {
      * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
      * @param callback Optional. Called when all the CSS has been inserted.
      */
-    export function insertCSS(details: InjectDetails, callback?: Function): void;
+    export function insertCSS(details: InjectDetails, callback: Function): void;
     /**
      * Injects CSS into a page. For details, see the programmatic injection section of the content scripts doc.
      * @param tabId Optional. The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
@@ -9542,7 +9557,7 @@ declare namespace chrome.tabs {
      * @param details Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.
      * @param callback Optional. Called when all the CSS has been inserted.
      */
-    export function insertCSS(tabId: number, details: InjectDetails, callback?: Function): void;
+    export function insertCSS(tabId: number, details: InjectDetails, callback: Function): void;
     /**
      * Highlights the given tabs.
      * @since Chrome 16.
@@ -9555,7 +9570,7 @@ declare namespace chrome.tabs {
      * @param callback Optional.
      * Parameter window: Contains details about the window whose tabs were highlighted.
      */
-    export function highlight(highlightInfo: HighlightInfo, callback?: (window: chrome.windows.Window) => void): void;
+    export function highlight(highlightInfo: HighlightInfo, callback: (window: chrome.windows.Window) => void): void;
     /**
      * Gets all tabs that have the specified properties, or all tabs if no properties are specified.
      * @since Chrome 16.
@@ -9604,7 +9619,7 @@ declare namespace chrome.tabs {
      * @param zoomFactor The new zoom factor. Use a value of 0 here to set the tab to its current default zoom factor. Values greater than zero specify a (possibly non-default) zoom factor for the tab.
      * @param callback Optional. Called after the zoom factor has been changed.
      */
-    export function setZoom(zoomFactor: number, callback?: () => void): void;
+    export function setZoom(zoomFactor: number, callback: () => void): void;
     /**
      * Zooms a specified tab.
      * @since Chrome 42.
@@ -9620,7 +9635,7 @@ declare namespace chrome.tabs {
      * @param zoomFactor The new zoom factor. Use a value of 0 here to set the tab to its current default zoom factor. Values greater than zero specify a (possibly non-default) zoom factor for the tab.
      * @param callback Optional. Called after the zoom factor has been changed.
      */
-    export function setZoom(tabId: number, zoomFactor: number, callback?: () => void): void;
+    export function setZoom(tabId: number, zoomFactor: number, callback: () => void): void;
     /**
      * Gets the current zoom factor of a specified tab.
      * @since Chrome 42.
@@ -9662,7 +9677,7 @@ declare namespace chrome.tabs {
      * @param zoomSettings Defines how zoom changes are handled and at what scope.
      * @param callback Optional. Called after the zoom settings have been changed.
      */
-    export function setZoomSettings(zoomSettings: ZoomSettings, callback?: () => void): void;
+    export function setZoomSettings(zoomSettings: ZoomSettings, callback: () => void): void;
     /**
      * Sets the zoom settings for a specified tab, which define how zoom changes are handled. These settings are reset to defaults upon navigating the tab.
      * @since Chrome 42.
@@ -9678,7 +9693,7 @@ declare namespace chrome.tabs {
      * @param zoomSettings Defines how zoom changes are handled and at what scope.
      * @param callback Optional. Called after the zoom settings have been changed.
      */
-    export function setZoomSettings(tabId: number, zoomSettings: ZoomSettings, callback?: () => void): void;
+    export function setZoomSettings(tabId: number, zoomSettings: ZoomSettings, callback: () => void): void;
     /**
      * Gets the current zoom settings of a specified tab.
      * @since Chrome 42.
@@ -9720,7 +9735,8 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to be discarded. If specified, the tab will be discarded unless it's active or already discarded. If omitted, the browser will discard the least important tab. This can fail if no discardable tabs exist.
      * @param callback Called after the operation is completed.
      */
-    export function discard(tabId?: number, callback?: (tab: Tab) => void): void;
+    export function discard(callback: (tab: Tab) => void): void;
+    export function discard(tabId: number, callback: (tab: Tab) => void): void;
     /**
      * Go foward to the next page, if one is available.
      * @since Chrome 72.
@@ -9732,7 +9748,7 @@ declare namespace chrome.tabs {
      * @since Chrome 72.
      * @param callback Optional. Called after the operation is completed.
      */
-    export function goForward(callback?: () => void): void;
+    export function goForward(callback: () => void): void;
     /**
      * Go foward to the next page, if one is available.
      * @since Chrome 72.
@@ -9746,7 +9762,7 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to navigate forward; defaults to the selected tab of the current window.
      * @param callback Optional. Called after the operation is completed.
      */
-    export function goForward(tabId: number, callback?: () => void): void;
+    export function goForward(tabId: number, callback: () => void): void;
     /**
      * Go back to the previous page, if one is available.
      * @since Chrome 72.
@@ -9758,7 +9774,7 @@ declare namespace chrome.tabs {
      * @since Chrome 72.
      * @param callback Optional. Called after the operation is completed.
      */
-    export function goBack(callback?: () => void): void;
+    export function goBack(callback: () => void): void;
     /**
      * Go back to the previous page, if one is available.
      * @since Chrome 72.
@@ -9772,7 +9788,7 @@ declare namespace chrome.tabs {
      * @param tabId Optional. The ID of the tab to navigate back; defaults to the selected tab of the current window.
      * @param callback Optional. Called after the operation is completed.
      */
-    export function goBack(tabId: number, callback?: () => void): void;
+    export function goBack(tabId: number, callback: () => void): void;
     /**
      * Adds one or more tabs to a specified group, or if no group is specified, adds the given tabs to a newly created group.
      * @since Chrome 88
@@ -9793,7 +9809,7 @@ declare namespace chrome.tabs {
      * @param options Configurations object
      * @param callback Optional.
      */
-    export function group(options: GroupOptions, callback?: (groupId: number) => void): void
+    export function group(options: GroupOptions, callback: (groupId: number) => void): void
     /**
      * Removes one or more tabs from their respective groups. If any groups become empty, they are deleted
      * @since Chrome 88
@@ -9807,7 +9823,7 @@ declare namespace chrome.tabs {
      * @param tabIds The tabs to ungroup.
      * @param callback Optional. Called after the operation is completed.
      */
-    export function ungroup(tabIds: number | number[], callback?: () => void): void
+    export function ungroup(tabIds: number | number[], callback: () => void): void
     /**
      * Fired when the highlighted or selected tabs in a window changes.
      * @since Chrome 18.
@@ -9948,7 +9964,7 @@ declare namespace chrome.tabGroups {
      * @param moveProperties Information on how to move the group.
      * @param callback Optional.
     */
-    export function move(groupId: number, moveProperties: MoveProperties, callback?: (group: TabGroup) => void): void;
+    export function move(groupId: number, moveProperties: MoveProperties, callback: (group: TabGroup) => void): void;
 
     /**
      * Gets all groups that have the specified properties, or all groups if no properties are specified.
@@ -9978,7 +9994,7 @@ declare namespace chrome.tabGroups {
      * @param updateProperties Information on how to update the group.
      * @param callback Optional.
      */
-    export function update(groupId: number, updateProperties: UpdateProperties, callback?: (group: TabGroup) => void): void;
+    export function update(groupId: number, updateProperties: UpdateProperties, callback: (group: TabGroup) => void): void;
 
     export interface TabGroupCreatedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
     export interface TabGroupMovedEvent extends chrome.events.Event<(group: TabGroup) => void> { }
@@ -11248,7 +11264,7 @@ declare namespace chrome.windows {
      * @param callback
      * Optional parameter window: Contains details about the created window.
      */
-    export function create(callback?: (window?: chrome.windows.Window) => void): void;
+    export function create(callback: (window?: chrome.windows.Window) => void): void;
     /**
      * Creates (opens) a new browser with any optional sizing, position or default URL provided.
      * @param CreateData
@@ -11261,7 +11277,7 @@ declare namespace chrome.windows {
      * @param callback
      * Optional parameter window: Contains details about the created window.
      */
-    export function create(createData: CreateData, callback?: (window?: chrome.windows.Window) => void): void;
+    export function create(createData: CreateData, callback: (window?: chrome.windows.Window) => void): void;
     /**
      * Gets all windows.
      */
@@ -11294,7 +11310,7 @@ declare namespace chrome.windows {
     export function update(
         windowId: number,
         updateInfo: UpdateInfo,
-        callback?: (window: chrome.windows.Window) => void,
+        callback: (window: chrome.windows.Window) => void,
     ): void;
     /**
      * Removes (closes) a window, and all the tabs inside it
@@ -11302,7 +11318,7 @@ declare namespace chrome.windows {
      */
     export function remove(windowId: number): Promise<void>;
     /** Removes (closes) a window, and all the tabs inside it. */
-    export function remove(windowId: number, callback?: Function): void;
+    export function remove(windowId: number, callback: Function): void;
     /**
      * Gets the window that was most recently focused — typically the window 'on top'.
      */

@@ -1281,6 +1281,7 @@ function testStorageForPromise() {
     chrome.storage.sync.setAccessLevel({ accessLevel: chrome.storage.AccessLevel.TRUSTED_AND_UNTRUSTED_CONTEXTS }).then(() => { });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage
 function testRuntimeSendMessage() {
     const options = { includeTlsChannelId: true };
 
