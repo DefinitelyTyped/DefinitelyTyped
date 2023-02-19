@@ -985,7 +985,7 @@ export namespace ESLint {
         overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
         plugins?: Record<string, Plugin> | undefined;
-        reportUnusedDisableDirectives?: Linter.RuleLevel | undefined;
+        reportUnusedDisableDirectives?: "off" | "warn" | "error" | undefined;
         resolvePluginsRelativeTo?: string | undefined;
         rulePaths?: string[] | undefined;
         useEslintrc?: boolean | undefined;
