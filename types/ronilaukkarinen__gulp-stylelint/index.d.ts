@@ -1,4 +1,4 @@
-// Type definitions for @ronilaukkarinen/gulp-stylelint 14.0
+// Type definitions for @ronilaukkarinen/gulp-stylelint 14.1
 // Project: https://github.com/ronilaukkarinen/gulp-stylelint
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
