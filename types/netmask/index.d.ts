@@ -1,6 +1,9 @@
+// Type definitions for netmask 2.0
+// Project: https://github.com/rs/node-netmask
+// Definitions by: JanST123 <https://github.com/JanST123>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'netmask' {
-  export class Netmask {
+declare class Netmask {
     /**
      * The base address of the network block as a string (eg: 216.240.32.0). Base does not give an indication of the size of the network block.
      */
@@ -52,13 +55,10 @@ declare module 'netmask' {
     toString: () => string;
 
     /**
-     * 
+     *
      * @param net A network - e.g 216.240.32.0/24
      * @param mask - optional netmask if not provided in `net`
      */
     constructor(net: string, mask?: string);
-  }
 }
-
-
-
+export = Netmask;

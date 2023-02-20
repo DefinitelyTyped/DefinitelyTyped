@@ -1,4 +1,4 @@
-import { Netmask } from 'netmask';
+import Netmask = require('netmask');
 
 const block = new Netmask('10.0.0.0/12');
 console.log('base', block.base);
