@@ -1,6 +1,8 @@
 // Type definitions for non-npm package grideyes 0.1
 // Project: https://github.com/StormGeo/getypes
-// Definitions by: Ryan J. Dillon <https://github.com/StormGeo>
+// Definitions by: StormGeo <https://github.com/StormGeo>
+//                 Ryan J. Dillon <https://github.com/ryanjdillon>
+//                 Matthijs Wolzak <https://github.com/mrimrme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
