@@ -29,6 +29,8 @@ export function instrumentHTTP(options: Options): void;
  * It lets users include a tracing context in their HTTP requests
  * so that tracing backends (such as Grafana Tempo) can incorporate
  * their results.
+ *
+ * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/
  */
 export class Client {
     protected __brand: never;
@@ -44,8 +46,6 @@ export class Client {
      * Performs a DELETE request instrumented with trace context
      * headers.
      *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/del/
-     *
      * @param url - Request URL.
      * @param body - Discouraged. Request body. Object form encoded.
      * @param params - Request parameters.
@@ -60,8 +60,6 @@ export class Client {
     /**
      * Performs a HEAD request instrumented with trace context headers.
      *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/head/
-     *
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
@@ -74,8 +72,6 @@ export class Client {
     /**
      * Performs a GET request instrumented with trace context headers.
      *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/get/
-     *
      * @param url - Request URL.
      * @param params - Request parameters.
      * @returns Resulting response.
@@ -87,8 +83,6 @@ export class Client {
 
     /**
      * Performs an OPTIONS request instrumented with trace context headers.
-     *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/options/
      *
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -104,8 +98,6 @@ export class Client {
     /**
      * Performs a PATCH request instrumented with trace context headers.
      *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/patch/
-     *
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -119,8 +111,6 @@ export class Client {
 
     /**
      * Performs a POST request instrumented with trace context headers.
-     *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/post/
      *
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -136,8 +126,6 @@ export class Client {
     /**
      * Performs a PUT request instrumented with trace context headers.
      *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/put/
-     *
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
      * @param params - Request parameters.
@@ -151,8 +139,6 @@ export class Client {
 
     /**
      * Performs a HTTP request instrumented with trace context headers.
-     *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/request/
      *
      * @param method - HTTP method.
      * @param url - Request URL.
@@ -173,8 +159,6 @@ export class Client {
      * is available. The performed request is instrumented with trace context
      * headers.
      *
-     * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/asyncrequest/
-     *
      * @param method - HTTP method.
      * @param url - Request URL.
      * @param body - Request body. Object form encoded.
@@ -191,6 +175,8 @@ export class Client {
 
 /**
  * The Options object allows configuring the tracing instrumentation behavior.
+ *
+ * https://k6.io/docs/javascript-api/k6-experimental/tracing/options/
  */
 export interface Options {
     /**
