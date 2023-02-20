@@ -58,9 +58,14 @@ declare namespace session {
         manuallyCommit(): Promise<void>;
 
         /**
+         * regenerate this session
+         */
+        regenerate(callback?: () => void): void;
+
+        /**
          * save this session no matter whether it is populated
          */
-        save(): void;
+        save(callback?: () => void): void;
 
         /**
          * allow to put any value on session object
