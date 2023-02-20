@@ -1060,6 +1060,13 @@ function rand() {
 })();
 
 //////////////////////////////////////////////////////////////////////
+// PlotlyIcons
+(() => {
+    const icon = Plotly.Icons.home;
+    const icon2 = Plotly.Icons.undo;
+});
+
+//////////////////////////////////////////////////////////////////////
 // Mapbox plot
 (() => {
     const data: Array<Partial<PlotData>> = [
