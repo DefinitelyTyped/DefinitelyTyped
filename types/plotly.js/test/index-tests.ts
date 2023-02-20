@@ -114,6 +114,7 @@ const graphDiv = '#test';
         width: [2],
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const trace3 = {
         xaxis: 'x2',
@@ -123,6 +124,7 @@ const graphDiv = '#test';
         type: 'histogram',
         xhoverformat: ',.0f',
         yhoverformat: ',.',
+        zhoverformat: ',.',
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
@@ -1063,3 +1065,29 @@ function rand() {
     const icon = Plotly.Icons.home;
     const icon2 = Plotly.Icons.undo;
 });
+
+//////////////////////////////////////////////////////////////////////
+// Mapbox plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "scattermapbox",
+            text: ['A', 'B', 'C'],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: "fuchsia", size: 4 }
+        }
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "zoom",
+        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        margin: { r: 0, t: 0, b: 0, l: 0 }
+    };
+
+    const config: Partial<Config> = {
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();

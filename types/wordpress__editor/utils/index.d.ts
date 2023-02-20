@@ -14,5 +14,7 @@ export { uploadMedia as mediaUpload } from '@wordpress/media-utils';
  * @param slug - Title or slug to be processed.
  *
  * @returns Processed string
+ *
+ * @deprecated since 12.3.0.
  */
 export function cleanForSlug(slug: string): string;

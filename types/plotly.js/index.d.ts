@@ -927,6 +927,7 @@ export type ModeBarDefaultButtons =
     | 'pan3d'
     | 'orbitRotation'
     | 'tableRotation'
+    | 'handleDrag3d'
     | 'resetCameraDefault3d'
     | 'resetCameraLastSave3d'
     | 'hoverClosest3d'
@@ -940,6 +941,9 @@ export type ModeBarDefaultButtons =
     | 'toImage'
     | 'resetViews'
     | 'toggleSpikelines'
+    | 'zoomInMapbox'
+    | 'zoomOutMapbox'
+    | 'resetViewMapbox'
     | 'togglespikelines'
     | 'togglehover'
     | 'hovercompare'
@@ -1273,6 +1277,7 @@ export interface PlotData {
     hovertext: string | string[];
     xhoverformat: string;
     yhoverformat: string;
+    zhoverformat: string;
     texttemplate: string | string[];
     textinfo:
         | 'label'

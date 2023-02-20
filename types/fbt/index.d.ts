@@ -218,7 +218,7 @@ interface FbtHookRegistrations {
 export function init(options: { hooks?: FbtHookRegistrations; translations: TranslationDict }): void;
 
 interface FbtOutput {
-    fbt: string[];
+    fbt: string;
     params: string;
 }
 
