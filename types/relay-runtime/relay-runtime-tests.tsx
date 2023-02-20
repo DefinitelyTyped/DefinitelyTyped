@@ -25,6 +25,7 @@ import {
     readInlineData,
     requestSubscription,
     fetchQuery,
+    ConnectionInterface,
 } from 'relay-runtime';
 
 import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
@@ -685,4 +686,32 @@ requestSubscription(environment, {
     onError: (_error) => { return; },
     onNext: (_response) => { return; },
     updater: (_store, _data) => { return; },
+});
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// ConnectionInterface
+// ~~~~~~~~~~~~~~~~~~~~~
+
+const {
+    CURSOR,
+    EDGES,
+    END_CURSOR,
+    HAS_NEXT_PAGE,
+    HAS_PREV_PAGE,
+    NODE,
+    PAGE_INFO,
+    PAGE_INFO_TYPE,
+    START_CURSOR
+} = ConnectionInterface.get();
+
+ConnectionInterface.inject({
+    CURSOR: 'cursor',
+    EDGES: 'edges',
+    END_CURSOR: 'endCursor',
+    HAS_NEXT_PAGE: 'hasNextPage',
+    HAS_PREV_PAGE: 'hasPrevPage',
+    NODE: 'node',
+    PAGE_INFO: 'pageInfo',
+    PAGE_INFO_TYPE: 'PageInfo',
+    START_CURSOR: 'startCursor',
 });
