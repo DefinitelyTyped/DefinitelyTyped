@@ -229,7 +229,9 @@ declare namespace EW {
          * The cpcode used for reporting.
          */
         readonly cpCode: number;
+    }
 
+    interface HasBody {
         /**
          * The body associated with the incoming request.
          */
@@ -414,7 +416,7 @@ declare namespace EW {
     }
 
     // responseProvider
-    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables {
+    interface ResponseProviderRequest extends Request, ReadsHeaders, ReadAllHeader, ReadsBody, ReadsVariables, HasBody {
     }
 
     interface Destination {

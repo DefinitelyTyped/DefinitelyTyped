@@ -730,8 +730,6 @@ declare namespace TelegramBot {
         one_time_keyboard?: boolean | undefined;
         input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
-        is_persistent?: boolean | undefined;
-        input_field_placeholder?: string | undefined;
     }
 
     interface KeyboardButton {
@@ -807,7 +805,6 @@ declare namespace TelegramBot {
         force_reply: boolean;
         input_field_placeholder?: string | undefined;
         selective?: boolean | undefined;
-        input_field_placeholder?: string | undefined;
     }
 
     interface ChatPhoto {
