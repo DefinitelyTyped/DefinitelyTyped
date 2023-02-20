@@ -1058,3 +1058,29 @@ function rand() {
 
     newPlot('myDiv', data, layout);
 })();
+
+//////////////////////////////////////////////////////////////////////
+// Mapbox plot
+(() => {
+    const data: Array<Partial<PlotData>> = [
+        {
+            type: "scattermapbox",
+            text: ['A', 'B', 'C'],
+            lon: [0, 1, 2],
+            lat: [0, 1, 2],
+            marker: { color: "fuchsia", size: 4 }
+        }
+    ];
+
+    const layout: Partial<Layout> = {
+        dragmode: "zoom",
+        mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
+        margin: { r: 0, t: 0, b: 0, l: 0 }
+    };
+
+    const config: Partial<Config> = {
+        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
+    };
+
+    Plotly.newPlot("myDiv", data, layout);
+})();
