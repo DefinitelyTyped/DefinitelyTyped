@@ -8,6 +8,7 @@
 //                 Dominic Marcuse <https://github.com/dmarcuse>
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
+//                 Mofeng <https://github.com/DiamondMofeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.6
 
