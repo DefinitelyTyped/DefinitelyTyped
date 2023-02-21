@@ -38,7 +38,6 @@ const intervalId = setInterval(function(){}, 5);
 
 // clearInterval
 
-// @ts-expect-no-error
 clearInterval(intervalId)
 
 // @ts-expect-no-error
