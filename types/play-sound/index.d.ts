@@ -7,7 +7,7 @@
 
 import { ChildProcess, ExecException } from "child_process";
 
-type Players = "mplayer" | "afplay" | "mpg123" | "mpg321" | "play" | "omxplayer" | "aplay" | "cmdmp3";
+type Players = "mplayer" | "afplay" | "mpg123" | "mpg321" | "play" | "omxplayer" | "aplay" | "cmdmp3" | "cvlc" | "powershell";
 
 interface PlayOpts {
     players: Players[];
