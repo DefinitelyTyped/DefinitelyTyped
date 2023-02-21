@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.111.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -1936,8 +1936,7 @@ declare module "sap/ui/integration/Host" {
      * @returns Value of property `resolveDestination`
      */
     getResolveDestination():
-      | ((p1: string, p2: Card) => string)
-      | Promise<string>
+      | ((p1: string, p2: Card) => string | Promise<string>)
       | undefined;
     /**
      * @EXPERIMENTAL (since 1.75) - Disclaimer: this property is in a beta state - incompatible API changes
@@ -1974,9 +1973,7 @@ declare module "sap/ui/integration/Host" {
       /**
        * New value for property `resolveDestination`
        */
-      fnResolveDestination?:
-        | ((p1: string, p2: Card) => string)
-        | Promise<string>
+      fnResolveDestination?: (p1: string, p2: Card) => string | Promise<string>
     ): this;
   }
 
@@ -3818,8 +3815,6 @@ declare namespace sap {
     "sap/ui/integration/designtime/editor/CardPreview": undefined;
 
     "sap/ui/integration/editor/Editor": undefined;
-
-    "sap/ui/integration/editor/EditorResourceBundles": undefined;
 
     "sap/ui/integration/editor/Extension": undefined;
 

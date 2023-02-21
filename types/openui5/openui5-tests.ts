@@ -27,6 +27,7 @@ import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
 import PlanningCalendar from "sap/m/PlanningCalendar";
+import WebSocket from "sap/ui/core/ws/WebSocket";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -183,3 +184,6 @@ const weekConfigurationValues = CalendarUtils.getWeekConfigurationValues();
 
 const pc = new PlanningCalendar();
 pc.getSecondaryCalendarType();
+
+const ws = new WebSocket("someUrl");
+ws.close("end");
