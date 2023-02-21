@@ -15,6 +15,8 @@ export interface Byterange {
 
 export interface Options {
     strictMode: boolean;
+    allowClosedCaptionsNone: boolean;
+    silent: boolean;
 }
 
 export class Data {
