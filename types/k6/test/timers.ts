@@ -39,7 +39,6 @@ const intervalId = setInterval(() => {}, 5);
 
 clearInterval(intervalId);
 
-// @ts-expect-no-error
 clearInterval(5);
 
 // @ts-expect-error
