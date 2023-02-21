@@ -30,6 +30,38 @@ import { PieData } from './lib/traces/pie';
 export as namespace Plotly;
 export { BoxPlotData, ViolinData, OhlcData, CandlestickData, PieData };
 
+export type DefaultIcons =
+    | 'undo'
+    | 'home'
+    | 'camera-retro'
+    | 'zoombox'
+    | 'pan'
+    | 'zoom_plus'
+    | 'zoom_minus'
+    | 'autoscale'
+    | 'tooltip_basic'
+    | 'tooltip_compare'
+    | 'plotlylogo'
+    | 'z-axis'
+    | '3d_rotate'
+    | 'camera'
+    | 'movie'
+    | 'question'
+    | 'disk'
+    | 'drawopenpath'
+    | 'drawclosedpath'
+    | 'lasso'
+    | 'selectbox'
+    | 'drawline'
+    | 'drawrect'
+    | 'drawcircle'
+    | 'eraseshape'
+    | 'spikeline'
+    | 'pencil'
+    | 'newplotlylogo';
+
+export const Icons: { [K in DefaultIcons]: Icon };
+
 export interface StaticPlots {
     resize(root: Root): void;
 }
@@ -895,6 +927,7 @@ export type ModeBarDefaultButtons =
     | 'pan3d'
     | 'orbitRotation'
     | 'tableRotation'
+    | 'handleDrag3d'
     | 'resetCameraDefault3d'
     | 'resetCameraLastSave3d'
     | 'hoverClosest3d'
@@ -908,6 +941,9 @@ export type ModeBarDefaultButtons =
     | 'toImage'
     | 'resetViews'
     | 'toggleSpikelines'
+    | 'zoomInMapbox'
+    | 'zoomOutMapbox'
+    | 'resetViewMapbox'
     | 'togglespikelines'
     | 'togglehover'
     | 'hovercompare'

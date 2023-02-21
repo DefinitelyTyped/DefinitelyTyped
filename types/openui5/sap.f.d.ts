@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.111.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -3294,8 +3294,7 @@ declare module "sap/f/dnd/GridDropInfo" {
           rows: int;
 
           columns: int;
-        })
-      | null
+        } | null)
       | undefined;
     /**
      * Sets a new value for property {@link #setDropIndicatorSize dropIndicatorSize}.
@@ -3319,15 +3318,13 @@ declare module "sap/f/dnd/GridDropInfo" {
       /**
        * New value for property `dropIndicatorSize`
        */
-      fnDropIndicatorSize?:
-        | ((
-            p1: Control
-          ) => {
-            rows: int;
+      fnDropIndicatorSize?: (
+        p1: Control
+      ) => {
+        rows: int;
 
-            columns: int;
-          })
-        | null
+        columns: int;
+      } | null
     ): this;
   }
 

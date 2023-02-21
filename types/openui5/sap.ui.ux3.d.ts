@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.111.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -196,6 +196,25 @@ declare module "sap/ui/ux3/library" {
      */
     Fixed = "Fixed",
   }
+}
+
+declare module "sap/ui/ux3/ShellPersonalization" {
+  /**
+   * @deprecated (since 1.36) - This class was never released for productive use and will never be.
+   * @EXPERIMENTAL (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
+   * experimental work and might change or disappear in future versions.
+   *
+   * Experimental implementation of visual Ux3 Shell personalization / branding.
+   *
+   * DO NOT USE PRODUCTIVELY!!!
+   *
+   * Being completely non-generic as of now, this is supposed to facilitate discussions with Ux about the
+   * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
+   * considering the number of configurable properties etc.
+   */
+  const ShellPersonalization: undefined;
+
+  export default ShellPersonalization;
 }
 
 declare module "sap/ui/ux3/ActionBar" {
@@ -18057,31 +18076,6 @@ declare module "sap/ui/ux3/ToolPopup" {
 }
 
 declare namespace sap {
-  namespace ui {
-    /**
-     * @SINCE 0.13
-     * @deprecated (since 1.38)
-     *
-     * Controls that implement the SAP User Experience (UX) Guidelines 3.0
-     */
-    namespace ux3 {
-      /**
-       * @deprecated (since 1.36) - This class was never released for productive use and will never be.
-       * @EXPERIMENTAL (since 1.0) - The Shell-features Personalization, Color Picker and “Inspect”-Tool are only
-       * experimental work and might change or disappear in future versions.
-       *
-       * Experimental implementation of visual Ux3 Shell personalization / branding.
-       *
-       * DO NOT USE PRODUCTIVELY!!!
-       *
-       * Being completely non-generic as of now, this is supposed to facilitate discussions with Ux about the
-       * personalization capabilities. Once that concept is more final, we can go for a cleaner implementation,
-       * considering the number of configurable properties etc.
-       */
-      export const ShellPersonalization: undefined;
-    }
-  }
-
   interface IUI5DefineDependencyNames {
     "sap/ui/ux3/ActionBar": undefined;
 
