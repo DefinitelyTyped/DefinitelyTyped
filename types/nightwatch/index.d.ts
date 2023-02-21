@@ -1099,8 +1099,8 @@ export interface NightwatchCommonAssertions {
      * ```
      */
     cssProperty(
-        selector: Definition, cssProperty: string, expected: string | number, msg?: string
-    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string | number>>;
+        selector: Definition, cssProperty: string, expected: string, msg?: string
+    ): Awaitable<NightwatchAPI, NightwatchAssertionsResult<string>>;
 
     /**
      * Checks if the specified DOM property of a given element has the expected value.
@@ -3239,7 +3239,7 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      *  this.demoTestAsync = async function () {
      *    const result = await browser.windowHandles();
-     *    const handle = result.value[0];
+     *    const handle = result[0];
      *    browser.switchWindow(handle);
      *  };
      *
@@ -3267,13 +3267,13 @@ export interface ClientCommands extends ChromiumClientCommands {
      *
      *  this.demoTestAsync = async function () {
      *    const result = await browser.windowHandles();
-     *    const handle = result.value[0];
+     *    const handle = result[0];
      *    browser.switchToWindow(handle);
      *  };
      *
      * @see https://nightwatchjs.org/api/switchToWindow.html
      */
-     switchToWindow(
+    switchToWindow(
         handleOrName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
     ): Awaitable<this, null>;
@@ -5563,6 +5563,11 @@ export interface WebDriverProtocol
         WebDriverProtocolScreenCapture,
         WebDriverProtocolMobileRelated {}
 
+export interface NightwatchServerStatusResult {
+    build: { version: string; revision: string; time: string };
+    status: { arch: string; name: string; version: string };
+}
+
 export interface WebDriverProtocolSessions {
     /**
      * Get info about, delete or create a new session. Defaults to the current session.
@@ -5583,10 +5588,17 @@ export interface WebDriverProtocolSessions {
      * }
      */
     session(
-        action?: string,
-        sessionId?: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Record<string, any>>) => void,
-    ): this;
+    ): Awaitable<this, Record<string, any>>;
+    session(
+        actionOrSessionId: "get" | "post" | "delete" | "GET" | "POST" | "DELETE" | string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Record<string, any>>) => void,
+    ): Awaitable<this, Record<string, any>>;
+    session(
+        action: "get" | "post" | "delete" | "GET" | "POST" | "DELETE",
+        sessionId: string,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Record<string, any>>) => void,
+    ): Awaitable<this, Record<string, any>>;
 
     /**
      * Returns a list of the currently active sessions.
@@ -5596,11 +5608,13 @@ export interface WebDriverProtocolSessions {
      *    browser.sessions(function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/sessions.html
      */
     sessions(
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<Record<string, any>>>) => void,
-    ): this;
+    ): Awaitable<this, Array<Record<string, any>>>;
 
     /**
      * Configure the amount of time that a particular type of operation can execute for before they are aborted and a |Timeout| error is returned to the client.
@@ -5610,14 +5624,21 @@ export interface WebDriverProtocolSessions {
      *    browser.timeouts('script', 10000, function(result) {
      *      console.log(result);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/timeouts.html
      */
     timeouts(
-        typeOfOperation: string,
+        typeOfOperation: 'script' | 'implicit' | 'pageLoad',
         ms: number,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
-    timeouts(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
+    timeouts(
+        callback?: (
+            this: NightwatchAPI,
+            result: NightwatchCallbackResult<{script: number, implicit: number, pageLoad: number}>
+        ) => void
+    ): Awaitable<this, {script: number, implicit: number, pageLoad: number}>;
 
     /**
      * Set the amount of time, in milliseconds, that asynchronous scripts executed by `.executeAsync` are permitted to run before they are aborted and a |Timeout| error is returned to the client.
@@ -5627,12 +5648,14 @@ export interface WebDriverProtocolSessions {
      *    browser.timeoutsAsyncScript(10000, function(result) {
      *      console.log(result);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/timeoutsAsyncScript.html
      */
     timeoutsAsyncScript(
         ms: number,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Set the amount of time the driver should wait when searching for elements. If this command is never sent, the driver will default to an implicit wait of 0ms.
@@ -5642,25 +5665,26 @@ export interface WebDriverProtocolSessions {
      *    browser.timeoutsImplicitWait(10000, function(result) {
      *      console.log(result);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/timeoutsImplicitWait.html
      */
     timeoutsImplicitWait(
         ms: number,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Query the server's current status.
+     *
+     * @see https://nightwatchjs.org/api/status.html
      */
     status(
         callback?: (
             this: NightwatchAPI,
-            result: NightwatchCallbackResult<{
-                build: { version: string; revision: string; time: string };
-                status: { arch: string; name: string; version: string };
-            }>,
+            result: NightwatchCallbackResult<NightwatchServerStatusResult>,
         ) => void,
-    ): this;
+    ): Awaitable<this, NightwatchServerStatusResult>;
 
     /**
      * Gets the text of the log type specified. To find out the available log types, use `.getLogTypes()`.
@@ -5672,9 +5696,13 @@ export interface WebDriverProtocolSessions {
      *    browser.sessionLog('client', function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/sessionLog.html
      */
-    sessionLog(typeString: string, callback?: (this: NightwatchAPI, log: NightwatchLogEntry[]) => void): this;
+    sessionLog(
+        typeString: string, callback?: (this: NightwatchAPI, log: NightwatchLogEntry[]) => void
+    ): Awaitable<this, NightwatchLogEntry[]>;
 
     /**
      * Gets an array of strings for which log types are available. This methods returns the entire WebDriver response, if you are only interested in the logs array, use `.getLogTypes()` instead.
@@ -5684,14 +5712,16 @@ export interface WebDriverProtocolSessions {
      *    browser.sessionLogTypes(function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/sessionLogTypes.html
      */
     sessionLogTypes(
         callback?: (
             this: NightwatchAPI,
             result: NightwatchCallbackResult<Array<'client' | 'driver' | 'browser' | 'server'>>,
         ) => void,
-    ): this;
+    ): Awaitable<this, Array<'client' | 'driver' | 'browser' | 'server'>>;
 
     /**
      * Command to set Chrome network emulation settings.
@@ -5705,13 +5735,18 @@ export interface WebDriverProtocolSessions {
      *      upload_throughput: 150 * 1024
      *    });
      *  };
+     *
+     * @see https://nightwatchjs.org/api/setNetworkConditions.html
      */
     setNetworkConditions(
         spec: {
-            [key: string]: any;
+            offline: boolean;
+            latency: number;
+            download_throughput: number;
+            upload_throughput: number;
         },
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
-    ): this;
+    ): Awaitable<this, null>;
 }
 
 export interface WebDriverProtocolNavigation {
@@ -5736,24 +5771,32 @@ export interface WebDriverProtocolNavigation {
      *     });
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/url.html
      */
-    url(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
-    url(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    url(url?: string, callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
+    url(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
 
     /**
      * Navigate backwards in the browser history, if possible.
+     *
+     * @see https://nightwatchjs.org/api/back.html
      */
-    back(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    back(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Navigate forwards in the browser history, if possible.
+     *
+     * @see https://nightwatchjs.org/api/forward.html
      */
-    forward(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    forward(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Refresh the current page.
+     *
+     * @see https://nightwatchjs.org/api/refresh.html
      */
-    refresh(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    refresh(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 
     /**
      * Get the current page title.
@@ -5763,20 +5806,27 @@ export interface WebDriverProtocolNavigation {
      *    browser.title(function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/title.html
      */
-    title(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): this;
+    title(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
 }
 
 export interface WebDriverProtocolCommandContexts {
     /**
-     * Change focus to another window or close the current window. Shouldn't normally be used directly, instead `.switchWindow()` and `.closeWindow()` should be used.
+     * Change focus to another window or close the current window.
+     * Shouldn't normally be used directly, instead `.switchWindow()` and `.closeWindow()` should be used.
+     *
+     * @see https://nightwatchjs.org/api/window.html
+     *
+     * @deprecated Use `.switchWindow()` and `.closeWindow()` instead.
      */
     window(
-        method: string,
+        method: "post" | "delete" | "POST" | "DELETE",
         handleOrName?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Retrieve the current window handle.
@@ -5786,7 +5836,9 @@ export interface WebDriverProtocolCommandContexts {
      *    browser.windowHandle(function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/windowHandle.html
      */
     windowHandle(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void): Awaitable<this, string>;
 
@@ -5799,7 +5851,9 @@ export interface WebDriverProtocolCommandContexts {
      *      // An array of window handles.
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/windowHandles.html
      */
     windowHandles(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string[]>) => void): Awaitable<this, string[]>;
 
@@ -5811,12 +5865,14 @@ export interface WebDriverProtocolCommandContexts {
      *    browser.windowMaximize('current', function(result) {
      *      console.log(result);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/windowMaximize.html
      */
     windowMaximize(
         handleOrName?: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Change or get the position of the specified window. If the second argument is a function it will be used as a callback and
@@ -5836,18 +5892,20 @@ export interface WebDriverProtocolCommandContexts {
      *    browser.windowPosition('current', function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/windowPosition.html
      */
     windowPosition(
         windowHandle: string,
         offsetX: number,
         offsetY: number,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
     windowPosition(
         windowHandle: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<NightwatchPosition>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowPosition>) => void,
+    ): Awaitable<this, WindowPosition>;
 
     /**
      * Change or get the size of the specified window. If the second argument is a function it will be used as a callback and the call will perform a get request to retrieve the existing window size.
@@ -5865,21 +5923,22 @@ export interface WebDriverProtocolCommandContexts {
      *    browser.windowSize('current', 300, 300, function(result) {
      *      console.log(result.value);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/windowSize.html
      */
     windowSize(
         windowHandle: string,
         width: number,
         height: number,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
     windowSize(
         windowHandle: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ width: number; height: number }>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<WindowSizeAndPosition>) => void,
+    ): Awaitable<this, WindowSizeAndPosition>;
 
     /**
-     *
      * Change or get the [window rect](https://w3c.github.io/webdriver/#dfn-window-rect).
      * This is defined as a dictionary of the `screenX`, `screenY`, `outerWidth` and `outerHeight` attributes of the window.
      *
@@ -5912,11 +5971,13 @@ export interface WebDriverProtocolCommandContexts {
      *      console.log('result value', resultValue);
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/windowRect.html
      */
     windowRect(
         options: { width?: number; height?: number; x?: number; y?: number },
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Change focus to another frame on the page. If the frame id is missing or null, the server should switch to the page's default content.
@@ -5926,12 +5987,14 @@ export interface WebDriverProtocolCommandContexts {
      *    browser.frame('<ID>', function(result) {
      *      console.log(result);
      *    });
-     * }
+     *  }
+     *
+     * @see https://nightwatchjs.org/api/frame.html
      */
     frame(
         frameId?: WebElement | string | number | null,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      * Change focus to the parent context. If the current context is the top level browsing context, the context remains unchanged.
@@ -5941,11 +6004,13 @@ export interface WebDriverProtocolCommandContexts {
      *    browser.frameParent(function(result) {
      *      console.log(result);
      *    });
-     * }
+     *  }
      *
      * @since v0.4.8
+     *
+     * @see https://nightwatchjs.org/api/frameParent.html
      */
-    frameParent(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void): this;
+    frameParent(callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void): Awaitable<this, null>;
 }
 
 export interface WebDriverProtocolElements {
@@ -5980,6 +6045,8 @@ export interface WebDriverProtocolElements {
      *     });
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/element.html
      */
     element(
         using: LocateStrategy,
@@ -6024,6 +6091,8 @@ export interface WebDriverProtocolElements {
      *      browser.end();
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/elements.html
      */
     elements(
         using: LocateStrategy,
@@ -6040,23 +6109,29 @@ export interface WebDriverProtocolElements {
      * @example
      * module.exports = {
      *  'demo Test' : function(browser) {
-     *     browser.elementIdElement('<WebElementId>', 'css selector', '.new-element', function(result) {
-     *       console.log(result.value)
+     *     browser.findElement('.some-element', (result) => {
+     *       this.elementIdElement(result.value.getId(), 'css selector', '.new-element', function(result) {
+     *         console.log(result.value);
+     *       });
      *     });
+     *     
      *   },
      *
      *   'es6 async demo Test': async function(browser) {
-     *     const result = await browser.elementIdElement('<WebElementId>', 'css selector', '.new-element');
-     *     console.log(result.value);
+     *     const elementObject = await browser.findElement('.some-element');
+     *     const result = await browser.elementIdElement(elementId.getId(), 'css selector', '.new-element');
+     *     console.log(result);
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/elementIdElement.html
      */
     elementIdElement(
         id: string,
         using: LocateStrategy,
         value: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string } | []>) => void,
+    ): Awaitable<this, { [ELEMENT_KEY]: string } | []>;
 
     /**
      * Search for multiple elements on the page, starting from the identified element. The located element will be returned as a web element JSON objects.
@@ -6064,23 +6139,28 @@ export interface WebDriverProtocolElements {
      * @example
      * module.exports = {
      *  'demo Test' : function(browser) {
-     *     browser.elementIdElements('<WebElementId>', 'css selector', 'ul li', function(result) {
-     *       console.log(result.value)
+     *     browser.findElement('#main', (result) => {
+     *       browser.elementIdElements(result.value.getId(), 'css selector', 'ul li', function(result) {
+     *         console.log(result.value)
+     *       });
      *     });
      *   },
      *
      *   'es6 async demo Test': async function(browser) {
-     *     const result = await browser.elementIdElements('<WebElementId>', 'css selector', 'ul li');
-     *     console.log(result.value);
+     *     const elementObject = await browser.findElement('#main');
+     *     const result = await browser.elementIdElements(elementObject.getId(), 'css selector', 'ul li');
+     *     console.log(result);
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/elementIdElements.html
      */
     elementIdElements(
         id: string,
         using: LocateStrategy,
         value: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<Array<{ [ELEMENT_KEY]: string }>>) => void,
-    ): this;
+    ): Awaitable<this, Array<{ [ELEMENT_KEY]: string }>>;
 
     /**
      * Move to the element and performs a double-click in the middle of the given element if
@@ -6089,8 +6169,8 @@ export interface WebDriverProtocolElements {
      */
     elementIdDoubleClick(
         webElementId: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<void>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<null>) => void,
+    ): Awaitable<this, null>;
 
     /**
      *
@@ -6100,8 +6180,8 @@ export interface WebDriverProtocolElements {
     elementIdProperty(
         webElementId: string,
         DOMPropertyName: string,
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<any>) => void,
+    ): Awaitable<this, any>;
 
     /**
      * Test if two web element IDs refer to the same DOM element.
@@ -6116,15 +6196,18 @@ export interface WebDriverProtocolElements {
      *     });
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/elementIdEquals.html
      */
     elementIdEquals(
         id: string,
         otherId: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<boolean>) => void,
-    ): this;
+    ): Awaitable<this, boolean>;
 
     /**
-     * Get the element on the page that currently has focus. The element will be returned as a [Web Element](https://www.w3.org/TR/webdriver1/#dfn-web-elements) JSON object.
+     * Get the element on the page that currently has focus.
+     * The element will be returned as a [Web Element](https://www.w3.org/TR/webdriver1/#dfn-web-elements) id.
      *
      * @example
      * module.exports = {
@@ -6134,32 +6217,38 @@ export interface WebDriverProtocolElements {
      *     });
      *   }
      * }
+     *
+     * @see https://nightwatchjs.org/api/elementActive.html
      */
     elementActive(
-        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<{ [ELEMENT_KEY]: string }>) => void,
-    ): this;
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, boolean>;
 }
 
 export interface WebDriverProtocolElementState {
     /**
      * Get the value of an element's attribute.
+     *
+     * @see https://nightwatchjs.org/api/elementIdAttribute.html
      */
     elementIdAttribute(
         id: string,
         attributeName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string | null>) => void,
-    ): this;
+    ): Awaitable<this, string | null>;
 
     /**
      * Retrieve the computed value of the given CSS property of the given element.
      *
      * The CSS property to query should be specified using the CSS property name, not the JavaScript property name (e.g. background-color instead of backgroundColor).
+     *
+     * @see https://nightwatchjs.org/api/elementIdCssProperty.html
      */
     elementIdCssProperty(
         id: string,
         cssPropertyName: string,
         callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
-    ): this;
+    ): Awaitable<this, string>;
 
     /**
      * Determine if an element is currently displayed.
