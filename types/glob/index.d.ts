@@ -1,4 +1,4 @@
-// Type definitions for glob 8.1.0
+// Type definitions for glob 8.1
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame>
 //                 voy <https://github.com/voy>
