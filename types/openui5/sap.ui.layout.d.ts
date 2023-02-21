@@ -1,4 +1,4 @@
-// For Library Version: 1.110.0
+// For Library Version: 1.111.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -14115,9 +14115,9 @@ declare module "sap/ui/layout/SplitterLayoutData" {
 declare module "sap/ui/layout/VerticalLayout" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import { AccessibilityInfo, CSSSize } from "sap/ui/core/library";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
     PropertyBindingInfo,
@@ -14213,7 +14213,7 @@ declare module "sap/ui/layout/VerticalLayout" {
      *
      * @returns An object with the accessibilty infos for this control
      */
-    getAccessibilityInfo(): object;
+    getAccessibilityInfo(): AccessibilityInfo;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
