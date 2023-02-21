@@ -1,5 +1,4 @@
 {
   "rules": {
-      "no-const-enum": "off"
   }
 }
