@@ -102,6 +102,7 @@ export namespace DS {
         async?: boolean | undefined;
         inverse?: RelationshipsFor<M> | null | undefined;
         polymorphic?: boolean | undefined;
+        as?: string;
     }
 
     interface Sync {
