@@ -1,4 +1,4 @@
-// Type definitions for play-sound 1.1
+// Type definitions for play-sound 1.1.5
 // Project: https://github.com/shime/play-sound
 // Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
