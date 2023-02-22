@@ -1,4 +1,4 @@
-// Type definitions for Forge-apis 0.8
+// Type definitions for Forge-apis 0.9
 // Project: https://github.com/Autodesk-Forge/forge-api-nodejs-client
 // Definitions by: Bryan Huang <https://github.com/dukedhx>, Jan Liska <https://github.com/liskaj>, Cyrille Fauvel <https://github.com/cyrillef>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -315,7 +315,7 @@ export class DerivativesApi {
     getDerivativeManifest(
         urn: string,
         derivativeUrn: string,
-        opts: { range?: number, acceptEncoding?: string},
+        opts: { range?: number, acceptEncoding?: string },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -381,7 +381,7 @@ export class DerivativesApi {
     getModelviewMetadata(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string, xAdsForce?: boolean, forceget?: boolean },
+        opts: { acceptEncoding?: string, xAdsForce?: boolean, xAdsFormat?: string, forceget?: boolean },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -396,7 +396,7 @@ export class DerivativesApi {
     getModelviewProperties(
         urn: string,
         guid: string,
-        opts: { acceptEncoding?: string, xAdsForce?: boolean, forceget?: boolean, objectid?: number },
+        opts: { acceptEncoding?: string, xAdsForce?: boolean, xAdsFormat?: string, forceget?: boolean, objectid?: number },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
@@ -406,7 +406,7 @@ export class DerivativesApi {
      */
     getThumbnail(
         urn: string,
-        opts: { width?: number; height?: number },
+        opts: { width?: number; height?: number; guid?: string },
         oauth2Client: AuthClient,
         credentials: AuthToken,
     ): Promise<ApiResponse>;
