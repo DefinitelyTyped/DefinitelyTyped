@@ -1,6 +1,6 @@
 // Type definitions for ZIM at https://zimjs.com
 // Definitions by: Dan Zen (Dr. Abstract)
-// with thanks to Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
+// with thanks to Lucas Joel, Manthan224, Geoffrey Nwachukwu, Kenil Domadia, and a lost teacher
 // Documentation : https://zimjs.com/docs.html
 
 /// <reference path="../createjs-lib/index.d.ts" />
@@ -45,7 +45,7 @@
 // See http://zimjs.com/docs.html?item=zik
 // The basic parameter type should be used first then | zimVee to get the zik options
 // Example: interval(time:number|zimVee, function:Function, etc.)
-type zimVee = {}|Function|boolean[]
+type zimVee = {}|Function|any[]
 // So, any time we see {}|Function|[any] in the code hints (probably after a number, boolean or string) it means ZIM VEE
 // Below is the full type but it complicates the code tips too much:
 // type zimVee = {min?:number, max?:number, integer?:boolean, negative?:boolean, noZick?:[any]|Function}|Function|[any]
@@ -133,8 +133,8 @@ interface zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -144,8 +144,8 @@ interface zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -174,7 +174,7 @@ interface zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -237,6 +237,7 @@ interface zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
 }
 
@@ -254,19 +255,19 @@ interface zimComponent {
 
 // ++++++++++++++++++++++++++++++++++++++
 // ZIM WRAP - global functions
-declare function zog(item1: any, ...item2: any[]):string
-declare function zogr(item1: any, ...item2: any[]):string
-declare function zogb(item1: any, ...item2: any[]):string
-declare function zogy(item1: any, ...item2: any[]):string
-declare function zogg(item1: any, ...item2: any[]):string
-declare function zogp(item1: any, ...item2: any[]):string
-declare function zogo(item1: any, ...item2: any[]):string
+declare function zog(item1:any, ...item2:any):string
+declare function zogr(item1:any, ...item2:any):string
+declare function zogb(item1:any, ...item2:any):string
+declare function zogy(item1:any, ...item2:any):string
+declare function zogg(item1:any, ...item2:any):string
+declare function zogp(item1:any, ...item2:any):string
+declare function zogo(item1:any, ...item2:any):string
 declare function zid(id:string):HTMLElement
 declare function zss(id:string):CSSStyleDeclaration
-declare function zgo(url:string, target?:string, width?:number, height?:number, fullscreen?:boolean, modal?:boolean):any
+declare function zgo(url:string, target?:string, width?:number, height?:number, fullscreen?:boolean, modal?:boolean):void
 declare function zum(string:string):number
 declare function zot(value:any):boolean
-declare function zop(e: any):void
+declare function zop(e:any):void
 declare function zil():[Function]
 declare function zet(selector:string):{}
 declare function zob(func:Function, args:any, sig:string, scope:Function):boolean
@@ -297,17 +298,21 @@ declare var brown:string
 declare var yellow:string
 declare var purple:string
 declare var red:string
-declare var silver:string
-declare var tin:string
+declare var black:string
+declare var darker:string
+declare var licorice:string
+declare var dark:string
+declare var charcoal:string
 declare var grey:string
 declare var gray:string
+declare var granite:string
+declare var tin:string
+declare var pewter:string
+declare var silver:string
 declare var fog:string
 declare var mist:string
-declare var lighter:string
 declare var light:string
-declare var dark:string
-declare var darker:string
-declare var black:string
+declare var lighter:string
 declare var white:string
 declare var clear:string
 declare var faint:string
@@ -339,8 +344,11 @@ declare var TO:string
 declare var FROM:string
 declare var UP:string
 declare var DOWN:string
+declare var NEXT:string
+declare var PREV:string
 declare var AUTO:string
 declare var DEFAULT:string
+declare var NONE:string
 declare var AVE:string
 declare var SINE:string
 declare var SQUARE:string
@@ -356,9 +364,9 @@ declare function pluck(array:[any], remove?:boolean):any
 declare function rand(a?:number, b?:number, integer?:boolean, negative?:boolean):number
 declare function seedRandom(seed?:number|string):number|string
 declare function odds(percent?:number):boolean
-declare function rarity(weights:{any: any}, shuffle?:boolean, zimColors?:boolean, dynamicPayload?:boolean):[any]
+declare function rarity(weights:{}, shuffle?:boolean, zimColors?:boolean, dynamicPayload?:boolean):[any]
 declare function repeats(array:[any], total?:boolean):number
-declare function loop(obj:number|{}|[any], call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
+declare function loop(obj:number|{}|[any], call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
 declare function timeout(time:number|zimVee, call:Function):{pause:Function, clear:Function, time:number, paused:boolean, done:boolean}
 declare function interval(time:number|zimVee, call:Function, total?:number, immediate?:boolean):{pause:Function, clear:Function, time:number, count:number, total:number, paused:boolean, pauseTimeLeft:number}
 declare function copy<T>(obj:T, clone?:boolean):T
@@ -381,11 +389,25 @@ declare var TAU:number
 declare var DEG:number
 declare var RAD:number
 declare class Point {
-    constructor (x:number, y:number, z?:number, w?:number)
+    constructor (x:number, y:number, z?:number, q?:number, r?:number, s?:number, t?:number, u?:number, v?:number, w?:number)
     x:number
     y:number
     z:number
+    q:number
+    r:number
+    s:number
+    t:number
+    u:number
+    v:number
     w:number
+    subtract(point:Point):Point
+    add(point:Point):Point
+    angle(point:Point):number
+    length():number
+    distance(point:Point):number
+    project(angle:number,distance:number):Point
+    interpolate(point:Point,ratio:number):Point
+    average(point:Point):Point
 }
 declare class Bezier {
     constructor (a:{}, b:{}, c:{}, d:{})
@@ -490,6 +512,8 @@ declare function lighten(color:string, ratio?:number):void
 declare function darken(color:string, ratio?:number):void
 declare function toColor(color:string, targetColor:string, ratio?:number):void
 declare function toAlpha(color:string, ratio?:number):void
+declare function toBW(hex:string):string
+declare function invertColor(hex:string):string
 declare function pointAlongCurve(points:[any], ratio?:number, getAngle?:boolean):{}
 declare function distanceAlongCurve(points:[any]):number
 declare function closestPointAlongCurve(point:any, segmentPoints:[any], num?:number, interpolate?:boolean, percentage?:boolean):number
@@ -513,9 +537,9 @@ declare function extend(subclass:Function, superclass:Function, override?:string
 // ZIM DISPLAY
 declare class Stage extends createjs.Stage {
     constructor(canvasID:string|HTMLCanvasElement)
-    loop(config_or_call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
+    loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
     type:string
     readonly width:number
@@ -525,9 +549,9 @@ declare class Stage extends createjs.Stage {
 
 declare class StageGL extends Stage {
     constructor(canvasID:string|HTMLCanvasElement, options:{preserveBuffer:boolean, antialias:boolean, transparent:boolean, premultiply:false, autoPurge:number})
-    loop(config_or_call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
+    loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
     type:string
     readonly width:number
@@ -601,8 +625,8 @@ declare class Container extends createjs.Container implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -612,8 +636,8 @@ declare class Container extends createjs.Container implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -642,7 +666,7 @@ declare class Container extends createjs.Container implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -689,8 +713,8 @@ declare class Container extends createjs.Container implements zimDisplay {
     rate:number
     percentComplete:number    
     // END ZIM Display Interface
-    loop(config_or_call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
+    loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
     cache(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number, scale?:number, options?:{}, margin?:number):this
     setBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hasProp(prop:string):boolean
@@ -766,8 +790,8 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -777,8 +801,8 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -807,7 +831,7 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -854,7 +878,7 @@ declare class Sprite extends createjs.Sprite implements zimDisplay {
     rate:number
     percentComplete:number    
     // END ZIM Display Interface
-    run(time?:number, label?: any, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, startFrame?:number, end ?:number, tweek?:number, id?:string, globalControl?:boolean):this
+    run(time?:number, label?:string, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, startFrame?:number, end ?:number, tweek?:number, id?:string, globalControl?:boolean):this
     pauseRun(state?:boolean):this
     stopRun():this
     hasProp(prop:string):boolean
@@ -937,8 +961,8 @@ declare class Shape extends createjs.Shape implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -948,8 +972,8 @@ declare class Shape extends createjs.Shape implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -978,7 +1002,7 @@ declare class Shape extends createjs.Shape implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -1125,8 +1149,8 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -1136,8 +1160,8 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -1166,7 +1190,7 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -1217,10 +1241,10 @@ declare class Bitmap extends createjs.Bitmap implements zimDisplay {
     hasProp(prop:string):boolean
     dispose():boolean
     cache(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number, scale?:number, options?:{}):this
-    keyOut(color?:string, tolerance?:number):this
+    keyOut(color?:string, tolerance?:number, replacement?:color):this
     getColorAt(x:number, y:number, array?:boolean):string|[number]
-    drawImageData(x?:number, y?:number, sourceX?:number, srcY?:number, srcWidth?:number, srcHeight?:number):any
-    static fromData(data:any, callback:Function):null 
+    drawImageData(x?:number, y?:number, sourceX?:number, srcY?:number, srcWidth?:number, srcHeight?:number):void
+    static fromData(data:any, callback:Function):void 
     imageData:{data:[number]}
     svg:SVGElement
 }
@@ -1292,8 +1316,8 @@ declare class MovieClip extends createjs.MovieClip implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -1303,8 +1327,8 @@ declare class MovieClip extends createjs.MovieClip implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -1333,7 +1357,7 @@ declare class MovieClip extends createjs.MovieClip implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -1452,8 +1476,8 @@ declare class SVGContainer extends Container implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -1463,8 +1487,8 @@ declare class SVGContainer extends Container implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -1493,7 +1517,7 @@ declare class SVGContainer extends Container implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -1558,6 +1582,7 @@ declare class Circle extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     radius:number
     percentage:number
@@ -1580,6 +1605,7 @@ declare class Rectangle extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     corner:number
 }
@@ -1600,6 +1626,7 @@ declare class Triangle extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     readonly one:{x:number, y:number}
     readonly two:{x:number, y:number}
@@ -1623,6 +1650,7 @@ declare class Poly extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     radius:number
     sides:number
@@ -1645,6 +1673,7 @@ declare class Line extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     setPoints(a:Point|number,b:Point|number,c?:number,d?:number):this
     from(a:Point|number,b?:number):this
@@ -1682,6 +1711,7 @@ declare class Squiggle extends Container {
     recordData(toJSON?:boolean):{x:number, y:number, points:any[][], color:color, borderColor:color, borderWidth:number, move:boolean, toggle:boolean, controls:boolean}
     setData(data:string|{x:number, y:number, points:any[][], color:color, borderColor:color, borderWidth:number, move:boolean, toggle:boolean, controls:boolean}, fromJSON?:boolean):this
     recordPoints(popup:boolean):any[][]
+    getPoints(popup:boolean):any[][]
     setPoints(data:any[][]):this
     changeControl(config_or_index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean):this
     changeControl(config:{index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean}):this
@@ -1695,6 +1725,7 @@ declare class Squiggle extends Container {
     showControls():this
     hideControls():this
     traverse(obj:DisplayObject, start?:number, end?:number, time?:number):this
+    removePoint(index:number):this
     readonly num:number
     points:any[]
     pointsAdjusted:any[]
@@ -1783,8 +1814,8 @@ declare class FlareBox extends Container {
 }
 
 declare class Label extends Container implements zimComponent {
-    constructor(config_or_text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -1860,16 +1891,16 @@ declare class LabelLetters extends Container implements zimComponent {
     readonly numLetters:number
 }
 declare class Emoji extends Container implements zimComponent {
-    constructor(config_or_code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
     // END ZIM Component Interface
 }
 declare class Button extends Container implements zimComponent {
-    constructor(config_or_width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentHorizontal?:number, indentVertical?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentHorizontal?:number, indentVertical?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentH?:number, indentV?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentH?:number, indentV?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -1955,8 +1986,8 @@ declare class Toggle extends Container implements zimComponent {
     readonly labelLeft:Label
 }
 declare class Tip extends Label implements zimComponent {
-    constructor(config_or_text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -1968,8 +1999,8 @@ declare class Tip extends Label implements zimComponent {
     valign:string
 }
 declare class Panel extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, content?:string|number|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, arrow?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, extraButton?:boolean, collapse?:boolean, collapsed?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, content?:string|number|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, arrow?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, extraButton?:boolean, collapse?:boolean, collapsed?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, content?:string|number|{}|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, next?:boolean, nextColor?:color, extraButton?:boolean, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, content?:string|number|{}|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, next?:boolean, nextColor?:color, extraButton?:boolean, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -1980,7 +2011,7 @@ declare class Panel extends Container implements zimComponent {
     readonly label:Label
     readonly text:string
     readonly arrow:Shape
-    readonly content:DisplayObject
+    readonly content:{}|DisplayObject
     readonly contentContainer:Container
     readonly background:Rectangle
     readonly overlay:Rectangle
@@ -1988,8 +2019,8 @@ declare class Panel extends Container implements zimComponent {
     panelHeight:number
 }
 declare class Pane extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, content?:string|number|DisplayObject, backgroundColor?:color, color?:color, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, content?:string|number|DisplayObject, backgroundColor?:color, color?:color, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_content?:string|number|{}|DisplayObject, backgroundColor?:color, color?:color, width?:number|string, height?:number|string, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{content?:string|number|{}|DisplayObject, backgroundColor?:color, color?:color, width?:number|string, height?:number|string, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2003,7 +2034,8 @@ declare class Pane extends Container implements zimComponent {
     titleBarLabel:Label
     titleBarBacking:Rectangle
     close:Shape
-    readonly content:DisplayObject
+    readonly content:{}|DisplayObject
+    readonly contentContainer:Container
     readonly backdrop:Shape
     resetX:number
     resetY:number
@@ -2079,8 +2111,8 @@ declare class Indicator extends Container implements zimComponent {
     lightsContainer:Container
 }
 declare class TextInput extends zim.Window implements zimComponent {
-    constructor(config_or_width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, readOnly?:boolean, inputType?:string, rtl?:boolean, uppercase?:boolean, placeholderInstant?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, readOnly?:boolean, inputType?:string, rtl?:boolean, uppercase?:boolean, placeholderInstant?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2096,12 +2128,12 @@ declare class TextInput extends zim.Window implements zimComponent {
     font:string
     align:string
     color:color
-    static LabelInput(config_or_text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}):Container
-    static LabelInput(config:{text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}}):Container
+    static LabelInput(config_or_text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, style?:boolean, group?:string, inherit?:{}):Container
+    static LabelInput(config:{text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, style?:boolean, group?:string, inherit?:{}}):Container
 }
 declare class List extends zim.Window implements zimComponent {
-    constructor(config_or_width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:boolean, labelIndentVertical?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingHorizontal?:number, paddingVertical?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:boolean, labelIndentVertical?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingHorizontal?:number, paddingVertical?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:boolean, labelIndentV?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingH?:number, paddingV?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:boolean, labelIndentV?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingH?:number, paddingV?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2118,7 +2150,7 @@ declare class List extends zim.Window implements zimComponent {
     static slider(label?:string|Label, min?:number, max?:number, val?:number, call?:Function, step?:number, obj?:any, property?:string, paddingLeft?:number, paddingRight?:number):Container
     static checkBox(label?:string|Label, checked?:boolean, call?:Function, step?:number, obj?:any, property?:string, paddingLeft?:number, paddingRight?:number):Container
     static colorPicker(label?:string|Label, color?:color, picker?:ColorPicker, call?:Function, step?:number, obj?:any, property?:string, paddingLeft?:number, paddingRight?:number):Container
-    static checkItem(text?:string, width?:number, paddingHorizontal?:number, paddingVertical?:number, color?:color, rollColor?:color, backgroundColor?:color, rollBackgroundColor?:color, selectedColor?:color, selectedRollColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color):Container
+    static checkItem(text?:string, width?:number, paddingH?:number, paddingV?:number, color?:color, rollColor?:color, backgroundColor?:color, rollBackgroundColor?:color, selectedColor?:color, selectedRollColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color):Container
     setCheck(index?:number, type?:boolean):this
     setChecks(type?:boolean):this
     getCheck(index?:number):boolean
@@ -2166,8 +2198,8 @@ declare class Stepper extends Container implements zimComponent {
     keyFocus:boolean
 }
 declare class Slider extends Container implements zimComponent {
-    constructor(config_or_min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandVertical?:number, expandBar?:number, expandBarVertical?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandVertical?:number, expandBar?:number, expandBarVertical?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandV?:number, expandBar?:number, expandBarV?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandV?:number, expandBar?:number, expandBarV?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2186,8 +2218,8 @@ declare class Slider extends Container implements zimComponent {
     keyFocus:boolean
 }
 declare class Selector extends Container implements zimComponent {
-    constructor(config_or_tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingVertical?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingVertical?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingV?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingV?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2231,8 +2263,8 @@ declare class Dial extends Container implements zimComponent {
     keyFocus:boolean
 }
 declare class Tabs extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:number, labelIndentVertical?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:number, labelIndentVertical?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:number, labelIndentV?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:number, labelIndentV?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2255,8 +2287,8 @@ declare class Tabs extends Container implements zimComponent {
     keyFocus:boolean
 }
 declare class Pad extends Container implements zimComponent {
-    constructor(config_or_width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2272,6 +2304,16 @@ declare class Pad extends Container implements zimComponent {
     labels:Label[]
     tabs:Tabs[]
     keyEnabled:boolean
+}
+declare class NumPad extends Container implements zimComponent {
+    constructor(config_or_advanced?:boolean, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], numberCorner?:number|any[], close?:boolean, closeColor?:color, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{advanced?:boolean, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], numberCorner?:number|any[], close?:boolean, closeColor?:color, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{}})
+    // ZIM Component Interface
+    // dispose():boolean // now added to Container, etc.
+    enabled:boolean
+    // END ZIM Component Interface
+    key:number|string
+    pad:Pad
 }
 declare class DPad extends Container implements zimComponent {
     constructor(config_or_axis?:string, width?:number, backgroundColor?:color, indicatorColor?:color, indicatorPressColor?:color, indicatorScale?:number, indicatorRadius?:number, innerCircle?:boolean, innerScale?:number, activeRadius?:number, clamp?:boolean, logo?:boolean, style?:boolean, group?:string, inherit?:{})
@@ -2433,8 +2475,8 @@ declare class Scrambler extends Container implements zimComponent {
     readonly order:[number]
 }
 declare class Connectors extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, dropArray?:[number], continuous?:boolean, startIndex?:number, duplicateLines?:boolean, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, dropArray?:[number], continuous?:boolean, startIndex?:number, duplicateLines?:boolean, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2443,11 +2485,15 @@ declare class Connectors extends Container implements zimComponent {
     removeNode(node:DisplayObject):this
     removeConnectors():this
     selectNode(node:DisplayObject, children?:boolean):this
+    getSteps(popup?:boolean):this
+    setSteps(steps:[]):this
     addBase(base:DisplayObject, baseInfo?:number|[]):this
     removeBase(base:DisplayObject):this    
+    setAvailableIndexes(indexes:number|[number]):this
     node:DisplayObject
     creator:DisplayObject
     line:Line
+    readonly steps:[]
     readonly nodes:Container
     readonly lines:Container
     readonly points:[]
@@ -2465,7 +2511,7 @@ declare class Marquee extends Container implements zimComponent {
     remove(obj:any):this
     go(obj:any):this
     pause(state?:boolean, immediate?:boolean):this
-    load(data:string|[any]|{any: any}, path?:string):this
+    load(data:string|[any]|{}, path?:string):this
     readonly content:DisplayObject
     readonly pages:Pages
     readonly button:Button
@@ -2483,9 +2529,40 @@ declare class Marquee extends Container implements zimComponent {
     readonly label:Label
     readonly marqueeLoader:Queue
 }
+declare class Carousel extends Container implements zimComponent {
+    constructor(config_or_items?:[DisplayObject|string], viewNum?:number, time?:number, spacing?:number, backgroundColor?:color, backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, arrowLeft?:Arrow, arrowRight?:Arrow, arrowGap?:number, valign?:string, ease?:string, swipe?:boolean, remember?:string|boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{items?:[DisplayObject|string], viewNum?:number, time?:number, spacing?:number, backgroundColor?:color, backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, arrowLeft?:Arrow, arrowRight?:Arrow, arrowGap?:number, valign?:string, ease?:string, swipe?:boolean, remember?:string|boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    // ZIM Component Interface
+    // dispose():boolean // now added to Container, etc.
+    enabled:boolean
+    // END ZIM Component Interface
+    goRight(time?:number):this
+    goLeft(time?:number):this
+    cycle(cycleTime?:number|zimVee, transitionTime?:number, bounce?:boolean, bounceNum?:number, recycle?:number, rtl?:string):this
+    cycleClear():this
+    disableArrows():this
+    enableArrows():this
+    selectedIndex:number
+    readonly items:[DisplayObject]
+    readonly tile:Tile
+    readonly viewNum:number
+    readonly itemWidth:number
+    readonly itemHeight:number
+    readonly spacing:number
+    readonly arrowLeft:Arrow
+    readonly arrowRight:Arrow
+    swipe:boolean
+    readonly bounceTotal:number
+    readonly swipeObj:Swipe
+    readonly cycleInterval:number
+    readonly recycleEvent:any
+    readonly recycleWait:Function
+    readonly background:Rectangle
+    readonly backing:Rectangle
+}
 declare class Loader extends Button implements zimComponent {
-    constructor(config_or_width?:number, height?:number, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number|string, height?:number|string, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number|string, height?:number|string, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -2540,9 +2617,9 @@ declare class Style {
     static remember(id?:string):void
     static clearRemembered(id?:string):void
     static recall(id?:string):void
-    static add(obj:{any: any}):void
-    static addType(typeName:string, obj:{any: any}):void
-    static addGroup(groupName:string, obj:{any: any}):void
+    static add(obj:{}):void
+    static addType(typeName:string, obj:{}):void
+    static addGroup(groupName:string, obj:{}):void
     static remove(styleName:string):void
     static removeType(typeName:string):void
     static removeGroup(groupName:string):void
@@ -2607,9 +2684,9 @@ declare class Swipe extends createjs.EventDispatcher {
 declare class Pages extends Container {
     constructor (config_or_pages?:DisplayObject[]|{page:DisplayObject, swipe?:DisplayObject[]}[], transition?:string, speed?:number, transitionTable?:any[][], holder?:Stage|Container, arrowDisableColor?:color, style?:boolean, group?:string, inherit?:{})
     constructor (config:{pages?:DisplayObject[]|{page:DisplayObject, swipe?:DisplayObject[]}[], transition?:string, speed?:number, transitionTable?:any[][], holder?:Stage|Container, arrowDisableColor?:color, style?:boolean, group?:string, inherit?:{}})
-    addPage(page: any, swipeArray?:string[]):void
-    removePage(page: any):void
-    setSwipeArray(page: any, swipeArray?:string[]):void
+    addPage(page:DisplayObject, swipeArray?:string[]):void
+    removePage(page:DisplayObject):void
+    setSwipeArray(page:DisplayObject, swipeArray?:string[]):void
     go(newPage:DisplayObject|number, direction:string, trans?:string, ms?:number):void
     resize():void
     pause():void
@@ -2667,8 +2744,8 @@ declare class ResizeManager extends Manager {
 }
 declare class TransformManager extends Manager {
     constructor (objects:DisplayObject|DisplayObject[], persistID?:string)
-    show(obj:DisplayObject):void
-    hide(obj:DisplayObject):void
+    show(obj:DisplayObject):this
+    hide(obj:DisplayObject):this
     hideAll():void
     persist(id:string):void
     clearPersist(id:string):void
@@ -2965,8 +3042,8 @@ declare class Scroller extends createjs.EventDispatcher {
     readonly paused:boolean
 }
 declare class Dynamo extends createjs.EventDispatcher {
-    constructor (config_or_sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipVertical?:boolean)
-    constructor (config:{sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipVertical?:boolean})
+    constructor (config_or_sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipV?:boolean)
+    constructor (config:{sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipV?:boolean})
     pause(state:boolean, time:number, frame:number):void
     dispose():boolean
     readonly type:string
@@ -2987,7 +3064,7 @@ declare class Accelerator extends createjs.EventDispatcher {
     dispose():boolean
     readonly type:string
     percentSpeed:number
-    readonly paused: any
+    readonly paused:boolean
     items:[Scroller|Dynamo]
 }
 declare class Swiper extends createjs.EventDispatcher {
@@ -3155,8 +3232,8 @@ declare class Emitter extends Container {
     particles:Container
 }
 declare class Pen extends Container {
-    constructor (config_or_size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{})
-    constructor (config:{size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{}})
+    constructor (config_or_size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, holdDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{})
+    constructor (config:{size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, holdDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{}})
     setPen(newPen?:string):this
     saveState(obj:DisplayObject):this
     undo():this
@@ -3202,13 +3279,13 @@ declare class SoundWave extends createjs.EventDispatcher {
 declare class Synth extends createjs.EventDispatcher {
     constructor (volume?:number, frequency?:number)
     play(volume?:number, randomness?:number, frequency?:number, attack?:number, sustain?:number, release?:number, shape?:number, shapeCurve?:number, slide?:number, deltaSlide?:number, pitchJump?:number, pitchJumpTime?:number, repeatTime?:number, noise?:number, modulation?:number, bitCrush?:number, delay?:number):any
-    tone(volume?:number, note?:number|string, shape?:string|{any: any}, duration?:number, attack?:number, release?:number, wahAmount?:number, wahRate?:number, wahShape?:number, wahThroat?:number, wahNote?:number, vibratoAmount?:number, vibratoRate?:number, vibratoShape?:number, tremeloAmount?:number, tremeloRate?:number, tremeloShape?:number, startTime?:number, pauseOnBlur?:boolean):any
+    tone(volume?:number, note?:number|string, shape?:string|{}, duration?:number, attack?:number, release?:number, wahAmount?:number, wahRate?:number, wahShape?:number, wahThroat?:number, wahNote?:number, vibratoAmount?:number, vibratoRate?:number, vibratoShape?:number, tremeloAmount?:number, tremeloRate?:number, tremeloShape?:number, startTime?:number, pauseOnBlur?:boolean):any
     oscillator(frequency?:number, gain?:number, form?:string, offset?:number):any
     static setShape(oscillator:any, shape:string):void
     static getNote (frequency:number, semitoneOffset:number):void
     static note(note:string):void
     static wave(a:string|any,b?:any):void
-    static drawWave(shape?:string, color?:color, thickness?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number, padding?:number, paddingVertical?:number):Container
+    static drawWave(shape?:string, color?:color, thickness?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number, padding?:number, paddingV?:number):Container
     static readonly notes:[string]
     static readonly major:[string]
     static readonly minor:[string]
@@ -3281,21 +3358,23 @@ declare class Queue extends createjs.EventDispatcher {
     readonly isLoading:boolean
 }
 declare class Frame extends createjs.EventDispatcher {
-    constructor(config_or_scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{any: any}, maxConnections?:number, maxNum?:number, singleTouch?:boolean)
-    constructor(config:{scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{any: any}, maxConnections?:number, maxNum?:number, singleTouch?:boolean})
-    loadAssets(config_or_assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{any: any}):Queue
-    loadAssets(config:{assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{any: any}}):Queue
+    constructor(config_or_scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{}, maxConnections?:number, maxNum?:number, singleTouch?:boolean)
+    constructor(config:{scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{}, maxConnections?:number, maxNum?:number, singleTouch?:boolean})
+    loadAssets(config_or_assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{}):Queue
+    loadAssets(config:{assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{}}):Queue
     asset(file:string):any
-    follow(config_or_obj?:DisplayObject, boundary?:Boundary|{any: any}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean):this
-    follow(config:{obj?:DisplayObject, boundary?:Boundary|{any: any}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean}):this
+    follow(config_or_obj?:DisplayObject, boundary?:Boundary|{}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean):this
+    follow(config:{obj?:DisplayObject, boundary?:Boundary|{}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean}):this
     setDefault():this
     makeCircles(radius?:number, multiple?:false):Shape
     makeCircles(radius?:number, multiple?:true):Container
     makeCat(height?:number):Container;
-    makeIcon(edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
-    madeWith(color?:string, text?:string, edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
-    remakeCanvas(width:number, height:number):null
-    fullscreen(mode?:boolean):null
+    makeIcon(config_or_edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
+    makeIcon(config:{edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string}):Container
+    madeWith(config_or_color?:string, text?:string, edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
+    madeWith(config:{color?:string, text?:string, edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string}):Container
+    remakeCanvas(width:number, height:number):void
+    fullscreen(mode?:boolean):void
     dispose():boolean
     readonly type:string
     stage:Stage|StageGL
@@ -3350,7 +3429,7 @@ declare class Frame extends createjs.EventDispatcher {
 declare class Pic extends Container {
     constructor(config_or_file?:string, width?:number, height?:number, noCors?:boolean, style?:boolean, group?:string, inherit?:{})
     constructor(config:{file?:string, width?:number, height?:number, noCors?:boolean, style?:boolean, group?:string, inherit?:{}})
-    keyOut(color?:color, tolerance?:number):this
+    keyOut(color?:string, tolerance?:number, replacement?:color):this
     readonly file:string
     readonly src:string
     readonly image:HTMLImageElement
@@ -3370,7 +3449,7 @@ declare class Vid extends Container {
     constructor(config:{file?:string, width?:number, height?:number, volume?:number, loop?:boolean, align?:string, valign?:string, type?:string, style?:boolean, group?:string, inherit?:{}})
     play():this
     pause(state?:boolean):this
-    keyOut(color?:color, tolerance?:number):this
+    keyOut(color?:string, tolerance?:number, replacement?:color):this
     readonly duration:number 
     currentTime:number
     volume:number 
@@ -3392,9 +3471,10 @@ declare class SVG extends Container {
 declare class SensorAsk extends Pane {
     constructor(config_or_callback?:Function, sensorType?:string, color?:color, backgroundColor?:color, style?:boolean, group?:string, inherit?:{})
     constructor(config:{callback?:Function, sensorType?:string, color?:color, backgroundColor?:color, style?:boolean, group?:string, inherit?:{}})
-    keyOut(color?:color, tolerance?:number):this
-    readonly svg:string
-    readonly bitmap:Bitmap
+    readonly sensorType:string
+    readonly label:Label
+    readonly yes:Button
+    readonly no:Button
 }
 declare var LEFT:string
 declare var RIGHT:string
@@ -3411,12 +3491,12 @@ declare var BOTH:string
 declare var DISTILL:boolean
 declare function distill():void
 declare function parseAudioSprite(audioSpriteData:{resources:string[], spritemap:{}}, outputAudioSprite?:boolean):{src:string, data:{}}
-declare function previewAudioSprite(audioSpriteData:{}, numLetters?:number, frame?:Frame):any
-declare function svgToBitmap(svg:string|SVGElement, callBack:Function):any
+declare function previewAudioSprite(audioSpriteData:{}, numLetters?:number, frame?:Frame):Tabs
+declare function svgToBitmap(svg:string|SVGElement, callBack:Function):void
 declare function zimify(obj:createjs.DisplayObject, list?:Boolean):DisplayObject
 declare function zimplify(exclude?:string|string[]):void
 declare function fastFrame(cjs:any, stage:Stage|StageGL):Function
-declare function addWires({any: any}):{any: any}
+declare function addWires({}):{}
 declare function setBlurDetect():void
 declare var ZIMONON:boolean
 declare var ZIMON:{
@@ -3430,7 +3510,7 @@ declare class Wonder {
     timePause(keyword:string):void
     timeUnpause(keyword:string):void
     timeEnd(keyword:string):void
-    order(keyword:string, item: any):void
+    order(keyword:string, item:any):void
     countOff(keyword:string):void
     countOn(keyword:string):void
     timeOff(keyword:string):void
@@ -3445,17 +3525,36 @@ declare class PWA {
     constructor (call?:Function, label?:string, backgroundColor?:color, color?:color, backdropColor?:color, pane?:Pane, noScale?:boolean)
     show():void
 }
+declare class QR {
+    constructor (config_or_url?:string, color?:color, backgroundColor?:color, size?:number, clickable?:boolean, correctLevel?:number)
+    constructor (config:{url?:string, color?:color, backgroundColor?:color, size?:number, clickable?:boolean, correctLevel?:number})
+}
+declare class GIF {
+    constructor (config_or_file?:string, width?:number, height?:number, startPaused?:boolean)
+    constructor (config:{file?:string, width?:number, height?:number, startPaused?:boolean})
+    pause(state?:boolean):this
+    pause(state?:boolean):this
+    pause(state?:boolean):this
+    pause(state?:boolean):this
+}
+declare var THEME:{name?:string, lightenRatio?:number, tint?:color, tintRatio?:number, exclude?:color|[color]}
+declare class Theme {
+    constructor ()
+    set(name?:string, lightenRatio?:number, tint?:color, tintRatio?:number, exclude?:color|[color]):void
+    apply(state?:boolean):void
+    clear():void
+}
 
 // ++++++++++++++++++++++++++++++++++++++
 // ZIM THREE
 declare class Three {
     constructor (config_or_frame?:Frame, width?:number, height?:number, color?:color, cameraPosition?:any, cameraLook?:any, interactive?:boolean, resize?:boolean)
     constructor (config:{frame?:Frame, width?:number, height?:number, color?:color, cameraPosition?:any, cameraLook?:any, interactive?:boolean, resize?:boolean})
-    position(x?:number, y?:number):null
-    scale(scale?:number):null
-    rotateAroundAxis(obj:any, axis?:string, radians?:number):null
-    rotateAroundObjectAxis(obj:any, axis?:string, radians?:number):null
-    dispose():null
+    position(x?:number, y?:number):void
+    scale(scale?:number):void
+    rotateAroundAxis(obj:any, axis?:string, radians?:number):void
+    rotateAroundObjectAxis(obj:any, axis?:string, radians?:number):void
+    dispose():void
     readonly renderer:any
     readonly canvas:HTMLCanvasElement
     readonly DOMElement:any
@@ -3498,6 +3597,7 @@ declare namespace zim {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
             approximateBounds(num?:number, showPoints?:boolean):this
             addPoint(percent?:number, controlType?:string):this
@@ -3517,6 +3617,7 @@ declare namespace zim {
             showControls():this
             hideControls():this
             traverse(obj:DisplayObject, start?:number, end?:number, time?:number):this
+            removePoint(index:number):this
             readonly num:number
             points:number|any[]|string|Rectangle|Circle|Triangle
             pointsAdjusted:[any]
@@ -3543,7 +3644,7 @@ declare namespace zim {
     }
     // Window cannot be added to global namespace because duplicates JavaScript Window
     export class Window extends Container implements zimComponent {
-        constructor(width?:number, height?:number, content?:string|number|DisplayObject, backgroundColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, interactive?:boolean, shadowColor?:color, shadowBlur?:number, paddingHorizontal?:number, paddingVertical?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:Boundary, onTop?:boolean, close?:boolean, closeColor?:color, cancelCurrentDrag?:boolean, fullSize?:boolean, fullSizeColor?:color, resizeHandle?:boolean, collapse?:boolean, collapseColor?:color, collapsed?:boolean, optimize?:boolean, style?:boolean, group?:string, inherit?:{})
+        constructor(width?:number, height?:number, content?:string|number|{}|DisplayObject, backgroundColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, interactive?:boolean, shadowColor?:color, shadowBlur?:number, paddingH?:number, paddingV?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:Boundary, onTop?:boolean, close?:boolean, closeColor?:color, cancelCurrentDrag?:boolean, fullSize?:boolean, fullSizeColor?:color, resizeHandle?:boolean, collapse?:boolean, collapseColor?:color, collapsed?:boolean, optimize?:boolean, style?:boolean, group?:string, inherit?:{})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -3555,7 +3656,7 @@ declare namespace zim {
         update():void
         background:Shape
         backgroundColor:color
-        readonly content:DisplayObject
+        readonly content:{}|DisplayObject
         readonly contentContainer:Container
         readonly titleBar:Container
         readonly titleBarLabel:Label
@@ -3574,7 +3675,7 @@ declare namespace zim {
         static choose(choice:any):any;
         static rand(a?:number, b?:number, integer?:boolean, negative?:boolean):number
         static series(array_item:any):Function
-        static getMinMax(zimVee: any):{}
+        static getMinMax(vee:zimVee):{}
         type:string
         choices:any
     }
@@ -3591,17 +3692,21 @@ export var brown:string
 export var yellow:string
 export var purple:string
 export var red:string
-export var silver:string
-export var tin:string
+export var black:string
+export var darker:string
+export var licorice:string
+export var dark:string
+export var charcoal:string
 export var grey:string
 export var gray:string
+export var granite:string
+export var tin:string
+export var pewter:string
+export var silver:string
 export var fog:string
 export var mist:string
-export var lighter:string
 export var light:string
-export var dark:string
-export var darker:string
-export var black:string
+export var lighter:string
 export var white:string
 export var clear:string
 export var faint:string
@@ -3633,8 +3738,11 @@ export var TO:string
 export var FROM:string
 export var UP:string
 export var DOWN:string
+export var NEXT:string
+export var PREV:string
 export var AUTO:string
 export var DEFAULT:string
+export var NONE:string
 export var AVE:string
 export var SINE:string
 export var SQUARE:string
@@ -3650,9 +3758,9 @@ export function pluck(array:[any], remove?:boolean):any
 export function rand(a?:number, b?:number, integer?:boolean, negative?:boolean):number
 export function seedRandom(seed?:number|string):number|string
 export function odds(percent?:number):boolean
-export function rarity(weights:{any: any}, shuffle?:boolean, zimColors?:boolean, dynamicPayload?:boolean):[any]
+export function rarity(weights:{}, shuffle?:boolean, zimColors?:boolean, dynamicPayload?:boolean):[any]
 export function repeats(array:[any], total?:boolean):number
-export function loop(obj:number|{}|[any], call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
+export function loop(obj:number|{}|[any], call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
 export function timeout(time:number|zimVee, call:Function):{pause:Function, clear:Function, time:number, paused:boolean, done:boolean}
 export function interval(time:number|zimVee, call:Function, total?:number, immediate?:boolean):{pause:Function, clear:Function, time:number, count:number, total:number, paused:boolean, pauseTimeLeft:number}
 export function copy<T>(obj:T, clone?:boolean):T
@@ -3675,11 +3783,25 @@ export var TAU:number
 export var DEG:number
 export var RAD:number
 export class Point {
-    constructor (x:number, y:number, z?:number, w?:number)
+    constructor (x:number, y:number, z?:number, q?:number, r?:number, s?:number, t?:number, u?:number, v?:number, w?:number)
     x:number
     y:number
     z:number
+    q:number
+    r:number
+    s:number
+    t:number
+    u:number
+    v:number
     w:number
+    subtract(point:Point):Point
+    add(point:Point):Point
+    angle(point:Point):number
+    length():number
+    distance(point:Point):number
+    project(angle:number,distance:number):Point
+    interpolate(point:Point,ratio:number):Point
+    average(point:Point):Point
 }
 export class Bezier {
     constructor (a:{}, b:{}, c:{}, d:{})
@@ -3784,6 +3906,8 @@ export function lighten(color:string, ratio?:number):void
 export function darken(color:string, ratio?:number):void
 export function toColor(color:string, targetColor:string, ratio?:number):void
 export function toAlpha(color:string, ratio?:number):void
+export function toBW(hex:string):string
+export function invertColor(hex:string):string
 export function pointAlongCurve(points:[any], ratio?:number, getAngle?:boolean):{}
 export function distanceAlongCurve(points:[any]):number
 export function closestPointAlongCurve(point:any, segmentPoints:[any], num?:number, interpolate?:boolean, percentage?:boolean):number
@@ -3807,9 +3931,9 @@ export function extend(subclass:Function, superclass:Function, override?:string|
 // ZIM DISPLAY
 export class Stage extends createjs.Stage {
     constructor(canvasID:string|HTMLCanvasElement)
-    loop(config_or_call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
+    loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
     type:string
     readonly width:number
@@ -3819,9 +3943,9 @@ export class Stage extends createjs.Stage {
 
 export class StageGL extends Stage {
     constructor(canvasID:string|HTMLCanvasElement, options:{preserveBuffer:boolean, antialias:boolean, transparent:boolean, premultiply:false, autoPurge:number})
-    loop(config_or_call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
+    loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
     type:string
     readonly width:number
@@ -3895,8 +4019,8 @@ export class Container extends createjs.Container implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -3906,8 +4030,8 @@ export class Container extends createjs.Container implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -3936,7 +4060,7 @@ export class Container extends createjs.Container implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
     duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
@@ -3983,8 +4107,8 @@ export class Container extends createjs.Container implements zimDisplay {
     rate:number
     percentComplete:number    
     // END ZIM Display Interface
-    loop(config_or_call:Function, reverse?:boolean, step?:number, start?:number, end?:number):any
-    loop(config:{call:Function, reverse?:boolean, step?:number, start?:number, end?:number}):any
+    loop(config_or_call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number):any
+    loop(config:{call:Function, reverse?:boolean, interval?:number, step?:number, start?:number, end?:number}):any
     cache(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number, scale?:number, options?:{}, margin?:number):this
     setBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hasProp(prop:string):boolean
@@ -4060,8 +4184,8 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -4071,8 +4195,8 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -4101,8 +4225,8 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
-    duplicate(exact?:boolean)
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
+    duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
     outlineToggle(state?:boolean):this
@@ -4148,7 +4272,7 @@ export class Sprite extends createjs.Sprite implements zimDisplay {
     rate:number
     percentComplete:number    
     // END ZIM Display Interface
-    run(time?:number, label?: any, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, startFrame?:number, end ?:number, tweek?:number, id?:string, globalControl?:boolean):this
+    run(time?:number, label?:string, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, startFrame?:number, end ?:number, tweek?:number, id?:string, globalControl?:boolean):this
     pauseRun(state?:boolean):this
     stopRun():this
     hasProp(prop:string):boolean
@@ -4231,8 +4355,8 @@ export class Shape extends createjs.Shape implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -4242,8 +4366,8 @@ export class Shape extends createjs.Shape implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -4272,8 +4396,8 @@ export class Shape extends createjs.Shape implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
-    duplicate(exact?:boolean)
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
+    duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
     outlineToggle(state?:boolean):this
@@ -4419,8 +4543,8 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -4430,8 +4554,8 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -4460,8 +4584,8 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
-    duplicate(exact?:boolean)
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
+    duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
     outlineToggle(state?:boolean):this
@@ -4511,10 +4635,10 @@ export class Bitmap extends createjs.Bitmap implements zimDisplay {
     hasProp(prop:string):boolean
     dispose():boolean
     cache(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number, scale?:number, options?:{}):this
-    keyOut(color?:string, tolerance?:number):this
+    keyOut(color?:string, tolerance?:number, replacement?:color):this
     getColorAt(x:number, y:number, array?:boolean):string|[number]
-    drawImageData(x?:number, y?:number, sourceX?:number, srcY?:number, srcWidth?:number, srcHeight?:number)
-    static fromData(data:any, callback:Function):null 
+    drawImageData(x?:number, y?:number, sourceX?:number, srcY?:number, srcWidth?:number, srcHeight?:number):void
+    static fromData(data:any, callback:Function):void 
     imageData:{data:[number]}
     svg:SVGElement
 }
@@ -4586,8 +4710,8 @@ export class MovieClip extends createjs.MovieClip implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -4597,8 +4721,8 @@ export class MovieClip extends createjs.MovieClip implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -4627,8 +4751,8 @@ export class MovieClip extends createjs.MovieClip implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
-    duplicate(exact?:boolean)
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
+    duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
     outlineToggle(state?:boolean):this
@@ -4746,8 +4870,8 @@ export class SVGContainer extends Container implements zimDisplay {
     resetBounds(width_or_boundsX?:number, height_or_boundsY?:number, width?:number, height?:number):this
     hitTestPath(other:DisplayObject, num?:number, showPoints?:boolean):boolean
     hitTestGrid(width?:number, height?:number, cols?:number, rows?:number, x?:number, y?:number, offsetX?:number, offsetY?:number, spacingX?:number, spacingY?:number, local?:boolean, type?:string):any
-    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean):this
-    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean}):this
+    animate(config_or_props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean):this
+    animate(config:{props:{}|[{}], time?:number|zimVee, ease?:string|zimVee, call?:Function, params?:any, wait?:number|zimVee, waitedCall?:Function, waitedParams?:any, loop?:boolean, loopCount?:number|zimVee, loopWait?:number|zimVee, loopCall?:Function, loopParams?:any, loopWaitCall?:Function, loopWaitParams?:any, loopPick?:boolean, rewind?:boolean|zimVee, rewindWait?:number|zimVee, rewindCall?:Function, rewindParams?:any, rewindWaitCall?:Function, rewindWaitParams?:any, rewindTime?:number|zimVee, rewindEase?:string|zimVee, sequence?:number, sequenceCall?:Function, sequenceParams?:any, sequenceReverse?:boolean|zimVee, ticker?:boolean, cjsProps?:{}, css?:boolean, protect?:boolean, override?:boolean, from?:boolean|zimVee, set?:{}|zimVee, id?:string, events?:boolean, sequenceTarget?:any, dynamic?:boolean, drag?:boolean, clamp?:boolean, startPaused?:boolean, clean?:boolean, obj?:{}|[{}], seriesWait?:any, sequenceWait?:any, rate?:number|zimVee, pauseOnBlur?:boolean, easeAmount?:number|zimVee, easeFrequency?:number|zimVee, timeUnit?:string, timeCheck?:boolean, noAnimateCall?:boolean}):this
     stopAnimate(ids?:string|[string], toEnd?:boolean):this
     pauseAnimate(state?:boolean, ids?:string|[string]):this
     wiggle(config_or_property:string, baseAmount:number|zimVee, minAmount?:number|zimVee, maxAmount?:number|zimVee, minTime?:number|zimVee, maxTime?:number|zimVee, totalTime?:number, type?:string, ease?:string, integer?:boolean, id?:string, startType?:string, ticker?:boolean, wait?:number):this
@@ -4757,8 +4881,8 @@ export class SVGContainer extends Container implements zimDisplay {
     sha(color_or_shadow?:string|createjs.Shadow, offsetX?:number, offsetY?:number, blur?:number):this
     pos(config_or_x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean):this
     pos(config:{x?:number, y?:number, right?:boolean|string, bottom?:boolean|string, container?:Container|Stage, index?:number, add?:boolean, reg?:boolean, regX?:boolean, regY?:boolean}):this
-    loc(config_or_target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
-    loc(config:{target_or_x?:{}|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
+    loc(config_or_target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number):this
+    loc(config:{target_or_x?:{}|[]|DisplayObject|Point|number, y?:number, container?:Container|Stage, index?:number, add?:boolean, localToLocal?:boolean, x?:number}):this
     mov(x:number, y?:number):this
     top():this
     bot():this
@@ -4787,8 +4911,8 @@ export class SVGContainer extends Container implements zimDisplay {
     center(config:{container?:Container|Stage, index?:number, add?:boolean}):this
     place(id?:string):this
     placeReg(id?:string):this
-    expand(padding?:number, paddingVertical?:number, paddingRight?:number, paddingBottom?:number):this
-    duplicate(exact?:boolean)
+    expand(padding?:number, paddingV?:number, paddingRight?:number, paddingBottom?:number):this
+    duplicate(exact?:boolean):this
     setMask(mask:DisplayObject, dynamic?:boolean):this
     toggle(state?:boolean):this
     outlineToggle(state?:boolean):this
@@ -4852,6 +4976,7 @@ export class Circle extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     radius:number
     percentage:number
@@ -4874,6 +4999,7 @@ export class Rectangle extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     corner:number
 }
@@ -4894,6 +5020,7 @@ export class Triangle extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     readonly one:{x:number, y:number}
     readonly two:{x:number, y:number}
@@ -4917,6 +5044,7 @@ export class Poly extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     radius:number
     sides:number
@@ -4939,6 +5067,7 @@ export class Line extends Container implements zimShape {
     cloneAll(exact?:boolean, style?:boolean, group?:string, inherit?:{}):this
     linearGradient(colors:[any], ratios:[any], x0:number, y0:number, x1:number, y1:number):this
     radialGradient(colors:[any], ratios:[any], x0:number, y0:number, radius0:number, x1:number, y1:number, radius1:number):this
+    readonly veeObj:zimVee
     // END ZIM Shape Interface
     setPoints(a:Point|number,b:Point|number,c?:number,d?:number):this
     from(a:Point|number,b?:number):this
@@ -4976,6 +5105,7 @@ export class Squiggle extends Container {
     recordData(toJSON?:boolean):{x:number, y:number, points:any[][], color:color, borderColor:color, borderWidth:number, move:boolean, toggle:boolean, controls:boolean}
     setData(data:string|{x:number, y:number, points:any[][], color:color, borderColor:color, borderWidth:number, move:boolean, toggle:boolean, controls:boolean}, fromJSON?:boolean):this
     recordPoints(popup:boolean):any[][]
+    getPoints(popup:boolean):any[][]
     setPoints(data:any[][]):this
     changeControl(config_or_index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean):this
     changeControl(config:{index:number, type?:string, rect1X?:number, rect1Y?:number, rect2X?:number, rect2Y?:number, circleX?:number, circleY?:number, update?:boolean}):this
@@ -4989,6 +5119,7 @@ export class Squiggle extends Container {
     showControls():this
     hideControls():this
     traverse(obj:DisplayObject, start?:number, end?:number, time?:number):this
+    removePoint(index:number):this
     readonly num:number
     points:any[]
     pointsAdjusted:any[]
@@ -5077,8 +5208,8 @@ export class FlareBox extends Container {
 }
 
 export class Label extends Container implements zimComponent {
-    constructor(config_or_text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{text?:string|zimVee, size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5154,16 +5285,16 @@ export class LabelLetters extends Container implements zimComponent {
     readonly numLetters:number
 }
 export class Emoji extends Container implements zimComponent {
-    constructor(config_or_code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{code:string, size?:number, monochrome?:boolean, italic?:boolean, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
     // END ZIM Component Interface
 }
 export class Button extends Container implements zimComponent {
-    constructor(config_or_width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentHorizontal?:number, indentVertical?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentHorizontal?:number, indentVertical?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentH?:number, indentV?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number|string, height?:number|string, label?:string|Label, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, borderColor?:color, borderWidth?:number, rollBorderColor?:color, downBorderColor?:color, backing?:DisplayObject, rollBacking?:DisplayObject, downBacking?:DisplayObject, icon?:DisplayObject, rollIcon?:DisplayObject, downIcon?:DisplayObject, corner?:number|any[], dashed?:boolean|[number], shadowColor?:color, shadowBlur?:number, gradient?:number, gloss?:number, align?:string, valign?:string, indent?:number, indentH?:number, indentV?:number, hitPadding?:number, autoPadding?:number, autoPaddingH?:number, autoPaddingV?:number, rollPersist?:boolean, toggle?:string|boolean, toggleBackgroundColor?:color, rollToggleBackgroundColor?:color, downToggleBackgroundColor?:color, toggleColor?:color, rollToggleColor?:color, downToggleColor?:color, toggleBacking?:DisplayObject, rollToggleBacking?:DisplayObject, downToggleBacking?:DisplayObject, toggleIcon?:DisplayObject, rollToggleIcon?:DisplayObject, downToggleIcon?:DisplayObject, toggleEvent?:string, wait?:string, waitTime?:boolean, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, downWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, downWaitColor?:color, waitBacking?:DisplayObject, rollWaitBacking?:DisplayObject, downWaitBacking?:DisplayObject, waitIcon?:DisplayObject, rollWaitIcon?:DisplayObject, downWaitIcon?:DisplayObject, waitModal?:boolean, waitEnabled?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5249,8 +5380,8 @@ export class Toggle extends Container implements zimComponent {
     readonly labelLeft:Label
 }
 export class Tip extends Label implements zimComponent {
-    constructor(config_or_text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{text?:string, align?:string, valign?:string, margin?:number, marginH?:number, marginV?:number, outside?:boolean, target?:DisplayObject,  size?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, textAlign?:string, textValign?:string, lineWidth?:number, lineHeight?:number, fontOptions?:string, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, bold?:boolean, italic?:boolean, variant?:boolean, splitWords?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5262,8 +5393,8 @@ export class Tip extends Label implements zimComponent {
     valign:string
 }
 export class Panel extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, content?:string|number|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, arrow?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, extraButton?:boolean, collapse?:boolean, collapsed?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, content?:string|number|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, arrow?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, extraButton?:boolean, collapse?:boolean, collapsed?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, content?:string|number|{}|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, next?:boolean, nextColor?:color, extraButton?:boolean, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, content?:string|number|{}|DisplayObject, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], close?:boolean, closeColor?:color, next?:boolean, nextColor?:color, extraButton?:boolean, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5274,7 +5405,7 @@ export class Panel extends Container implements zimComponent {
     readonly label:Label
     readonly text:string
     readonly arrow:Shape
-    readonly content:DisplayObject
+    readonly content:{}|DisplayObject
     readonly contentContainer:Container
     readonly background:Rectangle
     readonly overlay:Rectangle
@@ -5282,8 +5413,8 @@ export class Panel extends Container implements zimComponent {
     panelHeight:number
 }
 export class Pane extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, content?:string|number|DisplayObject, backgroundColor?:color, color?:color, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, content?:string|number|DisplayObject, backgroundColor?:color, color?:color, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_content?:string|number|{}|DisplayObject, backgroundColor?:color, color?:color, width?:number|string, height?:number|string, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{content?:string|number|{}|DisplayObject, backgroundColor?:color, color?:color, width?:number|string, height?:number|string, draggable?:boolean, resets?:boolean, modal?:boolean, corner?:number|any[], backdropColor?:color, shadowColor?:color, shadowBlur?:number, center?:boolean, displayClose?:boolean, backdropClose?:boolean, backing?:DisplayObject, fadeTime?:number, container?:Stage|Container, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, close?:boolean, closeColor?:color, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5297,7 +5428,8 @@ export class Pane extends Container implements zimComponent {
     titleBarLabel:Label
     titleBarBacking:Rectangle
     close:Shape
-    readonly content:DisplayObject
+    readonly content:{}|DisplayObject
+    readonly contentContainer:Container
     readonly backdrop:Shape
     resetX:number
     resetY:number
@@ -5373,8 +5505,8 @@ export class Indicator extends Container implements zimComponent {
     lightsContainer:Container
 }
 export class TextInput extends zim.Window implements zimComponent {
-    constructor(config_or_width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, readOnly?:boolean, inputType?:string, rtl?:boolean, uppercase?:boolean, placeholderInstant?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number|zimVee, height?:number|zimVee, placeholder?:string|zimVee, text?:string|zimVee, size?:number, font?:string, color?:color|zimVee, backgroundColor?:color|zimVee, borderColor?:color|zimVee, borderWidth?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, cursorColor?:color, cursorSpeed?:number, shadowColor?:color, shadowBlur?:number, align?:string, corner?:number|any[], padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, multiline?:boolean, wrap?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, readOnly?:boolean, inputType?:string, rtl?:boolean, uppercase?:boolean, placeholderInstant?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5390,12 +5522,12 @@ export class TextInput extends zim.Window implements zimComponent {
     font:string
     align:string
     color:color
-    static LabelInput(config_or_text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}):Container
-    static LabelInput(config:{text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingHorizontal?:number, paddingVertical?:number, shiftHorizontal?:number, shiftVertical?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, maxSize?:number, style?:boolean, group?:string, inherit?:{}}):Container
+    static LabelInput(config_or_text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, style?:boolean, group?:string, inherit?:{}):Container
+    static LabelInput(config:{text?:string|zimVee, size?:number, maxLength?:number, password?:string, selectionColor?:color, selectionAlpha?:number, blinkerColor?:color, blinkerSpeed?:number, font?:string, color?:color, rollColor?:color, shadowColor?:color, shadowBlur?:number, align?:string, valign?:string, lineWidth?:number, lineHeight?:number, bold?:boolean, italic?:boolean, variant?:boolean, backing?:DisplayObject, outlineColor?:color, outlineWidth?:number, backgroundColor?:color, backgroundBorderColor?:color, backgroundBorderWidth?:number, corner?:number|any[], backgroundDashed?:boolean, padding?:number, paddingH?:number, paddingV?:number, shiftH?:number, shiftV?:number, rollPersist?:boolean, labelWidth?:number, labelHeight?:number, style?:boolean, group?:string, inherit?:{}}):Container
 }
 export class List extends zim.Window implements zimComponent {
-    constructor(config_or_width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:boolean, labelIndentVertical?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingHorizontal?:number, paddingVertical?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:boolean, labelIndentVertical?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingHorizontal?:number, paddingVertical?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:boolean, labelIndentV?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingH?:number, paddingV?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, list?:any[], viewNum?:number, vertical?:boolean, currentSelected?:boolean, align?:string, valign?:string, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:boolean, labelIndentV?:boolean, indent?:number, spacing?:number, backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, backdropColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, borderColor?:color, borderWidth?:number, padding?:number, corner?:number|any[], swipe?:boolean, scrollBarActive?:boolean, scrollBarDrag?:boolean, scrollBarColor?:color, scrollBarAlpha?:number, scrollBarFade?:boolean, scrollBarH?:boolean, scrollBarV?:boolean, scrollBarOverlay?:boolean, slide?:boolean, slideDamp?:number, slideSnap?:string, shadowColor?:color, shadowBlur?:number, paddingH?:number, paddingV?:number, scrollWheel?:boolean, damp?:number, titleBar?:string|Label, titleBarColor?:color, titleBarBackgroundColor?:color, titleBarHeight?:number, draggable?:boolean, boundary?:{}|Boundary, onTop?:boolean, close?:boolean, closeColor?:color, excludeCustomTap?:boolean, organizer?:Organizer, checkBox?:boolean, pulldown?:boolean, clone?:boolean, cancelCurrentDrag?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5412,7 +5544,7 @@ export class List extends zim.Window implements zimComponent {
     static slider(label?:string|Label, min?:number, max?:number, val?:number, call?:Function, step?:number, obj?:any, property?:string, paddingLeft?:number, paddingRight?:number):Container
     static checkBox(label?:string|Label, checked?:boolean, call?:Function, step?:number, obj?:any, property?:string, paddingLeft?:number, paddingRight?:number):Container
     static colorPicker(label?:string|Label, color?:color, picker?:ColorPicker, call?:Function, step?:number, obj?:any, property?:string, paddingLeft?:number, paddingRight?:number):Container
-    static checkItem(text?:string, width?:number, paddingHorizontal?:number, paddingVertical?:number, color?:color, rollColor?:color, backgroundColor?:color, rollBackgroundColor?:color, selectedColor?:color, selectedRollColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color):Container
+    static checkItem(text?:string, width?:number, paddingH?:number, paddingV?:number, color?:color, rollColor?:color, backgroundColor?:color, rollBackgroundColor?:color, selectedColor?:color, selectedRollColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color):Container
     setCheck(index?:number, type?:boolean):this
     setChecks(type?:boolean):this
     getCheck(index?:number):boolean
@@ -5460,8 +5592,8 @@ export class Stepper extends Container implements zimComponent {
     keyFocus:boolean
 }
 export class Slider extends Container implements zimComponent {
-    constructor(config_or_min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandVertical?:number, expandBar?:number, expandBarVertical?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandVertical?:number, expandBar?:number, expandBarVertical?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandV?:number, expandBar?:number, expandBarV?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{min?:number|zimVee, max?:number|zimVee, step?:number|zimVee, button?:Button, barLength?:number, barWidth?:number, barColor?:color, vertical?:boolean, useTicks?:boolean, tickColor?:color, tickStep?:number, semiTicks?:number, tickScale?:number, semiTickScale?:number, accentSize?:number, accentOffset?:number, accentColor?:color, accentBackgroundColor?:color, accentDifference?:number, sound?:boolean, inside?:boolean, keyArrows?:number, keyArrowsStep?:number, keyArrowsH?:boolean, keyArrowsV?:boolean, damp?:number, currentValue?:number|zimVee, expand?:number, expandV?:number, expandBar?:number, expandBarV?:number, useLabels?:boolean, labelMargin?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5480,8 +5612,8 @@ export class Slider extends Container implements zimComponent {
     keyFocus:boolean
 }
 export class Selector extends Container implements zimComponent {
-    constructor(config_or_tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingVertical?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingVertical?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingV?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{tile?:Tile, borderColor?:color|zimVee, borderWidth?:number, backgroundColor?:color|zimVee, corner?:number|[any], dashed?:boolean|[number], padding?:number, paddingV?:number, speed?:number, diagonal?:boolean, dim?:boolean, multi?:boolean, keyArrows?:boolean, behind?:boolean, resizeScale?:number, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5525,8 +5657,8 @@ export class Dial extends Container implements zimComponent {
     keyFocus:boolean
 }
 export class Tabs extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:number, labelIndentVertical?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentHorizontal?:number, labelIndentVertical?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:number, labelIndentV?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, tabs?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, vertical?:boolean, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], base?:string, keyEnabled?:boolean, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, backdropColor?:color, align?:number, valign?:number, labelAlign?:string, labelValign?:string, labelIndent?:number, labelIndentH?:number, labelIndentV?:number, indent?:number, useTap?:boolean, excludeCustomTap?:boolean, selectedIndex?:number, styleLabels?:boolean, keyWrap?:boolean, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5549,8 +5681,8 @@ export class Tabs extends Container implements zimComponent {
     keyFocus:boolean
 }
 export class Pad extends Container implements zimComponent {
-    constructor(config_or_width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, cols?:number, rows?:number, keys?:string[]|{}[], backgroundColor?:color, rollBackgroundColor?:color, downBackgroundColor?:color, selectedBackgroundColor?:color, selectedRollBackgroundColor?:color, color?:color, rollColor?:color, downColor?:color, selectedColor?:color, selectedRollColor?:color, spacing?:number, currentEnabled?:boolean, currentSelected?:boolean, corner?:number|any[], labelColor?:color, gradient?:number, gloss?:number, backing?:DisplayObject, rollBacking?:DisplayObject, wait?:string, waitTime?:number, waitBackgroundColor?:color, rollWaitBackgroundColor?:color, waitColor?:color, rollWaitColor?:color, waitModal?:boolean, waitEnabled?:boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5566,6 +5698,16 @@ export class Pad extends Container implements zimComponent {
     labels:Label[]
     tabs:Tabs[]
     keyEnabled:boolean
+}
+export class NumPad extends Container implements zimComponent {
+    constructor(config_or_advanced?:boolean, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], numberCorner?:number|any[], close?:boolean, closeColor?:color, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{advanced?:boolean, titleBar?:string|Label, titleBarColor?:color, titleBarBackroundColor?:color, titleBarHeight?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], numberCorner?:number|any[], close?:boolean, closeColor?:color, collapse?:boolean, collapseColor?:color, collapsed?:boolean, align?:string, shadowColor?:color, shadowBlur?:number, draggable?:boolean, boundary?:Boundary|{}, style?:boolean, group?:string, inherit?:{}})
+    // ZIM Component Interface
+    // dispose():boolean // now added to Container, etc.
+    enabled:boolean
+    // END ZIM Component Interface
+    key:number|string
+    pad:Pad
 }
 export class DPad extends Container implements zimComponent {
     constructor(config_or_axis?:string, width?:number, backgroundColor?:color, indicatorColor?:color, indicatorPressColor?:color, indicatorScale?:number, indicatorRadius?:number, innerCircle?:boolean, innerScale?:number, activeRadius?:number, clamp?:boolean, logo?:boolean, style?:boolean, group?:string, inherit?:{})
@@ -5727,8 +5869,8 @@ export class Scrambler extends Container implements zimComponent {
     readonly order:[number]
 }
 export class Connectors extends Container implements zimComponent {
-    constructor(config_or_width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, dropArray?:[number], continuous?:boolean, startIndex?:number, duplicateLines?:boolean, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number, height?:number, points?:[]|zim.Blob|Squiggle, node?:DisplayObject, line?:Line, linear?:boolean, linearWrap?:boolean, linearOrder?:boolean, num?:number, snapH?:number, snapV?:number, dropType?:string, dropArray?:[number], continuous?:boolean, startIndex?:number, duplicateLines?:boolean, deleteNode?:boolean, dblclick?:boolean, fullMove?:boolean, min?:number, max?:number, boundary?:Boundary|DisplayObject, expand?:number, nodeRollColor?:string, nodeRollBorderColor?:string, nodeSelectedColor?:string, nodeSelectedBorderColor?:string, baseColor?:string, baseBorderColor?:string, baseRollover?:string, rootLock?:boolean, grandChildren?:boolean, dblclickTime?:number, style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5737,11 +5879,15 @@ export class Connectors extends Container implements zimComponent {
     removeNode(node:DisplayObject):this
     removeConnectors():this
     selectNode(node:DisplayObject, children?:boolean):this
+    getSteps(popup?:boolean):this
+    setSteps(steps:[]):this
     addBase(base:DisplayObject, baseInfo?:number|[]):this
     removeBase(base:DisplayObject):this    
+    setAvailableIndexes(indexes:number|[number]):this
     node:DisplayObject
     creator:DisplayObject
     line:Line
+    readonly steps:[]
     readonly nodes:Container
     readonly lines:Container
     readonly points:[]
@@ -5759,7 +5905,7 @@ export class Marquee extends Container implements zimComponent {
     remove(obj:any):this
     go(obj:any):this
     pause(state?:boolean, immediate?:boolean):this
-    load(data:string|[any]|{any: any}, path?:string):this
+    load(data:string|[any]|{}, path?:string):this
     readonly content:DisplayObject
     readonly pages:Pages
     readonly button:Button
@@ -5777,9 +5923,40 @@ export class Marquee extends Container implements zimComponent {
     readonly label:Label
     readonly marqueeLoader:Queue
 }
+export class Carousel extends Container implements zimComponent {
+    constructor(config_or_items?:[DisplayObject|string], viewNum?:number, time?:number, spacing?:number, backgroundColor?:color, backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, arrowLeft?:Arrow, arrowRight?:Arrow, arrowGap?:number, valign?:string, ease?:string, swipe?:boolean, remember?:string|boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{})
+    constructor(config:{items?:[DisplayObject|string], viewNum?:number, time?:number, spacing?:number, backgroundColor?:color, backing?:DisplayObject, padding?:number, paddingH?:number, paddingV?:number, arrowLeft?:Arrow, arrowRight?:Arrow, arrowGap?:number, valign?:string, ease?:string, swipe?:boolean, remember?:string|boolean, selectedIndex?:number, style?:boolean, group?:string, inherit?:{}})
+    // ZIM Component Interface
+    // dispose():boolean // now added to Container, etc.
+    enabled:boolean
+    // END ZIM Component Interface
+    goRight(time?:number):this
+    goLeft(time?:number):this
+    cycle(cycleTime?:number|zimVee, transitionTime?:number, bounce?:boolean, bounceNum?:number, recycle?:number, rtl?:string):this
+    cycleClear():this
+    disableArrows():this
+    enableArrows():this
+    selectedIndex:number
+    readonly items:[DisplayObject]
+    readonly tile:Tile
+    readonly viewNum:number
+    readonly itemWidth:number
+    readonly itemHeight:number
+    readonly spacing:number
+    readonly arrowLeft:Arrow
+    readonly arrowRight:Arrow
+    swipe:boolean
+    readonly bounceTotal:number
+    readonly swipeObj:Swipe
+    readonly cycleInterval:number
+    readonly recycleEvent:any
+    readonly recycleWait:Function
+    readonly background:Rectangle
+    readonly backing:Rectangle
+}
 export class Loader extends Button implements zimComponent {
-    constructor(config_or_width?:number, height?:number, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{})
-    constructor(config:{width?:number, height?:number, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{}})
+    constructor(config_or_width?:number|string, height?:number|string, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{})
+    constructor(config:{width?:number|string, height?:number|string, label?:string|Label, type?:string, backgroundColor?:color, rollBackgroundColor?:color, color?:color, rollColor?:color, borderColor?:color, borderWidth?:number, corner?:number|any[], shadowColor?:color, shadowBlur?:number, hitPadding?:number, gradient?:number, gloss?:number, dashed?:boolean|[number], backing?:DisplayObject, rollBacking?:DisplayObject, rollPersist?:boolean, icon?:DisplayObject, rollIcon?:DisplayObject, toggle?:string, rollToggle?:DisplayObject, toggleEvent?:string, frame?:Frame, multiple?:boolean, accept?:[any], style?:boolean, group?:string, inherit?:{}})
     // ZIM Component Interface
     // dispose():boolean // now added to Container, etc.
     enabled:boolean
@@ -5834,9 +6011,9 @@ export class Style {
     static remember(id?:string):void
     static clearRemembered(id?:string):void
     static recall(id?:string):void
-    static add(obj:{any: any}):void
-    static addType(typeName:string, obj:{any: any}):void
-    static addGroup(groupName:string, obj:{any: any}):void
+    static add(obj:{}):void
+    static addType(typeName:string, obj:{}):void
+    static addGroup(groupName:string, obj:{}):void
     static remove(styleName:string):void
     static removeType(typeName:string):void
     static removeGroup(groupName:string):void
@@ -5901,9 +6078,9 @@ export class Swipe extends createjs.EventDispatcher {
 export class Pages extends Container {
     constructor (config_or_pages?:DisplayObject[]|{page:DisplayObject, swipe?:DisplayObject[]}[], transition?:string, speed?:number, transitionTable?:any[][], holder?:Stage|Container, arrowDisableColor?:color, style?:boolean, group?:string, inherit?:{})
     constructor (config:{pages?:DisplayObject[]|{page:DisplayObject, swipe?:DisplayObject[]}[], transition?:string, speed?:number, transitionTable?:any[][], holder?:Stage|Container, arrowDisableColor?:color, style?:boolean, group?:string, inherit?:{}})
-    addPage(page: any, swipeArray?:string[]):void
-    removePage(page: any):void
-    setSwipeArray(page: any, swipeArray?:string[]):void
+    addPage(page:DisplayObject, swipeArray?:string[]):void
+    removePage(page:DisplayObject):void
+    setSwipeArray(page:DisplayObject, swipeArray?:string[]):void
     go(newPage:DisplayObject|number, direction:string, trans?:string, ms?:number):void
     resize():void
     pause():void
@@ -5961,8 +6138,8 @@ export class ResizeManager extends Manager {
 }
 export class TransformManager extends Manager {
     constructor (objects:DisplayObject|DisplayObject[], persistID?:string)
-    show(obj:DisplayObject)
-    hide(obj:DisplayObject)
+    show(obj:DisplayObject):this
+    hide(obj:DisplayObject):this
     hideAll():void
     persist(id:string):void
     clearPersist(id:string):void
@@ -6035,7 +6212,7 @@ export class SelectionManager extends createjs.EventDispatcher {
     readonly shiftKey:boolean
     readonly metaKey:boolean
     clear():void
-    setCurrent(set:SelectionSet)
+    setCurrent(set:SelectionSet):void
     dispose():boolean
 }
 
@@ -6052,7 +6229,7 @@ export class Bind {
     to(config:{targets?:DisplayObject|string|[DisplayObject|string], props?:string|[string], extra?:string|number, filter?:Function, smartDecimals?:boolean, call?:Function}):this
     toLock(config_or_targets?:DisplayObject|string|[DisplayObject|string], props?:string|[string], extra?:string|number, filter?:Function, smartDecimals?:boolean, call?:Function):this
     toLock(config:{targets?:DisplayObject|string|[DisplayObject|string], props?:string|[string], extra?:string|number, filter?:Function, smartDecimals?:boolean, call?:Function}):this
-    toUnique()
+    toUnique():this
     stop():this
     report():this
     toggleReport(state?:boolean):this
@@ -6259,8 +6436,8 @@ export class Scroller extends createjs.EventDispatcher {
     readonly paused:boolean
 }
 export class Dynamo extends createjs.EventDispatcher {
-    constructor (config_or_sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipVertical?:boolean)
-    constructor (config:{sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipVertical?:boolean})
+    constructor (config_or_sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipV?:boolean)
+    constructor (config:{sprite:Sprite, speed?:number, label?:string, startFrame?:number, endFrame?:number, update?:boolean, reversible?:boolean, flip?:boolean, flipV?:boolean})
     pause(state:boolean, time:number, frame:number):void
     dispose():boolean
     readonly type:string
@@ -6281,7 +6458,7 @@ export class Accelerator extends createjs.EventDispatcher {
     dispose():boolean
     readonly type:string
     percentSpeed:number
-    readonly paused: any
+    readonly paused:boolean
     items:[Scroller|Dynamo]
 }
 export class Swiper extends createjs.EventDispatcher {
@@ -6449,8 +6626,8 @@ export class Emitter extends Container {
     particles:Container
 }
 export class Pen extends Container {
-    constructor (config_or_size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{})
-    constructor (config:{size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{}})
+    constructor (config_or_size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, holdDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{})
+    constructor (config:{size?:number|zimVee, color?:color|zimVee, penType?:string, damp?:number, spread?:number|zimVee, borderColor?:number|zimVee, borderWidth?:number|zimVee, end?:string, paper?:Container, nib?:DisplayObject, cache?:boolean, ctrlKey?:boolean, cropScale?:number, undo?:number, undoKeys?:boolean, draggable?:boolean, onTop?:boolean, deleteable?:boolean, doubleClickDelete?:boolean, holdDelete?:boolean, immediateStop?:boolean, lineAlpha?:number, lineBlendMode?:string, frame?:Frame, style?:boolean, group?:string, inherit?:{}})
     setPen(newPen?:string):this
     saveState(obj:DisplayObject):this
     undo():this
@@ -6496,13 +6673,13 @@ export class SoundWave extends createjs.EventDispatcher {
 export class Synth extends createjs.EventDispatcher {
     constructor (volume?:number, frequency?:number)
     play(volume?:number, randomness?:number, frequency?:number, attack?:number, sustain?:number, release?:number, shape?:number, shapeCurve?:number, slide?:number, deltaSlide?:number, pitchJump?:number, pitchJumpTime?:number, repeatTime?:number, noise?:number, modulation?:number, bitCrush?:number, delay?:number):any
-    tone(volume?:number, note?:number|string, shape?:string|{any: any}, duration?:number, attack?:number, release?:number, wahAmount?:number, wahRate?:number, wahShape?:number, wahThroat?:number, wahNote?:number, vibratoAmount?:number, vibratoRate?:number, vibratoShape?:number, tremeloAmount?:number, tremeloRate?:number, tremeloShape?:number, startTime?:number, pauseOnBlur?:boolean):any
+    tone(volume?:number, note?:number|string, shape?:string|{}, duration?:number, attack?:number, release?:number, wahAmount?:number, wahRate?:number, wahShape?:number, wahThroat?:number, wahNote?:number, vibratoAmount?:number, vibratoRate?:number, vibratoShape?:number, tremeloAmount?:number, tremeloRate?:number, tremeloShape?:number, startTime?:number, pauseOnBlur?:boolean):any
     oscillator(frequency?:number, gain?:number, form?:string, offset?:number):any
     static setShape(oscillator:any, shape:string):void
     static getNote (frequency:number, semitoneOffset:number):void
     static note(note:string):void
     static wave(a:string|any,b?:any):void
-    static drawWave(shape?:string, color?:color, thickness?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number, padding?:number, paddingVertical?:number):Container
+    static drawWave(shape?:string, color?:color, thickness?:number, backgroundColor?:color, borderColor?:color, borderWidth?:number, corner?:number, padding?:number, paddingV?:number):Container
     static readonly notes:[string]
     static readonly major:[string]
     static readonly minor:[string]
@@ -6575,21 +6752,23 @@ export class Queue extends createjs.EventDispatcher {
     readonly isLoading:boolean
 }
 export class Frame extends createjs.EventDispatcher {
-    constructor(config_or_scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{any: any}, maxConnections?:number, maxNum?:number, singleTouch?:boolean)
-    constructor(config:{scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{any: any}, maxConnections?:number, maxNum?:number, singleTouch?:boolean})
-    loadAssets(config_or_assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{any: any}):Queue
-    loadAssets(config:{assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{any: any}}):Queue
+    constructor(config_or_scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{}, maxConnections?:number, maxNum?:number, singleTouch?:boolean)
+    constructor(config:{scaling?:string, width?:number, height?:number, color?:color, outerColor?:color, ready?:Function, assets?:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, ticker?:Function, rollover?:boolean, touch?:boolean, scrollTop?:boolean, align?:string, valign?:string, canvasID?:string, rollPerSecond?:number, delay?:number, canvasCheck?:boolean, gpu?:boolean, gpuObj?:boolean, nextFrame?:Frame, nextStage?:Stage, allowDefault?:boolean, loadFailObj?:DisplayObject, sensors?:boolean, retina?:boolean, mouseMoveOutside?:boolean, captureMouse?:boolean, shim?:{}, maxConnections?:number, maxNum?:number, singleTouch?:boolean})
+    loadAssets(config_or_assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{}):Queue
+    loadAssets(config:{assets:[string,{}]|string|{}, path?:string, progress?:Waiter|ProgressBar, xhr?:boolean, time?:number, loadTimeout?:number, outputAudioSprite?:boolean, crossOrigin?:string, fileType?:string, queueOnly?:boolean, shim?:{}}):Queue
     asset(file:string):any
-    follow(config_or_obj?:DisplayObject, boundary?:Boundary|{any: any}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean):this
-    follow(config:{obj?:DisplayObject, boundary?:Boundary|{any: any}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean}):this
+    follow(config_or_obj?:DisplayObject, boundary?:Boundary|{}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean):this
+    follow(config:{obj?:DisplayObject, boundary?:Boundary|{}, damp?:number, dampY?:number, leftOffset?:number, rightOffset?:number, upOffset?:number, downOffset?:number, offsetDamp?:number, offsetDampY?:number, horizontal?:boolean, vertical?:boolean, borderLock?:boolean, lag?:boolean}):this
     setDefault():this
     makeCircles(radius?:number, multiple?:false):Shape
     makeCircles(radius?:number, multiple?:true):Container
     makeCat(height?:number):Container;
-    makeIcon(edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
-    madeWith(color?:string, text?:string, edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
-    remakeCanvas(width:number, height:number):null
-    fullscreen(mode?:boolean):null
+    makeIcon(config_or_edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
+    makeIcon(config:{edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string}):Container
+    madeWith(config_or_color?:string, text?:string, edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string):Container
+    madeWith(config:{color?:string, text?:string, edges?:string, box?:string, slats?:string, borderColor?:string, borderWidth?:string}):Container
+    remakeCanvas(width:number, height:number):void
+    fullscreen(mode?:boolean):void
     dispose():boolean
     readonly type:string
     stage:Stage|StageGL
@@ -6644,7 +6823,7 @@ export class Frame extends createjs.EventDispatcher {
 export class Pic extends Container {
     constructor(config_or_file?:string, width?:number, height?:number, noCors?:boolean, style?:boolean, group?:string, inherit?:{})
     constructor(config:{file?:string, width?:number, height?:number, noCors?:boolean, style?:boolean, group?:string, inherit?:{}})
-    keyOut(color?:color, tolerance?:number):this
+    keyOut(color?:string, tolerance?:number, replacement?:color):this
     readonly file:string
     readonly src:string
     readonly image:HTMLImageElement
@@ -6664,7 +6843,7 @@ export class Vid extends Container {
     constructor(config:{file?:string, width?:number, height?:number, volume?:number, loop?:boolean, align?:string, valign?:string, type?:string, style?:boolean, group?:string, inherit?:{}})
     play():this
     pause(state?:boolean):this
-    keyOut(color?:color, tolerance?:number):this
+    keyOut(color?:string, tolerance?:number, replacement?:color):this
     readonly duration:number 
     currentTime:number
     volume:number 
@@ -6686,9 +6865,10 @@ export class SVG extends Container {
 export class SensorAsk extends Pane {
     constructor(config_or_callback?:Function, sensorType?:string, color?:color, backgroundColor?:color, style?:boolean, group?:string, inherit?:{})
     constructor(config:{callback?:Function, sensorType?:string, color?:color, backgroundColor?:color, style?:boolean, group?:string, inherit?:{}})
-    keyOut(color?:color, tolerance?:number):this
-    readonly svg:string
-    readonly bitmap:Bitmap
+    readonly sensorType:string
+    readonly label:Label
+    readonly yes:Button
+    readonly no:Button
 }
 export var LEFT:string
 export var RIGHT:string
@@ -6705,12 +6885,12 @@ export var BOTH:string
 export var DISTILL:boolean
 export function distill():void
 export function parseAudioSprite(audioSpriteData:{resources:string[], spritemap:{}}, outputAudioSprite?:boolean):{src:string, data:{}}
-export function previewAudioSprite(audioSpriteData:{}, numLetters?:number, frame?:Frame)
-export function svgToBitmap(svg:string|SVGElement, callBack:Function):null
+export function previewAudioSprite(audioSpriteData:{}, numLetters?:number, frame?:Frame):Tabs
+export function svgToBitmap(svg:string|SVGElement, callBack:Function):void
 export function zimify(obj:createjs.DisplayObject, list?:Boolean):DisplayObject
 export function zimplify(exclude?:string|string[]):void
 export function fastFrame(cjs:any, stage:Stage|StageGL):Function
-export function addWires({any}):{any: any}
+export function addWires({}):{}
 export function setBlurDetect():void
 export var ZIMONON:boolean
 export var ZIMON:{
@@ -6724,7 +6904,7 @@ export class Wonder {
     timePause(keyword:string):void
     timeUnpause(keyword:string):void
     timeEnd(keyword:string):void
-    order(keyword:string, item: any):void
+    order(keyword:string, item:any):void
     countOff(keyword:string):void
     countOn(keyword:string):void
     timeOff(keyword:string):void
@@ -6739,17 +6919,36 @@ export class PWA {
     constructor (call?:Function, label?:string, backgroundColor?:color, color?:color, backdropColor?:color, pane?:Pane, noScale?:boolean)
     show():void
 }
+export class QR {
+    constructor (config_or_url?:string, color?:color, backgroundColor?:color, size?:number, clickable?:boolean, correctLevel?:number)
+    constructor (config:{url?:string, color?:color, backgroundColor?:color, size?:number, clickable?:boolean, correctLevel?:number})
+}
+export class GIF {
+    constructor (config_or_file?:string, width?:number, height?:number, startPaused?:boolean)
+    constructor (config:{file?:string, width?:number, height?:number, startPaused?:boolean})
+    pause(state?:boolean):this
+    pause(state?:boolean):this
+    pause(state?:boolean):this
+    pause(state?:boolean):this
+}
+export var THEME:{name?:string, lightenRatio?:number, tint?:color, tintRatio?:number, exclude?:color|[color]}
+export class Theme {
+    constructor ()
+    set(name?:string, lightenRatio?:number, tint?:color, tintRatio?:number, exclude?:color|[color]):void
+    apply(state?:boolean):void
+    clear():void
+}
 
 // ++++++++++++++++++++++++++++++++++++++
 // ZIM THREE
 export class Three {
     constructor (config_or_frame?:Frame, width?:number, height?:number, color?:color, cameraPosition?:any, cameraLook?:any, interactive?:boolean, resize?:boolean)
     constructor (config:{frame?:Frame, width?:number, height?:number, color?:color, cameraPosition?:any, cameraLook?:any, interactive?:boolean, resize?:boolean})
-    position(x?:number, y?:number):null
-    scale(scale?:number):null
-    rotateAroundAxis(obj:any, axis?:string, radians?:number):null
-    rotateAroundObjectAxis(obj:any, axis?:string, radians?:number):null
-    dispose():null
+    position(x?:number, y?:number):void
+    scale(scale?:number):void
+    rotateAroundAxis(obj:any, axis?:string, radians?:number):void
+    rotateAroundObjectAxis(obj:any, axis?:string, radians?:number):void
+    dispose():void
     readonly renderer:any
     readonly canvas:HTMLCanvasElement
     readonly DOMElement:any
