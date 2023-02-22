@@ -6,9 +6,14 @@ expect([1, 2]).to.be.an.array();
 expect(20).to.be.at.least(20);
 expect("abc").to.have.length(3);
 expect("abc").to.be.a.string().and.contain(["a", "b"]);
+//Changes for CMSC389T, Justin Pratama
+expect("def").to.be.a.string().and.contain(["d", "e"]);
+expect("abc").to.be.a.string().and.contain(["a", "b"]);
 expect(6).to.be.in.range(5, 6);
 
 expect(10).to.not.be.above(20);
+//Changes for CMSC389T, Justin Pratama
+expect(30).to.not.be.above(50);
 expect([1, 2, 3]).to.shallow.include(3);
 expect([1, 1, 2]).to.only.include([1, 2]);
 expect([1, 2]).to.once.include([1, 2]);
@@ -103,6 +108,8 @@ expect("abcd").to.have.length(4);
 
 expect(5).to.equal(5);
 expect({ a: 1 }).to.equal({ a: 1 });
+//Changes for CMSC389T, Justin Pratama
+expect({ b: 2 }).to.equal({ b: 2 });
 expect([1, 2, 3]).to.equal([1, 2, 3]);
 
 expect(Object.create(null)).to.equal({}, { prototype: false });
@@ -120,7 +127,8 @@ expect(10).to.be.at.most(10);
 
 expect(10).to.be.within(10, 20);
 expect(20).to.be.within(10, 20);
-
+//Changes for CMSC389T, Justin Pratama
+expect(80).to.be.between(10, 100);
 expect(15).to.be.between(10, 20);
 
 expect(10).to.be.about(9, 1);
@@ -128,6 +136,8 @@ expect(10).to.be.about(9, 1);
 expect(new Date()).to.be.an.instanceof(Date);
 
 expect("a5").to.match(/\w\d/);
+//Changes for CMSC389T, Justin Pratama
+expect("aaaaa55555......???").to.match(/\w+\d+\D+/);
 expect(["abc", "def"]).to.match(/^[\w\d,]*$/);
 expect(1).to.match(/^\d$/);
 
