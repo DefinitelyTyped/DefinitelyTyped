@@ -856,7 +856,12 @@ export interface LexerMatchResult {
 }
 
 export class Lexer {
+    matchAtruleDescriptor(atruleName: string, descriptorName: string, value: CssNode | string): LexerMatchResult;
+    matchAtrulePrelude(atruleName: string, prelude: CssNode | string): LexerMatchResult;
+    matchDeclaration(node: CssNode): LexerMatchResult;
     matchProperty(propertyName: string, value: CssNode | string): LexerMatchResult;
+    matchType(typeName: string, value: CssNode | string): LexerMatchResult;
+    match(syntax: DSNode | string, value: CssNode | string): LexerMatchResult;
 }
 
 export function fork(extension: {

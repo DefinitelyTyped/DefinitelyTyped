@@ -711,6 +711,16 @@ csstree.url.encode('foo'); // $ExpectType string
 csstree.fork({}); // $ExpectType { lexer: Lexer; }
 const { lexer } = csstree.fork({ atrules: {}, properties: {}, types: { foo: '<length>' } });
 lexer; // $ExpectType Lexer
-
+lexer.matchAtruleDescriptor('foo', 'bar', ast); // $ExpectType LexerMatchResult
+lexer.matchAtruleDescriptor('foo', 'bar', 'baz'); // $ExpectType LexerMatchResult
+lexer.matchAtrulePrelude('foo', ast); // $ExpectType LexerMatchResult
+lexer.matchAtrulePrelude('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.matchDeclaration(ast); // $ExpectType LexerMatchResult
 lexer.matchProperty('foo', ast); // $ExpectType LexerMatchResult
 lexer.matchProperty('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.matchType('foo', ast); // $ExpectType LexerMatchResult
+lexer.matchType('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.match('foo', ast); // $ExpectType LexerMatchResult
+lexer.match('foo', 'bar'); // $ExpectType LexerMatchResult
+lexer.match(syntax, ast); // $ExpectType LexerMatchResult
+lexer.match(syntax, 'bar'); // $ExpectType LexerMatchResult

@@ -33,6 +33,7 @@
         "test/options.ts",
         "test/redis.ts",
         "test/timers.ts",
+        "test/tracing.ts",
         "test/websockets.ts",
         "test/ws.ts"
     ]

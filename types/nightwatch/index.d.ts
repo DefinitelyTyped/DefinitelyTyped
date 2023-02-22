@@ -6683,7 +6683,13 @@ export interface WebDriverProtocolScreenCapture {
      * @example
      * browser.screenshot(true);
      */
-    screenshot(log_screenshot_data: boolean, callback?: (screenshotEncoded: string) => void): this;
+    screenshot(
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
+    screenshot(
+        log_screenshot_data?: boolean,
+        callback?: (this: NightwatchAPI, result: NightwatchCallbackResult<string>) => void,
+    ): Awaitable<this, string>;
 }
 
 export interface WebDriverProtocolMobileRelated {

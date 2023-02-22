@@ -230,9 +230,9 @@ naver.maps.Service.reverseGeocode(
  * Overlay define options and DrawingManager event Example
  * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-3-drawing-restore.example.html
  */
-
+let drawingManager: naver.maps.drawing.DrawingManager | undefined;
 naver.maps.Event.once(map, 'init', function () {
-    const drawingManager = new naver.maps.drawing.DrawingManager({
+    drawingManager = new naver.maps.drawing.DrawingManager({
         map: map,
         rectangleOptions: {
             fillColor: '#ff0000',
@@ -266,6 +266,144 @@ naver.maps.Event.once(map, 'init', function () {
     drawingManager.addListener(naver.maps.drawing.DrawingEvents.REMOVE, function (e) {});
     drawingManager.addListener(naver.maps.drawing.DrawingEvents.SELECT, function (e) {});
 });
+
+/**
+ * DrawingManager setOptions and getOptions Example
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-drawing-options.example.html
+ */
+/* setOptions */
+// drawing options
+const drawingManagerOptions: naver.maps.drawing.DrawingOptions = {
+    map: map,
+};
+drawingManager?.setOptions(drawingManagerOptions);
+// drawing control
+const drawingControl: naver.maps.drawing.DrawingMode[] = [];
+drawingManager?.setOptions('drawingControl', drawingControl);
+// drawint control options
+const drawingControlOptions: naver.maps.drawing.DrawingControlOptions = {
+    position: naver.maps.Position.TOP_CENTER,
+};
+drawingManager?.setOptions('drawingControlOptions', drawingControlOptions);
+// drawing mode
+const drawingMode: naver.maps.drawing.DrawingMode = naver.maps.drawing.DrawingMode.POLYGON;
+drawingManager?.setOptions('drawingMode', drawingMode);
+// control point options
+const controlPointOptions: naver.maps.drawing.ControlPointOptions = {
+    anchorPointOptions: {
+        center: [0, 0],
+    },
+    midPointOptions: {
+        center: [0, 0],
+    },
+    position: 0,
+};
+drawingManager?.setOptions('controlPointOptions', controlPointOptions);
+// rectangle options
+const rectangleOptions: Partial<naver.maps.RectangleOptions> = {};
+drawingManager?.setOptions('rectangleOptions', rectangleOptions);
+// ellipse options
+const ellipseOptions: Partial<naver.maps.EllipseOptions> = {};
+drawingManager?.setOptions('ellipseOptions', ellipseOptions);
+// polyline options
+const polylineOptions: Partial<naver.maps.PolylineOptions> = {};
+drawingManager?.setOptions('polylineOptions', polylineOptions);
+// arrowline options
+const arrowlineOptions: Partial<naver.maps.PolylineOptions> = {};
+drawingManager?.setOptions('arrowlineOptions', arrowlineOptions);
+// polygon options
+const polygonOptions: Partial<naver.maps.PolygonOptions> = {};
+drawingManager?.setOptions('polygonOptions', polygonOptions);
+// marker options
+const markerOptions: Partial<naver.maps.MarkerOptions> = {};
+drawingManager?.setOptions('markerOptions', markerOptions);
+
+/* getOptions */
+// drawingControl
+drawingManager?.getOptions('drawingControl')?.length;
+// drawingControlOptions
+drawingManager?.getOptions('drawingControlOptions')?.position;
+drawingManager?.getOptions('drawingControlOptions')?.style;
+// controlPointOptions
+drawingManager?.getOptions('controlPointOptions')?.anchorPointOptions;
+drawingManager?.getOptions('controlPointOptions')?.midPointOptions;
+drawingManager?.getOptions('controlPointOptions')?.position;
+// rectangleOptions
+drawingManager?.getOptions('rectangleOptions')?.clickable;
+drawingManager?.getOptions('rectangleOptions')?.fillColor;
+drawingManager?.getOptions('rectangleOptions')?.fillOpacity;
+drawingManager?.getOptions('rectangleOptions')?.strokeColor;
+drawingManager?.getOptions('rectangleOptions')?.strokeLineCap;
+drawingManager?.getOptions('rectangleOptions')?.strokeLineJoin;
+drawingManager?.getOptions('rectangleOptions')?.strokeOpacity;
+drawingManager?.getOptions('rectangleOptions')?.strokeStyle;
+drawingManager?.getOptions('rectangleOptions')?.strokeWeight;
+drawingManager?.getOptions('rectangleOptions')?.visible;
+drawingManager?.getOptions('rectangleOptions')?.zIndex;
+// ellipseOptions
+drawingManager?.getOptions('ellipseOptions')?.clickable;
+drawingManager?.getOptions('ellipseOptions')?.fillColor;
+drawingManager?.getOptions('ellipseOptions')?.fillOpacity;
+drawingManager?.getOptions('ellipseOptions')?.strokeColor;
+drawingManager?.getOptions('ellipseOptions')?.strokeLineCap;
+drawingManager?.getOptions('ellipseOptions')?.strokeLineJoin;
+drawingManager?.getOptions('ellipseOptions')?.strokeOpacity;
+drawingManager?.getOptions('ellipseOptions')?.strokeStyle;
+drawingManager?.getOptions('ellipseOptions')?.strokeWeight;
+drawingManager?.getOptions('ellipseOptions')?.visible;
+drawingManager?.getOptions('ellipseOptions')?.zIndex;
+// polylineOptions
+drawingManager?.getOptions('polylineOptions')?.clickable;
+drawingManager?.getOptions('polylineOptions')?.endIcon;
+drawingManager?.getOptions('polylineOptions')?.endIconSize;
+drawingManager?.getOptions('polylineOptions')?.path;
+drawingManager?.getOptions('polylineOptions')?.startIcon;
+drawingManager?.getOptions('polylineOptions')?.startIconSize;
+drawingManager?.getOptions('polylineOptions')?.strokeColor;
+drawingManager?.getOptions('polylineOptions')?.strokeLineCap;
+drawingManager?.getOptions('polylineOptions')?.strokeLineJoin;
+drawingManager?.getOptions('polylineOptions')?.strokeOpacity;
+drawingManager?.getOptions('polylineOptions')?.strokeStyle;
+drawingManager?.getOptions('polylineOptions')?.strokeWeight;
+drawingManager?.getOptions('polylineOptions')?.visible;
+drawingManager?.getOptions('polylineOptions')?.zIndex;
+// arrowlineOptions
+drawingManager?.getOptions('arrowlineOptions')?.clickable;
+drawingManager?.getOptions('arrowlineOptions')?.endIcon;
+drawingManager?.getOptions('arrowlineOptions')?.endIconSize;
+drawingManager?.getOptions('arrowlineOptions')?.path;
+drawingManager?.getOptions('arrowlineOptions')?.startIcon;
+drawingManager?.getOptions('arrowlineOptions')?.startIconSize;
+drawingManager?.getOptions('arrowlineOptions')?.strokeColor;
+drawingManager?.getOptions('arrowlineOptions')?.strokeLineCap;
+drawingManager?.getOptions('arrowlineOptions')?.strokeLineJoin;
+drawingManager?.getOptions('arrowlineOptions')?.strokeOpacity;
+drawingManager?.getOptions('arrowlineOptions')?.strokeStyle;
+drawingManager?.getOptions('arrowlineOptions')?.strokeWeight;
+drawingManager?.getOptions('arrowlineOptions')?.visible;
+drawingManager?.getOptions('arrowlineOptions')?.zIndex;
+// polygonOptions
+drawingManager?.getOptions('polygonOptions')?.clickable;
+drawingManager?.getOptions('polygonOptions')?.fillColor;
+drawingManager?.getOptions('polygonOptions')?.fillOpacity;
+drawingManager?.getOptions('polygonOptions')?.strokeColor;
+drawingManager?.getOptions('polygonOptions')?.strokeLineCap;
+drawingManager?.getOptions('polygonOptions')?.strokeLineJoin;
+drawingManager?.getOptions('polygonOptions')?.strokeOpacity;
+drawingManager?.getOptions('polygonOptions')?.strokeStyle;
+drawingManager?.getOptions('polygonOptions')?.strokeWeight;
+drawingManager?.getOptions('polygonOptions')?.visible;
+drawingManager?.getOptions('polygonOptions')?.zIndex;
+// markerOptions
+drawingManager?.getOptions('markerOptions')?.animation;
+drawingManager?.getOptions('markerOptions')?.clickable;
+drawingManager?.getOptions('markerOptions')?.cursor;
+drawingManager?.getOptions('markerOptions')?.draggable;
+drawingManager?.getOptions('markerOptions')?.icon;
+drawingManager?.getOptions('markerOptions')?.shape;
+drawingManager?.getOptions('markerOptions')?.title;
+drawingManager?.getOptions('markerOptions')?.visible;
+drawingManager?.getOptions('markerOptions')?.zIndex;
 
 /*
  * LatLng
