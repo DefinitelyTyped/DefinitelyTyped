@@ -2,7 +2,7 @@
 // Project: https://github.com/gatsbyjs/reach-router#readme
 // Definitions by: Adam Jones <https://github.com/domdomegg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// Minimum TypeScript Version: 3.2
 
 import * as React from 'react';
 import { WindowLocation } from '@reach/router';
@@ -39,9 +39,6 @@ export {
   NavigateFn,
   NavigateOptions,
 
-  LocationProps,
-  Location,
-
   ServerLocation,
   ServerLocationProps,
 
@@ -59,6 +56,12 @@ export {
 
 // Override location to remove navigate function for React 18 server components compatibility
 // https://github.com/gatsbyjs/reach-router/pull/4
+
+export interface LocationProps {
+  children: LocationProviderRenderFn;
+}
+
+export class Location extends React.Component<LocationProps> {}
 
 export interface LocationProviderProps {
   history?: History | undefined;
