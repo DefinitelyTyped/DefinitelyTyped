@@ -64,13 +64,13 @@ export interface MUIDataTableState {
     sortOrder: MUISortOptions;
 }
 
-export interface MUIDataTableMeta {
+export interface MUIDataTableMeta<T = any> {
     currentTableData: MUIDataTableCurrentData[];
     columnData: MUIDataTableColumnState;
     columnIndex: number;
     rowData: any[];
     rowIndex: number;
-    tableData: MUIDataTableData[];
+    tableData: T[];
     tableState: MUIDataTableState;
 }
 
