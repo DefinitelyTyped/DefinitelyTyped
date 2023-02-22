@@ -32,9 +32,9 @@ export interface MUIDataTableData {
     index: number;
 }
 
-export interface MUIDataTableCurrentData {
-    rowIndex: number;
-    dataIndex: number;
+export interface MUIDataTableCurrentData<T = any> {
+    index: number;
+    data: T[];
 }
 
 export interface MUIDataTableStateRows {
