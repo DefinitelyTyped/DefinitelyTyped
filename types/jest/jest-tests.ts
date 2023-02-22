@@ -1744,6 +1744,16 @@ test.each([
     5000,
 );
 
+test.each([
+    [
+        { prop1: true, prop2: true },
+        { prop1: true, prop2: true },
+    ],
+    [{ prop1: true }, { prop1: true, prop2: false }],
+])('%j -> %j', (input, output) => {
+    console.log(input, output);
+});
+
 declare const constCases: [['a', 'b', 'ab'], ['d', 2, 'd2']];
 test.each(constCases)('%s + %s', (...args) => {
     // following assertion is skipped because of flaky testing
