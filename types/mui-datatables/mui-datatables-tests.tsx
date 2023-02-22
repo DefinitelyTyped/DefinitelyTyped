@@ -73,6 +73,20 @@ const MuiCustomTable: React.FC<Props> = props => {
                 },
             },
         },
+        {
+            name: 'score',
+            label: 'Score',
+            options: {
+                customBodyRender: (value, tableMeta, updateValue) => {
+                    const testIndex = tableMeta.currentTableData.map((item) => item.index);
+                    const testData = tableMeta.currentTableData.map((item) => item.data);
+                    
+                    return (
+                        <div>{value}</div>
+                    );
+                },
+            },
+        }
     ];
 
     const TableOptions: MUIDataTableOptions = {
