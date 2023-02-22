@@ -1,6 +1,7 @@
 {
     "files": [
         "index.d.ts",
+        "config.d.ts",
         "test/index.ts"
     ],
     "compilerOptions": {
