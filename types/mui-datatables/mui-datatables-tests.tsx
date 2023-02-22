@@ -78,15 +78,13 @@ const MuiCustomTable: React.FC<Props> = props => {
             label: 'Score',
             options: {
                 customBodyRender: (value, tableMeta, updateValue) => {
-                    const testIndex = tableMeta.currentTableData.map((item) => item.index);
-                    const testData = tableMeta.currentTableData.map((item) => item.data);
-                    
-                    return (
-                        <div>{value}</div>
-                    );
+                    const testIndex = tableMeta.currentTableData.map(item => item.index);
+                    const testData = tableMeta.currentTableData.map(item => item.data);
+
+                    return <div>{value}</div>;
                 },
             },
-        }
+        },
     ];
 
     const TableOptions: MUIDataTableOptions = {
@@ -202,7 +200,7 @@ const MuiCustomTable: React.FC<Props> = props => {
                 deleteAria: 'Delete Selected Rows',
             },
         },
-        storageKey: 'SavedToLocalStorage'
+        storageKey: 'SavedToLocalStorage',
     };
 
     return (
@@ -287,12 +285,12 @@ const MuiTheme = createTheme({
                 root: {
                     fontWeight: 300,
                 },
-            }
+            },
         },
         MUIDataTableBody: {
             styleOverrides: {
                 emptyTitle: {},
-            }
+            },
         },
     },
 } as unknown as ThemeOptions);
