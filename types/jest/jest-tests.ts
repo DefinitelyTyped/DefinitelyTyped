@@ -1646,10 +1646,9 @@ describe.each([
     [1, 1, 2],
     [1, 2, 3],
     [2, 1, 3],
-])('.add(%i, %i)', (a: number, b: number, expected: number, done) => {
+])('.add(%i, %i)', (a: number, b: number, expected: number) => {
     test(`returns ${expected}`, () => {
         expect(a + b).toBe(expected);
-        done();
     });
 });
 
@@ -1797,10 +1796,9 @@ test.each`
 test.each([
     [1, '1'],
     [2, '2'],
-])('', (a, b, done) => {
+])('', (a, b) => {
     a; // $ExpectType number
     b; // $ExpectType string
-    done; // $ExpectType DoneCallback
 });
 
 test.only.each([

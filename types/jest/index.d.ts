@@ -494,7 +494,7 @@ declare namespace jest {
         // Exclusively arrays.
         <T extends any[] | [any]>(cases: ReadonlyArray<T>): (
             name: string,
-            fn: (...t: [...args: T, done: DoneCallback]) => any,
+            fn: (...args: T) => any,
             timeout?: number,
         ) => void;
         <T extends ReadonlyArray<any>>(cases: ReadonlyArray<T>): (
