@@ -38,6 +38,8 @@ const testCases = [
     <svg role="treeitem" />,
     <a target="_blank"></a>,
     <a target="some-frame"></a>,
+    <a download="anchor-example-filename.txt"></a>,
+    <area download="area-example-filename.txt" />,
     <input type="button" />,
     <input type="some-type" />,
     <picture>
