@@ -16,88 +16,111 @@ declare global {
 }
 
 export namespace Plaid {
-    interface CreateConfig {
-        clientName?: string | undefined;
-        product?: Product[] | undefined;
-        key?: string | undefined;
-        env?: Environment | undefined;
-        onSuccess: OnSuccess;
-        onExit?: OnExit | undefined;
-        onEvent?: OnEvent | undefined;
-        onLoad?: OnLoad | undefined;
-        language?: Language | undefined;
-        linkCustomizationName?: string | undefined;
-        countryCodes?: Country[] | undefined;
-        webhook?: string | undefined;
-        userLegalName?: string | undefined;
-        userEmailAddress?: string | undefined;
-        token?: string | undefined;
-        isWebView?: boolean | undefined;
-        oauthNonce?: string | undefined;
-        oauthRedirectUri?: string | undefined;
-        oauthStateId?: string | undefined;
-        receivedRedirectUri?: string | null | undefined;
+    interface Account {
+        class_type: string | null;
+        id: string;
+        mask: string | null;
+        name: string;
+        subtype: string;
+        type: string;
+        verification_status: VerificationStatus | null;
     }
-
-    type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
-    type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
-    type OnEvent = (eventName: EventName, metadata: OnEventMetaData) => void;
-    type OnLoad = () => void;
-
+    interface CreateConfig {
+        clientName?: string;
+        countryCodes?: Country[];
+        env?: Environment;
+        isWebView?: boolean;
+        key?: string;
+        language?: Language;
+        linkCustomizationName?: string;
+        oauthNonce?: string;
+        oauthRedirectUri?: string;
+        oauthStateId?: string;
+        onLoad?: OnLoad;
+        onEvent?: OnEvent;
+        onExit?: OnExit;
+        onSuccess: OnSuccess;
+        product?: Product[];
+        receivedRedirectUri?: string | null;
+        token?: string;
+        userEmailAddress?: string;
+        userLegalName?: string;
+        webhook?: string;
+    }
+    interface Error {
+        display_message: string | null;
+        error_code: string;
+        error_message: string;
+        error_type: string;
+    }
+    interface ExitOptions {
+        force: boolean;
+    }
+    interface Institution {
+        institution_id: string;
+        name: string;
+    }
     interface LinkHandler {
         open: (institution_id?: string) => void; // the connect flow skips the 'Select your bank' step if `institution_id` is provided
         exit: (options?: ExitOptions) => void;
         destroy: () => void;
-        institutions: Institution[];
     }
-
-    type Product = 'transactions' | 'auth' | 'identity' | 'income' | 'assets' | 'investments' | 'liabilities';
-    type Environment = 'development' | 'sandbox' | 'production';
-    type Language = 'en' | 'fr' | 'es';
-    type Country = 'US' | 'CA' | 'GB';
+    interface OnEventMetaData {
+        account_number_mask: string | null;
+        error_code: string | null;
+        error_message: string | null;
+        error_type: string | null;
+        exit_status: ExitStatus | null;
+        institution_id: string | null;
+        institution_name: string | null;
+        institution_search_query: string | null;
+        link_session_id: string;
+        match_reason: string | null;
+        mfa_type: string | null;
+        request_id: string;
+        routing_number: string | null;
+        selection: AuthTypeSelectFlow | VerificationMethod | null;
+        timestamp: string;
+        view_name: ViewName;
+    }
+    interface OnExitMetaData {
+        institution: Institution | null;
+        link_session_id: string;
+        request_id: string;
+        status: ExitStatus;
+    }
+    interface OnSuccessMetaData {
+        accounts: Account[];
+        institution: Institution | null;
+        link_session_id: string;
+        transfer_status: TransferStatus | null;
+        wallet: {
+            name: string;
+        } | null;
+    }
 
     type AuthTypeSelectFlow = 'flow_type_instant' | 'flow_type_manual';
 
-    type TransferStatus = 'COMPLETE' | 'INCOMPLETE';
+    type Country =
+        | 'CA'
+        | 'DE'
+        | 'DK'
+        | 'EE'
+        | 'ES'
+        | 'FR'
+        | 'GB'
+        | 'IE'
+        | 'IT'
+        | 'LT'
+        | 'LV'
+        | 'NL'
+        | 'NO'
+        | 'PL'
+        | 'SE'
+        | 'US';
 
-    type VerificationStatus =
-        | 'automatically_verified'
-        | 'manually_verified'
-        | 'pending_automatic_verification'
-        | 'pending_manual_verification'
-        | 'verification_expired'
-        | 'verification_failed';
+    type Environment = 'development' | 'sandbox' | 'production';
 
-    type VerificationMethod = 'password' | 'phoneotp';
-
-    type ViewName =
-        | 'ACCEPT_TOS'
-        | 'CONNECTED'
-        | 'CONSENT'
-        | 'CREDENTIAL'
-        | 'DATA_TRANSPARENCY'
-        | 'DATA_TRANSPARENCY_CONSENT'
-        | 'DOCUMENTARY_VERIFICATION'
-        | 'ERROR'
-        | 'EXIT'
-        | 'KYC_CHECK'
-        | 'LOADING'
-        | 'MATCHED_CONSENT'
-        | 'MATCHED_CREDENTIAL'
-        | 'MATCHED_MFA'
-        | 'MFA'
-        | 'NUMBERS'
-        | 'OAUTH'
-        | 'RECAPTCHA'
-        | 'RISK_CHECK'
-        | 'SCREENING'
-        | 'SELECT_ACCOUNT'
-        | 'SELECT_AUTH_TYPE'
-        | 'SELECT_BRAND'
-        | 'SELECT_INSTITUTION'
-        | 'SELFIE_CHECK'
-        | 'UPLOAD_DOCUMENTS'
-        | 'VERIFY_SMS';
     type EventName =
         | 'BANK_INCOME_INSIGHTS_COMPLETED'
         | 'CLOSE_OAUTH'
@@ -136,6 +159,7 @@ export namespace Plaid {
         | 'SUBMIT_ROUTING_NUMBER'
         | 'TRANSITION_VIEW'
         | 'VIEW_DATA_TYPES';
+
     type ExitStatus =
         | 'choose_device'
         | 'institution_not_found'
@@ -146,59 +170,80 @@ export namespace Plaid {
         | 'requires_questions'
         | 'requires_selections';
 
-    interface Institution {
-        institution_id: string;
-        name: string;
-    }
-    interface Account {
-        class_type: string | null;
-        id: string;
-        name: string;
-        mask: string | null;
-        type: string;
-        subtype: string;
-        verification_status: VerificationStatus | null;
-    }
-    interface Error {
-        display_message: string | null;
-        error_code: string;
-        error_message: string;
-        error_type: string;
-    }
-    interface OnSuccessMetaData {
-        accounts: Account[];
-        institution: Institution | null;
-        link_session_id: string;
-        transfer_status: TransferStatus | null;
-        wallet: {
-            name: string;
-        } | null;
-    }
-    interface OnExitMetaData {
-        link_session_id: string;
-        request_id: string;
-        institution: Institution | null;
-        status: ExitStatus;
-    }
-    interface OnEventMetaData {
-        account_number_mask: string | null;
-        error_code: string | null;
-        error_message: string | null;
-        error_type: string | null;
-        exit_status: ExitStatus | null;
-        institution_id: string | null;
-        institution_name: string | null;
-        institution_search_query: string | null;
-        link_session_id: string;
-        match_reason: string | null;
-        mfa_type: string | null;
-        request_id: string;
-        routing_number: string | null;
-        selection: AuthTypeSelectFlow | VerificationMethod | null;
-        timestamp: string;
-        view_name: ViewName;
-    }
-    interface ExitOptions {
-        force: boolean;
-    }
+    type Language =
+        | 'da'
+        | 'de'
+        | 'en'
+        | 'es'
+        | 'et'
+        | 'fr'
+        | 'it'
+        | 'lt'
+        | 'lv'
+        | 'nl'
+        | 'no'
+        | 'po'
+        | 'ro'
+        | 'se';
+
+    type OnSuccess = (public_token: string, metadata: OnSuccessMetaData) => void;
+    type OnExit = (error: Error | null, metadata: OnExitMetaData) => void;
+    type OnEvent = (eventName: EventName, metadata: OnEventMetaData) => void;
+    type OnLoad = () => void;
+
+    type Product =
+        | 'assets'
+        | 'auth'
+        | 'employment'
+        | 'identity'
+        | 'identity_verification'
+        | 'income'
+        | 'income_verification'
+        | 'investments'
+        | 'payment_initiation'
+        | 'liabilities'
+        | 'standing_orders'
+        | 'transactions'
+        | 'transfer';
+
+    type TransferStatus = 'COMPLETE' | 'INCOMPLETE';
+
+    type VerificationMethod = 'password' | 'phoneotp';
+
+    type VerificationStatus =
+        | 'automatically_verified'
+        | 'manually_verified'
+        | 'pending_automatic_verification'
+        | 'pending_manual_verification'
+        | 'verification_expired'
+        | 'verification_failed';
+
+    type ViewName =
+        | 'ACCEPT_TOS'
+        | 'CONNECTED'
+        | 'CONSENT'
+        | 'CREDENTIAL'
+        | 'DATA_TRANSPARENCY'
+        | 'DATA_TRANSPARENCY_CONSENT'
+        | 'DOCUMENTARY_VERIFICATION'
+        | 'ERROR'
+        | 'EXIT'
+        | 'KYC_CHECK'
+        | 'LOADING'
+        | 'MATCHED_CONSENT'
+        | 'MATCHED_CREDENTIAL'
+        | 'MATCHED_MFA'
+        | 'MFA'
+        | 'NUMBERS'
+        | 'OAUTH'
+        | 'RECAPTCHA'
+        | 'RISK_CHECK'
+        | 'SCREENING'
+        | 'SELECT_ACCOUNT'
+        | 'SELECT_AUTH_TYPE'
+        | 'SELECT_BRAND'
+        | 'SELECT_INSTITUTION'
+        | 'SELFIE_CHECK'
+        | 'UPLOAD_DOCUMENTS'
+        | 'VERIFY_SMS';
 }
