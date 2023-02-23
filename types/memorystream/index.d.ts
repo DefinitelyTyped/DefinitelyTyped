@@ -21,6 +21,9 @@ declare class MemoryStream extends Duplex {
         data?: DataType | DataType[],
         options?: Options,
     );
+
+    static createReadStream: (data?: DataType | DataType[], options?: Options) => MemoryStream
+    static createWriteStream: (data?: DataType | DataType[], options?: Options) => MemoryStream
 }
 
 export = MemoryStream;
