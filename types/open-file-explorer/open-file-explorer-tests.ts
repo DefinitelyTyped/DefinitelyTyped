@@ -2,7 +2,7 @@
 import openExplorer = require('open-file-explorer');
 
 // $ExpectType void
-openExplorer('.', (err) => {
+openExplorer('.', err => {
     if (err) {
         console.log(err);
     } else {
