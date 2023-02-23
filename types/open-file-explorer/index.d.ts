@@ -3,6 +3,6 @@
 // Definitions by: sevenc-nanashi <https://github.com/sevenc-nanashi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = open_file_explorer;
+export = openExplorer;
 
-declare function open_file_explorer(path: string, callback: (err: Error | undefined) => void): void;
+declare function openExplorer(path: string, callback: (err: Error | undefined) => void): void;
