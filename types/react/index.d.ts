@@ -860,9 +860,10 @@ declare namespace React {
     type Dispatch<A> = (value: A) => void;
     // Since action _can_ be undefined, dispatch may be called without any parameters.
     type DispatchWithoutAction = () => void;
-    // Get the dispatch type from the reducer arguments
-    type ActionDispatch<ReducerRest extends any[]> =
-        ReducerRest extends [any] ? Dispatch<ReducerRest[0]> : DispatchWithoutAction;
+    // Limit the reducer to accept only 0 or 1 action arguments
+    type AnyActionArg = [] | [any];
+    // Get the dispatch type from the reducer arguments (captures optional action argument correctly)
+    type ActionDispatch<ActionArg extends AnyActionArg> = (...args: ActionArg) => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
     // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
@@ -913,7 +914,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
-    function useReducer<S, A extends any[]>(
+    function useReducer<S, A extends AnyActionArg>(
         reducer: (prevState: S, ...args: A) => S,
         initialState: S
     ): [S, ActionDispatch<A> ];
@@ -927,7 +928,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#usereducer
      */
-    function useReducer<S, I, A extends any[]>(
+    function useReducer<S, I, A extends AnyActionArg>(
         reducer: (prevState: S, ...args: A) => S,
         initialArg: I,
         init: (i: I) => S
