@@ -1911,7 +1911,7 @@ declare namespace React {
         default?: boolean | undefined;
         defer?: boolean | undefined;
         disabled?: boolean | undefined;
-        download?: any;
+        download?: string | undefined;
         encType?: string | undefined;
         form?: string | undefined;
         formAction?: string | undefined;
@@ -2007,7 +2007,7 @@ declare namespace React {
         | (string & {});
 
     interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
-        download?: any;
+        download?: string | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         media?: string | undefined;
@@ -2024,7 +2024,7 @@ declare namespace React {
     interface AreaHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
         coords?: string | undefined;
-        download?: any;
+        download?: string | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         media?: string | undefined;
