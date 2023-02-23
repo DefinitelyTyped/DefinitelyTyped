@@ -825,6 +825,38 @@ export interface ObjectS3Download {
     sha1?: string;
 }
 
+export interface UploadedResource {
+    data: Buffer;
+    objectKey: string;
+    uploadKey: string;
+    eTags: string[]
+    progress: number;
+    completed: {
+        bucketKey: string;
+        objectId: string;
+        objectKey: string;
+        size: number;
+        contentType: string;
+        location: string;
+    }
+}
+
+
+export type DownloadResponseType = 'arraybuffer' | 'document' | 'json' | 'text' | 'stream';
+
+export interface DownloadedResource {
+    objectKey: string;
+    responseType: DownloadResponseType,
+    downloadParams: { statusCode: 200, },
+    downloadUrl: string;
+    download: {
+        status: 200,
+        statusText: 'OK',
+    },
+    data: Buffer,
+    progress: number
+}
+
 export class ObjectsApi {
     constructor(apiClient?: any);
     /**
@@ -1261,11 +1293,11 @@ export class ObjectsApi {
      * @param credentials credentials for the call
      * @async
      */
-	downloadResources(
+    downloadResources(
         bucketKey: string,
         objects: Array<{
             objectKey: string;
-            responseType?: string;
+            responseType?: DownloadResponseType;
         }>,
         opts: {
             publicResourceFallback?: boolean;
@@ -1277,7 +1309,7 @@ export class ObjectsApi {
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
-    ): Promise<any[]>;
+    ): Promise<DownloadedResource[]>;
 
     /**
      * Upload a resource. If the specified object name already exists in the bucket, the uploaded content will overwrite the existing content for the bucket name/object name combination.
@@ -1326,7 +1358,7 @@ export class ObjectsApi {
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
-    ): Promise<any[]>;
+    ): Promise<UploadedResource[]>;
 }
 
 export interface CreateStorageDataRelationships {
