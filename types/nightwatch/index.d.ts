@@ -1769,6 +1769,11 @@ export interface NightwatchApiCommands {
     isEdge(): boolean;
     isInternetExplorer(): boolean;
     isOpera(): boolean;
+
+    /**
+     * Whether or not Nightwatch is being used to connect to an Appium server.
+     */
+    isAppiumClient(): boolean;
 }
 
 export interface NightwatchAPI
