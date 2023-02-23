@@ -75,6 +75,7 @@ auth0.auth
     .refreshToken({
         refreshToken: 'refresh-token',
         scope: 'openid',
+        appId: 'Mobile'
     })
     .then(res => res);
 

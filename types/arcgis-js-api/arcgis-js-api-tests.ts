@@ -22,7 +22,7 @@ class MapController {
       center: point,
       container: this.mapDiv,
       map: this.map,
-      zoom: 13
+      zoom: 7
     });
   }
 }

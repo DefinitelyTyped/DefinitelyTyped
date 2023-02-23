@@ -61,9 +61,11 @@ const testGeneral: NightwatchTests = {
     },
 
     'Demo Nightwatch API commands': () => {
-        browser.isChrome();
-        browser.isAndroid();
-        browser.isMobile();
+        isType<boolean>(browser.isChrome());
+        isType<boolean>(browser.isAndroid());
+        isType<boolean>(browser.isMobile());
+        isType<boolean>(browser.isAppiumClient());
+
         const element_id = browser.WEBDRIVER_ELEMENT_ID;
         console.log(element_id);
         const browserName = browser.browserName;

@@ -298,6 +298,23 @@ describe('resizeWindow command demo', function() {
 });
 
 //
+// .Screenshot
+//
+describe('screenshot command demo', function() {
+    test('async demo test', async function(browser) {
+        const result = await browser.screenshot(true);
+        isType<string>(result);
+    });
+
+    test('demo test', function(browser) {
+        const result = browser.screenshot(function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<string>(result);
+        });
+    });
+});
+
+//
 // .saveScreenshot
 //
 describe('saveScreenshot command demo', function() {
