@@ -396,7 +396,7 @@ declare namespace Ffmpeg {
         thumbnails(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         screenshot(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
         screenshots(config: number | ScreenshotsConfig, folder?: string): FfmpegCommand;
-        mergeToFile(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
+        mergeToFile(target: string | stream.Writable, tmpFolder: string): FfmpegCommand;
         concatenate(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         concat(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         clone(): FfmpegCommand;

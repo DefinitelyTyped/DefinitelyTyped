@@ -113,3 +113,8 @@ ffmpeg('/path/to.mp4')
 
 ffmpeg('/path/to/file.avi')
     .preset((command) => { command.format('avi').size('720x?'); });
+
+ffmpeg('/path/to/part1.avi')
+    .input('/path/to/part2.avi')
+    .input('/path/to/part2.avi')
+    .mergeToFile('/path/to/merged.avi', '/path/to/tempDir');
