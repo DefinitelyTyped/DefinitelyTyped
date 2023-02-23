@@ -37,7 +37,7 @@ const fcoseLayout: fcose.FcoseLayoutOptions = {
     initialEnergyOnIncremental: 1,
 
     fixedNodeConstraint: [{nodeId: 'n1', position: {x: 100, y: 200}}],
-    alignmentConstraint: {vertical: [['n1', 'n2']], horizontal: [['n2', 'n4']]},
+    alignmentConstraint: {vertical: [['n1', 'n2', 'n3'], ['n4', 'n5']], horizontal: [['n2', 'n4']]},
     relativePlacementConstraint: [{top: 'n1', bottom: 'n2', gap: 100}, {left: 'n3', right: 'n4', gap: 75}],
 
     ready: () => {},

@@ -17,8 +17,8 @@ declare namespace cytoscapeFcose {
     }
 
     interface FcoseAlignmentConstraint {
-        vertical: Array<[string, string]>;
-        horizontal: Array<[string, string]>;
+        vertical: string[][];
+        horizontal: string[][];
     }
 
     interface FcoseRelativeVerticalPlacementConstraint {
