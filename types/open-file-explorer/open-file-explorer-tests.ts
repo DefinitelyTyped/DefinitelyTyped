@@ -1,3 +1,4 @@
+/// <reference types="node">
 import openExplorer = require('open-file-explorer');
 
 // $ExpectType void
