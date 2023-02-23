@@ -9,11 +9,11 @@ import { Stream, Duplex } from "stream";
 type DataType = string | Buffer | Stream;
 
 interface Options {
-    readable: boolean;
-    writeable: boolean;
-    maxbufsize: number;
-    bufoverflow: number;
-    frequence: number;
+    readable?: boolean;
+    writeable?: boolean;
+    maxbufsize?: number;
+    bufoverflow?: number;
+    frequence?: number;
 }
 
 declare class MemoryStream extends Duplex {
