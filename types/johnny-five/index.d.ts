@@ -130,14 +130,23 @@ export interface BarometerGenericArgs {
     address?: number;
     freq?: number;
 }
+
 export interface BarometerBMP180Args {
     controller: 'BMP180';
     mode: 1 | 2 | 3;
 }
+
 export class Barometer {
     constructor(args: BarometerGenericArgs | BarometerBMP180Args);
-    pressure: number;
-    on(event: 'change' | 'data', cb: () => void): this;
+    /** Pressure is a string because somehow it's been fixed using {@link Number.toFixed} which returns a string. */
+    pressure: string;
+    on(
+        event: 'change' | 'data',
+        cb: (data: {
+            /** Pressure is a string because somehow it's been fixed using {@link Number.toFixed} which returns a string. */
+            pressure: string;
+        }) => void,
+    ): this;
 }
 
 export class Board {
@@ -170,7 +179,7 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
      *
      * @param boardsIDs - Some IDs to match connected boards, associated serial/COM port is auto-guessed by `johnny-five`.
      *
-     * **HINT** : Use `as const` to fix the type and take profit of auto-completion and strong typings.
+     * **HINT** : Use `as const` to fix the type and take profit of auto-completion and strong typings. Otherwise TypeScript is not aware that the array won't be modified later.
      *
      * Example :
      * ```ts
@@ -178,12 +187,13 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
      * ```
      */
     constructor(boardsIDs: BoardsIDs);
+
     /**
      * This class allows managing multiple boards at the same time.
      *
      * @param boardsIDs - Some IDs to match connected boards, if not provided associated serial/COM port is auto-guessed by `johnny-five`.
      *
-     * **HINT** : Use `as const` to fix the type and take profit of auto-completion and strong typings.
+     * **HINT** : Use `as const` to fix the type and take profit of auto-completion and strong typings. Otherwise TypeScript is not aware that the array won't be modified later.
      *
      * Example :
      * ```ts
@@ -196,13 +206,14 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
     /**
      * Listen for ready to work status !
      *
-     * @param event - `ready` When the board are ready to operate on external components this event is trigger.
+     * @param event - `ready` When the boards are ready to operate on external components this event is triggered.
      * @param cb - The callback is filled with a map of boards with their names.
      */
     on(
         event: 'ready',
         cb: (boards: IDBoardMap<BoardsIDs[number]> | IDBoardMap<BoardsConfig[number]['id']>) => void,
     ): this;
+
     /** This function allows to iterate on all boards */
     each(cb: (board: Board) => void): this;
 
@@ -210,6 +221,7 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
      * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@Link Board}.
      */
     byId(id: BoardsIDs[number]): Board | null;
+
     /**
      * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@Link Board}
      */
@@ -217,6 +229,7 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
 }
 
 export type BoardIdsListType = readonly string[];
+
 export type BoardConfigListType = ReadonlyArray<{
     readonly id: string;
     readonly port?: string;
@@ -225,6 +238,7 @@ export type BoardConfigListType = ReadonlyArray<{
     readonly timeout?: number;
     readonly io?: any;
 }>;
+
 export type IDBoardMap<ID extends string> = Record<ID, Board>;
 
 export interface ButtonOption {
@@ -339,7 +353,7 @@ export namespace Fn {
     function scale(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
     function fscale(value: number, fromLow: number, fromHigh: number, toLow: number, toHigh: number): number;
     function sum(values: number[]): number;
-    function toFixed(number: number, digits: number): number;
+    function toFixed(number: number, digits: number): string;
     function uid(): string;
     function bitSize(n: number): number;
     function bitValue(bit: number): number;
@@ -426,7 +440,7 @@ export class IMU {
     on(event: 'data', cb: (data: unknown) => void): this;
 }
 
-export interface ArrayOption {
+export interface ReflectanceArrayOption {
     pins: Array<number | string>;
     emitter: number | string;
     freq?: number;
@@ -436,8 +450,9 @@ export interface LoadCalibrationOption {
     min: number[];
     max: number[];
 }
+
 export class ReflectanceArray {
-    constructor(opts: ArrayOption);
+    constructor(opts: ReflectanceArrayOption);
 
     id: string;
     pins: Array<number | string>;
@@ -642,6 +657,7 @@ export namespace Led {
         off(): void;
         color(value: string): void;
         toggle(): void;
+        blink(ms: number): void;
         strobe(ms: number): void;
         intensity(value: number): void;
         fadeIn(ms: number): void;
@@ -855,7 +871,7 @@ export interface Repl {
 export interface SensorOption {
     board?: Board | undefined;
     pin: number | string;
-    freq?: boolean | undefined;
+    freq?: number | undefined;
     threshold?: number | undefined;
     enabled?: boolean | undefined;
 }
