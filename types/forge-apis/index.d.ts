@@ -1044,14 +1044,14 @@ export class ObjectsApi {
         bucketKey: string,
         objectKey: string,
         opts: {
-            ifNoneMatch: string;
-            ifModifiedSince: Date;
-            responseContentType: string;
-            responseContentDisposition: string;
-            responseCacheControl: string;
-            publicResourceFallback: boolean;
-            useCdn: boolean;
-            minutesExpiration: number;
+            ifNoneMatch?: string;
+            ifModifiedSince?: Date;
+            responseContentType?: string;
+            responseContentDisposition?: string;
+            responseCacheControl?: string;
+            publicResourceFallback?: boolean;
+            useCdn?: boolean;
+            minutesExpiration?: number;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1105,9 +1105,9 @@ export class ObjectsApi {
             }>
         },
         opts: {
-            publicResourceFallback: boolean;
-            useCdn: boolean;
-            minutesExpiration: number;
+            publicResourceFallback?: boolean;
+            useCdn?: boolean;
+            minutesExpiration?: number;
         },
         oauth2client: AuthClient,
         credentials: AuthToken,
@@ -1140,7 +1140,7 @@ export class ObjectsApi {
         objectKey: string,
         opts: {
             uploadKey?: string;
-            firstParts: number;
+            firstParts?: number;
             parts?: number;
             useAcceleration?: boolean;
             minutesExpiration?: number;
