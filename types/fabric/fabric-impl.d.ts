@@ -5420,7 +5420,7 @@ interface IAllFilters {
          * @param object Object to create an instance from
          */
         fromObject(object: any): IBlurFilter;
-    }
+    };
     Brightness: {
         new (options?: {
             /**
@@ -5496,7 +5496,7 @@ interface IAllFilters {
          * @param object Object to create an instance from
          */
         fromObject(object: any): IHueRotationFilter;
-    }
+    };
     Invert: {
         /**
          * Constructor
