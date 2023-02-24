@@ -3089,6 +3089,10 @@
             "libraryName": "moment-timezone",
             "asOfVersion": "0.5.30"
         },
+        "monday-sdk-js": {
+            "libraryName": "monday-sdk-js",
+            "asOfVersion": "0.2.1"
+        },
         "mongodb": {
             "libraryName": "mongodb",
             "asOfVersion": "4.0.0"
