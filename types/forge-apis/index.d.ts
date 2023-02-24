@@ -854,6 +854,7 @@ export interface DownloadedResource {
     };
     data: Buffer;
     progress: number;
+    error?: boolean;
 }
 
 export class ObjectsApi {
