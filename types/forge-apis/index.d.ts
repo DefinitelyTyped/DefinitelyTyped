@@ -1218,7 +1218,7 @@ export class ObjectsApi {
         bucketKey: string,
         objectKey: string,
         body: {
-            uploadKey: string;
+            uploadKey?: string;
             size?: number;
             eTags?: string[];
         },
@@ -1260,7 +1260,7 @@ export class ObjectsApi {
         body: {
             requests: Array<{
                 objectKey: string;
-                uploadKey: string;
+                uploadKey?: string;
                 size?: number;
                 eTags?: string[];
                 xAdsMetaContentType?: string;
