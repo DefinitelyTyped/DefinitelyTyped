@@ -829,7 +829,7 @@ export interface UploadedResource {
     data: Buffer;
     objectKey: string;
     uploadKey: string;
-    eTags: string[]
+    eTags: string[];
     progress: number;
     completed: {
         bucketKey: string;
@@ -838,23 +838,22 @@ export interface UploadedResource {
         size: number;
         contentType: string;
         location: string;
-    }
+    };
 }
-
 
 export type DownloadResponseType = 'arraybuffer' | 'document' | 'json' | 'text' | 'stream';
 
 export interface DownloadedResource {
     objectKey: string;
-    responseType: DownloadResponseType,
-    downloadParams: { statusCode: 200, },
+    responseType: DownloadResponseType;
+    downloadParams: { statusCode: 200, };
     downloadUrl: string;
     download: {
         status: 200,
         statusText: 'OK',
-    },
-    data: Buffer,
-    progress: number
+    };
+    data: Buffer;
+    progress: number;
 }
 
 export class ObjectsApi {
