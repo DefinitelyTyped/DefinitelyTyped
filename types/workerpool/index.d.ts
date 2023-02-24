@@ -59,6 +59,20 @@ export interface WorkerPool {
     terminate(force?: boolean, timeout?: number): Promise<any[]>;
 }
 
+/**
+ * The helper class for transferring data from the worker to the main thread.
+ */
+export class Transfer {
+    message: any;
+    transfer: any[];
+
+    /**
+     * @param message The object to deliver to the main thread.
+     * @param transfer An array of transferable Objects to transfer ownership of.
+     */
+    constructor(message: any, transfer: any[]);
+}
+
 export class Promise<T, E = Error> {
     readonly resolved: boolean;
     readonly rejected: boolean;

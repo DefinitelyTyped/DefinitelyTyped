@@ -94,3 +94,5 @@ wp.worker(undefined, { onTerminate: () => {} });
 wp.worker(undefined, { onTerminate: () => Promise.resolve() });
 wp.worker({ a: () => 1, b: () => 2 }, { onTerminate: () => {} });
 wp.worker(undefined, undefined);
+
+new wp.Transfer('foo', []);
