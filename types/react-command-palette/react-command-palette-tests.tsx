@@ -31,6 +31,7 @@ function RenderCommand({ id, color, name }: Command) {
 }
 
 <CommandPalette commands={commands} />;
+<CommandPalette commands={commands} maxDisplayed={10} />;
 <CommandPalette commands={commands} trigger="Click Me!" />;
 <CommandPalette
     commands={commands}
