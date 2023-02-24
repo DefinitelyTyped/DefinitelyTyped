@@ -1307,7 +1307,7 @@ declare namespace OracleDB {
             operation: number;
             /** ROWID of the row that was affected. */
             rowid: string;
-        }[];
+        }[] | undefined;
     }
 
     /**
