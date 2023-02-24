@@ -10,6 +10,7 @@ wp.pool({ workerType: 'process' });
 wp.pool({ workerType: 'thread' });
 wp.pool({ workerType: 'web' });
 wp.pool({ workerType: 'auto' });
+wp.pool({ workerTerminateTimeout: 50 });
 wp.pool({ forkArgs: ['foo', 'bar'] });
 wp.pool({ forkOpts: { cwd: '/tmp' } });
 wp.pool({ workerThreadOpts: { workerData: { foo: 'bar' } } });
@@ -87,3 +88,9 @@ let promises: wp.Promise<any[]> = wp.Promise.all([
 promises = wp.Promise.all([]);
 
 const promiseLike: PromiseLike<any[]> = promises;
+
+wp.worker({ a: () => 1, b: () => 2 });
+wp.worker(undefined, { onTerminate: () => {} });
+wp.worker(undefined, { onTerminate: () => Promise.resolve() });
+wp.worker({ a: () => 1, b: () => 2 }, { onTerminate: () => {} });
+wp.worker(undefined, undefined);

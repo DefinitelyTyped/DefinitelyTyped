@@ -1,4 +1,4 @@
-// Type definitions for workerpool 6.3
+// Type definitions for workerpool 6.4
 // Project: https://github.com/josdejong/workerpool
 // Definitions by: Alorel <https://github.com/Alorel>
 //                 Seulgi Kim <https://github.com/sgkim126>
@@ -26,6 +26,7 @@ export type Proxy<T extends { [k: string]: (...args: any[]) => any }> = {
 export interface WorkerPool {
     /**
      * Execute a function on a worker with given arguments.
+     *
      * @param method When method is a string, a method with this name must exist at the worker
      * and must be registered to make it accessible via the pool.
      * The function will be executed on the worker with given parameters.
@@ -36,7 +37,7 @@ export interface WorkerPool {
     exec<T extends (...args: any[]) => any>(
         method: T | string,
         params: Parameters<T> | null,
-        options?: { on: (payload: any) => void },
+        options?: { on?: (payload: any) => void; transfer?: any[] },
     ): Promise<ReturnType<T>>;
 
     /**
@@ -109,6 +110,7 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      * Setting this to 'max' will create maxWorkers default workers.
      */
     minWorkers?: number | 'max' | undefined;
+
     /**
      * The default number of maxWorkers is the number of CPU's minus one.
      * When the number of CPU's could not be determined (for example in older browsers), maxWorkers is set to 3.
@@ -125,6 +127,13 @@ export interface WorkerPoolOptions extends WorkerCreationOptions {
      *   Only available in a node.js environment.
      */
     workerType?: 'auto' | 'web' | 'process' | 'thread' | undefined;
+
+    /**
+     * The timeout in milliseconds to wait for a worker to cleanup it's resources on termination before stopping it forcefully.
+     *
+     * @default 1000.
+     */
+    workerTerminateTimeout?: number | undefined;
 
     /**
      * A callback that is called whenever a worker is being created.
@@ -158,11 +167,20 @@ export function pool(pathToScript?: string, options?: WorkerPoolOptions): Worker
  */
 export function pool(options?: WorkerPoolOptions): WorkerPool;
 
+export interface WorkerOptions {
+    /**
+     * A callback that is called whenever a worker is being terminated.
+     * It can be used to release resources that might have been allocated for this specific worker.
+     * The difference with pool's onTerminateWorker is that this callback runs in the worker context, while onTerminateWorker is executed on the main thread.
+     */
+    onTerminate?: (code?: number) => PromiseLike<void> | void;
+}
+
 /**
  * Argument methods is optional can can be an object with functions available in the worker.
  * Registered functions will be available via the worker pool.
  */
-export function worker(methods?: { [k: string]: (...args: any[]) => any }): any;
+export function worker(methods?: { [k: string]: (...args: any[]) => any }, options?: WorkerOptions): any;
 export function workerEmit(payload: any): void;
 export const platform: 'node' | 'browser';
 export const isMainThread: boolean;
