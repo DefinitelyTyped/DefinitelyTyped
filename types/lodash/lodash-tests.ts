@@ -1772,6 +1772,9 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.filter("", stringIterator); // $ExpectType string[]
     _.filter(list, listIterator); // $ExpectType AbcObject[]
+    const nullishListParam: _.List<AbcObject | null | undefined> = anything;
+    _.filter(nullishListParam, fp.identity); // $ExpectType (AbcObject | null | undefined)[]
+    _.filter(nullishListParam); // $ExpectType AbcObject[]
     _.filter(list, ""); // $ExpectType AbcObject[]
     _.filter(list, { a: 42 }); // $ExpectType AbcObject[]
     _.filter([{ a: { b: { c: 1 }, other1: "o" }, other2: "p" }], { a: { b: 0 } }); // $ExpectType { a: { b: { c: number; }; other1: string; }; other2: string; }[]

@@ -209,8 +209,9 @@ declare module "../index" {
         filter<T, S extends T>(collection: List<T> | null | undefined, predicate: ListIteratorTypeGuard<T, S>): S[];
         /**
          * @see _.filter
-         */
-        filter<T>(collection: List<T> | null | undefined, predicate?: ListIterateeCustom<T, boolean>): T[];
+        */
+       filter<T>(collection: List<T> | null | undefined): Array<Exclude<T, Falsey>>;
+       filter<T>(collection: List<T> | null | undefined, predicate: ListIterateeCustom<T, boolean>): T[];
         /**
          * @see _.filter
          */
