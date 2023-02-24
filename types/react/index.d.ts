@@ -2424,6 +2424,8 @@ declare namespace React {
     }
 
     interface StyleHTMLAttributes<T> extends HTMLAttributes<T> {
+        global?: boolean | undefined;
+        jsx?: boolean | undefined;
         media?: string | undefined;
         scoped?: boolean | undefined;
         type?: string | undefined;
