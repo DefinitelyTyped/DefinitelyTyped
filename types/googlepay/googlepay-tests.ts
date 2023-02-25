@@ -105,6 +105,7 @@ function addGooglePayButton() {
             parameters: {
                 allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
                 allowedCardNetworks,
+                cvcRequired: false
             },
         }]
     };
