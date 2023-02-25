@@ -177,20 +177,20 @@ declare module 'buffer' {
     /**
      * A [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) provides information about files.
      * @experimental
-     * @since v18.13.0, v19.2.0
+     * @since v18.13.0
      */
     export class File extends Blob {
         constructor(sources: Array<BinaryLike | Blob>, fileName: string, options?: FileOptions);
         /**
          * The name of the `File`.
-         * @since v18.13.0, v19.2.0
+         * @since v18.13.0
          */
-        name: string;
+        readonly name: string;
         /**
          * The last modified date of the `File`.
-         * @since v18.13.0, v19.2.0
+         * @since v18.13.0
          */
-        lastModified: number;
+        readonly lastModified: number;
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
