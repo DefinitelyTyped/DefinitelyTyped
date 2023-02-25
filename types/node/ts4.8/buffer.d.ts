@@ -183,14 +183,14 @@ declare module 'buffer' {
         constructor(sources: Array<BinaryLike | Blob>, fileName: string, options?: FileOptions);
         /**
          * The name of the `File`.
-         * @since v18.13.0, v19.2.0
+         * @since v18.13.0
          */
-        name: string;
+        readonly name: string;
         /**
          * The last modified date of the `File`.
-         * @since v18.13.0, v19.2.0
+         * @since v18.13.0
          */
-        lastModified: number;
+        readonly lastModified: number;
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
