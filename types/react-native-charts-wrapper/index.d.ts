@@ -523,6 +523,8 @@ export interface PieChartProps extends PieRadarChartBase {
 
     entryLabelColor?: Color | undefined;
     entryLabelTextSize?: number | undefined;
+    entryLabelFontFamily?: string | undefined;
+    
     maxAngle?: number | undefined;
 
     data?: PieData | undefined;
