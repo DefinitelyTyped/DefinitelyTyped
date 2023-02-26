@@ -12,7 +12,7 @@
 // Import from dependencies
 import { Readable as ReadableStream } from 'stream';
 import { EventEmitter } from 'events';
-import { AgentOptions } from 'https';
+import { RequestOptions } from 'https';
 
 // Exports only from typings
 export type Region = 'us-east-1' |
@@ -438,7 +438,7 @@ export class Client {
 
     // Other
     newPostPolicy(): PostPolicy;
-    setRequestOptions(options: AgentOptions): void;
+    setRequestOptions(options: RequestOptions): void;
 
     // Minio extensions that aren't necessary present for Amazon S3 compatible storage servers
     extensions: {

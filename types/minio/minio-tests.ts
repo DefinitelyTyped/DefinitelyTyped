@@ -370,3 +370,7 @@ minio.extensions.listObjectsV2WithMetadata('testBucket');
 minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_');
 minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_', true);
 minio.extensions.listObjectsV2WithMetadata('testBucket', 'test_', true, 'some_object.jpg');
+
+// @ts-expect-error
+minio.setRequestOptions();
+minio.setRequestOptions({ auth: 'foo', port: 12345 });
