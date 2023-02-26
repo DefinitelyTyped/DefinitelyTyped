@@ -44,6 +44,19 @@ const fcoseLayout: fcose.FcoseLayoutOptions = {
     stop: () => {},
 };
 
+// Some layout parameters are node- or edge-specific and can be specified as either a function or a constant.
+// Type-check both approaches:
+const objectSpecificsAsFunctions: Partial<fcose.FcoseLayoutOptions> = {
+    nodeRepulsion: node => 4500,
+    idealEdgeLength: edge => 50,
+    edgeElasticity: edge => 0.45,
+};
+const objectSpecificsAsConstants: Partial<fcose.FcoseLayoutOptions> = {
+    nodeRepulsion: 4500,
+    idealEdgeLength: 50,
+    edgeElasticity: 0.45,
+};
+
 const cy = cytoscape({
     container: document.getElementById('cy'),
     layout: fcoseLayout,

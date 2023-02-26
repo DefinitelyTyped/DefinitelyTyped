@@ -81,11 +81,11 @@ declare namespace cytoscapeFcose {
         /* incremental layout options */
 
         // Node repulsion (non overlapping) multiplier
-        nodeRepulsion?: number;
+        nodeRepulsion?: ((node: any) => number) | number;
         // Ideal edge (non nested) length
-        idealEdgeLength?(edge: any): number;
+        idealEdgeLength?: ((edge: any) => number) | number;
         // Divisor to compute edge forces
-        edgeElasticity?(edge: any): number;
+        edgeElasticity?: ((edge: any) => number) | number;
         // Nesting factor (multiplier) to compute ideal edge length for nested edges
         nestingFactor?: number;
         // Maximum number of iterations to perform - this is a suggested value and might be adjusted by the algorithm as required
