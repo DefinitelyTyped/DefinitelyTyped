@@ -1190,11 +1190,13 @@ declare module 'crypto' {
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'pkcs8' | 'sec1' | undefined;
         passphrase?: string | Buffer | undefined;
+        encoding?: string | undefined;
     }
     interface PublicKeyInput {
         key: string | Buffer;
         format?: KeyFormat | undefined;
         type?: 'pkcs1' | 'spki' | undefined;
+        encoding?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
