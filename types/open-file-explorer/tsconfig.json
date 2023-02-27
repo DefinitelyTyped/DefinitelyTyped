@@ -14,12 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "test/monday-sdk-js-module.test.ts",
-        "test/monday-sdk-js-global.test.ts"
+        "open-file-explorer-tests.ts"
     ]
 }

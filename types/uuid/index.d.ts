@@ -63,7 +63,7 @@ type v5 = v5Buffer & v5String & v5Static;
 
 type NIL = string;
 
-type parse = (uuid: string) => OutputBuffer;
+type parse = (uuid: string) => Uint8Array;
 type stringify = (buffer: InputBuffer, offset?: number) => string;
 type validate = (uuid: string) => boolean;
 type version = (uuid: string) => number;

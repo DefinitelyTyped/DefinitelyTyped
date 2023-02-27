@@ -2,6 +2,7 @@
 import {
     Blob as NodeBlob,
     Buffer as ImportedBuffer,
+    File,
     constants,
     isUtf8,
     kMaxLength,
@@ -331,6 +332,20 @@ async () => {
 // Ensure type-side of global Blob exists
 declare const blob3: Blob;
 blob3.stream();
+
+// File
+{
+    const file1 = new File(['asd', Buffer.from('test'), new NodeBlob(['dummy'])], 'filename1.txt');
+    const file2 = new File([file1], 'filename2.txt', {
+        type: 'plain/txt',
+        endings: 'transparent',
+        lastModified: Date.now() - 1000,
+    });
+    file1.name; // $ExpectType string
+    file1.lastModified; // $ExpectType number
+    file2.name; // $ExpectType string
+    file2.lastModified; // $ExpectType number
+}
 
 {
     atob(btoa('test')); // $ExpectType string
