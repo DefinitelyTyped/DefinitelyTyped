@@ -4595,6 +4595,10 @@
             "libraryName": "react-router-native",
             "asOfVersion": "6.4.0"
         },
+        "react-router-dom": {
+            "libraryName": "react-router-dom",
+            "asOfVersion": "6.0.0"
+        },
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
