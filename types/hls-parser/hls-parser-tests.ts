@@ -84,3 +84,7 @@ HLS.setOptions({
 HLS.setOptions({
     allowClosedCaptionsNone: true,
 });
+
+HLS.setOptions({
+    silent: true,
+});
