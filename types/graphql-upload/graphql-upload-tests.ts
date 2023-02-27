@@ -1,8 +1,8 @@
 import express from 'express';
 import Koa from 'koa';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
-import graphqlUploadKoa from 'graphql-upload/graphqlUploadKoa.js';
-import Upload from 'graphql-upload/Upload.js';
+import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
+import graphqlUploadKoa from 'graphql-upload/graphqlUploadKoa.mjs';
+import Upload from 'graphql-upload/Upload.mjs';
 
 express()
     .use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }))
