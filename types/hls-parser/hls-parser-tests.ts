@@ -76,3 +76,15 @@ new MasterPlaylist({
     version: 3,
     variants: [],
 });
+
+HLS.setOptions({
+    silent: true,
+});
+
+HLS.setOptions({
+    strictMode: true,
+});
+
+HLS.setOptions({
+    allowClosedCaptionsNone: true,
+});
