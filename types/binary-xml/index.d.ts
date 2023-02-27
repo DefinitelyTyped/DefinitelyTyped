@@ -1,6 +1,6 @@
 // Type definitions for binary-xml 0.0
 // Project: https://github.com/song940/binary-xml#readme
-// Definitions by: ChemiAtlow <https://github.com/ChemiAtlow>
+// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
