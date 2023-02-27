@@ -324,7 +324,7 @@ declare namespace BMapGL {
     }
     interface AutocompleteResultPoi {
         province: string;
-        City: string;            // wtf
+        city: string;            // wtf
         district: string;
         street: string;
         streetNumber: string;
