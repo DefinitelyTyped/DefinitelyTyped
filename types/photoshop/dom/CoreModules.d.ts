@@ -84,17 +84,6 @@ export declare namespace photoshopAction {
      */
     function batchPlay(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Promise<Array<ActionDescriptor>>;
     /**
-     * Performs a batchPlay call with the provided commands. Equivalent
-     * to an `executeAction` in ExtendScript.
-     * ```javascript
-     * var target = { _ref: 'layer', _enum: 'ordinal', _value: 'targetEnum'}
-     * var commands = [{ _obj: 'hide', _target: target }]
-     * await PhotoshopAction.batchPlay(commands)
-     * ```
-     * @minVersion 23.1
-     */
-    function batchPlaySync(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Array<ActionDescriptor>;
-    /**
      * Attach a listener to a Photoshop event. A callback in the form
      * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
      * ```javascript
