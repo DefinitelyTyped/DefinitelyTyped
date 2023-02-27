@@ -74,6 +74,7 @@ export interface PasswordRealmParams {
 export interface RefreshTokenParams {
     refreshToken: string;
     scope?: string;
+    [key: string]: string | undefined;
 }
 
 export interface RevokeParams {

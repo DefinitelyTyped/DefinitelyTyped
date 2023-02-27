@@ -285,7 +285,7 @@
 /types/aqb/                                               @DefinitelyTyped
 /types/arangodb/                                          @pluma
 /types/arbiter/                                           @arash16
-/types/arcgis-js-api/                                     @Esri @bsvensson
+/types/arcgis-js-api/                                     @Esri @andygup @bsvensson
 /types/arcgis-js-api/v3/                                  @Esri @bsvensson
 /types/arcgis-rest-api/                                   @JeffJacobson
 /types/arcgis-to-geojson-utils/                           @JeffJacobson
@@ -582,6 +582,7 @@
 /types/blissfuljs/                                        @DefinitelyTyped
 /types/blob-stream/                                       @erichillah
 /types/blob-to-buffer/                                    @nrlquaker
+/types/blobshape/                                         @OyewoleOyedeji
 /types/blocked/                                           @l-jonas
 /types/blocked-at/                                        @dolezel
 /types/blockies/                                          @LogvinovLeon
@@ -1007,7 +1008,7 @@
 /types/cloudflare/                                        @Xenfo
 /types/cloudflare-apps/                                   @MartynasZilinskas
 /types/cloudflare-turnstile/                              @jasongerbes
-/types/cloudfour__simple-svg-placeholder/                 @devrelm
+/types/cloudfour__simple-svg-placeholder/                 @devrelm @keimeno
 /types/cloudinary-uploadwidget-browser/                   @mrleebo
 /types/cloudmersive-virus-api-client/                     @JLuboff
 /types/clovelced-plugin-audiomanagement/                  @marckassay
@@ -1306,6 +1307,7 @@
 /types/cyberblast__logger/                                @cyberblast
 /types/cyberblast__webserver/                             @cyberblast
 /types/cybozulabs-md5/                                    @DefinitelyTyped
+/types/cyclonedx/                                         @eoftedal
 /types/cypress-cucumber-preprocessor/                     @aleccool213 @falconertc @jp7677 @waterfoul
 /types/cypress-dark/                                      @peterblazejewicz
 /types/cypress-dotenv/                                    @daikiojm @peterblazejewicz
@@ -2097,7 +2099,7 @@
 /types/eyevinn-iaf/                                       @birme @oscnord
 /types/ez-plus/                                           @AndersonFriaca
 /types/f1/                                                @neolwc
-/types/fabric/                                            @oklemencic @joewashear007 @mrand01 @NotWoods @bmartinson @RogerioTeixeira @BradleyHill @bmkrol823 @glenngartner @codertx @mike667 @nataliemarleny @buzzyboy
+/types/fabric/                                            @oklemencic @joewashear007 @mrand01 @NotWoods @bmartinson @RogerioTeixeira @BradleyHill @bmkrol823 @glenngartner @codertx @mike667 @nataliemarleny @buzzyboy @nkdevil
 /types/facebook-instant-games/                            @menushka @oyvindjam @doterax
 /types/facebook-js-sdk/                                   @amritk @mahmoudzohdi @fluidsonic @bengry
 /types/facebook-locales/                                  @CvX
@@ -3251,7 +3253,7 @@
 /types/google__maps/                                      @indrimuska
 /types/googlefc/                                          @johngeorgewright
 /types/googlemaps.infobubble/                             @Dashue
-/types/googlepay/                                         @Fluccioni @Radu-Raicea @fstanis @ozotek @mumpo @socsieng @JlUgia
+/types/googlepay/                                         @Fluccioni @Radu-Raicea @fstanis @ozotek @mumpo @socsieng @JlUgia @dmengelt
 /types/googletag/                                         @atwwei
 /types/gopd/                                              @ljharb
 /types/gorilla-engine/                                    @jhwoodward
@@ -3976,7 +3978,7 @@
 /types/jjve/                                              @Nemo157
 /types/jmespath/                                          @pushplay
 /types/jmuxer/                                            @samirkumardas
-/types/johnny-five/                                       @nakakura @workshop2 @xtrimsystems @marcinobiedz @HipsterBrown @scottgonzalez
+/types/johnny-five/                                       @nakakura @workshop2 @xtrimsystems @marcinobiedz @HipsterBrown @scottgonzalez @ScreamZ
 /types/joi-phone-number/                                  @NurMarvin @jlismore
 /types/joigoose/                                          @boothwhack
 /types/josa/                                              @vichyssoise
@@ -5140,6 +5142,7 @@
 /types/matomo-tracker-react-native/                       @zecergin
 /types/matrix-js-sdk/                                     @huan @andrevmatos @Tbaut
 /types/matter-js/                                         @piranha771 @hasparus @dwhinham @slikts @stevensnoeijen
+/types/max-api/                                           @geofholbrook
 /types/mcping-js/                                         @Inrixia
 /types/mcrypt/                                            @pluma
 /types/mcustomscrollbar/                                  @flurg
@@ -5166,7 +5169,7 @@
 /types/memory-fs/                                         @e-cloud
 /types/memory-pager/                                      @BendingBender
 /types/memory-usage/                                      @BendingBender
-/types/memorystream/                                      @bangbang93
+/types/memorystream/                                      @bangbang93 @geniou
 /types/memwatch-next/                                     @cyrilschumacher
 /types/mercadopago/                                       @danieldspx
 /types/merge-deep/                                        @forivall
@@ -5344,7 +5347,6 @@
 /types/moment-round/                                      @jacobbaskin
 /types/moment-shortformat/                                @whatasoda
 /types/moment-strftime2/                                  @dex4er
-/types/monday-sdk-js/                                     @josh-
 /types/money/                                             @hozblok
 /types/money-math/                                        @taoqf
 /types/mongo-sanitize/                                    @CedricCazin @penumbra1
@@ -5854,6 +5856,7 @@
 /types/oojs/                                              @diskdance
 /types/oojs-ui/                                           @diskdance
 /types/ooura/                                             @sukumo28
+/types/open-file-explorer/                                @sevenc-nanashi
 /types/open-graph/                                        @ffflorian
 /types/open-graph-scraper/                                @ffflorian
 /types/open-wc__testing-karma/                            @peterblazejewicz
@@ -7545,7 +7548,7 @@
 /types/scrambo/                                           @padarom
 /types/scratch-env/                                       @Richienb
 /types/screenshot-desktop/                                @usama8800
-/types/screeps/                                           @MarkoSulamagi @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou
+/types/screeps/                                           @MarkoSulamagi @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou @DiamondMofeng
 /types/screeps-arena/                                     @thmsndk @pyrodogg
 /types/screeps-profiler/                                  @ramblurr
 /types/script-ext-html-webpack-plugin/                    @davecardwell
@@ -7590,7 +7593,7 @@
 /types/secure-weighted-sample/                            @BendingBender
 /types/seed-random/                                       @l-jonas
 /types/seededshuffle/                                     @urish
-/types/seedrandom/                                        @kernhanda @EugeneZ @martin-badin
+/types/seedrandom/                                        @kernhanda @EugeneZ @martin-badin @Zegnat
 /types/seedrandom/v2/                                     @kernhanda @EugeneZ
 /types/seen/                                              @admvx
 /types/segment-analytics/                                 @fongandrew @MiroslavPetrik

@@ -1576,6 +1576,9 @@ declare namespace naver.maps {
             getMap(): Map | null;
             setMap(map: Map | null): void;
             toGeoJson(): GeoJSON;
+            getOptions<K extends keyof DrawingOptions>(key: K): DrawingOptions[K];
+            setOptions<K extends keyof DrawingOptions>(key: K , value: DrawingOptions[K]): void;
+            setOptions(options: DrawingOptions): void;
         }
     }
 
