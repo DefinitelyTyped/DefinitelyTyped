@@ -42,4 +42,9 @@ function test_socket() {
   liveSocket.enableDebug();
   liveSocket.enableProfiling();
   liveSocket.connect();
+
+  const element = 'dummyElement' as unknown as HTMLElement;
+  // $ExpectType void
+  liveSocket.execJS(element, '[["patch",{"href":"/","replace":false}]]');
+  liveSocket.execJS(element, '[["navigate",{"href":"/","replace":false}]]', 'submit');
 }
