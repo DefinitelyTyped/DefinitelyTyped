@@ -21,15 +21,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "metro-tests.ts",
-        "test/Asset-tests.ts",
-        "test/DeltaBundler/types-tests.ts",
-        "test/lib/reporting-tests.ts",
-        "test/shared/types-tests.ts",
-        "test/src/lib/TerminalReporter-tests.ts",
-        "test/src/shared/output/bundle-tests.ts",
-        "test/src/Server-tests.ts"
-    ]
+    "files": ["index.d.ts", "metro-file-map-tests.ts"]
 }

@@ -1,3 +1,5 @@
+import type { HealthCheckResult, WatcherStatus } from 'metro-file-map';
+
 export type GlobalCacheDisabledReason = 'too_many_errors' | 'too_many_misses';
 
 export interface BundleDetails {
@@ -77,6 +79,24 @@ export type ReportableEvent =
           type: 'client_log';
           level: 'trace' | 'info' | 'warn' | 'log' | 'group' | 'groupCollapsed' | 'groupEnd' | 'debug';
           data: unknown[];
+      }
+    | {
+          type: 'transformer_load_started';
+      }
+    | {
+          type: 'transformer_load_done';
+      }
+    | {
+          type: 'transformer_load_failed';
+          error: Error;
+      }
+    | {
+          type: 'watcher_health_check_result';
+          result: HealthCheckResult;
+      }
+    | {
+          type: 'watcher_status';
+          status: WatcherStatus;
       };
 
 /**
