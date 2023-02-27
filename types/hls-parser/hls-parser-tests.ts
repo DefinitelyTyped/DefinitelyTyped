@@ -78,10 +78,6 @@ new MasterPlaylist({
 });
 
 HLS.setOptions({
-    silent: true,
-});
-
-HLS.setOptions({
     strictMode: true,
 });
 
