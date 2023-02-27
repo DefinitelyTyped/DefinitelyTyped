@@ -31,13 +31,13 @@ export interface FsLightboxProps {
     sources?: string[] | undefined;
 
     // captions
-    captions?: (JSX.Element | string)[] | undefined; // pro feature
+    captions?: Array<JSX.Element | string> | undefined; // pro feature
 
     // custom sources
     customSources?: JSX.Element[] | undefined;
 
     // custom attributes
-    customAttributes?: { [key: string]: string }[] | undefined;
+    customAttributes?: Array<{ [key: string]: string }> | undefined;
 
     // slide number controlling
     slide?: number | undefined;
@@ -61,7 +61,7 @@ export interface FsLightboxProps {
     maxYoutubeVideoDimensions?: VideoDimensions | undefined;
 
     // thumbs
-    thumbs?: (string | null)[] | undefined; // pro feature
+    thumbs?: Array<string | null> | undefined; // pro feature
     thumbsIcons?: JSX.Element[] | undefined; // pro feature
 
     // animations
