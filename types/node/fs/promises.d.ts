@@ -14,6 +14,7 @@ declare module 'fs/promises' {
     import { ReadableStream } from 'node:stream/web';
     import {
         BigIntStats,
+        BigIntStatFs,
         BufferEncodingOption,
         constants as fsConstants,
         CopyOptions,
@@ -30,7 +31,9 @@ declare module 'fs/promises' {
         RmDirOptions,
         RmOptions,
         StatOptions,
+        StatFsOptions,
         Stats,
+        StatFs,
         TimeLike,
         WatchEventType,
         WatchOptions,
@@ -317,6 +320,21 @@ declare module 'fs/promises' {
             }
         ): Promise<BigIntStats>;
         stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
+        /**
+         * @since v19.6.0
+         * @return Fulfills with an {fs.StatFs} for the file system.
+         */
+        statfs(
+            opts?: StatFsOptions & {
+                bigint?: false | undefined;
+            }
+        ): Promise<StatFs>;
+        statfs(
+            opts: StatFsOptions & {
+                bigint: true;
+            }
+        ): Promise<BigIntStatFs>;
+        statfs(opts?: StatFsOptions): Promise<StatFs | BigIntStatFs>;        
         /**
          * Truncates the file.
          *

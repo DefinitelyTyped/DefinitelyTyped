@@ -131,6 +131,42 @@ declare module 'fs' {
      * @since v0.1.21
      */
     export class Stats {}
+
+    export interface StatFsBase<T> {
+        /** Type of file system. */
+        type: T,
+        /**  Optimal transfer block size. */
+        bsize: T,
+        /**  Total data blocks in file system. */
+        blocks: T,
+        /** Free blocks in file system. */
+        bfree: T,
+        /** Available blocks for unprivileged users */
+        bavail: T,
+        /** Total file nodes in file system. */
+        files: T,
+        /** Free file nodes in file system. */
+        ffree: T,
+    }
+
+    export interface StatFs extends StatFsBase<number> {}
+    
+    /**
+     * Provides information about a mounted file system
+     * 
+     * Objects returned from {@link statFs} and {@link statFsSync} are of this type.
+     * If `bigint` in the `options` passed to those methods is true, the numeric values
+     * will be `bigint` instead of `number`.
+     * @since v19.6.0
+     */
+    export class StatFs {}
+
+    export interface BigIntStatFs extends StatFsBase<bigint> {}
+
+    export interface StatFsOptions {
+        bigint?: boolean | undefined;
+    }
+
     /**
      * A representation of a directory entry, which can be a file or a subdirectory
      * within the directory, as returned by reading from an `fs.Dir`. The
@@ -1081,6 +1117,70 @@ declare module 'fs' {
         ): Promise<BigIntStats>;
         function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     }
+    /**
+     * Asynchronous statfs(2). Returns information about the mounted file system which contains path. The callback gets two arguments (err, stats) where stats is an <fs.StatFs> object.    
+     * In case of an error, the err.code will be one of Common System Errors.
+     * @param path A path to an existing file or directory on the file system to be queried.
+     * @param callback 
+     */
+    export function statfs(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: StatFs) => void): void;
+    export function statfs(
+        path: PathLike,
+        options:
+            | (StatFsOptions & {
+                  bigint?: false | undefined;
+              })
+            | undefined,
+        callback: (err: NodeJS.ErrnoException | null, stats: StatFs) => void
+    ): void;
+    export function statfs(
+        path: PathLike,
+        options: StatFsOptions & {
+            bigint: true;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStatFs) => void
+    ): void;
+    export function statfs(path: PathLike, options: StatFsOptions | undefined, callback: (err: NodeJS.ErrnoException | null, stats: StatFs | BigIntStatFs) => void): void;
+    export namespace statfs {
+        /**
+         * Asynchronous statfs(2) - Returns information about the mounted file system which contains path. The callback gets two arguments (err, stats) where stats is an <fs.StatFs> object.    
+         * @param path A path to an existing file or directory on the file system to be queried.
+         */
+        function __promisify__(
+            path: PathLike,
+            options?: StatFsOptions & {
+                bigint?: false | undefined;
+            }
+        ): Promise<StatFs>;
+        function __promisify__(
+            path: PathLike,
+            options: StatFsOptions & {
+                bigint: true;
+            }
+        ): Promise<BigIntStatFs>;
+        function __promisify__(path: PathLike, options?: StatFsOptions): Promise<StatFs | BigIntStatFs>;
+    }
+
+    /**
+     * Synchronous statfs(2). Returns information about the mounted file system which contains path. The callback gets two arguments (err, stats) where stats is an <fs.StatFs> object.    
+     * In case of an error, the err.code will be one of Common System Errors.
+     * @param path A path to an existing file or directory on the file system to be queried.
+     * @param callback 
+     */
+    export function statfsSync(
+        path: PathLike,
+        options?: StatFsOptions & {
+            bigint?: false | undefined;
+        }
+    ): StatFs;
+    export function statfsSync(
+        path: PathLike,
+        options: StatFsOptions & {
+            bigint: true;
+        }
+    ): BigIntStatFs;
+    
+    export function statfsSync(path: PathLike, options?: StatFsOptions): StatFs | BigIntStatFs;    
     /**
      * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
