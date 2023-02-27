@@ -118,11 +118,14 @@ declare namespace Dockerode {
         logs(options?: ContainerLogsOptions & { follow?: false }): Promise<Buffer>;
         logs(options?: ContainerLogsOptions & { follow: true }): Promise<stream.Readable>;
 
-        stats(options: { stream?: false; 'one-shot'?: boolean }, callback: Callback<ContainerStats>): void;
-        stats(options: { stream: true }, callback: Callback<stream.Readable>): void;
+        stats(options: ContainerStatsOptions & { stream?: false }, callback: Callback<ContainerStats>): void;
+        stats(
+            options: ContainerStatsOptions & { stream: true; 'one-shot'?: never },
+            callback: Callback<stream.Readable>,
+        ): void;
         stats(callback: Callback<ContainerStats>): void;
-        stats(options?: { stream?: false; 'one-shot'?: boolean }): Promise<ContainerStats>;
-        stats(options?: { stream: true }): Promise<stream.Readable>;
+        stats(options?: ContainerStatsOptions & { stream?: false }): Promise<ContainerStats>;
+        stats(options?: ContainerStatsOptions & { stream: true; 'one-shot'?: never }): Promise<stream.Readable>;
 
         attach(options: {}, callback: Callback<stream.Duplex>): void;
         attach(options: {}): Promise<stream.Duplex>;
@@ -1802,6 +1805,12 @@ declare namespace Dockerode {
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;
+        abortSignal?: AbortSignal;
+    }
+
+    interface ContainerStatsOptions {
+        stream?: boolean | undefined;
+        'one-shot'?: boolean | undefined;
         abortSignal?: AbortSignal;
     }
 
