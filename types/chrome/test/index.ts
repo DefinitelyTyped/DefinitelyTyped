@@ -1396,6 +1396,7 @@ function testContextMenusRemove() {
     chrome.contextMenus.remove('dummy-id', () => console.log('removed'));
     // @ts-expect-error
     chrome.contextMenus.remove('dummy-id', (invalid: any) => console.log('removed'));
+    chrome.contextMenus.remove(Math.random() > 0.5 ? "1" : 1)
 }
 
 function testContextMenusRemoveAll() {
@@ -1408,6 +1409,7 @@ function testContextMenusRemoveAll() {
 function testContextMenusUpdate() {
     chrome.contextMenus.update(1, { title: 'Hello World!' });
     chrome.contextMenus.update(1, { title: 'Hello World!' }, () => console.log('updated'));
+    chrome.contextMenus.update(Math.random() > 0.5 ? "1" : 1, { title: 'Hello World!' }, () => console.log('updated'));
     // @ts-expect-error
     chrome.contextMenus.update(1, { title: 'Hello World!' }, (invalid: any) => console.log('updated'));
     chrome.contextMenus.update('dummy-id', { title: 'Hello World!' });
