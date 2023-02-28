@@ -32,7 +32,6 @@ lib/personalization/MenuButton.d.ts
 lib/personalization/MenuInput.d.ts
 lib/process/FileInfo.d.ts
 lib/process/getCurrentProcess.d.ts
-lib/process/LayoutManager.d.ts
 lib/process/ProcessHelpFormatter.d.ts
 lib/process/runActivity.d.ts
 lib/process/validateSession.d.ts

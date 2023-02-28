@@ -1,4 +1,2 @@
 GraphQLUpload.d.ts
-graphqlUploadExpress.d.ts
-graphqlUploadKoa.d.ts
 processRequest.d.ts
