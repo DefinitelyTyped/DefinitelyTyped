@@ -52,6 +52,16 @@ declare class Packet {
 }
 
 declare namespace DNS {
+    interface DnsClientOptions {
+        port: number,
+        retries: number,
+        timeout: number,
+        recursive: boolean,
+        resolverProtocol: 'UDP' | 'TCP',
+        nameServers: string[],
+        rootServers: string[]
+    }
+
     interface DnsRequest {
         header: { id: string };
         questions: DnsQuestion[];
@@ -104,6 +114,8 @@ declare class TcpDnsServer extends net.Server {
 }
 
 declare class DNS {
+    constructor(options?: Partial<DNS.DnsClientOptions>);
+
     static createServer(options: { udp?: boolean; tcp?: boolean; doh?: boolean; handle: DNS.DnsHandler }): DnsServer;
 
     static Packet: typeof Packet;

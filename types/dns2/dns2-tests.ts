@@ -4,12 +4,17 @@
 import DNS = require('dns2');
 
 const dns = new DNS();
+const dnsCustom = new DNS({
+  port: 53,
+  retries: 10,
+  recursive: false,
+});
 
 (async () => {
     const result = await dns.resolveA('google.com');
     console.log(result.answers);
 
-    const result2 = await dns.resolveCNAME('google.com');
+    const result2 = await dnsCustom.resolveCNAME('google.com');
     console.log(result2.answers.filter(answer => answer.domain));
 })();
 
