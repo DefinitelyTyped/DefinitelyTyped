@@ -37,10 +37,6 @@ interface CacheOptions {
      */
     persist?: boolean;
 }
-interface CacheEntry {
-    cacheUntil?: number;
-    data: any;
-}
 type Callback = (err: NodeJS.ErrnoException | null, data?: any) => any;
 
 /**
