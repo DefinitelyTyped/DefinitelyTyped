@@ -49,15 +49,6 @@ declare namespace PersistentCache {
  * A simple Node module to persistently store/cache arbitrary data.
  */
 declare function cache(options?: PersistentCache.CacheOptions): {
-    options: PersistentCache.CacheOptions;
-    base: string;
-    cacheDir: string;
-    cacheInfinitely: boolean;
-    cacheDuration?: number;
-    ram: boolean;
-    persist: boolean;
-
-    memoryCache?: { [key: string]: PersistentCache.CacheEntry };
     /**
      * Store any arbitrary `data` in the cache under the provided key and call the provided callback when done (passing err as the first argument, following node convention).
      *
