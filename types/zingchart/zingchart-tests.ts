@@ -143,14 +143,6 @@ const chartConfig: zc.graphset[] = [
             },
         ],
     },
-    {
-        type: 'gauge',
-        'scale-r': {
-            aperture: 200, // Scale Range
-            values: '0:100:20', // and minimum, maximum, and step scale values.
-        },
-        series: [{ values: [87] }],
-    },
 ];
 
 zingchart.render({
