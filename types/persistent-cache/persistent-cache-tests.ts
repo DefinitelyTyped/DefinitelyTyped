@@ -1,4 +1,4 @@
-import cache from 'persistent-cache';
+import cache from 'persistent-cachesss';
 
 // Types
 type Err = NodeJS.ErrnoException | null;
