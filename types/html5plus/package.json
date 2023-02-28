@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+      "@dcloudio/types": "latest"
+  }
+}
