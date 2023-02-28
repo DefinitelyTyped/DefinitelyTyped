@@ -32,6 +32,7 @@ export type CycloneDXBomV1_3 = CycloneDXBase<ComponentV1_3> & {
         licenses?: License[];
         properties?: Properties;
     };
+    services?: ServiceV1_3[];
     compositions?: CompositionBase[];
 };
 
