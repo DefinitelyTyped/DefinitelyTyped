@@ -91,7 +91,9 @@ declare namespace G {
         stat?: fs.Stats;
     }
 
-    interface ReaddirGlob extends EventEmitter {
+    class ReaddirGlob extends EventEmitter {
+        constructor(cwd: string, cb: (error: Error | null, matches?: ReadonlyArray<Match>) => void);
+        constructor(cwd: string, options: Options, cb: (error: Error | null, matches?: ReadonlyArray<Match>) => void);
         /**
          * Every time a match is found, this is emitted with the specific thing that matched.
          */

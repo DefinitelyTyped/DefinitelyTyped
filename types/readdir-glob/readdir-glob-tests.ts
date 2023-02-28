@@ -17,3 +17,6 @@ globber.resume();
 globber.options;
 globber.paused;
 globber.aborted;
+
+const g = new readdirGlob.ReaddirGlob('.', { pattern: '**/*.js', mark: true, stat: true }, (err, matches) => {});
+const g2 = new readdirGlob.ReaddirGlob('.', (err, matches) => {});
